@@ -1,0 +1,43 @@
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*service-account*.json
+*service_account*.json
+*ServiceAccount*.json
+*credential*.json
+*credentials*.json
+*secret*.json
+*.pem
+*.key
+*.p12
+
+# Generated scrape/AI outputs
+output/
+tmp_ai_raw/
+.cache/
+.codex_tmp_*
+archive/
+
+# Legacy local scripts are kept on disk but excluded from GitHub until sanitized.
+scripts/old/
