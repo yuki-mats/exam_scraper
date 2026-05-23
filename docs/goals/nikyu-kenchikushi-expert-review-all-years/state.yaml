@@ -664,7 +664,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4268
+active_task: T4281
 
 tasks:
   - id: T001
@@ -23410,7 +23410,7 @@ tasks:
   - id: T4268
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=d00dc3e4f14530ec について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23420,12 +23420,46 @@ tasks:
       original_question_id: "d00dc3e4f14530ec"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58912"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "RC構造の破壊形と設計意図（延性的な曲げ破壊を先行させ、脆性的なせん断破壊を先行させない）を軸に各肢を再点検し、不適当肢=1 を維持した。explanationText は『何が逆/誤りか（曲げ=延性、せん断=脆性、設計はせん断先行を避ける）』を明確化し、他の肢も用語の意味と理由が分かるよう補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "曲げ破壊（曲げ降伏を伴う破壊）は一般に延性的、せん断破壊は脆性的で急激に耐力低下しやすい。"
+        - "設計では『せん断破壊が曲げ破壊より先行しない』ように（延性的な曲げ先行となるように）するのが基本で、肢1は性質と設計意図が逆。"
+        - "軸力比が大きいほど柱の靭性は低下する（肢2）。"
+        - "開口周囲・壁端部は応力集中が大きく、一般にD13以上で補強する扱い（肢3）。"
+        - "梁せいは有効長さの1/10超を原則として剛性確保（肢4）。柱梁接合部の帯筋比は一般に0.2%以上（肢5）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "RCの規定値（D13、帯筋比0.2%等）は適用範囲で例外があるため、別設問では『一般に/原則』の有無と対象部位を読み違えない。"
 
   - id: T4269
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=b9b239e295613648 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23435,12 +23469,46 @@ tasks:
       original_question_id: "b9b239e295613648"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58913"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "RC造の配筋ディテール（開口近接柱のせん断補強、帯筋の役割、周辺固定スラブの曲げモーメント分布、フック付き重ね継手の長さ定義、ガス圧接継手位置）を再点検し、不適当肢=5 を維持した。explanationText は各肢の『なぜそうするか』を短く追加し、特に継手位置の段違い配置の理由（弱点集中回避）を明確化した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "開口近接柱は応力集中が大きく、せん断破壊防止のためせん断補強筋比0.4%以上とする扱い（肢1）。"
+        - "帯筋はせん断補強・拘束・主筋座屈防止に寄与（肢2）。"
+        - "周辺固定スラブは端部負曲げが大きく、端部上端配筋量＞中央下端配筋量（肢3）。"
+        - "フック付き重ね継手長さは折曲げ開始点間で評価し、フックは含めない（肢4）。"
+        - "柱主筋ガス圧接の継手は同一高さに集中させず段違い配置（肢5が不適当）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "配筋ディテールは条件（耐震区分、壁の種別等）で数値が変わるため、別設問では対象部位と前提条件を必ず確認する。"
 
   - id: T4270
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=ba4baf6f68b83865 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23450,12 +23518,46 @@ tasks:
       original_question_id: "ba4baf6f68b83865"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58914"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "鉄骨構造の基本事項（露出柱脚のベースプレート厚、幅厚比とF値、SN材の種別と溶接性、水平材のたわみ制限、トラスウェブ材の座屈長さ）を再点検し、不適当肢=3（溶接接合でSN400Aを一般に用いる）が誤りであることを確認した。explanationText は特に肢4の『二次部材では仕上げに支障がない範囲で1/300超を許容し得る』趣旨が伝わるよう修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "露出柱脚ではベースプレート変形抑制のため、一般に t>=1.3d（d:アンカーボルト径）とする（肢1）。"
+        - "局部座屈防止の幅厚比制限は鋼材の基準強度（F値）により異なる（肢2）。"
+        - "溶接接合を用いる場合はSN400B/ Cが一般的で、SN400Aを一般に用いるという肢3は不適当。"
+        - "二次部材のたわみは仕上げに支障がない範囲で1/300超を許容し得る（肢4）。"
+        - "トラスウェブ材の構面内座屈長さは節点間距離（肢5）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "たわみ許容は部材用途・仕上げ条件で変わるため、別設問では『母屋など』の前提を見落とさない。"
 
   - id: T4271
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=6a3d0bfd557e1bfa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23465,12 +23567,45 @@ tasks:
       original_question_id: "6a3d0bfd557e1bfa"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58915"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "鉄骨接合（高力ボルト摩擦接合・モーメント伝達・隅肉溶接）に関する各肢を再点検し、不適当肢=1（フィラープレートを母材と同強度とする）が誤りであることを維持した。explanationText はフィラープレートの材質要求の趣旨と、2面摩擦=耐力2倍、溶接サイズ/有効長さの理由が誤学習なく伝わるように修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "両面摩擦面処理のフィラープレートは母材と同強度を要求せず、母材鋼種にかかわらず400N/mm2級でよい扱いで、肢1が不適当。"
+        - "2面摩擦はすべり面が2倍となるため許容耐力も2倍（肢2）。"
+        - "モーメント伝達接合の応力は回転中心からの距離に比例（肢3）。"
+        - "隅肉溶接サイズは薄い母材厚以下、有効長さは10a以上かつ40mm以上（肢4,5）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "摩擦接合は『摩擦面処理』が前提条件。別設問では処理条件（ブラスト/塗装等）を読み落とさない。"
 
   - id: T4272
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=799ffd0ed1db41a5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23480,12 +23615,46 @@ tasks:
       original_question_id: "799ffd0ed1db41a5"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58916"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "構造計画（偏心・積雪荷重・木造欠込み・ピロティ・基礎）に関する各肢を再点検し、不適当肢=1 を維持した。correctChoiceText は既存のまま妥当。explanationText は、偏心によるねじれ、積雪後降雨の割増し趣旨、欠込み補強の基準（1/3）、ピロティ係数の使い分け、地耐力20kN/m^2未満で杭基礎を選ぶ理由が誤学習なく伝わるように補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "重心と剛心の距離（偏心）が大きいほどねじれ応答が増えるため、壁配置は偏心を小さくするのが基本。"
+        - "積雪後降雨の影響を考慮する割増しは、緩勾配かつ規模が大きい屋根で、勾配と水平投影長さに応じて積雪荷重を割増しする趣旨。"
+        - "柱の欠込みは断面欠損であり、基準では所要断面積の1/3以上を欠き取る場合に補強が求められる。"
+        - "ピロティ型建築物の割増し係数は、剛性率による割増し係数とピロティ階の強度割増し係数のうち大きい方を用いる。"
+        - "地盤の長期許容応力度が20kN/m^2未満の場合は、基礎ぐいを用いる取扱いがある。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "積雪荷重の割増しは地域区分・屋根形状・規模要件に依存するため、別設問では前提条件（多雪区域/屋根形式）を読み落とさない。"
 
   - id: T4273
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=aab485734f61800d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23495,12 +23664,46 @@ tasks:
       original_question_id: "aab485734f61800d"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58917"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "耐震設計（剛性率・一次/二次設計・保有耐力接合・根入れ効果）について各肢を再点検し、不適当肢=4 を維持した。correctChoiceText は既存のまま妥当。explanationText は、剛性率の定義の意味、一次設計=中地震で損傷させない趣旨、二次設計=大地震で強度と靭性を確認する趣旨、保有耐力接合の目的（接合部を弱点にしない）と局部座屈との切り分け、根入れ深さ2m以上での水平力低減（根入れ効果）を誤学習なく伝わる形に修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "剛性率は層間変形角の逆数を用いて算定し、各階の剛性の偏り（軟弱層）を評価する指標。"
+        - "一次設計は中程度の地震動で主要構造部に損傷が生じないこと（概ね弾性範囲）を確認する。"
+        - "二次設計は大地震で終局耐力と塑性変形能力（靭性）を確認する。"
+        - "保有耐力接合は接合部が先に破断しないようにする検討であり、局部座屈の防止とは目的が異なる。"
+        - "根入れ深さが2m以上の場合、根入れ効果により基礎スラブ底面の地震水平力を低減できる取扱いがある。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "剛性率・保有耐力接合・根入れ効果はいずれも適用条件（ルート/構造形式）で扱いが変わるため、別設問では前提条件を必ず固定する。"
 
   - id: T4274
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=c5ba0e4e9896cc51 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23510,12 +23713,46 @@ tasks:
       original_question_id: "c5ba0e4e9896cc51"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58918"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "木材（含水率と強度、乾燥収縮、腐朽菌、心材/辺材、曲げヤング係数と強度）について各肢を再点検し、不適当肢=3 を維持した。correctChoiceText は既存のまま妥当。explanationText は、繊維飽和点を境にした強度低下の理由（結合水/自由水）、乾燥収縮の異方性、腐朽菌の繁殖条件（4条件）、心材の抵抗性は一般論で樹種差がある点、曲げヤング係数と曲げ強度の相関関係が誤学習なく伝わる形に補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "繊維飽和点以下では含水率上昇により強度が低下し、繊維飽和点超では主に自由水が増えるため強度は概ね一定。"
+        - "乾燥収縮は異方性があり、接線方向>半径方向>繊維方向となる。"
+        - "腐朽菌の繁殖には酸素・温度・水分・栄養の4条件が必要で、いずれかを欠けば繁殖しにくい。"
+        - "心材は一般に辺材より抵抗性が高いが、虫害抵抗性は樹種差がある。"
+        - "曲げヤング係数（剛性）と曲げ強度は統計的に相関し、強度推定にも用いられる。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "木材の虫害抵抗性は樹種差・使用環境の影響が大きい。別設問では『一般に』の範囲を取り違えない。"
 
   - id: T4275
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=0499dd78d28ecc30 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23525,12 +23762,46 @@ tasks:
       original_question_id: "0499dd78d28ecc30"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58919"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "コンクリート（養生温度と強度発現、乾燥収縮、湿潤養生期間、アルカリ骨材反応、線膨張係数）について各肢を再点検し、不適当肢=3 を維持した。correctChoiceText は既存のまま妥当。explanationText は、高温養生の短期/長期強度への影響、乾燥開始材齢と収縮の関係、高炉セメントB種は湿潤養生を短縮できない点、アルカリ骨材反応の膨張機構、コンクリートと鉄筋の線膨張係数が近いことを誤学習なく伝わる形に修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "養生温度が高いと初期強度は上がる一方、長期材齢の強度増進が小さくなることがある。"
+        - "乾燥開始材齢を遅らせて水和を進めるほど、乾燥収縮は一般に小さくなる。"
+        - "高炉セメントB種は初期水和が緩やかで、湿潤養生期間を短縮する趣旨にはならない。"
+        - "アルカリ骨材反応は反応生成物が吸水膨張してひび割れを生じる。"
+        - "コンクリートの線膨張係数は常温域で鋼材と近い値。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "湿潤養生期間の具体値は気温・セメント種類で変わるため、別設問では前提条件を固定して判断する。"
 
   - id: T4276
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=4278d3d6a309f830 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23540,12 +23811,46 @@ tasks:
       original_question_id: "4278d3d6a309f830"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58921"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "鋼材（ヤング係数、熱伝導率、降伏比、高温時強度、SD345規格値）について各肢を再点検し、不適当肢=4 を維持した。correctChoiceText は既存のまま妥当。explanationText は、ヤング係数と強度特性の切り分け、ステンレスの熱伝導率が小さい理由、降伏比の意味、鋼材の強度は高温で低下する点、SD345の規格値を明確化し、誤った説明（降伏比の定義の混入）を除去した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "ヤング係数は弾性域の剛性で、鋼種（炭素含有量）が変わっても概ね同程度。"
+        - "一般にステンレス鋼は熱伝導率が小さく、炭素鋼等の方が大きい。"
+        - "降伏比が小さいほど降伏後の余力（ひずみ硬化の余地）が大きい。"
+        - "鋼材は高温になるほど降伏点・引張強さが低下し、300〜400°C付近から低下が顕著。"
+        - "SD345は降伏点下限値が345N/mm2となるよう規格で定められている。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "高温時の強度低下の程度は鋼種・評価方法で差があるため、別設問では温度域と前提を明確にする。"
 
   - id: T4277
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=23ecd0576aff69c5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23555,12 +23860,46 @@ tasks:
       original_question_id: "23ecd0576aff69c5"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58922"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "ガラス（フロート板、型板、Low-E複層、プリズム、強化）について各肢を再点検し、不適当肢=2 を維持した。correctChoiceText は既存のまま妥当。explanationText は、型板ガラスとすり板ガラスの混同を明確に訂正し、各ガラスの製法・機能（Low-E膜の位置と放射抑制、プリズムの採光用途、強化ガラスの破壊形態）まで含めて専門家水準に修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "フロート板ガラスはフロート法により表面が平滑で平面精度が高い。"
+        - "つや消し加工（砂・金属ブラシ等）はすり板ガラスであり、型板ガラスは型模様（凹凸模様）を付けた板ガラス。"
+        - "Low-E複層ガラスは中空層側表面に低放射膜を設け、放射による熱移動を抑える。"
+        - "プリズムガラスは入射光を屈折させて方向を変え、地下室等の採光に用いられる。"
+        - "強化ガラスは衝撃強度が高く、破損時に粒状破片となり安全性が高い。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "Low-E膜の種類（遮熱/断熱）で機能の強弱が変わるため、別設問では『日射制御』の前提を確認する。"
 
   - id: T4278
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=41c8bdc5f972dc0f について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23570,12 +23909,42 @@ tasks:
       original_question_id: "41c8bdc5f972dc0f"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58923"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "建築材料（薄付け仕上塗材、複層仕上塗材、押出成形セメント板、ステイン、ALCパネル）について各肢を再点検し、不適当肢=5 を維持した。correctChoiceText は既存のまま妥当。explanationText は特に、ALCパネルは多孔質で吸水しやすく材料自体が防水ではない点と、外壁等では仕上げ・目地処理で防水/防湿を確保する必要がある点が誤学習なく伝わるように修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "ALCパネルは多孔質で吸水しやすく、防水性に優れるという整理は不適当。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "仕上塗材の仕様（厚み、層構成）は製品・工法で差があるため、別設問では用語（薄付け/複層）の定義を取り違えない。"
 
   - id: T4279
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=3da18f6ef0e3246b について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23585,12 +23954,42 @@ tasks:
       original_question_id: "3da18f6ef0e3246b"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58924"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "施工計画（施工計画書/工程表、品質管理計画、施工管理者の選定、総合施工計画、施工図・見本の承認）について各肢を再点検し、不適当肢=1 を維持した。correctChoiceText は既存のまま妥当。explanationText は既に、監理者と施工者の役割分担（工程表は施工者が作成し監理者が承認）と、各計画書に含めるべき内容が要件を満たしていたため、追記修正は不要と判断した。"
+      edited_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "基本工程表は施工者が作成し、監理者は確認・承認や検査/立会の調整を行う。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "監理者/施工者の責任分担は契約形態でも表現が揺れるため、別設問では用語定義（監理者=工事監理者）を確認する。"
 
   - id: T4280
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=318300501fa01502 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23600,12 +23999,42 @@ tasks:
       original_question_id: "318300501fa01502"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58925"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "建築士法に基づく業務報酬基準（工事監理に関する標準業務等）について各肢を再点検し、不適当肢=1 を維持した。correctChoiceText は既存のまま妥当。explanationText は既に、設計図書の矛盾等を発見した場合の報告先は建築主であり、建築主を通じて設計者に確認するのが標準的整理である点が明確で、追加修正は不要と判断した。"
+      edited_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "工事監理の標準業務では、設計図書の矛盾等の発見時は建築主へ報告し、必要に応じて建築主を通じて設計者へ確認する整理となる。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "業務報酬基準は改正があり得るため、別年度では参照告示の世代差（告示番号）に注意する。"
 
   - id: T4281
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=9ca9969db9e007fa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
