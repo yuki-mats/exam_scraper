@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T600
+active_task: T601
 tasks:
   - id: T001
     type: pm
@@ -38665,7 +38665,7 @@ tasks:
   - id: T600
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_empty_1
     objective: 85001/question_85001_empty_1_merged.json の original_question_id=9390c4f8ea635e99 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -38675,7 +38675,33 @@ tasks:
       original_question_id: 9390c4f8ea635e99
       question_url: https://2kenchikushi.kakomonn.com/questions/43267
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=9390c4f8ea635e99（用途地域またがり＋用途制限）について、questionIntent=select_correct / answer_result_text（正解は3）と correctChoiceText の整合を確認した。敷地が近隣商業地域と第一種中高層住居専用地域にまたがるが、敷地の過半が第一種中高層住居専用地域のため（法第91条）、用途制限は同地域で判定する。正解肢（選択肢3）は、保健所が別表第二（は）項第7号の「政令で定める公益上必要な建築物」（施行令第130条の5の4）に該当し、本問（3階建）では要件内となる点。explanationText は条文と別表要件（階数条件、面積条件）を明示し、誤り肢の誤り箇所が追える形に改善した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_empty_1_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 間違い
+          - 正しい
+          - 間違い
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_empty_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_empty_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -38698,7 +38724,7 @@ tasks:
   - id: T601
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_empty_1
     objective: 85001/question_85001_empty_1_merged.json の original_question_id=edcda1eaff6a1338 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
