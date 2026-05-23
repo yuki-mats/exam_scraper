@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T556
+active_task: T557
 tasks:
   - id: T001
     type: pm
@@ -36065,7 +36065,7 @@ tasks:
   - id: T556
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=a8a78bb396ec2efa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -36075,7 +36075,33 @@ tasks:
       original_question_id: a8a78bb396ec2efa
       question_url: https://2kenchikushi.kakomonn.com/questions/43286
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=a8a78bb396ec2efa（地震力の算定に用いる係数 Z/Rt/Ai/C0 と地下部分の水平震度）について、questionIntent=select_incorrect / answer_result_text（正解5）と correctChoiceText=[正しい,正しい,正しい,正しい,間違い] が整合することを確認した。既存 explanationText は条文根拠がなく、Zの意味づけや式の書き方が不正確（余計な断定・曖昧表現）だったため、建築基準法施行令第88条第1項（Z/Rt/Ai/C0の定義）、同条第2項ただし書（軟弱地盤区域内の木造はC0>=0.3）、同条第4項（地下部分は固定荷重+積載荷重に水平震度kを乗じる）および昭和55年建設省告示第1793号（Rt算定の一般傾向）に沿って、各肢の根拠と誤り箇所（Rtは一般に固有周期が長いほど小さくなる）を参考書水準で明示するよう解説を更新した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -36098,7 +36124,7 @@ tasks:
   - id: T557
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=fe2819392864a165 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
