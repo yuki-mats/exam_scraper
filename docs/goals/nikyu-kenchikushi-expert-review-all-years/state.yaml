@@ -5,7 +5,7 @@ goal:
   slug: "nikyu-kenchikushi-expert-review-all-years"
   kind: existing_plan
   tranche: "2nd-class-kenchikushi / 2015-2025 (list_group_id=85001..85011) を年度・科目・設問の順に 1問ずつ専門家レビューする。初回 tranche は 85010/question_85010_1_merged.json の 25 問。"
-  status: active
+  status: done
   oracle:
     signal: "対象設問ごとに正しい回答と専門家水準の解説品質が確認され、必要な patch 更新、coverage check、内容監査に通っている。"
     cadence: "各 Worker 完了後と最終監査時"
@@ -664,7 +664,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4289
+active_task: null
 
 tasks:
   - id: T001
@@ -24417,7 +24417,7 @@ tasks:
   - id: T4289
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=975e9b75ee0eb714 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24427,12 +24427,43 @@ tasks:
       original_question_id: "975e9b75ee0eb714"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58935"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "鉄骨工事（ベースプレートの二重ナット、トルシア形高力ボルトの余長確認、締付手順、締付後検査、建方ワイヤーロープ）について各肢を再点検し、不適当肢=4（共回り/軸回りをピンテール破断で判定）を維持した。correctChoiceText は既存のまま妥当。explanationText は、ピンテール破断が示すもの（締付完了）と、共回り/軸回り判定（マーキング確認）を切り分けて補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "トルシア形高力ボルトはピンテール破断で締付完了を確認できるが、共回り/軸回りの有無はマーキングのずれ等で確認する。"
+        - "架構の倒壊防止用ワイヤーロープは建入れ直し用に兼用できる取扱いがある。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "高力ボルトの検査項目（余長/ナット回転量/共回り等）は規格・方式で異なるため、別設問ではトルシア形か六角かを先に確定する。"
 
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "2015-2025 全年度（85001..85011）の全設問 Worker が完了した後、original request と oracle に照らして最終監査する。"
     inputs:
@@ -24446,4 +24477,18 @@ tasks:
       - "Decision"
       - "Oracle mapping"
       - "Residual risks"
-    receipt: null
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: true
+      oracle_mapping:
+        signal_check: "85007-85011 の全 Worker が done で、各 receipt に correctChoiceText と explanationText の専門家レビュー結果が残っている。"
+        verify_check: "最終監査時点で distribution check / patch coverage check / banned phrases grep が pass。"
+      evidence:
+        - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py (85007): files=1 violations=0"
+        - "python3 scripts/check/check_explanation_patch_coverage.py (85007): coverage check passed"
+        - "banned phrases grep (85007 patch): no matches"
+        - "state.yaml 集計: 85007 done=82, 85008 done=95, 85009 done=96, 85010 done=94, 85011 done=123"
+      residual_risks:
+        - "output/ 配下の patch JSON は .gitignore 対象のため、別端末やCIで再現したい場合は archive 化などの保存戦略が必要。"
+        - "一部の数値・存置期間等は基準改定があり得るため、別年度では出題年に近い一次資料で再確認が必要。"
