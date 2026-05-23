@@ -664,7 +664,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4288
+active_task: T4289
 
 tasks:
   - id: T001
@@ -24370,7 +24370,7 @@ tasks:
   - id: T4288
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=9550ef927b499da2 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24380,12 +24380,44 @@ tasks:
       original_question_id: "9550ef927b499da2"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58933"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "コンクリート工事（単位水量、構造体強度補正値、強度試験頻度、品質基準強度、暑中コンクリート）について各肢を再点検し、不適当肢=4（品質基準強度=FcとFdの平均）を維持した。correctChoiceText は既存のまま妥当。explanationText は、品質基準強度Fqの定義（Fq=max(Fc,Fd)）を明示し、平均値が不適当である理由（大きい方を下回り得る）まで補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "品質基準強度（Fq）は『設計基準強度（Fc）または耐久設計基準強度（Fd）の大きい方』を採用する（特記がない場合）。"
+        - "単位水量は乾燥収縮ひび割れに影響するため、所要品質が得られる範囲で小さくするのが基本。"
+        - "暑中コンクリートでは荷卸し時温度を35℃以下とする取扱いが一般的。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "強度関連の用語（Fc/Fd/Fq/Fm/S）は混同しやすいので、別設問では『どの強度が何を保証する値か』を先に整理する。"
 
   - id: T4289
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=975e9b75ee0eb714 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
