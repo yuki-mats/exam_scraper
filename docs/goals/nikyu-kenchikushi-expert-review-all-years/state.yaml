@@ -5,7 +5,7 @@ goal:
   slug: "nikyu-kenchikushi-expert-review-all-years"
   kind: existing_plan
   tranche: "2nd-class-kenchikushi / 2015-2025 (list_group_id=85001..85011) を年度・科目・設問の順に 1問ずつ専門家レビューする。初回 tranche は 85010/question_85010_1_merged.json の 25 問。"
-  status: done
+  status: active
   oracle:
     signal: "対象設問ごとに正しい回答と専門家水準の解説品質が確認され、必要な patch 更新、coverage check、内容監査に通っている。"
     cadence: "各 Worker 完了後と最終監査時"
@@ -321,20 +321,20 @@ worker_defaults:
 
   "85011_question_review_v7":
     source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
-    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_reconciled.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260523_1545.json"
     optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/"
     allowed_files:
       - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
       - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
       - "output/2nd-class-kenchikushi/questions_json/85011/15_correctChoiceText_fixed/**"
       - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
-      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_reconciled.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260523_1545.json"
       - "prompt/02_prompt_fix_questionIntent.md"
       - "prompt/03_prompt_add_explanationText.md"
     verify:
       - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json'"
-      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_reconciled.json"
-      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_reconciled.json"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260523_1545.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260523_1545.json"
     stop_if:
       - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
       - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
@@ -664,7 +664,145 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: null
+  "85001_question_review_v1":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85001/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+  "85001_question_review_v2":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_1545.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85001/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_1545.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_1545.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_1545.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+  "85001_question_review_v3":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260523_1545.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85001/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260523_1545.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260523_1545.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260523_1545.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+  "85001_question_review_v4":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85001/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+  "85001_question_review_empty_1":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_empty_1_merged_explanationText_added_20260523_1545.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85001/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_empty_1_merged_explanationText_added_20260523_1545.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_empty_1_merged_explanationText_added_20260523_1545.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_empty_1_merged_explanationText_added_20260523_1545.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+  "85007_question_review_4":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+active_task: T5001
 
 tasks:
   - id: T001
@@ -24460,10 +24598,1784 @@ tasks:
       residual_risks:
         - "高力ボルトの検査項目（余長/ナット回転量/共回り等）は規格・方式で異なるため、別設問ではトルシア形か六角かを先に確定する。"
 
+  - id: T5000
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "未キューだった 85001 全問と未処理ファイル（85007_4 / 85011_empty_3）を 1 Worker=1問 で追加し、active_task を先頭 Worker に設定する。"
+    expected_output:
+      - "worker_defaults 追加/更新"
+      - "新規 Worker tasks 追加"
+      - "active_task の更新"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "85001（merged 1..4 + empty_1）と、85007/question_85007_4_merged.json、85011/question_85011_empty_3_merged.json の不足分を Worker としてキュー化した。explanation patch は末尾タイムスタンプを 20260523_1545 に揃えた。active_task は T5001 に設定した。"
+      evidence:
+        - "queued_years=85001"
+        - "queued_missing_files=85007_4,85011_empty_3"
+        - "patch_ts=20260523_1545"
+
+  - id: T5001
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=1f561e5a450891dc について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "1f561e5a450891dc"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43229"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5002
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=2c32c3de05723188 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "2c32c3de05723188"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43230"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=ac5f6dc2413fe533 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "ac5f6dc2413fe533"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43231"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=80d40db482f11cb9 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "80d40db482f11cb9"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43232"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=08f42fc36bd3608c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "08f42fc36bd3608c"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43233"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5006
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=01ebc4028da6e54a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "01ebc4028da6e54a"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43234"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=973e4e69859881bb について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "973e4e69859881bb"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43235"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5008
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=3b48caa8b070baaa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "3b48caa8b070baaa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43236"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5009
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=67c7ca976a19df5f について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "67c7ca976a19df5f"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43237"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5010
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=8ab4d12d064a1028 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "8ab4d12d064a1028"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43238"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5011
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=8d7b075e2f9ea4dd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "8d7b075e2f9ea4dd"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43239"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5012
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=08e8cc2fe55acc65 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "08e8cc2fe55acc65"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43240"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5013
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=fdf57b06c46b5180 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "fdf57b06c46b5180"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43241"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5014
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=6a8f658907e03203 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "6a8f658907e03203"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43242"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5015
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=e1efdf00cd43d3c9 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "e1efdf00cd43d3c9"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43243"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5016
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=d0e76c925132ca19 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "d0e76c925132ca19"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43244"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5017
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=4b605b12899cd9ab について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "4b605b12899cd9ab"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43245"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5018
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=94dd7c8ca66e4ea8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "94dd7c8ca66e4ea8"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43246"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5019
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=af5e7150eeaac4fd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "af5e7150eeaac4fd"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43248"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5020
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=5fa228bc7b6f19ab について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "5fa228bc7b6f19ab"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43250"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5021
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=1478e761b166ade0 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "1478e761b166ade0"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43252"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5022
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=3620407c2a6bcbde について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "3620407c2a6bcbde"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43253"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5023
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=bf1509ecf053cfc9 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "bf1509ecf053cfc9"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43254"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5024
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=f99a2f9262348691 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "f99a2f9262348691"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43255"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5025
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v1"
+    objective: "85001/question_85001_1_merged.json の original_question_id=bed82da4f3e0204a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      original_question_id: "bed82da4f3e0204a"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43256"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5026
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=2c613f3b1a6a0660 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "2c613f3b1a6a0660"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43257"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5027
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=3eefee20ef09522e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "3eefee20ef09522e"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43258"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5028
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=f9ff8211d8a529e3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "f9ff8211d8a529e3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43260"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5029
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=13e1993d1c963f3e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "13e1993d1c963f3e"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43261"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5030
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=c0d579ad37478fbd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "c0d579ad37478fbd"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43262"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5031
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=0b4fd160b115190d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "0b4fd160b115190d"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43263"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5032
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=4b7bf23e0a690ea3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "4b7bf23e0a690ea3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43264"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5033
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=90a23b73bae1f4cf について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "90a23b73bae1f4cf"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43265"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5034
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=05f906ca1cd24f11 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "05f906ca1cd24f11"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43268"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5035
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=597516e3f9dc14cc について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "597516e3f9dc14cc"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43270"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5036
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=3f3edad97b0487f3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "3f3edad97b0487f3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43272"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5037
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=911bc724c677fa91 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "911bc724c677fa91"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43274"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5038
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=70acf40e5d4a7861 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "70acf40e5d4a7861"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43275"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5039
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=52bb5e9c4399c2f8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "52bb5e9c4399c2f8"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43276"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5040
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=5ec3dd671f087f14 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "5ec3dd671f087f14"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43279"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5041
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=32269833486c3820 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "32269833486c3820"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43280"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5042
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=ce4e2fd478ff1ba6 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "ce4e2fd478ff1ba6"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43281"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5043
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=01e3d530fa630652 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "01e3d530fa630652"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43282"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5044
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=b0568a1d8a69d8c9 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "b0568a1d8a69d8c9"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43283"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5045
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=972ca45760cf2db3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "972ca45760cf2db3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43284"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5046
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=c7b7704af6b209e8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "c7b7704af6b209e8"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43285"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5047
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=a8a78bb396ec2efa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "a8a78bb396ec2efa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43286"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5048
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=fe2819392864a165 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "fe2819392864a165"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43287"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5049
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=06ea341deb0295e5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "06ea341deb0295e5"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43288"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5050
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v2"
+    objective: "85001/question_85001_2_merged.json の original_question_id=a872d8437e8c02bd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json"
+      original_question_id: "a872d8437e8c02bd"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43289"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5051
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=6986245dfbdd7baa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "6986245dfbdd7baa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43290"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5052
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=9ddae164811107c4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "9ddae164811107c4"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43291"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5053
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=5ef32c89846de926 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "5ef32c89846de926"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43292"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5054
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=8e914114f2e49133 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "8e914114f2e49133"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43293"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5055
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=d517e5be9aa55e74 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "d517e5be9aa55e74"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43294"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5056
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=ff6ee083bf475421 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "ff6ee083bf475421"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43295"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5057
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=bb675129906b7b18 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "bb675129906b7b18"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43296"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5058
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=4f6897a13bc37609 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "4f6897a13bc37609"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43297"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5059
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=20155852358d4175 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "20155852358d4175"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43298"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5060
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=250997460f0116ab について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "250997460f0116ab"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43299"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5061
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=3e727328dec340f0 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "3e727328dec340f0"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43300"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5062
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=e3d3097b98af4dd5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "e3d3097b98af4dd5"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43301"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5063
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=0f16071f685e36cf について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "0f16071f685e36cf"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43302"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5064
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=0d5e826ce0fd9fd2 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "0d5e826ce0fd9fd2"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43303"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T5065
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=1efdb10092e3e83a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "1efdb10092e3e83a"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43304"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5066
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=bfece2834f363c6a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "bfece2834f363c6a"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43305"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5067
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=01fd8dae354432c6 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "01fd8dae354432c6"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43307"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5068
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=7c69f017a04c378e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "7c69f017a04c378e"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43308"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5069
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=777492e8bc3e87aa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "777492e8bc3e87aa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43309"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5070
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=cdefe5293b9fc577 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "cdefe5293b9fc577"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43310"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5071
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=8d88e7a28ee0c8eb について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "8d88e7a28ee0c8eb"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43311"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5072
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=c149c40d3f4deaea について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "c149c40d3f4deaea"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43312"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5073
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=9aaa2782499cd3c8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "9aaa2782499cd3c8"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43313"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5074
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=970fc88d83f61742 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "970fc88d83f61742"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43314"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5075
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v3"
+    objective: "85001/question_85001_3_merged.json の original_question_id=0ded0bc84c597ae5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json"
+      original_question_id: "0ded0bc84c597ae5"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43315"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5076
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=d0ebb4a3e80e1af6 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "d0ebb4a3e80e1af6"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43316"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5077
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=04fb955a720b9b47 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "04fb955a720b9b47"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43317"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5078
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=e22543ae5d0a0952 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "e22543ae5d0a0952"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43318"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5079
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=da8d866e9b4c4be3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "da8d866e9b4c4be3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43320"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5080
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=74754a5ce5fa73ce について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "74754a5ce5fa73ce"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43321"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5081
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=1c16ac902aab4431 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "1c16ac902aab4431"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43322"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5082
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=3bee2c59796e66fa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "3bee2c59796e66fa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43323"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5083
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=c9d9cb7b5d3f5572 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "c9d9cb7b5d3f5572"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43324"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5084
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=305876794cbdc61d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "305876794cbdc61d"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43325"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5085
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=dd801f77416395cb について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "dd801f77416395cb"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43326"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5086
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=bf39bf52d442126a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "bf39bf52d442126a"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43327"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5087
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_v4"
+    objective: "85001/question_85001_4_merged.json の original_question_id=339f83ab9e150851 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json"
+      original_question_id: "339f83ab9e150851"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43328"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5088
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_empty_1"
+    objective: "85001/question_85001_empty_1_merged.json の original_question_id=8cd87f34f15bc852 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      original_question_id: "8cd87f34f15bc852"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43247"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5089
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_empty_1"
+    objective: "85001/question_85001_empty_1_merged.json の original_question_id=b2aac89d64789ec3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      original_question_id: "b2aac89d64789ec3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43251"
+      topic_hint: "学科Ⅰ（建築計画）"
+    receipt: null
+
+  - id: T5090
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_empty_1"
+    objective: "85001/question_85001_empty_1_merged.json の original_question_id=b0de0a7e34233866 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      original_question_id: "b0de0a7e34233866"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43266"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5091
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_empty_1"
+    objective: "85001/question_85001_empty_1_merged.json の original_question_id=9390c4f8ea635e99 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      original_question_id: "9390c4f8ea635e99"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43267"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5092
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_empty_1"
+    objective: "85001/question_85001_empty_1_merged.json の original_question_id=edcda1eaff6a1338 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      original_question_id: "edcda1eaff6a1338"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43269"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5093
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_empty_1"
+    objective: "85001/question_85001_empty_1_merged.json の original_question_id=31fdabb464b6b153 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      original_question_id: "31fdabb464b6b153"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43271"
+      topic_hint: "学科Ⅱ（建築法規）"
+    receipt: null
+
+  - id: T5094
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85001_question_review_empty_1"
+    objective: "85001/question_85001_empty_1_merged.json の original_question_id=1ead2cd5d5207819 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85001"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_empty_1_merged.json"
+      original_question_id: "1ead2cd5d5207819"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/43306"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5095
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=ab33b8f843df23fd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "ab33b8f843df23fd"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58937"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5096
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=55e1e31f2ad69b10 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "55e1e31f2ad69b10"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58938"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5097
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=689b5883f2d35f99 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "689b5883f2d35f99"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58939"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5098
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=1a4f9226e366d8b3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "1a4f9226e366d8b3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58940"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5099
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=273362ea024b09f1 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "273362ea024b09f1"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58941"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5100
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=5da10de4bf80a4bb について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "5da10de4bf80a4bb"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58942"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5101
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=c3879691d4009e6d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "c3879691d4009e6d"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58943"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5102
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=165e35e4ff09517d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "165e35e4ff09517d"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58944"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5103
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=1749db49ac3ba615 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "1749db49ac3ba615"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58945"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5104
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=4862a19938ceda34 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "4862a19938ceda34"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58946"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5105
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=7f4a35932379ae59 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "7f4a35932379ae59"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58947"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5106
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_4"
+    objective: "85007/question_85007_4_merged.json の original_question_id=a97304d100791149 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      original_question_id: "a97304d100791149"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58948"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5107
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=4a6ab71d3dc27988 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "4a6ab71d3dc27988"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90556"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5108
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=67ce37b4bc769d8b について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "67ce37b4bc769d8b"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90557"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5109
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=2ba30218e457a14f について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "2ba30218e457a14f"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90558"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5110
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=8f51269aa75bca80 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "8f51269aa75bca80"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90559"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5111
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=a7f1524f70128385 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "a7f1524f70128385"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90560"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5112
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=5485c207b6cec3a3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "5485c207b6cec3a3"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90561"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5113
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=c140f6a99af9c087 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "c140f6a99af9c087"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90562"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5114
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=54ed62796fd64e8d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "54ed62796fd64e8d"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90564"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5115
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=db1bd283cb63a663 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "db1bd283cb63a663"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90565"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5116
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=d44786e9d8b1b8aa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "d44786e9d8b1b8aa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90566"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T5117
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85011_question_review_v7"
+    objective: "85011/question_85011_empty_3_merged.json の original_question_id=cd11202602990a5b について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85011"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      original_question_id: "cd11202602990a5b"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/90569"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
   - id: T999
     type: judge
     assignee: Judge
-    status: done
+    status: queued
     reasoning_hint: high
     objective: "2015-2025 全年度（85001..85011）の全設問 Worker が完了した後、original request と oracle に照らして最終監査する。"
     inputs:
@@ -24477,18 +26389,4 @@ tasks:
       - "Decision"
       - "Oracle mapping"
       - "Residual risks"
-    receipt:
-      result: done
-      decision: approved
-      full_outcome_complete: true
-      oracle_mapping:
-        signal_check: "85007-85011 の全 Worker が done で、各 receipt に correctChoiceText と explanationText の専門家レビュー結果が残っている。"
-        verify_check: "最終監査時点で distribution check / patch coverage check / banned phrases grep が pass。"
-      evidence:
-        - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py (85007): files=1 violations=0"
-        - "python3 scripts/check/check_explanation_patch_coverage.py (85007): coverage check passed"
-        - "banned phrases grep (85007 patch): no matches"
-        - "state.yaml 集計: 85007 done=82, 85008 done=95, 85009 done=96, 85010 done=94, 85011 done=123"
-      residual_risks:
-        - "output/ 配下の patch JSON は .gitignore 対象のため、別端末やCIで再現したい場合は archive 化などの保存戦略が必要。"
-        - "一部の数値・存置期間等は基準改定があり得るため、別年度では出題年に近い一次資料で再確認が必要。"
+    receipt: null
