@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T584
+active_task: T585
 tasks:
   - id: T001
     type: pm
@@ -37717,7 +37717,7 @@ tasks:
   - id: T584
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=0ded0bc84c597ae5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -37727,7 +37727,33 @@ tasks:
       original_question_id: 0ded0bc84c597ae5
       question_url: https://2kenchikushi.kakomonn.com/questions/43315
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=0ded0bc84c597ae5（鉄骨建方：エレクションピース仮ボルト、混用接合の仮ボルト本数、倒壊防止ワイヤーロープ、筋かい補強の実施時期、溶融亜鉛めっき面の養生）について、questionIntent=select_incorrect / answer_result_text（正解4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] が整合することを確認した。誤り肢（選択肢4）は、筋かいによる補強作業を建方翌日に行うとしている点で、安全確保の観点から当日に実施すべき。explanationText は既存でも大筋は成立していたが、選択肢3・5の理由が曖昧だったため、兼用可能条件（固定・張力管理）と、めっき面の養生要点（当て木等で傷防止）を専門家水準で明確化した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -37750,7 +37776,7 @@ tasks:
   - id: T585
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v4
     objective: 85001/question_85001_4_merged.json の original_question_id=d0ebb4a3e80e1af6 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
