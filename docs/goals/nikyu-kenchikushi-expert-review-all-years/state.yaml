@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T591
+active_task: T592
 tasks:
   - id: T001
     type: pm
@@ -38130,7 +38130,7 @@ tasks:
   - id: T591
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v4
     objective: 85001/question_85001_4_merged.json の original_question_id=3bee2c59796e66fa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -38140,7 +38140,33 @@ tasks:
       original_question_id: 3bee2c59796e66fa
       question_url: https://2kenchikushi.kakomonn.com/questions/43323
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=3bee2c59796e66fa（建具・内装：水掛り部建具枠のくさび、複層ガラス掛り代、グリッパー工法、複合フローリング寸法、普通合板1類の適用）について、questionIntent=select_incorrect / answer_result_text（正解1）と correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合することを確認した。誤り肢（選択肢1）は、水掛り部分のアルミ建具枠で仮留め用くさびを残したままモルタル充塡している点で、くさびは取り除いて充塡する。explanationText は既存でも成立していたが、選択肢5（普通合板1類）の根拠が不足していたため、区分と適用範囲が誤学習なく伝わる形に追記・整理した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -38163,7 +38189,7 @@ tasks:
   - id: T592
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v4
     objective: 85001/question_85001_4_merged.json の original_question_id=c9d9cb7b5d3f5572 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
