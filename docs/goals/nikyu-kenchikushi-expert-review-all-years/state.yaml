@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T587
+active_task: T588
 tasks:
   - id: T001
     type: pm
@@ -37894,7 +37894,7 @@ tasks:
   - id: T587
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v4
     objective: 85001/question_85001_4_merged.json の original_question_id=e22543ae5d0a0952 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -37904,7 +37904,33 @@ tasks:
       original_question_id: e22543ae5d0a0952
       question_url: https://2kenchikushi.kakomonn.com/questions/43318
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=e22543ae5d0a0952（木造/内装：ラスボード胴縁間隔、床組補強の根太間隔、釘長さ、根太なし床組の床下地厚、山形プレート部の合板処理）について、questionIntent=select_incorrect / answer_result_text（正解4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] が整合することを確認した。誤り肢（選択肢4）は、根太を用いない床組（梁等間隔910mm程度）の床下地に厚さ15mmの構造用合板を用いている点で、標準は厚さ24mm以上の構造用合板等を用いるため不適当。explanationText は既存だと冗長かつ周辺情報（断面寸法等）で誤学習リスクがあったため、正誤判断に必要な根拠だけに絞って専門家水準で簡潔化した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -37927,7 +37953,7 @@ tasks:
   - id: T588
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v4
     objective: 85001/question_85001_4_merged.json の original_question_id=da8d866e9b4c4be3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
