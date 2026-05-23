@@ -5,7 +5,7 @@ goal:
   slug: "nikyu-kenchikushi-expert-review-85010"
   kind: existing_plan
   tranche: "2nd-class-kenchikushi / 85010 / question_85010_1_merged.json の 25 設問を一問ずつ専門家レビューする。"
-  status: active
+  status: done
   oracle:
     signal: "対象設問ごとに正しい回答と専門家水準の解説品質が確認され、必要な patch 更新、coverage check、内容監査に通っている。"
     cadence: "各 Worker 完了後と最終監査時"
@@ -88,7 +88,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T106
+active_task: null
 
 tasks:
   - id: T001
@@ -427,7 +427,7 @@ tasks:
   - id: T106
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=d608b0277b11c240 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -437,12 +437,44 @@ tasks:
       original_question_id: "d608b0277b11c240"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80331"
       topic_hint: "住宅の結露"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=d608b0277b11c240（住宅の結露）を専門家目線でレビューし、questionIntent=select_incorrect + 正解3 と整合する correctChoiceText（3肢のみ「間違い」）は妥当と判断した。誤り肢は『非暖房室は結露しにくい』としている点で、実際は温度が低い側ほど露点に達しやすく結露リスクが高くなる。explanationText も誤り箇所と正しい内容が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "結露は表面温度が露点を下回ると発生しやすい。非暖房室は暖房室より温度が低くなりやすく、隣室等から湿った空気が流入すると結露リスクが上がる。"
+        - "二重サッシの結露対策は室内側の気密を高めて湿気侵入を抑えるのが基本である。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "別設問で『換気で結露が減る/増える』は条件依存なので、温湿度条件・表面温度の前提を必ず確認する。"
 
   - id: T107
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=f81c28fa5bd3449a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -452,12 +484,44 @@ tasks:
       original_question_id: "f81c28fa5bd3449a"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80332"
       topic_hint: "日照・日射・採光"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=f81c28fa5bd3449a（日照・日射・採光）を専門家目線でレビューし、questionIntent=select_incorrect + 正解1 と整合する correctChoiceText（1肢のみ「間違い」）は妥当と判断した。誤り肢は日射遮蔽係数の大小関係の取り違えで、係数は小さいほど遮蔽効果が大きい。explanationText も誤り箇所と正しい関係が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "日射遮蔽係数は小さいほど日射熱の侵入が少なく遮蔽効果が大きい（大きいほど通しやすい）。"
+        - "昼光率は直射日光を除いた天空光を前提とした採光指標である。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "設計用全天空照度などは用語が似ているため、別設問では『直射/天空光』『設計用の前提空』を取り違えないよう確認する。"
 
   - id: T108
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=c2786d1038bfb01c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -467,12 +531,44 @@ tasks:
       original_question_id: "c2786d1038bfb01c"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80333"
       topic_hint: "色彩"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=c2786d1038bfb01c（色彩）を専門家目線でレビューし、questionIntent=select_incorrect + 正解4 と整合する correctChoiceText（4肢のみ「間違い」）は妥当と判断した。誤り肢は光の三原色の取り違えで、加法混色の三原色はRGBである。explanationText も混同しやすい減法混色（CMY）まで含めて整理されており、patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "光（加法混色）の三原色はRGBであり、色材（減法混色）の三原色はCMYである。"
+        - "マンセル表色系の明度は視感反射率と対応する。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "色彩分野は『三原色（光/色材）』『補色』などの用語が紛らわしいため、別設問でも加法/減法の前提を必ず確認する。"
 
   - id: T109
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=0c6ed0a4cd88f45c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -482,12 +578,44 @@ tasks:
       original_question_id: "0c6ed0a4cd88f45c"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80334"
       topic_hint: "音"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=0c6ed0a4cd88f45c（音）を専門家目線でレビューし、questionIntent=select_incorrect + 正解5 と整合する correctChoiceText（5肢のみ「間違い」）は妥当と判断した。誤り肢は『音響出力を2倍で音圧レベル+6dB』としている点で、2倍は+3dB（+6dBは4倍）である。explanationText も誤り箇所と正しい関係を明示しており patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "音響出力（パワー）を2倍にするとレベル差は 10log10(2)≈3dB。6dB上げるには4倍が必要。"
+        - "点音源の距離減衰は距離2倍で約-6dB（逆二乗則）として扱える。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "設問によっては『音響出力レベル』『音圧レベル』などレベルの種類を取り違えやすいので、対数の定義（10log/20log）まで確認する。"
 
   - id: T110
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=f8e9ae8e78dccc7c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -497,12 +625,44 @@ tasks:
       original_question_id: "f8e9ae8e78dccc7c"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80335"
       topic_hint: "屋外気候等"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=f8e9ae8e78dccc7c（屋外気候等）を専門家目線でレビューし、questionIntent=select_incorrect + 正解5 と整合する correctChoiceText（5肢のみ「間違い」）は妥当と判断した。誤り肢は風配図の定義の取り違えで、風配図は風向（必要に応じて風速階級）別の出現頻度を放射状に示す図であり、季節ごとの風速頻度を棒グラフ化したものではない。explanationText も誤り箇所と正しい定義が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "風配図（wind rose）は方位別の出現頻度を放射状に示す図で、棒グラフの風速頻度分布とは別物である。"
+        - "暖房デグリーデーは基準温度と日平均外気温の差の積算として整理される。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "気象用語は定義が似ているため（夏日/真夏日など）、別設問でも気象庁定義を基準に確認する。"
 
   - id: T111
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=52687a11f0b8caae について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -512,12 +672,43 @@ tasks:
       original_question_id: "52687a11f0b8caae"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80336"
       topic_hint: "一戸建て住宅の計画"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=52687a11f0b8caae（一戸建て住宅の計画）を専門家目線でレビューし、questionIntent=select_incorrect + 正解2 と整合する correctChoiceText（2肢のみ「間違い」）は妥当と判断した。誤り肢は屋内階段の手すり高さを120cmとしている点で、一般的な設計目安（段鼻基準で75〜85cm程度）から外れる。explanationText も誤り箇所と適正寸法の目安が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "階段手すりの設置高さは段鼻を基準に75〜85cm程度が一般的な目安として整理される（行政資料・設計基準等）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json'"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "寸法系は用途（住宅/公共建築/バリアフリー）で推奨値が揺れるため、別設問では適用範囲を必ず確認する。"
 
   - id: T112
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=0cff7fe6a9c550b4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -527,12 +718,44 @@ tasks:
       original_question_id: "0cff7fe6a9c550b4"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80337"
       topic_hint: "集合住宅の計画"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=0cff7fe6a9c550b4（集合住宅の計画）を専門家目線でレビューし、questionIntent=select_incorrect + 正解3 と整合する correctChoiceText（3肢のみ「間違い」）は妥当と判断した。誤り肢はコレクティブハウスとコーポラティブハウスの定義混同であり、explanationText は両者の違い（共同生活/共同運営）を明確に分けて説明できている。誘導居住面積水準の算定式も国交省資料で確認でき、patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "都市居住型誘導居住面積水準（2人以上）は 20㎡×世帯人数+15㎡ と整理され、4人世帯は95㎡となる（国交省資料）。"
+        - "コレクティブハウスは共用空間等で生活の一部を共同化する住まい方で、企画・設計から共同運営する方式はコーポラティブハウスの説明である。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "住宅政策系の数値・算定式は改定され得るため、別 list_group_id では出題年に近い公的資料で再確認する。"
 
   - id: T113
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=d707682a8310af03 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -542,12 +765,43 @@ tasks:
       original_question_id: "d707682a8310af03"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80338"
       topic_hint: "事務所ビル・商業建築の計画"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=d707682a8310af03（事務所ビル・商業建築の計画）を専門家目線でレビューし、questionIntent=select_incorrect + 正解1 と整合する correctChoiceText（1肢のみ「間違い」）は妥当と判断した。誤り肢は小部屋貸しでレンタブル比が高まるとしている点で、共用廊下等が増えて一般に低下しやすい。explanationText も誤り箇所と正しい関係が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "レンタブル比は共用廊下面積等の増減に強く影響され、小区画貸しは共用部が増えて不利になりやすい。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "比率・目安系の数値は設計条件で変わるため、別設問では前提（規模・用途・グレード）を確認する。"
 
   - id: T114
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=a2e7a159fc6bbabc について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -557,12 +811,43 @@ tasks:
       original_question_id: "a2e7a159fc6bbabc"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80339"
       topic_hint: "教育施設等の計画"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=a2e7a159fc6bbabc（教育施設等の計画）を専門家目線でレビューし、questionIntent=select_incorrect + 正解1 と整合する correctChoiceText（1肢のみ「間違い」）は妥当と判断した。誤り肢は小学校の低学年・高学年に適する教室運用（総合教室型/特別教室型）を逆にしている点であり、explanationText は誤り箇所と正しい考え方を明確に示せているため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "低学年は学級教室中心で生活と学習を完結しやすい総合教室型が運用しやすく、特別教室型は高学年ほど運用しやすい。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "学校種別（小/中/高）で運用が異なるため、別設問では対象校種を前提に説明を書く。"
 
   - id: T115
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=afc3dec350c68bc4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -572,12 +857,43 @@ tasks:
       original_question_id: "afc3dec350c68bc4"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80340"
       topic_hint: "文化施設の計画"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=afc3dec350c68bc4（文化施設の計画）を専門家目線でレビューし、questionIntent=select_incorrect + 正解3 と整合する correctChoiceText（3肢のみ「間違い」）は妥当と判断した。誤り肢は『可変機構を備えたプロセニアムステージ』としている点で、プロセニアムは額縁舞台の形式であり可変配置は可変舞台等の別概念である。explanationText も用語の対比が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "プロセニアムステージは額縁舞台の形式で、舞台・客席の可変配置は可変舞台（アダプタブル等）の枠組みで扱う。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "劇場形式は類似用語が多いので、別設問では舞台形状（額縁/アリーナ/スラスト等）と可変機構の有無を分けて確認する。"
 
   - id: T116
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=3d9ec4019052f275 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -587,12 +903,44 @@ tasks:
       original_question_id: "3d9ec4019052f275"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80341"
       topic_hint: "建築計画における各部寸法"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=3d9ec4019052f275（各部寸法）を専門家目線でレビューし、questionIntent=select_incorrect + 正解4 と整合する correctChoiceText（4肢のみ「間違い」）は妥当と判断した。誤り肢は立位カウンター高さを700mmとしている点で、700mmは着座テーブル相当であり立食カウンターは概ね1000mm程度が目安となる。explanationText も誤り箇所と正しい目安が明確で、他肢も寸法の妥当性説明が成立しているため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "平置き駐輪の区画は幅600mm・奥行1900mm程度以上が目安として整理されることが多い。"
+        - "立位での飲食カウンター高さは概ね1000mm前後が目安で、700mmは低すぎる。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "寸法の『目安』は前提条件で変わるため、別設問では利用者属性（車椅子同士/ベビーカー等）と用途を確認する。"
 
   - id: T117
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=e0b541dbc396c19a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -602,12 +950,43 @@ tasks:
       original_question_id: "e0b541dbc396c19a"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80342"
       topic_hint: "高齢者・車椅子使用者等に配慮した一戸建て住宅の改修計画"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=e0b541dbc396c19a（高齢者・車椅子使用者等に配慮した改修）を専門家目線でレビューし、questionIntent=select_incorrect + 正解4 と整合する correctChoiceText（4肢のみ「間違い」）は妥当と判断した。誤り肢は段差の識別性を下げる計画（床と上がり框を類似色にして色差を小さくする）で、転倒防止には明度差等で段差を見分けやすくするのが基本である。explanationText も誤り箇所と正しい配慮方針が明確で、patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "段差・段鼻は明度差等のコントラストで識別しやすくすることが転倒防止に有効で、類似色で差を小さくするのは逆効果になり得る。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "別設問では視覚障害者対応（点状ブロック等）も含む場合があるため、対象ユーザー像を明確にして説明を書く。"
 
   - id: T118
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=9600abc2eab7919c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -617,12 +996,43 @@ tasks:
       original_question_id: "9600abc2eab7919c"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80343"
       topic_hint: "まちづくり"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=9600abc2eab7919c（まちづくり）を専門家目線でレビューし、questionIntent=select_incorrect + 正解1 と整合する correctChoiceText（1肢のみ「間違い」）は妥当と判断した。誤り肢はボンエルフの考え方を『歩車完全分離』としている点で、ボンエルフは歩車共存と交通静穏化であり、歩車分離はラドバーン方式など別手法である。explanationText も対比が明確で patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "ボンエルフは歩車共存の空間構成と交通静穏化であり、歩車完全分離は別概念（ラドバーン方式等）として整理される。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "交通静穏化手法は名称が多いため、別設問では『物理的手法/視覚的手法』の違いも含めて確認する。"
 
   - id: T119
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=4df913c26697a92e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -632,12 +1042,43 @@ tasks:
       original_question_id: "4df913c26697a92e"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80344"
       topic_hint: "建築設備の用語"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=4df913c26697a92e（建築設備の用語）を専門家目線でレビューし、questionIntent=select_incorrect + 正解2 と整合する correctChoiceText（2肢のみ「間違い」）は妥当と判断した。誤り肢はCAV方式とVAV方式の取り違えで、CAVは定風量、VAVが変風量である。explanationText も誤り箇所と正しい定義が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "CAV=Constant Air Volume（定風量）であり、変風量はVAV=Variable Air Volume。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "略語は同義語が多いので、別設問でも英語正式名称で確認して取り違えを防ぐ。"
 
   - id: T120
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=b82cb196d5dc91b7 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -647,12 +1088,43 @@ tasks:
       original_question_id: "b82cb196d5dc91b7"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80345"
       topic_hint: "空気調和設備"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=b82cb196d5dc91b7（空気調和設備）を専門家目線でレビューし、questionIntent=select_incorrect + 正解5 と整合する correctChoiceText（5肢のみ「間違い」）は妥当と判断した。誤り肢はビル用マルチ（空気熱源マルチパッケージ）が冷水供給で冷房するとしている点で、実際は冷媒を循環させる方式である。explanationText も方式の区別が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "ビル用マルチ空調は冷媒配管方式であり、冷水供給は冷温水発生機等を用いた冷温水方式である。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "設備方式は名称が似ているため、別設問では『冷媒方式/冷温水方式』をまず切り分けてから判断する。"
 
   - id: T121
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=b566d4e23e1cf268 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -662,12 +1134,43 @@ tasks:
       original_question_id: "b566d4e23e1cf268"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80346"
       topic_hint: "給排水衛生設備"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=b566d4e23e1cf268（給排水衛生設備）を専門家目線でレビューし、questionIntent=select_incorrect + 正解2 と整合する correctChoiceText（2肢のみ「間違い」）は妥当と判断した。誤り肢は上水系統と井水（雑用水）系統を弁で切り離して接続してもクロスコネクションに該当しないとしている点で、配管接続自体がクロスコネクションとなり汚染リスクがある。explanationText も逆流防止の観点まで含めて明確であり patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "上水と他系統（井水・中水等）を配管接続することはクロスコネクションとなり、弁切替だけでは逆流・汚染を防げない。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "配管衛生は法令・基準適合が重要なので、別設問で規定名が必要なら一次資料で条項を確認する。"
 
   - id: T122
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=f2b162018d9f64ea について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -677,12 +1180,43 @@ tasks:
       original_question_id: "f2b162018d9f64ea"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80347"
       topic_hint: "給湯設備の加熱装置"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=f2b162018d9f64ea（給湯設備の加熱装置）を専門家目線でレビューし、questionIntent=select_incorrect + 正解5 と整合する correctChoiceText（5肢のみ「間違い」）は妥当と判断した。誤り肢は平板型集熱器の説明が真空管型（ヒートパイプ等）の説明になっている点である。explanationText も両方式の違いが明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "平板型は集熱板と流路を平板状に配置する方式で、真空管型は真空ガラス管等を用いる方式として区別される。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "用語の似た装置（太陽熱/太陽光など）を混同しやすいので、別設問では装置構成で確認する。"
 
   - id: T123
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=7d5f920d81e3d1ba について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -692,12 +1226,43 @@ tasks:
       original_question_id: "7d5f920d81e3d1ba"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80348"
       topic_hint: "電気設備"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=7d5f920d81e3d1ba（電気設備）を専門家目線でレビューし、questionIntent=select_incorrect + 正解5 と整合する correctChoiceText（5肢のみ「間違い」）は妥当と判断した。誤り肢はスターデルタ始動が直入れより始動電流が大きくなるとしている点で、スターデルタは始動電流を低減する方式である。explanationText も電流低減の理由まで含めて明確で、patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "スターデルタ始動は始動時をスター結線として端子電圧を下げ、直入れより始動電流を低減する方式。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "電動機始動方式は電流低減率などの数値が出題され得るため、別設問では根拠資料で確認する。"
 
   - id: T124
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=2238c8a9c4f8da7c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -707,12 +1272,43 @@ tasks:
       original_question_id: "2238c8a9c4f8da7c"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80349"
       topic_hint: "防災・消防設備"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=2238c8a9c4f8da7c（防災・消防設備）を専門家目線でレビューし、questionIntent=select_incorrect + 正解2 と整合する correctChoiceText（2肢のみ「間違い」）は妥当と判断した。誤り肢は高天井アトリウムで煙感知器を用いるとしている点で、高天井では煙が希薄化・到達遅延しやすく、消防法の設置区分でも天井高さ20m以上は炎感知器等の別方式を選定する。explanationText も理由と代替方式が明確で、patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "天井高さ20m以上の場所では煙・熱感知が不利になり、炎感知器等を用いる区分が消防法施行規則等で整理されている。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "感知方式は空間条件（高天井・屋外流通等）で最適が変わるため、別設問では設置基準と適用範囲を確認する。"
 
   - id: T125
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=885f37c324789994 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -722,12 +1318,43 @@ tasks:
       original_question_id: "885f37c324789994"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80350"
       topic_hint: "環境・省エネルギー等"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=885f37c324789994（環境・省エネルギー等）を専門家目線でレビューし、questionIntent=select_incorrect + 正解3 と整合する correctChoiceText（3肢のみ「間違い」）は妥当と判断した。誤り肢はタスク・アンビエント照明が全般照明より冷房負荷が大きいとしている点で、一般には照明電力（発熱）低減により冷房負荷は小さくなる。explanationText も誤り箇所と正しい関係が明確で、patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "タスク・アンビエント照明は全般照明を抑え、照明発熱を低減できるため、一般に冷房負荷は小さくなる方向に働く。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "トップランナー制度の対象品目は更新され得るため、別年度では最新の対象品目一覧を確認する。"
 
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "25 設問すべての Worker が完了した後、original request と oracle に照らして最終監査する。"
     inputs:
@@ -741,4 +1368,18 @@ tasks:
       - "Decision"
       - "Oracle mapping"
       - "Residual risks"
-    receipt: null
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: true
+      oracle_mapping:
+        signal_check: "T101-T125 の全 receipt で correctChoiceText と explanationText の専門家レビューが完了し、内容根拠（用語定義・式・制度・設置基準等）が明示されている。"
+        verify_check: "distribution check / patch coverage check / banned phrases grep が最終監査でも pass。"
+      evidence:
+        - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py: files=1 violations=0"
+        - "python3 scripts/check/check_explanation_patch_coverage.py: coverage check passed"
+        - "banned phrases grep: no matches"
+        - "patch JSON 構造検査: 25 entries, 全設問で explanationText 長さ一致・先頭句一致・空引用なし"
+      residual_risks:
+        - "output/ 配下の patch は .gitignore 対象のため、別端末やCIで再現したい場合は archive 化などの保存戦略が必要。"
+        - "一部の寸法・目安値は設計条件で揺れるため、別年度・別問題では出題年の一次資料で再確認が必要。"
