@@ -37899,7 +37899,7 @@ tasks:
       - 対象パターンと判断基準（例: ファイル名日付と mtime の不一致）
       - 不一致ファイルの候補リスト（例を最低 1 つは列挙）
       - 対応方針（新ファイル作成 or リネーム、旧ファイル退避ルール）
-      - `state.yaml` 側参照（`worker_defaults` / `allowed_files` / `verify`）の更新方針
+      - '`state.yaml` 側参照（`worker_defaults` / `allowed_files` / `verify`）の更新方針'
     receipt: null
   - id: T636
     type: judge
@@ -37912,7 +37912,7 @@ tasks:
     constraints:
       - Do not implement.
       - 1 task = 1 patch ファイル（リネーム or 新規作成 + 参照更新）に限定する。
-      - `20_merged_1` / `00_source` は編集しない。
+      - '`20_merged_1` / `00_source` は編集しない。'
     expected_output:
       - 選定した対象ファイル（path）
       - 新ファイル名（またはリネーム先）
