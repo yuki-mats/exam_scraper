@@ -237,10 +237,25 @@ def main() -> int:
     parser.add_argument("--min-delay-sec", type=float, default=8.0, help="最小待機秒（デフォルト8秒）")
     parser.add_argument("--max-delay-sec", type=float, default=15.0, help="最大待機秒（デフォルト15秒）")
     parser.add_argument(
+        "--anchor-occurrence",
+        type=int,
+        default=120,
+        help="出題年推定の基準となる出題回（デフォルト120）",
+    )
+    parser.add_argument(
+        "--anchor-year",
+        type=int,
+        default=2026,
+        help="出題年推定の基準となる西暦（デフォルト2026。例: 第120回は2026年実施）",
+    )
+    parser.add_argument(
         "--exam-year-offset",
         type=int,
-        default=1906,
-        help="出題年推定のオフセット（examYear = examOccurrence + offset）。推定不要なら -1 を指定。",
+        default=None,
+        help=(
+            "出題年推定のオフセット（examYear = examOccurrence + offset）。"
+            "未指定時は anchor から自動計算。推定不要なら -1 を指定。"
+        ),
     )
     parser.add_argument("--max-pages", type=int, default=None, help="検証用: 先頭からページ数制限")
     parser.add_argument("--force", action="store_true", help="既存の保存結果があっても上書きする")
@@ -248,6 +263,11 @@ def main() -> int:
     parser.add_argument("--stop-file", default=None, help="このファイルが存在したら直ちに停止（緊急停止用）")
     parser.add_argument("--user-agent", default=None, help="User-Agent上書き")
     args = parser.parse_args()
+
+    if args.exam_year_offset is None:
+        year_offset: int | None = args.anchor_year - args.anchor_occurrence
+    else:
+        year_offset = None if args.exam_year_offset < 0 else args.exam_year_offset
 
     if args.out_dir:
         out_dir = Path(args.out_dir).expanduser().resolve()
@@ -381,8 +401,14 @@ def main() -> int:
             "min_delay_sec": args.min_delay_sec,
             "max_delay_sec": args.max_delay_sec,
             "exam_year_offset": year_offset,
+            "anchor_occurrence": args.anchor_occurrence,
+            "anchor_year": args.anchor_year,
         },
     )
+
+    occurrences = sorted({it["examOccurrence"] for it in all_items if isinstance(it.get("examOccurrence"), int)})
+    write_json(out_dir / "all_exam_occurrences.json", {"occurrences": occurrences})
+    write_text(out_dir / "all_exam_occurrences.txt", "\n".join(str(x) for x in occurrences) + "\n")
 
     print(f"[OK] out_dir: {out_dir}")
     print(f"[OK] unique items: {len(all_items)}")
@@ -391,5 +417,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-    year_offset: int | None = None if args.exam_year_offset < 0 else args.exam_year_offset
-
