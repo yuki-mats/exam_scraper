@@ -88,7 +88,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T102
+active_task: T103
 
 tasks:
   - id: T001
@@ -214,7 +214,7 @@ tasks:
   - id: T102
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "85010/question_85010_1_merged.json の original_question_id=44b7cab374414130 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
     question:
@@ -241,12 +241,48 @@ tasks:
       - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=44b7cab374414130 を専門家目線でレビューし、questionIntent=select_incorrect + 正解3 と整合する correctChoiceText（3肢のみ「間違い」）は妥当と判断した。explanationText も各組合せの正誤根拠が明確で、特に誤り肢（旧日向家熱海別邸の設計者）については文化庁の一次情報で裏取りできたため、patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "文化庁（近代の文化遺産の保存と活用）: 旧日向家熱海別邸は「地下室改修=ブルーノ・タウト」「附・上屋=渡辺仁」と整理されている。"
+        - "熱海市/文化遺産データベース等: 地下室はタウトが関与した現存作品として扱われる。"
+        - "聴竹居（公式/文化遺産データベース等）: 聴竹居は藤井厚二の第5回自邸。"
+        - "Rietveld Schröder House（公式/百科事典等）: シュレーダー邸はヘリット・リートフェルトによる。"
+        - "Barragan Foundation 等: Casa Gilardi（ヒラルディ邸）はルイス・バラガンによる。"
+        - "伊東豊雄建築ミュージアム等: シルバーハットは伊東豊雄の自邸。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "外部一次情報で裏取りできたが、出題当時の呼称（旧日向家熱海別邸/旧日向別邸）など表記揺れがあるため、他設問でも同様の固有名詞は一次情報で確認する。"
 
   - id: T103
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=ae97122666b686ff について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
