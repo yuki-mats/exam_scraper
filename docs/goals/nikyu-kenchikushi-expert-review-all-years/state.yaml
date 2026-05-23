@@ -664,7 +664,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4285
+active_task: T4286
 
 tasks:
   - id: T001
@@ -24226,7 +24226,7 @@ tasks:
   - id: T4285
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=8f11931eedec3507 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24236,12 +24236,46 @@ tasks:
       original_question_id: "8f11931eedec3507"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58930"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "杭工事（アースドリル、オールケーシング、セメントミルク、リバース、スライム処理）について各肢を再点検し、不適当肢=3（セメントミルク工法で引上げ時に逆回転）を維持した。correctChoiceText は既存のまま妥当。explanationText は、各工法の孔壁安定の考え方と操作目的（オーガー逆回転で土砂落下・孔壁不安定化が起きる等）が短時間で理解できるように補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "アースドリル工法は表層ケーシングと安定液等で孔壁を保護し、ドリリングバケット等で掘削する。"
+        - "オールケーシング工法はケーシングを回転圧入して孔壁を支持しつつ内部を掘削する。"
+        - "セメントミルク工法では引上げ時の逆回転は土砂落下等を招くため不適当。"
+        - "リバース工法は水頭差（一般に2m以上）で孔壁を安定させる。"
+        - "スライム処理は一次=掘削完了直後、二次=打込み直前。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "杭工法の名称が似ているため、別設問では『孔壁保持の手段（ケーシング/泥水/水頭/注入材）』で先に判別する。"
 
   - id: T4286
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=44a97fa6379fc3b6 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
