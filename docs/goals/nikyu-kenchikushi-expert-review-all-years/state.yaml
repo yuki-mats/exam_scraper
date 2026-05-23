@@ -802,7 +802,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T5003
+active_task: T5004
 
 tasks:
   - id: T001
@@ -24716,7 +24716,7 @@ tasks:
   - id: T5003
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85001_question_review_v1"
     objective: "85001/question_85001_1_merged.json の original_question_id=ac5f6dc2413fe533 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24726,12 +24726,43 @@ tasks:
       original_question_id: "ac5f6dc2413fe533"
       question_url: "https://2kenchikushi.kakomonn.com/questions/43231"
       topic_hint: "学科Ⅰ（建築計画）"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=ac5f6dc2413fe533（建築環境工学）を専門家目線でレビューし、questionIntent=select_incorrect と answer_result_text（正解3）に対して correctChoiceText=[正しい,正しい,間違い,正しい,正しい] が整合しているため変更不要と判断した。explanationText については、用語定義の説明が冗長かつ不正確になりうる箇所（対流熱伝達の説明、BODの誤り箇所の未明示、LCCO2の不確かな統計断定）を確認したため patch を更新した。"
+      changed_files:
+        - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "BOD（生物化学的酸素要求量）は水質汚濁の指標であり、空気汚染の指標ではない。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "環境工学の略語は類似概念（例: BOD/COD、NC/NR 等）と混同しやすいため、他設問でも誤り箇所（対象: 水質か空気か等）を明示する方針を徹底する。"
 
   - id: T5004
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85001_question_review_v1"
     objective: "85001/question_85001_1_merged.json の original_question_id=80d40db482f11cb9 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
