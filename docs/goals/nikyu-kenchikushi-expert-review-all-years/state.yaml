@@ -664,7 +664,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4287
+active_task: T4288
 
 tasks:
   - id: T001
@@ -24323,7 +24323,7 @@ tasks:
   - id: T4287
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=9ea0e545f61549c4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24333,12 +24333,44 @@ tasks:
       original_question_id: "9ea0e545f61549c4"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58932"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "型枠工事（せき板の存置期間、支柱の最小存置期間、パイプサポートの水平つなぎ、仮設物との連結禁止等）について各肢を再点検し、不適当肢=5（梁下支柱を設計基準強度の90%で撤去）を維持した。correctChoiceText は既存のまま妥当。explanationText は、公共建築工事標準仕様書の表6.8.2（せき板）と表6.8.3（支柱）に基づく判断基準（せき板は材齢または5N/mm2、梁下支柱はFc以上+安全確認）を明示して補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "公共建築工事標準仕様書（建築工事編）表6.8.2: せき板の最小存置期間は材齢（平均気温区分）または圧縮強度5N/mm2で定める。"
+        - "公共建築工事標準仕様書（建築工事編）表6.8.3: 梁下支柱は圧縮強度が設計基準強度(Fc)以上かつ構造計算で安全確認されるまで存置する。"
+        - "型枠は足場等の仮設物と連結させない（標準仕様書の一般事項）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "『せき板』と『支柱（支保工）』は取り外し基準が異なるため、別設問ではまず区別してから表を当てはめる。"
 
   - id: T4288
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=9550ef927b499da2 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
