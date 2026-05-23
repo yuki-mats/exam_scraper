@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T568
+active_task: T569
 tasks:
   - id: T001
     type: pm
@@ -36773,7 +36773,7 @@ tasks:
   - id: T568
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=20155852358d4175 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -36783,7 +36783,33 @@ tasks:
       original_question_id: 20155852358d4175
       question_url: https://2kenchikushi.kakomonn.com/questions/43298
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=20155852358d4175（木材・木質材料：防腐処理材の切断面再処理、板目材の反り、含水率と強度、インシュレーションボード、異方性）について、questionIntent=select_incorrect / answer_result_text（正解4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] が整合することを確認した。誤り肢は「インシュレーションボード」をチップ+接着剤の加熱圧縮成形（パーティクルボード）としている点で、インシュレーションボードは植物繊維を原料とする低密度の繊維板であり不適当。既存 explanationText は概ね正しいが、板目材の反りの理由を「辺材だから」とするのは不正確で誤学習リスクがあったため、接線方向と半径方向の収縮差により木表側が凹となる点を中心に、各肢の判断根拠が一読で分かるように解説を更新した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -36806,7 +36832,7 @@ tasks:
   - id: T569
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=250997460f0116ab について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
