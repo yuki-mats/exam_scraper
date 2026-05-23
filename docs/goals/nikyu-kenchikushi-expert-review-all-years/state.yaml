@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T583
+active_task: T584
 tasks:
   - id: T001
     type: pm
@@ -37658,7 +37658,7 @@ tasks:
   - id: T583
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=970fc88d83f61742 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -37668,7 +37668,33 @@ tasks:
       original_question_id: 970fc88d83f61742
       question_url: https://2kenchikushi.kakomonn.com/questions/43314
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=970fc88d83f61742（コンクリート：打継ぎ面処理、内部振動機の挿入間隔、打重ね時間間隔、保温養生、捨てコン仕様）について、questionIntent=select_incorrect / answer_result_text（正解3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] が整合することを確認した。誤り肢（選択肢3）は、外気温27°C（25°C超）での打重ね時間間隔の目安を150分としている点で、25°C超では120分以内が目安。explanationText は各選択肢の要点（誤り箇所・正しい基準）が即把握できるよう、専門家水準で簡潔化した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -37691,7 +37717,7 @@ tasks:
   - id: T584
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=0ded0bc84c597ae5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
