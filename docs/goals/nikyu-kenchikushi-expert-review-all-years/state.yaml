@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T543
+active_task: T546
 tasks:
   - id: T001
     type: pm
@@ -35298,7 +35298,7 @@ tasks:
   - id: T543
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=05f906ca1cd24f11 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -35308,7 +35308,33 @@ tasks:
       original_question_id: 05f906ca1cd24f11
       question_url: https://2kenchikushi.kakomonn.com/questions/43268
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=05f906ca1cd24f11（建ぺい率の緩和：防火地域・準防火地域）について、questionIntent=select_correct / answer_result_text（正解2）と correctChoiceText=[間違い,正しい,間違い,間違い,間違い] が整合することを確認した。既存 explanationText は結論は合っていたが、選択肢3の条文説明で「8/10地域外」と誤記しており、条文理解を誤らせるリスクがあったため、建築基準法第53条第6項第1号（8/10地域内の防火地域にある耐火建築物等は建ぺい率制限の適用除外）を正しく反映する形に修正した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: 正解は 2 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 間違い
+          - 間違い
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -35331,7 +35357,7 @@ tasks:
   - id: T544
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=597516e3f9dc14cc について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -35341,7 +35367,33 @@ tasks:
       original_question_id: 597516e3f9dc14cc
       question_url: https://2kenchikushi.kakomonn.com/questions/43270
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=597516e3f9dc14cc（高さ制限・日影規制）について、questionIntent=select_incorrect / answer_result_text（正解1）と correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合することを確認した。既存 explanationText は誤字（適応/適用）や条文のあいまいな引用、対象区域・対象建築物の判定根拠が欠けており誤学習リスクが高かったため、建築基準法第56条第1項第2号（隣地斜線）、同項第3号ただし書（北側斜線の適用除外）、同法第56条の2および法別表第4（対象建築物の条件）に基づき、各肢で「どこが誤りか／なぜ正しいか」が再現できる形へ全面的に書き直した（商業地域は原則対象外だが同法第56条の2第4項で対象となり得る点も明示）。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -35364,7 +35416,7 @@ tasks:
   - id: T545
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=3f3edad97b0487f3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -35374,7 +35426,33 @@ tasks:
       original_question_id: 3f3edad97b0487f3
       question_url: https://2kenchikushi.kakomonn.com/questions/43272
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=3f3edad97b0487f3（防火地域・準防火地域の構造制限／看板等／門・塀）について、questionIntent=select_incorrect / answer_result_text（正解5）と correctChoiceText=[正しい,正しい,正しい,正しい,間違い] が整合することを確認した。既存 explanationText は条文の誤認（第61条第2号の除外規定が消えた等）や根拠条文の取り違え（準防火地域の塀を第61条で説明、敷地と建築物の混同）により誤学習リスクが高かったため、建築基準法第61条（防火地域内の建築物）、同法第64条（看板等の防火措置）、同法第62条（準防火地域内の建築物：第1項・第2項）および建築基準法施行令第136条の2（技術的基準）に基づき、各肢の正誤理由が再現できる形へ全面的に書き直した。特に誤り肢5は「敷地がまたがる」だけではなく「建築物がまたがる」場合に第65条第2項が適用される点を明確化した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -35397,7 +35475,7 @@ tasks:
   - id: T546
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=911bc724c677fa91 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
