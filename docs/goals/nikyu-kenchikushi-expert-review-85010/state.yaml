@@ -88,7 +88,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T103
+active_task: T104
 
 tasks:
   - id: T001
@@ -282,7 +282,7 @@ tasks:
   - id: T103
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=ae97122666b686ff について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -292,12 +292,46 @@ tasks:
       original_question_id: "ae97122666b686ff"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80328"
       topic_hint: "建築環境工学の用語"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=ae97122666b686ff を専門家目線でレビューし、questionIntent=select_incorrect + 正解2 と整合する correctChoiceText（2肢のみ「間違い」）は妥当と判断した。誤り肢は MRT と PPD の取り違えであり、explanationText は誤り箇所と正しい用語定義が明確なため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "ISO 7730（PMV/PPD）: PPD は PMV と併せて熱的快適性の評価指標として定義されている。"
+        - "温熱環境の用語定義（MRT）: MRT は Mean Radiant Temperature（平均放射温度）であり、不満足者率ではない。"
+        - "JSBC（CASBEE 公式）: CASBEE の主要概念として Q（環境品質）と L（環境負荷）および BEE=Q/L が示されている。"
+        - "ET*（新有効温度）: 気温・湿度・気流・放射・着衣量・代謝量の6要素を統合する指標として整理されている。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "用語問題は略語の取り違えが頻発するため、今後も『略語の正式名称』『指標の対象（温熱/水質/空気質など）』を必ずセットで確認する。"
 
   - id: T104
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=2bdf8ac8a2ace4de について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
