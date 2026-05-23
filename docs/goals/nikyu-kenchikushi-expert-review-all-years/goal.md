@@ -86,6 +86,15 @@ If this charter and `state.yaml` disagree, `state.yaml` wins for task status, ac
 /goal Follow docs/goals/nikyu-kenchikushi-expert-review-all-years/goal.md.
 ```
 
+## Board Command
+
+`npx goalbuddy board docs/goals/<slug>` は実行環境によって相対パス解決が崩れ、`Missing state.yaml in .../node_modules/goalbuddy/docs/goals/...` になることがある。必ず絶対パスで起動する。
+
+```bash
+cd /path/to/exam_scraper # repo root
+npx goalbuddy board "$(pwd)/docs/goals/nikyu-kenchikushi-expert-review-all-years"
+```
+
 ## PM Loop
 
 1. Read this charter.
