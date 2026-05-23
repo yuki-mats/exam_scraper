@@ -18,7 +18,7 @@
 - Audience: 二級建築士試験の受験者、および日次更新を担当する運用者
 - Authority: `requested`
 - Proof type: `artifact + verification + review`
-- Completion proof: 対象 25 設問が一問ずつ処理され、各設問で `questionIntent`、`answer_result_text`、`correctChoiceText`、`explanationText` の整合が専門家水準で確認され、必要な patch 更新と内容監査に通ること
+- Completion proof: 対象 2015〜2025 年度（list_group_id=85001..85011）の全設問が一問ずつ処理され、各設問で `questionIntent`、`answer_result_text`、`correctChoiceText`、`explanationText` の整合が専門家水準で確認され、必要な patch 更新と内容監査に通ること
 - Goal oracle: 対象設問ごとに、正しい回答が 99.99% 水準で確認され、解説が参考書・公式教材に載せても破綻しない品質に達し、最終監査で `full_outcome_complete: true` を記録すること
 - Likely misfire: 既存 patch の流用、正答番号だけの機械確認、複数問の雑な一括更新、法令・歴史・環境工学などの根拠を推測で書くこと
 - Blind spots considered:

@@ -37186,12 +37186,113 @@ tasks:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-  - id: T627
+  - id: T628
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: subgoal: 2016年度（list_group_id=85002）の全設問を 1 Worker=1問 で専門家レビューし切る。
+    subgoal:
+      status: active
+      path: subgoals/85002/state.yaml
+      owner: PM
+      depth: 1
+    receipt: null
+  - id: T629
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: subgoal: 2017年度（list_group_id=85003）の全設問を 1 Worker=1問 で専門家レビューし切る。
+    subgoal:
+      status: active
+      path: subgoals/85003/state.yaml
+      owner: PM
+      depth: 1
+    receipt: null
+  - id: T630
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: subgoal: 2018年度（list_group_id=85004）の全設問を 1 Worker=1問 で専門家レビューし切る。
+    subgoal:
+      status: active
+      path: subgoals/85004/state.yaml
+      owner: PM
+      depth: 1
+    receipt: null
+  - id: T631
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: subgoal: 2019年度（list_group_id=85005）の全設問を 1 Worker=1問 で専門家レビューし切る。
+    subgoal:
+      status: active
+      path: subgoals/85005/state.yaml
+      owner: PM
+      depth: 1
+    receipt: null
+  - id: T632
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: subgoal: 2020年度（list_group_id=85006）の全設問を 1 Worker=1問 で専門家レビューし切る。
+    subgoal:
+      status: active
+      path: subgoals/85006/state.yaml
+      owner: PM
+      depth: 1
+    receipt: null
+  - id: T633
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: 85002..85006 のサブゴールを追加し、親ゴールの active_task を維持したまま全年度レビューが止まらず続く状態にする。
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: 親ボードは task id の上限（T###）により 85002..85006 の全設問を直積みできないため、subgoals/ 配下に 85002..85006（2016-2020）の年度別サブボードを作成して親ボードへ接続した。これにより active_task=T513 を維持したまま、残年度も queued の subgoal task として実行順に消化できる。
+      changed_files:
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/goal.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/state.yaml
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/state.yaml
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85005/state.yaml
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85006/state.yaml
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/goal.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/goal.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/goal.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85005/goal.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85006/goal.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/notes/README.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/notes/README.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/notes/README.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85005/notes/README.md
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85006/notes/README.md
+      commands:
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
+          status: pass
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/state.yaml
+          status: pass
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/state.yaml
+          status: pass
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85005/state.yaml
+          status: pass
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85006/state.yaml
+          status: pass
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
+          status: pass
+  - id: T634
     type: judge
     assignee: Judge
     status: queued
     reasoning_hint: high
-    objective: 2015-2025 全年度（85001..85011）の全設問 Worker が完了した後、original request と oracle に照らして最終監査する。
+    objective: 2015-2025 全年度（85001..85011）と subgoals（85002..85006）の全設問 Worker が完了した後、original request と oracle に照らして最終監査する。
     inputs:
       - 全 Worker done receipt
       - 全 verify 結果
