@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T555
+active_task: T556
 tasks:
   - id: T001
     type: pm
@@ -36006,7 +36006,7 @@ tasks:
   - id: T555
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=c7b7704af6b209e8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -36016,7 +36016,33 @@ tasks:
       original_question_id: c7b7704af6b209e8
       question_url: https://2kenchikushi.kakomonn.com/questions/43285
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=c7b7704af6b209e8（積載荷重・積雪荷重・風荷重・地震時荷重の扱い）について、questionIntent=select_incorrect / answer_result_text（正解1）と correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合することを確認した。既存 explanationText は条文根拠がなく、数値・定義が曖昧な記述（「建築基準法にて決められている」「通常の地域」等）が残っていたため、各肢について建築基準法施行令第85条（積載荷重）、第86条（積雪荷重）、第87条（風圧力・速度圧）、第88条（地震力）などの根拠と、誤り箇所・正しい扱い（教室2,300N/m² < 売場2,900N/m² 等）を参考書水準で明示するよう解説を更新した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -36039,7 +36065,7 @@ tasks:
   - id: T556
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=a8a78bb396ec2efa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
