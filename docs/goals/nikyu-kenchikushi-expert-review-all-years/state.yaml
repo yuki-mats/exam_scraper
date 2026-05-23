@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T607
+active_task: T608
 tasks:
   - id: T001
     type: pm
@@ -39079,7 +39079,7 @@ tasks:
   - id: T607
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85007_question_review_4
     objective: 85007/question_85007_4_merged.json の original_question_id=1a4f9226e366d8b3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -39089,7 +39089,33 @@ tasks:
       original_question_id: 1a4f9226e366d8b3
       question_url: https://2kenchikushi.kakomonn.com/questions/58940
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=1a4f9226e366d8b3（屋根工事・防水工事）について、questionIntent=select_incorrect / answer_result_text（正解は2）と correctChoiceText=[正しい,間違い,正しい,正しい,正しい] の整合を確認した。誤り肢（選択肢2）は、硬質塩化ビニル製の軒樋の樋受金物の取付け間隔が1.8mでは大きすぎ、特記がなければ1.0m以下が標準となる点。explanationText は「下葺材の壁際立上げ250mm」「粘土瓦の緊結線（0.9mmステンレスは可）」「防水層の継目ずらし」「塗継ぎ重ね幅100mm以上」まで含めて、正誤理由が矛盾しない形に修正した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 2 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json
       - output/2nd-class-kenchikushi/questions_json/85007/00_source/**
@@ -39112,7 +39138,7 @@ tasks:
   - id: T608
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85007_question_review_4
     objective: 85007/question_85007_4_merged.json の original_question_id=273362ea024b09f1 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
