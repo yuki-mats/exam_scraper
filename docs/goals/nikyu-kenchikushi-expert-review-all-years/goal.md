@@ -104,6 +104,25 @@ If this charter and `state.yaml` disagree, `state.yaml` wins for task status, ac
 /goal Follow docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/goal.md.
 ```
 
+## Prompt Command (Manual Resume)
+
+ネイティブ `/goal` ランタイムを使わずに、このスレッド内で「次にやるべき1問」を正確に取り出したい場合は `goalbuddy prompt` を使う。
+
+```bash
+cd /path/to/exam_scraper # repo root
+npx goalbuddy prompt "$(pwd)/docs/goals/nikyu-kenchikushi-expert-review-all-years" --task T561
+```
+
+- `--task` は `state.yaml` の `active_task`（唯一の正）と一致させる。
+- subgoal を進める場合は、`docs/goals/.../subgoals/<list_group_id>` を指定する。
+
+## /goal Troubleshooting (Native Runtime)
+
+GoalBuddy のローカルボード生成（`npx goalbuddy board ...`）と、Codex ネイティブの `/goal` 実行ランタイムは別物。
+
+- `/goal` を使う場合は、Codex 側で goals 機能が有効か、CLI が動作するかを確認する。
+- `codex --version` が `ENOENT` で落ちる場合は、Codex CLI の再インストールが必要なことがある（例: `npm i -g @openai/codex`）。
+
 ## Board Command
 
 `npx goalbuddy board docs/goals/<slug>` は実行環境によって相対パス解決が崩れ、`Missing state.yaml in .../node_modules/goalbuddy/docs/goals/...` になることがある。必ず絶対パスで起動する。
