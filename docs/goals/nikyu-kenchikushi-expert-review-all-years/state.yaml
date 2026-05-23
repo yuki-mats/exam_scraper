@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T513
+active_task: T514
 tasks:
   - id: T001
     type: pm
@@ -33285,6 +33285,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
@@ -33349,6 +33350,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
@@ -33413,6 +33415,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
@@ -33427,7 +33430,7 @@ tasks:
   - id: T513
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=80d40db482f11cb9 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33437,7 +33440,42 @@ tasks:
       original_question_id: 80d40db482f11cb9
       question_url: https://2kenchikushi.kakomonn.com/questions/43232
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=80d40db482f11cb9（換気）を専門家目線でレビューし、questionIntent=select_incorrect と answer_result_text（正解5）に対して correctChoiceText=[正しい,正しい,正しい,正しい,間違い] が整合しているため変更不要と判断した。explanationText も各選択肢の正誤と理由・誤り箇所（5のみ）・正しい内容が明確であり、更新不要と判断した。
+      changed_files:
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+        decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+      evidence:
+        - 選択肢5の「高低差を小さくする」は誤り。温度差による自然換気（煙突効果）は、給気口と排気口の高低差が大きいほど圧力差が生じやすく換気量が増える。
+        - 選択肢1は、火気使用室の必要換気量が理論廃ガス量に基づく式（例 V=40KQ）で算定されるため妥当。
+        - 選択肢2は、臭気・湿気の拡散防止のため便所・浴室を負圧とし、自然給気＋機械排気で計画するのが基本で妥当。
+        - 選択肢4は、居室の必要換気量を二酸化炭素濃度基準で成人1人当たり約30m3/hとする扱いが一般的で妥当。
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
+      residual_risks:
+        - 環境工学の換気問題は類似概念（風力換気、ショートサーキット等）と混同しやすいため、他設問でも誤り箇所を必ず明示する。
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -33446,6 +33484,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
@@ -33460,7 +33499,7 @@ tasks:
   - id: T514
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=08f42fc36bd3608c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33479,6 +33518,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
