@@ -641,7 +641,30 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4261
+  "85007_question_review_3":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+active_task: T4268
 
 tasks:
   - id: T001
@@ -23054,7 +23077,7 @@ tasks:
   - id: T4261
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_2"
     objective: "85007/question_85007_2_merged.json の original_question_id=30a2a92374035724 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23064,12 +23087,45 @@ tasks:
       original_question_id: "30a2a92374035724"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58904"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "Euler 座屈の基本式 P=π²EI/Lk² を軸に各肢を再点検し、不適当肢=2（Eに反比例は誤り）を維持した。explanationText は各肢で『比例/反比例』の根拠と、水平移動拘束/自由を含む座屈長さ Lk の扱いを明示して、公式暗記だけに依存しない説明へ改善した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "弾性座屈荷重は P=π²EI/Lk²（E：ヤング係数、I：断面二次モーメント、Lk：座屈長さ）。"
+        - "したがって P は E・I に比例し、Lk²に反比例するため、肢2（Eに反比例）が不適当。"
+        - "支持条件により Lk が変わり、水平移動拘束の両端固定は Lk が小さくなって P が大きくなる（肢4）。"
+        - "水平移動自由の両端固定と、水平移動拘束の両端ピンは Lk が同一となり P も同一（肢5）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "座屈長さ Lk は『端部回転拘束』と『水平移動（sway）』の組合せで変わるため、別設問では条件文からまず Lk を確定する。"
 
   - id: T4262
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_2"
     objective: "85007/question_85007_2_merged.json の original_question_id=5a7dd9142bbe856c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23079,12 +23135,46 @@ tasks:
       original_question_id: "5a7dd9142bbe856c"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58905"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "荷重・外力の基礎知識として、積載荷重の扱い（床＞梁柱＞地震用の低減）と各肢の定義・数値の妥当性を再点検し、不適当肢=1 を維持した。explanationText は『なぜその大小関係/係数になるか』を短く説明し、受験者が誤学習しない形に更新した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "積載荷重は床の構造計算用が最大となり、梁・柱はそれより低減、地震力計算用はさらに低減して扱うのが一般的で、肢1の大小関係は逆。"
+        - "積雪荷重の単位荷重は原則 20N/m2/1cm とし、多雪区域は別定可能（肢2）。"
+        - "粗度が大きいほど風速分布係数 Er は小さくなるため、同一高さなら粗度Ⅱの Er はⅢより大（肢3）。"
+        - "RC造の設計用一次固有周期は T=0.02h の略算（肢4）。"
+        - "主働土圧は擁壁が背面土から離れる方向へ変位して最終一定となる極限土圧（肢5）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "積載荷重の低減の扱いは設計ルート・規定で差が出るため、別設問では『どの計算用の積載荷重か』の前提を読み違えない。"
 
   - id: T4263
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_2"
     objective: "85007/question_85007_2_merged.json の original_question_id=685cf5570a2e8123 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23094,12 +23184,44 @@ tasks:
       original_question_id: "685cf5570a2e8123"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58906"
       topic_hint: "学科Ⅲ（建築構造）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "選択肢が画像のみで choiceTextList が空のため、各選択肢画像の式（0.2×W2 / 0.2×(Wr+W2) / 0.2×W2/Wr / 0.2×Wr/(Wr+W2) / 0.2×W2/(Wr+W2)）を確定し、1階の地震力 Q1=C1×(Wr+W2) となることから正答=2を再確認した。explanationText は次元（単位）不整合の観点も含めて修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json"
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "間違い"
+          - "間違い"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "1階の地震力は Q1=C1×W1、W1 は1階より上（屋根+2階）の重量で W1=Wr+W2。"
+        - "多雪区域以外のため、地震用重量に積雪荷重は加えない前提のまま。"
+        - "比（Wr/(Wr+W2) 等）は無次元で地震力の表し方として不適当。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "地震力の算定は本来、Rt・Ai 等も絡むが、本設問は Ci と Wi の関係を問う典型。別設問では与条件（Ci の意味、Wi の範囲）を読み違えない。"
 
   - id: T4264
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_2"
     objective: "85007/question_85007_2_merged.json の original_question_id=5562e20cd8c6ca1d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -23109,6 +23231,510 @@ tasks:
       original_question_id: "5562e20cd8c6ca1d"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58907"
       topic_hint: "学科Ⅲ（建築構造）"
+    receipt:
+      result: done
+      summary: "地盤・基礎に関する基本知識として各肢を再点検し、不適当肢=5（硬い粘土の許容応力度が密実な砂より大きいとするのは不適当）を維持した。explanationText は沖積層/洪積層、水圧、根入れ、基礎梁剛性、粘土と砂の支持力差について、誤学習が起きない程度に理由を補った。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 5 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "沖積層は新しく軟弱になりやすく、洪積層は古く締まって比較的安定しやすい（肢1）。"
+        - "地下水位が高いほど水頭が増し、地下外壁に作用する水圧が増える（肢2）。"
+        - "根入れが深いほど上載圧等が増え、一般に支持力は大きくなる（肢3）。"
+        - "基礎梁の剛性増大は荷重再配分と変形抑制により不同沈下の影響低減に有効（肢4）。"
+        - "一般に密実な砂質地盤の方が許容応力度を大きく扱い、硬い粘土がそれを上回るとはいえない（肢5）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "許容応力度は地盤種別の一般論だけでなく調査結果（N値、含水比等）で変動するため、別設問で『一般に』の有無を読み違えない。"
+
+  - id: T4265
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=d21456c2ad60c742 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "d21456c2ad60c742"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58908"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt:
+      result: done
+      summary: "木造部材名称の定義を照合し、不適当肢=1（野縁を見切り材とするのは誤り）を維持した。explanationText は『天井と壁の取り合いの見切り=廻り縁』を明示し、野縁/胴縁/胴差/軒桁/側桁の役割が混ざらない形へ改善した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "野縁は天井材の下地材であり、天井と壁の取り合いの見切り材は廻り縁。よって肢1が不適当。"
+        - "胴縁=壁仕上げの下地、胴差=床位置の横架材、軒桁=軒先側の桁、側桁=階段の両側のささら桁。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "『桁』『梁』など似た用語が多いため、別設問では配置（外周/軒先/床位置/小屋組）を必ず言語化して取り違えを防ぐ。"
+
+  - id: T4266
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=bb3050e839d8f9d5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "bb3050e839d8f9d5"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58909"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt:
+      result: done
+      summary: "木質構造の接合の基本（木口面の弱点、ラグスクリュー低減、ボルト締付け、ドリフトピン、メタルプレート）を再点検し、不適当肢=3（座金がめり込まない程度の締付けは不適当）を維持した。explanationText は締付けの目的（密着・滑り抑制）と木材の状態（気乾）まで含めて補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "木口面は引抜き抵抗が得にくく割裂もしやすいため、木口ねじ込みを引抜き抵抗として期待する設計は避ける（肢1）。"
+        - "ラグスクリューの木口打込みは耐力低下を見込んで許容せん断耐力を低減（肢2）。"
+        - "ボルト接合は密着と座金のめり込みで滑りを抑えるため、座金が全くめり込まない程度の締付けは不適当（肢3）。"
+        - "メタルプレートは乾燥収縮で緩みやすく、気乾材が前提（肢5）。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "接合の評価は設計基準（仕様規定/許容応力度等）で表現が変わるため、別設問では『許容』『終局』の文脈を混同しない。"
+
+  - id: T4267
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=edd7c8982c71863d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "edd7c8982c71863d"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58910"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt:
+      result: done
+      summary: "選択肢が画像のみで choiceTextList が空のため、各選択肢画像の『金物名と用途』を読み取り、不適当肢=4（火打金物を隅木と横架材の接合に用いる）が誤りであることを再確認した。explanationText は火打金物の本来の用途（隅角部の直角保持・水平変形抑制）と、隅木接合で用いる補強（かすがい等）を明確化した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "山形プレート=柱と土台/桁などの接合補強、短ざく金物=胴差同士の接合補強、柱脚金物=独立柱等の柱脚支持、くら金物=垂木と母屋/軒桁の接合補強。"
+        - "火打金物は横架材同士が直角に交差する隅角部を斜材で固める用途であり、隅木と横架材の接合用途ではないため肢4が不適当。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\s[〇×]\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "金物問題は名称が似ており取り違えが起きやすい。別設問では『どの部位（柱脚/胴差/小屋組/隅角部）か』を先に固定する。"
+
+  - id: T4268
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=d00dc3e4f14530ec について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "d00dc3e4f14530ec"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58912"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4269
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=b9b239e295613648 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "b9b239e295613648"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58913"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4270
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=ba4baf6f68b83865 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "ba4baf6f68b83865"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58914"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4271
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=6a3d0bfd557e1bfa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "6a3d0bfd557e1bfa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58915"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4272
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=799ffd0ed1db41a5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "799ffd0ed1db41a5"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58916"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4273
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=aab485734f61800d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "aab485734f61800d"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58917"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4274
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=c5ba0e4e9896cc51 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "c5ba0e4e9896cc51"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58918"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4275
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=0499dd78d28ecc30 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "0499dd78d28ecc30"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58919"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4276
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=4278d3d6a309f830 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "4278d3d6a309f830"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58921"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4277
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=23ecd0576aff69c5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "23ecd0576aff69c5"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58922"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4278
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=41c8bdc5f972dc0f について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "41c8bdc5f972dc0f"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58923"
+      topic_hint: "学科Ⅲ（建築構造）"
+    receipt: null
+
+  - id: T4279
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=3da18f6ef0e3246b について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "3da18f6ef0e3246b"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58924"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4280
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=318300501fa01502 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "318300501fa01502"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58925"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4281
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=9ca9969db9e007fa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "9ca9969db9e007fa"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58926"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4282
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=a6a6b928a3feae90 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "a6a6b928a3feae90"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58927"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4283
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=62467322c4cce446 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "62467322c4cce446"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58928"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4284
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=2ffe2a4e676a15c2 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "2ffe2a4e676a15c2"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58929"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4285
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=8f11931eedec3507 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "8f11931eedec3507"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58930"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4286
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=44a97fa6379fc3b6 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "44a97fa6379fc3b6"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58931"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4287
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=9ea0e545f61549c4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "9ea0e545f61549c4"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58932"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4288
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=9550ef927b499da2 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "9550ef927b499da2"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58933"
+      topic_hint: "学科Ⅳ（建築施工）"
+    receipt: null
+
+  - id: T4289
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85007_question_review_3"
+    objective: "85007/question_85007_3_merged.json の original_question_id=975e9b75ee0eb714 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85007"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      original_question_id: "975e9b75ee0eb714"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/58935"
+      topic_hint: "学科Ⅳ（建築施工）"
     receipt: null
 
   - id: T999
