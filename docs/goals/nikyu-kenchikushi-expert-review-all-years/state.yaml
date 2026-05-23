@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T519
+active_task: T520
 tasks:
   - id: T001
     type: pm
@@ -33719,7 +33719,6 @@ tasks:
       summary: original_question_id=3b48caa8b070baaa（色彩と照明）を専門家目線でレビューし、questionIntent=select_incorrect と answer_result_text（正解1）に対して correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合しているため変更不要と判断した。explanationText は演色評価数・同時対比・面積効果・タスクアンビエントの説明が不正確になりうる箇所を確認したため、根拠に寄せて patch を更新した。
       changed_files:
         - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
-        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
       correct_choice_review:
@@ -33789,7 +33788,6 @@ tasks:
       summary: original_question_id=67c7ca976a19df5f（音に関する記述）について、questionIntent=select_incorrect / answer_result_text（正解3）に対し correctChoiceText=[正しい,正しい,間違い,正しい,正しい] が整合し、内容としても「住宅の寝室」より「音楽ホール」のほうが許容値が小さいため、設問3が不適当であることを確認した。explanationText は選択肢1に別選択肢由来の説明が混入していたため、透過損失の周波数依存性の説明に修正し、他選択肢も用語の定義・誤り箇所が分かるように整えた。
       changed_files:
         - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
-        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
       correct_choice_review:
@@ -33836,7 +33834,7 @@ tasks:
   - id: T519
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=8ab4d12d064a1028 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33846,7 +33844,35 @@ tasks:
       original_question_id: 8ab4d12d064a1028
       question_url: https://2kenchikushi.kakomonn.com/questions/43238
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=8ab4d12d064a1028（屋外気候）について、questionIntent=select_incorrect / answer_result_text（正解4）に対し correctChoiceText=[正しい,正しい,正しい,間違い,正しい] が整合し、内容としても「快晴日の入射日射量最大は7〜8月」ではなく太陽高度・日長が最大となる夏至頃が最大となるため、設問4が不適当であることを確認した。explanationText は選択肢2（夜間放射/放射冷却）と選択肢5（温室効果ガスのうち水蒸気を除く人為増加が問題）の説明が弱かったため、用語と因果関係が破綻しない形に補強した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
+      residual_risks:
+        - 絶対湿度（混合比）は移流・蒸発散等でも変動し得るが、設問の要点は「気温の日変化だけでは相対湿度ほど大きく変化しにくい」という一般論で押さえる。
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -33869,7 +33895,7 @@ tasks:
   - id: T520
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=8d7b075e2f9ea4dd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
