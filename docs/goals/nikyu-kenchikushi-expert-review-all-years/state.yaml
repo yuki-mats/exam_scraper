@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T538
+active_task: T539
 tasks:
   - id: T001
     type: pm
@@ -34996,7 +34996,7 @@ tasks:
   - id: T538
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=13e1993d1c963f3e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -35006,7 +35006,35 @@ tasks:
       original_question_id: 13e1993d1c963f3e
       question_url: https://2kenchikushi.kakomonn.com/questions/43261
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=13e1993d1c963f3e（平家建・延べ100m2の主要構造部仕様規定）について、questionIntent=select_incorrect / answer_result_text（正解1）と correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合することを確認した。既存 explanationText は選択肢1で「木ぐいは常水面下」との原則のみを述べており、本問が平家建であることによる除外（令38条6項）を落として誤学習リスクがあったため、誤り箇所（平家建でも必ず常水面下とする点）と正しい取扱いを明示した。あわせて、他4肢も条文のただし書・要件（令42条、令62条の5、令65条、令93条表）まで落とし込んで教材品質へ更新した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_2237.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_2237.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_2237.json
+          status: pass
+          output: (no matches)
+      residual_risks:
+        - 令93条は原則「地盤調査結果に基づく」だが、試験問題では但書の表の数値を用いる前提を「地盤調査を行わない場合」と表現することがあるため、条文上の位置づけ（原則と例外）をセットで理解する。
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -35029,7 +35057,7 @@ tasks:
   - id: T539
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=c0d579ad37478fbd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
