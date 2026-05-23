@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T546
+active_task: T548
 tasks:
   - id: T001
     type: pm
@@ -35475,7 +35475,7 @@ tasks:
   - id: T546
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=911bc724c677fa91 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -35485,7 +35485,33 @@ tasks:
       original_question_id: 911bc724c677fa91
       question_url: https://2kenchikushi.kakomonn.com/questions/43274
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=911bc724c677fa91（二級建築士：定期講習・罰則・業務範囲・安全証明・契約事務）について、questionIntent=select_incorrect / answer_result_text（正解3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] が整合することを確認した。既存 explanationText は条文番号の提示に留まり、誤り肢3の根拠条文が第3条の2となるなど（「一級建築士でなければできない」範囲＝第3条の論点が抜ける）、誤学習リスクがあったため、建築士法第22条の2・施行規則第17条の36（定期講習）、同法第3条および第37条第1項第3号（業務範囲違反の罰則）、同法第20条第2項（安全証明書交付）、同法第21条（契約事務）に基づき、各肢の正誤理由が再現できる形へ補強した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -35508,7 +35534,7 @@ tasks:
   - id: T547
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=70acf40e5d4a7861 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -35518,7 +35544,33 @@ tasks:
       original_question_id: 70acf40e5d4a7861
       question_url: https://2kenchikushi.kakomonn.com/questions/43275
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=70acf40e5d4a7861（建築士事務所：変更届・業務報告・更新/抹消・図書保存・書類閲覧）について、questionIntent=select_incorrect / answer_result_text（正解1）と correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合することを確認した。既存 explanationText は法令名の誤記（士建築基準法など）や理由の欠落があり、誤り肢1のポイント（名称変更の届出期限は原則2週間以内であり「1月以内」は誤り）を十分に説明できていなかったため、建築士法第23条の5第1項・第23条の2第1号（変更届）、同法第23条の6（業務報告書：事業年度経過後3月以内）、同法第23条の8第1項第2号（更新申請なしの場合の抹消）、同法第24条の4第2項・施行規則第21条第4項・第5項（図書保存15年）、同法第24条の6・施行規則第22条の2第5項（閲覧/保存3年）に基づき、各肢の正誤理由が再現できる形へ書き直した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -35541,7 +35593,7 @@ tasks:
   - id: T548
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=52bb5e9c4399c2f8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
