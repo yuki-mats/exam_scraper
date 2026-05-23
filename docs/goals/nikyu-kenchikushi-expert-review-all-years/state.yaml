@@ -38546,3 +38546,14 @@ tasks:
       - 追加した Worker tasks（親ボード or subgoal どちらに追加したかを明記）
       - '`active_task` と `visual_board` の再生成手順（board --once）'
     receipt: null
+  - id: T638
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: Worker が止まらずに回るための運用ガード（commit/push と日付サフィックス整合）を、親ボードと subgoals で破綻なく適用できる形に落とし込む。
+    expected_output:
+      - "1 Worker 完了 = 1 commit + push の手順（ステージ対象、commit message 規約、push 先）"
+      - patch ファイル名の日付サフィックス更新方針（新ファイル作成 + state 参照更新の粒度）
+      - 親ボードと subgoals で共通に適用するルールと、例外（やむを得ない場合の扱い）
+    receipt: null

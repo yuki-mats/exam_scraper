@@ -113,6 +113,14 @@ cd /path/to/exam_scraper # repo root
 npx goalbuddy board "$(pwd)/docs/goals/nikyu-kenchikushi-expert-review-all-years"
 ```
 
+## Git Policy (Commit/Push)
+
+このリポジトリでは、変更は「進捗の証跡」として積極的にコミット・プッシュする（`AGENTS.md` 準拠）。
+
+- 原則: 1 Worker 完了 = 1 commit（メッセージ末尾に `(T###)` を含める）
+- commit にはその Worker の `allowed_files` の範囲の変更だけを含める（無関係な差分は混ぜない）
+- push までが Worker の完了条件の一部（ローカルにだけ残さない）
+
 ## PM Loop
 
 1. Read this charter.
