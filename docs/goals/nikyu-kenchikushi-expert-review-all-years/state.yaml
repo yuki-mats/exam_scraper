@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T514
+active_task: T515
 tasks:
   - id: T001
     type: pm
@@ -33499,7 +33499,7 @@ tasks:
   - id: T514
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=08f42fc36bd3608c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33509,7 +33509,40 @@ tasks:
       original_question_id: 08f42fc36bd3608c
       question_url: https://2kenchikushi.kakomonn.com/questions/43233
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=08f42fc36bd3608c（熱貫流率/U値）を専門家目線でレビューし、questionIntent=select_correct と answer_result_text（正解1）に対して correctChoiceText=[正しい,間違い,間違い,間違い,間違い] が整合しているため変更不要と判断した。explanationText も計算手順（mm→m換算、R=d/λ、U=1/ΣR）と各選択肢の誤りが明確であり、更新不要と判断した。
+      changed_files:
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 間違い
+          - 間違い
+          - 間違い
+          - 間違い
+        decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+      evidence:
+        - 既存壁の熱貫流率U=1.0より熱抵抗R=1/U=1（m2K/W）。断熱材は厚さ0.04m、熱伝導率0.04よりR=0.04/0.04=1。
+        - 合成熱抵抗ΣR=2より、熱貫流率U=1/2=0.5W/(m2K)。したがって0.5のみが正しい。
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
+      residual_risks:
+        - 与条件が「壁体の熱貫流率」として表面熱抵抗を含む前提である点を誤解しやすいので、類題では与条件の意味（どこまで含むU値か）を丁寧に確認する。
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -33533,7 +33566,7 @@ tasks:
   - id: T515
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=01ebc4028da6e54a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33552,6 +33585,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
