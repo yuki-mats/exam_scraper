@@ -329,3 +329,6 @@ Generated: 2026-05-23 17:01:27
 - task: T508 | list_group_id: 85007 | original_question_id: 975e9b75ee0eb714
   url: https://2kenchikushi.kakomonn.com/questions/58935
   summary: 鉄骨工事（ベースプレートの二重ナット、トルシア形高力ボルトの余長確認、締付手順、締付後検査、建方ワイヤーロープ）について各肢を再点検し、不適当肢=4（共回り/軸回りをピンテール破断で判定）を維持した。correctChoiceText は既存のまま妥当。explanationText は、ピンテール破断が示すもの（締付完了）と、共回り/軸回り判定（マーキング確認）を切り分けて補強した。
+- task: T522 | list_group_id: 85001 | original_question_id: fdf57b06c46b5180
+  url: https://2kenchikushi.kakomonn.com/questions/43241
+  summary: 事務所ビル計画（レンタブル比、フリーアドレス、オフィスランドスケープ、パーティション高さ、机配置方式）について各肢を再点検し、不適当肢=1 を維持した。questionIntent=select_incorrect と answer_result_text（正解1）に対し correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合しているため変更不要と判断した。explanationText も選択肢1の一般化の誤り（小部屋貸しは共用部増でレンタブル比が下がりやすい）を明確に指摘できており、他肢も学習上の論点が十分なため patch 更新不要と判断した。
