@@ -802,7 +802,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T5001
+active_task: T5002
 
 tasks:
   - id: T001
@@ -24620,7 +24620,7 @@ tasks:
   - id: T5001
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85001_question_review_v1"
     objective: "85001/question_85001_1_merged.json の original_question_id=1f561e5a450891dc について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24630,12 +24630,47 @@ tasks:
       original_question_id: "1f561e5a450891dc"
       question_url: "https://2kenchikushi.kakomonn.com/questions/43229"
       topic_hint: "学科Ⅰ（建築計画）"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=1f561e5a450891dc（建築物と設計者の組合せ）を専門家目線でレビューし、questionIntent=select_incorrect と answer_result_text（正解4）に対して correctChoiceText=[正しい,正しい,正しい,間違い,正しい] が整合しているため変更不要と判断した。explanationText も各選択肢の正誤と理由・誤り箇所（4のみ）・正しい内容が明確であり、更新不要と判断した。"
+      changed_files:
+        - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "広島平和記念資料館は丹下健三の設計であり、村野藤吾ではない。したがって選択肢4のみ不適当。"
+        - "聴竹居: 藤井厚二"
+        - "旧東京中央郵便局: 吉田鉄郎"
+        - "神奈川県立近代美術館（鎌倉館）: 坂倉準三"
+        - "東京文化会館: 前川國男"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "建築物名は改修後の通称（例: 旧東京中央郵便局の保存活用）で揺れやすいが、設計者の対応関係は本設問の範囲では安定している。"
 
   - id: T5002
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85001_question_review_v1"
     objective: "85001/question_85001_1_merged.json の original_question_id=2c32c3de05723188 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
