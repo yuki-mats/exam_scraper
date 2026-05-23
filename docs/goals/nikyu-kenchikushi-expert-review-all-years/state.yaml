@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T570
+active_task: T571
 tasks:
   - id: T001
     type: pm
@@ -36891,7 +36891,7 @@ tasks:
   - id: T570
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=3e727328dec340f0 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -36901,7 +36901,33 @@ tasks:
       original_question_id: 3e727328dec340f0
       question_url: https://2kenchikushi.kakomonn.com/questions/43300
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=3e727328dec340f0（普通・中庸熱・早強ポルトランドセメントを用いたコンクリートの初期強度の大小関係）について、questionIntent=select_correct / answer_result_text（正解4）と correctChoiceText=[間違い,間違い,間違い,正しい,間違い] が整合することを確認した。初期強度（材齢7日程度まで）は強度発現の速い早強ポルトランドセメントCが最も大きく、普通ポルトランドセメントAがこれに次ぎ、水和熱を抑えて強度発現が緩やかな中庸熱ポルトランドセメントBは小さいため、正しい大小関係は C＞A＞B。既存 explanationText は結論は正しいが理由が薄かったため、各誤り肢でどの比較が誤りか（Bを大きく扱っている/最小扱いしていない等）を明示し、なぜCが最大・Bが最小になりやすいか（強度発現の速さ/緩やかさ）まで含めて解説を更新した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 間違い
+          - 間違い
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -36924,7 +36950,7 @@ tasks:
   - id: T571
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=e3d3097b98af4dd5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
