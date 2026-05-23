@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import parse_qs, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -32,7 +32,7 @@ from scripts.scrape.common import (
 
 QUALIFICATION_CODE = "mecnet-kokushi"
 QUALIFICATION_NAME = "医師国家試験（MEC Net.）"
-LIST_FIRST_PAGE_URL = "https://study.mecnet.jp/exercises/exercise-list/1?firstpage=1"
+LIST_FIRST_PAGE_URL = "https://study.mecnet.jp/exercises/exercise_list/1"
 OUTPUT_LIST_GROUP_ID = "120A"
 JSON_SUBDIR_NAME = "00_source"
 OUTPUT_DIR = "/Users/yuki/development/exam_scraper/output"
@@ -42,8 +42,22 @@ IMAGE_OUTPUT_DIR: str | None = None
 MECNET_COOKIES_JSON_ENV = "MECNET_COOKIES_JSON"
 MECNET_USERID_ENV = "MECNET_USERID"
 MECNET_PASSWORD_ENV = "MECNET_PASSWORD"
+MECNET_SCRAPE_ALL_GROUPS_ENV = "MECNET_SCRAPE_ALL_GROUPS"
+MECNET_MAX_PAGES_ENV = "MECNET_MAX_PAGES"
+MECNET_MIN_DELAY_SEC_ENV = "MECNET_MIN_DELAY_SEC"
+MECNET_MAX_DELAY_SEC_ENV = "MECNET_MAX_DELAY_SEC"
 
 MECNET_BASE_URL = "https://study.mecnet.jp"
+DEFAULT_ANCHOR_OCCURRENCE = 120
+DEFAULT_ANCHOR_YEAR = 2026
+
+
+def _delay_range() -> tuple[float, float]:
+    min_delay = float(os.environ.get(MECNET_MIN_DELAY_SEC_ENV, "8.0"))
+    max_delay = float(os.environ.get(MECNET_MAX_DELAY_SEC_ENV, "15.0"))
+    if max_delay < min_delay:
+        max_delay = min_delay
+    return min_delay, max_delay
 
 
 def apply_runtime_overrides_from_env() -> None:
@@ -79,7 +93,7 @@ def apply_runtime_overrides_from_env() -> None:
         MAX_QUESTIONS = int(max_questions) if max_questions else None
 
 
-def slow_down(min_sec: float = 2.0, max_sec: float = 5.0) -> None:
+def slow_down(min_sec: float = 8.0, max_sec: float = 15.0) -> None:
     time.sleep(random.uniform(min_sec, max_sec))
 
 
@@ -155,10 +169,25 @@ class MecnetListItem:
 
 
 def fetch_html_text_rate_limited(http_session: requests.Session, target_url: str) -> str:
-    slow_down(2.0, 5.0)
-    resp = http_session.get(target_url, timeout=20)
-    resp.raise_for_status()
-    return resp.text
+    min_delay, max_delay = _delay_range()
+    last_error: Exception | None = None
+    for attempt in range(3):
+        slow_down(min_delay, max_delay)
+        try:
+            resp = http_session.get(target_url, timeout=30)
+            if resp.status_code in {429, 503}:
+                retry_after = resp.headers.get("Retry-After")
+                if retry_after and retry_after.isdigit():
+                    time.sleep(int(retry_after))
+                else:
+                    time.sleep(10 + attempt * 10)
+                continue
+            resp.raise_for_status()
+            return resp.text
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            time.sleep(5 + attempt * 10)
+    raise RuntimeError(f"failed to fetch: {target_url} ({last_error})")
 
 
 def parse_list_items(list_page_html: str) -> list[MecnetListItem]:
@@ -176,18 +205,124 @@ def parse_list_items(list_page_html: str) -> list[MecnetListItem]:
 LABEL_NUM_RE = re.compile(r"^(?P<prefix>[0-9]+[A-Z])-(?P<num>[0-9]+)$")
 
 
-def filter_120a_1_to_20(items: list[MecnetListItem]) -> list[MecnetListItem]:
+def list_group_id_from_label(label: str) -> str | None:
+    m = LABEL_NUM_RE.match(label.strip())
+    if not m:
+        return None
+    return m.group("prefix")
+
+
+def question_number_from_label(label: str) -> int | None:
+    m = LABEL_NUM_RE.match(label.strip())
+    if not m:
+        return None
+    return int(m.group("num"))
+
+
+def filter_items_by_list_group_id(items: list[MecnetListItem], list_group_id: str) -> list[MecnetListItem]:
     picked: list[tuple[int, MecnetListItem]] = []
     for item in items:
-        m = LABEL_NUM_RE.match(item.label.strip())
-        if not m:
+        prefix = list_group_id_from_label(item.label)
+        question_num = question_number_from_label(item.label)
+        if prefix is None or question_num is None:
             continue
-        if m.group("prefix") != "120A":
+        if prefix != list_group_id:
             continue
-        num = int(m.group("num"))
-        if 1 <= num <= 20:
-            picked.append((num, item))
+        picked.append((question_num, item))
     return [it for _, it in sorted(picked, key=lambda x: x[0])]
+
+
+@dataclass(frozen=True)
+class PageLink:
+    page_num: int
+    url: str
+
+
+def _page_num_from_url(url: str) -> int | None:
+    parsed = urlparse(url)
+    qs = parse_qs(parsed.query)
+    if "page" in qs and qs["page"] and qs["page"][0].isdigit():
+        return int(qs["page"][0])
+    return None
+
+
+def extract_pagination_links(list_page_html: str, base_url: str) -> list[PageLink]:
+    soup = BeautifulSoup(list_page_html, "html.parser")
+    links: dict[int, str] = {}
+    for opt in soup.select("select.page_links option[value]"):
+        href = (opt.get("value") or "").strip()
+        if not href:
+            continue
+        abs_url = urljoin(base_url, href)
+        num = _page_num_from_url(abs_url)
+        if num is not None:
+            links[num] = abs_url
+
+    if not links:
+        for a in soup.select("a[href]"):
+            href = (a.get("href") or "").strip()
+            if not href or "page=" not in href:
+                continue
+            abs_url = urljoin(base_url, href)
+            num = _page_num_from_url(abs_url)
+            if num is not None and num not in links:
+                links[num] = abs_url
+    return [PageLink(page_num=k, url=v) for k, v in sorted(links.items(), key=lambda x: x[0])]
+
+
+def fetch_all_list_items(http_session: requests.Session, first_page_url: str) -> list[MecnetListItem]:
+    first_html = fetch_html_text_rate_limited(http_session, first_page_url)
+    page_links = extract_pagination_links(first_html, first_page_url)
+    if any(pl.page_num == 1 for pl in page_links):
+        page_urls = page_links
+    else:
+        page_urls = [PageLink(page_num=1, url=first_page_url)] + page_links
+
+    max_pages_raw = os.environ.get(MECNET_MAX_PAGES_ENV)
+    if max_pages_raw:
+        page_urls = page_urls[: int(max_pages_raw)]
+
+    all_items: list[MecnetListItem] = []
+    seen: set[tuple[str, str]] = set()
+    for idx, page_link in enumerate(page_urls, start=1):
+        html = first_html if idx == 1 else fetch_html_text_rate_limited(http_session, page_link.url)
+        for item in parse_list_items(html):
+            key = (item.label, item.qid)
+            if key in seen:
+                continue
+            seen.add(key)
+            all_items.append(item)
+        print(f"[OK] listed page={page_link.page_num} ({idx}/{len(page_urls)})")
+    return all_items
+
+
+def group_items_by_list_group(items: list[MecnetListItem]) -> dict[str, list[MecnetListItem]]:
+    grouped: dict[str, list[MecnetListItem]] = {}
+    for item in items:
+        list_group_id = list_group_id_from_label(item.label)
+        question_num = question_number_from_label(item.label)
+        if list_group_id is None or question_num is None:
+            continue
+        grouped.setdefault(list_group_id, []).append(item)
+
+    for list_group_id, group_items in grouped.items():
+        grouped[list_group_id] = filter_items_by_list_group_id(group_items, list_group_id)
+    return dict(sorted(grouped.items(), key=lambda kv: _list_group_sort_key(kv[0])))
+
+
+def _list_group_sort_key(list_group_id: str) -> tuple[int, int, str]:
+    m = re.match(r"^(?P<occurrence>\d+)(?P<paper>[A-Z])$", list_group_id)
+    if not m:
+        return (1, 0, list_group_id)
+    occurrence = int(m.group("occurrence"))
+    return (0, occurrence, m.group("paper"))
+
+
+def infer_exam_year_from_list_group_id(list_group_id: str) -> int | None:
+    m = re.match(r"^(?P<occurrence>\d+)[A-Z]$", list_group_id)
+    if not m:
+        return None
+    return int(m.group("occurrence")) + (DEFAULT_ANCHOR_YEAR - DEFAULT_ANCHOR_OCCURRENCE)
 
 
 def _extract_text(el: Tag | None) -> str:
@@ -348,7 +483,11 @@ def parse_single_explain_page(
     ]
     answer_result_text = build_answer_result_text(correct_numbers)
 
-    exam_label = f"医師国家試験 第120回 A問題"
+    m = re.match(r"^(?P<occurrence>\d+)(?P<paper>[A-Z])$", output_list_group_id)
+    if m:
+        exam_label = f"医師国家試験 第{int(m.group('occurrence'))}回 {m.group('paper')}問題"
+    else:
+        exam_label = f"医師国家試験 {output_list_group_id}"
     question_label = label
 
     return {
@@ -413,17 +552,6 @@ def main() -> int:
     load_local_secure_env()
     apply_runtime_overrides_from_env()
 
-    output_list_group_id = OUTPUT_LIST_GROUP_ID
-
-    json_output_dir, image_output_dir = prepare_output_dirs(
-        OUTPUT_DIR,
-        QUALIFICATION_CODE,
-        output_list_group_id,
-        JSON_SUBDIR_NAME,
-    )
-    global IMAGE_OUTPUT_DIR
-    IMAGE_OUTPUT_DIR = image_output_dir
-
     http_session = create_http_session()
 
     cookies_json_path = os.environ.get(MECNET_COOKIES_JSON_ENV)
@@ -433,48 +561,70 @@ def main() -> int:
         # Cookieが無い場合はパスワードログインを試す（環境変数から）
         try_login_with_password(http_session)
 
-    # list page
-    list_html = fetch_html_text_rate_limited(http_session, LIST_FIRST_PAGE_URL)
-    items = parse_list_items(list_html)
-    targets = filter_120a_1_to_20(items)
-    if not targets:
-        print("[NG] 対象(120A-1..20)が一覧から見つかりませんでした")
+    items = fetch_all_list_items(http_session, LIST_FIRST_PAGE_URL)
+    if not items:
+        print("[NG] 一覧から問題番号を取得できませんでした")
         return 2
 
-    assumed_exam_year = 2026
+    scrape_all_groups = os.environ.get(MECNET_SCRAPE_ALL_GROUPS_ENV) == "1" or OUTPUT_LIST_GROUP_ID.lower() == "all"
+    if scrape_all_groups:
+        grouped_items = group_items_by_list_group(items)
+    else:
+        targets = filter_items_by_list_group_id(items, OUTPUT_LIST_GROUP_ID)
+        grouped_items = {OUTPUT_LIST_GROUP_ID: targets} if targets else {}
 
-    question_bodies: list[dict[str, Any]] = []
-    for idx, item in enumerate(targets, start=1):
-        if MAX_QUESTIONS is not None and idx > MAX_QUESTIONS:
-            break
-        qb = parse_single_explain_page(
-            http_session,
-            qid=item.qid,
-            label=item.label,
-            output_list_group_id=output_list_group_id,
-            download_images=True,
-            assumed_exam_year=assumed_exam_year,
+    if not grouped_items:
+        print(f"[NG] 対象list_group_idが見つかりませんでした: {OUTPUT_LIST_GROUP_ID}")
+        return 2
+
+    total_saved = 0
+    for output_list_group_id, targets in grouped_items.items():
+        json_output_dir, image_output_dir = prepare_output_dirs(
+            OUTPUT_DIR,
+            QUALIFICATION_CODE,
+            output_list_group_id,
+            JSON_SUBDIR_NAME,
         )
-        if qb is None:
-            print(f"[WARN] parse failed: {item.label} (qid={item.qid})")
+        global IMAGE_OUTPUT_DIR
+        IMAGE_OUTPUT_DIR = image_output_dir
+
+        assumed_exam_year = infer_exam_year_from_list_group_id(output_list_group_id)
+
+        question_bodies: list[dict[str, Any]] = []
+        for idx, item in enumerate(targets, start=1):
+            if MAX_QUESTIONS is not None and idx > MAX_QUESTIONS:
+                break
+            qb = parse_single_explain_page(
+                http_session,
+                qid=item.qid,
+                label=item.label,
+                output_list_group_id=output_list_group_id,
+                download_images=True,
+                assumed_exam_year=assumed_exam_year,
+            )
+            if qb is None:
+                print(f"[WARN] parse failed: {item.label} (qid={item.qid})")
+                continue
+            question_bodies.append(qb)
+            print(f"[OK] scraped: {item.label} (qid={item.qid})")
+
+        if not question_bodies:
+            print(f"[WARN] {output_list_group_id}: 1件も保存できませんでした")
             continue
-        question_bodies.append(qb)
-        print(f"[OK] scraped: {item.label} (qid={item.qid})")
 
-    if not question_bodies:
-        print("[NG] 1件も保存できませんでした")
+        saved = save_question_body_chunks(
+            json_output_dir=json_output_dir,
+            list_group_id=output_list_group_id,
+            question_bodies=question_bodies,
+            chunk_size=25,
+        )
+        total_saved += len(question_bodies)
+        for p in saved:
+            print(f"[OK] wrote: {p}")
+        print(f"[OK] images_dir: {image_output_dir}")
+
+    if total_saved == 0:
         return 3
-
-    saved = save_question_body_chunks(
-        json_output_dir=json_output_dir,
-        list_group_id=output_list_group_id,
-        question_bodies=question_bodies,
-        chunk_size=25,
-    )
-    for p in saved:
-        print(f"[OK] wrote: {p}")
-
-    print(f"[OK] images_dir: {image_output_dir}")
     return 0
 
 

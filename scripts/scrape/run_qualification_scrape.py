@@ -113,6 +113,7 @@ def main() -> int:
         "kakomonn": "code.py",
         "gassyunin": "scrape_gassyunin.py",
         "sgsiken": "scrape_sgsiken.py",
+        "mecnet": "scrape_mecnet_kokushi.py",
     }
     scraper_script = scraper_script_by_type.get(preset.scraper_type)
     if not scraper_script:
