@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T586
+active_task: T587
 tasks:
   - id: T001
     type: pm
@@ -37835,7 +37835,7 @@ tasks:
   - id: T586
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v4
     objective: 85001/question_85001_4_merged.json の original_question_id=04fb955a720b9b47 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -37845,7 +37845,33 @@ tasks:
       original_question_id: 04fb955a720b9b47
       question_url: https://2kenchikushi.kakomonn.com/questions/43317
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=04fb955a720b9b47（コンクリートブロック工事：壁鉄筋のかぶり、ブロック面の水湿し、充填コンクリートの打継ぎ位置、1日積み上げ高さ、押し目地仕上げ）について、questionIntent=select_incorrect / answer_result_text（正解2）と correctChoiceText=[正しい,間違い,正しい,正しい,正しい] が整合することを確認した。誤り肢（選択肢2）は、モルタルと接するブロック面を「十分に乾燥」させるとしている点で、付着性確保のため付着物除去後に適度に水湿しして施工すべき。explanationText は既存でも方向性は正しかったが、理由と要点が参考書水準で即把握できる文章になっていなかったため、専門家レビューとして簡潔に再構成した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 2 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_4_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -37868,7 +37894,7 @@ tasks:
   - id: T587
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v4
     objective: 85001/question_85001_4_merged.json の original_question_id=e22543ae5d0a0952 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
