@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T571
+active_task: T572
 tasks:
   - id: T001
     type: pm
@@ -36950,7 +36950,7 @@ tasks:
   - id: T571
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=e3d3097b98af4dd5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -36960,7 +36960,33 @@ tasks:
       original_question_id: e3d3097b98af4dd5
       question_url: https://2kenchikushi.kakomonn.com/questions/43301
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=e3d3097b98af4dd5（鋼材：ヤング係数、弾性伸び、硬さと引張強さ、炭素と溶接性、FR鋼）について、questionIntent=select_incorrect / answer_result_text（正解1）と correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合することを確認した。誤り肢は「SN400はSS400よりヤング係数が大きい」としている点で、常温のヤング係数Eは鋼種による差は基本的に小さく一般にE≒2.05×10^5N/mm2として扱う。既存 explanationText は結論は合っていたが、計算根拠（ΔL=(σ/E)×L）や、炭素増加で溶接性が低下する理由（割れ感受性の増大）、FR鋼の保証内容（600°Cで常温規格値の2/3以上）をより明確にして解説を更新した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -36983,7 +37009,7 @@ tasks:
   - id: T572
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=0f16071f685e36cf について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
