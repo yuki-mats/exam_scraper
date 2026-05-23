@@ -58,6 +58,13 @@ The PM must keep comparing task receipts to this oracle. A finished command, a s
 - 更新対象外の資格の data tree には触れない。
 - 既存のユーザー変更や無関係な差分は戻さない。
 
+## Output Patch File Policy (Date Suffix)
+
+`21_explanationText_added/` や `23_correctChoiceText_fixed/` の patch ファイル名末尾の日付サフィックスは「最終更新日」と一致している必要がある（運用上の可視性のため）。
+
+- 既存 patch を更新する場合は、原則として「当日の日付サフィックスの新ファイル」を作成し、必要なら旧ファイルを `old/` に退避する。
+- その上で、`state.yaml` の `worker_defaults` と該当 Worker task の参照（`explanation_patch_file` / `allowed_files` / `verify`）を新ファイルへ更新する。
+
 ## Stop Rule
 
 Stop only when a final audit proves the full original outcome is complete.
