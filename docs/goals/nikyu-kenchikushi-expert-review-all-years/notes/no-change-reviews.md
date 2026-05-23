@@ -332,3 +332,6 @@ Generated: 2026-05-23 17:01:27
 - task: T522 | list_group_id: 85001 | original_question_id: fdf57b06c46b5180
   url: https://2kenchikushi.kakomonn.com/questions/43241
   summary: 事務所ビル計画（レンタブル比、フリーアドレス、オフィスランドスケープ、パーティション高さ、机配置方式）について各肢を再点検し、不適当肢=1 を維持した。questionIntent=select_incorrect と answer_result_text（正解1）に対し correctChoiceText=[間違い,正しい,正しい,正しい,正しい] が整合しているため変更不要と判断した。explanationText も選択肢1の一般化の誤り（小部屋貸しは共用部増でレンタブル比が下がりやすい）を明確に指摘できており、他肢も学習上の論点が十分なため patch 更新不要と判断した。
+- task: T526 | list_group_id: 85001 | original_question_id: 4b605b12899cd9ab
+  url: https://2kenchikushi.kakomonn.com/questions/43245
+  summary: 高齢者・身体障がい者に配慮した建築物（スイッチ高さ、屋内傾斜路の踊場間隔、便所ブース有効幅、浴槽寸法、照度）について各肢を再点検し、不適当肢=2 を維持した。questionIntent=select_incorrect と answer_result_text（正解2）に対し correctChoiceText=[正しい,間違い,正しい,正しい,正しい] が整合しており、屋内傾斜路の踊場は高低差75cm以内ごとに設けるのが一般的であるため「高さ1,000mmごと」は間隔が大きすぎる点も含め、explanationText は教材品質を満たすと判断したため patch 更新不要とした。
