@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T562
+active_task: T563
 tasks:
   - id: T001
     type: pm
@@ -36419,7 +36419,7 @@ tasks:
   - id: T562
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=5ef32c89846de926 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -36429,7 +36429,33 @@ tasks:
       original_question_id: 5ef32c89846de926
       question_url: https://2kenchikushi.kakomonn.com/questions/43292
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=5ef32c89846de926（RCの曲げ断面算定での引張側コンクリート無視、許容圧縮応力度の長期/短期、圧縮域でのかぶりの扱い、床スラブの最小鉄筋比、曲げ破壊とせん断破壊の性状）について、questionIntent=select_incorrect / answer_result_text（正解5）と correctChoiceText=[正しい,正しい,正しい,正しい,間違い] が整合することを確認した。誤り肢は「曲げ破壊を脆性的とし、せん断破壊より先行しないように設計する」としている点で、RCは曲げが靱性的、せん断が脆性的になりやすく、設計ではせん断破壊が曲げに先行しないよう（曲げ先行となるよう）にするのが基本。既存 explanationText は説明が短く、特に床スラブの0.2%を法令根拠と断定していた点が誤学習リスクだったため、各肢の判断根拠（ひび割れ後の引張負担、許容圧縮応力度の比、圧縮域での断面有効、最小鉄筋比の趣旨、曲げ先行の設計思想）を受験者が自力判定できる形に整理して解説を更新した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_3_merged_explanationText_added_20260524_0325.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -36452,7 +36478,7 @@ tasks:
   - id: T563
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v3
     objective: 85001/question_85001_3_merged.json の original_question_id=8e914114f2e49133 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
