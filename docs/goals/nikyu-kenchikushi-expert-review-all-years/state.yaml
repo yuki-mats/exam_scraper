@@ -802,7 +802,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T5002
+active_task: T5003
 
 tasks:
   - id: T001
@@ -24670,7 +24670,7 @@ tasks:
   - id: T5002
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85001_question_review_v1"
     objective: "85001/question_85001_1_merged.json の original_question_id=2c32c3de05723188 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24680,12 +24680,43 @@ tasks:
       original_question_id: "2c32c3de05723188"
       question_url: "https://2kenchikushi.kakomonn.com/questions/43230"
       topic_hint: "学科Ⅰ（建築計画）"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=2c32c3de05723188（建築物と特徴）を専門家目線でレビューし、questionIntent=select_incorrect と answer_result_text（正解4）に対して correctChoiceText=[正しい,正しい,正しい,間違い,正しい] が整合しているため変更不要と判断した。explanationText については、誤記（双頭形式→双塔）と、誤り箇所・正しい内容の明示不足（選択肢4）を確認したため patch を更新した。"
+      changed_files:
+        - "output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "選択肢4の記述（中央コア以外は間仕切りなし、外周が全てガラス）はサヴォア邸ではなくファンズワース邸の特徴。サヴォア邸はル・コルビュジエ作品で、水平連続窓等を備える。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "海外建築は年代・様式区分の境界が教材で微差になり得るため、本設問では特徴（構法/意匠）ベースの説明を優先した。"
 
   - id: T5003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85001_question_review_v1"
     objective: "85001/question_85001_1_merged.json の original_question_id=ac5f6dc2413fe533 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
