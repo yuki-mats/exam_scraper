@@ -39129,3 +39129,22 @@ tasks:
       - patch ファイル名の日付サフィックス更新方針（新ファイル作成 + state 参照更新の粒度）
       - 親ボードと subgoals で共通に適用するルールと、例外（やむを得ない場合の扱い）
     receipt: null
+  - id: T639
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: 親ボードを「進行中の目標」として安定表示し、再開コマンドと現在の残タスクを receipt に固定する（ユーザーが 85011 まで終わったか等を即判断できる状態にする）。
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: active_task=T577（85001 / original_question_id=7c69f017a04c378e）が進行中。親ボードは Worker done=577 / active=1 / queued=49（合計 queued=60）で枯渇していない。未完了 Worker は 85001（active 1 + queued 26）、85007（queued 12）、85011（queued 11）。2016-2020（85002..85006）は subgoals 側でそれぞれ active_task=T001 の状態。
+      board:
+        command: npx goalbuddy board /Users/yuki/development/exam_scraper/docs/goals/nikyu-kenchikushi-expert-review-all-years
+        url: http://goalbuddy.localhost:41737/nikyu-kenchikushi-expert-review-all-years/
+      resume:
+        goal_runtime: /goal Follow docs/goals/nikyu-kenchikushi-expert-review-all-years/goal.md.
+        board_ui: npx goalbuddy board "$(pwd)/docs/goals/nikyu-kenchikushi-expert-review-all-years"
+      checks:
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml --json
+          status: pass
