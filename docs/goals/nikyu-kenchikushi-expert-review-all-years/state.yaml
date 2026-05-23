@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T520
+active_task: T521
 tasks:
   - id: T001
     type: pm
@@ -33895,7 +33895,7 @@ tasks:
   - id: T520
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=8d7b075e2f9ea4dd について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33905,7 +33905,35 @@ tasks:
       original_question_id: 8d7b075e2f9ea4dd
       question_url: https://2kenchikushi.kakomonn.com/questions/43239
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=8d7b075e2f9ea4dd（住宅計画）について、questionIntent=select_incorrect / answer_result_text（正解3）に対し correctChoiceText=[正しい,正しい,間違い,正しい,正しい] が整合し、江戸間（柱芯制）と京間（内法制）の取り違えにより設問3が不適当であることを確認した。explanationText は全肢で「設問文と理由のつながり」が弱かったため、パッシブデザインの開口計画（南面大/東西面小）やコア型の利点等、学習に必要な因果が伝わる形に書き直した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
+      residual_risks:
+        - 車椅子の回転・切り返しに必要な寸法はガイドラインで表現に幅があるため、設問の「140cm×140cm程度」を前提にしつつ、実務ではより余裕を持たせる設計が望ましい。
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -33928,7 +33956,7 @@ tasks:
   - id: T521
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=08e8cc2fe55acc65 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
