@@ -144,6 +144,35 @@ def extract_pagination_links(soup: BeautifulSoup, base_url: str) -> list[PageLin
 
 
 EXAM_LABEL_RE = re.compile(r"\b\d{1,3}[A-Z]-\d{1,3}\b")
+EXAM_LABEL_PARTS_RE = re.compile(r"^(?P<occurrence>\d{1,3})(?P<paper>[A-Z])-(?P<question_num>\d{1,3})$")
+
+
+def infer_exam_year_from_occurrence(occurrence: int, *, year_offset: int | None) -> int | None:
+    """
+    医師国家試験は「第120回=2026年」「第119回=2025年」など回数と西暦がほぼ 1906 差で対応する。
+    ただし、本スクリプトはサイト側の表示から確定できない場合があるため、推定として扱う。
+    """
+    if year_offset is None:
+        return None
+    if occurrence <= 0:
+        return None
+    return occurrence + year_offset
+
+
+def parse_exam_label(label: str, *, year_offset: int | None) -> dict[str, Any] | None:
+    m = EXAM_LABEL_PARTS_RE.match(label.strip())
+    if not m:
+        return None
+    occurrence = int(m.group("occurrence"))
+    paper = m.group("paper")
+    question_num = int(m.group("question_num"))
+    return {
+        "examOccurrence": occurrence,  # 出題回（第n回）
+        "examPaper": paper,  # A/B/C/D...（表示上の区分）
+        "examQuestionNumber": question_num,  # -以降の番号
+        "examYear": infer_exam_year_from_occurrence(occurrence, year_offset=year_offset),  # 推定
+        "examYearIsInferred": year_offset is not None,
+    }
 
 
 def normalize_text(text: str) -> str:
@@ -152,7 +181,7 @@ def normalize_text(text: str) -> str:
     return text.strip()
 
 
-def extract_problem_numbers(html: str, page_url: str) -> dict[str, Any]:
+def extract_problem_numbers(html: str, page_url: str, *, year_offset: int | None) -> dict[str, Any]:
     soup = BeautifulSoup(html, "html.parser")
 
     items: list[dict[str, str]] = []
@@ -166,11 +195,19 @@ def extract_problem_numbers(html: str, page_url: str) -> dict[str, Any]:
         if not m:
             continue
         label = m.group(0)
+        parsed = parse_exam_label(label, year_offset=year_offset) or {}
         key = (label, qid)
         if key in seen:
             continue
         seen.add(key)
-        items.append({"label": label, "qid": qid, "text": text})
+        items.append(
+            {
+                "label": label,
+                "qid": qid,
+                "text": text,
+                **parsed,
+            }
+        )
 
     return {"page_url": page_url, "items": items}
 
@@ -199,6 +236,12 @@ def main() -> int:
     parser.add_argument("--password", default=os.environ.get("MECNET_PASSWORD"), help="ログインPW（環境変数MECNET_PASSWORD可）")
     parser.add_argument("--min-delay-sec", type=float, default=8.0, help="最小待機秒（デフォルト8秒）")
     parser.add_argument("--max-delay-sec", type=float, default=15.0, help="最大待機秒（デフォルト15秒）")
+    parser.add_argument(
+        "--exam-year-offset",
+        type=int,
+        default=1906,
+        help="出題年推定のオフセット（examYear = examOccurrence + offset）。推定不要なら -1 を指定。",
+    )
     parser.add_argument("--max-pages", type=int, default=None, help="検証用: 先頭からページ数制限")
     parser.add_argument("--force", action="store_true", help="既存の保存結果があっても上書きする")
     parser.add_argument("--resume", action="store_true", help="途中まで取得済みの場合、既存の page_*.json を読み、続きから取得する")
@@ -236,7 +279,7 @@ def main() -> int:
     page_links = extract_pagination_links(start_soup, args.start_url)
 
     if not page_links:
-        rec = extract_problem_numbers(start_html, args.start_url)
+        rec = extract_problem_numbers(start_html, args.start_url, year_offset=year_offset)
         write_json(out_dir / "page_001.json", rec)
         write_json(
             out_dir / "meta.json",
@@ -284,7 +327,7 @@ def main() -> int:
 
         html = get_html(session, pl.url, min_delay_sec=args.min_delay_sec, max_delay_sec=args.max_delay_sec)
         write_text(html_path, html)
-        rec = extract_problem_numbers(html, pl.url)
+        rec = extract_problem_numbers(html, pl.url, year_offset=year_offset)
         write_json(json_path, rec)
         combined.append(rec)
         print(f"[OK] saved page={pl.page_num} ({idx}/{len(page_urls)}) items={len(rec.get('items') or [])}")
@@ -302,12 +345,31 @@ def main() -> int:
             if key in seen:
                 continue
             seen.add(key)
-            all_items.append({"label": label, "qid": qid})
+            parsed = parse_exam_label(label, year_offset=year_offset) or {}
+            all_items.append({"label": label, "qid": qid, **parsed})
 
-    all_items.sort(key=lambda x: (x["label"], x["qid"]))
+    # 出題回→紙面→番号でソート（落ちたものは label ソートへフォールバック）
+    paper_order = {p: i for i, p in enumerate(list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), start=1)}
+
+    def sort_key(it: dict[str, Any]) -> tuple:
+        occ = it.get("examOccurrence")
+        paper = it.get("examPaper")
+        qn = it.get("examQuestionNumber")
+        if isinstance(occ, int) and isinstance(paper, str) and isinstance(qn, int):
+            return (0, occ, paper_order.get(paper, 999), qn, str(it.get("qid") or ""))
+        return (1, str(it.get("label") or ""), str(it.get("qid") or ""))
+
+    all_items.sort(key=sort_key)
     write_json(out_dir / "pages_combined.json", combined)
     write_json(out_dir / "all_problem_numbers.json", {"items": all_items})
-    write_text(out_dir / "all_problem_numbers.txt", "\n".join(f"{it['label']}\t{it['qid']}" for it in all_items) + "\n")
+    write_text(
+        out_dir / "all_problem_numbers.txt",
+        "\n".join(
+            f"{it.get('label')}\t{it.get('qid')}\t{it.get('examYear')}\t{it.get('examOccurrence')}"
+            for it in all_items
+        )
+        + "\n",
+    )
     write_json(
         out_dir / "meta.json",
         {
@@ -318,6 +380,7 @@ def main() -> int:
             "unique_items": len(all_items),
             "min_delay_sec": args.min_delay_sec,
             "max_delay_sec": args.max_delay_sec,
+            "exam_year_offset": year_offset,
         },
     )
 
@@ -328,4 +391,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+    year_offset: int | None = None if args.exam_year_offset < 0 else args.exam_year_offset
 
