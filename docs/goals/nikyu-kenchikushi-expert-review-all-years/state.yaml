@@ -664,7 +664,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4286
+active_task: T4287
 
 tasks:
   - id: T001
@@ -24275,7 +24275,7 @@ tasks:
   - id: T4286
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=44a97fa6379fc3b6 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24285,12 +24285,45 @@ tasks:
       original_question_id: "44a97fa6379fc3b6"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58931"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "鉄筋工事（スペーサー、梁主筋の柱内折曲げ定着、鉄筋の清掃、異径重ね継手、貫通孔近傍のかぶり）について各肢を再点検し、不適当肢=2（梁主筋の柱内折曲げ定着の投影定着長さ=柱せい1/2）を維持した。correctChoiceText は既存のまま妥当。explanationText は、標準仕様書に基づく根拠（側面スペーサーの扱い、投影定着長さLaの下限）を明示して、受験者が同論点を自力判定できるように補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 2 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "公共建築工事標準仕様書（建築工事編）: 梁主筋の柱内折曲げ定着の投影定着長さLaは柱せいの3/4倍以上。"
+        - "公共建築工事標準仕様書（建築工事編）: 梁・柱・基礎梁・壁等の側面スペーサーはプラスチック製でもよい取扱いがある。"
+        - "異径の重ね継手長さは、一般に細い方の径を基準に算定する。"
+        - "貫通孔近傍でも最小かぶり厚さの確保が基本である。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "定着・継手は仕様書・告示・設計方針で細部が変わるため、別設問では『どの基準で問うているか（標準仕様書/法令/指針）』を先に切り分ける。"
 
   - id: T4287
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=9ea0e545f61549c4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
