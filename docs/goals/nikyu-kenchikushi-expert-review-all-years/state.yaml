@@ -664,7 +664,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T4281
+active_task: T4285
 
 tasks:
   - id: T001
@@ -24034,7 +24034,7 @@ tasks:
   - id: T4281
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=9ca9969db9e007fa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24044,12 +24044,46 @@ tasks:
       original_question_id: "9ca9969db9e007fa"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58926"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "工事現場における材料保管（押出成形セメント板、溶接棒、アスファルトルーフィング、断熱材、セメント）について各肢を再点検し、不適当肢=3（ルーフィングの平積み保管）を維持した。correctChoiceText は既存のまま妥当。explanationText は選択肢1と5の内容が取り違えられていたため全面的に整合させ、押出成形セメント板の平積み・積上げ高さ、溶接棒の吸湿リスク、ルーフィングは立て積み、屋外断熱材は通気確保、セメントは吸湿防止という判断根拠が誤学習なく伝わる形に修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "押出成形セメント板は屋内の平坦乾燥場所で台木を用いて平積みし、積上げ高さを過大にしない（反り・欠け防止）。"
+        - "被覆アーク溶接棒は吸湿により欠陥リスクが上がるため乾燥保管し、携帯用乾燥器で再吸湿を防ぐ。"
+        - "アスファルトルーフィングは平積みで変形・付着しやすく、立て積み（縦置き）で二段以上積まない。"
+        - "屋外保管の断熱材はシート密着で結露・吸湿しやすいため通気を確保する。"
+        - "セメントは吸湿・炭酸化で固結/風化するため、上げ床やパレットで床から浮かせて乾燥保管する。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "材料の保管条件（温度・積み上げ高さ等）はメーカー仕様で詳細が異なるため、別設問では製品条件が書かれていないか確認する。"
 
   - id: T4282
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=a6a6b928a3feae90 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24059,12 +24093,45 @@ tasks:
       original_question_id: "a6a6b928a3feae90"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58927"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "工事現場廃棄物の区分（廃棄物処理法）について各肢を再点検し、誤り肢=4（繊維くずを一般廃棄物とする）を維持した。correctChoiceText は既存のまま妥当。explanationText は、がれき類・汚泥・建設業に係る紙/木/繊維くずの位置づけ、飛散性石綿=特別管理産業廃棄物という判断軸が受験者に残るように補強した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "れんが破片等の解体材はがれき類として産業廃棄物。"
+        - "基礎工事等で生じる汚泥（建設汚泥）は産業廃棄物。"
+        - "建設工事に係る繊維くずは産業廃棄物であり、一般廃棄物とする整理は誤り。"
+        - "飛散性の石綿（廃石綿等）は特別管理産業廃棄物。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "紙くず/木くず/繊維くずは排出元（業種・工事起因）で一般/産廃の扱いが分かれるため、別設問では発生源条件を見落とさない。"
 
   - id: T4283
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=62467322c4cce446 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24074,12 +24141,46 @@ tasks:
       original_question_id: "62467322c4cce446"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58928"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "仮設工事（枠組足場の壁つなぎ、登り桟橋の踊り場、はしご突出、墜落防止措置、幅木）について各肢を再点検し、不適当肢=3（はしご上端の突出40cm）を維持した。correctChoiceText は既存のまま妥当。explanationText は空疎な記述が含まれていたため、壁つなぎの基準間隔（9m/8m）、登り桟橋の踊り場設置間隔（7m以内）、はしご上端突出（60cm以上）など、条文運用に即した判断根拠が短時間で追える形に修正した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "枠組足場の壁つなぎ間隔は垂直9m以下・水平8m以下が基準で、9m/8mは適合。"
+        - "高さ8m以上の登り桟橋は踊り場を7m以内ごとに設け、4.5m位置の設置は適合。"
+        - "はしご道のはしご上端は床面から60cm以上突出が必要で、40cmは不足。"
+        - "枠組足場の墜落防止は交差筋かいと下桟（15〜40cm）または幅木等で行い、30cmは範囲内。"
+        - "単管足場の物体落下防止は幅木10cm以上または防網等で行い、10cm幅木は適合。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "仮設安全の数値基準は対象（足場種別・用途）で細部が変わるため、別設問では前提条件（枠組/単管/手すり先行等）を固定する。"
 
   - id: T4284
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=2ffe2a4e676a15c2 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -24089,12 +24190,43 @@ tasks:
       original_question_id: "2ffe2a4e676a15c2"
       question_url: "https://2kenchikushi.kakomonn.com/questions/58929"
       topic_hint: "学科Ⅳ（建築施工）"
-    receipt: null
+    receipt:
+      result: done
+      summary: "木造住宅の布基礎（A〜Eの一般寸法）について各肢を再点検し、不適当肢=3（根入れ深さ200mm）を維持した。correctChoiceText は既存のまま妥当。explanationText は根拠が薄かったため、立上り厚さ120mm以上、地上部分の立上り高さ300mm以上、根入れ深さ240mm以上、底盤幅は地盤支持力と階数で決まること、ホールダウン用アンカーボルトの埋込みは要求耐力に応じて数百mmオーダーとなることを軸に、誤学習が起きない説明へ更新した。"
+      edited_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json"
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: "正解は 3 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "布基礎の一般寸法として、立上り厚さ120mm以上、地上部立上り高さ300mm以上、根入れ深さ240mm以上が目安となる。"
+        - "底盤幅は地盤の長期許容応力度と階数により目安が定められ、2階建程度では450mm程度が一般的。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json'"
+          status: pass
+          output: "[SUMMARY] files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "[OK] coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|\\\\s[〇×]\\\\s' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_3_merged_explanationText_added_20260407_0051.json"
+          status: pass
+          output: "(no matches)"
+      residual_risks:
+        - "布基礎寸法は地域（凍結深度）や地盤条件、仕様（フラット35等）で変わるため、別設問では前提条件を確認する。"
 
   - id: T4285
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85007_question_review_3"
     objective: "85007/question_85007_3_merged.json の original_question_id=8f11931eedec3507 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
