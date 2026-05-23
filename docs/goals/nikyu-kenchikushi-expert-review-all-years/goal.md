@@ -45,6 +45,7 @@ The PM must keep comparing task receipts to this oracle. A finished command, a s
 
 - `active_task` が指す Worker 1つが「1問=1Worker」のレビュー単位。
 - 2016〜2020 年度（list_group_id=85002..85006）は main board から subgoal として実行する（`state.yaml` の PM task `T628..T632`）。
+- 親ボードの task id は `T###` 形式が必須（GoalBuddy の state checker が要求）で、全年度 1092 設問を 1 board に直積みすると `T1000` 以降が発生して checker が落ちる。そのため 2016〜2020 は subgoal に分割している（止まらず回すための実務上の制約）。
 
 ## Non-Negotiable Constraints
 
