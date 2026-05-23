@@ -41,7 +41,10 @@ The PM must keep comparing task receipts to this oracle. A finished command, a s
 
 ## Current Tranche
 
-この goal は全年度（2015〜2025）を対象とするが、最初の tranche は安全のため `85010/20_merged_1/question_85010_1_merged.json` の 25 設問から開始する。以後は同年度の残り merged file を消化し、次年度へ進む。
+この goal は全年度（2015〜2025）を対象とするが、次に進めるべき tranche / slice は `state.yaml` の `active_task` を唯一の正とする。
+
+- `active_task` が指す Worker 1つが「1問=1Worker」のレビュー単位。
+- 2016〜2020 年度（list_group_id=85002..85006）は main board から subgoal として実行する（`state.yaml` の PM task `T628..T632`）。
 
 ## Non-Negotiable Constraints
 
