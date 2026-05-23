@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T548
+active_task: T549
 tasks:
   - id: T001
     type: pm
@@ -35593,7 +35593,7 @@ tasks:
   - id: T548
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=52bb5e9c4399c2f8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -35603,7 +35603,33 @@ tasks:
       original_question_id: 52bb5e9c4399c2f8
       question_url: https://2kenchikushi.kakomonn.com/questions/43276
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=52bb5e9c4399c2f8（宅地造成等規制法／都市計画法／建設業法）について、questionIntent=select_incorrect / answer_result_text（正解5）と correctChoiceText=[正しい,正しい,正しい,正しい,間違い] が整合することを確認した。既存 explanationText は法令名・根拠条文の誤記（例：「施工建築基準法施行令」など）や、誤り肢5の根拠（金額要件・適用条文）の説明が不足していたため、宅地造成等規制法第8条第1項・第2条第2号・施行令第3条（許可対象）、都市計画法第53条第1項・施行令第37条（軽易な行為は改築/移転であり新築は原則許可）、都市計画法第4条第12項（開発行為の定義と規模要件の切り分け）、建設業法第19条第1項（書面交付）、建設業法第26条第3項・建設業法施行令第27条第1項（専任が必要となる金額要件）に基づき、各肢の正誤理由が再現できる形へ書き直した。correctChoiceText は変更不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260524_0035.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -35626,7 +35652,7 @@ tasks:
   - id: T549
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v2
     objective: 85001/question_85001_2_merged.json の original_question_id=5ec3dd671f087f14 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
