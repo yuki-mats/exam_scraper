@@ -75,10 +75,25 @@ def login_with_password(session: requests.Session, userid: str, password: str) -
 
 
 def get_html(session: requests.Session, url: str, *, min_delay_sec: float, max_delay_sec: float) -> str:
-    slow_down(min_delay_sec, max_delay_sec)
-    resp = session.get(url, timeout=30, allow_redirects=True)
-    resp.raise_for_status()
-    return resp.text
+    # サーバー負荷を抑えるため、各リクエスト前に待機し、失敗時はバックオフする
+    last_error: Exception | None = None
+    for attempt in range(3):
+        slow_down(min_delay_sec, max_delay_sec)
+        try:
+            resp = session.get(url, timeout=30, allow_redirects=True)
+            if resp.status_code in {429, 503}:
+                retry_after = resp.headers.get("Retry-After")
+                if retry_after and retry_after.isdigit():
+                    time.sleep(int(retry_after))
+                else:
+                    time.sleep(10 + attempt * 10)
+                continue
+            resp.raise_for_status()
+            return resp.text
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            time.sleep(5 + attempt * 10)
+    raise RuntimeError(f"failed to fetch: {url} ({last_error})")
 
 
 def is_login_page(html: str) -> bool:
@@ -198,11 +213,21 @@ def main() -> int:
     parser.add_argument("--cookies-json", default=None, help="Cookie JSON（推奨）")
     parser.add_argument("--userid", default=os.environ.get("MECNET_USERID"), help="ログインID（環境変数MECNET_USERID可）")
     parser.add_argument("--password", default=os.environ.get("MECNET_PASSWORD"), help="ログインPW（環境変数MECNET_PASSWORD可）")
-    parser.add_argument("--min-delay-sec", type=float, default=3.0, help="リクエスト間の最小待機秒")
-    parser.add_argument("--max-delay-sec", type=float, default=6.0, help="リクエスト間の最大待機秒")
+    parser.add_argument("--min-delay-sec", type=float, default=8.0, help="リクエスト間の最小待機秒（負荷低減のためデフォルト8秒）")
+    parser.add_argument("--max-delay-sec", type=float, default=15.0, help="リクエスト間の最大待機秒（負荷低減のためデフォルト15秒）")
     parser.add_argument("--max-pages", type=int, default=None, help="検証用: 先頭からページ数制限")
     parser.add_argument("--force", action="store_true", help="既存の保存結果があっても上書きする")
     parser.add_argument("--user-agent", default=None, help="User-Agent上書き")
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="途中まで取得済みの場合、既存の page_*.json を読み、続きから取得する",
+    )
+    parser.add_argument(
+        "--stop-file",
+        default=None,
+        help="このファイルが存在したら直ちに停止（緊急停止用）",
+    )
     args = parser.parse_args()
 
     if args.out_dir:
@@ -256,7 +281,28 @@ def main() -> int:
         page_urls = page_urls[: args.max_pages]
 
     combined: list[dict[str, Any]] = []
+
+    # resume: 既存の page_*.json を読み込み、以降のページだけ取得
+    start_index = 1
+    if args.resume:
+        existing = sorted(out_dir.glob("page_*.json"))
+        for p in existing:
+            m = re.search(r"page_(\\d{3})\\.json$", p.name)
+            if not m:
+                continue
+            try:
+                combined.append(json.loads(p.read_text(encoding="utf-8")))
+            except Exception:  # noqa: BLE001
+                continue
+            start_index = max(start_index, int(m.group(1)) + 1)
     for idx, pl in enumerate(page_urls, start=1):
+        if idx < start_index:
+            continue
+
+        if args.stop_file and Path(args.stop_file).expanduser().exists():
+            print(f"[STOP] stop-file detected: {args.stop_file}")
+            break
+
         html_path = out_dir / f"page_{idx:03d}.html"
         json_path = out_dir / f"page_{idx:03d}.json"
 
