@@ -88,7 +88,7 @@ worker_defaults:
       - "allowed_files の外を編集する必要が出る。"
       - "patch 本文をスクリプトで生成しそうになる。"
 
-active_task: T104
+active_task: T106
 
 tasks:
   - id: T001
@@ -331,7 +331,7 @@ tasks:
   - id: T104
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=2bdf8ac8a2ace4de について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -341,12 +341,44 @@ tasks:
       original_question_id: "2bdf8ac8a2ace4de"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80329"
       topic_hint: "換気"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=2bdf8ac8a2ace4de（換気）を専門家目線でレビューし、questionIntent=select_incorrect + 正解1 と整合する correctChoiceText（1肢のみ「間違い」）は妥当と判断した。誤り肢は換気回数の算定式（Q/V）の分子分母の取り違えであり、explanationText も誤り箇所と正しい式が明示されているため patch 更新は不要と判断した。"
+      changed_files: []
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 1 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "換気回数（ACH）は換気量Qを室容積Vで除した値（Q/V）として定義される。"
+        - "学校環境衛生関連資料等でも、換気回数=Q/V の形で整理されている。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "温度差換気・風力換気の比例関係は前提条件（開口条件等）で成立するため、別設問で条件が付く場合は式の形まで確認する。"
 
   - id: T105
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=92e46de21bcb2232 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
@@ -356,12 +388,46 @@ tasks:
       original_question_id: "92e46de21bcb2232"
       question_url: "https://2kenchikushi.kakomonn.com/questions/80330"
       topic_hint: "材料・物質の熱伝導率"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=92e46de21bcb2232（熱伝導率の大小）を専門家目線でレビューし、questionIntent=select_correct + 正解4 と整合する correctChoiceText（4肢のみ「正しい」）は妥当と判断した。explanationText も順序関係の理由が明確で、代表値の記載については材料により幅がある点を踏まえ、グラスウールの代表値を範囲表現へ微修正した（0.04〜0.05）。"
+      changed_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      correct_choice_review:
+        questionIntent: "select_correct"
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "間違い"
+          - "間違い"
+          - "間違い"
+          - "正しい"
+          - "間違い"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "アルミニウムは高熱伝導（金属）で、コンクリート・水・石こうボード・グラスウールより熱伝導率が桁違いに大きい。"
+        - "石こうボードの熱伝導率は概ね 0.22 W/(mK) 程度、コンクリートは概ね 1.6 W/(mK) 程度として扱われる。"
+        - "水の熱伝導率は室温付近で 0.6 W/(mK) 程度であり、石こうボードより大きい。"
+        - "グラスウールは断熱材で熱伝導率が小さく（製品により差はあるが概ね 0.04〜0.05 付近）、本肢の中で最小側に位置づく。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "熱伝導率は材料の種類・含水率・密度等で変わるため、別設問で条件が付く場合はその条件に合う代表値を確認する。"
 
   - id: T106
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: "85010_question_review_v1"
     objective: "85010/question_85010_1_merged.json の original_question_id=d608b0277b11c240 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
