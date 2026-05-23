@@ -93,6 +93,14 @@ If this charter and `state.yaml` disagree, `state.yaml` wins for task status, ac
 /goal Follow docs/goals/nikyu-kenchikushi-expert-review-all-years/goal.md.
 ```
 
+このコマンドは「開始/再開」共通で、`state.yaml` の `active_task` から続きます。
+
+年度別に subgoal だけを先に進めたい場合は、該当年度の `subgoals/<list_group_id>/goal.md` を指定します（例: 2016 年度）。
+
+```text
+/goal Follow docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/goal.md.
+```
+
 ## Board Command
 
 `npx goalbuddy board docs/goals/<slug>` は実行環境によって相対パス解決が崩れ、`Missing state.yaml in .../node_modules/goalbuddy/docs/goals/...` になることがある。必ず絶対パスで起動する。
