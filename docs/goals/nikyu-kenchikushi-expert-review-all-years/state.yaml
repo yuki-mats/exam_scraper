@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T516
+active_task: T517
 tasks:
   - id: T001
     type: pm
@@ -33633,7 +33633,7 @@ tasks:
   - id: T516
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=973e4e69859881bb について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33643,7 +33643,43 @@ tasks:
       original_question_id: 973e4e69859881bb
       question_url: https://2kenchikushi.kakomonn.com/questions/43235
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=973e4e69859881bb（日照・日射）を専門家目線でレビューし、questionIntent=select_incorrect と answer_result_text（正解5）に対して correctChoiceText=[正しい,正しい,正しい,正しい,間違い] が整合しているため変更不要と判断した。explanationText も各選択肢の要点と誤り箇所（5のみ）が明確であり、更新不要と判断した。
+      changed_files:
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
+        - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+        decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+      evidence:
+        - 春分・秋分の南中高度は 90°-緯度 なので、北緯35°では 90-35=55°（選択肢1は妥当）。
+        - 日射遮蔽係数（SC）は基準ガラス比で、値が大きいほど日射が通りやすく遮蔽効果は小さい（選択肢2は妥当）。
+        - 緯度が低いほど太陽高度が高く影が短くなるため、同じ日照時間確保に必要な隣棟間隔は小さくできる（選択肢3は妥当）。
+        - 北緯35°付近の8月中下旬は南鉛直面と西鉛直面の快晴日積算日射量が概ね同程度となる扱いであり（選択肢4は妥当）。
+        - 誤りは選択肢5。南中高度は概ね 90°-緯度±23.4° で表せるため、夏至と冬至の差は約46.8°で緯度によらず一定。
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
+      residual_risks:
+        - 日射量（南面/西面）の大小関係は「快晴日」「時期（夏至付近/8月下旬/秋分）」で逆転しうるため、条件（季節・方位・面の傾き）を先に固定してから判断する。
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85001/00_source/**
@@ -33667,7 +33703,7 @@ tasks:
   - id: T517
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85001_question_review_v1
     objective: 85001/question_85001_1_merged.json の original_question_id=3b48caa8b070baaa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -33686,6 +33722,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_1_merged_explanationText_added_20260523_1545.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_1_merged.json'
