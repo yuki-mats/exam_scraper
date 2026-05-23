@@ -10,6 +10,7 @@ from typing import Any
 
 TASK_CHOICES = (
     "question_type",
+    "question_intent",
     "correct_choice",
     "explanation",
     "question_set",
@@ -161,6 +162,31 @@ def materialize_correct_choice(
     }
 
 
+def materialize_question_intent(
+    source_question: dict[str, Any],
+    raw_entry: dict[str, Any],
+) -> dict[str, Any]:
+    current_value = source_question.get("questionIntent")
+    next_value = raw_entry.get("questionIntent")
+    changed = next_value != current_value
+
+    detail = str(raw_entry.get("questionIntent_change_detail") or "").strip()
+    if changed and not detail:
+        detail = f"{current_value} -> {next_value}"
+
+    reason = str(raw_entry.get("questionIntent_change_reason") or "").strip()
+    if changed and not reason:
+        reason = "設問文の要求と整合させるため"
+
+    return {
+        "questionIntent_changed": changed,
+        "questionIntent_change_detail": detail if changed else "",
+        "original_question_id": resolve_original_id(source_question),
+        "questionIntent": next_value,
+        "questionIntent_change_reason": reason if changed else "",
+    }
+
+
 def materialize_explanation(
     source_question: dict[str, Any],
     raw_entry: dict[str, Any],
@@ -191,6 +217,7 @@ def materialize_entries(
     ordered_pairs = order_raw_entries(source_questions, raw_entries)
     materializers = {
         "question_type": materialize_question_type,
+        "question_intent": materialize_question_intent,
         "correct_choice": materialize_correct_choice,
         "explanation": materialize_explanation,
         "question_set": materialize_question_set,

@@ -3,10 +3,11 @@
 
 実行内容:
 1. 00_merge_all.py で 20_merged_1 / 30_merged_2 を更新
-2. convert_merged_to_firestore.py で 40_convert/<list_group_id>_firestore_<timestamp>.json を生成
-3. 同時に upload_to_firestore/<list_group_id>_firestore_<timestamp>.json へ保存
+2. answer_result_text / questionIntent から correctChoiceText を自動割当
+3. convert_merged_to_firestore.py で 40_convert/<list_group_id>_firestore_<timestamp>.json を生成
+4. 同時に upload_to_firestore/<list_group_id>_firestore_<timestamp>.json へ保存
     （既存ファイル/既存フォルダは old/<timestamp>/ へ移動）
-4. 任意で questionSetId チェック / 件数集計 / category更新 / upload dry-run
+5. 任意で questionSetId チェック / 件数集計 / category更新 / upload dry-run
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+import json
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -31,8 +33,16 @@ from scripts.common.questions_json_paths import (
     resolve_list_group_base_dir,
     resolve_qualification_questions_json_dir,
 )
+from scripts.common.requirements import (
+    DEFAULT_REQUIREMENTS_PATH,
+    RequirementsError,
+    get_stage_rules,
+    load_requirements,
+    validate_records,
+)
 
 SCRIPT_MERGE_ALL = ROOT_DIR / "scripts" / "merge" / "00_merge_all.py"
+SCRIPT_AUTO_ASSIGN_CORRECT_CHOICE = ROOT_DIR / "scripts" / "fix" / "auto_assign_correct_choice_text.py"
 SCRIPT_CONVERT = ROOT_DIR / "scripts" / "convert" / "convert_merged_to_firestore.py"
 SCRIPT_QSET_CHECK = ROOT_DIR / "scripts" / "check" / "check_questionSetId.py"
 SCRIPT_COUNT = ROOT_DIR / "scripts" / "count_questions" / "1_update_question_count.py"
@@ -41,6 +51,7 @@ SCRIPT_UPLOAD_DRY_RUN = ROOT_DIR / "scripts" / "upload" / "upload_questions_to_f
 
 CONVERT_SUBDIR = "40_convert"
 UPLOAD_SUBDIR = "upload_to_firestore"
+MERGED2_SUBDIR = "30_merged_2"
 
 
 def run_step(name: str, command: list[str], dry_run: bool) -> None:
@@ -130,6 +141,57 @@ def log_target_summary(target_id: str, base_dir: Path, list_group_ids: list[str]
     print(f"targets   : {', '.join(list_group_ids)}")
 
 
+def find_missing_answers_in_source(base_dir: Path, list_group_id: str) -> list[str]:
+    """00_source 配下の JSON をスキャンし、answer_result_text が欠損している問題を特定する。"""
+    source_dir = base_dir / list_group_id / "00_source"
+    if not source_dir.exists():
+        return []
+
+    missing_info = []
+    for json_file in sorted(source_dir.glob("*.json")):
+        try:
+            with open(json_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            bodies = data.get("question_bodies", [])
+            for i, body in enumerate(bodies):
+                ans = body.get("answer_result_text")
+                if ans is None or (isinstance(ans, str) and ans.strip() == ""):
+                    q_id = (
+                        body.get("public_question_id")
+                        or body.get("original_question_id")
+                        or f"index_{i}"
+                    )
+                    missing_info.append(f"{json_file.name} (index {i}, ID: {q_id})")
+        except Exception:  # noqa: S110
+            continue
+    return missing_info
+
+
+def count_unuploadable_questions_from_invalid_merged2(*, base_dir: Path, list_group_id: str) -> tuple[int, list[str]]:
+    """
+    30_merged_2 配下の *_invalid.json に外出しされた（=アップロード対象外）question_bodies を数える。
+    """
+    invalid_dir = base_dir / list_group_id / MERGED2_SUBDIR
+    if not invalid_dir.exists():
+        return 0, []
+
+    total = 0
+    details: list[str] = []
+    for invalid_path in sorted(invalid_dir.glob("*_invalid.json")):
+        try:
+            payload = json.loads(invalid_path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: S110
+            continue
+        bodies = payload.get("question_bodies")
+        if not isinstance(bodies, list):
+            continue
+        count = sum(1 for b in bodies if isinstance(b, dict))
+        if count:
+            total += count
+            details.append(f"{invalid_path.name}: {count}")
+    return total, details
+
+
 def process_list_group(
     *,
     python_cmd: str,
@@ -141,9 +203,21 @@ def process_list_group(
     skip_merge: bool,
     skip_qset_check: bool,
     questionset_only: bool,
+    requirements_path: Path,
+    skip_requirements_check: bool,
+    requirements_warn_only: bool,
     dry_run: bool,
-) -> Path:
+) -> tuple[Path, list[str]]:
     group_dir = (base_dir / list_group_id).resolve()
+
+    print(f"\n[STEP] check missing answers in source ({list_group_id})")
+    missing_answers = find_missing_answers_in_source(base_dir, list_group_id)
+    if missing_answers:
+        print(f"警告: {len(missing_answers)} 件のレコードで answer_result_text が欠損しています。")
+        for info in missing_answers:
+            print(f"  - {info}")
+    else:
+        print("answer_result_text の欠損は見つかりませんでした。")
 
     if not skip_merge:
         run_step(
@@ -154,6 +228,64 @@ def process_list_group(
     else:
         print(f"\n[STEP] merge ({list_group_id})")
         print("スキップしました。")
+
+    run_step(
+        f"auto assign correctChoiceText ({list_group_id})",
+        [
+            python_cmd,
+            str(SCRIPT_AUTO_ASSIGN_CORRECT_CHOICE),
+            list_group_id,
+            "--base-dir",
+            str(base_dir),
+            "--apply",
+            "--fail-on-unresolved",
+        ],
+        dry_run,
+    )
+
+    if skip_requirements_check:
+        print(f"\n[STEP] requirements check (merged) ({list_group_id})")
+        print("スキップしました。")
+    else:
+        print(f"\n[STEP] requirements check (merged) ({list_group_id})")
+        try:
+            requirements = load_requirements(requirements_path)
+        except RequirementsError as e:
+            raise RuntimeError(f"requirements load failed: {e}") from e
+
+        qualification = base_dir.parent.name if base_dir.name == "questions_json" else None
+        merged_rules = get_stage_rules(
+            requirements,
+            stage="merged",
+            record_array="question_bodies",
+            qualification=qualification,
+        )
+        merged_files: list[Path] = []
+        for subdir in ("20_merged_1", "30_merged_2"):
+            merged_files.extend(sorted((group_dir / subdir).glob("*.json")))
+        errors: list[str] = []
+        for merged_file in merged_files:
+            try:
+                payload = json.loads(merged_file.read_text(encoding="utf-8"))
+            except Exception as e:  # noqa: BLE001
+                errors.append(f"{merged_file}: JSON parse failed ({e})")
+                continue
+            records = payload.get("question_bodies")
+            if not isinstance(records, list):
+                continue
+            records = [r for r in records if isinstance(r, dict)]
+            errors.extend(validate_records(records=records, rules=merged_rules, source_path=merged_file))
+
+        if errors:
+            print(f"[NG] requirements errors={len(errors)}")
+            for line in errors[:50]:
+                print(f"  - {line}")
+            if len(errors) > 50:
+                print(f"  ... truncated ({len(errors) - 50} more)")
+            if not requirements_warn_only:
+                raise RuntimeError("requirements check failed (merged)")
+        else:
+            print("[OK] requirements check passed (merged)")
 
     convert_cmd = [python_cmd, str(SCRIPT_CONVERT), list_group_id, "-b", str(base_dir)]
     if exam_name:
@@ -203,20 +335,63 @@ def process_list_group(
             dry_run,
         )
 
-    return copied_path
+    if not skip_requirements_check and not dry_run:
+        print(f"\n[STEP] requirements check (firestore output) ({list_group_id})")
+        try:
+            requirements = load_requirements(requirements_path)
+        except RequirementsError as e:
+            raise RuntimeError(f"requirements load failed: {e}") from e
+
+        qualification = base_dir.parent.name if base_dir.name == "questions_json" else None
+        firestore_rules = get_stage_rules(
+            requirements,
+            stage="firestore",
+            record_array="questions",
+            qualification=qualification,
+        )
+        payload = json.loads(copied_path.read_text(encoding="utf-8"))
+        questions = payload.get("questions")
+        records = [q for q in questions if isinstance(q, dict)] if isinstance(questions, list) else []
+        errors = validate_records(
+            records=records,
+            rules=firestore_rules,
+            source_path=copied_path,
+            id_keys=("questionId",),
+        )
+        if errors:
+            print(f"[NG] requirements errors={len(errors)}")
+            for line in errors[:50]:
+                print(f"  - {line}")
+            if len(errors) > 50:
+                print(f"  ... truncated ({len(errors) - 50} more)")
+            if not requirements_warn_only:
+                raise RuntimeError("requirements check failed (firestore)")
+        else:
+            print("[OK] requirements check passed (firestore)")
+
+    return copied_path, missing_answers
 
 
 def update_category_counts(*, python_cmd: str, category_json: Path, base_dir: Path, dry_run: bool) -> None:
     if not category_json.exists():
+        if dry_run:
+            print(f"[STEP] update category counts (skip): category.json が見つかりません: {category_json}")
+            return
         raise FileNotFoundError(f"category.json が見つかりません: {category_json}")
+    upload_dir = base_dir / UPLOAD_SUBDIR
+    if not upload_dir.exists():
+        if dry_run:
+            print(f"[STEP] update category counts (skip): upload_to_firestore が見つかりません: {upload_dir}")
+            return
+        raise FileNotFoundError(f"upload_to_firestore が見つかりません: {upload_dir}")
     run_step(
-        "update category counts (2_update_category_counts.py --write --latest-final-only)",
+        "update category counts (2_update_category_counts.py --write --latest-upload-only)",
         [
             python_cmd,
             str(SCRIPT_UPDATE_CATEGORY),
             str(category_json),
-            str(base_dir),
-            "--latest-final-only",
+            str(upload_dir),
+            "--latest-upload-only",
             "--write",
         ],
         dry_run,
@@ -236,6 +411,11 @@ def print_execution_summary(
     successes: list[tuple[str, Path | None]],
     failures: list[tuple[str, str]],
     skipped_for_failure: list[str],
+    missing_answers_report: dict[str, list[str]],
+    unuploadable_report: dict[str, list[str]],
+    unuploadable_total: int,
+    unuploadable_missing_answers_total: int,
+    unuploadable_invalid_total: int,
 ) -> None:
     print("\n=== 実行サマリ ===")
     if successes:
@@ -245,14 +425,36 @@ def print_execution_summary(
                 print(f"  - {list_group_id}")
             else:
                 print(f"  - {list_group_id}: {copied_path}")
+
+    if missing_answers_report:
+        print("\n[重要] answer_result_text 欠損レコード (00_source):")
+        for list_group_id, details in missing_answers_report.items():
+            if details:
+                print(f"  - {list_group_id}:")
+                for info in details:
+                    print(f"    * {info}")
+
     if failures:
-        print("失敗:")
+        print("\n失敗:")
         for list_group_id, reason in failures:
             print(f"  - {list_group_id}: {reason}")
     if skipped_for_failure:
         print("未処理:")
         for item in skipped_for_failure:
             print(f"  - {item}")
+
+    print("\n=== アップロード不能レコード数（対応必要） ===")
+    print(f"合計: {unuploadable_total}")
+    print(f"  - 00_source answer_result_text 欠損: {unuploadable_missing_answers_total}")
+    print(f"  - 30_merged_2/*_invalid.json 外出し: {unuploadable_invalid_total}")
+    if unuploadable_report:
+        print("内訳（30_merged_2/*_invalid.json 由来）:")
+        for list_group_id, details in sorted(unuploadable_report.items()):
+            if not details:
+                continue
+            print(f"  - {list_group_id}:")
+            for line in details:
+                print(f"    * {line}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -316,6 +518,22 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="実行内容のみ表示し、ファイル更新は行わない",
     )
+    parser.add_argument(
+        "--requirements",
+        type=Path,
+        default=DEFAULT_REQUIREMENTS_PATH,
+        help="必須項目チェック用 requirements TOML のパス",
+    )
+    parser.add_argument(
+        "--skip-requirements-check",
+        action="store_true",
+        help="requirements(必須項目)チェックをスキップ",
+    )
+    parser.add_argument(
+        "--requirements-warn-only",
+        action="store_true",
+        help="requirements違反があっても停止せず警告のみ出す",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -333,11 +551,16 @@ def main(argv: list[str] | None = None) -> int:
 
         successes: list[tuple[str, Path | None]] = []
         failures: list[tuple[str, str]] = []
+        missing_answers_report: dict[str, list[str]] = {}
+        unuploadable_report: dict[str, list[str]] = {}
+        unuploadable_total = 0
+        unuploadable_missing_answers_total = 0
+        unuploadable_invalid_total = 0
         last_copied_path: Path | None = None
 
         for list_group_id in list_group_ids:
             try:
-                copied_path = process_list_group(
+                copied_path, missing_answers = process_list_group(
                     python_cmd=python_cmd,
                     list_group_id=list_group_id,
                     base_dir=base_dir,
@@ -347,10 +570,25 @@ def main(argv: list[str] | None = None) -> int:
                     skip_merge=args.skip_merge,
                     skip_qset_check=args.skip_qset_check,
                     questionset_only=args.questionset_only,
+                    requirements_path=args.requirements,
+                    skip_requirements_check=args.skip_requirements_check,
+                    requirements_warn_only=args.requirements_warn_only,
                     dry_run=args.dry_run,
                 )
+                if missing_answers:
+                    missing_answers_report[list_group_id] = missing_answers
+                    unuploadable_missing_answers_total += len(missing_answers)
                 last_copied_path = copied_path
                 successes.append((list_group_id, copied_path))
+
+                # 30_merged_2 の invalid 外出し件数を集計（「アップロードできる状態にできなかった件数」）
+                count, details = count_unuploadable_questions_from_invalid_merged2(
+                    base_dir=base_dir,
+                    list_group_id=list_group_id,
+                )
+                unuploadable_invalid_total += count
+                if details:
+                    unuploadable_report[list_group_id] = details
             except Exception as exc:  # noqa: BLE001
                 failures.append((list_group_id, str(exc)))
                 print(f"[ERROR] list_group_id={list_group_id}: {exc}", file=sys.stderr)
@@ -400,10 +638,17 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 print("Firestoreアップロードをスキップしました。")
 
+        unuploadable_total = unuploadable_missing_answers_total + unuploadable_invalid_total
+
         print_execution_summary(
             successes=successes,
             failures=failures,
             skipped_for_failure=skipped_for_failure,
+            missing_answers_report=missing_answers_report,
+            unuploadable_report=unuploadable_report,
+            unuploadable_total=unuploadable_total,
+            unuploadable_missing_answers_total=unuploadable_missing_answers_total,
+            unuploadable_invalid_total=unuploadable_invalid_total,
         )
 
         print("\n=== 完了 ===")

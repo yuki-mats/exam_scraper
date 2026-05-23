@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping
 
@@ -173,6 +174,159 @@ def apply_correct_choice(
         question["correctChoiceText"] = new_value
         updated += 1
     return updated
+
+
+def apply_question_intent(
+    data: dict,
+    question_intent_map: Mapping[str, Any],
+) -> int:
+    normalize_question_ids(data)
+    updated = 0
+    questions = data.get("question_bodies")
+    if not isinstance(questions, list):
+        raise ValueError("question_bodies が見つかりません")
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+        question_id = question.get("original_question_id")
+        if question_id is None:
+            continue
+        new_value = question_intent_map.get(str(question_id))
+        if new_value is None:
+            continue
+        question["questionIntent"] = new_value
+        updated += 1
+    return updated
+
+
+FULLWIDTH_DIGIT_TRANSLATION = str.maketrans("０１２３４５６７８９", "0123456789")
+ANSWER_RESULT_RE = re.compile(r"正解は\s*([0-9０-９]+(?:\s*,\s*[0-9０-９]+)*)\s*です。")
+
+
+def parse_answer_numbers(answer_result_text: Any) -> list[int]:
+    text = str(answer_result_text or "").translate(FULLWIDTH_DIGIT_TRANSLATION)
+    match = ANSWER_RESULT_RE.search(text)
+    if not match:
+        return []
+    numbers: list[int] = []
+    for part in match.group(1).split(","):
+        part = part.strip()
+        if not part.isdigit():
+            continue
+        n = int(part)
+        if n not in numbers:
+            numbers.append(n)
+    return numbers
+
+
+def infer_question_intent_from_text(question_body_text: Any) -> str | None:
+    text = str(question_body_text or "").strip()
+    if not text:
+        return None
+
+    negative_keywords = (
+        "最も不適当",
+        "不適当",
+        "不適切",
+        "適切でない",
+        "適当でない",
+        "適合しない",
+        "誤って",
+        "誤り",
+        "誤った",
+        "正しくない",
+        "してはならない",
+        "必要がない",
+        "要しない",
+        "関係の少ない",
+        "最も関係の少ない",
+        "記載を要しない",
+    )
+    if any(keyword in text for keyword in negative_keywords):
+        return "select_incorrect"
+    return "select_correct"
+
+
+def normalize_true_false_intent_and_correct_choice(
+    data: dict,
+) -> tuple[int, int]:
+    """
+    questionIntent / correctChoiceText を一次情報から整合する。
+
+    設計変更（ユーザー要望）:
+      - correctChoiceText は answer_result_inferred_correct_choice_numbers（優先）/ answer_result_text（正解番号）と questionIntent で決定する。
+      - 正解番号が複数ある場合、その件数が「正しい」または「間違い」の件数になる。
+
+    - questionIntent は questionBodyText（無ければ originalQuestionBodyText）から推定して上書き（推定できる場合のみ）
+    - correctChoiceText は answer_numbers + questionIntent から再計算して上書き
+    """
+    normalize_question_ids(data)
+    intent_updates = 0
+    correct_choice_updates = 0
+    questions = data.get("question_bodies")
+    if not isinstance(questions, list):
+        return (0, 0)
+
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+
+        inferred_intent = infer_question_intent_from_text(
+            question.get("questionBodyText") or question.get("originalQuestionBodyText") or ""
+        )
+        if inferred_intent and question.get("questionIntent") != inferred_intent:
+            question["questionIntent"] = inferred_intent
+            intent_updates += 1
+
+        intent = question.get("questionIntent")
+        if intent not in {"select_correct", "select_incorrect"}:
+            continue
+
+        inferred_numbers = question.get("answer_result_inferred_correct_choice_numbers")
+        if isinstance(inferred_numbers, list) and inferred_numbers:
+            answer_numbers: list[int] = []
+            for v in inferred_numbers:
+                if isinstance(v, int):
+                    answer_numbers.append(v)
+                elif str(v).isdigit():
+                    answer_numbers.append(int(str(v)))
+            # 重複除外
+            normalized: list[int] = []
+            for n in answer_numbers:
+                if n >= 1 and n not in normalized:
+                    normalized.append(n)
+            answer_numbers = normalized
+        else:
+            answer_numbers = parse_answer_numbers(question.get("answer_result_text"))
+        if not answer_numbers:
+            continue
+
+        choice_count = None
+        choice_list = question.get("choiceTextList")
+        if isinstance(choice_list, list) and choice_list:
+            choice_count = len(choice_list)
+        elif isinstance(question.get("correctChoiceText"), list) and question.get("correctChoiceText"):
+            choice_count = len(question.get("correctChoiceText"))
+        if not choice_count:
+            continue
+        if any((n < 1 or n > choice_count) for n in answer_numbers):
+            continue
+
+        if intent == "select_incorrect":
+            expected = ["正しい"] * choice_count
+            for n in answer_numbers:
+                expected[n - 1] = "間違い"
+        else:
+            expected = ["間違い"] * choice_count
+            for n in answer_numbers:
+                expected[n - 1] = "正しい"
+
+        current = question.get("correctChoiceText")
+        if current != expected:
+            question["correctChoiceText"] = expected
+            correct_choice_updates += 1
+
+    return (intent_updates, correct_choice_updates)
 
 
 def materialize_view_files(

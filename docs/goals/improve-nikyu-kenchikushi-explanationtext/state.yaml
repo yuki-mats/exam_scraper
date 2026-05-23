@@ -1,0 +1,714 @@
+version: 2
+
+goal:
+  title: "二級建築士 explanationText パッチ品質底上げ"
+  slug: "improve-nikyu-kenchikushi-explanationtext"
+  kind: existing_plan
+  tranche: "85002 から 85011 までの棚卸し済み 32 ファイルを、一問ずつ explanationText 品質基準へ引き上げる。"
+  status: active
+  oracle:
+    signal: "棚卸し済み 32 ファイルの各 explanationText が、正誤・根拠・誤り箇所・正しい内容を具体的に示し、法令問題では確認可能な法令条項を明記している。"
+    cadence: "各 Worker 完了後と最終監査時"
+    final_proof: "32 ファイルの done receipt、各 file-level coverage check、薄い定型句監査、法令条項確認を含む最終 Judge/PM 監査 receipt。"
+  intake:
+    original_request: "85002 から 85011 までの二級建築士 explanationText を、一問ずつ goal-prep で進めたい。"
+    interpreted_outcome: "棚卸し済みの更新対象 32 ファイルが、一問ずつ順番に改善される board が用意されている。"
+    input_shape: existing_plan
+    audience: "二級建築士試験の受験者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "32 個の question-level Worker が完了し、各対象ファイルで品質基準と個別検証を満たし、最終監査が full_outcome_complete: true を記録する。"
+    likely_misfire: "対象外ファイルを触る、複数問をまとめて更新する、法令条項を書かない、または薄い説明を残したまま完了扱いにする。"
+    blind_spots_considered:
+      - "85001 と 850003 を誤って tranche に含めること"
+      - "棚卸し結果と実際の着手順の不一致"
+      - "法令問題で条・項・号の裏取りが弱いこと"
+      - "Web 検索が主ソース化すること"
+      - "選択肢本文の言い換え止まりになること"
+    existing_plan_facts:
+      - "対象は棚卸し済みの 32 ファイルに限定する。"
+      - "順序は 85002 から 85011 までで、一問ずつ進める。"
+      - "prompt/03_prompt_add_explanationText.md を品質基準に使う。"
+      - "ローカル成果物を優先しつつ、裏取り目的に限って Web 検索を使ってよい。"
+      - "法令問題では確認できた法令条項を explanationText に明記する。"
+      - "会話・報告は日本語で行い、変更時には作業内容と保存先を明示する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 32
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: false
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: generated
+    url: "http://goalbuddy.localhost:41737/improve-nikyu-kenchikushi-explanationtext/"
+    command: "npx goalbuddy board docs/goals/improve-nikyu-kenchikushi-explanationtext"
+
+active_task: T101
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "85002 から 85011 までの更新対象ファイルを棚卸しし、現 tranche の対象と順序を固定する。"
+    expected_output:
+      - "対象ファイル一覧"
+      - "件数"
+      - "優先順"
+    receipt:
+      result: done
+      summary: "85002 から 85011 までの explanationText パッチを棚卸しし、更新対象は 10 年度・32 ファイルに確定した。85001 は更新済み、850003 は今回の tranche から除外した。"
+      evidence:
+        - "対象年度: 85002, 85003, 85004, 85005, 85006, 85007, 85008, 85009, 85010, 85011"
+        - "対象件数: 32 files"
+        - "優先順: 年度昇順、同一年内は question_*_merged の棚卸し順"
+      notes:
+        - "85002=4, 85003=5, 85004=1, 85005=2, 85006=2, 85007=4, 85008=3, 85009=2, 85010=2, 85011=7"
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "棚卸し済み 32 ファイルをどう実行するか審査し、最初の active Worker と以降の一問ずつ方針を確定する。"
+    inputs:
+      - "T001 receipt"
+      - "prompt/03_prompt_add_explanationText.md"
+    constraints:
+      - "Do not implement."
+      - "年度一括の粗いバッチ化は承認しない。"
+      - "法令条項の裏取りルールを弱めない。"
+    expected_output:
+      - "Decision"
+      - "Execution order"
+      - "Worker shape"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "ユーザーが『85002から85011まで一問ずつ』を明示しているため、question-level Worker を 32 件 queued し、85002 の先頭対象から順に処理する構成が最も安全である。"
+      worker_objective: "各 Worker は対応する 1 ファイルだけを改善し、個別 coverage check と薄い定型句監査を通す。法令問題では確認可能な法令条項を explanationText に明記する。"
+      expected_next: "T101 を active とし、完了ごとに次の queued Worker を昇格する。"
+  - id: T101
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "85002 の question_85002_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T102
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85002 の question_85002_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T103
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85002 の question_85002_3_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T104
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85002 の question_85002_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85002/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_empty_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T105
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85003 の question_85003_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85003/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T106
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85003 の question_85003_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85003/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T107
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85003 の question_85003_3_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_3_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_3_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85003/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_3_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_3_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T108
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85003 の question_85003_4_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_4_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_4_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85003/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_4_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_4_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T109
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85003 の question_85003_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85003/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85003/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_empty_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T110
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85004 の question_85004_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85004/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85004/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T111
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85005 の question_85005_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_2_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85005/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85005/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_2_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_2_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T112
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85005 の question_85005_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85005/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85005/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_empty_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T113
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85006 の question_85006_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85006/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85006/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T114
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85006 の question_85006_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85006/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85006/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T115
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85007 の question_85007_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T116
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85007 の question_85007_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_2_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T117
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85007 の question_85007_4_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T118
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85007 の question_85007_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85007/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85007/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_empty_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T119
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85008 の question_85008_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_2_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85008/20_merged_1/question_85008_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85008/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85008/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85008/20_merged_1/question_85008_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_2_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_2_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T120
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85008 の question_85008_3_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_3_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85008/20_merged_1/question_85008_3_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85008/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85008/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85008/20_merged_1/question_85008_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_3_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_3_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T121
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85008 の question_85008_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "output/2nd-class-kenchikushi/questions_json/85008/20_merged_1/question_85008_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85008/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85008/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85008/20_merged_1/question_85008_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_empty_1_merged_explanationText_added_20260407_0051.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85008/21_explanationText_added/question_85008_empty_1_merged_explanationText_added_20260407_0051.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T122
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85009 の question_85009_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85009/21_explanationText_added/question_85009_2_merged_explanationText_added_20260405_2151.json"
+      - "output/2nd-class-kenchikushi/questions_json/85009/20_merged_1/question_85009_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85009/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85009/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85009/20_merged_1/question_85009_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85009/21_explanationText_added/question_85009_2_merged_explanationText_added_20260405_2151.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85009/21_explanationText_added/question_85009_2_merged_explanationText_added_20260405_2151.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T123
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85009 の question_85009_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85009/21_explanationText_added/question_85009_empty_1_merged_explanationText_added_20260405_2151.json"
+      - "output/2nd-class-kenchikushi/questions_json/85009/20_merged_1/question_85009_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85009/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85009/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85009/20_merged_1/question_85009_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85009/21_explanationText_added/question_85009_empty_1_merged_explanationText_added_20260405_2151.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85009/21_explanationText_added/question_85009_empty_1_merged_explanationText_added_20260405_2151.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T124
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85010 の question_85010_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85010/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T125
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85010 の question_85010_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_empty_1_merged_explanationText_added_reconciled.json"
+      - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85010/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_empty_1_merged_explanationText_added_reconciled.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_empty_1_merged_explanationText_added_reconciled.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T126
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85011 の question_85011_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_1_merged_explanationText_added_20260405_2325.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_1_merged_explanationText_added_20260405_2325.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_1_merged_explanationText_added_20260405_2325.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T127
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85011 の question_85011_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_2_merged_explanationText_added_20260405_2325.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_2_merged_explanationText_added_20260405_2325.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_2_merged_explanationText_added_20260405_2325.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T128
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85011 の question_85011_3_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_3_merged_explanationText_added_reconciled.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_3_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_3_merged_explanationText_added_reconciled.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_3_merged_explanationText_added_reconciled.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T129
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85011 の question_85011_4_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_4_merged_explanationText_added_reconciled.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_4_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_4_merged_explanationText_added_reconciled.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_4_merged_explanationText_added_reconciled.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T130
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85011 の question_85011_empty_1_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_1_merged_explanationText_added_20260405_2325.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_1_merged_explanationText_added_20260405_2325.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_1_merged_explanationText_added_20260405_2325.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T131
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85011 の question_85011_empty_2_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_2_merged_explanationText_added_20260405_2325.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_2_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_2_merged_explanationText_added_20260405_2325.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_2_merged_explanationText_added_20260405_2325.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T132
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "85011 の question_85011_empty_3_merged explanationText を品質基準に沿って改善する。"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260405_2325.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85011/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260405_2325.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260405_2325.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "32 件の question-level Worker がすべて完了した後、original request と oracle に照らして最終監査する。"
+    inputs:
+      - "T001-T132 の done receipts"
+      - "各 file-level coverage check 結果"
+      - "薄い定型句監査結果"
+      - "法令条項明記の確認結果"
+    constraints:
+      - "Do not implement."
+      - "done でない Worker が残っていれば completion を拒否する。"
+      - "法令問題で確認可能な条項明記が欠けていれば completion を拒否する。"
+      - "薄い説明、誤り箇所未明示、正しい内容不足が残っていれば completion を拒否する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "verification summary"
+      - "remaining gaps"
+    receipt: null
+
+checks:
+  dirty_fingerprint: unknown

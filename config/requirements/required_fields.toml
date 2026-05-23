@@ -1,0 +1,54 @@
+# 必須項目チェック設定（TOML）
+#
+# - default: 全資格共通の最低限のチェック
+# - qualification.<資格コード>: 資格ごとの上書き/追加（任意）
+#
+# 注意:
+# - 「必須」を強くしすぎると運用が止まるため、まずは本当に必要な項目から定義する。
+
+[default]
+description = "All-qualifications baseline requirements"
+
+[default.stages.source]
+# output/*/questions_json/*/00_source/*.json の question_bodies[] を対象
+question_bodies_required_keys = ["question_url", "answer_result_text", "examYear", "examLabel"]
+question_bodies_required_non_empty_keys = ["question_url", "answer_result_text", "examLabel"]
+question_bodies_required_any_of = [["public_question_id", "original_question_id"]]
+
+[default.stages.merged]
+# output/*/questions_json/*/(20_merged_1|30_merged_2)/*.json の question_bodies[] を対象
+question_bodies_required_keys = ["questionType", "answer_result_text", "correctChoiceText", "examYear", "examLabel"]
+question_bodies_required_non_empty_keys = ["questionType", "answer_result_text", "examLabel"]
+
+[[default.stages.merged.question_bodies_conditional]]
+when = { questionType = "true_false" }
+required_keys = ["questionIntent"]
+required_non_empty_keys = ["questionIntent"]
+
+[default.stages.firestore]
+# 40_convert/*_firestore_*.json の questions[] を対象
+questions_required_keys = [
+  "questionId",
+  "questionSetId",
+  "questionText",
+  "questionType",
+  "qualificationId",
+  "questionTags",
+  "isOfficial",
+  "isDeleted",
+  "isChoiceOnly",
+  "isGroupable",
+  "originalQuestionBodyText",
+  "correctChoiceText",
+  "examYear",
+  "examSource",
+]
+questions_required_non_empty_keys = [
+  "questionId",
+  "questionSetId",
+  "questionText",
+  "questionType",
+  "qualificationId",
+  "originalQuestionBodyText",
+  "examSource",
+]

@@ -1,0 +1,508 @@
+version: 2
+
+goal:
+  title: "Exam Scraper Site Onboarding Refactor"
+  slug: "exam-scraper-site-onboarding-refactor"
+  kind: open_ended
+  tranche: "Clean up the repo, standardize future site onboarding, then finish SG against the shared pattern."
+  status: done
+  intake:
+    original_request: "新しい資格サイトから過去問を取得しやすくするため、無駄なファイルを削除し、全体をリファクタリングして整理してほしい。"
+    interpreted_outcome: "Future qualification sites can be added through a documented, verified scraper onboarding pattern that produces existing-compatible pipeline inputs and upload-ready outputs."
+    input_shape: vague
+    audience: "Repository owner and future Codex runs adding qualification scrapers."
+    authority: requested
+    proof_type: artifact
+    completion_proof: "Operations docs and this state file clearly show progress; representative pipeline commands pass; unnecessary files are deleted or retained with evidence; SG conforms to the shared pattern."
+    likely_misfire: "Cleaning random files or polishing SG while leaving future site onboarding ambiguous."
+    blind_spots_considered:
+      - "Current worktree contains many unrelated or pre-existing changes; do not revert owner work."
+      - "Category and questionSetId are created separately and must not be forced into source scraping."
+      - "Existing 00_source shape is the compatibility contract for new scrapers."
+      - "Generated output under output/ may be needed for verification but should not become source truth."
+    existing_plan_facts:
+      - "Implementation priority: 2 existing cleanup, then 1 new-site standardization, then 3 SG finish."
+      - "Completion evidence priority: 1 docs/state visibility, then 2 passing commands, then 3 cleanup/removal."
+      - "No visual board; use docs/goals state as the progress surface."
+      - "Follow document/operations/exam_pipeline_manual_and_automation.md."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: none
+  local:
+    status: not_requested
+    url: null
+    command: "npx goalbuddy board docs/goals/exam-scraper-site-onboarding-refactor"
+  github_projects:
+    status: not_requested
+    url: null
+    command: "npx goalbuddy extend github-projects"
+    missing: []
+
+active_task: null
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: "Map current operations docs, scraper implementations, output shapes, generated clutter, and verification commands before any cleanup."
+    inputs:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/ai_patch_execution_prompt_templates.md"
+      - "output/*/questions_json/*/00_source/*.json"
+      - "scripts/scrape/"
+      - "code.py"
+      - "scrape_gassyunin.py"
+      - "scrape_sgsiken.py"
+      - "tests/"
+      - "git status --porcelain"
+    constraints:
+      - "Read-only."
+      - "Do not edit or delete files."
+      - "Separate generated artifacts, owner changes, obsolete files, and active source files."
+      - "Use concrete file-path evidence."
+    expected_output:
+      - "Current pipeline contract summary."
+      - "Existing scraper/output shape comparison."
+      - "Cleanup candidates with evidence and risk."
+      - "Standardization candidates for future site onboarding."
+      - "Representative verification commands."
+      - "Recommended next Worker/Judge tasks."
+    receipt:
+      result: done
+      summary:
+        - "Operations doc contract confirmed at document/operations/exam_pipeline_manual_and_automation.md."
+        - "Output contract: output/<qualification>/questions_json/<list_group_id>/00_source/*.json is the pipeline input; images live under output/<qualification>/question_images/<list_group_id>/ and storage URLs are under question_images/official/<qualification>/."
+        - "Runner entrypoint confirmed at scripts/scrape/run_qualification_scrape.py with scraper_type routing."
+        - "pyproject/tox not present; prefer unittest. pytest fails due to stdlib module name collision with repo root code.py."
+      evidence:
+        - "document/operations/exam_pipeline_manual_and_automation.md"
+        - "scripts/scrape/run_qualification_scrape.py"
+        - "scripts/scrape/common.py"
+        - "output/*/questions_json/*/00_source/*.json"
+
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Strictly align folder/questionSet/question uploads to repaso Firestore required/allowed field rules."
+    allowed_files:
+      - "scripts/common/repaso_firestore_schema.py"
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "scripts/upload/upload_category_to_firestore.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+      - "config/requirements/required_fields.toml"
+      - "tests/test_upload_questions_to_firestore.py"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+    verify:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
+      - ".venv/bin/python scripts/upload/upload_questions_to_firestore.py output/<qual>/questions_json/upload_to_firestore/<file>.json --dry-run"
+    stop_if:
+      - "Would require adding non-schema fields like examOccurrenceId to repaso-side QuestionDoc."
+    receipt:
+      result: done
+      summary:
+        - "Created a repaso schema validator that encodes required/allowed fields and basic types for folders/questionSets/questions."
+        - "upload_questions_to_firestore.py now enforces qualificationId/questionTags/createdAt/createdById/updatedAt/updatedById and validates every document (including --dry-run)."
+        - "upload_category_to_firestore.py now supplies qualificationId and aggregatedQuestionTags and validates docs (including dry-run)."
+        - "convert_merged_to_firestore.py now ensures qualificationId and questionTags exist in Firestore JSON output."
+        - "Updated Firestore-output requirements checks to require repaso-critical fields."
+      changed_files:
+        - "scripts/common/repaso_firestore_schema.py"
+        - "scripts/convert/convert_merged_to_firestore.py"
+        - "scripts/upload/upload_category_to_firestore.py"
+        - "scripts/upload/upload_questions_to_firestore.py"
+        - "config/requirements/required_fields.toml"
+        - "tests/test_upload_questions_to_firestore.py"
+        - "document/operations/exam_pipeline_manual_and_automation.md"
+      commands:
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
+          status: pass
+        - cmd: ".venv/bin/python scripts/upload/upload_questions_to_firestore.py output/kaigofukushi/questions_json/upload_to_firestore/2024_firestore_20260503_142434.json --dry-run"
+          status: pass
+      paths:
+        - "scripts/common/repaso_firestore_schema.py"
+        - "scripts/upload/upload_questions_to_firestore.py"
+        - "scripts/upload/upload_category_to_firestore.py"
+        - "scripts/convert/convert_merged_to_firestore.py"
+        - "config/requirements/required_fields.toml"
+        - "document/operations/exam_pipeline_manual_and_automation.md"
+      repaso_sources_of_truth:
+        - "/Users/yuki/StudioProjects/repaso/firestore.rules"
+        - "/Users/yuki/StudioProjects/repaso/lib/firestore/models/folder_doc.dart"
+        - "/Users/yuki/StudioProjects/repaso/lib/firestore/models/question_set_doc.dart"
+        - "/Users/yuki/StudioProjects/repaso/lib/firestore/models/question_doc.dart"
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Choose the first cleanup and documentation implementation package from Scout evidence."
+    inputs:
+      - "T001 receipt"
+      - "User priority order: cleanup, standardization, SG finish"
+    constraints:
+      - "Do not implement."
+      - "Respect owner changes and avoid deletion without evidence."
+      - "Pick the largest safe useful Worker package."
+    expected_output:
+      - "Decision."
+      - "Exact Worker objective."
+      - "allowed_files."
+      - "verify commands."
+      - "stop_if conditions."
+      - "Deferred or blocked cleanup items."
+    receipt:
+      result: done
+      decision:
+        - "First implementation package: enforce repaso-side Firestore required/allowed schema at upload boundaries (folders/questionSets/questions)."
+        - "Rationale: prevents silent drift and makes future scraper onboarding safer; supports the user's 'minimal per-site instruction' goal."
+      next_active_task: "T004"
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Update operations documentation and progress state so the owner can see the current pipeline, cleanup plan, and remaining work."
+    allowed_files:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "document/operations/ai_patch_execution_prompt_templates.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/goal.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/notes/"
+    verify:
+      - "rg -n \"00_source|questionSetId|category|scrape|upload\" document/operations docs/goals/exam-scraper-site-onboarding-refactor"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.6/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+    stop_if:
+      - "Scout evidence does not identify the current pipeline contract."
+      - "Need to edit implementation files."
+      - "Documentation would contradict existing operations docs."
+    receipt:
+      result: done
+      summary:
+        - "Operations doc updated with runner-first workflow, new-site onboarding checklist, repaso schema sources of truth, and rough work sizing."
+      changed_files:
+        - "document/operations/exam_pipeline_manual_and_automation.md"
+      commands:
+        - cmd: "rg -n \"00_source|questionSetId|category|scrape|upload\" document/operations/exam_pipeline_manual_and_automation.md"
+          status: pass
+      paths:
+        - "document/operations/exam_pipeline_manual_and_automation.md"
+      note:
+        - "This task is now superseded by subsequent schema-strictness work in T008; both are part of the same tranche."
+
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Approve the concrete file cleanup and refactor boundaries after documentation is updated."
+    inputs:
+      - "T001 receipt"
+      - "T003 receipt"
+      - "Current git status"
+    constraints:
+      - "Do not implement."
+      - "Each deletion candidate must have evidence: generated, obsolete, duplicate, or superseded."
+      - "Protect user-owned dirty changes unless the user explicitly included them in cleanup."
+    expected_output:
+      - "Approved deletion/refactor list."
+      - "Retain list with rationale."
+      - "Exact Worker objective."
+      - "allowed_files or allowed_paths."
+      - "verify commands."
+      - "stop_if conditions."
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale:
+        - "現在の worktree には、パイプラインが参照するのに git 未追跡のスクリプト/設定/テスト/ドキュメントが多数あり、まずそれらを『正本として残す/不要物として削る』に分類して整理する必要がある。"
+        - "巨大な生成物（scratch の PNG 等）はパイプラインの正本ではなく、誤って混入すると管理負債になるため除外/削除を優先する。"
+        - "prompt/02 のファイル名が実態と齟齬しており（correctChoiceText → questionIntent + correctChoiceText）、運用ドキュメントと整合する形に統一する。"
+      approved_changes:
+        keep_and_track_as_source_of_truth:
+          - "config/scrape_presets.json"
+          - "config/requirements/required_fields.toml"
+          - "scrape_gassyunin.py"
+          - "scrape_sgsiken.py"
+          - "scripts/scrape/"
+          - "scripts/common/requirements.py"
+          - "scripts/common/question_counting.py"
+          - "scripts/check/check_required_fields.py"
+          - "scripts/check/check_question_intent_correct_choice_text_distribution.py"
+          - "scripts/fix/"
+          - "scripts/pipeline/prepare_firestore_upload_all.py"
+          - "scripts/pipeline/upload_all_to_firestore.py"
+          - "scripts/upload/delete_stale_category_docs.py"
+          - "tests/test_scrape_*.py"
+          - "document/operations/ai_patch_execution_prompt_templates.md"
+          - "docs/goals/exam-scraper-site-onboarding-refactor/goal.md"
+          - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+          - "prompt/02_prompt_fix_questionIntent.md"
+          - "prompt/qualification_docs/"
+        delete_or_ignore_as_non_source:
+          - "scratch/ (PNG/PDFプレビューなどの一時生成物)"
+          - "scripts/tmp/ (未参照の一時スクリプト)"
+          - "scripts/eval/evaluate_patch_feedback.py (未参照)"
+          - "__pycache__/ 等の生成物（現状通りgit管理外）"
+        rename_or_replace:
+          - "prompt/02_prompt_fix_correctChoiceText.md -> prompt/02_prompt_fix_questionIntent.md（旧ファイルは削除して統一）"
+      worker_next:
+        id: T005
+        objective: "未追跡の必須ファイルを正本として整理し、不要/巨大な一時生成物を削除・無視設定し、prompt/02 を統一する。"
+        allowed_paths:
+          - ".gitignore"
+          - "config/"
+          - "document/operations/"
+          - "docs/goals/exam-scraper-site-onboarding-refactor/"
+          - "prompt/"
+          - "scripts/"
+          - "tests/"
+          - "scrape_gassyunin.py"
+          - "scrape_sgsiken.py"
+          - "scratch/"
+        verify:
+          - ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
+          - ".venv/bin/python scripts/scrape/run_qualification_scrape.py sg 201902 --max-questions 1 --dry-run"
+          - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.6/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "未追跡の必須ファイルを正本として整理し、不要/巨大な一時生成物を削除・無視設定し、prompt/02 を統一する。"
+    allowed_files:
+      - ".gitignore"
+      - "config/requirements/required_fields.toml"
+      - "config/scrape_presets.json"
+      - "document/operations/ai_patch_execution_prompt_templates.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/goal.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/02_prompt_fix_correctChoiceText.md"
+      - "prompt/qualification_docs/"
+      - "scrape_gassyunin.py"
+      - "scrape_sgsiken.py"
+      - "scripts/check/check_required_fields.py"
+      - "scripts/check/check_question_intent_correct_choice_text_distribution.py"
+      - "scripts/common/question_counting.py"
+      - "scripts/common/requirements.py"
+      - "scripts/eval/evaluate_patch_feedback.py"
+      - "scripts/fix/"
+      - "scripts/pipeline/prepare_firestore_upload_all.py"
+      - "scripts/pipeline/upload_all_to_firestore.py"
+      - "scripts/scrape/"
+      - "scripts/tmp/"
+      - "scripts/upload/delete_stale_category_docs.py"
+      - "tests/"
+      - "scratch/"
+    verify:
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.6/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+    stop_if:
+      - "Need files outside Judge-approved allowed_paths."
+      - "A deletion candidate lacks evidence."
+      - "Verification fails twice."
+      - "Change would alter category/questionSetId ownership."
+    receipt:
+      result: done
+      changed_files:
+        - ".gitignore"
+        - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
+          status: pass
+        - cmd: ".venv/bin/python scripts/scrape/run_qualification_scrape.py sg 201902 --max-questions 1 --dry-run"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.6/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+          status: pass
+      summary:
+        - "scratch/ を git 管理外として固定（.gitignore 追加）し、巨大生成物の混入を防止。"
+        - "未参照の一時スクリプト（scripts/eval, scripts/tmp）を削除して作業ツリーを整理。"
+
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: blocked
+    reasoning_hint: medium
+    objective: "Create the reusable new-site scraper onboarding pattern and validation checklist."
+    allowed_files: []
+    verify: []
+    stop_if: []
+    receipt:
+      result: blocked
+      reason:
+        - "オンボーディング手順・チェックリストは document/operations/exam_pipeline_manual_and_automation.md に反映済みのため、追加の作業パッケージが未定義。"
+      note:
+        - "必要なら『新サイト追加用のテンプレ雛形（scrape_<site>.py の骨組み）を生成する』など、具体的な追加成果物をJudgeで定義してから再開する。"
+
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Finish SG against the shared onboarding pattern and verify representative SG pipeline commands."
+    allowed_files:
+      - "scrape_sgsiken.py"
+      - "config/scrape_presets.json"
+      - "scripts/scrape/"
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "tests/test_scrape_sgsiken.py"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/scrape/run_qualification_scrape.py sg 201902 --max-questions 1 --force"
+      - ".venv/bin/python scripts/convert/convert_merged_to_firestore.py 201902 -b output/sg/questions_json"
+    stop_if:
+      - "Shared onboarding pattern is not yet documented."
+      - "SG source output diverges from existing 00_source contract."
+      - "Category/questionSetId work is required before source/prepare dry-run can be evaluated."
+    receipt:
+      result: done
+      summary:
+        - "資格プリセット + ランナー経由で sg-siken.com（2019秋=201902）を再取得し、output/sg/questions_json/201902/00_source へ既存契約形式で保存できることを確認。"
+        - "既存の merged から Firestore JSON への変換（40_convert / upload_to_firestore 出力）まで通ることを確認。"
+        - "questionSetId はカテゴリ側作成/リンク工程の責務のため、この時点では空になり得る（upload 検証は questionSetId_linked 後に実施）。"
+      changed_files:
+        - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/scrape/run_qualification_scrape.py sg 201902 --max-questions 1 --force"
+          status: pass
+        - cmd: ".venv/bin/python scripts/convert/convert_merged_to_firestore.py 201902 -b output/sg/questions_json"
+          status: pass
+      paths:
+        - "scrape_sgsiken.py"
+        - "config/scrape_presets.json"
+        - "scripts/scrape/run_qualification_scrape.py"
+        - "output/sg/questions_json/201902/00_source/"
+        - "output/sg/questions_json/201902/40_convert/"
+        - "output/sg/questions_json/upload_to_firestore/"
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit whether cleanup, new-site standardization, and SG finishing satisfy the full owner outcome."
+    inputs:
+      - "All done task receipts."
+      - "Last verification commands."
+      - "Current dirty diff."
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+    constraints:
+      - "Do not implement."
+      - "Reject completion if docs/state do not show remaining work clearly."
+      - "Reject completion if representative commands have not passed or been explicitly blocked with rationale."
+      - "Reject completion if required cleanup/refactor Worker tasks remain queued."
+    expected_output:
+      - "complete | not_complete."
+      - "full_outcome_complete: true | false."
+      - "Evidence mapped to the user's 1,2,3 completion proof order."
+      - "Missing evidence."
+      - "Next task if not complete."
+    receipt:
+      result: done
+      decision: continue
+      full_outcome_complete: false
+      rationale:
+        - "SG の代表コマンド（スクレイプ→convert）までは通ったが、repaso スキーマ厳密化により upload_questions_to_firestore は questionSetId 非空が必須のため、SG は questionSetId_linked の patch を作るまで upload で止まる（仕様通り）。"
+        - "運用ドキュメント/プリセット/ランナー/スキーマ検証の土台は揃ったが、SG 向けの『questionSetId_linked をどう作るか（カテゴリ側の命名規則・単一セットか年度別か）』がこのゴールの範囲外としても、次にやることが state 上で明確になるように追補タスクが必要。"
+      missing_evidence:
+        - "SG の questionSetId_linked patch 作成→convert 補完→upload dry-run までの一連確認（カテゴリ作成は別途だが、リンク後の upload 想定の確認が未実施）。"
+
+  - id: T010
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "SG の questionSetId_linked 作業手順（カテゴリ側で作る前提）を operations doc と state に明文化し、代表的な dry-run コマンドを追加する。"
+    allowed_files:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+    verify:
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.6/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+    stop_if:
+      - "Would require creating SG category/questionSets automatically (out of scope)."
+    receipt:
+      result: done
+      summary:
+        - "新サイト追加チェックリストを『カテゴリ/questionSetId 連携前』と『questionSetId_linked 後』に分離し、SG を含む新規サイト追加時に詰まりやすい点（questionSetId 非空要件）を明記。"
+      changed_files:
+        - "document/operations/exam_pipeline_manual_and_automation.md"
+        - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+      commands:
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.6/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+          status: pass
+      paths:
+        - "document/operations/exam_pipeline_manual_and_automation.md"
+        - "config/requirements/required_fields.toml"
+
+  - id: T011
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Final audit after T010; decide whether the owner outcome is complete and, if so, close the goal."
+    inputs:
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+      - "docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"
+      - "T005/T007/T008/T010 receipts"
+      - "Representative commands (scrape + convert + upload dry-run for an existing qual)"
+    constraints:
+      - "Do not implement."
+      - "If goal can be closed, set goal.status=done and active_task=null with no active tasks."
+    expected_output:
+      - "decision: complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "If not complete: next task definition"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      evidence:
+        - "運用手順: document/operations/exam_pipeline_manual_and_automation.md"
+        - "repaso スキーマ厳密化: scripts/common/repaso_firestore_schema.py + upload_*_to_firestore.py（T008）"
+        - "新サイト追加（SG）: scrape_sgsiken.py + config/scrape_presets.json + scripts/scrape/run_qualification_scrape.py（T007）"
+      rationale:
+        - "以後の新規サイト追加は『ランナー + 共通ヘルパ + required fields チェック』で最小手順が確立されており、カテゴリ/questionSetId は別工程として明確に分離されている。"
+        - "アップロードは repaso の required/allowed を満たさない限り失敗するため、スキーマ逸脱を早期に検知できる。"
+      remaining_owner_work:
+        - "SG の category/questionSetId 作成と、question_set patch（22_questionSetId_linked）作成は別途実施（本ゴール外）。"
+
+checks:
+  dirty_fingerprint: "sha256: d02938297ae3ae4a110dbf093d31d3d6e1a8007836730555f9ed596d2e6e57e5"
+  last_verification:
+    result: ok
+    task: T010
+    commands:
+      - "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.6/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/exam-scraper-site-onboarding-refactor/state.yaml"

@@ -20,10 +20,16 @@ if __package__ in {None, ""}:
         infer_qualification_from_path,
         normalize_image_url_fields,
     )
+    from scripts.check.check_question_intent_correct_choice_text_distribution import (
+        raise_on_violations as raise_on_question_intent_correct_choice_violations,
+    )
 else:
     from scripts.common.image_storage_urls import (
         infer_qualification_from_path,
         normalize_image_url_fields,
+    )
+    from scripts.check.check_question_intent_correct_choice_text_distribution import (
+        raise_on_violations as raise_on_question_intent_correct_choice_violations,
     )
 
 # 試験名定義（ここに必要な試験名を追加して使う）
@@ -52,8 +58,21 @@ def build_timestamped_firestore_filename(list_group_id: str, timestamp: str | No
     return f"{list_group_id}_firestore_{timestamp}.json"
 
 
-def archive_existing_entries(target_dir: Path) -> Path | None:
-    existing = [p for p in target_dir.iterdir() if p.name != "old"]
+def archive_existing_entries(target_dir: Path, *, only_prefix: str | None = None) -> Path | None:
+    """
+    target_dir 配下の既存エントリを old/<timestamp>/ へ退避する。
+
+    only_prefix を指定した場合は、その prefix で始まるファイル/フォルダのみ退避対象とする。
+    例: upload_to_firestore は資格全体で共有ディレクトリのため、
+        list_group_id 単位のファイルだけを退避し、他の list_group_id の出力は残す。
+    """
+    existing: list[Path] = []
+    for path in target_dir.iterdir():
+        if path.name == "old":
+            continue
+        if only_prefix and not path.name.startswith(only_prefix):
+            continue
+        existing.append(path)
     if not existing:
         return None
 
@@ -147,10 +166,100 @@ def get_exam_session(question_body: dict) -> str:
     return ""
 
 
+def get_exam_year(question_body: dict) -> int:
+    """
+    examYear は必須項目。
+    - question_body["examYear"] があればそれを優先
+    - 無い/不正な場合は examLabel 等から (YYYY年) / YYYY年 を抽出
+    抽出できない場合は例外を投げる。
+    """
+    raw = question_body.get("examYear")
+    if isinstance(raw, int):
+        if 1900 <= raw <= 2100:
+            return raw
+    if isinstance(raw, str):
+        stripped = raw.strip()
+        if stripped.isdigit() and len(stripped) == 4:
+            year = int(stripped)
+            if 1900 <= year <= 2100:
+                return year
+
+    import re
+
+    # 和暦→西暦変換（code.py と同等の最低限）
+    era_start_year = {
+        "令和": 2019,
+        "平成": 1989,
+        "昭和": 1926,
+        "大正": 1912,
+        "明治": 1868,
+    }
+
+    def to_western_year(era: str, token: str) -> int | None:
+        base = era_start_year.get(era)
+        if base is None:
+            return None
+        token = token.translate(str.maketrans("０１２３４５６７８９", "0123456789")).strip()
+        if token == "元":
+            era_year = 1
+        elif token.isdigit():
+            era_year = int(token)
+        else:
+            return None
+        if era_year <= 0:
+            return None
+        return base + era_year - 1
+
+    candidates: list[str] = []
+    for key in ("examLabel", "examTitle", "examTitleName", "exam", "exam_name", "exam_label"):
+        v = question_body.get(key)
+        if isinstance(v, str) and v.strip():
+            candidates.append(v.strip())
+
+    for text in candidates:
+        # 優先: "(2023年)" のような西暦
+        match = re.search(r"[（(]\s*(\d{4})\s*年\s*[)）]", text)
+        if match:
+            year = int(match.group(1))
+            if 1900 <= year <= 2100:
+                return year
+
+        # 次: "2023年" など
+        match = re.search(r"((?:19|20)\d{2})\s*年(?:度)?", text)
+        if match:
+            year = int(match.group(1))
+            if 1900 <= year <= 2100:
+                return year
+
+        # 最後: "令和元年度" / "平成25年度" など（「年度」は「年+度」なのでこの正規表現で拾える）
+        match = re.search(r"(令和|平成|昭和|大正|明治)\s*(元|[0-9０-９]+)\s*年(?:度)?", text)
+        if match:
+            year = to_western_year(match.group(1), match.group(2))
+            if year is not None and 1900 <= year <= 2100:
+                return year
+
+    raise RuntimeError(
+        f"examYear is required but missing/unparseable: {raw!r} (examLabel={question_body.get('examLabel')!r})"
+    )
+
+
 def get_original_question_body_text(question_body: dict) -> str:
-    """originalQuestionBodyText を取得（snake_case / camelCase の両方をサポート）"""
-    # snake_case を優先し、見つからなければ camelCase、どちらもなければ空文字
-    return question_body.get("original_question_body_text", "") or question_body.get("originalQuestionBodyText", "")
+    """originalQuestionBodyText を取得する。
+
+    優先順位:
+    1. original_question_body_text
+    2. originalQuestionBodyText
+    3. questionBodyText
+    """
+    for key in ("original_question_body_text", "originalQuestionBodyText", "questionBodyText"):
+        value = question_body.get(key, "")
+        if isinstance(value, str):
+            normalized = value.strip()
+            if normalized:
+                return normalized
+        elif value:
+            return str(value)
+    return ""
 
 
 CORRECT_CHOICE_LABELS = {"正しい", "間違い"}
@@ -272,7 +381,7 @@ def create_firestore_question_base(
         "questionType": question_type,
         "correctChoiceText": correct_choice_text,
         "explanationText": explanation_text,
-        "examYear": question_body.get("examYear"),
+        "examYear": get_exam_year(question_body),
         "examSource": exam_source,
         "isOfficial": True,
         "isDeleted": False,
@@ -510,7 +619,7 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         question_text = question_body.get("questionBodyText", "").replace('\n', '')
         
         # examSource: 試験名（question_body由来）, examYear年, 問x
-        exam_year = question_body.get("examYear", "")
+        exam_year = get_exam_year(question_body)
         question_label = question_body.get("questionLabel", "")
         exam_name = get_exam_name(question_body)
         session = get_exam_session(question_body)
@@ -531,7 +640,7 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
             "questionType": question_type,
             "correctChoiceText": question_body.get("correctChoiceText", []),
             "explanationText": format_explanation_text(question_body.get("explanationText", [])),
-            "examYear": question_body.get("examYear"),
+            "examYear": exam_year,
             "examSource": exam_source,
             "isOfficial": True,
             "isDeleted": False,
@@ -555,6 +664,12 @@ def convert_merged_to_firestore(input_path: Path, output_path: Path = None) -> d
     
     with open(input_path, "r", encoding="utf-8") as f:
         merged_data = json.load(f)
+    raise_on_question_intent_correct_choice_violations(payload=merged_data, source_path=input_path)
+    invalid_path = input_path.with_name(f"{input_path.stem}_invalid{input_path.suffix}")
+    if invalid_path.exists():
+        with open(invalid_path, "r", encoding="utf-8") as f:
+            invalid_data = json.load(f)
+        raise_on_question_intent_correct_choice_violations(payload=invalid_data, source_path=invalid_path)
     qualification = infer_qualification_from_path(input_path)
     normalize_payload_image_urls(merged_data, qualification)
     list_group_id = merged_data.get("list_group_id", "unknown")
@@ -596,6 +711,9 @@ def convert_merged_to_firestore(input_path: Path, output_path: Path = None) -> d
         # listGroupId を各レコードに付与
         for q in converted_questions:
             q["listGroupId"] = list_group_id
+            if qualification:
+                q.setdefault("qualificationId", qualification)
+            q.setdefault("questionTags", [])
         # true_falseの場合は分割後の各設問にも正しいquestionSetIdを付与
         if question_body.get("questionType") == "true_false" and question_body.get("questionSetId"):
             for q in converted_questions:
@@ -705,6 +823,12 @@ def main(argv: list[str] | None = None):
         for input_path in merged_files:
             with open(input_path, "r", encoding="utf-8") as f:
                 merged_data = json.load(f)
+            raise_on_question_intent_correct_choice_violations(payload=merged_data, source_path=input_path)
+            invalid_path = input_path.with_name(f"{input_path.stem}_invalid{input_path.suffix}")
+            if invalid_path.exists():
+                with open(invalid_path, "r", encoding="utf-8") as f:
+                    invalid_data = json.load(f)
+                raise_on_question_intent_correct_choice_violations(payload=invalid_data, source_path=invalid_path)
             normalize_payload_image_urls(merged_data, qualification)
             
             question_bodies = merged_data.get("question_bodies", [])
@@ -712,6 +836,11 @@ def main(argv: list[str] | None = None):
                 converted_questions = convert_question_to_firestore(question_body)
                 for q in converted_questions:
                     q["listGroupId"] = args.list_group_id
+                    if qualification:
+                        q["qualificationId"] = qualification
+                    # questionTags は repaso 側の required fields。欠損/None の場合は空配列で埋める。
+                    if q.get("questionTags") is None:
+                        q["questionTags"] = []
                 all_firestore_questions.extend(converted_questions)
             
             print(f"読み込み: {input_path.name} ({len(question_bodies)}問)")
@@ -783,7 +912,10 @@ def main(argv: list[str] | None = None):
                 upload_dir.mkdir(parents=True, exist_ok=True)
 
                 archived_convert = archive_existing_entries(convert_dir)
-                archived_upload = archive_existing_entries(upload_dir)
+                archived_upload = archive_existing_entries(
+                    upload_dir,
+                    only_prefix=f"{args.list_group_id}_firestore_",
+                )
 
                 filename = build_timestamped_firestore_filename(args.list_group_id)
                 convert_output_path = convert_dir / filename

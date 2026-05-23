@@ -5,27 +5,55 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from shutil import copyfile
-from typing import Any
-
-import firebase_admin
-from firebase_admin import firestore
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.questions_json_paths import list_group_ids_in_base_dir
+from scripts.common.question_counting import analyze_question_file
 from scripts.upload.firebase_credentials import (
     DEFAULT_PROJECT_ID,
     initialize_firebase_app,
+)
+from scripts.common.repaso_firestore_schema import (
+    validate_folder_doc,
+    validate_question_set_doc,
 )
 
 PROJECT_ID = DEFAULT_PROJECT_ID
 UPDATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
 CREATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
+QUALIFICATION_NAME_BY_CODE = {
+    "2nd-class-kenchikushi": "二級建築士",
+    "kaigofukushi": "介護福祉士",
+    "kounin-shinrishi": "公認心理師",
+    "kyusuikouji-shunin": "給水装置工事主任技術者",
+}
+
+
+def infer_qualification_id_from_path(category_json_path: str) -> str:
+    """
+    output/<qualification>/category/category.json から qualificationId を推定する。
+    推定できない場合は空文字を返す（この場合は strict validate で落ちる）。
+    """
+    path = Path(category_json_path).expanduser().resolve()
+    parts = list(path.parts)
+    for idx, part in enumerate(parts):
+        if part == "output" and idx + 1 < len(parts):
+            return str(parts[idx + 1])
+    # フォールバック: output 配下でない場合は親ディレクトリ名を使う
+    try:
+        if path.name == "category.json" and path.parent.name == "category":
+            return str(path.parents[1].name)
+    except Exception:
+        pass
+    return ""
 
 
 def init_firestore(credentials_json: Path | None = None):
+    from firebase_admin import firestore
+
     initialize_firebase_app(project_id=PROJECT_ID, credentials_json=credentials_json)
     return firestore.client()
 
@@ -33,20 +61,6 @@ def init_firestore(credentials_json: Path | None = None):
 def load_category_json(path: str):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
-
-
-def find_key_values(obj: Any, key_name: str) -> list:
-    """Recursively collect values for keys matching `key_name` in a JSON-like structure."""
-    found = []
-    if isinstance(obj, dict):
-        for k, v in obj.items():
-            if k == key_name:
-                found.append(v)
-            found.extend(find_key_values(v, key_name))
-    elif isinstance(obj, list):
-        for item in obj:
-            found.extend(find_key_values(item, key_name))
-    return found
 
 
 def is_archived_path(path: Path) -> bool:
@@ -99,19 +113,45 @@ def gather_all_list_group_latest_files(questions_json_dir: Path) -> list[Path]:
     return files
 
 
-def aggregate_question_set_counts(files: list[Path]) -> Counter:
+def resolve_license_name(category_json_path: str, explicit_license_name: str | None) -> str:
+    if explicit_license_name:
+        return explicit_license_name
+
+    category_path = Path(category_json_path).expanduser().resolve()
+    qualification_code = ""
+    try:
+        qualification_code = category_path.parents[1].name
+    except Exception:
+        qualification_code = ""
+
+    if qualification_code in QUALIFICATION_NAME_BY_CODE:
+        return QUALIFICATION_NAME_BY_CODE[qualification_code]
+
+    config_path = REPO_ROOT / "config" / "scrape_presets.json"
+    if config_path.exists():
+        try:
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            preset = config.get(qualification_code)
+            qualification_name = preset.get("qualification_name") if isinstance(preset, dict) else None
+            if isinstance(qualification_name, str) and qualification_name.strip():
+                return qualification_name.strip()
+        except Exception:
+            pass
+
+    if qualification_code:
+        return qualification_code
+    return "unknown"
+
+
+def aggregate_question_set_counts(files: list[Path]):
     counter: Counter = Counter()
     for p in files:
         try:
-            with open(p, "r", encoding="utf-8") as f:
-                obj = json.load(f)
+            _, file_counter, _ = analyze_question_file(p)
         except Exception as e:
             print(f"Warning: failed to load {p}: {e}", file=sys.stderr)
             continue
-        qset_vals = find_key_values(obj, "questionSetId")
-        for value in qset_vals:
-            if value is not None and str(value) != "":
-                counter[str(value)] += 1
+        counter.update(file_counter)
     return counter
 
 
@@ -132,6 +172,19 @@ def apply_counts_to_category(data: dict, counts: Counter) -> None:
         folder["questionCount"] = int(folder_counts.get(folder_id, 0))
 
 
+def normalize_question_count(value) -> int:
+    try:
+        return int(value or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def resolve_question_set_is_deleted(qset: dict) -> bool:
+    if qset.get("isDeleted") is True:
+        return True
+    return normalize_question_count(qset.get("questionCount", 0)) <= 0
+
+
 def delete_folders_and_question_sets(db, data):
     for folder in data.get("folders", []):
         folder_id = folder.get("folderId")
@@ -149,59 +202,85 @@ def delete_folders_and_question_sets(db, data):
             print(f"Warning: failed to delete questionSet {qset_id}: {e}")
 
 
-def upsert_folder(db, folder, now, license_name: str):
+def upsert_folder(db, folder, now, license_name: str, qualification_id: str):
     folder_id = folder.get("folderId")
     doc_ref = db.collection("folders").document(folder_id)
     created_at = now
+    existing_data: dict | None = None
     try:
         existing_doc = doc_ref.get()
         if existing_doc.exists:
-            existing_data = existing_doc.to_dict()
+            existing_data = existing_doc.to_dict() or {}
             if "createdAt" in existing_data:
                 created_at = existing_data["createdAt"]
     except Exception as e:
         print(f"Warning: failed to fetch existing folder {folder_id}: {e}")
+        existing_data = None
     doc_data = {
         "name": folder["name"],
         # "description": folder.get("description", ""),
         "isDeleted": False,
         "isPublic": True,
         "isOfficial": True,
+        "aggregatedQuestionTags": [],
         "licenseName": license_name,
+        "qualificationId": qualification_id,
         "questionCount": folder.get("questionCount", 0),
         "createdById": CREATED_BY_ID,
         "createdAt": created_at,
-        "updatedById": UPDATED_BY_ID,
-        "updatedAt": now,
     }
+    # updatedAt は「差分が発生して変更される時のみ」更新する（ユーザー要望）
+    if existing_data is not None:
+        comparable_keys = ("name", "isDeleted", "isPublic", "isOfficial", "licenseName", "questionCount")
+        changed = any(existing_data.get(k) != doc_data.get(k) for k in comparable_keys)
+        if not changed:
+            print(f"Skip folder (no diff): {folder_id}")
+            return
+
+    doc_data["updatedById"] = UPDATED_BY_ID
+    doc_data["updatedAt"] = now
+    validate_folder_doc(doc_data, doc_id=str(folder_id))
     doc_ref.set(doc_data, merge=True)
     print(f"Uploaded folder: {folder_id}")
 
 
-def upsert_question_set(db, qset, now):
+def upsert_question_set(db, qset, now, qualification_id: str):
     qset_id = qset.get("questionSetId")
     doc_ref = db.collection("questionSets").document(qset_id)
     created_at = now
+    existing_data: dict | None = None
     try:
         existing_doc = doc_ref.get()
         if existing_doc.exists:
-            existing_data = existing_doc.to_dict()
+            existing_data = existing_doc.to_dict() or {}
             if "createdAt" in existing_data:
                 created_at = existing_data["createdAt"]
     except Exception as e:
         print(f"Warning: failed to fetch existing questionSet {qset_id}: {e}")
+        existing_data = None
+    question_count = normalize_question_count(qset.get("questionCount", 0))
     doc_data = {
         "name": qset["name"],
         # "description": qset.get("description", ""),
-        "isDeleted": False,
+        "isDeleted": resolve_question_set_is_deleted(qset),
         "isOfficial": True,
         "folderId": qset.get("folderId"),
-        "questionCount": qset.get("questionCount", 0),
+        "qualificationId": qualification_id,
+        "questionCount": question_count,
         "createdById": CREATED_BY_ID,
         "createdAt": created_at,
-        "updatedById": UPDATED_BY_ID,
-        "updatedAt": now,
     }
+    # updatedAt は「差分が発生して変更される時のみ」更新する（ユーザー要望）
+    if existing_data is not None:
+        comparable_keys = ("name", "isDeleted", "isOfficial", "folderId", "questionCount")
+        changed = any(existing_data.get(k) != doc_data.get(k) for k in comparable_keys)
+        if not changed:
+            print(f"Skip questionSet (no diff): {qset_id}")
+            return
+
+    doc_data["updatedById"] = UPDATED_BY_ID
+    doc_data["updatedAt"] = now
+    validate_question_set_doc(doc_data, doc_id=str(qset_id))
     doc_ref.set(doc_data, merge=True)
     print(f"Uploaded questionSet: {qset_id}")
 
@@ -212,7 +291,13 @@ def main():
     parser.add_argument("--source", type=str, default=None, help="問題データのJSONファイルまたはディレクトリ（questionCount集計対象）")
     parser.add_argument("--all-list-groups", action="store_true", help="資格配下の全list_group_idの最新upload_to_firestoreをまとめて集計")
     parser.add_argument("--questions-json-dir", type=str, default=None, help="questions_jsonディレクトリのパス（--all-list-groups時に使用）")
-    parser.add_argument("--licenseName", "-l", required=True, help="アップロードするフォルダに設定する licenseName を指定（必須）")
+    parser.add_argument(
+        "--licenseName",
+        "-l",
+        required=False,
+        default=None,
+        help="アップロードするフォルダに設定する licenseName（未指定時は category.json のパスから推定）",
+    )
     parser.add_argument("--upload", action="store_true", help="実際に Firestore にアップロードする。指定しない場合は dry-run を行う")
     parser.add_argument("--delete", action="store_true", help="Firestoreからcategory.json記載のfolders/questionSetsを物理削除する")
     parser.add_argument("--write-category", action="store_true", help="集計した questionCount を category.json に書き戻す（バックアップを作成）")
@@ -230,6 +315,10 @@ def main():
         db = init_firestore(args.credentials_json)
 
     data = load_category_json(args.category_json)
+
+    # licenseName: 未指定なら category.json のパス（output/<qual>/category/category.json）から推定
+    license_name = resolve_license_name(args.category_json, args.licenseName)
+    qualification_id = infer_qualification_id_from_path(args.category_json)
 
     if args.source and args.all_list_groups:
         print("エラー: --source と --all-list-groups は同時に指定できません", file=sys.stderr)
@@ -263,34 +352,58 @@ def main():
     for folder in data.get("folders", []):
         folder_id = folder.get("folderId")
         question_count = folder.get("questionCount", 0)
-        # Skip upload/printing for empty categories
-        if question_count == 0:
-            if args.upload and db is not None:
-                print(f"Skipping upload of folder {folder_id}: questionCount is 0")
-            else:
-                print(f"Skipping folder {folder_id}: questionCount=0")
-            continue
-
         if args.upload and db is not None:
-            upsert_folder(db, {**folder, "questionCount": question_count}, now, args.licenseName)
+            upsert_folder(
+                db,
+                {**folder, "questionCount": question_count},
+                now,
+                license_name,
+                qualification_id,
+            )
         else:
+            # dry-run でも repaso schema の必須キーを満たす doc_data を構築して検証する
+            doc_data = {
+                "name": folder.get("name", ""),
+                "isDeleted": False,
+                "isPublic": True,
+                "isOfficial": True,
+                "aggregatedQuestionTags": [],
+                "licenseName": license_name,
+                "qualificationId": qualification_id,
+                "questionCount": int(question_count or 0),
+                "createdById": CREATED_BY_ID,
+                "createdAt": now,
+                "updatedById": UPDATED_BY_ID,
+                "updatedAt": now,
+            }
+            validate_folder_doc(doc_data, doc_id=str(folder_id))
             print(f"Folder {folder_id}: questionCount -> {question_count}")
 
     # 問題集登録
     for qset in data.get("questionSets", []):
         qset_id = qset.get("questionSetId")
         question_count = qset.get("questionCount", 0)
-        # Skip uploading questionSets with zero questions
-        if question_count == 0:
-            if args.upload and db is not None:
-                print(f"Skipping upload of questionSet {qset_id}: questionCount is 0")
-            else:
-                print(f"Skipping questionSet {qset_id}: questionCount=0")
-            continue
-
         if args.upload and db is not None:
-            upsert_question_set(db, {**qset, "questionCount": question_count}, now)
+            upsert_question_set(
+                db,
+                {**qset, "questionCount": question_count},
+                now,
+                qualification_id,
+            )
         else:
+            doc_data = {
+                "name": qset.get("name", ""),
+                "folderId": qset.get("folderId", ""),
+                "qualificationId": qualification_id,
+                "questionCount": int(question_count or 0),
+                "isDeleted": resolve_question_set_is_deleted(qset),
+                "isOfficial": True,
+                "createdById": CREATED_BY_ID,
+                "createdAt": now,
+                "updatedById": UPDATED_BY_ID,
+                "updatedAt": now,
+            }
+            validate_question_set_doc(doc_data, doc_id=str(qset_id))
             print(f"QuestionSet {qset_id}: questionCount -> {question_count}")
 
     # Write back to category.json if requested (create timestamped backup)

@@ -17,6 +17,10 @@ TASK_CONFIG = {
         "subdir": "10_questionType_fixed",
         "tag": "questionType_fixed",
     },
+    "question_intent": {
+        "subdir": "15_correctChoiceText_fixed",
+        "tag": "correctChoiceText_fixed",
+    },
     "explanation": {
         "subdir": "21_explanationText_added",
         "tag": "explanationText_added",

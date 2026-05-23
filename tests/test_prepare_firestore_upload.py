@@ -67,8 +67,8 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
         self.assertTrue(all(source.endswith(".json") for source in count_sources))
         category_updates = [command for name, command, _ in commands if name.startswith("update category counts")]
         self.assertEqual(len(category_updates), 1)
-        self.assertIn("--latest-final-only", category_updates[0])
-        self.assertIn(str(self.base_dir.resolve()), category_updates[0])
+        self.assertIn("--latest-upload-only", category_updates[0])
+        self.assertIn(str((self.base_dir / "upload_to_firestore").resolve()), category_updates[0])
         self.assertIn("targets   : 85010, 85011", stdout.getvalue())
 
     def test_bulk_mode_continues_after_failure_and_skips_category_update(self) -> None:

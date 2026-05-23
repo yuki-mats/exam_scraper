@@ -1,0 +1,608 @@
+version: 2
+
+goal:
+  title: "二級建築士 85010 専門家レビュー"
+  slug: "nikyu-kenchikushi-expert-review-85010"
+  kind: existing_plan
+  tranche: "2nd-class-kenchikushi / 85010 / question_85010_1_merged.json の 25 設問を一問ずつ専門家レビューする。"
+  status: active
+  oracle:
+    signal: "対象設問ごとに正しい回答と専門家水準の解説品質が確認され、必要な patch 更新、coverage check、内容監査に通っている。"
+    cadence: "各 Worker 完了後と最終監査時"
+    final_proof: "25 設問の done receipt、検証コマンド結果、最終 Judge/PM 監査 receipt。"
+  intake:
+    original_request: "goal 目標を立てて、2nd kentikushi に対して実行したい。"
+    interpreted_outcome: "二級建築士 85010 の先頭ファイルから、1 Worker = 1問で correctChoiceText と explanationText を専門家水準に引き上げる goal を実行できる状態にする。"
+    input_shape: existing_plan
+    audience: "二級建築士試験の受験者と運用者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "対象 25 設問が全件処理され、各 question-level receipt と file-level verification を通り、専門家水準の最終監査が full_outcome_complete: true を記録する。"
+    likely_misfire: "既存 patch の流用、正答番号だけの機械確認、複数問の雑な一括更新、検証スクリプト通過だけでの完了扱い。"
+    blind_spots_considered:
+      - "既存 explanation-only goal とは範囲が違う。"
+      - "85010 には 23_correctChoiceText_fixed が未作成。"
+      - "correctChoiceText は questionIntent と answer_result_text の整合だけでなく、元解説・選択肢まで確認する必要がある。"
+      - "explanationText は参考書著者水準で確認する必要がある。"
+      - "coverage check は必要条件であり、正答精度と解説品質の十分条件ではない。"
+    existing_plan_facts:
+      - "会話・報告は日本語で行う。"
+      - "変更時には作業内容と保存先を明示する。"
+      - "patch 本文をスクリプトで量産しない。"
+      - "1 Worker は 1問だけを扱う。"
+      - "Worker は二級建築士の専門家・問題作成者・参考書著者として判断する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 25
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: false
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: generated
+    url: "http://goalbuddy.localhost:41737/nikyu-kenchikushi-expert-review-85010/"
+    command: "npx goalbuddy board docs/goals/nikyu-kenchikushi-expert-review-85010"
+
+worker_defaults:
+  "85010_question_review_v1":
+    source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+    explanation_patch_file: "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+    optional_correct_choice_patch_dir: "output/2nd-class-kenchikushi/questions_json/85010/23_correctChoiceText_fixed/"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85010/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+
+active_task: T102
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "二級建築士の対象 list_group_id と既存 goal を棚卸しし、今回の tranche を固定する。"
+    expected_output:
+      - "対象 list_group_id"
+      - "対象ファイル"
+      - "件数"
+      - "既存 goal との関係"
+    receipt:
+      result: done
+      summary: "二級建築士には 850003, 85001..85011 が存在する。既存 goal は explanationText 専用のため、新規 full-quality review goal として 85010/question_85010_1_merged.json の 25 設問を最初の tranche にした。"
+      evidence:
+        - "base_dir=output/2nd-class-kenchikushi/questions_json"
+        - "target_list_group_id=85010"
+        - "target_file=20_merged_1/question_85010_1_merged.json"
+        - "target_questions=25"
+        - "existing_goal=docs/goals/improve-nikyu-kenchikushi-explanationtext は explanationText 専用"
+      notes:
+        - "85010 は過去の作業文脈に近く、最初の実行 tranche として安全。"
+        - "全資格全年度の一括処理は大きすぎるため、この goal では 1 ファイル 25 設問から始める。"
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "棚卸し済み対象を審査し、設問単位の実行順と最初の active Worker を確定する。"
+    inputs:
+      - "T001 receipt"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+    constraints:
+      - "Do not implement."
+      - "複数問の雑なバッチ化は承認しない。"
+      - "既存 patch の流用を前提にしない。"
+      - "1 Worker = 1問を維持する。"
+    expected_output:
+      - "Decision"
+      - "Execution order"
+      - "Worker shape"
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "85010/question_85010_1_merged.json は 25 設問で、最初の専門家レビュー tranche として十分に bounded。先頭設問 da6a8179822b27d9 から question_bodies 順に処理し、T101-T125 の 25 Worker を 1問単位で state にキュー化する。"
+      worker_shape: "各 Worker は 1 original_question_id の correctChoiceText と explanationText を同時にレビューし、必要な patch だけを更新する。"
+      execution_order: "T101-T125 は source_file の question_bodies[] 順。"
+      expected_next: "T101 完了後は T102 を active とし、以後は T103-T125 を 1問ずつ昇格する。"
+
+  - id: T101
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "85010/question_85010_1_merged.json の original_question_id=da6a8179822b27d9 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "da6a8179822b27d9"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80326"
+      topic_hint: "日本の歴史的な建築物"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85010/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "歴史的建築物・設計者・時代区分を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "original_question_id=da6a8179822b27d9 を専門家目線でレビューし、correctChoiceText は select_incorrect + 正解4 と整合しているため変更不要と判断した。explanationText は根拠と誤り箇所を参考書水準で明確化するため、対象設問の5選択肢分だけ更新した。"
+      changed_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      unchanged_files:
+        - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      correct_choice_review:
+        questionIntent: "select_incorrect"
+        answer_result_text: "正解は 4 です。"
+        expected_correctChoiceText:
+          - "正しい"
+          - "正しい"
+          - "正しい"
+          - "間違い"
+          - "正しい"
+        decision: "既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。"
+      evidence:
+        - "文化遺産データベース: 中尊寺金色堂は桁行三間・梁間三間、内外に黒漆と金箔押し。"
+        - "日光市公式: 日光東照宮は徳川家康公の霊廟で、本殿・石の間・拝殿が権現造。"
+        - "住吉大社公式および国交省多言語DB: 住吉造は妻入り、内部は外陣・内陣、縁側を設けない。"
+        - "出雲大社公式: 御本殿は大社造で、切妻・妻入り、九本柱の正方形平面。"
+        - "厳島神社公式および文化遺産データベース: 本殿・拝殿・祓殿・回廊等の構成、両流造形式。"
+      commands:
+        - cmd: "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+          status: pass
+          output: "files=1 violations=0"
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "coverage check passed"
+        - cmd: "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+          status: pass
+          output: "no matches"
+      residual_risks:
+        - "同一 patch file 内の他設問には既存の補足記号や薄い説明が残っている可能性があるが、T101 の対象外。次以降の Worker で一問ずつ処理する。"
+
+  - id: T102
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "85010/question_85010_1_merged.json の original_question_id=44b7cab374414130 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "44b7cab374414130"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80327"
+      topic_hint: "住宅作品と設計者"
+    allowed_files:
+      - "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      - "output/2nd-class-kenchikushi/questions_json/85010/00_source/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/15_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/23_correctChoiceText_fixed/**"
+      - "output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json'"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85010/21_explanationText_added/question_85010_1_merged_explanationText_added_20260404_202312_01.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "住宅作品・設計者・建設地の対応関係を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+    receipt: null
+
+  - id: T103
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=ae97122666b686ff について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "ae97122666b686ff"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80328"
+      topic_hint: "建築環境工学の用語"
+    receipt: null
+
+  - id: T104
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=2bdf8ac8a2ace4de について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "2bdf8ac8a2ace4de"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80329"
+      topic_hint: "換気"
+    receipt: null
+
+  - id: T105
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=92e46de21bcb2232 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "92e46de21bcb2232"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80330"
+      topic_hint: "材料・物質の熱伝導率"
+    receipt: null
+
+  - id: T106
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=d608b0277b11c240 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "d608b0277b11c240"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80331"
+      topic_hint: "住宅の結露"
+    receipt: null
+
+  - id: T107
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=f81c28fa5bd3449a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "f81c28fa5bd3449a"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80332"
+      topic_hint: "日照・日射・採光"
+    receipt: null
+
+  - id: T108
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=c2786d1038bfb01c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "c2786d1038bfb01c"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80333"
+      topic_hint: "色彩"
+    receipt: null
+
+  - id: T109
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=0c6ed0a4cd88f45c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "0c6ed0a4cd88f45c"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80334"
+      topic_hint: "音"
+    receipt: null
+
+  - id: T110
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=f8e9ae8e78dccc7c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "f8e9ae8e78dccc7c"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80335"
+      topic_hint: "屋外気候等"
+    receipt: null
+
+  - id: T111
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=52687a11f0b8caae について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "52687a11f0b8caae"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80336"
+      topic_hint: "一戸建て住宅の計画"
+    receipt: null
+
+  - id: T112
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=0cff7fe6a9c550b4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "0cff7fe6a9c550b4"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80337"
+      topic_hint: "集合住宅の計画"
+    receipt: null
+
+  - id: T113
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=d707682a8310af03 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "d707682a8310af03"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80338"
+      topic_hint: "事務所ビル・商業建築の計画"
+    receipt: null
+
+  - id: T114
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=a2e7a159fc6bbabc について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "a2e7a159fc6bbabc"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80339"
+      topic_hint: "教育施設等の計画"
+    receipt: null
+
+  - id: T115
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=afc3dec350c68bc4 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "afc3dec350c68bc4"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80340"
+      topic_hint: "文化施設の計画"
+    receipt: null
+
+  - id: T116
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=3d9ec4019052f275 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "3d9ec4019052f275"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80341"
+      topic_hint: "建築計画における各部寸法"
+    receipt: null
+
+  - id: T117
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=e0b541dbc396c19a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "e0b541dbc396c19a"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80342"
+      topic_hint: "高齢者・車椅子使用者等に配慮した一戸建て住宅の改修計画"
+    receipt: null
+
+  - id: T118
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=9600abc2eab7919c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "9600abc2eab7919c"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80343"
+      topic_hint: "まちづくり"
+    receipt: null
+
+  - id: T119
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=4df913c26697a92e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "4df913c26697a92e"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80344"
+      topic_hint: "建築設備の用語"
+    receipt: null
+
+  - id: T120
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=b82cb196d5dc91b7 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "b82cb196d5dc91b7"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80345"
+      topic_hint: "空気調和設備"
+    receipt: null
+
+  - id: T121
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=b566d4e23e1cf268 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "b566d4e23e1cf268"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80346"
+      topic_hint: "給排水衛生設備"
+    receipt: null
+
+  - id: T122
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=f2b162018d9f64ea について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "f2b162018d9f64ea"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80347"
+      topic_hint: "給湯設備の加熱装置"
+    receipt: null
+
+  - id: T123
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=7d5f920d81e3d1ba について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "7d5f920d81e3d1ba"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80348"
+      topic_hint: "電気設備"
+    receipt: null
+
+  - id: T124
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=2238c8a9c4f8da7c について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "2238c8a9c4f8da7c"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80349"
+      topic_hint: "防災・消防設備"
+    receipt: null
+
+  - id: T125
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    uses_worker_defaults: "85010_question_review_v1"
+    objective: "85010/question_85010_1_merged.json の original_question_id=885f37c324789994 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。"
+    question:
+      list_group_id: "85010"
+      source_file: "output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_1_merged.json"
+      original_question_id: "885f37c324789994"
+      question_url: "https://2kenchikushi.kakomonn.com/questions/80350"
+      topic_hint: "環境・省エネルギー等"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "25 設問すべての Worker が完了した後、original request と oracle に照らして最終監査する。"
+    inputs:
+      - "T101-T125 の全 done receipt"
+      - "全 verify 結果"
+    constraints:
+      - "Do not implement."
+      - "未処理設問が残っている場合は完了扱いにしない。"
+      - "弱い proof で full_outcome_complete を true にしない。"
+    expected_output:
+      - "Decision"
+      - "Oracle mapping"
+      - "Residual risks"
+    receipt: null

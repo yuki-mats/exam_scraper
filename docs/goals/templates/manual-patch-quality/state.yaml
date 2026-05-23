@@ -1,0 +1,218 @@
+version: 2
+
+goal:
+  title: "<資格名> patch 品質向上"
+  slug: "<slug>"
+  kind: existing_plan
+  tranche: "<qualification_code> / <list_group_id_or_range> の対象設問を一問ずつ見直す。"
+  status: active
+  oracle:
+    signal: "対象設問ごとに正しい回答と専門家水準の解説品質が確認され、必要な patch 更新、coverage check、内容監査に通っている。"
+    cadence: "各 Worker 完了後と最終監査時"
+    final_proof: "対象設問ごとの done receipt、検証コマンド結果、最終 Judge/PM 監査 receipt。"
+  intake:
+    original_request: "<資格名> の各設問について、正しい回答と解説品質を新規・既存再更新ともに一問ずつ精査したい。"
+    interpreted_outcome: "対象設問を対象資格の専門家・問題作成者・参考書著者の品質で改善し、正しい回答を 99.99% 水準まで引き上げ、解説が教材品質 gate を持った状態にする。"
+    input_shape: existing_plan
+    audience: "<資格名> の受験者と運用者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "対象設問が全件処理され、各 question-level receipt と file-level verification を通り、専門家水準の最終監査が full_outcome_complete: true を記録する。"
+    likely_misfire: "既存 patch の流用、複数問の雑な一括更新、検証スクリプト通過だけでの完了扱い。"
+    blind_spots_considered:
+      - "questionType / correctChoiceText / explanationText で必要な根拠が異なる。"
+      - "correctChoiceText は原因調査で questionIntent 側の確認が必要になる場合がある。"
+      - "explanationText は必要に応じて外部一次情報の裏取りが必要。"
+      - "新規 patch と既存 patch 再更新を同一基準で扱う必要がある。"
+      - "coverage check は必要条件であり、正答精度と解説品質の十分条件ではない。"
+    existing_plan_facts:
+      - "会話・報告は日本語で行う。"
+      - "変更時には作業内容と保存先を明示する。"
+      - "patch 本文をスクリプトで量産しない。"
+      - "1 Worker は 1問だけを扱う。"
+      - "Worker は対象資格の専門家・問題作成者・参考書著者として判断する。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 64
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: false
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: none
+  local:
+    status: not_requested
+    url: null
+    command: "npx goalbuddy board docs/goals/<slug>"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: medium
+    objective: "対象資格・対象 list_group_id・対象設問一覧を棚卸しし、今回の tranche を固定する。"
+    expected_output:
+      - "対象 patch family"
+      - "対象設問一覧"
+      - "件数"
+      - "実行順"
+    receipt: null
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "棚卸し済み対象を審査し、設問単位の実行順と最初の active Worker を確定する。"
+    inputs:
+      - "T001 receipt"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "scripts/check/check_questiontype_patch_coverage.py"
+      - "scripts/check/check_correct_choice_patch_coverage.py"
+      - "scripts/check/check_explanation_patch_coverage.py"
+    constraints:
+      - "Do not implement."
+      - "複数問の雑なバッチ化は承認しない。"
+      - "既存 patch の流用を前提にしない。"
+      - "必要なら 10 -> 15 -> merge/correctChoiceText補完 -> 23 -> 21 の順を優先する。"
+    expected_output:
+      - "Decision"
+      - "Execution order"
+      - "Worker shape"
+    receipt: null
+
+  - id: T201
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "<list_group_id> の <original_question_id> について、questionType を専門家目線で再判定し、必要なら 10_questionType_fixed の該当 entry を更新する。"
+    allowed_files:
+      - "output/<qualification_code>/questions_json/<list_group_id>/00_source/<question_file_source>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/10_questionType_fixed/<question_file_patch>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/10_questionType_fixed/old/**"
+    verify:
+      - "python3 scripts/check/check_questiontype_patch_coverage.py --source output/<qualification_code>/questions_json/<list_group_id>/00_source/<question_file_source>.json --patch output/<qualification_code>/questions_json/<list_group_id>/10_questionType_fixed/<question_file_patch>.json"
+    stop_if:
+      - "00_source を一次情報の基準にできない。"
+      - "外部Web参照が必要になりそうになる。"
+      - "出題意図と教材上の扱いやすさを確認できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+    receipt: null
+
+  - id: T301
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "<list_group_id> の <original_question_id> について、questionIntent と correctChoiceText を 99.99% 水準で専門家レビューし、必要なら 15_correctChoiceText_fixed または 23_correctChoiceText_fixed の該当 entry を更新する。"
+    allowed_files:
+      - "output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/23_correctChoiceText_fixed/<question_file_patch>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/15_correctChoiceText_fixed/<question_intent_patch>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/00_source/**"
+      - "prompt/02_prompt_fix_questionIntent.md"
+    verify:
+      - "python3 scripts/check/check_correct_choice_patch_coverage.py --source output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json --patch output/<qualification_code>/questions_json/<list_group_id>/23_correctChoiceText_fixed/<question_file_patch>.json --require-full --require-snippets --require-change-meta"
+    stop_if:
+      - "questionIntent 側の原因切り分けなしに correctChoiceText を断定しそうになる。"
+      - "prompt/02_prompt_fix_questionIntent.md の範囲を超えて questionIntent と correctChoiceText の責務を混同しそうになる。"
+      - "受験者に誤学習を与える可能性があるのに正答を断定しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+    receipt: null
+
+  - id: T401
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "<list_group_id> の <original_question_id> について、explanationText が参考書著者水準の教材品質を満たすか精査し、必要なら 21_explanationText_added の該当 entry を更新する。"
+    allowed_files:
+      - "output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/21_explanationText_added/<question_file_patch>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/23_correctChoiceText_fixed/**"
+      - "output/<qualification_code>/questions_json/<list_group_id>/00_source/**"
+      - "prompt/03_prompt_add_explanationText.md"
+    verify:
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json --patch output/<qualification_code>/questions_json/<list_group_id>/21_explanationText_added/<question_file_patch>.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/<qualification_code>/questions_json/<list_group_id>/21_explanationText_added/<question_file_patch>.json"
+    stop_if:
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "参考書の解答解説として公開できない曖昧な説明で確定しそうになる。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "explanationText 本文をスクリプトで量産しそうになる。"
+    receipt: null
+
+  - id: T501
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: medium
+    objective: "<list_group_id> の <original_question_id> について、正しい回答と教材品質を専門家として同時に一問レビューし、必要なら 15_correctChoiceText_fixed、23_correctChoiceText_fixed、21_explanationText_added の該当 entry を更新する。"
+    allowed_files:
+      - "output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/15_correctChoiceText_fixed/<question_intent_patch>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/23_correctChoiceText_fixed/<correct_choice_patch>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/21_explanationText_added/<explanation_patch>.json"
+      - "output/<qualification_code>/questions_json/<list_group_id>/00_source/**"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "prompt/qualification_docs/<qualification_code>/**"
+    verify:
+      - "python3 scripts/check/check_correct_choice_patch_coverage.py --source output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json --patch output/<qualification_code>/questions_json/<list_group_id>/23_correctChoiceText_fixed/<correct_choice_patch>.json --require-full --require-snippets --require-change-meta"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/<qualification_code>/questions_json/<list_group_id>/20_merged_1/<question_file_merged>.json --patch output/<qualification_code>/questions_json/<list_group_id>/21_explanationText_added/<explanation_patch>.json"
+      - "rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/<qualification_code>/questions_json/<list_group_id>/21_explanationText_added/<explanation_patch>.json"
+    stop_if:
+      - "answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。"
+      - "prompt/02_prompt_fix_questionIntent.md の範囲を超えて questionIntent と correctChoiceText の責務を混同しそうになる。"
+      - "法令名や条項番号を根拠なしに推測しそうになる。"
+      - "参考書・公式教材に載せても破綻しない説明だと判断できない。"
+      - "allowed_files の外を編集する必要が出る。"
+      - "patch 本文をスクリプトで生成しそうになる。"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "すべての対象設問 Worker が完了した後、original request と oracle に照らして最終監査する。"
+    inputs:
+      - "全 done receipt"
+      - "全 verify 結果"
+    constraints:
+      - "Do not implement."
+      - "未処理設問が残っている場合は完了扱いにしない。"
+      - "弱い proof で full_outcome_complete を true にしない。"
+    expected_output:
+      - "Decision"
+      - "Oracle mapping"
+      - "Residual risks"
+    receipt: null

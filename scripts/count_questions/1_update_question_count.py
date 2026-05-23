@@ -11,70 +11,27 @@
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from collections import Counter
 from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.common.question_counting import analyze_question_file
 
 
 def is_archived_path(path: Path) -> bool:
     return "old" in path.parts
 
 
-def find_key_values(obj, key_name: str):
-    """JSON風の構造体から`key_name`に一致するキーの値を再帰的に収集します。"""
-    found = []
-    if isinstance(obj, dict):
-        for k, v in obj.items():
-            if k == key_name:
-                found.append(v)
-            found.extend(find_key_values(v, key_name))
-    elif isinstance(obj, list):
-        for item in obj:
-            found.extend(find_key_values(item, key_name))
-    return found
-
-
-def extract_question_records(obj) -> list[dict]:
-    """Firestore投入向けJSONから問題レコード配列を抽出する。"""
-    if isinstance(obj, list):
-        return [item for item in obj if isinstance(item, dict)]
-
-    if isinstance(obj, dict):
-        for key in ("questions", "items"):
-            value = obj.get(key)
-            if isinstance(value, list):
-                return [item for item in value if isinstance(item, dict)]
-
-        if "questionSetId" in obj or "originalQuestionId" in obj or "original_question_id" in obj:
-            return [obj]
-
-    return []
-
-
 def analyze_file(p: Path):
     try:
-        with open(p, 'r', encoding='utf-8') as f:
-            obj = json.load(f)
+        return analyze_question_file(p)
     except Exception as e:
         print(f"Warning: failed to load {p}: {e}", file=sys.stderr)
         return 0, Counter(), None
-
-    records = extract_question_records(obj)
-
-    total_questions = len(records)
-    if total_questions == 0:
-        pids = find_key_values(obj, 'original_question_id')
-        if pids:
-            total_questions = len(pids)
-
-    counter = Counter()
-    for record in records:
-        v = record.get('questionSetId')
-        if v is not None and str(v) != '':
-            counter[str(v)] += 1
-
-    return total_questions, counter, obj
 
 
 def main(argv=None) -> int:

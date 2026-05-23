@@ -27,6 +27,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.questions_json_paths import is_list_group_dir
+from scripts.common.question_counting import analyze_question_file, extract_question_records
 
 
 # ===== ANSI カラーコード =====
@@ -40,54 +41,14 @@ class Color:
     CYAN = '\033[36m'
     GRAY = '\033[90m'
 
-
-def find_key_values(obj, key_name: str) -> list:
-    """JSON風の構造体からkey_nameに一致するキーの値を再帰的に収集する。"""
-    found = []
-    if isinstance(obj, dict):
-        for k, v in obj.items():
-            if k == key_name:
-                found.append(v)
-            found.extend(find_key_values(v, key_name))
-    elif isinstance(obj, list):
-        for item in obj:
-            found.extend(find_key_values(item, key_name))
-    return found
-
-
-def extract_question_records(obj) -> list[dict]:
-    """Firestore投入向けJSONから問題レコード配列を抽出する。"""
-    if isinstance(obj, list):
-        return [item for item in obj if isinstance(item, dict)]
-
-    if isinstance(obj, dict):
-        for key in ("questions", "items"):
-            value = obj.get(key)
-            if isinstance(value, list):
-                return [item for item in value if isinstance(item, dict)]
-
-        if "questionSetId" in obj or "originalQuestionId" in obj or "original_question_id" in obj:
-            return [obj]
-
-    return []
-
-
 def analyze_file(p: Path) -> Counter:
     """JSONファイルからquestionSetIdごとのカウントを集計する。"""
     try:
-        with open(p, 'r', encoding='utf-8') as f:
-            obj = json.load(f)
+        _, counter, _ = analyze_question_file(p)
+        return counter
     except Exception as e:
         print(f"{Color.YELLOW}Warning: failed to load {p}: {e}{Color.RESET}", file=sys.stderr)
         return Counter()
-
-    records = extract_question_records(obj)
-    counter = Counter()
-    for record in records:
-        v = record.get('questionSetId')
-        if v is not None and str(v) != '':
-            counter[str(v)] += 1
-    return counter
 
 
 def load_category_json(path: str) -> dict:
@@ -112,6 +73,44 @@ def latest_final_file_for_list_group_dir(list_group_dir: Path) -> Path | None:
         return merged_candidates[-1]
 
     return None
+
+
+def latest_upload_file_for_list_group(upload_dir: Path, list_group_id: str) -> Path | None:
+    candidates = sorted(upload_dir.glob(f"{list_group_id}_firestore_*.json"))
+    if not candidates:
+        legacy = upload_dir / f"{list_group_id}_firestore.json"
+        return legacy if legacy.exists() else None
+    return candidates[-1]
+
+
+def gather_latest_upload_files(upload_dir: Path) -> list[Path]:
+    """
+    upload_to_firestore 配下から list_group_id ごとに最新ファイルのみを集める。
+    upload_to_firestore には同一 list_group_id の複数世代が残るため、全件集計すると過大カウントになる。
+    """
+    if not upload_dir.exists():
+        raise FileNotFoundError(f"upload_to_firestore が見つかりません: {upload_dir}")
+
+    # upload_dir の親が questions_json の想定
+    questions_json_dir = upload_dir.parent
+    if not questions_json_dir.is_dir():
+        raise FileNotFoundError(f"questions_json ディレクトリが見つかりません: {questions_json_dir}")
+
+    list_group_ids = [p.name for p in sorted(questions_json_dir.iterdir()) if is_list_group_dir(p)]
+    files: list[Path] = []
+    missing: list[str] = []
+    for gid in list_group_ids:
+        latest = latest_upload_file_for_list_group(upload_dir, gid)
+        if latest is None or is_archived_path(latest):
+            missing.append(gid)
+            continue
+        files.append(latest)
+    if missing:
+        raise FileNotFoundError(
+            "upload_to_firestore の最新ファイルが見つからない list_group_id があります: "
+            + ", ".join(missing)
+        )
+    return files
 
 
 def gather_latest_final_files(source_dir: str) -> list[Path]:
@@ -239,9 +238,14 @@ def apply_counts_to_category(category: dict, counts: Counter) -> tuple[int, int,
             f["updatedAt"] = now_iso
             folder_updated += 1
 
-    category["updatedAt"] = now_iso
+    # Root updatedAt は「差分が発生した場合のみ」更新する（ユーザー要望）
+    if qset_updated or folder_updated:
+        category["updatedAt"] = now_iso
 
-    return qset_updated, folder_updated, now_iso
+    # 返り値の root_updated_at は、実際に category に入っている updatedAt を返す
+    # （差分がない場合は before と同じになる）
+    root_updated_at = str(category.get("updatedAt") or "")
+    return qset_updated, folder_updated, root_updated_at
 
 
 def write_category(path: Path, data: dict) -> Path:
@@ -291,6 +295,11 @@ def main(argv=None) -> int:
         action="store_true",
         help="questions_json 配下では各 list_group_id の最新 40_convert を優先し、なければ最新 30_merged_2 のみを集計する",
     )
+    parser.add_argument(
+        "--latest-upload-only",
+        action="store_true",
+        help="upload_to_firestore 配下では list_group_id ごとに最新 *_firestore_*.json のみを集計する（過大カウント防止）",
+    )
     parser.add_argument("--write", action="store_true", help="category.jsonを書き込みます（バックアップ作成）")
     args = parser.parse_args(argv)
 
@@ -315,7 +324,9 @@ def main(argv=None) -> int:
 
     # ファイル収集
     try:
-        if args.latest_final_only:
+        if args.latest_upload_only:
+            files = gather_latest_upload_files(Path(args.source_dir))
+        elif args.latest_final_only:
             files = gather_latest_final_files(args.source_dir)
         else:
             files = gather_files(args.source_dir)
@@ -420,4 +431,8 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except BrokenPipeError:  # pragma: no cover
+        # `| head` 等でパイプが閉じられた場合にスタックトレースを出さない
+        raise SystemExit(0)

@@ -15,6 +15,8 @@
 
 ことだけです。
 
+判定水準は、単なる一般読者の目視ではなく、対象資格の専門家・問題作成者・参考書著者が出題意図と学習形式を分類する水準とします。受験者がどの形式で復習すれば誤学習しにくいかも踏まえて判定してください。
+
 元の question_*.json 自体は **絶対に変更してはいけません**。
 後続の作業で、この差分JSONをもとに question_*.json を更新します。
 
@@ -50,7 +52,8 @@
 ```bash
 python3 scripts/fix/archive_patch_outputs.py \
   --task question_type \
-  --list-group-id <list_group_id>
+  --list-group-id <list_group_id> \
+  --base-dir output/<qualification>/questions_json
 ```
 - **出力ファイル名には必ず作業日時分（`YYYYMMDD_HHMM`）を付与すること。**
   - 例: 元ファイルが  

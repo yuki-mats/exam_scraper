@@ -2,8 +2,7 @@ import json
 import os
 import sys
 import glob  # Added
-import random
-import time
+import re
 import concurrent.futures
 from dataclasses import dataclass
 from typing import List, Set, Tuple
@@ -16,12 +15,23 @@ from urllib.parse import (
     quote,
 )
 
-import hmac
-import hashlib
-
 import requests
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, Tag
+
+from scripts.scrape.common import (
+    create_http_session as common_create_http_session,
+    download_and_save_images as common_download_and_save_images,
+    extract_image_urls_from_element as common_extract_image_urls_from_element,
+    fetch_html_text as common_fetch_html_text,
+    load_local_secure_env as common_load_local_secure_env,
+    make_public_question_id as common_make_public_question_id,
+    make_storage_url as common_make_storage_url,
+    normalize_inline_text as common_normalize_inline_text,
+    normalize_question_body_text as common_normalize_question_body_text,
+    save_question_body_chunks,
+    slow_down as common_slow_down,
+)
 
 
 # 1問だけ試す場合はこちらを使う（LIST_FIRST_PAGE_URL が空のときに利用）
@@ -34,13 +44,14 @@ TARGET_LIST_PAGE_NUMBER = None
 UPDATE_JSON_MODE = False
 
 # ユーザーが設定する資格コード（UI側で管理）
-# 公認心理士：kounin-shinrishi、二級建築士：2nd-class-kenchikushi、
-QUALIFICATION_CODE = "kounin-shinrishi"
+# 公認心理師：kounin-shinrishi、二級建築士：2nd-class-kenchikushi、
+# 介護福祉士：kaigofukushi、給水装置工事主任技術者：kyusuikouji-shunin
+QUALIFICATION_CODE = "kyusuikouji-shunin"
 # 資格名（examSource等に使用）
-QUALIFICATION_NAME = "公認心理師"
+QUALIFICATION_NAME = "給水装置工事主任技術者"
 
 # 問題一覧の1ページ目のURLを指定する
-LIST_FIRST_PAGE_URL = "https://shinrishi.kakomonn.com/list1/97009?page=1"
+LIST_FIRST_PAGE_URL = "https://kyuukou.kakomonn.com/list1/77001?page=1"
 
 # JSON出力を配置するサブディレクトリ名（list_group_id 配下）
 JSON_SUBDIR_NAME = "00_source"
@@ -48,6 +59,9 @@ JSON_SUBDIR_NAME = "00_source"
 # 取得する問題数の上限（None の場合はすべて取得）
 # テスト実行時は例: MAX_QUESTIONS = 5 などに変更
 MAX_QUESTIONS = None
+
+# JSON/画像の出力ルート
+OUTPUT_DIR = "/Users/yuki/development/exam_scraper/output"
 
 # Firebase Storage の公開 URL 用ベース
 FIREBASE_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o"
@@ -63,19 +77,52 @@ IMAGE_OUTPUT_DIR = None
 # 設定ファイルパス
 CONFIG_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config", "qualification_rules.json")
 
+# ローカルPC専用の秘密情報設定ファイル（Git管理外）
+LOCAL_SECURE_ENV_PATH = os.path.expanduser("~/.config/exam_scraper/secure.env")
 
-def make_public_question_id(question_id: int) -> str:
+
+def load_local_secure_env(env_file_path: str = LOCAL_SECURE_ENV_PATH) -> None:
+    common_load_local_secure_env(env_file_path)
+
+
+def apply_runtime_overrides_from_env() -> None:
     """
-    元の question_id から公開用 ID（public_question_id）を生成する。
-    QUESTION_ID_SECRET_KEY と組み合わせて HMAC-SHA256 を計算し、
-    先頭16文字分の16進数文字列を public_question_id として用いる。
+    実行時だけ資格設定や出力先を差し替えたい場合に、環境変数から上書きする。
+    既定値は維持しつつ、外部ランナーから複数資格を回せるようにする。
     """
-    secret_key = os.environ.get(QUESTION_ID_SECRET_KEY_ENV)
-    if not secret_key:
-        raise RuntimeError(f"{QUESTION_ID_SECRET_KEY_ENV} を環境変数に設定してください。")
-    msg = str(question_id).encode("utf-8")
-    digest = hmac.new(secret_key.encode("utf-8"), msg, hashlib.sha256).hexdigest()
-    return digest[:16]
+    global QUALIFICATION_CODE
+    global QUALIFICATION_NAME
+    global LIST_FIRST_PAGE_URL
+    global JSON_SUBDIR_NAME
+    global MAX_QUESTIONS
+    global OUTPUT_DIR
+    global FIREBASE_STORAGE_PATH_PREFIX
+
+    qualification_code = os.environ.get("SCRAPER_QUALIFICATION_CODE")
+    qualification_name = os.environ.get("SCRAPER_QUALIFICATION_NAME")
+    list_first_page_url = os.environ.get("SCRAPER_LIST_FIRST_PAGE_URL")
+    json_subdir_name = os.environ.get("SCRAPER_JSON_SUBDIR_NAME")
+    max_questions = os.environ.get("SCRAPER_MAX_QUESTIONS")
+    output_dir = os.environ.get("SCRAPER_OUTPUT_DIR")
+
+    if qualification_code:
+        QUALIFICATION_CODE = qualification_code
+    if qualification_name:
+        QUALIFICATION_NAME = qualification_name
+    if list_first_page_url:
+        LIST_FIRST_PAGE_URL = list_first_page_url
+    if json_subdir_name:
+        JSON_SUBDIR_NAME = json_subdir_name
+    if max_questions is not None:
+        MAX_QUESTIONS = int(max_questions) if max_questions else None
+    if output_dir:
+        OUTPUT_DIR = output_dir
+
+    FIREBASE_STORAGE_PATH_PREFIX = f"question_images/official/{QUALIFICATION_CODE}/"
+
+
+def make_public_question_id(question_id: int | str) -> str:
+    return common_make_public_question_id(question_id)
 
 
 def extract_list_group_id_from_url(list_page_url: str) -> str | None:
@@ -102,12 +149,7 @@ def extract_list_group_id_from_url(list_page_url: str) -> str | None:
 # ==========
 
 def slow_down(base_sec: float = 2.0, jitter_sec: float = 1.0) -> None:
-    """
-    リクエスト前後に少し待つためのヘルパ。
-    base_sec + [0, jitter_sec) 秒だけ sleep する。
-    """
-    delay = base_sec + random.random() * jitter_sec
-    time.sleep(delay)
+    common_slow_down(base_sec, jitter_sec)
 
 
 @dataclass
@@ -118,9 +160,18 @@ class ExplanationData:
 
 
 @dataclass
+class AnswerResultData:
+    answer_result_text: str
+    answer_result_html: str
+    selected_choice_numbers: List[int]
+    is_selected_choice_correct: bool | None
+    inferred_correct_choice_numbers: List[int]
+
+
+@dataclass
 class QuestionData:
     question_url: str
-    question_id: int
+    question_id: int | str
 
     exam_label: str                   # 例: "令和5年度（2023年） 午後"
     question_label: str               # 例: "問1 (一般問題 問1)"
@@ -128,41 +179,21 @@ class QuestionData:
     question_body_text: str           # 問題文
     choice_text_list: List[str]       # 設問文（選択肢） "選択肢1.～～" 形式
     correct_choice_numbers: List[int] # 正解の選択肢番号（1始まり）
+    answer_result_data: AnswerResultData | None
 
     explanations: List[ExplanationData]
 
     question_image_filenames: List[str]  # 問題文の図などの画像ファイル名一覧（ローカルのファイル名）
     choice_image_filenames_by_choice: List[List[str]]  # 選択肢ごとの画像ファイル名一覧（choice index対応）
+    source_question_id: str | None = None
 
 
 def create_http_session() -> requests.Session:
-    http_session = requests.Session()
-    http_session.headers.update({
-        "User-Agent": (
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome Safari"
-        ),
-        "Accept-Language": "ja,en;q=0.8",
-    })
-    return http_session
+    return common_create_http_session()
 
 
 def fetch_html_text(http_session: requests.Session, target_url: str) -> str:
-    for retry_index in range(3):
-        try:
-            # のんびりアクセス（少し短く）
-            slow_down(0.5, 0.5)
-            response = http_session.get(target_url, timeout=10)
-            response.raise_for_status()
-            return response.text
-        except Exception as fetch_error:  # noqa: PERF203
-            print(f"[WARN] fetch failed ({target_url}): {fetch_error}")
-            if retry_index == 2:
-                raise
-            # リトライ前も少し待つ
-            slow_down(1.5, 1.5)
-    raise RuntimeError("Unexpected error in fetch_html_text")
+    return common_fetch_html_text(http_session, target_url)
 
 
 # ==========
@@ -170,16 +201,9 @@ def fetch_html_text(http_session: requests.Session, target_url: str) -> str:
 # ==========
 
 def guess_image_extension(image_url: str) -> str:
-    """
-    画像URLの拡張子を推測する。
-    不明な場合は .bin にする。
-    """
-    path = urlparse(image_url).path
-    if "." in path:
-        ext = path.rsplit(".", 1)[-1].lower()
-        if ext in {"jpg", "jpeg", "png", "gif", "webp", "bmp", "svg"}:
-            return f".{ext}"
-    return ".bin"
+    from scripts.scrape.common import guess_image_extension as common_guess_image_extension
+
+    return common_guess_image_extension(image_url)
 
 
 def download_image_with_retry(
@@ -203,20 +227,7 @@ def download_image_with_retry(
 
 
 def make_storage_url(filename: str) -> str:
-    """
-    ローカルで保存した画像ファイル名から、Firebase Storage の HTTP URL を生成する。
-    例:
-      https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/
-        question_images%2Fofficial%2Ffirst-class-electrician%2FqXXXXXXXXXXXXXXX_q_img01.jpg?alt=media
-    """
-    # question_images/official/first-class-electrician/qXXXXXXXXXXXXXXX_q_img01.jpg
-    path = FIREBASE_STORAGE_PATH_PREFIX + filename
-
-    # パス全体を URL エンコード（/ も %2F にする）
-    encoded_path = quote(path, safe="")
-
-    # token はアップロード時に付与されるのでここでは付けない
-    return f"{FIREBASE_STORAGE_BASE_URL}/{encoded_path}?alt=media"
+    return common_make_storage_url(filename, QUALIFICATION_CODE)
 
 
 def _download_and_save_single_image(
@@ -251,69 +262,17 @@ def download_and_save_images(
     image_url_list: List[str],
     filename_prefix: str,
 ) -> List[str]:
-    """
-    画像URLリストをダウンロードして保存し、保存した「ファイル名」のリストを返す。
-    filename_prefix には "q{public_question_id}_q" や "q{public_question_id}_exp01" などを渡す。
-    画像は output/<QUALIFICATION_CODE>/question_images/<list_group_id>/ 配下に保存する。
-    """
     global IMAGE_OUTPUT_DIR
-
-    # 保存先ディレクトリ（main で設定されていない場合はカレントディレクトリ）
-    base_dir = IMAGE_OUTPUT_DIR or "."
-
-    # 念のためここでもディレクトリ作成を試みる
-    try:
-        os.makedirs(base_dir, exist_ok=True)
-    except Exception as e:
-        print(f"[WARN] failed to create image output dir ({base_dir}): {e}")
-
-    saved_files_map = {}
-
-    # 並列ダウンロード（サーバー負荷を考慮して max_workers は控えめに）
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        futures = []
-        for index, image_url in enumerate(image_url_list, start=1):
-            futures.append(
-                executor.submit(
-                    _download_and_save_single_image,
-                    http_session,
-                    image_url,
-                    base_dir,
-                    filename_prefix,
-                    index
-                )
-            )
-        
-        for future in concurrent.futures.as_completed(futures):
-            try:
-                idx, fname = future.result()
-                if fname:
-                    saved_files_map[idx] = fname
-            except Exception as e:
-                print(f"[WARN] Image download task failed: {e}")
-
-    # インデックス順にファイル名をリスト化
-    sorted_filenames = [saved_files_map[i] for i in sorted(saved_files_map.keys())]
-    return sorted_filenames
+    return common_download_and_save_images(
+        http_session,
+        image_url_list,
+        filename_prefix,
+        base_dir=IMAGE_OUTPUT_DIR or ".",
+    )
 
 
 def extract_image_urls_from_element(element, base_url: str) -> List[str]:
-    """
-    指定した要素以下の <img> から src を列挙し、絶対URLにして返す。
-    """
-    image_url_list: List[str] = []
-    if element is None:
-        return image_url_list
-
-    for img in element.find_all("img"):
-        src = (img.get("src") or "").strip()
-        if not src:
-            continue
-        abs_url = urljoin(base_url, src)
-        if abs_url not in image_url_list:
-            image_url_list.append(abs_url)
-
-    return image_url_list
+    return common_extract_image_urls_from_element(element, base_url)
 
 
 # ==========
@@ -371,6 +330,210 @@ def parse_exam_labels(html_soup: BeautifulSoup) -> Tuple[str, str]:
         question_label = " ".join(parts[q_start_index:]).strip()
 
     return exam_label, question_label
+
+
+FULLWIDTH_DIGIT_TRANS = str.maketrans("０１２３４５６７８９", "0123456789")
+JAPANESE_ERA_START_YEAR = {
+    "令和": 2019,
+    "平成": 1989,
+    "昭和": 1926,
+    "大正": 1912,
+    "明治": 1868,
+}
+
+
+def normalize_digit_text(value: str) -> str:
+    return (value or "").translate(FULLWIDTH_DIGIT_TRANS)
+
+
+def parse_japanese_era_year(era_name: str, year_token: str) -> int | None:
+    """
+    和暦年を西暦へ変換する。
+    例:
+      - 令和5年 -> 2023
+      - 平成元年 -> 1989
+    """
+    base_year = JAPANESE_ERA_START_YEAR.get(era_name)
+    if base_year is None:
+        return None
+
+    normalized_year = normalize_digit_text(year_token).strip()
+    if normalized_year == "元":
+        era_year = 1
+    elif normalized_year.isdigit():
+        era_year = int(normalized_year)
+    else:
+        return None
+
+    if era_year <= 0:
+        return None
+
+    return base_year + era_year - 1
+
+
+def extract_exam_year_value(exam_label: str) -> int | None:
+    """
+    exam_label から examYear 用の西暦年を抽出する。
+    西暦表記を優先し、なければ和暦を西暦へ変換する。
+    """
+    if not exam_label:
+        return None
+
+    normalized_label = normalize_digit_text(exam_label)
+
+    western_year_match = re.search(r"((?:19|20)\d{2})\s*年(?:度)?", normalized_label)
+    if western_year_match:
+        return int(western_year_match.group(1))
+
+    japanese_year_match = re.search(
+        r"(令和|平成|昭和|大正|明治)\s*(元|[0-9０-９]+)\s*年(?:度)?",
+        normalized_label,
+    )
+    if japanese_year_match:
+        return parse_japanese_era_year(
+            japanese_year_match.group(1),
+            japanese_year_match.group(2),
+        )
+
+    return None
+
+
+def extract_exam_month_value(exam_label: str) -> int | None:
+    """
+    exam_label から試験開催月を抽出する。年内複数回開催の識別に使う。
+    """
+    if not exam_label:
+        return None
+
+    month_match = re.search(r"([0-9０-９]{1,2})\s*月", exam_label)
+    if not month_match:
+        return None
+
+    month = int(normalize_digit_text(month_match.group(1)))
+    if 1 <= month <= 12:
+        return month
+
+    return None
+
+
+def extract_exam_round_value(exam_label: str) -> int | None:
+    """
+    exam_label から「第N回」の回次を抽出する。
+    """
+    if not exam_label:
+        return None
+
+    round_match = re.search(r"第\s*([0-9０-９]+)\s*回", exam_label)
+    if not round_match:
+        return None
+
+    return int(normalize_digit_text(round_match.group(1)))
+
+
+def extract_exam_session_code(exam_label: str) -> str | None:
+    """
+    exam_label から共通セッションコードを抽出する。
+    """
+    if not exam_label:
+        return None
+
+    upper_label = normalize_digit_text(exam_label).upper()
+    if "午前" in exam_label or re.search(r"\bAM\b", upper_label):
+        return "am"
+    if "午後" in exam_label or re.search(r"\bPM\b", upper_label):
+        return "pm"
+    if "前期" in exam_label:
+        return "term1"
+    if "後期" in exam_label:
+        return "term2"
+    if "上期" in exam_label:
+        return "half1"
+    if "下期" in exam_label:
+        return "half2"
+    if "春期" in exam_label:
+        return "spring"
+    if "秋期" in exam_label:
+        return "autumn"
+    return None
+
+
+def extract_exam_variant_code(exam_label: str) -> str | None:
+    """
+    exam_label から追加試験などの特別な開催区分を抽出する。
+    """
+    if not exam_label:
+        return None
+
+    if "追加試験" in exam_label:
+        return "extra"
+    if "追試験" in exam_label or "追試" in exam_label:
+        return "makeup"
+    if "再試験" in exam_label or "再試" in exam_label:
+        return "retest"
+    return None
+
+
+def build_exam_occurrence_id(exam_label: str) -> str | None:
+    """
+    exam_label から question 単位で保持する examOccurrenceId を生成する。
+
+    ルール:
+      - 年: YYYY
+      - 月: YYYY-MM
+      - 回次: YYYY-rN
+      - セッション: am / pm / term1 / term2 / half1 / half2 / spring / autumn
+      - 特別開催: extra / makeup / retest
+
+    例:
+      - "令和7年（2025年） 学科1（建築計画）" -> "2025"
+      - "令和7年（2025年）10月 午後" -> "2025-10-pm"
+      - "第8回（2025年） 午前" -> "2025-r8-am"
+      - "第1回 追加試験（2018年） 午後" -> "2018-r1-extra-pm"
+    """
+    if not exam_label:
+        return None
+
+    parts: List[str] = []
+
+    exam_year = extract_exam_year_value(exam_label)
+    exam_month = extract_exam_month_value(exam_label)
+    exam_round = extract_exam_round_value(exam_label)
+    exam_variant = extract_exam_variant_code(exam_label)
+    exam_session = extract_exam_session_code(exam_label)
+
+    if exam_year is not None:
+        parts.append(str(exam_year))
+    if exam_month is not None:
+        parts.append(f"{exam_month:02d}")
+    if exam_round is not None:
+        parts.append(f"r{exam_round}")
+    if exam_variant:
+        parts.append(exam_variant)
+    if exam_session:
+        parts.append(exam_session)
+
+    if not parts:
+        return None
+
+    return "-".join(parts)
+
+
+def extract_exam_year_text(exam_label: str) -> str | None:
+    """
+    exam_label から examYear 用の年月文字列を抽出する。
+    例:
+      - "令和7年（2025年）10月" -> "2025年10月"
+      - "令和5年度（2023年） 午後" -> "2023年"
+    """
+    exam_year = extract_exam_year_value(exam_label)
+    if exam_year is None:
+        return None
+
+    exam_month = extract_exam_month_value(exam_label)
+    if exam_month is not None:
+        return f"{exam_year}年{exam_month}月"
+
+    return f"{exam_year}年"
 
 
 SUPERSCRIPT_MAP = {
@@ -733,35 +896,152 @@ def extract_question_body_and_choices(
 
 
 def normalize_question_body_text(text: str) -> str:
-    """
-    Remove unintended line breaks inserted by HTML inline elements (e.g. <sub>).
-    """
-    import re
-
-    if not text:
-        return text
-
-    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
-    # Join broken inline tokens such as "R\nB" or "10\nm".
-    normalized = re.sub(r"([A-Za-z0-9])\n([A-Za-z0-9])", r"\1\2", normalized)
-    # Join ASCII tokens split before Japanese characters or punctuation.
-    normalized = re.sub(r"([A-Za-z0-9])\n([ぁ-んァ-ン一-龥々〆〤])", r"\1\2", normalized)
-    normalized = re.sub(r"([A-Za-z0-9])\n([、。,:;])", r"\1\2", normalized)
-    normalized = re.sub(r"([、。])\n([A-Za-z0-9])", r"\1\2", normalized)
-    normalized = re.sub(r"\n{2,}", "\n", normalized)
-    return normalized.strip()
+    return common_normalize_question_body_text(text)
 
 
 def normalize_inline_text(text: str) -> str:
-    """
-    Normalize inline text by removing unintended line breaks and collapsing whitespace.
-    """
-    import re
+    return common_normalize_inline_text(text)
 
-    if not text:
-        return text
-    normalized = normalize_question_body_text(text)
-    return re.sub(r"\s+", " ", normalized).strip()
+
+def extract_hidden_input_value(
+    html_soup: BeautifulSoup,
+    *,
+    input_id: str | None = None,
+    input_name: str | None = None,
+) -> str:
+    """
+    hidden input の value を取得する。見つからない場合は空文字を返す。
+    """
+    target = None
+    if input_id:
+        target = html_soup.find("input", id=input_id)
+    if target is None and input_name:
+        target = html_soup.find("input", attrs={"name": input_name})
+    if target is None:
+        return ""
+    return (target.get("value") or "").strip()
+
+
+def extract_answer_input_numbers(html_soup: BeautifulSoup) -> List[int]:
+    """
+    回答用 radio input（name="intAnswerData"）から選択肢番号を抽出する。
+    """
+    numbers: List[int] = []
+    for radio_input in html_soup.select('input[name="intAnswerData"]'):
+        value = (radio_input.get("value") or "").strip()
+        if value.isdigit():
+            number = int(value)
+            if number not in numbers:
+                numbers.append(number)
+    return numbers
+
+
+def html_fragment_to_plain_text(html_fragment: str) -> str:
+    """
+    HTML断片をプレーンテキストへ変換する。
+    """
+    if not html_fragment:
+        return ""
+    fragment_soup = BeautifulSoup(html_fragment, "html.parser")
+    text = normalize_inline_text(extract_text_with_subsup(fragment_soup))
+    return text.strip()
+
+
+def fetch_answer_result_data(
+    http_session: requests.Session,
+    html_soup: BeautifulSoup,
+    question_url: str,
+) -> AnswerResultData | None:
+    """
+    questions/answer の AJAX 応答から、回答後に表示される正答情報を取得する。
+    """
+    csrf_token = ""
+    csrf_meta = html_soup.find("meta", attrs={"name": "csrf-token"})
+    if csrf_meta is not None:
+        csrf_token = (csrf_meta.get("content") or "").strip()
+    if not csrf_token:
+        csrf_token = extract_hidden_input_value(html_soup, input_name="_token")
+
+    study_random_id = extract_hidden_input_value(html_soup, input_id="intStudyRandumId")
+    if not study_random_id:
+        study_random_id = extract_hidden_input_value(html_soup, input_name="StudyRandumId")
+    if not study_random_id:
+        # 一部ページでは hidden input が欠けている場合がある。
+        # 通常は URL の末尾数値がそのまま StudyRandumId として使える。
+        try:
+            url_path = urlparse(question_url).path
+            study_random_id = url_path.rstrip("/").split("/")[-1]
+        except Exception:
+            study_random_id = ""
+    category_flag = extract_hidden_input_value(html_soup, input_id="intIdCategoryFlag")
+    answer_numbers = extract_answer_input_numbers(html_soup)
+
+    if not csrf_token or not study_random_id:
+        return None
+
+    if answer_numbers:
+        selected_choice_numbers = [answer_numbers[0]]
+    else:
+        # ページ側の回答 UI が差分で変わっていても、回答結果を返す仕様は利用できるため
+        # 代表として「1」を選択した体で POST して正答情報を取得する。
+        selected_choice_numbers = [1]
+    post_data = {
+        "strAnswerData": "-".join(str(num) for num in selected_choice_numbers) + "-",
+        "intStudyRandumId": study_random_id,
+        "intIdCategoryFlag": category_flag,
+    }
+    answer_url = urljoin(question_url, "/questions/answer")
+    headers = {
+        "X-CSRF-TOKEN": csrf_token,
+        "X-Requested-With": "XMLHttpRequest",
+        "Referer": question_url,
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+    }
+
+    for retry_index in range(2):
+        try:
+            slow_down(0.15, 0.15)
+            response = http_session.post(
+                answer_url,
+                data=post_data,
+                headers=headers,
+                timeout=20,
+            )
+            response.raise_for_status()
+            payload = response.json()
+
+            response_data03 = str(payload.get("response_data03") or "").strip()
+            response_data_for_rdm = str(payload.get("response_data_for_rdm") or "").strip()
+            answer_result_html = "\n".join(
+                part for part in [response_data03, response_data_for_rdm] if part
+            ).strip()
+            answer_result_text = html_fragment_to_plain_text(answer_result_html)
+
+            response_data02 = str(payload.get("response_data02") or "").strip()
+            is_selected_choice_correct: bool | None = None
+            if any(marker in response_data02 for marker in ("○", "〇", "◯")):
+                is_selected_choice_correct = True
+            elif any(marker in response_data02 for marker in ("×", "✕", "✖", "❌")):
+                is_selected_choice_correct = False
+
+            inferred_correct_choice_numbers = find_correct_choice_numbers_in_text(
+                answer_result_text
+            )
+
+            return AnswerResultData(
+                answer_result_text=answer_result_text,
+                answer_result_html=answer_result_html,
+                selected_choice_numbers=selected_choice_numbers,
+                is_selected_choice_correct=is_selected_choice_correct,
+                inferred_correct_choice_numbers=inferred_correct_choice_numbers,
+            )
+        except Exception as answer_error:
+            print(f"[WARN] answer result fetch failed ({question_url}): {answer_error}")
+            if retry_index == 1:
+                return None
+            slow_down(0.3, 0.3)
+
+    return None
 
 
 def update_correct_choices_from_text(
@@ -1012,6 +1292,17 @@ def parse_question_page(
         question_url,
     )
 
+    answer_result_data = fetch_answer_result_data(
+        http_session,
+        html_soup,
+        question_url,
+    )
+    if (
+        answer_result_data is not None
+        and answer_result_data.inferred_correct_choice_numbers
+    ):
+        correct_choice_numbers = list(answer_result_data.inferred_correct_choice_numbers)
+
     return QuestionData(
         question_url=question_url,
         question_id=question_id,
@@ -1020,6 +1311,7 @@ def parse_question_page(
         question_body_text=question_body_text,
         choice_text_list=raw_choice_text_list,
         correct_choice_numbers=correct_choice_numbers,
+        answer_result_data=answer_result_data,
         explanations=explanation_data_list,
         question_image_filenames=question_image_filenames,
         choice_image_filenames_by_choice=choice_image_filenames_by_choice,
@@ -1073,7 +1365,86 @@ def extract_choice_explanation_snippets_for_index(
     return snippets
 
 
-def determine_correctness_from_snippets(snippets: List[str]) -> str | None:
+def is_combination_choice_problem(choice_text_list: List[str]) -> bool:
+    """
+    「アとウ」「1、3」など、選択肢自体が組合せ命題になっている問題かを判定する。
+    組合せ問題では、設問文に「誤っているもの」が含まれていても、正答の組合せ選択肢は
+    correctChoiceText として「正しい」と扱う。
+    """
+    import re
+
+    if len(choice_text_list) < 2:
+        return False
+
+    token = r"[ア-ンA-Za-zⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ一二三四五六七八九十0-9０-９]+"
+    separator = r"(?:、|,|・|と|及び|および)"
+    combination_pattern = re.compile(rf"^{token}(?:\s*{separator}\s*{token})+$")
+
+    combination_count = 0
+    for choice_text in choice_text_list:
+        normalized = (choice_text or "").strip()
+        if len(normalized) <= 24 and combination_pattern.fullmatch(normalized):
+            combination_count += 1
+
+    return combination_count >= max(2, len(choice_text_list) - 1)
+
+
+def answer_marker_to_fact_correctness(
+    is_answer_choice: bool,
+    question_intent: str | None,
+) -> str:
+    """
+    「正解です」「不正解です」のような Answer ラベルを、選択肢内容の Fact 正誤へ変換する。
+    select_incorrect では Answer と Fact が反転する。
+    """
+    if is_answer_choice:
+        if question_intent == "select_incorrect":
+            return "間違い"
+        return "正しい"
+
+    if question_intent == "select_incorrect":
+        return "正しい"
+    return "間違い"
+
+
+def infer_correct_choice_texts_from_answer_numbers(
+    current_correct_choice_texts: List[str | None],
+    answer_numbers: List[int],
+    question_intent: str | None,
+) -> List[str | None]:
+    """
+    解説で示された正答番号（Answer）と設問意図から correctChoiceText（Fact）を再構成する。
+    None 混在、または全肢同一のように抽出結果が不安定な場合だけ呼び出す想定。
+    """
+    if question_intent not in {"select_correct", "select_incorrect"}:
+        return current_correct_choice_texts
+
+    answer_number_set = {
+        n for n in answer_numbers if 1 <= n <= len(current_correct_choice_texts)
+    }
+    if not answer_number_set:
+        return current_correct_choice_texts
+
+    # ルール（絶対）:
+    # - select_correct   → 正解番号の位置が「正しい」
+    # - select_incorrect → 正解番号の位置が「間違い」
+    if question_intent == "select_incorrect":
+        return [
+            "間違い" if (idx + 1) in answer_number_set else "正しい"
+            for idx in range(len(current_correct_choice_texts))
+        ]
+
+    return [
+        "正しい" if (idx + 1) in answer_number_set else "間違い"
+        for idx in range(len(current_correct_choice_texts))
+    ]
+
+
+def determine_correctness_from_snippets(
+    snippets: List[str],
+    question_intent: str | None = None,
+    is_combination_choice: bool = False,
+) -> str | None:
     """
     解説スニペットから正誤（正しい/間違い）を判定する。
     """
@@ -1110,12 +1481,35 @@ def determine_correctness_from_snippets(snippets: List[str]) -> str | None:
     # 判定精度向上のため、改行や空白を除去して連結
     normalized_text = "".join(snippets).replace("\n", "").replace(" ", "").replace("　", "")
     
-    # 1. 最優先: 「正解です」「不正解です」の明確な判定
-    # これらは試験解説で最も明確な正誤表現
-    if "不正解です" in normalized_text:
-        return "間違い"
-    if "正解です" in normalized_text:
-        return "正しい"
+    # 1. 最優先: 「正解です」「不正解です」の明確な Answer 判定
+    # correctChoiceText は Fact 正誤なので、select_incorrect では Answer と Fact を反転する。
+    non_answer_markers = [
+        "不正解です",
+        "不正答です",
+        "誤答です",
+        "正解ではありません",
+        "正答ではありません",
+    ]
+    answer_markers = [
+        "正解です",
+        "正答です",
+        "正解となります",
+        "正答となります",
+        "こちらが正解",
+        "こちらが正答",
+        "この選択肢が正解",
+        "この選択肢が正答",
+    ]
+    if any(marker in normalized_text for marker in non_answer_markers):
+        return answer_marker_to_fact_correctness(
+            False,
+            question_intent,
+        )
+    if any(marker in normalized_text for marker in answer_markers):
+        return answer_marker_to_fact_correctness(
+            True,
+            question_intent,
+        )
     
     # 2. 明確な誤りを示すフレーズ（「不適当」「不適切」を含む）
     # これらは「適当」「適切」より先にチェックする必要がある
@@ -1138,6 +1532,19 @@ def determine_correctness_from_snippets(snippets: List[str]) -> str | None:
     ]
 
     # 誤りフレーズを先にチェック（「不適切」が「適切」にマッチしないように）
+    positive_exception_phrases = [
+        "不適切とは言えません",
+        "不適切とはいえません",
+        "不適切ではありません",
+        "不適当とは言えません",
+        "不適当とはいえません",
+        "不適当ではありません",
+        "誤りではありません",
+        "間違いではありません",
+    ]
+    if any(p in normalized_text for p in positive_exception_phrases):
+        return "正しい"
+
     has_strong_negative = any(p in normalized_text for p in strong_negative_phrases)
     has_strong_positive = any(p in normalized_text for p in strong_positive_phrases)
 
@@ -1202,61 +1609,83 @@ def determine_correctness_from_snippets(snippets: List[str]) -> str | None:
     return None
 
 
-def find_correct_choice_number_in_text(text: str) -> int | None:
+def find_correct_choice_numbers_in_text(text: str) -> List[int]:
     """
-    テキスト内から「正解は3」のようなパターンを探して、その番号(int)を返す。
-    見つからなければ None。
+    テキスト内から「正解は3」「正答は1、3」のようなパターンを探して、
+    正答番号のリストを返す。数字だけの正解表示は選択肢番号として扱う。
     """
     import re
     if not text:
-        return None
-    
-    # "正解は" または "正解　" の後に続く 1桁の数字(1-5)
-    # 全角数字も含む
-    # 強化: 「正解は、選択肢1です」や「正解：1」なども拾えるようにする
-    pattern = re.compile(r"正解\s*(?:は|:|：|、|。)?\s*(?:選択肢)?\s*([1-5１-５])")
-    match = pattern.search(text)
-    if match:
-        num_str = match.group(1)
-        trans_table = str.maketrans("１２３４５", "12345")
-        return int(num_str.translate(trans_table))
-    return None
+        return []
+
+    digit_map = {
+        "１": "1", "２": "2", "３": "3", "４": "4", "５": "5",
+        "６": "6", "７": "7", "８": "8", "９": "9",
+        "①": "1", "②": "2", "③": "3", "④": "4", "⑤": "5",
+        "⑥": "6", "⑦": "7", "⑧": "8", "⑨": "9",
+    }
+    digit_chars = "1-9１-９①②③④⑤⑥⑦⑧⑨"
+    separator = r"(?:、|,|・|と|及び|および|/|／|\s+)"
+    pattern = re.compile(
+        rf"(?:正解|正答|答え|解答)\s*(?:は|:|：|、|。)?\s*(?:選択肢)?\s*"
+        rf"([{digit_chars}](?:\s*{separator}\s*[{digit_chars}])*)"
+    )
+
+    numbers: List[int] = []
+    for match in pattern.finditer(text):
+        for digit in re.findall(rf"[{digit_chars}]", match.group(1)):
+            normalized_digit = digit_map.get(digit, digit)
+            number = int(normalized_digit)
+            if number not in numbers:
+                numbers.append(number)
+    return numbers
+
+
+def find_correct_choice_number_in_text(text: str) -> int | None:
+    """
+    互換用: 最初に見つかった正答番号を返す。複数正答の補完では
+    find_correct_choice_numbers_in_text を使う。
+    """
+    numbers = find_correct_choice_numbers_in_text(text)
+    return numbers[0] if numbers else None
 
 
 def determine_question_intent(question_text: str) -> str | None:
     """
     問題文から「正しいものを選ぶ」のか「誤っているものを選ぶ」のかを判定する。
+    select_incorrect に該当する表現を優先し、それ以外は select_correct とする。
     戻り値: "select_correct", "select_incorrect", or None
     """
     if not question_text:
         return None
     
-    # 判定を容易にするため改行を除く
-    text = question_text.replace("\n", "")
-    
-    # 「誤っているもの」「不適当なもの」系 (Falseを探す)
-    # ユーザー要望により「不適」などのキーワードで判定（優先）
-    incorrect_keywords = [
-        "不適",      # 不適当、不適切
-        "適当でない",
-        "誤って",    # 誤っている
-        "誤り",      # 誤りはどれか
-        "間違い",    # 間違いはどれか
-        "正しくない",
+    import re
+
+    # 判定を容易にするため空白と改行を圧縮する
+    text = re.sub(r"\s+", "", question_text)
+
+    incorrect_patterns = [
+        r"最も不適切(?:なもの|な記述|な説明|な組合せ|な選択肢)?",
+        r"最も不適当(?:なもの|な記述|な説明|な組合せ|な選択肢)?",
+        r"誤っている(?:もの|記述|説明|組合せ|選択肢)?",
+        r"誤り(?:である)?(?:もの|記述|説明|組合せ|選択肢)?",
+        r"間違っている(?:もの|記述|説明|組合せ|選択肢)?",
+        r"正しくない(?:もの|記述|説明|組合せ|選択肢)?",
+        r"不適切(?:な|である)?(?:もの|記述|説明|組合せ|選択肢|対応|方法|処置|行動|内容)?",
+        r"不適当(?:な|である)?(?:もの|記述|説明|組合せ|選択肢|対応|方法|処置|行動|内容)?",
+        r"適切でない(?:もの|記述|説明|組合せ|選択肢)?",
+        r"適当でない(?:もの|記述|説明|組合せ|選択肢)?",
+        r"含まれないもの",
+        r"該当しないもの",
+        r"規定されていないもの",
+        r"定められていないもの",
+        r"対象とならないもの",
     ]
-    if any(k in text for k in incorrect_keywords):
+    has_incorrect = any(re.search(pattern, text) for pattern in incorrect_patterns)
+    if has_incorrect:
         return "select_incorrect"
 
-    # 「正しいもの」「適当なもの」系 (Trueを探す)
-    correct_keywords = [
-        "適当",      # 最も適当なもの
-        "正しい",
-        "適切",
-    ]
-    if any(k in text for k in correct_keywords):
-        return "select_correct"
-        
-    return None
+    return "select_correct"
 
 
 # ==========
@@ -1604,38 +2033,25 @@ def is_valid_answer_distribution(
     rules_config: dict,
 ) -> bool:
     """
-    正誤判定の分布（正しい数、間違い数）が、その資格試験の形式として妥当かどうかを判定する。
-    妥当でない場合（全て正しい、全て間違い、あるいは択一式なのに複数正解など）は False を返し、
-    手動確認用（empty）に振り分ける。
+    正誤判定の分布（正しい数、間違い数）が妥当かどうかを判定する。
+
+    設計変更（ユーザー要望）:
+      - correctChoiceText は answer_result_inferred_correct_choice_numbers と questionIntent で決定する。
+      - 正解番号が複数ある場合、その件数が「正しい」または「間違い」の件数になる（資格ごとの固定分布は持たない）。
+    そのため、ここでは「件数が合っているか（正しい+間違い==総数）」のみを検査し、分布形は制限しない。
     """
     if total_count == 0:
         return False
-
-    # 設定からルールを取得（なければデフォルト）
-    rule = rules_config.get(qualification_code, rules_config.get("default", {}))
-    
-    # ルール値の取得（デフォルトは厳しめに設定）
-    allow_all_same = rule.get("allow_all_same", False)
-    allow_multiple_correct = rule.get("allow_multiple_correct", False)
-
-    # 1. 全て「正しい」または全て「間違い」のチェック
-    # 公認心理師でもここを False に設定することで empty 扱いにできる
-    if not allow_all_same:
-        if correct_count == total_count or incorrect_count == total_count:
-            return False
-
-    # 2. 複数正解の許容チェック
-    if allow_multiple_correct:
-        # ここまで来れば（全一致でなければ）OK
-        return True
-
-    # 3. デフォルト（択一）: (正1, 誤N-1) または (正N-1, 誤1) のみ許可
-    is_one_vs_rest = (correct_count == 1 and incorrect_count == total_count - 1) or \
-                     (correct_count == total_count - 1 and incorrect_count == 1)
-    return is_one_vs_rest
+    if correct_count + incorrect_count != total_count:
+        return False
+    return True
 
 
 def main() -> None:
+    # ローカルPC専用の秘密情報（~/.config/exam_scraper/secure.env）を先に読み込む
+    load_local_secure_env()
+    apply_runtime_overrides_from_env()
+
     http_session = create_http_session()
 
     # ルール設定の読み込み
@@ -1658,11 +2074,12 @@ def main() -> None:
 
     # LIST_FIRST_PAGE_URL から「71013」のようなグループIDを抽出
     list_group_id = extract_list_group_id_from_url(LIST_FIRST_PAGE_URL)
+    output_list_group_id = os.environ.get("SCRAPER_OUTPUT_LIST_GROUP_ID") or list_group_id
     if list_group_id:
-        print(f"[INFO] list_group_id = {list_group_id}")
+        print(f"[INFO] list_group_id = {output_list_group_id}")
 
     # 出力ディレクトリ（JSON と画像のベース）
-    output_dir = "/Users/yuki/development/exam_scraper/output"
+    output_dir = OUTPUT_DIR
 
     # 資格コード単位のベースディレクトリ
     qualification_dir = os.path.join(output_dir, QUALIFICATION_CODE)
@@ -1678,9 +2095,9 @@ def main() -> None:
 
     # グループID単位のディレクトリ設定
     global IMAGE_OUTPUT_DIR
-    if list_group_id:
-        json_output_dir = os.path.join(json_root_dir, list_group_id, JSON_SUBDIR_NAME)
-        IMAGE_OUTPUT_DIR = os.path.join(images_root_dir, list_group_id)
+    if output_list_group_id:
+        json_output_dir = os.path.join(json_root_dir, output_list_group_id, JSON_SUBDIR_NAME)
+        IMAGE_OUTPUT_DIR = os.path.join(images_root_dir, output_list_group_id)
     else:
         json_output_dir = json_root_dir
         IMAGE_OUTPUT_DIR = images_root_dir
@@ -1761,7 +2178,25 @@ def main() -> None:
 
         # explanation_common_prefix から正解番号を抽出（保存用）
         prefix_full_text = "\n".join(common_prefix_list)
-        prefix_inferred_correct_num = find_correct_choice_number_in_text(prefix_full_text)
+        prefix_inferred_correct_numbers = find_correct_choice_numbers_in_text(prefix_full_text)
+        if not prefix_inferred_correct_numbers and question_data.correct_choice_numbers:
+            prefix_inferred_correct_numbers = list(question_data.correct_choice_numbers)
+        prefix_inferred_correct_num = (
+            prefix_inferred_correct_numbers[0]
+            if prefix_inferred_correct_numbers
+            else None
+        )
+        answer_result_data = question_data.answer_result_data
+        answer_result_text = (
+            (answer_result_data.answer_result_text or "")
+            if answer_result_data is not None
+            else ""
+        )
+        answer_result_inferred_correct_numbers = (
+            list(answer_result_data.inferred_correct_choice_numbers)
+            if answer_result_data is not None
+            else []
+        )
 
         # 問題画像の HTTP Storage URL を生成
         question_image_storage_urls = [
@@ -1780,12 +2215,9 @@ def main() -> None:
                     make_storage_url(fn) for fn in exp.image_filenames
                 ]
 
-        # examYear の抽出（簡易的）
-        import re
-        exam_year = None
-        m_year = re.search(r"(\d{4})年", question_data.exam_label)
-        if m_year:
-            exam_year = int(m_year.group(1))
+        # examOccurrenceId 用の共通試験回識別子と、西暦年を抽出
+        exam_year = extract_exam_year_value(question_data.exam_label)
+        exam_occurrence_id = build_exam_occurrence_id(question_data.exam_label)
 
         # カテゴリ判定
         category_val = None
@@ -1814,10 +2246,9 @@ def main() -> None:
         
         # 選択肢が空の場合、解説から正解番号を探して選択肢数を補完する
         if not final_choice_text_list:
-            inferred_num = prefix_inferred_correct_num
-            if inferred_num is not None:
+            if prefix_inferred_correct_numbers:
                 # 5択と仮定（または正解番号まで）
-                count = max(5, inferred_num)
+                count = max(5, max(prefix_inferred_correct_numbers))
                 final_choice_text_list = [""] * count
         
         # それでも空なら、最低1つは作る（従来動作維持）
@@ -1830,19 +2261,33 @@ def main() -> None:
             )
 
         # 正誤判定リストの作成
+        # 設計変更（ユーザー要望）:
+        # correctChoiceText は answer_result_inferred_correct_choice_numbers（=正解番号）と questionIntent で決定する。
+        question_intent = determine_question_intent(question_data.question_body_text)
+
+        # 解説スニペットは explanationText の構築に使う（正誤判定は answer_numbers を優先）
         all_choice_snippets = []
-        all_correct_choice_texts = []
-        
         for i in range(1, len(final_choice_text_list) + 1):
             snippets = extract_choice_explanation_snippets_for_index(
                 question_data.explanations,
                 i,
             )
             all_choice_snippets.append(snippets)
-            all_correct_choice_texts.append(determine_correctness_from_snippets(snippets))
 
-        # 解説スニペットから直接得られた判定結果を保持（推論による補完前）
-        raw_correct_choice_texts = list(all_correct_choice_texts)
+        # answer_result_data が取れていればそれを最優先し、無ければ prefix 推定を使う
+        answer_numbers_for_correctness = (
+            list(answer_result_inferred_correct_numbers)
+            if answer_result_inferred_correct_numbers
+            else list(prefix_inferred_correct_numbers)
+        )
+        all_correct_choice_texts = infer_correct_choice_texts_from_answer_numbers(
+            [None for _ in range(len(final_choice_text_list))],
+            answer_numbers_for_correctness,
+            question_intent,
+        )
+
+        # 互換のため保持（旧: スニペットから直接判定していた）
+        raw_correct_choice_texts = []
 
         # questionType の判定
         # choiceTextList が空白のみの場合は group_choice とする（ユーザー要望）
@@ -1858,43 +2303,31 @@ def main() -> None:
             else:
                 question_type_val = "flash_card"
 
-        # 解説から正解番号を推測して補完（None の箇所を埋める）
-        if None in all_correct_choice_texts:
-            inferred_correct_num = prefix_inferred_correct_num
+        # 解説から正解番号を推測して補完（None 混在、または全肢同一の場合に再構成）
+        needs_answer_based_rebuild = (
+            None in all_correct_choice_texts
+            or (
+                all_correct_choice_texts
+                and len(set(all_correct_choice_texts)) == 1
+            )
+        )
+        if needs_answer_based_rebuild:
+            inferred_correct_numbers = list(prefix_inferred_correct_numbers)
             
             # ユーザー要望: 正解番号がテキストから判別できず、
             # かつ解説スニペットが1つの選択肢にしか存在しない場合、その選択肢を正解の対象とみなす
-            if inferred_correct_num is None:
+            if not inferred_correct_numbers:
                 indices_with_snippets = [
                     idx for idx, s in enumerate(all_choice_snippets) if s
                 ]
                 if len(indices_with_snippets) == 1:
-                    inferred_correct_num = indices_with_snippets[0] + 1
-            
-            # 問題文から「正しいものを選ぶ」のか「誤りを選ぶ」のか判定
-            question_intent = determine_question_intent(question_data.question_body_text)
+                    inferred_correct_numbers = [indices_with_snippets[0] + 1]
 
-            if inferred_correct_num is not None and question_intent is not None:
-                if 1 <= inferred_correct_num <= len(all_correct_choice_texts):
-                    correct_idx = inferred_correct_num - 1
-                    
-                    if question_intent == "select_correct":
-                        # 正解の選択肢 = 正しい内容 (他は間違い)
-                        if all_correct_choice_texts[correct_idx] is None:
-                            all_correct_choice_texts[correct_idx] = "正しい"
-                        
-                        for idx in range(len(all_correct_choice_texts)):
-                            if idx != correct_idx and all_correct_choice_texts[idx] is None:
-                                all_correct_choice_texts[idx] = "間違い"
-
-                    elif question_intent == "select_incorrect":
-                        # 正解の選択肢 = 間違いの内容 (他は正しい)
-                        if all_correct_choice_texts[correct_idx] is None:
-                            all_correct_choice_texts[correct_idx] = "間違い"
-                        
-                        for idx in range(len(all_correct_choice_texts)):
-                            if idx != correct_idx and all_correct_choice_texts[idx] is None:
-                                all_correct_choice_texts[idx] = "正しい"
+            all_correct_choice_texts = infer_correct_choice_texts_from_answer_numbers(
+                all_correct_choice_texts,
+                inferred_correct_numbers,
+                question_intent,
+            )
 
         # ===== 問題文のみの重複なしリストに追加 =====
         body_key = (question_data.question_body_text or "").strip()
@@ -1936,7 +2369,7 @@ def main() -> None:
             # まだ登録されていなければ追加
             if body_key not in target_dict:
                 # 問題文の意図を判定（出力用）
-                intent_val = determine_question_intent(question_data.question_body_text)
+                intent_val = question_intent
 
                 target_dict[body_key] = {
                     "questionBodyText": body_key,
@@ -1947,7 +2380,8 @@ def main() -> None:
                     "originalQuestionChoiceImageUrls": final_choice_image_storage_urls_by_choice,
                     "category": category_val,
                     "examYear": exam_year,
-                    "list_group_id": list_group_id,
+                    "examOccurrenceId": exam_occurrence_id,
+                    "list_group_id": output_list_group_id,
                     "question_url": question_data.question_url,
                     "public_question_id": public_qid,
                     "questionImageStorageUrls": question_image_storage_urls,
@@ -1958,6 +2392,8 @@ def main() -> None:
                     "explanation_common_summary": common_summary_list,
                     "explanation_choice_snippets": all_choice_snippets,
                     "explanation_choice_correctness": raw_correct_choice_texts,
+                    "answer_result_text": answer_result_text,
+                    "answer_result_inferred_correct_choice_numbers": answer_result_inferred_correct_numbers,
                 }
 
         # ===== Firestore データモデルに合わせた JSON 作成 (設問単位) =====
@@ -2016,8 +2452,8 @@ def main() -> None:
             question_id_for_doc = f"{public_qid}_{sub_index}"
 
             # examSource の生成
-            # 例: 二級建築士,2024年,問1,設問2
-            source_year_str = f"{exam_year}年" if exam_year else ""
+            # 例: 二級建築士,2025年10月,問1,設問2
+            source_year_str = exam_year or ""
             exam_source_val = f"{QUALIFICATION_NAME},{source_year_str},{question_data.question_label},設問{sub_index}"
 
             question_json = {
@@ -2047,6 +2483,7 @@ def main() -> None:
                 "hintImageUrls": [],
                 
                 "examYear": exam_year,
+                "examOccurrenceId": exam_occurrence_id,
                 "examSource": exam_source_val,
                 "questionTags": [],
                 
@@ -2064,7 +2501,7 @@ def main() -> None:
                     if question_data.correct_choice_numbers
                     else None
                 ),
-                "list_group_id": list_group_id,
+                "list_group_id": output_list_group_id,
                 "exam_label": question_data.exam_label,
                 "question_label": question_data.question_label,
                 "correct_choice_numbers": question_data.correct_choice_numbers,
@@ -2129,55 +2566,24 @@ def main() -> None:
             except Exception as save_error:  # noqa: PERF203
                 print(f"[WARN] failed to save JSON ({json_chunk_filename}): {save_error}")
 
-    # 追加: 問題文のみの JSON を別ファイルとして保存（25問ずつ分割）
-    # 通常の問題と、選択肢が空の問題を分けて保存
     save_targets = [
         (unique_question_bodies, "question"),
         (unique_question_bodies_empty, "question_empty"),
     ]
 
     for bodies_dict, base_filename_suffix in save_targets:
-        if not bodies_dict:
-            continue
-
-        question_bodies_list = list(bodies_dict.values())
-        total_bodies = len(question_bodies_list)
-        
-        for i, start_idx in enumerate(range(0, total_bodies, CHUNK_SIZE), start=1):
-            chunk = question_bodies_list[start_idx : start_idx + CHUNK_SIZE]
-            
-            # list_group_id をファイル名の先頭に付与
-            if list_group_id:
-                if base_filename_suffix == "question":
-                    file_path = os.path.join(json_output_dir, f"question_{list_group_id}_{i}.json")
-                else:
-                    file_path = os.path.join(json_output_dir, f"question_{list_group_id}_empty_{i}.json")
-
-            else:
-                if base_filename_suffix == "question":
-                    file_path = os.path.join(json_output_dir, f"question_{i}.json")
-                else:
-                    file_path = os.path.join(json_output_dir, f"question_empty_{i}.json")
-            
-            try:
-                # JSON形式で保存
-                with open(file_path, "w", encoding="utf-8") as fout:
-                    json.dump(
-                        {
-                            "list_group_id": list_group_id,
-                            "question_bodies": chunk,
-                        },
-                        fout,
-                        ensure_ascii=False,
-                        indent=2,
-                    )
-                print(
-                    f"\n[INFO] 問題文のみ（{len(chunk)} 件）を "
-                    f"{file_path} に保存しました。"
-                )
-
-            except Exception as save_error:  # noqa: PERF203
-                print(f"[WARN] failed to save {base_filename_suffix} JSON: {save_error}")
+        try:
+            saved_paths = save_question_body_chunks(
+                json_output_dir,
+                list_group_id,
+                bodies_dict,
+                base_filename_suffix=base_filename_suffix,
+                chunk_size=CHUNK_SIZE,
+            )
+            for saved_path in saved_paths:
+                print(f"\n[INFO] 問題文のみを {saved_path} に保存しました。")
+        except Exception as save_error:  # noqa: PERF203
+            print(f"[WARN] failed to save {base_filename_suffix} JSON: {save_error}")
 
     # ====== 最後に取得結果をコメントとして表示 ======
     print("\n==============================")

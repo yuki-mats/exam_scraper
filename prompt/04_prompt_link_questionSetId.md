@@ -2,6 +2,8 @@
 
 このタスクの目的は、`20_merged_1/question_*_merged.json` を一次情報として読み、各設問に最も適切な `questionSetId` を付与した正式パッチJSONを `22_questionSetId_linked/` に出力することです。
 
+判断水準は、単なる一般読者の分類ではなく、対象資格の専門家・問題作成者・参考書著者が復習単元を設計する水準とします。受験者がその設問をどの論点として復習すべきかを重視してください。
+
 ## 最重要ルール
 - 外部Webアクセス・ブラウザ参照・`question_url` の再取得は禁止。
 - 根拠に使ってよい主情報は、同一 `list_group_id` 配下の `20_merged_1/*.json` と `category.json` のみ。
@@ -215,7 +217,8 @@ cd /Users/yuki/development/exam_scraper
 ```bash
 python3 scripts/fix/archive_patch_outputs.py \
   --task question_set \
-  --list-group-id <list_group_id>
+  --list-group-id <list_group_id> \
+  --base-dir output/<qualification>/questions_json
 ```
 
 ### 2. AI生出力を正式パッチJSONへ補完

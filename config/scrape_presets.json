@@ -1,0 +1,144 @@
+{
+  "kaigofukushi": {
+    "scraper_type": "kakomonn",
+    "qualification_name": "介護福祉士",
+    "list_first_page_url_template": "https://kaigofukushi.kakomonn.com/list1/{list_group_id}?page=1",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "2019",
+        "output_list_group_id": "2024"
+      },
+      {
+        "source_list_group_id": "2018",
+        "output_list_group_id": "2023"
+      },
+      {
+        "source_list_group_id": "2017",
+        "output_list_group_id": "2022"
+      },
+      {
+        "source_list_group_id": "2016",
+        "output_list_group_id": "2021"
+      },
+      {
+        "source_list_group_id": "2015",
+        "output_list_group_id": "2020"
+      },
+      {
+        "source_list_group_id": "2014",
+        "output_list_group_id": "2019"
+      },
+      {
+        "source_list_group_id": "2013",
+        "output_list_group_id": "2018"
+      },
+      {
+        "source_list_group_id": "2012",
+        "output_list_group_id": "2017"
+      },
+      {
+        "source_list_group_id": "2011",
+        "output_list_group_id": "2016"
+      },
+      {
+        "source_list_group_id": "2010",
+        "output_list_group_id": "2015"
+      },
+      {
+        "source_list_group_id": "2009",
+        "output_list_group_id": "2014"
+      },
+      {
+        "source_list_group_id": "2008",
+        "output_list_group_id": "2013"
+      },
+      {
+        "source_list_group_id": "2007",
+        "output_list_group_id": "2012"
+      },
+      {
+        "source_list_group_id": "2006",
+        "output_list_group_id": "2011"
+      },
+      {
+        "source_list_group_id": "2005",
+        "output_list_group_id": "2010"
+      },
+      {
+        "source_list_group_id": "2004",
+        "output_list_group_id": "2009"
+      },
+      {
+        "source_list_group_id": "2003",
+        "output_list_group_id": "2008"
+      }
+    ]
+  },
+  "gas-shunin-otsu": {
+    "scraper_type": "gassyunin",
+    "qualification_name": "ガス主任技術者乙種",
+    "list_first_page_url_template": "https://gassyunin.com/exam/otsu/otsu_{list_group_id}/",
+    "list_group_ids": [
+      "2025",
+      "2024",
+      "2023",
+      "2022",
+      "2021",
+      "2020",
+      "2019",
+      "2018",
+      "2017"
+    ]
+  },
+  "sg": {
+    "scraper_type": "sgsiken",
+    "qualification_name": "情報セキュリティマネジメント",
+    "list_first_page_url_template": "https://www.sg-siken.com/kakomon/{list_group_id}/",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "07_haru",
+        "output_list_group_id": "202501"
+      },
+      {
+        "source_list_group_id": "06_haru",
+        "output_list_group_id": "202401"
+      },
+      {
+        "source_list_group_id": "05_haru",
+        "output_list_group_id": "202301"
+      },
+      {
+        "source_list_group_id": "01_aki",
+        "output_list_group_id": "201902"
+      },
+      {
+        "source_list_group_id": "31_haru",
+        "output_list_group_id": "201901"
+      },
+      {
+        "source_list_group_id": "30_aki",
+        "output_list_group_id": "201802"
+      },
+      {
+        "source_list_group_id": "30_haru",
+        "output_list_group_id": "201801"
+      },
+      {
+        "source_list_group_id": "29_aki",
+        "output_list_group_id": "201702"
+      },
+      {
+        "source_list_group_id": "29_haru",
+        "output_list_group_id": "201701"
+      },
+      {
+        "source_list_group_id": "28_aki",
+        "output_list_group_id": "201602"
+      },
+      {
+        "source_list_group_id": "28_haru",
+        "output_list_group_id": "201601"
+      }
+    ]
+  }
+}
