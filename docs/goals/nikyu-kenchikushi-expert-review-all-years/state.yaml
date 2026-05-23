@@ -34921,6 +34921,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_2237.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
@@ -35071,7 +35072,8 @@ tasks:
       result: done
       full_outcome_complete: false
       summary: original_question_id=c0d579ad37478fbd（共同住宅3階建の避難施設）について、questionIntent=select_incorrect / answer_result_text（正解4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] が整合することを確認した。explanationText は「誤っているもののみの組合せ」を作る論点として、ロ（共用廊下幅の適用条件）とニ（非常用進入口の必要階）を軸に、各選択肢がなぜ不適当かを受験者が再現できる形で説明できているため、patch は更新せず現状維持とした。
-      changed_files: []
+      changed_files:
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json
         - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_2237.json
@@ -35102,6 +35104,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85001/21_explanationText_added/question_85001_2_merged_explanationText_added_20260523_2237.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85001/20_merged_1/question_85001_2_merged.json'
@@ -38026,7 +38029,7 @@ tasks:
     reasoning_hint: high
     objective: "subgoal: 2016年度（list_group_id=85002）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
-      status: queued
+      status: active
       path: subgoals/85002/state.yaml
       owner: PM
       depth: 1
@@ -38038,7 +38041,7 @@ tasks:
     reasoning_hint: high
     objective: "subgoal: 2017年度（list_group_id=85003）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
-      status: queued
+      status: active
       path: subgoals/85003/state.yaml
       owner: PM
       depth: 1
@@ -38050,7 +38053,7 @@ tasks:
     reasoning_hint: high
     objective: "subgoal: 2018年度（list_group_id=85004）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
-      status: queued
+      status: active
       path: subgoals/85004/state.yaml
       owner: PM
       depth: 1
@@ -38062,7 +38065,7 @@ tasks:
     reasoning_hint: high
     objective: "subgoal: 2019年度（list_group_id=85005）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
-      status: queued
+      status: active
       path: subgoals/85005/state.yaml
       owner: PM
       depth: 1
@@ -38074,7 +38077,7 @@ tasks:
     reasoning_hint: high
     objective: "subgoal: 2020年度（list_group_id=85006）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
-      status: queued
+      status: active
       path: subgoals/85006/state.yaml
       owner: PM
       depth: 1
@@ -38166,4 +38169,16 @@ tasks:
       - 選定した対象ファイル（path）
       - 新ファイル名（またはリネーム先）
       - allowed_files / verify / stop_if を含む Worker task
+    receipt: null
+  - id: T637
+    type: pm
+    assignee: PM
+    status: queued
+    reasoning_hint: high
+    objective: 親ボードと subgoals の残作業を棚卸しし、queued が枯渇する前に次 tranche の Worker tasks（1問=1Worker）を追加して「止まらずに全年度を消化」できる状態を維持する（必要なら 85007..85011 も subgoals 化する）。
+    expected_output:
+      - 未タスクの範囲（list_group_id / source_file / 未処理 original_question_id 数）
+      - 追加した tranche の方針（どの年度/どのマージファイルから積むか）
+      - 追加した Worker tasks（親ボード or subgoal どちらに追加したかを明記）
+      - `active_task` と `visual_board` の再生成手順（board --once）
     receipt: null
