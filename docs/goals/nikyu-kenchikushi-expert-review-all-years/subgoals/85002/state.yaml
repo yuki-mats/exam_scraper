@@ -157,7 +157,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T043
+active_task: T044
 tasks:
   - id: T001
     type: worker
@@ -2728,7 +2728,7 @@ tasks:
   - id: T043
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v2
     objective: 85002/question_85002_2_merged.json の original_question_id=5ba11cea3d362fef について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2739,7 +2739,34 @@ tasks:
       original_question_id: 5ba11cea3d362fef
       question_url: https://2kenchikushi.kakomonn.com/questions/43481
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=5ba11cea3d362fef（法規：建設業法の許可/主任技術者/一括下請負/下請負人変更請求）について、questionIntent=select_incorrect / answer_result_text（正解は3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] の整合を確認した。設問（正しいもののみの組合せ）は、イが誤り（許可不要の例外は軽微工事に限る）、ロが正しい（建築一式4,000万円は専任配置要件を満たさない）、ハが正しい（共同住宅新築は重要工事で一括下請負の例外対象外）、ニが誤り（注文者は不適当な下請負人の変更請求ができる）であり、組合せはロとハとなる。explanationText は、建設業法第3条（軽微工事の例外）、同法第26条第3項・施行令第27条（主任技術者等の専任配置が必要となる重要工事）、同法第22条・施行令第6条の4（一括下請負の禁止と共同住宅新築の扱い）、同法第23条（下請負人の変更請求）に基づき、各選択肢の組合せがなぜ正誤になるかを追える形へ更新し、禁止表現のかぎ括弧も除去した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: python3 -c "import json,re,sys; arr=json.load(open('output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json')); needle='5ba11cea3d362fef'; obj=next(x for x in arr if x.get('original_question_id')==needle); text='\\n'.join(obj.get('explanationText',[])); pat=re.compile(r'設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」'); m=pat.search(text); print('(no matches)' if not m else m.group(0)); sys.exit(0 if not m else 1)"
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
@@ -2763,7 +2790,7 @@ tasks:
   - id: T044
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v2
     objective: 85002/question_85002_2_merged.json の original_question_id=fcfd0e1d082a3053 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
