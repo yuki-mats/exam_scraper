@@ -157,7 +157,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T063
+active_task: T064
 tasks:
   - id: T001
     type: worker
@@ -3945,7 +3945,7 @@ tasks:
   - id: T063
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v3
     objective: 85002/question_85002_3_merged.json の original_question_id=438d39f88a23492e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -3956,7 +3956,33 @@ tasks:
       original_question_id: 438d39f88a23492e
       question_url: https://2kenchikushi.kakomonn.com/questions/43502
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=438d39f88a23492e（構造：既存RC建築物の耐震改修/補強）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。explanationText は、(1) 耐震スリットが短柱化を防ぎ破壊形式をせん断→曲げへ改善する狙い、(2) あと施工アンカー周りの割裂防止にスパイラル筋等の拘束筋が有効、(3) 上階撤去は重量低減により地震応答を低減しうる、(4) 第2次診断法は柱・壁の強さと変形能力に基づく評価で梁を主題とするのは第3次診断法であり本肢が不適当、(5) CFRP巻付けは横拘束により柱靱性を向上させる、を理由付きで整理して各選択肢の正誤理由が追える形へ更新した。誤り肢4は第2次診断法の評価対象を取り違えている点が不適切である。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: python3 -c "import json,re,sys; arr=json.load(open('output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260523_1545.json')); needle='438d39f88a23492e'; obj=next(x for x in arr if x.get('original_question_id')==needle); text='\\n'.join(obj.get('explanationText',[])); pat=re.compile(r'設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」|〇|×'); m=pat.search(text); print('(no matches)' if not m else m.group(0)); sys.exit(0 if not m else 1)"
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
@@ -3980,7 +4006,7 @@ tasks:
   - id: T064
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v3
     objective: 85002/question_85002_3_merged.json の original_question_id=c539b39b59dbc5ea について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
