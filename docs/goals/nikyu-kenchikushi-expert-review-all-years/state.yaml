@@ -40457,7 +40457,7 @@ tasks:
     receipt:
       result: done
       full_outcome_complete: false
-      summary: active_task=T622（85011 / original_question_id=c140f6a99af9c087）が進行中。親ボードは Worker done=602 / active=1 / queued=4（合計 task done=623 / active=1 / queued=15）で枯渇していない。未完了 Worker は 85011 のみ（active 1 + queued 4）で、85001/85007/85008/85009/85010 は全問 done。2016-2020（85002..85006）は subgoals 側でそれぞれ active_task=T001（worker active 1 + queued 95〜97）の状態。
+      summary: active_task=T628（subgoal=85002）が進行中。親ボードは Worker done=607 / active=0 / queued=0（合計 task done=629 / active=1 / queued=9）で、85001/85007..85011 は全問 done。残作業は 2016-2020（85002..85006）の subgoalsで、85002 は active_task=T002（worker done=1 / active=1 / queued=96）、85003 は active_task=T001（worker active=1 / queued=97）、85004 は active_task=T001（worker active=1 / queued=95）、85005 は active_task=T001（worker active=1 / queued=96）、85006 は active_task=T001（worker active=1 / queued=95）。
       board:
         command: npx goalbuddy board /Users/yuki/development/exam_scraper/docs/goals/nikyu-kenchikushi-expert-review-all-years
         url: http://goalbuddy.localhost:41737/nikyu-kenchikushi-expert-review-all-years/
