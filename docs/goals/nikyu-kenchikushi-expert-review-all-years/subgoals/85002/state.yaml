@@ -157,7 +157,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T045
+active_task: T046
 tasks:
   - id: T001
     type: worker
@@ -2559,7 +2559,6 @@ tasks:
       summary: original_question_id=100b43357c853866（法規：防火/準防火規制）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。explanationText は、建築基準法第63条（隣地境界線に接する外壁）、同法第61条第1項・施行令第136条の2（準防火地域の木造等）、同法第62条・施行令第136条の2の2（屋根の防火性能）、同法第65条第2項（防火地域と準防火地域にまたがる場合）を根拠に、各選択肢の正誤理由と誤り肢（4）の判断根拠が自力で追える形へ更新した。
       changed_files:
         - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
-        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
       correct_choice_review:
@@ -2621,7 +2620,6 @@ tasks:
       summary: original_question_id=9c2204d5ce0f61c2（法規：建築士法）について、questionIntent=select_incorrect / answer_result_text（正解は5）と correctChoiceText=[正しい,正しい,正しい,正しい,間違い] の整合を確認した。explanationText は、建築士法第21条の3（違反行為の指示等の禁止）、同法第20条第5項（建築設備士の意見聴取時の明示）、同法第10条（懲戒）、同法第2条の2（職責）、同法第18条第3項（工事監理の是正要求と建築主への報告）に基づき、各選択肢の正誤理由が自力で追える形へ更新し、禁止表現のかぎ括弧も除去した。
       changed_files:
         - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
-        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
       correct_choice_review:
@@ -2683,7 +2681,6 @@ tasks:
       summary: original_question_id=ffba9d9a4ae09120（法規：建築士事務所の登録・管理建築士）について、questionIntent=select_incorrect / answer_result_text（正解は1）と correctChoiceText=[間違い,正しい,正しい,正しい,正しい] の整合を確認した。explanationText は、建築士法第23条第1項（登録が必要となる要件）、同法第24条第1項・第2項（管理建築士の設置と要件）、同法第26条第1項第2号・第23条の4第1項第10号（管理建築士要件欠缺時の登録取消し）、同法第24条の7（重要事項説明と免許証等の提示）、同法第24条の3（再委託の制限）に基づき、各選択肢の正誤理由が条文に追従できる形へ更新した（誤り肢1は、自らが建築主の場合まで登録義務があるとしている点）。また、誤記のあった許可という表現を登録へ修正し、禁止表現のかぎ括弧も除去した。
       changed_files:
         - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
-        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
       correct_choice_review:
@@ -2745,7 +2742,6 @@ tasks:
       summary: original_question_id=5ba11cea3d362fef（法規：建設業法の許可/主任技術者/一括下請負/下請負人変更請求）について、questionIntent=select_incorrect / answer_result_text（正解は3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] の整合を確認した。設問（正しいもののみの組合せ）は、イが誤り（許可不要の例外は軽微工事に限る）、ロが正しい（建築一式4,000万円は専任配置要件を満たさない）、ハが正しい（共同住宅新築は重要工事で一括下請負の例外対象外）、ニが誤り（注文者は不適当な下請負人の変更請求ができる）であり、組合せはロとハとなる。explanationText は、建設業法第3条（軽微工事の例外）、同法第26条第3項・施行令第27条（主任技術者等の専任配置が必要となる重要工事）、同法第22条・施行令第6条の4（一括下請負の禁止と共同住宅新築の扱い）、同法第23条（下請負人の変更請求）に基づき、各選択肢の組合せがなぜ正誤になるかを追える形へ更新し、禁止表現のかぎ括弧も除去した。
       changed_files:
         - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
-        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
       correct_choice_review:
@@ -2807,7 +2803,6 @@ tasks:
       summary: original_question_id=fcfd0e1d082a3053（法規：耐震改修促進法）について、questionIntent=select_incorrect / answer_result_text（正解は5）と correctChoiceText=[正しい,正しい,正しい,正しい,間違い] の整合を確認した。explanationText は、基準適合認定建築物の表示（耐震改修促進法第22条第3項）、耐震改修計画の変更認定と軽微な変更（同法第18条第1項、同施行規則第32条）、要安全確認計画記載建築物の耐震診断と報告（同法第7条）、通行障害建築物の定義（同法第5条第3項第2号）、通行障害既存耐震不適格建築物の耐震診断費用の負担主体（同法第10条第1項、第2項）を根拠に、各選択肢の正誤理由が条文に追従できる形へ更新した。誤り肢5は、費用負担主体を所管行政庁としている点が不適切である。",
       changed_files:
         - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
-        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
       unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
       correct_choice_review:
@@ -2852,7 +2847,7 @@ tasks:
   - id: T045
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v2
     objective: 85002/question_85002_2_merged.json の original_question_id=7baea01aeb6a5211 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2863,7 +2858,33 @@ tasks:
       original_question_id: 7baea01aeb6a5211
       question_url: https://2kenchikushi.kakomonn.com/questions/43483
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=7baea01aeb6a5211（法規：新築工事に関する各法令の適用）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。explanationText は、(1) バリアフリー法の適合義務対象規模（特別特定建築物で床面積2,000m2以上）と本件延べ200m2の関係、(2) 品確法の瑕疵担保責任（原則10年・特約で20年以内）、(3) 住宅瑕疵担保履行法の保険契約（承認なし変更・解除不可）、(4) 長期優良住宅法の計画変更認定と軽微な変更（完了予定時期の変更は6月以内が軽微）、(5) 建設リサイクル法の届出対象規模（新築は延べ500m2以上）を根拠に、各選択肢の正誤理由を条文に追従できる形へ更新した。誤り肢4は「1年以内の遅れは変更認定不要」としている点が不適切である。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: python3 -c "import json,re,sys; arr=json.load(open('output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_0516.json')); needle='7baea01aeb6a5211'; obj=next(x for x in arr if x.get('original_question_id')==needle); text='\\n'.join(obj.get('explanationText',[])); pat=re.compile(r'設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」'); m=pat.search(text); print('(no matches)' if not m else m.group(0)); sys.exit(0 if not m else 1)"
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
@@ -2887,7 +2908,7 @@ tasks:
   - id: T046
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v2
     objective: 85002/question_85002_2_merged.json の original_question_id=1b548eb1e20ed146 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
