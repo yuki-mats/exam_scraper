@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T608
+active_task: T609
 tasks:
   - id: T001
     type: pm
@@ -39138,7 +39138,7 @@ tasks:
   - id: T608
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85007_question_review_4
     objective: 85007/question_85007_4_merged.json の original_question_id=273362ea024b09f1 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -39148,7 +39148,33 @@ tasks:
       original_question_id: 273362ea024b09f1
       question_url: https://2kenchikushi.kakomonn.com/questions/58941
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=273362ea024b09f1（左官工事・タイル工事・石工事）について、questionIntent=select_incorrect / answer_result_text（正解は3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] の整合を確認した。誤り肢（選択肢3）は、外壁の二丁掛けタイルの密着張りで張付けモルタルの塗り厚を15mmとしている点で、密着張りの張付けモルタルは薄塗り（5〜8mm程度）が基本となる。explanationText は、各工法で受験者が再現判定できるように「どの工程・どの数値が論点か」（貧調合の意味、せっこうプラスターの通風のタイミング、密着張りの塗り厚、マスク張りの充填確認、乾式工法の目地寸法）を具体化して教材品質に改善した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85007/21_explanationText_added/question_85007_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85007/20_merged_1/question_85007_4_merged.json
       - output/2nd-class-kenchikushi/questions_json/85007/00_source/**
@@ -39171,7 +39197,7 @@ tasks:
   - id: T609
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85007_question_review_4
     objective: 85007/question_85007_4_merged.json の original_question_id=5da10de4bf80a4bb について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
