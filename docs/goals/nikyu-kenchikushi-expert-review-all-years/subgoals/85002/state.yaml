@@ -157,7 +157,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T054
+active_task: T055
 tasks:
   - id: T001
     type: worker
@@ -3396,7 +3396,7 @@ tasks:
   - id: T054
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v3
     objective: 85002/question_85002_3_merged.json の original_question_id=d0c208cc4b9bb7be について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -3407,7 +3407,33 @@ tasks:
       original_question_id: d0c208cc4b9bb7be
       question_url: https://2kenchikushi.kakomonn.com/questions/43492
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=d0c208cc4b9bb7be（構造：基礎構造/地盤）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。explanationText は、(1) 地盤種別による長期許容応力度の一般的大小関係、(2) フーチング基礎の類型（独立・複合・連続）、(3) 直接基礎のすべり検討、(4) N値が同じでも砂質地盤と粘土質地盤では強度要素・沈下特性が異なり長期許容応力度は同一とならない点（施行令第93条の区分）、(5) 直接基礎の鉛直支持力の代表的算定法（支持力式/平板載荷試験）を整理し、各選択肢の正誤理由が追える形へ更新した。誤り肢4は「同一の値となる」と断定している点が不適切である。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260523_1545.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: python3 -c "import json,re,sys; arr=json.load(open('output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260523_1545.json')); needle='d0c208cc4b9bb7be'; obj=next(x for x in arr if x.get('original_question_id')==needle); text='\\n'.join(obj.get('explanationText',[])); pat=re.compile(r'設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」'); m=pat.search(text); print('(no matches)' if not m else m.group(0)); sys.exit(0 if not m else 1)"
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
@@ -3431,7 +3457,7 @@ tasks:
   - id: T055
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v3
     objective: 85002/question_85002_3_merged.json の original_question_id=8992664792aec54d について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
