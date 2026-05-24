@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T625
+active_task: T626
 tasks:
   - id: T001
     type: pm
@@ -40141,7 +40141,7 @@ tasks:
   - id: T625
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85011_question_review_v7
     objective: 85011/question_85011_empty_3_merged.json の original_question_id=d44786e9d8b1b8aa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
@@ -40151,7 +40151,33 @@ tasks:
       original_question_id: d44786e9d8b1b8aa
       question_url: https://2kenchikushi.kakomonn.com/questions/90566
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=d44786e9d8b1b8aa（改修工事）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。誤り肢（選択肢4）は、目透し工法（目地を意匠として見せる工法）にテーパー付きせっこうボードを用いるとしている点で、テーパー付きは目地をパテ処理して平滑に仕上げる用途であり、目透しには不適当。explanationText は既存パッチが要件（誤り箇所・正しい内容・理由）を満たしていたため変更不要と判断した。
+      changed_files: []
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1107.json
+        - output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1107.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1107.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85011/00_source/**
@@ -40174,7 +40200,7 @@ tasks:
   - id: T626
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85011_question_review_v7
     objective: 85011/question_85011_empty_3_merged.json の original_question_id=cd11202602990a5b について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら patch を更新する。
