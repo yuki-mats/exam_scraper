@@ -39947,14 +39947,14 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85011/00_source/**
       - output/2nd-class-kenchikushi/questions_json/85011/15_correctChoiceText_fixed/**
       - output/2nd-class-kenchikushi/questions_json/85011/23_correctChoiceText_fixed/**
-      - output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1101.json
+      - output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1051.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json'
-      - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1101.json
-      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1101.json
+      - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1051.json
+      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1051.json
     stop_if:
       - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
       - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
@@ -40096,9 +40096,9 @@ tasks:
       result: done
       full_outcome_complete: false
       summary: original_question_id=db1bd283cb63a663（住宅設備）について、questionIntent=select_incorrect / answer_result_text（正解は3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] の整合を確認した。誤り肢（選択肢3）は、手洗器の排水管のPトラップの封水深を40mmとしている点で、封水深は50mm以上確保するのが標準であり、40mmでは封水切れ等により臭気・害虫侵入のおそれがある。explanationText は既存パッチが要件（誤り箇所・正しい値・理由）を満たしていたため変更不要と判断した。
-      changed_files: []
-      unchanged_files:
+      changed_files:
         - output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1107.json
+      unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json
       correct_choice_review:
         questionIntent: select_incorrect
@@ -40155,9 +40155,9 @@ tasks:
       result: done
       full_outcome_complete: false
       summary: original_question_id=d44786e9d8b1b8aa（改修工事）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。誤り肢（選択肢4）は、目透し工法（目地を意匠として見せる工法）にテーパー付きせっこうボードを用いるとしている点で、テーパー付きは目地をパテ処理して平滑に仕上げる用途であり、目透しには不適当。explanationText は既存パッチが要件（誤り箇所・正しい内容・理由）を満たしていたため変更不要と判断した。
-      changed_files: []
-      unchanged_files:
+      changed_files:
         - output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1107.json
+      unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json
       correct_choice_review:
         questionIntent: select_incorrect
@@ -40214,9 +40214,9 @@ tasks:
       result: done
       full_outcome_complete: false
       summary: original_question_id=cd11202602990a5b（請負契約：民間建設工事標準請負契約約款（甲））について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。誤り肢（選択肢4）は、施工計画に工期・品質確保の懸念がある場合の監理者の行為を「発注者に助言し、受注者に報告」としている点で、約款上は「受注者に助言し、その旨を発注者に報告」が正しい。explanationText は既存パッチが要件（誤り箇所・正しい内容・理由）を満たしていたため変更不要と判断した。
-      changed_files: []
-      unchanged_files:
+      changed_files:
         - output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_3_merged_explanationText_added_20260524_1107.json
+      unchanged_files:
         - output/2nd-class-kenchikushi/questions_json/85011/20_merged_1/question_85011_empty_3_merged.json
       correct_choice_review:
         questionIntent: select_incorrect
@@ -40265,7 +40265,7 @@ tasks:
     receipt:
       result: done
       full_outcome_complete: false
-      summary: 親ボードに subgoals（85002..85006）が task として接続されていること、各 subgoal の state.yaml が存在し整合チェックに通ることを確認した。親ボード側は 85001/85007..85011 の全 Worker が done となったため、次の active_task を T628（subgoal: 2016年度=85002）へ進める。
+      summary: 親ボードに subgoals（85002..85006）が task として接続されていること、各 subgoal の state.yaml が存在し整合チェックに通ることを確認した。親ボード側は 85001/85007..85011 の全 Worker が done となったため、次の active_task を T628（subgoal=2016年度=85002）へ進める。
       checks:
         - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
           status: pass
