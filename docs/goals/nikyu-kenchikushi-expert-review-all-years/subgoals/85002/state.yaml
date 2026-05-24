@@ -45,21 +45,21 @@ visual_board:
 worker_defaults:
   85002_question_review_v1:
     source_file: output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
-    explanation_patch_file: output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+    explanation_patch_file: output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
     optional_correct_choice_patch_dir: output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
       - output/2nd-class-kenchikushi/questions_json/85002/15_correctChoiceText_fixed/**
       - output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**
-      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json'
       - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
-        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
-      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
+      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
     stop_if:
       - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
       - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T023
+active_task: T024
 tasks:
   - id: T001
     type: worker
@@ -1505,7 +1505,7 @@ tasks:
   - id: T023
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v1
     objective: 85002/question_85002_1_merged.json の original_question_id=51891ad029225d65 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -1516,21 +1516,47 @@ tasks:
       original_question_id: 51891ad029225d65
       question_url: https://2kenchikushi.kakomonn.com/questions/43456
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=51891ad029225d65（電気設備：許容電流/屋内方式/タスク・アンビエント/電圧降下/可とう管）について、questionIntent=select_incorrect / answer_result_text（正解は3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] の整合を確認した。explanationText は、不要な定型文（建築基準法云々）を除去し、許容電流が周囲温度・集合条件（離隔）で低減する理由、住宅の一般的な電気方式（単相2線100V/単相3線100V/200V）、タスク・アンビエント照明が局部照明単独ではなく全般照明との併用である点、低圧回路の電圧降下許容値が配線長に応じて目安規定される点、合成樹脂製可とう管のコンクリート内埋設可否を根拠に、各選択肢の正誤理由を明確化した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
       - output/2nd-class-kenchikushi/questions_json/85002/15_correctChoiceText_fixed/**
       - output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**
-      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json'
       - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
-        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
-      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
+      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
     stop_if:
       - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
       - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
@@ -1540,7 +1566,7 @@ tasks:
   - id: T024
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85002_question_review_v1
     objective: 85002/question_85002_1_merged.json の original_question_id=2a9811517eabd10b について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -1557,15 +1583,15 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
       - output/2nd-class-kenchikushi/questions_json/85002/15_correctChoiceText_fixed/**
       - output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**
-      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json'
       - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
-        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
-      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
+      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
     stop_if:
       - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
       - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
@@ -1592,15 +1618,15 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85002/00_source/**
       - output/2nd-class-kenchikushi/questions_json/85002/15_correctChoiceText_fixed/**
       - output/2nd-class-kenchikushi/questions_json/85002/23_correctChoiceText_fixed/**
-      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+      - output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json'
       - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json
-        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
-      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2227.json
+        --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
+      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260524_2233.json
     stop_if:
       - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
       - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
