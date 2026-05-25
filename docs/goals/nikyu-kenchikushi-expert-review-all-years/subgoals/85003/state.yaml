@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T042
+active_task: T043
 tasks:
   - id: T001
     type: worker
@@ -2715,7 +2715,7 @@ tasks:
   - id: T042
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v2
     objective: 85003/question_85003_2_merged.json の original_question_id=b6238c9600c3c443 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2726,7 +2726,39 @@ tasks:
       original_question_id: b6238c9600c3c443
       question_url: https://2kenchikushi.kakomonn.com/questions/43582
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=b6238c9600c3c443（関係法令：住宅瑕疵担保履行法、長期優良住宅法、耐震改修促進法、建設リサイクル法）について、questionIntent=select_correct / answer_result_text（正解は4）と correctChoiceText=[間違い,間違い,間違い,正しい,間違い] の整合を確認した。explanationText は設問文の繰り返しが多く、誤り箇所（起算点、定義の範囲、申請主体、列挙対象）が曖昧だったため、各肢で「どこが誤りで正しくは何か」を条文ベースで明確化した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260526_0302.json
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/notes/T042_b6238c9600c3c443.md
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 間違い
+          - 間違い
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260526_0302.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260526_0302.json
+          status: pass
+          output: (no matches)
+      evidence:
+        - housing_defect=特定住宅瑕疵担保責任の履行の確保等に関する法律第2条第7項第4号
+        - lth=長期優良住宅の普及の促進に関する法律第2条第3項第3号、第5条第2項、第3項
+        - seismic=建築物の耐震改修の促進に関する法律第14条
+        - recycle=建設工事に係る資材の再資源化等に関する法律施行令第1条
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85003/00_source/**
@@ -2750,7 +2782,7 @@ tasks:
   - id: T043
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v2
     objective: 85003/question_85003_2_merged.json の original_question_id=3b24e06367db4222 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
