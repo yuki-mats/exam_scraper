@@ -40291,7 +40291,7 @@ tasks:
     receipt:
       result: done
       full_outcome_complete: false
-      summary: subgoal 85002（2016年度）が judge 最終監査（decision: complete / full_outcome_complete: true）まで完了していることを確認し、親ボード上の subgoal も done とした。次の active_task を T629（2017年度=85003）へ進める。
+      summary: 'subgoal 85002（2016年度）が judge 最終監査（decision: complete / full_outcome_complete: true）まで完了していることを確認し、親ボード上の subgoal も done とした。次の active_task を T629（2017年度=85003）へ進める。'
       checks:
         - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85002/state.yaml
           status: pass
