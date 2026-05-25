@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T040
+active_task: T041
 tasks:
   - id: T001
     type: worker
@@ -2586,7 +2586,7 @@ tasks:
   - id: T040
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v2
     objective: 85003/question_85003_2_merged.json の original_question_id=4cdb55b6f4c18456 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2597,7 +2597,36 @@ tasks:
       original_question_id: 4cdb55b6f4c18456
       question_url: https://2kenchikushi.kakomonn.com/questions/43580
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=4cdb55b6f4c18456（建築士事務所：登録、重要事項説明、一括再委託、管理建築士の意見尊重、賠償担保措置）について、questionIntent=select_incorrect / answer_result_text（正解は2）と correctChoiceText=[正しい,間違い,正しい,正しい,正しい] の整合を確認した。explanationText は「規定どおり」中心で、契約類型・閾値・義務の発生条件が読み取れないため、各肢で対象条文と判断要件（登録対象に指導監督が含まれる、重要事項説明は設計/工事監理の受託契約に限る、300m2超の一括再委託禁止等）を明示して更新した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260526_0302.json
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/notes/T040_4cdb55b6f4c18456.md
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 2 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260526_0302.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_2_merged_explanationText_added_20260526_0302.json
+          status: pass
+          output: (no matches)
+      evidence:
+        - law=建築士法第23条第1項、第24条の3第2項、第24条の7第1項、第24条第4項、第5項、第24条の9
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85003/00_source/**
@@ -2621,7 +2650,7 @@ tasks:
   - id: T041
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v2
     objective: 85003/question_85003_2_merged.json の original_question_id=9f9a584b6af94d45 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
