@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T014
+active_task: T015
 tasks:
   - id: T001
     type: worker
@@ -957,7 +957,7 @@ tasks:
   - id: T014
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v1
     objective: 85003/question_85003_1_merged.json の original_question_id=e29dc9d85cb6cca5 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -968,7 +968,34 @@ tasks:
       original_question_id: e29dc9d85cb6cca5
       question_url: https://2kenchikushi.kakomonn.com/questions/43548
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=e29dc9d85cb6cca5（病院・劇場・美術館・博物館・ホールの計画）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した（燻蒸室は荷解室・収蔵庫に近接配置が望ましい）。explanationText は各肢の根拠が揃っており教材品質も満たすため patch 更新は不要と判断した。
+      changed_files:
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/notes/no-change-reviews.md
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_1_merged.json
+        - output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_1_merged_explanationText_added_20260526_0124.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_1_merged_explanationText_added_20260526_0124.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_1_merged_explanationText_added_20260526_0124.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85003/00_source/**
@@ -992,7 +1019,7 @@ tasks:
   - id: T015
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v1
     objective: 85003/question_85003_1_merged.json の original_question_id=ca86dc7e934120ad について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
