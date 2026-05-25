@@ -4,7 +4,7 @@ goal:
   slug: nikyu-kenchikushi-expert-review-85002
   kind: existing_plan
   tranche: 2nd-class-kenchikushi / 2016 (list_group_id=85002) の全設問を 1問ずつ専門家レビューする。
-  status: active
+  status: done
   oracle:
     signal: 2016年度（list_group_id=85002）の全設問について、正しい回答と専門家水準の解説品質が確認され、必要な patch 更新と verify が完了している。
     cadence: 各 Worker 完了後と最終監査時
@@ -157,7 +157,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T099
+active_task: null
 tasks:
   - id: T001
     type: worker
@@ -6753,7 +6753,7 @@ tasks:
   - id: T099
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: 2016年度（list_group_id=85002）の全設問 Worker が完了した後、oracle に照らして年度内の最終監査を行う。
     inputs:
@@ -6766,4 +6766,40 @@ tasks:
       - Decision
       - Oracle mapping
       - Residual risks
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: true
+      decision: complete
+      oracle_mapping:
+        - requirement: "2016年度（list_group_id=85002）全設問が 1問=1Worker で review 済みであること"
+          evidence: "tasks の worker 98件がすべて status=done、active_task が judge(T099) に到達している。"
+        - requirement: "各 Worker で correctChoiceText が answer_result_text / questionIntent と整合し、99.99%水準で正答が確認できること"
+          evidence: "各 worker receipt の correct_choice_review と distribution check（violations=0）。"
+        - requirement: "explanationText が教材として公開できる品質で、禁止パターン（薄い定型句、空の引用符、〇/× 等）が残らないこと"
+          evidence: "参照中の patch（worker_defaults の explanation_patch_file 一式）で forbidden-pattern scan が no matches、coverage check pass。"
+        - requirement: "patch 名の日時サフィックスが最終更新日と一致し、state.yaml 参照が最新に向いていること"
+          evidence: "worker_defaults の explanation_patch_file が 20260525_* の最新ファイルを参照し、対応する task allowed_files/verify も更新済み。"
+      verification:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json'
+          status: pass
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json'
+          status: pass
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json'
+          status: pass
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_4_merged.json'
+          status: pass
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_empty_1_merged.json'
+          status: pass
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260525_1643.json
+          status: pass
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_2_merged_explanationText_added_20260525_1957.json
+          status: pass
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_3_merged_explanationText_added_20260525_2017.json
+          status: pass
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_4_merged_explanationText_added_20260525_1206.json
+          status: pass
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85002/20_merged_1/question_85002_empty_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_empty_1_merged_explanationText_added_20260525_1351.json
+          status: pass
+      residual_risks:
+        - "法令条文番号・告示番号などの一次情報裏取りは、問題の性質上必要な設問で実施済みだが、将来の法改正により説明が古くなるリスクは残る。"
+        - "過去に生成された未参照の古い patch ファイル群には禁止パターンが残る可能性がある（ただし本 subgoal の参照対象は worker_defaults により最新へ固定済み）。"
