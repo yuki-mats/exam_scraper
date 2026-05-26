@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T077
+active_task: T078
 tasks:
   - id: T001
     type: worker
@@ -4873,7 +4873,7 @@ tasks:
   - id: T077
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v4
     objective: 85003/question_85003_4_merged.json の original_question_id=93ec655039b57b8a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -4884,7 +4884,34 @@ tasks:
       original_question_id: 93ec655039b57b8a
       question_url: https://2kenchikushi.kakomonn.com/questions/43617
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=93ec655039b57b8a（鉄筋工事：定着長さ、フック余長、異径圧接ふくらみ、梁主筋の柱内折曲げ定着、柱主筋のフック）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい,正しい,正しい,間違い,正しい] の整合を確認した。誤りは肢4で、梁主筋の柱内折曲げ定着は投影定着長さを柱せいの3/4以上確保すべきところ、柱せいの1/2位置で折り曲げており定着長さが不足する。explanationText は基準値が短時間で把握できるように冗長さを削って要点を整理した。23_correctChoiceText_fixed は作成不要。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_4_merged_explanationText_added_20260526_0907.json
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85003/notes/T077_93ec655039b57b8a.md
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_4_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_4_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_4_merged_explanationText_added_20260526_0907.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85003/21_explanationText_added/question_85003_4_merged_explanationText_added_20260526_0907.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85003/20_merged_1/question_85003_4_merged.json
       - output/2nd-class-kenchikushi/questions_json/85003/00_source/**
@@ -4908,7 +4935,7 @@ tasks:
   - id: T078
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85003_question_review_v4
     objective: 85003/question_85003_4_merged.json の original_question_id=1b39c890fa06d603 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
