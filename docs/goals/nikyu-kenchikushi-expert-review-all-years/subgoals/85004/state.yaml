@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T018
+active_task: T019
 tasks:
   - id: T001
     type: worker
@@ -1200,7 +1200,7 @@ tasks:
   - id: T018
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v1
     objective: 85004/question_85004_1_merged.json の original_question_id=cbb9c56b5e39c765 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -1211,7 +1211,33 @@ tasks:
       original_question_id: cbb9c56b5e39c765
       question_url: https://2kenchikushi.kakomonn.com/questions/43653
       topic_hint: 学科Ⅰ（建築計画）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=cbb9c56b5e39c765（空気調和設備：水方式の換気、二重ダクト、ファンコイルユニット、氷蓄熱、置換換気）について、questionIntent=select_incorrect / 正解=3 と correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい] の整合を確認した。explanationText は要点が混在しており誤学習リスクがあったため、水方式は搬送空気がなく換気別途確保が必要、二重ダクトは温風・冷風を室内混合し間仕切変更に対応しやすい、ファンコイルユニットは室内設置の端末で屋外設置の記述が誤り、氷蓄熱は潜熱利用で蓄熱密度が高く槽容積を小さくできる、置換換気は床付近給気と浮力で成層をつくる方式である、の観点で短文に再整理して更新した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_1_merged_explanationText_added_20260527_0032.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_1_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_1_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_1_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_1_merged_explanationText_added_20260527_0032.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_1_merged_explanationText_added_20260527_0032.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_1_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -1235,7 +1261,7 @@ tasks:
   - id: T019
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v1
     objective: 85004/question_85004_1_merged.json の original_question_id=d85190349c545b9f について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
