@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T045
+active_task: T046
 tasks:
   - id: T001
     type: worker
@@ -2847,7 +2847,7 @@ tasks:
   - id: T045
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=8794750d94f827fa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2858,7 +2858,33 @@ tasks:
       original_question_id: 8794750d94f827fa
       question_url: https://2kenchikushi.kakomonn.com/questions/43687
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=8794750d94f827fa（静定ラーメン：左支点ピン・右支点ローラー、水平力Pと梁中央の鉛直力2Pの組合せ、曲げモーメント図）について、questionIntent=select_correct / answer_result_text（正解は4）と correctChoiceText=[間違い, 間違い, 間違い, 正しい, 間違い] の整合を確認した。explanationText は「右支点はローラー」以上の根拠がなく誤学習リスクが残っていたため、ローラー支点で水平反力が生じないことから右柱の曲げモーメントが全区間で0となる点、全体つり合いより左支点の鉛直反力が0で梁左半分の曲げモーメントが一定となる点、中央集中荷重2P以降で梁の曲げモーメントが直線的に変化して右端で0となる点を明示し、各肢で誤り箇所と判断根拠が追える形に修正した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 間違い
+          - 間違い
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -2882,7 +2908,7 @@ tasks:
   - id: T046
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=60e194ed017cccfa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
