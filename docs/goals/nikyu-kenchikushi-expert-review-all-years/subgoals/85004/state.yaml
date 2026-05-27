@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T061
+active_task: T062
 tasks:
   - id: T001
     type: worker
@@ -3823,7 +3823,7 @@ tasks:
   - id: T061
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=70001c551fde9e75 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -3834,7 +3834,33 @@ tasks:
       original_question_id: 70001c551fde9e75
       question_url: https://2kenchikushi.kakomonn.com/questions/43704
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=70001c551fde9e75（プラスティック収縮ひび割れ、乾燥収縮、中性化、ヤング係数、養生温度と強度発現）について、questionIntent=select_incorrect / answer_result_text（正解は2）と correctChoiceText=[正しい, 間違い, 正しい, 正しい, 正しい] の整合を確認した。誤り肢は乾燥収縮を「単位水量が小さいほど大きい」としている点で、乾燥収縮は主にセメントペーストの水分逸散に伴い、一般に単位水量が大きい（w/cが大きい）ほど大きくなりやすい。explanationText は乾燥収縮の説明に誤解を招く表現があったため、発生メカニズムと大小関係が短時間で追える形へ短文化・修正した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 2 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -3858,7 +3884,7 @@ tasks:
   - id: T062
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=f50bc870d3bf2350 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
