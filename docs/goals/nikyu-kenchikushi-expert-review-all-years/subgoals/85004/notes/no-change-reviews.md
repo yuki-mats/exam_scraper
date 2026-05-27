@@ -43,3 +43,9 @@
 - original_question_id: `6cbc0a93cd6b0907`
 - question_url: `https://2kenchikushi.kakomonn.com/questions/43727`
 - decision: explanationText は教材品質として問題ないため patch 更新不要（correctChoiceText も整合）
+
+## T083
+
+- original_question_id: `66fdc83c830b1906`
+- question_url: `https://2kenchikushi.kakomonn.com/questions/43728`
+- decision: explanationText は教材品質として問題ないため patch 更新不要（correctChoiceText も整合）
