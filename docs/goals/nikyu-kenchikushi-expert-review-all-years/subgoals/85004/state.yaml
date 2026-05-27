@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T039
+active_task: T040
 tasks:
   - id: T001
     type: worker
@@ -2481,7 +2481,7 @@ tasks:
   - id: T039
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=b32d2364e1be7b10 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2492,7 +2492,33 @@ tasks:
       original_question_id: b32d2364e1be7b10
       question_url: https://2kenchikushi.kakomonn.com/questions/43680
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=b32d2364e1be7b10（建築士法：定期講習、工事監理、懲戒、建築士事務所の書類閲覧、変更届出期限）について、questionIntent=select_incorrect / answer_result_text（正解は5）と correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] の整合を確認した。explanationText は「正しい記載です」等の薄い説明と条文参照の誤りがあり誤学習リスクが残っていたため、建築士法第22条の2（定期講習）＋建築士法施行規則第17条の37（同規定の二級建築士への準用を含む）、建築士法第18条第3項（工事監理での指摘・報告義務）、第10条（懲戒）、第24条の6＋建築士法施行規則第22条の2第5項（書類の備置・閲覧と3年保存）、第23条の5第2項（所属建築士の氏名等の変更は3か月以内）に基づき、各肢で誤り箇所と判断根拠が追える形に修正した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -2516,7 +2542,7 @@ tasks:
   - id: T040
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=653cd83f7275fc12 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
