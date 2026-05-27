@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T067
+active_task: T068
 tasks:
   - id: T001
     type: worker
@@ -4189,7 +4189,7 @@ tasks:
   - id: T067
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=3cb807cef2b854f8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -4200,7 +4200,41 @@ tasks:
       original_question_id: 3cb807cef2b854f8
       question_url: https://2kenchikushi.kakomonn.com/questions/43710
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=3cb807cef2b854f8（提出書類の提出先：完了検査申請、特殊車両通行許可、特定建設作業届、建築工事届、クレーン設置届）について、questionIntent=select_incorrect / answer_result_text（正解は5）と correctChoiceText=[正しい,正しい,正しい,正しい,間違い] の整合を確認した。誤り肢は「クレーン設置届――警察署長」で、提出先は所轄労働基準監督署長である。explanationText は提出先の一般原則（完了検査申請は建築主事又は指定確認検査機関、建築工事届は特定行政庁）も併記して誤学習を避けつつ、各肢の判断根拠が残る形に更新した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 5 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+        decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+      evidence:
+        - '完了検査申請書: 建築主事（又は指定確認検査機関）へ提出'
+        - '特殊車両通行許可申請: 道路管理者へ提出'
+        - '特定建設作業実施届出書: 市町村長へ提出'
+        - '建築工事届: 特定行政庁へ提出'
+        - 'クレーン設置届: 所轄労働基準監督署長へ提出'
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: (no matches)
+      residual_risks: []
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -4224,7 +4258,7 @@ tasks:
   - id: T068
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=9b20576eced46418 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
