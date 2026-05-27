@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T063
+active_task: T064
 tasks:
   - id: T001
     type: worker
@@ -3945,7 +3945,7 @@ tasks:
   - id: T063
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=a78275dcfd1ce8e7 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -3956,7 +3956,33 @@ tasks:
       original_question_id: a78275dcfd1ce8e7
       question_url: https://2kenchikushi.kakomonn.com/questions/43706
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=a78275dcfd1ce8e7（JIS鋼材：SN/SMの降伏点規定、疲労、SUS、温度と引張強さ、炭素量と溶接性）について、questionIntent=select_incorrect / answer_result_text（正解は1）と correctChoiceText=[間違い, 正しい, 正しい, 正しい, 正しい] の整合を確認した。誤り肢はSN490とSM490の降伏点の「下限〜上限の範囲が同じ」とする点で、SN490は降伏点に上限・下限が規定される一方、SM490は下限のみが規定される。explanationText は冗長だったため、疲労は継手ディテールが支配的である点、SUSの耐食・耐熱性、温度200〜300℃付近での引張強さの挙動、炭素量増加で溶接性が低下する点を短文化して教材品質へ整理した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -3980,7 +4006,7 @@ tasks:
   - id: T064
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=61036bec31b36470 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
