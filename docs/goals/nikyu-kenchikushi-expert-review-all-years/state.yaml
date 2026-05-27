@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T630
+active_task: T631
 tasks:
   - id: T001
     type: pm
@@ -40316,19 +40316,25 @@ tasks:
   - id: T630
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "subgoal: 2018年度（list_group_id=85004）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
-      status: active
+      status: done
       path: subgoals/85004/state.yaml
       owner: PM
       depth: 1
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: 'subgoal 85004（2018年度）が judge 最終監査（decision: complete / full_outcome_complete: true）まで完了していることを確認し、親ボード上の subgoal も done とした。次の active_task を T631（2019年度=85005）へ進める。'
+      checks:
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/state.yaml
+          status: pass
   - id: T631
     type: pm
     assignee: PM
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "subgoal: 2019年度（list_group_id=85005）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
