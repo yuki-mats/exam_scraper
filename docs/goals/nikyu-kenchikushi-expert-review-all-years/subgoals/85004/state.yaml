@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T060
+active_task: T061
 tasks:
   - id: T001
     type: worker
@@ -3762,7 +3762,7 @@ tasks:
   - id: T060
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=4343c5208d4b0c9e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -3773,7 +3773,33 @@ tasks:
       original_question_id: 4343c5208d4b0c9e
       question_url: https://2kenchikushi.kakomonn.com/questions/43703
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=4343c5208d4b0c9e（木材の含水率と収縮、収縮異方性、基準強度、腐朽条件、熱伝導率）について、questionIntent=select_incorrect / answer_result_text（正解は3）と correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい] の整合を確認した。誤り肢は木材の繊維方向の基準強度の大小関係を「圧縮>引張>曲げ」としている点で、一般に Fb（曲げ）>Fc（圧縮）>Ft（引張）>Fs（せん断）の順となる。explanationText は冗長だったため、繊維飽和点以下での膨張収縮の扱い、接線/半径方向の収縮差が割れの原因になる点、腐朽菌の繁殖条件、木材の低い熱伝導率を短文化して教材品質へ整理した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -3797,7 +3823,7 @@ tasks:
   - id: T061
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=70001c551fde9e75 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
