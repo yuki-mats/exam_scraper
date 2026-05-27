@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T065
+active_task: T066
 tasks:
   - id: T001
     type: worker
@@ -4067,7 +4067,7 @@ tasks:
   - id: T065
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=e183c06249459919 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -4078,7 +4078,33 @@ tasks:
       original_question_id: e183c06249459919
       question_url: https://2kenchikushi.kakomonn.com/questions/43708
       topic_hint: 学科Ⅲ（建築構造）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=e183c06249459919（材料の性質・用途：酢酸ビニル系接着剤、せっこうラスボード、けい酸カルシウム板、強化ガラス、砂岩）について、questionIntent=select_incorrect / answer_result_text（正解は4）と correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい] の整合を確認した。誤り肢は「強化ガラス=2枚のフロート板ガラスを中間膜で貼り合わせ耐貫通性に優れる」とする点で、これは合わせガラスの説明であり、強化ガラスは熱処理等で強度を高め破損時に粒状破砕する。explanationText は定型句が多く要点が追いにくかったため、各材料の用途（左官下地のくぼみ、耐火・断熱用途など）と誤り肢の差分（合わせ/強化）を短文化して教材品質へ整理した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 4 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -4102,7 +4128,7 @@ tasks:
   - id: T066
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=b4de18da34638a02 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
