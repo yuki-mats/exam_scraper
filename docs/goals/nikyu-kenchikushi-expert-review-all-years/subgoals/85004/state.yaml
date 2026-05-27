@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T035
+active_task: T036
 tasks:
   - id: T001
     type: worker
@@ -2237,7 +2237,7 @@ tasks:
   - id: T035
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=edc375dc53469924 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2248,7 +2248,33 @@ tasks:
       original_question_id: edc375dc53469924
       question_url: https://2kenchikushi.kakomonn.com/questions/43673
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=edc375dc53469924（建蔽率：都市計画で定める限度、防火地域・準防火地域、耐火/準耐火による特例）について、questionIntent=select_correct / answer_result_text（正解は3）と correctChoiceText=[間違い, 間違い, 正しい, 間違い, 間違い] の整合を確認した。explanationText は根拠条文が追えない形だったため、建築基準法第53条に基づき、防火地域内の耐火建築物の建蔽率+1/10（平成30年度の前提）、建蔽率8/10地域の防火地域内の耐火建築物は制限不適用、敷地が防火地域の内外にわたる場合の取扱い、工業地域5/10で加算できない条件を各肢で明示して修正した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
+      correct_choice_review:
+        questionIntent: select_correct
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 間違い
+          - 正しい
+          - 間違い
+          - 間違い
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -2272,7 +2298,7 @@ tasks:
   - id: T036
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=bb98f2e19aa0ab3a について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
