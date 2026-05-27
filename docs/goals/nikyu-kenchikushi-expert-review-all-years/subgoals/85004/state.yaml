@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T070
+active_task: T071
 tasks:
   - id: T001
     type: worker
@@ -4390,7 +4390,7 @@ tasks:
   - id: T070
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=5b508a377c6fdf8e について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -4401,7 +4401,35 @@ tasks:
       original_question_id: 5b508a377c6fdf8e
       question_url: https://2kenchikushi.kakomonn.com/questions/43713
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=5b508a377c6fdf8e（足場等の安全基準：単管足場の建地間隔、枠組足場・くさび緊結式足場の壁つなぎ間隔、登り桟橋の踊り場、架設通路の勾配）について、questionIntent=select_incorrect / answer_result_text（正解は2）と correctChoiceText=[正しい,間違い,正しい,正しい,正しい] の整合を確認した。誤り肢は枠組足場の壁つなぎ間隔で、水平方向9mは基準（8m以下）を超える。explanationText は定型文を除去し、各肢の数値条件と判定理由が一読で追える形に短文化した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 2 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+        decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_3_merged_explanationText_added_20260528_0105.json
+          status: pass
+          output: (no matches)
+      residual_risks: []
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -4425,7 +4453,7 @@ tasks:
   - id: T071
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v3
     objective: 85004/question_85004_3_merged.json の original_question_id=2826b68f322f9670 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
