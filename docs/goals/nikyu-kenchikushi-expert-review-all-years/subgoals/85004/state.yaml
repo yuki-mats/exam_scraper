@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T077
+active_task: T078
 tasks:
   - id: T001
     type: worker
@@ -4832,7 +4832,7 @@ tasks:
   - id: T077
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v4
     objective: 85004/question_85004_4_merged.json の original_question_id=4d509160175888a0 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -4843,7 +4843,36 @@ tasks:
       original_question_id: 4d509160175888a0
       question_url: https://2kenchikushi.kakomonn.com/questions/43722
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=4d509160175888a0（ALCパネル・押出成形セメント板：縦壁ロッキングの絶縁材、補修、目地幅、伸縮調整目地）について、questionIntent=select_incorrect / answer_result_text（正解は3）と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] の整合を確認した。誤り肢はALCパネル短辺小口相互の目地幅で、耐火目地材の充塡が不要な場合でも10mm以上が必要であり、5mmは不適当。explanationText は各肢の判断根拠が残っており教材品質として問題ないため、patch 更新は不要と判断した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/notes/no-change-reviews.md
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_4_merged.json
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_4_merged_explanationText_added_20260523_1545.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 3 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+        decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_4_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_4_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_4_merged_explanationText_added_20260523_1545.json
+          status: pass
+          output: (no matches)
+      residual_risks: []
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_4_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -4867,7 +4896,7 @@ tasks:
   - id: T078
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v4
     objective: 85004/question_85004_4_merged.json の original_question_id=8acddad5898552e3 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら

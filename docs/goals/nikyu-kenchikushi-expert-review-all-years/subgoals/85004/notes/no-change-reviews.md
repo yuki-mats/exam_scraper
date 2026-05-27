@@ -8,3 +8,8 @@
 - question_url: `https://2kenchikushi.kakomonn.com/questions/43720`
 - decision: explanationText は教材品質として問題ないため patch 更新不要（correctChoiceText も整合）
 
+## T077
+
+- original_question_id: `4d509160175888a0`
+- question_url: `https://2kenchikushi.kakomonn.com/questions/43722`
+- decision: explanationText は教材品質として問題ないため patch 更新不要（correctChoiceText も整合）
