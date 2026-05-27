@@ -25,3 +25,9 @@
 - original_question_id: `b6d64bfe3204d037`
 - question_url: `https://2kenchikushi.kakomonn.com/questions/43724`
 - decision: explanationText は教材品質として問題ないため patch 更新不要（correctChoiceText も整合）
+
+## T080
+
+- original_question_id: `004985124dbdc2ad`
+- question_url: `https://2kenchikushi.kakomonn.com/questions/43725`
+- decision: explanationText は教材品質として問題ないため patch 更新不要（correctChoiceText も整合）
