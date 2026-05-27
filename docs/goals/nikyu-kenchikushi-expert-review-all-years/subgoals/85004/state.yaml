@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T041
+active_task: T042
 tasks:
   - id: T001
     type: worker
@@ -2603,7 +2603,7 @@ tasks:
   - id: T041
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=eb9140e2c9a20871 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -2614,7 +2614,33 @@ tasks:
       original_question_id: eb9140e2c9a20871
       question_url: https://2kenchikushi.kakomonn.com/questions/43682
       topic_hint: 学科Ⅱ（建築法規）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: original_question_id=eb9140e2c9a20871（複数法令：バリアフリー法の建築物特定施設、宅地造成等規制法の許可要件、住宅瑕疵担保履行確保、都市計画施設内の建築許可、耐震改修の定義）について、questionIntent=select_incorrect / answer_result_text（正解は2）と correctChoiceText=[正しい, 間違い, 正しい, 正しい, 正しい] の整合を確認した。explanationText は根拠条文が曖昧で学習効果が低く、誤り肢（宅地造成の許可）でも「超える/超えない」の閾値が追えなかったため、ホテル客室が建築物特定施設に含まれること（バリアフリー法施行令第6条第8号）、切土で許可対象となるのは高さ2m超の崖を生ずる場合や面積500m²超の場合であり本肢は該当しないこと（宅地造成等規制法施行令第3条第2号・第5号）、建設業者/宅建業者の履行確保（特定住宅瑕疵担保責任の履行の確保等に関する法律第3条第1項・第11条第1項）、都市計画施設区域内の建築許可（都市計画法第53条第1項、第54条第3号）、耐震改修の定義（耐震改修促進法第2条第2項）に基づき、各肢で誤り箇所と判断根拠が追える形に修正した。23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 2 です。
+        expected_correctChoiceText:
+          - 正しい
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          status: pass
+          output: (no matches)
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
       - output/2nd-class-kenchikushi/questions_json/85004/00_source/**
@@ -2638,7 +2664,7 @@ tasks:
   - id: T042
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85004_question_review_v2
     objective: 85004/question_85004_2_merged.json の original_question_id=6df56a2dd297dc51 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
