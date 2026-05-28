@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T092
+active_task: T093
 tasks:
 - id: T001
   type: worker
@@ -4961,7 +4961,7 @@ tasks:
 - id: T092
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_empty_1
   objective: 85006/question_85006_empty_1_merged.json の original_question_id=edd593f75076e18d
@@ -4972,7 +4972,23 @@ tasks:
     original_question_id: edd593f75076e18d
     question_url: https://2kenchikushi.kakomonn.com/questions/53940
     topic_hint: 学科Ⅱ（建築法規）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: edd593f75076e18d
+      question_url: https://2kenchikushi.kakomonn.com/questions/53940
+    correctChoiceText_judgement:
+      most_appropriate_choice_index_1based: 5
+      rationale: 敷地が2用途地域にまたがるため法53条2項で按分し、防火地域内の耐火建築物により準住居地域側は建蔽率1/10加算（法53条3項1号イ）。計算結果の最高限度は318m2。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=edd593f75076e18d の explanationText を教材品質に修正（按分計算の根拠と結論318m2を簡潔化、単位表記を整形、冗長改行を削減）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -4997,7 +5013,7 @@ tasks:
 - id: T093
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_empty_1
   objective: 85006/question_85006_empty_1_merged.json の original_question_id=1c3a1390ae81c6bc
