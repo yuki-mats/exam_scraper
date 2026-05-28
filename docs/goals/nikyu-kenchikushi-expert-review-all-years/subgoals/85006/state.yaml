@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T028
+active_task: T029
 tasks:
 - id: T001
   type: worker
@@ -1630,7 +1630,7 @@ tasks:
 - id: T028
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=c7e880dfbda760d5
@@ -1641,7 +1641,23 @@ tasks:
     original_question_id: c7e880dfbda760d5
     question_url: https://2kenchikushi.kakomonn.com/questions/53931
     topic_hint: 学科Ⅱ（建築法規）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: c7e880dfbda760d5
+      question_url: https://2kenchikushi.kakomonn.com/questions/53931
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 2
+      rationale: 施行令46条4項の表による倍率は当該壁で5ではなく4.5。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+      changed: true
+      summary: original_question_id=c7e880dfbda760d5 の explanationText を矛盾なく整理（倍率の根拠を令46条4項表に合わせて明確化）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -1666,7 +1682,7 @@ tasks:
 - id: T029
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=fcb8dd045a91dd4f
