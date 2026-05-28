@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T060
+active_task: T061
 tasks:
 - id: T001
   type: worker
@@ -3294,7 +3294,7 @@ tasks:
 - id: T060
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=f01fb772160fe416
@@ -3305,7 +3305,23 @@ tasks:
     original_question_id: f01fb772160fe416
     question_url: https://2kenchikushi.kakomonn.com/questions/53972
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: f01fb772160fe416
+      question_url: https://2kenchikushi.kakomonn.com/questions/53972
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 5
+      rationale: questionIntent=select_incorrect かつ answer_result_text が「正解は5」。実積率の大きい粗骨材ほど空隙が少なく単位水量を減らしやすく、実積率が小さいほど単位水量は増えやすいので肢5が不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=f01fb772160fe416 の explanationText の先頭ノイズを除去し、各混和材・AE剤の効果を教材品質で整形。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -3330,7 +3346,7 @@ tasks:
 - id: T061
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=7ae979bee72cd761
