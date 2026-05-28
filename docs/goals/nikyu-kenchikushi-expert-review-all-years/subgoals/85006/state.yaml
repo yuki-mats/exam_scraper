@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T087
+active_task: T088
 tasks:
 - id: T001
   type: worker
@@ -4701,7 +4701,7 @@ tasks:
 - id: T087
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_empty_1
   objective: 85006/question_85006_empty_1_merged.json の original_question_id=c9fdcda286f69a15
@@ -4712,7 +4712,23 @@ tasks:
     original_question_id: c9fdcda286f69a15
     question_url: https://2kenchikushi.kakomonn.com/questions/53929
     topic_hint: 学科Ⅱ（建築法規）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: c9fdcda286f69a15
+      question_url: https://2kenchikushi.kakomonn.com/questions/53929
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 4
+      rationale: 必要換気量は0.5×床面積×天井高で求め、0.5×20×2.4=24m3/h。提示の有効換気量20m3/hは不足のため不適合。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=c9fdcda286f69a15 の explanationText を教材品質に修正（重複・冗長表現を整理、単位表記を整形、選択肢5で便所は居室ではない点を明確化、NG表現なし）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -4737,7 +4753,7 @@ tasks:
 - id: T088
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_empty_1
   objective: 85006/question_85006_empty_1_merged.json の original_question_id=042c5b23bf3ac0fd
