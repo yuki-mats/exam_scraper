@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T030
+active_task: T031
 tasks:
 - id: T001
   type: worker
@@ -1734,7 +1734,7 @@ tasks:
 - id: T030
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=9462190611259d4d
@@ -1745,7 +1745,23 @@ tasks:
     original_question_id: 9462190611259d4d
     question_url: https://2kenchikushi.kakomonn.com/questions/53933
     topic_hint: 学科Ⅱ（建築法規）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 9462190611259d4d
+      question_url: https://2kenchikushi.kakomonn.com/questions/53933
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 2
+      rationale: 保有水平耐力計算で必要保有水平耐力を算定する場合の標準せん断力係数は令88条3項で1.0以上。0.2以上は不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+      changed: true
+      summary: original_question_id=9462190611259d4d の explanationText を教材品質に整理（標準せん断力係数の基準を令88条3項に沿って明確化）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -1770,7 +1786,7 @@ tasks:
 - id: T031
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=64ea13f72b791618
