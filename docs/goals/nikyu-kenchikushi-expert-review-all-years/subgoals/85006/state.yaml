@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T006
+active_task: T007
 tasks:
 - id: T001
   type: worker
@@ -485,7 +485,7 @@ tasks:
 - id: T006
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=c28d2f6c6b2231ed
@@ -496,7 +496,23 @@ tasks:
     original_question_id: c28d2f6c6b2231ed
     question_url: https://2kenchikushi.kakomonn.com/questions/53906
     topic_hint: 学科Ⅰ（建築計画）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: c28d2f6c6b2231ed
+      question_url: https://2kenchikushi.kakomonn.com/questions/53906
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 3
+      rationale: 水蒸気量は絶対湿度で評価し、A点約4g/kg(DA)・B点約16g/kg(DA)なのでAはBの約25%。「約50%」は不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_1_merged_explanationText_added_20260528_1600.json
+      changed: true
+      summary: original_question_id=c28d2f6c6b2231ed の explanationText（選択肢2-5）を、露点・絶対湿度・混合の読み方が途切れない教材品質になるように全面修正。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -521,7 +537,7 @@ tasks:
 - id: T007
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=8520f0703f1994f9
