@@ -40430,17 +40430,18 @@ tasks:
       result: done
       full_outcome_complete: true
       decision: complete
-      summary: 親ボード（2015-2025 / list_group_id=85001..85011）および subgoals（85002..85006）について、全 Worker
-        が done であり（親ボード worker done=607/607、subgoal は各年度 judge 最終監査が complete / full_outcome_complete: true）、各 Worker
-        receipt により questionIntent・answer_result_text・correctChoiceText・explanationText の整合確認と、必要な patch 更新および verify が実施されていることを確認した。よって original request と oracle を満たし、この goal は complete と判断する。
+      summary: |-
+        親ボード（2015-2025 / list_group_id=85001..85011）および subgoals（85002..85006）について、全 Worker が done であり（親ボード worker done=607/607、subgoal は各年度 judge 最終監査が complete / full_outcome_complete: true）、各 Worker receipt により questionIntent・answer_result_text・correctChoiceText・explanationText の整合確認と、必要な patch 更新および verify が実施されていることを確認した。よって original request と oracle を満たし、この goal は complete と判断する。
       oracle_mapping:
         - signal: "全設問が 1問=1Worker で専門家レビューされ、正答と解説品質が確認され、必要な patch 更新と verify が完了している"
           evidence: "親ボード state.yaml の全 Worker done receipt（correct_choice_review / commands pass）と、subgoals/85002..85006 の judge receipt（full_outcome_complete: true）。"
       checks:
-        - cmd: python3 -c \"import yaml; d=yaml.safe_load(open('docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml')); ws=[t for t in d['tasks'] if t.get('type')=='worker']; print(len(ws), sum(t.get('status')=='done' for t in ws))\"
+        - cmd: >-
+            python3 -c "import yaml; d=yaml.safe_load(open('docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml')); ws=[t for t in d['tasks'] if t.get('type')=='worker']; print(len(ws), sum(t.get('status')=='done' for t in ws))"
           status: pass
           output: "607 607"
-        - cmd: python3 -c \"import yaml; d=yaml.safe_load(open('docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml')); subs=[t for t in d['tasks'] if t.get('type')=='pm' and isinstance(t.get('objective'),str) and t['objective'].startswith('subgoal:')]; print([(t['id'],t['status'],t['subgoal']['status'],t['subgoal']['path']) for t in subs])\"
+        - cmd: >-
+            python3 -c "import yaml; d=yaml.safe_load(open('docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml')); subs=[t for t in d['tasks'] if t.get('type')=='pm' and isinstance(t.get('objective'),str) and t['objective'].startswith('subgoal:')]; print([(t['id'],t['status'],t['subgoal']['status'],t['subgoal']['path']) for t in subs])"
           status: pass
           output: "T628..T632 are done and point to subgoals/85002..85006"
         - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
