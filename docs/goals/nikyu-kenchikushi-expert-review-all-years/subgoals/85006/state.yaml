@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T041
+active_task: T042
 tasks:
 - id: T001
   type: worker
@@ -2306,7 +2306,7 @@ tasks:
 - id: T041
   type: worker
   assignee: Worker
-  status: queued
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=97de8e82c1d8256c
@@ -2317,7 +2317,23 @@ tasks:
     original_question_id: 97de8e82c1d8256c
     question_url: https://2kenchikushi.kakomonn.com/questions/53952
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 97de8e82c1d8256c
+      question_url: https://2kenchikushi.kakomonn.com/questions/53952
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 2
+      rationale: 片持ち梁の固定端で Mmax=wl^2/2、矩形断面の Z=bh^2/6 より、σmax=3wl^2/(bh^2) が正解（選択肢1）。他肢は係数または断面係数の形（b,hの次数）が誤り。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+      changed: true
+      summary: original_question_id=97de8e82c1d8256c の explanationText を教材品質に修正（最大曲げ応力度の導出を Mmax と Z から明示し、各誤答肢の誤りを係数/断面係数の観点で特定）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -2342,7 +2358,7 @@ tasks:
 - id: T042
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=36f6c098e347ef40
