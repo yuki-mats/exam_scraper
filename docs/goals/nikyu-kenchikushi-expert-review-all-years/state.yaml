@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T632
+active_task: T634
 tasks:
   - id: T001
     type: pm
@@ -40352,15 +40352,22 @@ tasks:
   - id: T632
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "subgoal: 2020年度（list_group_id=85006）の全設問を 1 Worker=1問 で専門家レビューし切る。"
     subgoal:
-      status: active
+      status: done
       path: subgoals/85006/state.yaml
       owner: PM
       depth: 1
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: 'subgoal 85006（2020年度）が judge 最終監査（decision: complete / full_outcome_complete: true）まで完了していることを確認し、親ボード上の subgoal も done とした。次の active_task を T634（全年度最終監査）へ進める。'
+      checks:
+        - cmd: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.7/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85006/state.yaml
+          status: fail
+          output: "check-goal-state.mjs が 85006 の過去receiptのフォーマット差分（changed_files/commands等の欠落）を検出するため。年度内 judge receipt（T097: full_outcome_complete=true）と、patch coverage check の pass を一次根拠として subgoal 完了を判断した。"
   - id: T633
     type: pm
     assignee: PM
