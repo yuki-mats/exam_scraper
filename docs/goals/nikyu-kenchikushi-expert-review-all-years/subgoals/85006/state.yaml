@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T031
+active_task: T032
 tasks:
 - id: T001
   type: worker
@@ -1786,7 +1786,7 @@ tasks:
 - id: T031
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=64ea13f72b791618
@@ -1797,7 +1797,23 @@ tasks:
     original_question_id: 64ea13f72b791618
     question_url: https://2kenchikushi.kakomonn.com/questions/53934
     topic_hint: 学科Ⅱ（建築法規）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 64ea13f72b791618
+      question_url: https://2kenchikushi.kakomonn.com/questions/53934
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 3
+      rationale: 用途混在だから常に区画が必要、とはいえず、法27条・令112条などの適用要件次第。設問条件では義務付けに該当しないため誤り。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+      changed: true
+      summary: original_question_id=64ea13f72b791618 の explanationText を教材品質に整理（選択肢3の根拠説明を過不足なく整理）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -1822,7 +1838,7 @@ tasks:
 - id: T032
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=04882fb1b506acfc
