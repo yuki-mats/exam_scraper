@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T067
+active_task: T068
 tasks:
 - id: T001
   type: worker
@@ -3625,7 +3625,10 @@ tasks:
       question_url: https://2kenchikushi.kakomonn.com/questions/53978
     correctChoiceText_judgement:
       most_inappropriate_choice_index_1based: 1
-      rationale: questionIntent=select_correct かつ answer_result_text が「正解は1」。作業主任者の選任要件（木造構造部材の組立て等: 軒高5m以上、鉄骨/足場/解体: 高さ5m以上、地山掘削: 掘削面高2m以上）より、該当するのは肢1のみ。
+      rationale: >-
+        questionIntent=select_correct かつ answer_result_text が「正解は1」。
+        作業主任者の選任要件（木造構造部材の組立て等: 軒高5m以上、鉄骨/足場/解体: 高さ5m以上、地山掘削: 掘削面高2m以上）
+        より、該当するのは肢1のみ。
     patch_update:
       file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
       changed: true
@@ -3658,7 +3661,7 @@ tasks:
 - id: T067
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=9716a4371db80386
@@ -3669,7 +3672,23 @@ tasks:
     original_question_id: 9716a4371db80386
     question_url: https://2kenchikushi.kakomonn.com/questions/53979
     topic_hint: 学科Ⅳ（建築施工）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 9716a4371db80386
+      question_url: https://2kenchikushi.kakomonn.com/questions/53979
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 5
+      rationale: questionIntent=select_incorrect かつ answer_result_text が「正解は5」。建設業に伴って生じた紙くずは産業廃棄物であり、一般廃棄物とする肢5が誤り。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=9716a4371db80386 の explanationText の空行ノイズを除去し、産業廃棄物/特別管理産業廃棄物の区分を教材品質で整理。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -3694,7 +3713,7 @@ tasks:
 - id: T068
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=b5db87f159266011
