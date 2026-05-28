@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T095
+active_task: T096
 tasks:
 - id: T001
   type: worker
@@ -5137,7 +5137,7 @@ tasks:
 - id: T095
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_empty_1
   objective: 85006/question_85006_empty_1_merged.json の original_question_id=2842c24e78f2507c
@@ -5148,7 +5148,42 @@ tasks:
     original_question_id: 2842c24e78f2507c
     question_url: https://2kenchikushi.kakomonn.com/questions/53956
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    result: done
+    full_outcome_complete: false
+    summary: original_question_id=2842c24e78f2507c（弾性座屈荷重が最大となるlとIの組合せ）について、questionIntent=select_correct
+      / answer_result_text（正解は1）と correctChoiceText=[正しい,間違い,間違い,間違い,間違い] の整合を確認した。explanationText
+      は数式の根拠（PcrがI/l^2に比例）や計算の見せ方が不十分だったため、オイラー座屈 Pcr=π^2EI/(lk)^2
+      から材質・材端条件が共通であることを明示し、I/l^2 の比較（0.50,0.48,0.44,0.41,0.38）で1が最大と分かる形に整理して patch を更新した。23_correctChoiceText_fixed は作成不要。
+    changed_files:
+    - output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260523_1545.json
+    - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85006/state.yaml
+    unchanged_files:
+    - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json
+    correct_choice_review:
+      questionIntent: select_correct
+      answer_result_text: 正解は 1 です。
+      most_appropriate_choice_index_1based: 1
+      expected_correctChoiceText:
+      - 正しい
+      - 間違い
+      - 間違い
+      - 間違い
+      - 間違い
+      decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+    commands:
+    - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output
+        --glob '2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json'
+      status: pass
+      output: '[SUMMARY] files=1 violations=0'
+    - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json
+        --patch output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260523_1545.json
+      status: pass
+      output: '[OK] coverage check passed'
+    - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_empty_1_merged_explanationText_added_20260523_1545.json
+      status: pass
+      output: '(no matches)'
+    residual_risks: []
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_empty_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -5173,7 +5208,7 @@ tasks:
 - id: T096
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_empty_1
   objective: 85006/question_85006_empty_1_merged.json の original_question_id=c9906c883990bcf5
