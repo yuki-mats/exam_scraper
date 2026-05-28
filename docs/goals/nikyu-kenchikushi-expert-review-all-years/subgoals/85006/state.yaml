@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T045
+active_task: T046
 tasks:
 - id: T001
   type: worker
@@ -2514,7 +2514,7 @@ tasks:
 - id: T045
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=bc48821bcbb859b1
@@ -2525,7 +2525,23 @@ tasks:
     original_question_id: bc48821bcbb859b1
     question_url: https://2kenchikushi.kakomonn.com/questions/53957
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: bc48821bcbb859b1
+      question_url: https://2kenchikushi.kakomonn.com/questions/53957
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 3
+      rationale: questionIntent=select_incorrect かつ answer_result_text が「正解は3」。Ci=Z・Rt・Ai・C0 で Ai は上階ほど大きくなるため、一般に上階ほどCiは大きくなる方向であり「小さくなる」とする肢3が不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+      changed: true
+      summary: original_question_id=bc48821bcbb859b1 の explanationText を教材品質に修正（肢1/2/4/5の根拠を簡潔に補い、「設問の通り」等のNG表現を除去）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -2550,7 +2566,7 @@ tasks:
 - id: T046
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=f5191709f1c1034a
