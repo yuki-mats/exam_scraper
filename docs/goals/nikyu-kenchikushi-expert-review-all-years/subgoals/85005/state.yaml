@@ -91,7 +91,7 @@ worker_defaults:
       - patch 本文をスクリプトで生成しそうになる。
   85005_question_review_v3:
     source_file: output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json
-    explanation_patch_file: output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1110.json
+    explanation_patch_file: output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1120.json
     optional_correct_choice_patch_dir: output/2nd-class-kenchikushi/questions_json/85005/23_correctChoiceText_fixed
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json
@@ -158,7 +158,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T070
+active_task: T071
 tasks:
   - id: T001
     type: worker
@@ -4586,7 +4586,7 @@ tasks:
   - id: T070
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     uses_worker_defaults: 85005_question_review_v3
     objective: 85005/question_85005_3_merged.json の original_question_id=27a930c4e887c8fa について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
@@ -4597,21 +4597,57 @@ tasks:
       original_question_id: 27a930c4e887c8fa
       question_url: https://2kenchikushi.kakomonn.com/questions/48097
       topic_hint: 学科Ⅳ（建築施工）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: >-
+        original_question_id=27a930c4e887c8fa（コンクリート打設管理：最も不適当）について、
+        questionIntent=select_incorrect / answer_result_text（正解は1）と
+        correctChoiceText=[間違い,正しい,正しい,正しい,正しい] の整合を確認した。
+        肢1は低温時の構造体強度補正値の設定が不適当で、予想平均気温5℃程度では3N/mm2では不足するため誤り肢。
+        肢2（外壁水平打継ぎは外側下がりで止水性確保）、肢3（土に接する部位のかぶり厚さ50mm）、
+        肢4（柱は分離防止のため梁・スラブで受けて打込み）、肢5（垂直部材の沈下を待って梁を打込む）は妥当。
+        explanationText は温度補正の判定軸が追いづらかったため、低温ほど補正値が大きい点を明確にしつつ整理して patch を更新した。
+        23_correctChoiceText_fixed は作成不要と判断した。
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1120.json
+      unchanged_files:
+        - output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json
+      correct_choice_review:
+        questionIntent: select_incorrect
+        answer_result_text: 正解は 1 です。
+        expected_correctChoiceText:
+          - 間違い
+          - 正しい
+          - 正しい
+          - 正しい
+          - 正しい
+        decision: 既存 correctChoiceText は妥当。23_correctChoiceText_fixed は作成不要。
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json --patch output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1120.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1120.json
+          status: pass
+          output: (no matches)
+      residual_risks: []
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json
       - output/2nd-class-kenchikushi/questions_json/85005/00_source/**
       - output/2nd-class-kenchikushi/questions_json/85005/15_correctChoiceText_fixed/**
       - output/2nd-class-kenchikushi/questions_json/85005/23_correctChoiceText_fixed/**
-      - output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1613.json
+      - output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1120.json
       - prompt/02_prompt_fix_questionIntent.md
       - prompt/03_prompt_add_explanationText.md
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85005/notes/**
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json'
       - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85005/20_merged_1/question_85005_3_merged.json
-        --patch output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1613.json
-      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1613.json
+        --patch output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1120.json
+      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85005/21_explanationText_added/question_85005_3_merged_explanationText_added_20260528_1120.json
     stop_if:
       - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
       - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
@@ -4621,7 +4657,7 @@ tasks:
   - id: T071
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: medium
     uses_worker_defaults: 85005_question_review_v3
     objective: 85005/question_85005_3_merged.json の original_question_id=c9c20ffb622a99c8 について、correctChoiceText と explanationText を専門家水準で同時レビューし、必要なら
