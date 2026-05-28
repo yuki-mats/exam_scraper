@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T637
+active_task: T638
 tasks:
   - id: T001
     type: pm
@@ -40576,7 +40576,7 @@ tasks:
   - id: T637
     type: pm
     assignee: PM
-    status: queued
+    status: done
     reasoning_hint: high
     objective: 親ボードと subgoals の残作業を棚卸しし、queued が枯渇する前に次 tranche の Worker tasks（1問=1Worker）を追加して「止まらずに全年度を消化」できる状態を維持する（必要なら 85007..85011 も subgoals 化する）。
     expected_output:
@@ -40584,7 +40584,24 @@ tasks:
       - 追加した tranche の方針（どの年度/どのマージファイルから積むか）
       - 追加した Worker tasks（親ボード or subgoal どちらに追加したかを明記）
       - '`active_task` と `visual_board` の再生成手順（board --once）'
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: |-
+        親ボード・subgoals の残作業を棚卸しした結果、設問レビュー（1問=1Worker）は全年度完了しており、未処理 original_question_id は存在しない。したがって「次 tranche の Worker tasks 追加」は不要で、以降は運用タスク（T638: ガード/運用ルール整備）へ進める。
+      remaining_scope:
+        unprocessed_questions:
+          count: 0
+          evidence: "親ボード worker done=608/608、subgoals 85002..85006 の non_done_workers=0 を確認。"
+        remaining_tasks:
+          - id: T638
+            type: pm
+            status: queued
+            purpose: "commit/push と日付サフィックス整合を親ボード/subgoalsで破綻なく適用する運用ガードの明文化。"
+      tranche_policy: "全設問が完了しているため、新規 Worker tranche は追加しない。以降の作業は運用整備/フォローアップに限定する。"
+      board_regeneration:
+        command: npx goalbuddy board "$(pwd)/docs/goals/nikyu-kenchikushi-expert-review-all-years"
+        note: "state.yaml 更新後は board UI を再生成して active_task と残タスクを確認する。"
   - id: T638
     type: pm
     assignee: PM
