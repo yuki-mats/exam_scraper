@@ -4,7 +4,7 @@ goal:
   slug: nikyu-kenchikushi-expert-review-all-years
   kind: existing_plan
   tranche: 2nd-class-kenchikushi / 2015-2025 (list_group_id=85001..85011) を 1問=1Worker で専門家レビューする。次に進める tranche は active_task を正とし、2016-2020 (list_group_id=85002..85006) は subgoal (T628..T632) として処理する。
-  status: active
+  status: done
   oracle:
     signal: 対象設問ごとに正しい回答と専門家水準の解説品質が確認され、必要な patch 更新、coverage check、内容監査に通っている。
     cadence: 各 Worker 完了後と最終監査時
@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T638
+active_task: null
 tasks:
   - id: T001
     type: pm
@@ -40511,6 +40511,7 @@ tasks:
     receipt:
       result: done
       full_outcome_complete: false
+      decision: proceed
       summary: |-
         日付サフィックス不一致の代表例として、subgoal 85004 が参照している patch ファイル 1件を選び、当日サフィックスの新ファイル作成と参照更新（allowed_files/verify/worker_defaults）までを 1 Worker slice に落とし込んだ。
       selected:
@@ -40565,6 +40566,7 @@ tasks:
       - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
       - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/old/**
       - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/state.yaml
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
     verify:
       - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json'
       - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
@@ -40605,14 +40607,56 @@ tasks:
   - id: T638
     type: pm
     assignee: PM
-    status: queued
+    status: done
     reasoning_hint: high
     objective: Worker が止まらずに回るための運用ガード（commit/push と日付サフィックス整合）を、親ボードと subgoals で破綻なく適用できる形に落とし込む。
     expected_output:
       - "1 Worker 完了 = 1 commit + push の手順（ステージ対象、commit message 規約、push 先）"
       - patch ファイル名の日付サフィックス更新方針（新ファイル作成 + state 参照更新の粒度）
       - 親ボードと subgoals で共通に適用するルールと、例外（やむを得ない場合の扱い）
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: |-
+        Worker が止まらずに回るための運用ガードを、親ボード/subgoals 共通で適用できる形に整理した。以降は「1 Worker = 1 commit+push」「patch更新は当日サフィックス新ファイル作成+参照更新」を必須とし、例外条件も明文化する。
+
+      commit_push_runbook:
+        repo: /Users/yuki/development/exam_scraper
+        branch: "原則 codex/goal-driven-workflow（指示があれば変更）"
+        steps:
+          - "git status --porcelain で差分確認（allowed_files 外が混ざっていないこと）"
+          - "state.yaml は通常 git add、output/ 配下の patch は必要なら git add -f"
+          - "git commit -m '<scope> <T###>: <要約>'（例: '85006 T094: ...' / 'main T640: ...'）"
+          - "git push origin codex/goal-driven-workflow"
+        guardrails:
+          - "1 Worker 完了 = 1 commit + push を原則とする（複数 Worker を 1 commit に潰さない）"
+          - "patch と state.yaml の参照更新（allowed_files/verify/worker_defaults）が同一 commit に入っていること"
+          - "output/ は .gitignore 対象になり得るため、追跡したい patch は -f を使う（既に追跡済みの場合は不要）"
+
+      patch_suffix_policy:
+        rule: "patch ファイル名末尾の日付サフィックスは『最終更新日』と一致させる"
+        default_action: "既存 patch を編集したら、当日サフィックスの新ファイルを作成し、旧ファイルは old/ に退避する"
+        why_not_rename_only: "mtime はコピーや git 操作で変わり得るため、運用上の最終更新日はファイル名サフィックスを正とする"
+        example:
+          - "旧: ..._explanationText_added_20260527_1101.json"
+          - "新: ..._explanationText_added_20260528_1638.json"
+          - "旧は 21_explanationText_added/old/ へ退避し、state参照を新へ更新する"
+
+      reference_update_rules:
+        must_update:
+          - "task.allowed_files の patch パス"
+          - "task.verify の patch パス（coverage check / rg 対象）"
+          - "worker_defaults の explanation_patch_file（該当する場合）"
+          - "該当 receipt.changed_files（過去receiptまで一括修正は不要。以降の更新では正しいパスを書く）"
+        scope:
+          - "参照整合は、原則としてその年度 subgoal の state.yaml 内で完結させる（親ボード側 subgoal task は path 参照のみ）"
+        verification:
+          - "coverage check が pass していること（source と patch の組を取り違えない）"
+          - "NG表現（設問の通りです等、引用符「」）が 0 hit であること"
+
+      exceptions:
+        - "内容が一切変わっておらず『単なる参照差し替え』の場合でも、新ファイル作成+参照更新の手順を踏む（運用の可視性を優先）"
+        - "やむを得ず既存ファイルを直接編集した場合は、同日中に当日サフィックスの新ファイルへ移し替えて運用へ戻す"
   - id: T639
     type: pm
     assignee: PM
