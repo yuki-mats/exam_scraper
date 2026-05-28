@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T043
+active_task: T044
 tasks:
 - id: T001
   type: worker
@@ -2410,7 +2410,7 @@ tasks:
 - id: T043
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=c0d56a5347ef3473
@@ -2421,7 +2421,23 @@ tasks:
     original_question_id: c0d56a5347ef3473
     question_url: https://2kenchikushi.kakomonn.com/questions/53954
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: c0d56a5347ef3473
+      question_url: https://2kenchikushi.kakomonn.com/questions/53954
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: questionIntent=select_correct かつ answer_result_text が「正解は5」。梁BCのモーメント図の傾きからE点鉛直荷重は5P、左柱ABのモーメント差(4P-0)と高さ4mより水平反力はPとなるため、外力は「E点5P下向き、F点P左向き」が正しい。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+      changed: true
+      summary: original_question_id=c0d56a5347ef3473 の explanationText を重複・未記入を解消し、モーメント図の傾き（せん断力）と柱モーメントから外力(5PとP)を導出して各肢の正誤理由を確定。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -2446,7 +2462,7 @@ tasks:
 - id: T044
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=e193236d937e6789
