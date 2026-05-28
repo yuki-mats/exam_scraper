@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T635
+active_task: T636
 tasks:
   - id: T001
     type: pm
@@ -40453,7 +40453,7 @@ tasks:
   - id: T635
     type: pm
     assignee: PM
-    status: queued
+    status: done
     reasoning_hint: high
     objective: patch 出力ファイル（`21_explanationText_added/`, `23_correctChoiceText_fixed/`）のファイル名末尾日付サフィックスを「最終更新日」と一致させる運用を、全年度ボードで破綻なく回る形にする。
     expected_output:
@@ -40461,7 +40461,37 @@ tasks:
       - 不一致ファイルの候補リスト（例を最低 1 つは列挙）
       - 対応方針（新ファイル作成 or リネーム、旧ファイル退避ルール）
       - '`state.yaml` 側参照（`worker_defaults` / `allowed_files` / `verify`）の更新方針'
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: |-
+        patch 出力ファイルの「日付サフィックス=最終更新日」運用について、現状の不一致パターンを抽出し、以降の修正方針を定義した。
+      patterns_and_criteria:
+        - pattern: "21_explanationText_added/*_explanationText_added_YYYYMMDD_HHMM.json の YYYYMMDD とファイル mtime(日付) が不一致"
+          rationale: "運用上はファイル名サフィックスを最終更新日に合わせたいが、過去の編集/移動等で乖離が起きるため。"
+        - pattern: "同一年度/同一 merged ファイルで複数のサフィックスが混在（例: 20260407_0051 と 20260523_1533 が同居）"
+          rationale: "後から追記修正した場合に新ファイルを作って参照を移し切れていない可能性がある。"
+      mismatch_examples:
+        - path: output/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_1_merged_explanationText_added_20260405_2325.json
+          filename_ymd: "20260405"
+          mtime_ymd: "20260522"
+        - path: output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+          filename_ymd: "20260527"
+          mtime_ymd: "20260528"
+        - path: output/2nd-class-kenchikushi/questions_json/85002/21_explanationText_added/question_85002_1_merged_explanationText_added_20260523_1533.json
+          filename_ymd: "20260523"
+          mtime_ymd: "20260407"
+      counts:
+        mismatch_21_explanationText_added_mtime_vs_suffix: 83
+        mismatch_23_correctChoiceText_fixed_mtime_vs_suffix: 0
+      policy:
+        - "既存 patch を編集した場合は、原則として『当日の日付サフィックスの新ファイル』を 21_explanationText_added/（または 23_correctChoiceText_fixed/）に作成する。旧ファイルは old/ に退避する（既存運用に従う）。"
+        - "state.yaml で参照される patch は常に最新ファイルへ向ける（task.allowed_files / verify の patch パス、worker_defaults の explanation_patch_file 等）。"
+        - "mtime はファイルコピーやgit操作で変わり得るため、運用上の最終更新日は 'ファイル名サフィックス' を正とし、mtime は検出シグナルに留める。"
+      state_reference_update:
+        - "参照更新は 'その Worker/年度ボードの allowed_files と verify' を必ず同一コミット内で更新し、coverage check を通してから done にする。"
+        - "親ボードの subgoal 参照（T628..T632）は subgoals/<list_group_id>/state.yaml を指すだけなので、実運用の参照整合は subgoal 側で完結させる。"
+      next_step: "T636 で、まず 1 ファイルだけ（日付サフィックス不一致の代表例）を選んで新ファイル作成+参照更新の Worker task に落とし込む。"
   - id: T636
     type: judge
     assignee: Judge
