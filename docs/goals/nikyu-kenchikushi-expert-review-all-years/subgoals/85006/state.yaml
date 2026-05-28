@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T051
+active_task: T052
 tasks:
 - id: T001
   type: worker
@@ -2826,7 +2826,7 @@ tasks:
 - id: T051
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=b947af2a6806a771
@@ -2837,7 +2837,23 @@ tasks:
     original_question_id: b947af2a6806a771
     question_url: https://2kenchikushi.kakomonn.com/questions/53963
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: b947af2a6806a771
+      question_url: https://2kenchikushi.kakomonn.com/questions/53963
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: questionIntent=select_incorrect かつ answer_result_text が「正解は1」。補強コンクリートブロック造の耐力壁の端部・隅角部縦筋は一般に径12mm以上とするため、D10は不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=b947af2a6806a771 の explanationText の先頭に残っていた「。」等のノイズを除去し、各肢の根拠を教材品質で簡潔に整形。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -2862,7 +2878,7 @@ tasks:
 - id: T052
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=12d165aabef9f72f
