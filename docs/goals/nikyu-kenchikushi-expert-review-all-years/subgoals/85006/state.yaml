@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T027
+active_task: T028
 tasks:
 - id: T001
   type: worker
@@ -1578,7 +1578,7 @@ tasks:
 - id: T027
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=8b0f4bb1ea5f9d29
@@ -1589,7 +1589,23 @@ tasks:
     original_question_id: 8b0f4bb1ea5f9d29
     question_url: https://2kenchikushi.kakomonn.com/questions/53928
     topic_hint: 学科Ⅱ（建築法規）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 8b0f4bb1ea5f9d29
+      question_url: https://2kenchikushi.kakomonn.com/questions/53928
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: 用途変更の完了後手続は、法87条1項により法7条1項の検査申請を建築主事への届出と読み替える。指定確認検査機関への届出ではない。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+      changed: true
+      summary: original_question_id=8b0f4bb1ea5f9d29 の explanationText を、条文根拠と結論が読める形に整理（4号特例の審査省略範囲、現場備付義務、報告徴収、指導助言）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -1614,7 +1630,7 @@ tasks:
 - id: T028
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=c7e880dfbda760d5
