@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T063
+active_task: T064
 tasks:
 - id: T001
   type: worker
@@ -3450,7 +3450,7 @@ tasks:
 - id: T063
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=07fc13da6b738920
@@ -3461,7 +3461,23 @@ tasks:
     original_question_id: 07fc13da6b738920
     question_url: https://2kenchikushi.kakomonn.com/questions/53975
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 07fc13da6b738920
+      question_url: https://2kenchikushi.kakomonn.com/questions/53975
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 2
+      rationale: questionIntent=select_incorrect かつ answer_result_text が「正解は2」。パーティクルボードは木質材料で、耐火性に優れるとはいえず、耐火性を理由に下地材使用とする肢2が不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=07fc13da6b738920 の explanationText から「設問の通り」等のNG表現とノイズを除去し、各材料の用途・特性を教材品質で整形。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -3486,7 +3502,7 @@ tasks:
 - id: T064
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=6d6b89919e6b63b2
