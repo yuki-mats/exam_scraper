@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T046
+active_task: T047
 tasks:
 - id: T001
   type: worker
@@ -2566,7 +2566,7 @@ tasks:
 - id: T046
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=f5191709f1c1034a
@@ -2577,7 +2577,23 @@ tasks:
     original_question_id: f5191709f1c1034a
     question_url: https://2kenchikushi.kakomonn.com/questions/53958
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: f5191709f1c1034a
+      question_url: https://2kenchikushi.kakomonn.com/questions/53958
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: questionIntent=select_correct かつ answer_result_text が「正解は4」。A点で Cpe=0.8, Cpi=-0.2 より、風圧力 p=q(Cpe-Cpi)=1000*(0.8-(-0.2))=1000N/m^2 となるため選択肢4が正しい。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+      changed: true
+      summary: original_question_id=f5191709f1c1034a の explanationText を教材品質に修正（A点の Cpe/Cpi を図から読み取り、p=q(Cpe-Cpi) の計算で 1000N/m^2 を導出。符号の注意点も含めて各肢の誤り理由を明確化）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -2602,7 +2618,7 @@ tasks:
 - id: T047
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=96ed81918f18e42b
