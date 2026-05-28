@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T008
+active_task: T009
 tasks:
 - id: T001
   type: worker
@@ -589,7 +589,7 @@ tasks:
 - id: T008
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=42ce2a822712d9a2
@@ -600,7 +600,23 @@ tasks:
     original_question_id: 42ce2a822712d9a2
     question_url: https://2kenchikushi.kakomonn.com/questions/53908
     topic_hint: 学科Ⅰ（建築計画）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 42ce2a822712d9a2
+      question_url: https://2kenchikushi.kakomonn.com/questions/53908
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 4
+      rationale: 音速は気温で変化し、一定340m/sではない。近似式 c=331.5+0.6t を用いる。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_1_merged_explanationText_added_20260528_1600.json
+      changed: true
+      summary: original_question_id=42ce2a822712d9a2 の explanationText を教材品質に修正（面音源の距離減衰、エコー条件、音速の温度依存、聴感三要素の混線を是正）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -625,7 +641,7 @@ tasks:
 - id: T009
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=f9a0cfdae919f640
