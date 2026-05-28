@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T636
+active_task: T640
 tasks:
   - id: T001
     type: pm
@@ -40495,7 +40495,7 @@ tasks:
   - id: T636
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: T635 の方針に基づき、最初の「日付サフィックス整合」修正スライス（1ファイルだけ）を決め、Worker が迷わず実装できる task に落とし込む。
     inputs:
@@ -40508,7 +40508,52 @@ tasks:
       - 選定した対象ファイル（path）
       - 新ファイル名（またはリネーム先）
       - allowed_files / verify / stop_if を含む Worker task
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: |-
+        日付サフィックス不一致の代表例として、subgoal 85004 が参照している patch ファイル 1件を選び、当日サフィックスの新ファイル作成と参照更新（allowed_files/verify/worker_defaults）までを 1 Worker slice に落とし込んだ。
+      selected:
+        path: output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+        reason: "ファイル名サフィックス(20260527)と mtime(20260528) が1日ずれており、かつ subgoal 85004 state.yaml で明示的に参照されているため、最小の修正で運用の型を作れる。"
+      new_filename:
+        path: output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
+      worker_task_id: T640
+
+  - id: T640
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: medium
+    objective: "patch日付サフィックス整合: 85004/21_explanationText_added の 1ファイル（question_85004_2_merged_explanationText_added_20260527_1101.json）を当日サフィックスへ移し、subgoal 85004 の参照を新ファイルへ更新する。"
+    inputs:
+      - "対象patch: output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json"
+      - "参照先: docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/state.yaml"
+    constraints:
+      - "1 task = 1 patch ファイル（新ファイル作成 or リネーム）に限定する。"
+      - "`20_merged_1` / `00_source` は編集しない。"
+      - "patch本文はスクリプト生成しない（コピー/移動は可）。"
+      - "更新後、coverage check を必ず pass させる。"
+    expected_output:
+      - "新patchファイル: output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json"
+      - "旧patchは old/ に退避（存在しない場合は退避不要）。"
+      - "subgoal 85004 state.yaml 内の参照（allowed_files/verify/receipt.changed_files 等）を新patchへ更新"
+      - "verify 実行結果（distribution/coverage/NG表現）が pass"
+      - "1 commit + push"
     receipt: null
+    allowed_files:
+      - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
+      - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
+      - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/old/**
+      - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/state.yaml
+    verify:
+      - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json'
+      - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json
+        --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
+      - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
+    stop_if:
+      - "subgoal 85004 state.yaml の参照箇所が特定できず、更新漏れが避けられない。"
+      - "coverage check が通らず、原因が patch 作業外にある。"
   - id: T637
     type: pm
     assignee: PM
