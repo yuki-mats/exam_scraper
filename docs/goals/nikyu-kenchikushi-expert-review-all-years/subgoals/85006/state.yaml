@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T074
+active_task: T075
 tasks:
 - id: T001
   type: worker
@@ -4025,7 +4025,7 @@ tasks:
 - id: T074
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=7f6ed3be98efc47c
@@ -4036,7 +4036,23 @@ tasks:
     original_question_id: 7f6ed3be98efc47c
     question_url: https://2kenchikushi.kakomonn.com/questions/53987
     topic_hint: 学科Ⅳ（建築施工）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 7f6ed3be98efc47c
+      question_url: https://2kenchikushi.kakomonn.com/questions/53987
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: ターンバックル付き筋かいを建入れ直しに用いることはできず、専用の建入れ直し材や倒壊防止用ワイヤロープ等で行う。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=7f6ed3be98efc47c の explanationText を教材品質に修正（先頭の句点ノイズ除去、選択肢1の不適当理由を建入れ直しの禁止事項として明確化、数値表記を整形）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -4061,7 +4077,7 @@ tasks:
 - id: T075
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=a9094c9a8afede34
