@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T020
+active_task: T021
 tasks:
 - id: T001
   type: worker
@@ -1214,7 +1214,7 @@ tasks:
 - id: T020
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=649bcd27ec239a4f
@@ -1225,7 +1225,23 @@ tasks:
     original_question_id: 649bcd27ec239a4f
     question_url: https://2kenchikushi.kakomonn.com/questions/53920
     topic_hint: 学科Ⅰ（建築計画）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 649bcd27ec239a4f
+      question_url: https://2kenchikushi.kakomonn.com/questions/53920
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: CAVは一定風量のため一般にVAVより機器・ダクトが大きくなりやすい。CAVのほうが小さくできるは不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_1_merged_explanationText_added_20260528_1600.json
+      changed: true
+      summary: original_question_id=649bcd27ec239a4f の explanationText を教材品質に修正（CAV/VAVの比較を明確化、床放射暖房の説明を整理）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -1250,7 +1266,7 @@ tasks:
 - id: T021
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=5741b78e110884d2
