@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T065
+active_task: T066
 tasks:
 - id: T001
   type: worker
@@ -3554,7 +3554,7 @@ tasks:
 - id: T065
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=ad74fb5336054935
@@ -3565,7 +3565,23 @@ tasks:
     original_question_id: ad74fb5336054935
     question_url: https://2kenchikushi.kakomonn.com/questions/53977
     topic_hint: 学科Ⅳ（建築施工）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: ad74fb5336054935
+      question_url: https://2kenchikushi.kakomonn.com/questions/53977
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 5
+      rationale: questionIntent=select_incorrect かつ answer_result_text が「正解は5」。危険物貯蔵所設置許可は消防署長ではなく市町村長等（法令上の許可権者）への申請となるため、提出先が不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=ad74fb5336054935 の explanationText から「設問の通り」等のNG表現とノイズを除去し、各届出/申請の提出先を簡潔に整理。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -3590,7 +3606,7 @@ tasks:
 - id: T066
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=0b15c93df31e0b7b
