@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T005
+active_task: T006
 tasks:
 - id: T001
   type: worker
@@ -433,7 +433,7 @@ tasks:
 - id: T005
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=16c31592522495af
@@ -444,7 +444,23 @@ tasks:
     original_question_id: 16c31592522495af
     question_url: https://2kenchikushi.kakomonn.com/questions/53905
     topic_hint: 学科Ⅰ（建築計画）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 16c31592522495af
+      question_url: https://2kenchikushi.kakomonn.com/questions/53905
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 5
+      rationale: 熱容量（比熱×質量）が小さいほど温まりやすく冷めやすい。温度変化が遅くなる、蓄熱現象が生じるという記述は不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_1_merged_explanationText_added_20260528_1600.json
+      changed: true
+      summary: original_question_id=16c31592522495af の explanationText（選択肢4,5）を教材品質に修正（NG句の除去、熱容量の説明の誤記修正）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -469,7 +485,7 @@ tasks:
 - id: T006
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=c28d2f6c6b2231ed
