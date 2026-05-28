@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T038
+active_task: T039
 tasks:
 - id: T001
   type: worker
@@ -2150,7 +2150,7 @@ tasks:
 - id: T038
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=9d59cde979565ecc
@@ -2161,7 +2161,23 @@ tasks:
     original_question_id: 9d59cde979565ecc
     question_url: https://2kenchikushi.kakomonn.com/questions/53948
     topic_hint: 学科Ⅱ（建築法規）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 9d59cde979565ecc
+      question_url: https://2kenchikushi.kakomonn.com/questions/53948
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 5
+      rationale: イは50m2以内要件を満たさず許可必要、ロも原則許可必要。一方ハは法4条の公共施設定義に合致、ニは法53条で原則許可必要。よって正しい組合せはハとニ。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+      changed: true
+      summary: original_question_id=9d59cde979565ecc の explanationText を教材品質に整理（各肢の正誤理由を分離し、正答ハ+ニを明確化）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -2186,7 +2202,7 @@ tasks:
 - id: T039
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=d7da1655a13b0f64
