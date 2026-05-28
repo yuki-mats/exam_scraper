@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T084
+active_task: T085
 tasks:
 - id: T001
   type: worker
@@ -4545,7 +4545,7 @@ tasks:
 - id: T084
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v4
   objective: 85006/question_85006_4_merged.json の original_question_id=40b419aeaf1145d1
@@ -4556,7 +4556,23 @@ tasks:
     original_question_id: 40b419aeaf1145d1
     question_url: https://2kenchikushi.kakomonn.com/questions/53997
     topic_hint: 学科Ⅳ（建築施工）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 40b419aeaf1145d1
+      question_url: https://2kenchikushi.kakomonn.com/questions/53997
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 2
+      rationale: 合成樹脂調合ペイント（SOP）はコンクリート・モルタル面には適用しないため、モルタル下地に塗布する記述は不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_4_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=40b419aeaf1145d1 の explanationText を教材品質に修正（句点ノイズ・省略記号を除去、選択肢2の誤り理由をSOP適用不可として明確化、文体を整形）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_4_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -4581,7 +4597,7 @@ tasks:
 - id: T085
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v4
   objective: 85006/question_85006_4_merged.json の original_question_id=ec26621959ed70ce
