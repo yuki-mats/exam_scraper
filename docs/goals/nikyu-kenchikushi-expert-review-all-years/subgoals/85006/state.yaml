@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T022
+active_task: T023
 tasks:
 - id: T001
   type: worker
@@ -1318,7 +1318,7 @@ tasks:
 - id: T022
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=a2172f3ee2908c0b
@@ -1329,7 +1329,23 @@ tasks:
     original_question_id: a2172f3ee2908c0b
     question_url: https://2kenchikushi.kakomonn.com/questions/53923
     topic_hint: 学科Ⅰ（建築計画）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: a2172f3ee2908c0b
+      question_url: https://2kenchikushi.kakomonn.com/questions/53923
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 4
+      rationale: 光天井は拡散透過パネル+上部光源で面発光させる方式。小形狭配光器具を多数配置する方式ではない。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_1_merged_explanationText_added_20260528_1600.json
+      changed: true
+      summary: original_question_id=a2172f3ee2908c0b の explanationText を教材品質に整理（昼光利用、光天井の定義、光束法で反射率を考慮する点を明確化）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -1354,7 +1370,7 @@ tasks:
 - id: T023
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=dbf79b2576009871
