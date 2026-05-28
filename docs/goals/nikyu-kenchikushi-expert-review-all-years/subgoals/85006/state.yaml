@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T016
+active_task: T017
 tasks:
 - id: T001
   type: worker
@@ -1005,7 +1005,7 @@ tasks:
 - id: T016
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=1922f7a385238c84
@@ -1016,7 +1016,23 @@ tasks:
     original_question_id: 1922f7a385238c84
     question_url: https://2kenchikushi.kakomonn.com/questions/53916
     topic_hint: 学科Ⅰ（建築計画）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 1922f7a385238c84
+      question_url: https://2kenchikushi.kakomonn.com/questions/53916
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 2
+      rationale: ベビーカー同伴（折りたたまずに入室）を想定したトイレブースは、幅1.0m×奥行1.2mでは狭い。より大きい内法寸法の確保が必要。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_1_merged_explanationText_added_20260528_1600.json
+      changed: true
+      summary: original_question_id=1922f7a385238c84 の explanationText を教材品質に修正（ベビーカー便所寸法の理由付け、鏡の設置範囲の説明、段差解消機スペースの根拠を明確化）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -1041,7 +1057,7 @@ tasks:
 - id: T017
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=178211a187d4bcdb
