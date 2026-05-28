@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T071
+active_task: T072
 tasks:
 - id: T001
   type: worker
@@ -3869,7 +3869,7 @@ tasks:
 - id: T071
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=5cbec885342a6a98
@@ -3880,7 +3880,23 @@ tasks:
     original_question_id: 5cbec885342a6a98
     question_url: https://2kenchikushi.kakomonn.com/questions/53983
     topic_hint: 学科Ⅳ（建築施工）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 5cbec885342a6a98
+      question_url: https://2kenchikushi.kakomonn.com/questions/53983
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 3
+      rationale: 打継ぎ面はレイタンス等の除去は必要だが、乾燥させてから打ち込むのは不適当で、水湿し等により湿潤状態に整えて打ち込む。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=5cbec885342a6a98 の explanationText を教材品質に修正（数値表記の整形、選択肢3の誤り理由を「乾燥」→「水湿し・湿潤（遊離水なし）」として明確化、引用符や冗長表現を除去）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -3905,7 +3921,7 @@ tasks:
 - id: T072
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=19659dbd45951c53
