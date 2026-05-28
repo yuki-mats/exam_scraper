@@ -72,22 +72,22 @@ worker_defaults:
     - patch 本文をスクリプトで生成しそうになる。
   85006_question_review_v2:
     source_file: output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
-    explanation_patch_file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+    explanation_patch_file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
     optional_correct_choice_patch_dir: output/2nd-class-kenchikushi/questions_json/85006/23_correctChoiceText_fixed
     allowed_files:
     - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
     - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
     - output/2nd-class-kenchikushi/questions_json/85006/15_correctChoiceText_fixed/**
     - output/2nd-class-kenchikushi/questions_json/85006/23_correctChoiceText_fixed/**
-    - output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+    - output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
     - prompt/02_prompt_fix_questionIntent.md
     - prompt/03_prompt_add_explanationText.md
     verify:
     - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py
       --output-root output --glob '2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json'
     - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
-      --patch output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
-    - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+      --patch output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+    - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
     stop_if:
     - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
     - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T040
+active_task: T041
 tasks:
 - id: T001
   type: worker
@@ -1559,7 +1559,7 @@ tasks:
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
   - output/2nd-class-kenchikushi/questions_json/85006/15_correctChoiceText_fixed/**
   - output/2nd-class-kenchikushi/questions_json/85006/23_correctChoiceText_fixed/**
-  - output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+  - output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
   - prompt/02_prompt_fix_questionIntent.md
   - prompt/03_prompt_add_explanationText.md
   - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85006/notes/**
@@ -1567,8 +1567,8 @@ tasks:
   - python3 scripts/check/check_question_intent_correct_choice_text_distribution.py
     --output-root output --glob '2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json'
   - python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
-    --patch output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
-  - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1700.json
+    --patch output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+  - rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
   stop_if:
   - answer_result_text、questionIntent、選択肢本文、元解説の整合が取れず、正しい回答を断定できない。
   - 対象分野の固有知識・数値・定義を根拠なしに推測しそうになる。
@@ -2254,7 +2254,7 @@ tasks:
 - id: T040
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=971319a8b3d55d2e
@@ -2265,7 +2265,23 @@ tasks:
     original_question_id: 971319a8b3d55d2e
     question_url: https://2kenchikushi.kakomonn.com/questions/53951
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: 971319a8b3d55d2e
+      question_url: https://2kenchikushi.kakomonn.com/questions/53951
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: answer_result_text が「正解は2です」であり、選択肢2の断面二次モーメント(断面A=337cm^4, 断面B=689cm^4)が正しい組合せ。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+      changed: true
+      summary: original_question_id=971319a8b3d55d2e の explanationText を重複・引用符「」を除去し、各肢が誤りとなる理由を断面A/Bの算定結果(337/689cm^4)に即して簡潔化。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
