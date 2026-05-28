@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T044
+active_task: T045
 tasks:
 - id: T001
   type: worker
@@ -2462,7 +2462,7 @@ tasks:
 - id: T044
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=e193236d937e6789
@@ -2473,7 +2473,23 @@ tasks:
     original_question_id: e193236d937e6789
     question_url: https://2kenchikushi.kakomonn.com/questions/53955
     topic_hint: 学科Ⅲ（建築構造）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: e193236d937e6789
+      question_url: https://2kenchikushi.kakomonn.com/questions/53955
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 1
+      rationale: questionIntent=select_correct かつ answer_result_text が「正解は2」。支点反力は VA=2kN, VB=1kN。部材Aの軸方向力は N_A=-√2 kN（圧縮）となるため選択肢2が正しい。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_2_merged_explanationText_added_20260528_1735.json
+      changed: true
+      summary: original_question_id=e193236d937e6789 の explanationText を冗長な反復・未完記述から整理し、反力(2kN/1kN)と部材Aの軸力(-√2 kN)に基づいて各肢の正誤理由を確定。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_2_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -2498,7 +2514,7 @@ tasks:
 - id: T045
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v2
   objective: 85006/question_85006_2_merged.json の original_question_id=bc48821bcbb859b1
