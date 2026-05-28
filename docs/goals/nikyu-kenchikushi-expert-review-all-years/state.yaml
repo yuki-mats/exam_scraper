@@ -765,7 +765,7 @@ worker_defaults:
       - 参考書・公式教材に載せても破綻しない説明だと判断できない。
       - allowed_files の外を編集する必要が出る。
       - patch 本文をスクリプトで生成しそうになる。
-active_task: T640
+active_task: T637
 tasks:
   - id: T001
     type: pm
@@ -40523,7 +40523,7 @@ tasks:
   - id: T640
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: medium
     objective: "patch日付サフィックス整合: 85004/21_explanationText_added の 1ファイル（question_85004_2_merged_explanationText_added_20260527_1101.json）を当日サフィックスへ移し、subgoal 85004 の参照を新ファイルへ更新する。"
     inputs:
@@ -40540,7 +40540,26 @@ tasks:
       - "subgoal 85004 state.yaml 内の参照（allowed_files/verify/receipt.changed_files 等）を新patchへ更新"
       - "verify 実行結果（distribution/coverage/NG表現）が pass"
       - "1 commit + push"
-    receipt: null
+    receipt:
+      result: done
+      full_outcome_complete: false
+      summary: "85004 の patch ファイル question_85004_2_merged_explanationText_added_20260527_1101.json を、当日サフィックスの新ファイル question_85004_2_merged_explanationText_added_20260528_1638.json に更新した（旧ファイルは old/ に退避）。subgoals/85004/state.yaml 内で旧パスを参照していた箇所を全て新パスへ置換し、coverage check を含む verify を通した。"
+      changed_files:
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
+        - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/old/question_85004_2_merged_explanationText_added_20260527_1101.json
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/subgoals/85004/state.yaml
+        - docs/goals/nikyu-kenchikushi-expert-review-all-years/state.yaml
+      commands:
+        - cmd: python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output --glob '2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json'
+          status: pass
+          output: '[SUMMARY] files=1 violations=0'
+        - cmd: python3 scripts/check/check_explanation_patch_coverage.py --source output/2nd-class-kenchikushi/questions_json/85004/20_merged_1/question_85004_2_merged.json --patch output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
+          status: pass
+          output: '[OK] coverage check passed'
+        - cmd: rg -n '設問の通りです|記述は正しいです|記述は誤りです|正解です|覚えておきましょう|「」' output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
+          status: pass
+          output: '(no matches)'
+      residual_risks: []
     allowed_files:
       - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260527_1101.json
       - output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_2_merged_explanationText_added_20260528_1638.json
