@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T068
+active_task: T069
 tasks:
 - id: T001
   type: worker
@@ -3713,7 +3713,7 @@ tasks:
 - id: T068
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=b5db87f159266011
@@ -3724,7 +3724,23 @@ tasks:
     original_question_id: b5db87f159266011
     question_url: https://2kenchikushi.kakomonn.com/questions/53980
     topic_hint: 学科Ⅳ（建築施工）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: b5db87f159266011
+      question_url: https://2kenchikushi.kakomonn.com/questions/53980
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 5
+      rationale: questionIntent=select_incorrect かつ answer_result_text が「正解は5」。枠組足場の壁つなぎ間隔は垂直9m以下・水平8m以下であり、水平9mとする肢5が不適当。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_3_merged_explanationText_added_20260523_1545.json
+      changed: true
+      summary: original_question_id=b5db87f159266011 の explanationText の「。」ノイズを除去し、枠組足場の墜落防止・作業床・壁つなぎ基準を教材品質で整形。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_3_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -3749,7 +3765,7 @@ tasks:
 - id: T069
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v3
   objective: 85006/question_85006_3_merged.json の original_question_id=f75d74986f0a47bb
