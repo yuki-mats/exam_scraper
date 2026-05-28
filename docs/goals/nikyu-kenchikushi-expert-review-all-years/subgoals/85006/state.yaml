@@ -166,7 +166,7 @@ worker_defaults:
     - 参考書・公式教材に載せても破綻しない説明だと判断できない。
     - allowed_files の外を編集する必要が出る。
     - patch 本文をスクリプトで生成しそうになる。
-active_task: T012
+active_task: T013
 tasks:
 - id: T001
   type: worker
@@ -797,7 +797,7 @@ tasks:
 - id: T012
   type: worker
   assignee: Worker
-  status: active
+  status: done
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=df5ac186e22b4776
@@ -808,7 +808,23 @@ tasks:
     original_question_id: df5ac186e22b4776
     question_url: https://2kenchikushi.kakomonn.com/questions/53912
     topic_hint: 学科Ⅰ（建築計画）
-  receipt: null
+  receipt:
+    reviewed_on: '2026-05-28'
+    source:
+      list_group_id: '85006'
+      original_question_id: df5ac186e22b4776
+      question_url: https://2kenchikushi.kakomonn.com/questions/53912
+    correctChoiceText_judgement:
+      most_inappropriate_choice_index_1based: 2
+      rationale: 中廊下型は住戸方位が限定され日照・採光・通風が不利になりやすく、騒音・プライバシー面でも課題が出やすい。片廊下型より居住性を確保しやすいとはいえない。
+    patch_update:
+      file: output/2nd-class-kenchikushi/questions_json/85006/21_explanationText_added/question_85006_1_merged_explanationText_added_20260528_1600.json
+      changed: true
+      summary: original_question_id=df5ac186e22b4776 の explanationText を教材品質に修正（中廊下型の不利点、スキップフロア型の特徴、リビングアクセス型の趣旨と注意点を明確化）。
+    verification:
+      distribution_check: pass
+      patch_coverage_check: pass
+      ng_phrase_rg_check: pass
   allowed_files:
   - output/2nd-class-kenchikushi/questions_json/85006/20_merged_1/question_85006_1_merged.json
   - output/2nd-class-kenchikushi/questions_json/85006/00_source/**
@@ -833,7 +849,7 @@ tasks:
 - id: T013
   type: worker
   assignee: Worker
-  status: queued
+  status: active
   reasoning_hint: medium
   uses_worker_defaults: 85006_question_review_v1
   objective: 85006/question_85006_1_merged.json の original_question_id=4c2daf60163d5d96
