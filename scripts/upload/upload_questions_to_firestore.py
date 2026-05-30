@@ -53,6 +53,7 @@ DOC_COMPARE_KEYS = (
     "qualificationId",
     "correctChoiceText",
     "explanationText",
+    "suggestedQuestions",
     "examYear",
     "examSource",
     "questionTags",
@@ -174,6 +175,7 @@ def build_doc_data_base(question: dict) -> dict:
     # オプションフィールド
     for opt_key in (
         "knowledgeText",
+        "suggestedQuestions",
         "questionImageUrls",
         "importKey",
         "originalQuestionChoiceImageUrls",

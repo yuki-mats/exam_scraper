@@ -13,6 +13,7 @@ from typing import Any, Dict, List, Tuple
 
 REQUIRED_FIELDS = [
     "explanationText",
+    "suggestedQuestions",
     "original_question_id",
     "question_url",
 ]
@@ -89,6 +90,13 @@ def compare_entries(
                     "index {}: explanationText length mismatch "
                     "(source={} patch={})".format(idx, len(choices), len(explanations))
                 )
+
+        suggested_questions = patch.get("suggestedQuestions")
+        if not isinstance(suggested_questions, list) or any(
+            not isinstance(question, str) or not question.strip()
+            for question in suggested_questions
+        ):
+            errors.append(f"index {idx}: suggestedQuestions must be non-empty list[str]")
 
     if len(set(patch_ids)) != len(patch_ids):
         warnings.append("duplicate original_question_id detected in patch")

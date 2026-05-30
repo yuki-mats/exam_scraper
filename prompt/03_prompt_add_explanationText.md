@@ -1,9 +1,9 @@
-# [システムプロンプト] explanationText 手作業追加用
+# [システムプロンプト] explanationText / suggestedQuestions 手作業追加用
 （`question_*_merged.json` 専用）
 
-あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText` を学習効果が高い日本語で手作業記述することです。
+あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText` と `suggestedQuestions` を学習効果が高い日本語で手作業記述することです。
 
-目的は、受験者が「正誤」と「その理由」を短時間で理解できる説明を残すことです。元ファイルの本文や順序は変更せず、差分 JSON だけを作成してください。
+目的は、受験者が「正誤」と「その理由」を短時間で理解できる説明と、解説ページで次に押したくなる補足質問候補を残すことです。元ファイルの本文や順序は変更せず、差分 JSON だけを作成してください。
 
 判断水準は、単なる一般読者の目視ではなく、対象資格の専門家・問題作成者・参考書著者が解答解説として公開できる水準とします。正答を説明するだけでなく、受験者が誤学習しない根拠、誤り箇所、正しい内容、類似論点との境界まで確認してください。
 
@@ -47,13 +47,42 @@
 - `original_question_id`
 - `question_url`
 
+## `suggestedQuestions` の生成方針
+
+`suggestedQuestions` は、アプリの解説ページにチップとして即時表示する補足質問候補である。画面を開くたびに AI 生成しないため、`explanationText` と同じタイミングで問題データ側に保存する。
+
+各設問につき、`suggestedQuestions` は 3 件を基本とし、多くても 5 件までにする。すべて日本語の短い疑問文にし、ユーザーが押したくなる自然な表現にする。
+
+良い候補は、受験者が解説を読んだ直後に抱きやすい疑問にする。
+
+- なぜその条件で判断できるのか
+- どこがひっかけなのか
+- 類似論点と何が違うのか
+- 試験ではどの語句・数値・条件を見ればよいのか
+- 覚える時の分岐点は何か
+
+固定文言だけにしない。たとえば `なぜそうなる？`、`覚え方`、`関連知識` だけを毎問同じように出してはいけない。問題本文、選択肢、正誤理由、法令・数値・用語の論点に合わせて具体化する。
+
+ただし、候補質問の中で答えを長く説明しない。答えは AI 補足側で返すため、`suggestedQuestions` は質問文に留める。
+
+### `suggestedQuestions` の禁止例
+
+- `詳しく教えて`
+- `覚え方`
+- `関連知識`
+- `この問題について説明して`
+- `なぜ？`
+- 解説本文をそのまま質問形にしただけの文
+- 正答や根拠を質問文内で長く説明してしまう文
+
 ## 出力方針
 
 - 出力先は `21_explanationText_added/`
 - ファイル名は `question_xxx_merged_explanationText_added_YYYYMMDD_HHMM.json`
 - 出力配列順は元の `question_bodies` と完全一致させる
-- 各要素は `original_question_id`、`question_url`、`explanationText` を持つ
+- 各要素は `original_question_id`、`question_url`、`explanationText`、`suggestedQuestions` を持つ
 - `explanationText` は必ず `choiceTextList` と同じ長さの配列にする
+- `suggestedQuestions` は必ず文字列配列にし、3 件を基本とする
 - 全体解説だけを別要素で追加してはいけない
 
 ## `explanationText` の品質定義
@@ -260,6 +289,11 @@ AI が最初に作る JSON は、原則として次の最小形式でよい。
     "explanationText": [
       "正しい。\n\n理由を書く。",
       "間違い。\n\n理由を書く。"
+    ],
+    "suggestedQuestions": [
+      "どの条件を見ると判断できますか？",
+      "ひっかけになりやすい点はどこですか？",
+      "似た論点との違いは何ですか？"
     ]
   }
 ]
@@ -300,6 +334,7 @@ python3 scripts/fix/archive_patch_outputs.py \
 
 - 冒頭が `正しい。` または `間違い。` になっているか
 - `explanationText` の配列長が `choiceTextList` と一致しているか
+- `suggestedQuestions` が文字列配列で、短く具体的な質問になっているか
 - 正しい選択肢で、正しい理由が具体的に書かれているか
 - 間違いの選択肢で、誤っている語句・条件・数値・関係が明示されているか
 - 間違いの選択肢で、正しい内容が書かれているか
@@ -333,6 +368,7 @@ python3 scripts/check/check_explanation_patch_coverage.py \
 ## 禁止事項
 
 - Python で `explanationText` 本文を量産すること
+- Python で `suggestedQuestions` 本文を量産すること
 - 外部サイト本文の転載、長文引用、または内容の丸写し（条文・条項の特定や定義確認のための参照は許可する）
 - 元の `20_merged_1` JSON の書き換え
 - ラベル、記号、冗長な前置きの残置

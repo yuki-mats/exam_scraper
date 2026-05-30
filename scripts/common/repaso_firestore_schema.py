@@ -131,6 +131,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "incorrectChoice4Text",
         "knowledgeText",
         "explanationText",
+        "suggestedQuestions",
         "explanationImageUrls",
         "explanationImagePaths",
         "hintText",
@@ -256,9 +257,9 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
         "explanationImagePaths",
         "hintImageUrls",
         "hintImagePaths",
+        "suggestedQuestions",
     ):
         if list_key in doc and doc[list_key] is not None and not _is_list_of_str(doc[list_key]):
             raise ValueError(f"questions:{doc_id} {list_key} must be list[str]|null")
     if "deletedAt" in doc and doc["deletedAt"] is not None and not _is_timestamp_like(doc["deletedAt"]):
         raise ValueError(f"questions:{doc_id} deletedAt must be datetime|null")
-

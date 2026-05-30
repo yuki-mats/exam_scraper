@@ -13,6 +13,7 @@ from scripts.merge.merge_utils import (
 
 EXPLANATION_FIELDS = [
     "explanationText",
+    "suggestedQuestions",
     "explanation_common_prefix",
     "explanation_common_prefix_inferred_correct_choice",
     "explanation_common_summary",

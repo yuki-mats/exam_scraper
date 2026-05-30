@@ -134,6 +134,12 @@ def format_explanation_text(explanation_list: list) -> str:
     return "\n".join(explanation_list)
 
 
+def format_suggested_questions(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [question.strip() for question in value if isinstance(question, str) and question.strip()]
+
+
 def get_exam_name(question_body: dict) -> str:
     """
     question_body から試験名を取得する。存在しなければデフォルトを返す。
@@ -386,6 +392,9 @@ def create_firestore_question_base(
         "isOfficial": True,
         "isDeleted": False,
     })
+    suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
+    if suggested_questions:
+        firestore_question["suggestedQuestions"] = suggested_questions
     
     # 追加フィールドをマージ
     firestore_question.update(additional_fields)
@@ -645,6 +654,9 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
             "isOfficial": True,
             "isDeleted": False,
         }
+        suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
+        if suggested_questions:
+            firestore_question["suggestedQuestions"] = suggested_questions
         flat_choice_image_urls = flatten_choice_image_urls(choice_image_urls_by_choice)
         if flat_choice_image_urls:
             firestore_question["originalQuestionChoiceImageUrls"] = flat_choice_image_urls
