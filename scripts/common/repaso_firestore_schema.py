@@ -132,6 +132,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "knowledgeText",
         "explanationText",
         "suggestedQuestions",
+        "lawReferences",
         "explanationImageUrls",
         "explanationImagePaths",
         "hintText",
@@ -167,6 +168,22 @@ def _is_timestamp_like(value: Any) -> bool:
 
 def _is_list_of_str(value: Any) -> bool:
     return isinstance(value, list) and all(isinstance(v, str) for v in value)
+
+
+def _is_law_reference_list(value: Any) -> bool:
+    if not isinstance(value, list):
+        return False
+    for reference in value:
+        if not isinstance(reference, dict):
+            return False
+        for key, item in reference.items():
+            if key == "choiceIndex":
+                if not isinstance(item, int):
+                    return False
+                continue
+            if not isinstance(item, str):
+                return False
+    return True
 
 
 def _ensure_only_allowed_fields(schema: CollectionSchema, doc: dict[str, Any], *, doc_id: str) -> None:
@@ -261,5 +278,7 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     ):
         if list_key in doc and doc[list_key] is not None and not _is_list_of_str(doc[list_key]):
             raise ValueError(f"questions:{doc_id} {list_key} must be list[str]|null")
+    if "lawReferences" in doc and doc["lawReferences"] is not None and not _is_law_reference_list(doc["lawReferences"]):
+        raise ValueError(f"questions:{doc_id} lawReferences must be list<object>|null")
     if "deletedAt" in doc and doc["deletedAt"] is not None and not _is_timestamp_like(doc["deletedAt"]):
         raise ValueError(f"questions:{doc_id} deletedAt must be datetime|null")

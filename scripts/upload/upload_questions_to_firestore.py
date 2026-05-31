@@ -54,6 +54,7 @@ DOC_COMPARE_KEYS = (
     "correctChoiceText",
     "explanationText",
     "suggestedQuestions",
+    "lawReferences",
     "examYear",
     "examSource",
     "questionTags",
@@ -176,6 +177,7 @@ def build_doc_data_base(question: dict) -> dict:
     for opt_key in (
         "knowledgeText",
         "suggestedQuestions",
+        "lawReferences",
         "questionImageUrls",
         "importKey",
         "originalQuestionChoiceImageUrls",

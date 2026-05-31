@@ -191,11 +191,16 @@ def materialize_explanation(
     source_question: dict[str, Any],
     raw_entry: dict[str, Any],
 ) -> dict[str, Any]:
-    return {
+    materialized = {
         "explanationText": raw_entry.get("explanationText", []),
+        "suggestedQuestions": raw_entry.get("suggestedQuestions", []),
         "original_question_id": resolve_original_id(source_question),
         "question_url": source_question.get("question_url", ""),
     }
+    law_references = raw_entry.get("lawReferences")
+    if law_references is not None:
+        materialized["lawReferences"] = law_references
+    return materialized
 
 
 def materialize_question_set(

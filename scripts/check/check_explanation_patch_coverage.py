@@ -18,6 +18,15 @@ REQUIRED_FIELDS = [
     "question_url",
 ]
 
+ALLOWED_LAW_REFERENCE_ROLES = {"current_basis", "exam_time_basis"}
+ALLOWED_LAW_REFERENCE_SCOPES = {"question", "choice"}
+ALLOWED_LAW_REFERENCE_VERIFICATION_STATUS = {"verified", "candidate", "unverified"}
+ALLOWED_LAW_REFERENCE_COMPARISON_STATUS = {
+    "same_as_current",
+    "differs_from_current",
+    "not_checked",
+}
+
 
 def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as f:
@@ -37,6 +46,90 @@ def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
     if not isinstance(data, list):
         raise ValueError("patch JSON must be an array")
     return [q for q in data if isinstance(q, dict)]
+
+
+def validate_law_references_shape(
+    *,
+    law_references: Any,
+    choice_count: int,
+    index: int,
+    errors: List[str],
+) -> None:
+    if not isinstance(law_references, list):
+        errors.append(f"index {index}: lawReferences must be a list when present")
+        return
+    if len(law_references) != choice_count:
+        errors.append(
+            "index {}: lawReferences length mismatch (source={} patch={})".format(
+                index,
+                choice_count,
+                len(law_references),
+            )
+        )
+        return
+
+    for choice_index, choice_refs in enumerate(law_references):
+        if not isinstance(choice_refs, list):
+            errors.append(
+                f"index {index}: lawReferences[{choice_index}] must be list[object]"
+            )
+            continue
+        for ref_index, reference in enumerate(choice_refs):
+            if not isinstance(reference, dict):
+                errors.append(
+                    f"index {index}: lawReferences[{choice_index}][{ref_index}] must be object"
+                )
+                continue
+
+            role = reference.get("role")
+            if role not in ALLOWED_LAW_REFERENCE_ROLES:
+                errors.append(
+                    f"index {index}: lawReferences[{choice_index}][{ref_index}].role is invalid"
+                )
+
+            scope = reference.get("scope")
+            if scope not in ALLOWED_LAW_REFERENCE_SCOPES:
+                errors.append(
+                    f"index {index}: lawReferences[{choice_index}][{ref_index}].scope is invalid"
+                )
+            elif scope == "choice" and reference.get("choiceIndex") != choice_index:
+                errors.append(
+                    f"index {index}: lawReferences[{choice_index}][{ref_index}].choiceIndex must equal outer index"
+                )
+
+            verification_status = reference.get("verificationStatus")
+            if verification_status not in ALLOWED_LAW_REFERENCE_VERIFICATION_STATUS:
+                errors.append(
+                    f"index {index}: lawReferences[{choice_index}][{ref_index}].verificationStatus is invalid"
+                )
+
+            comparison_status = reference.get("comparisonStatus")
+            if comparison_status is not None and comparison_status not in ALLOWED_LAW_REFERENCE_COMPARISON_STATUS:
+                errors.append(
+                    f"index {index}: lawReferences[{choice_index}][{ref_index}].comparisonStatus is invalid"
+                )
+
+            for required_key in ("lawTitle", "referenceDate"):
+                value = reference.get(required_key)
+                if not isinstance(value, str) or not value.strip():
+                    errors.append(
+                        f"index {index}: lawReferences[{choice_index}][{ref_index}].{required_key} must be non-empty string"
+                    )
+
+            for optional_key in (
+                "lawId",
+                "lawRevisionId",
+                "article",
+                "paragraph",
+                "item",
+                "lawAlias",
+                "reason",
+            ):
+                value = reference.get(optional_key)
+                if value is not None and (not isinstance(value, str) or not value.strip()):
+                    errors.append(
+                        f"index {index}: lawReferences[{choice_index}][{ref_index}].{optional_key} must be non-empty string when present"
+                    )
 
 
 def compare_entries(
@@ -81,10 +174,10 @@ def compare_entries(
             )
 
         explanations = patch.get("explanationText")
+        choices = src.get("choiceTextList") or []
         if not isinstance(explanations, list):
             errors.append(f"index {idx}: explanationText must be a list")
         else:
-            choices = src.get("choiceTextList") or []
             if isinstance(choices, list) and len(explanations) != len(choices):
                 errors.append(
                     "index {}: explanationText length mismatch "
@@ -97,6 +190,14 @@ def compare_entries(
             for question in suggested_questions
         ):
             errors.append(f"index {idx}: suggestedQuestions must be non-empty list[str]")
+
+        if "lawReferences" in patch:
+            validate_law_references_shape(
+                law_references=patch.get("lawReferences"),
+                choice_count=len(choices) if isinstance(choices, list) else 0,
+                index=idx,
+                errors=errors,
+            )
 
     if len(set(patch_ids)) != len(patch_ids):
         warnings.append("duplicate original_question_id detected in patch")

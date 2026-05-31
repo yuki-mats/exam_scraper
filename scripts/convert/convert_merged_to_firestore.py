@@ -140,6 +140,77 @@ def format_suggested_questions(value: object) -> list[str]:
     return [question.strip() for question in value if isinstance(question, str) and question.strip()]
 
 
+def _normalize_law_reference_entry(value: object) -> dict[str, object] | None:
+    if not isinstance(value, dict):
+        return None
+
+    normalized: dict[str, object] = {}
+    for key in (
+        "role",
+        "scope",
+        "lawTitle",
+        "lawId",
+        "lawRevisionId",
+        "lawAlias",
+        "article",
+        "paragraph",
+        "item",
+        "referenceDate",
+        "reason",
+        "verificationStatus",
+        "comparisonStatus",
+    ):
+        raw = value.get(key)
+        if raw is None:
+            continue
+        text = raw.strip() if isinstance(raw, str) else raw
+        if isinstance(text, str) and not text:
+            continue
+        normalized[key] = text
+
+    choice_index = value.get("choiceIndex")
+    if isinstance(choice_index, int):
+        normalized["choiceIndex"] = choice_index
+    elif isinstance(choice_index, str) and choice_index.strip().isdigit():
+        normalized["choiceIndex"] = int(choice_index.strip())
+
+    return normalized or None
+
+
+def format_choice_law_references(value: object, choice_index: int) -> list[dict[str, object]]:
+    if not isinstance(value, list) or choice_index >= len(value):
+        return []
+    choice_refs = value[choice_index]
+    if not isinstance(choice_refs, list):
+        return []
+
+    normalized_refs: list[dict[str, object]] = []
+    for reference in choice_refs:
+        normalized = _normalize_law_reference_entry(reference)
+        if normalized is None:
+            continue
+        normalized_refs.append(normalized)
+    return normalized_refs
+
+
+def format_flat_law_references(value: object) -> list[dict[str, object]]:
+    if not isinstance(value, list):
+        return []
+    if value and isinstance(value[0], list):
+        flattened: list[dict[str, object]] = []
+        for idx, _ in enumerate(value):
+            flattened.extend(format_choice_law_references(value, idx))
+        return flattened
+
+    normalized_refs: list[dict[str, object]] = []
+    for reference in value:
+        normalized = _normalize_law_reference_entry(reference)
+        if normalized is None:
+            continue
+        normalized_refs.append(normalized)
+    return normalized_refs
+
+
 def get_exam_name(question_body: dict) -> str:
     """
     question_body から試験名を取得する。存在しなければデフォルトを返す。
@@ -395,7 +466,10 @@ def create_firestore_question_base(
     suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
     if suggested_questions:
         firestore_question["suggestedQuestions"] = suggested_questions
-    
+    law_references = format_flat_law_references(question_body.get("lawReferences", []))
+    if law_references:
+        firestore_question["lawReferences"] = law_references
+
     # 追加フィールドをマージ
     firestore_question.update(additional_fields)
     
@@ -477,6 +551,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             exam_source=exam_source,
             original_question_choice_text=choice_text,
             original_question_choice_image_urls=choice_images,
+            lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
         )
 
         firestore_questions.append(finalize_firestore_question(firestore_question))
@@ -547,6 +622,7 @@ def convert_group_select_to_firestore(
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
+                lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
         elif correctness in ("不正解", "間違い", "誤り"):
@@ -564,7 +640,8 @@ def convert_group_select_to_firestore(
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
-                isChoiceOnly=True
+                isChoiceOnly=True,
+                lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
 
@@ -585,6 +662,7 @@ def convert_group_select_to_firestore(
                 if choice_image_urls_by_choice
                 else []
             ),
+            lawReferences=format_choice_law_references(question_body.get("lawReferences", []), 0),
         )
         firestore_questions.append(finalize_firestore_question(firestore_question))
 
@@ -657,6 +735,9 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
         if suggested_questions:
             firestore_question["suggestedQuestions"] = suggested_questions
+        law_references = format_flat_law_references(question_body.get("lawReferences", []))
+        if law_references:
+            firestore_question["lawReferences"] = law_references
         flat_choice_image_urls = flatten_choice_image_urls(choice_image_urls_by_choice)
         if flat_choice_image_urls:
             firestore_question["originalQuestionChoiceImageUrls"] = flat_choice_image_urls

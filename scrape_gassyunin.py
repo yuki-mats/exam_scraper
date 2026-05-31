@@ -75,13 +75,15 @@ def apply_runtime_overrides_from_env() -> None:
 
 
 def build_year_url(year_token: str) -> str:
-    return f"https://gassyunin.com/exam/otsu/otsu_{year_token}/"
+    match = re.search(r"/exam/(?P<track>[^/]+)/(?P=track)_\d{4}/?$", LIST_FIRST_PAGE_URL)
+    track = match.group("track") if match else "otsu"
+    return f"https://gassyunin.com/exam/{track}/{track}_{year_token}/"
 
 
 def extract_output_list_group_id(target_url: str) -> str | None:
-    match = re.search(r"otsu_(\d{4})/?$", target_url)
+    match = re.search(r"/exam/(?P<track>[^/]+)/(?P=track)_(\d{4})/?$", target_url)
     if match:
-        return match.group(1)
+        return match.group(2)
     return None
 
 

@@ -32,7 +32,8 @@
 1. `20_merged_1/question_*_merged.json`
 2. 必要時のみ同一 `list_group_id` の `23_correctChoiceText_fixed/`
 3. 必要時のみ `00_source/`
-4. 受験者が納得できる説明に必要な根拠・定義・条文確認のための、信頼できる外部Web一次情報
+4. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令参照方針
+5. 受験者が納得できる説明に必要な根拠・定義・条文確認のための、信頼できる外部Web一次情報
 
 `20_merged_1` にある以下の値を主に使うこと。
 
@@ -44,8 +45,11 @@
 - `explanation_common_prefix`
 - `explanation_common_summary`
 - `explanation_choice_snippets`
+- `examYear`
+- `examOccurrenceId`
 - `original_question_id`
 - `question_url`
+- `source_question_id`
 
 ## `suggestedQuestions` の生成方針
 
@@ -80,9 +84,12 @@
 - 出力先は `21_explanationText_added/`
 - ファイル名は `question_xxx_merged_explanationText_added_YYYYMMDD_HHMM.json`
 - 出力配列順は元の `question_bodies` と完全一致させる
-- 各要素は `original_question_id`、`question_url`、`explanationText`、`suggestedQuestions` を持つ
+- 各要素は `original_question_id`、`question_url`、`explanationText`、`suggestedQuestions`、法令問題では `lawReferences` を持つ
 - `explanationText` は必ず `choiceTextList` と同じ長さの配列にする
 - `suggestedQuestions` は必ず文字列配列にし、3 件を基本とする
+- `lawReferences` は選択肢ごとの配列にし、外側配列の長さを `choiceTextList` と一致させる。各要素は、その選択肢に紐づく法令参照オブジェクト配列にする
+- 法令問題でない場合、または法令条項を正誤判断の根拠にしない問題では `lawReferences` を作らず、省略する
+- 法令問題でも、特定の選択肢に紐づく検証済み条文がない場合、その選択肢の `lawReferences` は空配列 `[]` にする
 - 全体解説だけを別要素で追加してはいけない
 
 ## `explanationText` の品質定義
@@ -107,6 +114,140 @@
 建築基準法、施行令、告示、条例、各種関連法（例: 耐震改修法、品確法等）の解釈・適否を問う「法令の問題」である場合は、受験者が確認できるように、該当する法令名と条項（条・項・号まで）を必ず明記する。
 
 条項は、判断根拠として使った選択肢の `explanationText` 内に書く（URLは書かない）。
+
+### `lawReferences` を作る条件 / 作らない条件
+
+`lawReferences` は、法令・政令・省令・告示・条例・通達・制度上の義務/定義/基準/数値が、選択肢の正誤判断に直接必要な場合だけ作る。
+
+次の場合は `lawReferences` を作る。
+
+- 問題カテゴリが「法令」などで、条文・定義・義務・手続・数値基準を根拠に正誤を判断する
+- `explanation_choice_snippets` や `00_source/` に `📌 関連: 法2条`、`規則3条の2`、`技省令15条` などの条文候補がある
+- 解説本文に法令名と条項を明記しないと、受験者が判断根拠を確認できない
+- 現行法と出題当時法令の差分が、過去問の元正答や誤り理由に影響する
+
+次の場合は `lawReferences` を作らない。
+
+- 計算問題、施工手順、技術原理、材料・機器の性質、統計、一般知識など、条文そのものを根拠にしない
+- 法令名が背景として出るだけで、正誤判断は技術基準・計算式・実務上の性質で完結する
+- 条文候補を特定できず、推測でしか法令ID・条・項・号を書けない
+- その選択肢の解説に法令条項を明記する必要がない
+
+法令問題か迷う場合は、`explanationText` に「○○法第○条」などの根拠条項を書く必要があるかで判断する。必要がなければ `lawReferences` は作らない。
+
+法令問題では、原則として現行法を学習の正本にする。過去問が出題当時の条文や改正前の制度に基づく場合でも、`explanationText` ではまず現行法でどう理解すべきかを説明し、そのうえで必要な場合だけ「出題当時はこの条文・表現だったため、過去問としてはこの判定になる」と補足する。
+
+現行法と出題当時法令が異なる場合は、違いを隠してはいけない。次を分けて書く。
+
+- 現行法ではどの条文・定義・数値・主体・義務が正しいか
+- 出題当時法令ではどの記述だったか
+- その差分により、過去問の元正答と現在の学習上の理解がどう関係するか
+
+問題データには、上記条件を満たす場合だけ `lawReferences` も作る。`lawReferences` は、アプリ内の関連法令表示と AI 補足回答の引用根拠として使う。
+
+`lawReferences` の参照オブジェクトの基本形は次の通り。これは選択肢ごとの配列の中に入れる。
+
+```json
+{
+  "role": "current_basis",
+  "scope": "choice",
+  "choiceIndex": 0,
+  "lawId": "329AC0000000051",
+  "lawRevisionId": "329AC0000000051_20251225_506AC0000000067",
+  "lawTitle": "ガス事業法",
+  "lawAlias": "法",
+  "referenceDate": "2026-06-01",
+  "effectiveDate": "2025-12-25",
+  "article": "2",
+  "articleTitle": "定義",
+  "paragraph": "1",
+  "item": null,
+  "subitem": null,
+  "verificationStatus": "verified",
+  "source": "egov_xml"
+}
+```
+
+出力上は次のように、`choiceTextList` と同じ長さの外側配列にする。
+
+```json
+{
+  "lawReferences": [
+    [
+      {
+        "role": "current_basis",
+        "scope": "choice",
+        "choiceIndex": 0,
+        "lawId": "329AC0000000051",
+        "lawRevisionId": "329AC0000000051_20251225_506AC0000000067",
+        "lawTitle": "ガス事業法",
+        "lawAlias": "法",
+        "referenceDate": "2026-06-01",
+        "effectiveDate": "2025-12-25",
+        "article": "2",
+        "articleTitle": "定義",
+        "paragraph": "1",
+        "item": null,
+        "subitem": null,
+        "verificationStatus": "verified",
+        "source": "egov_xml"
+      }
+    ],
+    [],
+    []
+  ]
+}
+```
+
+`role` は次の2種類を使う。
+
+- `current_basis`: 現行法の学習・解説・AI引用の主根拠。
+- `exam_time_basis`: 出題当時法令の確認用。過去問の元正答や改正前後の差分を説明する補助根拠。
+
+通常は、まず `current_basis` を作る。`exam_time_basis` は、出題当時法令を確認でき、かつ現行法との比較が解説上有用な場合だけ追加する。
+
+`exam_time_basis` を追加する場合は、`comparisonStatus` と `differenceNote` もできるだけ入れる。
+
+```json
+{
+  "role": "exam_time_basis",
+  "scope": "choice",
+  "choiceIndex": 0,
+  "lawId": "329AC0000000051",
+  "lawRevisionId": "329AC0000000051_20170401_xxxxxxxxxxxx",
+  "lawTitle": "ガス事業法",
+  "lawAlias": "法",
+  "referenceDate": "2017-09-24",
+  "effectiveDate": "2017-04-01",
+  "article": "2",
+  "articleTitle": "定義",
+  "paragraph": "1",
+  "item": null,
+  "subitem": null,
+  "verificationStatus": "verified",
+  "source": "egov_xml",
+  "comparisonStatus": "differs_from_current",
+  "differenceNote": "出題当時は○○という表現だったが、現行法では□□に整理されている。"
+}
+```
+
+`comparisonStatus` は次の値だけを使う。
+
+- `same_as_current`: 出題当時法令と現行法の判断に差がない
+- `differs_from_current`: 出題当時法令と現行法の条文・数値・主体・対象範囲などに差がある
+- `not_checked`: 出題当時法令との比較が未確認
+
+`lawReferences` には条文本文を入れない。本文はアプリ側の法令 bundle で `lawId` / `lawRevisionId` / `article` / `paragraph` / `item` から解決する。
+
+`verificationStatus` は次の値だけを使う。
+
+- `verified`: e-Gov XML、官公庁一次情報、またはローカル法令 bundle で、法令ID・条・項・号まで確認できた
+- `candidate`: `explanation_choice_snippets` などから候補は見えるが、法令ID・条項の照合が完了していない
+- `unverified`: 法令参照が必要そうだが、条項特定や照合ができていない
+
+`verificationStatus` が `verified` でない条文は、断定的な引用根拠として使ってはいけない。候補段階では `candidate` または `unverified` とし、作業報告に要確認として残す。`candidate` / `unverified` のまま出力する場合は、`explanationText` 内で断定的な条項引用をしない。
+
+`lawId`、`lawRevisionId`、`article`、`paragraph`、`item`、`subitem` は、確認できた範囲だけを書く。存在しない項・号を補完してはいけない。条だけ確認でき、項・号が不明な場合は `paragraph` / `item` を `null` にする。
 
 条項を明記する際は、推測で補ってはいけない。ローカル成果物、`00_source/`、または信頼できる外部Web一次情報（例: e-Gov法令検索、官公庁・自治体の公式資料等）で確認できる場合に限って断定する。
 
