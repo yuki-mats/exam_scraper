@@ -52,35 +52,35 @@ LAW_METADATA: dict[str, dict[str, str]] = {
     "土地区画整理法": {"lawTitle": "土地区画整理法", "lawId": "329AC0000000119", "verificationStatus": "verified"},
     "住宅の品質確保の促進等に関する法律": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "品確法": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "住宅品質確保法": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "長期優良住宅の普及の促進に関する法律": {
         "lawTitle": "長期優良住宅の普及の促進に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "建築物の耐震改修の促進に関する法律": {
         "lawTitle": "建築物の耐震改修の促進に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "都市の低炭素化の促進に関する法律": {
         "lawTitle": "都市の低炭素化の促進に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "高齢者、障害者等の移動等の円滑化の促進に関する法律": {
         "lawTitle": "高齢者、障害者等の移動等の円滑化の促進に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "バリアフリー法": {
         "lawTitle": "高齢者、障害者等の移動等の円滑化の促進に関する法律",
-        "verificationStatus": "verified",
+        "verificationStatus": "candidate",
     },
     "宅地造成及び特定盛土等規制法": {
         "lawTitle": "宅地造成及び特定盛土等規制法",

@@ -79,6 +79,7 @@ class Build2ndClassKenchikushiLawExplanationPatchesTest(unittest.TestCase):
             {
                 "lawTitle": "建築基準法施行令",
                 "lawAlias": "令",
+                "lawId": "325CO0000000338",
                 "referenceDate": "2026-06-01",
                 "verificationStatus": "verified",
                 "article": "1条",

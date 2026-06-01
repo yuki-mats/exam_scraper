@@ -31,6 +31,7 @@
 次の扱いは禁止する。
 
 - `📌 関連:` だけを根拠に `verificationStatus="verified"` とする
+- `lawId` または `article` を確認できていない参照を `verificationStatus="verified"` とする
 - 条文本文を確認せず、条・項・号を補完する
 - 現行法で改正済みの可能性を確認せず、過去問当時の説明だけを書く
 
@@ -49,4 +50,5 @@
 - `lawReferences` の外側配列は `choiceTextList` と同じ長さにする。
 - 選択肢ごとに根拠条文が複数ある場合は、その選択肢の配列内に複数オブジェクトを入れる。
 - 選択肢に根拠条文がない場合は、その選択肢の要素を `[]` にする。
+- `verificationStatus="verified"` の参照は、e-Gov の正式な `lawId` と `article` を必ず入れる。
 - ガス主任甲種でも、過去問本文が「正しいものはどれか」「誤っているものはいくつあるか」でも、アプリ側では各選択肢の `correctChoiceText` が `正しい` / `間違い` で保存される。解説と `lawReferences` は選択肢単位で作る。

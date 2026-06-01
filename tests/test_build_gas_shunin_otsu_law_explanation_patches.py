@@ -44,6 +44,7 @@ class BuildGasShuninOtsuLawExplanationPatchesTest(unittest.TestCase):
             {
                 "lawTitle": "ガス関係報告規則",
                 "lawAlias": "ガス関係報告規則",
+                "lawId": "429M60000400016",
                 "referenceDate": "2026-06-01",
                 "verificationStatus": "verified",
                 "article": "4条",

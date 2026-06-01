@@ -160,6 +160,17 @@
 
 問題データには、上記条件を満たす場合だけ `lawReferences` も作る。`lawReferences` は、アプリ内の関連法令表示と AI 補足回答の引用根拠として使う。
 
+### `lawId` 紐付けの必須条件
+
+アプリは、原則として `role="current_basis"` かつ `verificationStatus="verified"` かつ `lawId` と `article` が非空の参照だけを、関連法令表示、e-Gov API 取得、Pro 向け AI 補足回答の条文本文注入の対象にする。したがって、最終成果物で `verified` として出す法令参照では、`lawId` と `article` の紐付けを必須とする。
+
+- `lawId` には e-Gov の正式な法令IDを入れる。法令名、略称、URL、空文字、`null`、`TODO`、`不明`、推測値を入れてはいけない。
+- `article` には条番号を入れる。条番号を確認できない場合は `verified` にしない。
+- `verificationStatus="verified"` は、少なくとも `lawId` / `lawTitle` / `article` まで一次情報または確認済みローカル成果物で照合できた場合だけ使う。
+- `lawAlias` は表示・読解補助であり、`lawId` の代替にしてはいけない。
+- 既知の法令名でも、アプリ側の自動補完に依存しない。生成データには `lawId` を明示する。
+- `lawId` を確認できない条文候補は、`verified` として出さない。調査途中の候補として残す場合は `candidate` / `unverified` とし、最終アップロード前に repair する。
+
 `lawReferences` の参照オブジェクトの基本形は次の通り。これは選択肢ごとの配列の中に入れる。
 
 ```json
@@ -253,6 +264,8 @@
 - `not_checked`: 出題当時法令との比較が未確認
 
 `lawReferences` には条文本文を入れない。現行法の本文はアプリ実行時に e-Gov 法令APIから `lawId` / `article` で取得し、端末内ローカルDBに保存する。出題当時法令の本文取得は別フェーズで扱う。
+
+実装上、`lawId` または `article` が欠けた `verified` 参照は、検証スクリプトおよび Firestore upload 前 schema validation で失敗させる。`candidate` / `unverified` は調査中の印として扱い、アプリの関連法令取得・Pro 向け条文本文注入の正本にしてはいけない。
 
 `verificationStatus` は次の値だけを使う。
 
@@ -512,6 +525,8 @@ python3 scripts/fix/archive_patch_outputs.py \
 - 間違いの選択肢で、誤っている語句・条件・数値・関係が明示されているか
 - 間違いの選択肢で、正しい内容が書かれているか
 - 法令が論点の設問で、法令名と条（必要なら項・号）が `explanationText` に明記されているか（URLは書かない）。
+- `verificationStatus="verified"` の `lawReferences` に `lawId` と `article` が非空で入っているか
+- `lawId` が法令名・略称・URL・`TODO`・`不明` ではなく、e-Gov の正式な法令IDになっているか
 - 法令・数値・定義を、根拠なしに推測していないか
 - `設問の通りです`、`記述は正しいです`、`正解です` だけで終わっていないか
 - 選択肢本文をただ言い換えただけになっていないか

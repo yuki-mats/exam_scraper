@@ -27,7 +27,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                         "role": "current_basis",
                         "scope": "choice",
                         "choiceIndex": 0,
+                        "lawId": "329AC0000000051",
                         "lawTitle": "ガス事業法",
+                        "article": "2条",
                         "referenceDate": "current",
                         "verificationStatus": "verified",
                     }
@@ -69,7 +71,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                             "role": "current_basis",
                             "scope": "choice",
                             "choiceIndex": 0,
+                            "lawId": "329AC0000000051",
                             "lawTitle": "ガス事業法",
+                            "article": "2条",
                             "referenceDate": "current",
                             "verificationStatus": "verified",
                         }
@@ -83,6 +87,45 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
 
         self.assertEqual(errors, [])
         self.assertEqual(warnings, [])
+
+    def test_compare_entries_rejects_verified_law_reference_without_law_id(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["解説1"],
+                "suggestedQuestions": ["なぜそうなる？"],
+                "suggestedQuestionDetails": [
+                    {"question": "なぜそうなる？", "answer": "定義条文を確認すると判断できる。"},
+                ],
+                "lawReferences": [
+                    [
+                        {
+                            "role": "current_basis",
+                            "scope": "choice",
+                            "choiceIndex": 0,
+                            "lawTitle": "ガス事業法",
+                            "article": "2条",
+                            "referenceDate": "current",
+                            "verificationStatus": "verified",
+                        }
+                    ],
+                ],
+            }
+        ]
+
+        errors, _ = compare_entries(source_questions, patch_entries)
+
+        self.assertTrue(
+            any(".lawId is required for verified lawReferences" in error for error in errors)
+        )
 
     def test_compare_entries_rejects_mismatched_suggested_question_details(self) -> None:
         source_questions = [
@@ -123,7 +166,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                         "role": "current_basis",
                         "scope": "choice",
                         "choiceIndex": 0,
+                        "lawId": "329AC0000000051",
                         "lawTitle": "ガス事業法",
+                        "article": "2条",
                         "referenceDate": "current",
                         "verificationStatus": "verified",
                     }
@@ -133,7 +178,9 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                         "role": "current_basis",
                         "scope": "choice",
                         "choiceIndex": 1,
+                        "lawId": "345M50000400097",
                         "lawTitle": "ガス事業法施行規則",
+                        "article": "3条の2",
                         "referenceDate": "current",
                         "verificationStatus": "verified",
                     }

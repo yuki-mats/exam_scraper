@@ -27,6 +27,7 @@ ALLOWED_LAW_REFERENCE_COMPARISON_STATUS = {
     "differs_from_current",
     "not_checked",
 }
+LAW_REFERENCE_PLACEHOLDERS = {"", "不明", "未確認", "TODO", "TBD", "N/A", "null", "None"}
 
 
 def load_json(path: Path) -> Any:
@@ -178,6 +179,14 @@ def validate_law_references_shape(
                     errors.append(
                         f"index {index}: lawReferences[{choice_index}][{ref_index}].{optional_key} must be non-empty string when present"
                     )
+
+            if verification_status == "verified":
+                for verified_key in ("lawId", "article"):
+                    value = reference.get(verified_key)
+                    if not isinstance(value, str) or value.strip() in LAW_REFERENCE_PLACEHOLDERS:
+                        errors.append(
+                            f"index {index}: lawReferences[{choice_index}][{ref_index}].{verified_key} is required for verified lawReferences"
+                        )
 
 
 def compare_entries(

@@ -184,6 +184,11 @@ def _is_law_reference_list(value: Any) -> bool:
                 continue
             if not isinstance(item, str):
                 return False
+        if reference.get("verificationStatus") == "verified":
+            law_id = reference.get("lawId")
+            article = reference.get("article")
+            if not _is_non_empty_str(law_id) or not _is_non_empty_str(article):
+                return False
     return True
 
 
