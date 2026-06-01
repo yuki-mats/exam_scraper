@@ -194,6 +194,7 @@ def materialize_explanation(
     materialized = {
         "explanationText": raw_entry.get("explanationText", []),
         "suggestedQuestions": raw_entry.get("suggestedQuestions", []),
+        "suggestedQuestionDetails": raw_entry.get("suggestedQuestionDetails", []),
         "original_question_id": resolve_original_id(source_question),
         "question_url": source_question.get("question_url", ""),
     }

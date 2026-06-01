@@ -140,6 +140,28 @@ def format_suggested_questions(value: object) -> list[str]:
     return [question.strip() for question in value if isinstance(question, str) and question.strip()]
 
 
+def format_suggested_question_details(value: object) -> list[dict[str, str]]:
+    if not isinstance(value, list):
+        return []
+    normalized_details: list[dict[str, str]] = []
+    for detail in value:
+        if not isinstance(detail, dict):
+            continue
+        question = detail.get("question")
+        answer = detail.get("answer")
+        if not isinstance(question, str) or not question.strip():
+            continue
+        if not isinstance(answer, str) or not answer.strip():
+            continue
+        normalized_details.append(
+            {
+                "question": question.strip(),
+                "answer": answer.strip(),
+            }
+        )
+    return normalized_details
+
+
 def _normalize_law_reference_entry(value: object) -> dict[str, object] | None:
     if not isinstance(value, dict):
         return None
@@ -466,6 +488,11 @@ def create_firestore_question_base(
     suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
     if suggested_questions:
         firestore_question["suggestedQuestions"] = suggested_questions
+    suggested_question_details = format_suggested_question_details(
+        question_body.get("suggestedQuestionDetails", [])
+    )
+    if suggested_question_details:
+        firestore_question["suggestedQuestionDetails"] = suggested_question_details
     law_references = format_flat_law_references(question_body.get("lawReferences", []))
     if law_references:
         firestore_question["lawReferences"] = law_references
@@ -735,6 +762,11 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         suggested_questions = format_suggested_questions(question_body.get("suggestedQuestions", []))
         if suggested_questions:
             firestore_question["suggestedQuestions"] = suggested_questions
+        suggested_question_details = format_suggested_question_details(
+            question_body.get("suggestedQuestionDetails", [])
+        )
+        if suggested_question_details:
+            firestore_question["suggestedQuestionDetails"] = suggested_question_details
         law_references = format_flat_law_references(question_body.get("lawReferences", []))
         if law_references:
             firestore_question["lawReferences"] = law_references

@@ -14,6 +14,7 @@ from scripts.merge.merge_utils import (
 EXPLANATION_FIELDS = [
     "explanationText",
     "suggestedQuestions",
+    "suggestedQuestionDetails",
     "lawReferences",
     "explanation_common_prefix",
     "explanation_common_prefix_inferred_correct_choice",

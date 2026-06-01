@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Tuple
 REQUIRED_FIELDS = [
     "explanationText",
     "suggestedQuestions",
+    "suggestedQuestionDetails",
     "original_question_id",
     "question_url",
 ]
@@ -46,6 +47,53 @@ def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
     if not isinstance(data, list):
         raise ValueError("patch JSON must be an array")
     return [q for q in data if isinstance(q, dict)]
+
+
+def validate_suggested_question_details(
+    *,
+    suggested_questions: Any,
+    suggested_question_details: Any,
+    index: int,
+    errors: List[str],
+) -> None:
+    if not isinstance(suggested_question_details, list):
+        errors.append(f"index {index}: suggestedQuestionDetails must be list[object]")
+        return
+    if not isinstance(suggested_questions, list):
+        errors.append(
+            f"index {index}: suggestedQuestionDetails requires suggestedQuestions to be list[str]"
+        )
+        return
+    if len(suggested_question_details) != len(suggested_questions):
+        errors.append(
+            "index {}: suggestedQuestionDetails length mismatch (questions={} details={})".format(
+                index,
+                len(suggested_questions),
+                len(suggested_question_details),
+            )
+        )
+        return
+
+    for detail_index, detail in enumerate(suggested_question_details):
+        if not isinstance(detail, dict):
+            errors.append(
+                f"index {index}: suggestedQuestionDetails[{detail_index}] must be object"
+            )
+            continue
+        question = detail.get("question")
+        answer = detail.get("answer")
+        if not isinstance(question, str) or not question.strip():
+            errors.append(
+                f"index {index}: suggestedQuestionDetails[{detail_index}].question must be non-empty string"
+            )
+        elif question != suggested_questions[detail_index]:
+            errors.append(
+                f"index {index}: suggestedQuestionDetails[{detail_index}].question must match suggestedQuestions[{detail_index}]"
+            )
+        if not isinstance(answer, str) or not answer.strip():
+            errors.append(
+                f"index {index}: suggestedQuestionDetails[{detail_index}].answer must be non-empty string"
+            )
 
 
 def validate_law_references_shape(
@@ -190,6 +238,13 @@ def compare_entries(
             for question in suggested_questions
         ):
             errors.append(f"index {idx}: suggestedQuestions must be non-empty list[str]")
+
+        validate_suggested_question_details(
+            suggested_questions=suggested_questions,
+            suggested_question_details=patch.get("suggestedQuestionDetails"),
+            index=idx,
+            errors=errors,
+        )
 
         if "lawReferences" in patch:
             validate_law_references_shape(

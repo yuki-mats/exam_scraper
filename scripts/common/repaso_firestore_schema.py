@@ -132,6 +132,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "knowledgeText",
         "explanationText",
         "suggestedQuestions",
+        "suggestedQuestionDetails",
         "lawReferences",
         "explanationImageUrls",
         "explanationImagePaths",
@@ -183,6 +184,24 @@ def _is_law_reference_list(value: Any) -> bool:
                 continue
             if not isinstance(item, str):
                 return False
+    return True
+
+
+def _is_suggested_question_detail_list(value: Any) -> bool:
+    if not isinstance(value, list):
+        return False
+    for detail in value:
+        if not isinstance(detail, dict):
+            return False
+        question = detail.get("question")
+        answer = detail.get("answer")
+        if not _is_non_empty_str(question):
+            return False
+        if not _is_non_empty_str(answer):
+            return False
+        extra = sorted(set(detail.keys()) - {"question", "answer"})
+        if extra:
+            return False
     return True
 
 
@@ -280,5 +299,7 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
             raise ValueError(f"questions:{doc_id} {list_key} must be list[str]|null")
     if "lawReferences" in doc and doc["lawReferences"] is not None and not _is_law_reference_list(doc["lawReferences"]):
         raise ValueError(f"questions:{doc_id} lawReferences must be list<object>|null")
+    if "suggestedQuestionDetails" in doc and doc["suggestedQuestionDetails"] is not None and not _is_suggested_question_detail_list(doc["suggestedQuestionDetails"]):
+        raise ValueError(f"questions:{doc_id} suggestedQuestionDetails must be list<object>|null")
     if "deletedAt" in doc and doc["deletedAt"] is not None and not _is_timestamp_like(doc["deletedAt"]):
         raise ValueError(f"questions:{doc_id} deletedAt must be datetime|null")
