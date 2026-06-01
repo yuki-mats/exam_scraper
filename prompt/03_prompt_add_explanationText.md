@@ -252,11 +252,11 @@
 - `differs_from_current`: 出題当時法令と現行法の条文・数値・主体・対象範囲などに差がある
 - `not_checked`: 出題当時法令との比較が未確認
 
-`lawReferences` には条文本文を入れない。本文はアプリ側の法令 bundle で `lawId` / `lawRevisionId` / `article` / `paragraph` / `item` から解決する。
+`lawReferences` には条文本文を入れない。現行法の本文はアプリ実行時に e-Gov 法令APIから `lawId` / `article` で取得し、端末内ローカルDBに保存する。出題当時法令の本文取得は別フェーズで扱う。
 
 `verificationStatus` は次の値だけを使う。
 
-- `verified`: e-Gov XML、官公庁一次情報、またはローカル法令 bundle で、法令ID・条・項・号まで確認できた
+- `verified`: e-Gov XML、官公庁一次情報、または確認済みローカル成果物で、法令ID・条・項・号まで確認できた
 - `candidate`: `explanation_choice_snippets` などから候補は見えるが、法令ID・条項の照合が完了していない
 - `unverified`: 法令参照が必要そうだが、条項特定や照合ができていない
 
