@@ -26,7 +26,24 @@ def iter_question_files(list_group_dir: Path) -> list[Path]:
     return []
 
 
-def collect_targets(base_dir: Path) -> dict[str, Any]:
+def matches_category(
+    question: dict[str, Any],
+    *,
+    category_equals: str,
+    category_contains: str | None,
+) -> bool:
+    category = str(question.get("category") or "")
+    if category_contains:
+        return category_contains in category
+    return category == category_equals
+
+
+def collect_targets(
+    base_dir: Path,
+    *,
+    category_equals: str = "法令",
+    category_contains: str | None = None,
+) -> dict[str, Any]:
     years: list[dict[str, Any]] = []
     total_law_questions = 0
 
@@ -45,7 +62,11 @@ def collect_targets(base_dir: Path) -> dict[str, Any]:
             for question in question_bodies:
                 if not isinstance(question, dict):
                     continue
-                if question.get("category") != "法令":
+                if not matches_category(
+                    question,
+                    category_equals=category_equals,
+                    category_contains=category_contains,
+                ):
                     continue
                 law_questions.append(
                     {
@@ -90,13 +111,27 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="法令問題の explanation 対象一覧を出力する")
     parser.add_argument("base_dir", help="output/<qualification>/questions_json")
     parser.add_argument("--output", help="manifest 保存先 JSON")
+    parser.add_argument(
+        "--category-equals",
+        default="法令",
+        help="一致させる category（デフォルト: 法令）",
+    )
+    parser.add_argument(
+        "--category-contains",
+        default=None,
+        help="category の部分一致条件。指定時は --category-equals より優先する",
+    )
     args = parser.parse_args()
 
     base_dir = Path(args.base_dir).expanduser().resolve()
     if not base_dir.exists():
         raise SystemExit(f"base_dir not found: {base_dir}")
 
-    manifest = collect_targets(base_dir)
+    manifest = collect_targets(
+        base_dir,
+        category_equals=args.category_equals,
+        category_contains=args.category_contains,
+    )
     if args.output:
         output_path = Path(args.output).expanduser().resolve()
         output_path.parent.mkdir(parents=True, exist_ok=True)
