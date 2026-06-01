@@ -33,23 +33,23 @@ PAREN_REFERENCE_RE = re.compile(r"[（(]([^()（）]{1,120})[)）]")
 
 
 LAW_METADATA: dict[str, dict[str, str]] = {
-    "建築基準法施行規則": {"lawTitle": "建築基準法施行規則", "verificationStatus": "verified"},
-    "建築基準法施行令": {"lawTitle": "建築基準法施行令", "verificationStatus": "verified"},
-    "建築基準法": {"lawTitle": "建築基準法", "verificationStatus": "verified"},
-    "基準法施行規則": {"lawTitle": "建築基準法施行規則", "verificationStatus": "verified"},
-    "基準法施行令": {"lawTitle": "建築基準法施行令", "verificationStatus": "verified"},
-    "基準法": {"lawTitle": "建築基準法", "verificationStatus": "verified"},
-    "建築士法施行規則": {"lawTitle": "建築士法施行規則", "verificationStatus": "verified"},
-    "士法施行規則": {"lawTitle": "建築士法施行規則", "verificationStatus": "verified"},
-    "士法施工規則": {"lawTitle": "建築士法施行規則", "verificationStatus": "verified"},
-    "建築士法": {"lawTitle": "建築士法", "verificationStatus": "verified"},
-    "士法": {"lawTitle": "建築士法", "verificationStatus": "verified"},
-    "都市計画法": {"lawTitle": "都市計画法", "verificationStatus": "verified"},
-    "建設業法": {"lawTitle": "建設業法", "verificationStatus": "verified"},
-    "下水道法": {"lawTitle": "下水道法", "verificationStatus": "verified"},
-    "消防法": {"lawTitle": "消防法", "verificationStatus": "verified"},
-    "民法": {"lawTitle": "民法", "verificationStatus": "verified"},
-    "土地区画整理法": {"lawTitle": "土地区画整理法", "verificationStatus": "verified"},
+    "建築基準法施行規則": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "verified"},
+    "建築基準法施行令": {"lawTitle": "建築基準法施行令", "lawId": "325CO0000000338", "verificationStatus": "verified"},
+    "建築基準法": {"lawTitle": "建築基準法", "lawId": "325AC0000000201", "verificationStatus": "verified"},
+    "基準法施行規則": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "verified"},
+    "基準法施行令": {"lawTitle": "建築基準法施行令", "lawId": "325CO0000000338", "verificationStatus": "verified"},
+    "基準法": {"lawTitle": "建築基準法", "lawId": "325AC0000000201", "verificationStatus": "verified"},
+    "建築士法施行規則": {"lawTitle": "建築士法施行規則", "lawId": "325M50004000038", "verificationStatus": "verified"},
+    "士法施行規則": {"lawTitle": "建築士法施行規則", "lawId": "325M50004000038", "verificationStatus": "verified"},
+    "士法施工規則": {"lawTitle": "建築士法施行規則", "lawId": "325M50004000038", "verificationStatus": "verified"},
+    "建築士法": {"lawTitle": "建築士法", "lawId": "325AC1000000202", "verificationStatus": "verified"},
+    "士法": {"lawTitle": "建築士法", "lawId": "325AC1000000202", "verificationStatus": "verified"},
+    "都市計画法": {"lawTitle": "都市計画法", "lawId": "343AC0000000100", "verificationStatus": "verified"},
+    "建設業法": {"lawTitle": "建設業法", "lawId": "324AC0000000100", "verificationStatus": "verified"},
+    "下水道法": {"lawTitle": "下水道法", "lawId": "333AC0000000079", "verificationStatus": "verified"},
+    "消防法": {"lawTitle": "消防法", "lawId": "323AC1000000186", "verificationStatus": "verified"},
+    "民法": {"lawTitle": "民法", "lawId": "129AC0000000089", "verificationStatus": "verified"},
+    "土地区画整理法": {"lawTitle": "土地区画整理法", "lawId": "329AC0000000119", "verificationStatus": "verified"},
     "住宅の品質確保の促進等に関する法律": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
         "verificationStatus": "verified",
@@ -91,11 +91,11 @@ LAW_METADATA: dict[str, dict[str, str]] = {
         "verificationStatus": "candidate",
     },
     "告示": {"lawTitle": "国土交通大臣告示", "verificationStatus": "candidate"},
-    "規則": {"lawTitle": "建築基準法施行規則", "verificationStatus": "candidate"},
-    "施行規則": {"lawTitle": "建築基準法施行規則", "verificationStatus": "candidate"},
-    "施行令": {"lawTitle": "建築基準法施行令", "verificationStatus": "verified"},
-    "令": {"lawTitle": "建築基準法施行令", "verificationStatus": "verified"},
-    "法": {"lawTitle": "建築基準法", "verificationStatus": "verified"},
+    "規則": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "candidate"},
+    "施行規則": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "candidate"},
+    "施行令": {"lawTitle": "建築基準法施行令", "lawId": "325CO0000000338", "verificationStatus": "verified"},
+    "令": {"lawTitle": "建築基準法施行令", "lawId": "325CO0000000338", "verificationStatus": "verified"},
+    "法": {"lawTitle": "建築基準法", "lawId": "325AC0000000201", "verificationStatus": "verified"},
 }
 
 ALIASES = sorted(LAW_METADATA.keys(), key=len, reverse=True)
@@ -274,6 +274,8 @@ def parse_reference_token(
         "reason": token,
         "article": article,
     }
+    if metadata.get("lawId"):
+        reference["lawId"] = metadata["lawId"]
     if paragraph:
         reference["paragraph"] = paragraph
     if item:
