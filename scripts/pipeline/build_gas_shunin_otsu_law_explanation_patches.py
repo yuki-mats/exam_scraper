@@ -21,8 +21,8 @@ TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M")
 
 REFERENCE_PATTERN = re.compile(r"📌 関連:\s*(.+)")
 WRONG_MARK_PATTERN = re.compile(r"\[wrong\](.*?)\[/wrong\]")
-ARTICLE_PATTERN = re.compile(r"(?P<article>\d+条(?:の\d+)?)")
-PARAGRAPH_PATTERN = re.compile(r"(?P<paragraph>\d+項)")
+ARTICLE_PATTERN = re.compile(r"(?P<article>(?:第)?\d+条(?:の\d+)?)")
+PARAGRAPH_PATTERN = re.compile(r"(?P<paragraph>(?:第)?\d+項)")
 ITEM_PATTERN = re.compile(r"(?P<item>[一二三四五六七八九十百]+号)")
 
 
@@ -199,12 +199,12 @@ def parse_reference_part(
         return None
 
     article_match = ARTICLE_PATTERN.search(remainder)
-    article = article_match.group("article") if article_match else None
+    article = article_match.group("article").lstrip("第") if article_match else None
     if not article:
         article = inherited.get("article") or context.raw_default_article
 
     paragraph_match = PARAGRAPH_PATTERN.search(remainder)
-    paragraph = paragraph_match.group("paragraph") if paragraph_match else None
+    paragraph = paragraph_match.group("paragraph").lstrip("第") if paragraph_match else None
     if not paragraph and part in {"1項", "2項", "3項", "4項", "5項"}:
         paragraph = part
     if not paragraph:
