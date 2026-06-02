@@ -6,6 +6,18 @@
 
 この監査では、`lawId` が入っていることだけでは合格にしない。`lawTitle`、`lawId`、`article`、`paragraph`、`item` が、問題文・選択肢・解説根拠と一致しているかを確認する。
 
+## `03_prompt_add_explanationText.md` との関係
+
+この手順は、`prompt/03_prompt_add_explanationText.md` で作成した `explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / `lawReferences` の QA 工程である。
+
+単独の別作業として扱わない。必ず次の流れで使う。
+
+1. `prompt/03_prompt_add_explanationText.md` を正本として解説 patch を作る。
+2. 二級建築士固有の法令短縮表記と文脈判断は、この手順書で確認する。
+3. 機械監査で `missingLawIdCount=0` と `candidateAliasCounts={}` を確認する。
+4. manual review sheet を生成し、1問ずつ `lawReferences` の妥当性を確認する。
+5. `needs_fix` が出た場合は、生成ロジックまたは patch を修正し、再度 03 prompt の完了条件まで戻して検証する。
+
 ## 入力
 
 監査者は、次の台帳を使う。
@@ -158,21 +170,25 @@ python3 scripts/check/audit_2nd_class_kenchikushi_law_explanation_quality.py --r
 あなたは二級建築士試験の法規問題について、lawReferences の目視監査だけを行う作業者です。
 
 目的:
-各問題の lawReferences が、選択肢の正誤根拠として正しい法令・条・項・号を指しているか確認してください。
+prompt/03_prompt_add_explanationText.md で作成された各問題の lawReferences が、選択肢の正誤根拠として正しい法令・条・項・号を指しているか確認してください。
 
 入力:
+- prompt/03_prompt_add_explanationText.md
+- prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md
 - Markdown の問題別レビュー資料
 - JSONL のレビュー台帳
 
 作業ルール:
-1. 1問ずつ確認してください。
-2. 問題文、選択肢、correctChoiceText、explanationText、source snippets、lawReferences の順に読んでください。
-3. lawId が入っているだけで OK にしないでください。
-4. lawTitle / lawId / article / paragraph / item が、その選択肢の正誤根拠と一致する場合だけ OK にしてください。
-5. 法 / 令 / 規則 の短縮表記は、まず建築基準法 / 建築基準法施行令 / 建築基準法施行規則として確認してください。
-6. 建築士法、長期優良住宅法、宅地造成及び特定盛土等規制法、バリアフリー法などの文脈では、その文脈の法令に読み替えて確認してください。
-7. 判断できない場合は推測で OK にせず hold にしてください。
-8. 修正が必要なら needs_fix にし、どの choiceIndex のどの lawReference をどう直すべきか fixInstructions に書いてください。
+1. まず prompt/03_prompt_add_explanationText.md の lawReferences ルールを確認してください。
+2. 次にこの二級建築士の手順書を確認してください。
+3. 1問ずつ確認してください。
+4. 問題文、選択肢、correctChoiceText、explanationText、source snippets、lawReferences の順に読んでください。
+5. lawId が入っているだけで OK にしないでください。
+6. lawTitle / lawId / article / paragraph / item が、その選択肢の正誤根拠と一致する場合だけ OK にしてください。
+7. 法 / 令 / 規則 の短縮表記は、まず建築基準法 / 建築基準法施行令 / 建築基準法施行規則として確認してください。
+8. 建築士法、長期優良住宅法、宅地造成及び特定盛土等規制法、バリアフリー法などの文脈では、その文脈の法令に読み替えて確認してください。
+9. 判断できない場合は推測で OK にせず hold にしてください。
+10. 修正が必要なら needs_fix にし、どの choiceIndex のどの lawReference をどう直すべきか fixInstructions に書いてください。
 
 出力:
 JSONL の reviewDecision / reviewer / reviewedAt / reviewNotes / fixRequired / fixInstructions だけを更新してください。

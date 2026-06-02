@@ -171,6 +171,35 @@
 - 既知の法令名でも、アプリ側の自動補完に依存しない。生成データには `lawId` を明示する。
 - `lawId` を確認できない条文候補は、`verified` として出さない。調査途中の候補として残す場合は `candidate` / `unverified` とし、最終アップロード前に repair する。
 
+### 資格別 `lawReferences` 監査を含む作成フロー
+
+`prompt/qualification_docs/<qualification>/` に法令参照の監査手順がある資格では、`lawReferences` の目視監査を `03_prompt_add_explanationText.md` の外部作業ではなく、解説作成フローの QA 工程として扱う。
+
+基本フローは次の通り。
+
+1. この `03_prompt_add_explanationText.md` と資格別補助資料を読む。
+2. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / 必要な `lawReferences` を作る。
+3. `check_explanation_patch_coverage.py` で patch の構造と `lawReferences` の基本条件を確認する。
+4. 資格別の law reference audit がある場合は実行し、`verified` の `lawId` / `article` 欠落や `candidate` 残りを修正する。
+5. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawReferences` が選択肢の正誤根拠と一致するか確認する。
+6. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、生成ロジック、資格別方針、または patch を原因に応じて修正して再検証する。
+7. manual review と strict audit が通ったものだけを upload 対象にする。
+
+二級建築士では、次を `03_prompt_add_explanationText.md` の QA 工程として使う。
+
+```bash
+python3 scripts/check/audit_2nd_class_kenchikushi_law_explanation_quality.py --repo-root . --strict
+
+python3 scripts/check/export_2nd_class_kenchikushi_law_reference_review_sheet.py
+
+python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py \
+  output/2nd-class-kenchikushi/review/law_reference_manual_review/<review_jsonl>
+```
+
+途中状態の台帳確認だけなら、最後のコマンドに `--allow-pending` を付ける。
+
+二級建築士固有の詳細手順は `prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md` を参照する。
+
 `lawReferences` の参照オブジェクトの基本形は次の通り。これは選択肢ごとの配列の中に入れる。
 
 ```json
