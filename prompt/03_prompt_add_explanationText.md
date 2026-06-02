@@ -206,11 +206,11 @@
 2. 法令問題を扱う資格では、対象法令スコープを確認する。未整備なら簡易スコープを作ってから進める。
 3. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / 必要な `lawReferences` を作る。
 4. `lawReferences` は、問題文・設問文・選択肢・解説文・法令文書本文を照合して作る。`lawId` が入っているだけでは合格にしない。
-5. `check_explanation_patch_coverage.py` で patch の構造と `lawReferences` の基本条件を確認する。
-6. 資格別の law reference audit がある場合は実行し、`verified` の `lawId` / `article` 欠落や `candidate` 残りを修正する。
-7. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawReferences` が選択肢の正誤根拠と一致するか確認する。
-8. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、生成ロジック、資格別方針、または patch を原因に応じて修正して再検証する。
-9. manual review と strict audit が通ったものだけを upload 対象にする。
+5. `lawReferences` の正誤判定、条文紐付け、漏れ・誤紐付けの検出は、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・法令本文を目視で照合して判断する。
+6. Python スクリプトを使う場合は、台帳生成、JSON 構造チェック、必須フィールドの有無確認など、作業補助に限定する。Python の結果だけで `ok` / `needs_fix` / `verified` を決めてはいけない。
+7. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawReferences` が選択肢の正誤根拠と一致するか目視確認する。
+8. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、問題文・設問・選択肢・解説文・法令本文のどの照合で不一致が出たかを明記して修正する。
+9. manual review で全件 `ok` になったものだけを upload 対象にする。
 
 ここでいう「1問ずつ確認する」とは、次を目視で照合することを指す。
 
@@ -230,6 +230,8 @@ python3 scripts/check/export_2nd_class_kenchikushi_law_reference_review_sheet.py
 python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py \
   output/2nd-class-kenchikushi/review/law_reference_manual_review/<review_jsonl>
 ```
+
+これらは構造確認・台帳生成・台帳記入漏れ確認のための補助であり、キーワード一致や機械判定で法令紐付けの正誤を決めるものではない。
 
 途中状態の台帳確認だけなら、最後のコマンドに `--allow-pending` を付ける。
 

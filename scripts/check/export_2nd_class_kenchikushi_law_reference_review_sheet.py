@@ -102,7 +102,7 @@ def build_review_row(
         "schemaVersion": REVIEW_SCHEMA_VERSION,
         "reviewId": f"{list_group_id}:{question_id}:{occurrence_index + 1}",
         "reviewOccurrenceIndex": occurrence_index,
-        "workflow": "03_prompt_add_explanationText -> explanation patch -> law reference audit -> manual review -> repair -> strict audit",
+        "workflow": "03_prompt_add_explanationText -> explanation patch -> manual review -> repair -> structure check",
         "promptSourcePath": PROMPT_SOURCE_PATH,
         "qualificationPolicyPath": QUALIFICATION_POLICY_PATH,
         "qualificationScopePath": QUALIFICATION_SCOPE_PATH,

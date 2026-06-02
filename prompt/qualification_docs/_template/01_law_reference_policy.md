@@ -50,3 +50,5 @@
 - `explanationText` が条文本文の対象・要件・例外・数値と矛盾しないか
 - `lawReferences` の `lawTitle` / `lawId` / `article` / `paragraph` / `item` が、その選択肢の根拠条文と一致するか
 - 余分な参照や漏れている参照がないか
+
+Python のキーワード一致、正規表現、XML 自動突合によって `ok` / `needs_fix` / `verified` を決めてはいけない。Python スクリプトは、台帳生成、JSON 構造チェック、必須フィールドの有無確認などの作業補助に限る。

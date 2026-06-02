@@ -15,9 +15,10 @@
 1. `prompt/03_prompt_add_explanationText.md` を正本として解説 patch を作る。
 2. 二級建築士固有の対象法令範囲は `02_law_reference_scope.md` で確認する。
 3. 二級建築士固有の法令短縮表記と文脈判断は、この手順書で確認する。
-4. 機械監査で `missingLawIdCount=0` と `candidateAliasCounts={}` を確認する。
-5. manual review sheet を生成し、1問ずつ `lawReferences` の妥当性を確認する。
-6. `needs_fix` が出た場合は、生成ロジックまたは patch を修正し、再度 03 prompt の完了条件まで戻して検証する。
+4. manual review sheet を生成し、1問ずつ `lawReferences` の妥当性を目視確認する。
+5. `needs_fix` が出た場合は、問題文・設問・選択肢・解説文・法令本文のどこが一致していないかを記録し、patch を修正する。
+
+Python のキーワード一致、正規表現、XML 自動突合によって `ok` / `needs_fix` / `verified` を決めてはいけない。Python スクリプトは、台帳生成、JSON 構造チェック、必須フィールドの有無確認などの作業補助に限る。
 
 ## 入力
 
@@ -26,6 +27,8 @@
 ```bash
 python3 scripts/check/export_2nd_class_kenchikushi_law_reference_review_sheet.py
 ```
+
+このコマンドは、問題文・選択肢・解説・`lawReferences` を目視しやすい台帳に整形するだけである。法令紐付けの正誤判定は行わない。
 
 出力先は次のディレクトリである。
 
@@ -162,10 +165,10 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 - `reviewDecision="pending"` が 0 件。
 - `reviewDecision="needs_fix"` がある場合、修正方針が `fixInstructions` に記録されている。
 - `reviewDecision="hold"` がある場合、追加確認事項が `reviewNotes` に記録されている。
-- 最新 patch の機械監査で `missingLawIdCount=0`。
-- 最新 patch の機械監査で `candidateAliasCounts={}`。
+- 法令紐付けの `ok` / `needs_fix` / `verified` は、問題文・設問・選択肢・解説文・法令本文の目視照合で判断されている。
+- 構造チェックで JSON 形式、必須フィールド、台帳記入漏れに問題がない。
 
-機械監査は次で実行する。
+構造チェックは次で実行できる。ただし、このコマンドは法令紐付けの正誤判定には使わない。
 
 ```bash
 python3 scripts/check/audit_2nd_class_kenchikushi_law_explanation_quality.py --repo-root . --strict
