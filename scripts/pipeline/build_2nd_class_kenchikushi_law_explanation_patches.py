@@ -24,7 +24,7 @@ FULLWIDTH_DIGIT_TRANSLATION = str.maketrans("０１２３４５６７８９", "0
 CHOICE_PREFIX_RE = re.compile(r"^選択肢\s*[0-9０-９]+\.\s*")
 ARTICLE_RE = re.compile(r"第?\s*([0-9]+条(?:の[0-9]+)?)")
 PARAGRAPH_RE = re.compile(r"第?\s*([0-9]+項)")
-ITEM_RE = re.compile(r"第?\s*([一二三四五六七八九十百]+号|[0-9]+号)")
+ITEM_RE = re.compile(r"第?\s*([一二三四五六七八九十百]+号)")
 SEPARATOR_RE = re.compile(r"[、,，]|及び|および|又は|または|並びに|・")
 REFERENCE_TRIGGER_RE = re.compile(
     r"(法|令|施行令|規則|施行規則|士法|建築士法|建築基準法|都市計画法|消防法|下水道法|民法|土地区画整理法|告示|第?\s*[0-9０-９]+条)"
@@ -40,9 +40,7 @@ LAW_METADATA: dict[str, dict[str, str]] = {
     "基準法施行令": {"lawTitle": "建築基準法施行令", "lawId": "325CO0000000338", "verificationStatus": "verified"},
     "基準法": {"lawTitle": "建築基準法", "lawId": "325AC0000000201", "verificationStatus": "verified"},
     "建築士法施行規則": {"lawTitle": "建築士法施行規則", "lawId": "325M50004000038", "verificationStatus": "verified"},
-    "建築士法施行令": {"lawTitle": "建築士法施行令", "lawId": "325CO0000000201", "verificationStatus": "verified"},
     "士法施行規則": {"lawTitle": "建築士法施行規則", "lawId": "325M50004000038", "verificationStatus": "verified"},
-    "士法施行令": {"lawTitle": "建築士法施行令", "lawId": "325CO0000000201", "verificationStatus": "verified"},
     "士法施工規則": {"lawTitle": "建築士法施行規則", "lawId": "325M50004000038", "verificationStatus": "verified"},
     "建築士法": {"lawTitle": "建築士法", "lawId": "325AC1000000202", "verificationStatus": "verified"},
     "士法": {"lawTitle": "建築士法", "lawId": "325AC1000000202", "verificationStatus": "verified"},
@@ -82,30 +80,11 @@ LAW_METADATA: dict[str, dict[str, str]] = {
         "verificationStatus": "verified",
     },
     "都市計画法": {"lawTitle": "都市計画法", "lawId": "343AC0000000100", "verificationStatus": "verified"},
-    "都市法": {"lawTitle": "都市計画法", "lawId": "343AC0000000100", "verificationStatus": "verified"},
-    "都市計画法施行令": {"lawTitle": "都市計画法施行令", "lawId": "344CO0000000158", "verificationStatus": "verified"},
-    "都市法令": {"lawTitle": "都市計画法施行令", "lawId": "344CO0000000158", "verificationStatus": "verified"},
     "建設業法": {"lawTitle": "建設業法", "lawId": "324AC0000000100", "verificationStatus": "verified"},
-    "建設業法施行令": {"lawTitle": "建設業法施行令", "lawId": "331CO0000000273", "verificationStatus": "verified"},
     "下水道法": {"lawTitle": "下水道法", "lawId": "333AC0000000079", "verificationStatus": "verified"},
     "消防法": {"lawTitle": "消防法", "lawId": "323AC1000000186", "verificationStatus": "verified"},
     "民法": {"lawTitle": "民法", "lawId": "129AC0000000089", "verificationStatus": "verified"},
     "土地区画整理法": {"lawTitle": "土地区画整理法", "lawId": "329AC0000000119", "verificationStatus": "verified"},
-    "建設工事に係る資材の再資源化等に関する法律": {
-        "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-        "lawId": "412AC0000000104",
-        "verificationStatus": "verified",
-    },
-    "建設リサイクル法": {
-        "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
-        "lawId": "412AC0000000104",
-        "verificationStatus": "verified",
-    },
-    "建設工事に係る資材の再資源化等に関する法律施行令": {
-        "lawTitle": "建設工事に係る資材の再資源化等に関する法律施行令",
-        "lawId": "412CO0000000495",
-        "verificationStatus": "verified",
-    },
     "住宅の品質確保の促進等に関する法律": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
         "lawId": "411AC0000000081",
@@ -119,21 +98,6 @@ LAW_METADATA: dict[str, dict[str, str]] = {
     "住宅品質確保法": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
         "lawId": "411AC0000000081",
-        "verificationStatus": "verified",
-    },
-    "特定住宅瑕疵担保責任の履行の確保等に関する法律": {
-        "lawTitle": "特定住宅瑕疵担保責任の履行の確保等に関する法律",
-        "lawId": "419AC0000000066",
-        "verificationStatus": "verified",
-    },
-    "瑕疵担保法": {
-        "lawTitle": "特定住宅瑕疵担保責任の履行の確保等に関する法律",
-        "lawId": "419AC0000000066",
-        "verificationStatus": "verified",
-    },
-    "瑕疵担履行法": {
-        "lawTitle": "特定住宅瑕疵担保責任の履行の確保等に関する法律",
-        "lawId": "419AC0000000066",
         "verificationStatus": "verified",
     },
     "建築物の耐震改修の促進に関する法律": {
@@ -197,7 +161,6 @@ LAW_METADATA: dict[str, dict[str, str]] = {
         "verificationStatus": "verified",
     },
     "告示": {"lawTitle": "国土交通大臣告示", "verificationStatus": "candidate"},
-    "規": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "candidate"},
     "規則": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "candidate"},
     "施行規則": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "candidate"},
     "施行令": {"lawTitle": "建築基準法施行令", "lawId": "325CO0000000338", "verificationStatus": "verified"},
@@ -316,8 +279,6 @@ def split_reference_segments(text: str) -> list[str]:
 
 def normalize_reference_token(token: str) -> str:
     token = normalize_text(token)
-    token = re.sub(r"([0-9]+)の([0-9]+)条", r"\1条の\2", token)
-    token = re.sub(r"([0-9]+)条([0-9]+)第([0-9]+項)", r"\1条の\2第\3", token)
     token = token.replace("該当条文は", "")
     token = token.replace("により", "")
     token = token.replace("になります", "")
@@ -332,43 +293,17 @@ def normalize_reference_token(token: str) -> str:
     return token
 
 
-def repair_compact_article_suffix(
-    article: str,
-    paragraph: str | None,
-    item: str | None,
-) -> tuple[str, str | None, str | None]:
-    suffix_match = re.search(r"条の([0-9]{2,})$", article)
-    if suffix_match and paragraph:
-        suffix = suffix_match.group(1)
-        compact_paragraph = paragraph.removesuffix("項")
-        if compact_paragraph == suffix:
-            article = article[: -len(suffix)] + suffix[:-1]
-            paragraph = f"{suffix[-1]}項"
-    if suffix_match and item:
-        suffix = suffix_match.group(1)
-        compact_item = item.removesuffix("号")
-        if compact_item == suffix:
-            article = article[: -len(suffix)] + suffix[:-1]
-            item = f"{suffix[-1]}号"
-    return article, paragraph, item
-
-
 def find_alias(token: str, inherited_alias: str | None) -> str | None:
     for alias in ALIASES:
-        if alias == "令" and not re.search(r"(?<!政)令", token):
-            continue
-        if alias in {"法", "規"} and not re.search(rf"(^|[「（(\s]){alias}(?=第?[0-9])", token):
-            continue
         if alias in token:
             return alias
     return inherited_alias
 
 
-def build_reference_context(question: dict[str, Any], choice_index: int, snippet_entry: Any) -> ReferenceContext:
-    choices = question.get("choiceTextList") or []
+def build_reference_context(question: dict[str, Any], snippet_entry: Any) -> ReferenceContext:
     text_parts = [normalize_text(question.get("questionBodyText"))]
-    if choice_index < len(choices):
-        text_parts.append(normalize_text(choices[choice_index]))
+    for variants in question.get("explanation_choice_snippets") or []:
+        text_parts.extend(iter_snippet_variants(variants))
     text_parts.extend(iter_snippet_variants(snippet_entry))
     merged_text = " ".join(part for part in text_parts if part)
 
@@ -384,9 +319,6 @@ def build_reference_context(question: dict[str, Any], choice_index: int, snippet
         context.default_law_alias = "宅地造成等規制法"
         context.default_order_alias = "宅地造成等規制法施行令"
         context.default_rule_alias = "宅地造成及び特定盛土等規制法施行規則"
-    if any(keyword in merged_text for keyword in ("都市計画法", "都市法")):
-        context.default_law_alias = "都市計画法"
-        context.default_order_alias = "都市計画法施行令"
     if any(keyword in merged_text for keyword in ("バリアフリー法", "高齢者、障害者等の移動等の円滑化の促進に関する法律")):
         context.default_law_alias = "高齢者、障害者等の移動等の円滑化の促進に関する法律"
         context.default_order_alias = "高齢者、障害者等の移動等の円滑化の促進に関する法律施行令"
@@ -394,10 +326,6 @@ def build_reference_context(question: dict[str, Any], choice_index: int, snippet
         context.default_law_alias = "建築物の耐震改修の促進に関する法律"
     if any(keyword in merged_text for keyword in ("住宅の品質確保の促進等に関する法律", "品確法", "住宅品質確保法")):
         context.default_law_alias = "住宅の品質確保の促進等に関する法律"
-    if any(keyword in merged_text for keyword in ("特定住宅瑕疵担保責任", "瑕疵担保法", "瑕疵担履行法")):
-        context.default_law_alias = "特定住宅瑕疵担保責任の履行の確保等に関する法律"
-    if any(keyword in merged_text for keyword in ("建設工事に係る資材の再資源化等", "建設リサイクル法")):
-        context.default_law_alias = "建設工事に係る資材の再資源化等に関する法律"
     if any(keyword in merged_text for keyword in ("都市の低炭素化の促進に関する法律",)):
         context.default_law_alias = "都市の低炭素化の促進に関する法律"
     return context
@@ -410,7 +338,7 @@ def resolve_alias(alias: str | None, token: str, context: ReferenceContext) -> s
         return context.default_law_alias
     if alias in {"令", "施行令"}:
         return context.default_order_alias
-    if alias in {"規", "規則", "施行規則"}:
+    if alias in {"規則", "施行規則"}:
         return context.default_rule_alias
     if alias == "宅地造成等規制法" and "施行令" in token:
         return "宅地造成等規制法施行令"
@@ -427,7 +355,7 @@ def parse_reference_token(
     if not token:
         return None
 
-    explicit_alias = find_alias(token, None)
+    explicit_alias = next((alias for alias in ALIASES if alias in token), None)
     alias = resolve_alias(explicit_alias or context.law_alias, token, context)
     article_match = ARTICLE_RE.search(token)
     paragraph_match = PARAGRAPH_RE.search(token)
@@ -443,8 +371,6 @@ def parse_reference_token(
         article = None
     paragraph = paragraph_match.group(1) if paragraph_match else None
     item = item_match.group(1) if item_match else None
-    if article:
-        article, paragraph, item = repair_compact_article_suffix(article, paragraph, item)
 
     if alias is None or article is None:
         return None
@@ -481,7 +407,7 @@ def parse_law_references(
     snippet_entry: Any,
 ) -> list[dict[str, str | int]]:
     variants = iter_snippet_variants(snippet_entry)
-    context = build_reference_context(question, choice_index, snippet_entry)
+    context = build_reference_context(question, snippet_entry)
     refs: list[dict[str, str | int]] = []
     for variant in variants:
         for segment in split_reference_segments(variant):

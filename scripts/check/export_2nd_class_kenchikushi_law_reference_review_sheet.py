@@ -152,7 +152,7 @@ def build_review_rows(questions_root: Path) -> list[dict[str, Any]]:
             occurrence_index = occurrence_by_question_id[question_id]
             source_question = source_candidates[min(occurrence_index, len(source_candidates) - 1)]
             occurrence_by_question_id[question_id] += 1
-            if not flatten_law_references(patch_entry.get("lawReferences") or []):
+            if not patch_entry.get("lawReferences"):
                 continue
             rows.append(
                 build_review_row(
