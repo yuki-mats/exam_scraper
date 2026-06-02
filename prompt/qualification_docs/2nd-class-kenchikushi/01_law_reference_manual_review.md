@@ -13,10 +13,11 @@
 単独の別作業として扱わない。必ず次の流れで使う。
 
 1. `prompt/03_prompt_add_explanationText.md` を正本として解説 patch を作る。
-2. 二級建築士固有の法令短縮表記と文脈判断は、この手順書で確認する。
-3. 機械監査で `missingLawIdCount=0` と `candidateAliasCounts={}` を確認する。
-4. manual review sheet を生成し、1問ずつ `lawReferences` の妥当性を確認する。
-5. `needs_fix` が出た場合は、生成ロジックまたは patch を修正し、再度 03 prompt の完了条件まで戻して検証する。
+2. 二級建築士固有の対象法令範囲は `02_law_reference_scope.md` で確認する。
+3. 二級建築士固有の法令短縮表記と文脈判断は、この手順書で確認する。
+4. 機械監査で `missingLawIdCount=0` と `candidateAliasCounts={}` を確認する。
+5. manual review sheet を生成し、1問ずつ `lawReferences` の妥当性を確認する。
+6. `needs_fix` が出た場合は、生成ロジックまたは patch を修正し、再度 03 prompt の完了条件まで戻して検証する。
 
 ## 入力
 
@@ -61,26 +62,34 @@ output/2nd-class-kenchikushi/review/law_reference_manual_review/
 
 各問題について、必ず次の順番で確認する。
 
-1. 問題文を読む。
+1. `02_law_reference_scope.md` の対象法令範囲を確認する。
+   - スコープ内の法令から確認する。
+   - スコープ外の法令を使う場合は、問題文・設問文・選択肢・解説候補に直接根拠があるか確認する。
+
+2. 問題文を読む。
    - 何を問う問題かを把握する。
    - 「建築基準法上」「建築士法上」など、根拠法令の範囲を確認する。
 
-2. 各選択肢と `correctChoiceText` を読む。
+3. 各選択肢と `correctChoiceText` を読む。
    - アプリでは各選択肢が `正しい` / `間違い` で保存される。
    - 問題文が「正しいものはどれか」「誤っているものはどれか」でも、`lawReferences` は選択肢単位で確認する。
 
-3. `explanationText` と `explanationChoiceSnippets` を読む。
+4. `explanationText` と `explanationChoiceSnippets` を読む。
    - 解説がどの条文を根拠にしているか確認する。
    - `explanationChoiceSnippets` は候補であり、単独では `verified` の根拠にしない。
 
-4. 各 `lawReferences` を確認する。
+5. 法令文書本文を確認する。
+   - e-Gov XML/API または官公庁一次情報で、対象条文の本文を確認する。
+   - 条文本文の対象・要件・例外・数値が、問題文・選択肢・`explanationText` と一致しているか確認する。
+
+6. 各 `lawReferences` を確認する。
    - `choiceIndex` が対象選択肢と一致しているか。
    - `lawTitle` と `lawId` が正式法令と一致しているか。
    - `article` / `paragraph` / `item` が根拠説明と一致しているか。
    - その参照が余分ではないか。
    - 必要な参照が漏れていないか。
 
-5. 汎用表記を確認する。
+7. 汎用表記を確認する。
    - `法` は原則 `建築基準法`。
    - `令` / `施行令` は原則 `建築基準法施行令`。
    - `規則` / `施行規則` は原則 `建築基準法施行規則`。
@@ -96,7 +105,7 @@ output/2nd-class-kenchikushi/review/law_reference_manual_review/
 | 品確、住宅性能表示 | 住宅の品質確保の促進等に関する法律 |
 | 低炭素建築物 | 都市の低炭素化の促進に関する法律 |
 
-6. 判定を記録する。
+8. 判定を記録する。
    - 問題ない場合は `reviewDecision` を `ok` にする。
    - 修正が必要な場合は `needs_fix` にし、`reviewNotes` と `fixInstructions` に修正内容を書く。
    - 判断を保留する場合は `hold` にし、必要な追加確認を書く。
@@ -175,20 +184,23 @@ prompt/03_prompt_add_explanationText.md で作成された各問題の lawRefere
 入力:
 - prompt/03_prompt_add_explanationText.md
 - prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md
+- prompt/qualification_docs/2nd-class-kenchikushi/02_law_reference_scope.md
 - Markdown の問題別レビュー資料
 - JSONL のレビュー台帳
 
 作業ルール:
 1. まず prompt/03_prompt_add_explanationText.md の lawReferences ルールを確認してください。
-2. 次にこの二級建築士の手順書を確認してください。
-3. 1問ずつ確認してください。
-4. 問題文、選択肢、correctChoiceText、explanationText、source snippets、lawReferences の順に読んでください。
-5. lawId が入っているだけで OK にしないでください。
-6. lawTitle / lawId / article / paragraph / item が、その選択肢の正誤根拠と一致する場合だけ OK にしてください。
-7. 法 / 令 / 規則 の短縮表記は、まず建築基準法 / 建築基準法施行令 / 建築基準法施行規則として確認してください。
-8. 建築士法、長期優良住宅法、宅地造成及び特定盛土等規制法、バリアフリー法などの文脈では、その文脈の法令に読み替えて確認してください。
-9. 判断できない場合は推測で OK にせず hold にしてください。
-10. 修正が必要なら needs_fix にし、どの choiceIndex のどの lawReference をどう直すべきか fixInstructions に書いてください。
+2. 次に 02_law_reference_scope.md で対象法令範囲を確認してください。
+3. 次にこの二級建築士の手順書を確認してください。
+4. 1問ずつ確認してください。
+5. 問題文、選択肢、correctChoiceText、explanationText、source snippets、lawReferences の順に読んでください。
+6. 法令文書本文を確認し、条文本文の対象・要件・例外・数値が、問題文・選択肢・explanationText と一致するか確認してください。
+7. lawId が入っているだけで OK にしないでください。
+8. lawTitle / lawId / article / paragraph / item が、その選択肢の正誤根拠と一致する場合だけ OK にしてください。
+9. 法 / 令 / 規則 の短縮表記は、まず建築基準法 / 建築基準法施行令 / 建築基準法施行規則として確認してください。
+10. 建築士法、長期優良住宅法、宅地造成及び特定盛土等規制法、バリアフリー法などの文脈では、その文脈の法令に読み替えて確認してください。
+11. 判断できない場合は推測で OK にせず hold にしてください。
+12. 修正が必要なら needs_fix にし、どの choiceIndex のどの lawReference をどう直すべきか fixInstructions に書いてください。
 
 出力:
 JSONL の reviewDecision / reviewer / reviewedAt / reviewNotes / fixRequired / fixInstructions だけを更新してください。

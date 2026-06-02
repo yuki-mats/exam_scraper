@@ -38,6 +38,7 @@ def validate_row(row: dict[str, Any], *, allow_pending: bool) -> list[str]:
         "workflow",
         "promptSourcePath",
         "qualificationPolicyPath",
+        "qualificationScopePath",
         "qualification",
         "listGroupId",
         "originalQuestionId",

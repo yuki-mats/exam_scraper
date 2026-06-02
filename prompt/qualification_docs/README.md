@@ -28,8 +28,19 @@
 3. `03_category_preparation.md`
   - `category.json` を整備する際の分類粒度、章内の切り方、境界ルール
 
+法令問題を扱う資格では、上記に加えて次を必ず整備する。
+
+- `01_law_reference_policy.md` または `02_law_reference_scope.md`
+  - 試験で通常参照する法令・政令・省令・告示・条例・通達の範囲
+  - 正式法令名、`lawId` 候補、短縮表記、使う場面、使わない場面
+  - スコープ外法令を追加する条件
+  - 現行法中心で扱うか、出題当時法令との差分確認が必要か
+
+法令問題では、このスコープを先に確認してから `lawReferences` を作る。e-Gov の全法令から無差別に探してはいけない。
+
 ## 運用ルール
 - まず `03` のために `01_exam_profile.md` と `02_explanation_strategy.md` を整備する。
+- 法令問題を扱う資格では、解説作成前に法令スコープ文書を整備する。未整備なら簡易版を作ってから `03_prompt_add_explanationText.md` を実行する。
 - `category.json` の設計や見直しが必要になった段階で、`03_category_preparation.md` を追加・更新する。
 - 日常の `questionSetId` 紐付けが補助資料依存になっている場合は、先に `category.json` 側の `description` と `matchingHints` を改善する。
 - 資格別の指針を参照する作業では、各資格ディレクトリの内容を正本とみなし、prompt 本体は共通ルールの置き場として扱う。

@@ -25,6 +25,8 @@
 - `question_url` の再取得や、そのページ内容を説明根拠として採用することはしない。`question_url` は引き続き参照・転記用メタデータとして扱う。
 - `explanationText` 本文にはURLや出典リンクを埋め込まない（必要な場合は作業報告・タスクreceipt側に記録する）。
 - 信頼性の高い一次情報（例: e-Gov法令検索、官公庁、自治体の公式要綱、法令データ提供元、標準規格団体、大学・学会、原典に近い資料）を優先し、内容が揺れやすい二次まとめは鵜呑みにしない。
+- 法令確認では、資格別の対象法令スコープを先に確認する。e-Gov の全法令から無差別に探してはいけない。
+- 対象法令スコープにない法令を使う必要が出た場合は、問題文・設問文・選択肢・解説候補にその法令が直接関係する根拠を確認し、資格別補助資料へ追記してから `lawReferences` に使う。
 - 外部Webで裏取りしても、最終的な説明は「受験者が次に同論点を見たときに自力判定できる」形へ要点を再構成する（単なる言い換えにしない）。
 
 ## 参照優先順位
@@ -32,7 +34,7 @@
 1. `20_merged_1/question_*_merged.json`
 2. 必要時のみ同一 `list_group_id` の `23_correctChoiceText_fixed/`
 3. 必要時のみ `00_source/`
-4. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令参照方針
+4. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令参照方針・対象法令スコープ
 5. 受験者が納得できる説明に必要な根拠・定義・条文確認のための、信頼できる外部Web一次情報
 
 `20_merged_1` にある以下の値を主に使うこと。
@@ -130,6 +132,29 @@
 
 条項は、判断根拠として使った選択肢の `explanationText` 内に書く（URLは書かない）。
 
+### 資格別の対象法令スコープ（必須）
+
+法令問題を扱う資格では、`lawReferences` を作る前に、資格別の対象法令スコープを確認する。対象法令スコープとは、その資格で通常参照する法令・政令・省令・告示・規則・条例・通達などの候補一覧である。
+
+対象法令スコープは、原則として `prompt/qualification_docs/<qualification>/01_law_reference_policy.md` または `prompt/qualification_docs/<qualification>/02_law_reference_scope.md` に整理する。まだ存在しない資格では、解説作成前に簡易版を作る。
+
+対象法令スコープには、少なくとも次を入れる。
+
+- 正式法令名
+- `lawId` 候補
+- 試験内の短縮表記・別名
+- 使う場面
+- 使わない場面
+- 現行法中心か、出題当時法令との差分確認が必要か
+
+このスコープの目的は、作業者が e-Gov の全法令から探し回らないようにすることである。スコープ内の法令を優先して確認し、スコープ外の法令を `verified` にする場合は、次を満たす必要がある。
+
+- 問題文・設問文・選択肢・解説候補のいずれかに、その法令を使う合理的根拠がある。
+- 一次情報で正式法令名・`lawId`・条番号を確認している。
+- 資格別補助資料へ、その法令をスコープに追加する理由を記録している。
+
+スコープ外の法令を推測で `lawReferences` に入れてはいけない。
+
 ### `lawReferences` を作る条件 / 作らない条件
 
 `lawReferences` は、法令・政令・省令・告示・条例・通達・制度上の義務/定義/基準/数値が、選択肢の正誤判断に直接必要な場合だけ作る。
@@ -178,12 +203,22 @@
 基本フローは次の通り。
 
 1. この `03_prompt_add_explanationText.md` と資格別補助資料を読む。
-2. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / 必要な `lawReferences` を作る。
-3. `check_explanation_patch_coverage.py` で patch の構造と `lawReferences` の基本条件を確認する。
-4. 資格別の law reference audit がある場合は実行し、`verified` の `lawId` / `article` 欠落や `candidate` 残りを修正する。
-5. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawReferences` が選択肢の正誤根拠と一致するか確認する。
-6. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、生成ロジック、資格別方針、または patch を原因に応じて修正して再検証する。
-7. manual review と strict audit が通ったものだけを upload 対象にする。
+2. 法令問題を扱う資格では、対象法令スコープを確認する。未整備なら簡易スコープを作ってから進める。
+3. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / 必要な `lawReferences` を作る。
+4. `lawReferences` は、問題文・設問文・選択肢・解説文・法令文書本文を照合して作る。`lawId` が入っているだけでは合格にしない。
+5. `check_explanation_patch_coverage.py` で patch の構造と `lawReferences` の基本条件を確認する。
+6. 資格別の law reference audit がある場合は実行し、`verified` の `lawId` / `article` 欠落や `candidate` 残りを修正する。
+7. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawReferences` が選択肢の正誤根拠と一致するか確認する。
+8. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、生成ロジック、資格別方針、または patch を原因に応じて修正して再検証する。
+9. manual review と strict audit が通ったものだけを upload 対象にする。
+
+ここでいう「1問ずつ確認する」とは、次を目視で照合することを指す。
+
+- 問題文・設問文がどの法令範囲を問うているか
+- 各選択肢の正誤理由がどの条文本文に基づくか
+- `explanationText` の説明と条文本文が矛盾していないか
+- `lawReferences` の `lawTitle` / `lawId` / `article` / `paragraph` / `item` が、その選択肢の根拠条文と一致しているか
+- 余分な参照や、漏れている参照がないか
 
 二級建築士では、次を `03_prompt_add_explanationText.md` の QA 工程として使う。
 
@@ -556,6 +591,9 @@ python3 scripts/fix/archive_patch_outputs.py \
 - 法令が論点の設問で、法令名と条（必要なら項・号）が `explanationText` に明記されているか（URLは書かない）。
 - `verificationStatus="verified"` の `lawReferences` に `lawId` と `article` が非空で入っているか
 - `lawId` が法令名・略称・URL・`TODO`・`不明` ではなく、e-Gov の正式な法令IDになっているか
+- `lawReferences` が資格別の対象法令スコープ内の法令を優先しているか
+- スコープ外法令を使う場合、問題文・設問文・選択肢・解説候補上の根拠と、資格別補助資料への追記があるか
+- 法令文書本文と、問題文・設問文・選択肢・`explanationText` を照合し、条文の対象・要件・例外・数値が一致しているか
 - 法令・数値・定義を、根拠なしに推測していないか
 - `設問の通りです`、`記述は正しいです`、`正解です` だけで終わっていないか
 - 選択肢本文をただ言い換えただけになっていないか

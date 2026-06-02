@@ -16,6 +16,7 @@ PATCH_GLOB = "question_*_law_merged_explanationText_added_*.json"
 REVIEW_SCHEMA_VERSION = "2nd-class-kenchikushi-law-reference-review/v1"
 PROMPT_SOURCE_PATH = "prompt/03_prompt_add_explanationText.md"
 QUALIFICATION_POLICY_PATH = "prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md"
+QUALIFICATION_SCOPE_PATH = "prompt/qualification_docs/2nd-class-kenchikushi/02_law_reference_scope.md"
 
 
 def load_json(path: Path) -> Any:
@@ -104,6 +105,7 @@ def build_review_row(
         "workflow": "03_prompt_add_explanationText -> explanation patch -> law reference audit -> manual review -> repair -> strict audit",
         "promptSourcePath": PROMPT_SOURCE_PATH,
         "qualificationPolicyPath": QUALIFICATION_POLICY_PATH,
+        "qualificationScopePath": QUALIFICATION_SCOPE_PATH,
         "qualification": QUALIFICATION,
         "listGroupId": str(list_group_id),
         "originalQuestionId": question_id,
@@ -125,7 +127,9 @@ def build_review_row(
         "fixInstructions": "",
         "requiredManualChecks": [
             "03_prompt_add_explanationText.md の法令問題ルールに沿っているか確認する",
+            "02_law_reference_scope.md の対象法令スコープ内から確認しているか確認する",
             "問題文と選択肢が法令条文を正誤根拠にしているか確認する",
+            "法令文書本文の対象・要件・例外・数値が問題文・選択肢・解説文と一致しているか確認する",
             "各 choiceIndex の lawReferences がその選択肢の根拠条文だけを指しているか確認する",
             "lawTitle と lawId が e-Gov の正式法令と一致しているか確認する",
             "article / paragraph / item が explanationText と source snippet の根拠説明に一致しているか確認する",
@@ -178,7 +182,7 @@ def build_markdown_for_group(list_group_id: str, rows: list[dict[str, Any]]) -> 
         f"# 二級建築士 lawReferences 目視監査 {list_group_id}",
         "",
         "この資料は `prompt/03_prompt_add_explanationText.md` で作成した解説 patch の QA 工程で使う。",
-        "解説生成ルールの正本は `prompt/03_prompt_add_explanationText.md`、二級建築士固有の監査手順は `prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md` である。",
+        "解説生成ルールの正本は `prompt/03_prompt_add_explanationText.md`、二級建築士固有の監査手順は `prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md`、対象法令スコープは `prompt/qualification_docs/2nd-class-kenchikushi/02_law_reference_scope.md` である。",
         "",
         "## 作業者ルール",
         "",
