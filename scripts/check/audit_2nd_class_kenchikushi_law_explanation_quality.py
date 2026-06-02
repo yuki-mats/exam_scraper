@@ -12,11 +12,7 @@ QUALIFICATION = "2nd-class-kenchikushi"
 PATCH_SUBDIR = "21_explanationText_added"
 PATCH_GLOB = "question_*_law_merged_explanationText_added_*.json"
 EXPECTED_ENTRY_COUNT = 256
-EXPECTED_CANDIDATE_ALIAS_COUNTS = {
-    "規則": 24,
-    "宅地造成等規制法": 6,
-    "施行規則": 4,
-}
+EXPECTED_CANDIDATE_ALIAS_COUNTS: dict[str, int] = {}
 
 
 def latest_patch_files(repo_root: Path) -> list[Path]:
@@ -44,6 +40,7 @@ def audit(repo_root: Path) -> dict[str, Any]:
         "referenceCount": 0,
         "statusCounts": Counter(),
         "candidateAliasCounts": Counter(),
+        "missingLawIdCount": 0,
     }
     missing: list[dict[str, str]] = []
 
@@ -97,6 +94,8 @@ def audit(repo_root: Path) -> dict[str, Any]:
                     summary["referenceCount"] += 1
                     status = str(ref.get("verificationStatus") or "unknown")
                     summary["statusCounts"][status] += 1
+                    if not ref.get("lawId"):
+                        summary["missingLawIdCount"] += 1
                     if status != "verified":
                         summary["candidateAliasCounts"][str(ref.get("lawAlias") or ref.get("lawTitle") or "")] += 1
 
@@ -111,6 +110,7 @@ def audit(repo_root: Path) -> dict[str, Any]:
             "referenceCount": summary["referenceCount"],
             "statusCounts": dict(summary["statusCounts"]),
             "candidateAliasCounts": dict(summary["candidateAliasCounts"]),
+            "missingLawIdCount": summary["missingLawIdCount"],
         },
         "expected": {
             "entryCount": EXPECTED_ENTRY_COUNT,
@@ -152,6 +152,8 @@ def main() -> int:
         if summary["withSuggestedQuestionDetails"] != expected["entryCount"]:
             return 1
         if summary["withLawReferences"] != expected["entryCount"]:
+            return 1
+        if summary["missingLawIdCount"] != 0:
             return 1
         if summary["candidateAliasCounts"] != expected["candidateAliasCounts"]:
             return 1

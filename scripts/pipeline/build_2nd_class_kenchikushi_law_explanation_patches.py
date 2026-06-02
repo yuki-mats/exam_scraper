@@ -44,6 +44,41 @@ LAW_METADATA: dict[str, dict[str, str]] = {
     "士法施工規則": {"lawTitle": "建築士法施行規則", "lawId": "325M50004000038", "verificationStatus": "verified"},
     "建築士法": {"lawTitle": "建築士法", "lawId": "325AC1000000202", "verificationStatus": "verified"},
     "士法": {"lawTitle": "建築士法", "lawId": "325AC1000000202", "verificationStatus": "verified"},
+    "長期優良住宅の普及の促進に関する法律": {
+        "lawTitle": "長期優良住宅の普及の促進に関する法律",
+        "lawId": "420AC0000000087",
+        "verificationStatus": "verified",
+    },
+    "長期優良住宅促進法": {
+        "lawTitle": "長期優良住宅の普及の促進に関する法律",
+        "lawId": "420AC0000000087",
+        "verificationStatus": "verified",
+    },
+    "長期優良住宅法": {
+        "lawTitle": "長期優良住宅の普及の促進に関する法律",
+        "lawId": "420AC0000000087",
+        "verificationStatus": "verified",
+    },
+    "長期優良住宅の普及の促進に関する法律施行令": {
+        "lawTitle": "長期優良住宅の普及の促進に関する法律施行令",
+        "lawId": "421CO0000000024",
+        "verificationStatus": "verified",
+    },
+    "長期優良住宅の普及の促進に関する法律施行規則": {
+        "lawTitle": "長期優良住宅の普及の促進に関する法律施行規則",
+        "lawId": "421M60000800003",
+        "verificationStatus": "verified",
+    },
+    "長期優良住宅促進法施行規則": {
+        "lawTitle": "長期優良住宅の普及の促進に関する法律施行規則",
+        "lawId": "421M60000800003",
+        "verificationStatus": "verified",
+    },
+    "長期優良住宅法施行規則": {
+        "lawTitle": "長期優良住宅の普及の促進に関する法律施行規則",
+        "lawId": "421M60000800003",
+        "verificationStatus": "verified",
+    },
     "都市計画法": {"lawTitle": "都市計画法", "lawId": "343AC0000000100", "verificationStatus": "verified"},
     "建設業法": {"lawTitle": "建設業法", "lawId": "324AC0000000100", "verificationStatus": "verified"},
     "下水道法": {"lawTitle": "下水道法", "lawId": "333AC0000000079", "verificationStatus": "verified"},
@@ -52,43 +87,78 @@ LAW_METADATA: dict[str, dict[str, str]] = {
     "土地区画整理法": {"lawTitle": "土地区画整理法", "lawId": "329AC0000000119", "verificationStatus": "verified"},
     "住宅の品質確保の促進等に関する法律": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
-        "verificationStatus": "candidate",
+        "lawId": "411AC0000000081",
+        "verificationStatus": "verified",
     },
     "品確法": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
-        "verificationStatus": "candidate",
+        "lawId": "411AC0000000081",
+        "verificationStatus": "verified",
     },
     "住宅品質確保法": {
         "lawTitle": "住宅の品質確保の促進等に関する法律",
-        "verificationStatus": "candidate",
-    },
-    "長期優良住宅の普及の促進に関する法律": {
-        "lawTitle": "長期優良住宅の普及の促進に関する法律",
-        "verificationStatus": "candidate",
+        "lawId": "411AC0000000081",
+        "verificationStatus": "verified",
     },
     "建築物の耐震改修の促進に関する法律": {
         "lawTitle": "建築物の耐震改修の促進に関する法律",
-        "verificationStatus": "candidate",
+        "lawId": "407AC0000000123",
+        "verificationStatus": "verified",
+    },
+    "耐震改修促進法": {
+        "lawTitle": "建築物の耐震改修の促進に関する法律",
+        "lawId": "407AC0000000123",
+        "verificationStatus": "verified",
     },
     "都市の低炭素化の促進に関する法律": {
         "lawTitle": "都市の低炭素化の促進に関する法律",
-        "verificationStatus": "candidate",
+        "lawId": "424AC0000000084",
+        "verificationStatus": "verified",
     },
     "高齢者、障害者等の移動等の円滑化の促進に関する法律": {
         "lawTitle": "高齢者、障害者等の移動等の円滑化の促進に関する法律",
-        "verificationStatus": "candidate",
+        "lawId": "418AC0000000091",
+        "verificationStatus": "verified",
+    },
+    "高齢者、障害者等の移動等の円滑化の促進に関する法律施行令": {
+        "lawTitle": "高齢者、障害者等の移動等の円滑化の促進に関する法律施行令",
+        "lawId": "418CO0000000379",
+        "verificationStatus": "verified",
     },
     "バリアフリー法": {
         "lawTitle": "高齢者、障害者等の移動等の円滑化の促進に関する法律",
-        "verificationStatus": "candidate",
+        "lawId": "418AC0000000091",
+        "verificationStatus": "verified",
     },
     "宅地造成及び特定盛土等規制法": {
         "lawTitle": "宅地造成及び特定盛土等規制法",
-        "verificationStatus": "candidate",
+        "lawId": "336AC0000000191",
+        "verificationStatus": "verified",
     },
     "宅地造成等規制法": {
-        "lawTitle": "宅地造成等規制法",
-        "verificationStatus": "candidate",
+        "lawTitle": "宅地造成及び特定盛土等規制法",
+        "lawId": "336AC0000000191",
+        "verificationStatus": "verified",
+    },
+    "宅地造成及び特定盛土等規制法施行令": {
+        "lawTitle": "宅地造成及び特定盛土等規制法施行令",
+        "lawId": "337CO0000000016",
+        "verificationStatus": "verified",
+    },
+    "宅地造成等規制法施行令": {
+        "lawTitle": "宅地造成及び特定盛土等規制法施行令",
+        "lawId": "337CO0000000016",
+        "verificationStatus": "verified",
+    },
+    "宅造法令": {
+        "lawTitle": "宅地造成及び特定盛土等規制法施行令",
+        "lawId": "337CO0000000016",
+        "verificationStatus": "verified",
+    },
+    "宅地造成及び特定盛土等規制法施行規則": {
+        "lawTitle": "宅地造成及び特定盛土等規制法施行規則",
+        "lawId": "337M50004000003",
+        "verificationStatus": "verified",
     },
     "告示": {"lawTitle": "国土交通大臣告示", "verificationStatus": "candidate"},
     "規則": {"lawTitle": "建築基準法施行規則", "lawId": "325M50004000040", "verificationStatus": "candidate"},
@@ -105,6 +175,9 @@ ALIASES = sorted(LAW_METADATA.keys(), key=len, reverse=True)
 class ReferenceContext:
     law_alias: str | None = None
     article: str | None = None
+    default_law_alias: str = "建築基準法"
+    default_order_alias: str = "建築基準法施行令"
+    default_rule_alias: str = "建築基準法施行規則"
 
 
 def load_json(path: Path) -> Any:
@@ -227,6 +300,51 @@ def find_alias(token: str, inherited_alias: str | None) -> str | None:
     return inherited_alias
 
 
+def build_reference_context(question: dict[str, Any], snippet_entry: Any) -> ReferenceContext:
+    text_parts = [normalize_text(question.get("questionBodyText"))]
+    for variants in question.get("explanation_choice_snippets") or []:
+        text_parts.extend(iter_snippet_variants(variants))
+    text_parts.extend(iter_snippet_variants(snippet_entry))
+    merged_text = " ".join(part for part in text_parts if part)
+
+    context = ReferenceContext()
+    if any(keyword in merged_text for keyword in ("建築士法", "士法", "建築士事務所", "建築士定期講習")):
+        context.default_law_alias = "士法"
+        context.default_rule_alias = "建築士法施行規則"
+    if any(keyword in merged_text for keyword in ("長期優良住宅", "長期優良住宅促進法", "長期優良住宅法")):
+        context.default_law_alias = "長期優良住宅の普及の促進に関する法律"
+        context.default_order_alias = "長期優良住宅の普及の促進に関する法律施行令"
+        context.default_rule_alias = "長期優良住宅の普及の促進に関する法律施行規則"
+    if any(keyword in merged_text for keyword in ("宅地造成等規制法", "宅地造成及び特定盛土等規制法", "宅造法")):
+        context.default_law_alias = "宅地造成等規制法"
+        context.default_order_alias = "宅地造成等規制法施行令"
+        context.default_rule_alias = "宅地造成及び特定盛土等規制法施行規則"
+    if any(keyword in merged_text for keyword in ("バリアフリー法", "高齢者、障害者等の移動等の円滑化の促進に関する法律")):
+        context.default_law_alias = "高齢者、障害者等の移動等の円滑化の促進に関する法律"
+        context.default_order_alias = "高齢者、障害者等の移動等の円滑化の促進に関する法律施行令"
+    if any(keyword in merged_text for keyword in ("建築物の耐震改修の促進に関する法律", "耐震改修促進法")):
+        context.default_law_alias = "建築物の耐震改修の促進に関する法律"
+    if any(keyword in merged_text for keyword in ("住宅の品質確保の促進等に関する法律", "品確法", "住宅品質確保法")):
+        context.default_law_alias = "住宅の品質確保の促進等に関する法律"
+    if any(keyword in merged_text for keyword in ("都市の低炭素化の促進に関する法律",)):
+        context.default_law_alias = "都市の低炭素化の促進に関する法律"
+    return context
+
+
+def resolve_alias(alias: str | None, token: str, context: ReferenceContext) -> str | None:
+    if alias is None:
+        return None
+    if alias == "法":
+        return context.default_law_alias
+    if alias in {"令", "施行令"}:
+        return context.default_order_alias
+    if alias in {"規則", "施行規則"}:
+        return context.default_rule_alias
+    if alias == "宅地造成等規制法" and "施行令" in token:
+        return "宅地造成等規制法施行令"
+    return alias
+
+
 def parse_reference_token(
     token: str,
     *,
@@ -238,7 +356,7 @@ def parse_reference_token(
         return None
 
     explicit_alias = next((alias for alias in ALIASES if alias in token), None)
-    alias = explicit_alias or context.law_alias
+    alias = resolve_alias(explicit_alias or context.law_alias, token, context)
     article_match = ARTICLE_RE.search(token)
     paragraph_match = PARAGRAPH_RE.search(token)
     item_match = ITEM_RE.search(token)
@@ -283,9 +401,13 @@ def parse_reference_token(
     return reference
 
 
-def parse_law_references(choice_index: int, snippet_entry: Any) -> list[dict[str, str | int]]:
+def parse_law_references(
+    choice_index: int,
+    question: dict[str, Any],
+    snippet_entry: Any,
+) -> list[dict[str, str | int]]:
     variants = iter_snippet_variants(snippet_entry)
-    context = ReferenceContext()
+    context = build_reference_context(question, snippet_entry)
     refs: list[dict[str, str | int]] = []
     for variant in variants:
         for segment in split_reference_segments(variant):
@@ -481,7 +603,13 @@ def build_patch_entry(question: dict[str, Any]) -> dict[str, Any]:
     choice_count = len(question.get("choiceTextList") or [])
     explanations = [build_choice_explanation(question, idx) for idx in range(choice_count)]
     law_references = [
-        parse_law_references(idx, (question.get("explanation_choice_snippets") or [])[idx] if idx < len(question.get("explanation_choice_snippets") or []) else [])
+        parse_law_references(
+            idx,
+            question,
+            (question.get("explanation_choice_snippets") or [])[idx]
+            if idx < len(question.get("explanation_choice_snippets") or [])
+            else [],
+        )
         for idx in range(choice_count)
     ]
     suggested_questions, suggested_details = build_suggested_questions(question, law_references, explanations)

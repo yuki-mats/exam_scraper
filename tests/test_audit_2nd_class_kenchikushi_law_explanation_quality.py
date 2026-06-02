@@ -9,8 +9,4 @@ def test_expected_entry_count_is_stable() -> None:
 
 
 def test_expected_candidate_alias_counts_are_stable() -> None:
-    assert EXPECTED_CANDIDATE_ALIAS_COUNTS == {
-        "規則": 24,
-        "宅地造成等規制法": 6,
-        "施行規則": 4,
-    }
+    assert EXPECTED_CANDIDATE_ALIAS_COUNTS == {}

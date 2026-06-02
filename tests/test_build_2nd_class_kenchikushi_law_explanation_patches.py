@@ -12,8 +12,13 @@ from scripts.pipeline.build_2nd_class_kenchikushi_law_explanation_patches import
 
 class Build2ndClassKenchikushiLawExplanationPatchesTest(unittest.TestCase):
     def test_parse_law_references_supports_inherited_segments(self) -> None:
+        question = {
+            "questionBodyText": "建築基準法上、正しいものはどれか。",
+            "explanation_choice_snippets": [],
+        }
         refs = parse_law_references(
             0,
+            question,
             [
                 "選択肢1. 該当条文は法第7条 第1項、第2項及び法第7条の2第1項になります。"
             ],
@@ -27,8 +32,13 @@ class Build2ndClassKenchikushiLawExplanationPatchesTest(unittest.TestCase):
         self.assertEqual(refs[2]["article"], "7条の2")
 
     def test_parse_law_references_supports_architect_act_alias(self) -> None:
+        question = {
+            "questionBodyText": "建築士法上、正しいものはどれか。",
+            "explanation_choice_snippets": [],
+        }
         refs = parse_law_references(
             0,
+            question,
             [
                 "該当条文は士法第22条の2、士法施工規則第17条の36になります。"
             ],
@@ -37,15 +47,58 @@ class Build2ndClassKenchikushiLawExplanationPatchesTest(unittest.TestCase):
         self.assertEqual(refs[0]["lawTitle"], "建築士法")
         self.assertEqual(refs[1]["lawTitle"], "建築士法施行規則")
         self.assertEqual(refs[1]["article"], "17条の36")
+        self.assertEqual(refs[0]["lawId"], "325AC1000000202")
+        self.assertEqual(refs[1]["lawId"], "325M50004000038")
 
     def test_parse_law_references_ignores_generic_alias_without_locator(self) -> None:
+        question = {
+            "questionBodyText": "防火に関する次の記述のうち、正しいものはどれか。",
+            "explanation_choice_snippets": [],
+        }
         refs = parse_law_references(
             0,
+            question,
             [
                 "外壁の延焼のおそれのある部分を準防火性能の技術的基準に合う構造（告示の仕様や大臣認定など）にする。"
             ],
         )
         self.assertEqual(refs, [])
+
+    def test_parse_law_references_resolves_long_term_housing_rule_from_context(self) -> None:
+        question = {
+            "questionBodyText": "長期優良住宅法上、正しいものはどれか。",
+            "explanation_choice_snippets": [],
+        }
+        refs = parse_law_references(
+            0,
+            question,
+            [
+                "該当条文は規則第10条、第11条になります。"
+            ],
+        )
+        self.assertEqual(len(refs), 2)
+        self.assertEqual(refs[0]["lawTitle"], "長期優良住宅の普及の促進に関する法律施行規則")
+        self.assertEqual(refs[0]["lawId"], "421M60000800003")
+        self.assertEqual(refs[0]["article"], "10条")
+        self.assertEqual(refs[1]["article"], "11条")
+
+    def test_parse_law_references_resolves_takuchi_order_from_context(self) -> None:
+        question = {
+            "questionBodyText": "宅地造成及び特定盛土等規制法上、正しいものはどれか。",
+            "explanation_choice_snippets": [],
+        }
+        refs = parse_law_references(
+            0,
+            question,
+            [
+                "該当条文は施行令第8条第1項になります。"
+            ],
+        )
+        self.assertEqual(len(refs), 1)
+        self.assertEqual(refs[0]["lawTitle"], "宅地造成及び特定盛土等規制法施行令")
+        self.assertEqual(refs[0]["lawId"], "337CO0000000016")
+        self.assertEqual(refs[0]["article"], "8条")
+        self.assertEqual(refs[0]["paragraph"], "1項")
 
     def test_choose_best_snippet_prefers_legal_reasoning(self) -> None:
         selected = choose_best_snippet(
