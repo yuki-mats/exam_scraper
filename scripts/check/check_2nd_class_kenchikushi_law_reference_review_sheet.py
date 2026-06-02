@@ -62,18 +62,30 @@ def validate_row(row: dict[str, Any], *, allow_pending: bool) -> list[str]:
         errors.append(f"{prefix} fixInstructions is required for needs_fix")
 
     refs = row.get("lawReferenceSummary")
-    if not isinstance(refs, list) or not refs:
-        errors.append(f"{prefix} lawReferenceSummary must be a non-empty list")
+    if decision == "ok":
+        if not isinstance(refs, list) or not refs:
+            errors.append(f"{prefix} lawReferenceSummary must be a non-empty list")
+        else:
+            for ref_index, ref in enumerate(refs):
+                if not isinstance(ref, dict):
+                    errors.append(f"{prefix} lawReferenceSummary[{ref_index}] must be an object")
+                    continue
+                for key in ("lawTitle", "lawId", "article", "verificationStatus"):
+                    if not isinstance(ref.get(key), str) or not ref.get(key).strip():
+                        errors.append(f"{prefix} lawReferenceSummary[{ref_index}].{key} must be non-empty")
+                if ref.get("verificationStatus") != "verified":
+                    errors.append(f"{prefix} lawReferenceSummary[{ref_index}].verificationStatus must be verified")
     else:
-        for ref_index, ref in enumerate(refs):
-            if not isinstance(ref, dict):
-                errors.append(f"{prefix} lawReferenceSummary[{ref_index}] must be an object")
-                continue
-            for key in ("lawTitle", "lawId", "article", "verificationStatus"):
-                if not isinstance(ref.get(key), str) or not ref.get(key).strip():
-                    errors.append(f"{prefix} lawReferenceSummary[{ref_index}].{key} must be non-empty")
-            if ref.get("verificationStatus") != "verified":
-                errors.append(f"{prefix} lawReferenceSummary[{ref_index}].verificationStatus must be verified")
+        if isinstance(refs, list):
+            for ref_index, ref in enumerate(refs):
+                if not isinstance(ref, dict):
+                    errors.append(f"{prefix} lawReferenceSummary[{ref_index}] must be an object")
+                    continue
+                for key in ("lawTitle", "lawId", "article", "verificationStatus"):
+                    if not isinstance(ref.get(key), str) or not ref.get(key).strip():
+                        errors.append(f"{prefix} lawReferenceSummary[{ref_index}].{key} must be non-empty")
+                if ref.get("verificationStatus") != "verified":
+                    errors.append(f"{prefix} lawReferenceSummary[{ref_index}].verificationStatus must be verified")
 
     return errors
 
