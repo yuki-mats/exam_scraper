@@ -34,6 +34,21 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
 
         self.assertTrue(module.resolve_question_set_is_deleted(qset))
 
+    def test_explicit_is_deleted_false_is_preserved_for_empty_official_sets(self) -> None:
+        qset = {
+            "questionSetId": "set-official-empty",
+            "name": "Official Empty Set",
+            "questionCount": 0,
+            "isDeleted": False,
+        }
+
+        self.assertFalse(module.resolve_question_set_is_deleted(qset))
+
+    def test_mecnet_kokushi_license_name_is_official_exam_name(self) -> None:
+        path = "output/mecnet-kokushi/category/category.json"
+
+        self.assertEqual(module.resolve_license_name(path, None), "医師国家試験")
+
 
 if __name__ == "__main__":
     unittest.main()

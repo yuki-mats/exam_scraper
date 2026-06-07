@@ -29,6 +29,7 @@ QUALIFICATION_NAME_BY_CODE = {
     "kaigofukushi": "介護福祉士",
     "kounin-shinrishi": "公認心理師",
     "kyusuikouji-shunin": "給水装置工事主任技術者",
+    "mecnet-kokushi": "医師国家試験",
 }
 
 
@@ -180,8 +181,8 @@ def normalize_question_count(value) -> int:
 
 
 def resolve_question_set_is_deleted(qset: dict) -> bool:
-    if qset.get("isDeleted") is True:
-        return True
+    if "isDeleted" in qset:
+        return bool(qset.get("isDeleted"))
     return normalize_question_count(qset.get("questionCount", 0)) <= 0
 
 

@@ -1,0 +1,192 @@
+version: 2
+
+goal:
+  title: "MHLW Kokushi Blueprint Categories"
+  slug: "mhlw-kokushi-blueprint-categories"
+  kind: specific
+  tranche: "Build mecnet-kokushi category/questionSet structure from MHLW 2024 medical national exam blueprint sources."
+  status: done
+  oracle:
+    signal: "T999 final audit plus generated category counts, screenshot evidence, dry-run validation, and unittest discovery."
+    final_proof: "T999 receipt records full_outcome_complete=true after generator, category dry-run, git diff --check, and unittest discovery passed."
+  intake:
+    original_request: "医師国家試験の出題基準ドキュメントから、ブループリント命名を原則として folder、questionset、category.json を整備する。"
+    interpreted_outcome: "mecnet-kokushi has source-backed category/questionSet data using MHLW blueprint names, with visual PDF checks and verification receipts."
+    input_shape: specific
+    audience: "Repository owner and repaso upload workflow."
+    authority: requested
+    proof_type: "source_backed_answer + artifact + test"
+    completion_proof: "MHLW source evidence, screenshot artifacts, category JSON, generation/verification commands, and git push are all complete."
+    likely_misfire: "Inventing category labels or using MEC list groups instead of MHLW blueprint/domain names."
+    blind_spots_considered:
+      - "MHLW PDF tables may not extract cleanly as text; screenshots are required for confirmation."
+      - "Existing dirty worktree contains unrelated changes; preserve them and stage only this goal's files."
+      - "Question-to-blueprint tagging may require later semantic mapping; this tranche should not fake per-question categories without evidence."
+      - "category.json schema must match existing upload_category_to_firestore expectations."
+    existing_plan_facts:
+      - "MHLW source URL: https://www.mhlw.go.jp/stf/shingi2/0000128981_00001.html"
+      - "PDF visual checks are required."
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  intake_misfire_must_be_audited: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: none
+  local:
+    status: not_requested
+    url: null
+    command: "npx goalbuddy board docs/goals/mhlw-kokushi-blueprint-categories"
+
+active_task: null
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: medium
+    objective: "Map MHLW sources, PDF visual evidence needs, existing category schema, and mecnet-kokushi output shape before writes."
+    inputs:
+      - "https://www.mhlw.go.jp/stf/shingi2/0000128981_00001.html"
+      - "output/mecnet-kokushi/"
+      - "scripts/upload/upload_category_to_firestore.py"
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "tests/test_upload_category_to_firestore.py"
+    constraints:
+      - "Read-only except GoalBuddy state receipts."
+      - "Use MHLW source names as authority."
+      - "Record screenshot or image-render evidence paths."
+    expected_output:
+      - "Source PDF list and selected authoritative PDFs."
+      - "Existing category schema summary."
+      - "Recommended files to generate or update."
+      - "Verification commands."
+    receipt:
+      result: done
+      summary:
+        - "MHLW page confirmed as 令和6年版医師国家試験出題基準 with separate PDFs for blueprint, 必修の基本的事項, 医学総論, 医学各論, and 全体版."
+        - "Authoritative category naming should come from ブループリント（医師国家試験設計表）; screenshots of all 4 blueprint pages were generated for visual verification."
+        - "Existing category schema is folders/questionSets; upload_category_to_firestore.py infers qualificationId from output/<qualification>/category/category.json and can dry-run validate without Firebase."
+        - "mecnet-kokushi source questions currently keep category/questionSetId unset, so the blueprint category must not fake per-question mapping in this tranche."
+        - "uploader currently marks zero-count questionSets deleted unless explicit handling is added; Worker should preserve explicit isDeleted=false for official blueprint category."
+      evidence:
+        - "https://www.mhlw.go.jp/stf/shingi2/0000128981_00001.html"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_01.png"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_02.png"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_03.png"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_04.png"
+        - "scripts/upload/upload_category_to_firestore.py"
+        - "scripts/common/question_counting.py"
+        - "output/mecnet-kokushi/questions_json/95/00_source/question_95.json"
+
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: medium
+    objective: "Generate source-backed mecnet-kokushi category/questionSet artifacts from verified MHLW blueprint hierarchy."
+    allowed_files:
+      - "scripts/category/build_mecnet_kokushi_category.py"
+      - "document/sources/mhlw_kokushi_blueprint/blueprint_outline.json"
+      - "document/sources/mhlw_kokushi_blueprint/text/blueprint.txt"
+      - "document/sources/mhlw_kokushi_blueprint/text/required.txt"
+      - "document/sources/mhlw_kokushi_blueprint/text/general.txt"
+      - "document/sources/mhlw_kokushi_blueprint/text/specific.txt"
+      - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_01.png"
+      - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_02.png"
+      - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_03.png"
+      - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_04.png"
+      - "output/mecnet-kokushi/category/category.json"
+      - "scripts/upload/upload_category_to_firestore.py"
+      - "tests/test_upload_category_to_firestore.py"
+      - "tests/test_mecnet_kokushi_category_build.py"
+      - "docs/goals/mhlw-kokushi-blueprint-categories/goal.md"
+      - "docs/goals/mhlw-kokushi-blueprint-categories/state.yaml"
+    verify:
+      - ".venv/bin/python -m unittest tests/test_upload_category_to_firestore.py tests/test_mecnet_kokushi_category_build.py"
+      - ".venv/bin/python scripts/upload/upload_category_to_firestore.py output/mecnet-kokushi/category/category.json"
+      - "git diff --check"
+    stop_if:
+      - "MHLW PDF hierarchy cannot be verified from text and screenshot evidence."
+      - "category.json schema for mecnet-kokushi is incompatible with existing uploader."
+      - "Would need to overwrite unrelated dirty files."
+    receipt:
+      result: done
+      summary:
+        - "Added a reproducible MHLW blueprint parser/generator for mecnet-kokushi category data."
+        - "Generated local PDF text extracts and 4 blueprint page screenshots under document/sources/mhlw_kokushi_blueprint for visual verification."
+        - "Generated blueprint_outline.json with required=18, general=9 chapters/82 items, specific=13 chapters/100 items."
+        - "Generated output/mecnet-kokushi/category/category.json with 23 folders and 200 questionSets using blueprint names."
+        - "Kept per-question questionSetId mapping out of scope because current source questions do not contain verified semantic mapping."
+        - "Updated upload_category_to_firestore.py so explicit isDeleted=false is respected for official zero-count blueprint sets, while unspecified zero-count sets keep the old deleted-by-default behavior."
+        - "Added mecnet-kokushi licenseName inference as 医師国家試験 for category upload."
+      changed_files:
+        - "scripts/category/build_mecnet_kokushi_category.py"
+        - "document/sources/mhlw_kokushi_blueprint/blueprint_outline.json"
+        - "document/sources/mhlw_kokushi_blueprint/text/blueprint.txt"
+        - "document/sources/mhlw_kokushi_blueprint/text/required.txt"
+        - "document/sources/mhlw_kokushi_blueprint/text/general.txt"
+        - "document/sources/mhlw_kokushi_blueprint/text/specific.txt"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_01.png"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_02.png"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_03.png"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_04.png"
+        - "output/mecnet-kokushi/category/category.json"
+        - "scripts/upload/upload_category_to_firestore.py"
+        - "tests/test_upload_category_to_firestore.py"
+        - "tests/test_mecnet_kokushi_category_build.py"
+      commands:
+        - cmd: ".venv/bin/python scripts/category/build_mecnet_kokushi_category.py"
+          status: pass
+        - cmd: ".venv/bin/python -m unittest tests/test_upload_category_to_firestore.py tests/test_mecnet_kokushi_category_build.py"
+          status: pass
+        - cmd: ".venv/bin/python scripts/upload/upload_category_to_firestore.py output/mecnet-kokushi/category/category.json"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+        - cmd: ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
+          status: pass
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "Audit whether the implemented artifacts satisfy the user's original MHLW blueprint category goal."
+    inputs:
+      - "All task receipts."
+      - "Current diff."
+      - "Verification output."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary:
+        - "The implemented artifacts satisfy the user's requested MHLW blueprint category tranche."
+        - "Folder/questionSet naming follows the MHLW blueprint table, with screenshots and extracted text retained as evidence."
+        - "category.json is generated and dry-run validated; upload behavior now preserves explicitly active zero-count official questionSets."
+        - "Remaining future work is semantic per-question questionSetId assignment, which should be a separate mapping/review task rather than guessed in this tranche."
+      evidence:
+        - "output/mecnet-kokushi/category/category.json"
+        - "document/sources/mhlw_kokushi_blueprint/blueprint_outline.json"
+        - "document/sources/mhlw_kokushi_blueprint/screenshots/blueprint_page_04.png"
+        - ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'"
