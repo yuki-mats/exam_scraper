@@ -31,6 +31,7 @@ goal:
       - "03 では lawGroundedExplanationNotNeeded を追加済み"
       - "作業順は 01 → 02 → 03 → 04 を厳守する"
       - "02 後に correctChoiceText 導出結果を監査し、疑義があれば 23_correctChoiceText_fixed を作る"
+      - "問題文・選択肢・元解説の突き合わせで判断し、キーワード一致だけの機械的な分類は使わない"
 
 rules:
   pm_owns_state: true
@@ -64,13 +65,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/mecnet-kokushi-01-04-full-pass/"
     command: "npx goalbuddy board docs/goals/mecnet-kokushi-01-04-full-pass"
 
-active_task: T001
+active_task: T003
 
 tasks:
   - id: T001
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Validate the existing 01→04 plan, lock the pilot slice, and produce the operating contract for the first Worker package."
     inputs:
@@ -93,11 +94,20 @@ tasks:
       - "Checkpoint strategy"
       - "correctChoiceText review gate"
       - "03 require-law-grounded-flag gate"
-    receipt: null
+    receipt:
+      result: done
+      summary: "Validated the full 13,060-question / 52-occurrence plan, confirmed 95 is a clean 259-question pilot slice with only 00_source present, and locked the quality gates for 01→04."
+      evidence:
+        - "docs/goals/mecnet-kokushi-01-04-full-pass/goal.md"
+        - "docs/goals/mecnet-kokushi-01-04-full-pass/state.yaml"
+        - "output/mecnet-kokushi/inventory/inventory_summary.json"
+        - "output/mecnet-kokushi/questions_json/95/00_source/question_95.json"
+      spawned_tasks:
+        - T002
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Choose the largest safe first Worker slice after validating the pilot plan."
     inputs:
@@ -113,19 +123,41 @@ tasks:
       - "stop_if"
       - "Blocked or deferred tasks"
       - "Quality gates that must pass before the slice can be marked done"
-    receipt: null
+    receipt:
+      result: done
+      decision: "approved"
+      full_outcome_complete: false
+      rationale: "Use output/mecnet-kokushi/questions_json/95 as the first Worker slice. It is self-contained, contains 259 questions, and has no existing 01→04 outputs, so it is a clean pilot for the full pipeline."
+      blocked_tasks: []
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: high
-    objective: "Execute the first safe implementation slice selected by Judge."
-    allowed_files: []
-    verify: []
+    objective: "Complete the 95 exam-occurrence pilot end-to-end through 01→04, including merge and upload-dry-run verification."
+    allowed_files:
+      - "output/mecnet-kokushi/questions_json/95/10_questionType_fixed/**"
+      - "output/mecnet-kokushi/questions_json/95/12_merged_questionType/**"
+      - "output/mecnet-kokushi/questions_json/95/15_correctChoiceText_fixed/**"
+      - "output/mecnet-kokushi/questions_json/95/20_merged_1/**"
+      - "output/mecnet-kokushi/questions_json/95/21_explanationText_added/**"
+      - "output/mecnet-kokushi/questions_json/95/22_questionSetId_linked/**"
+      - "output/mecnet-kokushi/questions_json/95/23_correctChoiceText_fixed/**"
+      - "output/mecnet-kokushi/questions_json/95/30_merged_2/**"
+      - "output/mecnet-kokushi/questions_json/95/40_convert/**"
+      - "output/mecnet-kokushi/questions_json/upload_to_firestore/**"
+    verify:
+      - "python3 scripts/check/check_questiontype_patch_coverage.py --source output/mecnet-kokushi/questions_json/95/00_source/question_95.json --patch output/mecnet-kokushi/questions_json/95/10_questionType_fixed/<latest>.json"
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output/mecnet-kokushi/questions_json --glob 95/30_merged_2/*.json"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/mecnet-kokushi/questions_json/95/20_merged_1/question_95_merged.json --patch output/mecnet-kokushi/questions_json/95/21_explanationText_added/<latest>.json --require-law-grounded-flag"
+      - "python3 scripts/check/check_question_set_patch_coverage.py --source output/mecnet-kokushi/questions_json/95/20_merged_1/question_95_merged.json --patch output/mecnet-kokushi/questions_json/95/22_questionSetId_linked/<latest>.json --category output/mecnet-kokushi/category/category.json"
+      - "python3 scripts/check/check_questionSetId.py --category output/mecnet-kokushi/category/category.json --original output/mecnet-kokushi/questions_json/95/00_source/question_95.json --fixed output/mecnet-kokushi/questions_json/95/22_questionSetId_linked/<latest>.json --compare-count --questionset-only"
+      - "python3 scripts/pipeline/prepare_firestore_upload.py 95 -b output/mecnet-kokushi/questions_json --upload-dry-run"
     stop_if:
       - "Need files outside allowed_files."
       - "Behavior is ambiguous."
       - "Verification fails twice."
+      - "A question requires prompt/category policy changes instead of local patching."
     receipt: null
   - id: T999
     type: judge
@@ -153,6 +185,14 @@ tasks:
 checks:
   dirty_fingerprint: unknown
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: pass
+    task: T001
+    commands:
+      - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-update.mjs --json"
+        status: pass
+      - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/mecnet-kokushi-01-04-full-pass/state.yaml"
+        status: pass
+      - cmd: "jq '.question_bodies | length' output/mecnet-kokushi/questions_json/95/00_source/question_95.json"
+        status: pass
+      - cmd: "find output/mecnet-kokushi/questions_json/95 -maxdepth 2 -type d | sort"
+        status: pass
