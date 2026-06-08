@@ -16,6 +16,7 @@ EXPLANATION_FIELDS = [
     "suggestedQuestions",
     "suggestedQuestionDetails",
     "lawReferences",
+    "lawGroundedExplanationNotNeeded",
     "explanation_common_prefix",
     "explanation_common_prefix_inferred_correct_choice",
     "explanation_common_summary",

@@ -134,6 +134,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "suggestedQuestions",
         "suggestedQuestionDetails",
         "lawReferences",
+        "lawGroundedExplanationNotNeeded",
         "explanationImageUrls",
         "explanationImagePaths",
         "hintText",
@@ -304,6 +305,14 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
             raise ValueError(f"questions:{doc_id} {list_key} must be list[str]|null")
     if "lawReferences" in doc and doc["lawReferences"] is not None and not _is_law_reference_list(doc["lawReferences"]):
         raise ValueError(f"questions:{doc_id} lawReferences must be list<object>|null")
+    if (
+        "lawGroundedExplanationNotNeeded" in doc
+        and doc["lawGroundedExplanationNotNeeded"] is not None
+        and not isinstance(doc["lawGroundedExplanationNotNeeded"], bool)
+    ):
+        raise ValueError(
+            f"questions:{doc_id} lawGroundedExplanationNotNeeded must be bool|null"
+        )
     if "suggestedQuestionDetails" in doc and doc["suggestedQuestionDetails"] is not None and not _is_suggested_question_detail_list(doc["suggestedQuestionDetails"]):
         raise ValueError(f"questions:{doc_id} suggestedQuestionDetails must be list<object>|null")
     if "deletedAt" in doc and doc["deletedAt"] is not None and not _is_timestamp_like(doc["deletedAt"]):

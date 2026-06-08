@@ -233,6 +233,20 @@ def format_flat_law_references(value: object) -> list[dict[str, object]]:
     return normalized_refs
 
 
+def resolve_law_grounded_explanation_not_needed(
+    question_body: dict,
+    choice_index: int | None = None,
+) -> bool | None:
+    value = question_body.get("lawGroundedExplanationNotNeeded")
+    if isinstance(value, bool):
+        return value
+    if choice_index is not None and isinstance(value, list) and choice_index < len(value):
+        choice_value = value[choice_index]
+        if isinstance(choice_value, bool):
+            return choice_value
+    return None
+
+
 def get_exam_name(question_body: dict) -> str:
     """
     question_body から試験名を取得する。存在しなければデフォルトを返す。
@@ -496,6 +510,13 @@ def create_firestore_question_base(
     law_references = format_flat_law_references(question_body.get("lawReferences", []))
     if law_references:
         firestore_question["lawReferences"] = law_references
+    law_grounded_explanation_not_needed = resolve_law_grounded_explanation_not_needed(
+        question_body
+    )
+    if law_grounded_explanation_not_needed is not None:
+        firestore_question["lawGroundedExplanationNotNeeded"] = (
+            law_grounded_explanation_not_needed
+        )
 
     # 追加フィールドをマージ
     firestore_question.update(additional_fields)
@@ -579,6 +600,9 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             original_question_choice_text=choice_text,
             original_question_choice_image_urls=choice_images,
             lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
+            lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
+                question_body, i
+            ),
         )
 
         firestore_questions.append(finalize_firestore_question(firestore_question))
@@ -650,6 +674,9 @@ def convert_group_select_to_firestore(
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
                 lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
+                lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
+                    question_body, i
+                ),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
         elif correctness in ("不正解", "間違い", "誤り"):
@@ -669,6 +696,9 @@ def convert_group_select_to_firestore(
                 original_question_choice_image_urls=choice_images,
                 isChoiceOnly=True,
                 lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
+                lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
+                    question_body, i
+                ),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
 
@@ -690,6 +720,9 @@ def convert_group_select_to_firestore(
                 else []
             ),
             lawReferences=format_choice_law_references(question_body.get("lawReferences", []), 0),
+            lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
+                question_body, 0
+            ),
         )
         firestore_questions.append(finalize_firestore_question(firestore_question))
 
@@ -770,6 +803,13 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         law_references = format_flat_law_references(question_body.get("lawReferences", []))
         if law_references:
             firestore_question["lawReferences"] = law_references
+        law_grounded_explanation_not_needed = resolve_law_grounded_explanation_not_needed(
+            question_body
+        )
+        if law_grounded_explanation_not_needed is not None:
+            firestore_question["lawGroundedExplanationNotNeeded"] = (
+                law_grounded_explanation_not_needed
+            )
         flat_choice_image_urls = flatten_choice_image_urls(choice_image_urls_by_choice)
         if flat_choice_image_urls:
             firestore_question["originalQuestionChoiceImageUrls"] = flat_choice_image_urls

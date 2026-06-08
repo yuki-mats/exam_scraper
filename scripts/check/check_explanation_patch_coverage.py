@@ -30,6 +30,14 @@ ALLOWED_LAW_REFERENCE_COMPARISON_STATUS = {
 LAW_REFERENCE_PLACEHOLDERS = {"", "不明", "未確認", "TODO", "TBD", "N/A", "null", "None"}
 
 
+def has_non_empty_law_references(value: Any) -> bool:
+    if isinstance(value, dict):
+        return bool(value)
+    if isinstance(value, list):
+        return any(has_non_empty_law_references(entry) for entry in value)
+    return False
+
+
 def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
@@ -262,6 +270,17 @@ def compare_entries(
                 index=idx,
                 errors=errors,
             )
+
+        if "lawGroundedExplanationNotNeeded" in patch:
+            flag = patch.get("lawGroundedExplanationNotNeeded")
+            if not isinstance(flag, bool):
+                errors.append(
+                    f"index {idx}: lawGroundedExplanationNotNeeded must be bool when present"
+                )
+            elif flag and has_non_empty_law_references(patch.get("lawReferences")):
+                errors.append(
+                    f"index {idx}: lawGroundedExplanationNotNeeded cannot be true when lawReferences is non-empty"
+                )
 
     if len(set(patch_ids)) != len(patch_ids):
         warnings.append("duplicate original_question_id detected in patch")
