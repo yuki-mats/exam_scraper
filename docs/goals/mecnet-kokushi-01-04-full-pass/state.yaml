@@ -1,0 +1,158 @@
+# GoalBuddy v2 state.yaml
+version: 2
+
+goal:
+  title: "医師国家試験 01→04 通し整備"
+  slug: "mecnet-kokushi-01-04-full-pass"
+  kind: existing_plan
+  tranche: "Complete the first pilot slice, then continue through all 52 exam occurrences until all 13,060 questions have passed 01→04 with verification."
+  status: active
+  oracle:
+    signal: "All 52 exam-occurrence directories under output/mecnet-kokushi/questions_json have updated 10_questionType_fixed, 15_correctChoiceText_fixed, 21_explanationText_added, and 22_questionSetId_linked outputs, with coverage checks and count reconciliation passing for 13,060 questions. Explanation coverage must pass with --require-law-grounded-flag."
+    cadence: "after each Worker package and at final audit"
+    final_proof: "Receipts and verification showing 13,060 questions covered end-to-end through 01→04 with no missing or out-of-order patch entries."
+  intake:
+    original_request: "プロンプトに従って01→02→03→04 の通し医師国家試験の過去問の問題を整備してほしい"
+    interpreted_outcome: "医師国家試験 13,060 問を 01→04 の順で最後まで高精度に整備する"
+    input_shape: existing_plan
+    audience: "医師国家試験の問題データ整備とアプリ利用者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "全 52 出題回で patch と merge の成果物が揃い、件数と coverage check が一致する。02後の correctChoiceText 導出結果も監査済みである"
+    likely_misfire: "pilot だけで完了扱いにする、法令/制度問題の精度を落とす、correctChoiceText 監査を省く、merge/検証まで到達しない"
+    blind_spots_considered:
+      - "出題回ごとの分量差"
+      - "医療制度・法令問題の混在"
+      - "lawGroundedExplanationNotNeeded の保守的判定"
+      - "長時間実行時の checkpoint/resume"
+    existing_plan_facts:
+      - "mecnet-kokushi の inventory と 00_source は 13,060 問で一致済み"
+      - "category.json は MHLW ブループリント命名で整備済み"
+      - "03 では lawGroundedExplanationNotNeeded を追加済み"
+      - "作業順は 01 → 02 → 03 → 04 を厳守する"
+      - "02 後に correctChoiceText 導出結果を監査し、疑義があれば 23_correctChoiceText_fixed を作る"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: unknown
+  worker: unknown
+  judge: unknown
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/mecnet-kokushi-01-04-full-pass/"
+    command: "npx goalbuddy board docs/goals/mecnet-kokushi-01-04-full-pass"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "Validate the existing 01→04 plan, lock the pilot slice, and produce the operating contract for the first Worker package."
+    inputs:
+      - "prompt/01_prompt_fix_questionType.md"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "prompt/04_prompt_link_questionSetId.md"
+      - "output/mecnet-kokushi/inventory/inventory_summary.json"
+      - "document/operations/exam_pipeline_manual_and_automation.md"
+    constraints:
+      - "Read-only except for goal state files."
+      - "Do not edit implementation files."
+      - "Preserve the user's existing plan facts."
+    expected_output:
+      - "Validated tranche scope"
+      - "First safe Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "Checkpoint strategy"
+      - "correctChoiceText review gate"
+      - "03 require-law-grounded-flag gate"
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Choose the largest safe first Worker slice after validating the pilot plan."
+    inputs:
+      - "T001 receipt"
+    constraints:
+      - "Do not implement."
+      - "Pick a bounded slice that still changes behavior."
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "Blocked or deferred tasks"
+      - "Quality gates that must pass before the slice can be marked done"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "Execute the first safe implementation slice selected by Judge."
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Behavior is ambiguous."
+      - "Verification fails twice."
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Audit whether the implemented slices satisfy the full 13,060-question 01→04 outcome."
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Current dirty diff"
+    constraints:
+      - "Do not implement."
+      - "Reject completion if required Worker work is still queued or active."
+      - "Reject completion if any exam occurrence still lacks required outputs."
+      - "Reject completion if 03 was not checked with --require-law-grounded-flag."
+      - "Reject completion if correctChoiceText was only auto-derived and not audited."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: unknown
+    task: null
+    commands: []

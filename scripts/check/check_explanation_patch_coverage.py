@@ -200,6 +200,8 @@ def validate_law_references_shape(
 def compare_entries(
     source_questions: List[Dict[str, Any]],
     patch_entries: List[Dict[str, Any]],
+    *,
+    require_law_grounded_flag: bool = False,
 ) -> Tuple[List[str], List[str]]:
     errors: List[str] = []
     warnings: List[str] = []
@@ -271,7 +273,11 @@ def compare_entries(
                 errors=errors,
             )
 
-        if "lawGroundedExplanationNotNeeded" in patch:
+        if require_law_grounded_flag and "lawGroundedExplanationNotNeeded" not in patch:
+            errors.append(
+                f"index {idx}: missing lawGroundedExplanationNotNeeded"
+            )
+        elif "lawGroundedExplanationNotNeeded" in patch:
             flag = patch.get("lawGroundedExplanationNotNeeded")
             if not isinstance(flag, bool):
                 errors.append(
@@ -288,7 +294,12 @@ def compare_entries(
     return errors, warnings
 
 
-def check_pair(source_path: Path, patch_path: Path) -> int:
+def check_pair(
+    source_path: Path,
+    patch_path: Path,
+    *,
+    require_law_grounded_flag: bool = False,
+) -> int:
     if not source_path.exists():
         print(f"[ERROR] source not found: {source_path}")
         return 2
@@ -302,7 +313,11 @@ def check_pair(source_path: Path, patch_path: Path) -> int:
     source_questions = get_source_questions(source_data)
     patch_entries = get_patch_entries(patch_data)
 
-    errors, warnings = compare_entries(source_questions, patch_entries)
+    errors, warnings = compare_entries(
+        source_questions,
+        patch_entries,
+        require_law_grounded_flag=require_law_grounded_flag,
+    )
     for warn in warnings:
         print(f"[WARN] {warn}")
     if errors:
@@ -324,8 +339,17 @@ def main() -> int:
         required=True,
         help="Path to *_explanationText_added_YYYYMMDD_HHMM.json (旧形式 *_explanationText_added.json も可)",
     )
+    parser.add_argument(
+        "--require-law-grounded-flag",
+        action="store_true",
+        help="Require lawGroundedExplanationNotNeeded on every patch entry.",
+    )
     args = parser.parse_args()
-    return check_pair(Path(args.source), Path(args.patch))
+    return check_pair(
+        Path(args.source),
+        Path(args.patch),
+        require_law_grounded_flag=args.require_law_grounded_flag,
+    )
 
 
 if __name__ == "__main__":

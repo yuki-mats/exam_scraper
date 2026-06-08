@@ -59,6 +59,36 @@ class LawGroundedExplanationNotNeededPipelineTests(unittest.TestCase):
             any("lawGroundedExplanationNotNeeded must be bool" in error for error in errors)
         )
 
+    def test_compare_entries_requires_law_grounded_flag_when_requested(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["解説1"],
+                "suggestedQuestions": ["なぜそうなる？"],
+                "suggestedQuestionDetails": [
+                    {"question": "なぜそうなる？", "answer": "医学知識で判断する。"},
+                ],
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_grounded_flag=True,
+        )
+
+        self.assertTrue(
+            any("missing lawGroundedExplanationNotNeeded" in error for error in errors)
+        )
+
     def test_compare_entries_rejects_true_flag_with_law_references(self) -> None:
         source_questions = [
             {

@@ -645,6 +645,15 @@ python3 scripts/check/check_explanation_patch_coverage.py \
   --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added_YYYYMMDD_HHMM.json
 ```
 
+`lawGroundedExplanationNotNeeded` を全件必須にする資格では、次のオプションも付ける。
+
+```bash
+python3 scripts/check/check_explanation_patch_coverage.py \
+  --source /path/to/question_*_merged.json \
+  --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added_YYYYMMDD_HHMM.json \
+  --require-law-grounded-flag
+```
+
 通過しない場合は、説明文や配列長を修正してから再実行すること。
 
 ## 禁止事項
