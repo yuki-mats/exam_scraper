@@ -26,7 +26,7 @@
 - `explanationText` 本文にはURLや出典リンクを埋め込まない（必要な場合は作業報告・タスクreceipt側に記録する）。
 - 信頼性の高い一次情報（例: e-Gov法令検索、官公庁、自治体の公式要綱、法令データ提供元、標準規格団体、大学・学会、原典に近い資料）を優先し、内容が揺れやすい二次まとめは鵜呑みにしない。
 - 法令確認では、資格別の対象法令スコープを先に確認する。e-Gov の全法令から無差別に探してはいけない。
-- 対象法令スコープにない法令を使う必要が出た場合は、問題文・設問文・選択肢・解説候補にその法令が直接関係する根拠を確認し、資格別補助資料へ追記してから `lawReferences` に使う。
+- 対象法令スコープにない法令を使う必要が出た場合は、問題文・設問文・選択肢・解説候補にその法令が直接関係する根拠を確認し、資格別補助資料へ追記してから、必要な資格だけで `lawReferences` に使う。
 - 外部Webで裏取りしても、最終的な説明は「受験者が次に同論点を見たときに自力判定できる」形へ要点を再構成する（単なる言い換えにしない）。
 
 ## 参照優先順位
@@ -34,7 +34,7 @@
 1. `20_merged_1/question_*_merged.json`
 2. 必要時のみ同一 `list_group_id` の `23_correctChoiceText_fixed/`
 3. 必要時のみ `00_source/`
-4. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令参照方針・対象法令スコープ
+4. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令判定方針・必要なら対象法令スコープ
 5. 受験者が納得できる説明に必要な根拠・定義・条文確認のための、信頼できる外部Web一次情報
 
 `20_merged_1` にある以下の値を主に使うこと。
@@ -99,16 +99,26 @@
 - 出力先は `21_explanationText_added/`
 - ファイル名は `question_xxx_merged_explanationText_added_YYYYMMDD_HHMM.json`
 - 出力配列順は元の `question_bodies` と完全一致させる
-- 各要素は `original_question_id`、`question_url`、`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、法令問題では `lawReferences` を持つ
+- 各要素は `original_question_id`、`question_url`、`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を持つ。資格別方針で法令参照データを出す場合だけ `lawReferences` を追加する
 - `explanationText` は必ず `choiceTextList` と同じ長さの配列にする
 - `suggestedQuestions` は必ず文字列配列にし、3 件を基本とする
 - `suggestedQuestionDetails` は必ず object 配列にし、`suggestedQuestions` と同じ長さ・同じ順序にする
 - `suggestedQuestionDetails` の各要素は `question` と `answer` を必須にする
 - 新規に作る各要素には `lawGroundedExplanationNotNeeded` を boolean で入れる。`true` は「根拠条文から解説」ボタンを事前に非表示にしてよい場合だけにする
-- `lawReferences` は選択肢ごとの配列にし、外側配列の長さを `choiceTextList` と一致させる。各要素は、その選択肢に紐づく法令参照オブジェクト配列にする
-- 法令問題でない場合、または法令条項を正誤判断の根拠にしない問題では `lawReferences` を作らず、省略する
-- 法令問題でも、特定の選択肢に紐づく検証済み条文がない場合、その選択肢の `lawReferences` は空配列 `[]` にする
+- 資格別方針で `lawReferences` を出す場合は、選択肢ごとの配列にし、外側配列の長さを `choiceTextList` と一致させる。各要素は、その選択肢に紐づく法令参照オブジェクト配列にする
+- 資格別方針で `lawReferences` を出す場合でも、法令問題でない場合、または法令条項を正誤判断の根拠にしない問題では `lawReferences` を作らず、省略する
+- 資格別方針で `lawReferences` を出す場合でも、特定の選択肢に紐づく検証済み条文がない場合、その選択肢の `lawReferences` は空配列 `[]` にする
 - 全体解説だけを別要素で追加してはいけない
+
+### 資格別例外: `mecnet-kokushi`
+
+`mecnet-kokushi` では、最終成果物に `lawReferences` を入れない。アプリ側に「根拠条文から解説」機能があり、条文提示自体はそこで扱うためである。
+
+- ただし、制度・法令問題かどうかを判断するための一次情報確認は必要なら行う
+- `lawGroundedExplanationNotNeeded` は全問必須
+- 制度・法令・届出・義務・行政手続・法定基準が論点なら、原則 `false`
+- 純医学問題だけを保守的に `true`
+- `mecnet-kokushi` では `lawReferences` を patch に含めない
 
 ## `lawGroundedExplanationNotNeeded` の判定方針
 
@@ -126,13 +136,13 @@
 
 次の場合は `true` にしてはいけない。`false` にするか、判断不能なら `false` として残す。
 
-- `lawReferences` を作る、または作るべき問題
+- 資格別方針で `lawReferences` を作る、または作るべき問題
 - 医師法、医療法、医療保険、介護保険、感染症法、予防接種、母子保健、学校保健、産業保健、精神保健福祉、臓器移植、個人情報、届出、診断書、死亡診断書、医師の義務、医療安全、医療制度など、法令・制度上の義務/定義/手続/数値基準が正誤判断に関わる問題
 - 問題文・選択肢・解説候補に条文番号、法令名、通知、告示、省令、規則、制度上の基準が出てくる問題
 - 法令ではなくても、行政文書・ガイドライン・制度基準の原文確認が学習上有用な問題
 - 一部の選択肢だけでも条文確認が有用な混在問題
 
-`lawReferences` が非空の問題で `lawGroundedExplanationNotNeeded: true` にしてはいけない。この2つが矛盾する場合は、`lawGroundedExplanationNotNeeded` を `false` にする。
+資格別方針で `lawReferences` を出す資格では、`lawReferences` が非空の問題で `lawGroundedExplanationNotNeeded: true` にしてはいけない。この2つが矛盾する場合は、`lawGroundedExplanationNotNeeded` を `false` にする。
 
 ## `explanationText` の品質定義
 
@@ -151,15 +161,17 @@
 
 間違いの選択肢では、必ず「どこが誤りか」「なぜ誤りか」「正しくは何か」を書く。誤っている語句・条件・数値・主体・対象範囲・順序・対応関係を明示し、正しい内容に置き換えて説明する。
 
-## 法令問題の条項明記（必須）
+## 法令問題の条項明記（資格別適用）
 
-建築基準法、施行令、告示、条例、各種関連法（例: 耐震改修法、品確法等）の解釈・適否を問う「法令の問題」である場合は、受験者が確認できるように、該当する法令名と条項（条・項・号まで）を必ず明記する。
+法令条項そのものが学習上の主論点であり、かつ資格別方針で条項明記を求める場合は、受験者が確認できるように、該当する法令名と条項（条・項・号まで）を明記する。
 
 条項は、判断根拠として使った選択肢の `explanationText` 内に書く（URLは書かない）。
 
-### 資格別の対象法令スコープ（必須）
+`mecnet-kokushi` では、法令・制度問題でも `lawReferences` 自体は出力しない。必要なのは、条文ベースの追加解説が要るかどうかを `lawGroundedExplanationNotNeeded` で誤判定しないことである。したがって、法令名や制度名は必要な範囲で `explanationText` に書いてよいが、条文紐付け JSON は作らない。
 
-法令問題を扱う資格では、`lawReferences` を作る前に、資格別の対象法令スコープを確認する。対象法令スコープとは、その資格で通常参照する法令・政令・省令・告示・規則・条例・通達などの候補一覧である。
+### 資格別の対象法令スコープ（`lawReferences` を出す資格では必須）
+
+`lawReferences` を作る資格では、資格別の対象法令スコープを確認する。対象法令スコープとは、その資格で通常参照する法令・政令・省令・告示・規則・条例・通達などの候補一覧である。
 
 対象法令スコープは、原則として `prompt/qualification_docs/<qualification>/01_law_reference_policy.md` または `prompt/qualification_docs/<qualification>/02_law_reference_scope.md` に整理する。まだ存在しない資格では、解説作成前に簡易版を作る。
 
@@ -180,7 +192,7 @@
 
 スコープ外の法令を推測で `lawReferences` に入れてはいけない。
 
-### `lawReferences` を作る条件 / 作らない条件
+### `lawReferences` を作る条件 / 作らない条件（出力する資格だけ）
 
 `lawReferences` は、法令・政令・省令・告示・条例・通達・制度上の義務/定義/基準/数値が、選択肢の正誤判断に直接必要な場合だけ作る。
 
@@ -210,7 +222,7 @@
 
 問題データには、上記条件を満たす場合だけ `lawReferences` も作る。`lawReferences` は、アプリ内の関連法令表示と AI 補足回答の引用根拠として使う。
 
-### `lawId` 紐付けの必須条件
+### `lawId` 紐付けの必須条件（`lawReferences` を出力する資格だけ）
 
 アプリは、原則として `role="current_basis"` かつ `verificationStatus="verified"` かつ `lawId` と `article` が非空の参照だけを、関連法令表示、e-Gov API 取得、Pro 向け AI 補足回答の条文本文注入の対象にする。したがって、最終成果物で `verified` として出す法令参照では、`lawId` と `article` の紐付けを必須とする。
 
@@ -225,16 +237,18 @@
 
 `prompt/qualification_docs/<qualification>/` に法令参照の監査手順がある資格では、`lawReferences` の目視監査を `03_prompt_add_explanationText.md` の外部作業ではなく、解説作成フローの QA 工程として扱う。
 
+一方で、`mecnet-kokushi` のように `lawReferences` を最終成果物へ出さない資格では、ここで求める QA の中心は `lawGroundedExplanationNotNeeded` の保守的判定である。すなわち、制度・法令問題を `true` 側へ誤って倒さないことを最優先にする。
+
 基本フローは次の通り。
 
 1. この `03_prompt_add_explanationText.md` と資格別補助資料を読む。
-2. 法令問題を扱う資格では、対象法令スコープを確認する。未整備なら簡易スコープを作ってから進める。
-3. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / 必要な `lawReferences` を作る。
-4. `lawReferences` は、問題文・設問文・選択肢・解説文・法令文書本文を照合して作る。`lawId` が入っているだけでは合格にしない。
-5. `lawReferences` の正誤判定、条文紐付け、漏れ・誤紐付けの検出は、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・法令本文を目視で照合して判断する。
-6. Python スクリプトを使う場合は、台帳生成、JSON 構造チェック、必須フィールドの有無確認など、作業補助に限定する。Python の結果だけで `ok` / `needs_fix` / `verified` を決めてはいけない。
-7. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawReferences` が選択肢の正誤根拠と一致するか目視確認する。
-8. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、問題文・設問・選択肢・解説文・法令本文のどの照合で不一致が出たかを明記して修正する。
+2. 法令問題を扱う資格では、資格別方針を確認する。`lawReferences` を出す資格は対象法令スコープを確認し、未整備なら簡易スコープを作ってから進める。
+3. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / `lawGroundedExplanationNotNeeded` を作る。資格別方針で必要な場合だけ `lawReferences` も作る。
+4. `lawReferences` を出す資格では、問題文・設問文・選択肢・解説文・法令文書本文を照合して作る。`lawId` が入っているだけでは合格にしない。
+5. `lawGroundedExplanationNotNeeded` の正誤判定や、`lawReferences` を出す資格での条文紐付けは、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・必要なら法令本文を目視で照合して判断する。
+6. Python スクリプトを使う場合は、台帳生成、JSON 構造チェック、必須フィールドの有無確認など、作業補助に限定する。Python の結果だけで `ok` / `needs_fix` / `verified` / `true` / `false` を決めてはいけない。
+7. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawGroundedExplanationNotNeeded` が妥当か、また `lawReferences` を出す資格では選択肢の正誤根拠と一致するか目視確認する。
+8. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、問題文・設問・選択肢・解説文・必要なら法令本文のどの照合で不一致が出たかを明記して修正する。
 9. manual review で全件 `ok` になったものだけを upload 対象にする。
 
 ここでいう「1問ずつ確認する」とは、次を目視で照合することを指す。
@@ -242,7 +256,7 @@
 - 問題文・設問文がどの法令範囲を問うているか
 - 各選択肢の正誤理由がどの条文本文に基づくか
 - `explanationText` の説明と条文本文が矛盾していないか
-- `lawReferences` の `lawTitle` / `lawId` / `article` / `paragraph` / `item` が、その選択肢の根拠条文と一致しているか
+- `lawReferences` を出す資格では、その `lawTitle` / `lawId` / `article` / `paragraph` / `item` が、その選択肢の根拠条文と一致しているか
 - 余分な参照や、漏れている参照がないか
 
 二級建築士では、次を `03_prompt_add_explanationText.md` の QA 工程として使う。
@@ -262,7 +276,7 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 
 二級建築士固有の詳細手順は `prompt/qualification_docs/2nd-class-kenchikushi/01_law_reference_manual_review.md` を参照する。
 
-`lawReferences` の参照オブジェクトの基本形は次の通り。これは選択肢ごとの配列の中に入れる。
+`lawReferences` を出す資格では、参照オブジェクトの基本形は次の通り。これは選択肢ごとの配列の中に入れる。
 
 ```json
 {
@@ -546,6 +560,7 @@ AI が最初に作る JSON は、原則として次の最小形式でよい。
 [
   {
     "original_question_id": "xxxx",
+    "lawGroundedExplanationNotNeeded": true,
     "explanationText": [
       "正しい。\n\n理由を書く。",
       "間違い。\n\n理由を書く。"
@@ -612,15 +627,17 @@ python3 scripts/fix/archive_patch_outputs.py \
 - `suggestedQuestionDetails` が object 配列で、`suggestedQuestions` と件数・順序が一致しているか
 - `suggestedQuestionDetails[].question` が対応する `suggestedQuestions` と完全一致しているか
 - `suggestedQuestionDetails[].answer` が空でなく、質問に対する保存済み回答になっているか
+- `lawGroundedExplanationNotNeeded` が全件に入り、制度・法令問題を安易に `true` に倒していないか
 - 正しい選択肢で、正しい理由が具体的に書かれているか
 - 間違いの選択肢で、誤っている語句・条件・数値・関係が明示されているか
 - 間違いの選択肢で、正しい内容が書かれているか
-- 法令が論点の設問で、法令名と条（必要なら項・号）が `explanationText` に明記されているか（URLは書かない）。
-- `verificationStatus="verified"` の `lawReferences` に `lawId` と `article` が非空で入っているか
-- `lawId` が法令名・略称・URL・`TODO`・`不明` ではなく、e-Gov の正式な法令IDになっているか
-- `lawReferences` が資格別の対象法令スコープ内の法令を優先しているか
-- スコープ外法令を使う場合、問題文・設問文・選択肢・解説候補上の根拠と、資格別補助資料への追記があるか
-- 法令文書本文と、問題文・設問文・選択肢・`explanationText` を照合し、条文の対象・要件・例外・数値が一致しているか
+- 法令が論点の設問で、資格別方針が条項明記を求めるなら、法令名と条（必要なら項・号）が `explanationText` に明記されているか（URLは書かない）。
+- `lawReferences` を出す資格では、`verificationStatus="verified"` の `lawReferences` に `lawId` と `article` が非空で入っているか
+- `lawReferences` を出す資格では、`lawId` が法令名・略称・URL・`TODO`・`不明` ではなく、e-Gov の正式な法令IDになっているか
+- `lawReferences` を出す資格では、`lawReferences` が資格別の対象法令スコープ内の法令を優先しているか
+- `lawReferences` を出す資格では、スコープ外法令を使う場合、問題文・設問文・選択肢・解説候補上の根拠と、資格別補助資料への追記があるか
+- `lawReferences` を出す資格では、法令文書本文と、問題文・設問文・選択肢・`explanationText` を照合し、条文の対象・要件・例外・数値が一致しているか
+- `mecnet-kokushi` では、patch に `lawReferences` を混入させていないか
 - 法令・数値・定義を、根拠なしに推測していないか
 - `設問の通りです`、`記述は正しいです`、`正解です` だけで終わっていないか
 - 選択肢本文をただ言い換えただけになっていないか
