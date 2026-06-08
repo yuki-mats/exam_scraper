@@ -5,7 +5,7 @@ goal:
   title: "医師国家試験 01→04 通し整備"
   slug: "mecnet-kokushi-01-04-full-pass"
   kind: existing_plan
-  tranche: "Complete the first pilot slice, then continue through all 52 exam occurrences until all 13,060 questions have passed 01→04 with verification."
+  tranche: "Complete all 52 exam occurrences / 13,060 questions through 01→04 with per-occurrence checkpoints and final verification. Individual occurrences such as 95 are checkpoints, not the task boundary."
   status: active
   oracle:
     signal: "All 52 exam-occurrence directories under output/mecnet-kokushi/questions_json have updated 10_questionType_fixed, 15_correctChoiceText_fixed, 21_explanationText_added, and 22_questionSetId_linked outputs, with coverage checks and count reconciliation passing for 13,060 questions. Explanation coverage must pass with --require-law-grounded-flag."
@@ -32,6 +32,7 @@ goal:
       - "作業順は 01 → 02 → 03 → 04 を厳守する"
       - "02 後に correctChoiceText 導出結果を監査し、疑義があれば 23_correctChoiceText_fixed を作る"
       - "問題文・選択肢・元解説の突き合わせで判断し、キーワード一致だけの機械的な分類は使わない"
+      - "95回などの個別出題回は中間 checkpoint であり、active task や完了判定を単一出題回に閉じない"
 
 rules:
   pm_owns_state: true
@@ -96,7 +97,7 @@ tasks:
       - "03 require-law-grounded-flag gate"
     receipt:
       result: done
-      summary: "Validated the full 13,060-question / 52-occurrence plan, confirmed 95 is a clean 259-question pilot slice with only 00_source present, and locked the quality gates for 01→04."
+      summary: "Validated the full 13,060-question / 52-occurrence plan and locked the quality gates for 01→04. 95 is only the first checkpoint touched during execution, not a scope limit."
       evidence:
         - "docs/goals/mecnet-kokushi-01-04-full-pass/goal.md"
         - "docs/goals/mecnet-kokushi-01-04-full-pass/state.yaml"
@@ -109,12 +110,13 @@ tasks:
     assignee: Judge
     status: done
     reasoning_hint: high
-    objective: "Choose the largest safe first Worker slice after validating the pilot plan."
+    objective: "Choose the largest safe Worker package after validating the full 13,060-question plan."
     inputs:
       - "T001 receipt"
     constraints:
       - "Do not implement."
-      - "Pick a bounded slice that still changes behavior."
+      - "Do not narrow the goal to a single exam occurrence."
+      - "Use exam occurrences only as checkpoint/resume units inside the full package."
     expected_output:
       - "Decision"
       - "Exact Worker objective"
@@ -127,37 +129,40 @@ tasks:
       result: done
       decision: "approved"
       full_outcome_complete: false
-      rationale: "Use output/mecnet-kokushi/questions_json/95 as the first Worker slice. It is self-contained, contains 259 questions, and has no existing 01→04 outputs, so it is a clean pilot for the full pipeline."
+      rationale: "Use all 52 exam occurrences under output/mecnet-kokushi/questions_json as the Worker package. Individual occurrences, including 95, are checkpoint/resume units only and cannot satisfy completion by themselves."
       blocked_tasks: []
   - id: T003
     type: worker
     assignee: Worker
     status: active
     reasoning_hint: high
-    objective: "Complete the 95 exam-occurrence pilot end-to-end through 01→04, including merge and upload-dry-run verification."
+    objective: "Complete all 52 exam occurrences / 13,060 questions end-to-end through 01→04, including merge, conversion, and upload-dry-run verification. Use each occurrence as a checkpoint, not as the task boundary."
     allowed_files:
-      - "output/mecnet-kokushi/questions_json/95/10_questionType_fixed/**"
-      - "output/mecnet-kokushi/questions_json/95/12_merged_questionType/**"
-      - "output/mecnet-kokushi/questions_json/95/15_correctChoiceText_fixed/**"
-      - "output/mecnet-kokushi/questions_json/95/20_merged_1/**"
-      - "output/mecnet-kokushi/questions_json/95/21_explanationText_added/**"
-      - "output/mecnet-kokushi/questions_json/95/22_questionSetId_linked/**"
-      - "output/mecnet-kokushi/questions_json/95/23_correctChoiceText_fixed/**"
-      - "output/mecnet-kokushi/questions_json/95/30_merged_2/**"
-      - "output/mecnet-kokushi/questions_json/95/40_convert/**"
+      - "output/mecnet-kokushi/questions_json/*/10_questionType_fixed/**"
+      - "output/mecnet-kokushi/questions_json/*/12_merged_questionType/**"
+      - "output/mecnet-kokushi/questions_json/*/15_correctChoiceText_fixed/**"
+      - "output/mecnet-kokushi/questions_json/*/20_merged_1/**"
+      - "output/mecnet-kokushi/questions_json/*/21_explanationText_added/**"
+      - "output/mecnet-kokushi/questions_json/*/22_questionSetId_linked/**"
+      - "output/mecnet-kokushi/questions_json/*/23_correctChoiceText_fixed/**"
+      - "output/mecnet-kokushi/questions_json/*/30_merged_2/**"
+      - "output/mecnet-kokushi/questions_json/*/40_convert/**"
       - "output/mecnet-kokushi/questions_json/upload_to_firestore/**"
     verify:
-      - "python3 scripts/check/check_questiontype_patch_coverage.py --source output/mecnet-kokushi/questions_json/95/00_source/question_95.json --patch output/mecnet-kokushi/questions_json/95/10_questionType_fixed/<latest>.json"
-      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output/mecnet-kokushi/questions_json --glob 95/30_merged_2/*.json"
-      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/mecnet-kokushi/questions_json/95/20_merged_1/question_95_merged.json --patch output/mecnet-kokushi/questions_json/95/21_explanationText_added/<latest>.json --require-law-grounded-flag"
-      - "python3 scripts/check/check_question_set_patch_coverage.py --source output/mecnet-kokushi/questions_json/95/20_merged_1/question_95_merged.json --patch output/mecnet-kokushi/questions_json/95/22_questionSetId_linked/<latest>.json --category output/mecnet-kokushi/category/category.json"
-      - "python3 scripts/check/check_questionSetId.py --category output/mecnet-kokushi/category/category.json --original output/mecnet-kokushi/questions_json/95/00_source/question_95.json --fixed output/mecnet-kokushi/questions_json/95/22_questionSetId_linked/<latest>.json --compare-count --questionset-only"
-      - "python3 scripts/pipeline/prepare_firestore_upload.py 95 -b output/mecnet-kokushi/questions_json --upload-dry-run"
+      - "python3 - <<'PY'\nimport json\nfrom pathlib import Path\ns=json.loads(Path('output/mecnet-kokushi/inventory/inventory_summary.json').read_text())\nassert s['site_total']==13060 and s['source_total_matched']==13060 and s['missing_total']==0\nprint('inventory ok: 13060')\nPY"
+      - "For each exam occurrence: python3 scripts/check/check_questiontype_patch_coverage.py --source output/mecnet-kokushi/questions_json/<occurrence>/00_source/question_<occurrence>.json --patch output/mecnet-kokushi/questions_json/<occurrence>/10_questionType_fixed/<latest>.json"
+      - "python3 scripts/check/check_question_intent_correct_choice_text_distribution.py --output-root output/mecnet-kokushi/questions_json --glob '*/30_merged_2/*.json'"
+      - "For each exam occurrence: python3 scripts/check/check_explanation_patch_coverage.py --source output/mecnet-kokushi/questions_json/<occurrence>/20_merged_1/question_<occurrence>_merged.json --patch output/mecnet-kokushi/questions_json/<occurrence>/21_explanationText_added/<latest>.json --require-law-grounded-flag"
+      - "For each exam occurrence: python3 scripts/check/check_question_set_patch_coverage.py --source output/mecnet-kokushi/questions_json/<occurrence>/20_merged_1/question_<occurrence>_merged.json --patch output/mecnet-kokushi/questions_json/<occurrence>/22_questionSetId_linked/<latest>.json --category output/mecnet-kokushi/category/category.json"
+      - "For each exam occurrence: python3 scripts/check/check_questionSetId.py --category output/mecnet-kokushi/category/category.json --original output/mecnet-kokushi/questions_json/<occurrence>/00_source/question_<occurrence>.json --fixed output/mecnet-kokushi/questions_json/<occurrence>/22_questionSetId_linked/<latest>.json --compare-count --questionset-only"
+      - "For each exam occurrence: python3 scripts/pipeline/prepare_firestore_upload.py <occurrence> -b output/mecnet-kokushi/questions_json --upload-dry-run"
+      - "Final reconciliation proves 52 occurrence outputs and 13,060 question bodies are covered through 01→04."
     stop_if:
       - "Need files outside allowed_files."
       - "Behavior is ambiguous."
       - "Verification fails twice."
       - "A question requires prompt/category policy changes instead of local patching."
+      - "A proposed completion proof covers only one occurrence or any subset of the 13,060 questions."
     receipt: null
   - id: T999
     type: judge
