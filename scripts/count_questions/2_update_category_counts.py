@@ -216,8 +216,11 @@ def apply_counts_to_category(category: dict, counts: Counter) -> tuple[int, int,
         qid = q.get("questionSetId")
         new_count = int(counts.get(str(qid), 0))
         old_count = normalize_count(q.get("questionCount", 0))
+        old_is_deleted = bool(q.get("isDeleted", False))
+        new_is_deleted = new_count <= 0
         q["questionCount"] = new_count
-        if old_count != new_count:
+        q["isDeleted"] = new_is_deleted
+        if old_count != new_count or old_is_deleted != new_is_deleted:
             q["updatedAt"] = now_iso
             qset_updated += 1
 
@@ -233,8 +236,11 @@ def apply_counts_to_category(category: dict, counts: Counter) -> tuple[int, int,
         fid = f.get("folderId")
         new_count = folder_counts.get(fid, 0)
         old_count = normalize_count(f.get("questionCount", 0))
+        old_is_deleted = bool(f.get("isDeleted", False))
+        new_is_deleted = new_count <= 0
         f["questionCount"] = new_count
-        if old_count != new_count:
+        f["isDeleted"] = new_is_deleted
+        if old_count != new_count or old_is_deleted != new_is_deleted:
             f["updatedAt"] = now_iso
             folder_updated += 1
 

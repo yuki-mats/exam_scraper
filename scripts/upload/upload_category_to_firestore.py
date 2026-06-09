@@ -161,6 +161,7 @@ def apply_counts_to_category(data: dict, counts: Counter) -> None:
         qset_id = qset.get("questionSetId")
         qset_count = int(counts.get(str(qset_id), 0))
         qset["questionCount"] = qset_count
+        qset["isDeleted"] = qset_count <= 0
 
     folder_counts: dict[str, int] = {}
     for qset in data.get("questionSets", []):
@@ -170,7 +171,9 @@ def apply_counts_to_category(data: dict, counts: Counter) -> None:
 
     for folder in data.get("folders", []):
         folder_id = folder.get("folderId")
-        folder["questionCount"] = int(folder_counts.get(folder_id, 0))
+        folder_count = int(folder_counts.get(folder_id, 0))
+        folder["questionCount"] = folder_count
+        folder["isDeleted"] = folder_count <= 0
 
 
 def normalize_question_count(value) -> int:
@@ -184,6 +187,12 @@ def resolve_question_set_is_deleted(qset: dict) -> bool:
     if "isDeleted" in qset:
         return bool(qset.get("isDeleted"))
     return normalize_question_count(qset.get("questionCount", 0)) <= 0
+
+
+def resolve_folder_is_deleted(folder: dict) -> bool:
+    if "isDeleted" in folder:
+        return bool(folder.get("isDeleted"))
+    return normalize_question_count(folder.get("questionCount", 0)) <= 0
 
 
 def delete_folders_and_question_sets(db, data):
@@ -220,7 +229,7 @@ def upsert_folder(db, folder, now, license_name: str, qualification_id: str):
     doc_data = {
         "name": folder["name"],
         # "description": folder.get("description", ""),
-        "isDeleted": False,
+        "isDeleted": resolve_folder_is_deleted(folder),
         "isPublic": True,
         "isOfficial": True,
         "aggregatedQuestionTags": [],
@@ -365,7 +374,7 @@ def main():
             # dry-run でも repaso schema の必須キーを満たす doc_data を構築して検証する
             doc_data = {
                 "name": folder.get("name", ""),
-                "isDeleted": False,
+                "isDeleted": resolve_folder_is_deleted(folder),
                 "isPublic": True,
                 "isOfficial": True,
                 "aggregatedQuestionTags": [],
