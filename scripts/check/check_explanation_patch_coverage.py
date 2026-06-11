@@ -245,7 +245,20 @@ def compare_entries(
         if not isinstance(explanations, list):
             errors.append(f"index {idx}: explanationText must be a list")
         else:
-            if isinstance(choices, list) and len(explanations) != len(choices):
+            source_question_type = src.get("questionType")
+            if (
+                isinstance(choices, list)
+                and len(choices) == 0
+                and source_question_type in {"fill_in_blank", "free_text"}
+            ):
+                if not explanations or any(
+                    not isinstance(explanation, str) or not explanation.strip()
+                    for explanation in explanations
+                ):
+                    errors.append(
+                        f"index {idx}: fill_in_blank explanationText must be non-empty list[str]"
+                    )
+            elif isinstance(choices, list) and len(explanations) != len(choices):
                 errors.append(
                     "index {}: explanationText length mismatch "
                     "(source={} patch={})".format(idx, len(choices), len(explanations))

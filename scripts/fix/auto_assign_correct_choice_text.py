@@ -93,6 +93,9 @@ def detect_choice_count(question_body: dict) -> int:
 
 
 def build_expected_correct_choice_text(question_body: dict) -> tuple[list[str] | None, str | None]:
+    if question_body.get("questionType") == "fill_in_blank":
+        return None, None
+
     answer_numbers = get_inferred_answer_numbers(question_body)
     if not answer_numbers:
         return None, "answer_result_text_unparseable"
@@ -142,6 +145,8 @@ def process_file(path: Path, *, apply: bool) -> tuple[int, list[UnresolvedRecord
 
         expected, reason = build_expected_correct_choice_text(question_body)
         if expected is None:
+            if reason is None:
+                continue
             unresolved.append(
                 UnresolvedRecord(
                     file_path=path,

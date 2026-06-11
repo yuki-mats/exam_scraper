@@ -95,17 +95,18 @@ def apply_question_type(
         question_id = question.get("original_question_id")
         if question_id is None:
             continue
+        new_type = qtype_map.get(str(question_id))
+        if new_type is not None:
+            question["questionType"] = new_type
+            updated += 1
+            continue
+
         # 追加: choiceTextListが全て空欄ならgroup_choiceにする
         choice_list = question.get("choiceTextList")
         if isinstance(choice_list, list) and all((c is None or str(c).strip() == "") for c in choice_list):
             question["questionType"] = "group_choice"
             updated += 1
             continue
-        new_type = qtype_map.get(str(question_id))
-        if new_type is None:
-            continue
-        question["questionType"] = new_type
-        updated += 1
     return updated
 
 
@@ -303,6 +304,8 @@ def normalize_true_false_intent_and_correct_choice(
 
     for question in questions:
         if not isinstance(question, dict):
+            continue
+        if question.get("questionType") == "fill_in_blank":
             continue
 
         inferred_intent = infer_question_intent_from_text(

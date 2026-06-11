@@ -39,6 +39,9 @@ def _has_valid_choice_images(question: dict) -> bool:
 
 
 def _choice_text_list_empty(question: dict) -> str | None:
+    if question.get("questionType") == "fill_in_blank":
+        return None
+
     choices = question.get("choiceTextList")
     if not isinstance(choices, list) or not choices:
         if _has_valid_choice_images(question):
