@@ -228,6 +228,13 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
     if not text:
         return None
 
+    positive_required_keywords = (
+        "見落としてはならない",
+        "見逃してはならない",
+    )
+    if any(keyword in text for keyword in positive_required_keywords):
+        return "select_correct"
+
     negative_keywords = (
         "最も不適当",
         "不適当",
