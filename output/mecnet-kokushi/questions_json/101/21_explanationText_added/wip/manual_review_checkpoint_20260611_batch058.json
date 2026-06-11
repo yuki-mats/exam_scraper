@@ -1,0 +1,252 @@
+{
+  "examOccurrenceId": "101",
+  "qualification": "mecnet-kokushi",
+  "task": "03_explanation_manual_wip",
+  "progress": {
+    "reviewedCount": 464,
+    "sourceCount": 500,
+    "notes": "101回の03工程WIP。source順で457〜464問目を追加レビュー済み。正式patchではなくcheckpoint。"
+  },
+  "patched_questions": [
+    {
+      "original_question_id": "9b075e4e7fac3cd6",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "正しい。\n\n医療保護入院では保護者の同意が必要である。",
+        "間違い。\n\n治療費の全額公費負担は措置入院等である。",
+        "間違い。\n\n対象は統合失調症に限られず、精神障害者が対象である。",
+        "正しい。\n\n医療保護入院では知事への届出が必要である。",
+        "間違い。\n\n2名以上の精神保健指定医の診察は措置入院等である。"
+      ],
+      "suggestedQuestions": [
+        "医療保護入院の条件は何ですか？",
+        "精神科入院で家族同意が必要なのは何ですか？",
+        "措置入院と医療保護入院の違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "医療保護入院の条件は何ですか？",
+          "answer": "家族等の同意と指定医1名の診察である。"
+        },
+        {
+          "question": "精神科入院で家族同意が必要なのは何ですか？",
+          "answer": "医療保護入院である。"
+        },
+        {
+          "question": "措置入院と医療保護入院の違いは何ですか？",
+          "answer": "措置入院は公費負担で指定医2名の診察を要する。"
+        }
+      ]
+    },
+    {
+      "original_question_id": "a9f7b419c23d8a03",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "間違い。\n\n転地療養は必要ない。",
+        "間違い。\n\n訪問看護よりも、日中の活動の場づくりが適切である。",
+        "間違い。\n\n入院継続は長期化すると社会復帰を妨げる。",
+        "間違い。\n\n援護寮は自宅がない場合などに考える。",
+        "正しい。\n\nデイケア通所で日中活動を促し、引きこもりを予防できる。"
+      ],
+      "suggestedQuestions": [
+        "統合失調症の退院後方針は何ですか？",
+        "引きこもり予防に有効な精神科支援は何ですか？",
+        "退院後に社会復帰を促す方法は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "統合失調症の退院後方針は何ですか？",
+          "answer": "デイケア通所である。"
+        },
+        {
+          "question": "引きこもり予防に有効な精神科支援は何ですか？",
+          "answer": "デイケアである。"
+        },
+        {
+          "question": "退院後に社会復帰を促す方法は何ですか？",
+          "answer": "デイケア通所である。"
+        }
+      ]
+    },
+    {
+      "original_question_id": "aa27761404423480",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "間違い。\n\n患者が触れる場所の消毒が重要であり、1や2ではない。",
+        "間違い。\n\n触れる機会が少ない場所は優先度が低い。",
+        "正しい。\n\n患者が頻繁に触れる場所が消毒の重点である。",
+        "正しい。\n\n患者が頻繁に触れる場所が消毒の重点である。",
+        "間違い。\n\n頻繁に触れる場所ではない。"
+      ],
+      "suggestedQuestions": [
+        "院内感染で重点的に消毒する場所はどこですか？",
+        "患者が触る場所で注意するのは何ですか？",
+        "感染対策で注目すべき場所はどこですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "院内感染で重点的に消毒する場所はどこですか？",
+          "answer": "患者が頻繁に触れる場所である。"
+        },
+        {
+          "question": "患者が触る場所で注意するのは何ですか？",
+          "answer": "手すりやベッド柵である。"
+        },
+        {
+          "question": "感染対策で注目すべき場所はどこですか？",
+          "answer": "頻回接触面である。"
+        }
+      ]
+    },
+    {
+      "original_question_id": "4d94f1ae1e84a230",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "間違い。\n\n隔離は不要である。",
+        "間違い。\n\n居住区の消毒は不要である。",
+        "正しい。\n\n日本脳炎は4類感染症であり、保健所への届出が必要である。",
+        "間違い。\n\n発症後のワクチン接種は無意味である。",
+        "間違い。\n\n有効な抗ウイルス薬はない。"
+      ],
+      "suggestedQuestions": [
+        "日本脳炎の対応は何ですか？",
+        "4類感染症で行うべきことは何ですか？",
+        "日本脳炎で治療薬はありますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "日本脳炎の対応は何ですか？",
+          "answer": "保健所へ届け出る。"
+        },
+        {
+          "question": "4類感染症で行うべきことは何ですか？",
+          "answer": "届出である。"
+        },
+        {
+          "question": "日本脳炎で治療薬はありますか？",
+          "answer": "有効な抗ウイルス薬はない。"
+        }
+      ]
+    },
+    {
+      "original_question_id": "d211ffac41539aa4",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "間違い。\n\n騒音ではこの症状群は説明しにくい。",
+        "正しい。\n\n改装工事による有機溶剤が原因として考えられる。",
+        "間違い。\n\n局所振動ではない。",
+        "間違い。\n\nアスベストは急性の吐き気を起こしにくい。",
+        "間違い。\n\n光化学オキシダントでは校舎内の工事と合わない。"
+      ],
+      "suggestedQuestions": [
+        "学校工事で体調不良を起こす原因は何ですか？",
+        "有機溶剤中毒の症状は何ですか？",
+        "工事現場で急性中毒が疑われるときは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "学校工事で体調不良を起こす原因は何ですか？",
+          "answer": "有機溶剤である。"
+        },
+        {
+          "question": "有機溶剤中毒の症状は何ですか？",
+          "answer": "吐き気や頭痛である。"
+        },
+        {
+          "question": "工事現場で急性中毒が疑われるときは何ですか？",
+          "answer": "有機溶剤曝露である。"
+        }
+      ]
+    },
+    {
+      "original_question_id": "2df72d48f88a51df",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "正しい。\n\n低在横定位が考えられる。",
+        "間違い。\n\n後方後頭位では所見が合いにくい。",
+        "間違い。\n\n児頭骨盤不均衡を示す所見ではない。",
+        "間違い。\n\n続発性微弱陣痛ではない。",
+        "間違い。\n\nNRFSではない。"
+      ],
+      "suggestedQuestions": [
+        "低在横定位の特徴は何ですか？",
+        "分娩停滞で考える胎位異常は何ですか？",
+        "児頭が回旋しないときに考えるのは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "低在横定位の特徴は何ですか？",
+          "answer": "児頭下降が停滞し、回旋しないことである。"
+        },
+        {
+          "question": "分娩停滞で考える胎位異常は何ですか？",
+          "answer": "低在横定位である。"
+        },
+        {
+          "question": "児頭が回旋しないときに考えるのは何ですか？",
+          "answer": "低在横定位である。"
+        }
+      ]
+    },
+    {
+      "original_question_id": "16b326a2980606ce",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "間違い。\n\n強膜肥厚では角膜径拡大は説明しにくい。",
+        "間違い。\n\n前房混濁ではない。",
+        "間違い。\n\n水晶体混濁ではない。",
+        "間違い。\n\n硝子体混濁ではない。",
+        "正しい。\n\n先天緑内障による眼圧上昇で角膜径が拡大している。"
+      ],
+      "suggestedQuestions": [
+        "乳児の角膜径拡大で考える病気は何ですか？",
+        "流涙と角膜混濁で考える眼疾患は何ですか？",
+        "先天緑内障の所見は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "乳児の角膜径拡大で考える病気は何ですか？",
+          "answer": "先天緑内障である。"
+        },
+        {
+          "question": "流涙と角膜混濁で考える眼疾患は何ですか？",
+          "answer": "先天緑内障である。"
+        },
+        {
+          "question": "先天緑内障の所見は何ですか？",
+          "answer": "眼圧上昇と角膜径拡大である。"
+        }
+      ]
+    },
+    {
+      "original_question_id": "d3554562645f76a5",
+      "lawGroundedExplanationNotNeeded": true,
+      "explanationText": [
+        "間違い。\n\n心理検査は必要だが、ここでは必要ない検査ではない。",
+        "間違い。\n\n頭部MRIは必要な検査である。",
+        "正しい。\n\n心エコー検査は低身長の鑑別として優先度が低い。",
+        "間違い。\n\n甲状腺機能検査は必要である。",
+        "間違い。\n\n下垂体機能検査は必要である。"
+      ],
+      "suggestedQuestions": [
+        "低身長で不要な検査は何ですか？",
+        "小児低身長の鑑別に必要な検査は何ですか？",
+        "低身長で心エコーは必要ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "低身長で不要な検査は何ですか？",
+          "answer": "心エコー検査である。"
+        },
+        {
+          "question": "小児低身長の鑑別に必要な検査は何ですか？",
+          "answer": "甲状腺機能と下垂体機能の評価である。"
+        },
+        {
+          "question": "低身長で心エコーは必要ですか？",
+          "answer": "通常は優先度が低い。"
+        }
+      ]
+    }
+  ]
+}
