@@ -137,6 +137,7 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
     text = (question_body_text or "").strip()
     if not text:
         return None
+    intent_text = text[-240:]
     negative_keywords = (
         "最も不適当",
         "不適当",
@@ -145,13 +146,15 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
         "誤り",
         "ならない",
         "みられない",
+        "起こり得ない",
+        "適応でない",
         "してはならない",
         "必要がない",
         "要しない",
         "関係の少ない",
         "最も関係の少ない",
     )
-    if any(keyword in text for keyword in negative_keywords):
+    if any(keyword in intent_text for keyword in negative_keywords):
         return "select_incorrect"
     return "select_correct"
 
