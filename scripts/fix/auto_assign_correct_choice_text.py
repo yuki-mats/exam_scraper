@@ -13,6 +13,13 @@ from typing import Any
 ANSWER_RESULT_RE = re.compile(r"正解は\s*([0-9０-９]+(?:\s*,\s*[0-9０-９]+)*)\s*です。")
 FULLWIDTH_DIGIT_TRANSLATION = str.maketrans("０１２３４５６７８９", "0123456789")
 TARGET_SUBDIRS = ("20_merged_1", "30_merged_2")
+LABEL_TRUE = "正しい"
+LABEL_FALSE = "間違い"
+LABEL_NORMALIZE_MAP = {
+    "正解": LABEL_TRUE,
+    "不正解": LABEL_FALSE,
+    "誤り": LABEL_FALSE,
+}
 
 
 @dataclass(frozen=True)
@@ -52,6 +59,28 @@ def parse_answer_numbers(answer_result_text: Any) -> list[int]:
         if number not in numbers:
             numbers.append(number)
     return numbers
+
+
+def normalize_label(value: Any) -> Any:
+    if isinstance(value, str):
+        return LABEL_NORMALIZE_MAP.get(value, value)
+    return value
+
+
+def has_trusted_unparseable_answer_text(question_body: dict) -> bool:
+    text = str(question_body.get("answer_result_text") or "")
+    return "解説を参照" in text or "採点除外" in text
+
+
+def existing_correct_choice_labels(question_body: dict) -> list[str] | None:
+    value = question_body.get("correctChoiceText")
+    choice_count = detect_choice_count(question_body)
+    if choice_count <= 0 or not isinstance(value, list) or len(value) != choice_count:
+        return None
+    normalized = [normalize_label(item) for item in value]
+    if all(item in {LABEL_TRUE, LABEL_FALSE} for item in normalized):
+        return normalized
+    return None
 
 
 def get_inferred_answer_numbers(question_body: dict) -> list[int]:
@@ -98,6 +127,10 @@ def build_expected_correct_choice_text(question_body: dict) -> tuple[list[str] |
 
     answer_numbers = get_inferred_answer_numbers(question_body)
     if not answer_numbers:
+        if has_trusted_unparseable_answer_text(question_body):
+            existing = existing_correct_choice_labels(question_body)
+            if existing is not None:
+                return existing, None
         return None, "answer_result_text_unparseable"
 
     choice_count = detect_choice_count(question_body)

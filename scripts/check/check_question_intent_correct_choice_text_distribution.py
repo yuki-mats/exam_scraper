@@ -92,6 +92,11 @@ def normalize_label(value: Any) -> Any:
     return value
 
 
+def has_trusted_unparseable_answer_text(qb: dict) -> bool:
+    text = str(qb.get("answer_result_text") or "")
+    return "解説を参照" in text or "採点除外" in text
+
+
 @dataclass(frozen=True)
 class Violation:
     source_path: Path
@@ -205,6 +210,8 @@ def validate_question_intent_correct_choice_distribution(
 
         answer_numbers = get_answer_numbers(qb)
         if not answer_numbers:
+            if has_trusted_unparseable_answer_text(qb):
+                continue
             violations.append(
                 Violation(
                     source_path=source_path,
