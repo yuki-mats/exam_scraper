@@ -29,7 +29,7 @@ QUALIFICATION_NAME_BY_CODE = {
     "kaigofukushi": "介護福祉士",
     "kounin-shinrishi": "公認心理師",
     "kyusuikouji-shunin": "給水装置工事主任技術者",
-    "mecnet-kokushi": "医師国家試験",
+    "mecnet-kokushi": "医師",
 }
 
 
