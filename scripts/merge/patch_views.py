@@ -231,6 +231,9 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
     positive_required_keywords = (
         "見落としてはならない",
         "見逃してはならない",
+        "しなければならない",
+        "行わなければならない",
+        "伝えなければならない",
     )
     negative_keywords = (
         "最も不適当",

@@ -158,6 +158,13 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
         "関係の少ない",
         "最も関係の少ない",
     )
+    positive_required_keywords = (
+        "見落としてはならない",
+        "見逃してはならない",
+        "しなければならない",
+        "行わなければならない",
+        "伝えなければならない",
+    )
 
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     intent_text = text[-240:]
@@ -175,6 +182,8 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
         intent_text = f"{previous}\n{line}".strip() or line
         break
 
+    if any(keyword in intent_text for keyword in positive_required_keywords):
+        return "select_correct"
     if any(keyword in intent_text for keyword in negative_keywords):
         return "select_incorrect"
     return "select_correct"
