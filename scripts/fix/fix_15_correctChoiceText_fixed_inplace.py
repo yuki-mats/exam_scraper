@@ -144,6 +144,7 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
         "誤って",
         "誤り",
         "ならない",
+        "みられない",
         "してはならない",
         "必要がない",
         "要しない",
