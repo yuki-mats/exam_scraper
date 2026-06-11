@@ -8582,13 +8582,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
         "正しい",
-        "間違い"
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "頭部単純CTで両側側脳室拡大がみられない疾患"
@@ -8813,13 +8813,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
         "正しい",
-        "間違い"
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "スポーツが原因となる整形外科疾患"
@@ -25353,13 +25353,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
+        "正しい",
         "正しい",
         "間違い",
-        "間違い"
+        "正しい",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "保健所における精神保健福祉の専門相談"
@@ -25587,7 +25587,7 @@
       "questionIntent": "select_correct",
       "correctChoiceText": [
         "間違い",
-        "間違い",
+        "正しい",
         "間違い",
         "間違い",
         "間違い"
@@ -25610,13 +25610,15 @@
       ],
       "explanation_choice_correctness": [
         "間違い",
-        "間違い",
+        "正しい",
         "間違い",
         "間違い",
         "間違い"
       ],
       "answer_result_text": "正解は なし です。",
-      "answer_result_inferred_correct_choice_numbers": [],
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
       "source_question_id": "34fb22b960a420aa"
     },
     {
@@ -29685,7 +29687,7 @@
         "間違い",
         "間違い",
         "間違い",
-        "間違い",
+        "正しい",
         "間違い"
       ],
       "explanation_common_prefix": [
@@ -29716,12 +29718,14 @@
         "間違い",
         "間違い",
         "間違い",
-        "間違い",
+        "正しい",
         "間違い"
       ],
       "answer_result_text": "正解は解説を参照してください。",
-      "answer_result_inferred_correct_choice_numbers": [],
-      "answer_result_unresolved": true,
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "answer_result_unresolved": false,
       "source_question_id": "71fe02f166868c1e"
     },
     {
@@ -31367,13 +31371,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
-        "間違い",
-        "正しい"
+        "正しい",
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "肝硬変の特徴的身体所見"
@@ -32291,13 +32295,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
-        "間違い",
-        "正しい"
+        "正しい",
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "淡水溺水と特徴"
@@ -33284,13 +33288,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
         "正しい",
-        "間違い"
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "消化管内視鏡による治療の適応疾患"
@@ -33361,13 +33365,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
         "正しい",
-        "間違い"
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "根治的放射線治療の対象となる早期癌"
@@ -34667,13 +34671,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
         "間違い",
-        "正しい"
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "HBV針刺し事故への対応"
@@ -40182,13 +40186,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
         "正しい",
         "間違い",
-        "間違い",
-        "間違い"
+        "正しい",
+        "正しい",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "伝染性単核球症に投与すべきでない薬剤"
