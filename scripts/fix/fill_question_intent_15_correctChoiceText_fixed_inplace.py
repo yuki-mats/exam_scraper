@@ -41,14 +41,18 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
     text = (question_body_text or "").strip()
     if not text:
         return None
-    intent_text = text[-240:]
 
     negative_keywords = (
         "最も不適当",
         "不適当",
+        "不適切",
+        "適切でない",
+        "適当でない",
         "適合しない",
         "誤って",
         "誤り",
+        "誤った",
+        "正しくない",
         "ならない",
         "みられない",
         "起こり得ない",
@@ -60,6 +64,23 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
         "最も関係の少ない",
         "記載を要しない",
     )
+
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    intent_text = text[-240:]
+    for index in range(len(lines) - 1, -1, -1):
+        line = lines[index]
+        if "どれか" not in line and "選べ" not in line:
+            continue
+        if any(keyword in line for keyword in negative_keywords):
+            intent_text = line
+            break
+        if not line.startswith(("のは", "は")) and len(line) > 8:
+            intent_text = line
+            break
+        previous = lines[index - 1] if index > 0 else ""
+        intent_text = f"{previous}\n{line}".strip() or line
+        break
+
     if any(keyword in intent_text for keyword in negative_keywords):
         return "select_incorrect"
     return "select_correct"
