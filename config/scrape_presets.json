@@ -108,6 +108,57 @@
       "120A"
     ]
   },
+  "tsukanshi": {
+    "scraper_type": "kakomonn",
+    "qualification_name": "通関士",
+    "list_first_page_url_template": "https://tsukanshi.kakomonn.com/list1/{list_group_id}?page=1",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "68011",
+        "output_list_group_id": "2025"
+      },
+      {
+        "source_list_group_id": "68010",
+        "output_list_group_id": "2024"
+      },
+      {
+        "source_list_group_id": "68009",
+        "output_list_group_id": "2023"
+      },
+      {
+        "source_list_group_id": "68008",
+        "output_list_group_id": "2022"
+      },
+      {
+        "source_list_group_id": "68007",
+        "output_list_group_id": "2021"
+      },
+      {
+        "source_list_group_id": "68006",
+        "output_list_group_id": "2020"
+      },
+      {
+        "source_list_group_id": "68005",
+        "output_list_group_id": "2019"
+      },
+      {
+        "source_list_group_id": "68004",
+        "output_list_group_id": "2018"
+      },
+      {
+        "source_list_group_id": "68003",
+        "output_list_group_id": "2017"
+      },
+      {
+        "source_list_group_id": "68002",
+        "output_list_group_id": "2016"
+      },
+      {
+        "source_list_group_id": "68001",
+        "output_list_group_id": "2015"
+      }
+    ]
+  },
   "sg": {
     "scraper_type": "sgsiken",
     "qualification_name": "情報セキュリティマネジメント",

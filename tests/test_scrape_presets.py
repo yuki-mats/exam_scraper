@@ -98,6 +98,23 @@ class ScrapePresetTests(unittest.TestCase):
             "https://study.mecnet.jp/exercises/exercise_list/1",
         )
 
+    def test_load_scrape_preset_for_tsukanshi(self) -> None:
+        preset = load_scrape_preset("tsukanshi")
+
+        self.assertEqual(preset.qualification_name, "通関士")
+        self.assertEqual(preset.scraper_type, "kakomonn")
+        self.assertEqual(preset.list_group_ids[0], "2025")
+        self.assertEqual(preset.list_group_ids[-1], "2015")
+
+    def test_build_list_first_page_url_for_tsukanshi(self) -> None:
+        preset = load_scrape_preset("tsukanshi")
+        url = build_list_first_page_url(preset, "2025")
+
+        self.assertEqual(
+            url,
+            "https://tsukanshi.kakomonn.com/list1/68011?page=1",
+        )
+
     def test_resolve_target_list_group_ids_rejects_unknown_group(self) -> None:
         preset = load_scrape_preset("kaigofukushi")
 
