@@ -44,30 +44,21 @@
 - ただし判定の基準ファイルは、常に同一 `list_group_id/00_source/` 配下の対応元ファイルとする。
 
 [書き込み（生成）してよいファイル]
-- まず AI 生出力として、各 `question_*_*.json` から導出した **`original_question_id` と `questionType` だけ**を持つ最小JSONを新規作成してよい。
+- まず AI 生出力として、各 `question_*_*.json` から導出した **`original_question_id` と `questionType` だけ**を持つ最小JSONを作成してよい。
 - その後、`scripts/fix/materialize_minimal_patch.py` で正式パッチJSONを生成すること。
 - **必ず `list_group_id` のディレクトリ配下に `10_questionType_fixed/` フォルダを作成（存在しなければ作成）し、その中に保存すること。**
-- **新規生成前に `10_questionType_fixed/` 直下に過去の作成物がある場合は、必ず先に `old/` へ移動すること。**
-  - 実行コマンド:
-```bash
-python3 scripts/fix/archive_patch_outputs.py \
-  --task question_type \
-  --list-group-id <list_group_id> \
-  --base-dir output/<qualification>/questions_json
-```
-- **出力ファイル名には必ず作業日時分（`YYYYMMDD_HHMM`）を付与すること。**
+- **出力は固定ファイル名にし、既存の同名パッチがある場合は上書きすること。** 作業のたびにタイムスタンプ付きファイルを増やさない。
   - 例: 元ファイルが  
     `/Users/.../questions_json/85010/question_85010_2.json`  
     の場合、パッチは  
-    `/Users/.../questions_json/85010/10_questionType_fixed/question_85010_2_questionType_fixed_20260228_1530.json`
+    `/Users/.../questions_json/85010/10_questionType_fixed/question_85010_2_questionType_fixed.json`
 - **1つの `question_*_*.json` につき 1 つのパッチJSONのみ出力する。**
 - 命名規則（例）:
   - 元: `/.../question_85010_1.json`
-  - パッチ: `/.../10_questionType_fixed/question_85010_1_questionType_fixed_YYYYMMDD_HHMM.json`
+  - パッチ: `/.../10_questionType_fixed/question_85010_1_questionType_fixed.json`
 - 異なる `list_group_id` のファイルを 1 つのパッチJSONにまとめてはいけない。
-- すでに存在するファイル名を上書きしてはいけない（同名がある場合は処理を中止するか、ユーザーに委ねる）。
-- **既存の `10_questionType_fixed/*.json` をコピーして新タイムスタンプ名で流用してはいけない。**  
-  毎回、`00_source/question_*_*.json` を読み直し、全件を再判定して新規生成すること。
+- **既存の `10_questionType_fixed/*.json` をコピーして別名で流用してはいけない。**  
+  毎回、`00_source/question_*_*.json` を読み直し、同じ固定ファイルを上書きすること。
 - 効率化のため `20_merged_1` などのローカル派生JSONを補助参照してもよいが、**外部サイトではなくローカルファイルだけで完結**させること。
 
 [AI生出力JSONの構造]
@@ -124,15 +115,15 @@ python3 scripts/fix/materialize_minimal_patch.py \
   --task question_type \
   --source /path/to/00_source/question_*.json \
   --raw /path/to/raw.json \
-  --output /path/to/10_questionType_fixed/question_*_questionType_fixed_YYYYMMDD_HHMM.json
+  --output /path/to/10_questionType_fixed/question_*_questionType_fixed.json
 ```
 - 出力後に必ず以下を実行し、通過するまで出力を修正すること。
 ```bash
 python scripts/check/check_questiontype_patch_coverage.py \
   --source /path/to/question_*.json \
-  --patch /path/to/10_questionType_fixed/question_*_questionType_fixed_YYYYMMDD_HHMM.json
+  --patch /path/to/10_questionType_fixed/question_*_questionType_fixed.json
 ```
-- タイムスタンプ付与運用では、`--list-group-id` 一括検証ではなく、`--source`/`--patch` をファイル単位で実行すること。
+- `--source`/`--patch` をファイル単位で実行すること。
 
 [絶対に変更してはいけないもの]
 - 既存の `question_*_*.json` 内の **あらゆる** 内容:
@@ -437,13 +428,13 @@ python scripts/check/check_questiontype_patch_coverage.py \
 5. 1つの question_*.json について、
    - 上記配列を  
      **元ファイルと同じ `list_group_id` ディレクトリ配下の `10_questionType_fixed/` に**  
-     `{元ファイル名}_questionType_fixed_YYYYMMDD_HHMM.json` という名前で新規出力する。  
-     （例: 元 `question_850003_5.json` → パッチ `10_questionType_fixed/question_850003_5_questionType_fixed_20260228_1530.json`）
+     `{元ファイル名}_questionType_fixed.json` という固定名で出力し、既存の同名ファイルがあれば上書きする。  
+     （例: 元 `question_850003_5.json` → パッチ `10_questionType_fixed/question_850003_5_questionType_fixed.json`）
    - 変更が1件もない場合でも **全件を含む配列** を必ず出力する。
 
-6. 既存ファイルの書き換え禁止:
+6. 既存 source ファイルの書き換え禁止:
    - どのタイミングでも、既存の question_*.json やその他既存ファイルの
-     内容を変えてはいけない（差分JSONの新規作成だけ行う）。
+     内容を変えてはいけない（差分JSONだけを上書きする）。
 
 
 ==================================================
@@ -469,8 +460,8 @@ python scripts/check/check_questiontype_patch_coverage.py \
 
 - 各 `question_*_*.json` は完全に元のまま（1バイトも変更なし）。
 - `list_group_id` 配下に `10_questionType_fixed/` フォルダがあり、処理したファイルごとに  
-  `10_questionType_fixed/question_85010_1_questionType_fixed_YYYYMMDD_HHMM.json`  
-  のようなパッチファイルが新規に存在する。
+  `10_questionType_fixed/question_85010_1_questionType_fixed.json`  
+  のような固定名パッチファイルが存在し、再実行時は同じファイルを上書きする。
 - パッチファイルは JSON 配列で、各要素は
   `questionBodyText`, `choiceTextList`, `questionType`, `original_question_id`, `question_url`
   だけを持つ。

@@ -58,6 +58,14 @@ def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
     return [q for q in data if isinstance(q, dict)]
 
 
+def get_question_identity(question: Dict[str, Any]) -> Any:
+    return (
+        question.get("original_question_id")
+        or question.get("public_question_id")
+        or question.get("question_url")
+    )
+
+
 def validate_suggested_question_details(
     *,
     suggested_questions: Any,
@@ -211,7 +219,7 @@ def compare_entries(
             f"count mismatch: source={len(source_questions)} patch={len(patch_entries)}"
         )
 
-    source_ids = [q.get("original_question_id") for q in source_questions]
+    source_ids = [get_question_identity(q) for q in source_questions]
     patch_ids = [q.get("original_question_id") for q in patch_entries]
     missing_ids = sorted({sid for sid in source_ids if sid} - {pid for pid in patch_ids if pid})
     extra_ids = sorted({pid for pid in patch_ids if pid} - {sid for sid in source_ids if sid})
@@ -226,10 +234,11 @@ def compare_entries(
             errors.append(f"index {idx}: missing fields {missing_fields}")
             continue
 
-        if patch.get("original_question_id") != src.get("original_question_id"):
+        source_question_id = get_question_identity(src)
+        if patch.get("original_question_id") != source_question_id:
             errors.append(
                 "index {}: original_question_id mismatch (source={} patch={})".format(
-                    idx, src.get("original_question_id"), patch.get("original_question_id")
+                    idx, source_question_id, patch.get("original_question_id")
                 )
             )
 

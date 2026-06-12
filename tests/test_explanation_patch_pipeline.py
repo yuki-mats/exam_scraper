@@ -4,10 +4,54 @@ import unittest
 
 from scripts.check.check_explanation_patch_coverage import compare_entries
 from scripts.convert.convert_merged_to_firestore import convert_true_false_to_firestore
+from scripts.fix.auto_assign_correct_choice_text import build_expected_correct_choice_text
 from scripts.fix.materialize_minimal_patch import materialize_explanation
+from scripts.pipeline.build_tsukanshi_upload_artifacts import build_explanation_patch, build_intent_patch
 
 
 class ExplanationPatchPipelineTests(unittest.TestCase):
+    def test_build_expected_correct_choice_text_prefers_answer_result_text_over_bad_inferred_numbers(self) -> None:
+        question = {
+            "questionType": "flash_card",
+            "questionIntent": "select_correct",
+            "answer_result_text": "正解は 11 です。",
+            "answer_result_inferred_correct_choice_numbers": [1],
+            "choiceTextList": [f"肢{i}" for i in range(1, 16)],
+        }
+
+        actual, reason = build_expected_correct_choice_text(question)
+
+        self.assertIsNone(reason)
+        self.assertEqual(actual[10], "正しい")
+        self.assertEqual(actual.count("正しい"), 1)
+        self.assertEqual(actual[0], "間違い")
+
+    def test_tsukanshi_patch_builder_repairs_correct_choice_text_and_explanation_labels(self) -> None:
+        question = {
+            "public_question_id": "q123",
+            "question_url": "https://example.com/q123",
+            "questionType": "flash_card",
+            "questionIntent": "select_correct",
+            "questionBodyText": "正しい語句を選びなさい。",
+            "choiceTextList": [f"肢{i}" for i in range(1, 16)],
+            "correctChoiceText": ["正しい"] + ["間違い"] * 14,
+            "answer_result_text": "正解は 11 です。",
+            "answer_result_inferred_correct_choice_numbers": [1],
+            "explanation_choice_snippets": [[] for _ in range(15)],
+            "explanation_common_prefix": ["条文で 11 番が正答だと分かる。"],
+            "explanation_common_summary": [],
+        }
+
+        intent_patch = build_intent_patch([question])[0]
+        explanation_patch = build_explanation_patch([question])[0]
+
+        self.assertTrue(intent_patch["correctChoiceText_changed"])
+        self.assertEqual(intent_patch["correctChoiceText"][10], "正しい")
+        self.assertEqual(intent_patch["correctChoiceText"][0], "間違い")
+        self.assertIn("answer_result_text=正解は 11 です。", intent_patch["correctChoiceText_change_detail"])
+        self.assertIn("選択肢1は「間違い」です。", explanation_patch["explanationText"][0])
+        self.assertIn("選択肢11は「正しい」です。", explanation_patch["explanationText"][10])
+
     def test_materialize_explanation_preserves_suggested_questions_and_law_references(self) -> None:
         source_question = {
             "public_question_id": "q123",
@@ -79,6 +123,31 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
                         }
                     ],
                     [],
+                ],
+            }
+        ]
+
+        errors, warnings = compare_entries(source_questions, patch_entries)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(warnings, [])
+
+    def test_compare_entries_accepts_public_question_id_when_original_id_missing(self) -> None:
+        source_questions = [
+            {
+                "public_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["解説1"],
+                "suggestedQuestions": ["なぜそうなる？"],
+                "suggestedQuestionDetails": [
+                    {"question": "なぜそうなる？", "answer": "公開IDを正本として照合できる。"},
                 ],
             }
         ]

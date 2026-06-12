@@ -120,17 +120,10 @@
 
 - 保存先: 同じ `list_group_id` 直下の `15_correctChoiceText_fixed/`
 - 互換上の命名規則:
-  - `{元ファイル名}_correctChoiceText_fixed_YYYYMMDD_HHMM.json`
+  - `{元ファイル名}_correctChoiceText_fixed.json`
 - ただし、このファイルの用途は実質的に `questionIntent` パッチである。
 - 後で変更箇所だけ抽出するため、変更有無メタ (`questionIntent_changed`) を必ず含める。
-- 新規生成前に既存出力がある場合は、次のコマンドで `old/` へ退避する。
-
-```bash
-python3 scripts/fix/archive_patch_outputs.py \
-  --task question_intent \
-  --list-group-id <list_group_id> \
-  --base-dir output/<qualification>/questions_json
-```
+- 既存の同名出力がある場合は、退避ファイルを増やさず同じファイルを上書きする。
 
 
 ==================================================

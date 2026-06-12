@@ -189,7 +189,7 @@ def _parse_answer_numbers(answer_result_text: str) -> list[int]:
 def backfill_correct_choice_text_from_answer_result(data: dict) -> int:
     """
     correctChoiceText に None が含まれる場合に、
-    answer_result_inferred_correct_choice_numbers（優先）/ answer_result_text（正解番号）と questionIntent を使って補完する。
+    answer_result_text（優先）/ answer_result_inferred_correct_choice_numbers と questionIntent を使って補完する。
 
     ルール（絶対）:
       - select_correct   → 正解番号の位置が「正しい」
@@ -212,22 +212,22 @@ def backfill_correct_choice_text_from_answer_result(data: dict) -> int:
             continue
         choice_count = len(choice_list)
 
-        inferred = body.get("answer_result_inferred_correct_choice_numbers")
-        if isinstance(inferred, list) and inferred:
-            answer_numbers = []
-            for v in inferred:
-                if isinstance(v, int):
-                    answer_numbers.append(v)
-                elif str(v).isdigit():
-                    answer_numbers.append(int(str(v)))
-            # 重複除外
-            normalized: list[int] = []
-            for num in answer_numbers:
-                if num not in normalized:
-                    normalized.append(num)
-            answer_numbers = normalized
-        else:
-            answer_numbers = _parse_answer_numbers(str(body.get("answer_result_text") or ""))
+        answer_numbers = _parse_answer_numbers(str(body.get("answer_result_text") or ""))
+        if not answer_numbers:
+            inferred = body.get("answer_result_inferred_correct_choice_numbers")
+            if isinstance(inferred, list) and inferred:
+                answer_numbers = []
+                for v in inferred:
+                    if isinstance(v, int):
+                        answer_numbers.append(v)
+                    elif str(v).isdigit():
+                        answer_numbers.append(int(str(v)))
+                # 重複除外
+                normalized: list[int] = []
+                for num in answer_numbers:
+                    if num not in normalized:
+                        normalized.append(num)
+                answer_numbers = normalized
         if not answer_numbers:
             continue
         if any(num < 1 or num > choice_count for num in answer_numbers):

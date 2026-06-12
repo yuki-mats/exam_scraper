@@ -208,9 +208,7 @@ def fix_file(path: Path, source_by_url: dict[str, SourceQuestion], *, apply: boo
             continue
 
         answer_numbers = parse_answer_numbers(source.answer_result_text or "")
-        if source.answer_numbers:
-            # inferred を優先
-            answer_numbers = []
+        if not answer_numbers and source.answer_numbers:
             for v in source.answer_numbers:
                 if v not in answer_numbers:
                     answer_numbers.append(v)

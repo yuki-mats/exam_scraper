@@ -14,7 +14,7 @@
 - 元ファイルは編集しない。出力は必ず `22_questionSetId_linked/` に作る。
 - 元ファイルと出力パッチの件数・順序・`original_question_id` は必ず一致させる。
 - `*empty*` を含むファイルも必ず対象にする。
-- 出力ファイル名には必ず `YYYYMMDD_HHMM` を付ける。
+- 出力ファイル名は固定名にし、既存の同名ファイルがある場合は上書きする。作業のたびにタイムスタンプ付きファイルを増やさない。
 
 ## 参照するJSON構造
 
@@ -227,14 +227,14 @@ python3 scripts/fix/materialize_minimal_patch.py \
   --task question_set \
   --source /absolute/path/to/question_*_merged.json \
   --raw /absolute/path/to/raw_questionSetId.json \
-  --output /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked_YYYYMMDD_HHMM.json
+  --output /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked.json
 ```
 
 ### 3. カバレッジ検証
 ```bash
 python3 scripts/check/check_question_set_patch_coverage.py \
   --source /absolute/path/to/question_*_merged.json \
-  --patch /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked_YYYYMMDD_HHMM.json \
+  --patch /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked.json \
   --category /absolute/path/to/category.json \
   --questionset-only
 ```
@@ -244,14 +244,14 @@ python3 scripts/check/check_question_set_patch_coverage.py \
 python3 scripts/check/check_questionSetId.py \
   --category /absolute/path/to/category.json \
   --original /absolute/path/to/question_*_merged.json \
-  --fixed /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked_YYYYMMDD_HHMM.json \
+  --fixed /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked.json \
   --compare-count \
   --questionset-only
 ```
 
 ## 成功条件
 - 出力先は `questions_json/<list_group_id>/22_questionSetId_linked/`
-- 出力ファイル名は `{元ファイル名}_questionSetId_linked_YYYYMMDD_HHMM.json`
+- 出力ファイル名は `{元ファイル名}_questionSetId_linked.json`
 - すべての出力で、元ファイルとの件数・順序・`original_question_id` が一致している
 - `questionSetId` は `""` または `category.json` 内の有効IDのみ
 - `check_question_set_patch_coverage.py` と `check_questionSetId.py` の終了コードがどちらも `0`

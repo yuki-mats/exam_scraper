@@ -97,7 +97,7 @@
 ## 出力方針
 
 - 出力先は `21_explanationText_added/`
-- ファイル名は `question_xxx_merged_explanationText_added_YYYYMMDD_HHMM.json`
+- ファイル名は `question_xxx_merged_explanationText_added.json` のような固定名にし、再実行時は同名ファイルを上書きする
 - 出力配列順は元の `question_bodies` と完全一致させる
 - 各要素は `original_question_id`、`question_url`、`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を持つ。資格別方針で法令参照データを出す場合だけ `lawReferences` を追加する
 - `explanationText` は必ず `choiceTextList` と同じ長さの配列にする
@@ -595,12 +595,12 @@ python3 scripts/fix/materialize_minimal_patch.py \
   --task explanation \
   --source /path/to/question_*_merged.json \
   --raw /path/to/raw.json \
-  --output /path/to/21_explanationText_added/question_*_merged_explanationText_added_YYYYMMDD_HHMM.json
+  --output /path/to/21_explanationText_added/question_*_merged_explanationText_added.json
 ```
 
 ## 既存成果物の扱い
 
-- `21_explanationText_added/` に旧成果物がある場合は、新規作成前に `old/` へ退避する
+- `21_explanationText_added/` に同名成果物がある場合は、内容を確認して同じファイルを上書きする。作業のたびにタイムスタンプ付きファイルを増やさない
 - 既存パッチを流用して修正する場合も、各選択肢について次を確認すること
   - 正誤判定だけで終わっていないか
   - `設問の通り` などの定型句が残っていないか
@@ -659,7 +659,7 @@ python3 scripts/fix/archive_patch_outputs.py \
 ```bash
 python3 scripts/check/check_explanation_patch_coverage.py \
   --source /path/to/question_*_merged.json \
-  --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added_YYYYMMDD_HHMM.json
+  --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json
 ```
 
 `lawGroundedExplanationNotNeeded` を全件必須にする資格では、次のオプションも付ける。
@@ -667,7 +667,7 @@ python3 scripts/check/check_explanation_patch_coverage.py \
 ```bash
 python3 scripts/check/check_explanation_patch_coverage.py \
   --source /path/to/question_*_merged.json \
-  --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added_YYYYMMDD_HHMM.json \
+  --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json \
   --require-law-grounded-flag
 ```
 

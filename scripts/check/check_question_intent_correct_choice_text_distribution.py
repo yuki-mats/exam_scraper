@@ -49,22 +49,31 @@ def parse_answer_numbers_from_answer_result_text(text: Any) -> list[int]:
 
 def get_answer_numbers(qb: dict) -> list[int]:
     """
-    answer_result_inferred_correct_choice_numbers を優先し、無ければ answer_result_text をパースする。
+    answer_result_text を優先し、無ければ answer_result_inferred_correct_choice_numbers を使う。
+
+    `answer_result_inferred_correct_choice_numbers` は派生値であり、
+    二桁選択肢で 11 -> 1 のように欠損するケースがあるため、
+    まず表示用テキストを正本として扱う。
     """
+    parsed = parse_answer_numbers_from_answer_result_text(qb.get("answer_result_text"))
+    if parsed:
+        return parsed
+
     inferred = qb.get("answer_result_inferred_correct_choice_numbers")
-    if isinstance(inferred, list) and inferred:
-        numbers: list[int] = []
-        for v in inferred:
-            if isinstance(v, int):
-                numbers.append(v)
-            elif str(v).isdigit():
-                numbers.append(int(str(v)))
-        normalized: list[int] = []
-        for n in numbers:
-            if n > 0 and n not in normalized:
-                normalized.append(n)
-        return normalized
-    return parse_answer_numbers_from_answer_result_text(qb.get("answer_result_text"))
+    if not isinstance(inferred, list) or not inferred:
+        return []
+
+    numbers: list[int] = []
+    for v in inferred:
+        if isinstance(v, int):
+            numbers.append(v)
+        elif str(v).isdigit():
+            numbers.append(int(str(v)))
+    normalized: list[int] = []
+    for n in numbers:
+        if n > 0 and n not in normalized:
+            normalized.append(n)
+    return normalized
 
 
 def detect_choice_count(qb: dict) -> int:
@@ -127,7 +136,7 @@ def validate_question_intent_correct_choice_distribution(
     questionIntent と correctChoiceText の整合性を検査する。
 
     ルール（絶対）:
-      - answer_result_inferred_correct_choice_numbers の件数が「正しい/間違い」の件数になる
+      - answer_result_text（なければ answer_result_inferred_correct_choice_numbers）の件数が「正しい/間違い」の件数になる
         - select_correct   → 正解番号の位置が「正しい」
         - select_incorrect → 正解番号の位置が「間違い」
     """

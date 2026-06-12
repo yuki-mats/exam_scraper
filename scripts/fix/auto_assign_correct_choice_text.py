@@ -85,9 +85,17 @@ def existing_correct_choice_labels(question_body: dict) -> list[str] | None:
 
 def get_inferred_answer_numbers(question_body: dict) -> list[int]:
     """
-    answer_result_inferred_correct_choice_numbers を優先して取得する。
-    無い場合は answer_result_text を正規表現でパースする。
+    answer_result_text を優先して取得する。
+    無い場合だけ answer_result_inferred_correct_choice_numbers を使う。
+
+    `answer_result_inferred_correct_choice_numbers` は派生値であり、
+    通関士のような二桁選択肢で 11 -> 1 のような欠損が起きるケースがあるため、
+    表示用テキストを正本として扱う。
     """
+    parsed = parse_answer_numbers(question_body.get("answer_result_text"))
+    if parsed:
+        return parsed
+
     candidates = question_body.get("answer_result_inferred_correct_choice_numbers")
     if isinstance(candidates, list) and candidates:
         numbers: list[int] = []
