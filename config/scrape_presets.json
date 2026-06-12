@@ -108,6 +108,57 @@
       "120A"
     ]
   },
+  "anma": {
+    "scraper_type": "kakomonn",
+    "qualification_name": "あん摩マッサージ指圧師",
+    "list_first_page_url_template": "https://anma.kakomonn.com/list1/{list_group_id}?page=1",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "81011",
+        "output_list_group_id": "2026"
+      },
+      {
+        "source_list_group_id": "81010",
+        "output_list_group_id": "2025"
+      },
+      {
+        "source_list_group_id": "81009",
+        "output_list_group_id": "2024"
+      },
+      {
+        "source_list_group_id": "81008",
+        "output_list_group_id": "2023"
+      },
+      {
+        "source_list_group_id": "81007",
+        "output_list_group_id": "2022"
+      },
+      {
+        "source_list_group_id": "81006",
+        "output_list_group_id": "2021"
+      },
+      {
+        "source_list_group_id": "81005",
+        "output_list_group_id": "2020"
+      },
+      {
+        "source_list_group_id": "81004",
+        "output_list_group_id": "2019"
+      },
+      {
+        "source_list_group_id": "81003",
+        "output_list_group_id": "2018"
+      },
+      {
+        "source_list_group_id": "81002",
+        "output_list_group_id": "2017"
+      },
+      {
+        "source_list_group_id": "81001",
+        "output_list_group_id": "2016"
+      }
+    ]
+  },
   "tsukanshi": {
     "scraper_type": "kakomonn",
     "qualification_name": "通関士",
@@ -156,6 +207,77 @@
       {
         "source_list_group_id": "68001",
         "output_list_group_id": "2015"
+      }
+    ]
+  },
+  "2dobokusekou": {
+    "scraper_type": "kakomonn",
+    "qualification_name": "2級土木施工管理技士",
+    "list_first_page_url_template": "https://2dobokusekou.kakomonn.com/list1/{list_group_id}?page=1",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "84016",
+        "output_list_group_id": "84016"
+      },
+      {
+        "source_list_group_id": "84015",
+        "output_list_group_id": "84015"
+      },
+      {
+        "source_list_group_id": "84014",
+        "output_list_group_id": "84014"
+      },
+      {
+        "source_list_group_id": "84013",
+        "output_list_group_id": "84013"
+      },
+      {
+        "source_list_group_id": "84012",
+        "output_list_group_id": "84012"
+      },
+      {
+        "source_list_group_id": "84011",
+        "output_list_group_id": "84011"
+      },
+      {
+        "source_list_group_id": "84010",
+        "output_list_group_id": "84010"
+      },
+      {
+        "source_list_group_id": "84009",
+        "output_list_group_id": "84009"
+      },
+      {
+        "source_list_group_id": "84008",
+        "output_list_group_id": "84008"
+      },
+      {
+        "source_list_group_id": "84007",
+        "output_list_group_id": "84007"
+      },
+      {
+        "source_list_group_id": "84006",
+        "output_list_group_id": "84006"
+      },
+      {
+        "source_list_group_id": "84005",
+        "output_list_group_id": "84005"
+      },
+      {
+        "source_list_group_id": "84004",
+        "output_list_group_id": "84004"
+      },
+      {
+        "source_list_group_id": "84003",
+        "output_list_group_id": "84003"
+      },
+      {
+        "source_list_group_id": "84002",
+        "output_list_group_id": "84002"
+      },
+      {
+        "source_list_group_id": "84001",
+        "output_list_group_id": "84001"
       }
     ]
   },
