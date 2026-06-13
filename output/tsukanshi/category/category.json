@@ -1,0 +1,1074 @@
+{
+  "metadata": {
+    "qualificationId": "tsukanshi",
+    "licenseName": "通関士",
+    "taxonomySource": "ユーザー提供の出題テーマ表・過去問集目次、財務省税関の通関士試験受験案内、日本関税協会の通関士試験問題・解説集および通関士試験の指針の目次体系を基礎に整理",
+    "policyNotes": [
+      "公式試験科目は3科目だが、アプリ上の復習単元としては関税法等が大きすぎるため、教材目次と出題テーマ表に沿って7folderに分割する。",
+      "folderは公式科目そのものではなく、ユーザーが復習範囲を選びやすくするための大分類とする。",
+      "語句選択式、複数肢選択式、択一式、肢別編、申告書編のような問題形式・教材内編成はfolderまたはquestionSetにしない。",
+      "表示名は参考書・過去問集の表示を原則踏襲しつつ、復習単元として意味が通るように統合・整理する。",
+      "制度知識と実務計算・申告書作成は分ける。例：課税価格の制度は関税定率法、課税価格の計算は通関実務。"
+    ]
+  },
+  "folders": [
+    {
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "01_通関業法",
+      "description": "通関業の許可、通関業者・通関士の義務、通関士制度、監督処分、罰則を扱う。関税法上の認定通関業者や輸出入通関手続は関税法側に置く。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "02_関税法：通関手続",
+      "description": "関税法のうち、用語定義、通関前手続、輸出通関、輸入通関、輸出入規制、郵便物、認定通関業者を扱う。保税・運送と税額確定・納付は別folderに分ける。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "tsukanshi_f03_kanzeiho_hozei",
+      "name": "03_関税法：保税・運送",
+      "description": "保税地域、保税蔵置場、保税工場、保税展示場、総合保税地域、保税運送、収容・留置を扱う。輸出入申告そのものは通関手続folderに置く。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "04_関税法：課税・納税",
+      "description": "関税法のうち、課税物件、適用法令、納税義務者、関税額の確定、納付、納期限、担保、附帯税、還付、不服申立て、雑則、罰則を扱う。課税価格の決定方法は関税定率法側、課税価格の計算は通関実務側に置く。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "05_関税定率法",
+      "description": "関税定率法のうち、関税率、簡易税率、特殊関税、課税価格、減免税・戻し税、関税率表・品目分類を扱う。実際の税額計算・品目分類問題は通関実務側に置く。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "06_関税関係法令・外為法",
+      "description": "関税暫定措置法、特恵関税制度、EPA関連制度、NACCS法、コンテナー特例法、ATA特例法、駐留米軍関係臨時特例法、外為法を扱う。EPA原産品判定の実務問題は通関実務側に置く。",
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "07_通関実務",
+      "description": "通関書類の作成要領、輸出入申告書、計算問題、品目分類問題、EPA原産品判定など、実務処理として解く問題を扱う。法令知識のみを問う問題は各法令folderへ置く。",
+      "questionCount": 0,
+      "isDeleted": false
+    }
+  ],
+  "questionSets": [
+    {
+      "questionSetId": "tsukanshi_qs01_01_yogo_tsukangyomu",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-1 用語・通関業務・関連業務",
+      "description": "通関業法上の通関業務、関連業務、通関業者、通関士、通関業務と委任関係を扱う。関税法上の輸入・輸出・外国貨物等の定義は関税法：通関手続に置く。",
+      "matchingHints": [
+        "通関業務",
+        "関連業務",
+        "通関業者",
+        "通関士",
+        "委任関係",
+        "用語の定義"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_02_tsukangyo_kyoka_shinsei",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-2 通関業の許可・許可申請",
+      "description": "通関業の許可、許可条件、許可申請、申請書・添付書類を扱う。許可基準と欠格事由は別questionSetに置く。",
+      "matchingHints": [
+        "通関業の許可",
+        "許可条件",
+        "許可申請",
+        "申請書",
+        "添付書類",
+        "財務大臣"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_03_kyoka_kijun_kekkaku",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-3 許可基準・欠格事由",
+      "description": "通関業の許可基準、人的・財産的要件、欠格事由を扱う。許可後の消滅・取消し・承継は別questionSetに置く。",
+      "matchingHints": [
+        "許可基準",
+        "欠格事由",
+        "基準",
+        "資産",
+        "信用",
+        "法令違反"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_04_kyoka_shometsu_torikeshi_shokei",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-4 許可の消滅・取消し・承継",
+      "description": "通関業許可の消滅、取消し、承継を扱う。監督処分としての取消しや処分手続は監督処分のquestionSetにも関連するが、許可の効力に主眼がある問題はこちらに置く。",
+      "matchingHints": [
+        "許可の消滅",
+        "許可の取消し",
+        "許可の承継",
+        "廃業",
+        "合併",
+        "解散",
+        "死亡"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_05_eigyousho_henko_todokede",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-5 営業所・変更等の届出",
+      "description": "営業所の新設、営業所新設に係る許可の特例、許可申請事項の変更等の届出を扱う。通関士の設置義務そのものは通関士制度のquestionSetに置く。",
+      "matchingHints": [
+        "営業所",
+        "営業所の新設",
+        "変更届",
+        "届出",
+        "許可申請事項",
+        "新設"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_06_tsukangyosha_gimu_shinsa",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-6 通関業者の義務・通関書類の審査",
+      "description": "通関業者の義務、料金掲示、秘密保持、名義貸し禁止、通関書類の審査、通関書類への記名等を扱う。通関士個人の義務は通関士制度側に置く。",
+      "matchingHints": [
+        "通関業者の義務",
+        "通関書類の審査",
+        "記名",
+        "料金",
+        "秘密保持",
+        "名義貸し"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_07_tsukangyosha_kenri",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-7 通関業者の権利・意見聴取",
+      "description": "更正に関する意見の聴取、検査の通知、通関業者の権利を扱う。行政処分に対する不服申立ては手続・不服申立てのquestionSetに置く。",
+      "matchingHints": [
+        "通関業者の権利",
+        "意見聴取",
+        "更正",
+        "検査通知",
+        "税関長",
+        "通知"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_08_tsukanshi_setchi_kakunin_shinsa",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-8 通関士の設置・確認・審査",
+      "description": "通関士の設置、通関士となる資格、通関士の確認、通関士の審査等を扱う。資格喪失や通関士の義務は別questionSetに置く。",
+      "matchingHints": [
+        "通関士の設置",
+        "通関士の確認",
+        "通関士の審査",
+        "通関士となる資格",
+        "財務大臣の確認"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_09_tsukanshi_gimu_shikaku",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-9 通関士の義務・資格の喪失",
+      "description": "通関士の義務、信用失墜行為の禁止、秘密保持、通関士の資格喪失、合格取消し等を扱う。通関業者への監督処分や通関士への懲戒処分は別questionSetに置く。",
+      "matchingHints": [
+        "通関士の義務",
+        "信用失墜",
+        "秘密保持",
+        "資格の喪失",
+        "合格の取消し"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_10_kantoku_chokai_gyomu_kaizen",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-10 監督処分・懲戒処分・業務改善命令",
+      "description": "業務改善命令、通関業者に対する監督処分、通関士に対する懲戒処分を扱う。処分手続や調査の申出は次questionSetに置く。",
+      "matchingHints": [
+        "業務改善命令",
+        "監督処分",
+        "懲戒処分",
+        "戒告",
+        "業務停止",
+        "許可取消し"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_11_tetsuzuki_hokoku_fufuku",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-11 手続・報告・不服申立て",
+      "description": "調査の申出、処分の手続、審査委員、公告、記帳、届出、報告徴取、権限の委任、不服申立てを扱う。罰則は別questionSetに置く。",
+      "matchingHints": [
+        "調査の申出",
+        "処分の手続",
+        "審査委員",
+        "公告",
+        "報告徴取",
+        "不服申立て",
+        "権限の委任"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs01_12_bassoku_meisho_seigen",
+      "folderId": "tsukanshi_f01_tsukangyoho",
+      "name": "1-12 罰則・名称使用制限",
+      "description": "通関業法上の罰則、両罰規定、名称の使用制限を扱う。関税法上の罰則・犯則事件は関税法：課税・納税側に置く。",
+      "matchingHints": [
+        "罰則",
+        "両罰規定",
+        "名称使用制限",
+        "罰金",
+        "懲役",
+        "過料"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_01_yogo_teigi",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-1 用語・定義",
+      "description": "関税法上の輸入、輸出、外国貨物、内国貨物、その他の用語定義を扱う。通関業法上の用語は通関業法側に置く。",
+      "matchingHints": [
+        "輸入",
+        "輸出",
+        "外国貨物",
+        "内国貨物",
+        "本邦",
+        "用語の定義"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_02_tsukanzente_tetsuzuki",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-2 通関前手続・船舶航空機",
+      "description": "船舶・航空機の入出港、貨物の積卸し、通関前の諸手続を扱う。保税地域に蔵置した後の手続は保税・運送側に置く。",
+      "matchingHints": [
+        "船舶",
+        "航空機",
+        "入港",
+        "出港",
+        "積卸し",
+        "通関前の諸手続"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_03_yushutsu_tsukan",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-3 輸出通関",
+      "description": "輸出申告、申告先、添付書類、検査、輸出許可、許可内容の変更を扱う。特定輸出申告制度は別questionSet、輸出申告書作成は通関実務側に置く。",
+      "matchingHints": [
+        "輸出通関",
+        "輸出申告",
+        "輸出許可",
+        "添付書類",
+        "検査",
+        "申告先税関官署"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_04_tokutei_yushutsu_shinkoku",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-4 特定輸出申告制度",
+      "description": "輸出申告の特例、特定輸出者、特定委託輸出者、特定製造貨物輸出者、認定製造者、特定輸出貨物を扱う。通常の輸出申告手続は輸出通関に置く。",
+      "matchingHints": [
+        "特定輸出申告",
+        "特定輸出者",
+        "特定委託輸出者",
+        "特定製造貨物輸出者",
+        "認定製造者",
+        "輸出申告の特例"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_05_yushutsu_kisei_tsumimodoshi",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-5 輸出規制・積戻し",
+      "description": "輸出してはならない貨物、証明又は確認、輸出が許可されない貨物、外国貨物の積戻しを扱う。外為法上の輸出許可・承認は関税関係法令・外為法側に置く。",
+      "matchingHints": [
+        "輸出してはならない貨物",
+        "証明又は確認",
+        "輸出規制",
+        "積戻し",
+        "外国貨物の積戻し"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_06_yunyu_tsukan",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-6 輸入通関",
+      "description": "輸入申告、輸入申告の時期・申告先、添付書類、検査、輸入許可を扱う。特例輸入申告制度や輸入許可前引取りは別questionSet、輸入申告書作成は通関実務側に置く。",
+      "matchingHints": [
+        "輸入通関",
+        "輸入申告",
+        "輸入許可",
+        "添付書類",
+        "検査",
+        "申告先税関官署"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_07_tokurei_yunyu_hikitori",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-7 特例輸入申告・許可前引取り",
+      "description": "特例申告制度、特例輸入者、特例委託輸入者、保全担保、輸入の許可前における貨物の引取りを扱う。通常の輸入申告は輸入通関に置く。",
+      "matchingHints": [
+        "特例輸入申告",
+        "特例申告",
+        "特例輸入者",
+        "特例委託輸入者",
+        "保全担保",
+        "許可前引取り"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_08_yunyu_kisei_gensanchi",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-8 輸入規制・原産地表示",
+      "description": "輸入してはならない貨物、証明又は確認、原産地証明書、原産地を偽った表示、輸入が許可されない貨物を扱う。EPA原産品判定は通関実務側に置く。",
+      "matchingHints": [
+        "輸入してはならない貨物",
+        "原産地証明書",
+        "証明又は確認",
+        "原産地表示",
+        "原産地虚偽表示",
+        "輸入規制"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_09_yubinbutsu",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-9 郵便物の通関手続",
+      "description": "郵便物の輸出入通関手続、輸出入申告を要する郵便物、申告を要しない郵便物、郵便物の保税運送を扱う。通常貨物の輸出入申告は輸出通関・輸入通関に置く。",
+      "matchingHints": [
+        "郵便物",
+        "国際郵便",
+        "郵便物の輸出入",
+        "郵便物の保税運送",
+        "簡易手続"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs02_10_nintei_tsukangyosha",
+      "folderId": "tsukanshi_f02_kanzeiho_tsukan",
+      "name": "2-10 認定通関業者・開庁時間外事務",
+      "description": "関税法上の認定通関業者、開庁時間外事務執行の求めを扱う。通関業法上の通関業者の義務・監督処分は通関業法側に置く。",
+      "matchingHints": [
+        "認定通関業者",
+        "AEO",
+        "開庁時間外",
+        "事務執行の求め",
+        "税関長"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs03_01_hozei_soron_hozou",
+      "folderId": "tsukanshi_f03_kanzeiho_hozei",
+      "name": "3-1 保税地域総則・保税蔵置場",
+      "description": "保税地域総則、貨物の蔵置、貨物の取扱い、記帳、指定保税地域、保税蔵置場を扱う。保税工場・展示場・総合保税地域は別questionSetに置く。",
+      "matchingHints": [
+        "保税地域総則",
+        "指定保税地域",
+        "保税蔵置場",
+        "蔵置",
+        "貨物の取扱い",
+        "記帳"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs03_02_hozei_kojo_tenjijo_sogo",
+      "folderId": "tsukanshi_f03_kanzeiho_hozei",
+      "name": "3-2 保税工場・保税展示場・総合保税地域",
+      "description": "保税工場、保税作業、保税展示場、総合保税地域を扱う。指定保税地域・保税蔵置場は前questionSetに置く。",
+      "matchingHints": [
+        "保税工場",
+        "保税作業",
+        "保税展示場",
+        "総合保税地域",
+        "移入承認"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs03_03_hozei_unsou_tokutei",
+      "folderId": "tsukanshi_f03_kanzeiho_hozei",
+      "name": "3-3 保税運送・特定保税運送",
+      "description": "保税運送、特定保税運送制度、運送の承認、運送期間、郵便物の保税運送を扱う。コンテナー特例法やTIR運送は関税関係法令・外為法側に置く。",
+      "matchingHints": [
+        "保税運送",
+        "特定保税運送",
+        "運送承認",
+        "運送期間",
+        "郵便物の保税運送"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs03_04_shuyo_ryuchi",
+      "folderId": "tsukanshi_f03_kanzeiho_hozei",
+      "name": "3-4 収容・留置",
+      "description": "外国貨物の収容、留置、公売、収容貨物・留置貨物の取扱いを扱う。輸入規制としての原産地虚偽表示は関税法：通関手続側にも関連するが、収容・留置の効果を問う問題はこちらに置く。",
+      "matchingHints": [
+        "収容",
+        "留置",
+        "公売",
+        "収容貨物",
+        "留置貨物",
+        "貨物の収容"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_01_kazeibukken_tekiyo_horei",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-1 課税物件・適用法令",
+      "description": "関税の課税物件、課税物件の確定時期、適用法令を扱う。課税価格の決定方法は関税定率法、課税価格計算は通関実務側に置く。",
+      "matchingHints": [
+        "課税物件",
+        "課税物件の確定時期",
+        "適用法令",
+        "輸入の時",
+        "法令適用"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_02_nozei_gimusha_kakutei_hoshiki",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-2 納税義務者・税額確定方式",
+      "description": "納税義務者、補完的納税義務、関税額、税額の確定方式を扱う。具体的な関税額計算は通関実務側に置く。",
+      "matchingHints": [
+        "納税義務者",
+        "補完的納税義務",
+        "関税額",
+        "税額の確定方式",
+        "申告納税方式",
+        "賦課課税方式"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_03_shinkoku_fuka_kazei",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-3 申告納税方式・賦課課税方式",
+      "description": "申告納税方式、納税申告、賦課課税方式、賦課決定、納税告知を扱う。修正申告、更正の請求、更正・決定は別questionSetに置く。",
+      "matchingHints": [
+        "申告納税方式",
+        "納税申告",
+        "賦課課税方式",
+        "賦課決定",
+        "納税告知"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_04_teisei_kosei_kettei",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-4 修正申告・更正請求・更正決定",
+      "description": "関税額の訂正、修正申告、更正の請求、更正、決定、許可前引取貨物に係る税額等の通知を扱う。これらの税額計算問題は通関実務側に置く。",
+      "matchingHints": [
+        "修正申告",
+        "更正の請求",
+        "更正",
+        "決定",
+        "関税額の訂正",
+        "税額通知"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_05_nofu_nokigen",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-5 関税の納付・納期限",
+      "description": "関税の納付、納付手続、納期限、法定納期限、納期限の延長、納付受託者を扱う。担保や徴収は別questionSetに置く。",
+      "matchingHints": [
+        "関税の納付",
+        "納期限",
+        "法定納期限",
+        "納期限延長",
+        "納付手続",
+        "納付受託者"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_06_tanpo_choshu",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-6 担保・徴収",
+      "description": "関税の担保、担保の提供、充当、徴収の順位、徴収の引継ぎ、国税徴収の例による徴収を扱う。保全担保は特例輸入申告にも関連するが、担保制度一般はこちらに置く。",
+      "matchingHints": [
+        "担保",
+        "関税の担保",
+        "徴収",
+        "充当",
+        "徴収の順位",
+        "徴収の引継ぎ"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_07_futaizei",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-7 附帯税",
+      "description": "延滞税、過少申告加算税、無申告加算税、重加算税を扱う。附帯税額の具体的な計算問題は通関実務側に置く。",
+      "matchingHints": [
+        "附帯税",
+        "延滞税",
+        "過少申告加算税",
+        "無申告加算税",
+        "重加算税"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_08_kanpu_juto_jiko",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-8 還付・充当・期間制限・時効",
+      "description": "還付及び充当、過誤納金、賦課権の期間制限、徴収権等の消滅時効、還付請求権の消滅時効を扱う。減免戻し税制度は関税定率法側に置く。",
+      "matchingHints": [
+        "還付",
+        "充当",
+        "過誤納金",
+        "期間制限",
+        "消滅時効",
+        "除斥期間"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_09_fufuku_moshitate",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-9 不服申立て",
+      "description": "関税法上の不服申立て、審査請求、再調査の請求、訴訟との関係を扱う。通関業法上の不服申立ては通関業法側に置く。",
+      "matchingHints": [
+        "不服申立て",
+        "審査請求",
+        "再調査の請求",
+        "訴訟",
+        "処分"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_10_zassoku_choho_kanrinin",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-10 雑則・帳簿・税関事務管理人",
+      "description": "一般貨物輸出入者の帳簿、帳簿書類の保存、税関事務管理人、税関職員の権限、事後調査を扱う。通関業法上の記帳・報告は通関業法側に置く。",
+      "matchingHints": [
+        "帳簿",
+        "帳簿書類",
+        "税関事務管理人",
+        "税関職員の権限",
+        "事後調査",
+        "非居住者"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs04_11_bassoku_hansoku",
+      "folderId": "tsukanshi_f04_kanzeiho_nozei",
+      "name": "4-11 罰則・犯則事件",
+      "description": "関税法上の罰則、犯則事件の処分を扱う。通関業法上の罰則・両罰規定は通関業法側に置く。",
+      "matchingHints": [
+        "罰則",
+        "犯則事件",
+        "没収",
+        "追徴",
+        "通告処分",
+        "関税法違反"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_01_kanzeiritsu_kaniritsu",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-1 関税率・簡易税率",
+      "description": "関税率の種類、税率の適用順位、入国者の携帯品等に対する簡易税率、少額輸入貨物の簡易税率を扱う。実際の税額計算は通関実務側に置く。",
+      "matchingHints": [
+        "関税率",
+        "税率の適用順位",
+        "簡易税率",
+        "携帯品",
+        "少額輸入貨物",
+        "適用税率"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_02_tokushu_kanzei",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-2 特殊関税制度",
+      "description": "報復関税、相殺関税、不当廉売関税、緊急関税、対抗関税を扱う。関税暫定措置法上の特別緊急関税は関税関係法令側に置く。",
+      "matchingHints": [
+        "特殊関税",
+        "報復関税",
+        "相殺関税",
+        "不当廉売関税",
+        "緊急関税",
+        "対抗関税"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_03_kazei_kakaku_gensoku",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-3 課税価格の決定原則",
+      "description": "課税価格の決定の原則、現実支払価格、加算要素、控除要素、輸入取引を扱う。具体的な課税価格計算は通関実務側に置く。",
+      "matchingHints": [
+        "課税価格",
+        "現実支払価格",
+        "加算要素",
+        "控除要素",
+        "輸入取引",
+        "決定原則"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_04_kazei_kakaku_reigai_tokurei",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-4 課税価格の例外・特例",
+      "description": "原則的決定方法を適用できない場合、同種又は類似の貨物、国内販売価格、製造原価、航空運賃特例、価格換算、資料等を扱う。",
+      "matchingHints": [
+        "同種又は類似の貨物",
+        "国内販売価格",
+        "製造原価",
+        "航空運賃特例",
+        "為替相場",
+        "例外的決定方法"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_05_genmen_modoshi_soron",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-5 減免戻し税総論・用途外使用",
+      "description": "関税の軽減、免除、払戻しの総論、限定申告者、担保、用途外使用、転用を扱う。個別の免税・戻し税制度は別questionSetに置く。",
+      "matchingHints": [
+        "減免税",
+        "戻し税",
+        "限定申告者",
+        "担保",
+        "用途外使用",
+        "転用"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_06_henshitsu_sonsho_saiyunyu",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-6 変質損傷・加工修繕・再輸入",
+      "description": "変質又は損傷による減税・戻し税、加工又は修繕のため輸出された貨物の再輸入減税、再輸入減税を扱う。再輸出免税・戻し税は別questionSetに置く。",
+      "matchingHints": [
+        "変質",
+        "損傷",
+        "加工修繕",
+        "再輸入減税",
+        "加工又は修繕",
+        "減税"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_07_mujoken_tokutei_yoto_menzei",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-7 無条件免税・特定用途免税",
+      "description": "無条件免税、特定用途免税、外交官用貨物等の免税、外国で採捕された水産物等の減免税を扱う。用途外使用は減免戻し税総論にも関連する。",
+      "matchingHints": [
+        "無条件免税",
+        "特定用途免税",
+        "外交官用貨物",
+        "水産物",
+        "免税"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_08_saiyushutsu_menzei_modoshi",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-8 再輸出免税・戻し税",
+      "description": "再輸出免税、再輸出減税、輸入時と同一状態で再輸出される場合の戻し税、違約品等の再輸出又は廃棄の場合の戻し税を扱う。",
+      "matchingHints": [
+        "再輸出免税",
+        "再輸出減税",
+        "同一状態",
+        "戻し税",
+        "違約品",
+        "廃棄"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_09_genryohin_genmen_modoshi",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-9 製造用原料品等の減免戻し税",
+      "description": "製造用原料品の減免税、輸出貨物製造用原料品の減免戻し税、内貨原料品による製品の輸出免税、課税原料品による製品の輸出戻し税を扱う。",
+      "matchingHints": [
+        "製造用原料品",
+        "輸出貨物製造用原料品",
+        "内貨原料品",
+        "課税原料品",
+        "減免戻し税"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs05_10_kanzeiritsuhyo_hinmoku_bunrui",
+      "folderId": "tsukanshi_f05_kanzeiteiritsuho",
+      "name": "5-10 関税率表・品目分類",
+      "description": "関税定率法別表、関税率表、関税率表の解釈に関する通則、品目分類の法令知識を扱う。実際に所属類・税番を決定する問題は通関実務側に置く。",
+      "matchingHints": [
+        "関税率表",
+        "解釈通則",
+        "品目分類",
+        "HS",
+        "所属の決定",
+        "税番"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_01_kanzei_zantei_sochiho",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-1 関税暫定措置法",
+      "description": "航空機部分品等の免税、特別緊急関税、加工又は組立てのため輸出された貨物を原材料とした製品の減税、軽減税率の適用手続を扱う。特恵関税制度は別questionSetに置く。",
+      "matchingHints": [
+        "関税暫定措置法",
+        "航空機部分品",
+        "特別緊急関税",
+        "加工再輸入減税",
+        "軽減税率"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_02_tokkei_kanzei",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-2 特恵関税制度",
+      "description": "特恵関税制度、特恵受益国、原産品、原産地証明、特恵関税の適用を扱う。EPA原産品判定の実務問題は通関実務側に置く。",
+      "matchingHints": [
+        "特恵関税",
+        "特恵受益国",
+        "原産品",
+        "原産地証明",
+        "一般特恵"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_03_epa_seido",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-3 経済連携協定（EPA）制度",
+      "description": "EPA税率、EPAに基づく関税の緊急措置、譲許の修正、関税割当、制度知識を扱う。原産地基準を用いた判定問題は通関実務側に置く。",
+      "matchingHints": [
+        "EPA",
+        "経済連携協定",
+        "EPA税率",
+        "譲許",
+        "関税割当",
+        "緊急措置"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_04_naccs_ho",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-4 NACCS法",
+      "description": "電子情報処理組織による輸出入等関連業務の処理等に関する法律、電子情報処理組織、NACCSによる申告・処分通知、通関業者の義務、振替納付を扱う。申告画面作成は通関実務側に置く。",
+      "matchingHints": [
+        "NACCS法",
+        "電子情報処理組織",
+        "輸出入等関連業務",
+        "処分通知",
+        "振替納付"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_05_container_ata_tokureiho",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-5 コンテナー特例法・ATA特例法",
+      "description": "コンテナー特例法、TIR運送、コンテナーの通関、ATA特例法、ATAカルネ、保証団体の責任を扱う。",
+      "matchingHints": [
+        "コンテナー特例法",
+        "TIR",
+        "ATA特例法",
+        "ATAカルネ",
+        "保証団体",
+        "通関手帳"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_06_churyu_beigun_tokureiho",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-6 駐留米軍関係臨時特例法",
+      "description": "地位協定、駐留米軍関係臨時特例法、駐留米軍関係の関税法等の特例を扱う。",
+      "matchingHints": [
+        "駐留米軍",
+        "地位協定",
+        "臨時特例法",
+        "米軍",
+        "関税法等の特例"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_07_gaitame_yushutsu_boueki_kanrirei",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-7 外為法：輸出貿易管理令",
+      "description": "外為法第6章に係る輸出貿易管理令、輸出許可、輸出承認、特例、有効期間、税関長への権限委任、電子情報処理組織による手続を扱う。関税法上の輸出してはならない貨物は関税法：通関手続側に置く。",
+      "matchingHints": [
+        "外為法",
+        "輸出貿易管理令",
+        "輸出許可",
+        "輸出承認",
+        "有効期間",
+        "税関長委任"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs06_08_gaitame_yunyu_boueki_kanrirei",
+      "folderId": "tsukanshi_f06_kanzeikankeiho_gaikokukawaseho",
+      "name": "6-8 外為法：輸入貿易管理令",
+      "description": "外為法第6章に係る輸入貿易管理令、輸入承認、輸入割当、承認品目、特例、有効期間、税関長への権限委任、電子情報処理組織による手続を扱う。関税法上の輸入してはならない貨物は関税法：通関手続側に置く。",
+      "matchingHints": [
+        "外為法",
+        "輸入貿易管理令",
+        "輸入承認",
+        "輸入割当",
+        "承認品目",
+        "税関長委任"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_01_yushutsu_shinkokusho",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-1 輸出申告書の作成",
+      "description": "NACCSの輸出申告事項登録画面、輸出申告書の作成、品名、数量、価格、品目番号の記載を扱う。輸出通関の法令知識は関税法：通関手続側に置く。",
+      "matchingHints": [
+        "輸出申告書",
+        "輸出申告事項登録画面",
+        "NACCS",
+        "品名",
+        "品目番号",
+        "申告書作成"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_02_yunyu_nozei_shinkokusho",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-2 輸入（納税）申告書の作成",
+      "description": "NACCSの輸入申告事項登録画面、輸入（納税）申告書の作成、課税価格、税額、品目番号の記載を扱う。輸入通関の法令知識は関税法：通関手続側に置く。",
+      "matchingHints": [
+        "輸入申告書",
+        "輸入納税申告書",
+        "輸入申告事項登録画面",
+        "NACCS",
+        "課税価格",
+        "税額"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_03_tsukan_tetsuzuki_jitsumu",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-3 通関手続の実務問題",
+      "description": "通関書類作成以外の実務問題、書類・手続・実務判断の総合問題を扱う。特定の法令知識だけを問う問題は該当する法令folderに置く。",
+      "matchingHints": [
+        "実務問題",
+        "通関手続の実務",
+        "書類",
+        "実務判断",
+        "総合問題"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_04_tekiyo_zeiritsu_kanzeigaku_keisan",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-4 適用税率・関税額等の計算",
+      "description": "適用税率の選択、関税額、消費税額、地方消費税額、納付すべき税額の計算を扱う。税率制度の知識は関税定率法側に置く。",
+      "matchingHints": [
+        "適用税率",
+        "関税額",
+        "消費税額",
+        "地方消費税額",
+        "税額計算",
+        "納付税額"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_05_shusei_kosei_keisan",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-5 修正申告・更正請求の計算",
+      "description": "修正申告により納付すべき関税額、更正の請求により減額する関税額、更正による過納金額の計算を扱う。制度説明だけの問題は関税法：課税・納税側に置く。",
+      "matchingHints": [
+        "修正申告の税額計算",
+        "更正の請求",
+        "過納金額",
+        "減額する関税額",
+        "追加納付"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_06_futaizei_keisan",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-6 附帯税の計算",
+      "description": "延滞税額、過少申告加算税額、無申告加算税額、重加算税額の計算を扱う。附帯税の制度説明だけの問題は関税法：課税・納税側に置く。",
+      "matchingHints": [
+        "延滞税額の計算",
+        "過少申告加算税額",
+        "無申告加算税額",
+        "重加算税額",
+        "附帯税計算"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_07_kazei_kakaku_keisan",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-7 課税価格の計算",
+      "description": "課税価格の決定の原則による計算、原則によらない課税価格の計算、加算・控除を用いた実務計算を扱う。課税価格の制度知識は関税定率法側に置く。",
+      "matchingHints": [
+        "課税価格の計算",
+        "加算要素",
+        "控除要素",
+        "現実支払価格",
+        "例外計算",
+        "航空運賃"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_08_hinmoku_bunrui_jitsumu",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-8 品目分類・関税率表の所属決定",
+      "description": "部・類の注、所属類の判定、所属類又は税番の決定要素、個別物品の関税率表上の所属決定を扱う。関税率表や解釈通則の制度知識は関税定率法側に置く。",
+      "matchingHints": [
+        "品目分類問題",
+        "関税率表の所属",
+        "所属類",
+        "税番",
+        "部の注",
+        "類の注",
+        "解釈通則"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "tsukanshi_qs07_09_epa_gensanchi_hantei",
+      "folderId": "tsukanshi_f07_tsukanjitsumu",
+      "name": "7-9 EPA原産地基準・原産品判定",
+      "description": "EPA原産地基準、原産材料、非原産材料、品目別規則、原産品判定など、EPAを使って実務的に判定する問題を扱う。EPA制度の法令知識は関税関係法令・外為法側に置く。",
+      "matchingHints": [
+        "EPA原産地基準",
+        "原産品判定",
+        "品目別規則",
+        "原産材料",
+        "非原産材料",
+        "経済連携協定"
+      ],
+      "questionCount": 0,
+      "isDeleted": false
+    }
+  ]
+}
