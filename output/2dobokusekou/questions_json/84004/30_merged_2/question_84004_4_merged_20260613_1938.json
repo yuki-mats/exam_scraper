@@ -58,7 +58,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "e4a1bdaa02468a57"
+      "original_question_id": "e4a1bdaa02468a57",
+      "explanationText": [
+        "間違い。\n\n損傷が鋼面まで達している場合は、サンドペーパーではなくディスクサンダーやグラインダーなどのパワーツールで素地調整する。素地調整後は下塗りから補修する。",
+        "正しい。\n\n損傷が下塗りまで及ぶ場合は、素地調整後に中塗りから補修する。中塗りには超厚膜形エポキシ樹脂塗料を用いる。",
+        "正しい。\n\n損傷が中塗りまでなら、補修の上塗りはふっ素樹脂塗料上塗りで行う。損傷深さに応じて補修する層が変わる。",
+        "正しい。\n\n損傷が上塗りだけなら補修対象は上塗り層で足りる。中塗りまで削れていない以上、中塗り補修は不要である。"
+      ],
+      "suggestedQuestions": [
+        "損傷深さごとに補修層はどう変わりますか？",
+        "鋼面まで傷んだときにパワーツールを使う理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "損傷深さごとに補修層はどう変わりますか？",
+          "answer": "上塗りまでなら上塗り補修、中塗りまでなら上塗り補修、下塗りまでなら中塗りから補修、鋼面まで達すれば下塗りから補修する。どの層まで傷んだかで補修範囲が決まる。"
+        },
+        {
+          "question": "鋼面まで傷んだときにパワーツールを使う理由は何ですか？",
+          "answer": "鋼面露出部ではさびや劣化塗膜を確実に除去する必要があり、サンドペーパーでは能力が不足しやすい。十分な素地調整をしてから下塗りから再構成するためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_10_surface_preparation_repainting"
     },
     {
       "questionBodyText": "塗料に関する次の記述のうち、適当なものはどれか。",
@@ -117,7 +139,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "1b68a930230f9f22"
+      "original_question_id": "1b68a930230f9f22",
+      "explanationText": [
+        "間違い。\n\n樹脂を溶かして流動性を与え、塗付後に蒸発して塗膜を形成しない成分は溶剤である。添加剤は乾燥促進、消泡、沈降防止など性能調整に使う。",
+        "間違い。\n\n顔料は溶剤ではなく樹脂とともに塗膜を構成する成分である。溶剤は流動性を与えるが、塗装後は蒸発する。",
+        "間違い。\n\n鉛・クロムフリーさび止めペイントや長油性フタル酸樹脂塗料は酸化重合反応形である。縮合重合反応形の例としては焼付形塗料が挙がる。",
+        "正しい。\n\n酸化重合反応形塗料は、溶剤が揮発した後に空気中の酸素と反応して硬化する。そのため塗膜表面から先に乾きやすい。"
+      ],
+      "suggestedQuestions": [
+        "添加剤と溶剤の違いは何ですか？",
+        "酸化重合反応形塗料の特徴は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "添加剤と溶剤の違いは何ですか？",
+          "answer": "溶剤は塗料に流動性を与え、塗装後に揮発する。添加剤は乾燥性、消泡性、沈降防止性などを調整して塗料性能を整える成分である。"
+        },
+        {
+          "question": "酸化重合反応形塗料の特徴は何ですか？",
+          "answer": "空気中の酸素と反応して硬化が進み、表面から乾きやすい。厚塗りすると内部と表面の硬化差から欠陥が出やすい点も押さえる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_09_paint_materials_system"
     },
     {
       "questionBodyText": "塗装作業時に留意すべき気象条件に関する次の記述のうち、適当でないものはどれか。",
@@ -176,7 +220,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "ca23c1742953691f"
+      "original_question_id": "ca23c1742953691f",
+      "explanationText": [
+        "正しい。\n\n高温時は乾燥が速く、多液形塗料では可使時間も短くなる。炎天下で泡が出るとバブリングやピンホールにつながるため施工を避ける。",
+        "間違い。\n\n強風時は水分が飛びやすく、結露が生じやすい条件ではない。強風で問題になるのは乾燥の進み過ぎや上乾きである。",
+        "正しい。\n\n湿度が高いと、溶剤の蒸発による温度低下で塗膜面に水分が凝縮しやすい。これが白化現象の原因になる。",
+        "正しい。\n\n乾燥前に雨や雪、霜を受けると塗料が流れたり、表面にクレーター状の凹凸が生じたりする。乾燥完了まで気象条件を管理する必要がある。"
+      ],
+      "suggestedQuestions": [
+        "塗装時に強風が問題になるのはなぜですか？",
+        "白化現象はどんな条件で起きますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "塗装時に強風が問題になるのはなぜですか？",
+          "answer": "溶剤の揮発が速くなりすぎて上乾きや塗膜欠陥を招きやすいからである。結露よりも乾燥の進み過ぎを警戒する。"
+        },
+        {
+          "question": "白化現象はどんな条件で起きますか？",
+          "answer": "高湿度下で溶剤蒸発により塗膜面温度が下がると、空気中の水分が凝縮して白く見える。低温多湿時の施工で起こりやすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_11_painting_quality_management"
     },
     {
       "questionBodyText": "塗替え塗装の留意点に関する次の記述のうち、適当でないものはどれか。",
@@ -235,7 +301,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "c766a459fce1e179"
+      "original_question_id": "c766a459fce1e179",
+      "explanationText": [
+        "正しい。\n\nくぼみ部と周辺塗膜に段差があると仕上がりや付着に悪影響が出る。エッジにサンドペーパーをかけて段差を目立たなくする。",
+        "正しい。\n\nローラー塗りは平坦で凹凸の少ない面に向く。凹凸が大きい面では均一に塗りにくい。",
+        "正しい。\n\n素地調整でさびや塗膜を除去した部分は周囲よりくぼみやすい。段差が残ると塗り残しや膜厚不足の原因になる。",
+        "間違い。\n\n動力工具や手工具で処理した面は、塗膜残存部と鋼材露出部で仕上がりが均一にならない。部分ごとの差が出ることを前提に管理する。"
+      ],
+      "suggestedQuestions": [
+        "塗替え塗装で段差処理が必要な理由は何ですか？",
+        "ローラー塗りが向かない面の特徴は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "塗替え塗装で段差処理が必要な理由は何ですか？",
+          "answer": "段差が残ると塗料の付き方が不均一になり、塗り残しや膜厚不足を招くからである。見た目だけでなく耐久性にも影響する。"
+        },
+        {
+          "question": "ローラー塗りが向かない面の特徴は何ですか？",
+          "answer": "凹凸や狭い部位が多い面ではローラーが追従しにくく、均一な塗布が難しい。そうした部位ははけ塗りなどを併用する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_10_surface_preparation_repainting"
     },
     {
       "questionBodyText": "鋼橋の塗装の施工管理に関する次の記述のうち、適当でないものはどれか。",
@@ -294,7 +382,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "887fccfb2dde400a"
+      "original_question_id": "887fccfb2dde400a",
+      "explanationText": [
+        "正しい。\n\n除せい度は ISO の判定見本写真と実際の処理面を目視で見比べて確認する方法が一般的である。",
+        "正しい。\n\nウェット膜厚とドライ膜厚の比を把握しておけば、施工中のウェット膜厚管理から仕上がりのドライ膜厚を予測できる。",
+        "間違い。\n\nターニング現象は相対湿度が高く、鋼材温度と気温との差が大きいときに起こりやすい。低湿度かつ温度差が小さい条件ではない。",
+        "正しい。\n\n塗膜変状は塗料の増粘やゲル化など塗料自体の変質が原因になることがある。異常時は塗料性状の確認が必要である。"
+      ],
+      "suggestedQuestions": [
+        "ターニング現象はどんな条件で起きますか？",
+        "ウェット膜厚管理でドライ膜厚を予測できるのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ターニング現象はどんな条件で起きますか？",
+          "answer": "ブラスト後の鋼材表面に赤さびが再発する現象で、高湿度や鋼材温度と気温との差が大きい条件で起こりやすい。施工環境の管理が重要である。"
+        },
+        {
+          "question": "ウェット膜厚管理でドライ膜厚を予測できるのはなぜですか？",
+          "answer": "使用塗料ごとの湿膜厚と乾燥後膜厚の関係が分かっていれば、施工中の湿膜厚から完成後の膜厚を見積もれる。途中管理で仕上がり品質を確保しやすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_11_painting_quality_management"
     },
     {
       "questionBodyText": "足場の安全管理に関する次の記述のうち、適当なものはどれか。",
@@ -353,7 +463,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "ae333c1b4b2aa1fb"
+      "original_question_id": "ae333c1b4b2aa1fb",
+      "explanationText": [
+        "正しい。\n\nパネル式つり足場は、おやごパイプやころばしパイプに相当する部材をパネル側に備えているため、別途の取付け作業を要しない。",
+        "間違い。\n\nローリングタワー足場は水平方向の移動に用いる足場で、上下方向へ移動しながら塗装する用途ではない。",
+        "間違い。\n\nパイプつり足場で二段つり足場とする目安は腹板高 1.5m 以上である。0.9m 以上ではない。",
+        "間違い。\n\nおやごパイプのつり間隔は 1.5m 以内でよいが、ころばしパイプの間隔は 1.8m では広すぎる。0.9m 程度で配置する。"
+      ],
+      "suggestedQuestions": [
+        "ローリングタワー足場はどんな作業に向きますか？",
+        "二段つり足場の判断基準は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ローリングタワー足場はどんな作業に向きますか？",
+          "answer": "平坦な床上で水平方向に移動しながら作業する場合に向く。上下移動を前提とした足場ではない。"
+        },
+        {
+          "question": "二段つり足場の判断基準は何ですか？",
+          "answer": "腹板高が 1.5m 以上になると二段つり足場を採用する。数値を 0.9m と取り違えないことが重要である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs05_12_painting_work_safety"
     },
     {
       "questionBodyText": "有機溶剤中毒予防規則に関する次の記述のうち、誤っているものはどれか。",
@@ -412,7 +544,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "9eb9a9fdc07bd8d7"
+      "original_question_id": "9eb9a9fdc07bd8d7",
+      "explanationText": [
+        "正しい。\n\n有機溶剤含有物とは、有機溶剤を重量の 5% を超えて含む混合物をいう。定義どおりの記述である。",
+        "間違い。\n\n局所排気装置の自主検査記録の保存期間は 1 年ではなく 3 年である。保存期間の数値が誤っている。",
+        "正しい。\n\n有機溶剤作業主任者は、局所排気装置などを 1 か月以内ごとに点検しなければならない。",
+        "正しい。\n\n第一種有機溶剤等は赤色で見やすい場所に表示する。色分け表示の基本ルールに合っている。"
+      ],
+      "suggestedQuestions": [
+        "局所排気装置の検査記録は何年保存しますか？",
+        "第一種有機溶剤等の表示色は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "局所排気装置の検査記録は何年保存しますか？",
+          "answer": "1 年ではなく 3 年保存する。期間の数字を問う問題はそのまま暗記せず、規則上の管理記録であることと合わせて押さえる。"
+        },
+        {
+          "question": "第一種有機溶剤等の表示色は何ですか？",
+          "answer": "赤色で表示する。種別ごとの色分けはそのまま問われやすいので、第一種は赤と覚える。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs05_12_painting_work_safety"
     },
     {
       "questionBodyText": "塗料の調合に関する次の記述のうち、適当でないものはどれか。",
@@ -471,7 +625,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "c1ee989916db5933"
+      "original_question_id": "c1ee989916db5933",
+      "explanationText": [
+        "正しい。\n\n使用前の十分なかくはんは、缶内の成分偏りをなくして塗料を均一にする基本操作である。",
+        "間違い。\n\n可使時間は温度だけでなく塗料の種類によっても異なる。塗料種類を無視して一律とするのは誤りである。",
+        "正しい。\n\n高粘度塗料は手作業だけでは均一化しにくい。かくはん機を用いると乾きむら防止に有効である。",
+        "正しい。\n\n多液形塗料は混合後から反応が進行し続けるため、可使時間内に使い切る必要がある。"
+      ],
+      "suggestedQuestions": [
+        "可使時間が変わる要因は何ですか？",
+        "高粘度塗料でかくはん機を使う理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "可使時間が変わる要因は何ですか？",
+          "answer": "温度条件に加えて塗料の種類や反応特性でも変わる。多液形塗料では特に可使時間超過が施工不良に直結しやすい。"
+        },
+        {
+          "question": "高粘度塗料でかくはん機を使う理由は何ですか？",
+          "answer": "缶内で成分が偏りやすく、手作業だけでは均一化しにくいからである。均一にしないと乾きむらや品質ばらつきが出やすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_11_painting_quality_management"
     },
     {
       "questionBodyText": "付着塩分量の測定方法に関する次の記述のうち、適当でないものはどれか。",
@@ -530,7 +706,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "97bb3d037816981b"
+      "original_question_id": "97bb3d037816981b",
+      "explanationText": [
+        "正しい。\n\nガーゼ拭き取り法は MIO 塗膜面のような吸い込みのある面では試料採取が不十分になりやすく、値が不正確になりやすい。",
+        "正しい。\n\n電導度法は一度に測れる面積が小さいため、局所値に偏らないよう測定箇所数を増やして補う必要がある。",
+        "間違い。\n\n電導度法は付着塩分を溶出させて濃度を測る方法で、素材状態に大きく左右されるという説明は不適切である。",
+        "正しい。\n\nブレッセル法は塩分を溶出して別途分析するため、簡便な現場測定法より手間がかかる。現場での即時判定向きとは言いにくい。"
+      ],
+      "suggestedQuestions": [
+        "電導度法ではなぜ測定点を増やす必要がありますか？",
+        "ガーゼ拭き取り法が不向きな面はどんな面ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "電導度法ではなぜ測定点を増やす必要がありますか？",
+          "answer": "1 回の測定面積が小さく、局部的な値しか取れないからである。複数点で測って平均的な付着塩分量を把握する。"
+        },
+        {
+          "question": "ガーゼ拭き取り法が不向きな面はどんな面ですか？",
+          "answer": "MIO 塗膜面のように吸い込みがあり、十分な塩分回収がしにくい面である。採取不足で測定値がばらつきやすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_11_painting_quality_management"
     },
     {
       "questionBodyText": "塗料の管理に関する次の記述のうち、適当なものはどれか。",
@@ -589,7 +787,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "35930e53caca0127"
+      "original_question_id": "35930e53caca0127",
+      "explanationText": [
+        "間違い。\n\nロットが複数あるなら、代表ロットだけでなく各ロットの規格試験成績書で確認する必要がある。",
+        "間違い。\n\n保管期間が長い塗料を抜き取りだけで一律使用可とするのは適切でない。品質確認は塗料ごとに適切に行う必要がある。",
+        "間違い。\n\n塗料は第三類ではなく、一般に第四類の引火性液体として扱う。危険物類別が誤っている。",
+        "正しい。\n\n塗料やシンナーは引火性があるため、保管・取扱いは関係法令に従って管理し、担当者以外がむやみに扱わないことが重要である。"
+      ],
+      "suggestedQuestions": [
+        "複数ロットの塗料を使うとき何を確認しますか？",
+        "塗料やシンナーの管理で重要な点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "複数ロットの塗料を使うとき何を確認しますか？",
+          "answer": "代表ロットだけでなく、使用する各ロットの品質資料を確認する。ロット差を見落とすと色調や性能のばらつきにつながる。"
+        },
+        {
+          "question": "塗料やシンナーの管理で重要な点は何ですか？",
+          "answer": "引火性を前提に、保管場所、数量、取扱者を明確にして法令どおり管理することである。安全面と品質面の両方に関わる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs05_11_painting_quality_management"
     },
     {
       "questionBodyText": "土の粒度に関する次の記述のうち、適当でないものはどれか。",
@@ -656,7 +876,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "0b930e8f0c420517"
+      "original_question_id": "0b930e8f0c420517",
+      "explanationText": [
+        "正しい。\n\n液性限界は一般に粘土分が多いほど大きくなりやすい。細粒分の性質を反映する指標である。",
+        "正しい。\n\n粒度試験は粒径に応じてふるい分析と沈降分析を使い分ける。粗粒分と細粒分で試験法が異なる。",
+        "正しい。\n\n均等係数が大きいほど、幅広い粒径の粒子を含む土であることを示す。",
+        "間違い。\n\n粒径加積曲線は塑性限界試験の結果ではなく、粒度試験の結果を図示したものである。試験名の対応が誤っている。"
+      ],
+      "suggestedQuestions": [
+        "粒径加積曲線は何の試験結果を表しますか？",
+        "均等係数が大きいと何が分かりますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "粒径加積曲線は何の試験結果を表しますか？",
+          "answer": "ふるい分析や沈降分析などの粒度試験結果を図にしたものである。塑性限界試験とは別物である点を区別する。"
+        },
+        {
+          "question": "均等係数が大きいと何が分かりますか？",
+          "answer": "粒径のばらつきが大きく、広い粒径範囲の粒子で構成されていることを示す。数値と粒度分布の意味を結び付けて覚える。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs01_03_soil_grain_size_curve"
     },
     {
       "questionBodyText": "土の密度に関する次の記述のうち、適当なものはどれか。",
@@ -715,7 +957,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "7758a9eccadc6291"
+      "original_question_id": "7758a9eccadc6291",
+      "explanationText": [
+        "間違い。\n\n湿潤密度と湿潤単位体積重量は対応する概念だが、単位は同じではない。密度は質量基準、単位体積重量は重量基準で表す。",
+        "正しい。\n\n乾燥密度が大きいほど土はよく締め固められていると判断できる。乾燥密度が小さい地盤は一般に緩く軟弱である。",
+        "間違い。\n\n乾燥密度は乾燥土粒子の質量を体積で割った値であり、土粒子の質量と無関係ではない。",
+        "間違い。\n\n湿潤密度は土の間げき中に含まれる水量で変化する。含水状態を無視して一定とはいえない。"
+      ],
+      "suggestedQuestions": [
+        "乾燥密度が大きいと地盤はどう評価しますか？",
+        "密度と単位体積重量の違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "乾燥密度が大きいと地盤はどう評価しますか？",
+          "answer": "よく締め固められていると判断する。盛土や路体の品質管理では乾燥密度が重要な指標になる。"
+        },
+        {
+          "question": "密度と単位体積重量の違いは何ですか？",
+          "answer": "密度は質量ベース、単位体積重量は重量ベースで表す量である。名称が似ていても単位と意味は同一ではない。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs01_02_soil_density"
     },
     {
       "questionBodyText": "一般的な地盤材料の工学的分類により粒径区分された各地盤材料の粒径の大小関係として適当なものは、次のうちどれか。",
@@ -766,7 +1030,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "8855d6136a549c18"
+      "original_question_id": "8855d6136a549c18",
+      "explanationText": [
+        "間違い。\n\nシルトは細砂より細かいが、粘土よりは粗い。細砂とシルトの順序が逆である。",
+        "間違い。\n\n粘土はシルトよりさらに細かい。粘土を最も大きく置く並びは誤りである。",
+        "正しい。\n\n一般的な粒径区分では、粘土 < シルト < 細砂 の順に粒径が大きくなる。",
+        "間違い。\n\nシルトより粘土の方が細かい。最初の 2 つの順序が誤っている。"
+      ],
+      "suggestedQuestions": [
+        "粘土・シルト・細砂の粒径順はどう覚えますか？",
+        "シルトは粘土と細砂のどちらに近いですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "粘土・シルト・細砂の粒径順はどう覚えますか？",
+          "answer": "最も細かいのが粘土、その次がシルト、さらに粗いのが細砂である。細粒分から粗粒分へ広がる順で覚えると混同しにくい。"
+        },
+        {
+          "question": "シルトは粘土と細砂のどちらに近いですか？",
+          "answer": "粒径区分では粘土より粗く、細砂より細かい中間に位置する。両者の間の区分として整理すると覚えやすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs01_04_soil_particle_grading"
     },
     {
       "questionBodyText": "土の透水係数に関する次の記述のうち、適当でないものはどれか。",
@@ -825,7 +1111,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "783e7e3a4e51cd77"
+      "original_question_id": "783e7e3a4e51cd77",
+      "explanationText": [
+        "間違い。\n\n揚水試験は不透水層の透水係数を求める試験ではなく、透水層や帯水層の透水性を原位置で把握する試験である。",
+        "正しい。\n\n透水係数を求める方法には、室内透水試験と原位置透水試験がある。試験条件に応じて使い分ける。",
+        "正しい。\n\n単孔式透水試験は 1 本のボーリング孔や井戸を使って地盤の透水係数を求める原位置試験である。",
+        "正しい。\n\n透水係数は、水位差と流量を測定しダルシーの法則で算出するのが基本である。"
+      ],
+      "suggestedQuestions": [
+        "揚水試験は何を調べる試験ですか？",
+        "透水係数はどう求めますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "揚水試験は何を調べる試験ですか？",
+          "answer": "帯水層など透水する地盤の透水性を原位置で把握する試験である。不透水層を対象とする表現は誤りである。"
+        },
+        {
+          "question": "透水係数はどう求めますか？",
+          "answer": "透水試験で得た水位差と流量を用い、ダルシーの法則で算出する。試験法と計算の対応を押さえることが重要である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs01_09_soil_physical_tests"
     },
     {
       "questionBodyText": "地盤改良工法に関する次の記述のうち、適当でないものはどれか。",
@@ -884,7 +1192,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "4338755c83820ae6"
+      "original_question_id": "4338755c83820ae6",
+      "explanationText": [
+        "正しい。\n\n地下水位低下工法は、地下水位が高く掘削時に地盤が不安定になる場合の対策として用いる。",
+        "正しい。\n\n深層混合処理工法で改良体を重ねる場合、先に施工した改良体が固まる前に次を施工して一体化させる必要がある。",
+        "間違い。\n\n浅層混合処理工法は主にトラフィカビリティー確保など表層地盤の補強に使う。リッパービリティー確保を目的とする説明は不適切である。",
+        "正しい。\n\n薬液注入工法は、土質や深度などの条件に応じて二重管ストレーナー工法や二重管ダブルパッカー工法などを選定する。"
+      ],
+      "suggestedQuestions": [
+        "浅層混合処理工法の主な目的は何ですか？",
+        "改良体をオーバーラップさせるとき何に注意しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "浅層混合処理工法の主な目的は何ですか？",
+          "answer": "表層地盤を強化して施工機械や車両の走行性を確保することが主目的である。表層のトラフィカビリティー改善と結び付けて覚える。"
+        },
+        {
+          "question": "改良体をオーバーラップさせるとき何に注意しますか？",
+          "answer": "先行改良体が固まり切る前に次の改良体を施工し、重なり部の連続性を確保する。硬化後だと一体化しにくい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs02_03_soft_ground_improvement"
     },
     {
       "questionBodyText": "土留め壁を用いた掘削にともなう掘削底面の変状現象に関する次の記述のうち、適当なものはどれか。",
@@ -943,7 +1273,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "eb88378fb41df88e"
+      "original_question_id": "eb88378fb41df88e",
+      "explanationText": [
+        "間違い。\n\n水の上向き浸透で砂がせん断強さを失って吹き上がる現象はボイリングであり、ヒービングではない。",
+        "間違い。\n\n浸透力で土粒子が流出しパイプ状の水みちができる現象はパイピングである。ボイリングの説明ではない。",
+        "間違い。\n\n粘性土地盤で背面土が回り込んで掘削底面が盛り上がる現象はヒービングである。パイピングではない。",
+        "正しい。\n\n盤膨れは、被圧帯水層からの揚圧力で掘削底面が持ち上がる現象である。用語と原因の対応が正しい。"
+      ],
+      "suggestedQuestions": [
+        "ボイリングとパイピングの違いは何ですか？",
+        "盤膨れは何が原因で起こりますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ボイリングとパイピングの違いは何ですか？",
+          "answer": "ボイリングは上向き浸透で砂が吹き上がる現象、パイピングは浸透水で土粒子が流出し水みちが形成される現象である。現象の見え方と原因を分けて覚える。"
+        },
+        {
+          "question": "盤膨れは何が原因で起こりますか？",
+          "answer": "掘削底面下の被圧帯水層から受ける揚圧力が原因である。水圧によって底面が押し上げられる点が特徴である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_03_earth_retaining"
     },
     {
       "questionBodyText": "標準貫入試験によって得られるN値から直接推定される事項として、適当でないものは次のうちどれか。",
@@ -1002,7 +1354,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "9295fad01eb0922c"
+      "original_question_id": "9295fad01eb0922c",
+      "explanationText": [
+        "正しい。\n\nN 値は砂地盤の締まり具合を反映し、液状化強度の推定に利用される。",
+        "間違い。\n\n砂地盤の含水比は、試料採取と含水試験で求める事項であり、標準貫入試験の N 値から直接は推定しない。",
+        "正しい。\n\n粘土地盤では N 値から許容支持力のおおよその評価に利用することがある。",
+        "正しい。\n\nN 値は粘土地盤の一軸圧縮強さの推定にも用いられる。経験的な相関が使われる論点である。"
+      ],
+      "suggestedQuestions": [
+        "N値から直接分からないものは何ですか？",
+        "N値はどんな地盤評価に使われますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "N値から直接分からないものは何ですか？",
+          "answer": "含水比のように試料そのものを測って求める値は、N 値から直接は分からない。N 値は貫入抵抗に基づく指標である点を押さえる。"
+        },
+        {
+          "question": "N値はどんな地盤評価に使われますか？",
+          "answer": "砂地盤の締まり具合や液状化評価、粘土地盤の支持力や強度の推定に利用される。土質調査の代表的な基礎データである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs01_01_soil_survey"
     },
     {
       "questionBodyText": "薬液注入材料に関する次の記述のうち、適当でないものはどれか。",
@@ -1061,7 +1435,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "1975cad46555bb1a"
+      "original_question_id": "1975cad46555bb1a",
+      "explanationText": [
+        "正しい。\n\n薬液注入材料は、使用時だけでなく混合後や固化後も高い安全性を確保できることが求められる。",
+        "正しい。\n\n実施工で使う材料は入手しやすく、現場で扱いやすいことが望ましい。施工性も材料選定要件の一つである。",
+        "正しい。\n\n地盤中で固化した後、必要期間にわたって安定して性能を保つことが必要である。",
+        "間違い。\n\n水ガラスを固める硬化剤は、種類や使用量を変えると硬化時間が変化する。ゲルタイム調整に関わる要素である。"
+      ],
+      "suggestedQuestions": [
+        "ゲルタイムは何で変わりますか？",
+        "薬液注入材料に求められる条件は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ゲルタイムは何で変わりますか？",
+          "answer": "硬化剤の種類や配合量などで変わる。施工条件に合わせて硬化時間を調整するのが薬液注入材の基本管理である。"
+        },
+        {
+          "question": "薬液注入材料に求められる条件は何ですか？",
+          "answer": "安全性、入手性、施工性、固化後の安定性が代表的である。材料の化学特性だけでなく現場で使えるかも重要になる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_05_chemical_grouting_material_properties"
     },
     {
       "questionBodyText": "薬液注入に用いる水ガラスに関する次の記述のうち、適当でないものはどれか。",
@@ -1120,7 +1516,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "76ef2c416062f8dd"
+      "original_question_id": "76ef2c416062f8dd",
+      "explanationText": [
+        "間違い。\n\n1号水ガラスの SiO2 含有量は 34〜36% ではなく、一般に 35〜38% とされる。数値範囲が誤っている。",
+        "正しい。\n\n水ガラスはけい酸ソーダ、けい酸ナトリウムの俗称で、Na2O と SiO2 を含む溶液である。",
+        "正しい。\n\n水ガラス原液は強いアルカリ性だが、固化には硬化剤との反応で中性領域へ近づける必要がある。",
+        "正しい。\n\n水ガラスは薬液注入専用品ではなく、洗剤添加剤など幅広い用途に使われる無機系材料である。"
+      ],
+      "suggestedQuestions": [
+        "1号水ガラスのSiO2含有量はどれくらいですか？",
+        "水ガラスはなぜ硬化剤と組み合わせて使いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "1号水ガラスのSiO2含有量はどれくらいですか？",
+          "answer": "この論点では 35〜38% を押さえる。似た数値に置き換えたひっかけが出やすい。"
+        },
+        {
+          "question": "水ガラスはなぜ硬化剤と組み合わせて使いますか？",
+          "answer": "原液のままでは固化しないため、硬化剤との反応でゲル化・固化させる必要がある。注入後に改良体を形成するための基本である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_05_chemical_grouting_material_properties"
     },
     {
       "questionBodyText": "水ガラス系薬液の硬化剤の種類と特徴に関する次の記述のうち、適当でないものはどれか。",
@@ -1179,7 +1597,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "3f917f0caeefbf3e"
+      "original_question_id": "3f917f0caeefbf3e",
+      "explanationText": [
+        "正しい。\n\n懸濁型硬化剤は、水ガラスに粒子を含む硬化剤を反応させて固化させるものである。",
+        "正しい。\n\n溶液型硬化剤の多くは無機系だが、一部には有機系材料も使われる。",
+        "間違い。\n\n懸濁型硬化剤を用いた薬液は、砂層の浸透注入向きではない。砂層の浸透注入には主として溶液型硬化剤を用いる。",
+        "正しい。\n\n溶液型硬化剤は粒子を含まず、砂層での浸透注入に適している。"
+      ],
+      "suggestedQuestions": [
+        "溶液型硬化剤はどんな地盤に向きますか？",
+        "懸濁型硬化剤と溶液型硬化剤の違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "溶液型硬化剤はどんな地盤に向きますか？",
+          "answer": "粒子を含まないため、砂層のように浸透注入が必要な地盤に向く。浸透性の良さと組み合わせて覚える。"
+        },
+        {
+          "question": "懸濁型硬化剤と溶液型硬化剤の違いは何ですか？",
+          "answer": "懸濁型は粒子を含み、溶液型は粒子を含まない。注入対象地盤や浸透性の違いで使い分ける。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_05_chemical_grouting_material_properties"
     },
     {
       "questionBodyText": "薬液注入工事における改良範囲に関する次の記述のうち、適当でないものはどれか。",
@@ -1238,7 +1678,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "27e3f39717a564c0"
+      "original_question_id": "27e3f39717a564c0",
+      "explanationText": [
+        "正しい。\n\n不透水層と地下水位がある場合は、地下水変動や層境の乱れを見込んで不透水層側に 1.0m のラップを取る。",
+        "正しい。\n\n粘性土で N 値 5 以下の軟弱地盤では、割裂注入により圧密効果と薬液固化による強度増加が期待できる。",
+        "正しい。\n\n土留め欠損部では、両側に 1.5m 以上のラップ長を確保し、注入厚さの半分以上の範囲を押さえる。",
+        "間違い。\n\n深度 5m のライナープレート立坑側部で複列注入可能な場合の最小改良範囲は 1.0m ではなく 1.5m である。"
+      ],
+      "suggestedQuestions": [
+        "ライナープレート立坑側部の最小改良範囲はいくつですか？",
+        "割裂注入はどんな地盤で効果を期待しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ライナープレート立坑側部の最小改良範囲はいくつですか？",
+          "answer": "この条件では 1.5m を押さえる。 1.0m との入れ替えが典型的なひっかけである。"
+        },
+        {
+          "question": "割裂注入はどんな地盤で効果を期待しますか？",
+          "answer": "N 値 5 以下程度の軟弱な粘性土地盤で、圧密と固化による強度増加を狙う場面で用いる。浸透注入と対象地盤が異なる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_06_chemical_grouting_design_selection"
     },
     {
       "questionBodyText": "ダブルパッカー工法の（イ）～（ニ）の作業内容に関する次の施工順序のうち、適当なものはどれか。ただし、（イ）、（ロ）、（ハ）、（ニ）の作業内容は、次のとおりである。\n（イ）　注入外管を挿入する。\n（ロ）　先端部にダブルパッカーを取り付けた注入内管を挿入する。\n（ハ）　所定深度までケーシングパイプを設置する。\n（ニ）　シール材を充てんし、ケーシングパイプを引き抜く。",
@@ -1289,7 +1751,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "6a0edfb78db9e80f"
+      "original_question_id": "6a0edfb78db9e80f",
+      "explanationText": [
+        "正しい。\n\nダブルパッカー工法は、所定深度までケーシングを設置し、注入外管を挿入してからシール材を充てんし、ケーシングを引き抜いた後に注入内管を挿入する。この順序に合うのは（ハ）→（イ）→（ニ）→（ロ）である。",
+        "間違い。\n\n注入外管を入れる前にシール材充てんへ進んでおり、作業順として成立しない。",
+        "間違い。\n\nケーシング設置前に外管や内管を扱う流れになっており、前提手順が崩れている。",
+        "間違い。\n\n注入外管をケーシング設置前に挿入する並びであり、施工順序として不適切である。"
+      ],
+      "suggestedQuestions": [
+        "ダブルパッカー工法の基本手順はどう並びますか？",
+        "シール材を充てんするのはどの段階ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ダブルパッカー工法の基本手順はどう並びますか？",
+          "answer": "ケーシング設置、注入外管挿入、シール材充てんとケーシング引抜き、最後にダブルパッカー付き注入内管挿入の順で進む。設備の役割を追うと覚えやすい。"
+        },
+        {
+          "question": "シール材を充てんするのはどの段階ですか？",
+          "answer": "注入外管を挿入した後、ケーシングを引き抜く段階で行う。先にシール材で区画をつくってから内管注入へ進む。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "薬液注入による止水効果を確認する試験として、適当なものは次のうちどれか。",
@@ -1340,7 +1824,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "ac6cd52a51eeaf04"
+      "original_question_id": "ac6cd52a51eeaf04",
+      "explanationText": [
+        "間違い。\n\n三軸圧縮試験は土の強度特性を調べる試験であり、止水効果の確認試験ではない。",
+        "間違い。\n\nプレシオメーター試験は地盤の変形係数や地盤反力係数などを調べる試験で、止水性確認には用いない。",
+        "間違い。\n\n標準貫入試験は地盤の硬さや N 値を把握する試験であり、止水効果そのものの判定試験ではない。",
+        "正しい。\n\n止水効果は現場透水試験で透水性の低下を確認して判断する。止水目的の薬液注入では最も直接的な確認方法である。"
+      ],
+      "suggestedQuestions": [
+        "止水効果の確認に現場透水試験を使う理由は何ですか？",
+        "三軸圧縮試験は何を調べる試験ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "止水効果の確認に現場透水試験を使う理由は何ですか？",
+          "answer": "止水効果は透水性がどれだけ下がったかで判断するため、透水係数を直接見られる現場透水試験が適している。強度試験とは目的が異なる。"
+        },
+        {
+          "question": "三軸圧縮試験は何を調べる試験ですか？",
+          "answer": "土の強度定数やせん断特性を把握する試験である。止水効果ではなく力学特性の確認に使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_10_chemical_grouting_effect_verification"
     },
     {
       "questionBodyText": "薬液注入工事における削孔の施工に関する次の記述のうち、適当でないものはどれか。",
@@ -1399,7 +1905,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "8358af1094ec961a"
+      "original_question_id": "8358af1094ec961a",
+      "explanationText": [
+        "正しい。\n\n削孔角度は計画どおりでないと改良範囲がずれるため、傾斜計などで確認して管理する必要がある。",
+        "間違い。\n\n削孔深度確認では、ロッド先端からグラウトモニタ吐出口までの長さを使用ロッド長から除外しない。深度算定の扱いが誤っている。",
+        "正しい。\n\n削孔位置は改良効果確保と埋設物保護の両面で重要であり、正確な管理が必要である。",
+        "正しい。\n\n戻り削孔水の色や排出土の状態は地盤条件や削孔状態を示すため、施工管理上よく確認する。"
+      ],
+      "suggestedQuestions": [
+        "削孔深度確認で注意する点は何ですか？",
+        "戻り削孔水を観察する理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "削孔深度確認で注意する点は何ですか？",
+          "answer": "ロッド全長と残尺の関係を正しく扱い、深度算定から勝手に長さを差し引かないことである。深度誤差は改良範囲不足に直結する。"
+        },
+        {
+          "question": "戻り削孔水を観察する理由は何ですか？",
+          "answer": "色や排出土の状態から地盤状況や削孔異常を把握できるからである。現場で得られる重要な管理情報になる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "砂質土地盤で、長さ10m、幅10m、深さ10mの領域を対象として薬液注入を行う場合、砂質土地盤の間げき率50%、薬液のてん充率70%としたときの注入率λ（%）と注入量Q（m³）の次の組合せのうち、適当なものはどれか。なお、重要度率は、100%とする。",
@@ -1450,7 +1978,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "19eb10eb844644c3"
+      "original_question_id": "19eb10eb844644c3",
+      "explanationText": [
+        "間違い。\n\n注入率 λ は間げき率 50% にてん充率 70% を掛けた 35% であり、50% ではない。Q=350m3 だけ合っていても組合せとして誤りである。",
+        "間違い。\n\nλ=35% までは正しいが、注入量 Q は 1000×0.35=350m3 なので 500m3 は誤りである。",
+        "正しい。\n\n対象土量 V=10×10×10=1000m3、注入率 λ=0.5×0.7=0.35=35% である。このため Q=V×λ=1000×0.35=350m3 となる。",
+        "間違い。\n\nλ を 50% としており注入率の算定が誤っている。Q=500m3 もその誤った λ を使った結果である。"
+      ],
+      "suggestedQuestions": [
+        "注入率λはどう計算しますか？",
+        "注入量Qはどの式で求めますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "注入率λはどう計算しますか？",
+          "answer": "間げき率 n とてん充率 α を掛けて求める。この問題では 0.5×0.7=0.35 で 35% になる。"
+        },
+        {
+          "question": "注入量Qはどの式で求めますか？",
+          "answer": "注入量 Q は対象土量 V と注入率 λ の積で求める。まず V を体積で出し、その後に λ を掛ける順で計算する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_06_chemical_grouting_design_selection"
     }
   ]
 }
