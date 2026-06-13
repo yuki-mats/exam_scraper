@@ -5,7 +5,11 @@ import unittest
 
 import requests
 
-from scrape_sgsiken import parse_pm_question_page, parse_q_question_page
+from scrape_sgsiken import (
+    collect_question_page_urls,
+    parse_pm_question_page,
+    parse_q_question_page,
+)
 
 
 RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
@@ -14,6 +18,32 @@ RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
 class ScrapeSgsikenTests(unittest.TestCase):
     def setUp(self) -> None:
         os.environ.setdefault("QUESTION_ID_SECRET_KEY", "test-secret")
+
+    def test_collect_question_page_urls_normalizes_nw_mobile_links(self) -> None:
+        list_html = """
+        <main>
+          <ul class="menu">
+            <li><a href="am1_1.html">問1</a></li>
+            <li><a href="am2_1.html">問1</a></li>
+            <li><a href="am2_25.html">問25</a></li>
+          </ul>
+        </main>
+        """
+
+        q_urls, pm_urls = collect_question_page_urls(
+            list_html,
+            "https://www.nw-siken.com/s/kakomon/07_haru/",
+        )
+
+        self.assertEqual(
+            q_urls,
+            [
+                "https://www.nw-siken.com/kakomon/07_haru/am1_1.html",
+                "https://www.nw-siken.com/kakomon/07_haru/am2_1.html",
+                "https://www.nw-siken.com/kakomon/07_haru/am2_25.html",
+            ],
+        )
+        self.assertEqual(pm_urls, [])
 
     @unittest.skipUnless(RUN_LIVE_TESTS, "live site dependent (set RUN_LIVE_TESTS=1)")
     def test_parse_live_am_q14(self) -> None:

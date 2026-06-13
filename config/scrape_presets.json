@@ -331,5 +331,16 @@
         "output_list_group_id": "201601"
       }
     ]
+  },
+  "nw": {
+    "scraper_type": "sgsiken",
+    "qualification_name": "ネットワークスペシャリスト",
+    "list_first_page_url_template": "https://www.nw-siken.com/s/kakomon/{list_group_id}/",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "07_haru",
+        "output_list_group_id": "202501"
+      }
+    ]
   }
 }

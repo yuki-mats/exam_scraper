@@ -33,6 +33,8 @@ IMAGE_OUTPUT_DIR: str | None = None
 
 Q_PAGE_HREF_RE = re.compile(r"^q(?P<num>[0-9]+)\.html$")
 PM_PAGE_HREF_RE = re.compile(r"^pm(?P<num>[0-9]+)\.html$")
+AM1_PAGE_HREF_RE = re.compile(r"^am1_(?P<num>[0-9]+)\.html$")
+AM2_PAGE_HREF_RE = re.compile(r"^am2_(?P<num>[0-9]+)\.html$")
 # CBT公開問題（科目A/科目B）
 A_PAGE_HREF_RE = re.compile(r"^a(?P<num>[0-9]+)\.html$")
 B_PAGE_HREF_RE = re.compile(r"^b(?P<num>[0-9]+)\.html$")
@@ -152,9 +154,18 @@ def infer_correct_choice_texts(
     return ["正しい" if (i + 1) in answer_set else "間違い" for i in range(choice_count)]
 
 
+def normalize_question_page_url(url: str) -> str:
+    """
+    モバイル一覧 `/s/kakomon/.../` から拾った相対リンクを、
+    既存パーサが読める PC 版の詳細URLへ正規化する。
+    """
+    return re.sub(r"^(https?://[^/]+)/s/kakomon/", r"\1/kakomon/", url)
+
+
 def collect_question_page_urls(list_page_html: str, list_page_url: str) -> tuple[list[str], list[str]]:
     soup = BeautifulSoup(list_page_html, "html.parser")
-    # 「午前/午後」旧形式(qNN/pmNN) + 「公開問題」新形式(aNN/bNN)を同一の単問URLとして扱う。
+    # 「午前/午後」旧形式(qNN/pmNN) + 「公開問題」新形式(aNN/bNN)
+    # + nw-siken 系の am1/am2 を同一の単問URLとして扱う。
     question_urls_in_order: list[str] = []
     seen_question_urls: set[str] = set()
     pm_urls: dict[int, str] = {}
@@ -163,8 +174,14 @@ def collect_question_page_urls(list_page_html: str, list_page_url: str) -> tuple
         href = (a.get("href") or "").strip()
         if not href:
             continue
-        if Q_PAGE_HREF_RE.fullmatch(href) or A_PAGE_HREF_RE.fullmatch(href) or B_PAGE_HREF_RE.fullmatch(href):
-            url = urljoin(list_page_url, href)
+        if (
+            Q_PAGE_HREF_RE.fullmatch(href)
+            or A_PAGE_HREF_RE.fullmatch(href)
+            or B_PAGE_HREF_RE.fullmatch(href)
+            or AM1_PAGE_HREF_RE.fullmatch(href)
+            or AM2_PAGE_HREF_RE.fullmatch(href)
+        ):
+            url = normalize_question_page_url(urljoin(list_page_url, href))
             if url not in seen_question_urls:
                 question_urls_in_order.append(url)
                 seen_question_urls.add(url)
@@ -172,7 +189,7 @@ def collect_question_page_urls(list_page_html: str, list_page_url: str) -> tuple
         pm_match = PM_PAGE_HREF_RE.fullmatch(href)
         if pm_match:
             num = int(pm_match.group("num"))
-            pm_urls[num] = urljoin(list_page_url, href)
+            pm_urls[num] = normalize_question_page_url(urljoin(list_page_url, href))
 
     return question_urls_in_order, [pm_urls[k] for k in sorted(pm_urls)]
 

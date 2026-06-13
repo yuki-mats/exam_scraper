@@ -82,6 +82,22 @@ class ScrapePresetTests(unittest.TestCase):
             "https://www.sg-siken.com/kakomon/01_aki/",
         )
 
+    def test_load_scrape_preset_for_nw(self) -> None:
+        preset = load_scrape_preset("nw")
+
+        self.assertEqual(preset.qualification_name, "ネットワークスペシャリスト")
+        self.assertEqual(preset.scraper_type, "sgsiken")
+        self.assertEqual(preset.list_group_ids, ["202501"])
+
+    def test_build_list_first_page_url_for_nw(self) -> None:
+        preset = load_scrape_preset("nw")
+        url = build_list_first_page_url(preset, "202501")
+
+        self.assertEqual(
+            url,
+            "https://www.nw-siken.com/s/kakomon/07_haru/",
+        )
+
     def test_load_scrape_preset_for_mecnet_kokushi(self) -> None:
         preset = load_scrape_preset("mecnet-kokushi")
 
