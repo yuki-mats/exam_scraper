@@ -217,6 +217,28 @@ def extract_classification_text(soup: BeautifulSoup) -> str | None:
     return None
 
 
+def split_classification_hierarchy(classification: str | None) -> tuple[list[str], str | None, str | None, str | None]:
+    """
+    既存の category 文字列を 3 階層へ分解する。
+    例: "テクノロジ系 » セキュリティ » 情報セキュリティ対策"
+    """
+    if not classification:
+        return [], None, None, None
+
+    parts = [
+        normalize_inline_text(part)
+        for part in re.split(r"\s*»\s*", classification)
+        if normalize_inline_text(part)
+    ]
+    if not parts:
+        return [], None, None, None
+
+    major = parts[0] if len(parts) >= 1 else None
+    middle = parts[1] if len(parts) >= 2 else None
+    small = parts[2] if len(parts) >= 3 else None
+    return parts, major, middle, small
+
+
 def marker_list_from_q_page(choice_items: list[Tag]) -> list[str]:
     """
     選択肢のマーカー（ア/イ/ウ...）を抽出する。
@@ -473,6 +495,9 @@ def parse_q_question_page(
         explanation_choice_correctness,
     ) = parse_q_explanation_fields(soup, choice_count=len(choice_text_list))
     classification = extract_classification_text(soup)
+    category_hierarchy, category_major, category_middle, category_small = split_classification_hierarchy(
+        classification
+    )
 
     return {
         "questionBodyText": question_body_text,
@@ -482,6 +507,10 @@ def parse_q_question_page(
         "choiceTextList": choice_text_list,
         "originalQuestionChoiceImageUrls": choice_image_storage_urls_by_choice,
         "category": classification,
+        "categoryHierarchy": category_hierarchy,
+        "categoryMajor": category_major,
+        "categoryMiddle": category_middle,
+        "categorySmall": category_small,
         "examYear": exam_year,
         "list_group_id": output_list_group_id,
         "question_url": page_url,
@@ -718,6 +747,11 @@ def parse_pm_question_page(
                     "questionType": "true_false",
                     "choiceTextList": choice_text_list,
                     "originalQuestionChoiceImageUrls": [[] for _ in choice_text_list],
+                    "category": None,
+                    "categoryHierarchy": [],
+                    "categoryMajor": None,
+                    "categoryMiddle": None,
+                    "categorySmall": None,
                     "examYear": exam_year,
                     "list_group_id": output_list_group_id,
                     "question_url": page_url,

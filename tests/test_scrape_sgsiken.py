@@ -9,6 +9,7 @@ from scrape_sgsiken import (
     collect_question_page_urls,
     parse_pm_question_page,
     parse_q_question_page,
+    split_classification_hierarchy,
 )
 
 
@@ -45,6 +46,19 @@ class ScrapeSgsikenTests(unittest.TestCase):
         )
         self.assertEqual(pm_urls, [])
 
+    def test_split_classification_hierarchy(self) -> None:
+        hierarchy, major, middle, small = split_classification_hierarchy(
+            "テクノロジ系 » セキュリティ » 情報セキュリティ対策"
+        )
+
+        self.assertEqual(
+            hierarchy,
+            ["テクノロジ系", "セキュリティ", "情報セキュリティ対策"],
+        )
+        self.assertEqual(major, "テクノロジ系")
+        self.assertEqual(middle, "セキュリティ")
+        self.assertEqual(small, "情報セキュリティ対策")
+
     @unittest.skipUnless(RUN_LIVE_TESTS, "live site dependent (set RUN_LIVE_TESTS=1)")
     def test_parse_live_am_q14(self) -> None:
         url = "https://www.sg-siken.com/kakomon/01_aki/q14.html"
@@ -69,6 +83,9 @@ class ScrapeSgsikenTests(unittest.TestCase):
         self.assertEqual(qb["answer_result_text"], "正解は 1 です。")
         self.assertEqual(qb["questionIntent"], "select_correct")
         self.assertEqual(qb["correctChoiceText"], ["正しい", "間違い", "間違い", "間違い"])
+        self.assertEqual(qb["categoryMajor"], "テクノロジ系")
+        self.assertEqual(qb["categoryMiddle"], "セキュリティ")
+        self.assertEqual(qb["categorySmall"], "情報セキュリティ対策")
         self.assertEqual(len(qb["explanation_choice_snippets"]), 4)
         self.assertTrue(qb["public_question_id"])
         self.assertIn("source_question_id", qb)
