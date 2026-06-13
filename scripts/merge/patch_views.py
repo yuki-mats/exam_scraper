@@ -229,6 +229,16 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
     if not text:
         return None
 
+    positive_select_keywords = (
+        "該当しない",
+        "当てはまらない",
+        "対象とならない",
+        "属さない",
+        "含まれない",
+        "使用しない",
+        "必要としない",
+        "要しないもの",
+    )
     positive_required_keywords = (
         "見落としてはならない",
         "見逃してはならない",
@@ -242,21 +252,11 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
         "不適切",
         "適切でない",
         "適当でない",
-        "適合しない",
         "誤って",
         "誤り",
         "誤った",
         "正しくない",
-        "ならない",
-        "みられない",
-        "起こり得ない",
-        "適応でない",
         "してはならない",
-        "必要がない",
-        "要しない",
-        "関係の少ない",
-        "最も関係の少ない",
-        "記載を要しない",
     )
 
     lines = [line.strip() for line in text.splitlines() if line.strip()]
@@ -276,6 +276,8 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
         break
 
     if any(keyword in intent_text for keyword in positive_required_keywords):
+        return "select_correct"
+    if any(keyword in intent_text for keyword in positive_select_keywords):
         return "select_correct"
     if any(keyword in intent_text for keyword in negative_keywords):
         return "select_incorrect"
