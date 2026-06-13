@@ -61,7 +61,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "1b1bfcb7a2ea3f9e"
+      "original_question_id": "1b1bfcb7a2ea3f9e",
+      "explanationText": [
+        "正しい。\n\nケーソンは浮上・沈設時に各室の水位調整が必要なため、隔壁に通水孔を設けて均等に注排水しやすくする。",
+        "間違い。\n\n据付け時の注水は位置確認や微調整のため途中でいったん止めることがある。着底まで無中断で連続注水するとした点が不適切である。",
+        "正しい。\n\n据付け直後は波浪の影響を受けやすいため、速やかに中詰めして安定性を高める必要がある。",
+        "正しい。\n\n中詰め材には土砂、割石、コンクリート、プレパックドコンクリートなどが用いられる。"
+      ],
+      "suggestedQuestions": [
+        "ケーソン据付けで注水を止める場面は何のためですか？",
+        "中詰めを早く行う理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ケーソン据付けで注水を止める場面は何のためですか？",
+          "answer": "設置位置や姿勢を確認し、必要な微調整をするためである。沈設は一気に終えるだけでなく、位置精度を確保する管理が重要になる。"
+        },
+        {
+          "question": "中詰めを早く行う理由は何ですか？",
+          "answer": "据え付け直後のケーソンは波や流れで不安定になりやすいからである。中詰めで自重と安定性を確保する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs09_04_caisson_composite_breakwater"
     },
     {
       "questionBodyText": "鉄道の「軌道の用語」と「説明」に関する次の組合せのうち、適当でないものはどれか。",
@@ -118,7 +140,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "43836f5beb4b6534"
+      "original_question_id": "43836f5beb4b6534",
+      "explanationText": [
+        "正しい。\n\nカント量は曲線部で外側レールを高くして遠心力による外方への作用を緩和するための高さ差である。",
+        "正しい。\n\n緩和曲線は直線と円曲線、または二つの曲線の間を滑らかにつなぐための特殊線形である。",
+        "正しい。\n\nバラストはまくらぎと路盤の間に敷く砕石などの粒状体で、排水性や荷重分散を担う。",
+        "間違い。\n\nスラックは曲線内側レールを外側より長く敷くための軌間拡大量であり、レール頭部の切削量ではない。"
+      ],
+      "suggestedQuestions": [
+        "スラックとカントは何が違いますか？",
+        "バラストの役割は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "スラックとカントは何が違いますか？",
+          "answer": "カントは外側レールを高くする高さ差、スラックは曲線通過を円滑にするための軌間拡大量である。目的も調整対象も異なる。"
+        },
+        {
+          "question": "バラストの役割は何ですか？",
+          "answer": "荷重分散、排水、軌道の狂い調整などを担う。まくらぎを安定支持する基礎層として重要である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs10_01_railway_track"
     },
     {
       "questionBodyText": "鉄道（在来線）の営業線路内及び営業線近接工事の保安対策に関する次の記述のうち、適当でないものはどれか。",
@@ -185,7 +229,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "62a4f8b328fde8f3"
+      "original_question_id": "62a4f8b328fde8f3",
+      "explanationText": [
+        "間違い。\n\n列車接近合図を受けたら作業を続けるのではなく、所定の待避場所に退避して列車通過を待つのが原則である。",
+        "正しい。\n\n営業線近接工事で重機械の使用内容を変更する場合は、事前承諾を得て保安条件を確認する必要がある。",
+        "正しい。\n\n荷台やブームを下げたことを確認してから走行しなければ、架線や構造物への接触事故のおそれがある。",
+        "正しい。\n\n工事用自動車を扱う者は、必要な資格証明書を携行して運転条件を満たす必要がある。"
+      ],
+      "suggestedQuestions": [
+        "列車接近時に最優先する行動は何ですか？",
+        "営業線近接工事で重機変更に承諾が必要なのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "列車接近時に最優先する行動は何ですか？",
+          "answer": "作業継続ではなく待避である。列車見張員の合図に従い、決められた手順で安全確保を行う。"
+        },
+        {
+          "question": "営業線近接工事で重機変更に承諾が必要なのはなぜですか？",
+          "answer": "使用機械が変わると建築限界や接触リスク、保安措置も変わるためである。勝手な変更は重大事故につながりうる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs10_03_adjacent_railway_work_safety"
     },
     {
       "questionBodyText": "シールド工法に関する次の記述のうち、適当でないものはどれか。",
@@ -242,13 +308,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "edb2e938ccbc25fd"
+      "original_question_id": "edb2e938ccbc25fd",
+      "explanationText": [
+        "正しい。\n\nシールド工法は地表からの開削が困難な都市部の下水道や地下鉄工事などで広く用いられる。",
+        "正しい。\n\n切羽とシールド内部を隔壁で仕切る方式は密閉型シールドである。",
+        "正しい。\n\n土圧式シールドはスクリューコンベヤで排土量を調整しながら切羽土圧を保つ工法である。",
+        "間違い。\n\n泥水式シールドは分離設備で排土処理する工法だが、大径礫の多い地盤に常に適するとはいえない。大きい礫の排出に適していると断定した点が不適切である。"
+      ],
+      "suggestedQuestions": [
+        "土圧式シールドでスクリューコンベヤが重要なのはなぜですか？",
+        "密閉型シールドの利点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "土圧式シールドでスクリューコンベヤが重要なのはなぜですか？",
+          "answer": "排土量を調整して切羽土圧を安定させる役割を持つためである。排土管理が不適切だと地盤変状につながる。"
+        },
+        {
+          "question": "密閉型シールドの利点は何ですか？",
+          "answer": "切羽を隔壁で密閉し、土圧や泥水圧で安定を保ちやすい点である。都市部の沈下抑制に有効である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs10_04_shield_method"
     },
     {
       "questionBodyText": "上水道管きょの据付けに関する次の記述のうち、適当でないものはどれか。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問30",
-      "questionType": "flash_card",
+      "questionType": "true_false",
       "choiceTextList": [
         "管を掘削溝内につり下ろす場合は、溝内のつり下ろし場所に作業員を立ち入らせない。",
         "管のつり下ろし時に土留め用切ばりを一時取り外す必要がある場合は、必ず適切な補強を施す。",
@@ -293,7 +381,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "772be96bd3631af6"
+      "original_question_id": "772be96bd3631af6",
+      "explanationText": [
+        "正しい。\n\nつり荷の直下は最も危険なため、掘削溝内のつり下ろし位置に作業員を立ち入らせてはならない。",
+        "正しい。\n\n土留めの切ばりを一時撤去する場合は、崩壊防止のため必ず代替支保などで補強する必要がある。",
+        "間違い。\n\n鋼管据付けで管体保護のために砕石基礎を標準とするわけではない。管種や設計に応じた適切な基礎で据え付けるべきで、砕石敷均しを一般化した点が誤りである。",
+        "正しい。\n\n据付け前に管体検査を行い、亀裂や変形などの欠陥がないことを確認するのが基本である。"
+      ],
+      "suggestedQuestions": [
+        "管のつり下ろしで直下立入禁止なのはなぜですか？",
+        "切ばりを外すときに必要な措置は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "管のつり下ろしで直下立入禁止なのはなぜですか？",
+          "answer": "落下や振れによる重大災害を防ぐためである。つり荷の下に人を入れないのは基本中の基本である。"
+        },
+        {
+          "question": "切ばりを外すときに必要な措置は何ですか？",
+          "answer": "代替支保や補強を行い、土留めの安定を失わないようにする。無補強の取り外しは崩壊の危険が高い。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs11_02_water_pipe_laying"
     },
     {
       "questionBodyText": "下水道の剛性管きょを施工する際の下記の「基礎地盤の土質区分」と「基礎の種類」の組合せとして、適当なものは次のうちどれか。",
@@ -346,7 +456,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "68c3f1e0cab0a51b"
+      "original_question_id": "68c3f1e0cab0a51b",
+      "explanationText": [
+        "正しい。\n\n硬い良好地盤には砂基礎を用いる組合せが適切である。",
+        "間違い。\n\n良好地盤に鉄筋コンクリート基礎を当てる組合せではなく、必要性の高い軟弱側地盤と対応しない。",
+        "間違い。\n\n軟弱地盤側の基礎選定が不適切で、鉄筋コンクリート基礎とコンクリート基礎の対応が逆である。",
+        "間違い。\n\nロ側地盤にはコンクリート基礎ではなく、より強固な鉄筋コンクリート基礎を要する組合せである。"
+      ],
+      "suggestedQuestions": [
+        "砂基礎と鉄筋コンクリート基礎はどう使い分けますか？",
+        "剛性管きょで基礎条件が重要なのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "砂基礎と鉄筋コンクリート基礎はどう使い分けますか？",
+          "answer": "支持力や不等沈下のおそれに応じて使い分ける。地盤が良好なら砂基礎、より不良ならコンクリート系基礎が必要になる。"
+        },
+        {
+          "question": "剛性管きょで基礎条件が重要なのはなぜですか？",
+          "answer": "剛性管は地盤変形への追随性が小さいため、基礎が不適切だとひび割れや不同沈下を招きやすいからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs11_03_sewer_pipe_foundation"
     },
     {
       "questionBodyText": "労働基準法に定められている労働時間、休憩、年次有給休暇に関する次の記述のうち、正しいものはどれか。",
@@ -403,7 +535,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "c36bbd00827ebdd8"
+      "original_question_id": "c36bbd00827ebdd8",
+      "explanationText": [
+        "間違い。\n\n休憩は労働時間の途中に与える必要があるが、一斉付与が原則であり、使用者が自由に労働者ごとに開始時刻をずらせるわけではない。",
+        "間違い。\n\n災害その他避けられない事由による臨時の必要があっても、所定の手続の下で労働時間延長を行うのであり、制限なく延長できるわけではない。",
+        "正しい。\n\n労働基準法の原則は1日8時間、1週40時間であり、使用者は休憩を除き1日8時間を超えて労働させてはならない。",
+        "間違い。\n\n年次有給休暇は雇入れから3か月ではなく、6か月継続勤務し全労働日の8割以上出勤した労働者に与える。"
+      ],
+      "suggestedQuestions": [
+        "年次有給休暇の付与条件は何ですか？",
+        "休憩の一斉付与原則とは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "年次有給休暇の付与条件は何ですか？",
+          "answer": "現在の労働基準法では、6か月継続勤務し、その期間の全労働日の8割以上出勤した労働者に10日の年休を与える。3か月ではない。"
+        },
+        {
+          "question": "休憩の一斉付与原則とは何ですか？",
+          "answer": "原則として同一事業場の労働者には休憩を一斉に与えるという考え方である。例外業種や労使協定による扱いはあるが、自由にずらせるのが原則ではない。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs12_01_working_hours_rest_holidays"
     },
     {
       "questionBodyText": "満18歳に満たない者の就業に関する次の記述のうち、労働基準法上、誤っているものはどれか。",
@@ -462,13 +616,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "ad8f5316d0df4d90"
+      "original_question_id": "ad8f5316d0df4d90",
+      "explanationText": [
+        "間違い。\n\n満18歳未満の者について事業場に備え付けるのは年齢を証明する戸籍証明書等であり、親権者の証明書ではない。",
+        "正しい。\n\n満18歳未満の者をクレーン、デリック又は揚貨装置の運転業務に就かせてはならない。",
+        "正しい。\n\n動力で駆動される土木建築用機械の運転業務も年少者の就業制限対象である。",
+        "正しい。\n\n足場の組立て、解体又は変更の業務は、地上や床上の補助作業を除き年少者を就かせてはならない。"
+      ],
+      "suggestedQuestions": [
+        "年少者雇用で備え付ける証明書は何ですか？",
+        "年少者の就業制限で禁止される代表業務は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "年少者雇用で備え付ける証明書は何ですか？",
+          "answer": "現在の労働基準法では年齢を証明する戸籍証明書等を備え付ける。親権者の単なる証明書では足りない。"
+        },
+        {
+          "question": "年少者の就業制限で禁止される代表業務は何ですか？",
+          "answer": "クレーン等の運転、土木建築用機械の運転、足場の組立て等の危険業務が代表である。危険有害業務から年少者を守る趣旨である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs12_03_women_minors_work_restrictions"
     },
     {
       "questionBodyText": "労働安全衛生法上、作業主任者の選任を必要としない作業は、次のうちどれか。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問34",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "高さが5m以上のコンクリート造の工作物の解体又は破壊の作業",
         "既製コンクリート杭の杭打ちの作業",
@@ -488,12 +664,12 @@
       "question_url": "https://2dobokusekou.kakomonn.com/questions/52843",
       "public_question_id": "48957602e93354eb",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
         "間違い",
         "正しい",
-        "正しい"
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "[01] （2）の杭打ち作業は、作業主任者の選任を必要としません。\nその他の作業については、以下のとおり選任が必要です。\n（1）＝コンクリート造の工作物の解体等作業主任者\n（3）＝地山の掘削及び土止め支保工作業主任者\n（4）＝足場の組立等作業主任者",
@@ -522,7 +698,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "48957602e93354eb"
+      "original_question_id": "48957602e93354eb",
+      "explanationText": [
+        "間違い。\n\n高さ5m以上のコンクリート造工作物の解体・破壊にはコンクリート造工作物解体等作業主任者が必要である。",
+        "正しい。\n\n既製コンクリート杭の杭打ち作業は、労働安全衛生法上の作業主任者選任対象には含まれない。",
+        "間違い。\n\n土止め支保工の切りばりや腹起こしの取付け・取外しには、地山の掘削及び土止め支保工作業主任者が必要である。",
+        "間違い。\n\n高さ5m以上の構造の足場の組立て、解体又は変更には足場の組立て等作業主任者が必要である。"
+      ],
+      "suggestedQuestions": [
+        "作業主任者が必要になる代表作業は何ですか？",
+        "既製コンクリート杭の杭打ちはなぜこの設問の例外ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "作業主任者が必要になる代表作業は何ですか？",
+          "answer": "土止め支保工、足場の組立て等、コンクリート造工作物の解体等が代表である。条文上の列挙対象かどうかで判断する。"
+        },
+        {
+          "question": "既製コンクリート杭の杭打ちはなぜこの設問の例外ですか？",
+          "answer": "この作業自体は作業主任者選任対象として列挙されていないためである。必要資格や施工管理者配置とは別論点である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs13_01_operations_chief"
     },
     {
       "questionBodyText": "建設業法に関する次の記述のうち、誤っているものはどれか。",
@@ -584,13 +782,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "1ee6b260cf3bb1ce"
+      "original_question_id": "1ee6b260cf3bb1ce",
+      "explanationText": [
+        "正しい。\n\n建設業者には担い手育成・確保や施工技術の確保に努める責務がある。",
+        "正しい。\n\n建設業の許可は5年ごとに更新を受けなければ失効する。",
+        "間違い。\n\n下請負人から完成通知を受けた元請負人は30日ではなく20日以内で、かつできる限り短い期間内に検査を完了しなければならない。",
+        "正しい。\n\n発注者から直接請け負った建設業者は、原則として主任技術者又は監理技術者を置かなければならない。"
+      ],
+      "suggestedQuestions": [
+        "完成通知後の検査期限は何日ですか？",
+        "主任技術者と監理技術者はどう使い分けますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "完成通知後の検査期限は何日ですか？",
+          "answer": "現在の建設業法では、元請負人は下請負人の完成通知を受けた日から20日以内、かつできる限り短い期間内に検査を完了する。30日ではない。"
+        },
+        {
+          "question": "主任技術者と監理技術者はどう使い分けますか？",
+          "answer": "元請が一定額以上を下請に出す特定建設業の場合は監理技術者、それ以外は主任技術者が原則となる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs14_02_construction_business_act_general"
     },
     {
       "questionBodyText": "道路に工作物又は施設を設け、継続して道路を使用する行為に関する次の記述のうち、道路法令上、占用の許可を必要としないものはどれか。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問36",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "工事用板囲、足場、詰所その他工事用施設を設置する場合。",
         "津波からの一時的な避難場所としての機能を有する堅固な施設を設置する場合。",
@@ -610,12 +830,12 @@
       "question_url": "https://2dobokusekou.kakomonn.com/questions/52845",
       "public_question_id": "11a6c891fb214c59",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
-        "間違い"
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "[01] 道路法の規定に基づき、同法を実施するために制定された「道路法施行令」があります。\n占用の許可を必要とする物件に関しては第7条に定められており、記述の（1）・（2）・（3）を含む13項目あります。\n第34条の3には、記述の（4）を含む6項目が、\"占用物件\"ではなく道路の\"付属物\"として定められています。\nよって、許可は必要ありません。",
@@ -643,7 +863,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "11a6c891fb214c59"
+      "original_question_id": "11a6c891fb214c59",
+      "explanationText": [
+        "間違い。\n\n工事用板囲、足場、詰所などの工事用施設は道路占用許可の対象である。",
+        "間違い。\n\n津波からの一時避難場所としての堅固な施設も道路法令上の占用許可対象に含まれる。",
+        "間違い。\n\n看板、標識、旗ざお、パーキング・メータ、幕、アーチなども占用許可を要する。",
+        "正しい。\n\n車両運転者の視線を誘導するための施設は道路法施行令上の道路附属物であり、道路占用許可を要しない。"
+      ],
+      "suggestedQuestions": [
+        "道路占用物件と道路附属物の違いは何ですか？",
+        "視線誘導施設が占用許可不要なのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "道路占用物件と道路附属物の違いは何ですか？",
+          "answer": "占用物件は道路空間を継続使用するために道路管理者の許可が必要な物件で、道路附属物は道路機能や安全確保のため道路側が設ける施設である。"
+        },
+        {
+          "question": "視線誘導施設が占用許可不要なのはなぜですか？",
+          "answer": "現在の道路法施行令では視線誘導施設は道路附属物として整理されているためである。占用物件ではない。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs15_01_road_act"
     },
     {
       "questionBodyText": "河川法に関する次の記述のうち、正しいものはどれか。",
@@ -705,13 +947,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "82d12d38a454c9ad"
+      "original_question_id": "82d12d38a454c9ad",
+      "explanationText": [
+        "間違い。\n\n河川法上の河川には一級・二級河川本体だけでなく、ダム、堰、水門、堤防などの河川管理施設も含まれる。",
+        "正しい。\n\n河川保全区域は河岸や河川管理施設を保全するため、河川管理者が指定する一定区域である。",
+        "間違い。\n\n二級河川の管理は原則として都道府県知事が行い、市町村長ではない。",
+        "間違い。\n\n河川区域は基本的に堤外地側の必要区域であり、堤内地側の河川保全区域を当然に含むものではない。"
+      ],
+      "suggestedQuestions": [
+        "河川区域と河川保全区域はどう違いますか？",
+        "二級河川は誰が管理しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "河川区域と河川保全区域はどう違いますか？",
+          "answer": "河川区域は河川を管理するための本体区域で、河川保全区域はその外側で河岸や河川管理施設を守るために指定される区域である。"
+        },
+        {
+          "question": "二級河川は誰が管理しますか？",
+          "answer": "現在の河川法では原則として都道府県知事が管理する。市町村長は準用河川など別の区分で登場する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs16_02_river_act_general"
     },
     {
       "questionBodyText": "建築基準法に定められている建築物の敷地と道路に関する下記の文章の（イ）、（ロ）に当てはまる次の数値の組合せのうち、正しいものはどれか。\n都市計画区域内の道路は、原則として幅員（　イ　）m以上のものをいい、建築物の敷地は、原則として道路に（　ロ　）m以上接しなければならない。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問38",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "イ：3 ロ：2",
         "イ：3 ロ：3",
@@ -764,7 +1028,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "a74a0bb4703f4d64"
+      "original_question_id": "a74a0bb4703f4d64",
+      "explanationText": [
+        "間違い。\n\n道路幅員3mでは建築基準法上の原則道路要件を満たさない。",
+        "間違い。\n\n道路幅員も接道長さも法定値と一致しない。",
+        "正しい。\n\n都市計画区域内では原則幅員4m以上の道路に、敷地は原則2m以上接しなければならない。",
+        "間違い。\n\n道路幅員4mは正しいが、接道長さは3mではなく原則2m以上である。"
+      ],
+      "suggestedQuestions": [
+        "建築基準法の接道義務は何mですか？",
+        "道路の原則幅員4mはどの規定から来ますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "建築基準法の接道義務は何mですか？",
+          "answer": "現在の建築基準法では、建築物の敷地は原則として道路に2m以上接しなければならない。"
+        },
+        {
+          "question": "道路の原則幅員4mはどの規定から来ますか？",
+          "answer": "建築基準法第42条の道路定義で、原則として幅員4m以上のものを道路として扱う。接道義務は第43条で定められる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs17_03_building_standards_act_general"
     },
     {
       "questionBodyText": "火薬類取締法上、火薬類の取扱いに関する次の記述のうち、誤っているものはどれか。",
@@ -826,13 +1112,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "04286ee0eac73891"
+      "original_question_id": "04286ee0eac73891",
+      "explanationText": [
+        "間違い。\n\n火薬と火工品は安全確保のため分離して収納すべきで、いかなる場合も同一容器に収納するとした点が誤りである。",
+        "正しい。\n\n火薬類収納容器の内面には鉄類を表さないようにし、摩擦火花などを防ぐ。",
+        "正しい。\n\n火薬類取締法施行規則では、固化したダイナマイト等はもみほぐすこととされている。",
+        "正しい。\n\n火薬類の取扱いでは盗難予防に留意し、保安管理を徹底する必要がある。"
+      ],
+      "suggestedQuestions": [
+        "火薬と火工品を分ける理由は何ですか？",
+        "固化したダイナマイトの扱いで注意する点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "火薬と火工品を分ける理由は何ですか？",
+          "answer": "衝撃や摩擦による危険を減らし、事故時の被害拡大を防ぐためである。同一容器にまとめるのは保安上不適切である。"
+        },
+        {
+          "question": "固化したダイナマイトの扱いで注意する点は何ですか？",
+          "answer": "現行の火薬類取締法施行規則では、固化したダイナマイト等はもみほぐすこととされている。作業は保安規程に従って慎重に行う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs18_01_explosives_handling"
     },
     {
       "questionBodyText": "騒音規制法上、建設機械の規格などにかかわらず特定建設作業の対象とならない作業は、次のうちどれか。\nただし、当該作業がその作業を開始した日に終わるものを除く。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問40",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "バックホゥを使用する作業",
         "トラクターショベルを使用する作業",
@@ -852,12 +1160,12 @@
       "question_url": "https://2dobokusekou.kakomonn.com/questions/52849",
       "public_question_id": "44a8c3a06bf26cfd",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
         "間違い",
-        "正しい"
+        "間違い",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "[01] 騒音規制法上の「特定建設作業」とは、建設工事として行われる作業のうち、著しい騒音を発生する作業であって、政令で定めるものをいいます（第2条第3項）。\nこの特定建設作業は、騒音規制法に基づき同法を実施するために制定された「騒音規制法施行令」の第2条・別表第2に定められています。\n記述の（1）・（2）・（4）を含む8つの作業があり、この中にクラムシェルを使用する作業は含まれていません。\nよって、正解は（3）です。",
@@ -885,13 +1193,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "44a8c3a06bf26cfd"
+      "original_question_id": "44a8c3a06bf26cfd",
+      "explanationText": [
+        "間違い。\n\nバックホウを使用する作業は、騒音規制法令上の特定建設作業に該当しうる。",
+        "間違い。\n\nトラクターショベルを使用する作業も、一定規格以上なら特定建設作業の対象である。",
+        "正しい。\n\nクラムシェルを使用する作業は、この設問条件では特定建設作業の対象とならない。",
+        "間違い。\n\nブルドーザを使用する作業も、一定規格以上であれば特定建設作業の対象になる。"
+      ],
+      "suggestedQuestions": [
+        "騒音規制法で機械名だけでなく規格条件も見るのはなぜですか？",
+        "特定建設作業の代表機械は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "騒音規制法で機械名だけでなく規格条件も見るのはなぜですか？",
+          "answer": "同じ機械でも出力や仕様で規制対象かどうかが変わるためである。機械名だけで即断しない。"
+        },
+        {
+          "question": "特定建設作業の代表機械は何ですか？",
+          "answer": "バックホウ、トラクターショベル、ブルドーザなどが代表で、施行令・施行規則の機械要件を併せて確認する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs19_01_specified_construction_work"
     },
     {
       "questionBodyText": "振動規制法上、特定建設作業の規制基準に関する測定位置と振動の大きさに関する次の記述のうち、正しいものはどれか。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問41",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "特定建設作業の場所の中心部で75dBを超えないこと。",
         "特定建設作業の場所の敷地の境界線で75dBを超えないこと。",
@@ -944,7 +1274,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "3e9e4ea4655aadaf"
+      "original_question_id": "3e9e4ea4655aadaf",
+      "explanationText": [
+        "間違い。\n\n規制基準の測定位置は作業場所中心部ではなく敷地境界線であるうえ、75dB基準である。",
+        "正しい。\n\n振動規制法の特定建設作業の基準は、作業場所の敷地境界線において75dBを超えないことである。",
+        "間違い。\n\n85dBではなく75dBが基準であり、測定位置も中心部ではない。",
+        "間違い。\n\n測定位置は敷地境界線でよいが、基準値は85dBではなく75dBである。"
+      ],
+      "suggestedQuestions": [
+        "振動規制法の測定位置はどこですか？",
+        "75dB基準は何に対する値ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "振動規制法の測定位置はどこですか？",
+          "answer": "現在の規制基準は特定建設作業の場所の敷地境界線で評価する。中心部ではない。"
+        },
+        {
+          "question": "75dB基準は何に対する値ですか？",
+          "answer": "特定建設作業に伴って発生する振動レベルの基準値である。境界線でこの値を超えないことが求められる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs20_01_specified_construction_work"
     },
     {
       "questionBodyText": "港則法に関する次の記述のうち、誤っているものはどれか。",
@@ -1006,13 +1358,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "1f2a232ad1ba0cdf"
+      "original_question_id": "1f2a232ad1ba0cdf",
+      "explanationText": [
+        "正しい。\n\n港則法では航路内での追越しは禁止されている。",
+        "正しい。\n\n航路内では原則として投びょうやえい航中船舶の放離しをしてはならない。",
+        "正しい。\n\n航路内で他船と行き会うときは右側航行が原則である。",
+        "間違い。\n\n特定港を通過するときに省令航路を通る義務があるのは汽艇等を除く船舶であり、汽艇等を含めた全船舶ではない。"
+      ],
+      "suggestedQuestions": [
+        "港則法で汽艇等が扱いを分けられるのはなぜですか？",
+        "航路内の右側航行はどの場面で問題になりますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "港則法で汽艇等が扱いを分けられるのはなぜですか？",
+          "answer": "港内交通の実態に応じて、小型船を一律に同じ義務対象としていない規定があるためである。条文の主語に注意する。"
+        },
+        {
+          "question": "航路内の右側航行はどの場面で問題になりますか？",
+          "answer": "特定港の航路で船舶同士が行き会う場面での基本ルールである。追越し禁止と合わせて押さえる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs21_01_vessel_navigation"
     },
     {
       "questionBodyText": "測点No.5の地盤高を求めるため、測点No.1を出発点として水準測量を行い下表の結果を得た。測点No.5の地盤高は、次のうちどれか。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問43",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "6.4m",
         "6.8m",
@@ -1069,7 +1443,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "1866e2810de2c438"
+      "original_question_id": "1866e2810de2c438",
+      "explanationText": [
+        "間違い。\n\n計算結果では6.4mは途中測点の地盤高に対応し、最終のNo.5ではない。",
+        "正しい。\n\n与えられた後視・前視から高低差を順に追うと、No.5の地盤高は6.8mになる。",
+        "間違い。\n\n7.2mは途中計算の値で、No.5の地盤高としては高すぎる。",
+        "間違い。\n\n7.6mも途中の器械高計算を取り違えた値であり、最終地盤高とは一致しない。"
+      ],
+      "suggestedQuestions": [
+        "水準測量で後視と前視はどう使いますか？",
+        "器械高法と昇降式は何が違いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "水準測量で後視と前視はどう使いますか？",
+          "answer": "後視で器械高を求め、前視で次の測点高を求める。順に高低差を追っていくのが基本である。"
+        },
+        {
+          "question": "器械高法と昇降式は何が違いますか？",
+          "answer": "器械高法は各据付けごとに器械高を求める方法、昇降式は測点間の高低差を直接追う方法である。どちらでも結果は一致する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs22_03_leveling_survey"
     },
     {
       "questionBodyText": "公共工事標準請負契約約款に関する次の記述のうち、誤っているものはどれか。",
@@ -1131,13 +1527,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "96bee524e12b7601"
+      "original_question_id": "96bee524e12b7601",
+      "explanationText": [
+        "正しい。\n\n発注者は必要があると認めるとき、変更内容を通知して設計図書を変更できる。",
+        "正しい。\n\n特別の理由で必要があるときは、発注者は受注者に工期短縮変更を請求できる。",
+        "正しい。\n\n現場代理人と主任技術者、専門技術者は、工事施工上支障がなければ兼任できる。",
+        "間違い。\n\n請負代金額の変更方法は原則として協議して定めるもので、発注者が一方的に決定して通知できるわけではない。"
+      ],
+      "suggestedQuestions": [
+        "請負代金額の変更はどう決めますか？",
+        "現場代理人と主任技術者は兼任できますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "請負代金額の変更はどう決めますか？",
+          "answer": "現在の公共工事標準請負契約約款では、事情に応じて発注者と受注者が協議して定めるのが原則である。一方的決定ではない。"
+        },
+        {
+          "question": "現場代理人と主任技術者は兼任できますか？",
+          "answer": "工事の施工上支障がなければ兼任可能とされている。役割の違いは理解した上で、約款上の兼任可否を押さえる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs23_01_public_works_contract_terms"
     },
     {
       "questionBodyText": "下図は道路橋の断面図を示したものであるが、（イ）～（ニ）の構造名称に関する次の組合せのうち、適当なものはどれか。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問45",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "イ：高欄 ―― ロ：地覆 ―― ハ：床版 ―― ニ：横桁",
         "イ：横桁 ―― ロ：床版 ―― ハ：高欄 ―― ニ：地覆",
@@ -1192,7 +1610,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "2b59301b83a87b3c"
+      "original_question_id": "2b59301b83a87b3c",
+      "explanationText": [
+        "間違い。\n\nロは地覆ではなく床版、ハは床版ではなく地覆であるため組合せが合わない。",
+        "間違い。\n\nイは横桁ではなく高欄、ハは高欄ではなく地覆、ニも地覆ではなく横桁である。",
+        "正しい。\n\n図の組合せは、イが高欄、ロが床版、ハが地覆、ニが横桁である。",
+        "間違い。\n\nイは地覆ではなく高欄、ロは横桁ではなく床版であり、全体にずれている。"
+      ],
+      "suggestedQuestions": [
+        "高欄・地覆・床版・横桁はどこにありますか？",
+        "地覆と床版を見分けるコツは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "高欄・地覆・床版・横桁はどこにありますか？",
+          "answer": "高欄は転落防止柵、地覆はその基礎となる側端部、床版は路面の下地、横桁は床版を支える横方向部材である。位置関係を図で覚える。"
+        },
+        {
+          "question": "地覆と床版を見分けるコツは何ですか？",
+          "answer": "地覆は橋の側端部で高欄の基礎、床版は車両荷重を受ける面全体の下地である。橋の端か、走行面の下かで区別するとよい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs05_13_bridge_member_names"
     },
     {
       "questionBodyText": "建設機械の用途に関する次の記述のうち、適当でないものはどれか。",
@@ -1254,7 +1694,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "8eb94f1bb00857b9"
+      "original_question_id": "8eb94f1bb00857b9",
+      "explanationText": [
+        "正しい。\n\nバックホウは低い位置の掘削に向き、基礎掘削や溝掘りに広く用いられる。",
+        "間違い。\n\nタンデムローラは破砕作業用ではなく、主に舗装面の転圧に用いる。砕石路盤の一次転圧向きとした点が不適切である。",
+        "正しい。\n\nドラグラインは機械より低い場所を遠くまで掘削でき、水路掘削や砂利採取に用いられる。",
+        "正しい。\n\n不整地運搬車にはホイール式とクローラ式があり、軟弱地や未整地での運搬に適する。"
+      ],
+      "suggestedQuestions": [
+        "タンデムローラはどんな場面で使いますか？",
+        "ドラグラインが遠くを掘れる理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "タンデムローラはどんな場面で使いますか？",
+          "answer": "主に舗装工事でアスファルト混合物の転圧や仕上げに使う。破砕目的の機械ではない。"
+        },
+        {
+          "question": "ドラグラインが遠くを掘れる理由は何ですか？",
+          "answer": "ロープでバケットを遠方へ送り、手前へ引き寄せながら掘削する構造だからである。水際や水中掘削で強みがある。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs25_05_construction_machinery"
     },
     {
       "questionBodyText": "仮設工事に関する次の記述のうち、適当でないものはどれか。",
@@ -1318,7 +1780,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "6efac7c52bf53b74"
+      "original_question_id": "6efac7c52bf53b74",
+      "explanationText": [
+        "正しい。\n\n任意仮設は請負者の責任で合理化や工夫を行いやすく、より合理的な計画を立てやすい。",
+        "正しい。\n\n仮設工事も使用目的や期間に応じて構造計算を行い、安全衛生規則以上の安全を確保する計画が必要である。",
+        "正しい。\n\n仮設材は規格品を活用して転用性や経済性を高める計画が望ましい。",
+        "間違い。\n\n現場事務所や労務宿舎などは直接仮設ではなく、工事運営を支える間接仮設に分類される。"
+      ],
+      "suggestedQuestions": [
+        "直接仮設と間接仮設はどう違いますか？",
+        "任意仮設の利点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "直接仮設と間接仮設はどう違いますか？",
+          "answer": "直接仮設は足場や土留めなど本体施工に直接関わる仮設、間接仮設は現場事務所や仮設トイレなど工事運営を支える仮設である。"
+        },
+        {
+          "question": "任意仮設の利点は何ですか？",
+          "answer": "請負者が現場条件に応じて工夫しやすく、合理化やコスト縮減の余地が大きい点である。ただし安全確保責任は重い。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs25_03_temporary_works"
     },
     {
       "questionBodyText": "施工計画作成の留意事項に関する次の記述のうち、適当でないものはどれか。",
@@ -1379,13 +1863,35 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "cb97ca704ce761b7"
+      "original_question_id": "cb97ca704ce761b7",
+      "explanationText": [
+        "正しい。\n\n施工計画は企業内の知見を活用し、全社的な技術水準で検討することが望ましい。",
+        "間違い。\n\n過去工事は参考にするが、新工法や新技術を考慮しないのは不適切である。より安全・経済的な方法を常に比較検討すべきである。",
+        "正しい。\n\n施工計画では経済性、安全性、品質確保を総合的に考慮する。",
+        "正しい。\n\n一案だけでなく複数案を立て、代替案と比較検討して最適案を選ぶのが望ましい。"
+      ],
+      "suggestedQuestions": [
+        "施工計画で複数案を作る理由は何ですか？",
+        "新工法の検討を省いてはいけないのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "施工計画で複数案を作る理由は何ですか？",
+          "answer": "安全性、経済性、施工性を比較して最適な方法を選ぶためである。代替案があると不測時の対応もしやすい。"
+        },
+        {
+          "question": "新工法の検討を省いてはいけないのはなぜですか？",
+          "answer": "従来工法より安全・高品質・省力化できる可能性があるからである。過去実績だけに固定すると最適解を逃す。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs25_02_construction_planning"
     },
     {
       "questionBodyText": "ダンプトラックを用いて土砂を運搬する場合、時間当たり作業量（地山土量）Qとして、次のうち正しいものはどれか。",
       "examLabel": "令和2年度（後期） 土木",
       "questionLabel": "問49",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "9m³/h",
         "10m³/h",
@@ -1442,7 +1948,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "b0138e660f5348d7"
+      "original_question_id": "b0138e660f5348d7",
+      "explanationText": [
+        "正しい。\n\n時間当たり作業量Qは、与えられたバケット容量、土量換算係数、作業効率、サイクルタイムから計算すると約9m3/hになる。",
+        "間違い。\n\n10m3/hは土量換算係数や締固め係数の扱いを誤って大きめに見積もった値である。",
+        "間違い。\n\n11m3/hは地山換算をせずに計算した場合に近い誤答である。",
+        "間違い。\n\n12m3/hは換算係数の取り違えによる過大な値である。"
+      ],
+      "suggestedQuestions": [
+        "時間当たり作業量Qの基本式は何ですか？",
+        "土量換算係数を入れ忘れるとどうなりますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "時間当たり作業量Qの基本式は何ですか？",
+          "answer": "代表的には Q = q × f × E × 60 / Cm の形で求める。容量、換算係数、効率、サイクルタイムの意味を押さえる。"
+        },
+        {
+          "question": "土量換算係数を入れ忘れるとどうなりますか？",
+          "answer": "地山土量への換算ができず、作業量を過大評価しやすい。設問ではこの取り違えを狙うことが多い。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs25_07_work_capacity_efficiency"
     },
     {
       "questionBodyText": "工程管理に関する次の記述のうち、適当でないものはどれか。",
@@ -1506,7 +2034,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "1263d882a73e07f8"
+      "original_question_id": "1263d882a73e07f8",
+      "explanationText": [
+        "正しい。\n\n工程表は進捗状況を常時把握し、予定と実績を比較できる形にしてこそ管理に使える。",
+        "正しい。\n\n工程管理では現状を全作業員へ周知し、作業能率向上や遅れ防止につなげることが重要である。",
+        "正しい。\n\n計画と実績に差が出たら原因を追及し、必要な改善策を講じる。",
+        "間違い。\n\n工程管理は実施工程が計画工程を下回らないように行うものであり、下回るように管理するという考え方は誤りである。"
+      ],
+      "suggestedQuestions": [
+        "工程管理で予定と実績を比較する目的は何ですか？",
+        "実施工程が遅れたとき最初に確認することは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "工程管理で予定と実績を比較する目的は何ですか？",
+          "answer": "遅れや偏りを早期に把握し、是正措置を打つためである。比較できない工程表は管理手段として弱い。"
+        },
+        {
+          "question": "実施工程が遅れたとき最初に確認することは何ですか？",
+          "answer": "まず遅れの原因を特定し、人的配置、資機材、手順などどこに問題があるかを確認する。その上で改善策を実施する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs26_04_schedule_management_general"
     }
   ]
 }

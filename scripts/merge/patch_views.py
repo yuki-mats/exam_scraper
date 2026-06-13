@@ -311,7 +311,10 @@ def normalize_true_false_intent_and_correct_choice(
     for question in questions:
         if not isinstance(question, dict):
             continue
-        if question.get("questionType") == "fill_in_blank":
+        question_type = question.get("questionType")
+        if question_type == "fill_in_blank":
+            continue
+        if question_type != "true_false":
             continue
 
         inferred_intent = infer_question_intent_from_text(
