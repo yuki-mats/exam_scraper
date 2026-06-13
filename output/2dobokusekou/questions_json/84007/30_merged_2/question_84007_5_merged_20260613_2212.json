@@ -61,7 +61,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "c7427d110b840741"
+      "original_question_id": "c7427d110b840741",
+      "explanationText": [
+        "正しい。注入圧力が極端に低い又は上がらない場合は、ゲルタイム短縮や粘性増加で流動性を抑え、圧力上昇を図る検討を行う。",
+        "間違い。注入圧力が高すぎる場合は、さらに速度を上げたりゲルタイムを短くしたりせず、速度低下やゲルタイム延長などで圧力を下げる方向で調整する。",
+        "間違い。圧力が急低下した場合はゲルタイム延長や粘性低下ではなく、ゲルタイム短縮や粘性増加で圧力を回復させる検討を行う。",
+        "間違い。地盤隆起が生じたときは注入速度を遅くし、過大な注入圧力を避ける方向で施工条件を見直す。"
+      ],
+      "suggestedQuestions": [
+        "P-Q管理では圧力が低すぎるとき何を見直しますか？",
+        "地盤隆起が出たときはなぜ減速するのですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "P-Q管理では圧力が低すぎるとき何を見直しますか？",
+          "answer": "ゲルタイムや粘性を見直して、薬液が流れすぎない条件に調整する。必要に応じて注入速度や材料条件も再検討する。"
+        },
+        {
+          "question": "地盤隆起が出たときはなぜ減速するのですか？",
+          "answer": "速度を上げると注入圧力も上がりやすく、隆起や流出がさらに拡大するためである。周辺構造物への影響も増えるので、低速・低圧側へ寄せる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "薬液注入における注入材のゲル化時間、注入速度に関する次の記述のうち、適当なものはどれか。",
@@ -123,7 +145,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "original_question_id": "aae8011c6c4d9a42"
+      "original_question_id": "aae8011c6c4d9a42",
+      "explanationText": [
+        "間違い。粘性土では速すぎる注入で割裂や過大圧力を招きやすいため、経済性だけで速く設定するのは不適切である。",
+        "正しい。砂質土では浸透注入が基本なので、注入速度が遅い方が圧力上昇を抑えやすく、割裂注入になりにくい。",
+        "間違い。砂質土へ浸透させる注入材は、短い瞬結性ではなく、十分に浸透できるよう比較的長いゲル化時間を持つものが適する。",
+        "間違い。粘性土では一般に瞬結性の注入材を用いるため、長い緩結性のものがよいとするのは不適切である。"
+      ],
+      "suggestedQuestions": [
+        "砂質土で注入速度を遅くする理由は何ですか？",
+        "粘性土と砂質土でゲル化時間を変える理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "砂質土で注入速度を遅くする理由は何ですか？",
+          "answer": "速すぎると注入圧力が上がって割裂しやすくなり、浸透注入になりにくいからである。間げきへ穏やかに浸透させる条件が必要になる。"
+        },
+        {
+          "question": "粘性土と砂質土でゲル化時間を変える理由は何ですか？",
+          "answer": "砂質土は浸透させる時間を確保したいので長め、粘性土は拡散しすぎを防ぎたいので短めが基本になる。地盤の間げき構造と注入形態の違いによる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "現場注入試験において確認する試験項目に該当しないものは、次のうちどれか。",
@@ -185,7 +229,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "16a3c326bceb21df"
+      "original_question_id": "16a3c326bceb21df",
+      "explanationText": [
+        "正しい。現場注入試験では、計画した注入工法が対象地盤に適用できるかを確認する。",
+        "正しい。注入率は改良効果に直結するため、現場注入試験で確認対象となる。",
+        "間違い。現場注入試験は注入効果や施工条件を確認する試験であり、注入工期そのものは試験項目に含まれない。",
+        "正しい。注入孔間隔は改良範囲や浸透状況の確認と関係するため、現場注入試験で検討対象となる。"
+      ],
+      "suggestedQuestions": [
+        "現場注入試験の目的は何ですか？",
+        "現場注入試験で工期を見ないのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "現場注入試験の目的は何ですか？",
+          "answer": "対象地盤で設計どおりの注入ができるかを確認し、施工条件や改良効果の妥当性を確かめることである。本施工前の条件調整として使う。"
+        },
+        {
+          "question": "現場注入試験で工期を見ないのはなぜですか？",
+          "answer": "主眼は改良の可否と施工条件の確認であり、工程管理そのものではないからである。工期は施工計画書側で検討する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "薬液注入工事の施工計画書の作成に関する次の記述のうち、適当でないものはどれか。",
@@ -247,7 +313,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "b69c84da0c53dac0"
+      "original_question_id": "b69c84da0c53dac0",
+      "explanationText": [
+        "間違い。注入圧力は箇所ごとに条件が異なり一律の目標値を明示しにくいため、絶対値を固定して表示する考え方は不適切である。",
+        "正しい。注入孔は均等な改良効果を得やすいよう、できるだけ複列配置に近い計画とする。",
+        "正しい。注入順序は、地盤や近接構造物の変状や注入材流出が起きないように計画する必要がある。",
+        "正しい。注入率は土質試験結果や既存資料を参考に決め、その根拠も明確にしておく。"
+      ],
+      "suggestedQuestions": [
+        "注入圧力を固定目標値にしにくい理由は何ですか？",
+        "注入順序で近接構造物に配慮するのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "注入圧力を固定目標値にしにくい理由は何ですか？",
+          "answer": "地盤条件、深度、注入材、近接構造物条件で必要圧力が変わるからである。現場試験や施工中の管理結果を踏まえて調整する。"
+        },
+        {
+          "question": "注入順序で近接構造物に配慮するのはなぜですか？",
+          "answer": "順序を誤ると隆起、変位、薬液流出が起こりやすくなるためである。構造物近傍から先行するなど、影響を抑える順序計画が必要になる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "薬液注入によって埋設物や構造物が受ける変状の防止対策に関する次の記述のうち、適当でないものはどれか。",
@@ -309,7 +397,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "original_question_id": "9a6725c2e3a48a43"
+      "original_question_id": "9a6725c2e3a48a43",
+      "explanationText": [
+        "正しい。埋設物や構造物への影響を抑えるには、割裂注入を避け、低い注入速度で浸透注入しやすい方式と材料を選ぶことが重要である。",
+        "正しい。孔配置を密にして1孔当たり注入量を減らすと、局所的な影響を小さくしやすい。",
+        "正しい。近接構造物がある場合は、近傍から先に注入して次第に遠ざかる順序で影響を抑える。",
+        "間違い。周辺監視を十分に行っても、高い注入速度で施工すると圧力が上がりやすく、変状防止対策としては不適切である。"
+      ],
+      "suggestedQuestions": [
+        "近接構造物があるとき注入速度を落とす理由は何ですか？",
+        "孔配置を密にすると何が改善しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "近接構造物があるとき注入速度を落とす理由は何ですか？",
+          "answer": "速度が高いと注入圧力も上がり、隆起や変位が出やすくなるためである。ゆっくり浸透させる方が周辺影響を抑えやすい。"
+        },
+        {
+          "question": "孔配置を密にすると何が改善しますか？",
+          "answer": "1孔当たりの負担を減らし、過大注入による局所的な変状を抑えやすくなる。改良範囲も均一化しやすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "「薬液注入工法による建設工事の施工に関する暫定指針」において施工時に行う地下水などの水質の監視に関する次の記述のうち、適当でないものはどれか。",
@@ -371,7 +481,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "61e5df80de46357e"
+      "original_question_id": "61e5df80de46357e",
+      "explanationText": [
+        "間違い。採水地点は注入箇所から概ね100m以内ではなく、監視目的に応じて概ね10m以内に少なくとも数箇所設ける。",
+        "正しい。採水地点は地形、地盤、地下水流向などに応じて、監視目的を達成できる箇所を選定する。",
+        "正しい。採水は観測井で行うのが原則だが、状況に応じて既存井戸を利用してもよい。",
+        "正しい。工事終了後2週間経過後から半年までの間は、月2回以上の採水が必要である。"
+      ],
+      "suggestedQuestions": [
+        "採水地点は何を見て決めますか？",
+        "工事後もしばらく採水を続けるのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "採水地点は何を見て決めますか？",
+          "answer": "地形、地盤状況、地下水の流向などを見て、監視目的を達成できる位置を選ぶ。単純に遠近だけで決めるものではない。"
+        },
+        {
+          "question": "工事後もしばらく採水を続けるのはなぜですか？",
+          "answer": "施工直後だけでは把握できない水質変化を監視するためである。薬液注入後の影響が時間差で現れないかを確認する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": false,
+      "questionSetId": "2dobokusekou_qs04_08_chemical_grouting_environment_monitoring"
     },
     {
       "questionBodyText": "薬液注入工事での注入材料の搬入における施工数量の管理に関する次の記述のうち、適当でないものはどれか。",
@@ -433,7 +565,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "1da20b62d2da50f9"
+      "original_question_id": "1da20b62d2da50f9",
+      "explanationText": [
+        "間違い。タンクローリ納入時は、メーカーの出庫伝票か看貫証明の片方だけではなく、搬入数量を複数資料で照合して確認する。",
+        "正しい。ドラム缶納入時は、メーカーの出庫伝票とドラム缶数量を照合して数量確認を行う。",
+        "正しい。硬化剤は、出庫伝票と納入数量を照合して確認する。",
+        "正しい。注入材料搬入時は、監督員立会いのもとで、材料と数量が一致しているか確認する。"
+      ],
+      "suggestedQuestions": [
+        "タンクローリ搬入で資料を突き合わせる理由は何ですか？",
+        "搬入時に監督員立会いで確認する目的は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "タンクローリ搬入で資料を突き合わせる理由は何ですか？",
+          "answer": "実搬入量と伝票上の数量にずれがないか確認するためである。薬液注入材は施工数量管理の基礎になるので、片方だけで済ませない。"
+        },
+        {
+          "question": "搬入時に監督員立会いで確認する目的は何ですか？",
+          "answer": "数量管理の信頼性を確保し、後の使用量管理や施工記録と整合を取るためである。立会い確認は記録性の面でも重要になる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_09_chemical_grouting_material_management"
     },
     {
       "questionBodyText": "薬液注入工法における注入圧力と注入速度による管理に関する次の記述のうち、適当なものはどれか。",
@@ -495,7 +649,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "original_question_id": "b2798fe1588fc4c4"
+      "original_question_id": "b2798fe1588fc4c4",
+      "explanationText": [
+        "正しい。著しい隆起や既設構造物への影響がない条件では、注入圧力が高い方が効果的な注入となる場合がある。",
+        "間違い。注入圧力は地盤抵抗や施工条件で決まるもので、施工者が任意に決められる値ではない。",
+        "間違い。標準注入速度は、特殊な場合を除けば二重管ダブルパッカー工法より二重管ストレーナー工法の方が速い。",
+        "間違い。高い注入効果と周辺影響抑制を両立するには、単純に速い速度が望ましいのではなく、限界注入速度以下で適切に管理する必要がある。"
+      ],
+      "suggestedQuestions": [
+        "限界注入速度以下で管理する理由は何ですか？",
+        "ダブルパッカー工法の方が遅いのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "限界注入速度以下で管理する理由は何ですか？",
+          "answer": "速度が高すぎると圧力上昇や割裂、隆起が起こりやすくなるためである。地盤改良効果と周辺影響の両方を見て上限を守る。"
+        },
+        {
+          "question": "ダブルパッカー工法の方が遅いのはなぜですか？",
+          "answer": "比較的低圧・低速で確実に浸透させる運用が基本だからである。近接構造物対策や漏えい抑制とも相性がよい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_07_chemical_grouting_execution_control"
     },
     {
       "questionBodyText": "薬液注入工法における注入効果の確認に関する次の記述のうち、適当でないものはどれか。",
@@ -557,7 +733,29 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "original_question_id": "1c63c19eaed0d192"
+      "original_question_id": "1c63c19eaed0d192",
+      "explanationText": [
+        "正しい。注入効果の確認は、透水度の改善、強度の増加、薬液の存在確認の3区分で整理できる。",
+        "正しい。透水度の改善確認には、現場透水試験や採取試料による室内透水試験などがある。",
+        "間違い。強度増加の確認には一軸圧縮試験や標準貫入試験などを用いるが、締固め試験は強度増加確認の方法として適切でない。",
+        "正しい。薬液存在の確認には、色素混入材や試薬散布のほか、掘削して目視確認する方法がある。"
+      ],
+      "suggestedQuestions": [
+        "締固め試験が注入効果確認に不向きな理由は何ですか？",
+        "薬液の存在確認はどうやって行いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "締固め試験が注入効果確認に不向きな理由は何ですか？",
+          "answer": "締固め試験は盛土などの締固まり具合をみる試験で、薬液注入による強度増加そのものを直接確認する試験ではないからである。"
+        },
+        {
+          "question": "薬液の存在確認はどうやって行いますか？",
+          "answer": "色素を混ぜた注入材や試薬を使って着色反応を見たり、掘削して改良範囲を目視したりする。目的は薬液が所定範囲へ届いているか確認することにある。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "2dobokusekou_qs04_10_chemical_grouting_effect_verification"
     }
   ]
 }
