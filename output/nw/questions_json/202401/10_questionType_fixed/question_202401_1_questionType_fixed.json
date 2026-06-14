@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "ATM(現金自動預払機)が1台ずつ設置してある二つの支店を統合し，統合後の支店にはATMを1台設置する。統合後のATMの平均待ち時間を求める式はどれか。ここで，待ち時間はM/M/1の待ち行列モデルに従い，平均待ち時間にはサービス時間を含まず，ATMを1台に統合しても十分に処理できるものとする。\n〔条件〕\n統合後の平均サービス時間：Ts統合前のシステムの利用率：両支店ともρ\n統合後の利用者数：統合前の両支店の利用者数の合計",
+    "choiceTextList": [
+      "ρ\n1－ρ\n×Ts",
+      "ρ\n1－2ρ\n×Ts",
+      "2ρ\n1－ρ\n×Ts",
+      "2ρ\n1－2ρ\n×Ts"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "cfdaa595bd6c5435",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_1.html"
+  },
+  {
+    "questionBodyText": "符号長7ビット，情報ビット数4ビットのハミング符号による誤り訂正の方法を，次のとおりとする。\n受信した7ビットの符号語x1\nx2\nx3\nx4\nx5\nx6\nx7\n(xk\n=0又は1)に対して\nc0\n＝ x1\n＋x3\n＋x5\n＋x7\nc1\n＝   x2\n＋x3\n＋x6\n＋x7\nc2\n＝       x4\n＋x5\n＋x6\n＋x7\n(いずれも mod 2 での計算)\nを計算し，c0\n，c1\n，c2の中に少なくとも一つは0でないものがある場合には，\ni = c0\n＋c1\n×2＋c2\n×4を求めて，左から i ビット目を反転することによって誤りを訂正する。\n受信した符号語が1000101であった場合，誤り訂正後の符号語はどれか。",
+    "choiceTextList": [
+      "1000001",
+      "1000101",
+      "1001101",
+      "1010101"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9521985d2dc6b99a",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_2.html"
+  },
+  {
+    "questionBodyText": "各ノードがもつデータを出力する再帰処理 f(ノードn) を定義した。この処理を，図の2分木の根(最上位のノード)から始めたときの出力はどれか。\n〔f(ノードn)の定義〕\nノードnの右に子ノードrがあれば，f(ノードr)を実行\nノードnの左に子ノードlがあれば，f(ノードl)を実行\n再帰処理 f(ノードr)，f(ノードl) を未実行の子ノード，又は子ノードがなければ，ノード自身がもつデータを出力\n終了",
+    "choiceTextList": [
+      "＋÷－ED×CBA",
+      "ABC×DE－÷＋",
+      "E－D＋C×B＋A",
+      "ED－CB×÷A＋"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ac7cbbc9399dd5c5",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_3.html"
+  },
+  {
+    "questionBodyText": "量子ゲート方式の量子コンピュータの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "演算は2進数で行われ，結果も2進数で出力される。",
+      "特定のアルゴリズムによる演算だけができ，加算演算はできない。",
+      "複数の状態を同時に表現する量子ビットと，その重ね合わせを利用する。",
+      "量子状態を変化させながら観測するので，100℃以上の高温で動作する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "00a3f681b5c56124",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_4.html"
+  },
+  {
+    "questionBodyText": "システムの信頼性設計に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "フェールセーフとは，利用者の誤操作によってシステムが異常終了してしまうことのないように，単純なミスを発生させないようにする設計方法である。",
+      "フェールソフトとは，故障が発生した場合でも機能を縮退させることなく稼動を継続する概念である。",
+      "フォールトアボイダンスとは，システム構成要素の個々の品質を高めて故障が発生しないようにする概念である。",
+      "フォールトトレランスとは，故障が生じてもシステムに重大な影響が出ないように，あらかじめ定められた安全状態にシステムを固定し，全体として安全が維持されるような設計手法である。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6ec7190f5679a7a5",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_5.html"
+  },
+  {
+    "questionBodyText": "三つの資源X～Zを占有して処理を行う四つのプロセスA～Dがある。各プロセスは処理の進行に伴い，表中の数値の順に資源を占有し，実行終了時に三つの資源を一括して解放する。プロセスAと同時にもう一つプロセスを動かした場合に，デッドロックを起こす可能性のあるプロセスはどれか。",
+    "choiceTextList": [
+      "B，C，D",
+      "C，D",
+      "Cだけ",
+      "Dだけ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c459a5fc9b23e128",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_6.html"
+  },
+  {
+    "questionBodyText": "入力がAとB，出力がYの論理回路を動作させたとき，図のタイムチャートが得られた。この論理回路として，適切なものはどれか。",
+    "choiceTextList": [
+      "(排他的論理和素子)",
+      "(論理一致素子)",
+      "(否定論理積素子)",
+      "(否定論理和素子)"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3d121100314ba59a",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_7.html"
+  },
+  {
+    "questionBodyText": "ビットマップフォントよりも，アウトラインフォントの利用が適しているケースはどれか。",
+    "choiceTextList": [
+      "英数字だけでなく，漢字も表示する。",
+      "各文字の幅を一定にして表示する。",
+      "画面上にできるだけ高速に表示する。",
+      "文字を任意の倍率に拡大して表示する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "84e51a3aa32f9499",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_8.html"
+  },
+  {
+    "questionBodyText": "ストアドプロシージャの利点はどれか。",
+    "choiceTextList": [
+      "アプリケーションプログラムからネットワークを介してDBMSにアクセスする場合，両者間の通信量を減少させる。",
+      "アプリケーションプログラムからの一連の要求を一括して処理することによって，DBMS内の実行計画の数を減少させる。",
+      "アプリケーションプログラムからの一連の要求を一括して処理することによって，DBMS内の必要バッファ数を減少させる。",
+      "データが格納されているディスク装置へのI/O回数を減少させる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a581f2a90a1e888d",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_9.html"
+  },
+  {
+    "questionBodyText": "CSMA/CD方式のLANに接続されたノードの送信動作に関する記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "各ノードに論理的な順位付けを行い，送信権を順次受け渡し，これを受け取ったノードだけが送信を行う。",
+      "各ノードは伝送媒体が使用中かどうかを調べ，使用中でなければ送信を行う。衝突を検出したらランダムな時間の経過後に再度送信を行う。",
+      "各ノードを環状に接続して，送信権を制御するための特殊なフレームを巡回させ，これを受け取ったノードだけが送信を行う。",
+      "タイムスロットを割り当てられたノードだけが送信を行う。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "17e9d9be5a79a6e2",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_10.html"
+  },
+  {
+    "questionBodyText": "ビット誤り率が0.0001%の回線を使って，1,500バイトのパケットを10,000個送信するとき，誤りが含まれるパケットの個数の期待値はおよそ幾らか。",
+    "choiceTextList": [
+      "10",
+      "15",
+      "80",
+      "120"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8e655d063fbb8ddc",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_11.html"
+  },
+  {
+    "questionBodyText": "3Dセキュア2.0(EMV 3-Dセキュア)は，オンラインショッピングにおけるクレジットカード決済時に，不正取引を防止するための本人認証サービスである。3Dセキュア2.0で利用される本人認証の特徴はどれか。",
+    "choiceTextList": [
+      "利用者がカード会社による本人認証に用いるパスワードを忘れた場合でも，安全にパスワードを再発行することができる。",
+      "利用者の過去の取引履歴や決済に用いているデバイスの情報から不正利用や高リスクと判断される場合に，カード会社が追加の本人認証を行う。",
+      "利用者の過去の取引履歴や決済に用いているデバイスの情報にかかわらず，カード会社がパスワードと生体認証を併用した本人認証を行う。",
+      "利用者の過去の取引履歴や決済に用いているデバイスの情報に加えて，操作しているのが人間であることを確認した上で，カード会社が追加の本人認証を行う。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2590a77bbd1e34a9",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_12.html"
+  },
+  {
+    "questionBodyText": "公開鍵暗号方式を使った暗号通信をn人が相互に行う場合，全体で何個の異なる鍵が必要になるか。ここで，一組の公開鍵と秘密鍵は2個と数える。",
+    "choiceTextList": [
+      "n＋1",
+      "2n",
+      "n(n－1)\n2",
+      "log2\nn"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b098130315fd5592",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_13.html"
+  },
+  {
+    "questionBodyText": "自社製品の脆弱性に起因するリスクに対応するための社内機能として，最も適切なものはどれか。",
+    "choiceTextList": [
+      "CSIRT",
+      "PSIRT",
+      "SOC",
+      "WHOISデータベースの技術連絡担当"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bcb91180d61659de",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_14.html"
+  },
+  {
+    "questionBodyText": "PCからサーバに対し，IPv6を利用した通信を行う場合，ネットワーク層で暗号化を行うのに利用するものはどれか。",
+    "choiceTextList": [
+      "IPsec",
+      "PPP",
+      "SSH",
+      "TLS"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8cc4cc522129ed21",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_15.html"
+  },
+  {
+    "questionBodyText": "オブジェクト指向におけるクラス間の関係のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "クラス間の関連は，二つのクラス間でだけ定義できる。",
+      "サブクラスではスーパークラスの操作を再定義することができる。",
+      "サブクラスのインスタンスが，スーパークラスで定義されている操作を実行するときは，スーパークラスのインスタンスに操作を依頼する。",
+      "二つのクラスに集約の関係があるときには，集約オブジェクトは部品オブジェクトと，属性及び操作を共有する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ad499cbbc9309fdb",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_16.html"
+  },
+  {
+    "questionBodyText": "ソフトウェア信頼度成長モデルの一つであって，テスト工程においてバグが収束したと判定する根拠の一つとして使用するゴンペルツ曲線はどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "70882b8e60d5cb22",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_17.html"
+  },
+  {
+    "questionBodyText": "EVMで管理しているプロジェクトがある。図は，プロジェクトの開始から完了予定までの期間の半分が経過した時点での状況である。コスト効率，スケジュール効率がこのままで推移すると仮定した場合の見通しのうち，適切なものはどれか。",
+    "choiceTextList": [
+      "計画に比べてコストは多くなり，プロジェクトの完了は遅くなる。",
+      "計画に比べてコストは多くなり，プロジェクトの完了は早くなる。",
+      "計画に比べてコストは少なくなり，プロジェクトの完了は遅くなる。",
+      "計画に比べてコストは少なくなり，プロジェクトの完了は早くなる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8216f7a1e6f4fb7e",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_18.html"
+  },
+  {
+    "questionBodyText": "工場の生産能力を増強する方法として，新規システムを開発する案と既存システムを改修する案とを検討している。次の条件で，期待金額価値の高い案を採用するとき，採用すべき案と期待金額価値との組合せのうち，適切なものはどれか。ここで，期待金額価値は，収入と投資額との差で求める。\n〔条件〕\n新規システムを開発する場合の投資額は100億円であって，既存システムを改修する場合の投資額は50億円である。\n需要が拡大する確率は70%であって，需要が縮小する確率は30%である。\n新規システムを開発した場合、需要が拡大したときは180億円の収入が見込まれ，需要が縮小したときは50億円の収入が見込まれる。\n既存システムを改修した場合，需要が拡大したときは120億円の収入が見込まれ，需要が縮小したときは40億円の収入が見込まれる。\n他の条件は考慮しない。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6d9b5e38af76f423",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_19.html"
+  },
+  {
+    "questionBodyText": "サービスマネジメントにおけるサービスレベル管理プロセスの活動はどれか。",
+    "choiceTextList": [
+      "現在の資源の調整と最適化とを行い，将来の資源要件に関する予測を記載した計画を作成する。",
+      "サービスの提供に必要な予算に応じて，適切な資金を確保する。",
+      "災害や障害などで事業が中断しても，要求されたサービス機能を合意された期間内に確実に復旧できるように，事業影響度の評価や復旧優先順位を明確にする。",
+      "提供するサービス及びサービスレベル目標を決定し，サービス提供者が顧客との間で合意文書を交わす。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b79847746aa32a42",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_20.html"
+  },
+  {
+    "questionBodyText": "システム監査基準(令和5年)によれば，システム監査において，監査人が一定の基準に基づいて総合的に点検評価を行う対象とするものは，情報システムのマネジメント，コントロールと，あと一つはどれか。",
+    "choiceTextList": [
+      "ガバナンス",
+      "コンプライアンス",
+      "サイバーレジリエンス",
+      "モニタリング"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "34bb76c3149a354e",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_21.html"
+  },
+  {
+    "questionBodyText": "情報システムに対する統制をITに係る全般統制とITに係る業務処理統制に分けたとき，ITに係る業務処理統制に該当するものはどれか。",
+    "choiceTextList": [
+      "サーバ室への入退室を制限・記録するための入退室管理システム",
+      "システム開発業務を適切に委託するために定めた選定手続",
+      "販売管理システムにおける入力データの正当性チェック機能",
+      "不正アクセスを防止するためのファイアウォールの運用管理"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c6b8e8cbb5ffb09d",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_22.html"
+  },
+  {
+    "questionBodyText": "SOAの説明はどれか。",
+    "choiceTextList": [
+      "会計，人事，製造，購買，在庫管理，販売などの企業の業務プロセスを一元管理することによって，業務の効率化や経営資源の全体最適を図る手法",
+      "企業の業務プロセス，システム化要求などのニーズと，ソフトウェアパッケージの機能性がどれだけ適合し，どれだけかい離しているかを分析する手法",
+      "業務プロセスの問題点を洗い出して，目標設定，実行，チェック，修正行動のマネジメントサイクルを適用し，継続的な改善を図る手法",
+      "利用者の視点から業務システムの機能を幾つかの独立した部品に分けることによって，業務プロセスとの対応付けや他のソフトウェアとの連携を容易にする手法"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c14788ae3dbcd4dd",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_23.html"
+  },
+  {
+    "questionBodyText": "EMS(Electronics Manufacturing Services)の説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "相手先ブランドで販売する電子機器の設計だけを受託し，製造は相手先で行う。",
+      "外部から調達した電子機器に付加価値を加えて，自社ブランドで販売する。",
+      "自社ブランドで販売する電子機器のソフトウェア開発だけを外部に委託し，ハードウェアは自社で設計製造する。",
+      "生産設備をもつ企業が，他社からの委託を受けて電子機器を製造する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7406b7a3a96d228b",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_24.html"
+  },
+  {
+    "questionBodyText": "組込み機器のハードウェアの製造を外部に委託する場合のコンティンジェンシープランの記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "実績のある外注先の利用によって，リスクの発生確率を低減する。",
+      "製造品質が担保されていることを確認できるように委託先と契約する。",
+      "複数の会社の見積りを比較検討して，委託先を選定する。",
+      "部品調達のリスクが顕在化したときに備えて，対処するための計画を策定する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d724ce56c7699dc8",
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_25.html"
+  }
+]
