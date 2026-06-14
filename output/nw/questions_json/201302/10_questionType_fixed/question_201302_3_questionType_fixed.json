@@ -1,0 +1,62 @@
+[
+  {
+    "questionBodyText": "DNSの再帰的な問合せを使ったサービス不能攻撃(DNS amp)の踏み台にされることを防止する対策はどれか。",
+    "choiceTextList": [
+      "キャッシュサーバとコンテンツサーバに分離し，インターネット側からキャッシュサーバに問合せできないようにする。",
+      "問合せされたドメインに関する情報をWhoisデータベースで確認する。",
+      "一つのDNSレコードに複数のサーバのIPアドレスを割り当て，サーバへのアクセスを振り分けて分散させるように設定する。",
+      "他のDNSサーバから送られてくるIPアドレスとホスト名の対応情報の信頼性をデジタル署名で確認するように設定する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "acee503d0b3aed51",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_21.html"
+  },
+  {
+    "questionBodyText": "パイプラインの深さをD，パイプラインピッチをP秒とすると，I個の命令をパイプラインで実行するのに要する時間を表す式はどれか。ここで，パイプラインは1本だけとし，全ての命令は処理にDステージ分の時間がかかり，各ステージは1ピッチで処理されるものとする。また，パイプラインハザードについては，考慮しなくてよい。",
+    "choiceTextList": [
+      "(I＋D)×P",
+      "(I＋D－1)×P",
+      "(I＋D)＋P",
+      "(I×D－1)＋P"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "930463829d70a7a3",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_22.html"
+  },
+  {
+    "questionBodyText": "SAN(Storage Area Network)におけるサーバとストレージの接続形態として，適切なものはどれか。",
+    "choiceTextList": [
+      "シリアルATAなどの接続方式によって内蔵ストレージとして1対1に接続する。",
+      "ファイバチャネルなどによる専用ネットワークで接続する。",
+      "プロトコルはCIFS(Common Internet File System)を使用し，LANで接続する。",
+      "プロトコルはNFS(Network File System)を使用し，LANで接続する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "e2b00cc20b88f670",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_23.html"
+  },
+  {
+    "questionBodyText": "1台のCPUの性能を1とするとき，そのCPUをn台用いたマルチプロセッサの性能Pが，\nで表されるとする。ここで，aはオーバーヘッドを表す定数である。例えば，a＝0.1，n＝4とすると，p≒3なので，4台のCPUからなるマルチプロセッサの性能は約3倍になる。この式で表されるマルチプロセッサの性能には上限があり，nを幾ら大きくしてもPはある値以上には大きくならない。a＝0.1の場合，Pの上限は幾らか。",
+    "choiceTextList": [
+      "5",
+      "10",
+      "15",
+      "20"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "48ec0beb7beb79bf",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_24.html"
+  },
+  {
+    "questionBodyText": "次のクラス図におけるクラス間の関係の説明のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "\"バス\"，\"トラック\"などのクラスが\"自動車\"クラスの定義を引き継ぐことを，インスタンスという。",
+      "\"バス\"，\"トラック\"などのクラスの共通部分を抽出し\"自動車\"クラスとして定義することを，汎化という。",
+      "\"バス\"，\"トラック\"などのクラスは，\"自動車\"クラスに対するオブジェクトという。",
+      "\"バス\"，\"トラック\"などのそれぞれのクラスの違いを\"自動車\"クラスとして定義することを，特化という。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2689bcc909ec8305",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_25.html"
+  }
+]
