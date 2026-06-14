@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "0≦x≦1の範囲で単調に増加する連続関数ƒ(x)が ƒ(0)＜0≦ƒ(1) を満たすときに，区間内で ƒ(x)＝0 であるxの値を近似的に求めるアルゴリズムにおいて，(2)は何回実行されるか。\n〔アルゴリズム〕\nx0\n←0，x1\n←1とする。x←\nx0\n＋x1\n2とする。x1\n－x＜0.001ならばxの値を近似値として終了する。\nƒ(x)≧0ならばx1\n←xとして，そうでなければx0\n←xとする。\n(2)に戻る。",
+    "choiceTextList": [
+      "10",
+      "20",
+      "100",
+      "1,000"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6f6ac56e6c0bef9b",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "次の表は，入力記号の集合が{0，1}，状態集合が{a，b，c，d}である有限オートマトンの状態遷移表である。長さ3以上の任意のビット列を左(上位ビット)から順に読み込んで最後が110で終わっているものを受理するには，どの状態を受理状態とすればよいか。",
+    "choiceTextList": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bb75063b89810e11",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "ヒープソートの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "ある間隔おきに取り出した要素から成る部分列をそれぞれ整列し，更に間隔を詰めて同様の操作を行い，間隔が1になるまでこれを繰り返す。",
+      "中間的な基準値を決めて，それよりも大きな値を集めた区分と，小さな値を集めた区分に要素を振り分ける。次に，それぞれの区分の中で同様な処理を繰り返す。",
+      "隣り合う要素を比較して，大小の順が逆であれば，それらの要素を入れ替えるという操作を繰り返す。",
+      "未整列の部分を順序木にし，そこから最小値を取り出して整列済の部分に移す。この操作を繰り返して，未整列の部分を縮めていく。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "35d836fe7cccc241",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "メモリインターリーブの目的として，適切なものはどれか。",
+    "choiceTextList": [
+      "同一のバンクに連続してアクセスしたとき，アクセス時間を短くする。",
+      "同一のバンクの連続したアドレスにアクセスしたとき，キャッシュミス発生時のアクセス時間を短くする。",
+      "一つのバンクが故障しても，システムが停止しないようにする。",
+      "複数のバンクに割り振った連続したアドレスにアクセスしたとき，アクセス時間を短くする。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "4a514e01e7ceca82",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "あるシステムにおいて，MTBFとMTTRがともに1.5倍になったとき，アベイラビリティ(稼働率)は何倍になるか。",
+    "choiceTextList": [
+      "23",
+      "1.5",
+      "2.25",
+      "変わらない"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2c74d74e053c7acd",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "プログラム実行時の主記憶管理に関する記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "主記憶の空き領域を結合して一つの連続した領域にすることを，可変区画方式という。",
+      "プログラムが使用しなくなったヒープ領域を回収して再度使用可能にすることを，ガーベジコレクションという。",
+      "プログラムの実行中に主記憶内でモジュールの格納位置を移動させることを，動的リンキングという。",
+      "プログラムの実行中に必要になった時点でモジュールをロードすることを，動的再配置という。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bc72429b59188543",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "次の条件を満足する論理回路はどれか。\n〔条件〕\n階段の上下にあるスイッチA又はBで，一つの照明を点灯・消灯する。すなわち，一方のスイッチの状態にかかわらず，他方のスイッチで照明を点灯・消灯できる。",
+    "choiceTextList": [
+      "AND",
+      "NAND",
+      "NOR",
+      "XOR"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "85b8347f6881b300",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "動画や音声などのマルチメディアコンテンツのレイアウトや再生のタイミングをXMLフォーマットで記述するためのW3C勧告はどれか。",
+    "choiceTextList": [
+      "Ajax",
+      "CSS",
+      "SMIL",
+      "SVG"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "86a37d07a968298c",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "B\n+\n木インデックスが定義されている候補キーを利用して，1件のデータを検索するとき，データ総件数Xに対するB\n+\n木インデックスを格納するノードへのアクセス回数のオーダーを表す式はどれか。",
+    "choiceTextList": [
+      "x",
+      "logX",
+      "X",
+      "X!"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "37c24f696a522fd7",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "DBMSをシステム障害発生後に再立上げするとき，ロールフォワードすべきトランザクションとロールバックすべきトランザクションの組合せとして，適切なものはどれか。ここで，トランザクションの中で実行される処理内容は次のとおりとする。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9ca795b026a5b1e8",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "TCP/IPネットワークにおけるARPの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "IPアドレスからMACアドレスを得るプロトコルである。",
+      "IPネットワークにおける誤り制御のためのプロトコルである。",
+      "ゲートウェイ間のホップ数によって経路を制御するプロトコルである。",
+      "端末に対して動的にIPアドレスを割り当てるためのプロトコルである。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "df24452484300002",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "IPv6において，拡張ヘッダを利用することによって実現できるセキュリティ機能はどれか。",
+    "choiceTextList": [
+      "URLフィルタリング機能",
+      "暗号化機能",
+      "ウイルス検疫機能",
+      "情報漏えい検知機能"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9f4e410d65f5a9be",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "チャレンジレスポンス認証方式の特徴はどれか。",
+    "choiceTextList": [
+      "TLSによって，クライアント側で固定パスワードを暗号化して送信する。",
+      "端末のシリアル番号を，クライアント側で秘密鍵を使って暗号化して送信する。",
+      "トークンという装置が表示する毎回異なったデータを，パスワードとして送信する。",
+      "利用者が入力したパスワードと，サーバから送られてきたランダムなデータとをクライアント側で演算し，その結果を送信する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "68e3b4cfe8ee35da",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "アクセス制御に用いる認証デバイスの特徴に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "USBメモリにデジタル証明書を組み込み，認証デバイスとする場合は，利用するPCのMACアドレスを組み込む必要がある。",
+      "成人には虹(こう)彩の経年変化がなく，虹彩認証では，認証デバイスでのパターン更新がほとんど不要である。",
+      "静電容量方式の指紋認証デバイスでは，LED照明を設置した室内において正常に認証できなくなる可能性がある。",
+      "認証に利用する接触型ICカードは，カード内のコイルの誘導起電力を利用している。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9245dee9bdd436ff",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "OpenPGPやS/MIMEにおいて用いられるハイブリッド暗号方式の特徴はどれか。",
+    "choiceTextList": [
+      "暗号通信方式としてIPsecとTLSを選択可能にすることによって利用者の利便性を高める。",
+      "公開鍵暗号方式と共通鍵暗号方式を組み合わせることによって鍵管理コストと処理性能の両立を図る。",
+      "複数の異なる共通鍵暗号方式を組み合わせることによって処理性能を高める。",
+      "複数の異なる公開鍵暗号方式を組み合わせることによって安全性を高める。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "fc6127a6f1c0b3ad",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "UMLのユースケース図の説明はどれか。",
+    "choiceTextList": [
+      "外部からのトリガに応じて，オブジェクトの状態がどのように遷移するかを表現する。",
+      "クラスと関連から構成され，システムの静的な構造を表現する。",
+      "システムとアクタの相互作用を表現する。",
+      "データの流れに注目してシステムの機能を表現する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c7e1d40dd30aa77b",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "自社開発したソフトウェアの他社への使用許諾に関する説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "使用許諾対象が特許で保護された技術を使っていないソフトウェアであっても，使用許諾することは可能である。",
+      "既に自社の製品に搭載して販売していると，ソフトウェア単体では使用許諾対象にできない。",
+      "既にハードウェアと組み合わせて特許を取得していると，ソフトウェア単体では使用許諾対象にできない。",
+      "ソースコードを無償で使用許諾すると，無条件でオープンソースソフトウェアになる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "950f7487a450c4ab",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "PMBOKの統合変更管理プロセスにおいて，プロジェクトのプロダクト，サービス，所産，構成要素などに対する変更と実施状況を記録・報告したり，要求事項への適合性を検証する活動を支援したりする活動はどれか。",
+    "choiceTextList": [
+      "アーンド・バリュー・マネジメント",
+      "コンフィギュレーション・マネジメント",
+      "コンフリクト・マネジメント",
+      "ポートフォリオマネジメント"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "92aa8e053496f633",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "あるプロジェクトの作業が図に従って計画されているとき，最短日数で終了するためには，作業Hはプロジェクトの開始から遅くとも何日後に開始しなければならないか。",
+    "choiceTextList": [
+      "12",
+      "14",
+      "18",
+      "21"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "5f18f5d6773e4eb3",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "過去のプロジェクトの開発実績から構築した作業配分モデルがある。システム要件定義からシステム内部設計までをモデルどおりに228日で完了し，プログラム開発を開始した。現在，200本のプログラムのうち100本のプログラム開発を完了し，残り100本は未着手の状況である。プログラム開発以降もモデルどおりに進捗すると仮定するとき，プロジェクト全体の完了まで，あと何日掛かるか。ここで，各プログラムの開発に掛かる工数及び期間は，全てのプログラムで同一であるものとする。\n〔作業配分モデル〕",
+    "choiceTextList": [
+      "140",
+      "150",
+      "161",
+      "172"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "adf7856256322347",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "次の処理条件で磁気ディスクに保存されているファイルを磁気テープにバックアップするとき，バックアップの運用に必要な磁気テープは最少で何本か。\n〔処理条件〕\n毎月初日(1日)にフルバックアップを取る。フルバックアップは1本の磁気テープに1回分を記録する。\nフルバックアップを取った翌日から次のフルバックアップまでは，毎日，差分バックアップを取る。差分バックアップは，差分バックアップ用としてフルバックアップとは別の磁気テープに追記録し，1本に1カ月分を記録する。\n常に6か月前の同一日までのデータについて，指定日の状態にファイルを復元できるようにする。ただし，6か月前の月に同一日が存在しない場合は，当該月の末日までのデータについて，指定日の状態にファイルを復元できるようにする (例：本日が10月31日の場合は，4月30日までのデータについて，指定日の状態にファイルを復元できるようにする)。",
+    "choiceTextList": [
+      "12",
+      "13",
+      "14",
+      "15"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "dfb4014763a58411",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "金融庁の\"財務報告に係る内部統制の評価及び監査に関する実施基準\"における\"ITへの対応\"に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "IT環境とは，企業内部に限られた範囲でのITの利用状況である。",
+      "ITの統制は，ITに係る全般統制及びITに係る業務処理統制から成る。",
+      "ITの利用によって統制活動を自動化している場合，当該統制活動は有効であると評価される。",
+      "ITを利用せず手作業だけで内部統制を運用している場合，直ちに内部統制の不備となる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "cd8b461e356d6de5",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "ITベンダーにおけるソリューションビジネスの推進で用いるバランススコアカードの，学習と成長のKPIの目標例はどれか。ここで，ソリューションとは\"顧客の経営課題の達成に向けて，情報技術と専門家によるプロフェッショナルサービスを通して支援すること\"とする。",
+    "choiceTextList": [
+      "サービスを提供した顧客に対して満足度調査を行い，満足度を5段階評価で平均3.5以上とする。",
+      "再利用環境の整備によってソリューション事例の登録などを増やし，顧客提案数を前年度の1.5倍とする。",
+      "情報戦略のコンサルティングサービスに重点を置くために，社内要員30名をITのプロフェッショナルとして育成する。",
+      "情報戦略立案やシステム企画立案に対するコンサルティングの受注金額を，全体の15%以上とする。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3250831dffcc5092",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "BI(Business Intelligence)の活用事例として，適切なものはどれか。",
+    "choiceTextList": [
+      "競合する他社が発行するアニュアルレポートなどの刊行物を入手し，経営戦略や財務状況を把握する。",
+      "業績の評価や経営戦略の策定を行うために，業務システムなどに蓄積された膨大なデータを分析する。",
+      "電子化された学習教材を社員がネットワーク経由で利用することを可能にし，学習・成績管理を行う。",
+      "りん議や決裁など，日常の定型的業務を電子化することによって，手続を確実に行い，処理を迅速化する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "584ea0a5c7ad0f94",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "\"情報システム・モデル取引・契約書\"によれば，要件定義工程を実施する際に，ユーザー企業がベンダーと締結する契約の形態について適切なものはどれか。",
+    "choiceTextList": [
+      "構築するシステムがどのような機能となるか明確になっていないので準委任契約にした。",
+      "仕様の決定権はユーザー側ではなくベンダー側にあるので準委任契約にした。",
+      "ベンダーに委託する作業の成果物が具体的に想定できないので請負契約にした。",
+      "ユーザー内のステークホルダとの調整を行う責任が曖昧にならないように請負契約にした。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0147e71cf847b95a",
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_25.html"
+  }
+]
