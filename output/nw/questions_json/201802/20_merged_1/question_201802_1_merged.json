@@ -1,0 +1,1790 @@
+{
+  "list_group_id": "201802",
+  "question_bodies": [
+    {
+      "questionBodyText": "任意のオペランドに対するブール演算Aの結果とブール演算Bの結果が互いに否定の関係にあるとき，AはBの(又は，BはAの)相補演算であるという。排他的論理和の相補演算はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqbd1f1f7e83de5468_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqbd1f1f7e83de5468_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqbd1f1f7e83de5468_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqbd1f1f7e83de5468_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 離散数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "離散数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "離散数学",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_1.html",
+      "public_question_id": "bd1f1f7e83de5468",
+      "original_question_id": "bd1f1f7e83de5468",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "相補演算",
+        "A"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ],
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ],
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ],
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問1:https://www.nw-siken.com/kakomon/30_aki/am1_1.html"
+    },
+    {
+      "questionBodyText": "コンピュータによる伝票処理システムがある。このシステムは，伝票データをためる待ち行列をもち，M/M/1の待ち行列モデルが適用できるものとする。平均待ち時間がT秒以上となるのは，処理装置の利用率が少なくとも何%以上となったときか。ここで，伝票データをためる待ち行列の特徴は次のとおりである。\n伝票データは，ポアソン分布に従って到着する。\n伝票データをためる数に制限はない。1件の伝票データの処理時間は，平均T秒の指数分布に従う。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "33",
+        "50",
+        "67",
+        "80"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 応用数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "応用数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "応用数学",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_2.html",
+      "public_question_id": "553afe1f44877074",
+      "original_question_id": "553afe1f44877074",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "利用率\n1－利用率",
+        "利用率\n1－利用率",
+        "利用率\n1－利用率",
+        "ρ\n1－ρ",
+        "50%"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "M/M/1の詳しい説明はここでは省きますが、待ち行列モデルにおける平均待ち時間とは、サービス（処理）の要求が発生してから実際にそのサービス（処理）が開始されるまでの時間のことです。\n平均待ち時間を求める公式は次のとおりです。\n平均待ち時間＝\n利用率\n1－利用率\n×平均サービス時間\n設問には「1件の伝票データの処理時間は，平均T秒の指数分布に従う」とあるため、上記式の平均サービス時間はT秒が入ります。平均待ち時間がT秒以上となる利用率を求めたいので、以下の式で解がT秒以上となる利用率を求めればよいわけです。\n利用率\n1－利用率\n×T式を確認すると、平均サービス時間はT秒以上になるのは、\n利用率\n1－利用率\nの部分が1以上であるときです。この関係式を解くことで、求めるべき利用率ρ（ロー）を得られます。\nρ\n1－ρ\n≧1\nρ≧1－ρ\n2ρ≧1\nρ≧0.5 ⇒\n50%\n以上より、平均待ち時間がT秒以上となるのは、利用率が50%以上となったときとわかります。したがって「イ」が正解です。"
+        ],
+        [
+          "M/M/1の詳しい説明はここでは省きますが、待ち行列モデルにおける平均待ち時間とは、サービス（処理）の要求が発生してから実際にそのサービス（処理）が開始されるまでの時間のことです。\n平均待ち時間を求める公式は次のとおりです。\n平均待ち時間＝\n利用率\n1－利用率\n×平均サービス時間\n設問には「1件の伝票データの処理時間は，平均T秒の指数分布に従う」とあるため、上記式の平均サービス時間はT秒が入ります。平均待ち時間がT秒以上となる利用率を求めたいので、以下の式で解がT秒以上となる利用率を求めればよいわけです。\n利用率\n1－利用率\n×T式を確認すると、平均サービス時間はT秒以上になるのは、\n利用率\n1－利用率\nの部分が1以上であるときです。この関係式を解くことで、求めるべき利用率ρ（ロー）を得られます。\nρ\n1－ρ\n≧1\nρ≧1－ρ\n2ρ≧1\nρ≧0.5 ⇒\n50%\n以上より、平均待ち時間がT秒以上となるのは、利用率が50%以上となったときとわかります。したがって「イ」が正解です。"
+        ],
+        [
+          "M/M/1の詳しい説明はここでは省きますが、待ち行列モデルにおける平均待ち時間とは、サービス（処理）の要求が発生してから実際にそのサービス（処理）が開始されるまでの時間のことです。\n平均待ち時間を求める公式は次のとおりです。\n平均待ち時間＝\n利用率\n1－利用率\n×平均サービス時間\n設問には「1件の伝票データの処理時間は，平均T秒の指数分布に従う」とあるため、上記式の平均サービス時間はT秒が入ります。平均待ち時間がT秒以上となる利用率を求めたいので、以下の式で解がT秒以上となる利用率を求めればよいわけです。\n利用率\n1－利用率\n×T式を確認すると、平均サービス時間はT秒以上になるのは、\n利用率\n1－利用率\nの部分が1以上であるときです。この関係式を解くことで、求めるべき利用率ρ（ロー）を得られます。\nρ\n1－ρ\n≧1\nρ≧1－ρ\n2ρ≧1\nρ≧0.5 ⇒\n50%\n以上より、平均待ち時間がT秒以上となるのは、利用率が50%以上となったときとわかります。したがって「イ」が正解です。"
+        ],
+        [
+          "M/M/1の詳しい説明はここでは省きますが、待ち行列モデルにおける平均待ち時間とは、サービス（処理）の要求が発生してから実際にそのサービス（処理）が開始されるまでの時間のことです。\n平均待ち時間を求める公式は次のとおりです。\n平均待ち時間＝\n利用率\n1－利用率\n×平均サービス時間\n設問には「1件の伝票データの処理時間は，平均T秒の指数分布に従う」とあるため、上記式の平均サービス時間はT秒が入ります。平均待ち時間がT秒以上となる利用率を求めたいので、以下の式で解がT秒以上となる利用率を求めればよいわけです。\n利用率\n1－利用率\n×T式を確認すると、平均サービス時間はT秒以上になるのは、\n利用率\n1－利用率\nの部分が1以上であるときです。この関係式を解くことで、求めるべき利用率ρ（ロー）を得られます。\nρ\n1－ρ\n≧1\nρ≧1－ρ\n2ρ≧1\nρ≧0.5 ⇒\n50%\n以上より、平均待ち時間がT秒以上となるのは、利用率が50%以上となったときとわかります。したがって「イ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問2:https://www.nw-siken.com/kakomon/30_aki/am1_2.html"
+    },
+    {
+      "questionBodyText": "受験者1,000人の4教科のテスト結果は表のとおりであり，いずれの教科の得点分布も正規分布に従っていたとする。90点以上の得点者が最も多かったと推定できる教科はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 応用数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "応用数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "応用数学",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_3.html",
+      "public_question_id": "cbc7319660e5e328",
+      "original_question_id": "cbc7319660e5e328",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqcbc7319660e5e328_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "正規分布",
+        "標準偏差"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間には次の関係が成り立ちます。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n各教科の90点以上の得点者の割合は、点数分布を図で表してみると一目瞭然です(90点以上の部分を赤色で示しています)。\n最も90点以上の得点者が多いのは「教科B」です。"
+        ],
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間には次の関係が成り立ちます。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n各教科の90点以上の得点者の割合は、点数分布を図で表してみると一目瞭然です(90点以上の部分を赤色で示しています)。\n最も90点以上の得点者が多いのは「教科B」です。"
+        ],
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間には次の関係が成り立ちます。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n各教科の90点以上の得点者の割合は、点数分布を図で表してみると一目瞭然です(90点以上の部分を赤色で示しています)。\n最も90点以上の得点者が多いのは「教科B」です。"
+        ],
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間には次の関係が成り立ちます。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n各教科の90点以上の得点者の割合は、点数分布を図で表してみると一目瞭然です(90点以上の部分を赤色で示しています)。\n最も90点以上の得点者が多いのは「教科B」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問3:https://www.nw-siken.com/kakomon/30_aki/am1_3.html"
+    },
+    {
+      "questionBodyText": "2次元配列 A[i，j] (i，j はいずれも0～99の値をとる)の i＞j である要素 A[i，j] は全部で幾つか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "4,851",
+        "4,950",
+        "4,999",
+        "5,050"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » データ構造",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "データ構造"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "データ構造",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_4.html",
+      "public_question_id": "c6089f87d33e1be5",
+      "original_question_id": "c6089f87d33e1be5",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "次のように考えます。i = 0 のとき、0個\ni = 1 のとき、A[1, 0] の1個、\n…\ni = 98 のとき、A[98, 0]～A[98, 97]までの98個、i = 99 のとき、A[99, 0]～A[99, 98]までの99個、\nつまり、条件を満たす要素数は 0＋1＋…98＋99 で求められるので、ガウスの計算法を用いて、\n(99＋0)×50＝4,950したがって「イ」が正解です。"
+        ],
+        [
+          "次のように考えます。i = 0 のとき、0個\ni = 1 のとき、A[1, 0] の1個、\n…\ni = 98 のとき、A[98, 0]～A[98, 97]までの98個、i = 99 のとき、A[99, 0]～A[99, 98]までの99個、\nつまり、条件を満たす要素数は 0＋1＋…98＋99 で求められるので、ガウスの計算法を用いて、\n(99＋0)×50＝4,950したがって「イ」が正解です。"
+        ],
+        [
+          "次のように考えます。i = 0 のとき、0個\ni = 1 のとき、A[1, 0] の1個、\n…\ni = 98 のとき、A[98, 0]～A[98, 97]までの98個、i = 99 のとき、A[99, 0]～A[99, 98]までの99個、\nつまり、条件を満たす要素数は 0＋1＋…98＋99 で求められるので、ガウスの計算法を用いて、\n(99＋0)×50＝4,950したがって「イ」が正解です。"
+        ],
+        [
+          "次のように考えます。i = 0 のとき、0個\ni = 1 のとき、A[1, 0] の1個、\n…\ni = 98 のとき、A[98, 0]～A[98, 97]までの98個、i = 99 のとき、A[99, 0]～A[99, 98]までの99個、\nつまり、条件を満たす要素数は 0＋1＋…98＋99 で求められるので、ガウスの計算法を用いて、\n(99＋0)×50＝4,950したがって「イ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問4:https://www.nw-siken.com/kakomon/30_aki/am1_4.html"
+    },
+    {
+      "questionBodyText": "メモリの誤り制御方式で，2ビットの誤り検出機能と，1ビットの誤り訂正機能をもたせるのに用いられるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "奇数パリティ",
+        "水平パリティ",
+        "チェックサム",
+        "ハミング符号"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_5.html",
+      "public_question_id": "8844a10fb1c5cc29",
+      "original_question_id": "8844a10fb1c5cc29",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ハミング符号"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "奇数パリティは、データを構成するビット全体の中でビット\"1\"の数が奇数になるようにパリティビットを付加する方式です。1ビットの誤りを検出することができます。"
+        ],
+        [
+          "水平パリティは、データの水平方向を対象としてパリティビットを付加する方式です。垂直方向と組み合わせた垂直水平パリティチェックでは1ビットの誤り位置を特定し訂正できますが、水平パリティだけでは1ビットの誤り検出しかできません。"
+        ],
+        [
+          "チェックサムは、データの合計値を検査用に付加し、誤りが発生しているかを検査する方式です。"
+        ],
+        [
+          "正しい。ハミング符号は、情報ビットに検査ビットを付加することで2ビットまでの誤りを検出し、1ビットの誤りを自動訂正することができる方式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問5:https://www.nw-siken.com/kakomon/30_aki/am1_5.html"
+    },
+    {
+      "questionBodyText": "ページング方式の仮想記憶において，あるプログラムを実行したとき，1回のページフォールトの平均処理時間は30ミリ秒であった。ページフォールト発生時の処理時間が次の条件であったとすると，ページアウトを伴わないページインだけの処理の割合は幾らか。\n〔ページフォールト発生時の処理時間〕\nページアウトを伴わない場合，ページインの処理時間は20ミリ秒である。\nページアウトを伴う場合，置換えページの選択，ページアウト，ページインの合計処理時間計60ミリ秒である。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.25",
+        "0.33",
+        "0.67",
+        "0.75"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_6.html",
+      "public_question_id": "5ac0a2fd6533b1dd",
+      "original_question_id": "5ac0a2fd6533b1dd",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "0.75"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ページインだけの処理の割合を\"P\"とすると、ページアウトを伴う処理の割合は\"1－P\"で表すことができます。\nページフォールト処理の平均時間は、\"ページインだけの処理時間\"と\"ページアウトを伴う処理時間\"を発生割合で加重平均したものとなるため、20[ミリ秒]×P＋60[ミリ秒]×(1－P)＝30[ミリ秒]\nという等式が成り立ちます。この式を解いてPを求めることができます。20×P＋60×(1－P)＝3020P＋60－60P＝30\n－40P＝－30P＝0.75以上より、ページインだけの処理の割合（P）は\n0.75となります。"
+        ],
+        [
+          "ページインだけの処理の割合を\"P\"とすると、ページアウトを伴う処理の割合は\"1－P\"で表すことができます。\nページフォールト処理の平均時間は、\"ページインだけの処理時間\"と\"ページアウトを伴う処理時間\"を発生割合で加重平均したものとなるため、20[ミリ秒]×P＋60[ミリ秒]×(1－P)＝30[ミリ秒]\nという等式が成り立ちます。この式を解いてPを求めることができます。20×P＋60×(1－P)＝3020P＋60－60P＝30\n－40P＝－30P＝0.75以上より、ページインだけの処理の割合（P）は\n0.75となります。"
+        ],
+        [
+          "ページインだけの処理の割合を\"P\"とすると、ページアウトを伴う処理の割合は\"1－P\"で表すことができます。\nページフォールト処理の平均時間は、\"ページインだけの処理時間\"と\"ページアウトを伴う処理時間\"を発生割合で加重平均したものとなるため、20[ミリ秒]×P＋60[ミリ秒]×(1－P)＝30[ミリ秒]\nという等式が成り立ちます。この式を解いてPを求めることができます。20×P＋60×(1－P)＝3020P＋60－60P＝30\n－40P＝－30P＝0.75以上より、ページインだけの処理の割合（P）は\n0.75となります。"
+        ],
+        [
+          "ページインだけの処理の割合を\"P\"とすると、ページアウトを伴う処理の割合は\"1－P\"で表すことができます。\nページフォールト処理の平均時間は、\"ページインだけの処理時間\"と\"ページアウトを伴う処理時間\"を発生割合で加重平均したものとなるため、20[ミリ秒]×P＋60[ミリ秒]×(1－P)＝30[ミリ秒]\nという等式が成り立ちます。この式を解いてPを求めることができます。20×P＋60×(1－P)＝3020P＋60－60P＝30\n－40P＝－30P＝0.75以上より、ページインだけの処理の割合（P）は\n0.75となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問6:https://www.nw-siken.com/kakomon/30_aki/am1_6.html"
+    },
+    {
+      "questionBodyText": "1桁の2進数A，Bを加算し，Xに桁上がり，Yに桁上げなしの和(和の1桁目)が得られる論理回路はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq93197cf56b073db3_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq93197cf56b073db3_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq93197cf56b073db3_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq93197cf56b073db3_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » ハードウェア » ハードウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ハードウェア",
+        "ハードウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ハードウェア",
+      "categorySmall": "ハードウェア",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_7.html",
+      "public_question_id": "93197cf56b073db3",
+      "original_question_id": "93197cf56b073db3",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "入力A、Bと出力X、Yの適切な関係は次のようになります。\n上表を見ると、2つの入力とXの関係はANDの真理値表と一致し、2つの入力とYの関係はXORの真理値表と一致していることに気が付きます。したがって、X＝A AND B、Y＝A XOR B となっている「ア」の論理回路図が正解です。"
+        ],
+        [
+          "入力A、Bと出力X、Yの適切な関係は次のようになります。\n上表を見ると、2つの入力とXの関係はANDの真理値表と一致し、2つの入力とYの関係はXORの真理値表と一致していることに気が付きます。したがって、X＝A AND B、Y＝A XOR B となっている「ア」の論理回路図が正解です。"
+        ],
+        [
+          "入力A、Bと出力X、Yの適切な関係は次のようになります。\n上表を見ると、2つの入力とXの関係はANDの真理値表と一致し、2つの入力とYの関係はXORの真理値表と一致していることに気が付きます。したがって、X＝A AND B、Y＝A XOR B となっている「ア」の論理回路図が正解です。"
+        ],
+        [
+          "入力A、Bと出力X、Yの適切な関係は次のようになります。\n上表を見ると、2つの入力とXの関係はANDの真理値表と一致し、2つの入力とYの関係はXORの真理値表と一致していることに気が付きます。したがって、X＝A AND B、Y＝A XOR B となっている「ア」の論理回路図が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問7:https://www.nw-siken.com/kakomon/30_aki/am1_7.html"
+    },
+    {
+      "questionBodyText": "バーチャルリアリティにおけるモデリングに関する記述のうち，レンダリングの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ウェアラブルカメラ，慣性センサーなどを用いて非言語情報を認識する処理",
+        "仮想世界の情報をディスプレイに描画可能な形式の画像に変換する処理",
+        "視覚的に現実世界と仮想世界を融合させるために，それぞれの世界の中に定義された3次元座標を一致させる処理",
+        "時間経過とともに生じる物の移動などの変化について，モデル化したものを物理法則などに当てはめて変化させる処理"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 情報メディア » マルチメディア応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "情報メディア",
+        "マルチメディア応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "情報メディア",
+      "categorySmall": "マルチメディア応用",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_8.html",
+      "public_question_id": "ba69eda3ef99aa7a",
+      "original_question_id": "ba69eda3ef99aa7a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "レンダリング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "トラッキングの説明です。"
+        ],
+        [
+          "正しい。レンダリングとは、CGデータからディスプレイに描画できる画像を生成する処理です。"
+        ],
+        [
+          "幾何学的レジストレーションの説明です。ビューイング変換と投影変換を用いて、3次元座標値を2次元座標値に変換します。"
+        ],
+        [
+          "モデリング変換の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問8:https://www.nw-siken.com/kakomon/30_aki/am1_8.html"
+    },
+    {
+      "questionBodyText": "自然数を除数とした剰余を返すハッシュ関数がある。値がそれぞれ571，1168，1566である三つのレコードのキー値を入力値としてこのハッシュ関数を施したところ，全てのハッシュ値が衝突した。このとき使用した除数は幾つか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "193",
+        "197",
+        "199",
+        "211"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_9.html",
+      "public_question_id": "7d20406caefff72c",
+      "original_question_id": "7d20406caefff72c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "571÷193＝2 余り 1851168÷193＝6 余り 101566÷193＝8 余り 22剰余が異なるので誤りです。"
+        ],
+        [
+          "571÷197＝2 余り 1771168÷197＝5 余り 1831566÷197＝7 余り 187剰余が異なるので誤りです。"
+        ],
+        [
+          "571÷199＝2 余り 1731168÷199＝5 余り 1731566÷199＝7 余り 173剰余が一致するので\n正解\nです。"
+        ],
+        [
+          "571÷211＝2 余り 1491168÷211＝5 余り 1131566÷211＝7 余り 89剰余が異なるので誤りです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問9:https://www.nw-siken.com/kakomon/30_aki/am1_9.html"
+    },
+    {
+      "questionBodyText": "データベースシステムにおいて，二つのプログラムが同一データへのアクセス要求を行うとき，後続プログラムのアクセス要求に対する並行実行の可否の組合せのうち，適切なものはどれか。ここで，表中の○は二つのプログラムが並行して実行されることを表し，×は先行プログラムの実行終了まで後続プログラムは待たされることを表す。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq280cd45eb89ed912_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq280cd45eb89ed912_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq280cd45eb89ed912_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq280cd45eb89ed912_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » データベース » トランザクション処理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "トランザクション処理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "トランザクション処理",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_10.html",
+      "public_question_id": "280cd45eb89ed912",
+      "original_question_id": "280cd45eb89ed912",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "共用(共有)ロック\nデータを読込むときに使うロックで、資源がこの状態の場合は他のトランザクションによる更新処理ができなくなる(読込みは可能)。\n排他(専有)ロック\nデータを更新するときに使うロックで、資源がこの状態の場合は他のトランザクションによる読込みや更新ができなくなる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "まずは共用・排他の2種類のロックの違いを確認しておきましょう。\n共用(共有)ロック\nデータを読込むときに使うロックで、資源がこの状態の場合は他のトランザクションによる更新処理ができなくなる(読込みは可能)。\n排他(専有)ロック\nデータを更新するときに使うロックで、資源がこの状態の場合は他のトランザクションによる読込みや更新ができなくなる。\n上記の性質から、ある資源に共用または排他ロックが設定されているときの新たなロックの可否は次の表の通りになります。\nつまり、資源にかけられているロックが\"共用\"である場合にのみ、後続のトランザクションが新たに\"共用ロック\"をかけることができます。\nしたがって適切な組合せは「エ」になります。"
+        ],
+        [
+          "まずは共用・排他の2種類のロックの違いを確認しておきましょう。\n共用(共有)ロック\nデータを読込むときに使うロックで、資源がこの状態の場合は他のトランザクションによる更新処理ができなくなる(読込みは可能)。\n排他(専有)ロック\nデータを更新するときに使うロックで、資源がこの状態の場合は他のトランザクションによる読込みや更新ができなくなる。\n上記の性質から、ある資源に共用または排他ロックが設定されているときの新たなロックの可否は次の表の通りになります。\nつまり、資源にかけられているロックが\"共用\"である場合にのみ、後続のトランザクションが新たに\"共用ロック\"をかけることができます。\nしたがって適切な組合せは「エ」になります。"
+        ],
+        [
+          "まずは共用・排他の2種類のロックの違いを確認しておきましょう。\n共用(共有)ロック\nデータを読込むときに使うロックで、資源がこの状態の場合は他のトランザクションによる更新処理ができなくなる(読込みは可能)。\n排他(専有)ロック\nデータを更新するときに使うロックで、資源がこの状態の場合は他のトランザクションによる読込みや更新ができなくなる。\n上記の性質から、ある資源に共用または排他ロックが設定されているときの新たなロックの可否は次の表の通りになります。\nつまり、資源にかけられているロックが\"共用\"である場合にのみ、後続のトランザクションが新たに\"共用ロック\"をかけることができます。\nしたがって適切な組合せは「エ」になります。"
+        ],
+        [
+          "まずは共用・排他の2種類のロックの違いを確認しておきましょう。\n共用(共有)ロック\nデータを読込むときに使うロックで、資源がこの状態の場合は他のトランザクションによる更新処理ができなくなる(読込みは可能)。\n排他(専有)ロック\nデータを更新するときに使うロックで、資源がこの状態の場合は他のトランザクションによる読込みや更新ができなくなる。\n上記の性質から、ある資源に共用または排他ロックが設定されているときの新たなロックの可否は次の表の通りになります。\nつまり、資源にかけられているロックが\"共用\"である場合にのみ、後続のトランザクションが新たに\"共用ロック\"をかけることができます。\nしたがって適切な組合せは「エ」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問10:https://www.nw-siken.com/kakomon/30_aki/am1_10.html"
+    },
+    {
+      "questionBodyText": "CSMA/CD方式のLANで使用されるスイッチングハブ(レイヤー2スイッチ)は，フレームの蓄積機能，速度変換機能や交換機能を持っている。このようなスイッチングハブと同等の機能をもち，同じプロトコル階層で動作する装置はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ゲートウェイ",
+        "ブリッジ",
+        "リピータ",
+        "ルータ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_11.html",
+      "public_question_id": "fecfb7c0afeb4c3c",
+      "original_question_id": "fecfb7c0afeb4c3c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "レイヤー2スイッチ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ゲートウェイは、異なるプロトコルやアーキテクチャのネットワークを接続し、データ形式やプロトコルの変換を行う装置です。OSI基本参照モデルの7層すべての層の接続を行います。"
+        ],
+        [
+          "正しい。ブリッジは、レイヤー2スイッチと同じくデータリンク層で動作します。レイヤー2スイッチは各種機能をハードウェア機構で実現するのに対し、ブリッジはソフトウェアの機能として実現するのが異なる点です。"
+        ],
+        [
+          "リピータは、ネットワークを流れる電流信号の増幅や整流を行う機器です。主に信号の減衰を防ぎ、ネットワークの物理的な距離を延長するために使用されます。OSI基本参照モデルの物理層(第1層)で動作します。"
+        ],
+        [
+          "ルータは、異なるネットワーク同士を接続し、ネットワークに流れるパケットのIPアドレスを基に通信制御を行う機器です。OSI基本参照モデルのネットワーク層(第3層)で動作します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問11:https://www.nw-siken.com/kakomon/30_aki/am1_11.html"
+    },
+    {
+      "questionBodyText": "インターネットに接続された利用者のPCから，DMZ上の公開Webサイトにアクセスし，利用者の個人情報を入力すると，その個人情報が内部ネットワークのデータベース(DB)サーバに蓄積されるシステムがある。このシステムにおいて，利用者個人のデジタル証明書を用いたTLS通信を行うことによって期待できるセキュリティ上の効果はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "PCとDBサーバ間の通信データを暗号化するとともに，正当なDBサーバであるかを検証することができるようになる。",
+        "PCとDBサーバ間の通信データを暗号化するとともに，利用者を認証することができるようになる。",
+        "PCとWebサーバ間の通信データを暗号化するとともに，正当なDBサーバであるかを検証することができるようになる。",
+        "PCとWebサーバ間の通信データを暗号化するとともに，利用者を認証することができるようになる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_12.html",
+      "public_question_id": "374f5648289783d4",
+      "original_question_id": "374f5648289783d4",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "利用者PCと通信を行うのはWebサーバです。また、利用者個人のデジタル証明書は利用者の認証に使用します。"
+        ],
+        [
+          "DMZを介した通信なので利用者PCとDBサーバは通信を行いません。利用者PCと通信を行うのはWebサーバです。"
+        ],
+        [
+          "利用者個人のデジタル証明書は利用者の認証に使用します。"
+        ],
+        [
+          "正しい。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問12:https://www.nw-siken.com/kakomon/30_aki/am1_12.html"
+    },
+    {
+      "questionBodyText": "クロスサイトスクリプティング対策に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "WebサーバでSNMPエージェントを常時稼働させることによって，攻撃を検知する。",
+        "WebサーバのOSにセキュリティパッチを適用する。",
+        "Webページに入力されたデータの出力データが，HTMLタグとして解釈されないように処理する。",
+        "許容量を超えた大きさのデータをWebページに入力することを禁止する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_13.html",
+      "public_question_id": "859b25b54378adf2",
+      "original_question_id": "859b25b54378adf2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "クロスサイトスクリプティング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "不正アクセス対策に該当します。XSSは正常なHTTP(S)パケットとしてWebサーバに届けられるので、SNMPエージェントで監視しても攻撃を検知することはできません。"
+        ],
+        [
+          "OSのセキュリティホールを突く攻撃への対策に該当します。XSS脆弱性はWebアプリケーションの実装に基因するものなので、OSのアップデートは対策にはなりません。"
+        ],
+        [
+          "正しい。クロスサイトスクリプティング対策に該当します。"
+        ],
+        [
+          "バッファオーバーフロー対策に該当します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問13:https://www.nw-siken.com/kakomon/30_aki/am1_13.html"
+    },
+    {
+      "questionBodyText": "ブルートフォース攻撃に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "WebブラウザとWebサーバの間の通信で，認証が成功してセッションが開始されているときに，Cookieなどのセッション情報を盗む。",
+        "コンピュータへのキー入力を全て記録して外部に送信する。",
+        "使用可能な文字のあらゆる組合せをそれぞれパスワードとして，繰り返しログインを試みる。",
+        "正当な利用者のログインシーケンスを盗聴者が記録してサーバに送信する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_14.html",
+      "public_question_id": "a16ae11316cc8d53",
+      "original_question_id": "a16ae11316cc8d53",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ブルートフォース攻撃"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "セッションハイジャックの説明です。"
+        ],
+        [
+          "キーロガーの説明です。"
+        ],
+        [
+          "正しい。ブルートフォース攻撃の説明です。"
+        ],
+        [
+          "リプレイアタックの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問14:https://www.nw-siken.com/kakomon/30_aki/am1_14.html"
+    },
+    {
+      "questionBodyText": "脆弱性検査手法の一つであるファジングはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "既知の脆弱性に対するシステムの対応状況に注目し，システムに導入されているソフトウェアのバージョン及びパッチの適用状況の検査を行う。",
+        "ソフトウェアのデータの入出力に注目し，問題を引き起こしそうなデータを大量に多様なパターンで入力して挙動を観察し，脆弱性を見つける。",
+        "ベンダーや情報セキュリティ関連機関が提供するセキュリティアドバイザリなどの最新のセキュリティ情報に注目し，ソフトウェアの脆弱性の検査を行う。",
+        "ホワイトボックス検査の一つであり，ソフトウェアの内部構造に注目し，ソースコードの構文をチェックすることによって脆弱性を見つける。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ技術評価",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ技術評価"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ技術評価",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_15.html",
+      "public_question_id": "60177cc5db1cb820",
+      "original_question_id": "60177cc5db1cb820",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ファジング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "バージョンチェックツールの説明です。"
+        ],
+        [
+          "正しい。ファジングの説明です。"
+        ],
+        [
+          "JVNなどが提供する脆弱性対策情報データベースなどを活用した検査です。"
+        ],
+        [
+          "ソースコードセキュリティ検査ツールの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問15:https://www.nw-siken.com/kakomon/30_aki/am1_15.html"
+    },
+    {
+      "questionBodyText": "安全性や信頼性について，次の方針でプログラム設計を行う場合，その方針を表す用語はどれか。\n〔方針〕\n不特定多数の人が使用するプログラムには，自分だけが使用するプログラムに比べて，より多く，データチェックの機能を組み込む。プログラムが処理できるデータの前提条件を文書に書いておくだけでなく，プログラムについても前提条件を満たしていないデータが入力されたときは，エラーメッセージを表示して再入力を促すようなものとする。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "フールプルーフ",
+        "フェールセーフ",
+        "フェールソフト",
+        "フォールトトレランス"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_16.html",
+      "public_question_id": "3d75fb3cd391948b",
+      "original_question_id": "3d75fb3cd391948b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。\nフールプルーフ\nは、不特定多数の人が操作するシステムに、入力データのチェックやエラーメッセージの表示などの機能を加えることで、人為的ミスによるシステムの誤動作を防ぐように設計する考え方です。"
+        ],
+        [
+          "フェールセーフは、システムの不具合や故障が発生したときでも、障害の影響範囲を最小限にとどめ、常に安全を最優先にして制御を行う設計方針です。"
+        ],
+        [
+          "フェールソフトは、障害が発生した時に、多少のシステム性能の低下を許容し、システム全体の運転継続に必要な機能を維持させようとする設計方針です。"
+        ],
+        [
+          "フォールトトレランスは、機器やシステムの一部に障害がエラーが発生しても、予備系への切替えやエラー補正などで必要な機能を提供し続けることができる能力です。これを実現するには各機器を二重構成にし障害発生時には機器の切替えを即座に行える設計であることが条件となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問16:https://www.nw-siken.com/kakomon/30_aki/am1_16.html"
+    },
+    {
+      "questionBodyText": "アジャイル開発で\"イテレーション\"を行う目的のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ソフトウェアに存在する顧客の要求との不一致を短いサイクルで解消したり，要求の変化に柔軟に対応したりする。",
+        "タスクの実施状況を可視化して，いつでも確認できるようにする。",
+        "ペアプログラミングのドライバとナビゲータを固定化させない。",
+        "毎日決めた時刻にチームメンバーが集まって開発の状況を共有し，問題が拡大したり，状況が悪化したりするのを避ける。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_17.html",
+      "public_question_id": "beeea532c48b1c21",
+      "original_question_id": "beeea532c48b1c21",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "イテレーション"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。イテレーションの目的です。"
+        ],
+        [
+          "タスクボードの目的です。"
+        ],
+        [
+          "ピンポンペアプログラミングの目的です。"
+        ],
+        [
+          "日次スクラムの目的です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問17:https://www.nw-siken.com/kakomon/30_aki/am1_17.html"
+    },
+    {
+      "questionBodyText": "システム開発の進捗管理などに用いられるトレンドチャートの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "作業に関与する人と責任をマトリックスで示したもの",
+        "作業日程の計画と実績を対比できるように帯状に示したもの",
+        "作業の進捗状況と予算の消費状況を関連付けて折れ線で示したもの",
+        "作業の順序や相互関係をネットワーク図で示したもの"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_18.html",
+      "public_question_id": "778ab92c7043df74",
+      "original_question_id": "778ab92c7043df74",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "トレンドチャート"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "責任分担表の説明です。"
+        ],
+        [
+          "ガントチャートの説明です。"
+        ],
+        [
+          "正しい。トレンドチャートの説明です。"
+        ],
+        [
+          "アローダイアグラムやプレシデンスダイアグラムの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問18:https://www.nw-siken.com/kakomon/30_aki/am1_18.html"
+    },
+    {
+      "questionBodyText": "ソフトウェアの機能量に着目して開発規模を見積もるファンクションポイント法で，調整前FPを求めるために必要となる情報はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "開発者数",
+        "画面数",
+        "プログラムステップ数",
+        "利用者数"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトのコスト",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトのコスト"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトのコスト",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_19.html",
+      "public_question_id": "5fb511dc45dbcf37",
+      "original_question_id": "5fb511dc45dbcf37",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ファンクションポイント法",
+        "入出力画面"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ファンクションポイント法\nは、システムやプログラムの機能に基づいて全体の開発規模を見積もる手法で、外部入出力や内部ファイルの数と難易度の高さから論理的にファンクションポイントを算出して規模や工数見積りを行います。利用者側に見える\n入出力画面\nや帳票を基準に見積りを行うため、依頼者側とのコンセンサス（合意）が取りやすいという特徴があります。\n調整前FPは、開発する機能ごとに複雑さの重みを付けたものを合算した値ですので、調整前FPを求めるには機能数がわかっていなければなりません。ファンクションポイント法では、入出力データ数やファイル数を機能として扱うので、外部入出力の機能である画面数は調整前FPを求めるために必要な情報になります。"
+        ],
+        [
+          "ファンクションポイント法\nは、システムやプログラムの機能に基づいて全体の開発規模を見積もる手法で、外部入出力や内部ファイルの数と難易度の高さから論理的にファンクションポイントを算出して規模や工数見積りを行います。利用者側に見える\n入出力画面\nや帳票を基準に見積りを行うため、依頼者側とのコンセンサス（合意）が取りやすいという特徴があります。\n調整前FPは、開発する機能ごとに複雑さの重みを付けたものを合算した値ですので、調整前FPを求めるには機能数がわかっていなければなりません。ファンクションポイント法では、入出力データ数やファイル数を機能として扱うので、外部入出力の機能である画面数は調整前FPを求めるために必要な情報になります。"
+        ],
+        [
+          "ファンクションポイント法\nは、システムやプログラムの機能に基づいて全体の開発規模を見積もる手法で、外部入出力や内部ファイルの数と難易度の高さから論理的にファンクションポイントを算出して規模や工数見積りを行います。利用者側に見える\n入出力画面\nや帳票を基準に見積りを行うため、依頼者側とのコンセンサス（合意）が取りやすいという特徴があります。\n調整前FPは、開発する機能ごとに複雑さの重みを付けたものを合算した値ですので、調整前FPを求めるには機能数がわかっていなければなりません。ファンクションポイント法では、入出力データ数やファイル数を機能として扱うので、外部入出力の機能である画面数は調整前FPを求めるために必要な情報になります。"
+        ],
+        [
+          "ファンクションポイント法\nは、システムやプログラムの機能に基づいて全体の開発規模を見積もる手法で、外部入出力や内部ファイルの数と難易度の高さから論理的にファンクションポイントを算出して規模や工数見積りを行います。利用者側に見える\n入出力画面\nや帳票を基準に見積りを行うため、依頼者側とのコンセンサス（合意）が取りやすいという特徴があります。\n調整前FPは、開発する機能ごとに複雑さの重みを付けたものを合算した値ですので、調整前FPを求めるには機能数がわかっていなければなりません。ファンクションポイント法では、入出力データ数やファイル数を機能として扱うので、外部入出力の機能である画面数は調整前FPを求めるために必要な情報になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問19:https://www.nw-siken.com/kakomon/30_aki/am1_19.html"
+    },
+    {
+      "questionBodyText": "図は，ITIL 2011 editionのサービスライフサイクルの各段階の説明と流れである。a～dの段階名の適切な組合せはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq98032fd0f666a518_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq98032fd0f666a518_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq98032fd0f666a518_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq98032fd0f666a518_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメントプロセス",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメントプロセス"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメントプロセス",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_20.html",
+      "public_question_id": "98032fd0f666a518",
+      "original_question_id": "98032fd0f666a518",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq98032fd0f666a518_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "サービスストラテジ（サービス戦略）\nサービスをどのように設計、開発、実装、維持していくかという戦略を確立する。\nサービスデザイン（サービス設計）\nサービス戦略に基づき、顧客およびビジネス上の要件を満たすための具体的なサービスを設計する。\nサービストランジション（サービス移行）\n新規サービス又はサービスの変更をテストし、本番環境にリリースする。\nサービスオペレーション（サービス運用）\nSLAで合意したサービスレベルを維持し、環境の変化に対応しながらサービスを継続的に提供する。\n継続的サービス改善\nサービスおよびサービスマネジメントプロセスの機能を継続的に改善する。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ITIL 2011 editionのサービスライフサイクルは5つのプロセス群から構成されます。\nサービスストラテジ（サービス戦略）\nサービスをどのように設計、開発、実装、維持していくかという戦略を確立する。\nサービスデザイン（サービス設計）\nサービス戦略に基づき、顧客およびビジネス上の要件を満たすための具体的なサービスを設計する。\nサービストランジション（サービス移行）\n新規サービス又はサービスの変更をテストし、本番環境にリリースする。\nサービスオペレーション（サービス運用）\nSLAで合意したサービスレベルを維持し、環境の変化に対応しながらサービスを継続的に提供する。\n継続的サービス改善\nサービスおよびサービスマネジメントプロセスの機能を継続的に改善する。\n各説明とプロセスの役割を突き合わせると適切な組合せは「イ」とわかります。"
+        ],
+        [
+          "ITIL 2011 editionのサービスライフサイクルは5つのプロセス群から構成されます。\nサービスストラテジ（サービス戦略）\nサービスをどのように設計、開発、実装、維持していくかという戦略を確立する。\nサービスデザイン（サービス設計）\nサービス戦略に基づき、顧客およびビジネス上の要件を満たすための具体的なサービスを設計する。\nサービストランジション（サービス移行）\n新規サービス又はサービスの変更をテストし、本番環境にリリースする。\nサービスオペレーション（サービス運用）\nSLAで合意したサービスレベルを維持し、環境の変化に対応しながらサービスを継続的に提供する。\n継続的サービス改善\nサービスおよびサービスマネジメントプロセスの機能を継続的に改善する。\n各説明とプロセスの役割を突き合わせると適切な組合せは「イ」とわかります。"
+        ],
+        [
+          "ITIL 2011 editionのサービスライフサイクルは5つのプロセス群から構成されます。\nサービスストラテジ（サービス戦略）\nサービスをどのように設計、開発、実装、維持していくかという戦略を確立する。\nサービスデザイン（サービス設計）\nサービス戦略に基づき、顧客およびビジネス上の要件を満たすための具体的なサービスを設計する。\nサービストランジション（サービス移行）\n新規サービス又はサービスの変更をテストし、本番環境にリリースする。\nサービスオペレーション（サービス運用）\nSLAで合意したサービスレベルを維持し、環境の変化に対応しながらサービスを継続的に提供する。\n継続的サービス改善\nサービスおよびサービスマネジメントプロセスの機能を継続的に改善する。\n各説明とプロセスの役割を突き合わせると適切な組合せは「イ」とわかります。"
+        ],
+        [
+          "ITIL 2011 editionのサービスライフサイクルは5つのプロセス群から構成されます。\nサービスストラテジ（サービス戦略）\nサービスをどのように設計、開発、実装、維持していくかという戦略を確立する。\nサービスデザイン（サービス設計）\nサービス戦略に基づき、顧客およびビジネス上の要件を満たすための具体的なサービスを設計する。\nサービストランジション（サービス移行）\n新規サービス又はサービスの変更をテストし、本番環境にリリースする。\nサービスオペレーション（サービス運用）\nSLAで合意したサービスレベルを維持し、環境の変化に対応しながらサービスを継続的に提供する。\n継続的サービス改善\nサービスおよびサービスマネジメントプロセスの機能を継続的に改善する。\n各説明とプロセスの役割を突き合わせると適切な組合せは「イ」とわかります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問20:https://www.nw-siken.com/kakomon/30_aki/am1_20.html"
+    },
+    {
+      "questionBodyText": "システム監査における，サンプリング(試査)に関する用語の説明のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "許容逸脱率とは，受け入れることができる所定の内部統制からの逸脱率であり，監査人がサンプルの件数を決めるときに用いられる指標である。",
+        "サンプリングリスクとは，固有リスクと統制リスクを掛け合わせた結果である。",
+        "統計的サンプリングとは，特定の種類の例外取引を全て抽出する方法である。",
+        "母集団とは，評価対象から結論を導き出すのに必要なデータ全体のうち，リスクが高いデータの集合である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_21.html",
+      "public_question_id": "420b24aa7c8130f8",
+      "original_question_id": "420b24aa7c8130f8",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "監査サンプリング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。許容逸脱率とは、母集団における実際の逸脱率が一定の率を上回らないような適切な保証水準を得るために、監査人が設定した所定の内部統制の逸脱率をいいます。許容逸脱率を小さくするほど必要なサンプル数は多くなります。"
+        ],
+        [
+          "サンプリングリスクとは、抽出したサンプルから導き出された監査人の結論が、母集団を構成するすべての項目に同じ監査手続を実施した場合の結論と異なるリスクをいいます。\nなお、記述中の固有リスクとは、内部統制が存在していないという仮定のうえで重大な虚偽表示がなされる可能性、統制リスクとは、虚偽の表示が企業の内部統制によって防止又は適時に発見できない可能性です。固有リスクと統制リスク(及び発見リスク)を掛け合わせた結果は監査リスクになります。"
+        ],
+        [
+          "サンプリングを用いた監査では、統計的サンプリングと非統計的サンプリングのいずれかを採用します。\n統計的サンプリングは、①母集団からサンプルを無作為に抽出し、②サンプルに対して確率論を利用して判断を導く方法です。本肢の説明のように①、②を満たさない方法は非統計的サンプリングと呼ばれます。"
+        ],
+        [
+          "母集団とは、監査人がサンプルを抽出し、結論を導き出そうとする項目全体をいいます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問21:https://www.nw-siken.com/kakomon/30_aki/am1_21.html"
+    },
+    {
+      "questionBodyText": "情報システムの可監査性を説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "コントロールの有効性を監査できるように，情報システムが設計・運用されていること",
+        "システム監査人が，監査の目的に合致した有効な手続を行える能力をもっていること",
+        "情報システムから入手した監査証拠の十分性と監査報告書の完成度が保たれていること",
+        "情報システム部門の積極的な協力が得られること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_22.html",
+      "public_question_id": "e817c8864e699b00",
+      "original_question_id": "e817c8864e699b00",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "可監査性"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "可監査性\n(Auditability)とは、ログや処理手順が完備され、業務処理の正当性や内部統制を効果的に監査又はレビューできるように情報システムが設計・運用されている度合いを指す言葉です。簡単に言えば「監査が実施可能であること」を意味します。システム監査を円滑に実施するため、情報システムは可監査性を意識して構築、整備されなければなりません。\nしたがって適切な説明は「ア」です。"
+        ],
+        [
+          "可監査性\n(Auditability)とは、ログや処理手順が完備され、業務処理の正当性や内部統制を効果的に監査又はレビューできるように情報システムが設計・運用されている度合いを指す言葉です。簡単に言えば「監査が実施可能であること」を意味します。システム監査を円滑に実施するため、情報システムは可監査性を意識して構築、整備されなければなりません。\nしたがって適切な説明は「ア」です。"
+        ],
+        [
+          "可監査性\n(Auditability)とは、ログや処理手順が完備され、業務処理の正当性や内部統制を効果的に監査又はレビューできるように情報システムが設計・運用されている度合いを指す言葉です。簡単に言えば「監査が実施可能であること」を意味します。システム監査を円滑に実施するため、情報システムは可監査性を意識して構築、整備されなければなりません。\nしたがって適切な説明は「ア」です。"
+        ],
+        [
+          "可監査性\n(Auditability)とは、ログや処理手順が完備され、業務処理の正当性や内部統制を効果的に監査又はレビューできるように情報システムが設計・運用されている度合いを指す言葉です。簡単に言えば「監査が実施可能であること」を意味します。システム監査を円滑に実施するため、情報システムは可監査性を意識して構築、整備されなければなりません。\nしたがって適切な説明は「ア」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問22:https://www.nw-siken.com/kakomon/30_aki/am1_22.html"
+    },
+    {
+      "questionBodyText": "業務プロセスを可視化する手法としてUMLを採用した場合の活用シーンはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "対象をエンティティとその属性及びエンティティ間の関連で捉え，データ中心アプローチの表現によって図に示す。",
+        "データの流れによってプロセスを表現するために，データ送出し，データ受取り，データ格納域，データに施す処理を，データの流れを示す矢印でつないで表現する。",
+        "複数の観点でプロセスを表現するために，目的に応じたモデル図法を使用し，オブジェクトモデリングのために標準化された記述ルールで表現する。",
+        "プロセスの機能を網羅的に表現するために，一つの要件に対し発生する事象を条件分岐の形式で記述する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 業務プロセス",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "業務プロセス"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "業務プロセス",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_23.html",
+      "public_question_id": "cd5a3c302e4a0abc",
+      "original_question_id": "cd5a3c302e4a0abc",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "UML",
+        "構造図\nシステムの静的な構造をモデルで表現する。\nクラス図，コンポジット構造図，コンポーネント図，配置図，オブジェクト図，パッケージ図\n振る舞い図\nシステムの振る舞いをモデルで表現する。\nアクティビティ図，ユースケース図，シーケンス図，インタラクション概念図，コラボレーション図，タイミング図，ステートマシン図"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "E-R図の説明です。"
+        ],
+        [
+          "DFD(Data Flow Diagram)の説明です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "ワークフローとしてビジネスプロセスをグラフィカルに記述するBPD(Business Process Diagram)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問23:https://www.nw-siken.com/kakomon/30_aki/am1_23.html"
+    },
+    {
+      "questionBodyText": "IT投資に対する評価指標の設定に際し，バランススコアカードの手法を用いてKPIを設定する場合に，内部ビジネスプロセスの視点に立ったKPIの例はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "売上高営業利益率を前年比5%アップとする。",
+        "顧客クレーム件数を1か月当たり20件以内とする。",
+        "新システムの利用者研修会の受講率を100%とする。",
+        "注文受付から製品出荷までの日数を3日短縮とする。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 経営戦略マネジメント » ビジネス戦略と目標・評価",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "経営戦略マネジメント",
+        "ビジネス戦略と目標・評価"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "経営戦略マネジメント",
+      "categorySmall": "ビジネス戦略と目標・評価",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_24.html",
+      "public_question_id": "fd77cc5af81914d4",
+      "original_question_id": "fd77cc5af81914d4",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "バランススコアカード",
+        "財務の視点\n株主や従業員などの利害関係者の期待に応えて良い業績を出すために、財務的にどのように行動すべきかの指標を設定する。KPIの例としては、ROA、ROE、株価、売上高利益率などが挙げられる。\n顧客の視点\n企業のビジョンを達成するために、顧客に対してどのように行動すべきかの目標を設定する。KPIの例としては、顧客満足度、成約率、客単価、クレーム件数などが挙げられる。\n内部ビジネスプロセス(業務プロセス)の視点\n財務的目標の達成や顧客満足度を向上させるために、優れた業務プロセスを構築するための目標を設定する。KPIの例としては、納期順守率、平均リードタイム、不良率、改善提案件数などが挙げられる。\n学習と成長の視点\n企業のビジョンを達成するために、組織や個人としてどのように変化（改善）し、能力向上を図るかの目標を設定する。KPIの例としては、年間教育／訓練時間、資格取得数、特許取得数、従業員の満足度などが挙げられる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "財務の視点に該当します。"
+        ],
+        [
+          "顧客の視点に該当します。"
+        ],
+        [
+          "学習の視点に該当します。"
+        ],
+        [
+          "正しい。内部ビジネスプロセスの視点に該当します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問24:https://www.nw-siken.com/kakomon/30_aki/am1_24.html"
+    },
+    {
+      "questionBodyText": "ある企業が，AIなどの情報技術を利用した自動応答システムを導入して，コールセンターにおける顧客対応を無人化しようとしている。この企業が，システム化構想の立案プロセスで行うべきことはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "AIなどの情報技術の動向を調査し，顧客対応における省力化と品質向上など，競争優位を生み出すための情報技術の利用方法について分析する。",
+        "AIなどを利用した自動応答システムを構築する上でのソフトウェア製品又はシステムの信頼性，効率性など品質に関する要件を定義する。",
+        "自動応答に必要なシステム機能及び能力などのシステム要件を定義し，システム要件を，AIなどを利用した製品又はサービスなどのシステム要素に割り当てる。",
+        "自動応答を実現するソフトウェア製品又はシステムの要件定義を行い，AIなどを利用した実現方式やインタフェース設計を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » システム化計画",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "システム化計画"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "システム化計画",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_25.html",
+      "public_question_id": "a4f0ee3616f681d3",
+      "original_question_id": "a4f0ee3616f681d3",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "経営上のニーズ、課題の確認\n事業環境、業務環境の調査分析\n現行業務、システムの調査分析\n情報技術動向の調査分析\n対象となる業務の明確化\n業務の新全体像の作成\n対象の選定と投資目標の策定"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。システム化構想の立案プロセスの作業です。"
+        ],
+        [
+          "要件定義プロセスの作業です。"
+        ],
+        [
+          "システム方式設計での作業です。"
+        ],
+        [
+          "システム要件定義やソフトウェア要件定義の作業です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問25:https://www.nw-siken.com/kakomon/30_aki/am1_25.html"
+    }
+  ]
+}
