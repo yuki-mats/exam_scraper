@@ -1,0 +1,489 @@
+{
+  "list_group_id": "201202",
+  "question_bodies": [
+    {
+      "questionBodyText": "無線LANにおけるセキュリティ対策に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "EAPは，クライアントPCとアクセスポイントとの間で，あらかじめ登録した共通鍵による暗号化通信を実現する。",
+        "RADIUSでは，クライアントPCとアクセスポイントとの間で公開鍵暗号方式による暗号化通信を実現できる。",
+        "SSIDは，クライアントPCごとの秘密鍵を定めたものであり，公開鍵暗号方式による暗号化通信を実現する。",
+        "WPA2では，IEEE802.1Xの規格に沿った利用者認証及び動的に更新される暗号化鍵を用いて暗号化通信を実現できる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_21.html",
+      "public_question_id": "2daed2c2922924b6",
+      "original_question_id": "2daed2c2922924b6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "EAP(Extensible Authentication Protocol)は、PPPの認証機能を拡張したプロトコルです。EAPは、デジタル証明書、メッセージダイジェスト、OTPなど様々な認証方式をサポートしていますが、暗号化通信の機能は規定されていません。"
+        ],
+        [
+          "RADIUS(Remote Authentication Dial In User Service)は、認証および利用ログの記録を単一のサーバに一元化することを目的としたプロトコルで、暗号化通信の機能はありません。"
+        ],
+        [
+          "SSID(Service Set Identifier)は、IEEE802.11において混信を避けるためにアクセスポイントと端末に設定する識別子です。"
+        ],
+        [
+          "正しい。WPA2(Wi-Fi Protected Access 2)は、無線LANの業界団体Wi-Fi Allianceが策定した無線LANの暗号化方式の規格です。WPAではWEPで指摘された脆弱性を克服するためTKIP(Temporal Key Integrity Protocol)を使用して、一定時間(又は一定通信量)ごとに暗号鍵を更新することでセキュリティを高めています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問21:https://www.nw-siken.com/kakomon/24_aki/am2_21.html",
+      "explanationText": [
+        "間違い。\n\nEAP は認証方式を拡張するための枠組みであり、あらかじめ登録した共通鍵による無線区間の暗号化そのものを定めるものではない。",
+        "間違い。\n\nRADIUS は認証・認可・アカウンティングを集中管理するためのプロトコルであり、クライアント PC とアクセスポイント間の公開鍵暗号通信を実現する仕組みではない。",
+        "間違い。\n\nSSID は無線 LAN の識別子であり、秘密鍵や公開鍵暗号方式を定めるものではない。",
+        "正しい。\n\nWPA2 は IEEE 802.1X を用いた利用者認証と、動的に更新される暗号鍵を使った無線通信の暗号化を実現できる。企業向け無線 LAN で広く使われる構成である。"
+      ],
+      "suggestedQuestions": [
+        "EAPとIEEE802.1Xの関係は何ですか？",
+        "RADIUSは何を担当しますか？",
+        "WPA2で鍵が動的更新される利点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "EAPとIEEE802.1Xの関係は何ですか？",
+          "answer": "IEEE 802.1X はポートベース認証の枠組みで、その内部で EAP を使って利用者認証方式をやり取りする。"
+        },
+        {
+          "question": "RADIUSは何を担当しますか？",
+          "answer": "認証サーバとして利用者情報を管理し、認証結果や認可情報をアクセスポイント側へ返す。"
+        },
+        {
+          "question": "WPA2で鍵が動的更新される利点は何ですか？",
+          "answer": "同じ鍵を長く使い続けるリスクを減らし、盗聴や解析への耐性を高められる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ストレージ技術におけるシンプロビジョニングの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "同じデータを複数台のハードディスクに書き込み，冗長化する。",
+        "一つのハードディスクを，OSをインストールする領域とデータを保存する領域とに分割する。",
+        "ファイバチャネルなどを用いてストレージをネットワーク化する。",
+        "利用者の要求に対して仮想ボリュームを提供し，物理ディスクは実際の使用量に応じて割り当てる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_22.html",
+      "public_question_id": "f1e6fbdb2289864d",
+      "original_question_id": "f1e6fbdb2289864d",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "シンプロビジョニング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ミラーリングの説明です。"
+        ],
+        [
+          "パーティション分割の説明です。"
+        ],
+        [
+          "SAN(Storage Area Network)の説明です。"
+        ],
+        [
+          "正しい。シンプロビジョニングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問22:https://www.nw-siken.com/kakomon/24_aki/am2_22.html",
+      "explanationText": [
+        "間違い。\n\n同じデータを複数ディスクへ書いて冗長化するのはミラーリングの説明であり、シンプロビジョニングではない。",
+        "間違い。\n\n一つのディスクを OS 領域とデータ領域へ分割するのはパーティション分割の説明である。",
+        "間違い。\n\nファイバチャネルなどでストレージをネットワーク化するのは SAN の説明である。",
+        "正しい。\n\nシンプロビジョニングは、利用者へ大きな仮想ボリュームを提示しつつ、物理ディスク容量は実際に使用された分だけ後から割り当てる方式である。"
+      ],
+      "suggestedQuestions": [
+        "シンプロビジョニングの利点は何ですか？",
+        "SANとの違いは何ですか？",
+        "物理容量を後から割り当てるときの注意点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "シンプロビジョニングの利点は何ですか？",
+          "answer": "未使用容量を見越して物理ディスクを先に全部確保せずに済み、ストレージ利用効率を高められる。"
+        },
+        {
+          "question": "SANとの違いは何ですか？",
+          "answer": "SAN は接続形態、シンプロビジョニングは容量割当て方式であり、別の観点の技術である。"
+        },
+        {
+          "question": "物理容量を後から割り当てるときの注意点は何ですか？",
+          "answer": "仮想容量の割当て総量が物理容量を超え過ぎないよう、実使用量を継続監視する必要がある。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "マルチプロセッサによる並列処理で得られる高速化率(単一プロセッサのときと比べた倍率)Eを，次の式によって評価する。r＝0.9のアプリケーションの高速化率がr＝0.3のものの3倍となるのは，プロセッサが何台のときか。E＝\n11－r＋\nrnここで，\nn：プロセッサの台数(1≦n)\nr：対象とする処理のうち，並列化が可能な部分の割合(0≦r≦1)\nとし，並列化に伴うオーバーヘッドは考慮しないものとする。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_23.html",
+      "public_question_id": "58d980747dd2be46",
+      "original_question_id": "58d980747dd2be46",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "11－0.3＋0.3／n",
+        "11－0.9＋0.9／n",
+        "10.7＋0.3／n",
+        "10.1＋0.9／n"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ],
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ],
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ],
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問23:https://www.nw-siken.com/kakomon/24_aki/am2_23.html",
+      "explanationText": [
+        "間違い。\n\nn=3 のとき、r=0.9 の高速化率は 1/(0.1+0.9/3)=2.5、r=0.3 は 1/(0.7+0.3/3)=1.25 で、比は 2 倍にとどまる。",
+        "間違い。\n\nn=4 のときの比は 1/(0.1+0.9/4) と 1/(0.7+0.3/4) の比較で約 2.4 倍であり、3 倍には届かない。",
+        "間違い。\n\nn=5 のときも比は 3 倍未満で、条件をまだ満たさない。",
+        "正しい。\n\n高速化率 E=1/{(1-r)+r/n} に r=0.9 と r=0.3 を代入し、前者が後者の 3 倍と置くと、1/(0.1+0.9/n)=3/(0.7+0.3/n) となる。これを解くと n=6 になり、条件を満たす。"
+      ],
+      "suggestedQuestions": [
+        "この式は何の法則に基づいていますか？",
+        "なぜrが大きいほど高速化しやすいですか？",
+        "n=6をどう計算で出しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "この式は何の法則に基づいていますか？",
+          "answer": "並列化できない部分が高速化の上限を決めるというアムダールの法則に基づく評価式である。"
+        },
+        {
+          "question": "なぜrが大きいほど高速化しやすいですか？",
+          "answer": "並列実行へ回せる処理割合が増え、複数プロセッサを有効活用できるためである。"
+        },
+        {
+          "question": "n=6をどう計算で出しますか？",
+          "answer": "r=0.9 と r=0.3 の式を立てて 3 倍条件で等式化し、分母を整理して n を解く。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs06_01_system_evaluation"
+    },
+    {
+      "questionBodyText": "通信プロトコルの記述などに使用される表記法であり，事象の発生と，そのときの状態に応じたシステムの動作を記述するのに，最も適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "決定表",
+        "状態遷移図",
+        "データフローダイアグラム",
+        "特性要因図"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_24.html",
+      "public_question_id": "5feda9830efcc060",
+      "original_question_id": "5feda9830efcc060",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "決定表は、条件の組合せとその条件に対する処理や行動の関係を整理した一覧表です。"
+        ],
+        [
+          "正しい。状態遷移図は、時間の経過や事象の変化に応じて状態が変わるようなシステムの振る舞いを記述するときに適した図式化手法で、プロセス制御などの事象駆動(イベントドリブン)による処理の仕様を表現するときに用いられます。"
+        ],
+        [
+          "データフローダイアグラムは、データの流れに着目して、その対象となる業務のデータの流れと処理の関係をわかりやすく図式化する構造化分析の手法です。"
+        ],
+        [
+          "特性要因図は、現れた特性（結果）とそれに影響を及ぼしたと思われる要因の関係を体系的に表わした図です。直接的な原因と間接的な原因に分別したり、真の問題点を明確にするために使用されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問24:https://www.nw-siken.com/kakomon/24_aki/am2_24.html",
+      "explanationText": [
+        "間違い。\n\n決定表は条件の組合せと処理結果を整理する表現であり、状態変化を時間順に追うのには向かない。",
+        "正しい。\n\n状態遷移図は、事象の発生に応じてシステムがどの状態からどの状態へ移り、そのときどのように動作するかを表現するのに適した表記法である。通信プロトコルや制御系の仕様記述でよく使われる。",
+        "間違い。\n\nデータフローダイアグラムはデータの流れと処理の関係を表すもので、イベントに応じた状態変化の記述には最適ではない。",
+        "間違い。\n\n特性要因図は問題の原因分析に使う図であり、プロトコルの状態遷移記述には用いない。"
+      ],
+      "suggestedQuestions": [
+        "状態遷移図は何を表しますか？",
+        "決定表との違いは何ですか？",
+        "通信プロトコルでよく使う理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "状態遷移図は何を表しますか？",
+          "answer": "システムの状態、事象の発生、状態間の遷移、遷移時の動作を表す。"
+        },
+        {
+          "question": "決定表との違いは何ですか？",
+          "answer": "決定表は条件と処理の対応整理に強く、状態遷移図は時間経過やイベントによる状態変化の記述に強い。"
+        },
+        {
+          "question": "通信プロトコルでよく使う理由は何ですか？",
+          "answer": "接続中、待受け、終了などの状態とイベント応答の関係を明確に表せるからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "組込みソフトウェアなどの設計にも有効な技法であって，システムをプラットフォームに依存する部分と依存しない部分とに分けてモデル化することを特徴とする技法はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CSM",
+        "MDA",
+        "OMT",
+        "UML"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_25.html",
+      "public_question_id": "8bc65f2b32935185",
+      "original_question_id": "8bc65f2b32935185",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "MDA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "モデル化技法や設計技術の中でCSMという用語は見つかりませんでした。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "Object Modeling Techniqueの略。"
+        ],
+        [
+          "Unified Modeling Languageの略。オブジェクト指向開発で用いられる標準表記法群で、オブジェクト間の関連や動作・構成を表現する一連の図表から構成されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問25:https://www.nw-siken.com/kakomon/24_aki/am2_25.html",
+      "explanationText": [
+        "間違い。\n\nCSM はこの文脈でプラットフォーム依存部と非依存部を分けてモデル化する代表的技法ではない。",
+        "正しい。\n\nMDA(Model Driven Architecture) は、プラットフォーム非依存モデルとプラットフォーム依存モデルを分けて扱い、モデル変換によって設計や実装へ落とし込む技法である。組込みソフトウェア設計でも有効である。",
+        "間違い。\n\nOMT はオブジェクトモデリング手法の一つだが、この特徴を表す代表的な技法名ではない。",
+        "間違い。\n\nUML はモデリングのための表記法群であり、プラットフォーム依存部と非依存部へ分ける開発アーキテクチャそのものではない。"
+      ],
+      "suggestedQuestions": [
+        "MDAのPIMとPSMは何ですか？",
+        "UMLとの違いは何ですか？",
+        "組込み設計で有効な理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "MDAのPIMとPSMは何ですか？",
+          "answer": "PIM はプラットフォーム非依存モデル、PSM はプラットフォーム依存モデルである。"
+        },
+        {
+          "question": "UMLとの違いは何ですか？",
+          "answer": "UML は図の書き方を定める表記法、MDA はモデルを中心に設計と実装を進める開発アーキテクチャである。"
+        },
+        {
+          "question": "組込み設計で有効な理由は何ですか？",
+          "answer": "ハードウェア依存部と業務ロジックを分離しやすく、移植性や再利用性を高めやすいからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    }
+  ]
+}

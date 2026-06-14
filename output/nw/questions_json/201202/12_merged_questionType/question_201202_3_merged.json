@@ -1,0 +1,354 @@
+{
+  "list_group_id": "201202",
+  "question_bodies": [
+    {
+      "questionBodyText": "無線LANにおけるセキュリティ対策に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "EAPは，クライアントPCとアクセスポイントとの間で，あらかじめ登録した共通鍵による暗号化通信を実現する。",
+        "RADIUSでは，クライアントPCとアクセスポイントとの間で公開鍵暗号方式による暗号化通信を実現できる。",
+        "SSIDは，クライアントPCごとの秘密鍵を定めたものであり，公開鍵暗号方式による暗号化通信を実現する。",
+        "WPA2では，IEEE802.1Xの規格に沿った利用者認証及び動的に更新される暗号化鍵を用いて暗号化通信を実現できる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_21.html",
+      "public_question_id": "2daed2c2922924b6",
+      "original_question_id": "2daed2c2922924b6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "EAP(Extensible Authentication Protocol)は、PPPの認証機能を拡張したプロトコルです。EAPは、デジタル証明書、メッセージダイジェスト、OTPなど様々な認証方式をサポートしていますが、暗号化通信の機能は規定されていません。"
+        ],
+        [
+          "RADIUS(Remote Authentication Dial In User Service)は、認証および利用ログの記録を単一のサーバに一元化することを目的としたプロトコルで、暗号化通信の機能はありません。"
+        ],
+        [
+          "SSID(Service Set Identifier)は、IEEE802.11において混信を避けるためにアクセスポイントと端末に設定する識別子です。"
+        ],
+        [
+          "正しい。WPA2(Wi-Fi Protected Access 2)は、無線LANの業界団体Wi-Fi Allianceが策定した無線LANの暗号化方式の規格です。WPAではWEPで指摘された脆弱性を克服するためTKIP(Temporal Key Integrity Protocol)を使用して、一定時間(又は一定通信量)ごとに暗号鍵を更新することでセキュリティを高めています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問21:https://www.nw-siken.com/kakomon/24_aki/am2_21.html"
+    },
+    {
+      "questionBodyText": "ストレージ技術におけるシンプロビジョニングの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "同じデータを複数台のハードディスクに書き込み，冗長化する。",
+        "一つのハードディスクを，OSをインストールする領域とデータを保存する領域とに分割する。",
+        "ファイバチャネルなどを用いてストレージをネットワーク化する。",
+        "利用者の要求に対して仮想ボリュームを提供し，物理ディスクは実際の使用量に応じて割り当てる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_22.html",
+      "public_question_id": "f1e6fbdb2289864d",
+      "original_question_id": "f1e6fbdb2289864d",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "シンプロビジョニング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ミラーリングの説明です。"
+        ],
+        [
+          "パーティション分割の説明です。"
+        ],
+        [
+          "SAN(Storage Area Network)の説明です。"
+        ],
+        [
+          "正しい。シンプロビジョニングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問22:https://www.nw-siken.com/kakomon/24_aki/am2_22.html"
+    },
+    {
+      "questionBodyText": "マルチプロセッサによる並列処理で得られる高速化率(単一プロセッサのときと比べた倍率)Eを，次の式によって評価する。r＝0.9のアプリケーションの高速化率がr＝0.3のものの3倍となるのは，プロセッサが何台のときか。E＝\n11－r＋\nrnここで，\nn：プロセッサの台数(1≦n)\nr：対象とする処理のうち，並列化が可能な部分の割合(0≦r≦1)\nとし，並列化に伴うオーバーヘッドは考慮しないものとする。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_23.html",
+      "public_question_id": "58d980747dd2be46",
+      "original_question_id": "58d980747dd2be46",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "11－0.3＋0.3／n",
+        "11－0.9＋0.9／n",
+        "10.7＋0.3／n",
+        "10.1＋0.9／n"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ],
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ],
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ],
+        [
+          "プログラムには並列処理が可能な部分とそうでない部分が混在しています。マルチプロセッサによる並列処理では、並列処理が可能な部分が多いほどプロセッサ数の増加による高速化が望めます。つまり、同じプロセッサ台数でも並列化可能な部分の割合（r）によって高速化率は変化ということです。\n本問では、①90%が並列化可能なプログラム（r＝0.9）と、②30%が並列化可能なプログラム（r＝0.3）を想定し、①の高速化率が、②の3倍となるプロセッサ数を問うています。プロセッサ数nを求めるには、設問の式にそれぞれrを代入したものを方程式にすればよいです（r＝0.3のほうは3倍します）。3×\n11－0.3＋0.3／n\n＝\n11－0.9＋0.9／n3×\n10.7＋0.3／n\n＝\n10.1＋0.9／n3×(0.1＋0.9／n)＝0.7＋0.3／n0.3＋2.7／n＝0.7＋0.3／n2.4／n＝0.42.4＝0.4n6＝n以上の計算結果より、プロセッサが6台のとき条件を満たすことがわかります。したがって正解は「エ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問23:https://www.nw-siken.com/kakomon/24_aki/am2_23.html"
+    },
+    {
+      "questionBodyText": "通信プロトコルの記述などに使用される表記法であり，事象の発生と，そのときの状態に応じたシステムの動作を記述するのに，最も適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "決定表",
+        "状態遷移図",
+        "データフローダイアグラム",
+        "特性要因図"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_24.html",
+      "public_question_id": "5feda9830efcc060",
+      "original_question_id": "5feda9830efcc060",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "決定表は、条件の組合せとその条件に対する処理や行動の関係を整理した一覧表です。"
+        ],
+        [
+          "正しい。状態遷移図は、時間の経過や事象の変化に応じて状態が変わるようなシステムの振る舞いを記述するときに適した図式化手法で、プロセス制御などの事象駆動(イベントドリブン)による処理の仕様を表現するときに用いられます。"
+        ],
+        [
+          "データフローダイアグラムは、データの流れに着目して、その対象となる業務のデータの流れと処理の関係をわかりやすく図式化する構造化分析の手法です。"
+        ],
+        [
+          "特性要因図は、現れた特性（結果）とそれに影響を及ぼしたと思われる要因の関係を体系的に表わした図です。直接的な原因と間接的な原因に分別したり、真の問題点を明確にするために使用されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問24:https://www.nw-siken.com/kakomon/24_aki/am2_24.html"
+    },
+    {
+      "questionBodyText": "組込みソフトウェアなどの設計にも有効な技法であって，システムをプラットフォームに依存する部分と依存しない部分とに分けてモデル化することを特徴とする技法はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CSM",
+        "MDA",
+        "OMT",
+        "UML"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_25.html",
+      "public_question_id": "8bc65f2b32935185",
+      "original_question_id": "8bc65f2b32935185",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "MDA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "モデル化技法や設計技術の中でCSMという用語は見つかりませんでした。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "Object Modeling Techniqueの略。"
+        ],
+        [
+          "Unified Modeling Languageの略。オブジェクト指向開発で用いられる標準表記法群で、オブジェクト間の関連や動作・構成を表現する一連の図表から構成されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問25:https://www.nw-siken.com/kakomon/24_aki/am2_25.html"
+    }
+  ]
+}
