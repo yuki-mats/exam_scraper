@@ -1,0 +1,62 @@
+[
+  {
+    "questionBodyText": "スパムメールの対策として，TCPポート番号25への通信に対してISPが実施するOP25Bの例はどれか。",
+    "choiceTextList": [
+      "ISP管理外のネットワークからの通信のうち，スパムメールのシグネチャに該当するものを遮断する。",
+      "ISP管理下の動的IPアドレスを割り当てたネットワークからISP管理外のネットワークへの直接の通信を遮断する。",
+      "メール送信元のメールサーバについてDNSの逆引きができない場合，そのメールサーバからの通信を遮断する。",
+      "メール不正中継の脆弱性をもつメールサーバからの通信を遮断する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "042af9dfcf826495",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am2_21.html"
+  },
+  {
+    "questionBodyText": "キャッシュメモリへの書込み動作には，ライトスルー方式とライトバック方式がある。それぞれの特徴のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "ライトスルー方式では，データをキャッシュメモリだけに書き込むので，高速に書込みができる。",
+      "ライトスルー方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，主記憶の内容は常にキャッシュメモリの内容と一致する。",
+      "ライトバック方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，速度が遅い。",
+      "ライトバック方式では，読出し時にキャッシュミスが発生してキャッシュメモリの内容が追い出されるときに，主記憶にデータを書き戻す必要が生じることはない。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bcb879dd1d73126d",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am2_22.html"
+  },
+  {
+    "questionBodyText": "MTBFを長くするよりも，MTTRを短くするのに役立つものはどれか。",
+    "choiceTextList": [
+      "エラーログ取得機能",
+      "記憶装置のビット誤り訂正機能",
+      "命令再試行機能",
+      "予防保全"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9932a12f698e525d",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am2_23.html"
+  },
+  {
+    "questionBodyText": "Pattern-Oriented Software Architectureのアーキテクチャパターンのうち，ブローカーの説明はどれか。",
+    "choiceTextList": [
+      "機能の中核部分と拡張部分とを分離して，変更要求に対する拡張性を向上させる。",
+      "データストリームに対する一連の処理を，容易に追加又は削除できるように分割して，段階的に実施する。",
+      "データの管理，利用者への情報表示，利用者からの入力と制御の三つのコンポーネントでGUIシステムを構成して，表示部分の変更に柔軟に対応する。",
+      "分散環境において，サービスの登録，検索，メッセージのやり取りを行い，クライアントとサーバの相互依存性を弱める。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "916e9f097a5ffc50",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am2_24.html"
+  },
+  {
+    "questionBodyText": "ステージング環境の説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "開発者がプログラムを変更するたびに，サーバにプログラムを直接デプロイして動作を確認し，デバッグするための環境",
+      "システムのベータ版を広く一般の利用者に公開してテストを実施してもらうことによって，問題点やバグを報告してもらう環境",
+      "保護するネットワークと外部ネットワークとの間に境界ネットワーク(DMZ)を設置して，セキュリティを高めたネットワーク環境",
+      "本運用システムとほぼ同じ構成のシステムを用意して，システムリリース前の最終テストを行う環境"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6fa9cf3418810d15",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am2_25.html"
+  }
+]

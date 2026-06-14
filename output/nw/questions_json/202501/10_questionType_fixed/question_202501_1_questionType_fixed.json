@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "0≦x≦1の範囲で単調に増加する連続関数 ƒ(x) が ƒ(0)＜0≦ƒ(1) を満たすときに，区間内で ƒ(x)＝0 であるxの値を近似的に求めるアルゴリズムにおいて，(2)は何回実行されるか。\n〔アルゴリズム〕\nx0\n←0，x1\n←1とする。x←\nx0\n＋x1\n2とする。x1\n－x＜0.001ならばxの値を近似値として終了する。\nƒ(x)≧0ならばx1\n←xとして，そうでなければx0\n←xとする。\n(2)に戻る。",
+    "choiceTextList": [
+      "10",
+      "20",
+      "100",
+      "1,000"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9ba5917c9af77eb0",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_1.html"
+  },
+  {
+    "questionBodyText": "AIにおける機械学習の過程において，過学習と疑われたときの解消方法として，最も適切なものはどれか。",
+    "choiceTextList": [
+      "訓練した時と同じ精度を出すために，訓練データをテストデータとして使用する。",
+      "精度を高めるために，元の訓練データに加工を施し，訓練データの量を増やす。",
+      "予測した結果に近づけるために，モデルをより複雑にする。",
+      "より多くの未知のデータに対して予測できるように，汎化性能を下げる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9c8433dc45e2a569",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_2.html"
+  },
+  {
+    "questionBodyText": "A，B，Cの順序で入力されるデータがある。各データについてスタックへの挿入と取出しを1回ずつ行うことができる場合，データの出力順序は何通りあるか。",
+    "choiceTextList": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "665986493e25a6df",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_3.html"
+  },
+  {
+    "questionBodyText": "同じ命令セットをもつコンピュータAとBがある。それぞれのCPUクロック周期，及びあるプログラムを実行したときのCPI(Cycles Per Instruction)は，表のとおりである。そのプログラムを実行したとき，コンピュータAの処理時間は，コンピュータBの処理時間の何倍になるか。",
+    "choiceTextList": [
+      "132",
+      "12",
+      "2",
+      "8"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2a7a715ba90946bb",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_4.html"
+  },
+  {
+    "questionBodyText": "二つのシステムA，Bの稼働率をそれぞれα\nA\n(0＜α\nA\n＜1)，α\nB\n(0＜α\nB\n＜1)，MTBFをそれぞれMTBFA\n，MTBFB\n，MTTRをそれぞれMTTRA\n，MTTRBとしたとき，これらの関係として，常に成り立つものはどれか。",
+    "choiceTextList": [
+      "α\nA\n＝α\nBならば，MTBFA\n＝MTBFBであり，かつMTTRA\n＝MTTRBである。",
+      "α\nA\n＝α\nBならば，MTTRA\n／MTBFA\n＝MTTRB\n／MTBFBである。",
+      "α\nA\n＞α\nBならば，MTBFA\n＞MTBFBであり，かつMTTRA\n＞MTTRBである。",
+      "α\nA\n＞α\nBならば，MTTRA\n／MTBFA\n＞MTTRB\n／MTBFBである。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "99280a0f926779a4",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_5.html"
+  },
+  {
+    "questionBodyText": "仮想記憶管理におけるページ置換えアルゴリズムとしてLRU方式を採用する。主記憶のページ枠が，4000，5000，6000，7000番地(いずれも16進数)の4ページ分で，プログラムが参照するページ番号の順が，1→2→3→4→2→5→3→1→6→5→4のとき，最後の参照ページ4は何番地にページインされているか。ここで，最初の1→2→3→4の参照で，それぞれのページは4000，5000，6000，7000番地にページインされるものとする。",
+    "choiceTextList": [
+      "4000",
+      "5000",
+      "6000",
+      "7000"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1f2ae05445eef488",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_6.html"
+  },
+  {
+    "questionBodyText": "IoTシステムにおいて，センサーの値をゲートウェイに送信するセンサーノードの消費電流を抑えるため，図のような間欠動作を考える。センサーノードの動作時間は10ミリ秒で，その間は平均して10mAの電流が流れる。待機中は常に0.1μAの電流が流れる。間欠動作の平均電流を1μA以下にするための待機時間として，最も短いものはどれか。ここで，平均電流の値を求める時間は十分に長いものとする。",
+    "choiceTextList": [
+      "1.1秒",
+      "11.1秒",
+      "111.1秒",
+      "1111.1秒"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "13cf100ca59902eb",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_7.html"
+  },
+  {
+    "questionBodyText": "W3Cで仕様が定義され，矩形や円，直線，文字列などの図形オブジェクトをXML形式で記述し，Webページでの図形描画にも使うことができる画像フォーマットはどれか。",
+    "choiceTextList": [
+      "OpenGL",
+      "PNG",
+      "SVG",
+      "TIFF"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6aa1fe5be5ccb3b5",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_8.html"
+  },
+  {
+    "questionBodyText": "関係を第2正規形から第3正規形に変換する手順はどれか。",
+    "choiceTextList": [
+      "候補キー以外の属性から，候補キーの一部の属性に対して関数従属性がある場合，その関係を分解する。",
+      "候補キー以外の属性間に関数従属性がある場合，その関係を分解する。",
+      "候補キーの一部の属性から，候補キー以外の属性への関数従属性がある場合，その関係を分解する。",
+      "一つの属性に複数の値が入っている場合，単一の値になるように分解する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7dbb7574bb31828f",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_9.html"
+  },
+  {
+    "questionBodyText": "SQL文に示す参照制約が存在する\"商品\"表と\"受注\"表とがある。\"商品\"表の行を削除したとき，削除した行の商品コードと同じ値の商品コードをもつ\"受注\"表の行を自動的に削除するSQL文として，aに入れる字句はどれか。\n〔SQL文〕",
+    "choiceTextList": [
+      "CASCADE",
+      "RESTRICT",
+      "SET DEFAULT",
+      "SET NULL"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8a41c8e61ea78c07",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_10.html"
+  },
+  {
+    "questionBodyText": "無線LANのアクセスポイントやIP電話機などに，LANケーブルを利用して給電も行う仕組みはどれか。",
+    "choiceTextList": [
+      "PLC",
+      "PoE",
+      "UPS",
+      "USB"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bdfb319727cd4adf",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_11.html"
+  },
+  {
+    "questionBodyText": "デジタル庁，総務省及び経済産業省が策定した\"電子政府における調達のために参照すべき暗号のリスト(CRYPTREC暗号リスト)\"を構成する暗号リストの説明のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "推奨候補暗号リストとは，CRYPTRECによって安全性及び実装性能が確認された暗号技術のうち，市場における利用実績が十分であるか今後の普及が見込まれると判断され，当該技術の利用を推奨するもののリストである。",
+      "推奨候補暗号リストとは，候補段階に格下げされ，互換性維持目的で利用する暗号技術のリストである。",
+      "電子政府推奨暗号リストとは，CRYPTRECによって安全性及び実装性能が確認された暗号技術のうち，市場における利用実績が十分であるか今後の普及が見込まれると判断され，当該技術の利用を推奨するもののリストである。",
+      "電子政府推奨暗号リストとは，推奨段階に格下げされ，互換性維持目的で利用する暗号技術のリストである。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bbdb42e10c0f5b13",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_12.html"
+  },
+  {
+    "questionBodyText": "ソフトウェアの情報セキュリティ対策のうち，SBOM(Software Bill Of Materials)管理ツールを用いることができるものはどれか。",
+    "choiceTextList": [
+      "ソフトウェアでの利用者認証に用いるアカウントの一元管理",
+      "ソフトウェアについての脆弱性管理",
+      "ソフトウェアのソースコードについてのバージョン管理，アクセス制御及び改ざん防止",
+      "ソフトウェアのソースコードのバックアップとマルウェア混入防止"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9b79d2b86c717ea7",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_13.html"
+  },
+  {
+    "questionBodyText": "Webアプリケーションソフトウェアの開発におけるOSコマンドインジェクション対策はどれか。",
+    "choiceTextList": [
+      "SQL文の組立ては全てプレースホルダで実装する。",
+      "シェルを起動できる言語機能を利用した実装を避ける。",
+      "直接メモリにアクセスできる言語機能を利用した実装を避ける。",
+      "利用者が入力したファイル名にディレクトリが含まれていないかのエラーチェックを実装する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "45c69870b4c7fe01",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_14.html"
+  },
+  {
+    "questionBodyText": "VPNで使用されるプロトコルであるIPsec，L2TP，TLSの，OSI基本参照モデルにおける相対的な位置関係はどれか。",
+    "choiceTextList": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "fc8141dbe774eea8",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_15.html"
+  },
+  {
+    "questionBodyText": "デザインレビューの目的はどれか。",
+    "choiceTextList": [
+      "設計工程内で，設計工程の成果物の問題点を発見する。",
+      "品質保証部門が，全成果物の出荷の可否を判定する。",
+      "品質保証部門によるプログラムのサンプリング検査によって，設計者では気付かない品質上の問題点を発見する。",
+      "プロジェクトマネジメントのプロセス上の問題点を発見する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "97f36986e7e8d315",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_16.html"
+  },
+  {
+    "questionBodyText": "スクラムにおいて繰り返し実行するイベントのうち，ステークホルダに作業の結果をプレゼンテーションして，プロダクトゴールに対する進捗について話し合い，必要に応じてスコープを調整するイベントはどれか。",
+    "choiceTextList": [
+      "スプリントプランニング",
+      "スプリントレビュー",
+      "デイリースクラム",
+      "レトロスペクティブ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1e1b045145ac215d",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_17.html"
+  },
+  {
+    "questionBodyText": "EVMを使用してマネジメントをしているプロジェクトで，進捗に関する指標値は次のとおりであった。このプロジェクトに対する適切な評価と対策はどれか。\n〔進捗に関する指標値〕\nCPI(コスト効率指数)：0.9SPI(スケジュール効率指数)：1.1BAC(完成時総予算)に基づくTCPI(残作業効率指数)：1.2",
+    "choiceTextList": [
+      "コストが予算を超えているが，スケジュールには余裕があり，残作業のコスト効率を計画よりも上げる必要はないので，CPIに基づいて完成までに必要なコストを予測する。",
+      "コストが予算を超えているので，完成時総予算を超過するおそれがあるが，スケジュールには余裕があるので，残作業のコスト効率を上げる対策を検討するか，コンティンジェンシー予備費の使用を検討する。",
+      "コストには余裕があるが，スケジュールが予定より遅れており，残作業のコスト効率を計画よりも上げる必要があるので，ファストトラッキングなどを用いたスケジュール短縮を検討するとともに，コンティンジェンシー予備費の使用を検討する。",
+      "コストには余裕があるので，残作業のコスト効率を計画よりも上げる必要はないが，スケジュールが予定より遅れているので，クラッシングなどを用いたスケジュール短縮を検討する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "4877a551979c4a66",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_18.html"
+  },
+  {
+    "questionBodyText": "プロジェクトの期間を短縮する方法のうち，クラッシングに該当するものはどれか。",
+    "choiceTextList": [
+      "作業の前後関係を組み直し，実施する順番を変える。",
+      "作業を分析し，同時に実施できる部分を複数の作業に分割し，並行して実施する。",
+      "先行作業の一部の成果物が完成した時点で，後続作業を開始する。",
+      "プロジェクトの外部から要員を調達し，クリティカルパス上の作業に投入する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "05a3df8c74e3a9e1",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_19.html"
+  },
+  {
+    "questionBodyText": "あるサービスでは〔サービス可用性のSLA〕に基づき，サービス可用性の目標値の遵守状況を月ごとに測定して評価している。ある月の実績値は99.3%だった。この月にサービス可用性の目標値を達成するためには，サービス停止時間は，最低，何時間少なければよかったか。\n〔サービス可用性のSLA〕\nサービス可用性の目標値：99.5%以上\nサービス提供時間帯：7時～22時\nサービス提供日数：20日／月",
+    "choiceTextList": [
+      "0.4",
+      "0.6",
+      "1.3",
+      "1.95"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "815329a4e2319de8",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_20.html"
+  },
+  {
+    "questionBodyText": "システム監査におけるウォークスルー法の説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "機密データの保管状況に関する資料及び文書類を入手し，内容を点検する。",
+      "システムの運用状況について，関係者に口頭で問い合わせ，回答を入手する。",
+      "データの生成から入力，処理，出力，利活用までのプロセス，及び組み込まれている一連のコントロールを確認する。",
+      "テストデータを監査対象プログラムで処理し，期待した結果が出力されるかどうかを確かめる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9c72ff72a68ab754",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_21.html"
+  },
+  {
+    "questionBodyText": "システム監査における\"監査手続\"として，最も適切なものはどれか。",
+    "choiceTextList": [
+      "監査計画の立案や監査業務の進捗管理を行うための手続",
+      "監査結果を受けて，監査報告書に監査人の結論や指摘事項を記述する手続",
+      "監査項目について，十分かつ適切な証拠を入手するための手続",
+      "監査テーマに合わせて，監査チームを編成する手続"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a39c773b453c5cab",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_22.html"
+  },
+  {
+    "questionBodyText": "DX認定制度における認定基準に含まれている事項はどれか。",
+    "choiceTextList": [
+      "経営ビジョン及びDX戦略を策定して対外発信を行うことに加えて，ビジネスモデルの革新などデジタル技術活用の成果目標も既に達成していること",
+      "経営ビジョン及びビジネスモデルの方向性を公表するとともに，策定したビジネスモデルを実現するための方策として，DX戦略を公表していること",
+      "申請対象が，中小企業基本法で定められた中小企業であること",
+      "デジタルガバナンス・コード3.0の全項目に対応していること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9c913eec279f57b4",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_23.html"
+  },
+  {
+    "questionBodyText": "クラウドサービスなどの提供を迅速に実現するためのプロビジョニングの説明はどれか。",
+    "choiceTextList": [
+      "企業の情報システムの企画，設計，開発，導入，保守などのサービスを，一貫して又は工程の幾つかを部分的に提供する。",
+      "業種や事業内容などで共通する複数の企業や組織が共同でデータセンターを運用して，それぞれがインターネットを通して各種サービスを利用する。",
+      "自社でハードウェア，ネットワークなどの環境を用意し，業務パッケージなどを導入して利用する運用形態にする。",
+      "利用者の需要を予想し，ネットワーク設備やシステムリソースなどを計画的に調達して強化し，利用者の要求に応じたサービスを提供できるように備える。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "27c6838b05366ae4",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_24.html"
+  },
+  {
+    "questionBodyText": "ベンダーX社に対して，表に示すように要件定義フェーズから運用テストフェーズまでを委託したい。X社との契約に当たって，\"情報システム・モデル取引・契約書＜第二版＞\"に照らし，各フェーズの契約形態を整理した。a～dの契約形態のうち，準委任型が適切であるとされるものはどれか。",
+    "choiceTextList": [
+      "a，b",
+      "a，d",
+      "b，c",
+      "b，d"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7f7de866214363a5",
+    "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_25.html"
+  }
+]
