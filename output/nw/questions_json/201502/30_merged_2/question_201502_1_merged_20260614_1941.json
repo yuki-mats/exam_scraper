@@ -1,0 +1,1783 @@
+{
+  "list_group_id": "201502",
+  "question_bodies": [
+    {
+      "questionBodyText": "集合A，B，Cに対して\nA∪B∪Cが空集合であるとき，包含関係として適切なものはどれか。ここで，∪は和集合を，∩は積集合を，\nXはXの補集合を，また，X⊆YはXがYの部分集合であることを表す。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(A∩B) ⊆ C",
+        "(A∩\nB\n) ⊆ C",
+        "(\nA\n∩B) ⊆ C",
+        "(\nA\n∩\nB\n) ⊆ C"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 離散数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "離散数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "離散数学",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_1.html",
+      "public_question_id": "733330c5420c0526",
+      "original_question_id": "733330c5420c0526",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "部分集合",
+        "X ⊆ Y",
+        "A∪B∪C",
+        "A",
+        "B"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "部分集合\nとは、ある集合Xの全ての要素が他の集合Yに含まれる(内包される)という2つの集合同士の関係を表し、数学記号\"⊆\"を用いて「\nX ⊆ Y\n」と表記します。\nまず設問の「\nA∪B∪Cが空集合」という記述から、すべての要素は集合A，B，Cのいずれかに含まれるという条件が付されていることが確認できます。さらに選択肢の右辺が全て「C」であるので、左辺の集合が集合Cに内包されているものをベン図に描いて導きます。\nベン図で表すとCの部分集合となるのは「\nA\n∩\nB\n」とわかります。"
+        ],
+        [
+          "部分集合\nとは、ある集合Xの全ての要素が他の集合Yに含まれる(内包される)という2つの集合同士の関係を表し、数学記号\"⊆\"を用いて「\nX ⊆ Y\n」と表記します。\nまず設問の「\nA∪B∪Cが空集合」という記述から、すべての要素は集合A，B，Cのいずれかに含まれるという条件が付されていることが確認できます。さらに選択肢の右辺が全て「C」であるので、左辺の集合が集合Cに内包されているものをベン図に描いて導きます。\nベン図で表すとCの部分集合となるのは「\nA\n∩\nB\n」とわかります。"
+        ],
+        [
+          "部分集合\nとは、ある集合Xの全ての要素が他の集合Yに含まれる(内包される)という2つの集合同士の関係を表し、数学記号\"⊆\"を用いて「\nX ⊆ Y\n」と表記します。\nまず設問の「\nA∪B∪Cが空集合」という記述から、すべての要素は集合A，B，Cのいずれかに含まれるという条件が付されていることが確認できます。さらに選択肢の右辺が全て「C」であるので、左辺の集合が集合Cに内包されているものをベン図に描いて導きます。\nベン図で表すとCの部分集合となるのは「\nA\n∩\nB\n」とわかります。"
+        ],
+        [
+          "部分集合\nとは、ある集合Xの全ての要素が他の集合Yに含まれる(内包される)という2つの集合同士の関係を表し、数学記号\"⊆\"を用いて「\nX ⊆ Y\n」と表記します。\nまず設問の「\nA∪B∪Cが空集合」という記述から、すべての要素は集合A，B，Cのいずれかに含まれるという条件が付されていることが確認できます。さらに選択肢の右辺が全て「C」であるので、左辺の集合が集合Cに内包されているものをベン図に描いて導きます。\nベン図で表すとCの部分集合となるのは「\nA\n∩\nB\n」とわかります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問1:https://www.nw-siken.com/kakomon/27_aki/am1_1.html"
+    },
+    {
+      "questionBodyText": "図のように16ビットのデータを4×4の正方形状に並べ，行と列にパリティビットを付加することによって何ビットまでの誤りを訂正できるか。ここで，図の網掛け部分はパリティビットを表す。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 通信に関する理論",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "通信に関する理論"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "通信に関する理論",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_2.html",
+      "public_question_id": "0b9b34069eb3715c",
+      "original_question_id": "0b9b34069eb3715c",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq0b9b34069eb3715c_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "パリティチェック",
+        "1ビットであれば正しいデータに訂正することが可能"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "パリティチェック\nは、データ通信やメモリチェックなどにおいてデータのビット誤りを検出する最もシンプルな方法の一つです。一定長のビット列（通常は7～8ビット）ごとに1ビットの検査ビット（パリティビット）を付加し、検査側が受信データとパリティビットを照合することで誤りを検出します。\nデータのビット列とパリティビットを合わせて\"1\"のビット数が奇数になるようにパリティビットを付加する方式を奇数パリティ、偶数になるように付加する方式を偶数パリティといいます（設問の図は偶数パリティ）。\nチェック方式にも2種類あり、送信データそれぞれに対してパリティを付加する方式を垂直パリティ、1番目のデータブロックの1ビット目、2番目のデータの1ビット目、…、n番目のデータの1ビット目というようにデータブロックの並びに対して付加する方式を水平パリティといいます。また、両者を併用して2方向にパリティを付加する方式を「垂直水平パリティ」と言います。\n設問の図のように2方向にパリティを付加するのが「垂直水平パリティ」です。パリティチェックは基本的には誤りの検出を目的としていて、誤りを検出したときには送信元に再送を依頼するのですが、垂直水平パリティ方式ではビット誤りの検出にとどまらず、垂直・水平の併用で誤り位置を特定することにより、1ビットであれば正しいデータに訂正することが可能\nとなっています。\nしたがって正解は「ア」の\"1\"です。"
+        ],
+        [
+          "パリティチェック\nは、データ通信やメモリチェックなどにおいてデータのビット誤りを検出する最もシンプルな方法の一つです。一定長のビット列（通常は7～8ビット）ごとに1ビットの検査ビット（パリティビット）を付加し、検査側が受信データとパリティビットを照合することで誤りを検出します。\nデータのビット列とパリティビットを合わせて\"1\"のビット数が奇数になるようにパリティビットを付加する方式を奇数パリティ、偶数になるように付加する方式を偶数パリティといいます（設問の図は偶数パリティ）。\nチェック方式にも2種類あり、送信データそれぞれに対してパリティを付加する方式を垂直パリティ、1番目のデータブロックの1ビット目、2番目のデータの1ビット目、…、n番目のデータの1ビット目というようにデータブロックの並びに対して付加する方式を水平パリティといいます。また、両者を併用して2方向にパリティを付加する方式を「垂直水平パリティ」と言います。\n設問の図のように2方向にパリティを付加するのが「垂直水平パリティ」です。パリティチェックは基本的には誤りの検出を目的としていて、誤りを検出したときには送信元に再送を依頼するのですが、垂直水平パリティ方式ではビット誤りの検出にとどまらず、垂直・水平の併用で誤り位置を特定することにより、1ビットであれば正しいデータに訂正することが可能\nとなっています。\nしたがって正解は「ア」の\"1\"です。"
+        ],
+        [
+          "パリティチェック\nは、データ通信やメモリチェックなどにおいてデータのビット誤りを検出する最もシンプルな方法の一つです。一定長のビット列（通常は7～8ビット）ごとに1ビットの検査ビット（パリティビット）を付加し、検査側が受信データとパリティビットを照合することで誤りを検出します。\nデータのビット列とパリティビットを合わせて\"1\"のビット数が奇数になるようにパリティビットを付加する方式を奇数パリティ、偶数になるように付加する方式を偶数パリティといいます（設問の図は偶数パリティ）。\nチェック方式にも2種類あり、送信データそれぞれに対してパリティを付加する方式を垂直パリティ、1番目のデータブロックの1ビット目、2番目のデータの1ビット目、…、n番目のデータの1ビット目というようにデータブロックの並びに対して付加する方式を水平パリティといいます。また、両者を併用して2方向にパリティを付加する方式を「垂直水平パリティ」と言います。\n設問の図のように2方向にパリティを付加するのが「垂直水平パリティ」です。パリティチェックは基本的には誤りの検出を目的としていて、誤りを検出したときには送信元に再送を依頼するのですが、垂直水平パリティ方式ではビット誤りの検出にとどまらず、垂直・水平の併用で誤り位置を特定することにより、1ビットであれば正しいデータに訂正することが可能\nとなっています。\nしたがって正解は「ア」の\"1\"です。"
+        ],
+        [
+          "パリティチェック\nは、データ通信やメモリチェックなどにおいてデータのビット誤りを検出する最もシンプルな方法の一つです。一定長のビット列（通常は7～8ビット）ごとに1ビットの検査ビット（パリティビット）を付加し、検査側が受信データとパリティビットを照合することで誤りを検出します。\nデータのビット列とパリティビットを合わせて\"1\"のビット数が奇数になるようにパリティビットを付加する方式を奇数パリティ、偶数になるように付加する方式を偶数パリティといいます（設問の図は偶数パリティ）。\nチェック方式にも2種類あり、送信データそれぞれに対してパリティを付加する方式を垂直パリティ、1番目のデータブロックの1ビット目、2番目のデータの1ビット目、…、n番目のデータの1ビット目というようにデータブロックの並びに対して付加する方式を水平パリティといいます。また、両者を併用して2方向にパリティを付加する方式を「垂直水平パリティ」と言います。\n設問の図のように2方向にパリティを付加するのが「垂直水平パリティ」です。パリティチェックは基本的には誤りの検出を目的としていて、誤りを検出したときには送信元に再送を依頼するのですが、垂直水平パリティ方式ではビット誤りの検出にとどまらず、垂直・水平の併用で誤り位置を特定することにより、1ビットであれば正しいデータに訂正することが可能\nとなっています。\nしたがって正解は「ア」の\"1\"です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201502:am:問2:https://www.nw-siken.com/kakomon/27_aki/am1_2.html"
+    },
+    {
+      "questionBodyText": "キーが小文字のアルファベット1文字（a, b, …，z のいずれか）であるデータを，大きさが10のハッシュ表に格納する。ハッシュ関数として，アルファベットのASCIIコードを10進表記法で表したときの1の位の数を用いることにする。衝突が起こるキーの組合せはどれか。ASCIIコードでは，昇順に連続した2進数が，アルファベット順にコードとして割り当てられている。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "a と i",
+        "b と r",
+        "c と l",
+        "d と x"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_3.html",
+      "public_question_id": "3803f88728640d55",
+      "original_question_id": "3803f88728640d55",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "10の倍数になっているもの"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "a と i の距離は8なので衝突は発生しません。"
+        ],
+        [
+          "b と r の距離は16なので衝突は発生しません。"
+        ],
+        [
+          "c と l の距離は9なので衝突は発生しません。"
+        ],
+        [
+          "正しい。d と x の距離は20であり、10の倍数なので衝突が発生します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問3:https://www.nw-siken.com/kakomon/27_aki/am1_3.html"
+    },
+    {
+      "questionBodyText": "複数のデータに対して1個の命令で同一の操作を同時並列に行う方式で，マルチメディアデータなどを扱うCPUに採用されているものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "MIMD",
+        "MISD",
+        "SIMD",
+        "SISD"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_4.html",
+      "public_question_id": "9783fcead175f1ea",
+      "original_question_id": "9783fcead175f1ea",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SISD（Single Instruction Single Data）\n単一の命令で単一のデータを処理する最もシンプルな方式\nSIMD（Single Instruction Multiple Data）\n単一の命令で複数のデータを処理できる方式。pentiumプロセッサで採用されている\nMISD（Multiple Instruction Single Data）\n複数の命令で単一のデータを扱う方式。理論上は存在するが実装例はない\nMIMD（Multiple Instruction Multiple Data）\n複数の命令で複数のデータを扱う方式で、複数のプロセッサを搭載した並列コンピュータ環境が該当する。OSやコンパイラがMIMDに対応している必要がある",
+        "S（Single）",
+        "M（Multiple）"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "並列処理を実現するプロセッサのアーキテクチャは同時に実行できる命令数及びデータ数によって以下の4種類に分類されます。SISD（Single Instruction Single Data）\n単一の命令で単一のデータを処理する最もシンプルな方式\nSIMD（Single Instruction Multiple Data）\n単一の命令で複数のデータを処理できる方式。pentiumプロセッサで採用されている\nMISD（Multiple Instruction Single Data）\n複数の命令で単一のデータを扱う方式。理論上は存在するが実装例はない\nMIMD（Multiple Instruction Multiple Data）\n複数の命令で複数のデータを扱う方式で、複数のプロセッサを搭載した並列コンピュータ環境が該当する。OSやコンパイラがMIMDに対応している必要がある\nしたがって正解は「SIMD」です。\nこの4つの分類は並列に実行できる命令数（Instruction）とデータ数（Data）によってなされているだけなので、S（Single）\nと\nM（Multiple）\nを意識して覚えておけば、本番でもそれぞれの特徴を思い出せると思います。"
+        ],
+        [
+          "並列処理を実現するプロセッサのアーキテクチャは同時に実行できる命令数及びデータ数によって以下の4種類に分類されます。SISD（Single Instruction Single Data）\n単一の命令で単一のデータを処理する最もシンプルな方式\nSIMD（Single Instruction Multiple Data）\n単一の命令で複数のデータを処理できる方式。pentiumプロセッサで採用されている\nMISD（Multiple Instruction Single Data）\n複数の命令で単一のデータを扱う方式。理論上は存在するが実装例はない\nMIMD（Multiple Instruction Multiple Data）\n複数の命令で複数のデータを扱う方式で、複数のプロセッサを搭載した並列コンピュータ環境が該当する。OSやコンパイラがMIMDに対応している必要がある\nしたがって正解は「SIMD」です。\nこの4つの分類は並列に実行できる命令数（Instruction）とデータ数（Data）によってなされているだけなので、S（Single）\nと\nM（Multiple）\nを意識して覚えておけば、本番でもそれぞれの特徴を思い出せると思います。"
+        ],
+        [
+          "並列処理を実現するプロセッサのアーキテクチャは同時に実行できる命令数及びデータ数によって以下の4種類に分類されます。SISD（Single Instruction Single Data）\n単一の命令で単一のデータを処理する最もシンプルな方式\nSIMD（Single Instruction Multiple Data）\n単一の命令で複数のデータを処理できる方式。pentiumプロセッサで採用されている\nMISD（Multiple Instruction Single Data）\n複数の命令で単一のデータを扱う方式。理論上は存在するが実装例はない\nMIMD（Multiple Instruction Multiple Data）\n複数の命令で複数のデータを扱う方式で、複数のプロセッサを搭載した並列コンピュータ環境が該当する。OSやコンパイラがMIMDに対応している必要がある\nしたがって正解は「SIMD」です。\nこの4つの分類は並列に実行できる命令数（Instruction）とデータ数（Data）によってなされているだけなので、S（Single）\nと\nM（Multiple）\nを意識して覚えておけば、本番でもそれぞれの特徴を思い出せると思います。"
+        ],
+        [
+          "並列処理を実現するプロセッサのアーキテクチャは同時に実行できる命令数及びデータ数によって以下の4種類に分類されます。SISD（Single Instruction Single Data）\n単一の命令で単一のデータを処理する最もシンプルな方式\nSIMD（Single Instruction Multiple Data）\n単一の命令で複数のデータを処理できる方式。pentiumプロセッサで採用されている\nMISD（Multiple Instruction Single Data）\n複数の命令で単一のデータを扱う方式。理論上は存在するが実装例はない\nMIMD（Multiple Instruction Multiple Data）\n複数の命令で複数のデータを扱う方式で、複数のプロセッサを搭載した並列コンピュータ環境が該当する。OSやコンパイラがMIMDに対応している必要がある\nしたがって正解は「SIMD」です。\nこの4つの分類は並列に実行できる命令数（Instruction）とデータ数（Data）によってなされているだけなので、S（Single）\nと\nM（Multiple）\nを意識して覚えておけば、本番でもそれぞれの特徴を思い出せると思います。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問4:https://www.nw-siken.com/kakomon/27_aki/am1_4.html"
+    },
+    {
+      "questionBodyText": "クラスタリングシステムで，ノード障害が発生したときに信頼性を向上させる機能のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アプリケーションを代替ノードに転送して実行するためのホットプラグ機能が働く。",
+        "アプリケーションを再び動かすために，代替ノードを再起動する機能が働く。",
+        "障害ノードを排除して代替ノードでアプリケーションを実行させるフェールオーバー機能が働く。",
+        "ノード間の通信が途切れるので，クラスタの再構成を行うフェールバック機能が働く。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_5.html",
+      "public_question_id": "33b8bb4fd4d764ca",
+      "original_question_id": "33b8bb4fd4d764ca",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "主系",
+        "予備系",
+        "フェールオーバー",
+        "自動的、かつ継ぎ目なしに",
+        "自律的に"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ホットプラグ(ホットスワップ)は、コンピュータの電源が入っている状態で周辺機器の脱着を行える仕組みです。手動でシステムの切り替えを行う場合には停止時間の短縮に寄与します。"
+        ],
+        [
+          "再起動が行われると処理の停止時間が生じるため誤りです。HAシステムではすぐに処理が引き継げる状態で予備系を待機させておく必要があります。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "フェールバックは、システム障害時にフェールオーバー機能などにより主系から予備系に引き継がれた処理を、障害回復後に主系に戻す機能のため障害発生時の信頼性とは無関係です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問5:https://www.nw-siken.com/kakomon/27_aki/am1_5.html"
+    },
+    {
+      "questionBodyText": "デマンドページング方式による仮想記憶の利点はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "実際にアクセスが行われたときにだけ主記憶にロードするので，無駄なページをロードしなくて済む。",
+        "主記憶に対する仮想記憶の容量比を大きくするほど，ページフォールトの発生頻度を低くできる。",
+        "プロセスが必要とするページを前もって主記憶にロードするので，補助記憶へのアクセスによる遅れを避けることができる。",
+        "ページフォールトの発生頻度が極端に高くなっても，必要な場合にしかページを読み込まないのでスラッシング状態を回避できる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_6.html",
+      "public_question_id": "a8146b5b7b3dedbe",
+      "original_question_id": "a8146b5b7b3dedbe",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ページング",
+        "デマンドページング\nデマンド(demand)とは要求を意味する英語で、その名の通りアクセス要求があった時に要求があったページのみを主記憶に読み込む方式。\nメモリ使用量を節約できる、プログラム開始時の主記憶へのロードによる遅延がない、ページの読込みが最小限で済むなどの利点があり、実際のOSでは基本的にこの方式が用いられている。\nプリページング\nページにアクセス要求がある前に、前もって参照されそうなページを主記憶に読み込んでおく方式。\nアクセス要求があった時に周辺のページも同時に主記憶に読み込んだり、プログラムのロード時にたくさんのページを読み込んでおくことで、メモリ使用量は増加するがメモリアクセスの効率を向上させることができる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。デマンドページング方式の利点です。"
+        ],
+        [
+          "仮想記憶として管理するページ数が増えるほどページフォールトの頻度は増加します。"
+        ],
+        [
+          "プリページング方式の利点です。"
+        ],
+        [
+          "ページフォールトの回数と同じだけページ入替えが発生するので、ページフォールトの回数が非常に多くなればスラッシング状態に陥る可能性があります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201502:am:問6:https://www.nw-siken.com/kakomon/27_aki/am1_6.html"
+    },
+    {
+      "questionBodyText": "ワンチップマイコンにおける内部クロック発生器のブロック図を示す。15MHzの発振器と，内部のPLL1，PLL2及び分周器の組合せでCPUに240MHz，シリアル通信(SIO)に115kHzのクロック信号を供給する場合の分周器の値は幾らか。ここで，シリアル通信のクロック精度は±5%以内に収まればよいものとする。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "1／24",
+        "1／26",
+        "1／28",
+        "1／210"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ハードウェア » ハードウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ハードウェア",
+        "ハードウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ハードウェア",
+      "categorySmall": "ハードウェア",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_7.html",
+      "public_question_id": "c66709acf066186b",
+      "original_question_id": "c66709acf066186b",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc66709acf066186b_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "6",
+        "3",
+        "3",
+        "10",
+        "10"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "発振器から出力された15MHzは、PLL1で8倍にされて120MHzになります。その後PLL2でさらに2倍されて240MHzのクロック信号がCPUに届けられます。\n問題の分周器の値ですが、分周器への入力が120MHz、SIO(シリアル通信)に供給されるクロック信号は115kHzなので、およそ1／1000の値になっていることに気が付きます。120×106\n÷(115×103\n)≒103よって、分周器の値は約1／1000に設定すればよいことになります。1000を2の累乗で表すと最も近いのが「1024＝210\n」ですから、答えは1／210となります。"
+        ],
+        [
+          "発振器から出力された15MHzは、PLL1で8倍にされて120MHzになります。その後PLL2でさらに2倍されて240MHzのクロック信号がCPUに届けられます。\n問題の分周器の値ですが、分周器への入力が120MHz、SIO(シリアル通信)に供給されるクロック信号は115kHzなので、およそ1／1000の値になっていることに気が付きます。120×106\n÷(115×103\n)≒103よって、分周器の値は約1／1000に設定すればよいことになります。1000を2の累乗で表すと最も近いのが「1024＝210\n」ですから、答えは1／210となります。"
+        ],
+        [
+          "発振器から出力された15MHzは、PLL1で8倍にされて120MHzになります。その後PLL2でさらに2倍されて240MHzのクロック信号がCPUに届けられます。\n問題の分周器の値ですが、分周器への入力が120MHz、SIO(シリアル通信)に供給されるクロック信号は115kHzなので、およそ1／1000の値になっていることに気が付きます。120×106\n÷(115×103\n)≒103よって、分周器の値は約1／1000に設定すればよいことになります。1000を2の累乗で表すと最も近いのが「1024＝210\n」ですから、答えは1／210となります。"
+        ],
+        [
+          "発振器から出力された15MHzは、PLL1で8倍にされて120MHzになります。その後PLL2でさらに2倍されて240MHzのクロック信号がCPUに届けられます。\n問題の分周器の値ですが、分周器への入力が120MHz、SIO(シリアル通信)に供給されるクロック信号は115kHzなので、およそ1／1000の値になっていることに気が付きます。120×106\n÷(115×103\n)≒103よって、分周器の値は約1／1000に設定すればよいことになります。1000を2の累乗で表すと最も近いのが「1024＝210\n」ですから、答えは1／210となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問7:https://www.nw-siken.com/kakomon/27_aki/am1_7.html"
+    },
+    {
+      "questionBodyText": "コードの値からデータの対象物が連想できるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "シーケンスコード",
+        "デシマルコード",
+        "ニモニックコード",
+        "ブロックコード"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ユーザーインタフェース » UX/UIデザイン",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ユーザーインタフェース",
+        "UX/UIデザイン"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ユーザーインタフェース",
+      "categorySmall": "UX/UIデザイン",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_8.html",
+      "public_question_id": "96584671e9054852",
+      "original_question_id": "96584671e9054852",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ニモニックコード"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "シーケンスコードは、順番コードともいい、0001→0002→0003→…→9999 というように連続した値をデータに1つずつ割り当てていく方法です。"
+        ],
+        [
+          "デシマルコードは、10進コードとも言い、全てのデータを0～9の10グループに分割し、さらにグループごとに10個のサブグループに分割することを繰り返していく方法です。図書コード内の分類コードで使用されています。"
+        ],
+        [
+          "正しい。ニモニックコードは、値からデータの対象物が連想できるコードです。"
+        ],
+        [
+          "ブロックコードは、区分コードとも言い、営業部は1000～1999、企画部は2000～2999 というようにグループごとに定められた範囲内でコードを割り当てる方法です。上位桁を見れば属しているグループがわかるという特徴があります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問8:https://www.nw-siken.com/kakomon/27_aki/am1_8.html"
+    },
+    {
+      "questionBodyText": "デジタルハイビジョン対応のビデオカメラやワンセグの映像圧縮符号化方式として採用されているものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "AC-3",
+        "G.729",
+        "H.264/AVC",
+        "MPEG-1"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 情報メディア » マルチメディア技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "情報メディア",
+        "マルチメディア技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "情報メディア",
+      "categorySmall": "マルチメディア技術",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_9.html",
+      "public_question_id": "560ef606db10bb45",
+      "original_question_id": "560ef606db10bb45",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "H.264/AVC",
+        "2倍以上"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Audio Code number 3の略。ドルビーデジタルとも呼ばれ、DVDビデオなどに記録するのに用いられる音声のデジタル符号化方式です。"
+        ],
+        [
+          "G.729は、人の声を対象とした音声圧縮アルゴリズムでVoIP(Voice over Internet Protocol)環境で利用されています。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "MPEG-1は、主にビデオCDに1時間程度の動画を記録することを目的に設計された方式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問9:https://www.nw-siken.com/kakomon/27_aki/am1_9.html"
+    },
+    {
+      "questionBodyText": "チェックポイントを取得するDBMSにおいて，図のような時間経過でシステム障害が発生した。前進復帰(ロールフォワード)によって障害回復できるすべてのトランザクションはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "T1",
+        "T2 と T3",
+        "T4 と T5",
+        "T5"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » トランザクション処理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "トランザクション処理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "トランザクション処理",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_10.html",
+      "public_question_id": "8e9a700191132f6b",
+      "original_question_id": "8e9a700191132f6b",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8e9a700191132f6b_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ロールフォワード",
+        "T1チェックポイント前にコミットされているので、コミットの内容は復帰後のデータベースに反映されている。よって、何もしない。T2、T3トランザクション処理中に障害が起こったので、原子性に基づき、データベースをトランザクション開始前の状態に戻す。よって、ロールバックを行う。T4、T5チェックポイント後、障害発生前にコミットがあったので、永続性に基づき、失われたコミットの内容を復帰後のデータベースに反映させる。よって、ロールフォワードを行う。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ロールフォワード\n(前進復帰)は、データベースシステムに障害が起こったとき、トランザクションの更新後ログを使用することで過去に処理したトランザクションを再現し、システム障害の直前までデータベースの状態を回復させる処理です。\nシステム障害から復帰すると、データベースの状態はチェックポイント時点のデータに戻ります。トランザクションには、処理がすべて実行されるか・全く実行されないかのどちらか終了する性質（原子性）と、一旦正常終了したトランザクションの結果は、その後システムに障害が発生しても失われない性質（永続性）が要求されますから、復帰後はこの性質を満たすためにロールフォワードやロールバックが行われます。\n図の5つのトランザクションは、復帰後の対処によって3つのグループに分かれます。T1チェックポイント前にコミットされているので、コミットの内容は復帰後のデータベースに反映されている。よって、何もしない。T2、T3トランザクション処理中に障害が起こったので、原子性に基づき、データベースをトランザクション開始前の状態に戻す。よって、ロールバックを行う。T4、T5チェックポイント後、障害発生前にコミットがあったので、永続性に基づき、失われたコミットの内容を復帰後のデータベースに反映させる。よって、ロールフォワードを行う。\n以上より、前進復帰の対象となるのは「最後のチェックポイントからシステム障害発生までの間」にコミットされたトランザクションとなります。したがって正解は「T4とT5」です。"
+        ],
+        [
+          "ロールフォワード\n(前進復帰)は、データベースシステムに障害が起こったとき、トランザクションの更新後ログを使用することで過去に処理したトランザクションを再現し、システム障害の直前までデータベースの状態を回復させる処理です。\nシステム障害から復帰すると、データベースの状態はチェックポイント時点のデータに戻ります。トランザクションには、処理がすべて実行されるか・全く実行されないかのどちらか終了する性質（原子性）と、一旦正常終了したトランザクションの結果は、その後システムに障害が発生しても失われない性質（永続性）が要求されますから、復帰後はこの性質を満たすためにロールフォワードやロールバックが行われます。\n図の5つのトランザクションは、復帰後の対処によって3つのグループに分かれます。T1チェックポイント前にコミットされているので、コミットの内容は復帰後のデータベースに反映されている。よって、何もしない。T2、T3トランザクション処理中に障害が起こったので、原子性に基づき、データベースをトランザクション開始前の状態に戻す。よって、ロールバックを行う。T4、T5チェックポイント後、障害発生前にコミットがあったので、永続性に基づき、失われたコミットの内容を復帰後のデータベースに反映させる。よって、ロールフォワードを行う。\n以上より、前進復帰の対象となるのは「最後のチェックポイントからシステム障害発生までの間」にコミットされたトランザクションとなります。したがって正解は「T4とT5」です。"
+        ],
+        [
+          "ロールフォワード\n(前進復帰)は、データベースシステムに障害が起こったとき、トランザクションの更新後ログを使用することで過去に処理したトランザクションを再現し、システム障害の直前までデータベースの状態を回復させる処理です。\nシステム障害から復帰すると、データベースの状態はチェックポイント時点のデータに戻ります。トランザクションには、処理がすべて実行されるか・全く実行されないかのどちらか終了する性質（原子性）と、一旦正常終了したトランザクションの結果は、その後システムに障害が発生しても失われない性質（永続性）が要求されますから、復帰後はこの性質を満たすためにロールフォワードやロールバックが行われます。\n図の5つのトランザクションは、復帰後の対処によって3つのグループに分かれます。T1チェックポイント前にコミットされているので、コミットの内容は復帰後のデータベースに反映されている。よって、何もしない。T2、T3トランザクション処理中に障害が起こったので、原子性に基づき、データベースをトランザクション開始前の状態に戻す。よって、ロールバックを行う。T4、T5チェックポイント後、障害発生前にコミットがあったので、永続性に基づき、失われたコミットの内容を復帰後のデータベースに反映させる。よって、ロールフォワードを行う。\n以上より、前進復帰の対象となるのは「最後のチェックポイントからシステム障害発生までの間」にコミットされたトランザクションとなります。したがって正解は「T4とT5」です。"
+        ],
+        [
+          "ロールフォワード\n(前進復帰)は、データベースシステムに障害が起こったとき、トランザクションの更新後ログを使用することで過去に処理したトランザクションを再現し、システム障害の直前までデータベースの状態を回復させる処理です。\nシステム障害から復帰すると、データベースの状態はチェックポイント時点のデータに戻ります。トランザクションには、処理がすべて実行されるか・全く実行されないかのどちらか終了する性質（原子性）と、一旦正常終了したトランザクションの結果は、その後システムに障害が発生しても失われない性質（永続性）が要求されますから、復帰後はこの性質を満たすためにロールフォワードやロールバックが行われます。\n図の5つのトランザクションは、復帰後の対処によって3つのグループに分かれます。T1チェックポイント前にコミットされているので、コミットの内容は復帰後のデータベースに反映されている。よって、何もしない。T2、T3トランザクション処理中に障害が起こったので、原子性に基づき、データベースをトランザクション開始前の状態に戻す。よって、ロールバックを行う。T4、T5チェックポイント後、障害発生前にコミットがあったので、永続性に基づき、失われたコミットの内容を復帰後のデータベースに反映させる。よって、ロールフォワードを行う。\n以上より、前進復帰の対象となるのは「最後のチェックポイントからシステム障害発生までの間」にコミットされたトランザクションとなります。したがって正解は「T4とT5」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問10:https://www.nw-siken.com/kakomon/27_aki/am1_10.html"
+    },
+    {
+      "questionBodyText": "図のようなネットワーク構成のシステムにおいて，同じメッセージ長のデータをホストコンピュータとの間で送受信した場合のターンアラウンドタイムは，端末Aでは100ミリ秒，端末Bでは820ミリ秒であった。上り，下りのメッセージ長は同じ長さで，ホストコンピュータでの処理時間は端末A，端末Bのどちらから利用しても同じとするとき，端末Aからホストコンピュータへの片道の伝送時間は何ミリ秒か。ここで，ターンアラウンドタイムは，端末がデータを回線に送信し始めてから応答データを受信し終わるまでの時間とし，伝送時間は回線速度だけに依存するものとする。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "10",
+        "20",
+        "30",
+        "40"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク方式",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク方式"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク方式",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_11.html",
+      "public_question_id": "8a0bb645df732631",
+      "original_question_id": "8a0bb645df732631",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8a0bb645df732631_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "2つの回線の速度差に着目して答えを導いていきます。\nまずホストコンピュータでの処理時間を求めます。\n伝送時間はターンアラウンドタイムからホストコンピュータの処理時間を差し引いた時間なので、ホストコンピュータの処理時間を a とすると、次のような式で表せます。\n端末A：(100－a)ミリ秒\n端末B：(820－a)ミリ秒\nこの値と2つの回線速度の速度差が「10倍」であることを利用すると\n(100－a)×10＝820－aという方程式を立てることができます。この式を解きホストコンピュータでの処理時間を導きます。\n(100－a)×10＝820－a1000－10a＝820－a180＝9aa＝20ミリ秒\n上り、下りのメッセージ長は同じ長さですから、端末Aのターンアラウンドタイムからホストコンピュータでの処理時間を差し引いて、それを半分にすれば片道の伝送時間がわかります。\n(100－20)÷2＝40ミリ秒\nしたがって「エ」が正解です。"
+        ],
+        [
+          "2つの回線の速度差に着目して答えを導いていきます。\nまずホストコンピュータでの処理時間を求めます。\n伝送時間はターンアラウンドタイムからホストコンピュータの処理時間を差し引いた時間なので、ホストコンピュータの処理時間を a とすると、次のような式で表せます。\n端末A：(100－a)ミリ秒\n端末B：(820－a)ミリ秒\nこの値と2つの回線速度の速度差が「10倍」であることを利用すると\n(100－a)×10＝820－aという方程式を立てることができます。この式を解きホストコンピュータでの処理時間を導きます。\n(100－a)×10＝820－a1000－10a＝820－a180＝9aa＝20ミリ秒\n上り、下りのメッセージ長は同じ長さですから、端末Aのターンアラウンドタイムからホストコンピュータでの処理時間を差し引いて、それを半分にすれば片道の伝送時間がわかります。\n(100－20)÷2＝40ミリ秒\nしたがって「エ」が正解です。"
+        ],
+        [
+          "2つの回線の速度差に着目して答えを導いていきます。\nまずホストコンピュータでの処理時間を求めます。\n伝送時間はターンアラウンドタイムからホストコンピュータの処理時間を差し引いた時間なので、ホストコンピュータの処理時間を a とすると、次のような式で表せます。\n端末A：(100－a)ミリ秒\n端末B：(820－a)ミリ秒\nこの値と2つの回線速度の速度差が「10倍」であることを利用すると\n(100－a)×10＝820－aという方程式を立てることができます。この式を解きホストコンピュータでの処理時間を導きます。\n(100－a)×10＝820－a1000－10a＝820－a180＝9aa＝20ミリ秒\n上り、下りのメッセージ長は同じ長さですから、端末Aのターンアラウンドタイムからホストコンピュータでの処理時間を差し引いて、それを半分にすれば片道の伝送時間がわかります。\n(100－20)÷2＝40ミリ秒\nしたがって「エ」が正解です。"
+        ],
+        [
+          "2つの回線の速度差に着目して答えを導いていきます。\nまずホストコンピュータでの処理時間を求めます。\n伝送時間はターンアラウンドタイムからホストコンピュータの処理時間を差し引いた時間なので、ホストコンピュータの処理時間を a とすると、次のような式で表せます。\n端末A：(100－a)ミリ秒\n端末B：(820－a)ミリ秒\nこの値と2つの回線速度の速度差が「10倍」であることを利用すると\n(100－a)×10＝820－aという方程式を立てることができます。この式を解きホストコンピュータでの処理時間を導きます。\n(100－a)×10＝820－a1000－10a＝820－a180＝9aa＝20ミリ秒\n上り、下りのメッセージ長は同じ長さですから、端末Aのターンアラウンドタイムからホストコンピュータでの処理時間を差し引いて、それを半分にすれば片道の伝送時間がわかります。\n(100－20)÷2＝40ミリ秒\nしたがって「エ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問11:https://www.nw-siken.com/kakomon/27_aki/am1_11.html"
+    },
+    {
+      "questionBodyText": "公開鍵暗号方式の暗号アルゴリズムはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "AES",
+        "KCipher-2",
+        "RSA",
+        "SHA-256"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_12.html",
+      "public_question_id": "bb4b0faa3396a9f5",
+      "original_question_id": "bb4b0faa3396a9f5",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Advanced Encryption Standardの略。アメリカ合衆国の次世代暗号方式として規格化された共通鍵暗号方式です。"
+        ],
+        [
+          "ケーサイファー・ツーと読みます。2007年に九州大学とKDDI研究所により共同開発された共通鍵暗号方式です。"
+        ],
+        [
+          "正しい。RSA\n(Rivest Shamir Adleman)は、桁数が大きい合成数の素因数分解が困難であることを安全性の根拠とした公開鍵暗号の一つです。数字の桁数がそのまま安全強度につながるため、実際のRSAでは合成数の元となる2つの素数に150～300もの桁数の数を使用します。"
+        ],
+        [
+          "Secure Hash Algorithm 256の略。入力データから256ビットのハッシュ値を出力するハッシュ関数です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問12:https://www.nw-siken.com/kakomon/27_aki/am1_12.html"
+    },
+    {
+      "questionBodyText": "ゼロデイ攻撃の特徴はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "セキュリティパッチが提供される前にパッチが対象とする脆弱性を攻撃する。",
+        "特定のWebサイトに対し，日時を決めて，複数台のPCから同時に攻撃する。",
+        "特定のターゲットに対し，フィッシングメールを送信して不正サイトへ誘導する。",
+        "不正中継が可能なメールサーバを見つけた後，それを踏み台にチェーンメールを大量に送信する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_13.html",
+      "public_question_id": "f980c3ffc45ed049",
+      "original_question_id": "f980c3ffc45ed049",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ゼロデイ攻撃"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。ゼロデイ攻撃の特徴です。"
+        ],
+        [
+          "DDoS攻撃の特徴です。"
+        ],
+        [
+          "フィッシングの特徴です。"
+        ],
+        [
+          "スパムメール送信行為の特徴です。外部からの不正中継を許可しているSMTPサーバはスパムメールの踏み台にされてしまいます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201502:am:問13:https://www.nw-siken.com/kakomon/27_aki/am1_13.html"
+    },
+    {
+      "questionBodyText": "ブルートフォース攻撃に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "WebブラウザとWebサーバの間の通信で，認証が成功してセッションが開始されているときに，Cookieなどのセッション情報を盗む。",
+        "可能性がある文字のあらゆる組合せのパスワードでログインを試みる。",
+        "コンピュータへのキ一入力を全て記録して外部に送信する。",
+        "盗聴者が正当な利用者のログインシーケンスをそのまま記録してサーバに送信する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_14.html",
+      "public_question_id": "5dfb94676b4616bb",
+      "original_question_id": "5dfb94676b4616bb",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ブルートフォース攻撃"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "セッションハイジャックの説明です。"
+        ],
+        [
+          "正しい。ブルートフォース攻撃の説明です。"
+        ],
+        [
+          "キーロガーの説明です。"
+        ],
+        [
+          "リプレイアタックの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201502:am:問14:https://www.nw-siken.com/kakomon/27_aki/am1_14.html"
+    },
+    {
+      "questionBodyText": "ペネトレーションテストの目的はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "暗号化で使用している暗号方式と鍵長が，設計仕様と一致することを確認する。",
+        "対象プログラムの入力に対する出力結果が，出力仕様と一致することを確認する。",
+        "ファイアウォールが単位時間当たりに処理できるセッション数を確認する。",
+        "ファイアウォールや公開サーバに対して侵入できないかどうかを確認する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ技術評価",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ技術評価"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ技術評価",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_15.html",
+      "public_question_id": "893ba896617ca9f1",
+      "original_question_id": "893ba896617ca9f1",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ペネトレーションテスト"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "暗号モジュール試験の目的です。"
+        ],
+        [
+          "ブラックボックステストの目的です。"
+        ],
+        [
+          "負荷テストの目的です。"
+        ],
+        [
+          "正しい。ペネトレーションテストの目的です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問15:https://www.nw-siken.com/kakomon/27_aki/am1_15.html"
+    },
+    {
+      "questionBodyText": "DFDにおけるデータストアの性質として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "最終的には，開発されたシステムの物理ファイルとなる。",
+        "データストア自体が，データを作成したり変更したりすることがある。",
+        "データストアに入ったデータが出て行くときは，データフロー以外のものを通ることがある。",
+        "ほかのデータストアと直接にデータフローで結ばれることはなく，処理が介在する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_16.html",
+      "public_question_id": "80632e72d1969257",
+      "original_question_id": "80632e72d1969257",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "DFD"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "データストアは、データが蓄積される場所を論理的に表現したものです。システム化によって電子データ化されるとファイルやデータベースとして実装されますが、システム化の範囲によってはファイル棚や紙媒体のままということも考えられます。"
+        ],
+        [
+          "データストア自身がデータの加工を行うことはありません。データの作成や更新はプロセスで行います。"
+        ],
+        [
+          "データの流れは必ずデータフローによって記述されます。"
+        ],
+        [
+          "正しい。データストアは要求されたデータをプロセスに渡したり、プロセスから渡されたデータを蓄積する場所です。データストア同士がデータフローで結ばれることはありません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問16:https://www.nw-siken.com/kakomon/27_aki/am1_16.html"
+    },
+    {
+      "questionBodyText": "共通フレームをプロジェクトに適用する場合の考え方のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "JIS規格に基づいているので，個々のプロジェクトの都合でアクティビティやタスクを変えずに，そのまま適用する。",
+        "共通フレームで規定しているプロセスの実施順序に合わせて，作業手順を決めて適用する。",
+        "共通フレームで推奨している開発モデル，技法やツールを取捨選択して適用する。",
+        "プロジェクトの特性や開発モデルに合わせて，アクティビティやタスクを取捨選択して適用する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_17.html",
+      "public_question_id": "646e4517ca270cec",
+      "original_question_id": "646e4517ca270cec",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "共通フレーム",
+        "修整"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プロジェクト規模や適用する開発モデルによって実施すべき作業項目は変化するため、プロセスごとにアクティビティとタスクを取捨選択する必要があります。"
+        ],
+        [
+          "共通フレームでは工程の順序や時間について規定していません。"
+        ],
+        [
+          "共通フレームは、特定の開発モデル、技法及びツールに依存しない規格です。そのため推奨している開発モデル等はありません。"
+        ],
+        [
+          "正しい。共通フレームの適用に当たっては、使用する開発モデルに対して定義された作業項目をマッピングする(あてはめる)必要があります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問17:https://www.nw-siken.com/kakomon/27_aki/am1_17.html"
+    },
+    {
+      "questionBodyText": "プロジェクト管理においてパフォーマンス測定に使用するEVMの管理対象の組みはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "コスト，スケジュール",
+        "コスト，リスク",
+        "スケジュール，品質",
+        "品質，リスク"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_18.html",
+      "public_question_id": "878a362d9f634c2c",
+      "original_question_id": "878a362d9f634c2c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "EVM",
+        "コスト",
+        "スケジュール"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201502:am:問18:https://www.nw-siken.com/kakomon/27_aki/am1_18.html"
+    },
+    {
+      "questionBodyText": "図に示すとおりに作業を実施する予定であったが，作業Aで1日の遅れが生じた。各作業の費用増加率を表の値とするとき，当初の予定日数で終了するために掛かる増加費用を最も少なくするには，どの作業を短縮すべきか。ここで，費用増加率とは，作業を1日短縮するのに要する増加費用のことである。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_19.html",
+      "public_question_id": "b52c5a4a687cc095",
+      "original_question_id": "b52c5a4a687cc095",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqb52c5a4a687cc095_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "A→B→E→G4＋6＋5＋5＝20日\nA→C→G4＋8＋5＝17日\nA→D→F→G4＋4＋4＋5＝＝17日",
+        "E"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "アローダイアグラムの問題なので、まずは当初計画のスケジュールにおけるクリティカルパスを求めます。A→B→E→G4＋6＋5＋5＝20日\nA→C→G4＋8＋5＝17日\nA→D→F→G4＋4＋4＋5＝＝17日\n以上より、クリティカルパスは「A→B→E→G」、プロジェクト全体の最短完了日数は20日であったことがわかります。\n設問では作業Aが1日遅れたとあります。作業Aはクリティカルパス上の作業ですから、このままだとプロジェクト全体でも1日遅れてしまうことになります。この遅れを取り戻すには、同じくクリティカルパス上の作業を1日短縮する必要があります。\n残るクリティカルパス上の作業はB、E、Gなので、この3つの作業の費用増加率を比べると、費用増加率はB=6、E=2.5、G=5と、作業Eが最も少ないです。したがって、増加費用を最も少なくするためには作業\nEを短縮することになります。"
+        ],
+        [
+          "アローダイアグラムの問題なので、まずは当初計画のスケジュールにおけるクリティカルパスを求めます。A→B→E→G4＋6＋5＋5＝20日\nA→C→G4＋8＋5＝17日\nA→D→F→G4＋4＋4＋5＝＝17日\n以上より、クリティカルパスは「A→B→E→G」、プロジェクト全体の最短完了日数は20日であったことがわかります。\n設問では作業Aが1日遅れたとあります。作業Aはクリティカルパス上の作業ですから、このままだとプロジェクト全体でも1日遅れてしまうことになります。この遅れを取り戻すには、同じくクリティカルパス上の作業を1日短縮する必要があります。\n残るクリティカルパス上の作業はB、E、Gなので、この3つの作業の費用増加率を比べると、費用増加率はB=6、E=2.5、G=5と、作業Eが最も少ないです。したがって、増加費用を最も少なくするためには作業\nEを短縮することになります。"
+        ],
+        [
+          "アローダイアグラムの問題なので、まずは当初計画のスケジュールにおけるクリティカルパスを求めます。A→B→E→G4＋6＋5＋5＝20日\nA→C→G4＋8＋5＝17日\nA→D→F→G4＋4＋4＋5＝＝17日\n以上より、クリティカルパスは「A→B→E→G」、プロジェクト全体の最短完了日数は20日であったことがわかります。\n設問では作業Aが1日遅れたとあります。作業Aはクリティカルパス上の作業ですから、このままだとプロジェクト全体でも1日遅れてしまうことになります。この遅れを取り戻すには、同じくクリティカルパス上の作業を1日短縮する必要があります。\n残るクリティカルパス上の作業はB、E、Gなので、この3つの作業の費用増加率を比べると、費用増加率はB=6、E=2.5、G=5と、作業Eが最も少ないです。したがって、増加費用を最も少なくするためには作業\nEを短縮することになります。"
+        ],
+        [
+          "アローダイアグラムの問題なので、まずは当初計画のスケジュールにおけるクリティカルパスを求めます。A→B→E→G4＋6＋5＋5＝20日\nA→C→G4＋8＋5＝17日\nA→D→F→G4＋4＋4＋5＝＝17日\n以上より、クリティカルパスは「A→B→E→G」、プロジェクト全体の最短完了日数は20日であったことがわかります。\n設問では作業Aが1日遅れたとあります。作業Aはクリティカルパス上の作業ですから、このままだとプロジェクト全体でも1日遅れてしまうことになります。この遅れを取り戻すには、同じくクリティカルパス上の作業を1日短縮する必要があります。\n残るクリティカルパス上の作業はB、E、Gなので、この3つの作業の費用増加率を比べると、費用増加率はB=6、E=2.5、G=5と、作業Eが最も少ないです。したがって、増加費用を最も少なくするためには作業\nEを短縮することになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問19:https://www.nw-siken.com/kakomon/27_aki/am1_19.html"
+    },
+    {
+      "questionBodyText": "ITサービスマネジメントにおける問題管理プロセスにおいて実施することはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "インシデントの発生後に暫定的にサービスを復旧させ，業務を継続できるようにする。",
+        "インシデントの発生後に未知の根本原因を特定し，恒久的な解決策を策定する。",
+        "インシデントの発生に備えて，復旧のための設計をする。",
+        "インシデントの発生を記録し，関係する部署に状況を連絡する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメントプロセス",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメントプロセス"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメントプロセス",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_20.html",
+      "public_question_id": "6c0ea47c37e2e165",
+      "original_question_id": "6c0ea47c37e2e165",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "問題管理"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "インシデント管理の役割です。"
+        ],
+        [
+          "正しい。問題管理の役割です。"
+        ],
+        [
+          "ITサービス継続性管理の役割です。"
+        ],
+        [
+          "サービスデスクの役割です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201502:am:問20:https://www.nw-siken.com/kakomon/27_aki/am1_20.html"
+    },
+    {
+      "questionBodyText": "システム監査人が，予備調査において実施する作業として，\"システム監査基準\"に照らして適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "監査テーマに基づいて，監査項目を設定し，監査手続を策定し，個別監査計画書に記載する。",
+        "経営トップにヒアリングを行い，経営戦略・方針，現在抱えている問題についての認識を確認し，監査テーマを設定する。",
+        "個別監査計画を策定するために，監査スケジュールについて被監査部門と調整を図る。",
+        "被監査部門から事前に入手した資料を閲覧し，監査対象の実態を明確に把握する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_21.html",
+      "public_question_id": "f74493e5be77fe52",
+      "original_question_id": "f74493e5be77fe52",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "予備調査"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "予備調査\nは、本調査の前に監査対象システムの概要を把握するために実施される調査です。\n具体的には関連資料のレビューや簡易的なチェックリストの分析を通じて、監査対象システムの現状や潜在的問題点など本調査を効果的に行うための情報を収集します。予備調査の結果如何によっては本調査の計画が見直されることもあります。\nしたがって適切な記述は「エ」です。その他の選択肢は個別監査計画策定時の作業です。"
+        ],
+        [
+          "予備調査\nは、本調査の前に監査対象システムの概要を把握するために実施される調査です。\n具体的には関連資料のレビューや簡易的なチェックリストの分析を通じて、監査対象システムの現状や潜在的問題点など本調査を効果的に行うための情報を収集します。予備調査の結果如何によっては本調査の計画が見直されることもあります。\nしたがって適切な記述は「エ」です。その他の選択肢は個別監査計画策定時の作業です。"
+        ],
+        [
+          "予備調査\nは、本調査の前に監査対象システムの概要を把握するために実施される調査です。\n具体的には関連資料のレビューや簡易的なチェックリストの分析を通じて、監査対象システムの現状や潜在的問題点など本調査を効果的に行うための情報を収集します。予備調査の結果如何によっては本調査の計画が見直されることもあります。\nしたがって適切な記述は「エ」です。その他の選択肢は個別監査計画策定時の作業です。"
+        ],
+        [
+          "予備調査\nは、本調査の前に監査対象システムの概要を把握するために実施される調査です。\n具体的には関連資料のレビューや簡易的なチェックリストの分析を通じて、監査対象システムの現状や潜在的問題点など本調査を効果的に行うための情報を収集します。予備調査の結果如何によっては本調査の計画が見直されることもあります。\nしたがって適切な記述は「エ」です。その他の選択肢は個別監査計画策定時の作業です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201502:am:問21:https://www.nw-siken.com/kakomon/27_aki/am1_21.html"
+    },
+    {
+      "questionBodyText": "販売管理システムにおいて，起票された受注伝票が漏れなく，重複することなく入力されていることを確かめる監査手続のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "受注データから値引取引データなどの例外取引データを抽出し，承認の記録を確かめる。",
+        "受注伝票の入力時に論理チェック及びフォーマットチェックが行われているか，テストデータ法で確かめる。",
+        "プルーフリストと受注伝票との照合が行われているか，プルーフリスト又は受注伝票上の照合印を確かめる。",
+        "並行シミュレーション法を用いて，受注伝票を処理するプログラムの論理の正当性を確かめる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_22.html",
+      "public_question_id": "24a3bfb5ea75af3e",
+      "original_question_id": "24a3bfb5ea75af3e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "例外処理の修正と再処理に関するコントロールです。受注伝票の入力とは関係がないので不適切です。"
+        ],
+        [
+          "テストデータ法は、監査対象のシステムにテストデータを入力し、処理の正当性を確認する方法です。入力データの正確性を確かめるための監査手続であり、漏れや重複は確認できません。"
+        ],
+        [
+          "正しい。プルーフリストは、入力データを加工せずにそのまま印刷した文書で、マスタデータへの登録時に原票と照合することにより、入力が原票どおりに行われたかどうかを確認するために用いられます。したがって、プルーフリストと受注伝票との照合が行われているか、照合の記録があるかを確認すれば、入力が漏れや重複なく実施されていることを確認できます。"
+        ],
+        [
+          "並行シミュレーション法は、監査人が用意した検証用プログラムに監査対象プログラムと同一のデータを入力して両者の実行結果を比較する方法です。入力データの正当性を確かめるための監査手続であり、漏れや重複は確認できません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問22:https://www.nw-siken.com/kakomon/27_aki/am1_22.html"
+    },
+    {
+      "questionBodyText": "\"システム管理基準\"によれば，情報戦略における情報システム全体の最適化目標を設定する際の留意事項はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "開発，運用及び保守の費用の算出基礎を明確にすること",
+        "開発の規模，システム特性等を考慮して開発手順を決めておくこと",
+        "経営戦略との整合性を考慮すること",
+        "必要な要員，予算，設備，期間等を確保すること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_23.html",
+      "public_question_id": "3d916b1a28d92cee",
+      "original_question_id": "3d916b1a28d92cee",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "システム管理基準",
+        "ITガバナンスの方針を明確にすること。\n情報化投資及び情報化構想の決定における原則を定めること。\n情報システム全体の最適化目標を経営戦略に基づいて設定すること。\n組織体全体の情報システムのあるべき姿を明確にすること。\nシステム化によって生ずる組織及び業務の変更の方針を明確にすること。\n情報セキュリティ基本方針を明確にすること。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "開発計画を策定する際の留意事項です。"
+        ],
+        [
+          "開発計画を策定する際の留意事項です。"
+        ],
+        [
+          "正しい。最適化目標を設定する際の留意事項です。"
+        ],
+        [
+          "調達を実施する際の留意事項として記述されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問23:https://www.nw-siken.com/kakomon/27_aki/am1_23.html"
+    },
+    {
+      "questionBodyText": "情報システムの調達の際に作成されるRFIの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "調達者から供給者候補に対して，システム化の目的や業務内容などを示し，情報の提供を依頼すること",
+        "調達者から供給者候補に対して，対象システムや調達条件などを示し，提案書の提出を依頼すること",
+        "調達者から供給者に対して，契約内容で取り決めた内容に関して，変更を要請すること",
+        "調達者から供給者に対して，双方の役割分担などを確認し，契約の締結を要請すること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_24.html",
+      "public_question_id": "62fdd2ee3ed3e706",
+      "original_question_id": "62fdd2ee3ed3e706",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "RFI",
+        "RFP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。RFIの説明です。"
+        ],
+        [
+          "RFP(Request for Proposal：提案依頼書)の説明です。"
+        ],
+        [
+          "RFC(Request for Change：変更依頼書)の説明です。"
+        ],
+        [
+          "契約締結依頼書の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201502:am:問24:https://www.nw-siken.com/kakomon/27_aki/am1_24.html"
+    },
+    {
+      "questionBodyText": "環境省の環境表示ガイドラインによれば，環境表示の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "温室効果ガスを削減するために，企業や国が排出枠を決め，温室効果ガスが排出枠に届かない不足分と，排出枠に収まらない超過分を，企業や国が市場で取引することを明らかにしたもの",
+        "国や地方公共団体などの公的機関が，率先して環境物品(環境負荷の低減に資する製品やサービス)の調達を推進するなど，環境物品への需要の転換を促進するために必要な事項を規定したもの",
+        "製品やサービスについて，環境に配慮した点や環境負荷の低減効果などの特徴，事業者の環境配慮への姿勢を，説明文やシンボルマーク，図表などを通して主張したもの",
+        "風力，太陽光，バイオマスなどの再生可能エネルギーによって発電されたグリーン電力が，化石燃料に比較して温室効果ガスの排出量が少ないなどという環境付加価値を取引可能な証書にしたもの"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_25.html",
+      "public_question_id": "54e392dd1d6b2ec4",
+      "original_question_id": "54e392dd1d6b2ec4",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "環境表示ガイドライン"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "国内排出量取引制度の説明です。"
+        ],
+        [
+          "グリーン購入法の説明です。"
+        ],
+        [
+          "正しい。環境表示の説明です。"
+        ],
+        [
+          "グリーン電力証書の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問25:https://www.nw-siken.com/kakomon/27_aki/am1_25.html"
+    }
+  ]
+}

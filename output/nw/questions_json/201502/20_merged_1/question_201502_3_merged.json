@@ -1,0 +1,365 @@
+{
+  "list_group_id": "201502",
+  "question_bodies": [
+    {
+      "questionBodyText": "TLSに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "TLSで使用するWebサーバのデジタル証明書にはIPアドレスの組込みが必須なので，WebサーバのIPアドレスを変更する場合は，デジタル証明書を再度取得する必要がある。",
+        "TLSで使用する個人認証用のデジタル証明書は，ICカードなどに格納できるので，格納場所を特定のPCに限定する必要はない。",
+        "TLSはWebサーバを経由した特定の利用者間の通信のために開発されたプロトコルであり，Webサーバ提供者への事前の利用者登録が不可欠である。",
+        "日本国内では，TLSで使用する共通鍵の長さは，128ビット未満に制限されている。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_21.html",
+      "public_question_id": "43134c0160c721cd",
+      "original_question_id": "43134c0160c721cd",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "TLS"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "デジタル証明書では、証明書が有効なサーバ(コモンネーム)を記述するのにIPアドレスだけでなくFQDNも使用できます。FQDNで指定した場合はIPアドレスが変わっても再発行の必要はありません。"
+        ],
+        [
+          "正しい。デジタル証明書の内容は電子データなので様々な媒体に格納することができます。ICカードに格納すれば認証情報を持ち運べるので、利用する端末が限定されることもありません。\n個人認証用のデジタル証明書は電子証明書と呼ばれ、公的認証サービスなどを利用すると電子証明書が記録されたICカードの発行をうけることができます。"
+        ],
+        [
+          "TLSは、インターネット上で安全に情報をやり取りするために開発されたプロトコルで、事前の利用者登録は必要ありません。"
+        ],
+        [
+          "TLSでは鍵長40～256ビットの共通鍵で暗号化通信を行います。日本国内においても256ビットまでの鍵長を制限なく選択できます。ただし、TLS1.1以降では40ビットの鍵の使用は禁止されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201502:am:問21:https://www.nw-siken.com/kakomon/27_aki/am2_21.html"
+    },
+    {
+      "questionBodyText": "パリティ専用の磁気ディスク装置をもち，ブロック単位のストライピングを行うRAIDの方式はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "RAID 1",
+        "RAID 3",
+        "RAID 4",
+        "RAID 5"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_22.html",
+      "public_question_id": "1d83aab7bc6622ca",
+      "original_question_id": "1d83aab7bc6622ca",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "RAID",
+        "RAID 0(ストライピング)\n複数のディスクに分散してデータを書き込むことで、アクセス性能を向上させる。RAID 1(ミラーリング)\n同じデータを2台のディスクに書き込むことで、信頼性を向上させる。実質記憶容量は50%となるので記憶効率は悪い。RAID 2データにエラー訂正用のハミング符号を付加したものをストライピングで書き込む。RAID 3ビット／バイト単位でストライピングを行う。データのエラー訂正用にパリティビットを使用し、一つのディスクをエラー訂正符号の書き込み専用とする。RAID 4RAID 3とほぼ同じ。RAID3でビット／バイト単位だったストライピングをブロック単位で行う。RAID 5情報データとともにパリティビットも各ディスクに分散して書き込む方式。信頼性，アクセス性能が共に高まる。",
+        "RAID 4"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "RAID\n(Redundant Arrays of Inexpensive Disks，レイド)は、複数のディスクを組み合わせ、1つの仮想的なディスクとして扱うことで信頼性や性能を向上させる技術です。RAIDには、次のような6つのレベルがあります。RAID 0(ストライピング)\n複数のディスクに分散してデータを書き込むことで、アクセス性能を向上させる。RAID 1(ミラーリング)\n同じデータを2台のディスクに書き込むことで、信頼性を向上させる。実質記憶容量は50%となるので記憶効率は悪い。RAID 2データにエラー訂正用のハミング符号を付加したものをストライピングで書き込む。RAID 3ビット／バイト単位でストライピングを行う。データのエラー訂正用にパリティビットを使用し、一つのディスクをエラー訂正符号の書き込み専用とする。RAID 4RAID 3とほぼ同じ。RAID3でビット／バイト単位だったストライピングをブロック単位で行う。RAID 5情報データとともにパリティビットも各ディスクに分散して書き込む方式。信頼性，アクセス性能が共に高まる。RAID3，4，5の違いは、ストライピイングの単位と冗長ディスクの構成です。\nパリティの格納が専用ディスク、かつ、ストライピングがブロック単位である方式は\nRAID 4です。したがって正解は「ウ」になります。"
+        ],
+        [
+          "RAID\n(Redundant Arrays of Inexpensive Disks，レイド)は、複数のディスクを組み合わせ、1つの仮想的なディスクとして扱うことで信頼性や性能を向上させる技術です。RAIDには、次のような6つのレベルがあります。RAID 0(ストライピング)\n複数のディスクに分散してデータを書き込むことで、アクセス性能を向上させる。RAID 1(ミラーリング)\n同じデータを2台のディスクに書き込むことで、信頼性を向上させる。実質記憶容量は50%となるので記憶効率は悪い。RAID 2データにエラー訂正用のハミング符号を付加したものをストライピングで書き込む。RAID 3ビット／バイト単位でストライピングを行う。データのエラー訂正用にパリティビットを使用し、一つのディスクをエラー訂正符号の書き込み専用とする。RAID 4RAID 3とほぼ同じ。RAID3でビット／バイト単位だったストライピングをブロック単位で行う。RAID 5情報データとともにパリティビットも各ディスクに分散して書き込む方式。信頼性，アクセス性能が共に高まる。RAID3，4，5の違いは、ストライピイングの単位と冗長ディスクの構成です。\nパリティの格納が専用ディスク、かつ、ストライピングがブロック単位である方式は\nRAID 4です。したがって正解は「ウ」になります。"
+        ],
+        [
+          "RAID\n(Redundant Arrays of Inexpensive Disks，レイド)は、複数のディスクを組み合わせ、1つの仮想的なディスクとして扱うことで信頼性や性能を向上させる技術です。RAIDには、次のような6つのレベルがあります。RAID 0(ストライピング)\n複数のディスクに分散してデータを書き込むことで、アクセス性能を向上させる。RAID 1(ミラーリング)\n同じデータを2台のディスクに書き込むことで、信頼性を向上させる。実質記憶容量は50%となるので記憶効率は悪い。RAID 2データにエラー訂正用のハミング符号を付加したものをストライピングで書き込む。RAID 3ビット／バイト単位でストライピングを行う。データのエラー訂正用にパリティビットを使用し、一つのディスクをエラー訂正符号の書き込み専用とする。RAID 4RAID 3とほぼ同じ。RAID3でビット／バイト単位だったストライピングをブロック単位で行う。RAID 5情報データとともにパリティビットも各ディスクに分散して書き込む方式。信頼性，アクセス性能が共に高まる。RAID3，4，5の違いは、ストライピイングの単位と冗長ディスクの構成です。\nパリティの格納が専用ディスク、かつ、ストライピングがブロック単位である方式は\nRAID 4です。したがって正解は「ウ」になります。"
+        ],
+        [
+          "RAID\n(Redundant Arrays of Inexpensive Disks，レイド)は、複数のディスクを組み合わせ、1つの仮想的なディスクとして扱うことで信頼性や性能を向上させる技術です。RAIDには、次のような6つのレベルがあります。RAID 0(ストライピング)\n複数のディスクに分散してデータを書き込むことで、アクセス性能を向上させる。RAID 1(ミラーリング)\n同じデータを2台のディスクに書き込むことで、信頼性を向上させる。実質記憶容量は50%となるので記憶効率は悪い。RAID 2データにエラー訂正用のハミング符号を付加したものをストライピングで書き込む。RAID 3ビット／バイト単位でストライピングを行う。データのエラー訂正用にパリティビットを使用し、一つのディスクをエラー訂正符号の書き込み専用とする。RAID 4RAID 3とほぼ同じ。RAID3でビット／バイト単位だったストライピングをブロック単位で行う。RAID 5情報データとともにパリティビットも各ディスクに分散して書き込む方式。信頼性，アクセス性能が共に高まる。RAID3，4，5の違いは、ストライピイングの単位と冗長ディスクの構成です。\nパリティの格納が専用ディスク、かつ、ストライピングがブロック単位である方式は\nRAID 4です。したがって正解は「ウ」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問22:https://www.nw-siken.com/kakomon/27_aki/am2_22.html"
+    },
+    {
+      "questionBodyText": "マルチプロセッサによる並列処理において，1プロセッサのときに対する性能向上比はアムダールの法則で説明することができる。性能向上比に関する記述のうち，適切なものはどれか。\n〔アムダールの法則〕",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "プロセッサ数が一定の場合，性能向上比は並列化可能部の割合に比例する。",
+        "プロセッサ数を増やした場合，性能向上比は並列化可能部の割合に反比例する。",
+        "並列化可能部の割合が0.5の場合は，プロセッサ数をいくら増やしても性能向上比が2を超えることはない。",
+        "並列化可能部の割合が最低0.9以上であれば，性能向上比はプロセッサ数の半分以上の値となる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_23.html",
+      "public_question_id": "79c537e932a77db3",
+      "original_question_id": "79c537e932a77db3",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq79c537e932a77db3_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プロセッサ数を10で固定し、並列化可能部の割合(r)を変化させてみると\n[r=0.1] 性能向上比＝1／0.91≒1.10\n[r=0.5] 性能向上比＝1／0.55≒1.82\n[r=0.9] 性能向上比＝1／0.19≒5.26というように比例関係ではありません。"
+        ],
+        [
+          "プロセッサ数と並列化可能部の割合は、どちらも大きくなった方が性能向上比も高まる関係にあります。"
+        ],
+        [
+          "正しい。性能向上比が2を超えるためには、右辺の分母が0.5未満である必要があります。しかし並列化可能部の割合が0.5の場合の右辺の分母は、\n(1－0.5)＋0.5／プロセッサ数\n＝0.5＋0.5／プロセッサ数\nというように常に0.5以上になります。このため性能向上比が2を超えることはありません。"
+        ],
+        [
+          "並列化可能部の割合が0.9、プロセッサ数100台の場合を考えてみると、1／((1－0.9)＋0.9／100)\n＝1／(0.1＋0.009)\n＝1／0.109\n＝9.1743…\nというように性能向上比はプロセッサ数(100台)の1／10程度までしか向上しません。アムダールの法則は、たとえプログラムの95%が並列化可能部であり、どれだけプロセッサ数を増やせたとしても元の性能の20倍以上には高速化しないことを示しています。したがって記述は誤りです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問23:https://www.nw-siken.com/kakomon/27_aki/am2_23.html"
+    },
+    {
+      "questionBodyText": "オブジェクト間のis-a関係を表す図はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqa9dab81c1bea7139_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqa9dab81c1bea7139_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqa9dab81c1bea7139_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqa9dab81c1bea7139_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_24.html",
+      "public_question_id": "a9dab81c1bea7139",
+      "original_question_id": "a9dab81c1bea7139",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "is-a(汎化－特化)関係\n「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係\n「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。has-a関係と呼ぶこともある。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "クラスとクラスが保持する操作(メソッド)の関係です。"
+        ],
+        [
+          "クラスとクラスが保持する属性(プロパティ)の関係です。"
+        ],
+        [
+          "正しい。乗用車とトラックは自動車であるためis-a関係です。"
+        ],
+        [
+          "受話器とプッシュボタンは電話機の一部であるためpart-of関係です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問24:https://www.nw-siken.com/kakomon/27_aki/am2_24.html"
+    },
+    {
+      "questionBodyText": "SOA(Service Oriented Architecture)でサービスを設計する際の注意点のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成27年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "可用性を高めるために，ステートフルなインタフェースとする。",
+        "業務からの独立性を確保するために，サービスの命名は役割を表すものとする。",
+        "業務の変化に対応しやすくするために，サービス間の関係は疎結合にする。",
+        "セキュリティを高めるために，一度開発したサービスは再利用しない方がよい。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2015,
+      "list_group_id": "201502",
+      "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_25.html",
+      "public_question_id": "e05f74ac7c6881c5",
+      "original_question_id": "e05f74ac7c6881c5",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SOA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "サービスは、ある共有の状態を参照して動作するのではなく、受け渡された値のみによって機能を提供するステートレスなインタフェースでなくてはなりません。"
+        ],
+        [
+          "個々のサービスが1つの業務部品として扱われるため、サービスの名称は実世界の業務に合わせる形になります。"
+        ],
+        [
+          "正しい。サービス同士の独立性を高めるため関係を疎結合にします。"
+        ],
+        [
+          "ソフトウェアを部品化して再利用することが推奨されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201502:am:問25:https://www.nw-siken.com/kakomon/27_aki/am2_25.html"
+    }
+  ]
+}
