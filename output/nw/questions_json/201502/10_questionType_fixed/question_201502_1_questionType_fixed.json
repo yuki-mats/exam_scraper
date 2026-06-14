@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "集合A，B，Cに対して\nA∪B∪Cが空集合であるとき，包含関係として適切なものはどれか。ここで，∪は和集合を，∩は積集合を，\nXはXの補集合を，また，X⊆YはXがYの部分集合であることを表す。",
+    "choiceTextList": [
+      "(A∩B) ⊆ C",
+      "(A∩\nB\n) ⊆ C",
+      "(\nA\n∩B) ⊆ C",
+      "(\nA\n∩\nB\n) ⊆ C"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "733330c5420c0526",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "図のように16ビットのデータを4×4の正方形状に並べ，行と列にパリティビットを付加することによって何ビットまでの誤りを訂正できるか。ここで，図の網掛け部分はパリティビットを表す。",
+    "choiceTextList": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0b9b34069eb3715c",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "キーが小文字のアルファベット1文字（a, b, …，z のいずれか）であるデータを，大きさが10のハッシュ表に格納する。ハッシュ関数として，アルファベットのASCIIコードを10進表記法で表したときの1の位の数を用いることにする。衝突が起こるキーの組合せはどれか。ASCIIコードでは，昇順に連続した2進数が，アルファベット順にコードとして割り当てられている。",
+    "choiceTextList": [
+      "a と i",
+      "b と r",
+      "c と l",
+      "d と x"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3803f88728640d55",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "複数のデータに対して1個の命令で同一の操作を同時並列に行う方式で，マルチメディアデータなどを扱うCPUに採用されているものはどれか。",
+    "choiceTextList": [
+      "MIMD",
+      "MISD",
+      "SIMD",
+      "SISD"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9783fcead175f1ea",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "クラスタリングシステムで，ノード障害が発生したときに信頼性を向上させる機能のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "アプリケーションを代替ノードに転送して実行するためのホットプラグ機能が働く。",
+      "アプリケーションを再び動かすために，代替ノードを再起動する機能が働く。",
+      "障害ノードを排除して代替ノードでアプリケーションを実行させるフェールオーバー機能が働く。",
+      "ノード間の通信が途切れるので，クラスタの再構成を行うフェールバック機能が働く。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "33b8bb4fd4d764ca",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "デマンドページング方式による仮想記憶の利点はどれか。",
+    "choiceTextList": [
+      "実際にアクセスが行われたときにだけ主記憶にロードするので，無駄なページをロードしなくて済む。",
+      "主記憶に対する仮想記憶の容量比を大きくするほど，ページフォールトの発生頻度を低くできる。",
+      "プロセスが必要とするページを前もって主記憶にロードするので，補助記憶へのアクセスによる遅れを避けることができる。",
+      "ページフォールトの発生頻度が極端に高くなっても，必要な場合にしかページを読み込まないのでスラッシング状態を回避できる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a8146b5b7b3dedbe",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "ワンチップマイコンにおける内部クロック発生器のブロック図を示す。15MHzの発振器と，内部のPLL1，PLL2及び分周器の組合せでCPUに240MHz，シリアル通信(SIO)に115kHzのクロック信号を供給する場合の分周器の値は幾らか。ここで，シリアル通信のクロック精度は±5%以内に収まればよいものとする。",
+    "choiceTextList": [
+      "1／24",
+      "1／26",
+      "1／28",
+      "1／210"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c66709acf066186b",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "コードの値からデータの対象物が連想できるものはどれか。",
+    "choiceTextList": [
+      "シーケンスコード",
+      "デシマルコード",
+      "ニモニックコード",
+      "ブロックコード"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "96584671e9054852",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "デジタルハイビジョン対応のビデオカメラやワンセグの映像圧縮符号化方式として採用されているものはどれか。",
+    "choiceTextList": [
+      "AC-3",
+      "G.729",
+      "H.264/AVC",
+      "MPEG-1"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "560ef606db10bb45",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "チェックポイントを取得するDBMSにおいて，図のような時間経過でシステム障害が発生した。前進復帰(ロールフォワード)によって障害回復できるすべてのトランザクションはどれか。",
+    "choiceTextList": [
+      "T1",
+      "T2 と T3",
+      "T4 と T5",
+      "T5"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8e9a700191132f6b",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "図のようなネットワーク構成のシステムにおいて，同じメッセージ長のデータをホストコンピュータとの間で送受信した場合のターンアラウンドタイムは，端末Aでは100ミリ秒，端末Bでは820ミリ秒であった。上り，下りのメッセージ長は同じ長さで，ホストコンピュータでの処理時間は端末A，端末Bのどちらから利用しても同じとするとき，端末Aからホストコンピュータへの片道の伝送時間は何ミリ秒か。ここで，ターンアラウンドタイムは，端末がデータを回線に送信し始めてから応答データを受信し終わるまでの時間とし，伝送時間は回線速度だけに依存するものとする。",
+    "choiceTextList": [
+      "10",
+      "20",
+      "30",
+      "40"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8a0bb645df732631",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "公開鍵暗号方式の暗号アルゴリズムはどれか。",
+    "choiceTextList": [
+      "AES",
+      "KCipher-2",
+      "RSA",
+      "SHA-256"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bb4b0faa3396a9f5",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "ゼロデイ攻撃の特徴はどれか。",
+    "choiceTextList": [
+      "セキュリティパッチが提供される前にパッチが対象とする脆弱性を攻撃する。",
+      "特定のWebサイトに対し，日時を決めて，複数台のPCから同時に攻撃する。",
+      "特定のターゲットに対し，フィッシングメールを送信して不正サイトへ誘導する。",
+      "不正中継が可能なメールサーバを見つけた後，それを踏み台にチェーンメールを大量に送信する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f980c3ffc45ed049",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "ブルートフォース攻撃に該当するものはどれか。",
+    "choiceTextList": [
+      "WebブラウザとWebサーバの間の通信で，認証が成功してセッションが開始されているときに，Cookieなどのセッション情報を盗む。",
+      "可能性がある文字のあらゆる組合せのパスワードでログインを試みる。",
+      "コンピュータへのキ一入力を全て記録して外部に送信する。",
+      "盗聴者が正当な利用者のログインシーケンスをそのまま記録してサーバに送信する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "5dfb94676b4616bb",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "ペネトレーションテストの目的はどれか。",
+    "choiceTextList": [
+      "暗号化で使用している暗号方式と鍵長が，設計仕様と一致することを確認する。",
+      "対象プログラムの入力に対する出力結果が，出力仕様と一致することを確認する。",
+      "ファイアウォールが単位時間当たりに処理できるセッション数を確認する。",
+      "ファイアウォールや公開サーバに対して侵入できないかどうかを確認する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "893ba896617ca9f1",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "DFDにおけるデータストアの性質として，適切なものはどれか。",
+    "choiceTextList": [
+      "最終的には，開発されたシステムの物理ファイルとなる。",
+      "データストア自体が，データを作成したり変更したりすることがある。",
+      "データストアに入ったデータが出て行くときは，データフロー以外のものを通ることがある。",
+      "ほかのデータストアと直接にデータフローで結ばれることはなく，処理が介在する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "80632e72d1969257",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "共通フレームをプロジェクトに適用する場合の考え方のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "JIS規格に基づいているので，個々のプロジェクトの都合でアクティビティやタスクを変えずに，そのまま適用する。",
+      "共通フレームで規定しているプロセスの実施順序に合わせて，作業手順を決めて適用する。",
+      "共通フレームで推奨している開発モデル，技法やツールを取捨選択して適用する。",
+      "プロジェクトの特性や開発モデルに合わせて，アクティビティやタスクを取捨選択して適用する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "646e4517ca270cec",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "プロジェクト管理においてパフォーマンス測定に使用するEVMの管理対象の組みはどれか。",
+    "choiceTextList": [
+      "コスト，スケジュール",
+      "コスト，リスク",
+      "スケジュール，品質",
+      "品質，リスク"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "878a362d9f634c2c",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "図に示すとおりに作業を実施する予定であったが，作業Aで1日の遅れが生じた。各作業の費用増加率を表の値とするとき，当初の予定日数で終了するために掛かる増加費用を最も少なくするには，どの作業を短縮すべきか。ここで，費用増加率とは，作業を1日短縮するのに要する増加費用のことである。",
+    "choiceTextList": [
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b52c5a4a687cc095",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "ITサービスマネジメントにおける問題管理プロセスにおいて実施することはどれか。",
+    "choiceTextList": [
+      "インシデントの発生後に暫定的にサービスを復旧させ，業務を継続できるようにする。",
+      "インシデントの発生後に未知の根本原因を特定し，恒久的な解決策を策定する。",
+      "インシデントの発生に備えて，復旧のための設計をする。",
+      "インシデントの発生を記録し，関係する部署に状況を連絡する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6c0ea47c37e2e165",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "システム監査人が，予備調査において実施する作業として，\"システム監査基準\"に照らして適切なものはどれか。",
+    "choiceTextList": [
+      "監査テーマに基づいて，監査項目を設定し，監査手続を策定し，個別監査計画書に記載する。",
+      "経営トップにヒアリングを行い，経営戦略・方針，現在抱えている問題についての認識を確認し，監査テーマを設定する。",
+      "個別監査計画を策定するために，監査スケジュールについて被監査部門と調整を図る。",
+      "被監査部門から事前に入手した資料を閲覧し，監査対象の実態を明確に把握する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f74493e5be77fe52",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "販売管理システムにおいて，起票された受注伝票が漏れなく，重複することなく入力されていることを確かめる監査手続のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "受注データから値引取引データなどの例外取引データを抽出し，承認の記録を確かめる。",
+      "受注伝票の入力時に論理チェック及びフォーマットチェックが行われているか，テストデータ法で確かめる。",
+      "プルーフリストと受注伝票との照合が行われているか，プルーフリスト又は受注伝票上の照合印を確かめる。",
+      "並行シミュレーション法を用いて，受注伝票を処理するプログラムの論理の正当性を確かめる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "24a3bfb5ea75af3e",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "\"システム管理基準\"によれば，情報戦略における情報システム全体の最適化目標を設定する際の留意事項はどれか。",
+    "choiceTextList": [
+      "開発，運用及び保守の費用の算出基礎を明確にすること",
+      "開発の規模，システム特性等を考慮して開発手順を決めておくこと",
+      "経営戦略との整合性を考慮すること",
+      "必要な要員，予算，設備，期間等を確保すること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3d916b1a28d92cee",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "情報システムの調達の際に作成されるRFIの説明はどれか。",
+    "choiceTextList": [
+      "調達者から供給者候補に対して，システム化の目的や業務内容などを示し，情報の提供を依頼すること",
+      "調達者から供給者候補に対して，対象システムや調達条件などを示し，提案書の提出を依頼すること",
+      "調達者から供給者に対して，契約内容で取り決めた内容に関して，変更を要請すること",
+      "調達者から供給者に対して，双方の役割分担などを確認し，契約の締結を要請すること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "62fdd2ee3ed3e706",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "環境省の環境表示ガイドラインによれば，環境表示の説明はどれか。",
+    "choiceTextList": [
+      "温室効果ガスを削減するために，企業や国が排出枠を決め，温室効果ガスが排出枠に届かない不足分と，排出枠に収まらない超過分を，企業や国が市場で取引することを明らかにしたもの",
+      "国や地方公共団体などの公的機関が，率先して環境物品(環境負荷の低減に資する製品やサービス)の調達を推進するなど，環境物品への需要の転換を促進するために必要な事項を規定したもの",
+      "製品やサービスについて，環境に配慮した点や環境負荷の低減効果などの特徴，事業者の環境配慮への姿勢を，説明文やシンボルマーク，図表などを通して主張したもの",
+      "風力，太陽光，バイオマスなどの再生可能エネルギーによって発電されたグリーン電力が，化石燃料に比較して温室効果ガスの排出量が少ないなどという環境付加価値を取引可能な証書にしたもの"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "54e392dd1d6b2ec4",
+    "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_25.html"
+  }
+]
