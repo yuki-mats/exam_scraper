@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "全体集合S内に異なる部分集合AとBがあるとき，\nA\n∩\nBに等しいものはどれか。ここで，A∪BはAとBの和集合，A∩BはAとBの積集合，\nAはSにおけるAの補集合，A－BはAからBを除いた差集合を表す。",
+    "choiceTextList": [
+      "A\n－B",
+      "(\nA\n∪\nB\n)－(A∩B)",
+      "(S－A)∪(S－B)",
+      "S－(A∩B)"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c8b72abda1adf2e9",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "4ビットから成る情報ビット x1\nx2\nx3\nx4に対して，\n(x1\n＋x2\n＋x3\n＋x5\n) mod 2＝0\n(x1\n＋x2\n＋x4\n＋x6\n) mod 2＝0\n(x2\n＋x3\n＋x4\n＋x7\n) mod 2＝0を満たす冗長ビット x5\nx6\nx7を付加した符号 x1\nx2\nx3\nx4\nx5\nx6\nx7を送信する。\n受信符号 y1\ny2\ny3\ny4\ny5\ny6\ny7が，送信符号と高々1ビットしか異ならないとき，\n(y1\n＋y2\n＋y3\n＋y5\n) mod 2\n(y1\n＋y2\n＋y4\n＋y6\n) mod 2\n(y2\n＋y3\n＋y4\n＋y7\n) mod 2がそれぞれ0になるかどうかによって，正しい情報ビット x1\nx2\nx3\nx4を求めることが可能である。y1\ny2\ny3\ny4\ny5\ny6\ny7\n＝1100010 であるとき，正しい情報ビットはどれか。ここで，a mod b は，aをbで割った余りを表す。",
+    "choiceTextList": [
+      "0100",
+      "1000",
+      "1100",
+      "1101"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0d0963721ee1a1f9",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "配列を用いてスタックを実現する場合の構成要素として，最低限必要なものはどれか。",
+    "choiceTextList": [
+      "スタックに最後に入った要素を示す添字の変数",
+      "スタックに最初に入った要素と最後に入った要素を示す添字の変数",
+      "スタックに一つ前に入った要素を示す添字の変数を格納する配列",
+      "スタックの途中に入っている要素を示す添字の変数"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "5b7eb385251472f3",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "命令を並列実行するためのアーキテクチャであって，複数の命令を同時に実行するとき，命令を実行する演算器をハードウェアによって動的に割り当てる方式はどれか。",
+    "choiceTextList": [
+      "SMP",
+      "VLIW",
+      "スーパースカラ",
+      "スーパーパイプライン"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8a8c78a6d2812180",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "キャッシュメモリへの書込み動作には，ライトスルー方式とライトバック方式がある。それぞれの特徴のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "ライトスルー方式では，データをキャッシュメモリだけに書き込むので，高速に書込みができる。",
+      "ライトスルー方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，主記憶の内容は常に最新である。",
+      "ライトバック方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，速度が遅い。",
+      "ライトバック方式では，読出し時にキャッシュミスが発生してキャッシュメモリの内容が追い出されるときに，主記憶に書き戻す必要が生じることはない。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "015cf5014266d414",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "図の回線網における福岡・東京間の回線の稼働率はおよそ幾らか。ここで隣接するノード間の回線の稼働率は，すべて0.9とする。",
+    "choiceTextList": [
+      "0.81",
+      "0.88",
+      "0.89",
+      "0.98"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "be8045eeaa761609",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "プログラム実行時の主記憶管理に関する記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "主記憶の空き領域を結合して一つの連続した領域にすることを，可変区画方式という。",
+      "プログラムが使用しなくなったヒープ領域を回収して再度使用可能にすることを，ガーベジコレクションという。",
+      "プログラムの実行中に主記憶内でモジュールの格納位置を移動させることを，動的リンキングという。",
+      "プログラムの実行中に必要になった時点でモジュールをロードすることを，動的再配置という。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "5252ed6f2c3b42ea",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "ページング方式の仮想記憶を用いることによって，フラグメンテーションの問題を解決できる理由はどれか。",
+    "choiceTextList": [
+      "一連のプログラムやデータを，不連続な主記憶に割り付けることができる。",
+      "仮想記憶のページ数を主記憶のページ数よりも多くすることができる。",
+      "プログラム全体を1ページに割り付けることができる。",
+      "プログラムのローディング時に主記憶を割り付けることができる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "e680a877aa45e95b",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "ストアドプロシージャの利点はどれか。",
+    "choiceTextList": [
+      "アプリケーションプログラムからネットワークを介してDBMSにアクセスする場合，両者間の通信量を減少させる。",
+      "アプリケーションプログラムからの一連の要求を一括して処理することによって，DBMS内の実行計画の数を減少させる。",
+      "アプリケーションプログラムからの一連の要求を一括して処理することによって，DBMS内の必要バッファ数を減少させる。",
+      "データが格納されているディスク装置へのI/O回数を減少させる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "551d332c64c4d66e",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "データウェアハウスに業務データを取り込むとき，データを抽出して加工し，データベースに書き出すツールはどれか。",
+    "choiceTextList": [
+      "ETLツール",
+      "OLAPツール",
+      "データマイニングツール",
+      "統計ツール"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0f09902b9221c899",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "JavaScriptなどのスクリプト言語を使って，Webブラウザに組み込まれているサーバとの非同期通信機能を利用する技術であり，地図の高速なスクロールや，キーボード入力に合わせた検索候補の逐次表示などを実現するものはどれか。",
+    "choiceTextList": [
+      "Ajax",
+      "CSS",
+      "DOM",
+      "SAX"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f91de57762320e69",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "SSLによるクライアントとWebサーバ間の通信手順(1)～(5)において，a，bに入る適切な組合せはどれか。ここで，記述した手順は，一部簡略化している。\nクライアントからのSSLによる接続要求に対し，Webサーバは証明書をクライアントに送付する。\nクライアントは，保持している\naによってこのサーバ証明書の正当性を確認する。\nクライアントは，共通鍵生成用のデータを作成し，サーバ証明書に添付された\nbによってこの共通鍵生成用データを暗号化し，Webサーバに送付する。\n受け取ったWebサーバは，自らの秘密鍵によって暗号化された共通鍵生成用データを復号する。\nクライアントとWebサーバの両者は，同一の共通鍵生成用データによって共通鍵を作成し，これ以降の両者間の通信は，この共通鍵による暗号化通信を行う。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b371daa2a6a61759",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "シングルサインオンの説明のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "クッキーを使ったシングルサインオンの場合，サーバごとの認証情報を含んだクッキーをクライアントで生成し，各サーバ上で保存，管理する。",
+      "クッキーを使ったシングルサインオンの場合，認証対象のサーバを，異なるインターネットドメインに配置する必要がある。",
+      "リバースプロキシを使ったシングルサインオンの場合，認証対象のWebサーバを，異なるインターネットドメインに配置する必要がある。",
+      "リバースプロキシを使ったシングルサインオンの場合，利用者認証においてパスワードの代わりにデジタル証明書を用いることができる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "28dc575bf51d98ee",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "暗号方式に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "AESは公開鍵暗号方式，RSAは共通鍵暗号方式の一種である。",
+      "共通鍵暗号方式では，暗号化及び復号に使用する鍵が同一である。",
+      "公開鍵暗号方式を通信内容の秘匿に使用する場合は，暗号化に使用する鍵を秘密にして，復号に使用する鍵を公開する。",
+      "デジタル署名に公開鍵暗号方式が使用されることはなく，共通鍵暗号方式が使用される。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0b89fa7a517d94bb",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "安全なWebアプリケーションの作り方について，攻撃と対策の適切な組合せはどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "342ce1e1e0d94ce8",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "ソフトウェアの要件定義や分析・設計で用いられる技法に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "決定表は，条件と処理を対比させた表形式で論理を表現したものであり，複雑な条件判定を伴う要件定義の記述手段として有効である。",
+      "構造化チャートは，システムの\"状態\"の種別とその状態が遷移するための\"要因\"との関係を分かりやすく表現する手段として有効である。",
+      "状態遷移図は，DFDに\"コントロール変換とコントロールフロー\"を付加したものであり，制御系システムに特有な処理を表現する手段として有効である。",
+      "制御フロー図は，データの\"源泉，吸収，流れ，処理，格納\"を基本要素としており，システム内のデータの流れを表現する手段として有効である。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3b0dc0cd3d245047",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "プログラムの著作権侵害に該当するものはどれか。",
+    "choiceTextList": [
+      "A社が開発したソフトウェアの公開済プロトコルに基づいて，A社が販売しているソフトウェアと同等の機能をもつソフトウェアを独自に開発して販売した。",
+      "ソフトウェアハウスと使用許諾契約を締結し，契約上は複製権の許諾は受けていないが，使用許諾を受けたソフトウェアにはプロテクトがかけられていたので，そのプロテクトを外し，バックアップのために複製した。",
+      "他人のソフトウェアを正当な手段で入手し，逆コンパイルを行った。",
+      "複製及び，改変する権利が付与されたソース契約の締結によって，許諾されたソフトウェアを改造して製品に組み込み，ソース契約の範囲内で製品を販売した。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "fd136c861466184d",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "図のアローダイアグラムから読み取れることのうち，適切なものはどれか。ここで，プロジェクトの開始日は0日目とする。",
+    "choiceTextList": [
+      "作業Cを最も早く開始できるのは5日目である。",
+      "作業Dはクリティカルパス上の作業である。",
+      "作業Eの余裕日数は30日である。",
+      "作業Fを最も遅く開始できるのは10日目である。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "550f40e82b6c4045",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "プロジェクト管理においてパフォーマンス測定に使用するEVMの管理対象の組みはどれか。",
+    "choiceTextList": [
+      "コスト，スケジュール",
+      "コスト，リスク",
+      "スケジュール，品質",
+      "品質，リスク"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "293af8c999db603b",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "ITサービスマネジメントにおけるインシデント管理の主な活動はどれか。",
+    "choiceTextList": [
+      "インシデントから発生する問題の解決策の評価",
+      "インシデントの解決とサービスの復旧",
+      "インシデントの根本原因の究明",
+      "インシデントのトレンド分析と予防措置"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ce2c792f4d8affa8",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "ITサービスマネジメントの可用性管理のKPIとして用いるものはどれか。",
+    "choiceTextList": [
+      "災害を想定した復旧テストの回数",
+      "サービスの中断回数",
+      "性能不足に起因するインシデントの数",
+      "目標を達成できなかったSLAの項目数"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2cd642e3f5c63366",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "システム監査人が負う責任はどれか。",
+    "choiceTextList": [
+      "監査結果の外部への開示",
+      "監査対象システムの管理",
+      "監査報告会で指摘した問題点の改善",
+      "監査報告書に記載した監査意見"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7c625d8696ef0c22",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "BPOを説明したものはどれか。",
+    "choiceTextList": [
+      "企業内の業務全体を対象として，業務プロセスを抜本的に見直すことで，品質・コスト・スピードを改善し，競争優位性を確保すること",
+      "災害や事故で被害を受けても，重要事業を中断させない，又は可能な限り中断期間を短くする仕組みを構築すること",
+      "社内業務のうちコアビジネス以外の業務の一部又は全部を，情報システムと併せて外部に委託することで，経営資源をコアビジネスに集中させること",
+      "プロジェクトを，戦略との適合性や費用対効果，リスクといった観点から評価を行い，情報化投資のバランスを管理し，最適化を図ること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "27e3af67c4959ed4",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "非機能要件に該当するものはどれか。",
+    "choiceTextList": [
+      "新しい業務の在り方をまとめた上で，業務上実現すべき要件",
+      "業務の手順や入出力情報，ルールや制約などの要件",
+      "業務要件を実現するために必要なシステムの機能に関する要件",
+      "ソフトウェアの信頼性，効率性など品質に関する要件"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "80e8cea7c8c53a7c",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "RFIを説明したものはどれか。",
+    "choiceTextList": [
+      "サービス提供者と顧客との間で，提供するサービスの内容，品質などに関する保証範囲やペナルティについてあらかじめ契約としてまとめた文書",
+      "システムの調達に際して，調達側から技術的要件やサービスレベル要件を提示し，ベンダーに対して，指定した期限内で効果的な実現策の提案を依頼する文書",
+      "ユーザー要件を実現するために，現在の状況において利用可能な技術・製品，ベンダーにおける導入実績など実現手段に関する情報提供をベンダーに依頼する文書",
+      "要求定義との整合性を図り，ユーザーと開発要員及び運用要員の共有物とするために，業務処理の概要，入出力情報の一覧，データフローなどをまとめた文書"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "fbaebe974dfb6892",
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_25.html"
+  }
+]

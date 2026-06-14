@@ -1,0 +1,1818 @@
+{
+  "list_group_id": "201202",
+  "question_bodies": [
+    {
+      "questionBodyText": "全体集合S内に異なる部分集合AとBがあるとき，\nA\n∩\nBに等しいものはどれか。ここで，A∪BはAとBの和集合，A∩BはAとBの積集合，\nAはSにおけるAの補集合，A－BはAからBを除いた差集合を表す。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "A\n－B",
+        "(\nA\n∪\nB\n)－(A∩B)",
+        "(S－A)∪(S－B)",
+        "S－(A∩B)"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 離散数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "離散数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "離散数学",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_1.html",
+      "public_question_id": "c8b72abda1adf2e9",
+      "original_question_id": "c8b72abda1adf2e9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "A",
+        "B"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "A\n－B"
+        ],
+        [
+          "(\nA\n∪\nB\n)－(A∩B)"
+        ],
+        [
+          "(S－A)∪(S－B)"
+        ],
+        [
+          "S－(A∩B)"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問1:https://www.nw-siken.com/kakomon/24_aki/am1_1.html"
+    },
+    {
+      "questionBodyText": "4ビットから成る情報ビット x1\nx2\nx3\nx4に対して，\n(x1\n＋x2\n＋x3\n＋x5\n) mod 2＝0\n(x1\n＋x2\n＋x4\n＋x6\n) mod 2＝0\n(x2\n＋x3\n＋x4\n＋x7\n) mod 2＝0を満たす冗長ビット x5\nx6\nx7を付加した符号 x1\nx2\nx3\nx4\nx5\nx6\nx7を送信する。\n受信符号 y1\ny2\ny3\ny4\ny5\ny6\ny7が，送信符号と高々1ビットしか異ならないとき，\n(y1\n＋y2\n＋y3\n＋y5\n) mod 2\n(y1\n＋y2\n＋y4\n＋y6\n) mod 2\n(y2\n＋y3\n＋y4\n＋y7\n) mod 2がそれぞれ0になるかどうかによって，正しい情報ビット x1\nx2\nx3\nx4を求めることが可能である。y1\ny2\ny3\ny4\ny5\ny6\ny7\n＝1100010 であるとき，正しい情報ビットはどれか。ここで，a mod b は，aをbで割った余りを表す。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0100",
+        "1000",
+        "1100",
+        "1101"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 通信に関する理論",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "通信に関する理論"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "通信に関する理論",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_2.html",
+      "public_question_id": "0d0963721ee1a1f9",
+      "original_question_id": "0d0963721ee1a1f9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "1",
+        "2",
+        "3",
+        "5",
+        "1",
+        "2",
+        "4",
+        "6",
+        "2",
+        "3",
+        "4",
+        "7",
+        "1番目の検査式\n結果が0なので y1\ny2\ny3\ny5はすべて正しいことが確定します。2番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y1\ny2は正しいことが確定しているので、誤りビットの候補は y4\ny6になります。3番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y2\ny3は正しいことが確定しているので、誤りビットの候補は y4\ny7になります。",
+        "4",
+        "4",
+        "1",
+        "2",
+        "3",
+        "4",
+        "1",
+        "2",
+        "3",
+        "4",
+        "0",
+        "1",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "設問で与えられた検査式の結果が 0 であれば各ビットに誤りがない、1 であれば誤りが含まれることになるので、3つの検査式に対して y1\ny2\ny3\ny4\ny5\ny6\ny7\n＝1100010 を代入して検査を行います。\n(y1\n＋y2\n＋y3\n＋y5\n) mod 2\n(y1\n＋y2\n＋y4\n＋y6\n) mod 2\n(y2\n＋y3\n＋y4\n＋y7\n) mod 2実際に値を代入して計算を行うと以下の結果になります。\n(1＋1＋0＋0) mod 2＝2 mod 2＝0\n(1＋1＋0＋1) mod 2＝3 mod 2＝1\n(1＋0＋0＋0) mod 2＝1 mod 2＝11番目の検査式\n結果が0なので y1\ny2\ny3\ny5はすべて正しいことが確定します。2番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y1\ny2は正しいことが確定しているので、誤りビットの候補は y4\ny6になります。3番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y2\ny3は正しいことが確定しているので、誤りビットの候補は y4\ny7になります。\n送信符号との違いは高々1ビットなので、2・3番目の検査式に共通している y4に誤りが生じていることがわかります。\n受信符号の y4を反転させて、元のビット列(x1\nx2\nx3\nx4\n)を導きます。y1\ny2\ny3\ny4\n＝1100\n→ 1101したがって、正しい情報ビット x1\nx2\nx3\nx4は「1101」になります。"
+        ],
+        [
+          "設問で与えられた検査式の結果が 0 であれば各ビットに誤りがない、1 であれば誤りが含まれることになるので、3つの検査式に対して y1\ny2\ny3\ny4\ny5\ny6\ny7\n＝1100010 を代入して検査を行います。\n(y1\n＋y2\n＋y3\n＋y5\n) mod 2\n(y1\n＋y2\n＋y4\n＋y6\n) mod 2\n(y2\n＋y3\n＋y4\n＋y7\n) mod 2実際に値を代入して計算を行うと以下の結果になります。\n(1＋1＋0＋0) mod 2＝2 mod 2＝0\n(1＋1＋0＋1) mod 2＝3 mod 2＝1\n(1＋0＋0＋0) mod 2＝1 mod 2＝11番目の検査式\n結果が0なので y1\ny2\ny3\ny5はすべて正しいことが確定します。2番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y1\ny2は正しいことが確定しているので、誤りビットの候補は y4\ny6になります。3番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y2\ny3は正しいことが確定しているので、誤りビットの候補は y4\ny7になります。\n送信符号との違いは高々1ビットなので、2・3番目の検査式に共通している y4に誤りが生じていることがわかります。\n受信符号の y4を反転させて、元のビット列(x1\nx2\nx3\nx4\n)を導きます。y1\ny2\ny3\ny4\n＝1100\n→ 1101したがって、正しい情報ビット x1\nx2\nx3\nx4は「1101」になります。"
+        ],
+        [
+          "設問で与えられた検査式の結果が 0 であれば各ビットに誤りがない、1 であれば誤りが含まれることになるので、3つの検査式に対して y1\ny2\ny3\ny4\ny5\ny6\ny7\n＝1100010 を代入して検査を行います。\n(y1\n＋y2\n＋y3\n＋y5\n) mod 2\n(y1\n＋y2\n＋y4\n＋y6\n) mod 2\n(y2\n＋y3\n＋y4\n＋y7\n) mod 2実際に値を代入して計算を行うと以下の結果になります。\n(1＋1＋0＋0) mod 2＝2 mod 2＝0\n(1＋1＋0＋1) mod 2＝3 mod 2＝1\n(1＋0＋0＋0) mod 2＝1 mod 2＝11番目の検査式\n結果が0なので y1\ny2\ny3\ny5はすべて正しいことが確定します。2番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y1\ny2は正しいことが確定しているので、誤りビットの候補は y4\ny6になります。3番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y2\ny3は正しいことが確定しているので、誤りビットの候補は y4\ny7になります。\n送信符号との違いは高々1ビットなので、2・3番目の検査式に共通している y4に誤りが生じていることがわかります。\n受信符号の y4を反転させて、元のビット列(x1\nx2\nx3\nx4\n)を導きます。y1\ny2\ny3\ny4\n＝1100\n→ 1101したがって、正しい情報ビット x1\nx2\nx3\nx4は「1101」になります。"
+        ],
+        [
+          "設問で与えられた検査式の結果が 0 であれば各ビットに誤りがない、1 であれば誤りが含まれることになるので、3つの検査式に対して y1\ny2\ny3\ny4\ny5\ny6\ny7\n＝1100010 を代入して検査を行います。\n(y1\n＋y2\n＋y3\n＋y5\n) mod 2\n(y1\n＋y2\n＋y4\n＋y6\n) mod 2\n(y2\n＋y3\n＋y4\n＋y7\n) mod 2実際に値を代入して計算を行うと以下の結果になります。\n(1＋1＋0＋0) mod 2＝2 mod 2＝0\n(1＋1＋0＋1) mod 2＝3 mod 2＝1\n(1＋0＋0＋0) mod 2＝1 mod 2＝11番目の検査式\n結果が0なので y1\ny2\ny3\ny5はすべて正しいことが確定します。2番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y1\ny2は正しいことが確定しているので、誤りビットの候補は y4\ny6になります。3番目の検査式\n結果が1なので誤りが含まれています。1番目の検査式の結果から、y2\ny3は正しいことが確定しているので、誤りビットの候補は y4\ny7になります。\n送信符号との違いは高々1ビットなので、2・3番目の検査式に共通している y4に誤りが生じていることがわかります。\n受信符号の y4を反転させて、元のビット列(x1\nx2\nx3\nx4\n)を導きます。y1\ny2\ny3\ny4\n＝1100\n→ 1101したがって、正しい情報ビット x1\nx2\nx3\nx4は「1101」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問2:https://www.nw-siken.com/kakomon/24_aki/am1_2.html"
+    },
+    {
+      "questionBodyText": "配列を用いてスタックを実現する場合の構成要素として，最低限必要なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "スタックに最後に入った要素を示す添字の変数",
+        "スタックに最初に入った要素と最後に入った要素を示す添字の変数",
+        "スタックに一つ前に入った要素を示す添字の変数を格納する配列",
+        "スタックの途中に入っている要素を示す添字の変数"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » データ構造",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "データ構造"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "データ構造",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_3.html",
+      "public_question_id": "5b7eb385251472f3",
+      "original_question_id": "5b7eb385251472f3",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "スタック",
+        "PUSH 1M(1)\nPUSH 5M(1，5)\nPOPM(1)\nPUSH 7M(1，7)\nPUSH 6M(1，7，6)\nPUSH 4M(1，7，6，4)\nPOPM(1，7，6)\nPOPM(1，7)\nPUSH 3M(1，7，3)",
+        "配列の最終要素の添え字＋1",
+        "配列の最終要素の添え字"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "スタック\nは、データ挿入の時はデータの最後に追加し、データ取り出し(削除)の時はデータの最後から取り出す(削除)後入れ先出し(LIFO:Last-in First-out)の構造をもっています。スタックにおけるデータ操作は、データを挿入するPUSH命令、データを取り出すPOP命令を使用して行います。\n配列Mを用いて、PUSH 1→PUSH 5→POP→PUSH 7 PUSH 6→PUSH 4→POP→POP→PUSH 3という操作を行う場合、PUSH 1M(1)\nPUSH 5M(1，5)\nPOPM(1)\nPUSH 7M(1，7)\nPUSH 6M(1，7，6)\nPUSH 4M(1，7，6，4)\nPOPM(1，7，6)\nPOPM(1，7)\nPUSH 3M(1，7，3)\nという流れになり、PUSH操作では\n配列の最終要素の添え字＋1の位置に新要素を追加、POP操作では\n配列の最終要素の添え字\nに位置する要素を削除することを行います。\nつまり最低限「スタックに最後に入った要素を示す添字の変数」を保持していればスタック構造が実現できることになります。"
+        ],
+        [
+          "スタック\nは、データ挿入の時はデータの最後に追加し、データ取り出し(削除)の時はデータの最後から取り出す(削除)後入れ先出し(LIFO:Last-in First-out)の構造をもっています。スタックにおけるデータ操作は、データを挿入するPUSH命令、データを取り出すPOP命令を使用して行います。\n配列Mを用いて、PUSH 1→PUSH 5→POP→PUSH 7 PUSH 6→PUSH 4→POP→POP→PUSH 3という操作を行う場合、PUSH 1M(1)\nPUSH 5M(1，5)\nPOPM(1)\nPUSH 7M(1，7)\nPUSH 6M(1，7，6)\nPUSH 4M(1，7，6，4)\nPOPM(1，7，6)\nPOPM(1，7)\nPUSH 3M(1，7，3)\nという流れになり、PUSH操作では\n配列の最終要素の添え字＋1の位置に新要素を追加、POP操作では\n配列の最終要素の添え字\nに位置する要素を削除することを行います。\nつまり最低限「スタックに最後に入った要素を示す添字の変数」を保持していればスタック構造が実現できることになります。"
+        ],
+        [
+          "スタック\nは、データ挿入の時はデータの最後に追加し、データ取り出し(削除)の時はデータの最後から取り出す(削除)後入れ先出し(LIFO:Last-in First-out)の構造をもっています。スタックにおけるデータ操作は、データを挿入するPUSH命令、データを取り出すPOP命令を使用して行います。\n配列Mを用いて、PUSH 1→PUSH 5→POP→PUSH 7 PUSH 6→PUSH 4→POP→POP→PUSH 3という操作を行う場合、PUSH 1M(1)\nPUSH 5M(1，5)\nPOPM(1)\nPUSH 7M(1，7)\nPUSH 6M(1，7，6)\nPUSH 4M(1，7，6，4)\nPOPM(1，7，6)\nPOPM(1，7)\nPUSH 3M(1，7，3)\nという流れになり、PUSH操作では\n配列の最終要素の添え字＋1の位置に新要素を追加、POP操作では\n配列の最終要素の添え字\nに位置する要素を削除することを行います。\nつまり最低限「スタックに最後に入った要素を示す添字の変数」を保持していればスタック構造が実現できることになります。"
+        ],
+        [
+          "スタック\nは、データ挿入の時はデータの最後に追加し、データ取り出し(削除)の時はデータの最後から取り出す(削除)後入れ先出し(LIFO:Last-in First-out)の構造をもっています。スタックにおけるデータ操作は、データを挿入するPUSH命令、データを取り出すPOP命令を使用して行います。\n配列Mを用いて、PUSH 1→PUSH 5→POP→PUSH 7 PUSH 6→PUSH 4→POP→POP→PUSH 3という操作を行う場合、PUSH 1M(1)\nPUSH 5M(1，5)\nPOPM(1)\nPUSH 7M(1，7)\nPUSH 6M(1，7，6)\nPUSH 4M(1，7，6，4)\nPOPM(1，7，6)\nPOPM(1，7)\nPUSH 3M(1，7，3)\nという流れになり、PUSH操作では\n配列の最終要素の添え字＋1の位置に新要素を追加、POP操作では\n配列の最終要素の添え字\nに位置する要素を削除することを行います。\nつまり最低限「スタックに最後に入った要素を示す添字の変数」を保持していればスタック構造が実現できることになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問3:https://www.nw-siken.com/kakomon/24_aki/am1_3.html"
+    },
+    {
+      "questionBodyText": "命令を並列実行するためのアーキテクチャであって，複数の命令を同時に実行するとき，命令を実行する演算器をハードウェアによって動的に割り当てる方式はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "SMP",
+        "VLIW",
+        "スーパースカラ",
+        "スーパーパイプライン"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_4.html",
+      "public_question_id": "8a8c78a6d2812180",
+      "original_question_id": "8a8c78a6d2812180",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "スーパースカラ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Symmetric Multiple Processorの略で対称型マルチプロセッサのこと。複数のプロセッサに処理を分散することで並列処理を行う方式です。"
+        ],
+        [
+          "Very Long Instruction Wordの略。命令語を長く取り，一つの命令で複数の機能ユニットを同時に制御することによって高速化を図る方式です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "スーパーパイプラインは、パイプラインを更に細分化することによって高速化を図る方式である。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201202:am:問4:https://www.nw-siken.com/kakomon/24_aki/am1_4.html"
+    },
+    {
+      "questionBodyText": "キャッシュメモリへの書込み動作には，ライトスルー方式とライトバック方式がある。それぞれの特徴のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ライトスルー方式では，データをキャッシュメモリだけに書き込むので，高速に書込みができる。",
+        "ライトスルー方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，主記憶の内容は常に最新である。",
+        "ライトバック方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，速度が遅い。",
+        "ライトバック方式では，読出し時にキャッシュミスが発生してキャッシュメモリの内容が追い出されるときに，主記憶に書き戻す必要が生じることはない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_5.html",
+      "public_question_id": "015cf5014266d414",
+      "original_question_id": "015cf5014266d414",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ライトバック（write back）\nCPUから書込み命令が出たときにキャッシュメモリだけに書き込み、主記憶への書き込みはキャッシュメモリからデータが追い出されるときに行う方式。処理速度は速いが、データの整合性を保つための追加制御が必要になる\nライトスルー（write through）\nCPUから書き込む命令が出たときにキャッシュメモリと同時に主記憶にも書き込む方式。データの整合性は容易に得られるが、処理速度は遅い"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ライトバック方式の説明です。ライトスルー方式は、キャッシュメモリと主記憶の両方に同時に書き込みます。"
+        ],
+        [
+          "正しい。ライトスルー方式ではキャッシュメモリと主記憶の間で常にデータが一致しています。"
+        ],
+        [
+          "ライトスルー方式の説明です。ライトバック方式は一旦はキャッシュにだけ書き込むのでライトスルー方式よりも高速です。"
+        ],
+        [
+          "ライトバック方式ではミスヒットによりキャッシュメモリの内容が変更される際に、その追い出されるデータを主記憶に書き戻さなければなりません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問5:https://www.nw-siken.com/kakomon/24_aki/am1_5.html"
+    },
+    {
+      "questionBodyText": "図の回線網における福岡・東京間の回線の稼働率はおよそ幾らか。ここで隣接するノード間の回線の稼働率は，すべて0.9とする。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.81",
+        "0.88",
+        "0.89",
+        "0.98"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_6.html",
+      "public_question_id": "be8045eeaa761609",
+      "original_question_id": "be8045eeaa761609",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqbe8045eeaa761609_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "0.81",
+        "0.981",
+        "0.88",
+        "0.88"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "各ノード間の回線を一つの装置を考えると、稼働率を考える上で回線網は次のように構成される通信システムと考えることができます。\nまず、\"大阪－名古屋－東京\"間の稼働率について考えます。\n\"大阪－名古屋\"及び\"名古屋－東京\"の通信は直列接続になっていて、双方が稼働しているときに通信が可能となるので、稼働率は、0.9×0.9＝\n0.81となります。\n次に\"大阪－東京\"間の稼働率について考えます。\n\"大阪－東京\"間は、並列接続になっていて\"大阪－東京\"と\"大阪－名古屋－東京\"のどちらかが稼働していれば通信が可能なので、稼働率は、1－(1－0.9)(1－0.81)\n＝1－0.1×0.19＝\n0.981最後に次に\"福岡－東京\"間の稼働率について考えます。\n\"福岡－東京\"間は、直列接続になっていて\"大阪－東京\"と\"大阪－福岡\"の両方が稼働していることが通信に必要な条件なので、稼働率は、0.9×0.981＝0.8829≒\n0.88したがってこの回線網の\"福岡－東京\"間の稼働率は、およそ\n0.88が適切です。"
+        ],
+        [
+          "各ノード間の回線を一つの装置を考えると、稼働率を考える上で回線網は次のように構成される通信システムと考えることができます。\nまず、\"大阪－名古屋－東京\"間の稼働率について考えます。\n\"大阪－名古屋\"及び\"名古屋－東京\"の通信は直列接続になっていて、双方が稼働しているときに通信が可能となるので、稼働率は、0.9×0.9＝\n0.81となります。\n次に\"大阪－東京\"間の稼働率について考えます。\n\"大阪－東京\"間は、並列接続になっていて\"大阪－東京\"と\"大阪－名古屋－東京\"のどちらかが稼働していれば通信が可能なので、稼働率は、1－(1－0.9)(1－0.81)\n＝1－0.1×0.19＝\n0.981最後に次に\"福岡－東京\"間の稼働率について考えます。\n\"福岡－東京\"間は、直列接続になっていて\"大阪－東京\"と\"大阪－福岡\"の両方が稼働していることが通信に必要な条件なので、稼働率は、0.9×0.981＝0.8829≒\n0.88したがってこの回線網の\"福岡－東京\"間の稼働率は、およそ\n0.88が適切です。"
+        ],
+        [
+          "各ノード間の回線を一つの装置を考えると、稼働率を考える上で回線網は次のように構成される通信システムと考えることができます。\nまず、\"大阪－名古屋－東京\"間の稼働率について考えます。\n\"大阪－名古屋\"及び\"名古屋－東京\"の通信は直列接続になっていて、双方が稼働しているときに通信が可能となるので、稼働率は、0.9×0.9＝\n0.81となります。\n次に\"大阪－東京\"間の稼働率について考えます。\n\"大阪－東京\"間は、並列接続になっていて\"大阪－東京\"と\"大阪－名古屋－東京\"のどちらかが稼働していれば通信が可能なので、稼働率は、1－(1－0.9)(1－0.81)\n＝1－0.1×0.19＝\n0.981最後に次に\"福岡－東京\"間の稼働率について考えます。\n\"福岡－東京\"間は、直列接続になっていて\"大阪－東京\"と\"大阪－福岡\"の両方が稼働していることが通信に必要な条件なので、稼働率は、0.9×0.981＝0.8829≒\n0.88したがってこの回線網の\"福岡－東京\"間の稼働率は、およそ\n0.88が適切です。"
+        ],
+        [
+          "各ノード間の回線を一つの装置を考えると、稼働率を考える上で回線網は次のように構成される通信システムと考えることができます。\nまず、\"大阪－名古屋－東京\"間の稼働率について考えます。\n\"大阪－名古屋\"及び\"名古屋－東京\"の通信は直列接続になっていて、双方が稼働しているときに通信が可能となるので、稼働率は、0.9×0.9＝\n0.81となります。\n次に\"大阪－東京\"間の稼働率について考えます。\n\"大阪－東京\"間は、並列接続になっていて\"大阪－東京\"と\"大阪－名古屋－東京\"のどちらかが稼働していれば通信が可能なので、稼働率は、1－(1－0.9)(1－0.81)\n＝1－0.1×0.19＝\n0.981最後に次に\"福岡－東京\"間の稼働率について考えます。\n\"福岡－東京\"間は、直列接続になっていて\"大阪－東京\"と\"大阪－福岡\"の両方が稼働していることが通信に必要な条件なので、稼働率は、0.9×0.981＝0.8829≒\n0.88したがってこの回線網の\"福岡－東京\"間の稼働率は、およそ\n0.88が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問6:https://www.nw-siken.com/kakomon/24_aki/am1_6.html"
+    },
+    {
+      "questionBodyText": "プログラム実行時の主記憶管理に関する記述として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "主記憶の空き領域を結合して一つの連続した領域にすることを，可変区画方式という。",
+        "プログラムが使用しなくなったヒープ領域を回収して再度使用可能にすることを，ガーベジコレクションという。",
+        "プログラムの実行中に主記憶内でモジュールの格納位置を移動させることを，動的リンキングという。",
+        "プログラムの実行中に必要になった時点でモジュールをロードすることを，動的再配置という。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_7.html",
+      "public_question_id": "5252ed6f2c3b42ea",
+      "original_question_id": "5252ed6f2c3b42ea",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "可変区画方式は、実行するプログラムの大きさに応じて主記憶を区画して割当てる方式です。可変区画方式で区画の割当てと解放を繰り返していくと、主記憶上に不連続な未使用領域が発生します。この主記憶の細かな空き領域を結合して一つの連続した領域にすることをメモリコンパクション(またはデフラグ)といいます。"
+        ],
+        [
+          "正しい。\nガーベジコレクション\n(Garbage Collection)は、プログラムが動的に確保したメモリ領域を回収して、再度使用可能にすることをいいます。ガーベジには「ゴミ」の意があり、メモリ中の使われない部分を集める作業になぞらえています。"
+        ],
+        [
+          "動的再配置の説明です。"
+        ],
+        [
+          "動的リンキングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問7:https://www.nw-siken.com/kakomon/24_aki/am1_7.html"
+    },
+    {
+      "questionBodyText": "ページング方式の仮想記憶を用いることによって，フラグメンテーションの問題を解決できる理由はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "一連のプログラムやデータを，不連続な主記憶に割り付けることができる。",
+        "仮想記憶のページ数を主記憶のページ数よりも多くすることができる。",
+        "プログラム全体を1ページに割り付けることができる。",
+        "プログラムのローディング時に主記憶を割り付けることができる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_8.html",
+      "public_question_id": "e680a877aa45e95b",
+      "original_question_id": "e680a877aa45e95b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "フラグメンテーション",
+        "ページング方式",
+        "固定長"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "フラグメンテーション\nとは、主記憶を区画してプログラムに割り当てた結果として生じる主記憶上の不連続な未使用領域のことです。未使用領域の合計が実行するタスクより大きくても不連続なためプログラムをロードすることができず、タスクを実行に使えない領域となっている状態を表しています。\nページング方式\nは、仮想記憶管理方式の1つで仮想アドレス空間を「ページ」と呼ばれる\n固定長\nの区画に分割，同時に主記憶上も同じように固定長に分割して、このページ単位で主記憶と補助記憶装置のアドレス変換を行う方式です。ページング方式の特徴からプログラムに割り当てるメモリが連続である必要はなく、大きなフラグメンテーションがほとんど発生しないため、メモリを無駄にしないという利点があります。"
+        ],
+        [
+          "フラグメンテーション\nとは、主記憶を区画してプログラムに割り当てた結果として生じる主記憶上の不連続な未使用領域のことです。未使用領域の合計が実行するタスクより大きくても不連続なためプログラムをロードすることができず、タスクを実行に使えない領域となっている状態を表しています。\nページング方式\nは、仮想記憶管理方式の1つで仮想アドレス空間を「ページ」と呼ばれる\n固定長\nの区画に分割，同時に主記憶上も同じように固定長に分割して、このページ単位で主記憶と補助記憶装置のアドレス変換を行う方式です。ページング方式の特徴からプログラムに割り当てるメモリが連続である必要はなく、大きなフラグメンテーションがほとんど発生しないため、メモリを無駄にしないという利点があります。"
+        ],
+        [
+          "フラグメンテーション\nとは、主記憶を区画してプログラムに割り当てた結果として生じる主記憶上の不連続な未使用領域のことです。未使用領域の合計が実行するタスクより大きくても不連続なためプログラムをロードすることができず、タスクを実行に使えない領域となっている状態を表しています。\nページング方式\nは、仮想記憶管理方式の1つで仮想アドレス空間を「ページ」と呼ばれる\n固定長\nの区画に分割，同時に主記憶上も同じように固定長に分割して、このページ単位で主記憶と補助記憶装置のアドレス変換を行う方式です。ページング方式の特徴からプログラムに割り当てるメモリが連続である必要はなく、大きなフラグメンテーションがほとんど発生しないため、メモリを無駄にしないという利点があります。"
+        ],
+        [
+          "フラグメンテーション\nとは、主記憶を区画してプログラムに割り当てた結果として生じる主記憶上の不連続な未使用領域のことです。未使用領域の合計が実行するタスクより大きくても不連続なためプログラムをロードすることができず、タスクを実行に使えない領域となっている状態を表しています。\nページング方式\nは、仮想記憶管理方式の1つで仮想アドレス空間を「ページ」と呼ばれる\n固定長\nの区画に分割，同時に主記憶上も同じように固定長に分割して、このページ単位で主記憶と補助記憶装置のアドレス変換を行う方式です。ページング方式の特徴からプログラムに割り当てるメモリが連続である必要はなく、大きなフラグメンテーションがほとんど発生しないため、メモリを無駄にしないという利点があります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問8:https://www.nw-siken.com/kakomon/24_aki/am1_8.html"
+    },
+    {
+      "questionBodyText": "ストアドプロシージャの利点はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アプリケーションプログラムからネットワークを介してDBMSにアクセスする場合，両者間の通信量を減少させる。",
+        "アプリケーションプログラムからの一連の要求を一括して処理することによって，DBMS内の実行計画の数を減少させる。",
+        "アプリケーションプログラムからの一連の要求を一括して処理することによって，DBMS内の必要バッファ数を減少させる。",
+        "データが格納されているディスク装置へのI/O回数を減少させる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_9.html",
+      "public_question_id": "551d332c64c4d66e",
+      "original_question_id": "551d332c64c4d66e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ストアドプロシージャ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ストアドプロシージャ\nは、データベースに対する一連の処理をまとめた手続きにして、データベース管理システムに保存したものです。利用者は通常のクエリを発行する代わりに、データベース管理システム内の手続きを呼び出すことによって目的の処理を実行させることができます。ストアド(stored)は\"格納された\"、プロシージャ(procedure)は\"手続き\"という意味です。\nストアドプロシージャを使用すれば、クライアントからサーバに対する1回の要求で事前設定された複数のクエリをデータベースに発行することができます。このため、よく使われる一連の処理を定型化できること、クライアントから普通に同数のクエリを発行する場合と比較して、クライアントとサーバとの間のネットワーク負荷を軽減することができるなどの利点があります。\nしたがって適切な記述は「ア」です。\nストアドプロシージャの呼出しにより、DBMSがデータベースに発行するクエリ数が減るわけではないため、その他の選択肢は不適切となります。"
+        ],
+        [
+          "ストアドプロシージャ\nは、データベースに対する一連の処理をまとめた手続きにして、データベース管理システムに保存したものです。利用者は通常のクエリを発行する代わりに、データベース管理システム内の手続きを呼び出すことによって目的の処理を実行させることができます。ストアド(stored)は\"格納された\"、プロシージャ(procedure)は\"手続き\"という意味です。\nストアドプロシージャを使用すれば、クライアントからサーバに対する1回の要求で事前設定された複数のクエリをデータベースに発行することができます。このため、よく使われる一連の処理を定型化できること、クライアントから普通に同数のクエリを発行する場合と比較して、クライアントとサーバとの間のネットワーク負荷を軽減することができるなどの利点があります。\nしたがって適切な記述は「ア」です。\nストアドプロシージャの呼出しにより、DBMSがデータベースに発行するクエリ数が減るわけではないため、その他の選択肢は不適切となります。"
+        ],
+        [
+          "ストアドプロシージャ\nは、データベースに対する一連の処理をまとめた手続きにして、データベース管理システムに保存したものです。利用者は通常のクエリを発行する代わりに、データベース管理システム内の手続きを呼び出すことによって目的の処理を実行させることができます。ストアド(stored)は\"格納された\"、プロシージャ(procedure)は\"手続き\"という意味です。\nストアドプロシージャを使用すれば、クライアントからサーバに対する1回の要求で事前設定された複数のクエリをデータベースに発行することができます。このため、よく使われる一連の処理を定型化できること、クライアントから普通に同数のクエリを発行する場合と比較して、クライアントとサーバとの間のネットワーク負荷を軽減することができるなどの利点があります。\nしたがって適切な記述は「ア」です。\nストアドプロシージャの呼出しにより、DBMSがデータベースに発行するクエリ数が減るわけではないため、その他の選択肢は不適切となります。"
+        ],
+        [
+          "ストアドプロシージャ\nは、データベースに対する一連の処理をまとめた手続きにして、データベース管理システムに保存したものです。利用者は通常のクエリを発行する代わりに、データベース管理システム内の手続きを呼び出すことによって目的の処理を実行させることができます。ストアド(stored)は\"格納された\"、プロシージャ(procedure)は\"手続き\"という意味です。\nストアドプロシージャを使用すれば、クライアントからサーバに対する1回の要求で事前設定された複数のクエリをデータベースに発行することができます。このため、よく使われる一連の処理を定型化できること、クライアントから普通に同数のクエリを発行する場合と比較して、クライアントとサーバとの間のネットワーク負荷を軽減することができるなどの利点があります。\nしたがって適切な記述は「ア」です。\nストアドプロシージャの呼出しにより、DBMSがデータベースに発行するクエリ数が減るわけではないため、その他の選択肢は不適切となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問9:https://www.nw-siken.com/kakomon/24_aki/am1_9.html"
+    },
+    {
+      "questionBodyText": "データウェアハウスに業務データを取り込むとき，データを抽出して加工し，データベースに書き出すツールはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ETLツール",
+        "OLAPツール",
+        "データマイニングツール",
+        "統計ツール"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » データベース応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データベース応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データベース応用",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_10.html",
+      "public_question_id": "0f09902b9221c899",
+      "original_question_id": "0f09902b9221c899",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ETL",
+        "Extract(抽出)\n企業内に存在する複数のシステムからデータを抽出し、それぞれの異なるデータフォーマットを次の加工工程に適した同一のデータフォーマットに変換する。Transform(変換・加工)\n抽出した生データにデータ形式の統一、欠損値の補完、単位の統一、異常値の処理などを行い、データの書き出しができる状態にする。(データクレンジング)\nLoad(ロード・書き出し)\nデータウェアハウスなどの出力先に書き出す。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "OLAPツールは、データウェアハウスなどの多次元データベースを分析するためのソフトウェアです。"
+        ],
+        [
+          "データマイニングツールは、統計解析手法を用いてデータウェアハウスの膨大なデータの中から隠れた関係性などを導く作業を支援するソフトウェアです。"
+        ],
+        [
+          "統計ツールは、データ群に対して様々な統計分析を行うことができるソフトウェアです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問10:https://www.nw-siken.com/kakomon/24_aki/am1_10.html"
+    },
+    {
+      "questionBodyText": "JavaScriptなどのスクリプト言語を使って，Webブラウザに組み込まれているサーバとの非同期通信機能を利用する技術であり，地図の高速なスクロールや，キーボード入力に合わせた検索候補の逐次表示などを実現するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Ajax",
+        "CSS",
+        "DOM",
+        "SAX"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » プログラミング",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "プログラミング"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "プログラミング",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_11.html",
+      "public_question_id": "f91de57762320e69",
+      "original_question_id": "f91de57762320e69",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。Ajax\n(エイジャックス、アジャックス)は、Asynchronous JavaScript and XMLの略で、JavaScriptの非同期通信機能を活用して、Webブラウザ上でインターフェースを構築するための技術の総称です。\n非同期通信によって裏側でWebサーバからデータを取得し、その内容に応じてHTMLを書き換えて画面を更新します。これにより、ページ遷移を伴わないWebアプリケーションが実現されています。現在は一般的な技術ですが、先進的にAjaxを活用した事例としては、GmailやGoogleマップが有名です。"
+        ],
+        [
+          "Cascading Style Sheetsの略。HTMLやXMLの要素をどのように修飾して表示させるかを定義する文書で、Webページのデザインを記述するために用いられます。"
+        ],
+        [
+          "Document Object Modelの略。Web技術の標準化を推進する「W3C」が勧告した HTML文書やXML文書をアプリケーションから利用するためのAPIです。"
+        ],
+        [
+          "Simple API for XMLの略。XML文書の解釈・検証をプログラムやスクリプトで処理するためのAPIです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問11:https://www.nw-siken.com/kakomon/24_aki/am1_11.html"
+    },
+    {
+      "questionBodyText": "SSLによるクライアントとWebサーバ間の通信手順(1)～(5)において，a，bに入る適切な組合せはどれか。ここで，記述した手順は，一部簡略化している。\nクライアントからのSSLによる接続要求に対し，Webサーバは証明書をクライアントに送付する。\nクライアントは，保持している\naによってこのサーバ証明書の正当性を確認する。\nクライアントは，共通鍵生成用のデータを作成し，サーバ証明書に添付された\nbによってこの共通鍵生成用データを暗号化し，Webサーバに送付する。\n受け取ったWebサーバは，自らの秘密鍵によって暗号化された共通鍵生成用データを復号する。\nクライアントとWebサーバの両者は，同一の共通鍵生成用データによって共通鍵を作成し，これ以降の両者間の通信は，この共通鍵による暗号化通信を行う。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqb371daa2a6a61759_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqb371daa2a6a61759_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqb371daa2a6a61759_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqb371daa2a6a61759_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_12.html",
+      "public_question_id": "b371daa2a6a61759",
+      "original_question_id": "b371daa2a6a61759",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ハイブリッド暗号方式",
+        "a",
+        "a",
+        "b",
+        "b"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "設問の手順は、SSL/TLSやS/MIMEで採用されている\nハイブリッド暗号方式\nの流れです。\nハイブリッド暗号方式は、共通鍵暗号方式と公開鍵暗号方式を組み合わせて暗号化通信を行う仕組みです。共通鍵暗号方式は、鍵を通信相手に渡す際に安全性を確保する必要があり、手間がかかる一方で、暗号化・復号が高速に行えます。一方、公開鍵暗号方式は鍵の配送が容易ですが、暗号化と復号に多くの計算リソースが必要です。\nハイブリッド暗号方式では、共通鍵の生成用データを公開鍵暗号方式を用いて安全に相手に配送し、共有したデータから双方が共通鍵を生成します。その共通鍵を使用して通信内容を暗号化・復号することで、安全性と効率性を両立しています。\n〔\naについて〕\nサーバ証明書は、Webサーバが認証局に事前に申請し、発行を受けた証明書です。この証明書には、Webサーバの公開鍵に対して認証局がデジタル署名が付いています。SSLを利用する際、Webサーバはまずクライアントにサーバ証明書を送信します。クライアント側では「認証局の公開鍵」を使用して証明書の正当性を確認し、Webサーバが信頼できる相手かどうかを判断します（証明書に含まれる「Webサーバの公開鍵」が正しいことを確認します）。\n∴\na\n＝認証局の公開鍵\n〔\nbについて〕\nWebサーバが信頼できると確認したクライアントは、共通鍵生成用のデータを安全に共有するために、クライアント自身が生成したデータを暗号化してWebサーバに送ります。この暗号化には、サーバ証明書に含まれる「Webサーバの公開鍵」を使用します。Webサーバは受信したデータを、自身が持つ「Webサーバの秘密鍵」で復号し、共通鍵生成用のデータが共有されます。\n∴\nb\n＝Webサーバの公開鍵\nその後、クライアントとWebサーバで共有した共通鍵生成用のデータから同一の共通鍵を生成し、以後はこの共通鍵を用いて暗号化通信を行います。これがハイブリッド暗号方式の基本的な手順です。\nしたがって「ウ」の組合せが適切です。"
+        ],
+        [
+          "設問の手順は、SSL/TLSやS/MIMEで採用されている\nハイブリッド暗号方式\nの流れです。\nハイブリッド暗号方式は、共通鍵暗号方式と公開鍵暗号方式を組み合わせて暗号化通信を行う仕組みです。共通鍵暗号方式は、鍵を通信相手に渡す際に安全性を確保する必要があり、手間がかかる一方で、暗号化・復号が高速に行えます。一方、公開鍵暗号方式は鍵の配送が容易ですが、暗号化と復号に多くの計算リソースが必要です。\nハイブリッド暗号方式では、共通鍵の生成用データを公開鍵暗号方式を用いて安全に相手に配送し、共有したデータから双方が共通鍵を生成します。その共通鍵を使用して通信内容を暗号化・復号することで、安全性と効率性を両立しています。\n〔\naについて〕\nサーバ証明書は、Webサーバが認証局に事前に申請し、発行を受けた証明書です。この証明書には、Webサーバの公開鍵に対して認証局がデジタル署名が付いています。SSLを利用する際、Webサーバはまずクライアントにサーバ証明書を送信します。クライアント側では「認証局の公開鍵」を使用して証明書の正当性を確認し、Webサーバが信頼できる相手かどうかを判断します（証明書に含まれる「Webサーバの公開鍵」が正しいことを確認します）。\n∴\na\n＝認証局の公開鍵\n〔\nbについて〕\nWebサーバが信頼できると確認したクライアントは、共通鍵生成用のデータを安全に共有するために、クライアント自身が生成したデータを暗号化してWebサーバに送ります。この暗号化には、サーバ証明書に含まれる「Webサーバの公開鍵」を使用します。Webサーバは受信したデータを、自身が持つ「Webサーバの秘密鍵」で復号し、共通鍵生成用のデータが共有されます。\n∴\nb\n＝Webサーバの公開鍵\nその後、クライアントとWebサーバで共有した共通鍵生成用のデータから同一の共通鍵を生成し、以後はこの共通鍵を用いて暗号化通信を行います。これがハイブリッド暗号方式の基本的な手順です。\nしたがって「ウ」の組合せが適切です。"
+        ],
+        [
+          "設問の手順は、SSL/TLSやS/MIMEで採用されている\nハイブリッド暗号方式\nの流れです。\nハイブリッド暗号方式は、共通鍵暗号方式と公開鍵暗号方式を組み合わせて暗号化通信を行う仕組みです。共通鍵暗号方式は、鍵を通信相手に渡す際に安全性を確保する必要があり、手間がかかる一方で、暗号化・復号が高速に行えます。一方、公開鍵暗号方式は鍵の配送が容易ですが、暗号化と復号に多くの計算リソースが必要です。\nハイブリッド暗号方式では、共通鍵の生成用データを公開鍵暗号方式を用いて安全に相手に配送し、共有したデータから双方が共通鍵を生成します。その共通鍵を使用して通信内容を暗号化・復号することで、安全性と効率性を両立しています。\n〔\naについて〕\nサーバ証明書は、Webサーバが認証局に事前に申請し、発行を受けた証明書です。この証明書には、Webサーバの公開鍵に対して認証局がデジタル署名が付いています。SSLを利用する際、Webサーバはまずクライアントにサーバ証明書を送信します。クライアント側では「認証局の公開鍵」を使用して証明書の正当性を確認し、Webサーバが信頼できる相手かどうかを判断します（証明書に含まれる「Webサーバの公開鍵」が正しいことを確認します）。\n∴\na\n＝認証局の公開鍵\n〔\nbについて〕\nWebサーバが信頼できると確認したクライアントは、共通鍵生成用のデータを安全に共有するために、クライアント自身が生成したデータを暗号化してWebサーバに送ります。この暗号化には、サーバ証明書に含まれる「Webサーバの公開鍵」を使用します。Webサーバは受信したデータを、自身が持つ「Webサーバの秘密鍵」で復号し、共通鍵生成用のデータが共有されます。\n∴\nb\n＝Webサーバの公開鍵\nその後、クライアントとWebサーバで共有した共通鍵生成用のデータから同一の共通鍵を生成し、以後はこの共通鍵を用いて暗号化通信を行います。これがハイブリッド暗号方式の基本的な手順です。\nしたがって「ウ」の組合せが適切です。"
+        ],
+        [
+          "設問の手順は、SSL/TLSやS/MIMEで採用されている\nハイブリッド暗号方式\nの流れです。\nハイブリッド暗号方式は、共通鍵暗号方式と公開鍵暗号方式を組み合わせて暗号化通信を行う仕組みです。共通鍵暗号方式は、鍵を通信相手に渡す際に安全性を確保する必要があり、手間がかかる一方で、暗号化・復号が高速に行えます。一方、公開鍵暗号方式は鍵の配送が容易ですが、暗号化と復号に多くの計算リソースが必要です。\nハイブリッド暗号方式では、共通鍵の生成用データを公開鍵暗号方式を用いて安全に相手に配送し、共有したデータから双方が共通鍵を生成します。その共通鍵を使用して通信内容を暗号化・復号することで、安全性と効率性を両立しています。\n〔\naについて〕\nサーバ証明書は、Webサーバが認証局に事前に申請し、発行を受けた証明書です。この証明書には、Webサーバの公開鍵に対して認証局がデジタル署名が付いています。SSLを利用する際、Webサーバはまずクライアントにサーバ証明書を送信します。クライアント側では「認証局の公開鍵」を使用して証明書の正当性を確認し、Webサーバが信頼できる相手かどうかを判断します（証明書に含まれる「Webサーバの公開鍵」が正しいことを確認します）。\n∴\na\n＝認証局の公開鍵\n〔\nbについて〕\nWebサーバが信頼できると確認したクライアントは、共通鍵生成用のデータを安全に共有するために、クライアント自身が生成したデータを暗号化してWebサーバに送ります。この暗号化には、サーバ証明書に含まれる「Webサーバの公開鍵」を使用します。Webサーバは受信したデータを、自身が持つ「Webサーバの秘密鍵」で復号し、共通鍵生成用のデータが共有されます。\n∴\nb\n＝Webサーバの公開鍵\nその後、クライアントとWebサーバで共有した共通鍵生成用のデータから同一の共通鍵を生成し、以後はこの共通鍵を用いて暗号化通信を行います。これがハイブリッド暗号方式の基本的な手順です。\nしたがって「ウ」の組合せが適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201202:am:問12:https://www.nw-siken.com/kakomon/24_aki/am1_12.html"
+    },
+    {
+      "questionBodyText": "シングルサインオンの説明のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "クッキーを使ったシングルサインオンの場合，サーバごとの認証情報を含んだクッキーをクライアントで生成し，各サーバ上で保存，管理する。",
+        "クッキーを使ったシングルサインオンの場合，認証対象のサーバを，異なるインターネットドメインに配置する必要がある。",
+        "リバースプロキシを使ったシングルサインオンの場合，認証対象のWebサーバを，異なるインターネットドメインに配置する必要がある。",
+        "リバースプロキシを使ったシングルサインオンの場合，利用者認証においてパスワードの代わりにデジタル証明書を用いることができる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_13.html",
+      "public_question_id": "28dc575bf51d98ee",
+      "original_question_id": "28dc575bf51d98ee",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "シングルサインオン",
+        "クッキーを使うSSO最初のログインの際には、Webサーバにインストールされたエージェントが認証サーバにアクセスで認証を行う。\nその認証・識別情報をクッキーに含めクライアントに返す。\n別のWebサーバにアクセスがあった場合には、エージェントが認証サーバにアクセスしクッキー情報をもとに認証を行う。\nリバースプロキシ型SSOすべてのWebサーバへのアクセスをリバースプロキシに集約する。\nリバースプロキシはアクセスしてきたユーザーを認証する。\nログインに成功すると、リバースプロキシはWebサーバに代理アクセスし結果をユーザーに返す。SAML(Security Assertion Markup Language)を使うSSO認証情報に加え，属性情報とアクセス制御情報を異なるドメインに伝達するためのWebサービスプロトコル。これを用いてほかのドメインとの間で認証情報を交換することで、同一ドメインに留まらない大規模なサイトにおいてもシングルサインオンの仕組みやセキュアな認証情報管理を実現できる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "クッキーはサーバで生成され、クライアントのコンピュータに保存されます。"
+        ],
+        [
+          "クッキーの有効範囲は同一ドメイン内のページに限られています。異なるドメインに配置されたシステムは他のドメインで生成されたクッキーにアクセスすることができないので認証を行うことはできません。"
+        ],
+        [
+          "Webサーバには認証を行わないとアクセスできないようにしたいので、リバースプロキシと同一ドメインに配置しなくてはなりません。"
+        ],
+        [
+          "正しい。IDとパスワードの組合せのほかにデジタル証明書が使用可能です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問13:https://www.nw-siken.com/kakomon/24_aki/am1_13.html"
+    },
+    {
+      "questionBodyText": "暗号方式に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "AESは公開鍵暗号方式，RSAは共通鍵暗号方式の一種である。",
+        "共通鍵暗号方式では，暗号化及び復号に使用する鍵が同一である。",
+        "公開鍵暗号方式を通信内容の秘匿に使用する場合は，暗号化に使用する鍵を秘密にして，復号に使用する鍵を公開する。",
+        "デジタル署名に公開鍵暗号方式が使用されることはなく，共通鍵暗号方式が使用される。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_14.html",
+      "public_question_id": "0b89fa7a517d94bb",
+      "original_question_id": "0b89fa7a517d94bb",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "記述は逆に説明しています。AESは共通鍵暗号方式、RSAは公開鍵暗号方式です。"
+        ],
+        [
+          "正しい。共通鍵暗号方式は、\"共通鍵\"という名前のとおり暗号化と復号に同じ鍵を使用します。錠をかけるのと開けるのとで同じ鍵を使用する、玄関のドアのようなイメージです。"
+        ],
+        [
+          "公開鍵暗号方式では、暗号化に使用する鍵を公開し、復号に使用する鍵は所有者が秘密として管理します。暗号化は誰でもできますが、復号できるのは正当な受信者だけという仕組みにより、通信の機密性が確保されます。"
+        ],
+        [
+          "共通鍵暗号方式ではありません。デジタル署名は、公開鍵暗号方式を利用して実現されています。具体的には、送信者が自分の秘密鍵で署名データを作成し、受信者は送信者の公開鍵で署名データの検証を行います。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問14:https://www.nw-siken.com/kakomon/24_aki/am1_14.html"
+    },
+    {
+      "questionBodyText": "安全なWebアプリケーションの作り方について，攻撃と対策の適切な組合せはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq342ce1e1e0d94ce8_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq342ce1e1e0d94ce8_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq342ce1e1e0d94ce8_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq342ce1e1e0d94ce8_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_15.html",
+      "public_question_id": "342ce1e1e0d94ce8",
+      "original_question_id": "342ce1e1e0d94ce8",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SQLインジェクション\n入力データとしてデータベースへの命令文を構成するデータを入力し、Webアプリケーションが想定していないSQL文を意図的に実行させることでデータベースを攻撃する行為\nクロスサイトスクリプティング\n動的にWebページを生成するアプリケーションのセキュリティ上の不備を意図的に利用し、サイト間を横断して悪意のあるスクリプトを混入させることでユーザーのクッキーを盗むなどの攻撃を行う行為\nクロスサイトリクエストフォージェリ\n悪意のあるスクリプトが埋め込まれたWebページを訪問者に閲覧させて、別のWebサイトで、その訪問者が意図しない操作を行わせる攻撃手法。会員制サイトでログイン状態であるときに会員情報の変更や商品の注文画面への直接リンクを踏ませる（またはスクリプトでリダイレクトする）などの意図しない不正な処理要求を行わせる行為がこれに該当する\nセッションハイジャック\n認証が完了してセッションを開始しているブラウザとWebサーバの間の通信において、CookieやセッションIDなどのセッション情報を盗むことで、対象セッションを通信当事者以外が乗っ取る攻撃手法"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。\nプレースホルダ\nは、SQL文中のユーザー入力を割り当てる部分に特殊文字(?など)を使用したひな形を用意し、後から実際の値を割り当てる機構です。後から割り当てる値は、SQL文の特殊文字がエスケープされた完全な数値または文字列として扱われるため安全に実行することができます。"
+        ],
+        [
+          "スタイルシートには\"expression\"文のようにJavaScriptを直接記述できる部分があるため、不用意に別ドメインのCSSを読込むと悪意のあるスクリプトによってXSSの被害を受ける可能性があります。またスタイルシートの\"import\"文によってスクリプトファイルがダウンロードされてしまうおそれもあります。2020年現在、これらの脅威はブラウザによりブロックされることがほとんどです。しかし、スタイルシートはWebページのデザインを指定する言語でありながら、設定できる範囲は広く、悪意を持って使用すれば任意の要素を消したり、出現させたりというようにページの表示を改ざんすることも可能です（CSSインジェクション）。この観点からも、信頼できない外部CSSは読み込むべきではないと言えます。"
+        ],
+        [
+          "GETメソッドを使用すると、URLから秘密情報を読みとられたり改ざんされたりという可能性が高くなるのでPOSTメソッドを使用すべきです。GETやPOSTというのはWebブラウザからサーバへのパラメータの受け渡し型の違いです。GETメソッドは、\"hoge.php?mode=new&uid=34632847\"というようにURLの後ろにパラメータを付加して送信する方式、POSTメソッドは、パラメータをメッセージボディにセットし、サーバに渡す方式です。"
+        ],
+        [
+          "固定のセッションIDは、セッションハイジャックの標的になりやすいため危険です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問15:https://www.nw-siken.com/kakomon/24_aki/am1_15.html"
+    },
+    {
+      "questionBodyText": "ソフトウェアの要件定義や分析・設計で用いられる技法に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "決定表は，条件と処理を対比させた表形式で論理を表現したものであり，複雑な条件判定を伴う要件定義の記述手段として有効である。",
+        "構造化チャートは，システムの\"状態\"の種別とその状態が遷移するための\"要因\"との関係を分かりやすく表現する手段として有効である。",
+        "状態遷移図は，DFDに\"コントロール変換とコントロールフロー\"を付加したものであり，制御系システムに特有な処理を表現する手段として有効である。",
+        "制御フロー図は，データの\"源泉，吸収，流れ，処理，格納\"を基本要素としており，システム内のデータの流れを表現する手段として有効である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア要件定義",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア要件定義"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア要件定義",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_16.html",
+      "public_question_id": "3b0dc0cd3d245047",
+      "original_question_id": "3b0dc0cd3d245047",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "決定表"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "状態遷移図を説明した文です。"
+        ],
+        [
+          "制御フロー図を説明した文です。"
+        ],
+        [
+          "DFD(Data Flow Diagram)を説明した文です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問16:https://www.nw-siken.com/kakomon/24_aki/am1_16.html"
+    },
+    {
+      "questionBodyText": "プログラムの著作権侵害に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "A社が開発したソフトウェアの公開済プロトコルに基づいて，A社が販売しているソフトウェアと同等の機能をもつソフトウェアを独自に開発して販売した。",
+        "ソフトウェアハウスと使用許諾契約を締結し，契約上は複製権の許諾は受けていないが，使用許諾を受けたソフトウェアにはプロテクトがかけられていたので，そのプロテクトを外し，バックアップのために複製した。",
+        "他人のソフトウェアを正当な手段で入手し，逆コンパイルを行った。",
+        "複製及び，改変する権利が付与されたソース契約の締結によって，許諾されたソフトウェアを改造して製品に組み込み，ソース契約の範囲内で製品を販売した。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 知的財産適用管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "知的財産適用管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "知的財産適用管理",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_17.html",
+      "public_question_id": "fd136c861466184d",
+      "original_question_id": "fd136c861466184d",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "独自に開発した著作物と既存の著作物が同一または類似している場合であっても、独自著作物が既存著作物とは独立して創作されたものである場合には、著作権侵害は成立しません。"
+        ],
+        [
+          "正しい。著作物を個人的に又は家庭内など限られた範囲内で使用することを目的とする複製は認められています。しかしプロテクトなどの技術的保護手段を回避して複製を行うことは認められていないため著作権の侵害に該当します。(著作権法30条)"
+        ],
+        [
+          "正当に入手したソフトウェアをリバースエンジニアリングなどにおいて逆コンパイルを行うことは原則的には合法行為\n※\nです。ただ逆コンパイルによって得られた情報をそのまま使用すると著作権の侵害になる場合があります。"
+        ],
+        [
+          "改造は契約の範囲内であるため侵害に該当しません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問17:https://www.nw-siken.com/kakomon/24_aki/am1_17.html"
+    },
+    {
+      "questionBodyText": "図のアローダイアグラムから読み取れることのうち，適切なものはどれか。ここで，プロジェクトの開始日は0日目とする。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "作業Cを最も早く開始できるのは5日目である。",
+        "作業Dはクリティカルパス上の作業である。",
+        "作業Eの余裕日数は30日である。",
+        "作業Fを最も遅く開始できるのは10日目である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_18.html",
+      "public_question_id": "550f40e82b6c4045",
+      "original_question_id": "550f40e82b6c4045",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq550f40e82b6c4045_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "A→C→G→H5＋20＋20＋10＝55日\nA→D→H5＋30＋10＝45日\nA→E→(右のダミー)→H5＋10＋0＋10＝25日\nB→(左のダミー)→C→G→H10＋0＋20＋20＋10＝\n60日\nB→(左のダミー)→D→H10＋0＋30＋10＝50日\nB→(左のダミー)→E→(右のダミー)→H10＋0＋10＋0＋10＝30日\nB→F→(右のダミー)→H10＋10＋0＋10＝30日"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "作業Cの先行作業は作業Aと作業Bです。作業Bが完了するのに10日を要するので、作業Cを最も早く開始できるのは10日目になります。"
+        ],
+        [
+          "クリティカルパス上の作業は、B・C・G・Hの4つです。作業Dはクリティカルパス上の作業でありません。"
+        ],
+        [
+          "正しい。最短で完了するのは開始日から数えて59日目なので、完了前に行われる作業H(10日)は、少なくとも50日目までには作業を開始しなくてはなりません。作業Hの開始条件には作業Eの完了も含まれるので、作業Eは49日目までに完了していればクリティカルパスに影響を与えないことがわかります。\n作業Eを最も早く開始できるのはA(5日)とB(10日)の両方が完了する日の翌日(10日目)、クリティカルパスに影響を与えず作業Eを最も遅く開始できるのは「50日目－E(10日)＝40日目」です。余裕日数はこの両方の差なので「40－10＝\n30日\n」となります。"
+        ],
+        [
+          "「ウ」の作業Eと同様の考え方で、作業Fを最も遅く開始できるのは40日目になります（最遅開始日）。記述にある10日目は作業Fの最早開始日です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201202:am:問18:https://www.nw-siken.com/kakomon/24_aki/am1_18.html"
+    },
+    {
+      "questionBodyText": "プロジェクト管理においてパフォーマンス測定に使用するEVMの管理対象の組みはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "コスト，スケジュール",
+        "コスト，リスク",
+        "スケジュール，品質",
+        "品質，リスク"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_19.html",
+      "public_question_id": "293af8c999db603b",
+      "original_question_id": "293af8c999db603b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "EVM",
+        "コスト",
+        "スケジュール"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201202:am:問19:https://www.nw-siken.com/kakomon/24_aki/am1_19.html"
+    },
+    {
+      "questionBodyText": "ITサービスマネジメントにおけるインシデント管理の主な活動はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "インシデントから発生する問題の解決策の評価",
+        "インシデントの解決とサービスの復旧",
+        "インシデントの根本原因の究明",
+        "インシデントのトレンド分析と予防措置"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメントプロセス",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメントプロセス"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメントプロセス",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_20.html",
+      "public_question_id": "ce2c792f4d8affa8",
+      "original_question_id": "ce2c792f4d8affa8",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "インシデント管理"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "変更管理の活動です。"
+        ],
+        [
+          "正しい。インシデント管理の活動です。"
+        ],
+        [
+          "問題管理の活動です。"
+        ],
+        [
+          "問題管理の活動です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問20:https://www.nw-siken.com/kakomon/24_aki/am1_20.html"
+    },
+    {
+      "questionBodyText": "ITサービスマネジメントの可用性管理のKPIとして用いるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "災害を想定した復旧テストの回数",
+        "サービスの中断回数",
+        "性能不足に起因するインシデントの数",
+        "目標を達成できなかったSLAの項目数"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメントプロセス",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメントプロセス"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメントプロセス",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_21.html",
+      "public_question_id": "2cd642e3f5c63366",
+      "original_question_id": "2cd642e3f5c63366",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "可用性管理",
+        "KPI"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ITサービス継続性管理のKPIとして用いられる指標です。"
+        ],
+        [
+          "正しい。可用性管理のKPIとして用いられる指標です。"
+        ],
+        [
+          "キャパシティ管理のKPIとして用いられる指標です。"
+        ],
+        [
+          "サービスレベル管理のKPIとして用いられる指標です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201202:am:問21:https://www.nw-siken.com/kakomon/24_aki/am1_21.html"
+    },
+    {
+      "questionBodyText": "システム監査人が負う責任はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "監査結果の外部への開示",
+        "監査対象システムの管理",
+        "監査報告会で指摘した問題点の改善",
+        "監査報告書に記載した監査意見"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_22.html",
+      "public_question_id": "7c625d8696ef0c22",
+      "original_question_id": "7c625d8696ef0c22",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "経営部門の責任です。"
+        ],
+        [
+          "システム管理部門の責任です。"
+        ],
+        [
+          "被監査部門の責任です。"
+        ],
+        [
+          "正しい。システム監査人が負う責任です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問22:https://www.nw-siken.com/kakomon/24_aki/am1_22.html"
+    },
+    {
+      "questionBodyText": "BPOを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "企業内の業務全体を対象として，業務プロセスを抜本的に見直すことで，品質・コスト・スピードを改善し，競争優位性を確保すること",
+        "災害や事故で被害を受けても，重要事業を中断させない，又は可能な限り中断期間を短くする仕組みを構築すること",
+        "社内業務のうちコアビジネス以外の業務の一部又は全部を，情報システムと併せて外部に委託することで，経営資源をコアビジネスに集中させること",
+        "プロジェクトを，戦略との適合性や費用対効果，リスクといった観点から評価を行い，情報化投資のバランスを管理し，最適化を図ること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 業務プロセス",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "業務プロセス"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "業務プロセス",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_23.html",
+      "public_question_id": "27e3af67c4959ed4",
+      "original_question_id": "27e3af67c4959ed4",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "BPO"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "BPR(Business Process Re-engineering)の説明です。"
+        ],
+        [
+          "BCP(Business Continuity Plan：事業継続計画)の説明です。"
+        ],
+        [
+          "正しい。BPOの説明です。"
+        ],
+        [
+          "IT投資マネジメントの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201202:am:問23:https://www.nw-siken.com/kakomon/24_aki/am1_23.html"
+    },
+    {
+      "questionBodyText": "非機能要件に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "新しい業務の在り方をまとめた上で，業務上実現すべき要件",
+        "業務の手順や入出力情報，ルールや制約などの要件",
+        "業務要件を実現するために必要なシステムの機能に関する要件",
+        "ソフトウェアの信頼性，効率性など品質に関する要件"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 要件定義",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "要件定義"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "要件定義",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_24.html",
+      "public_question_id": "80e8cea7c8c53a7c",
+      "original_question_id": "80e8cea7c8c53a7c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "非機能要件"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "業務要件に該当します。"
+        ],
+        [
+          "業務要件に該当します。"
+        ],
+        [
+          "機能要件に該当します。"
+        ],
+        [
+          "正しい。非機能要件に該当します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201202:am:問24:https://www.nw-siken.com/kakomon/24_aki/am1_24.html"
+    },
+    {
+      "questionBodyText": "RFIを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成24年秋期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "サービス提供者と顧客との間で，提供するサービスの内容，品質などに関する保証範囲やペナルティについてあらかじめ契約としてまとめた文書",
+        "システムの調達に際して，調達側から技術的要件やサービスレベル要件を提示し，ベンダーに対して，指定した期限内で効果的な実現策の提案を依頼する文書",
+        "ユーザー要件を実現するために，現在の状況において利用可能な技術・製品，ベンダーにおける導入実績など実現手段に関する情報提供をベンダーに依頼する文書",
+        "要求定義との整合性を図り，ユーザーと開発要員及び運用要員の共有物とするために，業務処理の概要，入出力情報の一覧，データフローなどをまとめた文書"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2012,
+      "list_group_id": "201202",
+      "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_25.html",
+      "public_question_id": "fbaebe974dfb6892",
+      "original_question_id": "fbaebe974dfb6892",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "RFI"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SLA(Service Level Agreement)の説明です。"
+        ],
+        [
+          "RFP(Request for Proposal：提案依頼書)の説明です。"
+        ],
+        [
+          "正しい。RFIの説明です。"
+        ],
+        [
+          "システム仕様書の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201202:am:問25:https://www.nw-siken.com/kakomon/24_aki/am1_25.html"
+    }
+  ]
+}
