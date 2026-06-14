@@ -1,0 +1,490 @@
+{
+  "list_group_id": "201902",
+  "question_bodies": [
+    {
+      "questionBodyText": "DNSの再帰的な問合せを使ったサービス妨害攻撃(DNSリフレクタ攻撃)の踏み台にされることを防止する対策はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和元年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DNSサーバをキャッシュサーバとコンテンツサーバに分離し，インターネット側からキャッシュサーバに問合せできないようにする。",
+        "問合せがあったドメインに関する情報をWhoisデータベースで確認してからキャッシュサーバに登録する。",
+        "一つのDNSレコードに複数のサーバのIPアドレスを割り当て，サーバへのアクセスを振り分けて分散させるように設定する。",
+        "ほかのDNSサーバから送られてくるIPアドレスとホスト名の対応情報の信頼性を，デジタル署名で確認するように設定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2019,
+      "list_group_id": "201902",
+      "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_21.html",
+      "public_question_id": "2cf493688fa5b82e",
+      "original_question_id": "2cf493688fa5b82e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "DNSリフレクタ攻撃",
+        "攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "DNSリフレクタ攻撃が攻撃に使うのは不正又は架空のドメインではないため、Whoisデータベースでの確認は無意味です。"
+        ],
+        [
+          "DNSラウンドロビンの説明です。"
+        ],
+        [
+          "DNSSECに関する説明で、DNSキャッシュポイズニング攻撃への対策です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201902:am:問21:https://www.nw-siken.com/kakomon/01_aki/am2_21.html",
+      "explanationText": [
+        "正しい。\n\nDNS リフレクタ攻撃は、外部から再帰問合せに応答する公開キャッシュ DNS を踏み台にして増幅応答を攻撃対象へ返させる。したがってキャッシュサーバを公開しない、又はアクセス元を制限することが有効である。",
+        "間違い。\n\nWhois でドメイン情報を確認しても、攻撃の本質である再帰問合せへの応答を防げないため対策にならない。",
+        "間違い。\n\n一つの DNS レコードへ複数 IP を割り当てるのは DNS ラウンドロビンによる負荷分散の説明であり、踏み台化防止とは無関係である。",
+        "間違い。\n\nデジタル署名で応答の正当性を確認するのは DNSSEC の考え方で、主にキャッシュポイズニング対策である。DNS リフレクタ攻撃の踏み台防止策ではない。"
+      ],
+      "suggestedQuestions": [
+        "DNS リフレクタ攻撃はなぜ増幅しますか？",
+        "踏み台にされる DNS サーバの条件は何ですか？",
+        "DNSSEC との違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "DNS リフレクタ攻撃はなぜ増幅しますか？",
+          "answer": "小さな問合せに対して大きな応答を返させ、しかも送信元を被害者に偽装することで、被害者へ大量の応答トラフィックを集中させるからである。"
+        },
+        {
+          "question": "踏み台にされる DNS サーバの条件は何ですか？",
+          "answer": "外部からの再帰問合せに応答してしまう公開キャッシュ DNS サーバが典型である。"
+        },
+        {
+          "question": "DNSSEC との違いは何ですか？",
+          "answer": "DNSSEC は応答の真正性確認、踏み台防止は再帰問合せのアクセス制限や公開範囲の制御が中心である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_04_security_incident_response"
+    },
+    {
+      "questionBodyText": "図はプロセッサによってフェッチされた命令の格納順序を表している。a に該当するプロセッサの構成要素はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和元年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アキュムレーター",
+        "データキャッシュ",
+        "プログラムレジスタ(プログラムカウンター)",
+        "命令レジスタ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2019,
+      "list_group_id": "201902",
+      "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_22.html",
+      "public_question_id": "f3d8c0f240595be8",
+      "original_question_id": "f3d8c0f240595be8",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqf3d8c0f240595be8_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "命令フェッチ\nプログラムカウンターが示すアドレスから命令語を\n命令レジスタに取り出す\n。\n命令デコード\n命令デコーダが取り出した命令を解読する。\n実効(有効)アドレス計算\n命令語のオペランド部の値を用いて、演算対象のデータを保持する主記憶のアドレスを計算する。\nオペランドフェッチ\n計算されたアドレス値を用いて主記憶からデータを汎用レジスタに取り出す。\n実行\n解読された命令と演算対象のデータで命令を用いて演算を行う。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "アキュムレーターは、演算途中の結果を一時的に保持しておくためのレジスタです。"
+        ],
+        [
+          "データキャッシュはキャッシュメモリの1つで、データ（オペランド）をキャッシュしておく役割を持ちます。図は a がプロセッサ内部の記憶装置であることを示していますが、キャッシュメモリはプロセッサ外部の装置なので不適切です。またデータキャッシュは命令を格納しません。"
+        ],
+        [
+          "プログラムカウンターは、次に実行するべき命令が格納されている主記憶上のアドレスを保持するレジスタです。"
+        ],
+        [
+          "正しい。命令レジスタは、主記憶から取り出された命令が格納される場所です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201902:am:問22:https://www.nw-siken.com/kakomon/01_aki/am2_22.html",
+      "explanationText": [
+        "間違い。\n\nアキュムレータは演算途中の値を保持するレジスタであり、フェッチされた命令そのものを格納する場所ではない。",
+        "間違い。\n\nデータキャッシュは主にデータを高速参照するための記憶であり、命令フェッチ直後の命令格納先を示してはいない。",
+        "間違い。\n\nプログラムカウンタは次に取り出す命令の主記憶アドレスを保持する。フェッチされた命令語を格納する場所ではない。",
+        "正しい。\n\n命令フェッチでは、プログラムカウンタが示す主記憶上の命令語を命令レジスタへ取り込む。したがって a は命令レジスタである。"
+      ],
+      "suggestedQuestions": [
+        "フェッチとデコードの違いは何ですか？",
+        "プログラムカウンタは何を保持しますか？",
+        "命令レジスタの役割は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "フェッチとデコードの違いは何ですか？",
+          "answer": "フェッチは命令を取り出す段階、デコードは取り出した命令の意味を解釈する段階である。"
+        },
+        {
+          "question": "プログラムカウンタは何を保持しますか？",
+          "answer": "次に実行すべき命令が格納されている主記憶アドレスを保持する。"
+        },
+        {
+          "question": "命令レジスタの役割は何ですか？",
+          "answer": "フェッチされた命令語を一時保持し、後続のデコードや実行段階へ渡すことにある。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs06_01_system_evaluation"
+    },
+    {
+      "questionBodyText": "ピアツーピアシステムの特徴として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和元年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アカウントの管理やセキュリティの管理をすることが難しく，不特定多数の利用者が匿名で接続利用できるなどの隠蔽性が高い。",
+        "サービスの提供や管理を特定のコンピュータが行い，他のコンピュータはそのサービスを利用するという，役割分担を明確にしたシステムを簡単に作成できる。",
+        "システム利用者の拡大に伴い，データアクセスの負荷がシステム全体を監視するコンピュータに集中するために，高性能なコンピュータが必要となる。",
+        "目的のデータの存在場所が明確なので，高速なデータ検索や，目的とするデータの更新や削除も容易である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2019,
+      "list_group_id": "201902",
+      "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_23.html",
+      "public_question_id": "7a4197836844f9e2",
+      "original_question_id": "7a4197836844f9e2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。アカウントやセキュリティをサーバ上で一括集中して行えるクライアントサーバシステムと異なり、ユーザーの管理は難しくなります。匿名性の高さゆえに、以前は違法コピーソフトのファイル共有で問題となりました。"
+        ],
+        [
+          "ピアツーピアシステムでは基本的にクライアントとサーバの区別はありません。"
+        ],
+        [
+          "どの端末もサーバとして処理を行うので、個々のコンピュータの性能はそれほど要求されません。"
+        ],
+        [
+          "データはネットワーク上に分散して所在することになります。データを検索する仕組みや、データの更新・削除も難しくなります。データの断片の複製を多くの端末が持っているので、一旦流通するとデータを削除するのは容易ではありません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201902:am:問23:https://www.nw-siken.com/kakomon/01_aki/am2_23.html",
+      "explanationText": [
+        "正しい。\n\nピアツーピアでは中央集権的な管理サーバがないか弱いため、利用者管理やセキュリティ管理を一元的に行いにくい。匿名性や隠蔽性が高くなりやすい点も特徴である。",
+        "間違い。\n\n特定のコンピュータがサービス提供と管理を担う明確な役割分担は、クライアントサーバシステムの特徴である。",
+        "間違い。\n\n負荷が一台の監視コンピュータへ集中するという説明も、中央管理型の構成を前提としており、ピアツーピアの特徴ではない。",
+        "間違い。\n\nピアツーピアではデータが分散配置されやすく、所在把握や更新・削除の一元管理は容易ではない。"
+      ],
+      "suggestedQuestions": [
+        "ピアツーピアとクライアントサーバの違いは何ですか？",
+        "なぜ管理が難しくなりますか？",
+        "実務での利点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ピアツーピアとクライアントサーバの違いは何ですか？",
+          "answer": "前者は端末同士が対等に資源提供と利用を行い、後者はサーバが中心となって資源を提供する。"
+        },
+        {
+          "question": "なぜ管理が難しくなりますか？",
+          "answer": "認証、アクセス権、更新、ログ管理を一か所で強制しにくく、端末ごとの差異も生じやすいからである。"
+        },
+        {
+          "question": "実務での利点は何ですか？",
+          "answer": "中央サーバへの依存を減らし、参加ノードの増加に応じて資源も分散的に増やせる点である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "UMLのユースケース図の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和元年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "外部からのトリガに応じて，オブジェクトの状態がどのように遷移するかを表現する。",
+        "クラスと関連から構成され，システムの静的な構造を表現する。",
+        "システムとアクタの相互作用を表現する。",
+        "データの流れに注目してシステムの機能を表現する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア要件定義",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア要件定義"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア要件定義",
+      "examYear": 2019,
+      "list_group_id": "201902",
+      "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_24.html",
+      "public_question_id": "8e1d504eaefd17fb",
+      "original_question_id": "8e1d504eaefd17fb",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ユースケース図",
+        "アクタ\nシステムのユーザーが果たす役割を表し、システムと活発に情報交換をしたり、システムから受動的に情報を受け取ったりする。人間、ハードウェア、外部システムがアクタになりえる。\nユースケース\nアクタとシステムとの間の対話をモデル化したもので、アクタによって開始され、システムのある機能を実行する。システムのユーザーがシステムを利用して遂行する単位業務のひとつを抽象化したもの。\n関連\nアクタとユースケースの関連を表す実線\n対象\nシステム化対象範囲を表す長方形"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ステートチャート図の説明です。"
+        ],
+        [
+          "クラス図の説明です。"
+        ],
+        [
+          "正しい。ユースケース図の説明です。"
+        ],
+        [
+          "DFD(Data Flow Diagram)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201902:am:問24:https://www.nw-siken.com/kakomon/01_aki/am2_24.html",
+      "explanationText": [
+        "間違い。\n\n外部トリガに応じたオブジェクト状態遷移を表すのはステートマシン図やステートチャート図の説明である。",
+        "間違い。\n\nクラスと関連で静的構造を表すのはクラス図の説明である。",
+        "正しい。\n\nユースケース図は、システム境界の外にいるアクタとシステム内のユースケースとの関係を示し、システムと利用者・外部主体の相互作用を表現する。",
+        "間違い。\n\nデータの流れに着目して機能を表すのは DFD の説明であり、ユースケース図ではない。"
+      ],
+      "suggestedQuestions": [
+        "ユースケース図は何を表しますか？",
+        "クラス図との違いは何ですか？",
+        "要求定義でどう役立ちますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ユースケース図は何を表しますか？",
+          "answer": "利用者や外部システムなどのアクタが、システムに対してどのような機能要求を持つかを表す。"
+        },
+        {
+          "question": "クラス図との違いは何ですか？",
+          "answer": "ユースケース図は外部との振る舞い、クラス図は内部の静的構造を表す。"
+        },
+        {
+          "question": "要求定義でどう役立ちますか？",
+          "answer": "利用者視点で必要機能を整理し、システム境界や主要な利用シナリオを共有しやすくする。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_02_design_build_test_advice"
+    },
+    {
+      "questionBodyText": "SDメモリカードに使用される著作権保護技術はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和元年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CPPM(Content Protection for Pre-Recorded Media)",
+        "CPRM(Content Protection for Recordable Media)",
+        "DTCP(Digital Transmission Content Protection)",
+        "HDCP(High-bandwidth Digital Content Protection)"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 知的財産適用管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "知的財産適用管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "知的財産適用管理",
+      "examYear": 2019,
+      "list_group_id": "201902",
+      "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_25.html",
+      "public_question_id": "8273d6245bf63a39",
+      "original_question_id": "8273d6245bf63a39",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "CPPMは、コンテンツをメディアに暗号化した状態で記録し、再生時に対応した機器で復号することで違法コピーを防止する技術です。メディア内の暗号鍵と再生機器（またはソフトウェア）の機器鍵がそろわないと復号できない仕組みになっています。\"for Pre-Recorded Media\"どおり再生専用メディア用の規格です。"
+        ],
+        [
+          "正しい。CPPMと概念的には同じ仕組みですが、\"for Recordable Media\"の言葉の通りこちらは記録可能メディアを対象とした規格です。SDメモリカードは書き換え可能メディアなので、著作権保護技術としてCPRMが使用されています。"
+        ],
+        [
+          "DTCPは、家庭内ネットワーク内において、著作権保護されたデジタルコンテンツを暗号化して伝送することでコピーや傍受を防ぐ技術です。"
+        ],
+        [
+          "HDMI端子が搭載されたデジタルAV機器に採用され、HDMI端子やDisplayPort端子から表示機器にデジタル信号を送るときに受信する経路を暗号化する方式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201902:am:問25:https://www.nw-siken.com/kakomon/01_aki/am2_25.html",
+      "explanationText": [
+        "間違い。\n\nCPPM は再生専用メディア向けの著作権保護技術であり、書換え可能な SD メモリカード向けではない。",
+        "正しい。\n\nCPRM は Content Protection for Recordable Media の略で、記録可能メディア向けの著作権保護技術である。SD メモリカードで用いられる。",
+        "間違い。\n\nDTCP は家庭内ネットワークなどでコンテンツ伝送時に保護を行う技術であり、SD カードの記録媒体保護方式ではない。",
+        "間違い。\n\nHDCP は HDMI や DisplayPort などの映像出力経路でコンテンツを保護する技術である。"
+      ],
+      "suggestedQuestions": [
+        "CPRM と CPPM の違いは何ですか？",
+        "DTCP や HDCP は何を保護しますか？",
+        "Recordable Media という語がなぜ手掛かりですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "CPRM と CPPM の違いは何ですか？",
+          "answer": "CPRM は記録可能メディア向け、CPPM は再生専用メディア向けの保護方式である。"
+        },
+        {
+          "question": "DTCP や HDCP は何を保護しますか？",
+          "answer": "DTCP は主にデジタル伝送路、HDCP は映像出力インタフェース上のコンテンツ保護に使われる。"
+        },
+        {
+          "question": "Recordable Media という語がなぜ手掛かりですか？",
+          "answer": "SD メモリカードは書換え可能媒体なので、『記録可能メディア向け』を示す CPRM が適合するからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    }
+  ]
+}

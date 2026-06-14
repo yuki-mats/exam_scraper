@@ -1,0 +1,62 @@
+[
+  {
+    "questionBodyText": "DNSの再帰的な問合せを使ったサービス妨害攻撃(DNSリフレクタ攻撃)の踏み台にされることを防止する対策はどれか。",
+    "choiceTextList": [
+      "DNSサーバをキャッシュサーバとコンテンツサーバに分離し，インターネット側からキャッシュサーバに問合せできないようにする。",
+      "問合せがあったドメインに関する情報をWhoisデータベースで確認してからキャッシュサーバに登録する。",
+      "一つのDNSレコードに複数のサーバのIPアドレスを割り当て，サーバへのアクセスを振り分けて分散させるように設定する。",
+      "ほかのDNSサーバから送られてくるIPアドレスとホスト名の対応情報の信頼性を，デジタル署名で確認するように設定する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2cf493688fa5b82e",
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_21.html"
+  },
+  {
+    "questionBodyText": "図はプロセッサによってフェッチされた命令の格納順序を表している。a に該当するプロセッサの構成要素はどれか。",
+    "choiceTextList": [
+      "アキュムレーター",
+      "データキャッシュ",
+      "プログラムレジスタ(プログラムカウンター)",
+      "命令レジスタ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f3d8c0f240595be8",
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_22.html"
+  },
+  {
+    "questionBodyText": "ピアツーピアシステムの特徴として，適切なものはどれか。",
+    "choiceTextList": [
+      "アカウントの管理やセキュリティの管理をすることが難しく，不特定多数の利用者が匿名で接続利用できるなどの隠蔽性が高い。",
+      "サービスの提供や管理を特定のコンピュータが行い，他のコンピュータはそのサービスを利用するという，役割分担を明確にしたシステムを簡単に作成できる。",
+      "システム利用者の拡大に伴い，データアクセスの負荷がシステム全体を監視するコンピュータに集中するために，高性能なコンピュータが必要となる。",
+      "目的のデータの存在場所が明確なので，高速なデータ検索や，目的とするデータの更新や削除も容易である。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7a4197836844f9e2",
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_23.html"
+  },
+  {
+    "questionBodyText": "UMLのユースケース図の説明はどれか。",
+    "choiceTextList": [
+      "外部からのトリガに応じて，オブジェクトの状態がどのように遷移するかを表現する。",
+      "クラスと関連から構成され，システムの静的な構造を表現する。",
+      "システムとアクタの相互作用を表現する。",
+      "データの流れに注目してシステムの機能を表現する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8e1d504eaefd17fb",
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_24.html"
+  },
+  {
+    "questionBodyText": "SDメモリカードに使用される著作権保護技術はどれか。",
+    "choiceTextList": [
+      "CPPM(Content Protection for Pre-Recorded Media)",
+      "CPRM(Content Protection for Recordable Media)",
+      "DTCP(Digital Transmission Content Protection)",
+      "HDCP(High-bandwidth Digital Content Protection)"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8273d6245bf63a39",
+    "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_25.html"
+  }
+]
