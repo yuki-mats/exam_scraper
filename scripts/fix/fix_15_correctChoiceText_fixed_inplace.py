@@ -11,6 +11,20 @@ from typing import Any
 
 FULLWIDTH_DIGIT_TRANSLATION = str.maketrans("０１２３４５６７８９", "0123456789")
 ANSWER_RE = re.compile(r"正解は\s*([0-9]+(?:\s*,\s*[0-9]+)*)\s*です。")
+NEGATIVE_PROMPT_PHRASES = (
+    "最も不適当なもの",
+    "最も不適当",
+    "不適当なもの",
+    "不適切なもの",
+    "適切でないもの",
+    "適当でないもの",
+    "誤っているもの",
+    "誤ったもの",
+    "誤りのあるもの",
+    "誤りのある記述",
+    "誤りはどれか",
+    "正しくないもの",
+)
 
 
 @dataclass(frozen=True)
@@ -137,27 +151,6 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
     text = (question_body_text or "").strip()
     if not text:
         return None
-    negative_keywords = (
-        "最も不適当",
-        "不適当",
-        "不適切",
-        "適切でない",
-        "適当でない",
-        "適合しない",
-        "誤って",
-        "誤り",
-        "誤った",
-        "正しくない",
-        "ならない",
-        "みられない",
-        "起こり得ない",
-        "適応でない",
-        "してはならない",
-        "必要がない",
-        "要しない",
-        "関係の少ない",
-        "最も関係の少ない",
-    )
     positive_required_keywords = (
         "見落としてはならない",
         "見逃してはならない",
@@ -172,7 +165,7 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
         line = lines[index]
         if "どれか" not in line and "選べ" not in line:
             continue
-        if any(keyword in line for keyword in negative_keywords):
+        if any(phrase in line for phrase in NEGATIVE_PROMPT_PHRASES):
             intent_text = line
             break
         if not line.startswith(("のは", "は")) and len(line) > 8:
@@ -184,7 +177,7 @@ def infer_question_intent(question_body_text: str | None) -> str | None:
 
     if any(keyword in intent_text for keyword in positive_required_keywords):
         return "select_correct"
-    if any(keyword in intent_text for keyword in negative_keywords):
+    if any(phrase in intent_text for phrase in NEGATIVE_PROMPT_PHRASES):
         return "select_incorrect"
     return "select_correct"
 

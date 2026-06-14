@@ -26,6 +26,13 @@ class InferQuestionIntentFromTextTest(unittest.TestCase):
         text = "アースドリル工法の施工において、使用しない機材は次のうちどれか。"
         self.assertEqual(infer_question_intent_from_text(text), "select_correct")
 
+    def test_error_occurrence_count_stays_select_correct(self) -> None:
+        text = (
+            "平均ビット誤り率が1×10^-5の回線を用いて長さ1,000ビットの電文を1,000回送信するとき、"
+            "1ビット以上の誤りが発生する電文の個数は平均して幾つか。"
+        )
+        self.assertEqual(infer_question_intent_from_text(text), "select_correct")
+
 
 if __name__ == "__main__":
     unittest.main()

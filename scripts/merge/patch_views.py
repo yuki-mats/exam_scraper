@@ -23,6 +23,20 @@ EXPLANATION_FIELDS = [
     "explanation_choice_snippets",
     "explanation_choice_correctness",
 ]
+NEGATIVE_PROMPT_PHRASES = (
+    "最も不適当なもの",
+    "最も不適当",
+    "不適当なもの",
+    "不適切なもの",
+    "適切でないもの",
+    "適当でないもの",
+    "誤っているもの",
+    "誤ったもの",
+    "誤りのあるもの",
+    "誤りのある記述",
+    "誤りはどれか",
+    "正しくないもの",
+)
 
 
 def load_json(path: Path) -> Any:
@@ -237,39 +251,13 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
         "行わなければならない",
         "伝えなければならない",
     )
-    negative_keywords = (
-        "最も不適当",
-        "不適当",
-        "不適切",
-        "該当しない",
-        "当てはまらない",
-        "対象とならない",
-        "属さない",
-        "含まれない",
-        "使用しない",
-        "必要としない",
-        "要しない",
-        "適切でない",
-        "適当でない",
-        "適合しない",
-        "誤って",
-        "誤り",
-        "誤った",
-        "正しくない",
-        "必要がない",
-        "関係の少ない",
-        "最も関係の少ない",
-        "記載を要しない",
-        "してはならない",
-    )
-
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     intent_text = text[-240:]
     for index in range(len(lines) - 1, -1, -1):
         line = lines[index]
         if "どれか" not in line and "選べ" not in line:
             continue
-        if any(keyword in line for keyword in negative_keywords):
+        if any(phrase in line for phrase in NEGATIVE_PROMPT_PHRASES):
             intent_text = line
             break
         if not line.startswith(("のは", "は")) and len(line) > 8:
@@ -283,7 +271,7 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
         return "select_correct"
     if any(keyword in intent_text for keyword in positive_select_keywords):
         return "select_correct"
-    if any(keyword in intent_text for keyword in negative_keywords):
+    if any(phrase in intent_text for phrase in NEGATIVE_PROMPT_PHRASES):
         return "select_incorrect"
     return "select_correct"
 
