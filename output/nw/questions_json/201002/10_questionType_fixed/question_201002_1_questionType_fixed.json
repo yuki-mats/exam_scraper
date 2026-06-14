@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "後置換記法（逆ポーランド表記法）では，例えば，式 Y＝(A－B)×C を YAB－C×＝ と表現する。\n次の式を後置換記法で表現したものはどれか。Y＝(A＋B)×(C－(D÷E))",
+    "choiceTextList": [
+      "YAB＋C－DE÷×＝",
+      "YAB＋CDE÷－×＝",
+      "YAB＋EDC÷－×＝",
+      "YAB＋CD－E÷×＝"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c4c34a095e454ab8",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "a，b，c，d の4文字からなるメッセージを符号化してビット列にする方法として表のア～エの4通りを考えた。この表は a，b，c，d の各1文字を符号化するときのビット列を表している。メッセージ中の a，b，c，d の出現頻度は，それぞれ，50%，30%，10%，10% であることが分かっている。符号化されたビット列から元のメッセージが一意に復号可能であって，ビット列の長さが最も短くなるものはどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "73f7b074c2cd36b2",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "探索表の構成法を例とともに a～c に示す。探索の平均計算量が最も小さい探索手法の組合せはどれか。ここで，探索表のコードの空欄は表の空きを示す。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "59488346ae7d6f8d",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒のキャッシュメモリと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶とキャッシュメモリとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたいデータがキャッシュメモリに\n存在しない確率\nをrとし，キャッシュメモリ管理に関するオーバーヘッドは無視できるものとする。",
+    "choiceTextList": [
+      "(1－r)・aa＋b\n・x＋\nr・ba＋b\n・y",
+      "(1－r)・x＋r・y",
+      "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
+      "r・x＋(1－r)・y"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d4377e9ecd8542fa",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "システムの信頼性向上技術に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "故障が発生したときに，あらかじめ指定された安全な状態にシステムを保つことをフェールソフトという。",
+      "故障が発生したときに，あらかじめ指定されている縮小した範囲のサービスを提供することをフォールトマスキングという。",
+      "故障が発生したときに，その影響が誤りとなって外部に出ないように訂正することをフェールセーフという。",
+      "故障が発生したときに対処するのではなく，品質管理などを通じてシステム構成要素の信頼性を高めることをフォールトアボイダンスという。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1401ed41e3fe2653",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "ほとんどのプログラムの大きさがページサイズの半分以下のシステムにおいて，ページサイズを半分にしたときに予想されるものはどれか。ここで，このシステムは主記憶が不足しがちで，多重度やスループットなどはシステム性能の限界で運用しているものとする。",
+    "choiceTextList": [
+      "ページサイズが小さくなるので，領域管理などのオーバーヘッドが減少する。",
+      "ページ内に余裕がなくなるので，ページ置換えによってシステム性能が低下する。",
+      "ページ内の無駄な空き領域が減少するので，主記憶不足が緩和される。",
+      "ページフォールトの回数が増加するので，システム性能が低下する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f429af0c58bb91db",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "デュアルライセンスのソフトウェアを利用する条件のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "複数のライセンスが設定されているので，利用者はすべてのライセンスに同意する。",
+      "複数のライセンスが設定されているので，利用者はそのうちの一つのライセンスを選択して同意する。",
+      "複数のライセンスが設定されているので，利用者はそのうちの二つのライセンスを選択して同意する。",
+      "複数のライセンスを組み合わせた一つのライセンスが設定されているので，利用者はそのライセンスに同意する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c3392ccd3ff62291",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "図の論理回路と等価な回路はどれか。",
+    "choiceTextList": [
+      "(論理和素子)",
+      "(論理積素子)",
+      "(排他的論理和素子)",
+      "(否定論理和素子)"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2ef1d78b89c8fb35",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "ヤコブ・ニールセンのユーザーインタフェースに関する10か条のヒューリスティックスの一つである \"システム状態の視認性\" に該当するものはどれか。",
+    "choiceTextList": [
+      "異なる画面間でも，操作は類似の手順で実行できる。",
+      "実行中に処理の進捗度を表示する。",
+      "入力フォームの必須項目に印を付けて目立たせる。",
+      "表示する文字の大きさや色が適切で、効果的に画像も使用する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a4abb884b87b26d7",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "コンピュータグラフィックスに関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "テクスチャマッピングは，すべてのピクセルについて，視線とすべての物体との交点を計算し，その中から視点に最も近い交点を選択することによって，陰面消去を行う。",
+      "メタボールは，反射・透過方向への視線追跡を行わず，与えられた空間中のデータから輝度を計算する。",
+      "ラジオシティ法は，拡散反射面間の相互反射による効果を考慮して拡散反射面の輝度を決める。",
+      "レイトレーシング法は，形状が定義された物体の表面に，別に定義された模様を張り付けて画像を作成する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1c8e4b578325c985",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "次の表定義において，\"在庫\" 表の製品番号に定義された参照制約によって拒否される可能性のある操作はどれか。ここで，実線は主キーを，破線は外部キーを表す。\n在庫（\n在庫管理番号\n,\n製品番号\n, 在庫量）\n製品（\n製品番号\n, 製品名, 型, 単価）",
+    "choiceTextList": [
+      "\"在庫\"表の行削除",
+      "\"在庫\"表の表削除",
+      "\"在庫\"表への行追加",
+      "\"製品\"表への行追加"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "74cad726d33993b9",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "図のようなIPネットワークのLAN環境で，ホストAからホストBにパケットを送信する。LAN1において，パケット内のイーサネットフレームのあて先とIPデータグラムのあて先の組合せとして，適切なものはどれか。ここで，図中の MACn/IPm はホスト又はルータがもつインタフェースのMACアドレスとIPアドレスを示す。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "056b3afc6b6d9eb5",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "ほかのコンピュータ上にあるデータやサービスを呼び出すためのプロトコルで，メッセージ記述がXMLのヘッダーとボディで構成されているものはどれか。",
+    "choiceTextList": [
+      "CORBA",
+      "DCOM",
+      "SIP",
+      "SOAP"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "006cc766227389a9",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "公開鍵暗号方式によって，暗号を使ってn人が相互に通信する場合，異なる鍵は全体で幾つ必要になるか。ここで，公開鍵，秘密鍵をそれぞれ一つと数える。",
+    "choiceTextList": [
+      "n＋1",
+      "2n",
+      "n(n－1)\n2",
+      "log2\nn"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1f1d56584fc0d4d9",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "プログラム実行中の特定の時点で成立する変数間の関係や条件を記述した論理式を埋め込んで，そのプログラムの正当性を検証する手法はどれか。",
+    "choiceTextList": [
+      "アサーションチェック",
+      "コード追跡",
+      "スナップショットダンプ",
+      "テストカバレッジ分析"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0a21007b02b5992b",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "マッシュアップに該当するものはどれか。",
+    "choiceTextList": [
+      "既存のプログラムから，そのプログラムの仕様を導き出す。",
+      "既存のプログラムを部品化し，それらの部品を組み合わせて，新規プログラムを開発する。",
+      "クラスライブラリを利用して，新規プログラムを開発する。",
+      "公開されている複数のサービスを利用して，新たなサービスを提供する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "08105478263200f0",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "特許権に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "A社が特許を出願するより前に独自に開発して発売した製品は，A社の特許権の侵害にならない。",
+      "組込み機器におけるハードウェアは特許権で保護されるが，ソフトウェアは保護されない。",
+      "審査を受けて特許権を取得した後に，特許権が無効となることはない。",
+      "先行特許と同一の技術であっても，独自に開発した技術であれば特許権の侵害にならない。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "fb797821f9c59474",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "WBSの構成要素であるワークパッケージに関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "ワークパッケージは，OBSのチームに，担当する人員を割り当てたものである。",
+      "ワークパッケージは，関連のある要素成果物をまとめたものである。",
+      "ワークパッケージは，更にアクティビティに分解される。",
+      "ワークパッケージは，一つ上位の要素成果物と1対1に対応する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8a9f73af4e8152c8",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "アローダイアグラムで表される作業A～Hを見直したところ，作業Dだけが短縮可能であり，その所要日数を6日間に短縮できることが分かった。作業全体の所要日数は何日間短縮できるか。",
+    "choiceTextList": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ee6908a3d58ea0f3",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "次の処理条件でサーバ上のファイルを磁気テープにバックアップするとき，バックアップの運用に必要な磁気テープは何本か。\n〔処理条件〕\n毎月初日(1日)にフルバックアップを取る。フルバックアップは1回につき1本の磁気テープを必要とする。\nフルバックアップを取った翌日から次のフルバックアップまでは，毎日，差分バックアップを取る。差分バックアップは，差分バックアップ用として別の磁気テープに追記し，1カ月分が1本に記録できる。\n常に6か月前の同一日までのデータについて，指定日の状態にファイルを復元できることを保証する。ただし，6か月前の同一日が存在しない場合は，当該月の月末以降のデータについて，指定日の状態にファイルを復元できることを保証する (例：10月31日の場合は，4月30日以降のデータについて，指定日の状態にファイルを復元できることを保証する)。",
+    "choiceTextList": [
+      "12",
+      "13",
+      "14",
+      "15"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c496da717adbfa47",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "サービス提供の時間帯を7:00～19:00としているシステムにおいて，16:00にシステム故障が発生し，サービスが停止した。修理は21:00までかかり，当日中にサービスは再開されなかった。この日の可用性は何％か。",
+    "choiceTextList": [
+      "25",
+      "60",
+      "64",
+      "75"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "4d40b79ac29f39f6",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "\"システム管理基準\" の説明はどれか。",
+    "choiceTextList": [
+      "コンピュータウィルスに対する予防，発見，駆除，復旧などについて実効性の高い対策をとりまとめたもの",
+      "コンピュータ不正アクセスによる被害の予防，発見，再発防止などについて，組織及び個人が実行すべき対策をとりまとめたもの",
+      "情報戦略を立案し，効果的な情報システム投資とリスクを低減するためのコントロールを適切に整備・運用するための事項をとりまとめたもの",
+      "ソフトウェアの違法複製を防止するため，法人，団体などを対象として，ソフトウェアを使用するに当たって実行されるべき事項をとりまとめたもの"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a38f3a196c9513b3",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "エンタープライズアーキテクチャを説明したものはどれか。",
+    "choiceTextList": [
+      "企業が競争優位性の構築を目的にIT戦略の策定・実行をコントロールし，あるべき方向へ導く組織能力のことである。",
+      "業務を管理するシステムにおいて，承認された業務がすべて正確に処理，記録されることを確保するために，業務プロセスに組み込まれた内部統制のことである。",
+      "組織全体の業務とシステムを統一的な手法でモデル化し，業務とシステムを同時に改善することを目的とした，業務とシステムの最適化手法である。",
+      "プロジェクトの進捗や作業のパフォーマンスを，出来高の価値によって定量化し，プロジェクトの現在及び今後の状況を評価する手法である。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "55452c8624db3bb9",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "SOAを説明したものはどれか。",
+    "choiceTextList": [
+      "企業改革において既存の組織やビジネスルールを抜本的に見直し，業務フロー，管理機構，情報システムを再構築する手法のこと",
+      "企業の経営資源を有効に活用して経営の効率を向上させるために，基幹業務を部門ごとでなく統合的に管理するための業務システムのこと",
+      "発注者とITアウトソーシングサービス提供者との間で，サービスの品質について合意した文書のこと",
+      "ビジネスプロセスの構成要素とそれを支援するIT基盤を，ソフトウェア部品であるサービスとして提供するシステムアーキテクチャのこと"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a0ba471b94586dff",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "サプライチェーンマネジメントの改善指標となるものはどれか。",
+    "choiceTextList": [
+      "残業時間の減少率",
+      "販売単価下落の防止率",
+      "不良在庫の減少率",
+      "優良顧客数の増加率"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d47003554b8de646",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_25.html"
+  }
+]
