@@ -1,0 +1,1796 @@
+{
+  "list_group_id": "200902",
+  "question_bodies": [
+    {
+      "questionBodyText": "2進数の表現で，2の補数を使用する理由はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "値が1のビットを数えることでビット誤りを検出できる。",
+        "減算を，負数の作成と加算処理で行うことができる。",
+        "除算を，減算の組合せで行うことができる。",
+        "ビットの反転だけで，負数を求めることができる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 離散数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "離散数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "離散数学",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_1.html",
+      "public_question_id": "105863ac47e724c7",
+      "original_question_id": "105863ac47e724c7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "1010 1010",
+        "1010 1010"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "パリティビットの説明です。"
+        ],
+        [
+          "正しい説明です。"
+        ],
+        [
+          "確かに除算は、減算の組合せで行いますが2の補数表現は使用しません。"
+        ],
+        [
+          "1の補数表現の説明です。2の補数表現ではビット反転の後、1を加えて完成します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問1:https://www.nw-siken.com/kakomon/21_aki/am1_1.html"
+    },
+    {
+      "questionBodyText": "誤り検出方式であるCRCに関する記述として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "検査用データは，検査対象のデータを生成多項式で処理して得られる1ビットの値である。",
+        "受信側では，付加されてきた検査用データで検査対象のデータを割り，余りがなければ送信が正しかったと判断する。",
+        "送信側では，生成多項式を用いて検査対象のデータから検査用データを作り，これを検査対象のデータに付けて送信する。",
+        "送信側と受信側では，異なる生成多項式が用いられる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 通信に関する理論",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "通信に関する理論"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "通信に関する理論",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_2.html",
+      "public_question_id": "eaee0a7209e61a01",
+      "original_question_id": "eaee0a7209e61a01",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "CRC",
+        "送信側は、検査対象のデータを生成多項式（ビット列）で割り、その余りを検査用データとする\n例）10001000 mod 1010 = 110送信側は、検査対象のデータに検査用データを付加して送信する\n例）検査対象データ：10001000、検査用データ：110受信側は、検査対象データ＋検査用データを、送信側と同じ生成多項式で割る\n例）(10001000 + 110) mod 1010 = 03.で計算した余りが0であれば\"誤りなし\"と判断する"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "1ビットではありません。検査用データのビット数は、生成多項式の次数（ビット数－1）と同じになります。上記の生成多項式 1010 = x3\n+x1を例にすると、次数3なので検査用データも3ビットです。CRCにはCRC-8やCRC-16、CRC-32などの種類があります。CRC-8というのは、8次の生成多項式を使い、その結果として8ビットのチェックデータを付ける方式のことです。"
+        ],
+        [
+          "受信側では、検査対象データに検査用データを連結した値を、送信側と同じ生成多項式で除算します。その余りが0になるかどうかでデータの正しさを判断します。"
+        ],
+        [
+          "正しい。送信側は生成多項式を用いて余りビットを計算し、それを検査用データとしてデータ本体に付加して送信します。"
+        ],
+        [
+          "送信時と受信時で同じ生成多項式を利用します。多項式が異なるとデータの正しさを確認することができません。CRCの方式ごとに使う多項式は決められています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問2:https://www.nw-siken.com/kakomon/21_aki/am1_2.html"
+    },
+    {
+      "questionBodyText": "n個の要素x1\n，x2\n，…，xnから成る連結リストに対して，新たな要素xn+1の末尾への追加に要する時間をƒ(n)とし，末尾の要素xnの削除に要する時間をg(n)とする。nが非常に大きいとき，実装方法1と実装方法2における\ng(n)\nƒ(n)\nの挙動として，適切なものはどれか。\n〔実装方法1〕\n先頭のセルを指すポインタ型の変数 front だけをもつ。\n〔実装方法2〕\n先頭のセルを指すポインタ型の変数 front と，末尾のセルを指すポインタ型の変数 rear を併せもつ。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq85dc0379967e0c5a_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq85dc0379967e0c5a_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq85dc0379967e0c5a_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq85dc0379967e0c5a_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » データ構造",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "データ構造"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "データ構造",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_3.html",
+      "public_question_id": "85dc0379967e0c5a",
+      "original_question_id": "85dc0379967e0c5a",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq85dc0379967e0c5a_q_img01.png?alt=media",
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq85dc0379967e0c5a_q_img02.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "2つの連結構造（単方向リスト・双方向リスト）において、\n新要素の末尾への追加 ƒ(n)\n末尾の要素の削除 g(n)\nに要する時間の関係を考える問題です。\n※一回のポインタ参照→次のセルへのアクセスに要する時間は一定であるとし、処理に要する時間は、このセル移動に回数に比例するものとします。\nまず〔実装方法1〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタfrontからリスト構造を末尾のデータ(n)まで順にたどり、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\nn回です。\n\"末尾の要素の削除\"は、ポインタ front から末尾の要素の一つ前の手前の要素(n-1)までたどり、末尾の要素へのポインタを削除します。したがって、セル移動の回数は\nn－1回です。nは非常に大きいという条件があるので、〔実装方法1〕の\ng(n)\nƒ(n)\nは、n－1nで\nほぼ1となります。\n次に〔実装方法2〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタ rear を参照することで1回で末尾のセルへアクセスし、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\n1回です。\n\"末尾の要素の削除\"は〔実装方法1〕と同様に、ポインタ front から末尾の要素の一つ前の手前の要素(n－1)までたどり、末尾の要素へのポインタを削除します。この場合では、ポインタ rear から末尾のセルへ移動することはできても、\n末尾のセルからその一つ手前のセルへはポインタがないため戻ることができない\nという点が理解できているかがポイントになります。したがって、セル移動の回数は\nn-1回\nです。\n〔実装方法2〕の\ng(n)\nƒ(n)\nは、n－11で\nほぼnに比例\nとなります。\n以上より、〔実装方法1〕が\"ほぼ1となる\"、〔実装方法2〕が\"ほぼnに比例する\"の組合せで「イ」が正解となります。"
+        ],
+        [
+          "2つの連結構造（単方向リスト・双方向リスト）において、\n新要素の末尾への追加 ƒ(n)\n末尾の要素の削除 g(n)\nに要する時間の関係を考える問題です。\n※一回のポインタ参照→次のセルへのアクセスに要する時間は一定であるとし、処理に要する時間は、このセル移動に回数に比例するものとします。\nまず〔実装方法1〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタfrontからリスト構造を末尾のデータ(n)まで順にたどり、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\nn回です。\n\"末尾の要素の削除\"は、ポインタ front から末尾の要素の一つ前の手前の要素(n-1)までたどり、末尾の要素へのポインタを削除します。したがって、セル移動の回数は\nn－1回です。nは非常に大きいという条件があるので、〔実装方法1〕の\ng(n)\nƒ(n)\nは、n－1nで\nほぼ1となります。\n次に〔実装方法2〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタ rear を参照することで1回で末尾のセルへアクセスし、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\n1回です。\n\"末尾の要素の削除\"は〔実装方法1〕と同様に、ポインタ front から末尾の要素の一つ前の手前の要素(n－1)までたどり、末尾の要素へのポインタを削除します。この場合では、ポインタ rear から末尾のセルへ移動することはできても、\n末尾のセルからその一つ手前のセルへはポインタがないため戻ることができない\nという点が理解できているかがポイントになります。したがって、セル移動の回数は\nn-1回\nです。\n〔実装方法2〕の\ng(n)\nƒ(n)\nは、n－11で\nほぼnに比例\nとなります。\n以上より、〔実装方法1〕が\"ほぼ1となる\"、〔実装方法2〕が\"ほぼnに比例する\"の組合せで「イ」が正解となります。"
+        ],
+        [
+          "2つの連結構造（単方向リスト・双方向リスト）において、\n新要素の末尾への追加 ƒ(n)\n末尾の要素の削除 g(n)\nに要する時間の関係を考える問題です。\n※一回のポインタ参照→次のセルへのアクセスに要する時間は一定であるとし、処理に要する時間は、このセル移動に回数に比例するものとします。\nまず〔実装方法1〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタfrontからリスト構造を末尾のデータ(n)まで順にたどり、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\nn回です。\n\"末尾の要素の削除\"は、ポインタ front から末尾の要素の一つ前の手前の要素(n-1)までたどり、末尾の要素へのポインタを削除します。したがって、セル移動の回数は\nn－1回です。nは非常に大きいという条件があるので、〔実装方法1〕の\ng(n)\nƒ(n)\nは、n－1nで\nほぼ1となります。\n次に〔実装方法2〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタ rear を参照することで1回で末尾のセルへアクセスし、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\n1回です。\n\"末尾の要素の削除\"は〔実装方法1〕と同様に、ポインタ front から末尾の要素の一つ前の手前の要素(n－1)までたどり、末尾の要素へのポインタを削除します。この場合では、ポインタ rear から末尾のセルへ移動することはできても、\n末尾のセルからその一つ手前のセルへはポインタがないため戻ることができない\nという点が理解できているかがポイントになります。したがって、セル移動の回数は\nn-1回\nです。\n〔実装方法2〕の\ng(n)\nƒ(n)\nは、n－11で\nほぼnに比例\nとなります。\n以上より、〔実装方法1〕が\"ほぼ1となる\"、〔実装方法2〕が\"ほぼnに比例する\"の組合せで「イ」が正解となります。"
+        ],
+        [
+          "2つの連結構造（単方向リスト・双方向リスト）において、\n新要素の末尾への追加 ƒ(n)\n末尾の要素の削除 g(n)\nに要する時間の関係を考える問題です。\n※一回のポインタ参照→次のセルへのアクセスに要する時間は一定であるとし、処理に要する時間は、このセル移動に回数に比例するものとします。\nまず〔実装方法1〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタfrontからリスト構造を末尾のデータ(n)まで順にたどり、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\nn回です。\n\"末尾の要素の削除\"は、ポインタ front から末尾の要素の一つ前の手前の要素(n-1)までたどり、末尾の要素へのポインタを削除します。したがって、セル移動の回数は\nn－1回です。nは非常に大きいという条件があるので、〔実装方法1〕の\ng(n)\nƒ(n)\nは、n－1nで\nほぼ1となります。\n次に〔実装方法2〕について考えます。\n\"新要素(n＋1)の末尾への追加\"は、 ポインタ rear を参照することで1回で末尾のセルへアクセスし、末尾のデータのポインタ部を新しい要素へのポインタにします。したがって、セル移動の回数は\n1回です。\n\"末尾の要素の削除\"は〔実装方法1〕と同様に、ポインタ front から末尾の要素の一つ前の手前の要素(n－1)までたどり、末尾の要素へのポインタを削除します。この場合では、ポインタ rear から末尾のセルへ移動することはできても、\n末尾のセルからその一つ手前のセルへはポインタがないため戻ることができない\nという点が理解できているかがポイントになります。したがって、セル移動の回数は\nn-1回\nです。\n〔実装方法2〕の\ng(n)\nƒ(n)\nは、n－11で\nほぼnに比例\nとなります。\n以上より、〔実装方法1〕が\"ほぼ1となる\"、〔実装方法2〕が\"ほぼnに比例する\"の組合せで「イ」が正解となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問3:https://www.nw-siken.com/kakomon/21_aki/am1_3.html"
+    },
+    {
+      "questionBodyText": "パイプラインの深さをD，パイプラインのピッチをP秒とすると，I個の命令をパイプラインで実行するのに要する時間を表す式はどれか。ここで，パイプラインの各ステージは1ピッチで処理されるものとし，パイプラインハザードについては，考慮しなくてよい。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(I＋D)×P",
+        "(I＋D－1)×P",
+        "(I×D)＋P",
+        "(I×D－1)＋P"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_4.html",
+      "public_question_id": "2484c9ae41884c25",
+      "original_question_id": "2484c9ae41884c25",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "パイプライン制御",
+        "(I＋D－1)×P"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "パイプライン制御\nは、CPU処理を高速化させるため、1命令を、命令読出し(フェッチ)、解読(デコード)、アドレス計算、オペランド呼出し、実行 などのように複数のステージに分け、各ステージを少しずつずらしながら独立した処理機構で並列に実行することで、処理時間全体を短縮させる技法です。パイプライン処理が完了するまでの時間を求める公式は、\n(I＋D－1)×Pです。\n上図のケースではパイピラインピッチ10msとすると、実行する命令数(I)＝4、命令の分割数(D)=3 のため処理終了までの時間は以下のように計算できます。\n(4＋3－1)×10＝60(ms)"
+        ],
+        [
+          "パイプライン制御\nは、CPU処理を高速化させるため、1命令を、命令読出し(フェッチ)、解読(デコード)、アドレス計算、オペランド呼出し、実行 などのように複数のステージに分け、各ステージを少しずつずらしながら独立した処理機構で並列に実行することで、処理時間全体を短縮させる技法です。パイプライン処理が完了するまでの時間を求める公式は、\n(I＋D－1)×Pです。\n上図のケースではパイピラインピッチ10msとすると、実行する命令数(I)＝4、命令の分割数(D)=3 のため処理終了までの時間は以下のように計算できます。\n(4＋3－1)×10＝60(ms)"
+        ],
+        [
+          "パイプライン制御\nは、CPU処理を高速化させるため、1命令を、命令読出し(フェッチ)、解読(デコード)、アドレス計算、オペランド呼出し、実行 などのように複数のステージに分け、各ステージを少しずつずらしながら独立した処理機構で並列に実行することで、処理時間全体を短縮させる技法です。パイプライン処理が完了するまでの時間を求める公式は、\n(I＋D－1)×Pです。\n上図のケースではパイピラインピッチ10msとすると、実行する命令数(I)＝4、命令の分割数(D)=3 のため処理終了までの時間は以下のように計算できます。\n(4＋3－1)×10＝60(ms)"
+        ],
+        [
+          "パイプライン制御\nは、CPU処理を高速化させるため、1命令を、命令読出し(フェッチ)、解読(デコード)、アドレス計算、オペランド呼出し、実行 などのように複数のステージに分け、各ステージを少しずつずらしながら独立した処理機構で並列に実行することで、処理時間全体を短縮させる技法です。パイプライン処理が完了するまでの時間を求める公式は、\n(I＋D－1)×Pです。\n上図のケースではパイピラインピッチ10msとすると、実行する命令数(I)＝4、命令の分割数(D)=3 のため処理終了までの時間は以下のように計算できます。\n(4＋3－1)×10＝60(ms)"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問4:https://www.nw-siken.com/kakomon/21_aki/am1_4.html"
+    },
+    {
+      "questionBodyText": "フェールセーフの考え方として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "システムに障害が発生したときでも，常に安全側にシステムを制御する。",
+        "システムの機能に異常が発生したときに，すぐにシステムを停止しないで機能を縮退させて運用を継続する。",
+        "システムを構成する要素のうち，信頼性に大きく影響するものを複数備え，システムの信頼性を高める。",
+        "不特定多数の人が操作しても，誤動作が起こりにくいように設計する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_5.html",
+      "public_question_id": "67f9e0c8b31f845a",
+      "original_question_id": "67f9e0c8b31f845a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "フェールセーフ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。フェールセーフの考え方です。"
+        ],
+        [
+          "障害発生時に縮退運転を行うフェールソフトの考え方です。"
+        ],
+        [
+          "冗長構成によって耐障害性を高めるフォールトトレラントの考え方です。"
+        ],
+        [
+          "フールプルーフの考え方です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "200902:am:問5:https://www.nw-siken.com/kakomon/21_aki/am1_5.html"
+    },
+    {
+      "questionBodyText": "2台のプリンターがあり，それぞれの稼働率が0.7と0.6である。この2台のプリンターのいずれか一方が稼動していて，他方が故障している確率は幾らか。ここで，2台のプリンターの稼動状態は独立であり，プリンター以外の要因は考慮しないものとする。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.18",
+        "0.28",
+        "0.42",
+        "0.46"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_6.html",
+      "public_question_id": "552715e617304f80",
+      "original_question_id": "552715e617304f80",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "片方のみが稼働している割合＝1－両方が稼働している割合－両方が故障している割合",
+        "両方が稼働している割合\n0.7×0.6＝0.42両方が故障している割合\n故障率＝1－稼働率なので、{(1－0.7)×(1－0.6)}＝0.3×0.4＝0.12片方だけが稼働している割合\n1－0.42－0.12＝0.46"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "片方の機器だけが稼働している割合は、全体から両方の機器が稼働している割合と両方の機器が故障している割合を引くことで求めることができます。\n式で表すと以下のとおりです。\n片方のみが稼働している割合＝1－両方が稼働している割合－両方が故障している割合\nこの式を使って答えを求めます。\n両方が稼働している割合\n0.7×0.6＝0.42両方が故障している割合\n故障率＝1－稼働率なので、{(1－0.7)×(1－0.6)}＝0.3×0.4＝0.12片方だけが稼働している割合\n1－0.42－0.12＝0.46したがって、プリンターのいずれか一方が稼動していて、他方が故障している確率は「0.46」です。"
+        ],
+        [
+          "片方の機器だけが稼働している割合は、全体から両方の機器が稼働している割合と両方の機器が故障している割合を引くことで求めることができます。\n式で表すと以下のとおりです。\n片方のみが稼働している割合＝1－両方が稼働している割合－両方が故障している割合\nこの式を使って答えを求めます。\n両方が稼働している割合\n0.7×0.6＝0.42両方が故障している割合\n故障率＝1－稼働率なので、{(1－0.7)×(1－0.6)}＝0.3×0.4＝0.12片方だけが稼働している割合\n1－0.42－0.12＝0.46したがって、プリンターのいずれか一方が稼動していて、他方が故障している確率は「0.46」です。"
+        ],
+        [
+          "片方の機器だけが稼働している割合は、全体から両方の機器が稼働している割合と両方の機器が故障している割合を引くことで求めることができます。\n式で表すと以下のとおりです。\n片方のみが稼働している割合＝1－両方が稼働している割合－両方が故障している割合\nこの式を使って答えを求めます。\n両方が稼働している割合\n0.7×0.6＝0.42両方が故障している割合\n故障率＝1－稼働率なので、{(1－0.7)×(1－0.6)}＝0.3×0.4＝0.12片方だけが稼働している割合\n1－0.42－0.12＝0.46したがって、プリンターのいずれか一方が稼動していて、他方が故障している確率は「0.46」です。"
+        ],
+        [
+          "片方の機器だけが稼働している割合は、全体から両方の機器が稼働している割合と両方の機器が故障している割合を引くことで求めることができます。\n式で表すと以下のとおりです。\n片方のみが稼働している割合＝1－両方が稼働している割合－両方が故障している割合\nこの式を使って答えを求めます。\n両方が稼働している割合\n0.7×0.6＝0.42両方が故障している割合\n故障率＝1－稼働率なので、{(1－0.7)×(1－0.6)}＝0.3×0.4＝0.12片方だけが稼働している割合\n1－0.42－0.12＝0.46したがって、プリンターのいずれか一方が稼動していて、他方が故障している確率は「0.46」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "200902:am:問6:https://www.nw-siken.com/kakomon/21_aki/am1_6.html"
+    },
+    {
+      "questionBodyText": "OSI(Open Source Initiative)が定義しているOSSの特徴はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "OSSとともに頒布される，ほかのソフトウェアのソースコードも公開しなければならない。",
+        "OSSを再頒布する場合は，無料にしなくてはならない。",
+        "営利目的の企業での使用や，研究分野での使用も許可される。",
+        "ソースコードを改変した場合の再頒布条件に，制約があってはならない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オープンソースソフトウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オープンソースソフトウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オープンソースソフトウェア",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_7.html",
+      "public_question_id": "61adfbb9357b6082",
+      "original_question_id": "61adfbb9357b6082",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "オープンソースであるプログラムを頒布する際には、プログラムとの同時頒布やインターネット上での公開などにより、ソースコードを容易に入手可能できることを保証しなければなりません。しかし、OSSとともに頒布されるほかのソフトウェアについてはソースコードを公開する必要はありません。"
+        ],
+        [
+          "再頒布することに関して制限してはならないと規定しています。したがって、プログラムを有償で販売することも許可されています。"
+        ],
+        [
+          "正しい。特定の分野でプログラムを使うことを制限してはならないと規定しています。したがって、営利目的の企業での使用や、研究分野での使用も許可されることになります。"
+        ],
+        [
+          "プログラムを変更するため、ソースコードと一緒にパッチファイルを頒布することを認める場合に限り、変更されたソースコードの頒布を制限することができると規定されています。したがって、元のソースコードを改変されていない状態で再頒布する制約をライセンスに含めることもできます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問7:https://www.nw-siken.com/kakomon/21_aki/am1_7.html"
+    },
+    {
+      "questionBodyText": "図の論理回路において，S＝1，R＝1，X＝0，Y＝1のとき，Sをいったん0にした後，再び1に戻した。この操作を行った後のX，Yの値はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "X＝0，Y＝0",
+        "X＝0，Y＝1",
+        "X＝1，Y＝0",
+        "X＝1，Y＝1"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ハードウェア » ハードウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ハードウェア",
+        "ハードウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ハードウェア",
+      "categorySmall": "ハードウェア",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_8.html",
+      "public_question_id": "2bfb20e7dbd61e86",
+      "original_question_id": "2bfb20e7dbd61e86",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfb20e7dbd61e86_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "フリップフロップ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "図の論理回路図は\nフリップフロップ\nと呼ばれ、2つの回路の安定した状態によって1ビットの情報を保持する回路です。現在と異なる入力が与えられると、次の入力があるまでその状態を保持しようとします。\n問題文の初期状態\"S=1、R=1、X=0、Y=1\"だと、回路は次のようになっています。\n次にSを0に変えると、次のような状態になります。他方の出力がもう一方の入力に影響を与えるので、2つの回路が安定するまで何回か入出力を繰り返します。\nそしてSを1に戻すと次のような状態になります。\n回路はこの状態で安定しているので、出力の値は、X＝1，Y＝0となります。"
+        ],
+        [
+          "図の論理回路図は\nフリップフロップ\nと呼ばれ、2つの回路の安定した状態によって1ビットの情報を保持する回路です。現在と異なる入力が与えられると、次の入力があるまでその状態を保持しようとします。\n問題文の初期状態\"S=1、R=1、X=0、Y=1\"だと、回路は次のようになっています。\n次にSを0に変えると、次のような状態になります。他方の出力がもう一方の入力に影響を与えるので、2つの回路が安定するまで何回か入出力を繰り返します。\nそしてSを1に戻すと次のような状態になります。\n回路はこの状態で安定しているので、出力の値は、X＝1，Y＝0となります。"
+        ],
+        [
+          "図の論理回路図は\nフリップフロップ\nと呼ばれ、2つの回路の安定した状態によって1ビットの情報を保持する回路です。現在と異なる入力が与えられると、次の入力があるまでその状態を保持しようとします。\n問題文の初期状態\"S=1、R=1、X=0、Y=1\"だと、回路は次のようになっています。\n次にSを0に変えると、次のような状態になります。他方の出力がもう一方の入力に影響を与えるので、2つの回路が安定するまで何回か入出力を繰り返します。\nそしてSを1に戻すと次のような状態になります。\n回路はこの状態で安定しているので、出力の値は、X＝1，Y＝0となります。"
+        ],
+        [
+          "図の論理回路図は\nフリップフロップ\nと呼ばれ、2つの回路の安定した状態によって1ビットの情報を保持する回路です。現在と異なる入力が与えられると、次の入力があるまでその状態を保持しようとします。\n問題文の初期状態\"S=1、R=1、X=0、Y=1\"だと、回路は次のようになっています。\n次にSを0に変えると、次のような状態になります。他方の出力がもう一方の入力に影響を与えるので、2つの回路が安定するまで何回か入出力を繰り返します。\nそしてSを1に戻すと次のような状態になります。\n回路はこの状態で安定しているので、出力の値は、X＝1，Y＝0となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問8:https://www.nw-siken.com/kakomon/21_aki/am1_8.html"
+    },
+    {
+      "questionBodyText": "Webアクセシビリティに配慮した画面設計のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "head要素の中のtitle要素を同一にして，各ページに同じ表題を付ける。",
+        "確認は緑，取り消しは赤などのように，共通に使用されるボタンには色だけで判別できるようにする。",
+        "仮名入力欄の前には，\"フリガナ(カタカナで入力)\"のように，仮名の種類も明記する。",
+        "ハイパーリンク及びボタンは，操作性を良くするために隣り合うものとの間隔を狭くとる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ユーザーインタフェース » ユーザーインタフェース技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ユーザーインタフェース",
+        "ユーザーインタフェース技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ユーザーインタフェース",
+      "categorySmall": "ユーザーインタフェース技術",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_9.html",
+      "public_question_id": "9bc05ba41773a1be",
+      "original_question_id": "9bc05ba41773a1be",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "Webアクセシビリティ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "head要素のtitle要素は、Webブラウザのタブに表示されるタイトル文字列となります。タイトルが同じの場合、特にスクリーンリーダー利用時にはどのようなページなのか確認するのが遅くなるため、各ページに内容が端的にわかる固有のタイトルが必要です。"
+        ],
+        [
+          "色覚異常をもつ人への配慮やモノクロ表示で意味が消えてしまうことから、Webアクセシビリティ上、色のみに依存した表示は禁止されています。"
+        ],
+        [
+          "正しい。利用者がその意味を明確にわかるように、利用者が入力する箇所の前には、目的や方式を示すラベル・説明を付ける必要があります。ラベルがあればスクリーンリーダーでも意図が伝わります。"
+        ],
+        [
+          "アクションの目標となる要素は、操作ミスを防ぐため十分なサイズ・間隔が必要とされています。マウス操作に慣れない人もいるためです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問9:https://www.nw-siken.com/kakomon/21_aki/am1_9.html"
+    },
+    {
+      "questionBodyText": "コンピュータグラフィックスの要素技術に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アンチエイリアシングは，周囲の画素との平均値演算などを施すことで，斜め線や曲線のギザギザを目立たなくする。",
+        "メタボールは，光の相互反射を利用して物体表面の光エネルギーを算出することで，表面の明るさを決定する。",
+        "ラジオシティは，光源からの光線の経路を計算することで光の反射や透過などを表現し，物体の形状を描画する。",
+        "レイトレーシングは，物体を球やだ円体の集合として擬似的にモデル化する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 情報メディア » マルチメディア応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "情報メディア",
+        "マルチメディア応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "情報メディア",
+      "categorySmall": "マルチメディア応用",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_10.html",
+      "public_question_id": "b006d50aa27e2d50",
+      "original_question_id": "b006d50aa27e2d50",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "アンチエイリアシング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "ラジオシティの説明です。"
+        ],
+        [
+          "レイトレーシングの説明です。"
+        ],
+        [
+          "メタボールの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "200902:am:問10:https://www.nw-siken.com/kakomon/21_aki/am1_10.html"
+    },
+    {
+      "questionBodyText": "分散トランザクション処理で利用される2相コミットプロトコルでは，コミット処理を開始する調停者(coordinator)と，調停者からの指示を受信してから必要なアクションを開始する参加者(participant)がいる。この2相コミットプロトコルに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "参加者は，フェーズ1で調停者にコミット了承の応答を返してしまえば，フェーズ2のコミット要求を受信しなくても，ローカルにコミット処理が進められる。",
+        "調停者に障害が発生するタイミングによっては，その回復処理が終わらない限り，参加者全員がコミットもロールバックも行えない事態が起こる。",
+        "一つの分散トランザクションに複数の調停者及び参加者が存在し得る。例えば，5個のシステム(プログラム)が関与している場合，調停者数が2，参加者の数が3となり得る。",
+        "フェーズ1で返答のない参加者が存在しても，調停者は強制的にそのトランザクションをコミットすることができる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » トランザクション処理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "トランザクション処理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "トランザクション処理",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_11.html",
+      "public_question_id": "302187478bc2a8de",
+      "original_question_id": "302187478bc2a8de",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "2相コミットプロトコル",
+        "調停者となったノードはネットワーク上の他のノードにコミットの可否を問い合わせる。\n全参加者は調停者にコミットの可否を応答する。",
+        "全参加者からコミットの合意を得られた場合は、全参加者にコミットの実行要求を発行する。コミットの停止を応答した参加者がいた場合、またはタイムアウトとなった場合は、全参加者にロールバックの実行要求を発行する。\n各参加者は、コミット(またはロールバック)の完了とともに調停者に処理完了のメッセージを送る。\n調停者が、全参加者からの処理完了メッセージを受け取り、トランザクションの完了となる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "データベースの一貫性を保つために、調停者からのコミット要求、またはロールバック要求を待つ必要があります。"
+        ],
+        [
+          "正しい。フェーズ1で調停者が各参加者に対してコミットの可否を問い合わせた後に障害状態になった場合、参加者は調停者からの処理要求を受け取ることができなくなるので、コミットもロールバックも行えない状態に陥ります。"
+        ],
+        [
+          "コミットを調整する調停者は1人です。"
+        ],
+        [
+          "調停者は、全参加者からコミットの合意を得られた場合のみトランザクションをコミットします。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問11:https://www.nw-siken.com/kakomon/21_aki/am1_11.html"
+    },
+    {
+      "questionBodyText": "データベースの障害回復処理に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "異なるトランザクション処理プログラムが，同一データベースを同時更新することによって生じる論理的な矛盾を防ぐために，データのブロック化が必要になる。",
+        "システムが媒体障害以外の原因によって停止した場合，チェックポイントの取得以前に終了したトランザクションについての回復作業は不要である。",
+        "データベースの媒体障害に対して，バックアップファイルをリストアした後，ログファイルの更新前情報を使用してデータの回復処理を行う。",
+        "トランザクション処理プログラムがデータベースの更新中に異常終了した場合には，ログファイルの更新後情報を使用してデータの回復処理を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » トランザクション処理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "トランザクション処理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "トランザクション処理",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_12.html",
+      "public_question_id": "22c2b376623d07da",
+      "original_question_id": "22c2b376623d07da",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "同時更新によるデータの不整合を防ぐためには、トランザクションの排他制御を行います。"
+        ],
+        [
+          "正しい。DBMSは、ディスクに対する入出力効率を向上させるために、トランザクションの更新をメモリ上のバッファとログファイルに記憶しておき、一定の間隔ごとにまとめてディスクに反映させるという方式をとっています。このディスクと同期を取るタイミングをチェックポイントといいます。チェックポイントまでのトランザクションはディスクに反映済みなので、媒体障害以外の障害（システム障害やトランザクション障害）のときにはチェックポイント以前にコミットしたトランザクションについて回復作業は行う必要はありません。"
+        ],
+        [
+          "媒体障害が発生したときには、バックアップファイルを用いてバックアップ時点の状態にした後に、更新\n後\nログを使用してコミット済トランザクションをデータベースに適用するロールフォワードを行います。"
+        ],
+        [
+          "トランザクション障害が発生したときには、更新\n前\nログを使用してデータベースをトランザクション以前の状態に戻すロールバックを行います。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問12:https://www.nw-siken.com/kakomon/21_aki/am1_12.html"
+    },
+    {
+      "questionBodyText": "図は，既存の電話機を使用した企業内PBXの内線網を，IPネットワークに統合する場合の接続構成を示している。図中のa～cに該当する装置の適切な組合せはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8afbad1e3b0b5073_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8afbad1e3b0b5073_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8afbad1e3b0b5073_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8afbad1e3b0b5073_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク応用",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_13.html",
+      "public_question_id": "8afbad1e3b0b5073",
+      "original_question_id": "8afbad1e3b0b5073",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8afbad1e3b0b5073_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "VoIP",
+        "PBX(Private Branch eXchange)\n複数の構内電話機を、公衆電話回線網に接続して使用する際の中継装置のこと。VoIPゲートウェイ\n電話網とIPネットワークの境界に置かれ、音声とIPパケットの相互変換を行う。\nルータ\n他のIPネットワークとの境界に設置され、パケットのIPアドレスを見て最適な経路に中継する通信装置。",
+        "a",
+        "c",
+        "b"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "VoIP\n(Voice over IP：ボイップ)は、音声データをIPネットワークで伝送する技術です。アナログ音声を各種符号化方式でデジタル化し、IPネットワーク上のパケットに乗せることで音声データのリアルタイム伝送を行います。VoIPの構成要素であるPBX、VoIPゲートウェイ、ルータの機能は次のとおりです。PBX(Private Branch eXchange)\n複数の構内電話機を、公衆電話回線網に接続して使用する際の中継装置のこと。VoIPゲートウェイ\n電話網とIPネットワークの境界に置かれ、音声とIPパケットの相互変換を行う。\nルータ\n他のIPネットワークとの境界に設置され、パケットのIPアドレスを見て最適な経路に中継する通信装置。\n問題文の図をみると、まず\naが公衆電話回線網との接続点なので「PBX」，\ncが他のネットワークとの接続点なので「ルータ」になります。bはアナログ電話網とIPネットワークとの境界なので、音声とIPパケットを相互変換する「VoIPゲートウェイ」になります。"
+        ],
+        [
+          "VoIP\n(Voice over IP：ボイップ)は、音声データをIPネットワークで伝送する技術です。アナログ音声を各種符号化方式でデジタル化し、IPネットワーク上のパケットに乗せることで音声データのリアルタイム伝送を行います。VoIPの構成要素であるPBX、VoIPゲートウェイ、ルータの機能は次のとおりです。PBX(Private Branch eXchange)\n複数の構内電話機を、公衆電話回線網に接続して使用する際の中継装置のこと。VoIPゲートウェイ\n電話網とIPネットワークの境界に置かれ、音声とIPパケットの相互変換を行う。\nルータ\n他のIPネットワークとの境界に設置され、パケットのIPアドレスを見て最適な経路に中継する通信装置。\n問題文の図をみると、まず\naが公衆電話回線網との接続点なので「PBX」，\ncが他のネットワークとの接続点なので「ルータ」になります。bはアナログ電話網とIPネットワークとの境界なので、音声とIPパケットを相互変換する「VoIPゲートウェイ」になります。"
+        ],
+        [
+          "VoIP\n(Voice over IP：ボイップ)は、音声データをIPネットワークで伝送する技術です。アナログ音声を各種符号化方式でデジタル化し、IPネットワーク上のパケットに乗せることで音声データのリアルタイム伝送を行います。VoIPの構成要素であるPBX、VoIPゲートウェイ、ルータの機能は次のとおりです。PBX(Private Branch eXchange)\n複数の構内電話機を、公衆電話回線網に接続して使用する際の中継装置のこと。VoIPゲートウェイ\n電話網とIPネットワークの境界に置かれ、音声とIPパケットの相互変換を行う。\nルータ\n他のIPネットワークとの境界に設置され、パケットのIPアドレスを見て最適な経路に中継する通信装置。\n問題文の図をみると、まず\naが公衆電話回線網との接続点なので「PBX」，\ncが他のネットワークとの接続点なので「ルータ」になります。bはアナログ電話網とIPネットワークとの境界なので、音声とIPパケットを相互変換する「VoIPゲートウェイ」になります。"
+        ],
+        [
+          "VoIP\n(Voice over IP：ボイップ)は、音声データをIPネットワークで伝送する技術です。アナログ音声を各種符号化方式でデジタル化し、IPネットワーク上のパケットに乗せることで音声データのリアルタイム伝送を行います。VoIPの構成要素であるPBX、VoIPゲートウェイ、ルータの機能は次のとおりです。PBX(Private Branch eXchange)\n複数の構内電話機を、公衆電話回線網に接続して使用する際の中継装置のこと。VoIPゲートウェイ\n電話網とIPネットワークの境界に置かれ、音声とIPパケットの相互変換を行う。\nルータ\n他のIPネットワークとの境界に設置され、パケットのIPアドレスを見て最適な経路に中継する通信装置。\n問題文の図をみると、まず\naが公衆電話回線網との接続点なので「PBX」，\ncが他のネットワークとの接続点なので「ルータ」になります。bはアナログ電話網とIPネットワークとの境界なので、音声とIPパケットを相互変換する「VoIPゲートウェイ」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "200902:am:問13:https://www.nw-siken.com/kakomon/21_aki/am1_13.html"
+    },
+    {
+      "questionBodyText": "公開鍵暗号方式を用いて送信者が文書にデジタル署名を行う場合，文書が間違いなく送信者のものであることを受信者が確認できるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "送信者は自分の公開鍵を使用して署名処理を行い，受信者は自分の秘密鍵を使用して検証処理を行う。",
+        "送信者は自分の秘密鍵を使用して署名処理を行い，受信者は送信者の公開鍵を使用して検証処理を行う。",
+        "送信者は受信者の公開鍵を使用して署名処理を行い，受信者は自分の秘密鍵を使用して検証処理を行う。",
+        "送信者は受信者の秘密鍵を使用して署名処理を行い，受信者は自分の公開鍵を使用して検証処理を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_14.html",
+      "public_question_id": "c0d6384c8d5e43b7",
+      "original_question_id": "c0d6384c8d5e43b7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+        ],
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+        ],
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+        ],
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問14:https://www.nw-siken.com/kakomon/21_aki/am1_14.html"
+    },
+    {
+      "questionBodyText": "JIS Q 2001:2001に規定されたリスク算定の定量的評価を，組織のセキュリティ対策の優先度を検討するリスク分析に適用したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "過去に発生した被害件数と対策の難易度で評価する。",
+        "攻撃に対する対処時間と被害の顕在性で評価する。",
+        "攻撃もとの特定可否と攻撃手法の新しさで評価する。",
+        "被害が発生する確率と被害額で評価する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ管理",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_15.html",
+      "public_question_id": "7bd612c06bc76b30",
+      "original_question_id": "7bd612c06bc76b30",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "定量的評価",
+        "定性的評価"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "定性的評価です。"
+        ],
+        [
+          "定性的評価です。"
+        ],
+        [
+          "定性的評価です。"
+        ],
+        [
+          "正しい。被害想定を数値で表しているので定量的評価です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "200902:am:問15:https://www.nw-siken.com/kakomon/21_aki/am1_15.html"
+    },
+    {
+      "questionBodyText": "JIS X 0129-1で定義されたソフトウェア製品の品質副特性の説明のうち，信頼性に分類されるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "故障時に，指定された達成水準に再確立し，直接に影響を受けたデータを回復するソフトウェア製品の能力",
+        "ソフトウェアにある欠陥の診断又は故障原因の追及，及びソフトウェアの修正箇所の識別を行うためのソフトウェア製品の能力",
+        "一つ以上の指定されたシステムと相互作用するソフトウェア製品の能力",
+        "利用者がソフトウェアの運用及び運用管理を行うことができるソフトウェア製品の能力"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_16.html",
+      "public_question_id": "30267738c3170ba6",
+      "original_question_id": "30267738c3170ba6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ソフトウェアの品質特性",
+        "ISO/IEC 9126",
+        "機能性(Functionality)\n目的から求められる必要な機能の実装の度合い\n副特性として合目的性，正確性，相互運用性，標準適合性，セキュリティが含まれる。\n信頼性(Reliability)\n機能が正常動作し続ける度合い，障害の起こりにくさの度合い\n副特性として成熟性，障害許容性，回復性が含まれる。\n使用性（Usability）\n分かりやすさ、使いやすさの度合い\n副特性として理解性，習得性，運用性，魅力性が含まれる。\n効率性(Efficiency)\n目的達成のために使用する時間や資源の度合い\n副特性として時間効率性，資源効率性が含まれる。\n保守性(Maintainability)\n保守(改訂)作業に必要な労力の度合い\n副特性として解析性，変更性，安定性，試験性が含まれる。\n移植性（Portability）\n移植のしやすさ，別の環境へ移した際そのまま動作する度合い\n副特性として環境適用性，設置性，規格適合性，置換性が含まれる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。副特性のうち回復性に該当するので信頼性に分類されます。"
+        ],
+        [
+          "副特性のうち解析性に該当するので保守性に分類されます。"
+        ],
+        [
+          "副特性のうち相互運用性に該当するので機能性に分類されます。"
+        ],
+        [
+          "副特性のうち運用性に該当するので使用性に分類されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "200902:am:問16:https://www.nw-siken.com/kakomon/21_aki/am1_16.html"
+    },
+    {
+      "questionBodyText": "取得者(発注者)と供給者(受注者)の二者間取引を明確化するためのものであり，業務分析，業務設計，ソフトウェアを中心としたシステムの企画，要件定義，開発，運用，保守及びそれにかかわる諸活動を対象としており，国際規格に適合しているものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CMMI",
+        "PMBOK",
+        "共通フレーム",
+        "ソフトウェア保守規格"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_17.html",
+      "public_question_id": "bf92963e12925b2e",
+      "original_question_id": "bf92963e12925b2e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "共通フレーム"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Capability Maturity Model Integrationの略。統合能力成熟度モデルと呼ばれ、組織におけるプロセス改善をガイドするモデルです。"
+        ],
+        [
+          "Project Management Body of Knowledgeの略。アメリカのプロジェクトマネジメント協会(PMI)が策定しているプロジェクト管理のフレームワークです。"
+        ],
+        [
+          "正しい。共通フレームはシステム／ソフトウェアの企画から、開発、運用、保守、廃棄に至るまでの諸活動を通じて行われる作業を包括的に規定した規格です。"
+        ],
+        [
+          "\"ソフトウェア保守規格\"という名称の標準化規格は存在しません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問17:https://www.nw-siken.com/kakomon/21_aki/am1_17.html"
+    },
+    {
+      "questionBodyText": "期間10日のプロジェクトを5日目の終了時にアーンドバリュー分析したところ，表のとおりであった。現在のコスト効率が今後も続く場合，完成時総コスト見積り(EAC)は何万円か。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "110",
+        "120",
+        "135",
+        "150"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_18.html",
+      "public_question_id": "81f156287441621f",
+      "original_question_id": "81f156287441621f",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq81f156287441621f_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "アーンドバリュー分析",
+        "PV（Planned Value）\nプロジェクト開始当初、現時点までに計画されていた作業に対する予算\nEV（Earned Value）\n現時点までに完了した作業に割り当てられていた予算\nAC（Actual Cost）\n現時点までに完了した作業に対して実際に投入した総コスト",
+        "完成時総コスト見積り",
+        "150"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "アーンドバリュー分析\n(EVM:Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて定量的に実績管理をする進捗管理手法で、PV，EV，ACという3つの指標を用いることが特徴です。PV（Planned Value）\nプロジェクト開始当初、現時点までに計画されていた作業に対する予算\nEV（Earned Value）\n現時点までに完了した作業に割り当てられていた予算\nAC（Actual Cost）\n現時点までに完了した作業に対して実際に投入した総コスト\n各指標を比較して、EV－ACがマイナス値であれば完了済み作業に対する予算よりも投入コストが多いのでコスト超過、EV－PVがマイナス値であれば完了済み作業に対する予算が当初の予算よりも少ないので進捗遅れ、と判断することができます。\n完成時総コスト見積り\n(EAC:Estimate At Completion)は、完了済作業に要した総コスト(AC)に残作業に要するコスト(ETC:Estimate To Complete)を足した、プロジェクト終了時の総コストの予測値です。\n設問の事例では、5日目終了時点で、EV(完了済み作業に対する予算)40万円の作業に対してAC(実コスト)60万円となっていて、プロジェクト予算の1.5倍の実コストが発生しています。このため現状のコスト効率が完成時まで続くならば、完成時総コスト見積り(EAC)は表にある完成時総予算100万円の1.5倍である\n150万円になると見込めます。よって「エ」が正解です。\nなお、EVMには完成時総コスト見積り(EAC)を求める公式があるため、厳密にはこれに従って計算します。\n完成時総コスト見積り(EAC)＝AC＋ETC残作業のコスト見積り(ETC)＝(BAC－EV)÷CPIコスト効率指数(CPI)＝EV÷AC設問では、BAC＝100万円、EV＝40万円、AC＝60万円なので、BAC＝100万円\nCPI＝EV÷AC＝40÷60＝2／3ETC＝(100－40)÷2／3＝90万円\nEAC＝60＋90＝150万円\nまた、この設問の事例のように現時点までのコスト効率がプロジェクト終了まで続くのであれば、「EAC＝BAC÷CPI」で単純に求められるので、CPI＝40÷60＝2／3EAC＝100÷2／3＝150万円"
+        ],
+        [
+          "アーンドバリュー分析\n(EVM:Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて定量的に実績管理をする進捗管理手法で、PV，EV，ACという3つの指標を用いることが特徴です。PV（Planned Value）\nプロジェクト開始当初、現時点までに計画されていた作業に対する予算\nEV（Earned Value）\n現時点までに完了した作業に割り当てられていた予算\nAC（Actual Cost）\n現時点までに完了した作業に対して実際に投入した総コスト\n各指標を比較して、EV－ACがマイナス値であれば完了済み作業に対する予算よりも投入コストが多いのでコスト超過、EV－PVがマイナス値であれば完了済み作業に対する予算が当初の予算よりも少ないので進捗遅れ、と判断することができます。\n完成時総コスト見積り\n(EAC:Estimate At Completion)は、完了済作業に要した総コスト(AC)に残作業に要するコスト(ETC:Estimate To Complete)を足した、プロジェクト終了時の総コストの予測値です。\n設問の事例では、5日目終了時点で、EV(完了済み作業に対する予算)40万円の作業に対してAC(実コスト)60万円となっていて、プロジェクト予算の1.5倍の実コストが発生しています。このため現状のコスト効率が完成時まで続くならば、完成時総コスト見積り(EAC)は表にある完成時総予算100万円の1.5倍である\n150万円になると見込めます。よって「エ」が正解です。\nなお、EVMには完成時総コスト見積り(EAC)を求める公式があるため、厳密にはこれに従って計算します。\n完成時総コスト見積り(EAC)＝AC＋ETC残作業のコスト見積り(ETC)＝(BAC－EV)÷CPIコスト効率指数(CPI)＝EV÷AC設問では、BAC＝100万円、EV＝40万円、AC＝60万円なので、BAC＝100万円\nCPI＝EV÷AC＝40÷60＝2／3ETC＝(100－40)÷2／3＝90万円\nEAC＝60＋90＝150万円\nまた、この設問の事例のように現時点までのコスト効率がプロジェクト終了まで続くのであれば、「EAC＝BAC÷CPI」で単純に求められるので、CPI＝40÷60＝2／3EAC＝100÷2／3＝150万円"
+        ],
+        [
+          "アーンドバリュー分析\n(EVM:Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて定量的に実績管理をする進捗管理手法で、PV，EV，ACという3つの指標を用いることが特徴です。PV（Planned Value）\nプロジェクト開始当初、現時点までに計画されていた作業に対する予算\nEV（Earned Value）\n現時点までに完了した作業に割り当てられていた予算\nAC（Actual Cost）\n現時点までに完了した作業に対して実際に投入した総コスト\n各指標を比較して、EV－ACがマイナス値であれば完了済み作業に対する予算よりも投入コストが多いのでコスト超過、EV－PVがマイナス値であれば完了済み作業に対する予算が当初の予算よりも少ないので進捗遅れ、と判断することができます。\n完成時総コスト見積り\n(EAC:Estimate At Completion)は、完了済作業に要した総コスト(AC)に残作業に要するコスト(ETC:Estimate To Complete)を足した、プロジェクト終了時の総コストの予測値です。\n設問の事例では、5日目終了時点で、EV(完了済み作業に対する予算)40万円の作業に対してAC(実コスト)60万円となっていて、プロジェクト予算の1.5倍の実コストが発生しています。このため現状のコスト効率が完成時まで続くならば、完成時総コスト見積り(EAC)は表にある完成時総予算100万円の1.5倍である\n150万円になると見込めます。よって「エ」が正解です。\nなお、EVMには完成時総コスト見積り(EAC)を求める公式があるため、厳密にはこれに従って計算します。\n完成時総コスト見積り(EAC)＝AC＋ETC残作業のコスト見積り(ETC)＝(BAC－EV)÷CPIコスト効率指数(CPI)＝EV÷AC設問では、BAC＝100万円、EV＝40万円、AC＝60万円なので、BAC＝100万円\nCPI＝EV÷AC＝40÷60＝2／3ETC＝(100－40)÷2／3＝90万円\nEAC＝60＋90＝150万円\nまた、この設問の事例のように現時点までのコスト効率がプロジェクト終了まで続くのであれば、「EAC＝BAC÷CPI」で単純に求められるので、CPI＝40÷60＝2／3EAC＝100÷2／3＝150万円"
+        ],
+        [
+          "アーンドバリュー分析\n(EVM:Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて定量的に実績管理をする進捗管理手法で、PV，EV，ACという3つの指標を用いることが特徴です。PV（Planned Value）\nプロジェクト開始当初、現時点までに計画されていた作業に対する予算\nEV（Earned Value）\n現時点までに完了した作業に割り当てられていた予算\nAC（Actual Cost）\n現時点までに完了した作業に対して実際に投入した総コスト\n各指標を比較して、EV－ACがマイナス値であれば完了済み作業に対する予算よりも投入コストが多いのでコスト超過、EV－PVがマイナス値であれば完了済み作業に対する予算が当初の予算よりも少ないので進捗遅れ、と判断することができます。\n完成時総コスト見積り\n(EAC:Estimate At Completion)は、完了済作業に要した総コスト(AC)に残作業に要するコスト(ETC:Estimate To Complete)を足した、プロジェクト終了時の総コストの予測値です。\n設問の事例では、5日目終了時点で、EV(完了済み作業に対する予算)40万円の作業に対してAC(実コスト)60万円となっていて、プロジェクト予算の1.5倍の実コストが発生しています。このため現状のコスト効率が完成時まで続くならば、完成時総コスト見積り(EAC)は表にある完成時総予算100万円の1.5倍である\n150万円になると見込めます。よって「エ」が正解です。\nなお、EVMには完成時総コスト見積り(EAC)を求める公式があるため、厳密にはこれに従って計算します。\n完成時総コスト見積り(EAC)＝AC＋ETC残作業のコスト見積り(ETC)＝(BAC－EV)÷CPIコスト効率指数(CPI)＝EV÷AC設問では、BAC＝100万円、EV＝40万円、AC＝60万円なので、BAC＝100万円\nCPI＝EV÷AC＝40÷60＝2／3ETC＝(100－40)÷2／3＝90万円\nEAC＝60＋90＝150万円\nまた、この設問の事例のように現時点までのコスト効率がプロジェクト終了まで続くのであれば、「EAC＝BAC÷CPI」で単純に求められるので、CPI＝40÷60＝2／3EAC＝100÷2／3＝150万円"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "200902:am:問18:https://www.nw-siken.com/kakomon/21_aki/am1_18.html"
+    },
+    {
+      "questionBodyText": "ソフトウェアの開発規模と開発工数の関係を示すグラフはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2283754f8bea46b_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2283754f8bea46b_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2283754f8bea46b_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2283754f8bea46b_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの資源",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの資源"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの資源",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_19.html",
+      "public_question_id": "c2283754f8bea46b",
+      "original_question_id": "c2283754f8bea46b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "開発規模が増えるほど開発にかかわる要員が増え、情報の伝達や要員の管理に多くの時間がかかるようになるため、一般的にソフトウェアは開発規模の拡大に伴って、開発工数が指数関数的に増大すると言われています。\n規模が大きくなるにつれて工数が際限なく上昇していくというこの関係を表しているのが「エ」のグラフになります。"
+        ],
+        [
+          "開発規模が増えるほど開発にかかわる要員が増え、情報の伝達や要員の管理に多くの時間がかかるようになるため、一般的にソフトウェアは開発規模の拡大に伴って、開発工数が指数関数的に増大すると言われています。\n規模が大きくなるにつれて工数が際限なく上昇していくというこの関係を表しているのが「エ」のグラフになります。"
+        ],
+        [
+          "開発規模が増えるほど開発にかかわる要員が増え、情報の伝達や要員の管理に多くの時間がかかるようになるため、一般的にソフトウェアは開発規模の拡大に伴って、開発工数が指数関数的に増大すると言われています。\n規模が大きくなるにつれて工数が際限なく上昇していくというこの関係を表しているのが「エ」のグラフになります。"
+        ],
+        [
+          "開発規模が増えるほど開発にかかわる要員が増え、情報の伝達や要員の管理に多くの時間がかかるようになるため、一般的にソフトウェアは開発規模の拡大に伴って、開発工数が指数関数的に増大すると言われています。\n規模が大きくなるにつれて工数が際限なく上昇していくというこの関係を表しているのが「エ」のグラフになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "200902:am:問19:https://www.nw-siken.com/kakomon/21_aki/am1_19.html"
+    },
+    {
+      "questionBodyText": "システムの移行方式のうち，パイロット移行方式について説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "機能的に閉じたサブシステム単位に，短期間で順次移行していくので，運用部門の負荷が少なく，問題が発生しても当該サブシステム内に抑えることができる。",
+        "限定した部門で新システムを導入・観察した後にほかの全部門を移行するので，移行に関する問題が発生しても影響範囲を局所化できる。",
+        "新・旧両システム分のリソースを用意し，並行稼動させるので，新システムで問題が発生しても業務への影響を最小にできる。",
+        "ほかの移行方式に比べると移行期間は短くできるが，事前に全部門との間で詳細な計画を立てるとともに，新システムに高い信頼性が要求される。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスの設計・移行",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスの設計・移行"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスの設計・移行",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_20.html",
+      "public_question_id": "6ffc97afbaf50d16",
+      "original_question_id": "6ffc97afbaf50d16",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "パイロット移行方式"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "順次移行方式の説明です。"
+        ],
+        [
+          "正しい。パイロット移行方式の説明です。"
+        ],
+        [
+          "並行運用移行方式の説明です。"
+        ],
+        [
+          "一斉移行方式の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問20:https://www.nw-siken.com/kakomon/21_aki/am1_20.html"
+    },
+    {
+      "questionBodyText": "ITILにおいて，問題管理でエラーの根本原因を識別した後にRFCを出す対象となるプロセスはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "インシデント管理",
+        "可用性管理",
+        "構成管理",
+        "変更管理"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメントプロセス",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメントプロセス"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメントプロセス",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_21.html",
+      "public_question_id": "4169001fae5f13b1",
+      "original_question_id": "4169001fae5f13b1",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ITIL",
+        "RFC"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ITILでは、「問題管理」がインシデントの恒久的な原因を突き止め、問題解決のためのシステムの変更を「変更管理」に要求することになっています。\nこの時に出される変更要求のことを\nRFC\n(Request For Change)といいます。"
+        ],
+        [
+          "ITILでは、「問題管理」がインシデントの恒久的な原因を突き止め、問題解決のためのシステムの変更を「変更管理」に要求することになっています。\nこの時に出される変更要求のことを\nRFC\n(Request For Change)といいます。"
+        ],
+        [
+          "ITILでは、「問題管理」がインシデントの恒久的な原因を突き止め、問題解決のためのシステムの変更を「変更管理」に要求することになっています。\nこの時に出される変更要求のことを\nRFC\n(Request For Change)といいます。"
+        ],
+        [
+          "ITILでは、「問題管理」がインシデントの恒久的な原因を突き止め、問題解決のためのシステムの変更を「変更管理」に要求することになっています。\nこの時に出される変更要求のことを\nRFC\n(Request For Change)といいます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "200902:am:問21:https://www.nw-siken.com/kakomon/21_aki/am1_21.html"
+    },
+    {
+      "questionBodyText": "システム監査人が行った監査業務の実施記録であり，監査意見表明の根拠となるべき監査証拠，その他関連資料などをまとめたものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "監査チェックリスト",
+        "監査調書",
+        "監査手続書",
+        "監査報告書"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_22.html",
+      "public_question_id": "d5dcb4191b1fc47c",
+      "original_question_id": "d5dcb4191b1fc47c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "監査調書",
+        "監査計画、監査手続き、レビューを文書化する\n監査報告書に記載する監査結果などの裏付けとなること\n次回の監査や別のシステム監査人による監査のための基礎資料となること"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "監査チェックリストは、監査を効果的に行うために\"何をどのように監査するか\"をまとめたものです。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "監査手続書は、時期や範囲などの監査の詳しい方法を記述した文書です。"
+        ],
+        [
+          "監査報告書は、実施した監査の対象、実施した監査の概要、保証意見又は助言意見、制約又は除外事項、指摘事項、改善勧告などを監査証跡との関係を示しながら記述した文書です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問22:https://www.nw-siken.com/kakomon/21_aki/am1_22.html"
+    },
+    {
+      "questionBodyText": "エンタープライズアーキテクチャを構成する四つの体系のうち，ビジネスアーキテクチャを策定する場合の成果物はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "業務流れ図",
+        "実体関連ダイアグラム",
+        "情報システム関連図",
+        "ソフトウェア構成図"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_23.html",
+      "public_question_id": "c6ae2cf3c917cbaa",
+      "original_question_id": "c6ae2cf3c917cbaa",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ビジネス・アーキテクチャ（政策・業務体系）\n政策・業務の内容、実施主体、業務フロー等について、 共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなど\nデータ・アーキテクチャ（データ体系）\n各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、 各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表など\nアプリケーション・アーキテクチャ（処理体系）\n業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図、情報システム機能構成図など\nテクノロジ・アーキテクチャ（技術体系）\n実際にシステムを構築する際に利用する諸々の技術的構成要素 （ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。ビジネスアーキテクチャの成果物です。"
+        ],
+        [
+          "データアーキテクチャの成果物です。"
+        ],
+        [
+          "アプリケーションアーキテクチャの成果物です。"
+        ],
+        [
+          "テクノロジアーキテクチャの成果物です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "200902:am:問23:https://www.nw-siken.com/kakomon/21_aki/am1_23.html"
+    },
+    {
+      "questionBodyText": "\"システム管理基準\"によれば、組織全体の情報システムのあるべき姿を明確にする計画はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "開発計画",
+        "事業継続計画",
+        "全体最適化計画",
+        "年間運用計画"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_24.html",
+      "public_question_id": "694ab00b9054913c",
+      "original_question_id": "694ab00b9054913c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "開発計画は、全体最適化計画が策定された後、目的、対象業務、費用、スケジュール、開発体制、投資効果等を明確にするなどシステム化の構想・立案を行うプロセスです。"
+        ],
+        [
+          "事業継続計画(BCP)は、予期せぬ重大災害が発生した場合に、必要最低限の事業を継続しつつ、業務を早期に復旧・再開できるようにするための行動計画です。"
+        ],
+        [
+          "正しい。全体最適化に関する項目の中に、「組織体全体の情報システムのあるべき姿を明確にすること。 」という記述があります。"
+        ],
+        [
+          "年間運用計画はシステムの運用業務の年間計画です。年間運用計画に基づいて、月次、日次等の運用計画を策定します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問24:https://www.nw-siken.com/kakomon/21_aki/am1_24.html"
+    },
+    {
+      "questionBodyText": "RFIを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "サービス提供者と顧客との間で，提供するサービスの内容，品質などに関する保証範囲やペナルティについてあらかじめ契約としてまとめた文書",
+        "システムの調達に際して，調達側から技術的要件やサービスレベル要件を提示し，ベンダーに対して，指定した期限内で効果的な実現策の提案を依頼する文書",
+        "ユーザー要件を実現するために，現在の状況において利用可能な技術・製品，ベンダーにおける導入実績など実現手段に関する情報提供をベンダーに依頼する文書",
+        "要求定義との整合性を図り，ユーザーと開発要員及び運用要員の共有物とするために，業務処理の概要，入出力情報の一覧，データフローなどをまとめた文書"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_25.html",
+      "public_question_id": "5dfc780b8f49f766",
+      "original_question_id": "5dfc780b8f49f766",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "RFI"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SLA(Service Level Agreement)の説明です。"
+        ],
+        [
+          "RFP(Request for Proposal：提案依頼書)の説明です。"
+        ],
+        [
+          "正しい。RFIの説明です。"
+        ],
+        [
+          "システム仕様書の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問25:https://www.nw-siken.com/kakomon/21_aki/am1_25.html"
+    }
+  ]
+}

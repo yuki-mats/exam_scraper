@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "2進数の表現で，2の補数を使用する理由はどれか。",
+    "choiceTextList": [
+      "値が1のビットを数えることでビット誤りを検出できる。",
+      "減算を，負数の作成と加算処理で行うことができる。",
+      "除算を，減算の組合せで行うことができる。",
+      "ビットの反転だけで，負数を求めることができる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "105863ac47e724c7",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "誤り検出方式であるCRCに関する記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "検査用データは，検査対象のデータを生成多項式で処理して得られる1ビットの値である。",
+      "受信側では，付加されてきた検査用データで検査対象のデータを割り，余りがなければ送信が正しかったと判断する。",
+      "送信側では，生成多項式を用いて検査対象のデータから検査用データを作り，これを検査対象のデータに付けて送信する。",
+      "送信側と受信側では，異なる生成多項式が用いられる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "eaee0a7209e61a01",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "n個の要素x1\n，x2\n，…，xnから成る連結リストに対して，新たな要素xn+1の末尾への追加に要する時間をƒ(n)とし，末尾の要素xnの削除に要する時間をg(n)とする。nが非常に大きいとき，実装方法1と実装方法2における\ng(n)\nƒ(n)\nの挙動として，適切なものはどれか。\n〔実装方法1〕\n先頭のセルを指すポインタ型の変数 front だけをもつ。\n〔実装方法2〕\n先頭のセルを指すポインタ型の変数 front と，末尾のセルを指すポインタ型の変数 rear を併せもつ。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "85dc0379967e0c5a",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "パイプラインの深さをD，パイプラインのピッチをP秒とすると，I個の命令をパイプラインで実行するのに要する時間を表す式はどれか。ここで，パイプラインの各ステージは1ピッチで処理されるものとし，パイプラインハザードについては，考慮しなくてよい。",
+    "choiceTextList": [
+      "(I＋D)×P",
+      "(I＋D－1)×P",
+      "(I×D)＋P",
+      "(I×D－1)＋P"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2484c9ae41884c25",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "フェールセーフの考え方として，適切なものはどれか。",
+    "choiceTextList": [
+      "システムに障害が発生したときでも，常に安全側にシステムを制御する。",
+      "システムの機能に異常が発生したときに，すぐにシステムを停止しないで機能を縮退させて運用を継続する。",
+      "システムを構成する要素のうち，信頼性に大きく影響するものを複数備え，システムの信頼性を高める。",
+      "不特定多数の人が操作しても，誤動作が起こりにくいように設計する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "67f9e0c8b31f845a",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "2台のプリンターがあり，それぞれの稼働率が0.7と0.6である。この2台のプリンターのいずれか一方が稼動していて，他方が故障している確率は幾らか。ここで，2台のプリンターの稼動状態は独立であり，プリンター以外の要因は考慮しないものとする。",
+    "choiceTextList": [
+      "0.18",
+      "0.28",
+      "0.42",
+      "0.46"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "552715e617304f80",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "OSI(Open Source Initiative)が定義しているOSSの特徴はどれか。",
+    "choiceTextList": [
+      "OSSとともに頒布される，ほかのソフトウェアのソースコードも公開しなければならない。",
+      "OSSを再頒布する場合は，無料にしなくてはならない。",
+      "営利目的の企業での使用や，研究分野での使用も許可される。",
+      "ソースコードを改変した場合の再頒布条件に，制約があってはならない。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "61adfbb9357b6082",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "図の論理回路において，S＝1，R＝1，X＝0，Y＝1のとき，Sをいったん0にした後，再び1に戻した。この操作を行った後のX，Yの値はどれか。",
+    "choiceTextList": [
+      "X＝0，Y＝0",
+      "X＝0，Y＝1",
+      "X＝1，Y＝0",
+      "X＝1，Y＝1"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2bfb20e7dbd61e86",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "Webアクセシビリティに配慮した画面設計のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "head要素の中のtitle要素を同一にして，各ページに同じ表題を付ける。",
+      "確認は緑，取り消しは赤などのように，共通に使用されるボタンには色だけで判別できるようにする。",
+      "仮名入力欄の前には，\"フリガナ(カタカナで入力)\"のように，仮名の種類も明記する。",
+      "ハイパーリンク及びボタンは，操作性を良くするために隣り合うものとの間隔を狭くとる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9bc05ba41773a1be",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "コンピュータグラフィックスの要素技術に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "アンチエイリアシングは，周囲の画素との平均値演算などを施すことで，斜め線や曲線のギザギザを目立たなくする。",
+      "メタボールは，光の相互反射を利用して物体表面の光エネルギーを算出することで，表面の明るさを決定する。",
+      "ラジオシティは，光源からの光線の経路を計算することで光の反射や透過などを表現し，物体の形状を描画する。",
+      "レイトレーシングは，物体を球やだ円体の集合として擬似的にモデル化する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b006d50aa27e2d50",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "分散トランザクション処理で利用される2相コミットプロトコルでは，コミット処理を開始する調停者(coordinator)と，調停者からの指示を受信してから必要なアクションを開始する参加者(participant)がいる。この2相コミットプロトコルに関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "参加者は，フェーズ1で調停者にコミット了承の応答を返してしまえば，フェーズ2のコミット要求を受信しなくても，ローカルにコミット処理が進められる。",
+      "調停者に障害が発生するタイミングによっては，その回復処理が終わらない限り，参加者全員がコミットもロールバックも行えない事態が起こる。",
+      "一つの分散トランザクションに複数の調停者及び参加者が存在し得る。例えば，5個のシステム(プログラム)が関与している場合，調停者数が2，参加者の数が3となり得る。",
+      "フェーズ1で返答のない参加者が存在しても，調停者は強制的にそのトランザクションをコミットすることができる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "302187478bc2a8de",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "データベースの障害回復処理に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "異なるトランザクション処理プログラムが，同一データベースを同時更新することによって生じる論理的な矛盾を防ぐために，データのブロック化が必要になる。",
+      "システムが媒体障害以外の原因によって停止した場合，チェックポイントの取得以前に終了したトランザクションについての回復作業は不要である。",
+      "データベースの媒体障害に対して，バックアップファイルをリストアした後，ログファイルの更新前情報を使用してデータの回復処理を行う。",
+      "トランザクション処理プログラムがデータベースの更新中に異常終了した場合には，ログファイルの更新後情報を使用してデータの回復処理を行う。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "22c2b376623d07da",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "図は，既存の電話機を使用した企業内PBXの内線網を，IPネットワークに統合する場合の接続構成を示している。図中のa～cに該当する装置の適切な組合せはどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8afbad1e3b0b5073",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "公開鍵暗号方式を用いて送信者が文書にデジタル署名を行う場合，文書が間違いなく送信者のものであることを受信者が確認できるものはどれか。",
+    "choiceTextList": [
+      "送信者は自分の公開鍵を使用して署名処理を行い，受信者は自分の秘密鍵を使用して検証処理を行う。",
+      "送信者は自分の秘密鍵を使用して署名処理を行い，受信者は送信者の公開鍵を使用して検証処理を行う。",
+      "送信者は受信者の公開鍵を使用して署名処理を行い，受信者は自分の秘密鍵を使用して検証処理を行う。",
+      "送信者は受信者の秘密鍵を使用して署名処理を行い，受信者は自分の公開鍵を使用して検証処理を行う。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c0d6384c8d5e43b7",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "JIS Q 2001:2001に規定されたリスク算定の定量的評価を，組織のセキュリティ対策の優先度を検討するリスク分析に適用したものはどれか。",
+    "choiceTextList": [
+      "過去に発生した被害件数と対策の難易度で評価する。",
+      "攻撃に対する対処時間と被害の顕在性で評価する。",
+      "攻撃もとの特定可否と攻撃手法の新しさで評価する。",
+      "被害が発生する確率と被害額で評価する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7bd612c06bc76b30",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "JIS X 0129-1で定義されたソフトウェア製品の品質副特性の説明のうち，信頼性に分類されるものはどれか。",
+    "choiceTextList": [
+      "故障時に，指定された達成水準に再確立し，直接に影響を受けたデータを回復するソフトウェア製品の能力",
+      "ソフトウェアにある欠陥の診断又は故障原因の追及，及びソフトウェアの修正箇所の識別を行うためのソフトウェア製品の能力",
+      "一つ以上の指定されたシステムと相互作用するソフトウェア製品の能力",
+      "利用者がソフトウェアの運用及び運用管理を行うことができるソフトウェア製品の能力"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "30267738c3170ba6",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "取得者(発注者)と供給者(受注者)の二者間取引を明確化するためのものであり，業務分析，業務設計，ソフトウェアを中心としたシステムの企画，要件定義，開発，運用，保守及びそれにかかわる諸活動を対象としており，国際規格に適合しているものはどれか。",
+    "choiceTextList": [
+      "CMMI",
+      "PMBOK",
+      "共通フレーム",
+      "ソフトウェア保守規格"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bf92963e12925b2e",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "期間10日のプロジェクトを5日目の終了時にアーンドバリュー分析したところ，表のとおりであった。現在のコスト効率が今後も続く場合，完成時総コスト見積り(EAC)は何万円か。",
+    "choiceTextList": [
+      "110",
+      "120",
+      "135",
+      "150"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "81f156287441621f",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "ソフトウェアの開発規模と開発工数の関係を示すグラフはどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c2283754f8bea46b",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "システムの移行方式のうち，パイロット移行方式について説明したものはどれか。",
+    "choiceTextList": [
+      "機能的に閉じたサブシステム単位に，短期間で順次移行していくので，運用部門の負荷が少なく，問題が発生しても当該サブシステム内に抑えることができる。",
+      "限定した部門で新システムを導入・観察した後にほかの全部門を移行するので，移行に関する問題が発生しても影響範囲を局所化できる。",
+      "新・旧両システム分のリソースを用意し，並行稼動させるので，新システムで問題が発生しても業務への影響を最小にできる。",
+      "ほかの移行方式に比べると移行期間は短くできるが，事前に全部門との間で詳細な計画を立てるとともに，新システムに高い信頼性が要求される。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6ffc97afbaf50d16",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "ITILにおいて，問題管理でエラーの根本原因を識別した後にRFCを出す対象となるプロセスはどれか。",
+    "choiceTextList": [
+      "インシデント管理",
+      "可用性管理",
+      "構成管理",
+      "変更管理"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "4169001fae5f13b1",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "システム監査人が行った監査業務の実施記録であり，監査意見表明の根拠となるべき監査証拠，その他関連資料などをまとめたものはどれか。",
+    "choiceTextList": [
+      "監査チェックリスト",
+      "監査調書",
+      "監査手続書",
+      "監査報告書"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d5dcb4191b1fc47c",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "エンタープライズアーキテクチャを構成する四つの体系のうち，ビジネスアーキテクチャを策定する場合の成果物はどれか。",
+    "choiceTextList": [
+      "業務流れ図",
+      "実体関連ダイアグラム",
+      "情報システム関連図",
+      "ソフトウェア構成図"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c6ae2cf3c917cbaa",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "\"システム管理基準\"によれば、組織全体の情報システムのあるべき姿を明確にする計画はどれか。",
+    "choiceTextList": [
+      "開発計画",
+      "事業継続計画",
+      "全体最適化計画",
+      "年間運用計画"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "694ab00b9054913c",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "RFIを説明したものはどれか。",
+    "choiceTextList": [
+      "サービス提供者と顧客との間で，提供するサービスの内容，品質などに関する保証範囲やペナルティについてあらかじめ契約としてまとめた文書",
+      "システムの調達に際して，調達側から技術的要件やサービスレベル要件を提示し，ベンダーに対して，指定した期限内で効果的な実現策の提案を依頼する文書",
+      "ユーザー要件を実現するために，現在の状況において利用可能な技術・製品，ベンダーにおける導入実績など実現手段に関する情報提供をベンダーに依頼する文書",
+      "要求定義との整合性を図り，ユーザーと開発要員及び運用要員の共有物とするために，業務処理の概要，入出力情報の一覧，データフローなどをまとめた文書"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "5dfc780b8f49f766",
+    "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_25.html"
+  }
+]
