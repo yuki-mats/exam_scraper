@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "0以上255以下の整数nに対して，\nと定義する。next(n)と等しい式はどれか。ここで，x AND y 及び x OR y は，それぞれxとyを2進数表現にして，桁ごとの論理積及び論理和をとったものとする。",
+    "choiceTextList": [
+      "(n＋1) AND 255",
+      "(n＋1) AND 256",
+      "(n＋1) OR 255",
+      "(n＋1) OR 256"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "5c614b6b49f9dfc1",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_1.html"
+  },
+  {
+    "questionBodyText": "平均が60，標準偏差が10の正規分布を表すグラフはどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "aa4dde3451886295",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_2.html"
+  },
+  {
+    "questionBodyText": "配列に格納されたデータ2，3，5，4，1に対して，クイックソートを用いて昇順に並べ替える。2回目の分割が終わった状態はどれか。ここで，分割は基準値より小さい値と大きい値のグループに分けるものとする。また，分割のたびに基準値はグループ内の配列の左端の値とし，グループ内の配列の値の順番は元の配列と同じとする。",
+    "choiceTextList": [
+      "1，2，3，5，4",
+      "1，2，5，4，3",
+      "2，3，1，4，5",
+      "2，3，4，5，1"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "76d2a35c7e017d40",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_3.html"
+  },
+  {
+    "questionBodyText": "動作周波数1.25GHzのシングルコアCPUが1秒間に10億回の命令を実行するとき，このCPUの平均CPI(Cycles Per Instruction)として，適切なものはどれか。",
+    "choiceTextList": [
+      "0.8",
+      "1.25",
+      "2.5",
+      "10"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "dc48444d5de62c93",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_4.html"
+  },
+  {
+    "questionBodyText": "スケールインの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "想定されるCPU使用率に対して，サーバの能力が過剰なとき，CPUの能力を減らすこと",
+      "想定されるシステムの処理量に対して，サーバの台数が過剰なとき，サーバの台数を減らすこと",
+      "想定されるシステムの処理量に対して，サーバの台数が不足するとき，サーバの台数を増やすこと",
+      "想定されるメモリ使用率に対して，サーバの能力が不足するとき，メモリの容量を増やすこと"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7ad2706db38db073",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_5.html"
+  },
+  {
+    "questionBodyText": "ハッシュ表の理論的な探索時間を示すグラフはどれか。ここで，複数のデータが同じハッシュ値になることはないものとする。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3fdd8408151f4fe2",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_6.html"
+  },
+  {
+    "questionBodyText": "NAND素子を用いた次の組合せ回路の出力Zを表す式はどれか。ここで，\"・\"は論理積，\"＋\"は論理和，\"\nX\n\"はXの否定を表す。",
+    "choiceTextList": [
+      "X・Y",
+      "X＋Y",
+      "X・Y",
+      "X＋Y"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bb8cf969bf8dc560",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_7.html"
+  },
+  {
+    "questionBodyText": "コンピュータグラフィックスに関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "テクスチャマッピングは，全てのピクセルについて，視線と全ての物体との交点を計算し，その中から視点に最も近い交点を選択することによって，陰面消去を行う。",
+      "メタボールは，反射・透過方向への視線追跡を行わず，与えられた空間中のデータから輝度を計算する。",
+      "ラジオシティ法は，拡散反射面間の相互反射による効果を考慮して拡散反射面の輝度を決める。",
+      "レイトレーシングは，形状が定義された物体の表面に，別に定義された模様を張り付けて画像を作成する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "84b36cee45380f93",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_8.html"
+  },
+  {
+    "questionBodyText": "UMLを用いて表した図のデータモデルのa，bに入れる多重度はどれか。\n〔条件〕\n部門には1人以上の社員が所属する。\n社員はいずれか一つの部門に所属する。\n社員が部門に所属した履歴を所属履歴として記録する。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "55f9d352e56940fd",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_9.html"
+  },
+  {
+    "questionBodyText": "1個のTCPパケットをイーサネットに送出したとき，イーサネットフレームに含まれる宛先情報の，送出順序はどれか。",
+    "choiceTextList": [
+      "宛先IPアドレス，宛先MACアドレス，宛先ポート番号",
+      "宛先IPアドレス，宛先ポート番号，宛先MACアドレス",
+      "宛先MACアドレス，宛先IPアドレス，宛先ポート番号",
+      "宛先MACアドレス，宛先ポート番号，宛先IPアドレス"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0880f0a50a2a8b99",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_10.html"
+  },
+  {
+    "questionBodyText": "モバイル通信サービスにおいて，移動中のモバイル端末が通信相手との接続を維持したまま，ある基地局経由から別の基地局経由の通信へ切り替えることを何と呼ぶか。",
+    "choiceTextList": [
+      "テザリング",
+      "ハンドオーバー",
+      "フォールバック",
+      "ローミング"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ee796aeb12f01ba0",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_11.html"
+  },
+  {
+    "questionBodyText": "ボットネットにおいてC&Cサーバが担う役割はどれか。",
+    "choiceTextList": [
+      "遠隔操作が可能なマルウェアに，情報収集及び攻撃活動を指示する。",
+      "攻撃の踏み台となった複数のサーバからの通信を制御して遮断する。",
+      "電子商取引事業者などへの偽のデジタル証明書の発行を命令する。",
+      "不正なWebコンテンツのテキスト，画像及びレイアウト情報を一元的に管理する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "15650a828474291e",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_12.html"
+  },
+  {
+    "questionBodyText": "デジタルフォレンジックスの手順は収集，検査，分析及び報告から成る。このとき，デジタルフォレンジックスの手順に含まれるものはどれか。",
+    "choiceTextList": [
+      "サーバとネットワーク機器のログをログ管理サーバに集約し，リアルタイムに相関分析することによって，不正アクセスを検出する。",
+      "サーバのハードディスクを解析し，削除されたログファイルを復元することによって，不正アクセスの痕跡を発見する。",
+      "電子メールを外部に送る際に，本文及び添付ファイルを暗号化することによって，情報漏えいを防ぐ。",
+      "プログラムを実行する際に，プログラムファイルのハッシュ値と脅威情報を突き合わせることによって，プログラムがマルウェアかどうかを検査する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b4aae06cb1901923",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_13.html"
+  },
+  {
+    "questionBodyText": "スパムメール対策として，サブミッションポート(ポート番号587)を導入する目的はどれか。",
+    "choiceTextList": [
+      "DNSサーバにSPFレコードを問い合わせる。",
+      "DNSサーバに登録されている公開鍵を使用して，デジタル署名を検証する。",
+      "POP before SMTPを使用して，メール送信者を認証する。",
+      "SMTP-AUTHを使用して，メール送信者を認証する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "53a0955dbed2f14b",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_14.html"
+  },
+  {
+    "questionBodyText": "次に示すような組織の業務環境において，特定のIPセグメントのIPアドレスを幹部のPCに動的に割り当て，一部のサーバへのアクセスをそのIPセグメントからだけ許可することによって，幹部のPCだけが当該サーバにアクセスできるようにしたい。利用するセキュリティ技術として，適切なものはどれか。\n〔組織の業務環境〕\n業務ではサーバにアクセスする。サーバは，組織の内部ネットワークからだけアクセスできる。\n幹部及び一般従業員は同一フロアで業務を行っており，日によって席が異なるフリーアドレス制を取っている。\n各席には有線LANポートが設置されており，PCを接続して組織の内部ネットワークに接続する。\nネットワークスイッチ1台に全てのPCとサーバが接続される。",
+    "choiceTextList": [
+      "IDS",
+      "IPマスカレード",
+      "スタティックVLAN",
+      "認証VLAN"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "53ec97d053f697e8",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_15.html"
+  },
+  {
+    "questionBodyText": "モジュールの独立性を高めるには，モジュール結合度を低くする必要がある。モジュール間の情報の受渡し方法のうち，モジュール結合度が最も低いものはどれか。",
+    "choiceTextList": [
+      "共通域に定義したデータを関係するモジュールが参照する。",
+      "制御パラメータを引数として渡し，モジュールの実行順序を制御する。",
+      "入出力に必要なデータ項目だけをモジュール間の引数として渡す。",
+      "必要なデータを外部宣言して共有する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d5e2f5bd74c4ebda",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_16.html"
+  },
+  {
+    "questionBodyText": "サーバプロビジョニングツールを使用する目的として，適切なものはどれか。",
+    "choiceTextList": [
+      "サーバ上のサービスが動作しているかどうかを，他のシステムからリモートで監視する。",
+      "サーバにインストールされているソフトウェアを一元的に管理する。",
+      "サーバを監視して，システムやアプリケーションのパフォーマンスを管理する。",
+      "システム構成をあらかじめ記述しておくことによって，サーバを自動的に構成する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3a8c6c9967ac4866",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_17.html"
+  },
+  {
+    "questionBodyText": "プロジェクトマネジメントにおける\"プロジェクト憲章\"の説明はどれか。",
+    "choiceTextList": [
+      "プロジェクトの実行，監視，管理の方法を規定するために，スケジュール，リスクなどに関するマネジメントの役割や責任などを記した文書",
+      "プロジェクトのスコープを定義するために，プロジェクトの目標，成果物，要求事項及び境界を記した文書",
+      "プロジェクトの目標を達成し，必要な成果物を作成するために，プロジェクトで実行する作業を階層構造で記した文書",
+      "プロジェクトを正式に認可するために，ビジネスニーズ，目標，成果物，プロジェクトマネージャ，及びプロジェクトマネージャの責任・権限を記した文書"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ff49796ef72ed4c9",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_18.html"
+  },
+  {
+    "questionBodyText": "過去のプロジェクトの開発実績に基づいて構築した作業配分モデルがある。システム要件定義からシステム内部設計までをモデルどおりに228日で完了し，プログラム開発を開始した。現在，200本のプログラムのうち100本のプログラムの開発を完了し，残り100本は未着手の状況である。プログラム開発以降もモデルどおりに進捗すると仮定するとき，プロジェクト全体の完了まで，あと何日掛かるか。ここで，各プログラムの開発に掛かる工数及び期間は，全てのプログラムで同一であるものとする。\n〔作業配分モデル〕",
+    "choiceTextList": [
+      "140",
+      "150",
+      "161",
+      "172"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d7e7da2faf460bb4",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_19.html"
+  },
+  {
+    "questionBodyText": "JIS Q 20000-1:2020(サービスマネジメントシステム要求事項)によれば，組織は，サービスレベル目標に照らしたパフォーマンスを監視し，レビューし，顧客に報告しなければならない。レビューをいつ行うかについて，この規格はどのように規定しているか。",
+    "choiceTextList": [
+      "SLAに大きな変更があったときに実施する。",
+      "あらかじめ定めた間隔で実施する。",
+      "間隔を定めず，必要に応じて実施する。",
+      "サービス目標の未達成が続いたときに実施する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d4b75d178754ba6e",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_20.html"
+  },
+  {
+    "questionBodyText": "システム監査基準(平成30年)における予備調査についての記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "監査対象の実態を把握するために，必ず現地に赴いて実施する。",
+      "監査対象部門の事務手続やマニュアルなどを通じて，業務内容，業務分掌の体制などを把握する。",
+      "監査の結論を裏付けるために，十分な監査証拠を入手する。",
+      "調査の範囲は，監査対象部門だけに限定する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b86f2d00ebafea89",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_21.html"
+  },
+  {
+    "questionBodyText": "システム監査基準(平成30年)における監査手続の実施に際して利用する技法に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "インタビュー法とは，システム監査人が，直接，関係者に口頭で問い合わせ，回答を入手する技法をいう。",
+      "現地調査法は，システム監査人が監査対象部門に直接赴いて，自ら観察・調査する技法なので，当該部門の業務時間外に実施しなければならない。",
+      "コンピュータ支援監査技法は，システム監査上使用頻度の高い機能に特化した，しかも非常に簡単な操作で利用できる専用ソフトウェアによらなければならない。",
+      "チェックリスト法とは，監査対象部門がチェックリストを作成及び利用して，監査対象部門の見解を取りまとめた結果をシステム監査人が点検する技法をいう。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "dd38160aa48485a2",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_22.html"
+  },
+  {
+    "questionBodyText": "情報化投資計画において，投資価値の評価指標であるROIを説明したものはどれか。",
+    "choiceTextList": [
+      "売上増やコスト削減などによって創出された利益額を投資額で割ったもの",
+      "売上高投資金額比，従業員当たりの投資金額などを他社と比較したもの",
+      "現金流入の現在価値から，現金流出の現在価値を差し引いたもの",
+      "プロジェクトを実施しない場合の，市場での競争力を表したもの"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1b4cea0eeb70e794",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_23.html"
+  },
+  {
+    "questionBodyText": "システム要件定義プロセスにおいて，トレーサビリティが確保されていることを説明した記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "移行マニュアルや運用マニュアルなどの文書化が完了しており，システム上でどのように業務を実施するのかを利用者が確認できる。",
+      "所定の内外作基準に基づいて外製する部分が決定され，調達先が選定され，契約が締結されており，調達先を容易に変更することはできない。",
+      "モジュールの相互依存関係が確定されており，以降の開発プロセスにおいて個別モジュールの仕様を変更することはできない。",
+      "利害関係者の要求の根拠と成果物の相互関係が文書化されており，開発の途中で生じる仕様変更をシステムに求められる品質に立ち返って検証できる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "03f4f938b450d95d",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_24.html"
+  },
+  {
+    "questionBodyText": "情報システムの調達の際に作成されるRFIの説明はどれか。",
+    "choiceTextList": [
+      "調達者から供給者候補に対して，システム化の目的や業務内容などを示し，必要な情報の提供を依頼すること",
+      "調達者から供給者候補に対して，対象システムや調達条件などを示し，提案書の提出を依頼すること",
+      "調達者から供給者に対して，契約内容で取り決めた内容に関して，変更を要請すること",
+      "調達者から供給者に対して，双方の役割分担などを確認し，契約の締結を要請すること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3722d687035f88fb",
+    "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_25.html"
+  }
+]

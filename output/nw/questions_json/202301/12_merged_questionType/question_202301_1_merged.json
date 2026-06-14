@@ -1,0 +1,1798 @@
+{
+  "list_group_id": "202301",
+  "question_bodies": [
+    {
+      "questionBodyText": "0以上255以下の整数nに対して，\nと定義する。next(n)と等しい式はどれか。ここで，x AND y 及び x OR y は，それぞれxとyを2進数表現にして，桁ごとの論理積及び論理和をとったものとする。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(n＋1) AND 255",
+        "(n＋1) AND 256",
+        "(n＋1) OR 255",
+        "(n＋1) OR 256"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 離散数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "離散数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "離散数学",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_1.html",
+      "public_question_id": "5c614b6b49f9dfc1",
+      "original_question_id": "5c614b6b49f9dfc1",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq5c614b6b49f9dfc1_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。ビットマスクの255を2進数で表すと「11111111」で、このビット列との論理積(AND)は(n＋1)の下位8ビットだけを取り出すように作用します。引数が255の場合には、最上位ビットの演算結果が0になるので関数は0を返します。"
+        ],
+        [
+          "ビットマスクの256を2進数で表すと「1 00000000」です。どの引数を与えても下位8ビットの演算結果が常に0になってしまうため誤りです。"
+        ],
+        [
+          "ビットマスクの255を2進数で表すと「11111111」で、このビット列と論理和(OR)演算を行った結果の下位8ビットは常に「11111111」になります。0≦n＜255では常に255、255では511が返るため誤りです。"
+        ],
+        [
+          "ビットマスクの256を2進数で表すと「1 00000000」で、このビット列と論理和(OR)演算を行った結果の最上位ビットは常に1になります。どの引数を与えても常に256以上の値が返るため誤りです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202301:am:問1:https://www.nw-siken.com/kakomon/05_haru/am1_1.html"
+    },
+    {
+      "questionBodyText": "平均が60，標準偏差が10の正規分布を表すグラフはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqaa4dde3451886295_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqaa4dde3451886295_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqaa4dde3451886295_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqaa4dde3451886295_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 応用数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "応用数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "応用数学",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_2.html",
+      "public_question_id": "aa4dde3451886295",
+      "original_question_id": "aa4dde3451886295",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "正規分布",
+        "標準偏差"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間に次の関係が成り立っています。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n選択肢のグラフのうち、グラフが左右対称となっていない「ウ」と「エ」は明らかに不適切とわかります。「ア」と「イ」はどちらも平均が\n60ですが、標準偏差±σの範囲「60±10＝\n50～70\n」を正しく表しているのは「ア」のグラフです。"
+        ],
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間に次の関係が成り立っています。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n選択肢のグラフのうち、グラフが左右対称となっていない「ウ」と「エ」は明らかに不適切とわかります。「ア」と「イ」はどちらも平均が\n60ですが、標準偏差±σの範囲「60±10＝\n50～70\n」を正しく表しているのは「ア」のグラフです。"
+        ],
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間に次の関係が成り立っています。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n選択肢のグラフのうち、グラフが左右対称となっていない「ウ」と「エ」は明らかに不適切とわかります。「ア」と「イ」はどちらも平均が\n60ですが、標準偏差±σの範囲「60±10＝\n50～70\n」を正しく表しているのは「ア」のグラフです。"
+        ],
+        [
+          "正規分布\nは、平均値を中心に左右対称の山のようなカーブを描く確率分布で、平均と標準偏差だけで分布に関する全ての特性が規定できるという特徴があります。\n標準偏差\nは、データの分布のばらつきを表す尺度で、正規分布では平均値と標準偏差(σ[シグマ])、および度数の間に次の関係が成り立っています。\n平均±σの範囲に全体の約68%が含まれる\n平均±2σの範囲に全体の約95%が含まれる\n平均±3σの範囲に全体の約99%が含まれる\n選択肢のグラフのうち、グラフが左右対称となっていない「ウ」と「エ」は明らかに不適切とわかります。「ア」と「イ」はどちらも平均が\n60ですが、標準偏差±σの範囲「60±10＝\n50～70\n」を正しく表しているのは「ア」のグラフです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202301:am:問2:https://www.nw-siken.com/kakomon/05_haru/am1_2.html"
+    },
+    {
+      "questionBodyText": "配列に格納されたデータ2，3，5，4，1に対して，クイックソートを用いて昇順に並べ替える。2回目の分割が終わった状態はどれか。ここで，分割は基準値より小さい値と大きい値のグループに分けるものとする。また，分割のたびに基準値はグループ内の配列の左端の値とし，グループ内の配列の値の順番は元の配列と同じとする。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "1，2，3，5，4",
+        "1，2，5，4，3",
+        "2，3，1，4，5",
+        "2，3，4，5，1"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_3.html",
+      "public_question_id": "76d2a35c7e017d40",
+      "original_question_id": "76d2a35c7e017d40",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "クイックソート",
+        "[2，3，5，4，1]\n左端の2より小さいグループ、大きいグループに分ける（1回目の分割）\n[1]，[2]，[3，5，4]\n各グループで左端の値を基準に小さいグループ、大きいグループに分ける（2回目の分割）\n[1]，[2]，[3]，[5，4]"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "クイックソート\nは、整列対象のデータ群をある基準値以下のグループと基準値以上のグループに分割し、さらに分割後の各グループで基準値を選んで二つのグループに分割するという処理を繰り返してデータを整列するアルゴリズムです。下図のように全体を小集団に分けながら整列を行うので、分割統治型の整列アルゴリズムと言えます。\n①配列の左端の値を基準値とする、②分割は基準値よりも小さい値と大きい値に分ける、という条件に従って分割を進めていくと次のようなります。\n[2，3，5，4，1]\n左端の2より小さいグループ、大きいグループに分ける（1回目の分割）\n[1]，[2]，[3，5，4]\n各グループで左端の値を基準に小さいグループ、大きいグループに分ける（2回目の分割）\n[1]，[2]，[3]，[5，4]\nしたがって、2回目分割後の配列の状態は「1，2，3，5，4」です。"
+        ],
+        [
+          "クイックソート\nは、整列対象のデータ群をある基準値以下のグループと基準値以上のグループに分割し、さらに分割後の各グループで基準値を選んで二つのグループに分割するという処理を繰り返してデータを整列するアルゴリズムです。下図のように全体を小集団に分けながら整列を行うので、分割統治型の整列アルゴリズムと言えます。\n①配列の左端の値を基準値とする、②分割は基準値よりも小さい値と大きい値に分ける、という条件に従って分割を進めていくと次のようなります。\n[2，3，5，4，1]\n左端の2より小さいグループ、大きいグループに分ける（1回目の分割）\n[1]，[2]，[3，5，4]\n各グループで左端の値を基準に小さいグループ、大きいグループに分ける（2回目の分割）\n[1]，[2]，[3]，[5，4]\nしたがって、2回目分割後の配列の状態は「1，2，3，5，4」です。"
+        ],
+        [
+          "クイックソート\nは、整列対象のデータ群をある基準値以下のグループと基準値以上のグループに分割し、さらに分割後の各グループで基準値を選んで二つのグループに分割するという処理を繰り返してデータを整列するアルゴリズムです。下図のように全体を小集団に分けながら整列を行うので、分割統治型の整列アルゴリズムと言えます。\n①配列の左端の値を基準値とする、②分割は基準値よりも小さい値と大きい値に分ける、という条件に従って分割を進めていくと次のようなります。\n[2，3，5，4，1]\n左端の2より小さいグループ、大きいグループに分ける（1回目の分割）\n[1]，[2]，[3，5，4]\n各グループで左端の値を基準に小さいグループ、大きいグループに分ける（2回目の分割）\n[1]，[2]，[3]，[5，4]\nしたがって、2回目分割後の配列の状態は「1，2，3，5，4」です。"
+        ],
+        [
+          "クイックソート\nは、整列対象のデータ群をある基準値以下のグループと基準値以上のグループに分割し、さらに分割後の各グループで基準値を選んで二つのグループに分割するという処理を繰り返してデータを整列するアルゴリズムです。下図のように全体を小集団に分けながら整列を行うので、分割統治型の整列アルゴリズムと言えます。\n①配列の左端の値を基準値とする、②分割は基準値よりも小さい値と大きい値に分ける、という条件に従って分割を進めていくと次のようなります。\n[2，3，5，4，1]\n左端の2より小さいグループ、大きいグループに分ける（1回目の分割）\n[1]，[2]，[3，5，4]\n各グループで左端の値を基準に小さいグループ、大きいグループに分ける（2回目の分割）\n[1]，[2]，[3]，[5，4]\nしたがって、2回目分割後の配列の状態は「1，2，3，5，4」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202301:am:問3:https://www.nw-siken.com/kakomon/05_haru/am1_3.html"
+    },
+    {
+      "questionBodyText": "動作周波数1.25GHzのシングルコアCPUが1秒間に10億回の命令を実行するとき，このCPUの平均CPI(Cycles Per Instruction)として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.8",
+        "1.25",
+        "2.5",
+        "10"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_4.html",
+      "public_question_id": "dc48444d5de62c93",
+      "original_question_id": "dc48444d5de62c93",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "CPI",
+        "9",
+        "9",
+        "9"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "CPI\n(Cycles Per Instruction)は、CPUが1つの命令を実行するのに必要となる平均クロック数を表します。例えば、100HzのCPUで1秒間に100回の命令を実行したのなら、CPIは1ということになります。\n動作周波数1.25GHzのCPUでは、1秒間に1.25GHz＝1.25×109回のクロックが発生します。1秒間に10億回の命令が実行することができるので、1命令当たりに使われるクロック数の平均は、1.25×109回÷(1×109\n)＝1.25したがって「イ」が正解です。"
+        ],
+        [
+          "CPI\n(Cycles Per Instruction)は、CPUが1つの命令を実行するのに必要となる平均クロック数を表します。例えば、100HzのCPUで1秒間に100回の命令を実行したのなら、CPIは1ということになります。\n動作周波数1.25GHzのCPUでは、1秒間に1.25GHz＝1.25×109回のクロックが発生します。1秒間に10億回の命令が実行することができるので、1命令当たりに使われるクロック数の平均は、1.25×109回÷(1×109\n)＝1.25したがって「イ」が正解です。"
+        ],
+        [
+          "CPI\n(Cycles Per Instruction)は、CPUが1つの命令を実行するのに必要となる平均クロック数を表します。例えば、100HzのCPUで1秒間に100回の命令を実行したのなら、CPIは1ということになります。\n動作周波数1.25GHzのCPUでは、1秒間に1.25GHz＝1.25×109回のクロックが発生します。1秒間に10億回の命令が実行することができるので、1命令当たりに使われるクロック数の平均は、1.25×109回÷(1×109\n)＝1.25したがって「イ」が正解です。"
+        ],
+        [
+          "CPI\n(Cycles Per Instruction)は、CPUが1つの命令を実行するのに必要となる平均クロック数を表します。例えば、100HzのCPUで1秒間に100回の命令を実行したのなら、CPIは1ということになります。\n動作周波数1.25GHzのCPUでは、1秒間に1.25GHz＝1.25×109回のクロックが発生します。1秒間に10億回の命令が実行することができるので、1命令当たりに使われるクロック数の平均は、1.25×109回÷(1×109\n)＝1.25したがって「イ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問4:https://www.nw-siken.com/kakomon/05_haru/am1_4.html"
+    },
+    {
+      "questionBodyText": "スケールインの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "想定されるCPU使用率に対して，サーバの能力が過剰なとき，CPUの能力を減らすこと",
+        "想定されるシステムの処理量に対して，サーバの台数が過剰なとき，サーバの台数を減らすこと",
+        "想定されるシステムの処理量に対して，サーバの台数が不足するとき，サーバの台数を増やすこと",
+        "想定されるメモリ使用率に対して，サーバの能力が不足するとき，メモリの容量を増やすこと"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_5.html",
+      "public_question_id": "7ad2706db38db073",
+      "original_question_id": "7ad2706db38db073",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "スケールダウンの説明です。"
+        ],
+        [
+          "正しい。スケールインの説明です。"
+        ],
+        [
+          "スケールアウトの説明です。"
+        ],
+        [
+          "スケールアップの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問5:https://www.nw-siken.com/kakomon/05_haru/am1_5.html"
+    },
+    {
+      "questionBodyText": "ハッシュ表の理論的な探索時間を示すグラフはどれか。ここで，複数のデータが同じハッシュ値になることはないものとする。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3fdd8408151f4fe2_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3fdd8408151f4fe2_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3fdd8408151f4fe2_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3fdd8408151f4fe2_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_6.html",
+      "public_question_id": "3fdd8408151f4fe2",
+      "original_question_id": "3fdd8408151f4fe2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ハッシュ表"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ハッシュ表\nは、キー(key)とそれに対応する値(value)の組を格納するデータ構造です。\nハッシュ表では、キーと値の組を格納する際、キーにハッシュ関数を使用して、格納する場所（インデックス）を一意に決め、そこに格納します。あるキーに対する値を取り出すときも、キーにハッシュ関数を使用することで格納場所を特定し、一発で目的のデータを参照することが可能です。ハッシュ関数からハッシュ値を計算する速度はほぼ一定なので、ハッシュ表に格納されているデータの数にかかわらず、探索時間はほぼ一定（定数時間）となります。\nハッシュ表探索では、表中のデータの数が増えても探索時間は変わらないので、適切な関係を表すグラフは「エ」です。"
+        ],
+        [
+          "ハッシュ表\nは、キー(key)とそれに対応する値(value)の組を格納するデータ構造です。\nハッシュ表では、キーと値の組を格納する際、キーにハッシュ関数を使用して、格納する場所（インデックス）を一意に決め、そこに格納します。あるキーに対する値を取り出すときも、キーにハッシュ関数を使用することで格納場所を特定し、一発で目的のデータを参照することが可能です。ハッシュ関数からハッシュ値を計算する速度はほぼ一定なので、ハッシュ表に格納されているデータの数にかかわらず、探索時間はほぼ一定（定数時間）となります。\nハッシュ表探索では、表中のデータの数が増えても探索時間は変わらないので、適切な関係を表すグラフは「エ」です。"
+        ],
+        [
+          "ハッシュ表\nは、キー(key)とそれに対応する値(value)の組を格納するデータ構造です。\nハッシュ表では、キーと値の組を格納する際、キーにハッシュ関数を使用して、格納する場所（インデックス）を一意に決め、そこに格納します。あるキーに対する値を取り出すときも、キーにハッシュ関数を使用することで格納場所を特定し、一発で目的のデータを参照することが可能です。ハッシュ関数からハッシュ値を計算する速度はほぼ一定なので、ハッシュ表に格納されているデータの数にかかわらず、探索時間はほぼ一定（定数時間）となります。\nハッシュ表探索では、表中のデータの数が増えても探索時間は変わらないので、適切な関係を表すグラフは「エ」です。"
+        ],
+        [
+          "ハッシュ表\nは、キー(key)とそれに対応する値(value)の組を格納するデータ構造です。\nハッシュ表では、キーと値の組を格納する際、キーにハッシュ関数を使用して、格納する場所（インデックス）を一意に決め、そこに格納します。あるキーに対する値を取り出すときも、キーにハッシュ関数を使用することで格納場所を特定し、一発で目的のデータを参照することが可能です。ハッシュ関数からハッシュ値を計算する速度はほぼ一定なので、ハッシュ表に格納されているデータの数にかかわらず、探索時間はほぼ一定（定数時間）となります。\nハッシュ表探索では、表中のデータの数が増えても探索時間は変わらないので、適切な関係を表すグラフは「エ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202301:am:問6:https://www.nw-siken.com/kakomon/05_haru/am1_6.html"
+    },
+    {
+      "questionBodyText": "NAND素子を用いた次の組合せ回路の出力Zを表す式はどれか。ここで，\"・\"は論理積，\"＋\"は論理和，\"\nX\n\"はXの否定を表す。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "X・Y",
+        "X＋Y",
+        "X・Y",
+        "X＋Y"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ハードウェア » ハードウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ハードウェア",
+        "ハードウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ハードウェア",
+      "categorySmall": "ハードウェア",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_7.html",
+      "public_question_id": "bb8cf969bf8dc560",
+      "original_question_id": "bb8cf969bf8dc560",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqbb8cf969bf8dc560_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "NAND回路",
+        "X・X\n・\nY・Y",
+        "X・X",
+        "Y・Y",
+        "//ド・モルガンの法則を適用",
+        "//\nA\n＝A",
+        "//A・A＝A"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "NAND回路\nは、NAND(Not AND)の名称どおりAND回路の逆を出力する回路で、2つの入力がともに\"1\"のときだけ\"0\"を出力し、それ以外の入力では\"1\"を出力します。\n設問の回路に入力値XとYのすべての組合せ（X=0,Y=0・X=1,Y=0・X=0,Y=1・X=1, Y=1）を試すと、それぞれ以下の出力が得られます。\n上記結果の入力値XとYおよび出力値Zの関係を整理すると、次の真理値表が得られます。\nこの真理値表より、設問の回路は2つの入力の論理和を得るOR回路と等価であることがわかるので、正解は「X＋Y」です。\n【別解】\n回路図を論理式で表し、その論理式を変形することで答えを導く解く方法もあります。Z＝\nX・X\n・\nY・Y\n＝\nX・X\n＋\nY・Y\n//ド・モルガンの法則を適用\n＝X・X＋Y・Y\n//\nA\n＝A\n＝X＋Y\n//A・A＝A"
+        ],
+        [
+          "NAND回路\nは、NAND(Not AND)の名称どおりAND回路の逆を出力する回路で、2つの入力がともに\"1\"のときだけ\"0\"を出力し、それ以外の入力では\"1\"を出力します。\n設問の回路に入力値XとYのすべての組合せ（X=0,Y=0・X=1,Y=0・X=0,Y=1・X=1, Y=1）を試すと、それぞれ以下の出力が得られます。\n上記結果の入力値XとYおよび出力値Zの関係を整理すると、次の真理値表が得られます。\nこの真理値表より、設問の回路は2つの入力の論理和を得るOR回路と等価であることがわかるので、正解は「X＋Y」です。\n【別解】\n回路図を論理式で表し、その論理式を変形することで答えを導く解く方法もあります。Z＝\nX・X\n・\nY・Y\n＝\nX・X\n＋\nY・Y\n//ド・モルガンの法則を適用\n＝X・X＋Y・Y\n//\nA\n＝A\n＝X＋Y\n//A・A＝A"
+        ],
+        [
+          "NAND回路\nは、NAND(Not AND)の名称どおりAND回路の逆を出力する回路で、2つの入力がともに\"1\"のときだけ\"0\"を出力し、それ以外の入力では\"1\"を出力します。\n設問の回路に入力値XとYのすべての組合せ（X=0,Y=0・X=1,Y=0・X=0,Y=1・X=1, Y=1）を試すと、それぞれ以下の出力が得られます。\n上記結果の入力値XとYおよび出力値Zの関係を整理すると、次の真理値表が得られます。\nこの真理値表より、設問の回路は2つの入力の論理和を得るOR回路と等価であることがわかるので、正解は「X＋Y」です。\n【別解】\n回路図を論理式で表し、その論理式を変形することで答えを導く解く方法もあります。Z＝\nX・X\n・\nY・Y\n＝\nX・X\n＋\nY・Y\n//ド・モルガンの法則を適用\n＝X・X＋Y・Y\n//\nA\n＝A\n＝X＋Y\n//A・A＝A"
+        ],
+        [
+          "NAND回路\nは、NAND(Not AND)の名称どおりAND回路の逆を出力する回路で、2つの入力がともに\"1\"のときだけ\"0\"を出力し、それ以外の入力では\"1\"を出力します。\n設問の回路に入力値XとYのすべての組合せ（X=0,Y=0・X=1,Y=0・X=0,Y=1・X=1, Y=1）を試すと、それぞれ以下の出力が得られます。\n上記結果の入力値XとYおよび出力値Zの関係を整理すると、次の真理値表が得られます。\nこの真理値表より、設問の回路は2つの入力の論理和を得るOR回路と等価であることがわかるので、正解は「X＋Y」です。\n【別解】\n回路図を論理式で表し、その論理式を変形することで答えを導く解く方法もあります。Z＝\nX・X\n・\nY・Y\n＝\nX・X\n＋\nY・Y\n//ド・モルガンの法則を適用\n＝X・X＋Y・Y\n//\nA\n＝A\n＝X＋Y\n//A・A＝A"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問7:https://www.nw-siken.com/kakomon/05_haru/am1_7.html"
+    },
+    {
+      "questionBodyText": "コンピュータグラフィックスに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "テクスチャマッピングは，全てのピクセルについて，視線と全ての物体との交点を計算し，その中から視点に最も近い交点を選択することによって，陰面消去を行う。",
+        "メタボールは，反射・透過方向への視線追跡を行わず，与えられた空間中のデータから輝度を計算する。",
+        "ラジオシティ法は，拡散反射面間の相互反射による効果を考慮して拡散反射面の輝度を決める。",
+        "レイトレーシングは，形状が定義された物体の表面に，別に定義された模様を張り付けて画像を作成する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 情報メディア » マルチメディア応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "情報メディア",
+        "マルチメディア応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "情報メディア",
+      "categorySmall": "マルチメディア応用",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_8.html",
+      "public_question_id": "84b36cee45380f93",
+      "original_question_id": "84b36cee45380f93",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "テクスチャマッピングは、多数のポリゴン(多角形)の組合せで構成させる3DCG表面に壁紙のようなものを貼り付け、擬似的な凹凸や表面模様などを付加することで質感の向上をもたらす技法です。本記述は、陰面消去方法のひとつであるZバッファ法を説明した文です。"
+        ],
+        [
+          "メタボールは、物体を球や楕円体の集合として擬似的にモデル化することで、滑らかな物体を表現する技術です。本記述は、レイキャスティング法を説明した文です。"
+        ],
+        [
+          "正しい。\nラジオシティ\nは、各ポリゴンに光のエネルギー量を持たせて形状の相互反射を計算することで、間接光（やわらかい光の回り込み）などを表現する技術です。照明工学の分野で発達した技術を3DCGのレンダリングに応用したものです。"
+        ],
+        [
+          "レイトレーシングは、3DCGを作成する時に必要となる陰影をつけるときに使われる手法で、観察者(物体を見ている目)から光源の経路を逆に追跡し、算術演算によって物体表面の輝度を求める手法です。本記述は、テクスチャマッピングを説明した文です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202301:am:問8:https://www.nw-siken.com/kakomon/05_haru/am1_8.html"
+    },
+    {
+      "questionBodyText": "UMLを用いて表した図のデータモデルのa，bに入れる多重度はどれか。\n〔条件〕\n部門には1人以上の社員が所属する。\n社員はいずれか一つの部門に所属する。\n社員が部門に所属した履歴を所属履歴として記録する。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq55f9d352e56940fd_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq55f9d352e56940fd_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq55f9d352e56940fd_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq55f9d352e56940fd_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » データベース » データベース設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データベース設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データベース設計",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_9.html",
+      "public_question_id": "55f9d352e56940fd",
+      "original_question_id": "55f9d352e56940fd",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq55f9d352e56940fd_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "多重度",
+        "a",
+        "a",
+        "b",
+        "b"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "多重度\nとは、あるクラスのインスタンス1つにつき、他方のクラスのインスタンスがいくつ関連するかという数を示します。クラス図における多重度の表記法とその意味は以下のとおりです。\n〔\naについて〕\n部門クラスのインスタンスから見た所属履歴の数が入ります。\n所属社員1人につき1つの所属履歴が記録されます。1つの部門には1人以上の社員が所属するので、1つの部門と関連する所属履歴も1つ以上ということになります。したがって\naには「1..*」が入ります。\n〔\nbについて〕\n社員クラスのインスタンスから見た所属履歴の数が入ります。\n社員はいずれか一つの部門に所属しますが、部署異動の可能性を考えれば、1人の社員には1つまたは複数の所属履歴が存在することになります。したがって\nbには「1..*」が入ります。\n以上より、正しい組合せは「エ」になります。"
+        ],
+        [
+          "多重度\nとは、あるクラスのインスタンス1つにつき、他方のクラスのインスタンスがいくつ関連するかという数を示します。クラス図における多重度の表記法とその意味は以下のとおりです。\n〔\naについて〕\n部門クラスのインスタンスから見た所属履歴の数が入ります。\n所属社員1人につき1つの所属履歴が記録されます。1つの部門には1人以上の社員が所属するので、1つの部門と関連する所属履歴も1つ以上ということになります。したがって\naには「1..*」が入ります。\n〔\nbについて〕\n社員クラスのインスタンスから見た所属履歴の数が入ります。\n社員はいずれか一つの部門に所属しますが、部署異動の可能性を考えれば、1人の社員には1つまたは複数の所属履歴が存在することになります。したがって\nbには「1..*」が入ります。\n以上より、正しい組合せは「エ」になります。"
+        ],
+        [
+          "多重度\nとは、あるクラスのインスタンス1つにつき、他方のクラスのインスタンスがいくつ関連するかという数を示します。クラス図における多重度の表記法とその意味は以下のとおりです。\n〔\naについて〕\n部門クラスのインスタンスから見た所属履歴の数が入ります。\n所属社員1人につき1つの所属履歴が記録されます。1つの部門には1人以上の社員が所属するので、1つの部門と関連する所属履歴も1つ以上ということになります。したがって\naには「1..*」が入ります。\n〔\nbについて〕\n社員クラスのインスタンスから見た所属履歴の数が入ります。\n社員はいずれか一つの部門に所属しますが、部署異動の可能性を考えれば、1人の社員には1つまたは複数の所属履歴が存在することになります。したがって\nbには「1..*」が入ります。\n以上より、正しい組合せは「エ」になります。"
+        ],
+        [
+          "多重度\nとは、あるクラスのインスタンス1つにつき、他方のクラスのインスタンスがいくつ関連するかという数を示します。クラス図における多重度の表記法とその意味は以下のとおりです。\n〔\naについて〕\n部門クラスのインスタンスから見た所属履歴の数が入ります。\n所属社員1人につき1つの所属履歴が記録されます。1つの部門には1人以上の社員が所属するので、1つの部門と関連する所属履歴も1つ以上ということになります。したがって\naには「1..*」が入ります。\n〔\nbについて〕\n社員クラスのインスタンスから見た所属履歴の数が入ります。\n社員はいずれか一つの部門に所属しますが、部署異動の可能性を考えれば、1人の社員には1つまたは複数の所属履歴が存在することになります。したがって\nbには「1..*」が入ります。\n以上より、正しい組合せは「エ」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202301:am:問9:https://www.nw-siken.com/kakomon/05_haru/am1_9.html"
+    },
+    {
+      "questionBodyText": "1個のTCPパケットをイーサネットに送出したとき，イーサネットフレームに含まれる宛先情報の，送出順序はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "宛先IPアドレス，宛先MACアドレス，宛先ポート番号",
+        "宛先IPアドレス，宛先ポート番号，宛先MACアドレス",
+        "宛先MACアドレス，宛先IPアドレス，宛先ポート番号",
+        "宛先MACアドレス，宛先ポート番号，宛先IPアドレス"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_10.html",
+      "public_question_id": "0880f0a50a2a8b99",
+      "original_question_id": "0880f0a50a2a8b99",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ポート番号",
+        "IPアドレス",
+        "MACアドレス"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "アプリケーションから送信されたデータは、OSI基本参照モデル（TCP/IP階層モデル）の各層ごとのヘッダーが付加されて次の階層に渡されていきます。アプリケーション層で生成されたデータは、トランスポート層では\nポート番号\nを含む「TCPヘッダー」、ネットワーク層では\nIPアドレス\nを含む「IPヘッダー」、データリンク層では\nMACアドレス\nを含む「MACヘッダー」がそれぞれ付加されます。\nイーサネットフレームは、データリンク層で通信を行うためのMACヘッダーを付加したデータなので、ヘッダーの送出順序は上の図のとおり、ヘッダーの付加が新しいものから順に、宛先MACアドレス・宛先IPアドレス・宛先ポート番号となっています。したがって「ウ」が正解です。"
+        ],
+        [
+          "アプリケーションから送信されたデータは、OSI基本参照モデル（TCP/IP階層モデル）の各層ごとのヘッダーが付加されて次の階層に渡されていきます。アプリケーション層で生成されたデータは、トランスポート層では\nポート番号\nを含む「TCPヘッダー」、ネットワーク層では\nIPアドレス\nを含む「IPヘッダー」、データリンク層では\nMACアドレス\nを含む「MACヘッダー」がそれぞれ付加されます。\nイーサネットフレームは、データリンク層で通信を行うためのMACヘッダーを付加したデータなので、ヘッダーの送出順序は上の図のとおり、ヘッダーの付加が新しいものから順に、宛先MACアドレス・宛先IPアドレス・宛先ポート番号となっています。したがって「ウ」が正解です。"
+        ],
+        [
+          "アプリケーションから送信されたデータは、OSI基本参照モデル（TCP/IP階層モデル）の各層ごとのヘッダーが付加されて次の階層に渡されていきます。アプリケーション層で生成されたデータは、トランスポート層では\nポート番号\nを含む「TCPヘッダー」、ネットワーク層では\nIPアドレス\nを含む「IPヘッダー」、データリンク層では\nMACアドレス\nを含む「MACヘッダー」がそれぞれ付加されます。\nイーサネットフレームは、データリンク層で通信を行うためのMACヘッダーを付加したデータなので、ヘッダーの送出順序は上の図のとおり、ヘッダーの付加が新しいものから順に、宛先MACアドレス・宛先IPアドレス・宛先ポート番号となっています。したがって「ウ」が正解です。"
+        ],
+        [
+          "アプリケーションから送信されたデータは、OSI基本参照モデル（TCP/IP階層モデル）の各層ごとのヘッダーが付加されて次の階層に渡されていきます。アプリケーション層で生成されたデータは、トランスポート層では\nポート番号\nを含む「TCPヘッダー」、ネットワーク層では\nIPアドレス\nを含む「IPヘッダー」、データリンク層では\nMACアドレス\nを含む「MACヘッダー」がそれぞれ付加されます。\nイーサネットフレームは、データリンク層で通信を行うためのMACヘッダーを付加したデータなので、ヘッダーの送出順序は上の図のとおり、ヘッダーの付加が新しいものから順に、宛先MACアドレス・宛先IPアドレス・宛先ポート番号となっています。したがって「ウ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202301:am:問10:https://www.nw-siken.com/kakomon/05_haru/am1_10.html"
+    },
+    {
+      "questionBodyText": "モバイル通信サービスにおいて，移動中のモバイル端末が通信相手との接続を維持したまま，ある基地局経由から別の基地局経由の通信へ切り替えることを何と呼ぶか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "テザリング",
+        "ハンドオーバー",
+        "フォールバック",
+        "ローミング"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク応用",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_11.html",
+      "public_question_id": "ee796aeb12f01ba0",
+      "original_question_id": "ee796aeb12f01ba0",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "テザリングは、スマートフォンなどのモバイル端末がもつ携帯回線などのインターネット接続機能を使って、他のコンピュータや情報端末をインターネットに接続することです。"
+        ],
+        [
+          "正しい。\nハンドオーバー\nは、無線LAN端末やモバイル端末を使用しながら移動するときに、端末の場所に応じて通信する基地局やアクセスポイントを切り替えることです。"
+        ],
+        [
+          "フォールバックは、通信エリアや電波環境に応じて、データ通信網を5G回線から4G回線に、あるいは4G回線から3G回線に落とし、適切な回線に自動的に切り替える技術です。"
+        ],
+        [
+          "ローミングは、契約している通信事業者のサービスエリア外でも、他の事業者のサービスによってモバイル端末を使用できるサービスです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問11:https://www.nw-siken.com/kakomon/05_haru/am1_11.html"
+    },
+    {
+      "questionBodyText": "ボットネットにおいてC&Cサーバが担う役割はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "遠隔操作が可能なマルウェアに，情報収集及び攻撃活動を指示する。",
+        "攻撃の踏み台となった複数のサーバからの通信を制御して遮断する。",
+        "電子商取引事業者などへの偽のデジタル証明書の発行を命令する。",
+        "不正なWebコンテンツのテキスト，画像及びレイアウト情報を一元的に管理する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_12.html",
+      "public_question_id": "15650a828474291e",
+      "original_question_id": "15650a828474291e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "C&Cサーバ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "C&Cサーバ\n(コマンド・コントロール・サーバ)は、マルウェアが侵入に成功したコンピュータ群(ボットネット)の動作を制御するために用いられる外部の指令サーバです。\nマルウェアはC&Cサーバからの指令を受けて、乗っ取ったコンピュータで悪意のある活動を行います。単純に外部から内部ネットワークに存在するマルウェアに対して通信を試みてもFWなどで遮断されてしまうため、マルウェア側からC&Cサーバに対して定期的に問い合わせを行い、その応答を使って指令を行う仕組みが用いられています。この仕組みを「コネクトバック通信」といいます。\nしたがって、C&Cサーバの役割を説明した記述は「ア」です。"
+        ],
+        [
+          "C&Cサーバ\n(コマンド・コントロール・サーバ)は、マルウェアが侵入に成功したコンピュータ群(ボットネット)の動作を制御するために用いられる外部の指令サーバです。\nマルウェアはC&Cサーバからの指令を受けて、乗っ取ったコンピュータで悪意のある活動を行います。単純に外部から内部ネットワークに存在するマルウェアに対して通信を試みてもFWなどで遮断されてしまうため、マルウェア側からC&Cサーバに対して定期的に問い合わせを行い、その応答を使って指令を行う仕組みが用いられています。この仕組みを「コネクトバック通信」といいます。\nしたがって、C&Cサーバの役割を説明した記述は「ア」です。"
+        ],
+        [
+          "C&Cサーバ\n(コマンド・コントロール・サーバ)は、マルウェアが侵入に成功したコンピュータ群(ボットネット)の動作を制御するために用いられる外部の指令サーバです。\nマルウェアはC&Cサーバからの指令を受けて、乗っ取ったコンピュータで悪意のある活動を行います。単純に外部から内部ネットワークに存在するマルウェアに対して通信を試みてもFWなどで遮断されてしまうため、マルウェア側からC&Cサーバに対して定期的に問い合わせを行い、その応答を使って指令を行う仕組みが用いられています。この仕組みを「コネクトバック通信」といいます。\nしたがって、C&Cサーバの役割を説明した記述は「ア」です。"
+        ],
+        [
+          "C&Cサーバ\n(コマンド・コントロール・サーバ)は、マルウェアが侵入に成功したコンピュータ群(ボットネット)の動作を制御するために用いられる外部の指令サーバです。\nマルウェアはC&Cサーバからの指令を受けて、乗っ取ったコンピュータで悪意のある活動を行います。単純に外部から内部ネットワークに存在するマルウェアに対して通信を試みてもFWなどで遮断されてしまうため、マルウェア側からC&Cサーバに対して定期的に問い合わせを行い、その応答を使って指令を行う仕組みが用いられています。この仕組みを「コネクトバック通信」といいます。\nしたがって、C&Cサーバの役割を説明した記述は「ア」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202301:am:問12:https://www.nw-siken.com/kakomon/05_haru/am1_12.html"
+    },
+    {
+      "questionBodyText": "デジタルフォレンジックスの手順は収集，検査，分析及び報告から成る。このとき，デジタルフォレンジックスの手順に含まれるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "サーバとネットワーク機器のログをログ管理サーバに集約し，リアルタイムに相関分析することによって，不正アクセスを検出する。",
+        "サーバのハードディスクを解析し，削除されたログファイルを復元することによって，不正アクセスの痕跡を発見する。",
+        "電子メールを外部に送る際に，本文及び添付ファイルを暗号化することによって，情報漏えいを防ぐ。",
+        "プログラムを実行する際に，プログラムファイルのハッシュ値と脅威情報を突き合わせることによって，プログラムがマルウェアかどうかを検査する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_13.html",
+      "public_question_id": "b4aae06cb1901923",
+      "original_question_id": "b4aae06cb1901923",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "デジタルフォレンジックス"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SIEM(Security Information and Event Management)に関する記述です。"
+        ],
+        [
+          "正しい。デジタルフォレンジックスに関する記述です。"
+        ],
+        [
+          "DLP(Data Loss Prevention)に関する記述です。"
+        ],
+        [
+          "EDR(Endpoint Detection and Response)に関する記述です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問13:https://www.nw-siken.com/kakomon/05_haru/am1_13.html"
+    },
+    {
+      "questionBodyText": "スパムメール対策として，サブミッションポート(ポート番号587)を導入する目的はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DNSサーバにSPFレコードを問い合わせる。",
+        "DNSサーバに登録されている公開鍵を使用して，デジタル署名を検証する。",
+        "POP before SMTPを使用して，メール送信者を認証する。",
+        "SMTP-AUTHを使用して，メール送信者を認証する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_14.html",
+      "public_question_id": "53a0955dbed2f14b",
+      "original_question_id": "53a0955dbed2f14b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "OP25B",
+        "サブミッションポート",
+        "送信専用のポート番号",
+        "SMTP-AUTH"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "スパムメールは、追跡やブロックのリスクを避けるために、自身のISPのメールサーバを介さずに直接外部のメールサーバとコネクションを確立して、送信されることが普通です。このようなスパムメールの送信をブロックするため、ISPでは、ISP外部のメールサーバと直接コネクションを確立しようとする外向きの通信をブロックする\nOP25B\n（Outbound Port 25 Blocking）という対策を行っています。OP25Bが実施されていると、たとえ正当な利用者であっても、通常の\"25/TCP\"のSMTP通信を使って外部のメールサーバと直接コネクションを確立することができなくなります。これにより、外出先で自分が契約しているISPのメールサーバから送信できないなどの問題が生じます。\nサブミッションポート\nは、SMTPを拡張したプロトコルであり、利用者のメールソフト(メーラー)からメールサーバに対して、メールの送信を依頼するときに使用する\n送信専用のポート番号\nです。通常のメール送信に使われるSMTP(25/TCP)と異なり、SMTP-AUTHによる送信者認証が用意されているため、メールサーバは認証を受けた利用者からのメールのみを送信することが可能となります。これによりスパマーの悪用を防ぎつつ、外部のメールサーバを使用したメール送信を可能にしています。\nしたがって、サブミッションポートの導入目的は「SMTP-AUTHによる送信者認証」が適切です。"
+        ],
+        [
+          "スパムメールは、追跡やブロックのリスクを避けるために、自身のISPのメールサーバを介さずに直接外部のメールサーバとコネクションを確立して、送信されることが普通です。このようなスパムメールの送信をブロックするため、ISPでは、ISP外部のメールサーバと直接コネクションを確立しようとする外向きの通信をブロックする\nOP25B\n（Outbound Port 25 Blocking）という対策を行っています。OP25Bが実施されていると、たとえ正当な利用者であっても、通常の\"25/TCP\"のSMTP通信を使って外部のメールサーバと直接コネクションを確立することができなくなります。これにより、外出先で自分が契約しているISPのメールサーバから送信できないなどの問題が生じます。\nサブミッションポート\nは、SMTPを拡張したプロトコルであり、利用者のメールソフト(メーラー)からメールサーバに対して、メールの送信を依頼するときに使用する\n送信専用のポート番号\nです。通常のメール送信に使われるSMTP(25/TCP)と異なり、SMTP-AUTHによる送信者認証が用意されているため、メールサーバは認証を受けた利用者からのメールのみを送信することが可能となります。これによりスパマーの悪用を防ぎつつ、外部のメールサーバを使用したメール送信を可能にしています。\nしたがって、サブミッションポートの導入目的は「SMTP-AUTHによる送信者認証」が適切です。"
+        ],
+        [
+          "スパムメールは、追跡やブロックのリスクを避けるために、自身のISPのメールサーバを介さずに直接外部のメールサーバとコネクションを確立して、送信されることが普通です。このようなスパムメールの送信をブロックするため、ISPでは、ISP外部のメールサーバと直接コネクションを確立しようとする外向きの通信をブロックする\nOP25B\n（Outbound Port 25 Blocking）という対策を行っています。OP25Bが実施されていると、たとえ正当な利用者であっても、通常の\"25/TCP\"のSMTP通信を使って外部のメールサーバと直接コネクションを確立することができなくなります。これにより、外出先で自分が契約しているISPのメールサーバから送信できないなどの問題が生じます。\nサブミッションポート\nは、SMTPを拡張したプロトコルであり、利用者のメールソフト(メーラー)からメールサーバに対して、メールの送信を依頼するときに使用する\n送信専用のポート番号\nです。通常のメール送信に使われるSMTP(25/TCP)と異なり、SMTP-AUTHによる送信者認証が用意されているため、メールサーバは認証を受けた利用者からのメールのみを送信することが可能となります。これによりスパマーの悪用を防ぎつつ、外部のメールサーバを使用したメール送信を可能にしています。\nしたがって、サブミッションポートの導入目的は「SMTP-AUTHによる送信者認証」が適切です。"
+        ],
+        [
+          "スパムメールは、追跡やブロックのリスクを避けるために、自身のISPのメールサーバを介さずに直接外部のメールサーバとコネクションを確立して、送信されることが普通です。このようなスパムメールの送信をブロックするため、ISPでは、ISP外部のメールサーバと直接コネクションを確立しようとする外向きの通信をブロックする\nOP25B\n（Outbound Port 25 Blocking）という対策を行っています。OP25Bが実施されていると、たとえ正当な利用者であっても、通常の\"25/TCP\"のSMTP通信を使って外部のメールサーバと直接コネクションを確立することができなくなります。これにより、外出先で自分が契約しているISPのメールサーバから送信できないなどの問題が生じます。\nサブミッションポート\nは、SMTPを拡張したプロトコルであり、利用者のメールソフト(メーラー)からメールサーバに対して、メールの送信を依頼するときに使用する\n送信専用のポート番号\nです。通常のメール送信に使われるSMTP(25/TCP)と異なり、SMTP-AUTHによる送信者認証が用意されているため、メールサーバは認証を受けた利用者からのメールのみを送信することが可能となります。これによりスパマーの悪用を防ぎつつ、外部のメールサーバを使用したメール送信を可能にしています。\nしたがって、サブミッションポートの導入目的は「SMTP-AUTHによる送信者認証」が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202301:am:問14:https://www.nw-siken.com/kakomon/05_haru/am1_14.html"
+    },
+    {
+      "questionBodyText": "次に示すような組織の業務環境において，特定のIPセグメントのIPアドレスを幹部のPCに動的に割り当て，一部のサーバへのアクセスをそのIPセグメントからだけ許可することによって，幹部のPCだけが当該サーバにアクセスできるようにしたい。利用するセキュリティ技術として，適切なものはどれか。\n〔組織の業務環境〕\n業務ではサーバにアクセスする。サーバは，組織の内部ネットワークからだけアクセスできる。\n幹部及び一般従業員は同一フロアで業務を行っており，日によって席が異なるフリーアドレス制を取っている。\n各席には有線LANポートが設置されており，PCを接続して組織の内部ネットワークに接続する。\nネットワークスイッチ1台に全てのPCとサーバが接続される。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "IDS",
+        "IPマスカレード",
+        "スタティックVLAN",
+        "認証VLAN"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_15.html",
+      "public_question_id": "53ec97d053f697e8",
+      "original_question_id": "53ec97d053f697e8",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "認証VLAN"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Intrusion Detection Systemの略。ネットワークやホストをリアルタイムで監視し、異常を検知した場合に管理者に通知するなどの処置を行う侵入検知システムです。"
+        ],
+        [
+          "IPマスカレードは、プライベートIPアドレスとポート番号の組合せでクライアントを識別することで、1つのグローバルIPアドレスで複数の端末をインターネットに接続可能とする技術です。NAPTとも呼ばれます。"
+        ],
+        [
+          "スタティックVLANは、スイッチの接続ポートに基づいてグルーピングする方法です。ポートベースVLANとも呼ばれます。設問ではフリーアドレス制が採用されていて、どの人がどのポートを利用するかが決まっていないため、ポートベースの割当てではセキュリティレベルを分けることはできません。"
+        ],
+        [
+          "正しい。フリーアドレス制や無線アクセスポイントなどのように、接続ポートでVLANを識別できない場合でも、認証VLANを利用することによりユーザーごとに適切なVLANを割り当てることができます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202301:am:問15:https://www.nw-siken.com/kakomon/05_haru/am1_15.html"
+    },
+    {
+      "questionBodyText": "モジュールの独立性を高めるには，モジュール結合度を低くする必要がある。モジュール間の情報の受渡し方法のうち，モジュール結合度が最も低いものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "共通域に定義したデータを関係するモジュールが参照する。",
+        "制御パラメータを引数として渡し，モジュールの実行順序を制御する。",
+        "入出力に必要なデータ項目だけをモジュール間の引数として渡す。",
+        "必要なデータを外部宣言して共有する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_16.html",
+      "public_question_id": "d5e2f5bd74c4ebda",
+      "original_question_id": "d5e2f5bd74c4ebda",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "モジュール結合度",
+        "データ結合（弱い↑）\n処理に必要なデータだけを単一のパラメータとして受け渡している\nスタンプ結合\n処理に必要なデータだけをレコードや構造体などのデータ構造として受け渡している\n制御結合\nモジュールの動作を制御するための要素を受け渡している\n外部結合\n大域宣言された単一のデータを、複数のモジュールが参照している\n共通結合\n大域宣言されたレコードや構造体などのデータ構造を、複数のモジュールが参照している\n内容結合（強い↓）\nモジュールの内部を直接参照・使用している"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "共通結合に当たります。"
+        ],
+        [
+          "制御結合に当たります。"
+        ],
+        [
+          "正しい。最もモジュール結合度が弱いデータ結合に当たります。"
+        ],
+        [
+          "外部結合に当たります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202301:am:問16:https://www.nw-siken.com/kakomon/05_haru/am1_16.html"
+    },
+    {
+      "questionBodyText": "サーバプロビジョニングツールを使用する目的として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "サーバ上のサービスが動作しているかどうかを，他のシステムからリモートで監視する。",
+        "サーバにインストールされているソフトウェアを一元的に管理する。",
+        "サーバを監視して，システムやアプリケーションのパフォーマンスを管理する。",
+        "システム構成をあらかじめ記述しておくことによって，サーバを自動的に構成する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発環境管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発環境管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発環境管理",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_17.html",
+      "public_question_id": "3a8c6c9967ac4866",
+      "original_question_id": "3a8c6c9967ac4866",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "プロビジョニング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "サーバ監視ツールの目的です。"
+        ],
+        [
+          "構成管理ツールの目的です。"
+        ],
+        [
+          "パフォーマンス監視ツールの目的です。"
+        ],
+        [
+          "正しい。サーバプロビジョニングツールの目的です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202301:am:問17:https://www.nw-siken.com/kakomon/05_haru/am1_17.html"
+    },
+    {
+      "questionBodyText": "プロジェクトマネジメントにおける\"プロジェクト憲章\"の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "プロジェクトの実行，監視，管理の方法を規定するために，スケジュール，リスクなどに関するマネジメントの役割や責任などを記した文書",
+        "プロジェクトのスコープを定義するために，プロジェクトの目標，成果物，要求事項及び境界を記した文書",
+        "プロジェクトの目標を達成し，必要な成果物を作成するために，プロジェクトで実行する作業を階層構造で記した文書",
+        "プロジェクトを正式に認可するために，ビジネスニーズ，目標，成果物，プロジェクトマネージャ，及びプロジェクトマネージャの責任・権限を記した文書"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトマネジメント",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトマネジメント"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトマネジメント",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_18.html",
+      "public_question_id": "ff49796ef72ed4c9",
+      "original_question_id": "ff49796ef72ed4c9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "プロジェクト憲章"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プロジェクトマネジメント計画書の説明です。"
+        ],
+        [
+          "プロジェクトスコープ記述書の説明です。"
+        ],
+        [
+          "WBS(Work Breakdown Structure)の説明です。"
+        ],
+        [
+          "正しい。プロジェクト憲章の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202301:am:問18:https://www.nw-siken.com/kakomon/05_haru/am1_18.html"
+    },
+    {
+      "questionBodyText": "過去のプロジェクトの開発実績に基づいて構築した作業配分モデルがある。システム要件定義からシステム内部設計までをモデルどおりに228日で完了し，プログラム開発を開始した。現在，200本のプログラムのうち100本のプログラムの開発を完了し，残り100本は未着手の状況である。プログラム開発以降もモデルどおりに進捗すると仮定するとき，プロジェクト全体の完了まで，あと何日掛かるか。ここで，各プログラムの開発に掛かる工数及び期間は，全てのプログラムで同一であるものとする。\n〔作業配分モデル〕",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "140",
+        "150",
+        "161",
+        "172"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_19.html",
+      "public_question_id": "d7e7da2faf460bb4",
+      "original_question_id": "d7e7da2faf460bb4",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqd7e7da2faf460bb4_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "150"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ],
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ],
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ],
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問19:https://www.nw-siken.com/kakomon/05_haru/am1_19.html"
+    },
+    {
+      "questionBodyText": "JIS Q 20000-1:2020(サービスマネジメントシステム要求事項)によれば，組織は，サービスレベル目標に照らしたパフォーマンスを監視し，レビューし，顧客に報告しなければならない。レビューをいつ行うかについて，この規格はどのように規定しているか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "SLAに大きな変更があったときに実施する。",
+        "あらかじめ定めた間隔で実施する。",
+        "間隔を定めず，必要に応じて実施する。",
+        "サービス目標の未達成が続いたときに実施する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメントプロセス",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメントプロセス"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメントプロセス",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_20.html",
+      "public_question_id": "d4b75d178754ba6e",
+      "original_question_id": "d4b75d178754ba6e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "あらかじめ定めた間隔で"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "JIS Q 20000-1:2020では、サービスレベル管理において実施すべき作業のひとつとして、\nあらかじめ定めた間隔で\n、組織は、①サービスレベル目標に照らしたパフォーマンス、②SLAの作業負荷限度と比較した実績および周期的な変化を監視し、レビューし、報告しなければならないとしています。\n組織において期ごとに目標に対する実績報告があるように、サービス提供においても目標に対する実績、達成度、課題などを、定期的に顧客に対して報告します。ITILではサービス・レビューと呼ばれます。\nしたがって「イ」が正解です。"
+        ],
+        [
+          "JIS Q 20000-1:2020では、サービスレベル管理において実施すべき作業のひとつとして、\nあらかじめ定めた間隔で\n、組織は、①サービスレベル目標に照らしたパフォーマンス、②SLAの作業負荷限度と比較した実績および周期的な変化を監視し、レビューし、報告しなければならないとしています。\n組織において期ごとに目標に対する実績報告があるように、サービス提供においても目標に対する実績、達成度、課題などを、定期的に顧客に対して報告します。ITILではサービス・レビューと呼ばれます。\nしたがって「イ」が正解です。"
+        ],
+        [
+          "JIS Q 20000-1:2020では、サービスレベル管理において実施すべき作業のひとつとして、\nあらかじめ定めた間隔で\n、組織は、①サービスレベル目標に照らしたパフォーマンス、②SLAの作業負荷限度と比較した実績および周期的な変化を監視し、レビューし、報告しなければならないとしています。\n組織において期ごとに目標に対する実績報告があるように、サービス提供においても目標に対する実績、達成度、課題などを、定期的に顧客に対して報告します。ITILではサービス・レビューと呼ばれます。\nしたがって「イ」が正解です。"
+        ],
+        [
+          "JIS Q 20000-1:2020では、サービスレベル管理において実施すべき作業のひとつとして、\nあらかじめ定めた間隔で\n、組織は、①サービスレベル目標に照らしたパフォーマンス、②SLAの作業負荷限度と比較した実績および周期的な変化を監視し、レビューし、報告しなければならないとしています。\n組織において期ごとに目標に対する実績報告があるように、サービス提供においても目標に対する実績、達成度、課題などを、定期的に顧客に対して報告します。ITILではサービス・レビューと呼ばれます。\nしたがって「イ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問20:https://www.nw-siken.com/kakomon/05_haru/am1_20.html"
+    },
+    {
+      "questionBodyText": "システム監査基準(平成30年)における予備調査についての記述として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "監査対象の実態を把握するために，必ず現地に赴いて実施する。",
+        "監査対象部門の事務手続やマニュアルなどを通じて，業務内容，業務分掌の体制などを把握する。",
+        "監査の結論を裏付けるために，十分な監査証拠を入手する。",
+        "調査の範囲は，監査対象部門だけに限定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_21.html",
+      "public_question_id": "b86f2d00ebafea89",
+      "original_question_id": "b86f2d00ebafea89",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "監査人が現地に赴いて確認する現地調査法は、監査技法のひとつにすぎません。関連する文書や資料等の閲覧、監査対象部門や関連部門へのインタビューなどの手法で予備調査をすることもあります。"
+        ],
+        [
+          "正しい。予備調査は、本調査に先だって監査対象の実態を把握するプロセスです。予備調査によって把握するべき事項には、情報システムや業務等の詳細、事務手続やマニュアル等による業務内容や業務分掌、組織図等による体制などがあります。"
+        ],
+        [
+          "実際に監査証拠を入手するプロセスは本調査です。予備調査は、本調査のための必要な情報を事前に入手するために行います。"
+        ],
+        [
+          "調査範囲は監査対象部門に限られません。システム監査の目的とその必要に応じて関連部門に対して行うこともあります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202301:am:問21:https://www.nw-siken.com/kakomon/05_haru/am1_21.html"
+    },
+    {
+      "questionBodyText": "システム監査基準(平成30年)における監査手続の実施に際して利用する技法に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "インタビュー法とは，システム監査人が，直接，関係者に口頭で問い合わせ，回答を入手する技法をいう。",
+        "現地調査法は，システム監査人が監査対象部門に直接赴いて，自ら観察・調査する技法なので，当該部門の業務時間外に実施しなければならない。",
+        "コンピュータ支援監査技法は，システム監査上使用頻度の高い機能に特化した，しかも非常に簡単な操作で利用できる専用ソフトウェアによらなければならない。",
+        "チェックリスト法とは，監査対象部門がチェックリストを作成及び利用して，監査対象部門の見解を取りまとめた結果をシステム監査人が点検する技法をいう。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_22.html",
+      "public_question_id": "dd38160aa48485a2",
+      "original_question_id": "dd38160aa48485a2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。インタビュー法は、監査対象の実態を確かめるために、システム監査人が、直接、関係者に口頭で問い合わせ、回答を入手する技法です。"
+        ],
+        [
+          "現地調査法とは、システム監査人が、被監査部門等に直接赴き、対象業務の流れ等の状況を、自ら観察・調査する技法です。実際の業務の流れを確認するには業務時間内に実施しなければなりません。"
+        ],
+        [
+          "コンピュータ支援監査技法は、監査対象ファイルの検索、抽出、計算等、システム監査上使用頻度の高い機能に特化し、簡単な操作で利用できるシステム監査を支援する専用ソフトウェアや表計算ソフトウェア等を利用してシステム監査を実施する技法です。それ以外にもコンピュータを利用した監査技法として、テストデータ法、監査モジュール法、ペネトレーションテスト法(情報セキュリティ監査時)などが利用されることもあります。"
+        ],
+        [
+          "チェックリスト法は、システム監査人が、あらかじめ監査対象に応じて調整して作成したチェックリスト(チェックリスト形式の質問書が通例)に対して、関係者から回答を求める技法です。チェックリストは監査対象部門ではなく、システム監査人が作成します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202301:am:問22:https://www.nw-siken.com/kakomon/05_haru/am1_22.html"
+    },
+    {
+      "questionBodyText": "情報化投資計画において，投資価値の評価指標であるROIを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "売上増やコスト削減などによって創出された利益額を投資額で割ったもの",
+        "売上高投資金額比，従業員当たりの投資金額などを他社と比較したもの",
+        "現金流入の現在価値から，現金流出の現在価値を差し引いたもの",
+        "プロジェクトを実施しない場合の，市場での競争力を表したもの"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_23.html",
+      "public_question_id": "1b4cea0eeb70e794",
+      "original_question_id": "1b4cea0eeb70e794",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ROI",
+        "ROI(%)＝利益÷投資額×100"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。ROIの説明です。"
+        ],
+        [
+          "IT投資評価の手法の一つである他社比較(ベンチマーク)の説明です。"
+        ],
+        [
+          "NPV法(Net Present Value：正味現在価値法)の説明です。"
+        ],
+        [
+          "IT投資評価の手法の一つである機会損失の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202301:am:問23:https://www.nw-siken.com/kakomon/05_haru/am1_23.html"
+    },
+    {
+      "questionBodyText": "システム要件定義プロセスにおいて，トレーサビリティが確保されていることを説明した記述として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "移行マニュアルや運用マニュアルなどの文書化が完了しており，システム上でどのように業務を実施するのかを利用者が確認できる。",
+        "所定の内外作基準に基づいて外製する部分が決定され，調達先が選定され，契約が締結されており，調達先を容易に変更することはできない。",
+        "モジュールの相互依存関係が確定されており，以降の開発プロセスにおいて個別モジュールの仕様を変更することはできない。",
+        "利害関係者の要求の根拠と成果物の相互関係が文書化されており，開発の途中で生じる仕様変更をシステムに求められる品質に立ち返って検証できる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 要件定義",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "要件定義"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "要件定義",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_24.html",
+      "public_question_id": "03f4f938b450d95d",
+      "original_question_id": "03f4f938b450d95d",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "トレーサビリティ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "トレーサビリティ\n(Traceability)は、製品やサービスのライフサイクルにおいて、現在の状態に至るまでのプロセスや変更の履歴を追跡できる能力のことです。履歴を整えておくことで、その物品に関心を持つ人が過去の履歴を追跡したり、物品に問題がある場合に購入した顧客を特定したりといったことが可能となります。\n現在の開発に至るまでの過去の意思決定が過不足なく記録され、必要に応じて参照することができる「エ」が正解となります。"
+        ],
+        [
+          "トレーサビリティ\n(Traceability)は、製品やサービスのライフサイクルにおいて、現在の状態に至るまでのプロセスや変更の履歴を追跡できる能力のことです。履歴を整えておくことで、その物品に関心を持つ人が過去の履歴を追跡したり、物品に問題がある場合に購入した顧客を特定したりといったことが可能となります。\n現在の開発に至るまでの過去の意思決定が過不足なく記録され、必要に応じて参照することができる「エ」が正解となります。"
+        ],
+        [
+          "トレーサビリティ\n(Traceability)は、製品やサービスのライフサイクルにおいて、現在の状態に至るまでのプロセスや変更の履歴を追跡できる能力のことです。履歴を整えておくことで、その物品に関心を持つ人が過去の履歴を追跡したり、物品に問題がある場合に購入した顧客を特定したりといったことが可能となります。\n現在の開発に至るまでの過去の意思決定が過不足なく記録され、必要に応じて参照することができる「エ」が正解となります。"
+        ],
+        [
+          "トレーサビリティ\n(Traceability)は、製品やサービスのライフサイクルにおいて、現在の状態に至るまでのプロセスや変更の履歴を追跡できる能力のことです。履歴を整えておくことで、その物品に関心を持つ人が過去の履歴を追跡したり、物品に問題がある場合に購入した顧客を特定したりといったことが可能となります。\n現在の開発に至るまでの過去の意思決定が過不足なく記録され、必要に応じて参照することができる「エ」が正解となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202301:am:問24:https://www.nw-siken.com/kakomon/05_haru/am1_24.html"
+    },
+    {
+      "questionBodyText": "情報システムの調達の際に作成されるRFIの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和5年春期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "調達者から供給者候補に対して，システム化の目的や業務内容などを示し，必要な情報の提供を依頼すること",
+        "調達者から供給者候補に対して，対象システムや調達条件などを示し，提案書の提出を依頼すること",
+        "調達者から供給者に対して，契約内容で取り決めた内容に関して，変更を要請すること",
+        "調達者から供給者に対して，双方の役割分担などを確認し，契約の締結を要請すること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2023,
+      "list_group_id": "202301",
+      "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_25.html",
+      "public_question_id": "3722d687035f88fb",
+      "original_question_id": "3722d687035f88fb",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "RFI",
+        "RFP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。RFIの説明です。"
+        ],
+        [
+          "RFP(Request for Proposal：提案依頼書)の説明です。"
+        ],
+        [
+          "RFC(Request for Change：変更依頼書)の説明です。"
+        ],
+        [
+          "契約締結依頼書の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202301:am:問25:https://www.nw-siken.com/kakomon/05_haru/am1_25.html"
+    }
+  ]
+}
