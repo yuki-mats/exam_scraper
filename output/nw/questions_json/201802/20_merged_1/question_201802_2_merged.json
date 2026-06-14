@@ -1,0 +1,1759 @@
+{
+  "list_group_id": "201802",
+  "question_bodies": [
+    {
+      "questionBodyText": "観測データを類似性によって集団や群に分類し，その特徴となる要因を分析する手法はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問26",
+      "questionLabel": "問26",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "クラスタ分析法",
+        "指数平滑法",
+        "デルファイ法",
+        "モンテカルロ法"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 企業活動 » 業務分析・データ利活用",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "企業活動",
+        "業務分析・データ利活用"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "企業活動",
+      "categorySmall": "業務分析・データ利活用",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_26.html",
+      "public_question_id": "e36720eac7030a48",
+      "original_question_id": "e36720eac7030a48",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。\nクラスタ分析法\nとは、複数の変数(項目、属性、次元数)を持つデータ(多変量データ)を利用し、その変数間の相互の関係性をとらえるために使われる多変量解析の手法です。複数の異なる性質のものが混ざり合っている対象の中から、類似したものを集めてグループを作り、対象を分類するために用いられます。"
+        ],
+        [
+          "指数平滑法は、過去の予測値と実績値を利用して需要値を予測する方法です。"
+        ],
+        [
+          "デルファイ法は、複数の専門家から個別に意見の収集を行い、得られた意見の集約をフィードバックするということを繰り返して、最終的に意見の収束をしていく手法です。"
+        ],
+        [
+          "モンテカルロ法は、数値解析の分野において、確率を近似的に求めるために使われる手法です。n回のシミュレーションを行い、ある事象がm回起これば、その事象の起こる確率は m／nで近似できます。試行回数nが大きくなるほど、よい近似値となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問26:https://www.nw-siken.com/kakomon/30_aki/am1_26.html"
+    },
+    {
+      "questionBodyText": "IoTがもたらす効果を\"監視\"，\"制御\"，\"最適化\"，\"自律化\"の4段階に分類すると，IoTによって工場の機械の監視や制御などを行っているシステムにおいて，\"自律化\"の段階に達している例はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問27",
+      "questionLabel": "問27",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "機械に対して，保守員が遠隔地の保守センターからインターネットを経由して，機器の電源のオン・オフなどの操作命令を送信する。",
+        "機械の温度や振動データをセンサーで集めて，インターネットを経由してクラウドシステム上のサーバに蓄積する。",
+        "クラウドサービスを介して，機械同土が互いの状態を常時監視・分析し，人手を介すことなく目標に合わせた協調動作を自動で行う。",
+        "クラウドシステム上に常時収集されている機械の稼働情報を基に，機械の故障検知時に，保守員が故障部位を分析して特定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » ビジネスインダストリ » e-ビジネス",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "ビジネスインダストリ",
+        "e-ビジネス"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "ビジネスインダストリ",
+      "categorySmall": "e-ビジネス",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_27.html",
+      "public_question_id": "f467088a508bec71",
+      "original_question_id": "f467088a508bec71",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "監視\n離れた場所にあるモノの状態を遠隔からモニタリングできる状態\n制御\n通信を介した外部からの指示でモノを操作できる、または、一定の状態を観測したときに決められた動作を自動で行うようになっている状態\n最適化\n蓄積されたデータと観測したデータをもとに、人間が与えた基準に基づく望ましい状態を自ら見つけ、モノの様態を最適に保つことのできる状態\n自律化\n目標値などの最低限の指示のみ与えれば、人間による細かな条件や基準がなくても、自律的に（あたかも人間のように）最適な状態を判断し、モノ同士が協調して動作できる状態"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "制御の段階です。"
+        ],
+        [
+          "監視の段階です。"
+        ],
+        [
+          "正しい。自律化の段階です。"
+        ],
+        [
+          "最適化の段階です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問27:https://www.nw-siken.com/kakomon/30_aki/am1_27.html"
+    },
+    {
+      "questionBodyText": "ある期間の生産計画において，表の部品表で表される製品Aの需要量が10個であるとき，部品Dの正味所要量は何個か。ここで，ユニットBの在庫残が5個，部品Dの在庫残が25個あり，ほかの在庫残，仕掛残，注文残，引当残などはないものとする。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問28",
+      "questionLabel": "問28",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "80",
+        "90",
+        "95",
+        "105"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » ビジネスインダストリ » エンジニアリングシステム",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "ビジネスインダストリ",
+        "エンジニアリングシステム"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "ビジネスインダストリ",
+      "categorySmall": "エンジニアリングシステム",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_28.html",
+      "public_question_id": "97a7cffaea55d2e6",
+      "original_question_id": "97a7cffaea55d2e6",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq97a7cffaea55d2e6_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "まず製品Aを生産するのに必要となる部品Dの数量をユニット→部品という形で段階的に計算しています。1個の製品Aは、4個のユニットBと1個のユニットCで構成されます。ユニットBの在庫残が5個あることを考慮すると、各ユニットの正味所要数はそれぞれ次のようになります。\n[ユニットB] 4×10－5＝35(個)\n[ユニットC] 1×10＝10(個)\n続いてユニットを生産するための必要な部品Dの数量を求めます。1個のユニットBには3個の部品Dが、1個のユニットCには1個の部品Dが必要です。また部品Dには25個の在庫残があるため、計算式は以下のようになります。\n(35×3)＋(10×1)－25＝90(個)\n以上より、この生産計画における部品Dの正味所要量は\n90個\nであることがわかります。"
+        ],
+        [
+          "まず製品Aを生産するのに必要となる部品Dの数量をユニット→部品という形で段階的に計算しています。1個の製品Aは、4個のユニットBと1個のユニットCで構成されます。ユニットBの在庫残が5個あることを考慮すると、各ユニットの正味所要数はそれぞれ次のようになります。\n[ユニットB] 4×10－5＝35(個)\n[ユニットC] 1×10＝10(個)\n続いてユニットを生産するための必要な部品Dの数量を求めます。1個のユニットBには3個の部品Dが、1個のユニットCには1個の部品Dが必要です。また部品Dには25個の在庫残があるため、計算式は以下のようになります。\n(35×3)＋(10×1)－25＝90(個)\n以上より、この生産計画における部品Dの正味所要量は\n90個\nであることがわかります。"
+        ],
+        [
+          "まず製品Aを生産するのに必要となる部品Dの数量をユニット→部品という形で段階的に計算しています。1個の製品Aは、4個のユニットBと1個のユニットCで構成されます。ユニットBの在庫残が5個あることを考慮すると、各ユニットの正味所要数はそれぞれ次のようになります。\n[ユニットB] 4×10－5＝35(個)\n[ユニットC] 1×10＝10(個)\n続いてユニットを生産するための必要な部品Dの数量を求めます。1個のユニットBには3個の部品Dが、1個のユニットCには1個の部品Dが必要です。また部品Dには25個の在庫残があるため、計算式は以下のようになります。\n(35×3)＋(10×1)－25＝90(個)\n以上より、この生産計画における部品Dの正味所要量は\n90個\nであることがわかります。"
+        ],
+        [
+          "まず製品Aを生産するのに必要となる部品Dの数量をユニット→部品という形で段階的に計算しています。1個の製品Aは、4個のユニットBと1個のユニットCで構成されます。ユニットBの在庫残が5個あることを考慮すると、各ユニットの正味所要数はそれぞれ次のようになります。\n[ユニットB] 4×10－5＝35(個)\n[ユニットC] 1×10＝10(個)\n続いてユニットを生産するための必要な部品Dの数量を求めます。1個のユニットBには3個の部品Dが、1個のユニットCには1個の部品Dが必要です。また部品Dには25個の在庫残があるため、計算式は以下のようになります。\n(35×3)＋(10×1)－25＝90(個)\n以上より、この生産計画における部品Dの正味所要量は\n90個\nであることがわかります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問28:https://www.nw-siken.com/kakomon/30_aki/am1_28.html"
+    },
+    {
+      "questionBodyText": "売上高が7,000万円のとき，200万円の損失，売上高が9,000万円のとき，600万円の利益と予想された。売上高が8,000万円のときの変動費は何万円か。ここで，売上高が変わっても変動費率は変わらないものとする。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問29",
+      "questionLabel": "問29",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "3,200",
+        "4,000",
+        "4,800",
+        "5,600"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 企業活動 » 会計・財務",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "企業活動",
+        "会計・財務"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "企業活動",
+      "categorySmall": "会計・財務",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_29.html",
+      "public_question_id": "ae11eb5ece811b65",
+      "original_question_id": "ae11eb5ece811b65",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "固定費と変動費率は一定ですから、売上高が7,000万円から9,000万円になったときの利益の増加分は、すべてが限界利益に相当します。\n売上高の2,000万円の増加により、増えた限界利益は「600－(▲200)＝800万円」です。一方、変動費の増加分は「2,000－800＝1,200万円」と計算できます。\n変動費率は「1,200÷2,000＝0.6」なので、売上高が8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。\n【別解】\n売上、費用および損益には次の関係があります。\n損益＝売上高－固定費－変動費\n上記の式中の変動費は「売上高×変動費率」で算出しますから、以下の式で表すことができます。\n損益＝売上高－固定費－(売上高×変動費率)\nこの式に売上高が7,000万のケースと9,000万円のケースの値を代入して式を立てます。\n－200＝7,000－固定費－7,000×変動費率\n600＝9,000－固定費－9,000×変動費率\nこの連立一次方程式の下の式から上の式を引くと、固定費が消えて変動費率がわかります。800＝2,000－2,000×変動費率\n2,000×変動費率＝1,200変動費率＝0.6変動費率は売上高に占める変動費の割合ですから、売上高8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "固定費と変動費率は一定ですから、売上高が7,000万円から9,000万円になったときの利益の増加分は、すべてが限界利益に相当します。\n売上高の2,000万円の増加により、増えた限界利益は「600－(▲200)＝800万円」です。一方、変動費の増加分は「2,000－800＝1,200万円」と計算できます。\n変動費率は「1,200÷2,000＝0.6」なので、売上高が8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。\n【別解】\n売上、費用および損益には次の関係があります。\n損益＝売上高－固定費－変動費\n上記の式中の変動費は「売上高×変動費率」で算出しますから、以下の式で表すことができます。\n損益＝売上高－固定費－(売上高×変動費率)\nこの式に売上高が7,000万のケースと9,000万円のケースの値を代入して式を立てます。\n－200＝7,000－固定費－7,000×変動費率\n600＝9,000－固定費－9,000×変動費率\nこの連立一次方程式の下の式から上の式を引くと、固定費が消えて変動費率がわかります。800＝2,000－2,000×変動費率\n2,000×変動費率＝1,200変動費率＝0.6変動費率は売上高に占める変動費の割合ですから、売上高8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "固定費と変動費率は一定ですから、売上高が7,000万円から9,000万円になったときの利益の増加分は、すべてが限界利益に相当します。\n売上高の2,000万円の増加により、増えた限界利益は「600－(▲200)＝800万円」です。一方、変動費の増加分は「2,000－800＝1,200万円」と計算できます。\n変動費率は「1,200÷2,000＝0.6」なので、売上高が8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。\n【別解】\n売上、費用および損益には次の関係があります。\n損益＝売上高－固定費－変動費\n上記の式中の変動費は「売上高×変動費率」で算出しますから、以下の式で表すことができます。\n損益＝売上高－固定費－(売上高×変動費率)\nこの式に売上高が7,000万のケースと9,000万円のケースの値を代入して式を立てます。\n－200＝7,000－固定費－7,000×変動費率\n600＝9,000－固定費－9,000×変動費率\nこの連立一次方程式の下の式から上の式を引くと、固定費が消えて変動費率がわかります。800＝2,000－2,000×変動費率\n2,000×変動費率＝1,200変動費率＝0.6変動費率は売上高に占める変動費の割合ですから、売上高8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "固定費と変動費率は一定ですから、売上高が7,000万円から9,000万円になったときの利益の増加分は、すべてが限界利益に相当します。\n売上高の2,000万円の増加により、増えた限界利益は「600－(▲200)＝800万円」です。一方、変動費の増加分は「2,000－800＝1,200万円」と計算できます。\n変動費率は「1,200÷2,000＝0.6」なので、売上高が8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。\n【別解】\n売上、費用および損益には次の関係があります。\n損益＝売上高－固定費－変動費\n上記の式中の変動費は「売上高×変動費率」で算出しますから、以下の式で表すことができます。\n損益＝売上高－固定費－(売上高×変動費率)\nこの式に売上高が7,000万のケースと9,000万円のケースの値を代入して式を立てます。\n－200＝7,000－固定費－7,000×変動費率\n600＝9,000－固定費－9,000×変動費率\nこの連立一次方程式の下の式から上の式を引くと、固定費が消えて変動費率がわかります。800＝2,000－2,000×変動費率\n2,000×変動費率＝1,200変動費率＝0.6変動費率は売上高に占める変動費の割合ですから、売上高8,000万円のときの変動費は、8,000×0.6＝4,800（万円）\nしたがって「ウ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問29:https://www.nw-siken.com/kakomon/30_aki/am1_29.html"
+    },
+    {
+      "questionBodyText": "ユーザーから請負うソフトウェア開発を中小受託事業者に委託する場合，中小受託取引適正化法で禁止されている行為はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅰ 問30",
+      "questionLabel": "問30",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "交通費などの経費については金額を明記せず，実費負担とする旨を発注書面に記載する。",
+        "中小受託事業者に委託する業務内容は決まっているが，ユーザーとの契約代金が未定なので，製造委託等代金の取決めはユーザーとの契約決定後とする。",
+        "発注書面を交付する代わりに，中小受託事業者の承諾を得て，必要な事項を記載した電子メールで発注を行う。",
+        "ユーザーの事情で委託予定の業務内容の一部が未定なので，その部分及び製造委託等代金は別途取り決める。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 法務 » 労働関連・取引関連法規",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "法務",
+        "労働関連・取引関連法規"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "法務",
+      "categorySmall": "労働関連・取引関連法規",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_30.html",
+      "public_question_id": "6019c18f40a9d114",
+      "original_question_id": "6019c18f40a9d114",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "中小受託取引適正化法",
+        "発注内容等を明示する義務\n発注に当たって、発注内容（給付の内容、代金の額、支払期日、支払方法）等を書面または電子メールなどの電磁的方法により明示する\n書類等を作成・保存する義務\n取引が完了した場合、給付内容、代金の額など、取引に関する記録を書類または電磁的記録として作成し、2年間保存する\n支払期日を定める義務\n検査をするかどうかを問わず、発注した物品等を\n受領した日\nから起算して\n60日以内のできる限り短い期間内で支払期日を定める\n遅延利息を支払う義務\n支払遅延や減額等を行った場合、遅延した日数や減じた額に応じ、遅延利息（年率14.6%）を支払う"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "発注書面には、中小受託事業者に支払うべき具体的な金額を記載することが原則ですが、具体的な金額を記載することが困難なやむを得ない事情がある場合には、具体的な支払額を決める算定方法の記載で代えることも認められます。"
+        ],
+        [
+          "正しい。委託の時点で制作物の具体的な内容を確定できない場合は、給付の内容、代金額、納品日を後日取り決めることが認められます。しかし、委託する業務内容がすでに確定しているのであれば、代金を定めないことについて正当な理由はありません。よって、本肢の行為は禁止されます。"
+        ],
+        [
+          "発注書面の交付の代わりに、書面に記載すべき情報を記録を電磁的方法（電子メールや記録媒体の交付）で提供することが認められます。ただし、相手方が書面の交付を求めたきたときは、書面で交付しなければなりません。"
+        ],
+        [
+          "委託事業者は、製造委託等代金に対して製造委託等をした場合、必要事項を記載した書面を直ちに交付しなければなりません。しかし、必要記載事項のうちその内容が定められないことにつき正当な理由があるものについては、その記載をせずに、その後内容が定められた後、当該補充事項を書面または電磁的方法で明示すればよいとされています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問30:https://www.nw-siken.com/kakomon/30_aki/am1_30.html"
+    },
+    {
+      "questionBodyText": "高速無線通信で使われている多重化方式であり，データ信号を複数のサブキャリアに分割し，各サブキャリアが互いに干渉しないように配置する方式はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CCK",
+        "CDM",
+        "OFDM",
+        "TDM"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_1.html",
+      "public_question_id": "ab342533d4be5211",
+      "original_question_id": "ab342533d4be5211",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "OFDM",
+        "O"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Complementary Code Keyingの略で、相補型符号変調のこと。IEEE802.11bで採用されている変調方式で、ビットを信号に変換する際に拡散符号を掛け合わせることで通信の高速化やノイズへの耐性を高めた方式です。"
+        ],
+        [
+          "Code Division Multiplexingの略で、符号分割多重化のこと。通信信号ごとに特定の演算処理(符号化)を施したものを複数個まとめて送信し、受信側で同じ処理を行い特定の信号を取り出す仕組みで複数の送信者の通信を同じ周波数帯上で行う多重化方式です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "Time Division Multiplexingの略で、時分割多重化のこと。1つの伝送路で複数の通信を行う際に送信時間を非常に短く区切り、その時間(タイムスロット)ごとに複数の信号を順番で割り当てていくことで多重化通信を行う方式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問1:https://www.nw-siken.com/kakomon/30_aki/am2_1.html"
+    },
+    {
+      "questionBodyText": "CSMA/CAやCSMA/CDのLANの制御に共通しているCSMA方式に関する記述として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "キャリア信号を検出し，データの送信を制御する。",
+        "送信権をもつメッセージ(トークン)を得た端末がデータを送信する。",
+        "データ送信中に衝突が起こった場合は，直ちに再送を行う。",
+        "伝送路が使用中でもデータの送信はできる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_2.html",
+      "public_question_id": "7640cae2e1e25b14",
+      "original_question_id": "7640cae2e1e25b14",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "CSMA方式",
+        "Carrier Sense",
+        "Multiple Access"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。CSMA方式では伝送媒体のキャリア信号(搬送波)を監視し、他のノードが通信中かどうかの確認を行うことでなるべく信号が衝突しないように制御します。"
+        ],
+        [
+          "トークンパッシング制御方式の説明です。CSMA方式ではトークンは巡回していません。"
+        ],
+        [
+          "衝突を検出した場合は、一旦フレームの送出を中止し、ランダムな時間待った後に再びキャリア信号の監視を行って伝送路が空いていればフレームを再送します。"
+        ],
+        [
+          "他のノードが通信中であることを検出したときは、フレームの送出を待機します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問2:https://www.nw-siken.com/kakomon/30_aki/am2_2.html"
+    },
+    {
+      "questionBodyText": "ネットワークのQoSを実現するために使用されるトラフィック制御方式に関する説明のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "通信を開始する前にネットワークに対して帯域などのリソースを要求し，確保の状況に応じて通信を制御することを，アドミッション制御という。",
+        "入力されたトラフィックが規定された最大速度を超過しないか監視し，超過分のパケットを破棄するか優先度を下げる制御を，シェーピングという。",
+        "パケットの送出間隔を調整することによって，規定された最大速度を超過しないようにトラフィックを平準化する制御を，ポリシングという。",
+        "フレームの種類や宛先に応じて優先度を変えて中継することを，ベストエフォートという。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク方式",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク方式"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク方式",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_3.html",
+      "public_question_id": "aeb3aab41495c77f",
+      "original_question_id": "aeb3aab41495c77f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "QoS"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。アドミッション制御は、新たに通信を開始する場合，システム内の資源の利用状況を考慮して，余裕があるときにのみその要求を受け付けるように制御することをいいます。"
+        ],
+        [
+          "ポリシングを説明した記述です。"
+        ],
+        [
+          "シェーピングを説明した記述です。"
+        ],
+        [
+          "優先制御の説明です。ベストエフォートは「通信網は最善を尽くすが利用状況によっては通信の品質を保証しない」というサービスの方針をいいます。ベストエフォート型の通信サービスは品質や信頼性は高くありませんが、その分安い価格で提供されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問3:https://www.nw-siken.com/kakomon/30_aki/am2_3.html"
+    },
+    {
+      "questionBodyText": "図のイーサネットパケットのMTU(Maximum Transmission Unit)は，どの部分の最大長のことか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "IPヘッダー＋TCPヘッダー＋データ",
+        "MACヘッダー＋IPヘッダー＋TCPヘッダー＋データ",
+        "MACヘッダー＋IPヘッダー＋TCPヘッダー＋データ＋FCS",
+        "プリアンブル＋MACヘッダー＋IPヘッダー＋TCPヘッダー＋データ＋FCS"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_4.html",
+      "public_question_id": "75e7ef03aa5d16b2",
+      "original_question_id": "75e7ef03aa5d16b2",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq75e7ef03aa5d16b2_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "MTU"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "MTU\n(Maximum Transmission Unit)とは、ノードが隣接したネットワークへ、1フレーム(1回の通信)で転送できる最大のデータサイズのことです。MTUは、データリンク層のプロトコルによって異なり、イーサネットでは1500バイト、FDDiでは4324バイト、ATMでは9180バイトとなっています。TCPでは通信を始める際、MTUからTCPヘッダー・IPヘッダーのサイズを除いたMSS(Maximum Segment Size)を計算し、ホスト間で伝送可能なデータの最大サイズを確認します。送信しようとするデータがこの最大サイズを超える場合、送信側ホストが、最大サイズに収まるように適宜データを複数のIPパケットに分割してから送信する仕組みになっています。この分割処理はフラグメンテーションと呼ばれます。受信側ホストでは、分割されたパケットが再び一つにまとめられ上位層に渡されます。\nイーサネットフレームは以下のような構造になっており、イーサネットにおけるMTUは、(フラグメンテーション後の)IPパケット本体のサイズに相当します。\nしたがって、MTUの範囲は「IPヘッダー＋TCPヘッダー＋データ」になります。"
+        ],
+        [
+          "MTU\n(Maximum Transmission Unit)とは、ノードが隣接したネットワークへ、1フレーム(1回の通信)で転送できる最大のデータサイズのことです。MTUは、データリンク層のプロトコルによって異なり、イーサネットでは1500バイト、FDDiでは4324バイト、ATMでは9180バイトとなっています。TCPでは通信を始める際、MTUからTCPヘッダー・IPヘッダーのサイズを除いたMSS(Maximum Segment Size)を計算し、ホスト間で伝送可能なデータの最大サイズを確認します。送信しようとするデータがこの最大サイズを超える場合、送信側ホストが、最大サイズに収まるように適宜データを複数のIPパケットに分割してから送信する仕組みになっています。この分割処理はフラグメンテーションと呼ばれます。受信側ホストでは、分割されたパケットが再び一つにまとめられ上位層に渡されます。\nイーサネットフレームは以下のような構造になっており、イーサネットにおけるMTUは、(フラグメンテーション後の)IPパケット本体のサイズに相当します。\nしたがって、MTUの範囲は「IPヘッダー＋TCPヘッダー＋データ」になります。"
+        ],
+        [
+          "MTU\n(Maximum Transmission Unit)とは、ノードが隣接したネットワークへ、1フレーム(1回の通信)で転送できる最大のデータサイズのことです。MTUは、データリンク層のプロトコルによって異なり、イーサネットでは1500バイト、FDDiでは4324バイト、ATMでは9180バイトとなっています。TCPでは通信を始める際、MTUからTCPヘッダー・IPヘッダーのサイズを除いたMSS(Maximum Segment Size)を計算し、ホスト間で伝送可能なデータの最大サイズを確認します。送信しようとするデータがこの最大サイズを超える場合、送信側ホストが、最大サイズに収まるように適宜データを複数のIPパケットに分割してから送信する仕組みになっています。この分割処理はフラグメンテーションと呼ばれます。受信側ホストでは、分割されたパケットが再び一つにまとめられ上位層に渡されます。\nイーサネットフレームは以下のような構造になっており、イーサネットにおけるMTUは、(フラグメンテーション後の)IPパケット本体のサイズに相当します。\nしたがって、MTUの範囲は「IPヘッダー＋TCPヘッダー＋データ」になります。"
+        ],
+        [
+          "MTU\n(Maximum Transmission Unit)とは、ノードが隣接したネットワークへ、1フレーム(1回の通信)で転送できる最大のデータサイズのことです。MTUは、データリンク層のプロトコルによって異なり、イーサネットでは1500バイト、FDDiでは4324バイト、ATMでは9180バイトとなっています。TCPでは通信を始める際、MTUからTCPヘッダー・IPヘッダーのサイズを除いたMSS(Maximum Segment Size)を計算し、ホスト間で伝送可能なデータの最大サイズを確認します。送信しようとするデータがこの最大サイズを超える場合、送信側ホストが、最大サイズに収まるように適宜データを複数のIPパケットに分割してから送信する仕組みになっています。この分割処理はフラグメンテーションと呼ばれます。受信側ホストでは、分割されたパケットが再び一つにまとめられ上位層に渡されます。\nイーサネットフレームは以下のような構造になっており、イーサネットにおけるMTUは、(フラグメンテーション後の)IPパケット本体のサイズに相当します。\nしたがって、MTUの範囲は「IPヘッダー＋TCPヘッダー＋データ」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問4:https://www.nw-siken.com/kakomon/30_aki/am2_4.html"
+    },
+    {
+      "questionBodyText": "インターネットにおいて，AS(Autonomous System)間の経路制御に用いられるプロトコルはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "BGP",
+        "IS-IS",
+        "OSPF",
+        "RIP"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_5.html",
+      "public_question_id": "ae5b6efc4031b396",
+      "original_question_id": "ae5b6efc4031b396",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "IGP",
+        "EGP",
+        "IGP(Interior Gateway Protocol)\nRIP、OSPF、IS-IS、EIGRPなど\nEGP(Exterior Gateway Protocol)\nBGP、狭義のEGPなど"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。BGP(Border Gateway Protocol)は、現在のインターネットにおいて、ISPなどの相互接続時に、お互いの経路情報をやり取りするために使われる経路制御プロトコルです。BGPは、一般的に2つ以上のASに接続する場合に必要となります。"
+        ],
+        [
+          "Intermediate System to Intermediate Systemの略。AS内の経路制御を行うルーティングプロトコルです。OSPFと同様にリンクステート型です。"
+        ],
+        [
+          "Open Shortest Path Firstの略。主に中規模から大規模ネットワーク向けのリンクステート型のルーティングプロトコルです。OSPFはAS内部で使用されます。"
+        ],
+        [
+          "Routing Information Protocolの略。主に小規模ネットワークで使用されるルーティングプロトコルです。 RIPはAS内部で使用されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問5:https://www.nw-siken.com/kakomon/30_aki/am2_5.html"
+    },
+    {
+      "questionBodyText": "図のような2台のレイヤー2スイッチ，1台のルータ，4台の端末からなるIPネットワークで，端末Aから端末Cに通信を行う際に，送付されるパケットの宛先IPアドレスである端末CのIPアドレスと，端末CのMACアドレスとを対応付けるのはどの機器か。ここで，ルータZにおいてプロキシARPは設定されていないものとする。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "端末A",
+        "ルータZ",
+        "レイヤー2スイッチX",
+        "レイヤー2スイッチY"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_6.html",
+      "public_question_id": "d4633f8019ef5d59",
+      "original_question_id": "d4633f8019ef5d59",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqd4633f8019ef5d59_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "宛先である端末Cは、端末Aから見てルータZを隔てた別のLANセグメントに属しているためARPが届かず、イーサネットフレームを直接届けることができません。\nこのような場合、端末Aはセグメント内のデフォルトゲートウェイ(多くの場合ルータ)に対してパケットの転送を依頼します。ネットワークセグメントの境界にはルータZが配置されているため、端末Aは宛先IPアドレスを\"端末C\"、宛先MACアドレスを\"ルータZ\"としてIPパケットを送出します。\nルータZはIPパケットを受け取るとパケット内の宛先IPアドレスを確認し、そのIPアドレスとルーティングテーブルを照らし合わせることで、パケットをどのポートから送出すべきなのかを判断します。\n本問の場合、ルータZのポートの1つに端末Cの属するLANセグメントが直接接続されているので、ルータZは端末Cへ直接イーサネットフレームを送信することになります。イーサネットフレームを送信するには宛先MACアドレスが必要ですので、ルータZは宛先IPアドレスとARPで端末CのMACアドレスを取得します。そして受け取ったIPパケットからイーサネットフレームを取り出し、\"宛先MACアドレスを端末C\"、\"送信元MACアドレスをルータZ\"に書き換えて、端末Cが存在するLANに向けて送出します。\nこのようにイーサネットフレームがルータを超える場合には、ルータで宛先IPアドレスと宛先MACアドレスの対応付けが行われています。したがって正解は「イ」です。"
+        ],
+        [
+          "宛先である端末Cは、端末Aから見てルータZを隔てた別のLANセグメントに属しているためARPが届かず、イーサネットフレームを直接届けることができません。\nこのような場合、端末Aはセグメント内のデフォルトゲートウェイ(多くの場合ルータ)に対してパケットの転送を依頼します。ネットワークセグメントの境界にはルータZが配置されているため、端末Aは宛先IPアドレスを\"端末C\"、宛先MACアドレスを\"ルータZ\"としてIPパケットを送出します。\nルータZはIPパケットを受け取るとパケット内の宛先IPアドレスを確認し、そのIPアドレスとルーティングテーブルを照らし合わせることで、パケットをどのポートから送出すべきなのかを判断します。\n本問の場合、ルータZのポートの1つに端末Cの属するLANセグメントが直接接続されているので、ルータZは端末Cへ直接イーサネットフレームを送信することになります。イーサネットフレームを送信するには宛先MACアドレスが必要ですので、ルータZは宛先IPアドレスとARPで端末CのMACアドレスを取得します。そして受け取ったIPパケットからイーサネットフレームを取り出し、\"宛先MACアドレスを端末C\"、\"送信元MACアドレスをルータZ\"に書き換えて、端末Cが存在するLANに向けて送出します。\nこのようにイーサネットフレームがルータを超える場合には、ルータで宛先IPアドレスと宛先MACアドレスの対応付けが行われています。したがって正解は「イ」です。"
+        ],
+        [
+          "宛先である端末Cは、端末Aから見てルータZを隔てた別のLANセグメントに属しているためARPが届かず、イーサネットフレームを直接届けることができません。\nこのような場合、端末Aはセグメント内のデフォルトゲートウェイ(多くの場合ルータ)に対してパケットの転送を依頼します。ネットワークセグメントの境界にはルータZが配置されているため、端末Aは宛先IPアドレスを\"端末C\"、宛先MACアドレスを\"ルータZ\"としてIPパケットを送出します。\nルータZはIPパケットを受け取るとパケット内の宛先IPアドレスを確認し、そのIPアドレスとルーティングテーブルを照らし合わせることで、パケットをどのポートから送出すべきなのかを判断します。\n本問の場合、ルータZのポートの1つに端末Cの属するLANセグメントが直接接続されているので、ルータZは端末Cへ直接イーサネットフレームを送信することになります。イーサネットフレームを送信するには宛先MACアドレスが必要ですので、ルータZは宛先IPアドレスとARPで端末CのMACアドレスを取得します。そして受け取ったIPパケットからイーサネットフレームを取り出し、\"宛先MACアドレスを端末C\"、\"送信元MACアドレスをルータZ\"に書き換えて、端末Cが存在するLANに向けて送出します。\nこのようにイーサネットフレームがルータを超える場合には、ルータで宛先IPアドレスと宛先MACアドレスの対応付けが行われています。したがって正解は「イ」です。"
+        ],
+        [
+          "宛先である端末Cは、端末Aから見てルータZを隔てた別のLANセグメントに属しているためARPが届かず、イーサネットフレームを直接届けることができません。\nこのような場合、端末Aはセグメント内のデフォルトゲートウェイ(多くの場合ルータ)に対してパケットの転送を依頼します。ネットワークセグメントの境界にはルータZが配置されているため、端末Aは宛先IPアドレスを\"端末C\"、宛先MACアドレスを\"ルータZ\"としてIPパケットを送出します。\nルータZはIPパケットを受け取るとパケット内の宛先IPアドレスを確認し、そのIPアドレスとルーティングテーブルを照らし合わせることで、パケットをどのポートから送出すべきなのかを判断します。\n本問の場合、ルータZのポートの1つに端末Cの属するLANセグメントが直接接続されているので、ルータZは端末Cへ直接イーサネットフレームを送信することになります。イーサネットフレームを送信するには宛先MACアドレスが必要ですので、ルータZは宛先IPアドレスとARPで端末CのMACアドレスを取得します。そして受け取ったIPパケットからイーサネットフレームを取り出し、\"宛先MACアドレスを端末C\"、\"送信元MACアドレスをルータZ\"に書き換えて、端末Cが存在するLANに向けて送出します。\nこのようにイーサネットフレームがルータを超える場合には、ルータで宛先IPアドレスと宛先MACアドレスの対応付けが行われています。したがって正解は「イ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問6:https://www.nw-siken.com/kakomon/30_aki/am2_6.html"
+    },
+    {
+      "questionBodyText": "DNSでのホスト名とIPアドレスの対応付けに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "一つのホスト名に複数のIPアドレスを対応させることはできるが，複数のホスト名に同一のIPアドレスを対応させることはできない。",
+        "一つのホスト名に複数のIPアドレスを対応させることも，複数のホスト名に同一のIPアドレスを対応させることもできる。",
+        "複数のホスト名に同一のIPアドレスを対応させることはできるが，一つのホスト名に複数のIPアドレスを対応させることはできない。",
+        "ホスト名とIPアドレスの対応は全、2点間で1対1のある。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_7.html",
+      "public_question_id": "b64548f39e77e1d0",
+      "original_question_id": "b64548f39e77e1d0",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ],
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ],
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ],
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問7:https://www.nw-siken.com/kakomon/30_aki/am2_7.html"
+    },
+    {
+      "questionBodyText": "IPv4ネットワークのマルチキャスト通信で，ローカルセグメントにおいて，配信を受けるホストのグループを管理するために用いられるプロトコルはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ICMP",
+        "IGMP",
+        "RTP",
+        "SDP"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_8.html",
+      "public_question_id": "506c35a79289723b",
+      "original_question_id": "506c35a79289723b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "IGMP",
+        "MLD"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Internet Control Message Protocolの略。インターネットプロトコル(IP)の通信制御を補完するプロトコルで、データ配送中のエラー通知や送達エラーを通知する機能を持ちます。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "Real-time Transport Protocolの略。音声や動画などのデータストリームをリアルタイムに配送するためのデータ転送プロトコルです。"
+        ],
+        [
+          "Session Description Protocolの略。リアルタイム通信の開始前にクライアント－サーバ間で交換されるメディア配信に必要なパラメータ群の記述構文を規定したプロトコルです。セッション名及びセッション情報や、音声・映像などのメディアの種類、データ通信のためのプロトコル、使用するポート番号などを記述します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問8:https://www.nw-siken.com/kakomon/30_aki/am2_8.html"
+    },
+    {
+      "questionBodyText": "LDAPの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "OSIのディレクトリサービスであるX.500シリーズに機能を追加して作成され，X.500シリーズのプロトコルを包含している。",
+        "インターネット上のLDAPサーバの最上位サーバとしてルートDSEが設置されている。",
+        "ディレクトリツリーへのアクセス手順や，データ交換フォーマットが規定されている。",
+        "問合せ処理を軽くするためにTCPは使わずUDPによって通信し，通信の信頼性はLDAPプロトコル自身で確保する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_9.html",
+      "public_question_id": "94db5a7395de8394",
+      "original_question_id": "94db5a7395de8394",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "LDAP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "X.500シリーズとは、電子ディレクトリサービスに関するコンピュータネットワーク標準規格群です。LDAPは、複雑で処理が重いX.500シリーズのDAP(Directory Access Protocol)を軽量化し、TCP/IPを用いるインターネットで使えるようにしたサブセットです。"
+        ],
+        [
+          "ルートDSEは、各LDAPサーバが管理するDIT(Data Infomation Tree，ディレクトリ情報ツリー)の最上位に位置するエントリです。最上位サーバではありません。"
+        ],
+        [
+          "正しい。LDAPは、ディレクトリ情報ツリーの構造とデータ型、命名規則、ディレクトリ情報ツリーへのアクセス手順等を規定しています。"
+        ],
+        [
+          "LDAPはTCPで通信を行います。X.500シリーズのDAPには通信の信頼性を確保するプロトコルが含まれていますが、LDAPでは、TCPによって通信の信頼性を担保できるので、これらを実装していません。その分、DAPより軽量化されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問9:https://www.nw-siken.com/kakomon/30_aki/am2_9.html"
+    },
+    {
+      "questionBodyText": "クラスBのIPアドレスで，サブネットマスクが16進数の FFFFFF80 である場合，利用可能なホスト数は最大幾つか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "126",
+        "127",
+        "254",
+        "255"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_10.html",
+      "public_question_id": "6a9a3454d668a0bb",
+      "original_question_id": "6a9a3454d668a0bb",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "7",
+        "7",
+        "126"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "16進数のサブネットマスク\"FFFFFF80\"を8ビットずつ区切り10進数で表すと以下のような表記になります。FF.FF.FF.80 → 255.255.255.128このサブネットマスクを2進数に変換すると、先頭から25ビット目までがネットワークアドレス部、残りの7ビットがホストアドレス部であることがわかります。7ビットで表現できるビットパターンは27個ですが、ホストアドレス部のビットが全て\"1\"の「ブロードキャストアドレス」と、全て\"0\"の「ネットワークアドレス」はホストアドレスには使えないため、この2つを除いた数が利用可能なホスト数となります。27\n－2＝128－2＝\n126したがって「ア」が正解です。"
+        ],
+        [
+          "16進数のサブネットマスク\"FFFFFF80\"を8ビットずつ区切り10進数で表すと以下のような表記になります。FF.FF.FF.80 → 255.255.255.128このサブネットマスクを2進数に変換すると、先頭から25ビット目までがネットワークアドレス部、残りの7ビットがホストアドレス部であることがわかります。7ビットで表現できるビットパターンは27個ですが、ホストアドレス部のビットが全て\"1\"の「ブロードキャストアドレス」と、全て\"0\"の「ネットワークアドレス」はホストアドレスには使えないため、この2つを除いた数が利用可能なホスト数となります。27\n－2＝128－2＝\n126したがって「ア」が正解です。"
+        ],
+        [
+          "16進数のサブネットマスク\"FFFFFF80\"を8ビットずつ区切り10進数で表すと以下のような表記になります。FF.FF.FF.80 → 255.255.255.128このサブネットマスクを2進数に変換すると、先頭から25ビット目までがネットワークアドレス部、残りの7ビットがホストアドレス部であることがわかります。7ビットで表現できるビットパターンは27個ですが、ホストアドレス部のビットが全て\"1\"の「ブロードキャストアドレス」と、全て\"0\"の「ネットワークアドレス」はホストアドレスには使えないため、この2つを除いた数が利用可能なホスト数となります。27\n－2＝128－2＝\n126したがって「ア」が正解です。"
+        ],
+        [
+          "16進数のサブネットマスク\"FFFFFF80\"を8ビットずつ区切り10進数で表すと以下のような表記になります。FF.FF.FF.80 → 255.255.255.128このサブネットマスクを2進数に変換すると、先頭から25ビット目までがネットワークアドレス部、残りの7ビットがホストアドレス部であることがわかります。7ビットで表現できるビットパターンは27個ですが、ホストアドレス部のビットが全て\"1\"の「ブロードキャストアドレス」と、全て\"0\"の「ネットワークアドレス」はホストアドレスには使えないため、この2つを除いた数が利用可能なホスト数となります。27\n－2＝128－2＝\n126したがって「ア」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問10:https://www.nw-siken.com/kakomon/30_aki/am2_10.html"
+    },
+    {
+      "questionBodyText": "IPv4のマルチキャストに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "全てのマルチキャストアドレスは，アドレスごとにあらかじめ用途が固定的に決められている。",
+        "マルチキャストアドレスには，クラスDのアドレスが使用される。",
+        "マルチキャストパケットは，TTL値に関係なくIPマルチキャスト対応ルータによって中継される。",
+        "マルチキャストパケットは，ネットワーク上の全てのホストによって受信され，IPより上位の層で，必要なデータか否かが判断される。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_11.html",
+      "public_question_id": "7b4284bc874d75db",
+      "original_question_id": "7b4284bc874d75db",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "IPマルチキャスト"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "\"224.0.0.1\"や\"224.0.0.2\"などの一部のアドレスはWell-Knownアドレスとして用途が決められていますが、他のアドレスは用途ごとのアドレス範囲の中で自由に使用することができます。"
+        ],
+        [
+          "正しい。マルチキャストアドレスには先頭4ビットが「1110」であるクラスDのIPアドレスが使用されます。"
+        ],
+        [
+          "通常のユニキャストと同じくIPヘッダー内のTTL(Time To Live)の数値によって到達範囲が制限されます。"
+        ],
+        [
+          "マルチキャストグループに参加するクライアントは同じネットワーク上のルータに対して自身の存在をIGMPメッセージで通知し、データの転送を依頼します。そしてマルチキャストパケットを受けとったルータは、IPアドレスのグループ番号を確認し、自身の先にデータを受け取るクライアントがいる場合にだけデータの転送を行います。\nこの仕組みによってマルチキャストではグループに参加しているホストだけにデータが転送されます。またデータ転送の要否はIPアドレス(IP層)で判断されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問11:https://www.nw-siken.com/kakomon/30_aki/am2_11.html"
+    },
+    {
+      "questionBodyText": "日本国内において，2.4GHz帯の周波数を使用しない無線通信の規格はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Bluetooth",
+        "IEEE802.11ac",
+        "IEEE802.11b",
+        "IEEE802.11g"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_12.html",
+      "public_question_id": "e4ae2b7e55da00e6",
+      "original_question_id": "e4ae2b7e55da00e6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "下表は、無線LANの規格であるIEEE802.11を比較したものです。\n無線LANのうち2.4GHz帯を使用しないのは、11a と 11ac だけです。またBluetoothは、2.4GHz帯の電波を用いて、数mから100m程度の距離の情報機器間で無線通信を行う規格ですので、選択肢のうち2.4GHz帯の周波数を使用しないのは「IEEE802.11ac」だけとなります。"
+        ],
+        [
+          "下表は、無線LANの規格であるIEEE802.11を比較したものです。\n無線LANのうち2.4GHz帯を使用しないのは、11a と 11ac だけです。またBluetoothは、2.4GHz帯の電波を用いて、数mから100m程度の距離の情報機器間で無線通信を行う規格ですので、選択肢のうち2.4GHz帯の周波数を使用しないのは「IEEE802.11ac」だけとなります。"
+        ],
+        [
+          "下表は、無線LANの規格であるIEEE802.11を比較したものです。\n無線LANのうち2.4GHz帯を使用しないのは、11a と 11ac だけです。またBluetoothは、2.4GHz帯の電波を用いて、数mから100m程度の距離の情報機器間で無線通信を行う規格ですので、選択肢のうち2.4GHz帯の周波数を使用しないのは「IEEE802.11ac」だけとなります。"
+        ],
+        [
+          "下表は、無線LANの規格であるIEEE802.11を比較したものです。\n無線LANのうち2.4GHz帯を使用しないのは、11a と 11ac だけです。またBluetoothは、2.4GHz帯の電波を用いて、数mから100m程度の距離の情報機器間で無線通信を行う規格ですので、選択肢のうち2.4GHz帯の周波数を使用しないのは「IEEE802.11ac」だけとなります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問12:https://www.nw-siken.com/kakomon/30_aki/am2_12.html"
+    },
+    {
+      "questionBodyText": "ONF(Open Networking Foundation)が定義するSDN(Software-Defined Networking)において，アプリケーション，コントローラー及びネットワーク機器に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "OpenFlowは，コントローラーの処理フローを定義したものである。",
+        "OpenFlowを用いたネットワークでは，ネットワーク機器がデータ転送を行うための情報はコントローラーから提供される。",
+        "アプリケーションは，Data-Controller Plane Interface(サウスバウンドインタフェースとも呼ばれる)を介して，コントローラーに指示を出す。",
+        "アプリケーションは，ネットワーク機器に直接指示を出す。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク管理",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_13.html",
+      "public_question_id": "ed6f89425a82600b",
+      "original_question_id": "ed6f89425a82600b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "OpenFlowは、既存のネットワーク機器がもつ制御処理と転送処理を分離したプロトコルです。"
+        ],
+        [
+          "正しい。OpenFlowでは、データ転送と経路制御の機能を論理的に分離し、コントローラーが複数のネットワーク機器のデータ転送を集中的に制御・管理します。"
+        ],
+        [
+          "サウスバウンドインタフェースは、ネットワーク機器がコントローラーに提供するAPI群です。Openflowもサウスバウンドインタフェースの一つです。一方、コントローラーがアプリケーションに提供するインタフェースは、ノースバウンドインタフェースと呼ばれます。\nつまり、「アプリケーションは、ノースバウンドインタフェースを介して、コントローラーに指示を出す」というのが適切な動作です。"
+        ],
+        [
+          "アプリケーションは、コントローラーから提供されるAPIを介して、ネットワーク機器に指示を出します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問13:https://www.nw-siken.com/kakomon/30_aki/am2_13.html"
+    },
+    {
+      "questionBodyText": "WebブラウザでURLに https://ftp.example.jp/index.cgi?port=123 と指定したときに，Webブラウザが接続しにいくサーバのTCPポート番号はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "21",
+        "80",
+        "123",
+        "443"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_14.html",
+      "public_question_id": "fdd58fb6d6525e8e",
+      "original_question_id": "fdd58fb6d6525e8e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "スキーム名",
+        "443/TCP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "21番はFTPのポート番号です。\"ftp\"はホスト名なので21番には接続されません。"
+        ],
+        [
+          "80番はHTTPのポート番号です。スキーム名はhttpsなので80番には接続されません。"
+        ],
+        [
+          "URLで接続するポート番号を指定するにはドメイン名に続けて「:ポート番号」の形式で記述します。\"?\"以降に記述された\"port=123\"は単なるパラメータ(クエリ文字列)として扱われます。"
+        ],
+        [
+          "正しい。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問14:https://www.nw-siken.com/kakomon/30_aki/am2_14.html"
+    },
+    {
+      "questionBodyText": "WebSocketの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "HTTPを拡張したプロトコルであり，通信メッセージはXML形式で記述される。",
+        "URIのスキームにhttp又はhttpsを使用し，HTTPやHTTPSと同じポート番号で通信する。",
+        "双方向通信を行う仕組みであり，サーバ側からもクライアントにWebSocketの接続開始を要求できる。",
+        "通信はGETメソッドで始まり，クライアントとサーバ間でハンドシェイクをして接続が確立する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク応用",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_15.html",
+      "public_question_id": "89de89a06bc80605",
+      "original_question_id": "89de89a06bc80605",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "WebSocket"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "XMLSocketの特徴です。WebSocketでは、XML形式に限られず任意のテキスト／バイナリデータをやり取り可能です。"
+        ],
+        [
+          "URIのスキームには ws(平文通信) または wss(暗号通信) の2つがあります。デフォルトのポート番号は、wsが80番、wssが443番と、http,httpsに準じていますが、任意のポート番号を指定することも可能です。"
+        ],
+        [
+          "WebSocketの接続は、クライアント側がハンドシェイク要求をサーバに送信することで始まります。サーバ側からWebSocketの接続開始を要求することはできません。"
+        ],
+        [
+          "正しい。WebSocketの開始時は、まずHTTPの手順に則り、クライアントからupgradeヘッダーを含むGETリクエストを送信します。そして、サーバ側もupgradeヘッダーを含むレスポンスを返すことでWebSocketに切り替わる仕組みになっています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問15:https://www.nw-siken.com/kakomon/30_aki/am2_15.html"
+    },
+    {
+      "questionBodyText": "ICMP Flood攻撃に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "HTTP GETリクエストを繰り返し送ることによって，攻撃対象のサーバにコンテンツ送信の負荷を掛ける。",
+        "pingコマンドを用いて大量の要求パケットを発信することによって，攻撃対象のサーバに至るまでの回線を過負荷にしてアクセスを妨害する。",
+        "コネクション開始要求に当たるSYNパケットを大量に送ることによって，攻撃対象のサーバに，接続要求ごとに応答を返すための過大な負荷を掛ける。",
+        "大量のTCPコネクションを確立し，攻撃対象のサーバに接続を維持させ続けることによって，リソースを枯渇させる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_16.html",
+      "public_question_id": "7baaf4174baa69ac",
+      "original_question_id": "7baaf4174baa69ac",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ICMP Flood攻撃",
+        "攻撃者は、意図的にデータサイズを大きくしたICMP Echo Request(ping)を標的サーバに対して大量に送り付ける\npingを受け取った標的サーバは、ICMP Echo Reply(ping応答)を返そうとする\npingの受信と応答により、標的サーバやそのネットワークの処理能力と回線帯域がひっ迫する"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "HTTP GET Flood攻撃に該当します。"
+        ],
+        [
+          "正しい。ICMP Flood攻撃に該当します。"
+        ],
+        [
+          "SYN Flood攻撃に該当します。"
+        ],
+        [
+          "Connection Flood攻撃に該当します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問16:https://www.nw-siken.com/kakomon/30_aki/am2_16.html"
+    },
+    {
+      "questionBodyText": "認証にクライアント証明書を用いるプロトコルはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "EAP-FAST",
+        "EAP-MD5",
+        "EAP-TLS",
+        "EAP-TTLS"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_17.html",
+      "public_question_id": "e3ff1e0076d0c17c",
+      "original_question_id": "e3ff1e0076d0c17c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "EAP",
+        "EAP-MD5ユーザー名とパスワードを用いたチャレンジレスポンスによってクライアントを認証する方式。サーバの認証は行われない。EAP-TLS認証にTLS(Transport Layer Security)の機構を用いる方式。サーバ－クライアント間で\nデジタル証明書\nを用いた相互認証を行う。\n無線LANのセキュリティの主流となっている。EAP-TTLS(EAP Tunneled TLS)\nTLSによりサーバ認証を行い、その後確立されたEAPトンネルを使用し、\n各種の認証方法\nでクライアントを認証する方式。EAP-FASTCisco社によるEAP認証プロトコルで、仕組みはEAP-TTLSと同じくTLSを用いて確立した暗号化トンネル上でクライアント認証を行う。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "EAP\n(Extensible Authentication Protocol)は、IEEE802.1X規格に基づきPPPの認証機能を拡張したプロトコルで、主に無線LAN ネットワークでレイヤー2ベースの認証、許可、アカウンティング(AAA)の標準認証機構として使用されています。EAPではTLS、S/key、MD5によるチャレンジレスポンスなど様々な認証方式がサポートされています。EAP-MD5ユーザー名とパスワードを用いたチャレンジレスポンスによってクライアントを認証する方式。サーバの認証は行われない。EAP-TLS認証にTLS(Transport Layer Security)の機構を用いる方式。サーバ－クライアント間で\nデジタル証明書\nを用いた相互認証を行う。\n無線LANのセキュリティの主流となっている。EAP-TTLS(EAP Tunneled TLS)\nTLSによりサーバ認証を行い、その後確立されたEAPトンネルを使用し、\n各種の認証方法\nでクライアントを認証する方式。EAP-FASTCisco社によるEAP認証プロトコルで、仕組みはEAP-TTLSと同じくTLSを用いて確立した暗号化トンネル上でクライアント認証を行う。\nクライアントの認証に、クライアント証明(デジタル証明書)を用いるのは「EAP-TLS」のみなので、正解は「ウ」です。"
+        ],
+        [
+          "EAP\n(Extensible Authentication Protocol)は、IEEE802.1X規格に基づきPPPの認証機能を拡張したプロトコルで、主に無線LAN ネットワークでレイヤー2ベースの認証、許可、アカウンティング(AAA)の標準認証機構として使用されています。EAPではTLS、S/key、MD5によるチャレンジレスポンスなど様々な認証方式がサポートされています。EAP-MD5ユーザー名とパスワードを用いたチャレンジレスポンスによってクライアントを認証する方式。サーバの認証は行われない。EAP-TLS認証にTLS(Transport Layer Security)の機構を用いる方式。サーバ－クライアント間で\nデジタル証明書\nを用いた相互認証を行う。\n無線LANのセキュリティの主流となっている。EAP-TTLS(EAP Tunneled TLS)\nTLSによりサーバ認証を行い、その後確立されたEAPトンネルを使用し、\n各種の認証方法\nでクライアントを認証する方式。EAP-FASTCisco社によるEAP認証プロトコルで、仕組みはEAP-TTLSと同じくTLSを用いて確立した暗号化トンネル上でクライアント認証を行う。\nクライアントの認証に、クライアント証明(デジタル証明書)を用いるのは「EAP-TLS」のみなので、正解は「ウ」です。"
+        ],
+        [
+          "EAP\n(Extensible Authentication Protocol)は、IEEE802.1X規格に基づきPPPの認証機能を拡張したプロトコルで、主に無線LAN ネットワークでレイヤー2ベースの認証、許可、アカウンティング(AAA)の標準認証機構として使用されています。EAPではTLS、S/key、MD5によるチャレンジレスポンスなど様々な認証方式がサポートされています。EAP-MD5ユーザー名とパスワードを用いたチャレンジレスポンスによってクライアントを認証する方式。サーバの認証は行われない。EAP-TLS認証にTLS(Transport Layer Security)の機構を用いる方式。サーバ－クライアント間で\nデジタル証明書\nを用いた相互認証を行う。\n無線LANのセキュリティの主流となっている。EAP-TTLS(EAP Tunneled TLS)\nTLSによりサーバ認証を行い、その後確立されたEAPトンネルを使用し、\n各種の認証方法\nでクライアントを認証する方式。EAP-FASTCisco社によるEAP認証プロトコルで、仕組みはEAP-TTLSと同じくTLSを用いて確立した暗号化トンネル上でクライアント認証を行う。\nクライアントの認証に、クライアント証明(デジタル証明書)を用いるのは「EAP-TLS」のみなので、正解は「ウ」です。"
+        ],
+        [
+          "EAP\n(Extensible Authentication Protocol)は、IEEE802.1X規格に基づきPPPの認証機能を拡張したプロトコルで、主に無線LAN ネットワークでレイヤー2ベースの認証、許可、アカウンティング(AAA)の標準認証機構として使用されています。EAPではTLS、S/key、MD5によるチャレンジレスポンスなど様々な認証方式がサポートされています。EAP-MD5ユーザー名とパスワードを用いたチャレンジレスポンスによってクライアントを認証する方式。サーバの認証は行われない。EAP-TLS認証にTLS(Transport Layer Security)の機構を用いる方式。サーバ－クライアント間で\nデジタル証明書\nを用いた相互認証を行う。\n無線LANのセキュリティの主流となっている。EAP-TTLS(EAP Tunneled TLS)\nTLSによりサーバ認証を行い、その後確立されたEAPトンネルを使用し、\n各種の認証方法\nでクライアントを認証する方式。EAP-FASTCisco社によるEAP認証プロトコルで、仕組みはEAP-TTLSと同じくTLSを用いて確立した暗号化トンネル上でクライアント認証を行う。\nクライアントの認証に、クライアント証明(デジタル証明書)を用いるのは「EAP-TLS」のみなので、正解は「ウ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問17:https://www.nw-siken.com/kakomon/30_aki/am2_17.html"
+    },
+    {
+      "questionBodyText": "WebサイトがWebブラウザに対して，指定された期間において，当該Webサイトへのアクセスをhttpsで行うように指示するHTTPレスポンスヘッダーフィールドはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Content-Security-Policy",
+        "Strict-Transport-Security",
+        "X-Content-Type-Options",
+        "X-XSS-Protection"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク応用",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_18.html",
+      "public_question_id": "61b389bafe9afcb3",
+      "original_question_id": "61b389bafe9afcb3",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "HSTS",
+        "HTTPS",
+        "//アクセスから365日間、サブドメインも含めてHTTPS接続を強制\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Content-Security-Policyは、Webサイトで外部読み込みを許可するリソースの種類とドメインを指定するHTTPヘッダーです。意図しないドメインからスクリプト等が読み込まれることを防止できるため、XSSやクリックジャッキング攻撃の影響を軽減できます。\n//スクリプトの読み込み先を自ドメインと https://apis.google.com ドメインに限定\nContent-Security-Policy: script-src 'self' https://apis.google.com"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "X-Content-Type-Optionsは、ブラウザがコンテンツの種類を決定する動作を制御するHTTPヘッダーです。MIMEタイプを無視してコンテンツの中身をみて決定したり、逆にMIMEタイプだけでコンテンツの種類を決定したりするなどの指定ができます。一部の古いブラウザで、コンテンツの内容だけで判断することによりXSS攻撃を受けるリスクを低減できます。\n//コンテンツの内容を無視してMIMEタイプだけ決定する\nX-Content-Type-Options: nosniff"
+        ],
+        [
+          "X-XSS-Protectionは、XSS攻撃を検知したときにページの読み込みを停止するHTTPヘッダーです。\n//有効化。ブラウザの既定値です。X-XSS-Protection: 1"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問18:https://www.nw-siken.com/kakomon/30_aki/am2_18.html"
+    },
+    {
+      "questionBodyText": "IPsecに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ESPのトンネルモードを使用すると，暗号化通信の区間において，エンドツーエンドの通信で用いる元のIPのヘッダーを含めて暗号化できる。",
+        "IKEはIPsecの鍵交換のためのプロトコルであり，ポート番号80が使用される。",
+        "暗号化アルゴリズムとして，HMAC-SHA1が使用される。",
+        "ホストAとホストBとの間でIPsecによる通信を行う場合，認証や暗号化アルゴリズムを両者で決めるためにESPヘッダーでなくAHヘッダーを使用する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_19.html",
+      "public_question_id": "4b9684e7ec4f4aff",
+      "original_question_id": "4b9684e7ec4f4aff",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。トンネルモードは、IPヘッダーとデータ部分をまとめて暗号化した後、新たなIPヘッダーおよびAH／ESPヘッダーを付加して送信する方式です。一方、トランスポートモードでは、パケットのデータ部分だけが暗号化され、元のIPヘッダーと暗号化データの間にAH／ESPヘッダーが挿入されます。"
+        ],
+        [
+          "IKE(Internet Key Exchange)が使用するポートはUDP/500です。ポート番号80はHTTPが使用するために予約されています。"
+        ],
+        [
+          "暗号化アルゴリズムとしてはAES、DES、3DES、Blowfishなどがサポートされています。HMAC-SHA1は、IPsecにおいてメッセージの改ざん検知のために使われる認証アルゴリズムです。"
+        ],
+        [
+          "AH(Authentication Header)はメッセージ認証のために使用されるプロトコルで暗号化の機能をもっていません。認証と暗号化、両方の機能をもつプロトコルがESP(Encapsulated Security Payload)です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問19:https://www.nw-siken.com/kakomon/30_aki/am2_19.html"
+    },
+    {
+      "questionBodyText": "TLSに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "TLSで使用するWebサーバのデジタル証明書にはIPアドレスの組込みが必須なので，WebサーバのIPアドレスを変更する場合は，デジタル証明書を再度取得する必要がある。",
+        "TLSで使用する共通鍵の長さは，128ビット未満で任意に指定する。",
+        "TLSで使用する個人認証用のデジタル証明書は，ICカードにも格納することができ，利用するPCを特定のPCに限定する必要はない。",
+        "TLSはWebサーバを経由した特定の利用者が通信するためのプロトコルであり，Webサーバへの事前の利用者登録が不可欠である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_20.html",
+      "public_question_id": "da767aff471f3792",
+      "original_question_id": "da767aff471f3792",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "TLS"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "デジタル証明書では、証明書が有効なサーバ(コモンネーム)を記述するのにIPアドレスだけでなくFQDNも使用できます。FQDNで指定した場合はIPアドレスが変わっても再発行の必要はありません。"
+        ],
+        [
+          "TLSでは鍵長40～256ビットの共通鍵を使用して暗号化通信を行います。日本国内においても256ビットまでの鍵長を制限なく選択できます。ただし、TLS1.1以降では40ビットの鍵の使用は禁止されています。"
+        ],
+        [
+          "正しい。デジタル証明書の内容は電子データなので様々な媒体に格納することができます。ICカードに格納すれば認証情報を持ち運べるので、利用する端末が限定されることもありません。\n個人認証用のデジタル証明書は電子証明書と呼ばれ、公的認証サービスなどを利用すると電子証明書が記録されたICカードの発行をうけることができます。"
+        ],
+        [
+          "TLSは、インターネット上で安全に情報をやり取りするために開発されたプロトコルで、事前の利用者登録は必要ありません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問20:https://www.nw-siken.com/kakomon/30_aki/am2_20.html"
+    }
+  ]
+}

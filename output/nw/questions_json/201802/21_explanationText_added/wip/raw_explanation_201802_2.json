@@ -1,0 +1,727 @@
+[
+  {
+    "original_question_id": "e36720eac7030a48",
+    "explanationText": [
+      "正しい。\n\nクラスタ分析法は、観測データ同士の類似性に基づいてグループ化し、各群の特徴を読み取る多変量解析手法である。",
+      "間違い。\n\n指数平滑法は時系列データの需要予測などに使う手法であり、類似性による群分けではない。",
+      "間違い。\n\nデルファイ法は専門家の意見集約を反復して予測や合意形成を行う手法である。",
+      "間違い。\n\nモンテカルロ法は乱数を用いたシミュレーションや確率推定の手法であり、データの群分類とは異なる。"
+    ],
+    "suggestedQuestions": [
+      "クラスタ分析法は何をしますか？",
+      "時系列予測手法との違いは何ですか？",
+      "多変量解析とは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "クラスタ分析法は何をしますか？",
+        "answer": "似た特徴を持つデータをまとめ、グループごとの特徴や構造を把握する。"
+      },
+      {
+        "question": "時系列予測手法との違いは何ですか？",
+        "answer": "時系列予測は将来値推定、クラスタ分析は既存データの構造把握が目的である。"
+      },
+      {
+        "question": "多変量解析とは何ですか？",
+        "answer": "複数の変数を同時に扱い、相互関係や潜在構造を分析する手法群である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "f467088a508bec71",
+    "explanationText": [
+      "間違い。\n\n遠隔地から保守員が電源操作命令を送るのは、人手による制御の段階であり自律化ではない。",
+      "間違い。\n\nセンサー値を収集してクラウドへ蓄積するだけなら監視の段階にとどまる。",
+      "正しい。\n\n機械同士が状態を監視・分析し、人手を介さず目標に合わせて協調動作するのは自律化の段階である。",
+      "間違い。\n\n故障検知後に保守員が分析して特定するのは、人が介在する最適化の段階であり自律化ではない。"
+    ],
+    "suggestedQuestions": [
+      "IoT の4段階は何ですか？",
+      "自律化の条件は何ですか？",
+      "監視や制御との違いは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "IoT の4段階は何ですか？",
+        "answer": "監視、制御、最適化、自律化の順に高度化していく整理である。"
+      },
+      {
+        "question": "自律化の条件は何ですか？",
+        "answer": "分析結果を基に、システム自身が人手なしで判断し動作を変えることである。"
+      },
+      {
+        "question": "監視や制御との違いは何ですか？",
+        "answer": "監視は観測、制御は人や外部の指示、自律化はシステム自身の判断で動く点が異なる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "97a7cffaea55d2e6",
+    "explanationText": [
+      "間違い。\n\n在庫を考慮した正味所要量計算では 80 個にはならない。必要数量を一段ずつ展開すると不足する。",
+      "正しい。\n\n製品A 10個にはユニットBが 4×10=40 個必要だが在庫 5 個があるので正味所要量は 35 個である。ユニットC は 10 個必要。部品Dは B 用に 35×3=105 個、C 用に 10×1=10 個必要で、在庫 25 個を差し引くと 105+10-25=90 個となる。",
+      "間違い。\n\n95 個は在庫控除や B・C への展開計算が合っていない。",
+      "間違い。\n\n105 個は B 系統だけを見た数量であり、C 系統と D 在庫を反映できていない。"
+    ],
+    "suggestedQuestions": [
+      "正味所要量はどう求めますか？",
+      "部品表の展開はどう考えますか？",
+      "在庫はどの段階で差し引きますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "正味所要量はどう求めますか？",
+        "answer": "総所要量から在庫や引当可能量を差し引いて求める。"
+      },
+      {
+        "question": "部品表の展開はどう考えますか？",
+        "answer": "親品目の必要数量を求めた後、子品目へ必要数を乗算して段階的に展開する。"
+      },
+      {
+        "question": "在庫はどの段階で差し引きますか？",
+        "answer": "各品目ごとに、その品目の総所要量が分かった段階で在庫を差し引く。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "ae11eb5ece811b65",
+    "explanationText": [
+      "間違い。\n\n3,200 万円では変動費率が過小で、利益差の条件を説明できない。",
+      "間違い。\n\n4,000 万円でも売上高差 2,000 万円に対する利益差 800 万円と整合しない。",
+      "正しい。\n\n売上高 7,000 万円で -200、9,000 万円で 600 なので、売上高 2,000 万円増加に対し利益は 800 万円増える。したがって限界利益率は 800/2,000=0.4、変動費率は 0.6 である。売上高 8,000 万円の変動費は 8,000×0.6=4,800 万円となる。",
+      "間違い。\n\n5,600 万円は変動費率 0.7 に相当し、与えられた利益条件と合わない。"
+    ],
+    "suggestedQuestions": [
+      "変動費率はどう求めますか？",
+      "利益差から何が分かりますか？",
+      "限界利益率との関係は何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "変動費率はどう求めますか？",
+        "answer": "売上増加額に対する利益増加額から限界利益率を出し、1 から引けば変動費率になる。"
+      },
+      {
+        "question": "利益差から何が分かりますか？",
+        "answer": "固定費一定なら、利益差は売上増に伴う限界利益の増加分に等しい。"
+      },
+      {
+        "question": "限界利益率との関係は何ですか？",
+        "answer": "限界利益率=1-変動費率 である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "6019c18f40a9d114",
+    "explanationText": [
+      "間違い。\n\nやむを得ない事情がある場合には、具体額の代わりに算定方法を記載することが認められるため、この行為が直ちに禁止とはいえない。",
+      "正しい。\n\n委託業務内容が既に確定しているのに、ユーザーとの契約代金未定を理由として製造委託等代金の取決めを後回しにすることは認められない。委託時点で代金を定めない行為として禁止される。",
+      "間違い。\n\n相手方の承諾があれば、必要事項を記載した電子メールなど電磁的方法での発注は認められる。",
+      "間違い。\n\n未定部分について正当な理由がある場合には、後日補充事項を明示する取扱いが認められる。"
+    ],
+    "suggestedQuestions": [
+      "中小受託取引適正化法で何が禁止されますか？",
+      "代金を後回しにできる場合はありますか？",
+      "書面交付は電子メールでもよいですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "中小受託取引適正化法で何が禁止されますか？",
+        "answer": "不当に代金を定めない、減額する、支払遅延を行うなど受託事業者に不利益な取引慣行が禁止される。"
+      },
+      {
+        "question": "代金を後回しにできる場合はありますか？",
+        "answer": "委託内容自体が未確定など、正当な理由で必要事項が定められない部分に限って補充が認められる。"
+      },
+      {
+        "question": "書面交付は電子メールでもよいですか？",
+        "answer": "相手方の承諾があれば、電磁的方法による提供も可能である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": false
+  },
+  {
+    "original_question_id": "ab342533d4be5211",
+    "explanationText": [
+      "間違い。\n\nCCK は IEEE802.11b で使われる拡散符号化方式であり、サブキャリア分割による多重化ではない。",
+      "間違い。\n\nCDM は符号分割で同一周波数帯を共有する方式であり、複数のサブキャリアを直交配置する説明ではない。",
+      "正しい。\n\nOFDM はデータ信号を複数のサブキャリアへ分割し、それらを互いに干渉しないよう直交配置して伝送する多重化方式である。",
+      "間違い。\n\nTDM は時分割多重であり、時間軸で分けて共有する方式である。"
+    ],
+    "suggestedQuestions": [
+      "OFDM の特徴は何ですか？",
+      "CDM や TDM との違いは何ですか？",
+      "なぜ高速無線通信で使われますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "OFDM の特徴は何ですか？",
+        "answer": "多数の直交サブキャリアへ分散して送るため、周波数利用効率が高くマルチパスにも比較的強い。"
+      },
+      {
+        "question": "CDM や TDM との違いは何ですか？",
+        "answer": "CDM は符号で分離、TDM は時間で分離し、OFDM は周波数上のサブキャリアで分離する。"
+      },
+      {
+        "question": "なぜ高速無線通信で使われますか？",
+        "answer": "高速伝送しやすく、周波数選択性フェージングの影響を分散できるためである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "7640cae2e1e25b14",
+    "explanationText": [
+      "正しい。\n\nCSMA は Carrier Sense Multiple Access の略で、送信前に伝送路上のキャリアを監視し、他端末の送信有無を見て送信制御を行う方式である。",
+      "間違い。\n\nトークンを得た端末が送信するのはトークンパッシング方式の説明である。",
+      "間違い。\n\n衝突発生時には直ちに再送せず、一定の待ち時間や再送制御を行う。",
+      "間違い。\n\n伝送路使用中であれば待機するのが CSMA の基本であり、使用中でも送信できるわけではない。"
+    ],
+    "suggestedQuestions": [
+      "CSMA の基本動作は何ですか？",
+      "CSMA/CD と CSMA/CA の違いは何ですか？",
+      "なぜキャリア検知が必要ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "CSMA の基本動作は何ですか？",
+        "answer": "送信前に媒体が空いているかを監視し、空いていれば送信し、使用中なら待機する。"
+      },
+      {
+        "question": "CSMA/CD と CSMA/CA の違いは何ですか？",
+        "answer": "前者は衝突検出、後者は衝突回避を重視する。"
+      },
+      {
+        "question": "なぜキャリア検知が必要ですか？",
+        "answer": "同時送信による衝突の可能性を下げ、伝送効率を高めるためである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "aeb3aab41495c77f",
+    "explanationText": [
+      "正しい。\n\nアドミッション制御は、新たな通信要求に対して帯域などの資源を確認し、必要資源を確保できる場合だけ受け入れる制御である。",
+      "間違い。\n\n最大速度超過分を監視し破棄や優先度低下を行うのはポリシングの説明であり、シェーピングではない。",
+      "間違い。\n\n送出間隔を調整して平準化するのはシェーピングであり、ポリシングではない。",
+      "間違い。\n\nフレーム種類や宛先に応じた優先転送は優先制御であって、ベストエフォートの説明ではない。"
+    ],
+    "suggestedQuestions": [
+      "アドミッション制御とは何ですか？",
+      "ポリシングとシェーピングの違いは何ですか？",
+      "QoS は何を守りますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "アドミッション制御とは何ですか？",
+        "answer": "新しい通信を受け入れる前に、必要資源を確保できるか判断する制御である。"
+      },
+      {
+        "question": "ポリシングとシェーピングの違いは何ですか？",
+        "answer": "ポリシングは超過トラフィックを落とす・優先度を下げる、シェーピングは送出を遅らせて平準化する。"
+      },
+      {
+        "question": "QoS は何を守りますか？",
+        "answer": "遅延、帯域、ジッタ、パケット損失など通信品質要件を守ることを目指す。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "75e7ef03aa5d16b2",
+    "explanationText": [
+      "正しい。\n\nイーサネットの MTU は、1フレームで運べる IP パケット本体の最大長であり、図の範囲では IP ヘッダ＋TCP ヘッダ＋データに相当する。",
+      "間違い。\n\nMAC ヘッダはデータリンク層のフレーム構成要素であり、MTU に含めない。",
+      "間違い。\n\nFCS もフレーム末尾の誤り検査情報であり、MTU の対象外である。",
+      "間違い。\n\nプリアンブルや MAC ヘッダ、FCS まで含めた全フレーム長は MTU の定義ではない。"
+    ],
+    "suggestedQuestions": [
+      "MTU は何の最大長ですか？",
+      "MSS との違いは何ですか？",
+      "イーサネットで 1500 バイトといわれるのは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "MTU は何の最大長ですか？",
+        "answer": "隣接ネットワークへ 1 回で転送できるネットワーク層ペイロードの最大長である。"
+      },
+      {
+        "question": "MSS との違いは何ですか？",
+        "answer": "MSS は MTU から IP/TCP ヘッダを除いた TCP データ部の最大長である。"
+      },
+      {
+        "question": "イーサネットで 1500 バイトといわれるのは何ですか？",
+        "answer": "通常 Ethernet における IP パケット本体の MTU を指す。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "ae5b6efc4031b396",
+    "explanationText": [
+      "正しい。\n\nAS 間の経路制御には BGP が用いられる。BGP はパス属性を利用して外部経路を制御するプロトコルである。",
+      "間違い。\n\nIS-IS は主に AS 内で使うリンクステート型 IGP である。",
+      "間違い。\n\nOSPF も AS 内の経路制御に用いる IGP である。",
+      "間違い。\n\nRIP は AS 内で使う距離ベクトル型 IGP であり、AS 間制御には用いない。"
+    ],
+    "suggestedQuestions": [
+      "BGP は何に使いますか？",
+      "IGP と EGP の違いは何ですか？",
+      "AS とは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "BGP は何に使いますか？",
+        "answer": "異なる自律システム間で経路情報を交換し、インターネット全体の経路制御を行う。"
+      },
+      {
+        "question": "IGP と EGP の違いは何ですか？",
+        "answer": "IGP は AS 内、EGP は AS 間の経路制御に使う。"
+      },
+      {
+        "question": "AS とは何ですか？",
+        "answer": "単一のルーティングポリシーで管理されるネットワーク集まりである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "d4633f8019ef5d59",
+    "explanationText": [
+      "間違い。\n\n端末A は宛先 IP と MAC の両方を自力で決めるわけではなく、ARP の対象は同一セグメント上の次ホップである。",
+      "正しい。\n\n端末A から見て端末C は別ネットワーク上にあるため、A は宛先 IP は C のものを使い、フレーム宛先 MAC はデフォルトゲートウェイであるルータ Z の MAC に対応付ける。ARP 解決の対象はルータ Z である。",
+      "間違い。\n\nレイヤ2スイッチX は MAC 学習と転送を行うが、IP アドレスと MAC アドレスの対応付け主体ではない。",
+      "間違い。\n\nレイヤ2スイッチY も同様に、ARP による対応付けを行う主体ではない。"
+    ],
+    "suggestedQuestions": [
+      "別ネットワーク宛てで ARP は誰に対して行いますか？",
+      "IP 宛先と MAC 宛先はどう違いますか？",
+      "プロキシARPがない条件は何を意味しますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "別ネットワーク宛てで ARP は誰に対して行いますか？",
+        "answer": "最終宛先ではなく、同一セグメント上の次ホップであるデフォルトゲートウェイに対して行う。"
+      },
+      {
+        "question": "IP 宛先と MAC 宛先はどう違いますか？",
+        "answer": "IP 宛先は最終到達先、MAC 宛先はその区間で直接渡す相手を示す。"
+      },
+      {
+        "question": "プロキシARPがない条件は何を意味しますか？",
+        "answer": "ルータが他ホストの代理で ARP 応答しないため、通常どおりゲートウェイ MAC を解決することになる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "b64548f39e77e1d0",
+    "explanationText": [
+      "間違い。\n\n1つのホスト名に複数の IP を対応付けることも、複数のホスト名に同一 IP を対応付けることも DNS では可能であるため、この説明は不完全である。",
+      "正しい。\n\nDNS ではラウンドロビンなどのため 1ホスト名に複数 IP を割り当てられ、またバーチャルホストや別名運用のため複数ホスト名に同一 IP を対応させることもできる。",
+      "間違い。\n\n一つのホスト名に複数 IP を対応できないという部分が誤りである。",
+      "間違い。\n\nホスト名と IP アドレスは常に 1 対 1 ではない。"
+    ],
+    "suggestedQuestions": [
+      "1つの名前に複数IPはなぜ使いますか？",
+      "複数名が同一IPを指す例は何ですか？",
+      "DNS の柔軟性は何に役立ちますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "1つの名前に複数IPはなぜ使いますか？",
+        "answer": "負荷分散や冗長化のために同じサービス名へ複数サーバを割り当てることがある。"
+      },
+      {
+        "question": "複数名が同一IPを指す例は何ですか？",
+        "answer": "同一サーバで複数ドメインの Web サイトを提供するバーチャルホスト構成などである。"
+      },
+      {
+        "question": "DNS の柔軟性は何に役立ちますか？",
+        "answer": "サービス移行、負荷分散、冗長化、複数サービス共存を実現しやすくする。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "506c35a79289723b",
+    "explanationText": [
+      "間違い。\n\nICMP は疎通確認やエラーメッセージに使われるプロトコルであり、マルチキャストグループ管理には用いない。",
+      "正しい。\n\nIGMP は IPv4 のローカルセグメントで、ホストがどのマルチキャストグループに参加するかをルータへ通知するプロトコルである。",
+      "間違い。\n\nRTP は音声・映像ストリーム伝送のためのプロトコルであり、グループ管理は行わない。",
+      "間違い。\n\nSDP はセッション記述用であり、ローカルセグメント上の参加ホスト管理には使わない。"
+    ],
+    "suggestedQuestions": [
+      "IGMP は何を管理しますか？",
+      "マルチキャストルータとの関係は何ですか？",
+      "RTP や SDP との違いは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "IGMP は何を管理しますか？",
+        "answer": "各ホストが参加したい IPv4 マルチキャストグループをローカルルータへ通知する。"
+      },
+      {
+        "question": "マルチキャストルータとの関係は何ですか？",
+        "answer": "ルータは IGMP 情報を基に、そのセグメントへ対象グループのトラフィックを転送する。"
+      },
+      {
+        "question": "RTP や SDP との違いは何ですか？",
+        "answer": "RTP はメディア配送、SDP はセッション情報記述、IGMP は参加グループ管理を担う。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "94db5a7395de8394",
+    "explanationText": [
+      "間違い。\n\nLDAP は X.500 の機能追加版ではなく、X.500 を簡素化して TCP/IP 上で使いやすくしたディレクトリアクセスプロトコルである。",
+      "間違い。\n\nルート DSE は各 LDAP サーバが持つディレクトリ情報であり、インターネット全体の最上位サーバがあるわけではない。",
+      "正しい。\n\nLDAP はディレクトリツリーへのアクセス方法や、検索・追加などの操作手順、データ交換形式を規定している。",
+      "間違い。\n\nLDAP は通常 TCP を利用して通信し、UDP 前提ではない。"
+    ],
+    "suggestedQuestions": [
+      "LDAP は何を定めていますか？",
+      "X.500 との関係は何ですか？",
+      "どんな用途で使われますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "LDAP は何を定めていますか？",
+        "answer": "ディレクトリサービスへの問い合わせや更新の手順、データ表現、応答形式などを定める。"
+      },
+      {
+        "question": "X.500 との関係は何ですか？",
+        "answer": "X.500 の考え方を踏まえつつ、TCP/IP 環境で簡便に使えるよう軽量化したものである。"
+      },
+      {
+        "question": "どんな用途で使われますか？",
+        "answer": "ユーザー情報管理、認証基盤、アドレス帳、組織情報管理などに使われる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "6a9a3454d668a0bb",
+    "explanationText": [
+      "正しい。\n\nサブネットマスク FFFFFF80 は 255.255.255.128、すなわち /25 である。ホスト部は 7 ビットなので利用可能ホスト数は 2^7-2=126 である。",
+      "間違い。\n\n127 はホスト部全組合せからネットワークアドレスとブロードキャストアドレスを除いていない。",
+      "間違い。\n\n254 はホスト部を 8 ビットと誤認した場合の値である。",
+      "間違い。\n\n255 もネットワーク・ブロードキャストを考慮できていない。"
+    ],
+    "suggestedQuestions": [
+      "サブネットマスク FFFFFF80 は何ビットですか？",
+      "利用可能ホスト数はどう求めますか？",
+      "なぜ 2 を引きますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "サブネットマスク FFFFFF80 は何ビットですか？",
+        "answer": "16進で FF FF FF 80 なので、2進では 25 ビットが 1 となる /25 である。"
+      },
+      {
+        "question": "利用可能ホスト数はどう求めますか？",
+        "answer": "ホスト部ビット数を h とすると、通常は 2^h-2 で求める。"
+      },
+      {
+        "question": "なぜ 2 を引きますか？",
+        "answer": "全 0 のネットワークアドレスと全 1 のブロードキャストアドレスをホストに使えないからである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "7b4284bc874d75db",
+    "explanationText": [
+      "間違い。\n\n一部の well-known マルチキャストを除き、全アドレスで用途が固定されているわけではない。",
+      "正しい。\n\nIPv4 マルチキャストには先頭ビット列 1110 のクラス D アドレス帯が使われる。",
+      "間違い。\n\nマルチキャストパケットも TTL によって到達範囲が制限される。",
+      "間違い。\n\nマルチキャストグループに参加しているホストだけが受信対象となり、全ホストが受信するわけではない。"
+    ],
+    "suggestedQuestions": [
+      "IPv4 マルチキャストのアドレス帯は何ですか？",
+      "IGMP はどう関係しますか？",
+      "ブロードキャストとの違いは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "IPv4 マルチキャストのアドレス帯は何ですか？",
+        "answer": "224.0.0.0 から 239.255.255.255 のクラス D アドレス帯である。"
+      },
+      {
+        "question": "IGMP はどう関係しますか？",
+        "answer": "ホストが受信したいマルチキャストグループ参加をルータへ通知するために使う。"
+      },
+      {
+        "question": "ブロードキャストとの違いは何ですか？",
+        "answer": "ブロードキャストは全端末宛て、マルチキャストは参加グループだけを対象にする。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "e4ae2b7e55da00e6",
+    "explanationText": [
+      "間違い。\n\nBluetooth は 2.4GHz 帯を利用する近距離無線規格である。",
+      "正しい。\n\nIEEE802.11ac は 5GHz 帯のみを用いる無線 LAN 規格であり、2.4GHz 帯は使用しない。",
+      "間違い。\n\nIEEE802.11b は 2.4GHz 帯を使用する。",
+      "間違い。\n\nIEEE802.11g も 2.4GHz 帯を使用する。"
+    ],
+    "suggestedQuestions": [
+      "802.11ac はどの周波数帯を使いますか？",
+      "Bluetooth や 11b/g との違いは何ですか？",
+      "周波数帯で何が変わりますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "802.11ac はどの周波数帯を使いますか？",
+        "answer": "5GHz 帯を使う。"
+      },
+      {
+        "question": "Bluetooth や 11b/g との違いは何ですか？",
+        "answer": "それらは 2.4GHz 帯を使う点が大きな違いである。"
+      },
+      {
+        "question": "周波数帯で何が変わりますか？",
+        "answer": "利用可能帯域、混雑のしやすさ、到達特性などが変わる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "ed6f89425a82600b",
+    "explanationText": [
+      "間違い。\n\nOpenFlow はコントローラの処理フロー定義ではなく、コントローラとネットワーク機器間で転送制御情報をやり取りするプロトコルである。",
+      "正しい。\n\nOpenFlow では、ネットワーク機器がデータ転送を行うためのフロー情報をコントローラが集中管理し、各機器へ配布する。",
+      "間違い。\n\nアプリケーションが使うのは通常ノースバウンドインタフェースであり、サウスバウンドインタフェースではない。",
+      "間違い。\n\nアプリケーションはネットワーク機器へ直接指示せず、コントローラ経由で制御する。"
+    ],
+    "suggestedQuestions": [
+      "OpenFlow の役割は何ですか？",
+      "ノースバウンドとサウスバウンドの違いは何ですか？",
+      "SDN の利点は何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "OpenFlow の役割は何ですか？",
+        "answer": "コントローラがスイッチへ転送ルールを与え、データプレーンを制御するための手段である。"
+      },
+      {
+        "question": "ノースバウンドとサウスバウンドの違いは何ですか？",
+        "answer": "ノースバウンドはアプリとコントローラ間、サウスバウンドはコントローラと機器間のインタフェースである。"
+      },
+      {
+        "question": "SDN の利点は何ですか？",
+        "answer": "ネットワーク制御を集中化し、自動化や柔軟なポリシー変更をしやすくする。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "fdd58fb6d6525e8e",
+    "explanationText": [
+      "間違い。\n\n21 番は FTP 制御接続の既定ポートだが、この URL のスキームは https なので対象ではない。",
+      "間違い。\n\n80 番は HTTP の既定ポートであり、https 指定時には使わない。",
+      "間違い。\n\n?port=123 はクエリ文字列であり、接続先ポート指定ではない。",
+      "正しい。\n\nURL のスキームが https で、ポート番号を明示していないため、Web ブラウザは既定の TCP 443 番へ接続する。"
+    ],
+    "suggestedQuestions": [
+      "URL でポート番号を指定する書き方は何ですか？",
+      "クエリ文字列は何を表しますか？",
+      "https の既定ポートは何番ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "URL でポート番号を指定する書き方は何ですか？",
+        "answer": "https://example.jp:8443/ のようにホスト名の後へ :ポート番号 を書く。"
+      },
+      {
+        "question": "クエリ文字列は何を表しますか？",
+        "answer": "アプリケーションへ渡すパラメータであり、接続先ポート指定とは別である。"
+      },
+      {
+        "question": "https の既定ポートは何番ですか？",
+        "answer": "443 番である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "89de89a06bc80605",
+    "explanationText": [
+      "間違い。\n\nWebSocket は XML に限定されず、テキストやバイナリを扱える。",
+      "間違い。\n\nWebSocket の URI スキームは ws または wss であり、http/https ではない。",
+      "間違い。\n\n接続開始要求はクライアント側から行う。サーバが一方的に接続開始を要求するわけではない。",
+      "正しい。\n\nWebSocket は HTTP の GET リクエストと Upgrade ヘッダを使ってハンドシェイクを始め、接続確立後は双方向通信を行う。"
+    ],
+    "suggestedQuestions": [
+      "WebSocket の開始手順は何ですか？",
+      "ws と wss の違いは何ですか？",
+      "HTTP と何が違いますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "WebSocket の開始手順は何ですか？",
+        "answer": "まず HTTP GET で Upgrade を要求し、サーバ応答で WebSocket へ切り替える。"
+      },
+      {
+        "question": "ws と wss の違いは何ですか？",
+        "answer": "ws は平文、wss は TLS による暗号化付きである。"
+      },
+      {
+        "question": "HTTP と何が違いますか？",
+        "answer": "接続確立後に双方向で継続的なメッセージ交換がしやすい点が大きく異なる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "7baaf4174baa69ac",
+    "explanationText": [
+      "間違い。\n\nHTTP GET を大量送信するのは HTTP GET Flood であり、ICMP Flood ではない。",
+      "正しい。\n\nping による大量の ICMP Echo Request を送り、回線やサーバを過負荷にする攻撃は ICMP Flood に該当する。",
+      "間違い。\n\n大量の SYN パケット送信は SYN Flood の説明である。",
+      "間違い。\n\n多数の TCP コネクションを維持するのは Connection Flood や Slow 系攻撃の説明である。"
+    ],
+    "suggestedQuestions": [
+      "ICMP Flood とは何ですか？",
+      "SYN Flood との違いは何ですか？",
+      "どこに負荷が掛かりますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ICMP Flood とは何ですか？",
+        "answer": "大量の ICMP パケットで回線や相手装置の処理資源を消費させる妨害攻撃である。"
+      },
+      {
+        "question": "SYN Flood との違いは何ですか？",
+        "answer": "前者は ICMP を、後者は TCP 接続開始処理を悪用する。"
+      },
+      {
+        "question": "どこに負荷が掛かりますか？",
+        "answer": "サーバ本体だけでなく、そこへ至るネットワーク回線や中継装置にも負荷が掛かる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "e3ff1e0076d0c17c",
+    "explanationText": [
+      "間違い。\n\nEAP-FAST はトンネル内で認証する方式だが、クライアント証明書必須ではない。",
+      "間違い。\n\nEAP-MD5 はチャレンジレスポンスによる認証であり、クライアント証明書を用いない。",
+      "正しい。\n\nEAP-TLS は TLS を利用してクライアント証明書とサーバ証明書による相互認証を行う。",
+      "間違い。\n\nEAP-TTLS はサーバ証明書でトンネルを張った後、クライアント側は別方式で認証でき、クライアント証明書必須ではない。"
+    ],
+    "suggestedQuestions": [
+      "EAP-TLS の特徴は何ですか？",
+      "EAP-TTLS との違いは何ですか？",
+      "なぜクライアント証明書が必要ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "EAP-TLS の特徴は何ですか？",
+        "answer": "TLS を使った相互認証を行い、クライアント側も証明書を提示する。"
+      },
+      {
+        "question": "EAP-TTLS との違いは何ですか？",
+        "answer": "EAP-TTLS は通常サーバ証明書でトンネルを張り、クライアント認証は別方式でも行える。"
+      },
+      {
+        "question": "なぜクライアント証明書が必要ですか？",
+        "answer": "端末や利用者の正当性を強く確認でき、パスワード依存を減らせるからである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "61b389bafe9afcb3",
+    "explanationText": [
+      "間違い。\n\nContent-Security-Policy は読込み元制限などを指定するヘッダであり、HTTPS 接続を一定期間強制する役目ではない。",
+      "正しい。\n\nStrict-Transport-Security は HSTS 用ヘッダであり、ブラウザに対して指定期間そのサイトへ HTTPS でのみアクセスするよう指示する。",
+      "間違い。\n\nX-Content-Type-Options は MIME スニッフィング制御用であり、HTTPS 強制ではない。",
+      "間違い。\n\nX-XSS-Protection は古いブラウザ向け XSS フィルタ制御用であり、HTTPS 強制機能ではない。"
+    ],
+    "suggestedQuestions": [
+      "HSTS は何を防ぎますか？",
+      "Strict-Transport-Security には何を書きますか？",
+      "CSP との違いは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "HSTS は何を防ぎますか？",
+        "answer": "利用者が HTTP へ降格させられることや、中間者による HTTPS 回避のリスクを減らす。"
+      },
+      {
+        "question": "Strict-Transport-Security には何を書きますか？",
+        "answer": "有効期間 max-age や includeSubDomains などの属性を書く。"
+      },
+      {
+        "question": "CSP との違いは何ですか？",
+        "answer": "HSTS は HTTPS 強制、CSP は読込み元やスクリプト実行元の制御である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "4b9684e7ec4f4aff",
+    "explanationText": [
+      "正しい。\n\nESP のトンネルモードでは、元の IP ヘッダを含む IP パケット全体を暗号化し、その外側へ新しい IP ヘッダを付加して送ることができる。",
+      "間違い。\n\nIKE は通常 UDP 500 番などを使用して鍵交換を行い、80 番ではない。",
+      "間違い。\n\nHMAC-SHA1 は完全性保護や認証用であり、暗号化アルゴリズムそのものではない。",
+      "間違い。\n\n認証や暗号化アルゴリズムの合意は IKE で行い、AH を使うから決められるというものではない。"
+    ],
+    "suggestedQuestions": [
+      "ESP トンネルモードは何を暗号化しますか？",
+      "IKE の役割は何ですか？",
+      "AH と ESP の違いは何ですか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ESP トンネルモードは何を暗号化しますか？",
+        "answer": "元の IP パケット全体をペイロードとして包み、内部ヘッダを含めて暗号化できる。"
+      },
+      {
+        "question": "IKE の役割は何ですか？",
+        "answer": "鍵交換や暗号スイートの合意、SA の確立を行う。"
+      },
+      {
+        "question": "AH と ESP の違いは何ですか？",
+        "answer": "AH は認証中心、ESP は暗号化と認証を提供できる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  },
+  {
+    "original_question_id": "da767aff471f3792",
+    "explanationText": [
+      "間違い。\n\n証明書には FQDN を記載できるため、IP アドレス変更だけで常に再取得が必須とはいえない。",
+      "間違い。\n\nTLS の共通鍵長は 128 ビット未満で任意に指定するものではない。",
+      "正しい。\n\n個人認証用のデジタル証明書は IC カードなどへ格納して持ち運べるため、特定の PC に固定せず利用できる。",
+      "間違い。\n\nTLS は安全な通信路を提供するプロトコルであり、必ずしも事前の利用者登録を前提としない。"
+    ],
+    "suggestedQuestions": [
+      "個人認証用証明書はどこに格納できますか？",
+      "サーバ証明書とクライアント証明書の違いは何ですか？",
+      "TLS は何を提供しますか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "個人認証用証明書はどこに格納できますか？",
+        "answer": "IC カード、USB トークン、OS の証明書ストアなどに格納できる。"
+      },
+      {
+        "question": "サーバ証明書とクライアント証明書の違いは何ですか？",
+        "answer": "前者はサーバ認証、後者は利用者や端末の認証に使う。"
+      },
+      {
+        "question": "TLS は何を提供しますか？",
+        "answer": "通信の暗号化、完全性保護、必要に応じた相手認証を提供する。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
+  }
+]
