@@ -1,0 +1,2446 @@
+{
+  "list_group_id": "201302",
+  "question_bodies": [
+    {
+      "questionBodyText": "桁落ちによる誤差の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "値のほぼ等しい二つの数値の差を求めたとき，有効桁数が減ることによって発生する誤差",
+        "指定された有効桁数で演算結果を表すために，切捨て，切上げ，四捨五入などで下位の桁を削除することによって発生する誤差",
+        "絶対値の非常に大きな数値と小さな数値の加算や減算を行ったとき，小さい数値が計算結果に反映されないことによって発生する誤差",
+        "無限級数で表される数値の計算処理を有限項で打ち切ったことによって発生する誤差"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 離散数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "離散数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "離散数学",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_1.html",
+      "public_question_id": "42e3137a588b46a0",
+      "original_question_id": "42e3137a588b46a0",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "桁落ち",
+        "-6"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。桁落ちの説明です。"
+        ],
+        [
+          "丸め誤差の説明です。"
+        ],
+        [
+          "情報落ちの説明です。"
+        ],
+        [
+          "打ち切り誤差の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201302:am:問1:https://www.nw-siken.com/kakomon/25_aki/am1_1.html",
+      "explanationText": [
+        "正しい。\n\n桁落ちは、ほぼ等しい値同士の減算で有効桁が失われ、結果の相対誤差が大きくなる現象である。",
+        "間違い。\n\n下位桁を切捨てや四捨五入で落とす説明は丸め誤差であり、桁落ちではない。",
+        "間違い。\n\n大きい値と小さい値の加減算で小さい値が反映されにくくなるのは情報落ちの説明である。",
+        "間違い。\n\n無限級数や反復計算を途中で打ち切ることで生じるのは打切り誤差である。"
+      ],
+      "suggestedQuestions": [
+        "桁落ちと情報落ちの違いは何ですか？",
+        "丸め誤差はどんなときに起こりますか？",
+        "桁落ちを避けるにはどうしますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "桁落ちと情報落ちの違いは何ですか？",
+          "answer": "桁落ちは近い値の減算で有効桁が減る現象、情報落ちは桁数差が大きい値の加減算で小さい値が埋もれる現象である。"
+        },
+        {
+          "question": "丸め誤差はどんなときに起こりますか？",
+          "answer": "有限桁で表すために切捨てや四捨五入を行い、真値を完全には保持できないときに起こる。"
+        },
+        {
+          "question": "桁落ちを避けるにはどうしますか？",
+          "answer": "式変形で近い値の差を直接求めないようにしたり、より高い精度で計算したりする。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "自然数をキーとするデータを，ハッシュ表を用いて管理する。キーxのハッシュ関数h(x)を\nh(x) = x mod nとすると，キーaとbが衝突する条件はどれか。ここで，nはハッシュ表の大きさであり，x mod nはxをnで割った余りを表す。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "a＋bがnの倍数",
+        "a－bがnの倍数",
+        "nがa＋bの倍数",
+        "nがa－bの倍数"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_2.html",
+      "public_question_id": "93a755f643064329",
+      "original_question_id": "93a755f643064329",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "a＋b＝78なので、12の倍数ではありません(×)。"
+        ],
+        [
+          "a－b＝24なので、12の倍数になっています(〇)。"
+        ],
+        [
+          "a＋b＝78なので、12は78の倍数ではありません(×)。"
+        ],
+        [
+          "a－b＝24なので、12は24の倍数ではありません(×)。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201302:am:問2:https://www.nw-siken.com/kakomon/25_aki/am1_2.html",
+      "explanationText": [
+        "間違い。\n\n和が n の倍数でも余りが一致するとは限らないので、衝突条件にはならない。",
+        "正しい。\n\n衝突は h(a)=h(b) を意味するので a mod n = b mod n、すなわち a-b が n の倍数である。",
+        "間違い。\n\nn が a+b の倍数である条件は、余りの一致とは直接結び付かない。",
+        "間違い。\n\nn が a-b の倍数という向きでは条件が逆であり、必要条件になっていない。"
+      ],
+      "suggestedQuestions": [
+        "ハッシュの衝突とは何ですか？",
+        "mod が同じになる条件は何ですか？",
+        "衝突したときはどう処理しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ハッシュの衝突とは何ですか？",
+          "answer": "異なるキーが同じハッシュ値に対応して、同じ格納位置へ割り当てられることをいう。"
+        },
+        {
+          "question": "mod が同じになる条件は何ですか？",
+          "answer": "二つの数の差が除数の倍数であれば、割った余りは一致する。"
+        },
+        {
+          "question": "衝突したときはどう処理しますか？",
+          "answer": "連鎖法やオープンアドレス法などで、同じ位置に集まった要素を区別して保持する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "未整列の配列a[i](i＝1，2，…，n)を，流れ図で示すアルゴリズムによって昇順に整列する。n＝6でa[1]～a[6]の値がそれぞれ，21，5，53，71，3，17の場合，流れ図において，a[j－1]とa[j]の値の入替えは何回行われるか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "3",
+        "6",
+        "8",
+        "15"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_3.html",
+      "public_question_id": "09ebfc5d646dcbee",
+      "original_question_id": "09ebfc5d646dcbee",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq09ebfc5d646dcbee_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "//初期の並び21，5，53，71，3，17\n===ループ1:i＝1===\n===ループ2:j＝6===\n3＞17＝No\n===ループ2:j＝5===\n71＞3＝Yes71と3を入れ替える…\n1\n===ループ2:j＝4===\n53＞3＝Yes53と3を入れ替える…\n2\n===ループ2:j＝3===\n5＞3＝Yes5と3を入れ替える…\n3\n===ループ2:j＝2===\n21＞3＝Yes21と3を入れ替える…\n4\n//j＝1となりループ2の繰り返しが終了\n//ここまでの並び3，21，5，53，71，17\n===ループ1:i＝2===\n===ループ2:j＝6===\n71＞17＝Yes71と17を入れ替える…\n5\n===ループ2:j＝5===\n53＞17＝Yes53と17を入れ替える…\n6\n===ループ2:j＝4===\n5＞17＝No\n===ループ2:j＝3===\n21＞5＝Yes21と5を入れ替える…\n7\n//j＝2となりループ2の繰り返しが終了\n//ここまでの並び3，5，21，17，53，71\n===ループ1:i＝3===\n===ループ2:j＝6===\n53＞71＝No\n===ループ2:j＝5===\n17＞53＝No\n===ループ2:j＝4===\n21＞17＝Yes21と17を入れ替える…\n8\n//j＝3となりループ2の繰り返しが終了\n//ここまでの並び3，5，17，21，53，71\n(以下省略)"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "//初期の並び21，5，53，71，3，17\n===ループ1:i＝1===\n===ループ2:j＝6===\n3＞17＝No\n===ループ2:j＝5===\n71＞3＝Yes71と3を入れ替える…\n1\n===ループ2:j＝4===\n53＞3＝Yes53と3を入れ替える…\n2\n===ループ2:j＝3===\n5＞3＝Yes5と3を入れ替える…\n3\n===ループ2:j＝2===\n21＞3＝Yes21と3を入れ替える…\n4\n//j＝1となりループ2の繰り返しが終了\n//ここまでの並び3，21，5，53，71，17\n===ループ1:i＝2===\n===ループ2:j＝6===\n71＞17＝Yes71と17を入れ替える…\n5\n===ループ2:j＝5===\n53＞17＝Yes53と17を入れ替える…\n6\n===ループ2:j＝4===\n5＞17＝No\n===ループ2:j＝3===\n21＞5＝Yes21と5を入れ替える…\n7\n//j＝2となりループ2の繰り返しが終了\n//ここまでの並び3，5，21，17，53，71\n===ループ1:i＝3===\n===ループ2:j＝6===\n53＞71＝No\n===ループ2:j＝5===\n17＞53＝No\n===ループ2:j＝4===\n21＞17＝Yes21と17を入れ替える…\n8\n//j＝3となりループ2の繰り返しが終了\n//ここまでの並び3，5，17，21，53，71\n(以下省略)\nここまでの処理で値が昇順に整列されたので入替え回数は8回が適切です。\n以下は整列される様子をアニメーションにしたものです。\nまた次のプログラムは設問のアルゴリズムをJavaScriptで実装したものです。"
+        ],
+        [
+          "//初期の並び21，5，53，71，3，17\n===ループ1:i＝1===\n===ループ2:j＝6===\n3＞17＝No\n===ループ2:j＝5===\n71＞3＝Yes71と3を入れ替える…\n1\n===ループ2:j＝4===\n53＞3＝Yes53と3を入れ替える…\n2\n===ループ2:j＝3===\n5＞3＝Yes5と3を入れ替える…\n3\n===ループ2:j＝2===\n21＞3＝Yes21と3を入れ替える…\n4\n//j＝1となりループ2の繰り返しが終了\n//ここまでの並び3，21，5，53，71，17\n===ループ1:i＝2===\n===ループ2:j＝6===\n71＞17＝Yes71と17を入れ替える…\n5\n===ループ2:j＝5===\n53＞17＝Yes53と17を入れ替える…\n6\n===ループ2:j＝4===\n5＞17＝No\n===ループ2:j＝3===\n21＞5＝Yes21と5を入れ替える…\n7\n//j＝2となりループ2の繰り返しが終了\n//ここまでの並び3，5，21，17，53，71\n===ループ1:i＝3===\n===ループ2:j＝6===\n53＞71＝No\n===ループ2:j＝5===\n17＞53＝No\n===ループ2:j＝4===\n21＞17＝Yes21と17を入れ替える…\n8\n//j＝3となりループ2の繰り返しが終了\n//ここまでの並び3，5，17，21，53，71\n(以下省略)\nここまでの処理で値が昇順に整列されたので入替え回数は8回が適切です。\n以下は整列される様子をアニメーションにしたものです。\nまた次のプログラムは設問のアルゴリズムをJavaScriptで実装したものです。"
+        ],
+        [
+          "//初期の並び21，5，53，71，3，17\n===ループ1:i＝1===\n===ループ2:j＝6===\n3＞17＝No\n===ループ2:j＝5===\n71＞3＝Yes71と3を入れ替える…\n1\n===ループ2:j＝4===\n53＞3＝Yes53と3を入れ替える…\n2\n===ループ2:j＝3===\n5＞3＝Yes5と3を入れ替える…\n3\n===ループ2:j＝2===\n21＞3＝Yes21と3を入れ替える…\n4\n//j＝1となりループ2の繰り返しが終了\n//ここまでの並び3，21，5，53，71，17\n===ループ1:i＝2===\n===ループ2:j＝6===\n71＞17＝Yes71と17を入れ替える…\n5\n===ループ2:j＝5===\n53＞17＝Yes53と17を入れ替える…\n6\n===ループ2:j＝4===\n5＞17＝No\n===ループ2:j＝3===\n21＞5＝Yes21と5を入れ替える…\n7\n//j＝2となりループ2の繰り返しが終了\n//ここまでの並び3，5，21，17，53，71\n===ループ1:i＝3===\n===ループ2:j＝6===\n53＞71＝No\n===ループ2:j＝5===\n17＞53＝No\n===ループ2:j＝4===\n21＞17＝Yes21と17を入れ替える…\n8\n//j＝3となりループ2の繰り返しが終了\n//ここまでの並び3，5，17，21，53，71\n(以下省略)\nここまでの処理で値が昇順に整列されたので入替え回数は8回が適切です。\n以下は整列される様子をアニメーションにしたものです。\nまた次のプログラムは設問のアルゴリズムをJavaScriptで実装したものです。"
+        ],
+        [
+          "//初期の並び21，5，53，71，3，17\n===ループ1:i＝1===\n===ループ2:j＝6===\n3＞17＝No\n===ループ2:j＝5===\n71＞3＝Yes71と3を入れ替える…\n1\n===ループ2:j＝4===\n53＞3＝Yes53と3を入れ替える…\n2\n===ループ2:j＝3===\n5＞3＝Yes5と3を入れ替える…\n3\n===ループ2:j＝2===\n21＞3＝Yes21と3を入れ替える…\n4\n//j＝1となりループ2の繰り返しが終了\n//ここまでの並び3，21，5，53，71，17\n===ループ1:i＝2===\n===ループ2:j＝6===\n71＞17＝Yes71と17を入れ替える…\n5\n===ループ2:j＝5===\n53＞17＝Yes53と17を入れ替える…\n6\n===ループ2:j＝4===\n5＞17＝No\n===ループ2:j＝3===\n21＞5＝Yes21と5を入れ替える…\n7\n//j＝2となりループ2の繰り返しが終了\n//ここまでの並び3，5，21，17，53，71\n===ループ1:i＝3===\n===ループ2:j＝6===\n53＞71＝No\n===ループ2:j＝5===\n17＞53＝No\n===ループ2:j＝4===\n21＞17＝Yes21と17を入れ替える…\n8\n//j＝3となりループ2の繰り返しが終了\n//ここまでの並び3，5，17，21，53，71\n(以下省略)\nここまでの処理で値が昇順に整列されたので入替え回数は8回が適切です。\n以下は整列される様子をアニメーションにしたものです。\nまた次のプログラムは設問のアルゴリズムをJavaScriptで実装したものです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問3:https://www.nw-siken.com/kakomon/25_aki/am1_3.html",
+      "explanationText": [
+        "間違い。\n\n1 回目の外側ループだけで既に 4 回入れ替わるため、3 回では足りない。",
+        "間違い。\n\n2 回目の外側ループ終了時点で 7 回となるので、6 回では足りない。",
+        "正しい。\n\nバブルソート型に追うと、1 周目で 4 回、2 周目で 3 回、3 周目で 1 回入れ替わり、合計 8 回で整列が完了する。",
+        "間違い。\n\n15 回は比較回数に近い値であり、実際の交換回数ではない。"
+      ],
+      "suggestedQuestions": [
+        "この流れ図はどの整列法ですか？",
+        "交換回数と比較回数は何が違いますか？",
+        "1 周目で何が起きていますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "この流れ図はどの整列法ですか？",
+          "answer": "隣接要素を比較しながら順次入れ替えていくバブルソート型の整列である。"
+        },
+        {
+          "question": "交換回数と比較回数は何が違いますか？",
+          "answer": "比較は大小判定を行った回数、交換回数は実際に要素を入れ替えた回数である。"
+        },
+        {
+          "question": "1 周目で何が起きていますか？",
+          "answer": "最小値 3 が左へ順に移動し、先頭まで押し上げられている。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒のキャッシュメモリと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶とキャッシュメモリとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたいデータがキャッシュメモリに\n存在しない確率\nをrとし，キャッシュメモリ管理に関するオーバーヘッドは無視できるものとする。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(1－r)・aa＋b\n・x＋\nr・ba＋b\n・y",
+        "(1－r)・x＋r・y",
+        "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
+        "r・x＋(1－r)・y"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_4.html",
+      "public_question_id": "28b90bc7a4adf17f",
+      "original_question_id": "28b90bc7a4adf17f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "キャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201302:am:問4:https://www.nw-siken.com/kakomon/25_aki/am1_4.html",
+      "explanationText": [
+        "間違い。\n\n容量比で重み付けしており、キャッシュヒット確率 r を反映していない。平均アクセス時間の式ではない。",
+        "正しい。\n\nキャッシュにある確率は 1-r で時間 x、ない確率は r で主記憶時間 y が掛かるので平均は (1-r)x+ry である。",
+        "間違い。\n\nこれも容量比を使っており、ヒット率とミス率の考え方になっていない。",
+        "間違い。\n\nr はキャッシュに存在しない確率なので、係数の掛け先が逆である。"
+      ],
+      "suggestedQuestions": [
+        "キャッシュミス率 r は何を表しますか？",
+        "平均アクセス時間はどう考えますか？",
+        "この式でオーバーヘッドを無視するのはなぜですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "キャッシュミス率 r は何を表しますか？",
+          "answer": "CPU が参照したデータがキャッシュに存在せず、主記憶アクセスが必要になる確率を表す。"
+        },
+        {
+          "question": "平均アクセス時間はどう考えますか？",
+          "answer": "各事象の発生確率に、その事象で掛かる時間を掛けて合計する期待値で求める。"
+        },
+        {
+          "question": "この式でオーバーヘッドを無視するのはなぜですか？",
+          "answer": "設問がキャッシュ管理の付加処理を考えない前提なので、ヒット時 x とミス時 y だけで平均化できる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "フェールセーフの考え方として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "システムに障害が発生したときでも，常に安全側にシステムを制御する。",
+        "システムの機能に異常が発生したときに，すぐにシステムを停止しないで機能を縮退させて運用を継続する。",
+        "システムを構成する要素のうち，信頼性に大きく影響するものを複数備えることによって，システムの信頼性を高める。",
+        "不特定多数の人が操作しても，誤動作が起こりにくいように設計する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_5.html",
+      "public_question_id": "a81b817d7cc9e41c",
+      "original_question_id": "a81b817d7cc9e41c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "フェールセーフ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。フェールセーフの考え方です。"
+        ],
+        [
+          "障害発生時に縮退運転を行うフェールソフトの考え方です。"
+        ],
+        [
+          "冗長構成によって耐障害性を高めるフォールトトレラントの考え方です。"
+        ],
+        [
+          "フールプルーフの考え方です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201302:am:問5:https://www.nw-siken.com/kakomon/25_aki/am1_5.html",
+      "explanationText": [
+        "正しい。\n\nフェールセーフは故障時でも危険側へ進まないよう、安全側の状態へ制御する考え方である。",
+        "間違い。\n\n機能を縮退させながら運転継続を図るのはフェールソフトの考え方である。",
+        "間違い。\n\n重要要素を冗長化して信頼性を高めるのはフォールトトレラントの説明である。",
+        "間違い。\n\n誰が操作しても誤操作しにくくする設計はフールプルーフである。"
+      ],
+      "suggestedQuestions": [
+        "フェールセーフとフェールソフトの違いは何ですか？",
+        "フォールトトレラントは何を狙いますか？",
+        "フールプルーフとは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "フェールセーフとフェールソフトの違いは何ですか？",
+          "answer": "フェールセーフは安全を優先して停止や遮断へ寄せ、フェールソフトは機能を縮退させて運用継続を図る。"
+        },
+        {
+          "question": "フォールトトレラントは何を狙いますか？",
+          "answer": "一部の故障が起きても全体サービスを継続できるよう、冗長化などで耐障害性を高める。"
+        },
+        {
+          "question": "フールプルーフとは何ですか？",
+          "answer": "利用者の誤操作を前提に、危険や誤動作が起きにくいよう設計する考え方である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "稼働率がa(0＜a＜1)の装置三つを用いて図のようにシステムを設計するとき，システムの稼働率が装置単体の稼働率を上回るものはどれか。ここで，並列に接続されている部分は，いずれかの経路が稼働していればシステムは稼働しているものとする。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "AとB",
+        "AとC",
+        "BとC",
+        "全て"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_6.html",
+      "public_question_id": "cc41538e69e46064",
+      "original_question_id": "cc41538e69e46064",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqcc41538e69e46064_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "1－(1－0.9)\n3\n＝1－0.13\n＝\n0.9990.9×(1－(1－0.9)\n2\n)＝0.9×0.99＝0.8911－(1－0.9)(1－0.92\n)＝1－0.1×0.19＝\n0.981"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "装置の稼働率として仮の値\"0.9\"を当てはめて各システムの稼働率を計算します。1－(1－0.9)\n3\n＝1－0.13\n＝\n0.9990.9×(1－(1－0.9)\n2\n)＝0.9×0.99＝0.8911－(1－0.9)(1－0.92\n)＝1－0.1×0.19＝\n0.981したがって単体での稼働率より高くなるシステムは「AとC」になります。"
+        ],
+        [
+          "装置の稼働率として仮の値\"0.9\"を当てはめて各システムの稼働率を計算します。1－(1－0.9)\n3\n＝1－0.13\n＝\n0.9990.9×(1－(1－0.9)\n2\n)＝0.9×0.99＝0.8911－(1－0.9)(1－0.92\n)＝1－0.1×0.19＝\n0.981したがって単体での稼働率より高くなるシステムは「AとC」になります。"
+        ],
+        [
+          "装置の稼働率として仮の値\"0.9\"を当てはめて各システムの稼働率を計算します。1－(1－0.9)\n3\n＝1－0.13\n＝\n0.9990.9×(1－(1－0.9)\n2\n)＝0.9×0.99＝0.8911－(1－0.9)(1－0.92\n)＝1－0.1×0.19＝\n0.981したがって単体での稼働率より高くなるシステムは「AとC」になります。"
+        ],
+        [
+          "装置の稼働率として仮の値\"0.9\"を当てはめて各システムの稼働率を計算します。1－(1－0.9)\n3\n＝1－0.13\n＝\n0.9990.9×(1－(1－0.9)\n2\n)＝0.9×0.99＝0.8911－(1－0.9)(1－0.92\n)＝1－0.1×0.19＝\n0.981したがって単体での稼働率より高くなるシステムは「AとC」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201302:am:問6:https://www.nw-siken.com/kakomon/25_aki/am1_6.html",
+      "explanationText": [
+        "間違い。\n\nA は 1-(1-a)^3 で単体より高いが、B は a{1-(1-a)^2} となり 0<a<1 では単体 a を下回るので、A と B ではない。",
+        "正しい。\n\nA は並列化で単体より高く、C も 1-(1-a)(1-a^2) となって単体より高い。一方 B だけが単体より低くなるので A と C が適切である。",
+        "間違い。\n\nB は直列部分を含むため単体稼働率を下回り、B と C の組合せは成り立たない。",
+        "間違い。\n\n全てではない。B が単体稼働率より高くならないためである。"
+      ],
+      "suggestedQuestions": [
+        "直列接続と並列接続の稼働率はどう求めますか？",
+        "なぜ B だけ単体より低くなりますか？",
+        "0.9 を代入して確かめてもよいですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "直列接続と並列接続の稼働率はどう求めますか？",
+          "answer": "直列は各要素が同時稼働する必要があるので積、並列は全停止確率を 1 から引いて求める。"
+        },
+        {
+          "question": "なぜ B だけ単体より低くなりますか？",
+          "answer": "B は並列部分の前後に直列条件が掛かる構造で、単体 a をさらに掛けるため値が下がる。"
+        },
+        {
+          "question": "0.9 を代入して確かめてもよいですか？",
+          "answer": "よい。0.9 を入れると A=0.999、B=0.891、C=0.981 となり大小関係を素早く確認できる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs06_01_system_evaluation"
+    },
+    {
+      "questionBodyText": "記憶領域の動的な割当て及び解放を繰り返すことによって，どこからも利用されない記憶領域が発生することがある。このような記憶領域を再び利用可能にする機能はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ガーベジコレクション",
+        "スタック",
+        "ヒープ",
+        "フラグメンテーション"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_7.html",
+      "public_question_id": "43e4db983b69522a",
+      "original_question_id": "43e4db983b69522a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ガーベジコレクション"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。ガーベジコレクションは、記憶領域上の不要な部分を自動で回収してまわり、再利用できるようにする機能です。"
+        ],
+        [
+          "スタックは、後入先出し方式でデータを入出力するデータ記憶構造です。"
+        ],
+        [
+          "ヒープは、プログラム上から動的(任意)に確保できるメモリ領域です。"
+        ],
+        [
+          "フラグメンテーションは、実行されるプログラムに対して記憶領域を区画して割り当てた結果として生じる、主記憶上の断片的な未使用領域です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201302:am:問7:https://www.nw-siken.com/kakomon/25_aki/am1_7.html",
+      "explanationText": [
+        "正しい。\n\nガーベジコレクションは、参照されなくなった領域を回収して再利用可能にする機能である。",
+        "間違い。\n\nスタックは関数呼出しなどで使う記憶構造であり、未使用領域を回収する機能ではない。",
+        "間違い。\n\nヒープは動的確保に使う記憶域の名称であって、回収処理そのものではない。",
+        "間違い。\n\nフラグメンテーションは断片化現象の名称であり、それを解消する機能名ではない。"
+      ],
+      "suggestedQuestions": [
+        "ガーベジコレクションは何を回収しますか？",
+        "ヒープとスタックの違いは何ですか？",
+        "フラグメンテーションとは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ガーベジコレクションは何を回収しますか？",
+          "answer": "どこからも参照されず、今後使われないオブジェクトや領域を回収する。"
+        },
+        {
+          "question": "ヒープとスタックの違いは何ですか？",
+          "answer": "スタックは呼出し順に自動管理される領域、ヒープは必要量を動的確保する自由度の高い領域である。"
+        },
+        {
+          "question": "フラグメンテーションとは何ですか？",
+          "answer": "確保と解放を繰り返すことで空き領域が細切れに分散し、使いにくくなる現象である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "SRAMと比較した場合のDRAMの特徴はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "主にキャッシュメモリとして使用される。",
+        "データを保持するためのリフレッシュ又はアクセス動作が不要である。",
+        "メモリセル構成が単純なので，ビット当たりの単価が安くなる。",
+        "メモリセルにフリップフロップを用いてデータを保存する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_8.html",
+      "public_question_id": "07de2bd0fc083be0",
+      "original_question_id": "07de2bd0fc083be0",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "DRAM"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "DRAMは主記憶として使用されています。キャッシュメモリには、アクセス速度がより速いSRAMが使用されています。"
+        ],
+        [
+          "DRAMは蓄えた電荷の有無で情報を保持するコンデンサによって記憶を行います。また、アクセス時には電荷の有無の情報が破壊されるので、再書き込みの動作が行われます。そして、コンデンサに蓄えた電荷は時間がたつと失われてしまうためにリフレッシュ操作を随時行う、もしくはアクセスする必要があります。"
+        ],
+        [
+          "正しい。SRAMの1ビットはトランジスタが4個以上と面積が大きいですが、DRAMの1ビットはトランジスタ1個とコンデンサ1個で構成されており小面積で済みます。これによりDRAMのビット当たりの単価はSRAMよりも安くなります。"
+        ],
+        [
+          "フリップフロップを用いるのはSRAMです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問8:https://www.nw-siken.com/kakomon/25_aki/am1_8.html",
+      "explanationText": [
+        "間違い。\n\n主にキャッシュメモリに使われるのは高速な SRAM 側である。",
+        "間違い。\n\nDRAM は電荷が自然に失われるため、リフレッシュが必要である。",
+        "正しい。\n\nDRAM は 1 ビット当たりのセル構成が単純で高密度化しやすく、単価を低く抑えやすい。",
+        "間違い。\n\nフリップフロップで保持するのは SRAM の方式である。"
+      ],
+      "suggestedQuestions": [
+        "DRAM にリフレッシュが必要なのはなぜですか？",
+        "SRAM はどこで使われますか？",
+        "DRAM が安い理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "DRAM にリフレッシュが必要なのはなぜですか？",
+          "answer": "コンデンサに蓄えた電荷が時間とともに失われるため、定期的な再書込みが必要である。"
+        },
+        {
+          "question": "SRAM はどこで使われますか？",
+          "answer": "高速性が重要な CPU キャッシュなどでよく使われる。"
+        },
+        {
+          "question": "DRAM が安い理由は何ですか？",
+          "answer": "セル構成が単純で同じ面積に多くのビットを載せやすく、製造コストを下げやすいからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "クライアントサーバシステムにおけるストアドプロシージャに関する記述のうち，\n誤っているもの\nはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "機密性の高いデータに対する処理を特定のプロシージャ呼出しに限定することによって，セキュリティを向上させることができる。",
+        "システム全体に共通な処理をプロシージャとして格納することによって，処理の標準化を行うことができる。",
+        "データベースへのアクセスを細かい単位でプロシージャ化することによって，処理性能(スループット)を向上させることができる。",
+        "複数のSQL文から成る手続を1回の呼出しで実行できるので，クライアントとサーバ間の通信回数を減らすことができる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_9.html",
+      "public_question_id": "dfff39e065abf82e",
+      "original_question_id": "dfff39e065abf82e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_incorrect",
+      "correctChoiceText": [
+        "正しい",
+        "正しい",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ストアドプロシージャ",
+        "適切でないもの"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。ストアドプロシージャ呼出しに限定すれば、ユーザーはあらかじめ許可された操作しか行えなくなります。ユーザーが任意のSQLを実行してデータにアクセスすることを防止できるので、機密性の高いデータの保護につながります。"
+        ],
+        [
+          "正しい。ストアドプロシージャは一度定義すれば再利用が可能で、システム内で同様の処理を行う際に一貫性を保つことができます。これにより、処理の標準化が図られ、保守性や信頼性が向上します。"
+        ],
+        [
+          "誤った記述なので正解です\n。細かな単位ではなく、適切な大きさで処理をまとめたほうが通信のオーバーヘッドが減って処理性能は向上します。データベースのアクセスを細かい単位でプロシージャ化すると、個々のプロシージャが頻繁に呼び出されることになり、サーバとクライアント間の通信回数が増え、結果的にスループットが低下する可能性が高いです。"
+        ],
+        [
+          "正しい。ストアドプロシージャを使用することで、複数のSQL文を1回の呼出しで実行可能となるため、サーバとクライアント間の通信を抑えることができます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問9:https://www.nw-siken.com/kakomon/25_aki/am1_9.html",
+      "explanationText": [
+        "正しい。\n\n特定プロシージャ経由に限定すれば、直接テーブル操作を減らせるため、権限制御に有効である。",
+        "正しい。\n\n共通処理をサーバ側へ集約できるため、処理の標準化や保守性向上に役立つ。",
+        "間違い。\n\nアクセスを細かく分け過ぎると呼出し回数が増え、かえって通信や実行のオーバーヘッドが増える。常にスループット向上になるとはいえない。",
+        "正しい。\n\n複数 SQL を一括実行できるため、クライアントとサーバ間の往復回数を減らしやすい。"
+      ],
+      "suggestedQuestions": [
+        "ストアドプロシージャの利点は何ですか？",
+        "なぜ細かく分けすぎると不利ですか？",
+        "セキュリティ向上にどう効きますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ストアドプロシージャの利点は何ですか？",
+          "answer": "共通処理の集約、通信回数削減、権限制御の集中化などが主な利点である。"
+        },
+        {
+          "question": "なぜ細かく分けすぎると不利ですか？",
+          "answer": "小さな手続を何度も呼ぶ構成では、呼出し回数や往復回数が増え、性能向上どころか負荷増になることがある。"
+        },
+        {
+          "question": "セキュリティ向上にどう効きますか？",
+          "answer": "テーブルへの直接更新を避け、許可した手続だけを呼ばせることでアクセス権を絞り込める。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "関係を第2正規形から第3正規形に変換する手順はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "候補キー以外の属性から，候補キーの一部の属性に対して関数従属性がある場合，その関係を分解する。",
+        "候補キー以外の属性間に関数従属性がある場合，その関係を分解する。",
+        "候補キーの一部の属性から，候補キー以外の属性への関数従属性がある場合，その関係を分解する。",
+        "一つの属性に複数の値が入っている場合，単一の値になるように分解する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » データベース設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データベース設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データベース設計",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_10.html",
+      "public_question_id": "f029e0bdc193a8bb",
+      "original_question_id": "f029e0bdc193a8bb",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "第1正規化\n繰り返し項目や集合値をもつ属性を排除し、全ての属性が単一値から成るようにする\n第2正規化\n主キーの一部に関数従属\n※\nする属性を別表に分離する\n第3正規化\n非キー属性に関数従属する属性を別表に分離する",
+        "受注ID"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ボイスコッド正規形への変換手順です。"
+        ],
+        [
+          "正しい。第3正規形への変換手順です。"
+        ],
+        [
+          "第2正規形への変換手順です。"
+        ],
+        [
+          "第1正規形への変換手順です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201302:am:問10:https://www.nw-siken.com/kakomon/25_aki/am1_10.html",
+      "explanationText": [
+        "間違い。\n\nこれは主キーの一部にだけ依存する属性を分離する第 2 正規形への変換の考え方である。",
+        "正しい。\n\n第 3 正規形では、候補キー以外の属性どうしの推移的関数従属を取り除くため、非キー属性間の従属があれば分解する。",
+        "間違い。\n\n候補キーの一部から非キー属性への従属を除くのは第 2 正規形化の対象である。",
+        "間違い。\n\n属性値を単一値へするのは第 1 正規形の話であり、第 3 正規形化ではない。"
+      ],
+      "suggestedQuestions": [
+        "第 2 正規形と第 3 正規形の違いは何ですか？",
+        "推移的関数従属とは何ですか？",
+        "第 1 正規形では何を直しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "第 2 正規形と第 3 正規形の違いは何ですか？",
+          "answer": "第 2 正規形は部分関数従属の排除、第 3 正規形は非キー属性間の推移的従属の排除を目的とする。"
+        },
+        {
+          "question": "推移的関数従属とは何ですか？",
+          "answer": "キーから非キー属性 A が決まり、その A から別の非キー属性 B が決まるような従属関係である。"
+        },
+        {
+          "question": "第 1 正規形では何を直しますか？",
+          "answer": "繰返し項目や複数値を持つ属性をやめ、各属性を単一値へ整える。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "IPv4ネットワークで用いられる可変長サブネットマスクとして，正しいものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "255.255.255.1",
+        "255.255.255.32",
+        "255.255.255.64",
+        "255.255.255.128"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_11.html",
+      "public_question_id": "c6e87992015daa38",
+      "original_question_id": "c6e87992015daa38",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "可変長サブネットマスク"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "1\n(10)\n＝00000001\n(2)\n0の後に再び1が来るので不適切です。"
+        ],
+        [
+          "32\n(10)\n＝00100000\n(2)\n0の後に再び1が来るので不適切です。"
+        ],
+        [
+          "64\n(10)\n＝01000000\n(2)\n0の後に再び1が来るので不適切です。"
+        ],
+        [
+          "128\n(10)\n＝10000000\n(2)\nサブネットマスクとして適切です\n。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201302:am:問11:https://www.nw-siken.com/kakomon/25_aki/am1_11.html",
+      "explanationText": [
+        "間違い。\n\nサブネットマスクは 1 が連続した後に 0 が続く形でなければならず、末尾だけ 1 の形は無効である。",
+        "間違い。\n\n32 は 00100000 に相当し、1 が連続して並ぶ形式になっていない。",
+        "間違い。\n\n64 は 01000000 に相当し、先頭から連続した 1 ではないのでサブネットマスクとして使えない。",
+        "正しい。\n\n255.255.255.128 は 11111111.11111111.11111111.10000000 で、1 の連続後に 0 が続く正しい形式である。"
+      ],
+      "suggestedQuestions": [
+        "サブネットマスクの形に条件はありますか？",
+        "255.255.255.128 は何ビットマスクですか？",
+        "なぜ 255.255.255.64 はだめですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "サブネットマスクの形に条件はありますか？",
+          "answer": "左から 1 が連続し、その後ろが全て 0 になる連続ビット列でなければならない。"
+        },
+        {
+          "question": "255.255.255.128 は何ビットマスクですか？",
+          "answer": "最後のオクテットが 10000000 なので /25 である。"
+        },
+        {
+          "question": "なぜ 255.255.255.64 はだめですか？",
+          "answer": "最後のオクテットが 01000000 で、1 が途中から現れるため連続 1 の条件を満たさない。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "IPネットワークのプロトコルのうち，OSI基本参照モデルのトランスポート層に位置するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "HTTP",
+        "ICMP",
+        "SMTP",
+        "UDP"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_12.html",
+      "public_question_id": "7adfaf4ba672aea1",
+      "original_question_id": "7adfaf4ba672aea1",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "UDP",
+        "トランスポート層"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "HyperText Transfer Protocolの略。WebブラウザとWebサーバ間のHTMLの送受信に使われるプロトコルで、アプリケーション層に位置します。"
+        ],
+        [
+          "Internet Control Message Protocolの略。インターネット制御通知のプロトコルで、ネットワーク層に位置します。"
+        ],
+        [
+          "Simple Mail Transfer Protocolの略。メール転送のためのプロトコルで、アプリケーション層に位置します。"
+        ],
+        [
+          "正しい。UDPはトランスポート層のプロトコルです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201302:am:問12:https://www.nw-siken.com/kakomon/25_aki/am1_12.html",
+      "explanationText": [
+        "間違い。\n\nHTTP はアプリケーション層のプロトコルである。",
+        "間違い。\n\nICMP は IP と同じくネットワーク層で用いられる制御プロトコルである。",
+        "間違い。\n\nSMTP は電子メール送信のためのアプリケーション層プロトコルである。",
+        "正しい。\n\nUDP はポート番号を用いてアプリケーション間の通信を仲介するトランスポート層プロトコルである。"
+      ],
+      "suggestedQuestions": [
+        "トランスポート層の役割は何ですか？",
+        "UDP と TCP の違いは何ですか？",
+        "ICMP はどの層ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "トランスポート層の役割は何ですか？",
+          "answer": "端末間ではなく、端末内のアプリケーション同士を識別してデータを受け渡す役割を持つ。"
+        },
+        {
+          "question": "UDP と TCP の違いは何ですか？",
+          "answer": "UDP は接続確立や再送制御を持たない軽量方式、TCP は信頼性制御を備えた接続型方式である。"
+        },
+        {
+          "question": "ICMP はどの層ですか？",
+          "answer": "IP と同じネットワーク層で、到達不可やエコー要求などの制御通知に使われる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "デジタル署名において，発信者がメッセージのハッシュ値からデジタル署名を生成するのに使う鍵はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "受信者の公開鍵",
+        "受信者の秘密鍵",
+        "発信者の公開鍵",
+        "発信者の秘密鍵"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_13.html",
+      "public_question_id": "ed6d7b17945f0b32",
+      "original_question_id": "ed6d7b17945f0b32",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\n手順1のとおり、デジタル署名はメッセージのハッシュ値に「送信者の秘密鍵」を使用した変換処理を行うことで生成されます。したがって「エ」が正解です。"
+        ],
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\n手順1のとおり、デジタル署名はメッセージのハッシュ値に「送信者の秘密鍵」を使用した変換処理を行うことで生成されます。したがって「エ」が正解です。"
+        ],
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\n手順1のとおり、デジタル署名はメッセージのハッシュ値に「送信者の秘密鍵」を使用した変換処理を行うことで生成されます。したがって「エ」が正解です。"
+        ],
+        [
+          "デジタル署名の生成と検証の手順は次のとおりです。\n送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに\n送信者の秘密鍵\nで署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と\n送信者の公開鍵\nを使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\n手順1のとおり、デジタル署名はメッセージのハッシュ値に「送信者の秘密鍵」を使用した変換処理を行うことで生成されます。したがって「エ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201302:am:問13:https://www.nw-siken.com/kakomon/25_aki/am1_13.html",
+      "explanationText": [
+        "間違い。\n\n受信者の公開鍵は暗号化や鍵配送に使う場面はあるが、発信者が署名生成に使う鍵ではない。",
+        "間違い。\n\n受信者の秘密鍵は受信者しか保持せず、発信者の署名生成には用いない。",
+        "間違い。\n\n公開鍵は受信者が署名を検証するために使い、署名の生成には使わない。",
+        "正しい。\n\nデジタル署名は発信者が自分の秘密鍵でハッシュ値を処理して生成し、受信者は対応する公開鍵で検証する。"
+      ],
+      "suggestedQuestions": [
+        "署名の検証にはどの鍵を使いますか？",
+        "なぜ秘密鍵で署名するのですか？",
+        "ハッシュ値を使う理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "署名の検証にはどの鍵を使いますか？",
+          "answer": "発信者の公開鍵を用いて、署名が発信者の秘密鍵で作られたかを確認する。"
+        },
+        {
+          "question": "なぜ秘密鍵で署名するのですか？",
+          "answer": "秘密鍵を本人だけが保持することで、本人性と改ざん検知の根拠を作れるからである。"
+        },
+        {
+          "question": "ハッシュ値を使う理由は何ですか？",
+          "answer": "元文全体を直接処理するより効率的で、内容が少しでも変われば値が変わるため改ざん検知に向く。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ISMSにおいて定義することが求められている情報セキュリティ基本方針に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "重要な基本方針を定めた機密文書であり，社内の関係者以外の目に触れないようにする。",
+        "情報セキュリティの基本方針を述べたものであり，ビジネス環境や技術が変化しても変更してはならない。",
+        "情報セキュリティのための経営陣の方向性及び支持を規定する。",
+        "特定のシステムについてリスク分析を行い，そのセキュリティ対策とシステム運用の詳細を記述する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ管理",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_14.html",
+      "public_question_id": "a002fac331b5795f",
+      "original_question_id": "a002fac331b5795f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "情報セキュリティポリシー",
+        "情報セキュリティ基本方針\n組織の経営者が「セキュリティの最高責任者として、情報セキュリティに本格的に取り組む」という姿勢を示し、情報セキュリティの目標と、その目標を達成するために企業がとるべき行動を組織内外に宣言する文書\n情報セキュリティ対策基準\n基本方針の目標を達成するために必要な規則を記述した文書。企業の構成員が守るべきセキュリティ関連規程類に相当する\n情報セキュリティ実施手順\n対策基準を実践するために必要な手続きを記述した文書。作業手順書やマニュアルなどに相当する"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "情報セキュリティ基本方針は、組織のセキュリティ方針を経営者が組織内外に宣言するものなので機密文書としては取り扱いません。組織内に広く伝達するとともに、Webサイト上に公開するなどして必要に応じて社外を含む利害関係者が入手可能であることが求められます。"
+        ],
+        [
+          "情報セキュリティ基本方針は、事業環境・法改正・技術などの変化に適合するように、必要に応じて変更することが求められます。"
+        ],
+        [
+          "正しい。情報セキュリティ基本方針には、組織が情報セキュリティの要求事項を満たすことへの経営者の責任(コミットメント)を含めなければなりません。"
+        ],
+        [
+          "情報セキュリティ基本方針には、具体的なセキュリティ対策は記述しません。対策と運用の詳細は、対策基準と実施手順に記述します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問14:https://www.nw-siken.com/kakomon/25_aki/am1_14.html",
+      "explanationText": [
+        "間違い。\n\n情報セキュリティ基本方針は社外利害関係者にも示され得る上位方針であり、機密文書として隠す性格のものではない。",
+        "間違い。\n\n基本方針は事業環境や法令、技術の変化に応じて見直すべきであり、不変ではない。",
+        "正しい。\n\nISMS の基本方針は、情報セキュリティに関する経営陣の方向性と支援を示す上位方針として定める。",
+        "間違い。\n\n特定システムの詳細な対策や運用手順は、個別基準や実施手順で定める内容であり、基本方針のレベルではない。"
+      ],
+      "suggestedQuestions": [
+        "情報セキュリティ基本方針には何を書きますか？",
+        "基本方針と実施手順の違いは何ですか？",
+        "基本方針は社外公開されますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "情報セキュリティ基本方針には何を書きますか？",
+          "answer": "組織の情報セキュリティに対する目的、方向性、経営層のコミットメントなど上位方針を示す。"
+        },
+        {
+          "question": "基本方針と実施手順の違いは何ですか？",
+          "answer": "基本方針は何を目指すかを示す上位文書、実施手順は具体的にどう運用するかを定める下位文書である。"
+        },
+        {
+          "question": "基本方針は社外公開されますか？",
+          "answer": "組織の判断によるが、利害関係者へ示せるよう公開する運用が一般的である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    },
+    {
+      "questionBodyText": "クロスサイトスクリプティングの手口はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Webアプリケーションに用意された入力フィールドに，悪意のあるJavaScriptコードを含んだデータを入力する。",
+        "インターネットなどのネットワークを通じてサーバに不正にアクセスしたり，データの改ざん・破壊を行ったりする。",
+        "大量のデータをWebアプリケーションに送ることによって，用意されたバッファ領域をあふれさせる。",
+        "パス名を推定することによって，本来は認証された後にしかアクセスが許可されていないページに直接ジャンプする。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_15.html",
+      "public_question_id": "37eb34fa9fabeec7",
+      "original_question_id": "37eb34fa9fabeec7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "クロスサイトスクリプティング",
+        "サイト攻撃者のブラウザ上で、攻撃者の用意したスクリプトの実行によりクッキー値を盗まれ、利用者が被害にあう。\n同様にブラウザ上でスクリプトを実行され、サイト利用者の権限でWebアプリケーションの機能を利用される。Webサイト上に偽の入力フォームが表示され、フィッシングにより利用者が個人情報を盗まれる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。クロスサイトスクリプティングの手口です。"
+        ],
+        [
+          "クラッキングの手口です。"
+        ],
+        [
+          "バッファオーバーフロー攻撃の手口です。"
+        ],
+        [
+          "ディレクトリトラバーサル攻撃の手口です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201302:am:問15:https://www.nw-siken.com/kakomon/25_aki/am1_15.html",
+      "explanationText": [
+        "正しい。\n\n入力欄や URL などへ悪意あるスクリプトを埋め込み、他利用者のブラウザで実行させるのがクロスサイトスクリプティングの典型である。",
+        "間違い。\n\n不正アクセスや改ざん一般の説明であり、XSS の具体的手口を表していない。",
+        "間違い。\n\n大量入力でバッファ領域をあふれさせる説明はバッファオーバーフローである。",
+        "間違い。\n\n認証後ページへ直接飛ぶ説明はディレクトリトラバーサルや強制ブラウジング寄りであり、XSS ではない。"
+      ],
+      "suggestedQuestions": [
+        "XSS では何が実行されますか？",
+        "XSS 対策には何がありますか？",
+        "バッファオーバーフローとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "XSS では何が実行されますか？",
+          "answer": "利用者のブラウザ上で、攻撃者が埋め込んだ JavaScript などのスクリプトが実行される。"
+        },
+        {
+          "question": "XSS 対策には何がありますか？",
+          "answer": "出力時エスケープ、入力値検証、CSP、HTTPOnly Cookie などが代表策である。"
+        },
+        {
+          "question": "バッファオーバーフローとの違いは何ですか？",
+          "answer": "XSS はブラウザでのスクリプト実行を狙う攻撃で、バッファオーバーフローはメモリ破壊を狙う攻撃である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_04_security_incident_response"
+    },
+    {
+      "questionBodyText": "次のE-R図の解釈として，適切なものはどれか。ここで，\n*　*\nは多対多の関連を示し，自己参照は除くものとする。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ある組織の親組織の数が，子組織の数より多い可能性がある。",
+        "全ての組織は必ず子組織を持つ。",
+        "組織は2段階の階層構造である。",
+        "組織はネットワーク構造になっていない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » データベース設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データベース設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データベース設計",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_16.html",
+      "public_question_id": "cd4a1f5d5298c6c7",
+      "original_question_id": "cd4a1f5d5298c6c7",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqcd4a1f5d5298c6c7_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。関係は多対多なので親組織が多い場合もあります。"
+        ],
+        [
+          "親組織から見た子組織の多重度は0以上なので、子組織が存在しない場合もあります。"
+        ],
+        [
+          "子組織が親組織となり3以上の階層構造となる場合もあるので誤りです。"
+        ],
+        [
+          "1つの親組織は複数の子組織を持つことができ、1つの子組織は複数の親組織を持つことができるので関連は網状のネットワーク構造になっています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201302:am:問16:https://www.nw-siken.com/kakomon/25_aki/am1_16.html",
+      "explanationText": [
+        "正しい。\n\n多対多の関連なので、一つの組織が複数の親を持つこともあり、親組織数が子組織数を上回る可能性を排除できない。",
+        "間違い。\n\n多重度は 0 個以上を許すので、子組織を一つも持たない組織が存在してもよい。",
+        "間違い。\n\n自己参照の多対多なら階層は 2 段に限られず、親子関係が連なればさらに深い構造を取り得る。",
+        "間違い。\n\n一つの組織に複数親・複数子があり得るため、木構造に限定されず網状のネットワーク構造となり得る。"
+      ],
+      "suggestedQuestions": [
+        "多対多の関連とは何ですか？",
+        "なぜ木構造に限定されないのですか？",
+        "自己参照の E-R 図では何を表せますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "多対多の関連とは何ですか？",
+          "answer": "一方の実体一件が相手側の複数件に結び付き、逆方向にも複数件に結び付く関係である。"
+        },
+        {
+          "question": "なぜ木構造に限定されないのですか？",
+          "answer": "子が複数の親を持てる時点で、親が一意に決まる木構造の条件を満たさないからである。"
+        },
+        {
+          "question": "自己参照の E-R 図では何を表せますか？",
+          "answer": "同じ実体どうしの上下関係、依存関係、包含関係などを表現できる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_02_design_build_test_advice"
+    },
+    {
+      "questionBodyText": "流れ図において，分岐網羅を満たし，かつ，条件網羅を満たすテストデータの組はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2a955441e8a7611_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2a955441e8a7611_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2a955441e8a7611_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2a955441e8a7611_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア構築",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア構築"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア構築",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_17.html",
+      "public_question_id": "c2a955441e8a7611",
+      "original_question_id": "c2a955441e8a7611",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc2a955441e8a7611_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "分岐網羅（判定条件網羅）\n判定条件の真偽を少なくとも1回は実行するテストケースを設計する。\n条件網羅\n判定条件が複数ある場合に、それぞれの条件が真・偽の場合を組み合わせたテストケースを設計する。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "どちらの分岐でもNoの処理を行っていないので分岐網羅を満たしません。また、\"x≧1が偽\"、\"y＝1が真\"が含まれていないので条件網羅も満たしません。"
+        ],
+        [
+          "分岐網羅を満たしますが、1つ目の分岐での判定条件に\"y＝1が真\"が含まれていないので条件網羅を満たしません。"
+        ],
+        [
+          "条件網羅を満たしますが、1つ目の分岐についてNoの処理を行っていないので分岐網羅を満たしません。"
+        ],
+        [
+          "正しい。分岐網羅と条件網羅をともに満たすテストケースです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201302:am:問17:https://www.nw-siken.com/kakomon/25_aki/am1_17.html",
+      "explanationText": [
+        "間違い。\n\nどちらの判定でも No 側を通っていないため分岐網羅を満たさず、条件の真偽も全て出そろっていない。",
+        "間違い。\n\n分岐網羅は満たせても、少なくとも一つの条件で真偽両方が現れておらず条件網羅が不足する。",
+        "間違い。\n\n条件網羅は満たせても、ある分岐で No 側を通らないため分岐網羅を満たさない。",
+        "正しい。\n\n各分岐の Yes/No を少なくとも一度ずつ通り、各基本条件も真偽の両方が現れるので、分岐網羅と条件網羅をともに満たす。"
+      ],
+      "suggestedQuestions": [
+        "分岐網羅と条件網羅の違いは何ですか？",
+        "条件網羅では何を確認しますか？",
+        "両方を満たす最小ケースをどう探しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "分岐網羅と条件網羅の違いは何ですか？",
+          "answer": "分岐網羅は判定結果の Yes/No、条件網羅は判定式を構成する各条件の真偽をそれぞれ網羅する。"
+        },
+        {
+          "question": "条件網羅では何を確認しますか？",
+          "answer": "複合判定式の中にある各基本条件が、少なくとも一度ずつ真と偽の両方になることを確認する。"
+        },
+        {
+          "question": "両方を満たす最小ケースをどう探しますか？",
+          "answer": "まず各分岐結果を洗い出し、次に各基本条件の真偽が全て出る組合せを重ねて最小集合を選ぶ。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs03_03_test_specification"
+    },
+    {
+      "questionBodyText": "過去のプロジェクトの開発実績から構築した作業配分モデルがある。要件定義からシステム内部設計までをモデルどおりに228日で完了してプログラム開発を開始した。現在，200本のプログラムのうち100本のプログラム開発を完了し，残り100本は未着手の状況である。プログラム開発以降もモデルどおりに進捗すると仮定するとき，プロジェクト全体の完了まであと何日掛かるか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "140",
+        "150",
+        "161",
+        "172"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_18.html",
+      "public_question_id": "eaf8b4b1a98fbc9b",
+      "original_question_id": "eaf8b4b1a98fbc9b",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqeaf8b4b1a98fbc9b_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "150"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ],
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ],
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ],
+        [
+          "プロジェクト全期間に占めるシステム要件定義からシステム内部設計までの期間の割合は、作業配分モデルの期間比より、0.25＋0.21＋0.11＝0.57システム内部設計が完了した時点で228日なので、プロジェクト全体の期間は以下のように計算できます。228日÷0.57＝400日\nプログラム開発は200本中100本分が完了するまで進んでいるため、期間比0.57にプログラム開発の完了分を加えます。0.57＋(0.11÷2)＝0.625現時点で全体の62.5%の作業期間を消化していることになるので、完了までの残り日数は以下のように求めることができます。400日×(1－0.625)＝\n150日\nしたがって正解は「イ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201302:am:問18:https://www.nw-siken.com/kakomon/25_aki/am1_18.html",
+      "explanationText": [
+        "間違い。\n\n要件定義から内部設計までが全体の 57% で 228 日なので総期間は 400 日、現在は 62.5% 消化済みで残りは 150 日である。140 日にはならない。",
+        "正しい。\n\n228 日が全体の 57% なので総期間は 400 日。プログラム開発比率 11% の半分が済んでいるから進捗は 57%+5.5%=62.5%、残りは 400×37.5%=150 日である。",
+        "間違い。\n\n総期間 400 日までは合っても、現在進捗を 62.5% と見ないと残日数は求まらない。161 日にはならない。",
+        "間違い。\n\nプログラム開発 100/200 本完了を進捗へ適切に反映すると残りは 172 日ではなく 150 日である。"
+      ],
+      "suggestedQuestions": [
+        "228 日から総期間 400 日をどう出しますか？",
+        "なぜ現在進捗が 62.5% になりますか？",
+        "作業配分モデルは何に使いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "228 日から総期間 400 日をどう出しますか？",
+          "answer": "228 日が全体の 57% に当たるので、228÷0.57=400 と逆算する。"
+        },
+        {
+          "question": "なぜ現在進捗が 62.5% になりますか？",
+          "answer": "設計完了までの 57% に加えて、プログラム開発比率 11% の半分である 5.5% が終わっているからである。"
+        },
+        {
+          "question": "作業配分モデルは何に使いますか？",
+          "answer": "工程別の比率から、現在進捗や残期間、残工数を推定するのに使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_04_work_plan"
+    },
+    {
+      "questionBodyText": "プロジェクトマネジメントにおけるリスクの対応例のうち，PMBOKの分類における転嫁に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "あるサブプロジェクトの損失を，他のサブプロジェクトの利益で相殺する。",
+        "個人情報の漏えいが起こらないように，システムテストで使用する本番データの個人情報部分はマスキングする。",
+        "損害の発生に備えて，損害賠償保険を掛ける。",
+        "取引先の業績が悪化して，信用に不安があるので，新規取引を止める。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトのリスク",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトのリスク"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトのリスク",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_19.html",
+      "public_question_id": "0bdeadb181c05210",
+      "original_question_id": "0bdeadb181c05210",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "PMBOK",
+        "回避\nリスクそのものを取り除いたり、プロジェクトに影響がないようにスコープや目標を縮小・変更する方策。\n転嫁\nリスクによるマイナスの影響を第三者へ移転する方策。リスクのある業務・作業のアウトソーシングや、損害保険の契約によってリスクの影響を自社から他社に移転する。\n軽減\nリスクの影響範囲を狭くしたり、発生確率を低減するような方策。\n受容\nリスクが現実化した時の影響が許容可能範囲内である時やリスクの除去が困難である場合に、特段対策をせずにそのままにしておくこと。対策費用が予想される損失金額を上回っているときなどに採られる方策。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "受容に該当します。"
+        ],
+        [
+          "軽減に該当します。"
+        ],
+        [
+          "正しい。損失が起こった場合の金銭的リスクを他社に移転しているので転嫁に該当します。"
+        ],
+        [
+          "回避に該当します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問19:https://www.nw-siken.com/kakomon/25_aki/am1_19.html",
+      "explanationText": [
+        "間違い。\n\n損失を内部で吸収する考え方であり、リスクを他者へ移す転嫁ではなく受容に近い。",
+        "間違い。\n\n個人情報をマスキングして発生確率や影響を下げるのはリスク軽減である。",
+        "正しい。\n\n保険を掛けて損失負担を保険会社へ移すのは、リスクを第三者へ移転する転嫁の典型である。",
+        "間違い。\n\n危険な取引をやめて原因行為自体を避けるのはリスク回避である。"
+      ],
+      "suggestedQuestions": [
+        "リスク転嫁と軽減の違いは何ですか？",
+        "保険が転嫁に当たるのはなぜですか？",
+        "回避と受容の違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "リスク転嫁と軽減の違いは何ですか？",
+          "answer": "軽減は発生確率や影響を下げること、転嫁は損失負担そのものを第三者へ移すことである。"
+        },
+        {
+          "question": "保険が転嫁に当たるのはなぜですか？",
+          "answer": "事故が起きた際の金銭的損失を保険会社が引き受けるため、負担主体が移るからである。"
+        },
+        {
+          "question": "回避と受容の違いは何ですか？",
+          "answer": "回避は危険な活動自体をやめること、受容は対策コストなどを踏まえてリスクを引き受けることである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_04_work_plan"
+    },
+    {
+      "questionBodyText": "ミッションクリティカルシステムの意味として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "OSなどのように，業務システムを稼働させる上で必要不可欠なシステム",
+        "システム運用条件が性能の限界に近い状態の下で稼働するシステム",
+        "障害が起きると，企業活動に重大な影響を及ぼすシステム",
+        "先行して試験導入され，成功すると本格的に導入されるシステム"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメント",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメント"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメント",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_20.html",
+      "public_question_id": "356204cf5465899c",
+      "original_question_id": "356204cf5465899c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ミッションクリティカルシステム"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ミッションクリティカルシステム\nは、障害発生などによってシステムが中断・停止すると巨額の損失や信用の失墜などの致命的な問題を招く可能性が高いため、24時間365日止まることを許されないシステムをいいます。\n交通機関や金融機関の基幹システム、およびECサイトの基幹システムなどがミッションクリティカルシステムの例で、これらのシステムでは停止をさせないために極めて高い信頼性や耐障害性、保守性などが要求されます。\nしたがって適切な記述は「ウ」になります。ちなみに「エ」はパイロットシステムに関する記述です。"
+        ],
+        [
+          "ミッションクリティカルシステム\nは、障害発生などによってシステムが中断・停止すると巨額の損失や信用の失墜などの致命的な問題を招く可能性が高いため、24時間365日止まることを許されないシステムをいいます。\n交通機関や金融機関の基幹システム、およびECサイトの基幹システムなどがミッションクリティカルシステムの例で、これらのシステムでは停止をさせないために極めて高い信頼性や耐障害性、保守性などが要求されます。\nしたがって適切な記述は「ウ」になります。ちなみに「エ」はパイロットシステムに関する記述です。"
+        ],
+        [
+          "ミッションクリティカルシステム\nは、障害発生などによってシステムが中断・停止すると巨額の損失や信用の失墜などの致命的な問題を招く可能性が高いため、24時間365日止まることを許されないシステムをいいます。\n交通機関や金融機関の基幹システム、およびECサイトの基幹システムなどがミッションクリティカルシステムの例で、これらのシステムでは停止をさせないために極めて高い信頼性や耐障害性、保守性などが要求されます。\nしたがって適切な記述は「ウ」になります。ちなみに「エ」はパイロットシステムに関する記述です。"
+        ],
+        [
+          "ミッションクリティカルシステム\nは、障害発生などによってシステムが中断・停止すると巨額の損失や信用の失墜などの致命的な問題を招く可能性が高いため、24時間365日止まることを許されないシステムをいいます。\n交通機関や金融機関の基幹システム、およびECサイトの基幹システムなどがミッションクリティカルシステムの例で、これらのシステムでは停止をさせないために極めて高い信頼性や耐障害性、保守性などが要求されます。\nしたがって適切な記述は「ウ」になります。ちなみに「エ」はパイロットシステムに関する記述です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問20:https://www.nw-siken.com/kakomon/25_aki/am1_20.html",
+      "explanationText": [
+        "間違い。\n\nOS のような基盤ソフトは重要だが、ミッションクリティカルの定義そのものは業務影響の重大さで決まる。",
+        "間違い。\n\n性能限界近くで運転しているかどうかは、ミッションクリティカルの意味ではない。",
+        "正しい。\n\n停止や障害が発生すると企業活動や社会的サービスへ重大な影響を及ぼすシステムをミッションクリティカルシステムという。",
+        "間違い。\n\n試験導入用の先行システムを指す語ではない。"
+      ],
+      "suggestedQuestions": [
+        "ミッションクリティカルでは何を重視しますか？",
+        "どんなシステムが該当しますか？",
+        "重要だからといって全部ミッションクリティカルですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ミッションクリティカルでは何を重視しますか？",
+          "answer": "停止時の業務影響、可用性要求、復旧時間、冗長化や障害対策の必要性を重視する。"
+        },
+        {
+          "question": "どんなシステムが該当しますか？",
+          "answer": "決済、交通制御、基幹受発注、医療系など、止まると重大な被害や業務停止を招くシステムが典型である。"
+        },
+        {
+          "question": "重要だからといって全部ミッションクリティカルですか？",
+          "answer": "重要でも停止許容時間が長いものは別であり、障害時の影響度と許容度で判断する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs06_01_system_evaluation"
+    },
+    {
+      "questionBodyText": "販売管理システムにおいて，起票された受注伝票が漏れなく，重複することなく入力されていることを確かめる監査手続のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "受注データから値引取引データなどの例外取引データを抽出し，承認の記録を確かめる。",
+        "受注伝票の入力時に論理チェック及びフォーマットチェックが行われているか，テストデータ法で確かめる。",
+        "プルーフリストと受注伝票との照合が行われているか，プルーフリスト又は受注伝票上の照合印を確かめる。",
+        "並行シミュレーション法を用いて，受注伝票を処理するプログラムの論理の正当性を確かめる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_21.html",
+      "public_question_id": "e03ebae373380c66",
+      "original_question_id": "e03ebae373380c66",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "例外処理の修正と再処理に関するコントロールです。受注伝票の入力とは関係がないので不適切です。"
+        ],
+        [
+          "テストデータ法は、監査対象のシステムにテストデータを入力し、処理の正当性を確認する方法です。入力データの正確性を確かめるための監査手続であり、漏れや重複は確認できません。"
+        ],
+        [
+          "正しい。プルーフリストは、入力データを加工せずにそのまま印刷した文書で、マスタデータへの登録時に原票と照合することにより、入力が原票どおりに行われたかどうかを確認するために用いられます。したがって、プルーフリストと受注伝票との照合が行われているか、照合の記録があるかを確認すれば、入力が漏れや重複なく実施されていることを確認できます。"
+        ],
+        [
+          "並行シミュレーション法は、監査人が用意した検証用プログラムに監査対象プログラムと同一のデータを入力して両者の実行結果を比較する方法です。入力データの正当性を確かめるための監査手続であり、漏れや重複は確認できません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問21:https://www.nw-siken.com/kakomon/25_aki/am1_21.html",
+      "explanationText": [
+        "間違い。\n\n例外取引の承認確認は取引の妥当性監査には有効だが、伝票の漏れや重複の検証に直接は結び付きにくい。",
+        "間違い。\n\n入力時チェックのテストは妥当性確認には役立つが、起票済み伝票が漏れなく重複なく入力されたかの証拠にはなりにくい。",
+        "正しい。\n\nプルーフリストと原始伝票を照合すれば、起票済み伝票が全件入力され、二重入力されていないかを確認できる。",
+        "間違い。\n\n並行シミュレーション法はプログラム処理結果の妥当性確認向けであり、漏れや重複の確認手続ではない。"
+      ],
+      "suggestedQuestions": [
+        "プルーフリストは何のために使いますか？",
+        "漏れと重複はどう確認しますか？",
+        "並行シミュレーション法は何を確かめますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "プルーフリストは何のために使いますか？",
+          "answer": "入力済みデータの件数や内容を原始伝票と照合し、漏れや重複、入力誤りを確認するために使う。"
+        },
+        {
+          "question": "漏れと重複はどう確認しますか？",
+          "answer": "元伝票と入力結果一覧を突き合わせ、全件が一度ずつ処理されたかを見る。"
+        },
+        {
+          "question": "並行シミュレーション法は何を確かめますか？",
+          "answer": "監査人側で用意した独立プログラムで同じ入力を処理し、結果の一致から処理ロジックを検証する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs06_01_system_evaluation"
+    },
+    {
+      "questionBodyText": "システム開発計画の策定におけるコントロールのうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "システムの機能が利用者の立場に基づいて実装されるよう，全体最適よりも業務上の利便性を優先し，利用部門の要望に基づいて策定する。",
+        "状況の変化に合わせて柔軟に内容の変更が行えるよう，開発計画は開発作業に着手してから組織内での承認を得て策定する。",
+        "不必要なシステム開発コストを抑制するよう，情報システムの目的を達成するための複数の代替案を作成し，比較検討する。",
+        "利用部門，システム部門の分け隔てなく自由な議論が行われるよう，開発計画の策定は，利用部門とシステム部門の役割分担を決めずに実行する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » 内部統制",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "内部統制"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "内部統制",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_22.html",
+      "public_question_id": "47c729fcefc8bba6",
+      "original_question_id": "47c729fcefc8bba6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "システム開発計画は、全体最適化計画との整合性を考慮して策定しなくてはなりません。[P3 Ⅱ.企画業務 1.開発計画 (2)]"
+        ],
+        [
+          "開発業務の開始は、開発計画の承認後でなくてはなりません。"
+        ],
+        [
+          "正しい。開発計画の策定に当たっては、情報システムの目的を達成する実現可能な代替案を作成し、検討しなくてはなりません。[P4 Ⅱ.企画業務 1.開発計画 (9)]"
+        ],
+        [
+          "開発計画は、ユーザー部門及び情報システム部門の役割分担を明確にしなくてはなりません。[P4 Ⅱ.企画業務 1.開発計画 (5)]"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201302:am:問22:https://www.nw-siken.com/kakomon/25_aki/am1_22.html",
+      "explanationText": [
+        "間違い。\n\n開発計画は個別要望だけでなく全体最適や経営目的との整合を取って策定する必要がある。",
+        "間違い。\n\n計画は着手前に承認されているべきで、作業開始後に承認を得るのはコントロールとして不適切である。",
+        "正しい。\n\n目的達成に向けた複数の実現可能な代替案を作り、比較検討して無駄な投資を抑えるのが適切な開発計画コントロールである。",
+        "間違い。\n\n利用部門とシステム部門の役割分担を曖昧にすると責任所在が不明確になり、統制として弱い。"
+      ],
+      "suggestedQuestions": [
+        "代替案比較はなぜ必要ですか？",
+        "開発計画はいつ承認すべきですか？",
+        "役割分担を明確にする理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "代替案比較はなぜ必要ですか？",
+          "answer": "目的達成手段を複数比較することで、費用対効果やリスクを見極めて最適案を選べるからである。"
+        },
+        {
+          "question": "開発計画はいつ承認すべきですか？",
+          "answer": "開発作業へ着手する前に、関係者合意と正式承認を得ておくべきである。"
+        },
+        {
+          "question": "役割分担を明確にする理由は何ですか？",
+          "answer": "責任範囲と意思決定経路を明確にし、手戻りや統制不備を防ぐためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    },
+    {
+      "questionBodyText": "ITポートフォリオの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "管理費などの間接コストを，業務区分ごとのアクティビティの種別に着目して，製品やサービスの原価に割り振る手法である。",
+        "企業の経営戦略を，多面的な視点で体系立てて立案し，実行を管理し，業績を評価する手法である。",
+        "業界ごとなどで統一的に策定された評価尺度(指標値群)を用いて，企業全体の投資効果を測定する手法である。",
+        "情報化投資をリスクや投資価値の類似性で幾つかのカテゴリに整理し，ビジネス戦略実現のための最適な資源配分を管理する手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_23.html",
+      "public_question_id": "9982f3377195593a",
+      "original_question_id": "9982f3377195593a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ITポートフォリオ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "活動基準原価計算(ABC：Activity Based Costing)の説明です。"
+        ],
+        [
+          "バランススコアカードの説明です。"
+        ],
+        [
+          "ベンチマーキングの説明です。"
+        ],
+        [
+          "正しい。ITポートフォリオの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201302:am:問23:https://www.nw-siken.com/kakomon/25_aki/am1_23.html",
+      "explanationText": [
+        "間違い。\n\n間接費を活動単位で配賦するのは ABC 原価計算の考え方であり、IT ポートフォリオではない。",
+        "間違い。\n\n多面的視点で戦略を管理評価する説明はバランススコアカードに近い。",
+        "間違い。\n\n共通尺度で投資効果を測定するベンチマーク的な説明であり、ポートフォリオ管理の本質ではない。",
+        "正しい。\n\nIT ポートフォリオは、情報化投資を価値やリスクの性質で整理し、戦略実現へ向けた最適な資源配分を管理する手法である。"
+      ],
+      "suggestedQuestions": [
+        "IT ポートフォリオでは何を分類しますか？",
+        "バランススコアカードとの違いは何ですか？",
+        "なぜ資源配分に役立つのですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "IT ポートフォリオでは何を分類しますか？",
+          "answer": "情報システム投資案件を戦略価値、リスク、更新目的などの観点でカテゴリ分けする。"
+        },
+        {
+          "question": "バランススコアカードとの違いは何ですか？",
+          "answer": "IT ポートフォリオは投資案件の配分管理、バランススコアカードは戦略実行を複数視点で評価する枠組みである。"
+        },
+        {
+          "question": "なぜ資源配分に役立つのですか？",
+          "answer": "価値の高い投資と維持的投資、リスクの高低を並べて見られるため、限られた予算を戦略的に配分しやすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    },
+    {
+      "questionBodyText": "業務のあるべき姿を表す論理モデルを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "企業における主要機能を明確にして，現状の業務機能を分析し，体系化したもの",
+        "経営目標の達成に必要な業務機能を定義し，体系化したもの",
+        "現状の業務機能と情報システムでの処理を分析し，相互の関係を明確化したもの",
+        "本来あるべき業務機能と現状を比較して，その差異を分析し，評価したもの"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 業務プロセス",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "業務プロセス"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "業務プロセス",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_24.html",
+      "public_question_id": "53a5fb93a664c313",
+      "original_question_id": "53a5fb93a664c313",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "現論理モデルに関する記述です。現論理モデルは、現物理モデルから物理的な仕組みを取り除き、業務における必要な機能とデータを定義したモデルです。"
+        ],
+        [
+          "正しい。新論理モデルに関する記述です。新論理モデルは、現論理モデルに経営目標を達成するための業務機能を加えて再定義したモデルです。"
+        ],
+        [
+          "現物理モデルに関する記述です。現物理モデルは、現行業務の流れを具体的に記述したモデルです。"
+        ],
+        [
+          "新物理モデルに関する記述です。新論理モデルに物理的要件を加えたモデルで、現物理モデルとの差異を把握することができます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201302:am:問24:https://www.nw-siken.com/kakomon/25_aki/am1_24.html",
+      "explanationText": [
+        "間違い。\n\n現状の主要機能を分析し体系化した説明であり、あるべき姿を示す新論理モデルではない。",
+        "正しい。\n\n経営目標の達成に必要な業務機能を定義して体系化したものが、業務のあるべき姿を表す新論理モデルである。",
+        "間違い。\n\n現状業務と情報システム処理の関係を表す説明であり、現物理モデル寄りの内容である。",
+        "間違い。\n\n現状との差異分析や評価はギャップ分析の内容であり、論理モデルそのものの定義ではない。"
+      ],
+      "suggestedQuestions": [
+        "新論理モデルとは何ですか？",
+        "現論理モデルとの違いは何ですか？",
+        "ギャップ分析はどこで使いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "新論理モデルとは何ですか？",
+          "answer": "経営目標や業務改革の観点から、本来あるべき業務機能と情報の姿を論理的に整理したモデルである。"
+        },
+        {
+          "question": "現論理モデルとの違いは何ですか？",
+          "answer": "現論理モデルは現状を整理したもの、新論理モデルはあるべき姿を再定義したものである。"
+        },
+        {
+          "question": "ギャップ分析はどこで使いますか？",
+          "answer": "現状モデルとあるべき姿の差を洗い出し、改善課題や施策優先度を整理する場面で使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    },
+    {
+      "questionBodyText": "現在の動向から未来を予測したり，システム分析に使用したりする手法であり，専門的知識や経験を有する複数の人にアンケート調査を行い，その結果を互いに参照した上で調査を繰り返して，集団としての意見を収束させる手法はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成25年秋期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "因果関係分析法",
+        "クロスセクション法",
+        "時系列回帰分析法",
+        "デルファイ法"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 企業活動 » 業務分析・データ利活用",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "企業活動",
+        "業務分析・データ利活用"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "企業活動",
+      "categorySmall": "業務分析・データ利活用",
+      "examYear": 2013,
+      "list_group_id": "201302",
+      "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_25.html",
+      "public_question_id": "56a0968f43a01a37",
+      "original_question_id": "56a0968f43a01a37",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "デルファイ法",
+        "複数の専門家を回答者として選定し、個別に質問を行う\n質問に対する回答結果をフィードバックし、再度質問を行う\n回答結果を統計的に処理し，確率分布とともに回答結果を示す"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "因果関係分析法は、複数の対象データ間の因果関係を分析する手法です。"
+        ],
+        [
+          "クロスセクション法は、時間の経過につれて変動していく現象を、ある一時点で横断的に取ったデータを分析する方法です。時系列分析とは対比的な分析概念です。"
+        ],
+        [
+          "時系列回帰分析法は、時系列データを分析することで、それらの関係を表す「回帰モデル」と呼ばれる数式を明らかにし、将来の売り上げ予測などに用いる手法です。"
+        ],
+        [
+          "正しい。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201302:am:問25:https://www.nw-siken.com/kakomon/25_aki/am1_25.html",
+      "explanationText": [
+        "間違い。\n\n因果関係分析法は要因と結果の関係整理に使うもので、専門家意見の反復集約ではない。",
+        "間違い。\n\nクロスセクション法はある時点での横断的比較分析であり、将来予測のために意見を収束させる手法ではない。",
+        "間違い。\n\n時系列回帰分析法は過去データの傾向から数量予測する統計手法であり、専門家アンケートの反復ではない。",
+        "正しい。\n\nデルファイ法は複数専門家へ匿名で反復的に調査し、途中結果をフィードバックしながら集団意見を収束させる手法である。"
+      ],
+      "suggestedQuestions": [
+        "デルファイ法は何に使いますか？",
+        "匿名で繰り返す利点は何ですか？",
+        "時系列回帰分析との違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "デルファイ法は何に使いますか？",
+          "answer": "将来予測、政策立案、システム企画時の見通し整理など、定量データだけで決めにくいテーマで使う。"
+        },
+        {
+          "question": "匿名で繰り返す利点は何ですか？",
+          "answer": "権威や同調圧力の影響を弱め、各専門家の独立した見解を反映しやすくするためである。"
+        },
+        {
+          "question": "時系列回帰分析との違いは何ですか？",
+          "answer": "デルファイ法は専門家意見の集約、時系列回帰分析は過去の数値データから傾向を推定する手法である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    }
+  ]
+}
