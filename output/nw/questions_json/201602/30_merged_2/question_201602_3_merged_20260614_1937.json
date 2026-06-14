@@ -1,0 +1,497 @@
+{
+  "list_group_id": "201602",
+  "question_bodies": [
+    {
+      "questionBodyText": "無線LANのアクセスポイントがもつプライバシーセパレータ機能(アクセスポイントアイソレーション)の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成28年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アクセスポイントの識別子を知っている利用者だけに機器の接続を許可する。",
+        "同じ無線LANのアクセスポイントに接続している機器同士の直接通信を禁止する。",
+        "事前に登録されたMACアドレスをもつ機器だけに無線LANへの接続を許可する。",
+        "建物外への無線LAN電波の漏れを防ぐことによって第三者による盗聴を防止する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2016,
+      "list_group_id": "201602",
+      "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_21.html",
+      "public_question_id": "61ebb8d2b7d5b334",
+      "original_question_id": "61ebb8d2b7d5b334",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "プライバシーセパレータ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SSIDステルス機能の説明です。"
+        ],
+        [
+          "正しい。プライバシーセパレータの説明です。"
+        ],
+        [
+          "MACアドレスフィルタリングの説明です。"
+        ],
+        [
+          "無線LANの電波漏れには、設置スペースに適合する無線LAN親機の選択や電波遮蔽シートの設置が対策となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201602:am:問21:https://www.nw-siken.com/kakomon/28_aki/am2_21.html",
+      "explanationText": [
+        "間違い。\n\nアクセスポイントの識別子を知っている利用者だけに接続を許可する考え方は、SSID の設定や認証に関する説明であり、プライバシーセパレータそのものではない。",
+        "正しい。\n\nプライバシーセパレータは、同じアクセスポイント配下の無線端末同士が直接通信できないように隔離する機能である。無線 LAN 利用者同士の盗み見や不正アクセスの抑止に使う。",
+        "間違い。\n\n事前登録した MAC アドレスだけ接続を許可するのは MAC アドレスフィルタリングの説明である。",
+        "間違い。\n\n電波漏えいを抑えるための出力調整や遮へいは設置上の対策であり、アクセスポイント内部のプライバシーセパレータ機能ではない。"
+      ],
+      "suggestedQuestions": [
+        "プライバシーセパレータは何を禁止しますか？",
+        "MACアドレスフィルタリングとの違いは何ですか？",
+        "どのような場所で有効ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "プライバシーセパレータは何を禁止しますか？",
+          "answer": "同一アクセスポイントに接続している端末同士の直接通信を禁止する。"
+        },
+        {
+          "question": "MACアドレスフィルタリングとの違いは何ですか？",
+          "answer": "MACアドレスフィルタリングは接続可否を制御し、プライバシーセパレータは接続後の端末間通信を分離する。"
+        },
+        {
+          "question": "どのような場所で有効ですか？",
+          "answer": "来訪者向け無線LANや共用無線LANのように、利用者同士を分離したい環境で有効である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ユーザープログラムの実行中に割込みが発生した場合のプロセッサの処理として，適切なものはどれか。\nプログラムレジスタ(プログラムカウンター)などの退避\nユーザーモードから特権モードへの移行\n割込み処理ルーチンの開始番地の決定\n割込み処理ルーチンの実行",
+      "examLabel": "ネットワークスペシャリスト平成28年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "①→③→④→②",
+        "②→①→③→④",
+        "②→③→④→①",
+        "③→④→①→②"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2016,
+      "list_group_id": "201602",
+      "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_22.html",
+      "public_question_id": "28adffbb5b75fb6e",
+      "original_question_id": "28adffbb5b75fb6e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "割込み",
+        "1.ユーザーモードから特権モードへの移行(②)\n割込みが発生すると自動的に特権モード(スーパーバイザモード)に切り替わる。2.プログラムレジスタ(プログラムカウンター)などの退避(①)\n割込み処理終了後にもとの命令位置に戻れるように現在のプログラムカウンターの値をスタックに退避させる。3.割込み処理ルーチンの開始番地の決定(③)\n所定の割込み処理の開始アドレスを取得して、プログラムカウンターにセットする。4.割込み処理ルーチンの実行(④)\n所定の割込み処理"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "割込み\n(Interrupt)は、すぐに対処しなくてはならない問題などがシステムに生じたときに、実行中のプログラムの処理をいったん停止し、優先的に事象の解決を図ることを可能にする仕組みです。\n割込み発生時は次の手順で処理が実行されます。1.ユーザーモードから特権モードへの移行(②)\n割込みが発生すると自動的に特権モード(スーパーバイザモード)に切り替わる。2.プログラムレジスタ(プログラムカウンター)などの退避(①)\n割込み処理終了後にもとの命令位置に戻れるように現在のプログラムカウンターの値をスタックに退避させる。3.割込み処理ルーチンの開始番地の決定(③)\n所定の割込み処理の開始アドレスを取得して、プログラムカウンターにセットする。4.割込み処理ルーチンの実行(④)\n所定の割込み処理\nしたがって適切なのは「②→①→③→④」になります。"
+        ],
+        [
+          "割込み\n(Interrupt)は、すぐに対処しなくてはならない問題などがシステムに生じたときに、実行中のプログラムの処理をいったん停止し、優先的に事象の解決を図ることを可能にする仕組みです。\n割込み発生時は次の手順で処理が実行されます。1.ユーザーモードから特権モードへの移行(②)\n割込みが発生すると自動的に特権モード(スーパーバイザモード)に切り替わる。2.プログラムレジスタ(プログラムカウンター)などの退避(①)\n割込み処理終了後にもとの命令位置に戻れるように現在のプログラムカウンターの値をスタックに退避させる。3.割込み処理ルーチンの開始番地の決定(③)\n所定の割込み処理の開始アドレスを取得して、プログラムカウンターにセットする。4.割込み処理ルーチンの実行(④)\n所定の割込み処理\nしたがって適切なのは「②→①→③→④」になります。"
+        ],
+        [
+          "割込み\n(Interrupt)は、すぐに対処しなくてはならない問題などがシステムに生じたときに、実行中のプログラムの処理をいったん停止し、優先的に事象の解決を図ることを可能にする仕組みです。\n割込み発生時は次の手順で処理が実行されます。1.ユーザーモードから特権モードへの移行(②)\n割込みが発生すると自動的に特権モード(スーパーバイザモード)に切り替わる。2.プログラムレジスタ(プログラムカウンター)などの退避(①)\n割込み処理終了後にもとの命令位置に戻れるように現在のプログラムカウンターの値をスタックに退避させる。3.割込み処理ルーチンの開始番地の決定(③)\n所定の割込み処理の開始アドレスを取得して、プログラムカウンターにセットする。4.割込み処理ルーチンの実行(④)\n所定の割込み処理\nしたがって適切なのは「②→①→③→④」になります。"
+        ],
+        [
+          "割込み\n(Interrupt)は、すぐに対処しなくてはならない問題などがシステムに生じたときに、実行中のプログラムの処理をいったん停止し、優先的に事象の解決を図ることを可能にする仕組みです。\n割込み発生時は次の手順で処理が実行されます。1.ユーザーモードから特権モードへの移行(②)\n割込みが発生すると自動的に特権モード(スーパーバイザモード)に切り替わる。2.プログラムレジスタ(プログラムカウンター)などの退避(①)\n割込み処理終了後にもとの命令位置に戻れるように現在のプログラムカウンターの値をスタックに退避させる。3.割込み処理ルーチンの開始番地の決定(③)\n所定の割込み処理の開始アドレスを取得して、プログラムカウンターにセットする。4.割込み処理ルーチンの実行(④)\n所定の割込み処理\nしたがって適切なのは「②→①→③→④」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201602:am:問22:https://www.nw-siken.com/kakomon/28_aki/am2_22.html",
+      "explanationText": [
+        "間違い。\n\n最初に特権モードへ移行せずに割込み処理ルーチンの番地決定へ進むことはできないため、この順序は不適切である。",
+        "正しい。\n\n割込み発生時は、まず CPU がユーザーモードから特権モードへ移行し、復帰用にプログラムカウンタなどを退避する。その後に割込みベクタなどから処理ルーチンの開始番地を決定し、割込み処理を実行する。",
+        "間違い。\n\nレジスタ退避の前に開始番地を決めても、元の実行位置を安全に保持できないため順序が違う。",
+        "間違い。\n\nユーザーモードのままいきなり割込み処理ルーチンを動かす順序になっており不適切である。"
+      ],
+      "suggestedQuestions": [
+        "割込み時になぜ特権モードへ移りますか？",
+        "プログラムカウンタを退避する理由は何ですか？",
+        "割込みベクタは何に使いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "割込み時になぜ特権モードへ移りますか？",
+          "answer": "OSや割込み処理ルーチンが保護された資源を安全に扱えるようにするためである。"
+        },
+        {
+          "question": "プログラムカウンタを退避する理由は何ですか？",
+          "answer": "割込み処理の終了後に、元の命令実行位置へ正しく復帰するためである。"
+        },
+        {
+          "question": "割込みベクタは何に使いますか？",
+          "answer": "発生した割込みに対応する処理ルーチンの開始番地を特定するために使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "Webサーバ，アプリケーション(AP)サーバ及びDBサーバ各1台で構成されるWebシステムにおいて，次の3種類のタイムアウトを設定した。タイムアウトに設定する時間の長い順に並べたものはどれか。ここで，トランザクションはWebリクエスト内で処理を完了するものとする。\n〔タイムアウトの種類〕\nAPサーバのAPが，処理を開始してから終了するまで\nAPサーバのAPにおいて，DBアクセスなどのトランザクションを開始してから終了するまで\nWebサーバが，APサーバにリクエストを送信してから返信を受けるまで",
+      "examLabel": "ネットワークスペシャリスト平成28年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "①，③，②",
+        "②，①，③",
+        "③，①，②",
+        "③，②，①"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2016,
+      "list_group_id": "201602",
+      "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_23.html",
+      "public_question_id": "276682bc3166dff2",
+      "original_question_id": "276682bc3166dff2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "Webサーバは、APサーバにリクエストを送信する\nAPサーバは、処理を開始する\nAPサーバは、トランザクション処理のためにDBサーバにアクセスする\nDBサーバは、トランザクションを処理する\nDBサーバは、APサーバに結果を返す\nAPサーバは、受け取った結果を処理し、Webサーバに返す\nWebサーバは、APサーバから結果を受け取る"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "設問の〔タイムアウトの種類〕の記述からWebシステムの処理手順が以下のようになっていることが分かります。Webサーバは、APサーバにリクエストを送信する\nAPサーバは、処理を開始する\nAPサーバは、トランザクション処理のためにDBサーバにアクセスする\nDBサーバは、トランザクションを処理する\nDBサーバは、APサーバに結果を返す\nAPサーバは、受け取った結果を処理し、Webサーバに返す\nWebサーバは、APサーバから結果を受け取る\nこの流れをシーケンス図で表すと次のようになります。\n各処理は連鎖的に行われるため処理時間の長さは常に「Webサーバ＞APサーバ＞DBサーバ」になります。したがって設定されるタイムアウトの長さも「③＞①＞②」になります。"
+        ],
+        [
+          "設問の〔タイムアウトの種類〕の記述からWebシステムの処理手順が以下のようになっていることが分かります。Webサーバは、APサーバにリクエストを送信する\nAPサーバは、処理を開始する\nAPサーバは、トランザクション処理のためにDBサーバにアクセスする\nDBサーバは、トランザクションを処理する\nDBサーバは、APサーバに結果を返す\nAPサーバは、受け取った結果を処理し、Webサーバに返す\nWebサーバは、APサーバから結果を受け取る\nこの流れをシーケンス図で表すと次のようになります。\n各処理は連鎖的に行われるため処理時間の長さは常に「Webサーバ＞APサーバ＞DBサーバ」になります。したがって設定されるタイムアウトの長さも「③＞①＞②」になります。"
+        ],
+        [
+          "設問の〔タイムアウトの種類〕の記述からWebシステムの処理手順が以下のようになっていることが分かります。Webサーバは、APサーバにリクエストを送信する\nAPサーバは、処理を開始する\nAPサーバは、トランザクション処理のためにDBサーバにアクセスする\nDBサーバは、トランザクションを処理する\nDBサーバは、APサーバに結果を返す\nAPサーバは、受け取った結果を処理し、Webサーバに返す\nWebサーバは、APサーバから結果を受け取る\nこの流れをシーケンス図で表すと次のようになります。\n各処理は連鎖的に行われるため処理時間の長さは常に「Webサーバ＞APサーバ＞DBサーバ」になります。したがって設定されるタイムアウトの長さも「③＞①＞②」になります。"
+        ],
+        [
+          "設問の〔タイムアウトの種類〕の記述からWebシステムの処理手順が以下のようになっていることが分かります。Webサーバは、APサーバにリクエストを送信する\nAPサーバは、処理を開始する\nAPサーバは、トランザクション処理のためにDBサーバにアクセスする\nDBサーバは、トランザクションを処理する\nDBサーバは、APサーバに結果を返す\nAPサーバは、受け取った結果を処理し、Webサーバに返す\nWebサーバは、APサーバから結果を受け取る\nこの流れをシーケンス図で表すと次のようになります。\n各処理は連鎖的に行われるため処理時間の長さは常に「Webサーバ＞APサーバ＞DBサーバ」になります。したがって設定されるタイムアウトの長さも「③＞①＞②」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201602:am:問23:https://www.nw-siken.com/kakomon/28_aki/am2_23.html",
+      "explanationText": [
+        "間違い。\n\nトランザクション処理の区間②は AP 全体の処理区間①より内側にあるので、②のタイムアウトが①より長くなることはない。",
+        "間違い。\n\nDBアクセスを含むトランザクション全体②が、AP 処理全体①より長くなる並びになっており不適切である。",
+        "正しい。\n\nWebサーバから見た応答待ち③は、AP サーバ内部の処理①と、その中で行われる DB トランザクション②をすべて含むので最も長い。AP の処理①は DB トランザクション②を含むため、長さの順は ③、①、② になる。",
+        "間違い。\n\nAP 全体の処理①は DB トランザクション②を包含するので、②を①より長く設定する順序にはならない。"
+      ],
+      "suggestedQuestions": [
+        "なぜWebサーバ側のタイムアウトが最長ですか？",
+        "AP処理とDBトランザクションの関係は何ですか？",
+        "タイムアウト設定はどの粒度で内包関係を見ますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "なぜWebサーバ側のタイムアウトが最長ですか？",
+          "answer": "Webサーバの待ち時間には、APサーバの処理全体とその内部のDB処理がすべて含まれるからである。"
+        },
+        {
+          "question": "AP処理とDBトランザクションの関係は何ですか？",
+          "answer": "DBトランザクションはAPサーバ処理の一部分として実行されるため、AP処理時間の方が長い。"
+        },
+        {
+          "question": "タイムアウト設定はどの粒度で内包関係を見ますか？",
+          "answer": "外側の処理が内側の処理を待つ構造を確認し、外側ほど長く、内側ほど短く設定する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_03_performance_analysis"
+    },
+    {
+      "questionBodyText": "システム開発で行われるテストについて，テスト要求事項を定義するアクティビティと対応するテストの組合せのうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成28年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq075980996d610180_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq075980996d610180_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq075980996d610180_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq075980996d610180_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2016,
+      "list_group_id": "201602",
+      "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_24.html",
+      "public_question_id": "075980996d610180",
+      "original_question_id": "075980996d610180",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "システム開発プロセスの流れと各設計工程に対応するテスト工程の関係をまとめると次のようになります。\nこの図を踏まえると、\nシステム方式設計→システム結合テスト\nソフトウェア方式設計→ソフトウェア結合テスト\nソフトウェア詳細設計→ソフトウェアユニットテスト\nという関係になります。したがって正解は「ウ」です。"
+        ],
+        [
+          "システム開発プロセスの流れと各設計工程に対応するテスト工程の関係をまとめると次のようになります。\nこの図を踏まえると、\nシステム方式設計→システム結合テスト\nソフトウェア方式設計→ソフトウェア結合テスト\nソフトウェア詳細設計→ソフトウェアユニットテスト\nという関係になります。したがって正解は「ウ」です。"
+        ],
+        [
+          "システム開発プロセスの流れと各設計工程に対応するテスト工程の関係をまとめると次のようになります。\nこの図を踏まえると、\nシステム方式設計→システム結合テスト\nソフトウェア方式設計→ソフトウェア結合テスト\nソフトウェア詳細設計→ソフトウェアユニットテスト\nという関係になります。したがって正解は「ウ」です。"
+        ],
+        [
+          "システム開発プロセスの流れと各設計工程に対応するテスト工程の関係をまとめると次のようになります。\nこの図を踏まえると、\nシステム方式設計→システム結合テスト\nソフトウェア方式設計→ソフトウェア結合テスト\nソフトウェア詳細設計→ソフトウェアユニットテスト\nという関係になります。したがって正解は「ウ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201602:am:問24:https://www.nw-siken.com/kakomon/28_aki/am2_24.html",
+      "explanationText": [
+        "間違い。\n\nシステム方式設計、ソフトウェア方式設計、ソフトウェア詳細設計に対応するテスト工程の組合せが V 字モデルの対応関係と一致していない。",
+        "間違い。\n\n詳細設計に対応するのはソフトウェアユニットテストであり、より上位の結合テストを割り当てるこの組合せは不適切である。",
+        "正しい。\n\nテスト要求事項は、設計工程と対になる形で定義される。一般に、システム方式設計はシステム結合テスト、ソフトウェア方式設計はソフトウェア結合テスト、ソフトウェア詳細設計はソフトウェアユニットテストに対応するため、この組合せが適切である。",
+        "間違い。\n\n上位設計と下位設計に対応するテスト工程が入れ替わっており、V 字モデルの対応関係から外れている。"
+      ],
+      "suggestedQuestions": [
+        "V字モデルでは設計工程とテスト工程をどう対応付けますか？",
+        "ソフトウェア詳細設計に対応するテストは何ですか？",
+        "結合テストとユニットテストの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "V字モデルでは設計工程とテスト工程をどう対応付けますか？",
+          "answer": "上流の設計成果物ほど上位のテストで確認し、下流の詳細設計ほど下位のテストで確認するよう対応付ける。"
+        },
+        {
+          "question": "ソフトウェア詳細設計に対応するテストは何ですか？",
+          "answer": "モジュール単位を確認するソフトウェアユニットテストである。"
+        },
+        {
+          "question": "結合テストとユニットテストの違いは何ですか？",
+          "answer": "結合テストはモジュール間やサブシステム間の接続を確認し、ユニットテストは個々のモジュール内部の仕様実装を確認する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_02_design_build_test_advice"
+    },
+    {
+      "questionBodyText": "SOA(Service Oriented Architecture)の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成28年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Webサービスを利用するためのインタフェースやプロトコルを規定したものである。",
+        "XMLを利用して，インターネット上に存在するWebサービスを検索できる仕組みである。",
+        "業務機能を提供するサービスを組み合わせることによって，システムを構築する考え方である。",
+        "サービス提供者と委託者との間でサービスの内容，範囲及び，品質に対する要求水準を明確にして，あらかじめ合意を得ておくことである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2016,
+      "list_group_id": "201602",
+      "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_25.html",
+      "public_question_id": "53445b82d4d51672",
+      "original_question_id": "53445b82d4d51672",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SOA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "WSDL(Web Services Description Language)の説明です。"
+        ],
+        [
+          "UDDI(Universal Description, Discovery and Integration)の説明です。"
+        ],
+        [
+          "正しい。SOAの説明です。"
+        ],
+        [
+          "SLA(Service Level Agreement)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201602:am:問25:https://www.nw-siken.com/kakomon/28_aki/am2_25.html",
+      "explanationText": [
+        "間違い。\n\nWebサービスのインタフェースやプロトコルを記述するのは WSDL などの説明であり、SOA そのものではない。",
+        "間違い。\n\nWebサービスを検索する仕組みは UDDI の説明である。",
+        "正しい。\n\nSOA は、業務機能を独立したサービスとして切り出し、それらを組み合わせてシステムを構成する設計思想である。再利用や疎結合な連携をしやすくする点が特徴である。",
+        "間違い。\n\nサービス内容や品質水準を事前合意する考え方は SLA の説明である。"
+      ],
+      "suggestedQuestions": [
+        "SOAは何をサービスとして切り出しますか？",
+        "WSDLやUDDIとの違いは何ですか？",
+        "SOAの利点はどこにありますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "SOAは何をサービスとして切り出しますか？",
+          "answer": "業務システムの機能を、再利用しやすい独立したサービス単位として切り出す。"
+        },
+        {
+          "question": "WSDLやUDDIとの違いは何ですか？",
+          "answer": "SOAは設計思想であり、WSDLはサービス記述、UDDIはサービス検索の仕組みである。"
+        },
+        {
+          "question": "SOAの利点はどこにありますか？",
+          "answer": "機能の再利用性を高め、他システムとの連携や変更への追随をしやすくする点にある。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    }
+  ]
+}
