@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "相関係数に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "すべての標本点が正の傾きを持つ直線上にあるときは，相関係数が＋1になる。",
+      "変量間の関係が線形の時は，相関係数が0になる。",
+      "変量間の関係が非線形の時は，相関係数が負になる。",
+      "無相関の時は，相関係数が－1になる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a3b0e59e345380d3",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "四つのアルファベットa～d から成るテキストがあり，各アルファベットは2ビットの固定長2進符号で符号化されている。このテキストにおける各アルファベットの出現確率を調べたところ，表のとおりであった。各アルファベットの符号を表のような可変長2進符号に変換する場合，符号化されたテキストの，変換前に対する変換後のビット列の長さの比は，およそ幾つか。",
+    "choiceTextList": [
+      "0.75",
+      "0.85",
+      "0.90",
+      "0.95"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "065a5e7e548f2c9f",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "fact(n)は，非負の整数nに対してnの階乗を返す。fact(n)の再帰的な定義はどれか。",
+    "choiceTextList": [
+      "if n＝0 then return 0 else return n×fact(n－1)",
+      "if n＝0 then return 0 else return n×fact(n＋1)",
+      "if n＝0 then return 1 else return n×fact(n－1)",
+      "if n＝0 then return 1 else return n×fact(n＋1)"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "50de1fd1e756630a",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒の命令キャッシュと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶と命令キャッシュとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたい命令コードがキャッシュに\n存在しない確率\nをrとし，キャッシュ管理に関するオーバーヘッドは無視できるものとする。",
+    "choiceTextList": [
+      "(1－r)・aa＋b\n・x＋\nr・ba＋b\n・y",
+      "(1－r)・x＋r・y",
+      "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
+      "r・x＋(1－r)・y"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a246182fd7040174",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "MTBFを長くするよりも，MTTRを短くするのに役立つものはどれか。",
+    "choiceTextList": [
+      "エラーログ取得機能",
+      "記憶装置のビット誤り訂正機能",
+      "命令再試行機能",
+      "予防保守"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0b5b55fd30cd17b2",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "リアルタイムOSにおいて，実行中のタスクがプリエンプションによって遷移する状態はどれか。",
+    "choiceTextList": [
+      "休止状態",
+      "実行可能状態",
+      "終了状態",
+      "待ち状態"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6029d1eaa126145b",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "入力G＝0のときはX＝A，Y＝Bを出力し，G＝1のときはX＝\nA\n，Y＝\nBを出力する回路はどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "43307f7e8da3a57d",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "アクセシビリティ設計に関する規格であるJIS X 8341-1:2010(高齢者・障害者等配慮設計指針－情報通信における機器，ソフトウェア及びサービス－第1部：共通指針)を適用する目的のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "全ての個人に対して，等しい水準のアクセシビリティを達成できるようにする。",
+      "多様な人々に対して，利用の状況を理解しながら，多くの個人のアクセシビリティ水準を改善できるようにする。",
+      "人間工学に関する規格が要求する水準よりも高いアクセシビリティを，多くの人々に提供できるようにする。",
+      "平均的能力をもった人々に対して，標準的なアクセシビリティが達成できるようにする。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7ac14217727f66b7",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "関係R(ID，A，B，C)のA，Cへの射影の結果とSQL文で求めた結果が同じになるように，aに入れるべき字句はどれか。ここで，関係Rを表Tで実現し，表Tに各行を格納したものを次に示す。",
+    "choiceTextList": [
+      "ALL",
+      "DISTINCT",
+      "ORDER BY",
+      "REFERENCES"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9a0793cabee709cc",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "データマイニングの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "基幹業務のデータベースとは別に作成され，更新処理をしない集計データの分析を主目的とする。",
+      "個人別データ，部門別データ，サマリデータなど，分析の目的別に切り出され，カスタマイズされたデータを分析する。",
+      "スライシング，ダイシング，ドリルダウンなどのインタラクティブな操作によって多次元分析を行い，意思決定を支援する。",
+      "ニューラルネットワークや統計解析などの手法を使って，大量に蓄積されているデータから，特徴あるパターンを探し出す。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "09ba69503f9647fb",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "CSMA/CD方式に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "衝突発生時の再送動作によって，衝突の頻度が増すとスループットが下がる。",
+      "送信要求の発生したステーションは，共通伝送路の搬送波を検出してからデータを送信するので，データ送出後の衝突は発生しない。",
+      "ハブによって複数のステーションが分岐接続されている構成では，衝突の検出ができないので，この方式は使用できない。",
+      "フレームとしては任意長のビットが直列に送出されるので，フレーム長がオクテットの整数倍である必要はない。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2115b263c29729db",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "ドライブバイダウンロード攻撃の説明はどれか。",
+    "choiceTextList": [
+      "PCにUSBメモリが接続されたとき，USBメモリに保存されているプログラムを自動的に実行する機能を用いてマルウェアを実行し，PCをマルウェアに感染させる。",
+      "PCに格納されているファイルを勝手に暗号化して，復号することと引換えに金銭を要求する。",
+      "不正にアクセスする目的で，建物の外部に漏れた無線LANの電波を傍受して，セキュリティの設定が脆弱な無線LANのアクセスポイントを見つけ出す。",
+      "利用者がWebサイトを閲覧したとき，利用者に気付かれないように，利用者のPCに不正プログラムを転送させる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "86980546b2d216a5",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "暗号方式に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "AESは公開鍵暗号方式，RSAは共通鍵暗号方式の一種である。",
+      "共通鍵暗号方式では，暗号化及び復号に同一の鍵を使用する。",
+      "公開鍵暗号方式を通信内容の秘匿に使用する場合は，暗号化に使用する鍵を秘密にして，復号に使用する鍵を公開する。",
+      "デジタル署名に公開鍵暗号方式が使用されることはなく，共通鍵暗号方式が使用される。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "cb893527a5fa9f28",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "サイバーレスキュー隊(J-CRAT)の役割はどれか。",
+    "choiceTextList": [
+      "外部からのサイバー攻撃などの情報セキュリティ問題に対して，政府横断的な情報収集や監視機能を整備し，政府機関の緊急対応能力強化を図る。",
+      "重要インフラに関わる業界などを中心とした参加組織と秘密保持契約を締結し，その契約の下に提供された標的型サイバー攻撃の情報を分析及び加工することによって，参加組織間で情報共有する。",
+      "セキュリティオペレーション技術向上，オペレーター人材育成，及びサイバーセキュリティに関係する組織・団体間の連携を推進することによって，セキュリティオペレーションサービスの普及とサービスレベルの向上を促す。",
+      "標的型サイバー攻撃を受けた組織や個人から提供された情報を分析し，社会や産業に重大な被害を及ぼしかねない標的型サイバー攻撃の把握，被害の分析，対策の早期着手の支援を行う。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f6ff46d6bd7fa811",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "WAFの説明はどれか。",
+    "choiceTextList": [
+      "Webアプリケーションへの攻撃を監視し阻止する。",
+      "Webブラウザの通信内容を改ざんする攻撃をPC内で監視し検出する。",
+      "サーバのOSへの不正なログインを監視する。",
+      "ファイルのマルウェア感染を監視し検出する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "dc4b7753e35edaab",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "モジュール設計に関する記述のうち，モジュール強度(結束性)が最も高いものはどれか。",
+    "choiceTextList": [
+      "ある木構造データを扱う機能をデータとともに一つにまとめ，木構造データをモジュールの外から見えないようにした。",
+      "複数の機能のそれぞれに必要な初期設定の操作が，ある時点で一括して実行できるので，一つのモジュールにまとめた。",
+      "二つの機能A, Bのコードは重複する部分が多いので，A, Bを一つのモジュールにまとめ，A，Bの機能を使い分けるための引数を設けた。",
+      "二つの機能A, Bは必ずA, Bの順番に実行され，しかもAで計算した結果をBで使うことがあるので，一つのモジュールにまとめた。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0f1742dc4c7b012f",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "CMMIの説明はどれか。",
+    "choiceTextList": [
+      "ソフトウェア開発組織及びプロジェクトのプロセスの成熟度を評価するためのモデルである。",
+      "ソフトウェア開発のプロセスモデルの一種である。",
+      "ソフトウェアを中心としたシステム開発及び取引のための共通フレームのことである。",
+      "プロジェクトの成熟度に応じてソフトウェア開発の手順を定義したモデルである。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6b810a4f52b687ff",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "プロジェクト管理においてパフォーマンス測定に使用するEVMの管理対象の組みはどれか。",
+    "choiceTextList": [
+      "コスト，スケジュール",
+      "コスト，リスク",
+      "スケジュール，品質",
+      "品質，リスク"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9a6ce98f4b52520a",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "品質の定量評価の指標のうち，ソフトウェアの保守性の評価指標になるものはどれか。",
+    "choiceTextList": [
+      "(最終成果物に含まれる誤りの件数)÷(最終成果物の量)",
+      "(修正時間の合計)÷(修正件数)",
+      "(変更が必要となるソースコードの行数)÷(移植するソースコードの行数)",
+      "(利用者からの改良要求件数)÷(出荷後の経過月数)"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "afa46ade0637b706",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "サービス提供時間帯が毎日6～20時のシステムにおいて，ある月の停止時間，修復時間及びシステムメンテナンス時間は次のとおりであった。この月の可用性は何%か。ここで，1か月の稼働日数は30日，可用性(%)は小数第2位を四捨五入するものとする。\n〔停止時間，修復時間及びシステムメンテナンス時間〕\nシステム障害によるサービス提供時間内の停止時間：7時間\nシステム障害に対処するサービス提供時間外の修復時間：3時間\nサービス提供時間外のシステムメンテナンス時間：8時間",
+    "choiceTextList": [
+      "95.7",
+      "97.6",
+      "98.3",
+      "99.0"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "37d632aedc2c9029",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "システム監査の改善指導(フォローアップ)において，被監査部門による改善が計画よりも遅れていることが判明したとき，システム監査人が採るべき行動はどれか。",
+    "choiceTextList": [
+      "遅れを取り戻すために，具体的な対策の実施を，被監査部門の責任者に指示する。",
+      "遅れを取り戻すために，被監査部門の改善活動に参加する。",
+      "遅れを取り戻すための方策について，被監査部門の責任者に助言する。",
+      "遅れを取り戻すための要員の追加を，人事部長に要求する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "303416ed751382c9",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "在庫管理システムを対象とするシステム監査において，当該システムに記録された在庫データの網羅性のチェックポイントとして，適切なものはどれか。",
+    "choiceTextList": [
+      "設定された選定基準に従って，自動的に購入業者を選定していること",
+      "適正在庫高であることを，責任者が承認していること",
+      "適正在庫量を維持するための発注点に達したときに，自動的に発注していること",
+      "入庫及び出庫記録に対して，自動的に連番を付与していること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9b1183eb810dd635",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "エンタープライズアーキテクチャにおいて，業務と情報システムの理想を表すモデルはどれか。",
+    "choiceTextList": [
+      "EA参照モデル",
+      "To-Beモデル",
+      "ザックマンモデル",
+      "データモデル"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "28044196c73705f7",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "\"情報システム・モデル取引・契約書\"によれば，情報システムの開発において，多段階契約の考え方を採用する目的はどれか。ここで，多段階契約とは，工程ごとに個別契約を締結することである。",
+    "choiceTextList": [
+      "開発段階において，前工程の遂行の結果，後工程の見積前提条件に変更が生じた場合に，各工程の開始のタイミングで，再度見積りを可能とするため",
+      "サービスレベルの達成・未達の結果に対する対応措置(協議手続，解約権，ペナルティ・インセンティブなど)及びベンダーの報告条件などを定めるため",
+      "正式な契約を締結する前に，情報システム構築を開始せざるを得ない場合の措置として，仮発注合意書(Letter of Intent:LOI)を交わすため",
+      "ユーザー及びベンダーのそれぞれの役割分担を，システムライフサイクルプロセスに応じて，あらかじめ詳細に決定しておくため"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "4516fd2eb6587456",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "半導体ファブレス企業の説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "委託者の依頼を受けて，自社工場で半導体製造だけを行う。",
+      "自社で設計し，自社工場で生産した製品を相手先ブランドで納入する。",
+      "自社内で回路設計から製造まで全ての設備をもち，自社ブランド製品を販売する。",
+      "製品の企画，設計及び開発は行うが，半導体製造の工場は所有しない。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bb591008a6034b88",
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_25.html"
+  }
+]

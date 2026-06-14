@@ -1,0 +1,1766 @@
+{
+  "list_group_id": "201702",
+  "question_bodies": [
+    {
+      "questionBodyText": "相関係数に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "すべての標本点が正の傾きを持つ直線上にあるときは，相関係数が＋1になる。",
+        "変量間の関係が線形の時は，相関係数が0になる。",
+        "変量間の関係が非線形の時は，相関係数が負になる。",
+        "無相関の時は，相関係数が－1になる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 応用数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "応用数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "応用数学",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_1.html",
+      "public_question_id": "a3b0e59e345380d3",
+      "original_question_id": "a3b0e59e345380d3",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "相関係数"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。標本点がすべて直線上にあるということは、一方の値が決まればもう一方の値が決定するという比例関係になります。このようなケースでは相関係数は＋1となり、２項目間の関連度は最大と判断されます。"
+        ],
+        [
+          "変量間の関係が線形であれば、何らかの関係性があることが認められ、相関係数は0ではなくなります。"
+        ],
+        [
+          "相関係数が負の時には、負の傾きをもつ直線周辺に標本点が集まります。非線形であれば相関係数は 0 に近づきます。"
+        ],
+        [
+          "無相関の時は、相関係数は 0 になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問1:https://www.nw-siken.com/kakomon/29_aki/am1_1.html"
+    },
+    {
+      "questionBodyText": "四つのアルファベットa～d から成るテキストがあり，各アルファベットは2ビットの固定長2進符号で符号化されている。このテキストにおける各アルファベットの出現確率を調べたところ，表のとおりであった。各アルファベットの符号を表のような可変長2進符号に変換する場合，符号化されたテキストの，変換前に対する変換後のビット列の長さの比は，およそ幾つか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.75",
+        "0.85",
+        "0.90",
+        "0.95"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 情報に関する理論",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "情報に関する理論"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "情報に関する理論",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_2.html",
+      "public_question_id": "065a5e7e548f2c9f",
+      "original_question_id": "065a5e7e548f2c9f",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq065a5e7e548f2c9f_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "各文字を可変長2進符号で表したときのビット列の長さは次の通りです。a → 0 → 1ビット\nb → 10 → 2ビット\nc → 110 → 3ビット\nd → 111 → 3ビット\n文字ごとに出現確率が異なっているので、各ビットを文字の出現率で重み付けすることで1文字に要する平均ビット長を算出します。1×0.4＋2×0.3＋3×0.2＋3×0.1\n＝0.4＋0.6＋0.6＋0.3\n＝1.9(ビット)\n変換前(固定長2進符号)には1文字が2ビットだったので、変換前に対する変換後のビット列の長さの比は、1.9÷2＝\n0.95したがって「エ」が正解です。"
+        ],
+        [
+          "各文字を可変長2進符号で表したときのビット列の長さは次の通りです。a → 0 → 1ビット\nb → 10 → 2ビット\nc → 110 → 3ビット\nd → 111 → 3ビット\n文字ごとに出現確率が異なっているので、各ビットを文字の出現率で重み付けすることで1文字に要する平均ビット長を算出します。1×0.4＋2×0.3＋3×0.2＋3×0.1\n＝0.4＋0.6＋0.6＋0.3\n＝1.9(ビット)\n変換前(固定長2進符号)には1文字が2ビットだったので、変換前に対する変換後のビット列の長さの比は、1.9÷2＝\n0.95したがって「エ」が正解です。"
+        ],
+        [
+          "各文字を可変長2進符号で表したときのビット列の長さは次の通りです。a → 0 → 1ビット\nb → 10 → 2ビット\nc → 110 → 3ビット\nd → 111 → 3ビット\n文字ごとに出現確率が異なっているので、各ビットを文字の出現率で重み付けすることで1文字に要する平均ビット長を算出します。1×0.4＋2×0.3＋3×0.2＋3×0.1\n＝0.4＋0.6＋0.6＋0.3\n＝1.9(ビット)\n変換前(固定長2進符号)には1文字が2ビットだったので、変換前に対する変換後のビット列の長さの比は、1.9÷2＝\n0.95したがって「エ」が正解です。"
+        ],
+        [
+          "各文字を可変長2進符号で表したときのビット列の長さは次の通りです。a → 0 → 1ビット\nb → 10 → 2ビット\nc → 110 → 3ビット\nd → 111 → 3ビット\n文字ごとに出現確率が異なっているので、各ビットを文字の出現率で重み付けすることで1文字に要する平均ビット長を算出します。1×0.4＋2×0.3＋3×0.2＋3×0.1\n＝0.4＋0.6＋0.6＋0.3\n＝1.9(ビット)\n変換前(固定長2進符号)には1文字が2ビットだったので、変換前に対する変換後のビット列の長さの比は、1.9÷2＝\n0.95したがって「エ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201702:am:問2:https://www.nw-siken.com/kakomon/29_aki/am1_2.html"
+    },
+    {
+      "questionBodyText": "fact(n)は，非負の整数nに対してnの階乗を返す。fact(n)の再帰的な定義はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "if n＝0 then return 0 else return n×fact(n－1)",
+        "if n＝0 then return 0 else return n×fact(n＋1)",
+        "if n＝0 then return 1 else return n×fact(n－1)",
+        "if n＝0 then return 1 else return n×fact(n＋1)"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_3.html",
+      "public_question_id": "50de1fd1e756630a",
+      "original_question_id": "50de1fd1e756630a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "fact(4)\n＝4×fact(3)\n//n＞0\n＝4×3×fact(2)\n//n＞0\n＝4×3×2×fact(1)\n//n＞0\n＝4×3×2×1×fact(0)\n//n＞0\n＝4×3×2×1×0\n//n＝0\n＝0"
+        ],
+        [
+          "fact(4)\n＝4×fact(5)\n//n＞0\n＝4×5×fact(6)\n//n＞0\n＝4×5×6×fact(7)\n//n＞0\n・・・以降、無限ループとなり計算できません。"
+        ],
+        [
+          "fact(4)\n＝4×fact(3)\n//n＞0\n＝4×3×fact(2)\n//n＞0\n＝4×3×2×fact(1)\n//n＞0\n＝4×3×2×1×fact(0)\n//n＞0\n＝4×3×2×1×1\n//n＝0\n＝\n24"
+        ],
+        [
+          "fact(4)\n＝4×fact(5)\n//n＞0\n＝4×5×fact(6)\n//n＞0\n＝4×5×6×fact(7)\n//n＞0\n・・・以降、無限ループとなり計算できません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201702:am:問3:https://www.nw-siken.com/kakomon/29_aki/am1_3.html"
+    },
+    {
+      "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒の命令キャッシュと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶と命令キャッシュとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたい命令コードがキャッシュに\n存在しない確率\nをrとし，キャッシュ管理に関するオーバーヘッドは無視できるものとする。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(1－r)・aa＋b\n・x＋\nr・ba＋b\n・y",
+        "(1－r)・x＋r・y",
+        "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
+        "r・x＋(1－r)・y"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_4.html",
+      "public_question_id": "a246182fd7040174",
+      "original_question_id": "a246182fd7040174",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "キャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201702:am:問4:https://www.nw-siken.com/kakomon/29_aki/am1_4.html"
+    },
+    {
+      "questionBodyText": "MTBFを長くするよりも，MTTRを短くするのに役立つものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "エラーログ取得機能",
+        "記憶装置のビット誤り訂正機能",
+        "命令再試行機能",
+        "予防保守"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_5.html",
+      "public_question_id": "0b5b55fd30cd17b2",
+      "original_question_id": "0b5b55fd30cd17b2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "MTTR"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。エラーログには障害原因に関連する情報が記録されていることがあります。障害発生時にエラーログを分析することは、障害原因を迅速に特定する手段として有効です。このためエラーログ取得機能はMTTRを短くするのに役立ちます。"
+        ],
+        [
+          "記憶装置の誤り訂正機能があれば、障害の原因となるビット誤りを自動で解消できるので、MTBFを長くするのに役立ちます。"
+        ],
+        [
+          "命令が何らかの原因によりエラーになっても、再試行機能による再試行が成功すればシステムが停止せずに済みます。よって、MTBFを長くするために役立ちます。"
+        ],
+        [
+          "予防保守では異常がないかをチェックしたり経年劣化した部品を故障前に交換したりするので、障害発生を未然に防ぐ効果があります。よって、MTBFを長くするのに役立ちます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問5:https://www.nw-siken.com/kakomon/29_aki/am1_5.html"
+    },
+    {
+      "questionBodyText": "リアルタイムOSにおいて，実行中のタスクがプリエンプションによって遷移する状態はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "休止状態",
+        "実行可能状態",
+        "終了状態",
+        "待ち状態"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_6.html",
+      "public_question_id": "6029d1eaa126145b",
+      "original_question_id": "6029d1eaa126145b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "プリエンプション",
+        "実行可能状態"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "プリエンプション\n(Preemption)とは、実行状態にあるタスクがCPUの使用権を奪われ\n実行可能状態\nに移されることをいいます。\nプリエンプションは、以下のいずれかの状態になると発生します。\n実行状態のタスクより優先度の高いタスクが実行可能状態になる\n実行状態のタスクに割り当てられたCPU使用時間が終了する\nプリエンプションによって遷移する状態は「実行可能状態」です。したがって「イ」が正解です。OSがCPUやシステム資源を管理し、CPU使用時間や優先度などによって複数のタスクを実行状態や実行可能状態へ切替えながら実行していくマルチタスク方式をプリエンプション方式といいます。"
+        ],
+        [
+          "プリエンプション\n(Preemption)とは、実行状態にあるタスクがCPUの使用権を奪われ\n実行可能状態\nに移されることをいいます。\nプリエンプションは、以下のいずれかの状態になると発生します。\n実行状態のタスクより優先度の高いタスクが実行可能状態になる\n実行状態のタスクに割り当てられたCPU使用時間が終了する\nプリエンプションによって遷移する状態は「実行可能状態」です。したがって「イ」が正解です。OSがCPUやシステム資源を管理し、CPU使用時間や優先度などによって複数のタスクを実行状態や実行可能状態へ切替えながら実行していくマルチタスク方式をプリエンプション方式といいます。"
+        ],
+        [
+          "プリエンプション\n(Preemption)とは、実行状態にあるタスクがCPUの使用権を奪われ\n実行可能状態\nに移されることをいいます。\nプリエンプションは、以下のいずれかの状態になると発生します。\n実行状態のタスクより優先度の高いタスクが実行可能状態になる\n実行状態のタスクに割り当てられたCPU使用時間が終了する\nプリエンプションによって遷移する状態は「実行可能状態」です。したがって「イ」が正解です。OSがCPUやシステム資源を管理し、CPU使用時間や優先度などによって複数のタスクを実行状態や実行可能状態へ切替えながら実行していくマルチタスク方式をプリエンプション方式といいます。"
+        ],
+        [
+          "プリエンプション\n(Preemption)とは、実行状態にあるタスクがCPUの使用権を奪われ\n実行可能状態\nに移されることをいいます。\nプリエンプションは、以下のいずれかの状態になると発生します。\n実行状態のタスクより優先度の高いタスクが実行可能状態になる\n実行状態のタスクに割り当てられたCPU使用時間が終了する\nプリエンプションによって遷移する状態は「実行可能状態」です。したがって「イ」が正解です。OSがCPUやシステム資源を管理し、CPU使用時間や優先度などによって複数のタスクを実行状態や実行可能状態へ切替えながら実行していくマルチタスク方式をプリエンプション方式といいます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201702:am:問6:https://www.nw-siken.com/kakomon/29_aki/am1_6.html"
+    },
+    {
+      "questionBodyText": "入力G＝0のときはX＝A，Y＝Bを出力し，G＝1のときはX＝\nA\n，Y＝\nBを出力する回路はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq43307f7e8da3a57d_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq43307f7e8da3a57d_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq43307f7e8da3a57d_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq43307f7e8da3a57d_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » ハードウェア » ハードウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ハードウェア",
+        "ハードウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ハードウェア",
+      "categorySmall": "ハードウェア",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_7.html",
+      "public_question_id": "43307f7e8da3a57d",
+      "original_question_id": "43307f7e8da3a57d",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "X＝A and G＝1 and 0＝0Y＝B and G＝0 nand 0＝1\n⇒G＝0のとき X≠A，Y≠B になるので誤りです。"
+        ],
+        [
+          "X＝A or G＝1 or 0＝1Y＝B or G＝0 or 0＝0\n⇒G＝0のとき X＝A，Y＝B になるので\n設問の条件を満たします\n。"
+        ],
+        [
+          "X＝A xor G＝1 xor 0＝1Y＝B xor G＝0 xor 0＝0\n⇒G＝0のとき X＝A，Y＝B になるので\n設問の条件を満たします\n。"
+        ],
+        [
+          "X＝A and G＝1 and 0＝0Y＝B andG\n＝0 and 1＝0\n⇒G＝0のとき X≠A になるので誤りです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201702:am:問7:https://www.nw-siken.com/kakomon/29_aki/am1_7.html"
+    },
+    {
+      "questionBodyText": "アクセシビリティ設計に関する規格であるJIS X 8341-1:2010(高齢者・障害者等配慮設計指針－情報通信における機器，ソフトウェア及びサービス－第1部：共通指針)を適用する目的のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "全ての個人に対して，等しい水準のアクセシビリティを達成できるようにする。",
+        "多様な人々に対して，利用の状況を理解しながら，多くの個人のアクセシビリティ水準を改善できるようにする。",
+        "人間工学に関する規格が要求する水準よりも高いアクセシビリティを，多くの人々に提供できるようにする。",
+        "平均的能力をもった人々に対して，標準的なアクセシビリティが達成できるようにする。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ユーザーインタフェース » ユーザーインタフェース技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ユーザーインタフェース",
+        "ユーザーインタフェース技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ユーザーインタフェース",
+      "categorySmall": "ユーザーインタフェース技術",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_8.html",
+      "public_question_id": "7ac14217727f66b7",
+      "original_question_id": "7ac14217727f66b7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "JIS X 8341-1"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "アクセシビリティとは、等しい水準のユーザビリティをすべての個人について達成することではなく、少なくともある程度のユーザビリティをすべての個人について達成することです。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "アクセシビリティ設計は、一般的な人間工学指針に従うことが重要です。"
+        ],
+        [
+          "アクセシビリティ設計の対象には、平均的能力の人々だけでなく、様々な障害をもつ人々を含む最も幅広い層の人々を含みます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201702:am:問8:https://www.nw-siken.com/kakomon/29_aki/am1_8.html"
+    },
+    {
+      "questionBodyText": "関係R(ID，A，B，C)のA，Cへの射影の結果とSQL文で求めた結果が同じになるように，aに入れるべき字句はどれか。ここで，関係Rを表Tで実現し，表Tに各行を格納したものを次に示す。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ALL",
+        "DISTINCT",
+        "ORDER BY",
+        "REFERENCES"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » データ操作",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データ操作"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データ操作",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_9.html",
+      "public_question_id": "9a0793cabee709cc",
+      "original_question_id": "9a0793cabee709cc",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq9a0793cabee709cc_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "射影",
+        "SELECT A, C",
+        "a",
+        "DISTINCT"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ALLは、選択された行をそのまま(重複行も含めて)返すよう指定する字句です（明記しなくてもデフォルト値）。"
+        ],
+        [
+          "正しい。DISTINCTは、選択された行から重複行を取り除くよう指定する字句です。"
+        ],
+        [
+          "ORDER BYは、結果セットを昇順または降順に整列して表示するために指定する字句です。"
+        ],
+        [
+          "REFERENCESは、属性に外部キー制約を付けるために指定する字句です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201702:am:問9:https://www.nw-siken.com/kakomon/29_aki/am1_9.html"
+    },
+    {
+      "questionBodyText": "データマイニングの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "基幹業務のデータベースとは別に作成され，更新処理をしない集計データの分析を主目的とする。",
+        "個人別データ，部門別データ，サマリデータなど，分析の目的別に切り出され，カスタマイズされたデータを分析する。",
+        "スライシング，ダイシング，ドリルダウンなどのインタラクティブな操作によって多次元分析を行い，意思決定を支援する。",
+        "ニューラルネットワークや統計解析などの手法を使って，大量に蓄積されているデータから，特徴あるパターンを探し出す。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » データベース応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データベース応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データベース応用",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_10.html",
+      "public_question_id": "09ba69503f9647fb",
+      "original_question_id": "09ba69503f9647fb",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "データマイニング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "データウェアハウスの説明です。"
+        ],
+        [
+          "データマートの説明です。"
+        ],
+        [
+          "OLAP(Online Analytical Processing)の説明です。"
+        ],
+        [
+          "正しい。データマイニングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201702:am:問10:https://www.nw-siken.com/kakomon/29_aki/am1_10.html"
+    },
+    {
+      "questionBodyText": "CSMA/CD方式に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "衝突発生時の再送動作によって，衝突の頻度が増すとスループットが下がる。",
+        "送信要求の発生したステーションは，共通伝送路の搬送波を検出してからデータを送信するので，データ送出後の衝突は発生しない。",
+        "ハブによって複数のステーションが分岐接続されている構成では，衝突の検出ができないので，この方式は使用できない。",
+        "フレームとしては任意長のビットが直列に送出されるので，フレーム長がオクテットの整数倍である必要はない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_11.html",
+      "public_question_id": "2115b263c29729db",
+      "original_question_id": "2115b263c29729db",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "CSMA/CD",
+        "伝送路上に他のステーションからのフレームが流れていないことを確認する。\nフレームを伝送路に送出する。\n衝突(コリジョン)を確認した場合、フレームの送出を中断する。\nジャム信号を一定時間送信し、衝突の発生を全てのステーションに検知させる。\nランダムな待ち時間(バックオフ時間)経過後に、再び①から送信手続きを開始する。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "他のステーションが同時にフレームを送出した場合には衝突が発生します。"
+        ],
+        [
+          "衝突を検知した際に送信されるジャム信号は、リピータハブを越えた先のステーションまで届くのでハブによる接続でも使用できます。"
+        ],
+        [
+          "フレームはオクテット(8ビット)単位になっていなければなりません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問11:https://www.nw-siken.com/kakomon/29_aki/am1_11.html"
+    },
+    {
+      "questionBodyText": "ドライブバイダウンロード攻撃の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "PCにUSBメモリが接続されたとき，USBメモリに保存されているプログラムを自動的に実行する機能を用いてマルウェアを実行し，PCをマルウェアに感染させる。",
+        "PCに格納されているファイルを勝手に暗号化して，復号することと引換えに金銭を要求する。",
+        "不正にアクセスする目的で，建物の外部に漏れた無線LANの電波を傍受して，セキュリティの設定が脆弱な無線LANのアクセスポイントを見つけ出す。",
+        "利用者がWebサイトを閲覧したとき，利用者に気付かれないように，利用者のPCに不正プログラムを転送させる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_12.html",
+      "public_question_id": "86980546b2d216a5",
+      "original_question_id": "86980546b2d216a5",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ドライブバイダウンロード"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "autorun.inf\n※\nを悪用して感染を試みるマルウェアの説明です。\n※\nコンピュータにCDやUSBメモリが接続されたときに、自動起動するファイル名を記述するための設定ファイル"
+        ],
+        [
+          "ランサムウェアの説明です。"
+        ],
+        [
+          "ウォードライビング(War Driving)の説明です。"
+        ],
+        [
+          "正しい。ドライブバイダウンロード攻撃の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201702:am:問12:https://www.nw-siken.com/kakomon/29_aki/am1_12.html"
+    },
+    {
+      "questionBodyText": "暗号方式に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "AESは公開鍵暗号方式，RSAは共通鍵暗号方式の一種である。",
+        "共通鍵暗号方式では，暗号化及び復号に同一の鍵を使用する。",
+        "公開鍵暗号方式を通信内容の秘匿に使用する場合は，暗号化に使用する鍵を秘密にして，復号に使用する鍵を公開する。",
+        "デジタル署名に公開鍵暗号方式が使用されることはなく，共通鍵暗号方式が使用される。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_13.html",
+      "public_question_id": "cb893527a5fa9f28",
+      "original_question_id": "cb893527a5fa9f28",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "記述は逆に説明しています。AESは共通鍵暗号方式、RSAは公開鍵暗号方式です。"
+        ],
+        [
+          "正しい。共通鍵暗号方式は、\"共通鍵\"という名前のとおり暗号化と復号に同じ鍵を使用します。錠をかけるのと開けるのとで同じ鍵を使用する、玄関のドアのようなイメージです。"
+        ],
+        [
+          "公開鍵暗号方式では、暗号化に使用する鍵を公開し、復号に使用する鍵は所有者が秘密として管理します。暗号化は誰でもできますが、復号できるのは正当な受信者だけという仕組みにより、通信の機密性が確保されます。"
+        ],
+        [
+          "共通鍵暗号方式ではありません。デジタル署名は、公開鍵暗号方式を利用して実現されています。具体的には、送信者が自分の秘密鍵で署名データを作成し、受信者は送信者の公開鍵で署名データの検証を行います。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201702:am:問13:https://www.nw-siken.com/kakomon/29_aki/am1_13.html"
+    },
+    {
+      "questionBodyText": "サイバーレスキュー隊(J-CRAT)の役割はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "外部からのサイバー攻撃などの情報セキュリティ問題に対して，政府横断的な情報収集や監視機能を整備し，政府機関の緊急対応能力強化を図る。",
+        "重要インフラに関わる業界などを中心とした参加組織と秘密保持契約を締結し，その契約の下に提供された標的型サイバー攻撃の情報を分析及び加工することによって，参加組織間で情報共有する。",
+        "セキュリティオペレーション技術向上，オペレーター人材育成，及びサイバーセキュリティに関係する組織・団体間の連携を推進することによって，セキュリティオペレーションサービスの普及とサービスレベルの向上を促す。",
+        "標的型サイバー攻撃を受けた組織や個人から提供された情報を分析し，社会や産業に重大な被害を及ぼしかねない標的型サイバー攻撃の把握，被害の分析，対策の早期着手の支援を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ管理",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_14.html",
+      "public_question_id": "f6ff46d6bd7fa811",
+      "original_question_id": "f6ff46d6bd7fa811",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "サイバーレスキュー隊"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "国家サイバー統括室(NCO)の役割です。"
+        ],
+        [
+          "サイバー情報共有イニシアティブ(J-CSIP)の役割です。"
+        ],
+        [
+          "日本セキュリティオペレーション事業者協議会(ISOG-J)の役割です。"
+        ],
+        [
+          "正しい。サイバーレスキュー隊(J-CRAT)の役割です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201702:am:問14:https://www.nw-siken.com/kakomon/29_aki/am1_14.html"
+    },
+    {
+      "questionBodyText": "WAFの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Webアプリケーションへの攻撃を監視し阻止する。",
+        "Webブラウザの通信内容を改ざんする攻撃をPC内で監視し検出する。",
+        "サーバのOSへの不正なログインを監視する。",
+        "ファイルのマルウェア感染を監視し検出する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_15.html",
+      "public_question_id": "dc4b7753e35edaab",
+      "original_question_id": "dc4b7753e35edaab",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "WAF"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。WAFの説明です。"
+        ],
+        [
+          "SSLの機能です。"
+        ],
+        [
+          "HIDS(ホスト型IDS)の説明です。"
+        ],
+        [
+          "ウイルス対策ソフトの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問15:https://www.nw-siken.com/kakomon/29_aki/am1_15.html"
+    },
+    {
+      "questionBodyText": "モジュール設計に関する記述のうち，モジュール強度(結束性)が最も高いものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ある木構造データを扱う機能をデータとともに一つにまとめ，木構造データをモジュールの外から見えないようにした。",
+        "複数の機能のそれぞれに必要な初期設定の操作が，ある時点で一括して実行できるので，一つのモジュールにまとめた。",
+        "二つの機能A, Bのコードは重複する部分が多いので，A, Bを一つのモジュールにまとめ，A，Bの機能を使い分けるための引数を設けた。",
+        "二つの機能A, Bは必ずA, Bの順番に実行され，しかもAで計算した結果をBで使うことがあるので，一つのモジュールにまとめた。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_16.html",
+      "public_question_id": "0f1742dc4c7b012f",
+      "original_question_id": "0f1742dc4c7b012f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "モジュール強度",
+        "暗合的強度（↑低）\n関係のない機能をまとめたモジュール\n論理的強度\n関連する複数の機能をまとめたモジュール\n時間的強度\nプログラムの開始時など、ある特定の時期に実行する機能をまとめたモジュール\n手順的強度\n関連ある逐次的な機能をまとめたモジュール\n連絡的強度\n関連ある逐次的な機能で要素が連絡し合うものをまとめたモジュール\n情報的強度\n同じデータ構造や資源を扱う機能を一つにまとめたモジュール\n機能的強度（↓高）\n一つの機能を実現するためだけのモジュール"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。ある機能に関する操作とデータが一つにまとまっているので、機能的強度をもつモジュールです。最もモジュール強度が高い設計です。"
+        ],
+        [
+          "プログラム動作中の特定の時点で実行される処理をまとめているので、時間的強度をもつモジュールです。"
+        ],
+        [
+          "関連する複数の機能をまとめているので、論理的強度をもつモジュールです。"
+        ],
+        [
+          "逐次実行され、かつ、連絡しあうモジュール同士をまとめているので、連絡的強度をもつモジュールです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問16:https://www.nw-siken.com/kakomon/29_aki/am1_16.html"
+    },
+    {
+      "questionBodyText": "CMMIの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ソフトウェア開発組織及びプロジェクトのプロセスの成熟度を評価するためのモデルである。",
+        "ソフトウェア開発のプロセスモデルの一種である。",
+        "ソフトウェアを中心としたシステム開発及び取引のための共通フレームのことである。",
+        "プロジェクトの成熟度に応じてソフトウェア開発の手順を定義したモデルである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_17.html",
+      "public_question_id": "6b810a4f52b687ff",
+      "original_question_id": "6b810a4f52b687ff",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "CMMI",
+        "レベル1：初期\n場当たり的で無秩序な組織として最も低い状態。\nレベル2：管理された\nプロジェクト管理のための基本的なプロセスが備わっている状態。\nレベル3：定義された\n組織内に標準化された一貫性のあるプロセスが定義されている状態。\nレベル4：定量的に管理された\n定量的な品質目標が存在し、プロセスはデータに基づき予測可能である状態。\nレベル5：最適化している\n継続的な改善プロセスが常に機能している状態。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "CMMI\n(Capability Maturity Model Integration)は、統合能力成熟度モデルと呼ばれ、組織におけるプロセス改善をガイドするモデルです。プロジェクト管理，プロセス管理，エンジニアリング，支援に関するプロセスについて、それらが効果的なプロセスであるために重要な要素をゴール及びプラクティスという概念を用いて整理されています。また、未成熟なプロセスから有効性を持った秩序ある成熟したプロセスへの進化の改善経路も記述しており、自らの組織の状況に合わせて適用内容を徐々に高度化できるようにもなっています。CMMIではプロセス成熟度に対して次の5つのレベルを設定しています。\nレベル1：初期\n場当たり的で無秩序な組織として最も低い状態。\nレベル2：管理された\nプロジェクト管理のための基本的なプロセスが備わっている状態。\nレベル3：定義された\n組織内に標準化された一貫性のあるプロセスが定義されている状態。\nレベル4：定量的に管理された\n定量的な品質目標が存在し、プロセスはデータに基づき予測可能である状態。\nレベル5：最適化している\n継続的な改善プロセスが常に機能している状態。"
+        ],
+        [
+          "CMMI\n(Capability Maturity Model Integration)は、統合能力成熟度モデルと呼ばれ、組織におけるプロセス改善をガイドするモデルです。プロジェクト管理，プロセス管理，エンジニアリング，支援に関するプロセスについて、それらが効果的なプロセスであるために重要な要素をゴール及びプラクティスという概念を用いて整理されています。また、未成熟なプロセスから有効性を持った秩序ある成熟したプロセスへの進化の改善経路も記述しており、自らの組織の状況に合わせて適用内容を徐々に高度化できるようにもなっています。CMMIではプロセス成熟度に対して次の5つのレベルを設定しています。\nレベル1：初期\n場当たり的で無秩序な組織として最も低い状態。\nレベル2：管理された\nプロジェクト管理のための基本的なプロセスが備わっている状態。\nレベル3：定義された\n組織内に標準化された一貫性のあるプロセスが定義されている状態。\nレベル4：定量的に管理された\n定量的な品質目標が存在し、プロセスはデータに基づき予測可能である状態。\nレベル5：最適化している\n継続的な改善プロセスが常に機能している状態。"
+        ],
+        [
+          "CMMI\n(Capability Maturity Model Integration)は、統合能力成熟度モデルと呼ばれ、組織におけるプロセス改善をガイドするモデルです。プロジェクト管理，プロセス管理，エンジニアリング，支援に関するプロセスについて、それらが効果的なプロセスであるために重要な要素をゴール及びプラクティスという概念を用いて整理されています。また、未成熟なプロセスから有効性を持った秩序ある成熟したプロセスへの進化の改善経路も記述しており、自らの組織の状況に合わせて適用内容を徐々に高度化できるようにもなっています。CMMIではプロセス成熟度に対して次の5つのレベルを設定しています。\nレベル1：初期\n場当たり的で無秩序な組織として最も低い状態。\nレベル2：管理された\nプロジェクト管理のための基本的なプロセスが備わっている状態。\nレベル3：定義された\n組織内に標準化された一貫性のあるプロセスが定義されている状態。\nレベル4：定量的に管理された\n定量的な品質目標が存在し、プロセスはデータに基づき予測可能である状態。\nレベル5：最適化している\n継続的な改善プロセスが常に機能している状態。"
+        ],
+        [
+          "CMMI\n(Capability Maturity Model Integration)は、統合能力成熟度モデルと呼ばれ、組織におけるプロセス改善をガイドするモデルです。プロジェクト管理，プロセス管理，エンジニアリング，支援に関するプロセスについて、それらが効果的なプロセスであるために重要な要素をゴール及びプラクティスという概念を用いて整理されています。また、未成熟なプロセスから有効性を持った秩序ある成熟したプロセスへの進化の改善経路も記述しており、自らの組織の状況に合わせて適用内容を徐々に高度化できるようにもなっています。CMMIではプロセス成熟度に対して次の5つのレベルを設定しています。\nレベル1：初期\n場当たり的で無秩序な組織として最も低い状態。\nレベル2：管理された\nプロジェクト管理のための基本的なプロセスが備わっている状態。\nレベル3：定義された\n組織内に標準化された一貫性のあるプロセスが定義されている状態。\nレベル4：定量的に管理された\n定量的な品質目標が存在し、プロセスはデータに基づき予測可能である状態。\nレベル5：最適化している\n継続的な改善プロセスが常に機能している状態。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問17:https://www.nw-siken.com/kakomon/29_aki/am1_17.html"
+    },
+    {
+      "questionBodyText": "プロジェクト管理においてパフォーマンス測定に使用するEVMの管理対象の組みはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "コスト，スケジュール",
+        "コスト，リスク",
+        "スケジュール，品質",
+        "品質，リスク"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_18.html",
+      "public_question_id": "9a6ce98f4b52520a",
+      "original_question_id": "9a6ce98f4b52520a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "EVM",
+        "コスト",
+        "スケジュール"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ],
+        [
+          "EVM\n(Earned Value Management)は、プロジェクトにおける作業を金銭の価値に置き換えて、\nコスト\nと\nスケジュール\nの2つを定量的に管理する進捗管理手法です。EVMでは予算値と実績値からPV、EV、ACの各指標を算出し、それぞれを比較することでコスト差異とスケジュール差異を把握します。したがって「ア」の組合せが適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問18:https://www.nw-siken.com/kakomon/29_aki/am1_18.html"
+    },
+    {
+      "questionBodyText": "品質の定量評価の指標のうち，ソフトウェアの保守性の評価指標になるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(最終成果物に含まれる誤りの件数)÷(最終成果物の量)",
+        "(修正時間の合計)÷(修正件数)",
+        "(変更が必要となるソースコードの行数)÷(移植するソースコードの行数)",
+        "(利用者からの改良要求件数)÷(出荷後の経過月数)"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの品質",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの品質"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの品質",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_19.html",
+      "public_question_id": "afa46ade0637b706",
+      "original_question_id": "afa46ade0637b706",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "残存バグ数の割合を表す式です。信頼性の評価指標に該当します。"
+        ],
+        [
+          "正しい。修正1件当たりに要した時間を示す式です。ソフトウェア修正にかかるコストを表すため、保守性の評価指標として適切です。"
+        ],
+        [
+          "移植時に変更が必要なソースコードの割合を示す式です。移植性の評価指標に該当します。"
+        ],
+        [
+          "月当たりの改良要求件数を示す式です。機能性の評価指標に該当します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201702:am:問19:https://www.nw-siken.com/kakomon/29_aki/am1_19.html"
+    },
+    {
+      "questionBodyText": "サービス提供時間帯が毎日6～20時のシステムにおいて，ある月の停止時間，修復時間及びシステムメンテナンス時間は次のとおりであった。この月の可用性は何%か。ここで，1か月の稼働日数は30日，可用性(%)は小数第2位を四捨五入するものとする。\n〔停止時間，修復時間及びシステムメンテナンス時間〕\nシステム障害によるサービス提供時間内の停止時間：7時間\nシステム障害に対処するサービス提供時間外の修復時間：3時間\nサービス提供時間外のシステムメンテナンス時間：8時間",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "95.7",
+        "97.6",
+        "98.3",
+        "99.0"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスマネジメント",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスマネジメント"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスマネジメント",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_20.html",
+      "public_question_id": "37d632aedc2c9029",
+      "original_question_id": "37d632aedc2c9029",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "可用性",
+        "合意済みサービス時間－停止時間\n合意済みサービス時間"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "可用性\nは、ユーザーが使用することを要求したとき、実際にシステムやITサービス（以下、システム等という）が利用可能な度合いを示す特性です。サービス可用性は、一般的には合意済みサービス時間のうち、サービスを利用できた時間の割合で示されます。\n可用性(%)＝\n合意済みサービス時間－停止時間\n合意済みサービス時間\n×100まず1か月の合意済みサービス時間を計算します。1日のサービス提供時間：20－6＝14時間\n1か月のサービス提供時間：14時間×30日＝420時間\n設問では3つの停止時間が示されていますが、可用性は『サービスが必要とされた時間にどれだけサービスが利用可能であったか』を示すので、可用性の計算における停止時間に該当するのは、サービス提供時間内の停止である7時間のみです。420時間のうち7時間を除いてサービスを利用可能であったので、413時間を1か月のサービス提供時間で除して可用性を算出します。413÷420×100＝98.33333…%\n（小数第2位を四捨五入）\n98.3\n%\nしたがって「ウ」が適切です。"
+        ],
+        [
+          "可用性\nは、ユーザーが使用することを要求したとき、実際にシステムやITサービス（以下、システム等という）が利用可能な度合いを示す特性です。サービス可用性は、一般的には合意済みサービス時間のうち、サービスを利用できた時間の割合で示されます。\n可用性(%)＝\n合意済みサービス時間－停止時間\n合意済みサービス時間\n×100まず1か月の合意済みサービス時間を計算します。1日のサービス提供時間：20－6＝14時間\n1か月のサービス提供時間：14時間×30日＝420時間\n設問では3つの停止時間が示されていますが、可用性は『サービスが必要とされた時間にどれだけサービスが利用可能であったか』を示すので、可用性の計算における停止時間に該当するのは、サービス提供時間内の停止である7時間のみです。420時間のうち7時間を除いてサービスを利用可能であったので、413時間を1か月のサービス提供時間で除して可用性を算出します。413÷420×100＝98.33333…%\n（小数第2位を四捨五入）\n98.3\n%\nしたがって「ウ」が適切です。"
+        ],
+        [
+          "可用性\nは、ユーザーが使用することを要求したとき、実際にシステムやITサービス（以下、システム等という）が利用可能な度合いを示す特性です。サービス可用性は、一般的には合意済みサービス時間のうち、サービスを利用できた時間の割合で示されます。\n可用性(%)＝\n合意済みサービス時間－停止時間\n合意済みサービス時間\n×100まず1か月の合意済みサービス時間を計算します。1日のサービス提供時間：20－6＝14時間\n1か月のサービス提供時間：14時間×30日＝420時間\n設問では3つの停止時間が示されていますが、可用性は『サービスが必要とされた時間にどれだけサービスが利用可能であったか』を示すので、可用性の計算における停止時間に該当するのは、サービス提供時間内の停止である7時間のみです。420時間のうち7時間を除いてサービスを利用可能であったので、413時間を1か月のサービス提供時間で除して可用性を算出します。413÷420×100＝98.33333…%\n（小数第2位を四捨五入）\n98.3\n%\nしたがって「ウ」が適切です。"
+        ],
+        [
+          "可用性\nは、ユーザーが使用することを要求したとき、実際にシステムやITサービス（以下、システム等という）が利用可能な度合いを示す特性です。サービス可用性は、一般的には合意済みサービス時間のうち、サービスを利用できた時間の割合で示されます。\n可用性(%)＝\n合意済みサービス時間－停止時間\n合意済みサービス時間\n×100まず1か月の合意済みサービス時間を計算します。1日のサービス提供時間：20－6＝14時間\n1か月のサービス提供時間：14時間×30日＝420時間\n設問では3つの停止時間が示されていますが、可用性は『サービスが必要とされた時間にどれだけサービスが利用可能であったか』を示すので、可用性の計算における停止時間に該当するのは、サービス提供時間内の停止である7時間のみです。420時間のうち7時間を除いてサービスを利用可能であったので、413時間を1か月のサービス提供時間で除して可用性を算出します。413÷420×100＝98.33333…%\n（小数第2位を四捨五入）\n98.3\n%\nしたがって「ウ」が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201702:am:問20:https://www.nw-siken.com/kakomon/29_aki/am1_20.html"
+    },
+    {
+      "questionBodyText": "システム監査の改善指導(フォローアップ)において，被監査部門による改善が計画よりも遅れていることが判明したとき，システム監査人が採るべき行動はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "遅れを取り戻すために，具体的な対策の実施を，被監査部門の責任者に指示する。",
+        "遅れを取り戻すために，被監査部門の改善活動に参加する。",
+        "遅れを取り戻すための方策について，被監査部門の責任者に助言する。",
+        "遅れを取り戻すための要員の追加を，人事部長に要求する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_21.html",
+      "public_question_id": "303416ed751382c9",
+      "original_question_id": "303416ed751382c9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "具体的な行動計画を策定するのは監査対象部門の役割です。監査人は監査対象部門の主体的な改善活動をフォローする立場なので、行動をするように指示をしてはいけません。"
+        ],
+        [
+          "監査人自らが改善活動に参加することはできません。"
+        ],
+        [
+          "正しい。監査人の役割は監査対象部門が実施する改善計画を見守り、改善計画が適切に遂行されるように助言を行うことです。"
+        ],
+        [
+          "監査人が行うのは改善活動に対する報告や助言です。是正要求まで行うのは監査人の立場を逸脱した行為です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201702:am:問21:https://www.nw-siken.com/kakomon/29_aki/am1_21.html"
+    },
+    {
+      "questionBodyText": "在庫管理システムを対象とするシステム監査において，当該システムに記録された在庫データの網羅性のチェックポイントとして，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "設定された選定基準に従って，自動的に購入業者を選定していること",
+        "適正在庫高であることを，責任者が承認していること",
+        "適正在庫量を維持するための発注点に達したときに，自動的に発注していること",
+        "入庫及び出庫記録に対して，自動的に連番を付与していること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_22.html",
+      "public_question_id": "9b1183eb810dd635",
+      "original_question_id": "9b1183eb810dd635",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "網羅性"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "網羅性\nとは、抜けや漏れがなくすべてのことが集まり含まれている様子をいいます。\nシステムで連番を自動的に付与することによって入出庫の計上漏れや重複計上を防ぐことができるので「エ」が適切となります。"
+        ],
+        [
+          "網羅性\nとは、抜けや漏れがなくすべてのことが集まり含まれている様子をいいます。\nシステムで連番を自動的に付与することによって入出庫の計上漏れや重複計上を防ぐことができるので「エ」が適切となります。"
+        ],
+        [
+          "網羅性\nとは、抜けや漏れがなくすべてのことが集まり含まれている様子をいいます。\nシステムで連番を自動的に付与することによって入出庫の計上漏れや重複計上を防ぐことができるので「エ」が適切となります。"
+        ],
+        [
+          "網羅性\nとは、抜けや漏れがなくすべてのことが集まり含まれている様子をいいます。\nシステムで連番を自動的に付与することによって入出庫の計上漏れや重複計上を防ぐことができるので「エ」が適切となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201702:am:問22:https://www.nw-siken.com/kakomon/29_aki/am1_22.html"
+    },
+    {
+      "questionBodyText": "エンタープライズアーキテクチャにおいて，業務と情報システムの理想を表すモデルはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "EA参照モデル",
+        "To-Beモデル",
+        "ザックマンモデル",
+        "データモデル"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_23.html",
+      "public_question_id": "28044196c73705f7",
+      "original_question_id": "28044196c73705f7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "EA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "EA参照モデルは、政府が公開しているEAのひな型のことです。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "ザックマンモデルは、1987年ジョン・A・ザックマンによって提唱されたEAの基礎となっているフレームワークで、5種類の異なる立場の視点とそれぞれの5W1H（What、How、Where、Who、When、Why）の側面から分析・記述する手法です。"
+        ],
+        [
+          "データモデルは、対象業務を情報システムやDBMSにおける抽象的な形式としてモデル化したものです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201702:am:問23:https://www.nw-siken.com/kakomon/29_aki/am1_23.html"
+    },
+    {
+      "questionBodyText": "\"情報システム・モデル取引・契約書\"によれば，情報システムの開発において，多段階契約の考え方を採用する目的はどれか。ここで，多段階契約とは，工程ごとに個別契約を締結することである。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "開発段階において，前工程の遂行の結果，後工程の見積前提条件に変更が生じた場合に，各工程の開始のタイミングで，再度見積りを可能とするため",
+        "サービスレベルの達成・未達の結果に対する対応措置(協議手続，解約権，ペナルティ・インセンティブなど)及びベンダーの報告条件などを定めるため",
+        "正式な契約を締結する前に，情報システム構築を開始せざるを得ない場合の措置として，仮発注合意書(Letter of Intent:LOI)を交わすため",
+        "ユーザー及びベンダーのそれぞれの役割分担を，システムライフサイクルプロセスに応じて，あらかじめ詳細に決定しておくため"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_24.html",
+      "public_question_id": "4516fd2eb6587456",
+      "original_question_id": "4516fd2eb6587456",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "情報システム・モデル取引・契約書",
+        "多段階契約"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。多段階契約の考え方を採用する目的です。"
+        ],
+        [
+          "SLA導入の目的です。"
+        ],
+        [
+          "仮発注合意書のモデルを採用する目的です。"
+        ],
+        [
+          "基本契約書の考え方を採用する目的です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問24:https://www.nw-siken.com/kakomon/29_aki/am1_24.html"
+    },
+    {
+      "questionBodyText": "半導体ファブレス企業の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "委託者の依頼を受けて，自社工場で半導体製造だけを行う。",
+        "自社で設計し，自社工場で生産した製品を相手先ブランドで納入する。",
+        "自社内で回路設計から製造まで全ての設備をもち，自社ブランド製品を販売する。",
+        "製品の企画，設計及び開発は行うが，半導体製造の工場は所有しない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_25.html",
+      "public_question_id": "bb591008a6034b88",
+      "original_question_id": "bb591008a6034b88",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ファブレス"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "半導体チップの製造を専門的に請け負うファウンドリ企業の説明です。"
+        ],
+        [
+          "設計も含めて受託するODM(Original Design Manufacturer)企業の説明です。"
+        ],
+        [
+          "垂直統合型デバイスメーカー(IDM:Integrated Device Manufacturer)の説明です。"
+        ],
+        [
+          "正しい。ファブレス企業の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201702:am:問25:https://www.nw-siken.com/kakomon/29_aki/am1_25.html"
+    }
+  ]
+}
