@@ -1,0 +1,362 @@
+{
+  "list_group_id": "202101",
+  "question_bodies": [
+    {
+      "questionBodyText": "Webアプリケーションの脆弱性を悪用する攻撃手法のうち，入力した文字列がPerlのsystem関数，PHPのexec関数などに渡されることを利用し，不正にシェルスクリプトを実行させるものは，どれに分類されるか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "HTTPヘッダーインジェクション",
+        "OSコマンドインジェクション",
+        "クロスサイトリクエストフォージェリ",
+        "セッションハイジャック"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_21.html",
+      "public_question_id": "a23ebaca3468718e",
+      "original_question_id": "a23ebaca3468718e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "OSコマンドインジェクション",
+        "exec",
+        "open",
+        "subprocess.call"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "HTTPヘッダーインジェクションは、動的にHTTPヘッダーを生成するシステムにおいて、HTTPヘッダー内に改行コードなどを不正挿入することによって、不正なヘッダー情報を挿入したり、任意の記述をメッセージボディに挿入したりする攻撃です。"
+        ],
+        [
+          "正しい。OSコマンドインジェクションは、入力値としてOSコマンドとして解釈される文字列を紛れ込ませることにより、システムに不正なOSコマンドを実行させる攻撃です。"
+        ],
+        [
+          "クロスサイトリクエストフォージェリは、Webサイトに設置されたハイパーリンクや実行されるスクリプトなどを通じて、別のサイトで閲覧者に意図しない不正操作を行わせる攻撃です。引き起こされる被害例としては、会員情報の変更、商品の購入などがあります。"
+        ],
+        [
+          "セッションハイジャックは、TCPコネクションやクライアント－サーバ間の正規のセッションを奪い取る行為です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202101:am:問21:https://www.nw-siken.com/kakomon/03_haru/am2_21.html"
+    },
+    {
+      "questionBodyText": "表のCPIと構成比率で，3種類の演算命令が合計1,000,000命令実行されるプログラムを，クロック周波数が1GHzのプロセッサで実行するのに必要な時間は何ミリ秒か。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.4",
+        "2.8",
+        "4.0",
+        "28.0"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_22.html",
+      "public_question_id": "af06e5b4a3b43890",
+      "original_question_id": "af06e5b4a3b43890",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqaf06e5b4a3b43890_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "6",
+        "6",
+        "9",
+        "6",
+        "9"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "まず3種類の命令の加重平均をとって、1命令に必要な平均クロック数を求めます。\n(3×0.2)＋(5×0.2)＋(2×0.6)\n＝0.6＋1.0＋1.2＝2.81命令当たり2.8クロックで処理できるので、1,000,000(＝106\n)命令を実行するのに必要なクロック数は、2.8×106回です。\nプロセッサのクロック周波数は1GHz(＝109\nHz)なので、本プログラムを実行するのに必要な時間は、2.8×106\n÷109\n＝0.0028秒\nこれをミリ秒単位に直すと「2.8ミリ秒」という答えになります。"
+        ],
+        [
+          "まず3種類の命令の加重平均をとって、1命令に必要な平均クロック数を求めます。\n(3×0.2)＋(5×0.2)＋(2×0.6)\n＝0.6＋1.0＋1.2＝2.81命令当たり2.8クロックで処理できるので、1,000,000(＝106\n)命令を実行するのに必要なクロック数は、2.8×106回です。\nプロセッサのクロック周波数は1GHz(＝109\nHz)なので、本プログラムを実行するのに必要な時間は、2.8×106\n÷109\n＝0.0028秒\nこれをミリ秒単位に直すと「2.8ミリ秒」という答えになります。"
+        ],
+        [
+          "まず3種類の命令の加重平均をとって、1命令に必要な平均クロック数を求めます。\n(3×0.2)＋(5×0.2)＋(2×0.6)\n＝0.6＋1.0＋1.2＝2.81命令当たり2.8クロックで処理できるので、1,000,000(＝106\n)命令を実行するのに必要なクロック数は、2.8×106回です。\nプロセッサのクロック周波数は1GHz(＝109\nHz)なので、本プログラムを実行するのに必要な時間は、2.8×106\n÷109\n＝0.0028秒\nこれをミリ秒単位に直すと「2.8ミリ秒」という答えになります。"
+        ],
+        [
+          "まず3種類の命令の加重平均をとって、1命令に必要な平均クロック数を求めます。\n(3×0.2)＋(5×0.2)＋(2×0.6)\n＝0.6＋1.0＋1.2＝2.81命令当たり2.8クロックで処理できるので、1,000,000(＝106\n)命令を実行するのに必要なクロック数は、2.8×106回です。\nプロセッサのクロック周波数は1GHz(＝109\nHz)なので、本プログラムを実行するのに必要な時間は、2.8×106\n÷109\n＝0.0028秒\nこれをミリ秒単位に直すと「2.8ミリ秒」という答えになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202101:am:問22:https://www.nw-siken.com/kakomon/03_haru/am2_22.html"
+    },
+    {
+      "questionBodyText": "プリントシステムには1時間当たり平均6個のファイルのプリント要求がある。1個のプリント要求で送られてくるファイルの大きさは平均7,500バイトである。プリントシステムは1秒間に50バイト分印字できる。プリント要求後プリントが終了するまでの平均時間は何秒か。ここで，このシステムはM/M/1の待ち行列モデルに従うものとする。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "150",
+        "175",
+        "200",
+        "225"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_23.html",
+      "public_question_id": "52cf5b1027bcbe1a",
+      "original_question_id": "52cf5b1027bcbe1a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "M/M/1の待ち行列モデルにおいて、待ち行列に並んでからサービスを受け終わるまでに要する平均時間は次の式で計算します。\n{利用率／(1－利用率)}×平均サービス時間＋平均サービス時間\n利用率はサービスを提供している時間の割合です。本問だと、1時間に平均6個の印刷要求があるので平均到着間隔は「1時間÷6回＝10分」、平均サービス時間は1ファイルの印刷に要する「7,500バイト÷50バイト＝150秒」なので、利用率は「150秒÷600秒＝0.25」になります。\n上記の式に利用率と平均サービス時間を当てはめると、\n{0.25 / (1 - 0.25)}×150秒＋150秒\n＝1/3×150秒＋150秒\n＝50秒＋150秒＝200秒\nしたがって「ウ」が適切です。"
+        ],
+        [
+          "M/M/1の待ち行列モデルにおいて、待ち行列に並んでからサービスを受け終わるまでに要する平均時間は次の式で計算します。\n{利用率／(1－利用率)}×平均サービス時間＋平均サービス時間\n利用率はサービスを提供している時間の割合です。本問だと、1時間に平均6個の印刷要求があるので平均到着間隔は「1時間÷6回＝10分」、平均サービス時間は1ファイルの印刷に要する「7,500バイト÷50バイト＝150秒」なので、利用率は「150秒÷600秒＝0.25」になります。\n上記の式に利用率と平均サービス時間を当てはめると、\n{0.25 / (1 - 0.25)}×150秒＋150秒\n＝1/3×150秒＋150秒\n＝50秒＋150秒＝200秒\nしたがって「ウ」が適切です。"
+        ],
+        [
+          "M/M/1の待ち行列モデルにおいて、待ち行列に並んでからサービスを受け終わるまでに要する平均時間は次の式で計算します。\n{利用率／(1－利用率)}×平均サービス時間＋平均サービス時間\n利用率はサービスを提供している時間の割合です。本問だと、1時間に平均6個の印刷要求があるので平均到着間隔は「1時間÷6回＝10分」、平均サービス時間は1ファイルの印刷に要する「7,500バイト÷50バイト＝150秒」なので、利用率は「150秒÷600秒＝0.25」になります。\n上記の式に利用率と平均サービス時間を当てはめると、\n{0.25 / (1 - 0.25)}×150秒＋150秒\n＝1/3×150秒＋150秒\n＝50秒＋150秒＝200秒\nしたがって「ウ」が適切です。"
+        ],
+        [
+          "M/M/1の待ち行列モデルにおいて、待ち行列に並んでからサービスを受け終わるまでに要する平均時間は次の式で計算します。\n{利用率／(1－利用率)}×平均サービス時間＋平均サービス時間\n利用率はサービスを提供している時間の割合です。本問だと、1時間に平均6個の印刷要求があるので平均到着間隔は「1時間÷6回＝10分」、平均サービス時間は1ファイルの印刷に要する「7,500バイト÷50バイト＝150秒」なので、利用率は「150秒÷600秒＝0.25」になります。\n上記の式に利用率と平均サービス時間を当てはめると、\n{0.25 / (1 - 0.25)}×150秒＋150秒\n＝1/3×150秒＋150秒\n＝50秒＋150秒＝200秒\nしたがって「ウ」が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問23:https://www.nw-siken.com/kakomon/03_haru/am2_23.html"
+    },
+    {
+      "questionBodyText": "信頼性工学の視点で行うシステム設計において，発生し得る障害の原因を分析する手法であるFTAの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "システムの構成品目の故障モードに着目して，故障の推定原因を列挙し，システムへの影響を評価することによって，システムの信頼性を定性的に分析する。",
+        "障害と，その中間的な原因から基本的な原因までの全てを列挙し，それらをゲート(論理を表す図記号)で関連付けた樹形図で表す。",
+        "障害に関するデータを収集し，原因について\"なぜなぜ分析\"を行い，根本原因を明らかにする。",
+        "多角的で，互いに重ならないように定義したODC属性に従って障害を分類し，どの分類に障害が集中しているかを調べる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_24.html",
+      "public_question_id": "8e6c7b7fa5c040fa",
+      "original_question_id": "8e6c7b7fa5c040fa",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "FTA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "FMEA(Failure Mode and Effects Analysis：故障モード影響解析)の説明です。ボトムアップ型の事象解析手法です。"
+        ],
+        [
+          "正しい。樹形図を使って障害原因分析を行うのがFTAの特徴です。"
+        ],
+        [
+          "RCA(Root Cause Analysis)の説明です。問題や事象の根本原因を明らかにすることを目的として使用されます。"
+        ],
+        [
+          "ODC分析(Orthogonal Defect Classification Analysis：直交欠陥分類分析)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202101:am:問24:https://www.nw-siken.com/kakomon/03_haru/am2_24.html"
+    },
+    {
+      "questionBodyText": "ソフトウェアを保守するときなどに利用される技術であるリバースエンジニアリングに該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ソースプログラムを解析してプログラム仕様書を作る。",
+        "ソースプログラムを探索して修正箇所や影響度を調べる。",
+        "ソースプログラムを見直して構造化プログラムに変換する。",
+        "ソースプログラムを分かりやすい表現に書き換える。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_25.html",
+      "public_question_id": "b7a412622eb5668b",
+      "original_question_id": "b7a412622eb5668b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "リバースエンジニアリング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。リバースエンジニアリングの説明です。"
+        ],
+        [
+          "ソースコード変更波及解析の説明です。"
+        ],
+        [
+          "リファクタリングの説明です。"
+        ],
+        [
+          "リファクタリングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問25:https://www.nw-siken.com/kakomon/03_haru/am2_25.html"
+    }
+  ]
+}
