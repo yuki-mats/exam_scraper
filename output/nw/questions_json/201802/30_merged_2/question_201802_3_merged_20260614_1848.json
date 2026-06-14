@@ -1,0 +1,495 @@
+{
+  "list_group_id": "201802",
+  "question_bodies": [
+    {
+      "questionBodyText": "利用者認証情報を管理するサーバ1台と複数のアクセスポイントで構成された無線LAN環境を実現したい。PCが無線LAN環境に接続するときの利用者認証とアクセス制御に，IEEE 802.1XとRADIUSを利用する場合の標準的な方法はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "PCにはIEEE 802.1Xのサプリカントを実装し，かつ，RADIUSクライアントの機能をもたせる。",
+        "アクセスポイントにはIEEE 802.1Xのオーセンティケータを実装し，かつ，RADIUSクライアントの機能をもたせる。",
+        "アクセスポイントにはIEEE 802.1Xのサプリカントを実装し，かつ，RADIUSサーバの機能をもたせる。",
+        "サーバにはIEEE 802.1Xのオーセンティケータを実装し，かつ，RADIUSサーバの機能をもたせる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_21.html",
+      "public_question_id": "b441dddcef72c7fe",
+      "original_question_id": "b441dddcef72c7fe",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "IEEE 802.1X",
+        "サプリカント",
+        "認証サーバ",
+        "オーセンティケータ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "RADIUSクライアントの機能はアクセスポイントにもたせます。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "サプリカントはクライアントPCに実装し、RADIUSサーバの機能は認証サーバにもたせます。"
+        ],
+        [
+          "オーセンティケータはアクセスポイントに実装します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問21:https://www.nw-siken.com/kakomon/30_aki/am2_21.html",
+      "explanationText": [
+        "間違い。\n\nIEEE 802.1X のサプリカントはクライアント PC 側に実装するが、RADIUS クライアントの機能を持つのは通常アクセスポイントである。",
+        "正しい。\n\nPC はサプリカント、アクセスポイントはオーセンティケータとして動作し、アクセスポイントが RADIUS クライアントとして認証サーバへ問い合わせる構成が標準的である。",
+        "間違い。\n\nアクセスポイントはサプリカントではなくオーセンティケータとして動作し、RADIUS サーバ機能も認証サーバ側に置く。",
+        "間違い。\n\nサーバ側は認証サーバとして RADIUS サーバ機能を持つが、IEEE 802.1X のオーセンティケータはアクセスポイント側である。"
+      ],
+      "suggestedQuestions": [
+        "IEEE 802.1X の役割分担はどうなりますか？",
+        "RADIUS クライアントはどこに実装しますか？",
+        "サプリカントとオーセンティケータの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "IEEE 802.1X の役割分担はどうなりますか？",
+          "answer": "端末がサプリカント、アクセスポイントやスイッチがオーセンティケータ、認証サーバが RADIUS サーバになる。"
+        },
+        {
+          "question": "RADIUS クライアントはどこに実装しますか？",
+          "answer": "認証要求を中継するアクセスポイントやスイッチ側に実装する。"
+        },
+        {
+          "question": "サプリカントとオーセンティケータの違いは何ですか？",
+          "answer": "サプリカントは認証を受ける端末、オーセンティケータは接続制御と認証中継を行う機器である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ネットワークインタフェースカード(NIC)のチーミングの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "処理能力を超えてフレームを受信する可能性があるとき，一時的に送信の中断を要求し，受信バッファがあふれないようにする。",
+        "接続相手のNICが対応している通信規格又は通信モードの違いを自動的に認識し，最適な速度で通信を行うようにする。",
+        "ソフトウェアでNICをエミュレートし，1台のコンピュータに搭載している物理NICの数以上のネットワークインタフェースを使用できるようにする。",
+        "一つのIPアドレスに複数のNICを割り当て，負荷分散，帯域の有効活用，及び耐障害性の向上を図る。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク方式",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク方式"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク方式",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_22.html",
+      "public_question_id": "c41fadf1af09cd92",
+      "original_question_id": "c41fadf1af09cd92",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "NICチーミング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "全二重通信のフロー制御方式であるIEEE802.3xの説明です。IEEE802.3xでは、バッファとパケット流通量を常に監視し、受信バッファがあふれそうなときは、受信側から送信側にPause(ポーズ)パケットを送信することで、送信される量を抑制します。"
+        ],
+        [
+          "オートネゴシエーションの説明です。"
+        ],
+        [
+          "仮想NICの説明です。"
+        ],
+        [
+          "正しい。NICチーミングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201802:am:問22:https://www.nw-siken.com/kakomon/30_aki/am2_22.html",
+      "explanationText": [
+        "間違い。\n\n受信バッファあふれを防ぐために一時停止を要求するのは IEEE 802.3x の PAUSE フレームによるフロー制御の説明である。",
+        "間違い。\n\n接続相手との速度や通信モードを自動調整するのはオートネゴシエーションの説明である。",
+        "間違い。\n\n物理 NIC 数以上の論理インタフェースを使えるようにするのは仮想 NIC の説明であり、NIC チーミングではない。",
+        "正しい。\n\nNIC チーミングは複数の NIC を束ねて一つの論理インタフェースとして扱い、負荷分散、帯域活用、耐障害性向上を図る技術である。"
+      ],
+      "suggestedQuestions": [
+        "NIC チーミングの目的は何ですか？",
+        "フロー制御やオートネゴシエーションとの違いは何ですか？",
+        "NIC チーミングで何が向上しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "NIC チーミングの目的は何ですか？",
+          "answer": "複数の NIC を束ねて帯域確保や冗長化を実現することである。"
+        },
+        {
+          "question": "フロー制御やオートネゴシエーションとの違いは何ですか？",
+          "answer": "フロー制御は送受信調整、オートネゴシエーションはリンク条件調整であり、NIC チーミングは複数 NIC の統合である。"
+        },
+        {
+          "question": "NIC チーミングで何が向上しますか？",
+          "answer": "通信帯域の有効活用、負荷分散、障害時の継続性が向上する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "1台のCPUの性能を1とするとき，そのCPUをn台用いたマルチプロセッサの性能Pが，\nで表されるとする。ここで，aはオーバーヘッドを表す定数である。例えば，a＝0.1，n＝4とすると，p≒3なので，4台のCPUからなるマルチプロセッサの性能は約3倍になる。この式で表されるマルチプロセッサの性能には上限があり，nを幾ら大きくしてもPはある値以上には大きくならない。a＝0.1の場合，Pの上限は幾らか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "5",
+        "10",
+        "15",
+        "20"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_23.html",
+      "public_question_id": "c1a95f647f11c88e",
+      "original_question_id": "c1a95f647f11c88e",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc1a95f647f11c88e_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "10"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+        ],
+        [
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+        ],
+        [
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+        ],
+        [
+          "P(性能)とn(プロセッサ台数)の関係を表すために、aに0.1を代入して式を変形します。P＝n／{1＋(n－1)×0.1}\nP＝n／(1＋0.1n－0.1)\nP＝n／(0.9＋0.1n)\nP＝10n／(9＋n)\nプロセッサの数が少ないときは分母の9が大きく影響しますが、プロセッサ台数が多くなると(例えば10,000個以上など)、定数9は無視できるほど影響が小さくなります。\nつまり、このとき P≒10n／n＝\n10となり、たとえ無限個のプロセッサを搭載しても10倍以上の性能にはならないことがわかります。したがって「イ」が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201802:am:問23:https://www.nw-siken.com/kakomon/30_aki/am2_23.html",
+      "explanationText": [
+        "間違い。\n\na=0.1 のとき P=n/{1+(n-1)×0.1}=10n/(9+n) となる。n を大きくすると上限は 5 ではなく 10 に近づく。",
+        "正しい。\n\n式に a=0.1 を代入すると P=n/(0.9+0.1n)=10n/(9+n) である。n を無限に大きくすると 9 の影響は無視でき、P は 10 を上限として近づく。",
+        "間違い。\n\nP=10n/(9+n) の分母分子を n で割ると、n を大きくした極限は 10 であり 15 にはならない。",
+        "間違い。\n\nCPU 台数を増やしてもオーバーヘッド項があるため性能は無限には伸びず、上限は 20 ではなく 10 である。"
+      ],
+      "suggestedQuestions": [
+        "この式の性能上限はどう求めますか？",
+        "オーバーヘッド係数 a は何を表しますか？",
+        "なぜ CPU 台数を増やしても性能は無限に伸びませんか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "この式の性能上限はどう求めますか？",
+          "answer": "式を整理して n を非常に大きくしたときの極限値を考える。"
+        },
+        {
+          "question": "オーバーヘッド係数 a は何を表しますか？",
+          "answer": "CPU を増やしたときに発生する同期や通信などの追加コストを表す。"
+        },
+        {
+          "question": "なぜ CPU 台数を増やしても性能は無限に伸びませんか？",
+          "answer": "並列化できない部分や協調のためのオーバーヘッドがあるため、増設効果に上限が生じる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs06_01_system_evaluation"
+    },
+    {
+      "questionBodyText": "全国に分散しているシステムを構成する機器の保守に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "故障発生時に遠隔保守を実施することによって駆付け時間が不要になり，MTBFは長くなる。",
+        "故障発生時に行う機器の修理によって，MTBFは長くなる。",
+        "保守センターを1か所集中から分散配置に変えて駆付け時間を短縮することによって，MTTRは短くなる。",
+        "予防保守を実施することによって，MTTRは短くなる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_24.html",
+      "public_question_id": "b79621d21f1d0cd6",
+      "original_question_id": "b79621d21f1d0cd6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "MTBF(Mean Time Between Failures)\nシステムの修理が完了し正常に稼働し始めてから、次回故障するまでの平均故障間隔\nMTTR(Mean Time To Repair)\nシステムの故障を修理するために要した平均修復時間"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "遠隔保守では現場までの移動時間が不要なので、実際に現場に駆け付けて修理する場合よりもMTTRは短くなりますが、MTBFは変化しません。"
+        ],
+        [
+          "「故障発生時に行う機器の修理」とは臨時保守のことです。修理時間を表すのはMTTRなので、MTBFには何ら影響しません。"
+        ],
+        [
+          "正しい。設問のシステムは「全国に分散している」ので、保守センターを全国に分散することで駆付け時間の短縮が期待できます。駆付け時間が短くなれば、その分だけMTTRは短くなります。"
+        ],
+        [
+          "予防保守では、経年劣化した部品などを故障前に交換するのでMTBFを長くできますが、MTTRは変化しません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201802:am:問24:https://www.nw-siken.com/kakomon/30_aki/am2_24.html",
+      "explanationText": [
+        "間違い。\n\n遠隔保守で駆付け時間が不要になれば短くなるのは修復時間 MTTR であり、故障間隔 MTBF は変わらない。",
+        "間違い。\n\n故障後の修理は正常復旧のための作業であり、次回故障までの平均時間を表す MTBF を直ちに長くする説明ではない。",
+        "正しい。\n\n保守センターを分散配置して現地到着までの時間を短縮すれば、故障から復旧までの平均修復時間 MTTR を短くできる。",
+        "間違い。\n\n予防保守は故障を起こりにくくして MTBF を延ばす方向の施策であり、MTTR を短くする説明ではない。"
+      ],
+      "suggestedQuestions": [
+        "MTBF と MTTR の違いは何ですか？",
+        "保守拠点の分散はどの指標に効きますか？",
+        "予防保守は何を改善しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "MTBF と MTTR の違いは何ですか？",
+          "answer": "MTBF は故障と故障の間隔、MTTR は故障してから復旧するまでの平均時間である。"
+        },
+        {
+          "question": "保守拠点の分散はどの指標に効きますか？",
+          "answer": "現地到着時間を短縮できるため、主に MTTR の短縮に効く。"
+        },
+        {
+          "question": "予防保守は何を改善しますか？",
+          "answer": "故障発生頻度を下げ、MTBF を長くする方向に働く。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_02_failure_analysis_recovery"
+    },
+    {
+      "questionBodyText": "ソフトウェアのリファクタリングの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成30年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "外部から見た振る舞いを変更せずに保守性の高いプログラムに書き直す。",
+        "ソースコードから設計書を再作成する。",
+        "ソフトウェア部品を組み合わせてシステムを開発する。",
+        "プログラムの修正が他の部分に影響していないかどうかをテストする。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2018,
+      "list_group_id": "201802",
+      "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_25.html",
+      "public_question_id": "2eb19bbdff2fc980",
+      "original_question_id": "2eb19bbdff2fc980",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "リファクタリング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。リファクタリングの説明です。"
+        ],
+        [
+          "リバースエンジニアリングの説明です。"
+        ],
+        [
+          "コンポーネント指向開発の説明です。"
+        ],
+        [
+          "レグレッションテスト(リグレッションテスト｜回帰テスト｜退行テスト)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201802:am:問25:https://www.nw-siken.com/kakomon/30_aki/am2_25.html",
+      "explanationText": [
+        "正しい。\n\nリファクタリングは、外部から見た振る舞いを変えずに内部構造を改善し、読みやすさや保守性を高めるためのコード改善である。",
+        "間違い。\n\nソースコードから設計書を再作成するのはリバースエンジニアリングの説明である。",
+        "間違い。\n\n既存部品を組み合わせて開発するのはコンポーネント指向開発の説明であり、リファクタリングではない。",
+        "間違い。\n\n修正影響を確認するテストは回帰テストであり、コード構造改善そのものを指すリファクタリングとは別である。"
+      ],
+      "suggestedQuestions": [
+        "リファクタリングの目的は何ですか？",
+        "リバースエンジニアリングとの違いは何ですか？",
+        "リファクタリング後になぜ回帰テストが必要ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "リファクタリングの目的は何ですか？",
+          "answer": "外部仕様を変えずに内部構造を改善し、保守性や理解しやすさを高めることである。"
+        },
+        {
+          "question": "リバースエンジニアリングとの違いは何ですか？",
+          "answer": "リバースエンジニアリングは既存成果物から設計や仕様を読み解く作業であり、リファクタリングはコード改善である。"
+        },
+        {
+          "question": "リファクタリング後になぜ回帰テストが必要ですか？",
+          "answer": "外部から見た振る舞いを変えていないことを確認するためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs04_04_maintenance_update_execution"
+    }
+  ]
+}

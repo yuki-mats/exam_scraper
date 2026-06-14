@@ -1,0 +1,62 @@
+[
+  {
+    "questionBodyText": "利用者認証情報を管理するサーバ1台と複数のアクセスポイントで構成された無線LAN環境を実現したい。PCが無線LAN環境に接続するときの利用者認証とアクセス制御に，IEEE 802.1XとRADIUSを利用する場合の標準的な方法はどれか。",
+    "choiceTextList": [
+      "PCにはIEEE 802.1Xのサプリカントを実装し，かつ，RADIUSクライアントの機能をもたせる。",
+      "アクセスポイントにはIEEE 802.1Xのオーセンティケータを実装し，かつ，RADIUSクライアントの機能をもたせる。",
+      "アクセスポイントにはIEEE 802.1Xのサプリカントを実装し，かつ，RADIUSサーバの機能をもたせる。",
+      "サーバにはIEEE 802.1Xのオーセンティケータを実装し，かつ，RADIUSサーバの機能をもたせる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b441dddcef72c7fe",
+    "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_21.html"
+  },
+  {
+    "questionBodyText": "ネットワークインタフェースカード(NIC)のチーミングの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "処理能力を超えてフレームを受信する可能性があるとき，一時的に送信の中断を要求し，受信バッファがあふれないようにする。",
+      "接続相手のNICが対応している通信規格又は通信モードの違いを自動的に認識し，最適な速度で通信を行うようにする。",
+      "ソフトウェアでNICをエミュレートし，1台のコンピュータに搭載している物理NICの数以上のネットワークインタフェースを使用できるようにする。",
+      "一つのIPアドレスに複数のNICを割り当て，負荷分散，帯域の有効活用，及び耐障害性の向上を図る。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c41fadf1af09cd92",
+    "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_22.html"
+  },
+  {
+    "questionBodyText": "1台のCPUの性能を1とするとき，そのCPUをn台用いたマルチプロセッサの性能Pが，\nで表されるとする。ここで，aはオーバーヘッドを表す定数である。例えば，a＝0.1，n＝4とすると，p≒3なので，4台のCPUからなるマルチプロセッサの性能は約3倍になる。この式で表されるマルチプロセッサの性能には上限があり，nを幾ら大きくしてもPはある値以上には大きくならない。a＝0.1の場合，Pの上限は幾らか。",
+    "choiceTextList": [
+      "5",
+      "10",
+      "15",
+      "20"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c1a95f647f11c88e",
+    "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_23.html"
+  },
+  {
+    "questionBodyText": "全国に分散しているシステムを構成する機器の保守に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "故障発生時に遠隔保守を実施することによって駆付け時間が不要になり，MTBFは長くなる。",
+      "故障発生時に行う機器の修理によって，MTBFは長くなる。",
+      "保守センターを1か所集中から分散配置に変えて駆付け時間を短縮することによって，MTTRは短くなる。",
+      "予防保守を実施することによって，MTTRは短くなる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b79621d21f1d0cd6",
+    "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_24.html"
+  },
+  {
+    "questionBodyText": "ソフトウェアのリファクタリングの説明はどれか。",
+    "choiceTextList": [
+      "外部から見た振る舞いを変更せずに保守性の高いプログラムに書き直す。",
+      "ソースコードから設計書を再作成する。",
+      "ソフトウェア部品を組み合わせてシステムを開発する。",
+      "プログラムの修正が他の部分に影響していないかどうかをテストする。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2eb19bbdff2fc980",
+    "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_25.html"
+  }
+]
