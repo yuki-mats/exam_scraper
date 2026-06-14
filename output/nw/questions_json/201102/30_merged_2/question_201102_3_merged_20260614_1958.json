@@ -1,0 +1,493 @@
+{
+  "list_group_id": "201102",
+  "question_bodies": [
+    {
+      "questionBodyText": "IPsecのAHに関する説明のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成23年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "IPパケットを暗号化する対象部分によって，トランスポートモード，トンネルモードの方式がある。",
+        "暗号化アルゴリズムや暗号化鍵のライフタイムが設定される管理テーブルで，期間を過ぎると新しいデータに更新される。",
+        "暗号化アルゴリズムを決定し，暗号化鍵を動的に生成する鍵交換プロトコルで，暗号化通信を行う。",
+        "データの暗号化は行わず，SPI，シーケンス番号，認証データを用い，完全性の確保と認証を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2011,
+      "list_group_id": "201102",
+      "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_21.html",
+      "public_question_id": "c5852ee4200254f2",
+      "original_question_id": "c5852ee4200254f2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "AH",
+        "SPI(セキュリティパラメータインデックス)\nデータを通信するためのコネクションであるIPsecSAを識別するのに使用される情報\nシーケンス番号\nリプレイアタックを防止するために各パケットごとに付与される順序番号\n認証データ\nIPヘッダーも含めたパケット全体の完全性をチェックするデータで、HMACを用いて生成される"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "AH\n(Authentication Header:認証ヘッダー)は、IPsecにおいて通信データの認証のために使用されるプロトコルで暗号化の機能はありません。AHヘッダーに含まれる主なパラメータについては以下の通りです。SPI(セキュリティパラメータインデックス)\nデータを通信するためのコネクションであるIPsecSAを識別するのに使用される情報\nシーケンス番号\nリプレイアタックを防止するために各パケットごとに付与される順序番号\n認証データ\nIPヘッダーも含めたパケット全体の完全性をチェックするデータで、HMACを用いて生成される\nAHは暗号化機能をもっていないため正しい記述は「エ」になります。"
+        ],
+        [
+          "AH\n(Authentication Header:認証ヘッダー)は、IPsecにおいて通信データの認証のために使用されるプロトコルで暗号化の機能はありません。AHヘッダーに含まれる主なパラメータについては以下の通りです。SPI(セキュリティパラメータインデックス)\nデータを通信するためのコネクションであるIPsecSAを識別するのに使用される情報\nシーケンス番号\nリプレイアタックを防止するために各パケットごとに付与される順序番号\n認証データ\nIPヘッダーも含めたパケット全体の完全性をチェックするデータで、HMACを用いて生成される\nAHは暗号化機能をもっていないため正しい記述は「エ」になります。"
+        ],
+        [
+          "AH\n(Authentication Header:認証ヘッダー)は、IPsecにおいて通信データの認証のために使用されるプロトコルで暗号化の機能はありません。AHヘッダーに含まれる主なパラメータについては以下の通りです。SPI(セキュリティパラメータインデックス)\nデータを通信するためのコネクションであるIPsecSAを識別するのに使用される情報\nシーケンス番号\nリプレイアタックを防止するために各パケットごとに付与される順序番号\n認証データ\nIPヘッダーも含めたパケット全体の完全性をチェックするデータで、HMACを用いて生成される\nAHは暗号化機能をもっていないため正しい記述は「エ」になります。"
+        ],
+        [
+          "AH\n(Authentication Header:認証ヘッダー)は、IPsecにおいて通信データの認証のために使用されるプロトコルで暗号化の機能はありません。AHヘッダーに含まれる主なパラメータについては以下の通りです。SPI(セキュリティパラメータインデックス)\nデータを通信するためのコネクションであるIPsecSAを識別するのに使用される情報\nシーケンス番号\nリプレイアタックを防止するために各パケットごとに付与される順序番号\n認証データ\nIPヘッダーも含めたパケット全体の完全性をチェックするデータで、HMACを用いて生成される\nAHは暗号化機能をもっていないため正しい記述は「エ」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201102:am:問21:https://www.nw-siken.com/kakomon/23_aki/am2_21.html",
+      "explanationText": [
+        "間違い。\n\nIP パケットの暗号化対象範囲によってトランスポートモードとトンネルモードを持つのは主に ESP の説明であり、AH は暗号化を行わない。",
+        "間違い。\n\n暗号化アルゴリズムや鍵のライフタイムを管理するテーブルは SA や SPD/SAD などに関する説明であり、AH 自体の説明ではない。",
+        "間違い。\n\n暗号化アルゴリズムを決定して鍵を動的生成するのは IKE などの鍵交換プロトコルの役割であり、AH の機能ではない。",
+        "正しい。\n\nAH(Authentication Header) はデータを暗号化せず、SPI、シーケンス番号、認証データを用いて完全性の確保と送信元認証を行う。"
+      ],
+      "suggestedQuestions": [
+        "AHとESPの違いは何ですか？",
+        "SPIは何を識別しますか？",
+        "AHでリプレイ攻撃を防ぐ要素は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "AHとESPの違いは何ですか？",
+          "answer": "AH は完全性確認と認証が中心で暗号化はせず、ESP は暗号化を含む機密性保護が可能である。"
+        },
+        {
+          "question": "SPIは何を識別しますか？",
+          "answer": "IPsec の Security Association を識別するために使う。"
+        },
+        {
+          "question": "AHでリプレイ攻撃を防ぐ要素は何ですか？",
+          "answer": "各パケットへ付くシーケンス番号が再送や再利用の検出に使われる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ECCメモリで，2ビットの誤りを検出し，1ビットの誤りを訂正するために用いるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成23年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "偶数パリティ",
+        "垂直パリティ",
+        "チェックサム",
+        "ハミング符号"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2011,
+      "list_group_id": "201102",
+      "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_22.html",
+      "public_question_id": "0ccb8e598863d891",
+      "original_question_id": "0ccb8e598863d891",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ECCメモリ",
+        "ハミング符号"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "データ全体中にある\"1\"のビットの数が偶数個になるようにパリティビットを付加する方式です。1ビットの誤りを検出することができます。"
+        ],
+        [
+          "データの水平方向ではなく、\n垂直方向\nを対象としてパリティビットを付加する方式です。水平方向と組み合わせた垂直水平パリティチェックでは1ビットの誤りを訂正できますが、垂直パリティだけでは1ビットの検出のみが可能です。"
+        ],
+        [
+          "データの合計値を検査用に付加し、誤りがあるかを検出する方式です。"
+        ],
+        [
+          "正しい。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201102:am:問22:https://www.nw-siken.com/kakomon/23_aki/am2_22.html",
+      "explanationText": [
+        "間違い。\n\n偶数パリティは 1 ビット誤りの検出には使えるが、2 ビット誤り検出と 1 ビット誤り訂正を同時に行う ECC メモリの方式ではない。",
+        "間違い。\n\n垂直パリティ単独では誤り位置を特定できず、ECC メモリで求める 1 ビット訂正・2 ビット検出の方式としては不十分である。",
+        "間違い。\n\nチェックサムは主に通信やファイル整合性確認のための検出方式であり、ECC メモリで 1 ビット訂正まで行う方式ではない。",
+        "正しい。\n\nハミング符号は冗長ビットを付加して、1 ビット誤りの訂正と 2 ビット誤りの検出を実現できる代表的な方式である。"
+      ],
+      "suggestedQuestions": [
+        "ハミング符号は何ができますか？",
+        "パリティとハミング符号の違いは何ですか？",
+        "ECCメモリで必要な機能は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ハミング符号は何ができますか？",
+          "answer": "冗長ビットにより 1 ビット誤りの訂正と 2 ビット誤りの検出ができる。"
+        },
+        {
+          "question": "パリティとハミング符号の違いは何ですか？",
+          "answer": "単純パリティは主に誤り検出だけだが、ハミング符号は誤り位置を特定して訂正まで行える。"
+        },
+        {
+          "question": "ECCメモリで必要な機能は何ですか？",
+          "answer": "少なくとも 1 ビット誤りの訂正と、複数ビット誤りの検出が求められる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "グリッドコンピューティングの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成23年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "OSを実行するプロセッサ，アプリケーションを実行するプロセッサというように，それぞれの役割が決定されている複数のプロセッサによって処理を分散する方式である。",
+        "PCから大型コンピュータまで，ネットワーク上にある複数のプロセッサに処理を分散して，大規模な一つの処理を行う方式である。",
+        "カーネルプロセスとユーザープロセスとの区別せずに，基本的に同等な役割の複数のプロセッサに処理を分散する方式である。",
+        "プロセッサ上でスレッド(プログラムの実行単位)レベルの並列化を実現し，プロセッサの利用効率を高める方式である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2011,
+      "list_group_id": "201102",
+      "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_23.html",
+      "public_question_id": "c05d1305bc569421",
+      "original_question_id": "c05d1305bc569421",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "グリッドコンピューティング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "非対称型マルチプロセッサシステムに関する記述です。"
+        ],
+        [
+          "正しい。グリッドコンピューティングに関する記述です。"
+        ],
+        [
+          "対称型マルチプロセッサシステムに関する記述です。"
+        ],
+        [
+          "マルチスレッドに関する記述です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201102:am:問23:https://www.nw-siken.com/kakomon/23_aki/am2_23.html",
+      "explanationText": [
+        "間違い。\n\n役割を固定した複数プロセッサへ処理を分散する説明は非対称型マルチプロセッサに近く、グリッドコンピューティングの説明ではない。",
+        "正しい。\n\nグリッドコンピューティングは、PC から大型計算機までネットワーク上の多数の計算資源を束ねて、大規模な一つの処理を分散実行する方式である。",
+        "間違い。\n\n同等な役割の複数プロセッサへ処理を分散する説明は対称型マルチプロセッサの説明である。",
+        "間違い。\n\nスレッドレベル並列化で単一プロセッサの利用効率を高める説明はマルチスレッドの話であり、グリッドコンピューティングではない。"
+      ],
+      "suggestedQuestions": [
+        "グリッドコンピューティングとクラスタの違いは何ですか？",
+        "なぜ異種計算機もまとめて使えますか？",
+        "どのような処理に向いていますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "グリッドコンピューティングとクラスタの違いは何ですか？",
+          "answer": "クラスタは比較的統一的な環境を密結合で束ねることが多いが、グリッドはネットワーク越しの分散資源を広く活用する。"
+        },
+        {
+          "question": "なぜ異種計算機もまとめて使えますか？",
+          "answer": "ネットワーク越しに計算資源を抽象化し、ジョブを分配する仕組みで全体を一つの資源のように扱うためである。"
+        },
+        {
+          "question": "どのような処理に向いていますか？",
+          "answer": "多数の計算ノードへ分割しやすい大規模科学技術計算や探索処理に向いている。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "次のクラス図におけるクラス間の関係の説明のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成23年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "\"バス\"，\"トラック\"などのクラスが\"自動車\"クラスの定義を引き継ぐことを，インスタンスという。",
+        "\"バス\"，\"トラック\"などのクラスの共通部分を抽出し\"自動車\"クラスとして定義することを，汎化という。",
+        "\"バス\"，\"トラック\"などのクラスは，\"自動車\"クラスに対するオブジェクトという。",
+        "\"バス\"，\"トラック\"などのそれぞれのクラスの違いを\"自動車\"クラスとして定義することを，特化という。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2011,
+      "list_group_id": "201102",
+      "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_24.html",
+      "public_question_id": "70d566718d31f017",
+      "original_question_id": "70d566718d31f017",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq70d566718d31f017_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "子クラスが親クラスの属性・メソッドを引き継ぐことを「インヘリタンス」といいます。"
+        ],
+        [
+          "正しい。\"バス\"，\"トラック\"などの子クラスに\n共通する特性\nを抽出して親クラスを定義することを「汎化」といいます。"
+        ],
+        [
+          "親クラスから引き継いだ特性に、独自の特性を定義して特化させたクラスを「子クラス(サブクラス)」といいます。"
+        ],
+        [
+          "「特化」は親クラスから引き継いだ特性に、独自の特性を定義して派生したクラスを作成することをいいます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201102:am:問24:https://www.nw-siken.com/kakomon/23_aki/am2_24.html",
+      "explanationText": [
+        "間違い。\n\nクラス定義を引き継ぐことは継承やインヘリタンスに関する説明であり、インスタンスという用語ではない。",
+        "正しい。\n\n汎化は、複数の下位クラスに共通する属性や操作を抽出し、より一般的な上位クラスを定義することを指す。バスやトラックの共通部分から自動車クラスを定義するのがこれに当たる。",
+        "間違い。\n\nバスやトラックは自動車クラスに対する下位クラスであり、オブジェクトと呼ぶのは不適切である。",
+        "間違い。\n\n特化は上位クラスから下位クラスを導くことであり、各クラスの違いをまとめて自動車クラスを定義する説明ではない。"
+      ],
+      "suggestedQuestions": [
+        "汎化と特化の違いは何ですか？",
+        "クラスとオブジェクトはどう違いますか？",
+        "継承とは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "汎化と特化の違いは何ですか？",
+          "answer": "汎化は共通点をまとめて上位クラスを作る方向、特化は上位クラスから具体的な下位クラスを作る方向である。"
+        },
+        {
+          "question": "クラスとオブジェクトはどう違いますか？",
+          "answer": "クラスは設計図、オブジェクトはそのクラスから生成された具体的な実体である。"
+        },
+        {
+          "question": "継承とは何ですか？",
+          "answer": "下位クラスが上位クラスの属性や操作を受け継ぐ仕組みである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "ソフトウェア開発組織の活動状態のうち，CMMIにおけるプロセス成熟度が最も高いものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成23年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "作業成果物の状況が，主要なタスクの完了時点で管理層に対して見える状態になっている。",
+        "実績が定量的に把握されており，プロセスが組織的に管理されている。",
+        "プロセスが明文化されて，組織内のすべての人がそれを利用している。",
+        "プロセスそれ自体を改善していくための仕組みが機能している。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2011,
+      "list_group_id": "201102",
+      "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_25.html",
+      "public_question_id": "2f86378f2f365e07",
+      "original_question_id": "2f86378f2f365e07",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "CMMI",
+        "レベル1：初期\n場当たり的で無秩序な組織として最も低い状態。\nレベル2：管理された\nプロジェクト管理のための基本的なプロセスが備わっている状態。\nレベル3：定義された\n組織内に標準化された一貫性のあるプロセスが定義されている状態。\nレベル4：定量的に管理された\n定量的な品質目標が存在し、プロセスはデータに基づき予測可能である状態。\nレベル5：最適化している\n継続的な改善プロセスが常に機能している状態。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "レベル2の状態です。"
+        ],
+        [
+          "レベル4の状態です。"
+        ],
+        [
+          "レベル3の状態です。"
+        ],
+        [
+          "正しい。最も成熟度が高いレベル5の状態です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201102:am:問25:https://www.nw-siken.com/kakomon/23_aki/am2_25.html",
+      "explanationText": [
+        "間違い。\n\n主要タスク完了時点で成果物の状況が見えるのは、管理された状態に近く、最も成熟度が高い段階ではない。",
+        "間違い。\n\n実績を定量的に把握して組織的に管理している状態は CMMI のレベル4に相当し、最上位ではない。",
+        "間違い。\n\nプロセスが明文化され全員が利用している状態は CMMI のレベル3に相当する。",
+        "正しい。\n\nプロセス自体を継続的に改善する仕組みが機能している状態は、CMMI の最上位であるレベル5『最適化』に相当する。"
+      ],
+      "suggestedQuestions": [
+        "CMMIの5段階は何ですか？",
+        "レベル4とレベル5の違いは何ですか？",
+        "なぜ継続的改善が最上位ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "CMMIの5段階は何ですか？",
+          "answer": "初期、管理された、定義された、定量的に管理された、最適化している、の5段階である。"
+        },
+        {
+          "question": "レベル4とレベル5の違いは何ですか？",
+          "answer": "レベル4は定量管理中心、レベル5はそのデータを使ってプロセス自体を継続改善する段階である。"
+        },
+        {
+          "question": "なぜ継続的改善が最上位ですか？",
+          "answer": "標準化や定量管理を前提に、組織が自律的により良いプロセスへ進化し続けられる状態だからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    }
+  ]
+}
