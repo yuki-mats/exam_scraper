@@ -1,0 +1,62 @@
+[
+  {
+    "questionBodyText": "DNSの再帰的な問合せを使ったサービス妨害攻撃(DNSリフレクタ攻撃)の踏み台にされないための対策はどれか。",
+    "choiceTextList": [
+      "DNSサーバをDNSキャッシュサーバと権威DNSサーバに分離し，インターネット側からDNSキャッシュサーバに問合せできないようにする。",
+      "問合せがあったドメインに関する情報をWhoisデータベースで確認してからDNSキャッシュサーバに登録する。",
+      "一つのDNSレコードに複数のサーバのIPアドレスを割り当て，サーバへのアクセスを振り分けて分散させるように設定する。",
+      "ほかの権威DNSサーバから送られてくるIPアドレスとホスト名の対応情報の信頼性を，デジタル署名で確認するように設定する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "fb573c47eb89e9b6",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_21.html"
+  },
+  {
+    "questionBodyText": "量子アニーリング方式の量子コンピュータの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "極低温の環境の中で，量子ゲートを用いて演算する。",
+      "従来のCPUと同様に命令を使って演算，記憶と制御ができる。",
+      "複数のデータに同一の演算処理を高速に実行できる。",
+      "膨大な選択肢の中から最適な選択肢を探すアルゴリズムに特化している。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "4927ab4e4e4114df",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_22.html"
+  },
+  {
+    "questionBodyText": "ある2局間の通信回線のアベイラビリティ(稼働率)は0.9であった。通信回線部分の二重化を行ったところ，アベイラビリティが0.999となった。このとき，新たに設置した通信回線のアベイラビリティは幾らか。",
+    "choiceTextList": [
+      "0.990",
+      "0.993",
+      "0.996",
+      "0.999"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1feb9805d4b5f8de",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_23.html"
+  },
+  {
+    "questionBodyText": "システムに規定外の無効なデータが入力されたとき，誤入力であることを伝えるメッセージを表示して正しい入力を促すことによって，システムを異常終了させない設計は何というか。",
+    "choiceTextList": [
+      "フールプルーフ",
+      "フェールセーフ",
+      "フェールソフト",
+      "フォールトトレランス"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "72ceaa5ff2bc9a9f",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_24.html"
+  },
+  {
+    "questionBodyText": "ステージング環境の説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "開発者がプログラムを変更するたびに，ステージングサーバにプログラムを直接デプロイして動作を確認し，デバッグするための環境",
+      "システムのベータ版を広く一般の利用者に公開してテストを実施してもらうことによって，問題点やバグを報告してもらう環境",
+      "保護するネットワークと外部ネットワークの間に境界ネットワーク(DMZ)を設置して，セキュリティを高めたネットワーク環境",
+      "本番環境とほぼ同じ環境を用意して，システムリリース前の最終テストを行う環境"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "bcb12b06c7cfae53",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_25.html"
+  }
+]

@@ -1,0 +1,352 @@
+{
+  "list_group_id": "202201",
+  "question_bodies": [
+    {
+      "questionBodyText": "DNSの再帰的な問合せを使ったサービス妨害攻撃(DNSリフレクタ攻撃)の踏み台にされないための対策はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DNSサーバをDNSキャッシュサーバと権威DNSサーバに分離し，インターネット側からDNSキャッシュサーバに問合せできないようにする。",
+        "問合せがあったドメインに関する情報をWhoisデータベースで確認してからDNSキャッシュサーバに登録する。",
+        "一つのDNSレコードに複数のサーバのIPアドレスを割り当て，サーバへのアクセスを振り分けて分散させるように設定する。",
+        "ほかの権威DNSサーバから送られてくるIPアドレスとホスト名の対応情報の信頼性を，デジタル署名で確認するように設定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_21.html",
+      "public_question_id": "fb573c47eb89e9b6",
+      "original_question_id": "fb573c47eb89e9b6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "DNSリフレクタ攻撃",
+        "攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "DNSリフレクタ攻撃が攻撃に使うのは不正又は架空のドメインではないため、Whoisデータベースでの確認は無意味です。"
+        ],
+        [
+          "DNSラウンドロビンの説明です。"
+        ],
+        [
+          "DNSSECに関する説明で、DNSキャッシュポイズニング攻撃への対策です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202201:am:問21:https://www.nw-siken.com/kakomon/04_haru/am2_21.html"
+    },
+    {
+      "questionBodyText": "量子アニーリング方式の量子コンピュータの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "極低温の環境の中で，量子ゲートを用いて演算する。",
+        "従来のCPUと同様に命令を使って演算，記憶と制御ができる。",
+        "複数のデータに同一の演算処理を高速に実行できる。",
+        "膨大な選択肢の中から最適な選択肢を探すアルゴリズムに特化している。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_22.html",
+      "public_question_id": "4927ab4e4e4114df",
+      "original_question_id": "4927ab4e4e4114df",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "量子ゲート方式の量子コンピュータの説明です。量子アニーリング方式では、量子ビットに対してアニーリング操作を行うこと演算します。"
+        ],
+        [
+          "量子アニーリング方式の量子コンピュータにおける計算は、イジングモデルと呼ばれる計算モデルを定式化し、その計算モデルに問題をマッピングすることで行います。プログラミングは不要で変数間の結合強度と重みを設定するだけです。"
+        ],
+        [
+          "量子コンピュータでは量子の重ね合わせ状態を利用して、1つのデータに対して解の組合せを一括で計算します。古典コンピュータのように同じ演算処理を逐次繰り返すことはしません。"
+        ],
+        [
+          "正しい。量子アニーリング方式の量子コンピュータは、最適化問題を解くことに特化した方式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202201:am:問22:https://www.nw-siken.com/kakomon/04_haru/am2_22.html"
+    },
+    {
+      "questionBodyText": "ある2局間の通信回線のアベイラビリティ(稼働率)は0.9であった。通信回線部分の二重化を行ったところ，アベイラビリティが0.999となった。このとき，新たに設置した通信回線のアベイラビリティは幾らか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.990",
+        "0.993",
+        "0.996",
+        "0.999"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_23.html",
+      "public_question_id": "1feb9805d4b5f8de",
+      "original_question_id": "1feb9805d4b5f8de",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "(1－0.9)(1－R)"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ],
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ],
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ],
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202201:am:問23:https://www.nw-siken.com/kakomon/04_haru/am2_23.html"
+    },
+    {
+      "questionBodyText": "システムに規定外の無効なデータが入力されたとき，誤入力であることを伝えるメッセージを表示して正しい入力を促すことによって，システムを異常終了させない設計は何というか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "フールプルーフ",
+        "フェールセーフ",
+        "フェールソフト",
+        "フォールトトレランス"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » システム方式設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "システム方式設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "システム方式設計",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_24.html",
+      "public_question_id": "72ceaa5ff2bc9a9f",
+      "original_question_id": "72ceaa5ff2bc9a9f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。フールプルーフは、不特定多数の人が操作するシステムに、入力データのチェックやエラーメッセージの表示などの機能を加えることで、人為的ミスによるシステムの誤動作を防ぐように設計する考え方です。"
+        ],
+        [
+          "フェールセーフは、システムの不具合や故障が発生したときでも、障害の影響範囲を最小限にとどめ、常に安全を最優先にして制御を行う考え方です。"
+        ],
+        [
+          "フェールソフトは、システムに障害が発生した時に、多少の性能の低下を許容し、システム全体の運転継続に必要な機能を維持させようとする考え方です。"
+        ],
+        [
+          "フォールトトレランスは、構成機器の二重化などによって、システムの一部に障害が発生しても全体としては停止することなく稼働を続け、その間に復旧を図るようにシステムを設計する方針です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202201:am:問24:https://www.nw-siken.com/kakomon/04_haru/am2_24.html"
+    },
+    {
+      "questionBodyText": "ステージング環境の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "開発者がプログラムを変更するたびに，ステージングサーバにプログラムを直接デプロイして動作を確認し，デバッグするための環境",
+        "システムのベータ版を広く一般の利用者に公開してテストを実施してもらうことによって，問題点やバグを報告してもらう環境",
+        "保護するネットワークと外部ネットワークの間に境界ネットワーク(DMZ)を設置して，セキュリティを高めたネットワーク環境",
+        "本番環境とほぼ同じ環境を用意して，システムリリース前の最終テストを行う環境"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » 導入",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "導入"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "導入",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_25.html",
+      "public_question_id": "bcb12b06c7cfae53",
+      "original_question_id": "bcb12b06c7cfae53",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ステージング環境"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ステージングサーバ上でデバッグを行うことはありません。システムのデバッグはテスト環境上で行います。"
+        ],
+        [
+          "オープンベータテスト環境の説明です。"
+        ],
+        [
+          "セキュリティを高めたネットワーク環境ではありません。"
+        ],
+        [
+          "正しい。ステージング環境の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202201:am:問25:https://www.nw-siken.com/kakomon/04_haru/am2_25.html"
+    }
+  ]
+}

@@ -1,0 +1,487 @@
+{
+  "list_group_id": "202201",
+  "question_bodies": [
+    {
+      "questionBodyText": "DNSの再帰的な問合せを使ったサービス妨害攻撃(DNSリフレクタ攻撃)の踏み台にされないための対策はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DNSサーバをDNSキャッシュサーバと権威DNSサーバに分離し，インターネット側からDNSキャッシュサーバに問合せできないようにする。",
+        "問合せがあったドメインに関する情報をWhoisデータベースで確認してからDNSキャッシュサーバに登録する。",
+        "一つのDNSレコードに複数のサーバのIPアドレスを割り当て，サーバへのアクセスを振り分けて分散させるように設定する。",
+        "ほかの権威DNSサーバから送られてくるIPアドレスとホスト名の対応情報の信頼性を，デジタル署名で確認するように設定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_21.html",
+      "public_question_id": "fb573c47eb89e9b6",
+      "original_question_id": "fb573c47eb89e9b6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "DNSリフレクタ攻撃",
+        "攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "DNSリフレクタ攻撃が攻撃に使うのは不正又は架空のドメインではないため、Whoisデータベースでの確認は無意味です。"
+        ],
+        [
+          "DNSラウンドロビンの説明です。"
+        ],
+        [
+          "DNSSECに関する説明で、DNSキャッシュポイズニング攻撃への対策です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202201:am:問21:https://www.nw-siken.com/kakomon/04_haru/am2_21.html",
+      "explanationText": [
+        "正しい。\n\nDNSリフレクタ攻撃では、外部から利用可能な再帰問い合わせサーバが踏み台に悪用される。権威DNSサーバとキャッシュDNSサーバを分離し、インターネット側からキャッシュDNSサーバへ再帰問い合わせできないようにすれば、攻撃に使われにくくなる。",
+        "間違い。\n\nWhois データベースの確認は、再帰問い合わせの悪用防止策にはならない。攻撃者は実在ドメインに対する問い合わせでも踏み台化できるため、公開キャッシュサーバを閉じる対策が本質である。",
+        "間違い。\n\n一つの名前に複数IPアドレスを割り当てるのは DNS ラウンドロビンによる負荷分散の説明であり、DNS リフレクタ攻撃の踏み台防止策ではない。",
+        "間違い。\n\nデジタル署名で応答の真正性を確認する設定は DNSSEC に関する対策であり、主にキャッシュポイズニング対策である。再帰問い合わせサーバを外部公開しない対策とは別である。"
+      ],
+      "suggestedQuestions": [
+        "DNSリフレクタ攻撃はなぜ踏み台サーバを必要とするのですか？",
+        "DNSSEC と DNSリフレクタ対策の違いは何ですか？",
+        "キャッシュDNSサーバを公開しない設計はなぜ有効ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "DNSリフレクタ攻撃はなぜ踏み台サーバを必要とするのですか？",
+          "answer": "攻撃者は送信元IPアドレスを被害者に偽装して多数のDNSサーバへ問い合わせ、DNSサーバから被害者へ大量応答を返させることで攻撃トラフィックを増幅するからである。"
+        },
+        {
+          "question": "DNSSEC と DNSリフレクタ対策の違いは何ですか？",
+          "answer": "DNSSEC はDNS応答の真正性検証により改ざんやなりすましを防ぐ仕組みで、DNSリフレクタ対策は再帰問い合わせを悪用されないよう公開キャッシュDNSサーバを閉じることが中心である。"
+        },
+        {
+          "question": "キャッシュDNSサーバを公開しない設計はなぜ有効ですか？",
+          "answer": "外部の不特定利用者が再帰問い合わせできなければ、攻撃者はそのサーバを増幅器として利用できないためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_04_security_incident_response"
+    },
+    {
+      "questionBodyText": "量子アニーリング方式の量子コンピュータの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "極低温の環境の中で，量子ゲートを用いて演算する。",
+        "従来のCPUと同様に命令を使って演算，記憶と制御ができる。",
+        "複数のデータに同一の演算処理を高速に実行できる。",
+        "膨大な選択肢の中から最適な選択肢を探すアルゴリズムに特化している。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » プロセッサ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "プロセッサ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "プロセッサ",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_22.html",
+      "public_question_id": "4927ab4e4e4114df",
+      "original_question_id": "4927ab4e4e4114df",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "量子ゲート方式の量子コンピュータの説明です。量子アニーリング方式では、量子ビットに対してアニーリング操作を行うこと演算します。"
+        ],
+        [
+          "量子アニーリング方式の量子コンピュータにおける計算は、イジングモデルと呼ばれる計算モデルを定式化し、その計算モデルに問題をマッピングすることで行います。プログラミングは不要で変数間の結合強度と重みを設定するだけです。"
+        ],
+        [
+          "量子コンピュータでは量子の重ね合わせ状態を利用して、1つのデータに対して解の組合せを一括で計算します。古典コンピュータのように同じ演算処理を逐次繰り返すことはしません。"
+        ],
+        [
+          "正しい。量子アニーリング方式の量子コンピュータは、最適化問題を解くことに特化した方式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202201:am:問22:https://www.nw-siken.com/kakomon/04_haru/am2_22.html",
+      "explanationText": [
+        "間違い。\n\n極低温環境で量子ゲートを用いて汎用演算を行う説明は、量子ゲート方式の量子コンピュータに近い。量子アニーリング方式は、最適化問題を解くことに特化した別方式である。",
+        "間違い。\n\n量子アニーリング方式は、従来CPUのように命令を逐次実行して汎用計算する仕組みではない。評価関数を最小化する形へ問題を写像して解を求める。",
+        "間違い。\n\n同一演算を多数データへ高速に適用する説明だけでは量子アニーリング方式の本質を表していない。量子アニーリングは組合せ最適化問題に特化する。",
+        "正しい。\n\n量子アニーリング方式の量子コンピュータは、膨大な候補の中から評価関数が最小または最大になる解を探索する最適化問題に強みを持つ。"
+      ],
+      "suggestedQuestions": [
+        "量子アニーリング方式はどんな問題に向いていますか？",
+        "量子ゲート方式との違いは何ですか？",
+        "なぜ最適化問題に特化していると言えますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "量子アニーリング方式はどんな問題に向いていますか？",
+          "answer": "多数の候補から最良の組合せを選ぶような組合せ最適化問題に向いている。"
+        },
+        {
+          "question": "量子ゲート方式との違いは何ですか？",
+          "answer": "量子ゲート方式は量子回路を組んでより汎用的な量子計算を目指すのに対し、量子アニーリング方式は最適化問題を解くことへ用途を絞っている。"
+        },
+        {
+          "question": "なぜ最適化問題に特化していると言えますか？",
+          "answer": "問題をエネルギー最小化の形へ写像し、より低い状態へ遷移させて良い解を探索する動作原理だからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "ある2局間の通信回線のアベイラビリティ(稼働率)は0.9であった。通信回線部分の二重化を行ったところ，アベイラビリティが0.999となった。このとき，新たに設置した通信回線のアベイラビリティは幾らか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "0.990",
+        "0.993",
+        "0.996",
+        "0.999"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_23.html",
+      "public_question_id": "1feb9805d4b5f8de",
+      "original_question_id": "1feb9805d4b5f8de",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "(1－0.9)(1－R)"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ],
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ],
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ],
+        [
+          "新たに設置した通信回線の稼働率をRとすると、0.999＝1－(1－0.9)(1－R)\nという関係式が成り立ちます。式中の\n(1－0.9)(1－R)\nの部分が0.001になればよいので、\n(1－0.9)(1－R)＝0.0010.1(1－R)＝0.0010.1－0.1R＝0.001\n－0.1R＝－0.099R＝0.99したがって「ア」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202201:am:問23:https://www.nw-siken.com/kakomon/04_haru/am2_23.html",
+      "explanationText": [
+        "正しい。\n\n既存回線のアベイラビリティを 0.9、新設回線を R とすると、二重化後に両方停止する確率は (1-0.9)(1-R)=0.1(1-R) である。二重化後のアベイラビリティは 1-0.1(1-R)=0.999 だから、0.1(1-R)=0.001、1-R=0.01、R=0.99 となる。",
+        "間違い。\n\n0.993 なら二重化後の停止確率は 0.1×(1-0.993)=0.0007 となり、アベイラビリティは 0.9993 になる。条件の 0.999 と一致しない。",
+        "間違い。\n\n0.996 なら二重化後の停止確率は 0.1×(1-0.996)=0.0004 で、アベイラビリティは 0.9996 になる。必要値より高く、条件とは一致しない。",
+        "間違い。\n\n新設回線自体が 0.999 だと、二重化後は 1-0.1×0.001=0.9999 となる。これは問題文の 0.999 より高い。"
+      ],
+      "suggestedQuestions": [
+        "二重化後のアベイラビリティはどう式を立てますか？",
+        "停止確率を掛け算するのはなぜですか？",
+        "0.99 と 0.999 を取り違えないコツはありますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "二重化後のアベイラビリティはどう式を立てますか？",
+          "answer": "『両方同時に停止したときだけ使えない』と考え、二重化後の可用性を 1-(各回線の停止確率の積) で表す。"
+        },
+        {
+          "question": "停止確率を掛け算するのはなぜですか？",
+          "answer": "二つの回線が独立に故障するとみなせば、同時停止確率は各停止確率の積で表せるからである。"
+        },
+        {
+          "question": "0.99 と 0.999 を取り違えないコツはありますか？",
+          "answer": "問題文の 0.999 は『二重化後の全体』であり、未知数 R は『新設回線単体』だと切り分けて式に置くと混同しにくい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs06_01_system_evaluation"
+    },
+    {
+      "questionBodyText": "システムに規定外の無効なデータが入力されたとき，誤入力であることを伝えるメッセージを表示して正しい入力を促すことによって，システムを異常終了させない設計は何というか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "フールプルーフ",
+        "フェールセーフ",
+        "フェールソフト",
+        "フォールトトレランス"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » システム方式設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "システム方式設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "システム方式設計",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_24.html",
+      "public_question_id": "72ceaa5ff2bc9a9f",
+      "original_question_id": "72ceaa5ff2bc9a9f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。フールプルーフは、不特定多数の人が操作するシステムに、入力データのチェックやエラーメッセージの表示などの機能を加えることで、人為的ミスによるシステムの誤動作を防ぐように設計する考え方です。"
+        ],
+        [
+          "フェールセーフは、システムの不具合や故障が発生したときでも、障害の影響範囲を最小限にとどめ、常に安全を最優先にして制御を行う考え方です。"
+        ],
+        [
+          "フェールソフトは、システムに障害が発生した時に、多少の性能の低下を許容し、システム全体の運転継続に必要な機能を維持させようとする考え方です。"
+        ],
+        [
+          "フォールトトレランスは、構成機器の二重化などによって、システムの一部に障害が発生しても全体としては停止することなく稼働を続け、その間に復旧を図るようにシステムを設計する方針です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202201:am:問24:https://www.nw-siken.com/kakomon/04_haru/am2_24.html",
+      "explanationText": [
+        "正しい。\n\nフールプルーフは、誤操作や無効入力があっても重大な障害に至らないよう、入力チェックやエラーメッセージ表示で利用者に正しい操作を促す設計方針である。",
+        "間違い。\n\nフェールセーフは、故障や異常が起きたときに安全側へ制御する考え方である。誤入力時に再入力を促して異常終了を防ぐ設計そのものを指す語ではない。",
+        "間違い。\n\nフェールソフトは、一部機能を落としてでもシステム全体のサービス継続を図る考え方である。入力ミス防止の設計方針とは異なる。",
+        "間違い。\n\nフォールトトレランスは、冗長化などによって一部故障があっても全体を継続稼働させる考え方である。利用者の誤入力対策を表す語ではない。"
+      ],
+      "suggestedQuestions": [
+        "フールプルーフとフェールセーフの違いは何ですか？",
+        "誤入力対策はなぜフールプルーフに分類されますか？",
+        "フォールトトレランスとの使い分けはどう覚えますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "フールプルーフとフェールセーフの違いは何ですか？",
+          "answer": "フールプルーフは人の誤操作を前提にしてミスを起こしにくくする設計、フェールセーフは故障時に安全側へ動作させる設計である。"
+        },
+        {
+          "question": "誤入力対策はなぜフールプルーフに分類されますか？",
+          "answer": "利用者のミスをシステム側で吸収し、異常終了や誤動作を防ぐ設計だからである。"
+        },
+        {
+          "question": "フォールトトレランスとの使い分けはどう覚えますか？",
+          "answer": "フールプルーフは『人のミス対策』、フォールトトレランスは『機器や構成要素の故障対策』と整理すると覚えやすい。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_02_design_build_test_advice"
+    },
+    {
+      "questionBodyText": "ステージング環境の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和4年春期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "開発者がプログラムを変更するたびに，ステージングサーバにプログラムを直接デプロイして動作を確認し，デバッグするための環境",
+        "システムのベータ版を広く一般の利用者に公開してテストを実施してもらうことによって，問題点やバグを報告してもらう環境",
+        "保護するネットワークと外部ネットワークの間に境界ネットワーク(DMZ)を設置して，セキュリティを高めたネットワーク環境",
+        "本番環境とほぼ同じ環境を用意して，システムリリース前の最終テストを行う環境"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » 導入",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "導入"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "導入",
+      "examYear": 2022,
+      "list_group_id": "202201",
+      "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_25.html",
+      "public_question_id": "bcb12b06c7cfae53",
+      "original_question_id": "bcb12b06c7cfae53",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ステージング環境"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ステージングサーバ上でデバッグを行うことはありません。システムのデバッグはテスト環境上で行います。"
+        ],
+        [
+          "オープンベータテスト環境の説明です。"
+        ],
+        [
+          "セキュリティを高めたネットワーク環境ではありません。"
+        ],
+        [
+          "正しい。ステージング環境の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202201:am:問25:https://www.nw-siken.com/kakomon/04_haru/am2_25.html",
+      "explanationText": [
+        "間違い。\n\n開発者が修正のたびに直接デプロイしてデバッグするのは、開発環境やテスト環境の説明に近い。ステージング環境は本番直前の最終確認用であり、日常的なデバッグの場ではない。",
+        "間違い。\n\n一般利用者へ広く公開して不具合報告を集めるのはベータテスト環境の説明である。ステージング環境は通常、公開前の内部確認に使う。",
+        "間違い。\n\nDMZ は外部公開サーバを隔離して配置するための境界ネットワークであり、ステージング環境そのものを指す用語ではない。",
+        "正しい。\n\nステージング環境は本番環境に近い構成を用意し、リリース前の最終テストや動作確認を行うための環境である。"
+      ],
+      "suggestedQuestions": [
+        "ステージング環境とテスト環境の違いは何ですか？",
+        "なぜ本番に近い環境を別に用意するのですか？",
+        "DMZ と混同しないための整理は？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ステージング環境とテスト環境の違いは何ですか？",
+          "answer": "テスト環境は機能ごとの検証やデバッグを広く行う場で、ステージング環境は本番直前に本番同等に近い条件で最終確認する場である。"
+        },
+        {
+          "question": "なぜ本番に近い環境を別に用意するのですか？",
+          "answer": "本番投入前に設定差分や性能面の問題を見つけやすくし、リリース事故を減らすためである。"
+        },
+        {
+          "question": "DMZ と混同しないための整理は？",
+          "answer": "ステージング環境は開発・運用プロセス上の『検証環境』、DMZ はネットワーク設計上の『境界セグメント』で、目的が異なる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs03_02_installation"
+    }
+  ]
+}
