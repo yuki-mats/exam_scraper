@@ -1,0 +1,326 @@
+from __future__ import annotations
+
+import argparse
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+ROOT_DIR = Path(__file__).resolve().parents[2]
+DEFAULT_CATEGORY_JSON = ROOT_DIR / "output" / "nw" / "category" / "category.json"
+SOURCE_URL = "https://www.ipa.go.jp/shiken/syllabus/nq6ept00000014fp-att/syllabus_nw_ver4_1.pdf"
+
+
+FOLDERS: list[dict[str, Any]] = [
+    {
+        "folderId": "nw_f01_requirements",
+        "name": "01_ネットワークシステムの要件定義",
+        "description": "IPAネットワークスペシャリスト試験シラバスVer.4.1の大項目1。業務要求、現行ネットワーク分析、作業範囲、要件定義を扱う。",
+    },
+    {
+        "folderId": "nw_f02_design",
+        "name": "02_ネットワークシステムの設計",
+        "description": "IPAネットワークスペシャリスト試験シラバスVer.4.1の大項目2。適用技術の評価、設計、運用計画、作業計画、設計レビューを扱う。",
+    },
+    {
+        "folderId": "nw_f03_build_test",
+        "name": "03_ネットワークシステムの構築とテスト",
+        "description": "IPAネットワークスペシャリスト試験シラバスVer.4.1の大項目3。構築準備、導入、テスト仕様、テスト実行、結果評価を扱う。",
+    },
+    {
+        "folderId": "nw_f04_operation_maintenance",
+        "name": "04_ネットワークシステムの運用・保守",
+        "description": "IPAネットワークスペシャリスト試験シラバスVer.4.1の大項目4。利用者対応、保守、バックアップ、構成管理を扱う。",
+    },
+    {
+        "folderId": "nw_f05_management",
+        "name": "05_ネットワークシステムの管理",
+        "description": "IPAネットワークスペシャリスト試験シラバスVer.4.1の大項目5。監視、障害復旧、性能分析、セキュリティ侵害対応を扱う。",
+    },
+    {
+        "folderId": "nw_f06_evaluation",
+        "name": "06_ネットワークシステムの評価",
+        "description": "IPAネットワークスペシャリスト試験シラバスVer.4.1の大項目6。システム評価と改善提案を扱う。",
+    },
+    {
+        "folderId": "nw_f07_consulting",
+        "name": "07_個別業務システム開発のコンサルティング",
+        "description": "IPAネットワークスペシャリスト試験シラバスVer.4.1の大項目7。個別業務システム開発における計画、設計、運用保守の技術的助言を扱う。",
+    },
+]
+
+
+QUESTION_SET_DEFS: list[dict[str, Any]] = [
+    {
+        "id": "01_01_business_requirements",
+        "folderId": "nw_f01_requirements",
+        "name": "1-1 業務システムからの要求分析",
+        "description": "業務システムがネットワークへ求める性能、拠点、データ量、頻度、データ種類、流れ、情報セキュリティ要求を分析する。",
+        "matchingHints": ["要求分析", "業務システム", "性能要求", "送受信拠点", "データ量", "リスク分析", "利用者要求"],
+    },
+    {
+        "id": "01_02_current_network_analysis",
+        "folderId": "nw_f01_requirements",
+        "name": "1-2 現行ネットワークシステムの分析",
+        "description": "現行ネットワークのトラフィック、稼働状態、問題点、他業務システムへの影響、再構築時の課題を分析する。",
+        "matchingHints": ["現行分析", "トラフィック測定", "トラフィック分析", "ボトルネック", "ネットワーク構成", "システム構成"],
+    },
+    {
+        "id": "01_03_scope_definition",
+        "folderId": "nw_f01_requirements",
+        "name": "1-3 作業範囲の確定",
+        "description": "対象業務システム、設計・構築プロジェクトの目的、作業規模、達成目標、期間、制約、達成基準を確定する。",
+        "matchingHints": ["作業範囲", "スコープ", "達成目標", "作業工数", "技術的制約", "プロジェクト計画"],
+    },
+    {
+        "id": "01_04_network_requirements",
+        "folderId": "nw_f01_requirements",
+        "name": "1-4 ネットワークシステム要件の定義",
+        "description": "機能、経済性、性能、拡張性、信頼性、標準化、運用管理、セキュリティなどの設計・運用要件を定義する。",
+        "matchingHints": ["要件定義", "性能要求", "拡張性", "信頼性", "運用管理要件", "セキュリティ要件", "レビュー"],
+    },
+    {
+        "id": "02_01_technology_product_evaluation",
+        "folderId": "nw_f02_design",
+        "name": "2-1 適用技術及び製品・ネットワークサービスの調査と評価",
+        "description": "ネットワーク技術、製品、サービス、ベンダー情報、導入事例、標準化動向を調査し評価する。",
+        "matchingHints": ["技術評価", "製品評価", "ネットワークサービス", "標準化", "クラウド", "エッジコンピューティング", "IoT", "AI", "導入テスト"],
+    },
+    {
+        "id": "02_02_network_design",
+        "folderId": "nw_f02_design",
+        "name": "2-2 ネットワークシステムの設計",
+        "description": "ネットワークアーキテクチャ、プロトコル、トポロジ、アドレス、性能、セキュリティ、信頼性、管理方式を設計する。",
+        "matchingHints": ["ネットワーク方式", "データ通信と制御", "通信プロトコル", "ネットワーク管理", "ネットワーク応用", "アドレス設計", "無線LAN", "リモートアクセス", "IPsec", "TLS", "DNSSEC", "SDN", "NFV", "高可用性", "待ち行列"],
+    },
+    {
+        "id": "02_03_business_operation_plan",
+        "folderId": "nw_f02_design",
+        "name": "2-3 新規ネットワークシステムでの業務運用計画",
+        "description": "新規ネットワークの運用手続、現行環境からの業務移行計画、関係者調整、変更手続を計画する。",
+        "matchingHints": ["業務運用", "運用手続", "移行計画", "変更手続", "関係者調整", "プロジェクト管理"],
+    },
+    {
+        "id": "02_04_work_plan",
+        "folderId": "nw_f02_design",
+        "name": "2-4 作業計画の作成",
+        "description": "利用者業務への影響を抑えた構築作業計画、復旧作業、周知、ベンダーやサービスプロバイダとの調整を扱う。",
+        "matchingHints": ["作業計画", "復旧作業", "スケジュール管理", "アクションプラン", "導入計画", "ベンダー調整"],
+    },
+    {
+        "id": "02_05_design_review",
+        "folderId": "nw_f02_design",
+        "name": "2-5 設計レビュー",
+        "description": "設計、保守運用計画、作業計画のレビューと、関係者間の責任範囲の明確化を扱う。",
+        "matchingHints": ["設計レビュー", "レビュー手順", "責任分界", "作業計画", "保守運用計画"],
+    },
+    {
+        "id": "03_01_preparation",
+        "folderId": "nw_f03_build_test",
+        "name": "3-1 事前の段取り",
+        "description": "作業計画に基づく機器、配線、ネットワークソフトウェア、ネットワークサービスの手配と周知、調整を扱う。",
+        "matchingHints": ["事前準備", "段取り", "機器手配", "配線", "ネットワークサービス", "リスク", "業務プロセス"],
+    },
+    {
+        "id": "03_02_installation",
+        "folderId": "nw_f03_build_test",
+        "name": "3-2 導入作業",
+        "description": "ネットワーク機器、配線、ネットワークソフトウェア、ネットワークサービスの導入、接続、設定を扱う。",
+        "matchingHints": ["導入", "接続", "設定", "ソフトウェア導入", "ハードウェア構成", "互換性", "データコンバージョン"],
+    },
+    {
+        "id": "03_03_test_specification",
+        "folderId": "nw_f03_build_test",
+        "name": "3-3 テスト仕様の作成",
+        "description": "テスト要求、適用範囲、テスト仕様書、テスト手順、テスト計画、テスト機器・構成を扱う。",
+        "matchingHints": ["テスト仕様", "テスト計画", "テスト手順", "テストツール", "ネットワーク環境", "性能試験"],
+    },
+    {
+        "id": "03_04_test_execution",
+        "folderId": "nw_f03_build_test",
+        "name": "3-4 テストの実行",
+        "description": "業務システムの機能と性能が要件どおりに発揮されるかを判断するためのテスト実行を扱う。",
+        "matchingHints": ["テスト実行", "実行結果", "テスト記録", "マイルストーン", "スケジュール管理"],
+    },
+    {
+        "id": "03_05_test_result_analysis",
+        "folderId": "nw_f03_build_test",
+        "name": "3-5 テスト結果の分析と評価",
+        "description": "テスト結果の合否、不具合箇所の改修、再テスト、改善提案、結果評価を扱う。",
+        "matchingHints": ["テスト結果", "分析", "評価", "不具合", "再テスト", "改善提案"],
+    },
+    {
+        "id": "04_01_user_support",
+        "folderId": "nw_f04_operation_maintenance",
+        "name": "4-1 利用者対応",
+        "description": "利用者アカウント、利用環境設定、利用者教育、セキュリティ手続の周知、利用相談対応を扱う。",
+        "matchingHints": ["利用者対応", "アカウント", "利用者教育", "文書化", "セキュリティ手続", "OS"],
+    },
+    {
+        "id": "04_02_maintenance_update_policy",
+        "folderId": "nw_f04_operation_maintenance",
+        "name": "4-2 保守及び更新（アップグレード）の方針策定",
+        "description": "保守方針、機器の再構成・増強・増設計画、ライフサイクル、バックアップ方針を扱う。",
+        "matchingHints": ["保守方針", "アップグレード", "ライフサイクル", "増強", "増設", "バックアップ", "システム構成"],
+    },
+    {
+        "id": "04_03_maintenance_plan",
+        "folderId": "nw_f04_operation_maintenance",
+        "name": "4-3 保守計画の作成",
+        "description": "保守計画、保守要求事項、保守手続、利用者や運用者への周知、変更内容の伝達を扱う。",
+        "matchingHints": ["保守計画", "保守手順", "保守要求", "変更管理", "周知", "不具合重要度"],
+    },
+    {
+        "id": "04_04_maintenance_update_execution",
+        "folderId": "nw_f04_operation_maintenance",
+        "name": "4-4 保守及び更新（アップグレード）の実施",
+        "description": "保守計画に基づく保守・更新の実施、活動記録、互換性問題、保守文書の作成を扱う。",
+        "matchingHints": ["保守実施", "更新実行", "アップグレード", "互換性", "保守文書", "変更実行"],
+    },
+    {
+        "id": "04_05_backup_recovery",
+        "folderId": "nw_f04_operation_maintenance",
+        "name": "4-5 バックアップとデータ回復",
+        "description": "バックアップ手順、データバックアップの実行、問題発生時のデータ復旧、サービスプロバイダとの役割分担を扱う。",
+        "matchingHints": ["バックアップ", "データ回復", "復旧", "バックアップメディア", "役割分担", "サービスプロバイダ"],
+    },
+    {
+        "id": "04_06_configuration_management",
+        "folderId": "nw_f04_operation_maintenance",
+        "name": "4-6 ネットワークシステムの構成管理",
+        "description": "機器、ネットワークソフトウェア、ID、設定内容、台帳、構成変更、構成管理を扱う。",
+        "matchingHints": ["構成管理", "台帳", "設定管理", "ID", "構成変更", "機器管理", "データベース"],
+    },
+    {
+        "id": "05_01_monitoring",
+        "folderId": "nw_f05_management",
+        "name": "5-1 ネットワークの監視",
+        "description": "性能監視、セキュリティ監視、監視対象、異常判定基準、監視頻度、監視データ分析、報告を扱う。",
+        "matchingHints": ["ネットワーク管理", "監視", "性能監視", "セキュリティ監視", "監視ツール", "IoTデバイス", "ビッグデータ分析"],
+    },
+    {
+        "id": "05_02_failure_analysis_recovery",
+        "folderId": "nw_f05_management",
+        "name": "5-2 障害の分析と復旧",
+        "description": "ネットワーク障害の箇所特定、原因分析、復旧作業、トラブルシューティングを扱う。",
+        "matchingHints": ["障害", "復旧", "障害分析", "トラブルシューティング", "監視データ", "機器管理"],
+    },
+    {
+        "id": "05_03_performance_analysis",
+        "folderId": "nw_f05_management",
+        "name": "5-3 システム性能の分析",
+        "description": "性能基準、性能監視、ベンチマークテスト、トラフィック状況、レスポンス、性能劣化の分析を扱う。",
+        "matchingHints": ["性能分析", "ベンチマーク", "トラフィック", "レスポンス", "性能劣化", "測定ツール", "システムの評価指標"],
+    },
+    {
+        "id": "05_04_security_incident_response",
+        "folderId": "nw_f05_management",
+        "name": "5-4 セキュリティ侵害の分析と対応",
+        "description": "セキュリティ監視、侵害分析、不正侵入検知・防御、セキュリティ診断、脆弱性、ウイルス対策を扱う。",
+        "matchingHints": ["情報セキュリティ", "情報セキュリティ対策", "セキュリティ実装技術", "セキュリティ技術評価", "不正侵入検知", "IDS", "IPS", "WAF", "脆弱性", "セキュリティホール", "マルウェア", "ウイルス"],
+    },
+    {
+        "id": "06_01_system_evaluation",
+        "folderId": "nw_f06_evaluation",
+        "name": "6-1 システム評価",
+        "description": "現状の性能、能力、セキュリティ状況、潜在問題の分析・評価、報告書作成を扱う。",
+        "matchingHints": ["システム評価", "評価手順", "報告", "モデリング", "シミュレーション", "改善点"],
+    },
+    {
+        "id": "06_02_improvement_proposal",
+        "folderId": "nw_f06_evaluation",
+        "name": "6-2 システム改善提案",
+        "description": "技術・製品動向、ライフサイクル、経済性、拡張性を踏まえた改善案の提案を扱う。",
+        "matchingHints": ["改善提案", "技術動向", "製品情報", "ライフサイクル", "経済性", "拡張性", "トラフィック予測"],
+    },
+    {
+        "id": "07_01_planning_analysis_advice",
+        "folderId": "nw_f07_consulting",
+        "name": "7-1 ネットワークシステム計画・分析のアドバイス",
+        "description": "個別業務システム開発におけるネットワーク計画・分析への技術的助言を扱う。",
+        "matchingHints": ["コンサルティング", "計画", "分析", "技術的アドバイス", "改善点", "システム企画"],
+    },
+    {
+        "id": "07_02_design_build_test_advice",
+        "folderId": "nw_f07_consulting",
+        "name": "7-2 ネットワークシステム設計・構築・テストのアドバイス",
+        "description": "個別業務システム開発におけるネットワーク設計、構築、テストへの技術的助言を扱う。",
+        "matchingHints": ["コンサルティング", "設計", "構築", "テスト", "クラウドサービス", "SaaS", "PaaS", "IaaS"],
+    },
+    {
+        "id": "07_03_operation_maintenance_advice",
+        "folderId": "nw_f07_consulting",
+        "name": "7-3 ネットワークシステム運用・保守のアドバイス",
+        "description": "個別業務システム開発におけるネットワーク運用・保守への技術的助言を扱う。",
+        "matchingHints": ["コンサルティング", "運用", "保守", "ネットワークサービス", "ネットワーク機器", "技術的アドバイス"],
+    },
+]
+
+
+def build_category(now: datetime | None = None) -> dict[str, Any]:
+    timestamp = (now or datetime.now(timezone.utc)).replace(microsecond=0).isoformat()
+    folders = [
+        {
+            **folder,
+            "questionCount": 0,
+            "isDeleted": False,
+            "source": "ipa_syllabus_nw_ver4_1",
+            "updatedAt": timestamp,
+        }
+        for folder in FOLDERS
+    ]
+    question_sets = [
+        {
+            "questionSetId": f"nw_qs{item['id']}",
+            "folderId": item["folderId"],
+            "name": item["name"],
+            "description": item["description"],
+            "matchingHints": item["matchingHints"],
+            "questionCount": 0,
+            "isDeleted": False,
+            "source": "ipa_syllabus_nw_ver4_1",
+            "updatedAt": timestamp,
+        }
+        for item in QUESTION_SET_DEFS
+    ]
+    return {
+        "metadata": {
+            "qualificationId": "nw",
+            "qualificationName": "ネットワークスペシャリスト",
+            "sourceName": "ネットワークスペシャリスト試験（レベル4）シラバス Ver.4.1",
+            "sourceUrl": SOURCE_URL,
+            "sourcePublished": "2023-12",
+            "taxonomyBasis": "IPAシラバスの大項目をfolders、小項目をquestionSetsとして構成。午前問題の取得済み分類はmatchingHintsに反映。",
+            "generatedAt": timestamp,
+        },
+        "updatedAt": timestamp,
+        "folders": folders,
+        "questionSets": question_sets,
+    }
+
+
+def write_json(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Build output/nw/category/category.json from the IPA Network Specialist syllabus."
+    )
+    parser.add_argument("--category-json", type=Path, default=DEFAULT_CATEGORY_JSON)
+    args = parser.parse_args()
+
+    category = build_category()
+    write_json(args.category_json.expanduser().resolve(), category)
+    print(f"wrote category: {args.category_json}")
+    print(f"folders={len(category['folders'])} questionSets={len(category['questionSets'])}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
