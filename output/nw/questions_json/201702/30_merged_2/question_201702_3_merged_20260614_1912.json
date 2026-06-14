@@ -1,0 +1,491 @@
+{
+  "list_group_id": "201702",
+  "question_bodies": [
+    {
+      "questionBodyText": "DNSの再帰的な問合せを使ったサービス不能攻撃(DNS amp攻撃)の踏み台にされることを防止する対策はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DNSサーバをキャッシュサーバとコンテンツサーバに分離し，インターネット側からキャッシュサーバに問合せできないようにする。",
+        "問合せがあったドメインに関する情報をWhoisデータベースで確認してからキャッシュサーバに登録する。",
+        "一つのDNSレコードに複数のサーバのIPアドレスを割り当て，サーバへのアクセスを振り分けて分散させるように設定する。",
+        "他のDNSサーバから送られてくるIPアドレスとホスト名の対応情報の信頼性を，デジタル署名で確認するように設定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_21.html",
+      "public_question_id": "3b67bf474e0318cd",
+      "original_question_id": "3b67bf474e0318cd",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "DNS amp",
+        "攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "DNS ampは、脆弱性のある公開DNSキャッシュサーバを踏み台として悪用することで行われる分散型サービス妨害(Distributed Denial of Service: DDoS)攻撃の一種です。\n攻撃者は、以下の手順で攻撃対象をサービス不能状態に追い込みます。\n攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる\nDNS amp攻撃に加担する踏み台にならないためには、利用可能なホストのIPアドレスの範囲を設定するなど、DNSキャッシュサーバが不要なクエリを拒否するようにアクセス制限を施す必要があります。\nしたがって正しい記述は「ア」になります。"
+        ],
+        [
+          "DNS ampは、脆弱性のある公開DNSキャッシュサーバを踏み台として悪用することで行われる分散型サービス妨害(Distributed Denial of Service: DDoS)攻撃の一種です。\n攻撃者は、以下の手順で攻撃対象をサービス不能状態に追い込みます。\n攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる\nDNS amp攻撃に加担する踏み台にならないためには、利用可能なホストのIPアドレスの範囲を設定するなど、DNSキャッシュサーバが不要なクエリを拒否するようにアクセス制限を施す必要があります。\nしたがって正しい記述は「ア」になります。"
+        ],
+        [
+          "DNS ampは、脆弱性のある公開DNSキャッシュサーバを踏み台として悪用することで行われる分散型サービス妨害(Distributed Denial of Service: DDoS)攻撃の一種です。\n攻撃者は、以下の手順で攻撃対象をサービス不能状態に追い込みます。\n攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる\nDNS amp攻撃に加担する踏み台にならないためには、利用可能なホストのIPアドレスの範囲を設定するなど、DNSキャッシュサーバが不要なクエリを拒否するようにアクセス制限を施す必要があります。\nしたがって正しい記述は「ア」になります。"
+        ],
+        [
+          "DNS ampは、脆弱性のある公開DNSキャッシュサーバを踏み台として悪用することで行われる分散型サービス妨害(Distributed Denial of Service: DDoS)攻撃の一種です。\n攻撃者は、以下の手順で攻撃対象をサービス不能状態に追い込みます。\n攻撃者は、脆弱性のある複数の公開DNSキャッシュサーバに対して、送信元を攻撃対象としたDNSクエリをボットを介して発行する(このとき応答パケットのサイズができるだけ多くなるようにする)\nクエリを受け取ったDNSキャッシュサーバは、クエリの送信元に設定されている攻撃対象に対して応答パケットを一斉に送信する\n大量の応答パケットを受け取った攻撃対象やそれが属するネットワークは過負荷状態となり正常なサービスの提供ができなくなる\nDNS amp攻撃に加担する踏み台にならないためには、利用可能なホストのIPアドレスの範囲を設定するなど、DNSキャッシュサーバが不要なクエリを拒否するようにアクセス制限を施す必要があります。\nしたがって正しい記述は「ア」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問21:https://www.nw-siken.com/kakomon/29_aki/am2_21.html",
+      "explanationText": [
+        "正しい。\n\nDNS amp 攻撃は外部から再帰問合せに応答してしまう公開 DNS キャッシュサーバを踏み台にするため、インターネット側からキャッシュサーバへ再帰問合せできないよう制限する対策が有効である。",
+        "間違い。\n\nWhois データベースの確認はドメイン登録情報の参照であり、公開 DNS キャッシュサーバの踏み台化防止策にはならない。",
+        "間違い。\n\n一つの DNS レコードに複数 IP アドレスを割り当てる設定は負荷分散の説明であり、DNS amp 攻撃への加担防止とは無関係である。",
+        "間違い。\n\nデジタル署名で DNS 情報の真正性を確認する設定は DNSSEC の趣旨であり、再帰問合せを悪用した DNS amp 攻撃の踏み台防止策ではない。"
+      ],
+      "suggestedQuestions": [
+        "DNS amp 攻撃はどのように踏み台を悪用しますか？",
+        "なぜ再帰問合せの制限が有効ですか？",
+        "DNSSEC では防げない理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "DNS amp 攻撃はどのように踏み台を悪用しますか？",
+          "answer": "送信元 IP を偽装した再帰問合せを公開 DNS キャッシュサーバへ送り、大量の応答を被害者へ返させる。"
+        },
+        {
+          "question": "なぜ再帰問合せの制限が有効ですか？",
+          "answer": "外部から不要な再帰問合せを受け付けなければ、DNS キャッシュサーバが攻撃者の中継役にならないためである。"
+        },
+        {
+          "question": "DNSSEC では防げない理由は何ですか？",
+          "answer": "DNSSEC は応答データの真正性確認が目的であり、再帰問合せを悪用したトラフィック増幅そのものは止めないためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_04_security_incident_response"
+    },
+    {
+      "questionBodyText": "MLC(Multi-Level Cell)フラッシュメモリの特徴として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "コンデンサに蓄えた電荷を用いて，データを記憶する。",
+        "電気抵抗の値を用いて，データを記憶する。",
+        "一つのメモリセルに2ビット以上のデータを記憶する。",
+        "フリップフロップを利用して，データを記憶する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_22.html",
+      "public_question_id": "3abb5447894fa9c6",
+      "original_question_id": "3abb5447894fa9c6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "MLC",
+        "SLC"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "DRAMの特徴です。フラッシュメモリは、フローティングゲートと呼ばれる部位に電荷を蓄え、周囲を絶縁体で囲うことによって情報を記憶しています。"
+        ],
+        [
+          "ReRAMの特徴です。"
+        ],
+        [
+          "正しい。MLCフラッシュメモリの特徴です。"
+        ],
+        [
+          "SRAMの特徴です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201702:am:問22:https://www.nw-siken.com/kakomon/29_aki/am2_22.html",
+      "explanationText": [
+        "間違い。\n\nコンデンサに蓄えた電荷で記憶するのは DRAM の説明であり、MLC フラッシュメモリの特徴ではない。",
+        "間違い。\n\n電気抵抗値を用いて記憶するのは ReRAM などの説明であり、MLC フラッシュメモリの特徴ではない。",
+        "正しい。\n\nMLC は Multi-Level Cell の略で、一つのメモリセルに多値を持たせることで 2 ビット以上のデータを記憶する方式である。",
+        "間違い。\n\nフリップフロップを利用して記憶するのは SRAM の説明であり、フラッシュメモリの特徴ではない。"
+      ],
+      "suggestedQuestions": [
+        "MLC フラッシュメモリの MLC は何を意味しますか？",
+        "SLC と比べた違いは何ですか？",
+        "DRAM や SRAM とどう違いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "MLC フラッシュメモリの MLC は何を意味しますか？",
+          "answer": "1 個のセルに複数ビットを記録する Multi-Level Cell を意味する。"
+        },
+        {
+          "question": "SLC と比べた違いは何ですか？",
+          "answer": "SLC は 1 セル 1 ビットだが、MLC は 1 セルに 2 ビット以上を記録して高密度化する。"
+        },
+        {
+          "question": "DRAM や SRAM とどう違いますか？",
+          "answer": "フラッシュメモリは不揮発で、DRAM はコンデンサ、SRAM はフリップフロップで情報を保持する点が異なる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "複数台のPCで1台のプリンターを共有するシステムがある。このプリンターに対する平均要求回数が毎分1回のとき，このプリンターの平均印刷時間(印刷を要求してから終了するまでの時間)は何秒か。ここで，プリンターは，平均が15秒の指数分布に従う時間で印刷要求を処理するものとし，プリンターに対する印刷要求はポアソン分布に従うものとする。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "15",
+        "18",
+        "20",
+        "30"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_23.html",
+      "public_question_id": "b7fecdcc239c96c6",
+      "original_question_id": "b7fecdcc239c96c6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "平均要求回数が毎分1回、平均印刷処理時間が15秒なので、利用率は15／60＝0.25になります。この利用率をもとにM/M/1の待ち行列モデルにおける次の公式でプリンターの平均印刷時間を計算します。\n平均待ち時間＝{利用率／(1－利用率)}×平均サービス時間\n平均応答時間＝平均待ち時間＋平均サービス時間\nこの公式に従い、設問のケースにおける平均印刷時間(平均応答時間)を求めます。\n{0.25／(1－0.25)}×15＋15\n＝1／3×15＋15\n＝5＋15＝\n20\n(秒)\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "平均要求回数が毎分1回、平均印刷処理時間が15秒なので、利用率は15／60＝0.25になります。この利用率をもとにM/M/1の待ち行列モデルにおける次の公式でプリンターの平均印刷時間を計算します。\n平均待ち時間＝{利用率／(1－利用率)}×平均サービス時間\n平均応答時間＝平均待ち時間＋平均サービス時間\nこの公式に従い、設問のケースにおける平均印刷時間(平均応答時間)を求めます。\n{0.25／(1－0.25)}×15＋15\n＝1／3×15＋15\n＝5＋15＝\n20\n(秒)\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "平均要求回数が毎分1回、平均印刷処理時間が15秒なので、利用率は15／60＝0.25になります。この利用率をもとにM/M/1の待ち行列モデルにおける次の公式でプリンターの平均印刷時間を計算します。\n平均待ち時間＝{利用率／(1－利用率)}×平均サービス時間\n平均応答時間＝平均待ち時間＋平均サービス時間\nこの公式に従い、設問のケースにおける平均印刷時間(平均応答時間)を求めます。\n{0.25／(1－0.25)}×15＋15\n＝1／3×15＋15\n＝5＋15＝\n20\n(秒)\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "平均要求回数が毎分1回、平均印刷処理時間が15秒なので、利用率は15／60＝0.25になります。この利用率をもとにM/M/1の待ち行列モデルにおける次の公式でプリンターの平均印刷時間を計算します。\n平均待ち時間＝{利用率／(1－利用率)}×平均サービス時間\n平均応答時間＝平均待ち時間＋平均サービス時間\nこの公式に従い、設問のケースにおける平均印刷時間(平均応答時間)を求めます。\n{0.25／(1－0.25)}×15＋15\n＝1／3×15＋15\n＝5＋15＝\n20\n(秒)\nしたがって「ウ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201702:am:問23:https://www.nw-siken.com/kakomon/29_aki/am2_23.html",
+      "explanationText": [
+        "間違い。\n\n平均サービス時間が 15 秒でも待ち時間が発生するため、平均印刷時間は 15 秒より長くなる。",
+        "間違い。\n\n利用率は 15 秒 ÷ 60 秒で 0.25 なので、平均待ち時間を加えても 18 秒にはならない。",
+        "正しい。\n\nM/M/1 待ち行列で利用率は 0.25、平均待ち時間は {0.25 ÷ (1-0.25)} × 15 = 5 秒、平均印刷時間は 15 + 5 = 20 秒となる。",
+        "間違い。\n\n平均サービス時間 15 秒、利用率 0.25 の条件では平均印刷時間は 30 秒まで増えない。"
+      ],
+      "suggestedQuestions": [
+        "M/M/1 待ち行列で平均応答時間はどう求めますか？",
+        "この問題の利用率はどう計算しますか？",
+        "なぜ 15 秒ではなく 20 秒になりますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "M/M/1 待ち行列で平均応答時間はどう求めますか？",
+          "answer": "利用率から平均待ち時間を求め、それに平均サービス時間を加えて平均応答時間を求める。"
+        },
+        {
+          "question": "この問題の利用率はどう計算しますか？",
+          "answer": "1 分当たり 1 回の到着と 15 秒の処理時間から、利用率は 15 ÷ 60 = 0.25 となる。"
+        },
+        {
+          "question": "なぜ 15 秒ではなく 20 秒になりますか？",
+          "answer": "印刷処理そのものの 15 秒に加え、平均 5 秒の待ち時間が発生するためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_03_performance_analysis"
+    },
+    {
+      "questionBodyText": "ソフトウェアの使用性を向上させる施策として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "オンラインヘルプを充実させ，利用方法を理解しやすくする。",
+        "外部インタフェースを見直し，連携できる他システムを増やす。",
+        "機能を追加し，業務においてシステムが利用できる範囲を拡大する。",
+        "ファイルを分散して配置し，障害によるシステム停止のリスクを減らす。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_24.html",
+      "public_question_id": "10cbb899364a1f5c",
+      "original_question_id": "10cbb899364a1f5c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "使用性",
+        "機能性(Functionality)\n目的から求められる必要な機能の実装の度合い\n副特性として合目的性，正確性，相互運用性，標準適合性，セキュリティが含まれる。\n信頼性(Reliability)\n機能が正常動作し続ける度合い，障害の起こりにくさの度合い\n副特性として成熟性，障害許容性，回復性が含まれる。\n使用性（Usability）\n分かりやすさ、使いやすさの度合い\n副特性として理解性，習得性，運用性が含まれる。\n効率性(Efficiency)\n目的達成のために使用する時間や資源の度合い\n副特性として時間効率性，資源効率性が含まれる。\n保守性(Maintainability)\n保守(改訂)作業に必要な労力の度合い\n副特性として解析性，変更性，安定性，試験性が含まれる。\n移植性（Portability）\n移植のしやすさ，別の環境へ移した際そのまま動作する度合い\n副特性として環境適用性，設置性，規格適合性，置換性が含まれる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。使用性を向上させる施策です。"
+        ],
+        [
+          "機能性を向上させる施策です。"
+        ],
+        [
+          "機能性を向上させる施策です。"
+        ],
+        [
+          "信頼性を向上させる施策です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201702:am:問24:https://www.nw-siken.com/kakomon/29_aki/am2_24.html",
+      "explanationText": [
+        "正しい。\n\nオンラインヘルプを充実させて利用方法を理解しやすくする施策は、ISO/IEC 9126 などでいう使用性のうち理解性や習得性の向上に当たる。",
+        "間違い。\n\n他システムと連携できる範囲を増やす見直しは相互運用性や機能性の向上であり、使用性の向上ではない。",
+        "間違い。\n\n機能を追加して利用範囲を拡大する施策は機能性の向上であり、使用性の向上ではない。",
+        "間違い。\n\n障害時停止リスクを減らすための分散配置は信頼性や可用性の向上であり、使用性の向上ではない。"
+      ],
+      "suggestedQuestions": [
+        "使用性にはどのような副特性がありますか？",
+        "機能性や信頼性との違いは何ですか？",
+        "オンラインヘルプはなぜ使用性向上策になりますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "使用性にはどのような副特性がありますか？",
+          "answer": "理解性、習得性、運用性など、利用者が分かりやすく使いやすいかに関する特性が含まれる。"
+        },
+        {
+          "question": "機能性や信頼性との違いは何ですか？",
+          "answer": "機能性は必要機能の充足、信頼性は安定動作の度合い、使用性は分かりやすさや使いやすさを表す。"
+        },
+        {
+          "question": "オンラインヘルプはなぜ使用性向上策になりますか？",
+          "answer": "利用方法の理解を助け、学習しやすくなるため、利用者の使いやすさを直接高めるからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "XP(eXtreme Programming)のプラクティスの一つであるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成29年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "構造化プログラミング",
+        "コンポーネント指向プログラミング",
+        "ビジュアルプログラミング",
+        "ペアプログラミング"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2017,
+      "list_group_id": "201702",
+      "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_25.html",
+      "public_question_id": "acb226abcd2eceec",
+      "original_question_id": "acb226abcd2eceec",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "エクストリームプログラミング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "構造化プログラミングは、1970年代に登場したプログラミング手法であり、「順次・分岐・反復」という3つの基本制御構造に従ってプログラムを構成する方法論です。"
+        ],
+        [
+          "ソフトウェアを再利用可能な「コンポーネント」として構成する考え方です。1970年代から提唱されはじめ、1990年代にソフトウェアコンポーネントのアーキテクチャとして定着しました。"
+        ],
+        [
+          "テキストではなく、アイコンやブロック、図形などの視覚要素を使ってプログラミングを行う手法です。ScratchやLabVIEWなどがこれに該当します。"
+        ],
+        [
+          "正しい。ペアプログラミングは、XPの代表的なプラクティスのひとつです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201702:am:問25:https://www.nw-siken.com/kakomon/29_aki/am2_25.html",
+      "explanationText": [
+        "間違い。\n\n構造化プログラミングは制御構造を明確にして記述する古典的なプログラミング手法であり、XP の代表的プラクティスではない。",
+        "間違い。\n\nコンポーネント指向プログラミングは再利用可能な部品で構成する考え方であり、XP のプラクティス名ではない。",
+        "間違い。\n\nビジュアルプログラミングは視覚要素で記述する開発手法の説明であり、XP のプラクティスではない。",
+        "正しい。\n\nペアプログラミングは 2 人 1 組で同じコードを共同作成する XP の代表的プラクティスの一つである。"
+      ],
+      "suggestedQuestions": [
+        "XP の代表的なプラクティスには何がありますか？",
+        "ペアプログラミングはどのように進めますか？",
+        "XP は何を重視する開発手法ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "XP の代表的なプラクティスには何がありますか？",
+          "answer": "ペアプログラミング、テスト駆動開発、継続的インテグレーション、リファクタリングなどがある。"
+        },
+        {
+          "question": "ペアプログラミングはどのように進めますか？",
+          "answer": "2 人で 1 台の端末を共有し、実装する役割とレビューする役割を切り替えながら進める。"
+        },
+        {
+          "question": "XP は何を重視する開発手法ですか？",
+          "answer": "変化への適応、短い反復、継続的なフィードバック、品質確保を重視する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    }
+  ]
+}
