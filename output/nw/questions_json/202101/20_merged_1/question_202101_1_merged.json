@@ -1,0 +1,1794 @@
+{
+  "list_group_id": "202101",
+  "question_bodies": [
+    {
+      "questionBodyText": "任意のオペランドに対するブール演算Aの結果とブール演算Bの結果が互いに否定の関係にあるとき，AはBの(又は，BはAの)相補演算であるという。排他的論理和の相補演算はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfe621fe9579a16_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfe621fe9579a16_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfe621fe9579a16_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfe621fe9579a16_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 離散数学",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "離散数学"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "離散数学",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_1.html",
+      "public_question_id": "2bfe621fe9579a16",
+      "original_question_id": "2bfe621fe9579a16",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "相補演算",
+        "A"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ],
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ],
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ],
+        [
+          "相補演算\nとは、集合演算によって得られる結果が互いにもう一方の演算の補集合となっている関係、すなわちAと\nA\n，X AND YとNOT (X AND Y)のような関係になっているものをいいます。\n排他的論理和(XOR)は、2つの入力値が異なれば真、同じであれば偽を返す論理演算で、演算結果は次のような真理値表となります。\n排他的論理和の相補演算になるのは、XORの補集合(XORのベン図の白い部分)が結果として得られる演算なので、答えとして適切なのは「等価演算」ということになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問1:https://www.nw-siken.com/kakomon/03_haru/am1_1.html"
+    },
+    {
+      "questionBodyText": "A，B，Cの順序で入力されるデータがある。各データについてスタックへの挿入と取出しを1回ずつ行うことができる場合，データの出力順序は何通りあるか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » データ構造",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "データ構造"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "データ構造",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_2.html",
+      "public_question_id": "5906157dedde3388",
+      "original_question_id": "5906157dedde3388",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq5906157dedde3388_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "A，B，Cpush(A) → pop → push(B) → pop → push(C) → pop の順序で出力可能です。A，C，Bpush(A) → pop → push(B) → push(C) → pop → pop の順序で出力可能です。B，A，Cpush(A) → push(B) → pop → pop → push(C) → pop の順序で出力可能です。B，C，Apush(A) → push(B) → pop → push(C) → pop → pop の順序で出力可能です。C，A，Bpush(A) → push(B) → push(C) → pop → pop ❌\n※Cの出力後、Bより先にAを出力することができないため無理な順序です。C，B，Apush(A) → push(B) → push(C) → pop → pop → pop の順序で出力可能です。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "A，B，Cの出力順序としては「3!＝6種類」があります。それぞれが出力可能であるかを検証します。A，B，Cpush(A) → pop → push(B) → pop → push(C) → pop の順序で出力可能です。A，C，Bpush(A) → pop → push(B) → push(C) → pop → pop の順序で出力可能です。B，A，Cpush(A) → push(B) → pop → pop → push(C) → pop の順序で出力可能です。B，C，Apush(A) → push(B) → pop → push(C) → pop → pop の順序で出力可能です。C，A，Bpush(A) → push(B) → push(C) → pop → pop ❌\n※Cの出力後、Bより先にAを出力することができないため無理な順序です。C，B，Apush(A) → push(B) → push(C) → pop → pop → pop の順序で出力可能です。\n以上より、データの出力順序は5通りになります。したがって「ウ」が正解です。\nスタックの構造上、後からpushされた要素を出力した後、その要素より2つ以上前にpushされた要素を続けて出力することはできません。"
+        ],
+        [
+          "A，B，Cの出力順序としては「3!＝6種類」があります。それぞれが出力可能であるかを検証します。A，B，Cpush(A) → pop → push(B) → pop → push(C) → pop の順序で出力可能です。A，C，Bpush(A) → pop → push(B) → push(C) → pop → pop の順序で出力可能です。B，A，Cpush(A) → push(B) → pop → pop → push(C) → pop の順序で出力可能です。B，C，Apush(A) → push(B) → pop → push(C) → pop → pop の順序で出力可能です。C，A，Bpush(A) → push(B) → push(C) → pop → pop ❌\n※Cの出力後、Bより先にAを出力することができないため無理な順序です。C，B，Apush(A) → push(B) → push(C) → pop → pop → pop の順序で出力可能です。\n以上より、データの出力順序は5通りになります。したがって「ウ」が正解です。\nスタックの構造上、後からpushされた要素を出力した後、その要素より2つ以上前にpushされた要素を続けて出力することはできません。"
+        ],
+        [
+          "A，B，Cの出力順序としては「3!＝6種類」があります。それぞれが出力可能であるかを検証します。A，B，Cpush(A) → pop → push(B) → pop → push(C) → pop の順序で出力可能です。A，C，Bpush(A) → pop → push(B) → push(C) → pop → pop の順序で出力可能です。B，A，Cpush(A) → push(B) → pop → pop → push(C) → pop の順序で出力可能です。B，C，Apush(A) → push(B) → pop → push(C) → pop → pop の順序で出力可能です。C，A，Bpush(A) → push(B) → push(C) → pop → pop ❌\n※Cの出力後、Bより先にAを出力することができないため無理な順序です。C，B，Apush(A) → push(B) → push(C) → pop → pop → pop の順序で出力可能です。\n以上より、データの出力順序は5通りになります。したがって「ウ」が正解です。\nスタックの構造上、後からpushされた要素を出力した後、その要素より2つ以上前にpushされた要素を続けて出力することはできません。"
+        ],
+        [
+          "A，B，Cの出力順序としては「3!＝6種類」があります。それぞれが出力可能であるかを検証します。A，B，Cpush(A) → pop → push(B) → pop → push(C) → pop の順序で出力可能です。A，C，Bpush(A) → pop → push(B) → push(C) → pop → pop の順序で出力可能です。B，A，Cpush(A) → push(B) → pop → pop → push(C) → pop の順序で出力可能です。B，C，Apush(A) → push(B) → pop → push(C) → pop → pop の順序で出力可能です。C，A，Bpush(A) → push(B) → push(C) → pop → pop ❌\n※Cの出力後、Bより先にAを出力することができないため無理な順序です。C，B，Apush(A) → push(B) → push(C) → pop → pop → pop の順序で出力可能です。\n以上より、データの出力順序は5通りになります。したがって「ウ」が正解です。\nスタックの構造上、後からpushされた要素を出力した後、その要素より2つ以上前にpushされた要素を続けて出力することはできません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問2:https://www.nw-siken.com/kakomon/03_haru/am1_2.html"
+    },
+    {
+      "questionBodyText": "アルゴリズム設計としての分割統治法に関する記述として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "与えられた問題を直接解くことが難しいときに，幾つかに分割した一部分に注目し，とりあえず粗い解を出し，それを逐次改良して精度の良い解を得る方法である。",
+        "起こり得る全てのデータを組み合わせ，それぞれの解を調べることによって，データの組合せのうち無駄なものを除き，実際に調べる組合せ数を減らす方法である。",
+        "全体を幾つかの小さな問題に分割して，それぞれの小さな問題を独立に処理した結果をつなぎ合わせて，最終的に元の問題を解決する方法である。",
+        "まずは問題全体のことは考えずに，問題をある尺度に沿って分解し，各時点で最良の解を選択し，これを繰り返すことによって，全体の最適解を得る方法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_3.html",
+      "public_question_id": "f4e7d71fe79c364b",
+      "original_question_id": "f4e7d71fe79c364b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "分割統治法"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "局所探索法の説明です。現在の解と近傍解を比較し、近傍解が良ければ新しい解として入れ替えることを繰り返します。"
+        ],
+        [
+          "分枝限定法の説明です。全体問題を場合分けによって部分問題にする（分枝操作）と、解く必要のない部分問題を切り捨てる（限定操作）ことによって効率よく解を求める方法です。"
+        ],
+        [
+          "正しい。分割統治法の説明です。"
+        ],
+        [
+          "貪欲法(グリーディ法)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問3:https://www.nw-siken.com/kakomon/03_haru/am1_3.html"
+    },
+    {
+      "questionBodyText": "キャッシュメモリへの書込み動作には，ライトスルー方式とライトバック方式がある。それぞれの特徴のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ライトスルー方式では，データをキャッシュメモリにだけ書き込むので，高速に書込みができる。",
+        "ライトスルー方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，主記憶の内容は常に最新である。",
+        "ライトバック方式では，データをキャッシュメモリと主記憶の両方に同時に書き込むので，速度が遅い。",
+        "ライトバック方式では，読出し時にキャッシュミスが発生してキャッシュメモリの内容が追い出されるときに，主記憶に書き戻す必要が生じることはない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_4.html",
+      "public_question_id": "ab79edb06ad87a93",
+      "original_question_id": "ab79edb06ad87a93",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ライトバック（write back）\nCPUから書込み命令が出たときにキャッシュメモリだけに書き込み、主記憶への書き込みはキャッシュメモリからデータが追い出されるときに行う方式。処理速度は速いが、データの整合性を保つための追加制御が必要になる\nライトスルー（write through）\nCPUから書き込む命令が出たときにキャッシュメモリと同時に主記憶にも書き込む方式。データの整合性は容易に得られるが、処理速度は遅い"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ライトバック方式の説明です。ライトスルー方式は、キャッシュメモリと主記憶の両方に同時に書き込みます。"
+        ],
+        [
+          "正しい。ライトスルー方式ではキャッシュメモリと主記憶の間で常にデータが一致しています。"
+        ],
+        [
+          "ライトスルー方式の説明です。ライトバック方式は一旦はキャッシュにだけ書き込むのでライトスルー方式よりも高速です。"
+        ],
+        [
+          "ライトバック方式ではミスヒットによりキャッシュメモリの内容が変更される際に、その追い出されるデータを主記憶に書き戻さなければなりません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202101:am:問4:https://www.nw-siken.com/kakomon/03_haru/am1_4.html"
+    },
+    {
+      "questionBodyText": "稼働率がxである装置を四つ組み合わせて，図のようなシステムを作ったときの稼働率をƒ(x)とする。区間 0≦x≦1 におけるy＝ƒ(x)の傾向を表すグラフはどれか。ここで，破線はy＝xのグラフである。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq67e7e73f1426f388_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq67e7e73f1426f388_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq67e7e73f1426f388_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq67e7e73f1426f388_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_5.html",
+      "public_question_id": "67e7e73f1426f388",
+      "original_question_id": "67e7e73f1426f388",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq67e7e73f1426f388_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "稼働率xの機器が2台直列で接続されているときの全体の稼働率は「x2\n」、並列で接続されているときの稼働率は「1－(1－x)\n2\n」ですので、本システムの稼働率は以下の式で表すことができます。1－(1－x2\n)\n2各グラフの形状を見てみると、xが1に近いときと0に近いときの2つのケースでシステム全体の稼働率を計算すればどのグラフが適切であるか判断できるとわかります。\n仮に、xに0.9と0.1を使用して計算すると、\nƒ(0.9)\n＝1－(1－0.92\n)\n2\n＝1－(1－0.81)\n2\n＝1－0.192\n＝1－0.0361\n＝0.9639 ＞0.9\nƒ(0.1)\n＝1－(1－0.12\n)\n2\n＝1－(1－0.01)\n2\n＝1－0.992\n＝1－0.9801\n＝0.0199 ＜0.1となるので、0に近い付近ではxよりも低い稼働率となり、1に近い付近ではxよりも高い稼働率となる「エ」のグラフが適切です。"
+        ],
+        [
+          "稼働率xの機器が2台直列で接続されているときの全体の稼働率は「x2\n」、並列で接続されているときの稼働率は「1－(1－x)\n2\n」ですので、本システムの稼働率は以下の式で表すことができます。1－(1－x2\n)\n2各グラフの形状を見てみると、xが1に近いときと0に近いときの2つのケースでシステム全体の稼働率を計算すればどのグラフが適切であるか判断できるとわかります。\n仮に、xに0.9と0.1を使用して計算すると、\nƒ(0.9)\n＝1－(1－0.92\n)\n2\n＝1－(1－0.81)\n2\n＝1－0.192\n＝1－0.0361\n＝0.9639 ＞0.9\nƒ(0.1)\n＝1－(1－0.12\n)\n2\n＝1－(1－0.01)\n2\n＝1－0.992\n＝1－0.9801\n＝0.0199 ＜0.1となるので、0に近い付近ではxよりも低い稼働率となり、1に近い付近ではxよりも高い稼働率となる「エ」のグラフが適切です。"
+        ],
+        [
+          "稼働率xの機器が2台直列で接続されているときの全体の稼働率は「x2\n」、並列で接続されているときの稼働率は「1－(1－x)\n2\n」ですので、本システムの稼働率は以下の式で表すことができます。1－(1－x2\n)\n2各グラフの形状を見てみると、xが1に近いときと0に近いときの2つのケースでシステム全体の稼働率を計算すればどのグラフが適切であるか判断できるとわかります。\n仮に、xに0.9と0.1を使用して計算すると、\nƒ(0.9)\n＝1－(1－0.92\n)\n2\n＝1－(1－0.81)\n2\n＝1－0.192\n＝1－0.0361\n＝0.9639 ＞0.9\nƒ(0.1)\n＝1－(1－0.12\n)\n2\n＝1－(1－0.01)\n2\n＝1－0.992\n＝1－0.9801\n＝0.0199 ＜0.1となるので、0に近い付近ではxよりも低い稼働率となり、1に近い付近ではxよりも高い稼働率となる「エ」のグラフが適切です。"
+        ],
+        [
+          "稼働率xの機器が2台直列で接続されているときの全体の稼働率は「x2\n」、並列で接続されているときの稼働率は「1－(1－x)\n2\n」ですので、本システムの稼働率は以下の式で表すことができます。1－(1－x2\n)\n2各グラフの形状を見てみると、xが1に近いときと0に近いときの2つのケースでシステム全体の稼働率を計算すればどのグラフが適切であるか判断できるとわかります。\n仮に、xに0.9と0.1を使用して計算すると、\nƒ(0.9)\n＝1－(1－0.92\n)\n2\n＝1－(1－0.81)\n2\n＝1－0.192\n＝1－0.0361\n＝0.9639 ＞0.9\nƒ(0.1)\n＝1－(1－0.12\n)\n2\n＝1－(1－0.01)\n2\n＝1－0.992\n＝1－0.9801\n＝0.0199 ＜0.1となるので、0に近い付近ではxよりも低い稼働率となり、1に近い付近ではxよりも高い稼働率となる「エ」のグラフが適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202101:am:問5:https://www.nw-siken.com/kakomon/03_haru/am1_5.html"
+    },
+    {
+      "questionBodyText": "ページング方式の仮想記憶において，ページアクセス時に発生する事象をその回数の多い順に並べたものはどれか。ここで，A≧Bは，Aの回数がBの回数以上，A＝Bは，AとBの回数が常に同じであることを表す。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ページアウト≧ページイン≧ページフォールト",
+        "ページアウト≧ページフォールト≧ページイン",
+        "ページフォールト＝ページアウト≧ページイン",
+        "ページフォールト＝ページイン≧ページアウト"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_6.html",
+      "public_question_id": "89bb7a3e4e61e30b",
+      "original_question_id": "89bb7a3e4e61e30b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "ページフォールト\nプログラムの実行に必要なページが、実記憶に存在していないときに発生する割込み\nページアウト\n実記憶上のページを仮想記憶に移動させる処理\nページイン\n仮想記憶上のページを実記憶に移動させる処理",
+        "ページフォールトが発生する\n実記憶に空きがなければ\n、置換アルゴリズムが実記憶上から仮想記憶に移すページを決定する\n②で決定したページを仮想記憶に移動する\nプログラムの実行に必要なページを仮想記憶から実記憶に移動する"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "まずはページング方式における各事象の意味を確認します。以下の記述中、実記憶は主記憶装置、仮想記憶は補助記憶装置（HDDやSSD）を指します。\nページフォールト\nプログラムの実行に必要なページが、実記憶に存在していないときに発生する割込み\nページアウト\n実記憶上のページを仮想記憶に移動させる処理\nページイン\n仮想記憶上のページを実記憶に移動させる処理\nページ置換の基本的な流れは以下の通りです。\nページフォールトが発生する\n実記憶に空きがなければ\n、置換アルゴリズムが実記憶上から仮想記憶に移すページを決定する\n②で決定したページを仮想記憶に移動する\nプログラムの実行に必要なページを仮想記憶から実記憶に移動する\nページフォールトは、必要なページが実記憶上に存在しないときに起こるので、必ずそれに伴いページインが発生します。よって、ページフォールト＝ページインです。一方、ページフォールトが発生しても実記憶上に空きがある場合には、ページアウトを行わずにその空き領域に必要なページを移動すれば済みます（上記②③が実行されない）。すなわち、ページアウトの回数はページフォールトの回数よりも少なくなる可能性があります。よって、ページフォールト≧ページアウトです。\n以上の2つの関係をまとめると「ページフォールト＝ページイン≧ページアウト」となります。したがって「エ」が適切です。"
+        ],
+        [
+          "まずはページング方式における各事象の意味を確認します。以下の記述中、実記憶は主記憶装置、仮想記憶は補助記憶装置（HDDやSSD）を指します。\nページフォールト\nプログラムの実行に必要なページが、実記憶に存在していないときに発生する割込み\nページアウト\n実記憶上のページを仮想記憶に移動させる処理\nページイン\n仮想記憶上のページを実記憶に移動させる処理\nページ置換の基本的な流れは以下の通りです。\nページフォールトが発生する\n実記憶に空きがなければ\n、置換アルゴリズムが実記憶上から仮想記憶に移すページを決定する\n②で決定したページを仮想記憶に移動する\nプログラムの実行に必要なページを仮想記憶から実記憶に移動する\nページフォールトは、必要なページが実記憶上に存在しないときに起こるので、必ずそれに伴いページインが発生します。よって、ページフォールト＝ページインです。一方、ページフォールトが発生しても実記憶上に空きがある場合には、ページアウトを行わずにその空き領域に必要なページを移動すれば済みます（上記②③が実行されない）。すなわち、ページアウトの回数はページフォールトの回数よりも少なくなる可能性があります。よって、ページフォールト≧ページアウトです。\n以上の2つの関係をまとめると「ページフォールト＝ページイン≧ページアウト」となります。したがって「エ」が適切です。"
+        ],
+        [
+          "まずはページング方式における各事象の意味を確認します。以下の記述中、実記憶は主記憶装置、仮想記憶は補助記憶装置（HDDやSSD）を指します。\nページフォールト\nプログラムの実行に必要なページが、実記憶に存在していないときに発生する割込み\nページアウト\n実記憶上のページを仮想記憶に移動させる処理\nページイン\n仮想記憶上のページを実記憶に移動させる処理\nページ置換の基本的な流れは以下の通りです。\nページフォールトが発生する\n実記憶に空きがなければ\n、置換アルゴリズムが実記憶上から仮想記憶に移すページを決定する\n②で決定したページを仮想記憶に移動する\nプログラムの実行に必要なページを仮想記憶から実記憶に移動する\nページフォールトは、必要なページが実記憶上に存在しないときに起こるので、必ずそれに伴いページインが発生します。よって、ページフォールト＝ページインです。一方、ページフォールトが発生しても実記憶上に空きがある場合には、ページアウトを行わずにその空き領域に必要なページを移動すれば済みます（上記②③が実行されない）。すなわち、ページアウトの回数はページフォールトの回数よりも少なくなる可能性があります。よって、ページフォールト≧ページアウトです。\n以上の2つの関係をまとめると「ページフォールト＝ページイン≧ページアウト」となります。したがって「エ」が適切です。"
+        ],
+        [
+          "まずはページング方式における各事象の意味を確認します。以下の記述中、実記憶は主記憶装置、仮想記憶は補助記憶装置（HDDやSSD）を指します。\nページフォールト\nプログラムの実行に必要なページが、実記憶に存在していないときに発生する割込み\nページアウト\n実記憶上のページを仮想記憶に移動させる処理\nページイン\n仮想記憶上のページを実記憶に移動させる処理\nページ置換の基本的な流れは以下の通りです。\nページフォールトが発生する\n実記憶に空きがなければ\n、置換アルゴリズムが実記憶上から仮想記憶に移すページを決定する\n②で決定したページを仮想記憶に移動する\nプログラムの実行に必要なページを仮想記憶から実記憶に移動する\nページフォールトは、必要なページが実記憶上に存在しないときに起こるので、必ずそれに伴いページインが発生します。よって、ページフォールト＝ページインです。一方、ページフォールトが発生しても実記憶上に空きがある場合には、ページアウトを行わずにその空き領域に必要なページを移動すれば済みます（上記②③が実行されない）。すなわち、ページアウトの回数はページフォールトの回数よりも少なくなる可能性があります。よって、ページフォールト≧ページアウトです。\n以上の2つの関係をまとめると「ページフォールト＝ページイン≧ページアウト」となります。したがって「エ」が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202101:am:問6:https://www.nw-siken.com/kakomon/03_haru/am1_6.html"
+    },
+    {
+      "questionBodyText": "RFIDの活用事例として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "紙に印刷されたデジタルコードをリーダーで読み取ることによる情報の入力",
+        "携帯電話とヘッドフォンとの間の音声データ通信",
+        "赤外線を利用した近距離データ通信",
+        "微小な無線チップによる人又は物の識別及び管理"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ハードウェア » ハードウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ハードウェア",
+        "ハードウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ハードウェア",
+      "categorySmall": "ハードウェア",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_7.html",
+      "public_question_id": "0ea46f4175f23d9b",
+      "original_question_id": "0ea46f4175f23d9b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "RFID"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "OMR(Optical Mark Reader，光学式マーク読取装置)やバーコードリーダーの活用事例です。"
+        ],
+        [
+          "Bluetoothの活用事例です。"
+        ],
+        [
+          "IrDA(Infrared Data Association)の活用事例です。RFIDは赤外線ではなく電波を用います。"
+        ],
+        [
+          "正しい。RFIDの活用事例です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202101:am:問7:https://www.nw-siken.com/kakomon/03_haru/am1_7.html"
+    },
+    {
+      "questionBodyText": "W3Cで仕様が定義され，矩形や円，直線，文字列などの図形オブジェクトをXML形式で記述し，Webページでの図形描画にも使うことができる画像フォーマットはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "OpenGL",
+        "PNG",
+        "SVG",
+        "TIFF"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 情報メディア » マルチメディア技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "情報メディア",
+        "マルチメディア技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "情報メディア",
+      "categorySmall": "マルチメディア技術",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_8.html",
+      "public_question_id": "d51668a1b3c4ece9",
+      "original_question_id": "d51668a1b3c4ece9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SVG"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Open Graphics Libraryの略。Linux、FreeBSDなどのPC UNIXに加え、Windows、Mac OS X等クロスプラットフォームで使用できる2D／3DCGを扱うためのAPIです。"
+        ],
+        [
+          "Portable Network Graphicsの略。圧縮による画質の劣化のない可逆圧縮の画像ファイルフォーマットで、GIFよりも圧縮率が高く、現在ではほぼすべてのブラウザでサポートされているためWebページの画像フォーマットとして使用されます。"
+        ],
+        [
+          "正しい。SVGは、XML形式で記述する画像フォーマットです。"
+        ],
+        [
+          "Tagged Image File Formatの略。画像データを解像度・色数・カラーモデルなどが異なる複数の形式で1つのファイルに格納できるファイル形式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問8:https://www.nw-siken.com/kakomon/03_haru/am1_8.html"
+    },
+    {
+      "questionBodyText": "データレイクの特徴はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "大量のデータを分析し，単なる検索だけでは分からない隠れた規則や相関関係を見つけ出す。",
+        "データウェアハウスに格納されたデータから特定の用途に必要なデータだけを取り出し，構築する。",
+        "データウェアハウスやデータマートからデータを取り出し，多次元分析を行う。",
+        "必要に応じて加工するために，データを発生したままの形で格納する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » データベース応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データベース応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データベース応用",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_9.html",
+      "public_question_id": "b6dc775569fd80f0",
+      "original_question_id": "b6dc775569fd80f0",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "データレイク"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "データマイニングの説明です。"
+        ],
+        [
+          "データマートの説明です。"
+        ],
+        [
+          "OLAP(Online Analytical Processing)の説明です。"
+        ],
+        [
+          "正しい。データレイクの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202101:am:問9:https://www.nw-siken.com/kakomon/03_haru/am1_9.html"
+    },
+    {
+      "questionBodyText": "IPv4ネットワークで使用されるIPアドレスaとサブネットマスクmからホストアドレスを求める式はどれか。ここで，\"～\"はビット反転の演算子，\"｜\"はビットごとの論理和の演算子，\"＆\"はビットごとの論理積の演算子を表し，ビット反転の演算子の優先順位は論理和，論理積の演算子よりも高いものとする。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "～a＆m",
+        "～a｜m",
+        "a＆～m",
+        "a｜～m"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_10.html",
+      "public_question_id": "e6f5a7be4036ac7c",
+      "original_question_id": "e6f5a7be4036ac7c",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "サブネットマスクはネットワーク部のビットが「1」、ホストアドレス部が「0」になっているビット列です。通常サブネットマスクはネットワークアドレスを取り出すために使用されますが、このビットを反転させると逆にホストアドレス部を取り出すためのビットマスクとなることがわかります。\nあるビット列から特定範囲のビットを取り出すには、取り出す位置のビットを「1」としたビットマスクとの論理積(AND)をとるので、ホストアドレス部を取り出すためにはサブネットマスクを反転させたビット列とIPアドレスの論理積を求めます。IPアドレスが「a」、サブネット(m)を反転させたものが「～m」、論理積が「＆」なので、正しい式は「a＆～m」です。"
+        ],
+        [
+          "サブネットマスクはネットワーク部のビットが「1」、ホストアドレス部が「0」になっているビット列です。通常サブネットマスクはネットワークアドレスを取り出すために使用されますが、このビットを反転させると逆にホストアドレス部を取り出すためのビットマスクとなることがわかります。\nあるビット列から特定範囲のビットを取り出すには、取り出す位置のビットを「1」としたビットマスクとの論理積(AND)をとるので、ホストアドレス部を取り出すためにはサブネットマスクを反転させたビット列とIPアドレスの論理積を求めます。IPアドレスが「a」、サブネット(m)を反転させたものが「～m」、論理積が「＆」なので、正しい式は「a＆～m」です。"
+        ],
+        [
+          "サブネットマスクはネットワーク部のビットが「1」、ホストアドレス部が「0」になっているビット列です。通常サブネットマスクはネットワークアドレスを取り出すために使用されますが、このビットを反転させると逆にホストアドレス部を取り出すためのビットマスクとなることがわかります。\nあるビット列から特定範囲のビットを取り出すには、取り出す位置のビットを「1」としたビットマスクとの論理積(AND)をとるので、ホストアドレス部を取り出すためにはサブネットマスクを反転させたビット列とIPアドレスの論理積を求めます。IPアドレスが「a」、サブネット(m)を反転させたものが「～m」、論理積が「＆」なので、正しい式は「a＆～m」です。"
+        ],
+        [
+          "サブネットマスクはネットワーク部のビットが「1」、ホストアドレス部が「0」になっているビット列です。通常サブネットマスクはネットワークアドレスを取り出すために使用されますが、このビットを反転させると逆にホストアドレス部を取り出すためのビットマスクとなることがわかります。\nあるビット列から特定範囲のビットを取り出すには、取り出す位置のビットを「1」としたビットマスクとの論理積(AND)をとるので、ホストアドレス部を取り出すためにはサブネットマスクを反転させたビット列とIPアドレスの論理積を求めます。IPアドレスが「a」、サブネット(m)を反転させたものが「～m」、論理積が「＆」なので、正しい式は「a＆～m」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問10:https://www.nw-siken.com/kakomon/03_haru/am1_10.html"
+    },
+    {
+      "questionBodyText": "ONF(Open Networking Foundation)が標準化を進めているOpenFlowプロトコルを用いたSDN(Software-Defined Networking)の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "管理ステーションから定期的にネットワーク機器のMIB(Management Information Base)情報を取得して，稼働監視や性能管理を行うためのネットワーク管理手法",
+        "データ転送機能をもつネットワーク機器同士が経路情報を交換して，ネットワーク全体のデータ転送経路を決定する方式",
+        "ネットワーク制御機能とデータ転送機能を実装したソフトウェアを，仮想環境で利用するための技術",
+        "ネットワーク制御機能とデータ転送機能を論理的に分離し，コントローラーと呼ばれるソフトウェアで，データ転送機能をもつネットワーク機器の集中制御を可能とするアーキテクチャ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク管理",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_11.html",
+      "public_question_id": "fdbe387a53a86f28",
+      "original_question_id": "fdbe387a53a86f28",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "SDN",
+        "OpenFlow"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SNMP(Simple Network Management Protocol)の説明です。"
+        ],
+        [
+          "従来のルーティングの仕組みです。"
+        ],
+        [
+          "ネットワーク仮想化(VNF:Virtual Network Function)の説明です。"
+        ],
+        [
+          "正しい。SDNの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202101:am:問11:https://www.nw-siken.com/kakomon/03_haru/am1_11.html"
+    },
+    {
+      "questionBodyText": "暗号学的ハッシュ関数における原像計算困難性，つまり一方向性の性質はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "あるハッシュ値が与えられたとき，そのハッシュ値を出力するメッセージを見つけることが計算量的に困難であるという性質",
+        "入力された可変長のメッセージに対して，固定長のハッシュ値を生成できるという性質",
+        "ハッシュ値が一致する二つの相異なるメッセージを見つけることが計算量的に困難であるという性質",
+        "ハッシュの処理メカニズムに対して，外部からの不正な観測や改変を防御できるという性質"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_12.html",
+      "public_question_id": "2c5199098935fd58",
+      "original_question_id": "2c5199098935fd58",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。原像計算困難性の説明です。"
+        ],
+        [
+          "固定長出力性の説明です"
+        ],
+        [
+          "衝突発見困難性（強衝突耐性）の説明です。"
+        ],
+        [
+          "ハッシュ関数の仕様は公開されており、ハッシュ関数自体には観測や改ざん防御といった能力はありません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問12:https://www.nw-siken.com/kakomon/03_haru/am1_12.html"
+    },
+    {
+      "questionBodyText": "経済産業省とIPAが策定した\"サイバーセキュリティ経営ガイドライン(Ver2.0)\"の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "企業がIT活用を推進していく中で，サイバー攻撃から企業を守る観点で経営者が認識すべき3原則と，情報セキュリティ対策を実施する上での責任者となる担当幹部に，経営者が指示すべき重要10項目をまとめたもの",
+        "経営者が情報セキュリティについて方針を示し，マネジメントシステムの要求事項を満たすルールを定め，組織が保有する情報資産をCIAの観点から維持管理し，継続的に見直すためのプロセス及び管理策を体系的に規定したもの",
+        "事業体のITに関する経営者の活動を，大きくITガバナンス(統制)とITマネジメント(管理)に分割し，具体的な目標と工程として40のプロセスを定義したもの",
+        "世界的規模で生じているサイバーセキュリティ上の脅威の深刻化に関して，企業の経営者を支援する施策を総合的かつ効果的に推進するための国の責務を定めたもの"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ管理",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_13.html",
+      "public_question_id": "960817136eca392f",
+      "original_question_id": "960817136eca392f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "サイバーセキュリティ経営ガイドライン"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。サイバーセキュリティ経営ガイドラインの説明です。"
+        ],
+        [
+          "情報セキュリティ方針の説明です。"
+        ],
+        [
+          "COBITの説明です。アメリカの情報システムコントロール協会(ISADA)とITガバナンス協会(ITGI)が策定しているIT管理についてのフレームワークです。"
+        ],
+        [
+          "サイバーセキュリティ基本法の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問13:https://www.nw-siken.com/kakomon/03_haru/am1_13.html"
+    },
+    {
+      "questionBodyText": "JPCERTコーディネーションセンターの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "産業標準化法に基づいて経済産業省に設置されている審議会であり，産業標準化全般に関する調査・審議を行っている。",
+        "電子政府推奨暗号の安全性を評価・監視し，暗号技術の適切な実装法・運用法を調査・検討するプロジェクトであり，総務省及び経済産業省が共同で運営する暗号技術検討会などで構成される。",
+        "特定の政府機関や企業から独立した組織であり，国内のコンピュータセキュリティインシデントに関する報告の受付，対応の支援，発生状況の把握，手口の分析，再発防止策の検討や助言を行っている。",
+        "内閣官房に設置され，我が国をサイバー攻撃から防衛するための司令塔機能を担う組織である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ管理",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_14.html",
+      "public_question_id": "31bb5813157c9d2b",
+      "original_question_id": "31bb5813157c9d2b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "JPCERTコーディネーションセンター"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "日本産業標準調査会(JISC)の説明です。"
+        ],
+        [
+          "CRYPTRECの説明です。"
+        ],
+        [
+          "正しい。JPCERT/CCの説明です。"
+        ],
+        [
+          "国家サイバー統括室(NCO)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問14:https://www.nw-siken.com/kakomon/03_haru/am1_14.html"
+    },
+    {
+      "questionBodyText": "Webシステムにおいて，セッションの乗っ取りの機会を減らすために，利用者のログアウト時にWebサーバ又はWebブラウザにおいて行うべき処理はどれか。ここで，利用者は自分専用のPCにおいて，Webブラウザを利用しているものとする。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "WebサーバにおいてセッションIDを内蔵ストレージに格納する。",
+        "WebサーバにおいてセッションIDを無効にする。",
+        "WebブラウザにおいてキャッシュしているWebページをクリアする。",
+        "WebブラウザにおいてセッションIDを内蔵ストレージに格納する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_15.html",
+      "public_question_id": "981badb1bad59737",
+      "original_question_id": "981badb1bad59737",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "セッションタイムアウト\nWebアプリケーションにはセッションタイムアウト機能を設ける。ユーザーはログアウト操作をすることを忘れてしまうことがある。\n明示的なログアウトの機能\nWebアプリケーションには明示的なログアウトの機能を設ける。できれば、各ページでログアウト操作が行えると良い。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "IPAで公開されているセキュアプログラミング講座では、セッション乗っ取りの機会を低減させるための予防策として「セッションタイムアウト」と「明示的なログアウト機能」を挙げています。\nセッションタイムアウト\nWebアプリケーションにはセッションタイムアウト機能を設ける。ユーザーはログアウト操作をすることを忘れてしまうことがある。\n明示的なログアウトの機能\nWebアプリケーションには明示的なログアウトの機能を設ける。できれば、各ページでログアウト操作が行えると良い。\nそして利用者がログアウトを要求した場面では、Webアプリケーションは次のような操作を行うべきとしています。Webサーバ側でセッションIDを確実に無効にする。その後同じセッションIDがクライアントから送られてきても受け付けない\nWebブラウザ側のセッションIDを消去する\n一般的なWebページのセッション管理方式では、WebブラウザとWebサーバでセッションIDを共有することで同じ利用者かどうかを判断しています。セッションIDさえ一致すれば、第三者からのアクセスを正規のアクセスとして判断してしまう可能性があるということですから、不要なセッションIDを有効なままにしておくのはセキュリティ上のリスクになります。\nセッションIDを必要とするのはログイン中だけですから、ログアウトが要求された（セッションIDが不要になった）時点でWebサーバ側（可能であればWebブラウザも）のセッションIDを無効化し、それ以降は無効化されたセッションIDを拒否することで、セッション乗っ取りの機会を最小限に減らせます。\nしたがって適切な処理は「イ」です。"
+        ],
+        [
+          "IPAで公開されているセキュアプログラミング講座では、セッション乗っ取りの機会を低減させるための予防策として「セッションタイムアウト」と「明示的なログアウト機能」を挙げています。\nセッションタイムアウト\nWebアプリケーションにはセッションタイムアウト機能を設ける。ユーザーはログアウト操作をすることを忘れてしまうことがある。\n明示的なログアウトの機能\nWebアプリケーションには明示的なログアウトの機能を設ける。できれば、各ページでログアウト操作が行えると良い。\nそして利用者がログアウトを要求した場面では、Webアプリケーションは次のような操作を行うべきとしています。Webサーバ側でセッションIDを確実に無効にする。その後同じセッションIDがクライアントから送られてきても受け付けない\nWebブラウザ側のセッションIDを消去する\n一般的なWebページのセッション管理方式では、WebブラウザとWebサーバでセッションIDを共有することで同じ利用者かどうかを判断しています。セッションIDさえ一致すれば、第三者からのアクセスを正規のアクセスとして判断してしまう可能性があるということですから、不要なセッションIDを有効なままにしておくのはセキュリティ上のリスクになります。\nセッションIDを必要とするのはログイン中だけですから、ログアウトが要求された（セッションIDが不要になった）時点でWebサーバ側（可能であればWebブラウザも）のセッションIDを無効化し、それ以降は無効化されたセッションIDを拒否することで、セッション乗っ取りの機会を最小限に減らせます。\nしたがって適切な処理は「イ」です。"
+        ],
+        [
+          "IPAで公開されているセキュアプログラミング講座では、セッション乗っ取りの機会を低減させるための予防策として「セッションタイムアウト」と「明示的なログアウト機能」を挙げています。\nセッションタイムアウト\nWebアプリケーションにはセッションタイムアウト機能を設ける。ユーザーはログアウト操作をすることを忘れてしまうことがある。\n明示的なログアウトの機能\nWebアプリケーションには明示的なログアウトの機能を設ける。できれば、各ページでログアウト操作が行えると良い。\nそして利用者がログアウトを要求した場面では、Webアプリケーションは次のような操作を行うべきとしています。Webサーバ側でセッションIDを確実に無効にする。その後同じセッションIDがクライアントから送られてきても受け付けない\nWebブラウザ側のセッションIDを消去する\n一般的なWebページのセッション管理方式では、WebブラウザとWebサーバでセッションIDを共有することで同じ利用者かどうかを判断しています。セッションIDさえ一致すれば、第三者からのアクセスを正規のアクセスとして判断してしまう可能性があるということですから、不要なセッションIDを有効なままにしておくのはセキュリティ上のリスクになります。\nセッションIDを必要とするのはログイン中だけですから、ログアウトが要求された（セッションIDが不要になった）時点でWebサーバ側（可能であればWebブラウザも）のセッションIDを無効化し、それ以降は無効化されたセッションIDを拒否することで、セッション乗っ取りの機会を最小限に減らせます。\nしたがって適切な処理は「イ」です。"
+        ],
+        [
+          "IPAで公開されているセキュアプログラミング講座では、セッション乗っ取りの機会を低減させるための予防策として「セッションタイムアウト」と「明示的なログアウト機能」を挙げています。\nセッションタイムアウト\nWebアプリケーションにはセッションタイムアウト機能を設ける。ユーザーはログアウト操作をすることを忘れてしまうことがある。\n明示的なログアウトの機能\nWebアプリケーションには明示的なログアウトの機能を設ける。できれば、各ページでログアウト操作が行えると良い。\nそして利用者がログアウトを要求した場面では、Webアプリケーションは次のような操作を行うべきとしています。Webサーバ側でセッションIDを確実に無効にする。その後同じセッションIDがクライアントから送られてきても受け付けない\nWebブラウザ側のセッションIDを消去する\n一般的なWebページのセッション管理方式では、WebブラウザとWebサーバでセッションIDを共有することで同じ利用者かどうかを判断しています。セッションIDさえ一致すれば、第三者からのアクセスを正規のアクセスとして判断してしまう可能性があるということですから、不要なセッションIDを有効なままにしておくのはセキュリティ上のリスクになります。\nセッションIDを必要とするのはログイン中だけですから、ログアウトが要求された（セッションIDが不要になった）時点でWebサーバ側（可能であればWebブラウザも）のセッションIDを無効化し、それ以降は無効化されたセッションIDを拒否することで、セッション乗っ取りの機会を最小限に減らせます。\nしたがって適切な処理は「イ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "202101:am:問15:https://www.nw-siken.com/kakomon/03_haru/am1_15.html"
+    },
+    {
+      "questionBodyText": "あるプログラムについて，流れ図で示される部分に関するテストを，命令網羅で実施する場合，最小のテストケース数は幾つか。ここで，各判定条件は流れ図に示された部分の先行する命令の結果から影響を受けないものとする。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "3",
+        "6",
+        "8",
+        "18"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア構築",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア構築"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア構築",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_16.html",
+      "public_question_id": "89c84553495cadc1",
+      "original_question_id": "89c84553495cadc1",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq89c84553495cadc1_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "命令網羅\nすべての命令を少なくとも1回は実行する。\n判定条件網羅\n判定条件の真偽を少なくとも1回は実行する。\n条件網羅\n判定条件が複数ある場合に、それぞれの条件が真・偽の場合を組み合わせたテストケースを設計する。\n判定条件・条件網羅\n判定条件網羅と条件網羅を組み合わせてテストケースを設計する。\n複数条件網羅\n判定条件のすべての可能な結果の組合せを網羅し、かつ、すべての命令を少なくとも1回は実行するようにテストケースを作成する。",
+        "3つ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ホワイトボックステストにおける網羅性のレベルには以下の5種類があります。\n命令網羅\nすべての命令を少なくとも1回は実行する。\n判定条件網羅\n判定条件の真偽を少なくとも1回は実行する。\n条件網羅\n判定条件が複数ある場合に、それぞれの条件が真・偽の場合を組み合わせたテストケースを設計する。\n判定条件・条件網羅\n判定条件網羅と条件網羅を組み合わせてテストケースを設計する。\n複数条件網羅\n判定条件のすべての可能な結果の組合せを網羅し、かつ、すべての命令を少なくとも1回は実行するようにテストケースを作成する。\n命令網羅は、すべてのプログラム中の全ての命令を少なくとも1回は実行するようにテストケースを設計することです。問題文の流れ図のテストを命令網羅で実行すると以下のようになり、テストケースが最低\n3つ\nあれば全ての命令を検証することができます。したがって「ア」が適切です。"
+        ],
+        [
+          "ホワイトボックステストにおける網羅性のレベルには以下の5種類があります。\n命令網羅\nすべての命令を少なくとも1回は実行する。\n判定条件網羅\n判定条件の真偽を少なくとも1回は実行する。\n条件網羅\n判定条件が複数ある場合に、それぞれの条件が真・偽の場合を組み合わせたテストケースを設計する。\n判定条件・条件網羅\n判定条件網羅と条件網羅を組み合わせてテストケースを設計する。\n複数条件網羅\n判定条件のすべての可能な結果の組合せを網羅し、かつ、すべての命令を少なくとも1回は実行するようにテストケースを作成する。\n命令網羅は、すべてのプログラム中の全ての命令を少なくとも1回は実行するようにテストケースを設計することです。問題文の流れ図のテストを命令網羅で実行すると以下のようになり、テストケースが最低\n3つ\nあれば全ての命令を検証することができます。したがって「ア」が適切です。"
+        ],
+        [
+          "ホワイトボックステストにおける網羅性のレベルには以下の5種類があります。\n命令網羅\nすべての命令を少なくとも1回は実行する。\n判定条件網羅\n判定条件の真偽を少なくとも1回は実行する。\n条件網羅\n判定条件が複数ある場合に、それぞれの条件が真・偽の場合を組み合わせたテストケースを設計する。\n判定条件・条件網羅\n判定条件網羅と条件網羅を組み合わせてテストケースを設計する。\n複数条件網羅\n判定条件のすべての可能な結果の組合せを網羅し、かつ、すべての命令を少なくとも1回は実行するようにテストケースを作成する。\n命令網羅は、すべてのプログラム中の全ての命令を少なくとも1回は実行するようにテストケースを設計することです。問題文の流れ図のテストを命令網羅で実行すると以下のようになり、テストケースが最低\n3つ\nあれば全ての命令を検証することができます。したがって「ア」が適切です。"
+        ],
+        [
+          "ホワイトボックステストにおける網羅性のレベルには以下の5種類があります。\n命令網羅\nすべての命令を少なくとも1回は実行する。\n判定条件網羅\n判定条件の真偽を少なくとも1回は実行する。\n条件網羅\n判定条件が複数ある場合に、それぞれの条件が真・偽の場合を組み合わせたテストケースを設計する。\n判定条件・条件網羅\n判定条件網羅と条件網羅を組み合わせてテストケースを設計する。\n複数条件網羅\n判定条件のすべての可能な結果の組合せを網羅し、かつ、すべての命令を少なくとも1回は実行するようにテストケースを作成する。\n命令網羅は、すべてのプログラム中の全ての命令を少なくとも1回は実行するようにテストケースを設計することです。問題文の流れ図のテストを命令網羅で実行すると以下のようになり、テストケースが最低\n3つ\nあれば全ての命令を検証することができます。したがって「ア」が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問16:https://www.nw-siken.com/kakomon/03_haru/am1_16.html"
+    },
+    {
+      "questionBodyText": "スクラムチームにおけるプロダクトオーナーの役割はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ゴールとミッションが達成できるように，プロダクトバックログのアイテムの優先順位を決定する。",
+        "チームのコーチやファシリテータとして，スクラムが円滑に進むように支援する。",
+        "プロダクトを完成させるための具体的な作り方を決定する。",
+        "リリース判断可能なプロダクトのインクリメントを完成する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_17.html",
+      "public_question_id": "1221cc9ad2e4c5d8",
+      "original_question_id": "1221cc9ad2e4c5d8",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "スクラム",
+        "プロダクトオーナー\nチームに最も価値の高いソフトウェアを開発してもらうために、プロダクトに必要な機能を定義し、プロダクトバックログの追加・削除・順位付けを行う。開発への投資に対する効果を最大にすることに責任をもつ。\n開発チーム\n実際に開発を行うチームのことで、開発者たちを指す。ビジネスアナリスト、プログラマー、テスター、アーキテクト、デザイナーなどの機能横断的な様々な技能を持った人がプロダクトを中心に集まり、自律的に行動する。開発チームはバックログに入っている項目を完了状態にし、プロダクトの価値を高めていくことに責任を持つ。\nスクラムマスター\nスクラムチーム全体が自律的に協働できるように、場作りをするファシリテーター的な役割を担う。ときにはコーチとなってメンバーの相談に乗ったり、開発チームが抱えている問題を取り除いたりする。スクラム全体をうまく回すことに責任を持つ。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。プロダクトオーナーの役割です。"
+        ],
+        [
+          "スクラムマスターの役割です。"
+        ],
+        [
+          "開発チームの役割です。"
+        ],
+        [
+          "開発チームの役割です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問17:https://www.nw-siken.com/kakomon/03_haru/am1_17.html"
+    },
+    {
+      "questionBodyText": "JIS Q 21500:2018(プロジェクトマネジメントの手引)によれば，プロジェクトマネジメントのプロセスのうち，計画のプロセス群に属するプロセスはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "スコープの定義",
+        "品質保証の遂行",
+        "プロジェクト憲章の作成",
+        "プロジェクトチームの編成"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトマネジメント",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトマネジメント"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトマネジメント",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_18.html",
+      "public_question_id": "9d9382d488ad7d1b",
+      "original_question_id": "9d9382d488ad7d1b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。\"スコープの定義\"は、プロジェクトの最終状態を定義することによって、目標、成果物、要求事項及び境界を含むプロジェクト・スコープの明確さを達成することを目的とするプロセスで、計画のプロセス群に属しています。"
+        ],
+        [
+          "\"品質保証の遂行\"は、確定したプロジェクトの目標、品質要求事項及び規格を満たしそうかどうかを明らかにし、不満足なパフォーマンスの原因及びそれを取り除くための方法を特定することを目的とするプロセスで、実行のプロセス群に属しています。"
+        ],
+        [
+          "\"プロジェクト憲章の作成\"は、プロジェクトを正式に許可する文書であるプロジェクト憲章を作成することを目的とするプロセスで、立上げのプロセス群に属しています。"
+        ],
+        [
+          "\"プロジェクトチームの編成\"は、プロジェクトの完遂に必要な人的資源を得ることを目的とするプロセスで、立上げのプロセス群に属しています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問18:https://www.nw-siken.com/kakomon/03_haru/am1_18.html"
+    },
+    {
+      "questionBodyText": "プロジェクトのスケジュールを短縮したい。当初の計画は図1のとおりである。作業Eを作業E1，E2，E3に分けて，図2のように計画を変更すると，スケジュールは全体で何日短縮できるか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_19.html",
+      "public_question_id": "296edb7c0cb7e87c",
+      "original_question_id": "296edb7c0cb7e87c",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq296edb7c0cb7e87c_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ファストトラッキング",
+        "28",
+        "27",
+        "1日"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "この設問の変更例のように、開始当初の計画では直列に並んでいた作業を同時並行的に行い期間短縮を図る方法を\nファストトラッキング\nといいます。ただし、本来は順番通りになされるべきであった作業を並行して行うことになるので、順序や前後関係がより複雑になるなどの弊害もあります。\n単純なアローダイアグラムなので、それぞれのパスの日数計算は省きます。\n図1では「A→B→E→H→I」がクリティカルパスとなり、全体の最短完了日数は以下のようにパス上の作業日数の合計です。5＋8＋9＋4＋2＝\n28\n(日)\n図2では、図1でクリティカルパスにあった作業E(9日)がファストトラッキング技法によって分割され、E2(4日)→E3(2日)の6日に短縮されています。このまま最短完了日数が3日短縮といいたいところですが、作業Eが短縮されたことによってクリティカルパスが「A→B→D→G」に移り、最短完了日数も以下のように変わります。5＋8＋7＋7＝\n27\n(日)\nしたがって、図2のようにファストトラッキングを適用した場合、全体のスケジュールは、図1の当初計画より\n1日\nだけ短縮されます。"
+        ],
+        [
+          "この設問の変更例のように、開始当初の計画では直列に並んでいた作業を同時並行的に行い期間短縮を図る方法を\nファストトラッキング\nといいます。ただし、本来は順番通りになされるべきであった作業を並行して行うことになるので、順序や前後関係がより複雑になるなどの弊害もあります。\n単純なアローダイアグラムなので、それぞれのパスの日数計算は省きます。\n図1では「A→B→E→H→I」がクリティカルパスとなり、全体の最短完了日数は以下のようにパス上の作業日数の合計です。5＋8＋9＋4＋2＝\n28\n(日)\n図2では、図1でクリティカルパスにあった作業E(9日)がファストトラッキング技法によって分割され、E2(4日)→E3(2日)の6日に短縮されています。このまま最短完了日数が3日短縮といいたいところですが、作業Eが短縮されたことによってクリティカルパスが「A→B→D→G」に移り、最短完了日数も以下のように変わります。5＋8＋7＋7＝\n27\n(日)\nしたがって、図2のようにファストトラッキングを適用した場合、全体のスケジュールは、図1の当初計画より\n1日\nだけ短縮されます。"
+        ],
+        [
+          "この設問の変更例のように、開始当初の計画では直列に並んでいた作業を同時並行的に行い期間短縮を図る方法を\nファストトラッキング\nといいます。ただし、本来は順番通りになされるべきであった作業を並行して行うことになるので、順序や前後関係がより複雑になるなどの弊害もあります。\n単純なアローダイアグラムなので、それぞれのパスの日数計算は省きます。\n図1では「A→B→E→H→I」がクリティカルパスとなり、全体の最短完了日数は以下のようにパス上の作業日数の合計です。5＋8＋9＋4＋2＝\n28\n(日)\n図2では、図1でクリティカルパスにあった作業E(9日)がファストトラッキング技法によって分割され、E2(4日)→E3(2日)の6日に短縮されています。このまま最短完了日数が3日短縮といいたいところですが、作業Eが短縮されたことによってクリティカルパスが「A→B→D→G」に移り、最短完了日数も以下のように変わります。5＋8＋7＋7＝\n27\n(日)\nしたがって、図2のようにファストトラッキングを適用した場合、全体のスケジュールは、図1の当初計画より\n1日\nだけ短縮されます。"
+        ],
+        [
+          "この設問の変更例のように、開始当初の計画では直列に並んでいた作業を同時並行的に行い期間短縮を図る方法を\nファストトラッキング\nといいます。ただし、本来は順番通りになされるべきであった作業を並行して行うことになるので、順序や前後関係がより複雑になるなどの弊害もあります。\n単純なアローダイアグラムなので、それぞれのパスの日数計算は省きます。\n図1では「A→B→E→H→I」がクリティカルパスとなり、全体の最短完了日数は以下のようにパス上の作業日数の合計です。5＋8＋9＋4＋2＝\n28\n(日)\n図2では、図1でクリティカルパスにあった作業E(9日)がファストトラッキング技法によって分割され、E2(4日)→E3(2日)の6日に短縮されています。このまま最短完了日数が3日短縮といいたいところですが、作業Eが短縮されたことによってクリティカルパスが「A→B→D→G」に移り、最短完了日数も以下のように変わります。5＋8＋7＋7＝\n27\n(日)\nしたがって、図2のようにファストトラッキングを適用した場合、全体のスケジュールは、図1の当初計画より\n1日\nだけ短縮されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問19:https://www.nw-siken.com/kakomon/03_haru/am1_19.html"
+    },
+    {
+      "questionBodyText": "プロジェクトメンバーが16人のとき，1対1の総当たりでプロジェクトメンバー相互の顔合わせ会を行うためには，延べ何時間の顔合わせ会が必要か。ここで，顔合わせ会1回の所要時間は0.5時間とする。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "8",
+        "16",
+        "30",
+        "60"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトのコミュニケーション",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトのコミュニケーション"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトのコミュニケーション",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_20.html",
+      "public_question_id": "08bc4f1e259f1224",
+      "original_question_id": "08bc4f1e259f1224",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "n個の中から異なるr個を取り出す組合せの場合の数\nnC\nr\n＝\nn!\n(n－r)!r!",
+        "16",
+        "2",
+        "16×152×1",
+        "60時間"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "組合せ数を求める公式を利用して答えを導きます。n個の中から異なるr個を取り出す組合せの場合の数\nnC\nr\n＝\nn!\n(n－r)!r!\n16人がいるとき、異なる2人の組合せが何通りあるかは以下のように計算できます。16C\n2\n＝\n16×152×1\n＝120組\n顔合わせ会1回の所要時間は0.5時間のため、120組×0.5時間＝60時間\nよって、顔合わせ会に要する総時間は\n60時間\nが適切です。\nまた煩雑にはなりますが別の解法として、全ての組合せを列挙していく方法も考えられます。16人をそれぞれA、B、…、Pとすると、AとB、AとC、…、AとP(15通り)\nBとC、BとD、…、BとP(14通り)\nCとD、CとE、…、CとP(13通り)\n(省略)\nNとO、NとP(2通り)\nOとP(1通り)\nとなるため、15＋14＋13＋…＋2＋1＝120組\n120組×0.5時間＝60時間"
+        ],
+        [
+          "組合せ数を求める公式を利用して答えを導きます。n個の中から異なるr個を取り出す組合せの場合の数\nnC\nr\n＝\nn!\n(n－r)!r!\n16人がいるとき、異なる2人の組合せが何通りあるかは以下のように計算できます。16C\n2\n＝\n16×152×1\n＝120組\n顔合わせ会1回の所要時間は0.5時間のため、120組×0.5時間＝60時間\nよって、顔合わせ会に要する総時間は\n60時間\nが適切です。\nまた煩雑にはなりますが別の解法として、全ての組合せを列挙していく方法も考えられます。16人をそれぞれA、B、…、Pとすると、AとB、AとC、…、AとP(15通り)\nBとC、BとD、…、BとP(14通り)\nCとD、CとE、…、CとP(13通り)\n(省略)\nNとO、NとP(2通り)\nOとP(1通り)\nとなるため、15＋14＋13＋…＋2＋1＝120組\n120組×0.5時間＝60時間"
+        ],
+        [
+          "組合せ数を求める公式を利用して答えを導きます。n個の中から異なるr個を取り出す組合せの場合の数\nnC\nr\n＝\nn!\n(n－r)!r!\n16人がいるとき、異なる2人の組合せが何通りあるかは以下のように計算できます。16C\n2\n＝\n16×152×1\n＝120組\n顔合わせ会1回の所要時間は0.5時間のため、120組×0.5時間＝60時間\nよって、顔合わせ会に要する総時間は\n60時間\nが適切です。\nまた煩雑にはなりますが別の解法として、全ての組合せを列挙していく方法も考えられます。16人をそれぞれA、B、…、Pとすると、AとB、AとC、…、AとP(15通り)\nBとC、BとD、…、BとP(14通り)\nCとD、CとE、…、CとP(13通り)\n(省略)\nNとO、NとP(2通り)\nOとP(1通り)\nとなるため、15＋14＋13＋…＋2＋1＝120組\n120組×0.5時間＝60時間"
+        ],
+        [
+          "組合せ数を求める公式を利用して答えを導きます。n個の中から異なるr個を取り出す組合せの場合の数\nnC\nr\n＝\nn!\n(n－r)!r!\n16人がいるとき、異なる2人の組合せが何通りあるかは以下のように計算できます。16C\n2\n＝\n16×152×1\n＝120組\n顔合わせ会1回の所要時間は0.5時間のため、120組×0.5時間＝60時間\nよって、顔合わせ会に要する総時間は\n60時間\nが適切です。\nまた煩雑にはなりますが別の解法として、全ての組合せを列挙していく方法も考えられます。16人をそれぞれA、B、…、Pとすると、AとB、AとC、…、AとP(15通り)\nBとC、BとD、…、BとP(14通り)\nCとD、CとE、…、CとP(13通り)\n(省略)\nNとO、NとP(2通り)\nOとP(1通り)\nとなるため、15＋14＋13＋…＋2＋1＝120組\n120組×0.5時間＝60時間"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "202101:am:問20:https://www.nw-siken.com/kakomon/03_haru/am1_20.html"
+    },
+    {
+      "questionBodyText": "マスタファイル管理に関するシステム監査項目のうち，可用性に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "マスタファイルが置かれているサーバを二重化し，耐障害性の向上を図っていること",
+        "マスタファイルのデータを複数件まとめて検索・加工するための機能が，システムに盛り込まれていること",
+        "マスタファイルのメンテナンスは，特権アカウントを付与された者だけに許されていること",
+        "マスタファイルへのデータ入力チェック機能が，システムに盛り込まれていること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_21.html",
+      "public_question_id": "3c29a7a16e37864a",
+      "original_question_id": "3c29a7a16e37864a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "可用性"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。障害が起きてもサービスの提供を維持できるような対策が実施されているかどうかが、可用性の監査項目になります。"
+        ],
+        [
+          "効率性に該当する項目です。"
+        ],
+        [
+          "機密性に該当する項目です。"
+        ],
+        [
+          "完全性に該当する項目です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問21:https://www.nw-siken.com/kakomon/03_haru/am1_21.html"
+    },
+    {
+      "questionBodyText": "システム監査人が行う改善提案のフォローアップとして，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "改善提案に対する改善の実施を監査対象部門の長に指示する。",
+        "改善提案に対する監査対象部門の改善実施プロジェクトの管理を行う。",
+        "改善提案に対する監査対象部門の改善状況をモニタリングする。",
+        "改善提案の内容を監査対象部門に示した上で改善実施計画を策定する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_22.html",
+      "public_question_id": "c1ed3cd5df3872cd",
+      "original_question_id": "c1ed3cd5df3872cd",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "システム監査人は、監査報告書に改善提案を記載した場合、その提案に基づいて必要な措置が講じられているかを確認するとともに、改善状況を継続的にモニタリングしなければなりません。このシステム監査後の活動を「フォローアップ」と呼びます。\nフォローアップは、監査対象部門が主体となって実施される改善を、監査人が事後的に確認するという性質のものです。このため、監査人が改善活動を自ら実施することはなく、また実施に関して責任を負いません。改善計画の策定やその実行への関与は、監査人の独立性と客観性を損なうことに留意しなければなりません。\n監査人の役割は被監査側が実施する改善計画を見守り、改善計画が適切に遂行されるように助言を行うことです。したがって、監査人が行うフォローアップとして適切なのは、「ウ」の\"改善状況をモニタリングする\"です。\n「ア」改善の実施を指示する、「イ」実施状況の管理を行う、「エ」改善実施計画を策定する、はいずれも監査対象部門が主体となって実施すべきことであり、監査人の関与は不適切です。"
+        ],
+        [
+          "システム監査人は、監査報告書に改善提案を記載した場合、その提案に基づいて必要な措置が講じられているかを確認するとともに、改善状況を継続的にモニタリングしなければなりません。このシステム監査後の活動を「フォローアップ」と呼びます。\nフォローアップは、監査対象部門が主体となって実施される改善を、監査人が事後的に確認するという性質のものです。このため、監査人が改善活動を自ら実施することはなく、また実施に関して責任を負いません。改善計画の策定やその実行への関与は、監査人の独立性と客観性を損なうことに留意しなければなりません。\n監査人の役割は被監査側が実施する改善計画を見守り、改善計画が適切に遂行されるように助言を行うことです。したがって、監査人が行うフォローアップとして適切なのは、「ウ」の\"改善状況をモニタリングする\"です。\n「ア」改善の実施を指示する、「イ」実施状況の管理を行う、「エ」改善実施計画を策定する、はいずれも監査対象部門が主体となって実施すべきことであり、監査人の関与は不適切です。"
+        ],
+        [
+          "システム監査人は、監査報告書に改善提案を記載した場合、その提案に基づいて必要な措置が講じられているかを確認するとともに、改善状況を継続的にモニタリングしなければなりません。このシステム監査後の活動を「フォローアップ」と呼びます。\nフォローアップは、監査対象部門が主体となって実施される改善を、監査人が事後的に確認するという性質のものです。このため、監査人が改善活動を自ら実施することはなく、また実施に関して責任を負いません。改善計画の策定やその実行への関与は、監査人の独立性と客観性を損なうことに留意しなければなりません。\n監査人の役割は被監査側が実施する改善計画を見守り、改善計画が適切に遂行されるように助言を行うことです。したがって、監査人が行うフォローアップとして適切なのは、「ウ」の\"改善状況をモニタリングする\"です。\n「ア」改善の実施を指示する、「イ」実施状況の管理を行う、「エ」改善実施計画を策定する、はいずれも監査対象部門が主体となって実施すべきことであり、監査人の関与は不適切です。"
+        ],
+        [
+          "システム監査人は、監査報告書に改善提案を記載した場合、その提案に基づいて必要な措置が講じられているかを確認するとともに、改善状況を継続的にモニタリングしなければなりません。このシステム監査後の活動を「フォローアップ」と呼びます。\nフォローアップは、監査対象部門が主体となって実施される改善を、監査人が事後的に確認するという性質のものです。このため、監査人が改善活動を自ら実施することはなく、また実施に関して責任を負いません。改善計画の策定やその実行への関与は、監査人の独立性と客観性を損なうことに留意しなければなりません。\n監査人の役割は被監査側が実施する改善計画を見守り、改善計画が適切に遂行されるように助言を行うことです。したがって、監査人が行うフォローアップとして適切なのは、「ウ」の\"改善状況をモニタリングする\"です。\n「ア」改善の実施を指示する、「イ」実施状況の管理を行う、「エ」改善実施計画を策定する、はいずれも監査対象部門が主体となって実施すべきことであり、監査人の関与は不適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問22:https://www.nw-siken.com/kakomon/03_haru/am1_22.html"
+    },
+    {
+      "questionBodyText": "エンタープライズアーキテクチャの\"四つの分類体系\"に含まれるアーキテクチャは，ビジネスアーキテクチャ，テクノロジアーキテクチャ，アプリケーションアーキテクチャともう一つはどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "システムアーキテクチャ",
+        "ソフトウェアアーキテクチャ",
+        "データアーキテクチャ",
+        "バスアーキテクチャ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_23.html",
+      "public_question_id": "f97b69daa3f6f062",
+      "original_question_id": "f97b69daa3f6f062",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "エンタープライズアーキテクチャ",
+        "ビジネス・アーキテクチャ（政策・業務体系）\n政策・業務の内容、実施主体、業務フロー等について、共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなど\nデータ・アーキテクチャ（データ体系）\n各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表など\nアプリケーション・アーキテクチャ（処理体系）\n業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図や情報システム機能構成図など\nテクノロジ・アーキテクチャ（技術体系）\n実際にシステムを構築する際に利用する諸々の技術的構成要素（ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "エンタープライズアーキテクチャ\n(Enterprise Architecture、以下EAと言う)は、社会環境や情報技術の変化に素早く対応できるよう、「全体最適」の観点から業務とシステム全体を改革するためのフレームワークです。主に大企業や政府、地方公共団体といった巨大な組織（enterprise）の業務手順と情報システムの標準化、組織の最適化を図るための方法論として活用されます。EAでは、統一的な手法でモデル化するために、業務からシステムに至るまでの関係を以下の4つの階層に区分しています。\nビジネス・アーキテクチャ（政策・業務体系）\n政策・業務の内容、実施主体、業務フロー等について、共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなど\nデータ・アーキテクチャ（データ体系）\n各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表など\nアプリケーション・アーキテクチャ（処理体系）\n業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図や情報システム機能構成図など\nテクノロジ・アーキテクチャ（技術体系）\n実際にシステムを構築する際に利用する諸々の技術的構成要素（ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など\nしたがって残る一つは「データアーキテクチャ」ということになります。"
+        ],
+        [
+          "エンタープライズアーキテクチャ\n(Enterprise Architecture、以下EAと言う)は、社会環境や情報技術の変化に素早く対応できるよう、「全体最適」の観点から業務とシステム全体を改革するためのフレームワークです。主に大企業や政府、地方公共団体といった巨大な組織（enterprise）の業務手順と情報システムの標準化、組織の最適化を図るための方法論として活用されます。EAでは、統一的な手法でモデル化するために、業務からシステムに至るまでの関係を以下の4つの階層に区分しています。\nビジネス・アーキテクチャ（政策・業務体系）\n政策・業務の内容、実施主体、業務フロー等について、共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなど\nデータ・アーキテクチャ（データ体系）\n各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表など\nアプリケーション・アーキテクチャ（処理体系）\n業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図や情報システム機能構成図など\nテクノロジ・アーキテクチャ（技術体系）\n実際にシステムを構築する際に利用する諸々の技術的構成要素（ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など\nしたがって残る一つは「データアーキテクチャ」ということになります。"
+        ],
+        [
+          "エンタープライズアーキテクチャ\n(Enterprise Architecture、以下EAと言う)は、社会環境や情報技術の変化に素早く対応できるよう、「全体最適」の観点から業務とシステム全体を改革するためのフレームワークです。主に大企業や政府、地方公共団体といった巨大な組織（enterprise）の業務手順と情報システムの標準化、組織の最適化を図るための方法論として活用されます。EAでは、統一的な手法でモデル化するために、業務からシステムに至るまでの関係を以下の4つの階層に区分しています。\nビジネス・アーキテクチャ（政策・業務体系）\n政策・業務の内容、実施主体、業務フロー等について、共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなど\nデータ・アーキテクチャ（データ体系）\n各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表など\nアプリケーション・アーキテクチャ（処理体系）\n業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図や情報システム機能構成図など\nテクノロジ・アーキテクチャ（技術体系）\n実際にシステムを構築する際に利用する諸々の技術的構成要素（ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など\nしたがって残る一つは「データアーキテクチャ」ということになります。"
+        ],
+        [
+          "エンタープライズアーキテクチャ\n(Enterprise Architecture、以下EAと言う)は、社会環境や情報技術の変化に素早く対応できるよう、「全体最適」の観点から業務とシステム全体を改革するためのフレームワークです。主に大企業や政府、地方公共団体といった巨大な組織（enterprise）の業務手順と情報システムの標準化、組織の最適化を図るための方法論として活用されます。EAでは、統一的な手法でモデル化するために、業務からシステムに至るまでの関係を以下の4つの階層に区分しています。\nビジネス・アーキテクチャ（政策・業務体系）\n政策・業務の内容、実施主体、業務フロー等について、共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなど\nデータ・アーキテクチャ（データ体系）\n各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表など\nアプリケーション・アーキテクチャ（処理体系）\n業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図や情報システム機能構成図など\nテクノロジ・アーキテクチャ（技術体系）\n実際にシステムを構築する際に利用する諸々の技術的構成要素（ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など\nしたがって残る一つは「データアーキテクチャ」ということになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問23:https://www.nw-siken.com/kakomon/03_haru/am1_23.html"
+    },
+    {
+      "questionBodyText": "情報システムの調達の際に作成されるRFIの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "調達者から供給者候補に対して，システム化の目的や業務内容などを示し，必要な情報の提供を依頼すること",
+        "調達者から供給者候補に対して，対象システムや調達条件などを示し，提案書の提出を依頼すること",
+        "調達者から供給者に対して，契約内容で取り決めた内容に関して，変更を要請すること",
+        "調達者から供給者に対して，双方の役割分担などを確認し，契約の締結を要請すること"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_24.html",
+      "public_question_id": "e95afe5826fcc025",
+      "original_question_id": "e95afe5826fcc025",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "RFI",
+        "RFP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。RFIの説明です。"
+        ],
+        [
+          "RFP(Request for Proposal：提案依頼書)の説明です。"
+        ],
+        [
+          "RFC(Request for Change：変更依頼書)の説明です。"
+        ],
+        [
+          "契約締結依頼書の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "202101:am:問24:https://www.nw-siken.com/kakomon/03_haru/am1_24.html"
+    },
+    {
+      "questionBodyText": "システム開発委託契約の委託報酬におけるレベニューシェア契約の特徴はどれか。",
+      "examLabel": "ネットワークスペシャリスト令和3年春期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "委託側が開発するシステムから得られる収益とは無関係に開発に必要な費用を全て負担する。",
+        "委託側は開発するシステムから得られる収益に関係無く定額で費用を負担する。",
+        "開発するシステムから得られる収益を委託側が受託側にあらかじめ決められた配分率で分配する。",
+        "受託側は継続的に固定額の収益が得られる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム企画 » 調達計画・実施",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム企画",
+        "調達計画・実施"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム企画",
+      "categorySmall": "調達計画・実施",
+      "examYear": 2021,
+      "list_group_id": "202101",
+      "question_url": "https://www.nw-siken.com/kakomon/03_haru/am1_25.html",
+      "public_question_id": "d38423f02e93010a",
+      "original_question_id": "d38423f02e93010a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "実費償還契約です。"
+        ],
+        [
+          "定額課金制やサブスクリプション契約です。"
+        ],
+        [
+          "正しい。レベニューシェア契約の特徴です。"
+        ],
+        [
+          "収益の多寡に応じて得られる収益は変わります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "202101:am:問25:https://www.nw-siken.com/kakomon/03_haru/am1_25.html"
+    }
+  ]
+}
