@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "ハミング符号とは，データに冗長ビットを付加して，1ビットの誤りを訂正できるようにしたものである。ここでは，X1\n，X2\n，X3\n，X4の4ビットから成るデータに，3ビットの冗長ビットP3\n，P2\n，P1を付加したハミング符号 X1\nX2\nX3\nP3\nX4\nP2\nP1を考える。付加ビットP1\n，P2\n，P3は，それぞれ\nX1\n⊕X3\n⊕X4\n⊕P1\n＝0X\n1\n⊕X2\n⊕X4\n⊕P2\n＝0X\n1\n⊕X2\n⊕X3\n⊕P3\n＝0となるように決める。ここで⊕は排他的論理和を表す。\nハミング符号 1110011 には1ビットの誤りが存在する。誤りビットを訂正したハミング符号はどれか。",
+    "choiceTextList": [
+      "0110011",
+      "1010011",
+      "1100011",
+      "1110111"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ae81184444507a2e",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_1.html"
+  },
+  {
+    "questionBodyText": "リストには，配列で実現する場合とポインタで実現する場合とがある。リストを配列で実現した場合の特徴として，適切なものはどれか。ここで，配列を用いたリストは配列に要素を連続して格納することによってリストを構成し，ポインタを用いたリストは要素と次の要素へのポインタを用いることによってリストを構成するものとする。",
+    "choiceTextList": [
+      "リストにある実際の要素数にかかわらず，リストに入れられる要素の最大個数に対応した領域を確保し，実際には使用されない領域が発生する可能性がある。",
+      "リストの中間要素を参照するには，リストの先頭から順番に要素をたどっていくことから，要素数に比例した時間が必要となる。",
+      "リストの要素を格納する領域の他に，次の要素を指し示すための領域が別途必要となる。",
+      "リストへの挿入位置が分かる場合には，リストにある実際の要素数にかかわらず，要素の挿入を一定時間で行うことができる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8e945667cdc68d39",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_2.html"
+  },
+  {
+    "questionBodyText": "プログラム言語のうち，ブロックの範囲を指定する方法として特定の記号や予約語を用いず，等しい文字数の字下げを用いるという特徴をもつものはどれか。",
+    "choiceTextList": [
+      "C",
+      "Java",
+      "PHP",
+      "Python"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "502d7f33e8738e26",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_3.html"
+  },
+  {
+    "questionBodyText": "キャッシュメモリのアクセス時間が主記憶のアクセス時間の 1/30 で，ヒット率が95％のとき，実効メモリアクセス時間は，主記憶のアクセス時間の約何倍になるか。",
+    "choiceTextList": [
+      "0.03",
+      "0.08",
+      "0.37",
+      "0.95"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8e27cd8a43b5c91a",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_4.html"
+  },
+  {
+    "questionBodyText": "プロセッサ数と，計算処理におけるプロセスの並列化が可能な部分の割合とが，性能向上へ及ぼす影響に関する記述のうち，アムダールの法則に基づいたものはどれか。",
+    "choiceTextList": [
+      "全ての計算処理が並列化できる場合，速度向上比は，プロセッサ数を増やしてもある水準に漸近的に近づく 。",
+      "並列化できない計算処理がある場合，速度向上比は，プロセッサ数に比例して増加する。",
+      "並列化できない計算処理がある場合，速度向上比は，プロセッサ数を増やしてもある水準に漸近的に近づく。",
+      "並列化できる計算処理の割合が増えると，速度向上比は，プロセッサ数に反比例して減少する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ece2a6a2f806a71b",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_5.html"
+  },
+  {
+    "questionBodyText": "一つのI2\nCバスに接続された二つのセンサーがある。それぞれのセンサー値を読み込む二つのタスクで排他的に制御したい。利用するリアルタイムOSの機能として，適切なものはどれか。",
+    "choiceTextList": [
+      "キュー",
+      "セマフォ",
+      "マルチスレッド",
+      "ラウンドロビン"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d288f32ccbc0a76b",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_6.html"
+  },
+  {
+    "questionBodyText": "アクチュエーターの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "与えられた目標量と，センサーから得られた制御量を比較し，制御量を目標量に一致させるように操作量を出力する。",
+      "位置，角度，速度，加速度，力，温度などを検出し，電気的な情報に変換する。",
+      "エネルギー源からのパワーを，回転，直進などの動きに変換する。",
+      "マイクロフォン，センサーなどが出力する微小な電気信号を増幅する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "d55db5169531e47e",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_7.html"
+  },
+  {
+    "questionBodyText": "第1，第2，第3正規形とリレーションの特徴a，b，cの組合せのうち，適切なものはどれか。\nどの非キー属性も，主キーの真部分集合に対して関数従属しない。\nどの非キー属性も，主キーに推移的に関数従属しない。\n繰返し属性が存在しない。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "edc5705c76b81556",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_8.html"
+  },
+  {
+    "questionBodyText": "ビッグデータの利用におけるデータマイニングを説明したものはどれか。",
+    "choiceTextList": [
+      "蓄積されたデータを分析し，単なる検索だけでは分からない隠れた規則や相関関係を見つけ出すこと",
+      "データウェアハウスに格納されたデータの一部を，特定の用途や部門用に切り出して，データベースに格納すること",
+      "データ処理の対象となる情報を基に規定した，データの構造，意味及び操作の枠組みのこと",
+      "データを複数のサーバに複製し，性能と可用性を向上させること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "954a8cc65155ea2e",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_9.html"
+  },
+  {
+    "questionBodyText": "UDPを使用しているものはどれか。",
+    "choiceTextList": [
+      "FTP",
+      "NTP",
+      "POP3",
+      "TELNET"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1ad37c9a8bfdf117",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_10.html"
+  },
+  {
+    "questionBodyText": "OpenFlowを使ったSDN(Software-Defined Networking)に関する記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "インターネットのドメイン名を管理する世界規模の分散データベースを用いて，IPアドレスの代わりに名前を指定して通信できるようにする仕組み",
+      "携帯電話網において，回線交換方式ではなく，パケット交換方式で音声通話を実現する方式",
+      "ストレージ装置とサーバを接続し，WWN(World Wide Name)によってノードやポートを識別するストレージ用ネットワ ーク",
+      "データ転送機能とネットワーク制御機能を論理的に分離し，ネットワーク制御を集中的に行うことを可能にしたアーキテクチャ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a24c660fe842ee7f",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_11.html"
+  },
+  {
+    "questionBodyText": "メッセージの送受信における署名鍵の使用に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "送信者が送信者の署名鍵を使ってメッセージに対する署名を作成し，メッセージに付加することによって，受信者が送信者による署名であることを確認できるようになる。",
+      "送信者が送信者の署名鍵を使ってメッセージを暗号化することによって，受信者が受信者の署名鍵を使って，暗号文を元のメッセージに戻すことができるようになる。",
+      "送信者が送信者の署名鍵を使ってメッセージを暗号化することによって，メッセージの内容が関係者以外に分からないようになる。",
+      "送信者がメッセージに固定文字列を付加し，更に送信者の署名鍵を使って暗号化することによって，受信者がメッセージの改ざん部位を特定できるようになる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6b4cf79d5015227e",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_12.html"
+  },
+  {
+    "questionBodyText": "クライアント証明書で利用者を認証するリバースプロキシサーバを用いて，複数のWebサーバにシングルサインオンを行うシステムがある。このシステムに関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "クライアント証明書を利用者のPCに送信するのは，Webサーバではなく，リバースプロキシサーバである。",
+      "クライアント証明書を利用者のPCに送信するのは，リバースプロキシサーバではなく，Webサーバである。",
+      "利用者IDなどの情報をWebサーバに送信するのは，リバースプロキシサーバではなく，利用者のPCである。",
+      "利用者IDなどの情報をWebサーバに送信するのは，利用者のPCではなく，リバースプロキシサーバである。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "65e291856e1030c2",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_13.html"
+  },
+  {
+    "questionBodyText": "内部ネットワークのPCからインターネット上のWebサイトを参照するときに，DMZに設置したVDI(Virtual Desktop Infrastructure)サーバ上のWebブラウザを利用すると，未知のマルウェアがPCにダウンロードされるのを防ぐというセキュリティ上の効果が期待できる。この効果を生み出すVDIサーバの動作の特徴はどれか。",
+    "choiceTextList": [
+      "Webサイトからの受信データを受信処理した後，IPsecでカプセル化し，PCに送信する。",
+      "Webサイトからの受信データを受信処理した後，実行ファイルを削除し，その他のデータをPCに送信する。",
+      "Webサイトからの受信データを受信処理した後，生成したデスクトップ画面の画像データだけをPCに送信する。",
+      "Webサイトからの受信データを受信処理した後，不正なコード列が検知されない場合だけPCに送信する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0181e484ee05b0ab",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_14.html"
+  },
+  {
+    "questionBodyText": "ファジングに該当するものはどれか。",
+    "choiceTextList": [
+      "サーバにFINパケットを送信し，サーバからの応答を観測して，稼働しているサービスを見つけ出す。",
+      "サーバのOSやアプリケーションソフトウェアが生成したログやコマンド履歴などを解析して，ファイルサーバに保存されているファイルの改ざんを検知する。",
+      "ソフトウェアに，問題を引き起こしそうな多様なデータを入力し，挙動を監視して，脆弱性を見つけ出す。",
+      "ネットワーク上を流れるパケットを収集し，そのプロトコルヘッダーやペイロードを解析して，あらかじめ登録された攻撃パターンと一致するものを検出する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "79f9d44b7bcf0919",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_15.html"
+  },
+  {
+    "questionBodyText": "次の流れ図において，判定条件網羅(分岐網羅)を満たす最少のテストケースはどれか。",
+    "choiceTextList": [
+      "(1) A＝0，B＝0　(2) A＝1，B＝1",
+      "(1) A＝1，B＝0　(2) A＝1，B＝1",
+      "(1) A＝0，B＝0　(2) A＝1，B＝1　(3) A＝1，B＝0",
+      "(1) A＝0，B＝0　(2) A＝0，B＝1　(3) A＝1，B＝0"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c66f4738632b1fb7",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_16.html"
+  },
+  {
+    "questionBodyText": "問題は発生していないが，プログラムの仕様書と現状のソースコードとの不整合を解消するために，リバースエンジニアリングの手法を使って仕様書を作成し直す。これはソフトウェア保守のどの分類に該当するか。",
+    "choiceTextList": [
+      "完全化保守",
+      "是正保守",
+      "適応保守",
+      "予防保守"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "422d92d80fcb0da9",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_17.html"
+  },
+  {
+    "questionBodyText": "ある組織では，プロジェクトのスケジュールとコストの管理にアーンドバリューマネジメントを用いている。期間10日間のプロジェクトの，5日目の終了時点の状況は表のとおりである。この時点でのコスト効率が今後も続くとしたとき，完成時総コスト見積り(EAC)は何万円か。",
+    "choiceTextList": [
+      "110",
+      "120",
+      "135",
+      "150"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "e3b8ecb1fb3956d4",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_18.html"
+  },
+  {
+    "questionBodyText": "ソフトウェア開発プロジェクトにおいて，表の全ての作業を完了させるために必要な期間は最短で何日間か。",
+    "choiceTextList": [
+      "80",
+      "95",
+      "100",
+      "120"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "4bee4514483241e2",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_19.html"
+  },
+  {
+    "questionBodyText": "ITIL 2011 editionでは，可用性管理における重要業績評価指標(KPI)の例として，\"保守性を表す指標値\"の短縮を挙げている。保守性を表す指標に該当するものはどれか。",
+    "choiceTextList": [
+      "一定期間内での中断の数",
+      "平均故障間隔",
+      "平均サービス・インシデント間隔",
+      "平均サービス回復時間"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c5355d6f9891a2d4",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_20.html"
+  },
+  {
+    "questionBodyText": "基幹業務システムの構築及び運用において，データ管理者(DA)とデータベース管理者(DBA)を別々に任命した場合のDAの役割として，適切なものはどれか。",
+    "choiceTextList": [
+      "業務データ量の増加傾向を把握し，ディスク装置の増設などを計画して実施する。",
+      "システム開発の設計工程では，主に論理データベース設計を行い，データ項目を管理して標準化する。",
+      "システム開発のテスト工程では，主にパフォーマンスチューニングを担当する。",
+      "システム障害が発生した場合には，データの復旧や整合性のチェックなどを行う。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a7a718c803c73df9",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_21.html"
+  },
+  {
+    "questionBodyText": "監査証拠の入手と評価に関する記述のうち，システム監査基準(平成30年)に照らして，\n適切でないもの\nはどれか。",
+    "choiceTextList": [
+      "アジャイル手法を用いたシステム開発プロジェクトにおいては，管理用ドキュメントとしての体裁が整っているものだけが監査証拠として利用できる。",
+      "外部委託業務実施拠点に対する監査において，システム監査人が委託先から入手した第三者の保証報告書に依拠できると判断すれば，現地調査を省略できる。",
+      "十分かつ適切な監査証拠を入手するための本調査の前に，監査対象の実態を把握するための予備調査を実施する。",
+      "一つの監査目的に対して，通常は，複数の監査手続を組み合わせて監査を実施する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c5f0db74d950edf0",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_22.html"
+  },
+  {
+    "questionBodyText": "BPOの説明はどれか。",
+    "choiceTextList": [
+      "災害や事故で被害を受けても，重要事業を中断させない，又は可能な限り中断期間を短くする仕組みを構築すること",
+      "社内業務のうちコアビジネスでない事業に関わる業務の一部又は全部を，外部の専門的な企業に委託すること",
+      "製品の基準生産計画，部品表及び在庫情報を基に，資材の所要量と必要な時期を求め，これを基準に資材の手配，納入の管理を支援する生産管理手法のこと",
+      "プロジェクトを，戦略との適合性や費用対効果，リスクといった観点から評価を行い，情報化投資のバランスを管理し，最適化を図ること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f4ee886b314edf44",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_23.html"
+  },
+  {
+    "questionBodyText": "IT投資効果の評価方法において，キャッシュフローベースで初年度の投資によるキャッシュアウトを何年後に回収できるかという指標はどれか。",
+    "choiceTextList": [
+      "IRR(Internal Rate of Return)",
+      "NPV(Net Present Value)",
+      "PBP(Pay Back Period)",
+      "ROI(Return On Investment)"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "932e703fd475fb12",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_24.html"
+  },
+  {
+    "questionBodyText": "UMLの図のうち，業務要件定義において，業務フローを記述する際に使用する，処理の分岐や並行処理，処理の同期などを表現できる図はどれか。",
+    "choiceTextList": [
+      "アクティビティ図",
+      "クラス図",
+      "状態遷移図",
+      "ユースケース図"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "df29de87c96fe4ec",
+    "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_25.html"
+  }
+]
