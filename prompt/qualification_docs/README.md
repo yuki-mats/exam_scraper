@@ -55,3 +55,4 @@
 - `kaigofukushi`
 - `kyusuikouji-shunin`
 - `mecnet-kokushi`
+- `nw`
