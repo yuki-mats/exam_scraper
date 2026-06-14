@@ -1,0 +1,2450 @@
+{
+  "list_group_id": "201002",
+  "question_bodies": [
+    {
+      "questionBodyText": "観測データを類似性によって集団や群に分類し，その特徴となる要因を分析する手法はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問26",
+      "questionLabel": "問26",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "クラスタ分析法",
+        "指数平滑法",
+        "デルファイ法",
+        "モンテカルロ法"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 企業活動 » 業務分析・データ利活用",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "企業活動",
+        "業務分析・データ利活用"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "企業活動",
+      "categorySmall": "業務分析・データ利活用",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_26.html",
+      "public_question_id": "0e4b223f13877fe7",
+      "original_question_id": "0e4b223f13877fe7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。\nクラスタ分析法\nとは、複数の変数(項目、属性、次元数)を持つデータ(多変量データ)を利用し、その変数間の相互の関係性をとらえるために使われる多変量解析の手法です。複数の異なる性質のものが混ざり合っている対象の中から、類似したものを集めてグループを作り、対象を分類するために用いられます。"
+        ],
+        [
+          "指数平滑法は、過去の予測値と実績値を利用して需要値を予測する方法です。"
+        ],
+        [
+          "デルファイ法は、複数の専門家から個別に意見の収集を行い、得られた意見の集約をフィードバックするということを繰り返して、最終的に意見の収束をしていく手法です。"
+        ],
+        [
+          "モンテカルロ法は、数値解析の分野において、確率を近似的に求めるために使われる手法です。n回のシミュレーションを行い、ある事象がm回起これば、その事象の起こる確率は m／nで近似できます。試行回数nが大きくなるほど、よい近似値となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問26:https://www.nw-siken.com/kakomon/22_aki/am1_26.html",
+      "explanationText": [
+        "正しい。\n\nクラスタ分析法は、観測データを類似性に基づいてグループ分けし、各群の特徴を把握する代表的な多変量解析手法である。",
+        "間違い。\n\n指数平滑法は過去実績を重み付けして需要や売上を予測する手法であり、データを群に分類する手法ではない。",
+        "間違い。\n\nデルファイ法は複数の専門家の意見を反復的に集約して収束させる手法であり、観測データの分類には用いない。",
+        "間違い。\n\nモンテカルロ法は乱数や試行を使って確率や近似値を求める手法であり、類似データの群分けとは目的が異なる。"
+      ],
+      "suggestedQuestions": [
+        "クラスタ分析法は何に使いますか？",
+        "指数平滑法との違いは何ですか？",
+        "デルファイ法はどんな場面で使いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "クラスタ分析法は何に使いますか？",
+          "answer": "似た性質を持つデータをまとめ、群ごとの特徴や傾向を把握したいときに使う。"
+        },
+        {
+          "question": "指数平滑法との違いは何ですか？",
+          "answer": "指数平滑法は時系列予測、クラスタ分析法はデータ分類が主目的である。"
+        },
+        {
+          "question": "デルファイ法はどんな場面で使いますか？",
+          "answer": "将来予測や方針検討で、専門家の意見を段階的に収束させたいときに使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    },
+    {
+      "questionBodyText": "ワンチップマイコンの内蔵メモリとしてフラッシュメモリが採用されている理由として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問27",
+      "questionLabel": "問27",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ソフトウェアのコードサイズを小さくできる。",
+        "マイコン出荷後もソフトウェアの書換えが可能である。",
+        "マイコンの処理性能が向上する。",
+        "マスクROMよりも信頼性が向上する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » ビジネスインダストリ » 民生機器",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "ビジネスインダストリ",
+        "民生機器"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "ビジネスインダストリ",
+      "categorySmall": "民生機器",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_27.html",
+      "public_question_id": "9e121451199270c7",
+      "original_question_id": "9e121451199270c7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ISP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "組込みシステムの内蔵メモリとして従来からあるマスクROMはデータ保護ができる反面、出荷後に書きかえることはできず、アップデートにはROMの交換などの莫大なコストを要することになります。\nフラッシュメモリの登場により、機器のふたを開けなくてもユーザーが電子的な操作だけでデータ書換えができる\nISP\n(In-System Programming)が可能になり、出荷後のアップデートが以前よりも容易に行えるようになっています。"
+        ],
+        [
+          "組込みシステムの内蔵メモリとして従来からあるマスクROMはデータ保護ができる反面、出荷後に書きかえることはできず、アップデートにはROMの交換などの莫大なコストを要することになります。\nフラッシュメモリの登場により、機器のふたを開けなくてもユーザーが電子的な操作だけでデータ書換えができる\nISP\n(In-System Programming)が可能になり、出荷後のアップデートが以前よりも容易に行えるようになっています。"
+        ],
+        [
+          "組込みシステムの内蔵メモリとして従来からあるマスクROMはデータ保護ができる反面、出荷後に書きかえることはできず、アップデートにはROMの交換などの莫大なコストを要することになります。\nフラッシュメモリの登場により、機器のふたを開けなくてもユーザーが電子的な操作だけでデータ書換えができる\nISP\n(In-System Programming)が可能になり、出荷後のアップデートが以前よりも容易に行えるようになっています。"
+        ],
+        [
+          "組込みシステムの内蔵メモリとして従来からあるマスクROMはデータ保護ができる反面、出荷後に書きかえることはできず、アップデートにはROMの交換などの莫大なコストを要することになります。\nフラッシュメモリの登場により、機器のふたを開けなくてもユーザーが電子的な操作だけでデータ書換えができる\nISP\n(In-System Programming)が可能になり、出荷後のアップデートが以前よりも容易に行えるようになっています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問27:https://www.nw-siken.com/kakomon/22_aki/am1_27.html",
+      "explanationText": [
+        "間違い。\n\nフラッシュメモリを採用しても、プログラムのコード量そのものが小さくなるわけではない。",
+        "正しい。\n\nフラッシュメモリは電気的に再書込みできるため、出荷後でもソフトウェア更新や修正を行いやすい。",
+        "間違い。\n\n処理性能はCPUやバス構成などに左右され、フラッシュメモリ採用自体で直接向上するものではない。",
+        "間違い。\n\n採用理由の中心は再書換え可能である点であり、マスクROMより常に信頼性が高いことを理由にはしない。"
+      ],
+      "suggestedQuestions": [
+        "フラッシュメモリの利点は何ですか？",
+        "ISPとは何ですか？",
+        "マスクROMとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "フラッシュメモリの利点は何ですか？",
+          "answer": "電気的に内容を書き換えられるため、出荷後の更新や保守が容易になる。"
+        },
+        {
+          "question": "ISPとは何ですか？",
+          "answer": "機器を分解せず、搭載したままプログラムを書き換える方式である。"
+        },
+        {
+          "question": "マスクROMとの違いは何ですか？",
+          "answer": "マスクROMは量産向きだが書換えできず、フラッシュメモリは再書換えできる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "EDIを実施するための情報表現規約で規定されるべきものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問28",
+      "questionLabel": "問28",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "企業間の取引の契約内容",
+        "システムの運用時間",
+        "伝送制御手順",
+        "メッセージの形式"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » ビジネスインダストリ » e-ビジネス",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "ビジネスインダストリ",
+        "e-ビジネス"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "ビジネスインダストリ",
+      "categorySmall": "e-ビジネス",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_28.html",
+      "public_question_id": "2c825fc0aaabed5d",
+      "original_question_id": "2c825fc0aaabed5d",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "EDI",
+        "レベル1 情報伝達規約\nネットワーク回線や伝送手順など、文字通り情報をやり取りするための取り決め\nレベル2 情報表現規約\nデータの構造やデータ項目など、表現法のルールなど情報データをお互いのコンピュータで理解できるようにするための取り決め\nレベル3 業務運用規約\nどんな情報をやり取りするか、情報の訂正方法やエラーの扱いなどの業務やシステムの運用に関する取り決め\nレベル4 取引基本規約\n検収時期、支払時期、支払方法などEDIにおける取引の法的有効性を確立するための取り決め"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "取引基本規約で規定される事項です。"
+        ],
+        [
+          "業務運用規約で規定される事項です。"
+        ],
+        [
+          "情報伝達規約で規定される事項です。"
+        ],
+        [
+          "正しい。情報表現規約で規定される事項です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問28:https://www.nw-siken.com/kakomon/22_aki/am1_28.html",
+      "explanationText": [
+        "間違い。\n\n企業間契約の内容は取引条件の取り決めであり、情報表現規約が直接規定する対象ではない。",
+        "間違い。\n\n運用時間は業務運用上の取り決めであり、データ表現の規約ではない。",
+        "間違い。\n\n伝送制御手順は通信手順の規約であり、EDIの情報表現規約の中心ではない。",
+        "正しい。\n\nEDIの情報表現規約では、企業間で交換するデータ項目やメッセージ形式を統一して定める必要がある。"
+      ],
+      "suggestedQuestions": [
+        "EDIの情報表現規約は何を定めますか？",
+        "伝送制御手順との違いは何ですか？",
+        "EDI導入で重要な標準化対象は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "EDIの情報表現規約は何を定めますか？",
+          "answer": "取引データの項目、並び、コード体系、メッセージ形式などを定める。"
+        },
+        {
+          "question": "伝送制御手順との違いは何ですか？",
+          "answer": "伝送制御手順は通信のやり取り方法、情報表現規約は送るデータの形を定める。"
+        },
+        {
+          "question": "EDI導入で重要な標準化対象は何ですか？",
+          "answer": "相手先と共通に解釈できるメッセージ形式やデータコードの標準化が重要である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "表の事業計画案に対して，新規設備投資に伴う減価償却費(固定費)の増加1,000万円を織り込み，かつ，売上総利益を3,000万円とするようにしたい。変動費率に変化がないとすると，売上高の増加を何万円にすればよいか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問29",
+      "questionLabel": "問29",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "2,000",
+        "3,000",
+        "4,000",
+        "5,000"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 企業活動 » 会計・財務",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "企業活動",
+        "会計・財務"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "企業活動",
+      "categorySmall": "会計・財務",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_29.html",
+      "public_question_id": "cccb74abb8dab080",
+      "original_question_id": "cccb74abb8dab080",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqcccb74abb8dab080_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "まず、必要な売上高を求めるのに必要な数値を以下のように求めます。\n変動費率 … 10,000÷20,000＝0.5固定費は … 8,000＋(増加分)1,000＝9,000上記の変動費率と固定費をもとに、「売上高＝変動費＋固定費＋売上総利益」の関係を使って計算します。\n売上高を a とおくと、a＝0.5a＋9,000＋3,0000.5a＝12,000a＝24,000(万円)\nなので、3,000万円の売上総利益を得るためには24,000万円の売上高が必要であることになります。\n現在の事業計画案では20,000万円の売上高を予定しているため、24,000－20,000＝4,000(万円)\n4,000万円の売上高の増加が必要となります。\nまた、損益分岐点売上高の公式とは別に「目標利益達成売上高」の公式というものがあります。\n目標利益達成売上高＝(固定費＋目標利益)÷(1－変動費率)\n損益分岐点を求める公式「固定費÷(1－変動費率)」の固定費の部分に目標利益を組み入れた式となっています。これを利用して、\n必要売上高＝(9,000＋3,000)÷0.5＝24,000(万円)\n売上高の増加＝24,000－20,000＝4,000(万円)\nと求める方法もあります。"
+        ],
+        [
+          "まず、必要な売上高を求めるのに必要な数値を以下のように求めます。\n変動費率 … 10,000÷20,000＝0.5固定費は … 8,000＋(増加分)1,000＝9,000上記の変動費率と固定費をもとに、「売上高＝変動費＋固定費＋売上総利益」の関係を使って計算します。\n売上高を a とおくと、a＝0.5a＋9,000＋3,0000.5a＝12,000a＝24,000(万円)\nなので、3,000万円の売上総利益を得るためには24,000万円の売上高が必要であることになります。\n現在の事業計画案では20,000万円の売上高を予定しているため、24,000－20,000＝4,000(万円)\n4,000万円の売上高の増加が必要となります。\nまた、損益分岐点売上高の公式とは別に「目標利益達成売上高」の公式というものがあります。\n目標利益達成売上高＝(固定費＋目標利益)÷(1－変動費率)\n損益分岐点を求める公式「固定費÷(1－変動費率)」の固定費の部分に目標利益を組み入れた式となっています。これを利用して、\n必要売上高＝(9,000＋3,000)÷0.5＝24,000(万円)\n売上高の増加＝24,000－20,000＝4,000(万円)\nと求める方法もあります。"
+        ],
+        [
+          "まず、必要な売上高を求めるのに必要な数値を以下のように求めます。\n変動費率 … 10,000÷20,000＝0.5固定費は … 8,000＋(増加分)1,000＝9,000上記の変動費率と固定費をもとに、「売上高＝変動費＋固定費＋売上総利益」の関係を使って計算します。\n売上高を a とおくと、a＝0.5a＋9,000＋3,0000.5a＝12,000a＝24,000(万円)\nなので、3,000万円の売上総利益を得るためには24,000万円の売上高が必要であることになります。\n現在の事業計画案では20,000万円の売上高を予定しているため、24,000－20,000＝4,000(万円)\n4,000万円の売上高の増加が必要となります。\nまた、損益分岐点売上高の公式とは別に「目標利益達成売上高」の公式というものがあります。\n目標利益達成売上高＝(固定費＋目標利益)÷(1－変動費率)\n損益分岐点を求める公式「固定費÷(1－変動費率)」の固定費の部分に目標利益を組み入れた式となっています。これを利用して、\n必要売上高＝(9,000＋3,000)÷0.5＝24,000(万円)\n売上高の増加＝24,000－20,000＝4,000(万円)\nと求める方法もあります。"
+        ],
+        [
+          "まず、必要な売上高を求めるのに必要な数値を以下のように求めます。\n変動費率 … 10,000÷20,000＝0.5固定費は … 8,000＋(増加分)1,000＝9,000上記の変動費率と固定費をもとに、「売上高＝変動費＋固定費＋売上総利益」の関係を使って計算します。\n売上高を a とおくと、a＝0.5a＋9,000＋3,0000.5a＝12,000a＝24,000(万円)\nなので、3,000万円の売上総利益を得るためには24,000万円の売上高が必要であることになります。\n現在の事業計画案では20,000万円の売上高を予定しているため、24,000－20,000＝4,000(万円)\n4,000万円の売上高の増加が必要となります。\nまた、損益分岐点売上高の公式とは別に「目標利益達成売上高」の公式というものがあります。\n目標利益達成売上高＝(固定費＋目標利益)÷(1－変動費率)\n損益分岐点を求める公式「固定費÷(1－変動費率)」の固定費の部分に目標利益を組み入れた式となっています。これを利用して、\n必要売上高＝(9,000＋3,000)÷0.5＝24,000(万円)\n売上高の増加＝24,000－20,000＝4,000(万円)\nと求める方法もあります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問29:https://www.nw-siken.com/kakomon/22_aki/am1_29.html",
+      "explanationText": [
+        "間違い。\n\n必要売上高は 24,000 万円なので、現行 20,000 万円からの増加額 2,000 万円では不足する。",
+        "間違い。\n\n売上高を 23,000 万円にしても、変動費率 0.5 と固定費 9,000 万円を踏まえると売上総利益 3,000 万円に届かない。",
+        "正しい。\n\n変動費率は 10,000÷20,000=0.5、固定費は 8,000+1,000=9,000。売上高を a とすると a=0.5a+9,000+3,000 なので a=24,000、増加額は 4,000 万円となる。",
+        "間違い。\n\n5,000 万円増は必要売上高 24,000 万円を上回っており、条件を満たす最小の増加額ではない。"
+      ],
+      "suggestedQuestions": [
+        "変動費率はどう求めますか？",
+        "必要売上高の式はどう立てますか？",
+        "固定費増加はどこに反映しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "変動費率はどう求めますか？",
+          "answer": "現行の変動費 10,000 を売上高 20,000 で割り、0.5 と求める。"
+        },
+        {
+          "question": "必要売上高の式はどう立てますか？",
+          "answer": "売上高=変動費+固定費+売上総利益 と置き、変動費を 0.5a として解く。"
+        },
+        {
+          "question": "固定費増加はどこに反映しますか？",
+          "answer": "現行固定費 8,000 に増加分 1,000 を加え、9,000 として式に入れる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    },
+    {
+      "questionBodyText": "A社は，B社と著作物の権利に関する特段の取決めをせず，A社の要求仕様に基づいて，販売管理システムのプログラム作成をB社に依頼した。この場合のプログラム著作物の原始的帰属は，どのようになるか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問30",
+      "questionLabel": "問30",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "A社とB社が話し合って決定する。",
+        "A社とB社で共有する。",
+        "A社に帰属する。",
+        "B社に帰属する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 法務 » 知的財産権",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "法務",
+        "知的財産権"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "法務",
+      "categorySmall": "知的財産権",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_30.html",
+      "public_question_id": "a1fc7ebad6c29208",
+      "original_question_id": "a1fc7ebad6c29208",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "著作権",
+        "B社"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "著作権\nは「著作物を創作した者」に対して与えられる権利ですので、委託開発で作られたプログラムの著作権は、原則として委託者(発注者)ではなく制作者(受注者)に帰属します。\n委託者側としては、制作にあたって色々なアイディアを出しているため、自分たちにも著作権があるのではと思われるかも知れませんが、著作権法が保護しているのはアイディアではなく現実に創作された著作物です。ソフトウェアやWebサイトなどを発注する際には、成果物の利用方法などを事前に検討した上で必ず契約書を作成し、その契約書の中で著作権の帰属について明記した規定を置くことが重要です。著作権譲渡特約や著作者人格権の不行使条項などがこれに該当します。\n本問では、A社からB社にプログラム作成業務が委託されているので、著作権の原始的帰属先はプログラムを作成した\nB社\nとなります。"
+        ],
+        [
+          "著作権\nは「著作物を創作した者」に対して与えられる権利ですので、委託開発で作られたプログラムの著作権は、原則として委託者(発注者)ではなく制作者(受注者)に帰属します。\n委託者側としては、制作にあたって色々なアイディアを出しているため、自分たちにも著作権があるのではと思われるかも知れませんが、著作権法が保護しているのはアイディアではなく現実に創作された著作物です。ソフトウェアやWebサイトなどを発注する際には、成果物の利用方法などを事前に検討した上で必ず契約書を作成し、その契約書の中で著作権の帰属について明記した規定を置くことが重要です。著作権譲渡特約や著作者人格権の不行使条項などがこれに該当します。\n本問では、A社からB社にプログラム作成業務が委託されているので、著作権の原始的帰属先はプログラムを作成した\nB社\nとなります。"
+        ],
+        [
+          "著作権\nは「著作物を創作した者」に対して与えられる権利ですので、委託開発で作られたプログラムの著作権は、原則として委託者(発注者)ではなく制作者(受注者)に帰属します。\n委託者側としては、制作にあたって色々なアイディアを出しているため、自分たちにも著作権があるのではと思われるかも知れませんが、著作権法が保護しているのはアイディアではなく現実に創作された著作物です。ソフトウェアやWebサイトなどを発注する際には、成果物の利用方法などを事前に検討した上で必ず契約書を作成し、その契約書の中で著作権の帰属について明記した規定を置くことが重要です。著作権譲渡特約や著作者人格権の不行使条項などがこれに該当します。\n本問では、A社からB社にプログラム作成業務が委託されているので、著作権の原始的帰属先はプログラムを作成した\nB社\nとなります。"
+        ],
+        [
+          "著作権\nは「著作物を創作した者」に対して与えられる権利ですので、委託開発で作られたプログラムの著作権は、原則として委託者(発注者)ではなく制作者(受注者)に帰属します。\n委託者側としては、制作にあたって色々なアイディアを出しているため、自分たちにも著作権があるのではと思われるかも知れませんが、著作権法が保護しているのはアイディアではなく現実に創作された著作物です。ソフトウェアやWebサイトなどを発注する際には、成果物の利用方法などを事前に検討した上で必ず契約書を作成し、その契約書の中で著作権の帰属について明記した規定を置くことが重要です。著作権譲渡特約や著作者人格権の不行使条項などがこれに該当します。\n本問では、A社からB社にプログラム作成業務が委託されているので、著作権の原始的帰属先はプログラムを作成した\nB社\nとなります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問30:https://www.nw-siken.com/kakomon/22_aki/am1_30.html",
+      "explanationText": [
+        "間違い。\n\n原始的帰属は話合いで後から決まるものではなく、原則として創作した者に帰属する。",
+        "間違い。\n\n特段の合意がない限り、委託者と受託者の共有にはならない。",
+        "間違い。\n\n要求仕様を示しただけでは発注者に原始的に帰属せず、著作物を創作した側に帰属する。",
+        "正しい。\n\nプログラム著作物の著作権は、特段の取り決めがなければ実際に作成した受託者 B 社に原始的に帰属する。"
+      ],
+      "suggestedQuestions": [
+        "著作物の原始的帰属とは何ですか？",
+        "委託開発では誰に著作権が帰属しますか？",
+        "仕様を出しただけで著作権は得られますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "著作物の原始的帰属とは何ですか？",
+          "answer": "著作物が創作された時点で、最初に誰へ著作権が帰属するかという考え方である。"
+        },
+        {
+          "question": "委託開発では誰に著作権が帰属しますか？",
+          "answer": "特約がなければ、実際にプログラムを創作した受託者側に帰属する。"
+        },
+        {
+          "question": "仕様を出しただけで著作権は得られますか？",
+          "answer": "得られない。著作権はアイデアではなく創作された表現に与えられる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs07_01_planning_analysis_advice"
+    },
+    {
+      "questionBodyText": "ZigBeeの特徴はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "2.4GHz帯を使用する無線通信方式であり，一つのマスタと最大七つのスレーブからなるスター型ネットワークを構成する。",
+        "5.8GHz帯を使用する近距離の無線技術であり，有料道路の料金所のETCなどで利用されている。",
+        "下位層にIEEE 802.15.4を使用する低消費電力の無線通信方式であり，センサーネットワークへの応用が進められている。",
+        "広い周波数帯にデータを拡散することで高速な伝送を行う無線通信方式であり，近距離での映像や音楽配信などへの応用が検討されている。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク方式",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク方式"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク方式",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_1.html",
+      "public_question_id": "a2cb2fc188612d53",
+      "original_question_id": "a2cb2fc188612d53",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ZigBee"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Bluetoothの説明です。"
+        ],
+        [
+          "DSRC(Dedicated Short- Range Communication：専用狭域通信)の説明です。"
+        ],
+        [
+          "正しい。ZigBeeの説明です。"
+        ],
+        [
+          "UWB(Ultra Wide Band，超広帯域無線)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問1:https://www.nw-siken.com/kakomon/22_aki/am2_1.html",
+      "explanationText": [
+        "間違い。\n\nこれは Bluetooth の特徴であり、ZigBee の説明ではない。",
+        "間違い。\n\n5.8GHz 帯で ETC などに使われるのは DSRC 系の近距離無線であり、ZigBee ではない。",
+        "正しい。\n\nZigBee は IEEE 802.15.4 を下位層に用いる低消費電力の無線通信方式で、センサーネットワークなどへの応用が進んでいる。",
+        "間違い。\n\n広帯域へ拡散して高速伝送する方式は UWB などの特徴であり、ZigBee の説明ではない。"
+      ],
+      "suggestedQuestions": [
+        "ZigBeeの特徴は何ですか？",
+        "IEEE 802.15.4との関係は何ですか？",
+        "Bluetoothとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "ZigBeeの特徴は何ですか？",
+          "answer": "低消費電力・低速通信を特徴とし、センサーや制御用途で使われる。"
+        },
+        {
+          "question": "IEEE 802.15.4との関係は何ですか？",
+          "answer": "ZigBee は物理層・MAC 層に IEEE 802.15.4 を利用する。"
+        },
+        {
+          "question": "Bluetoothとの違いは何ですか？",
+          "answer": "Bluetooth は近距離機器接続向け、ZigBee はより低消費電力なセンサー用途に向く。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "図のネットワークで，数字は二つの地点間で同時に使用できる論理回線の多重度を示している。X地点からY地点までには同時に最大幾つの論理回線を使用することができるか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク方式",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク方式"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク方式",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_2.html",
+      "public_question_id": "f6cc5135c8fefac7",
+      "original_question_id": "f6cc5135c8fefac7",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqf6cc5135c8fefac7_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "2つの地点の区間別の論理回線数は以下のようになっています。\n図の区間Bが論理回線10本なので、同時使用可能な論理回線数は10本以下です。\n具体的な10本の論理回線の組合せは複数あると思うのですが、以下のように10本が同時に使用可能とわかります。\nしたがって「10本」が正解です。"
+        ],
+        [
+          "2つの地点の区間別の論理回線数は以下のようになっています。\n図の区間Bが論理回線10本なので、同時使用可能な論理回線数は10本以下です。\n具体的な10本の論理回線の組合せは複数あると思うのですが、以下のように10本が同時に使用可能とわかります。\nしたがって「10本」が正解です。"
+        ],
+        [
+          "2つの地点の区間別の論理回線数は以下のようになっています。\n図の区間Bが論理回線10本なので、同時使用可能な論理回線数は10本以下です。\n具体的な10本の論理回線の組合せは複数あると思うのですが、以下のように10本が同時に使用可能とわかります。\nしたがって「10本」が正解です。"
+        ],
+        [
+          "2つの地点の区間別の論理回線数は以下のようになっています。\n図の区間Bが論理回線10本なので、同時使用可能な論理回線数は10本以下です。\n具体的な10本の論理回線の組合せは複数あると思うのですが、以下のように10本が同時に使用可能とわかります。\nしたがって「10本」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問2:https://www.nw-siken.com/kakomon/22_aki/am2_2.html",
+      "explanationText": [
+        "間違い。\n\n図のどこかに 8 本以下の経路制約があるとしても、同時使用可能本数の最大値としては不足している。",
+        "間違い。\n\n最小カットとなる区間の多重度合計が 9 本ではなく、10 本まで確保できる。",
+        "正しい。\n\nX 地点から Y 地点までの同時使用本数は、途中のボトルネック区間である多重度 10 の部分を超えられず、かつ経路の組合せで 10 本を実現できるため最大 10 本である。",
+        "間違い。\n\n11 本を同時に流すにはボトルネック区間の多重度を超える必要があり不可能である。"
+      ],
+      "suggestedQuestions": [
+        "最大同時回線数はどう考えますか？",
+        "ボトルネック区間とは何ですか？",
+        "最小カットの考え方は使えますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "最大同時回線数はどう考えますか？",
+          "answer": "全経路の中で共通に通る区間や容量制約の厳しい区間に注目して上限を求める。"
+        },
+        {
+          "question": "ボトルネック区間とは何ですか？",
+          "answer": "全体の通信量を最も強く制限している区間のことである。"
+        },
+        {
+          "question": "最小カットの考え方は使えますか？",
+          "answer": "使える。ネットワークを分断する最小容量が最大流量の上限になる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_03_performance_analysis"
+    },
+    {
+      "questionBodyText": "高速無線通信で使われている多重化方式で，データ信号を複数のサブキャリアに分割し，各サブキャリアが互いに干渉しないように配置する方式はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CCK",
+        "CDM",
+        "OFDM",
+        "TDM"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_3.html",
+      "public_question_id": "fa482581f90917df",
+      "original_question_id": "fa482581f90917df",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "OFDM",
+        "O"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Complementary Code Keyingの略で、相補型符号変調のこと。IEEE802.11bで採用されている変調方式で、ビットを信号に変換する際に拡散符号を掛け合わせることで通信の高速化やノイズへの耐性を高めた方式です。"
+        ],
+        [
+          "Code Division Multiplexingの略で、符号分割多重化のこと。通信信号ごとに特定の演算処理(符号化)を施したものを複数個まとめて送信し、受信側で同じ処理を行い特定の信号を取り出す仕組みで複数の送信者の通信を同じ周波数帯上で行う多重化方式です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "Time Division Multiplexingの略で、時分割多重化のこと。1つの伝送路で複数の通信を行う際に送信時間を非常に短く区切り、その時間(タイムスロット)ごとに複数の信号を順番で割り当てていくことで多重化通信を行う方式です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問3:https://www.nw-siken.com/kakomon/22_aki/am2_3.html",
+      "explanationText": [
+        "間違い。\n\nCCK は無線LANで用いられる符号化方式であり、複数サブキャリアを直交配置する方式ではない。",
+        "間違い。\n\nCDM は符号分割多重の考え方であり、サブキャリアを分割して直交配置する方式ではない。",
+        "正しい。\n\nOFDM はデータを複数のサブキャリアに分け、互いに直交するよう配置して効率よく伝送する方式である。",
+        "間違い。\n\nTDM は時間分割多重であり、周波数軸上にサブキャリアを並べる方式ではない。"
+      ],
+      "suggestedQuestions": [
+        "OFDMの特徴は何ですか？",
+        "TDMとの違いは何ですか？",
+        "なぜサブキャリアを分けるのですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "OFDMの特徴は何ですか？",
+          "answer": "多数のサブキャリアを直交配置し、耐マルチパス性と周波数利用効率を高める点にある。"
+        },
+        {
+          "question": "TDMとの違いは何ですか？",
+          "answer": "TDM は時間で分け、OFDM は周波数上の複数搬送波へ分けて送る。"
+        },
+        {
+          "question": "なぜサブキャリアを分けるのですか？",
+          "answer": "各搬送波の伝送速度を下げて干渉に強くし、高速通信を実現しやすくするためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "LANに関する記述のうち，1000BASE-Tを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "2対のUTPケーブルを使用し，最大距離は100mである。",
+        "4対のUTPケーブルを使用し，最大距離は100mである。",
+        "シングルモード光ファイバケーブルを使用し，最大距離は5kmである。",
+        "マルチモード光ファイバケーブルを使用し，最大距離は400mである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_4.html",
+      "public_question_id": "e1a19600ef0b0509",
+      "original_question_id": "e1a19600ef0b0509",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "1000BASE-T"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "10BASE-Tや100BASE-TXの説明です。"
+        ],
+        [
+          "正しい。1000BASE-Tの説明です。"
+        ],
+        [
+          "1000BASE-LXの説明です。"
+        ],
+        [
+          "100BASE-FXの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問4:https://www.nw-siken.com/kakomon/22_aki/am2_4.html",
+      "explanationText": [
+        "間違い。\n\n2 対の UTP ケーブルで 100m なのは 10BASE-T や 100BASE-TX の説明に近い。",
+        "正しい。\n\n1000BASE-T は 4 対の UTP ケーブルを用い、最大伝送距離は 100m である。",
+        "間違い。\n\nシングルモード光ファイバで数 km 級なのは 1000BASE-LX など光系規格の説明である。",
+        "間違い。\n\nマルチモード光ファイバを使う規格の説明であり、1000BASE-T ではない。"
+      ],
+      "suggestedQuestions": [
+        "1000BASE-Tの媒体は何ですか？",
+        "1000BASE-Tの最大距離は何mですか？",
+        "1000BASE-LXとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "1000BASE-Tの媒体は何ですか？",
+          "answer": "4 対のツイストペアケーブルを用いる。"
+        },
+        {
+          "question": "1000BASE-Tの最大距離は何mですか？",
+          "answer": "最大 100m である。"
+        },
+        {
+          "question": "1000BASE-LXとの違いは何ですか？",
+          "answer": "1000BASE-LX は光ファイバを使うが、1000BASE-T は銅線の UTP ケーブルを使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "無線LANで使用される搬送波感知多重アクセス/衝突回避方式はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CDMA",
+        "CSMA/CA",
+        "CSMA/CD",
+        "FDMA"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_5.html",
+      "public_question_id": "ffbeeca6c18eb191",
+      "original_question_id": "ffbeeca6c18eb191",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "CSMA/CA",
+        "衝突回避方式",
+        "すべてのデータ送信前に必ず挿入される"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Code Division Multiple Accessの略で符号分割多元接続のことです。複数の送信者の通信を同じ周波数帯上で行うことで多元接続を行う技術の総称です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "CSMA/CDはイーサネットで採用されている通信制御方式です。衝突を回避する仕組みになっていません。"
+        ],
+        [
+          "Frequency Division Multiple Accessの略で、周波数分割多元接続のことです。周波数帯を複数の細かい帯域に分割し、それぞれを送信者に割り当てることで多元接続を行う技術の総称です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問5:https://www.nw-siken.com/kakomon/22_aki/am2_5.html",
+      "explanationText": [
+        "間違い。\n\nCDMA は符号分割多元接続であり、無線LANの代表的な媒体アクセス制御方式ではない。",
+        "正しい。\n\n無線LANでは衝突を直接検出しにくいため、送信前に回避動作を行う CSMA/CA を用いる。",
+        "間違い。\n\nCSMA/CD は有線 Ethernet で使われた方式で、無線LANのように衝突検出が難しい環境には向かない。",
+        "間違い。\n\nFDMA は周波数分割多元接続であり、この設問の媒体アクセス制御方式ではない。"
+      ],
+      "suggestedQuestions": [
+        "なぜ無線LANはCSMA/CAを使いますか？",
+        "CSMA/CDとの違いは何ですか？",
+        "衝突回避はどう行いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "なぜ無線LANはCSMA/CAを使いますか？",
+          "answer": "送信中に自分の電波と他者の電波を同時に検出しにくく、衝突検出より回避が現実的だからである。"
+        },
+        {
+          "question": "CSMA/CDとの違いは何ですか？",
+          "answer": "CSMA/CD は衝突を検出して再送し、CSMA/CA は送信前の待機や制御で衝突を避ける。"
+        },
+        {
+          "question": "衝突回避はどう行いますか？",
+          "answer": "チャネル監視、ランダムバックオフ、ACK 確認などで衝突を抑える。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "FDDIにおける送信権制御に関する記述として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "各ノードは，他ノードが伝送媒体に送信した信号の有無を調べ，信号がなければ送信を行う。これによって，送信競合の頻度を低減する。",
+        "トークンと呼ばれる特殊な電文をノードからノードへ巡回させ，送信要求のあるノードは，トークンを受信したときに送信権を得る。",
+        "マスタコントローラーは，各ノードから送信メッセージを受け取り，あて先に中継することによって，送信競合を防ぐ。",
+        "マスタコントローラーは，各ノードに送信要求の有無を問い合わせ，送信要求のあるノードに送信権を与える。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_6.html",
+      "public_question_id": "5df3761d0f54de96",
+      "original_question_id": "5df3761d0f54de96",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "FDDI"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "CSMA/CDの説明です。イーサネットで採用されています。"
+        ],
+        [
+          "正しい。FDDIで採用されているトークンパッシング方式の説明です。"
+        ],
+        [
+          "FDDIはマスタコントローラをもたず、各ノードがトークンにより自律的に送信権制御を行います。"
+        ],
+        [
+          "ポーリング／セレクティング方式におけるポーリング動作の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問6:https://www.nw-siken.com/kakomon/22_aki/am2_6.html",
+      "explanationText": [
+        "間違い。\n\nこれは CSMA/CD の説明であり、FDDI の送信権制御ではない。",
+        "正しい。\n\nFDDI はトークンパッシング方式を採用し、トークンを受け取ったノードが送信権を得る。",
+        "間違い。\n\nFDDI は中央のマスタコントローラを前提とせず、リング上の各ノードが自律的に動作する。",
+        "間違い。\n\nこれはポーリング方式の説明であり、FDDI の方式とは異なる。"
+      ],
+      "suggestedQuestions": [
+        "FDDIはどの方式で送信権を制御しますか？",
+        "トークンパッシングとは何ですか？",
+        "CSMA/CDとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "FDDIはどの方式で送信権を制御しますか？",
+          "answer": "トークンパッシング方式である。"
+        },
+        {
+          "question": "トークンパッシングとは何ですか？",
+          "answer": "送信権を表すトークンを順番に回し、受け取ったノードだけが送信する方式である。"
+        },
+        {
+          "question": "CSMA/CDとの違いは何ですか？",
+          "answer": "CSMA/CD は競合前提、トークンパッシングは競合を起こしにくい制御方式である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "スイッチングハブによる接続で，複数のポートを束ねて一つの論理ポートとして扱う技術はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "MIME",
+        "MIMO",
+        "マルチパート",
+        "リンクアグリゲーション"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_7.html",
+      "public_question_id": "6ae6d2f4e6327f52",
+      "original_question_id": "6ae6d2f4e6327f52",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "リンクアグリゲーション"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Multipurpose Internet Mail Extensionsの略。ASCII文字しか使用できないSMTPを利用したメールで、日本語などの2バイトコードや画像・動画・音声データを送信するための仕組みです。"
+        ],
+        [
+          "Multiple Input Multiple Outputの略。無線通信において送信データを複数のストリームに分割し、それぞれを複数のアンテナで送受信することで高速に伝送する技術です。無線LANの規格IEEE 802.11nで採用されています。"
+        ],
+        [
+          "マルチパートは、1通の電子メールの中にテキスト・画像・音声などの複数のメディア形式を格納するときの記述方法です。"
+        ],
+        [
+          "正しい。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問7:https://www.nw-siken.com/kakomon/22_aki/am2_7.html",
+      "explanationText": [
+        "間違い。\n\nMIME は電子メールで非 ASCII データを扱うための拡張であり、ポート束ねとは無関係である。",
+        "間違い。\n\nMIMO は複数アンテナによる無線通信技術であり、スイッチポートを束ねる技術ではない。",
+        "間違い。\n\nマルチパートは電子メール本文の構成方式であり、ネットワーク機器の論理ポート化とは関係しない。",
+        "正しい。\n\nリンクアグリゲーションは複数の物理ポートを束ねて一つの論理ポートとして扱い、帯域向上や冗長化に利用する。"
+      ],
+      "suggestedQuestions": [
+        "リンクアグリゲーションの目的は何ですか？",
+        "MIMOとの違いは何ですか？",
+        "ポートを束ねる利点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "リンクアグリゲーションの目的は何ですか？",
+          "answer": "帯域増強と冗長化を両立させるためである。"
+        },
+        {
+          "question": "MIMOとの違いは何ですか？",
+          "answer": "MIMO は無線アンテナ技術、リンクアグリゲーションは有線ポート束ねの技術である。"
+        },
+        {
+          "question": "ポートを束ねる利点は何ですか？",
+          "answer": "単一障害の影響を減らしつつ、論理的には一つの高速リンクとして使える。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ルーティングプロトコルであるBGP-4の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "自律システム間で経路情報に付加されたパス属性を使用し，ポリシーに基づいて経路を選択するパスベクター方式のプロトコルである。",
+        "すべてのノードが同一のリンク状態データベースを用い，コストが最小となる経路を最適経路とするプロトコルである。",
+        "到達可能なあて先アドレスまでのホップ数が最小となる経路を，最適経路とするプロトコルである。",
+        "パケットが転送される経路のノードを，送信元ノードが明示的に指定するプロトコルである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_8.html",
+      "public_question_id": "58abe5216156f6ca",
+      "original_question_id": "58abe5216156f6ca",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "BGP-4"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。BGP-4の説明です。"
+        ],
+        [
+          "OSPF(Open Shortest Path First)の説明です。"
+        ],
+        [
+          "RIP(Routing Information Protocol)の説明です。"
+        ],
+        [
+          "ソースルーティングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問8:https://www.nw-siken.com/kakomon/22_aki/am2_8.html",
+      "explanationText": [
+        "正しい。\n\nBGP-4 は自律システム間で経路情報に付加されたパス属性を用い、ポリシーに基づいて経路選択するパスベクター方式のプロトコルである。",
+        "間違い。\n\nこれはリンク状態型プロトコルである OSPF などの説明である。",
+        "間違い。\n\nこれはホップ数を指標とする距離ベクター型プロトコルである RIP の説明に近い。",
+        "間違い。\n\n送信元が経路上ノードを明示するのはソースルーティングの考え方であり、BGP-4 の説明ではない。"
+      ],
+      "suggestedQuestions": [
+        "BGP-4はどこで使いますか？",
+        "パスベクター方式とは何ですか？",
+        "OSPFやRIPとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "BGP-4はどこで使いますか？",
+          "answer": "主に自律システム同士を接続するインターネットの経路制御で使う。"
+        },
+        {
+          "question": "パスベクター方式とは何ですか？",
+          "answer": "到達経路に含まれる AS 列などの属性を見て経路選択する方式である。"
+        },
+        {
+          "question": "OSPFやRIPとの違いは何ですか？",
+          "answer": "OSPF はリンク状態型、RIP は距離ベクター型、BGP-4 はパスベクター型である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "PPPのリンク確立後，チャレンジメッセージを繰り返し送ることができ，それに対して相手がハッシュ関数による計算で得た値を返信する。このようにして相手を認証するプロトコルはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ARP",
+        "CHAP",
+        "PAP",
+        "PPTP"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_9.html",
+      "public_question_id": "1f2f7e2121eccf7e",
+      "original_question_id": "1f2f7e2121eccf7e",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "CHAP",
+        "ユーザーは、認証を受けるためにIDをサーバに送信する\nサーバは「チャレンジ」と呼ばれる乱数値をユーザーに送信する\nユーザーは、チャレンジとパスワードを組合わせたものを「MD5」などのハッシュ関数でハッシュ化し、得られたハッシュ値をIDとともにサーバに送信する\nサーバは、保存してあるパスワードと先程送信したチャレンジからユーザー側と同じ方法でハッシュ値を算出する\n2つのハッシュ値が同一ならば「認証相手は正しいパスワードを持っている」ことになるため、認証を行う"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Address Resolution Protocolの略。IPアドレスから対応する機器のMACアドレスを取得するプロトコルです。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "Password Authentication Protocolの略。CHAPとともにPPPの認証で使用されるプロトコルでIDとパスワードによる認証を行います。ただ認証情報が通信経路上を平文で流れるので盗聴の危険性があります。"
+        ],
+        [
+          "Point-to-Point Tunneling Protocolの略。PPPパケットをIPデータグラムでカプセル化することでVPNを構築する技術です。\n【参考】\nPPP(Point-to-Point Protocol)は、2点間を接続してデータ通信を行うための通信プロトコルで、電話回線を通じてコンピュータをネットワークに接続するダイヤルアップ接続でよく使われます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問9:https://www.nw-siken.com/kakomon/22_aki/am2_9.html",
+      "explanationText": [
+        "間違い。\n\nARP は IP アドレスから MAC アドレスを求めるためのプロトコルであり、PPP の認証には使わない。",
+        "正しい。\n\nCHAP はチャレンジに対してハッシュ値を返す challenge-response 方式で認証する PPP の認証プロトコルである。",
+        "間違い。\n\nPAP も PPP 認証に使うが、ID とパスワードをそのまま送る方式であり設問の動作とは一致しない。",
+        "間違い。\n\nPPTP は PPP フレームをカプセル化して VPN を構成する方式であり、認証方式そのものではない。"
+      ],
+      "suggestedQuestions": [
+        "CHAPはどのように認証しますか？",
+        "PAPとの違いは何ですか？",
+        "challenge-response方式の利点は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "CHAPはどのように認証しますか？",
+          "answer": "認証要求側が送るチャレンジ値に対し、共有秘密情報から計算したハッシュ値を返して認証する。"
+        },
+        {
+          "question": "PAPとの違いは何ですか？",
+          "answer": "PAP は平文に近い形で認証情報を送るが、CHAP はハッシュ値で応答する。"
+        },
+        {
+          "question": "challenge-response方式の利点は何ですか？",
+          "answer": "秘密そのものを通信路へ流さずに認証でき、盗聴に比較的強い。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "DNSでのホスト名とIPアドレスの対応付けに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "一つのホスト名に複数のIPアドレスを対応させることはできるが，複数のホスト名に同一のIPアドレスを対応させることはできない。",
+        "一つのホスト名に複数のIPアドレスを対応させることも，複数のホスト名に同一のIPアドレスを対応させることもできる。",
+        "複数のホスト名に同一のIPアドレスを対応させることはできるが，一つのホスト名に複数のIPアドレスを対応させることはできない。",
+        "ホスト名とIPアドレスの対応は全、2点間で1対1のある。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_10.html",
+      "public_question_id": "a755c0173dbd0bf7",
+      "original_question_id": "a755c0173dbd0bf7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ],
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ],
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ],
+        [
+          "ドメイン：ホスト名は「1:n」「n:1」のどちらの関係も設定することができます。1つのホストに複数のIPアドレスを対応させる仕組みとして、複数台のサーバに負荷を分散する「DNSラウンドロビン」があります。\nまたFTPサーバとWebサーバ、SMTPサーバとPOPサーバなどが1台のサーバ内で運用されている場合にはDNSの「Aレコード」や「CNAMEレコード」の記述で複数ホスト名を1つのIPアドレスに関連つけることができます。さらに複数のドメインを1つのサーバで運用する「バーチャルホスト」も複数のホスト名に同一のIPアドレスを対応させる仕組みです。\nしたがって正解は「イ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問10:https://www.nw-siken.com/kakomon/22_aki/am2_10.html",
+      "explanationText": [
+        "間違い。\n\n一つのホスト名に複数の IP アドレスを割り当てることも、複数のホスト名を同一 IP アドレスへ向けることも可能である。",
+        "正しい。\n\nDNS ではラウンドロビンなどのために一つの名前へ複数 IP アドレスを対応付けられ、別名や仮想ホストのために複数名を同一 IP アドレスへ向けることもできる。",
+        "間違い。\n\n一つのホスト名に複数の IP アドレスを持たせる構成も一般的であり、この記述は片側しか認めていない。",
+        "間違い。\n\nDNS の名前とアドレス対応は 1 対 1 に限定されない。"
+      ],
+      "suggestedQuestions": [
+        "DNSで1つの名前に複数IPを割り当てられますか？",
+        "CNAMEとAレコードの関係は何ですか？",
+        "同一IPに複数ホスト名を向ける例は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "DNSで1つの名前に複数IPを割り当てられますか？",
+          "answer": "割り当てられる。負荷分散や冗長化のために使われる。"
+        },
+        {
+          "question": "CNAMEとAレコードの関係は何ですか？",
+          "answer": "CNAME は別名を示し、最終的には A/AAAA レコードで IP アドレスへ解決される。"
+        },
+        {
+          "question": "同一IPに複数ホスト名を向ける例は何ですか？",
+          "answer": "1 台の Web サーバで複数サイトを運用する仮想ホスト構成などがある。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "IPv6においてIPv4から仕様変更された内容の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "IPヘッダーのTOSフィールドを使用し，特定のクラスのパケットに対する資源予約ができるようになった。",
+        "IPヘッダーのアドレス空間が，32ビットから64ビットに拡張されている。",
+        "IPヘッダーのチェックサムフィールドを追加し，誤り検出機能を強化している。",
+        "IPレベルのセキュリティ機能(IPsec)である認証と改ざん検出機能がサポート必須となり，パケットを暗号化したり送信元を認証したりすることができる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_11.html",
+      "public_question_id": "b042a7b47ddef4ce",
+      "original_question_id": "b042a7b47ddef4ce",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "TOS(Type of Service)は、IPv4においてパケットの通信品質を指定するフィールドです。しかし利用された実績がほとんどないためIPv6では廃止され、TOSに代わりトラフィッククラスという8ビットのフィールドに変更されています。"
+        ],
+        [
+          "IPv6のアドレス空間は128ビットです。"
+        ],
+        [
+          "チェックサムフィールドはIPv4では存在しましたが、ヘッダーの構造を簡素化するためにIPv6では廃止されています。"
+        ],
+        [
+          "正しい。IPv6ではIPsecの実装が必須になり、IP層でのセキュリティが強化されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問11:https://www.nw-siken.com/kakomon/22_aki/am2_11.html",
+      "explanationText": [
+        "間違い。\n\nIPv4 の TOS は IPv6 でそのまま資源予約用途へ強化されたわけではなく、Traffic Class など別の形に整理されている。",
+        "間違い。\n\nIPv6 のアドレス長は 64 ビットではなく 128 ビットである。",
+        "間違い。\n\nIPv6 ではヘッダ簡素化のため、IPv4 にあったヘッダチェックサムは廃止されている。",
+        "正しい。\n\nIPv6 では IPsec のサポートが必須とされ、認証や改ざん検出、暗号化による通信保護を行える。"
+      ],
+      "suggestedQuestions": [
+        "IPv6のアドレス長は何ビットですか？",
+        "IPv6でヘッダチェックサムがない理由は何ですか？",
+        "IPsecは何を提供しますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "IPv6のアドレス長は何ビットですか？",
+          "answer": "128 ビットである。"
+        },
+        {
+          "question": "IPv6でヘッダチェックサムがない理由は何ですか？",
+          "answer": "処理を簡素化し、下位層や上位層での誤り検出と役割分担するためである。"
+        },
+        {
+          "question": "IPsecは何を提供しますか？",
+          "answer": "認証、完全性保護、必要に応じた暗号化による機密性を提供する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "クラスDのIPアドレスを使用するのはどの場合か。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "端末数が250台程度までの比較的小規模なホストアドレスを割り振る。",
+        "端末数が65,000台程度の中規模なホストアドレスを割り振る。",
+        "プライベートアドレスを割り振る。",
+        "マルチキャストアドレスを割り振る。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_12.html",
+      "public_question_id": "014a5072be808f3a",
+      "original_question_id": "014a5072be808f3a",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "マルチキャスト"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "クラスCのIPアドレスの用途です。"
+        ],
+        [
+          "クラスBのIPアドレスの用途です。"
+        ],
+        [
+          "クラスDのIPアドレスは、全32ビットがネットワーク部でありホストアドレス部はありません。このため、プライベートIPアドレスとして割り当てることはできません。"
+        ],
+        [
+          "正しい。クラスDはマルチキャスト通信専用のアドレスです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問12:https://www.nw-siken.com/kakomon/22_aki/am2_12.html",
+      "explanationText": [
+        "間違い。\n\n小規模ホスト向けの通常のアドレス割当てはクラス C などであり、クラス D ではない。",
+        "間違い。\n\n中規模ホスト向けの通常のアドレス割当てはクラス B であり、クラス D ではない。",
+        "間違い。\n\nプライベートアドレスは各クラスの所定範囲に用意されているもので、クラス D を指すわけではない。",
+        "正しい。\n\nクラス D の IP アドレスはマルチキャスト通信用に予約されている。"
+      ],
+      "suggestedQuestions": [
+        "クラスDアドレスは何に使いますか？",
+        "マルチキャストとは何ですか？",
+        "プライベートアドレスとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "クラスDアドレスは何に使いますか？",
+          "answer": "マルチキャストグループを表すアドレスとして使う。"
+        },
+        {
+          "question": "マルチキャストとは何ですか？",
+          "answer": "複数の受信者へ同じデータを効率よく配信する通信方式である。"
+        },
+        {
+          "question": "プライベートアドレスとの違いは何ですか？",
+          "answer": "プライベートアドレスは内部利用の単一/複数ホスト用、クラス D はマルチキャスト用途である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "RSVPの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "IPネットワークにおいて，ホスト間通信の伝送帯域を管理するためのプロトコルである。",
+        "LANシステムにおいて，物理的なケーブルやノードの接続形態に依存せず，ノードを任意に論理的なグループに分ける技術である。",
+        "PPPによるデータリンクを複数束ねることができるように拡張したプロトコルである。",
+        "リモートアクセスを利用する利用者の認証を行うためのプロトコルである。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_13.html",
+      "public_question_id": "65a295ab23f110d5",
+      "original_question_id": "65a295ab23f110d5",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "RSVP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。RSVPの説明です。"
+        ],
+        [
+          "VLANの説明です。"
+        ],
+        [
+          "MLPPP(Multi Link Point to Point Protocol)の説明です。"
+        ],
+        [
+          "RSVPは認証を行うプロトコルではありません。リモートアクセスでの認証には、PAP、CHAP、RADIUSなどのプロトコルが使用されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問13:https://www.nw-siken.com/kakomon/22_aki/am2_13.html",
+      "explanationText": [
+        "正しい。\n\nRSVP は IP ネットワークで通信に必要な帯域などの資源予約を行い、QoS を支援するためのプロトコルである。",
+        "間違い。\n\nこれは VLAN の説明であり、RSVP ではない。",
+        "間違い。\n\nこれは MLPPP の説明であり、RSVP の役割とは異なる。",
+        "間違い。\n\n利用者認証を行うプロトコルではなく、伝送帯域などの予約を扱う。"
+      ],
+      "suggestedQuestions": [
+        "RSVPは何を予約しますか？",
+        "QoSとの関係は何ですか？",
+        "VLANやMLPPPとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "RSVPは何を予約しますか？",
+          "answer": "通信経路上で必要な帯域などの資源を予約する。"
+        },
+        {
+          "question": "QoSとの関係は何ですか？",
+          "answer": "遅延や帯域要求を満たしやすくするための QoS 実現手段の一つである。"
+        },
+        {
+          "question": "VLANやMLPPPとの違いは何ですか？",
+          "answer": "VLAN は論理分割、MLPPP は回線束ね、RSVP は資源予約で役割が異なる。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "TCPのコネクション確立方式である3ウェイハンドシェイクを表す図はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqd98b6ed31bfcbe5f_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqd98b6ed31bfcbe5f_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqd98b6ed31bfcbe5f_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqd98b6ed31bfcbe5f_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_14.html",
+      "public_question_id": "d98b6ed31bfcbe5f",
+      "original_question_id": "d98b6ed31bfcbe5f",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "3ウェイハンドシェイク",
+        "要求元から要求先に対して\nSYNパケットを送信する。(接続要求)\nSYNパケットを受信し要求先は、要求者の接続を許可することを表す\nSYN ACKパケットを送信する。(接続許可)\nSYN ACKパケットを受信した要求元は接続開始を表す\nACKパケットを要求先に送信し、相手との通信を開始する。(コネクション確立)"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "3ウェイハンドシェイク\nは、TCPが3回のパケット送信を経てTCPコネクションを確立する手順を表したものです。TCPがコネクションを確立する手順は次のようになっています。\n要求元から要求先に対して\nSYNパケットを送信する。(接続要求)\nSYNパケットを受信し要求先は、要求者の接続を許可することを表す\nSYN ACKパケットを送信する。(接続許可)\nSYN ACKパケットを受信した要求元は接続開始を表す\nACKパケットを要求先に送信し、相手との通信を開始する。(コネクション確立)\nしたがって正しい手順の図は「ア」です。"
+        ],
+        [
+          "3ウェイハンドシェイク\nは、TCPが3回のパケット送信を経てTCPコネクションを確立する手順を表したものです。TCPがコネクションを確立する手順は次のようになっています。\n要求元から要求先に対して\nSYNパケットを送信する。(接続要求)\nSYNパケットを受信し要求先は、要求者の接続を許可することを表す\nSYN ACKパケットを送信する。(接続許可)\nSYN ACKパケットを受信した要求元は接続開始を表す\nACKパケットを要求先に送信し、相手との通信を開始する。(コネクション確立)\nしたがって正しい手順の図は「ア」です。"
+        ],
+        [
+          "3ウェイハンドシェイク\nは、TCPが3回のパケット送信を経てTCPコネクションを確立する手順を表したものです。TCPがコネクションを確立する手順は次のようになっています。\n要求元から要求先に対して\nSYNパケットを送信する。(接続要求)\nSYNパケットを受信し要求先は、要求者の接続を許可することを表す\nSYN ACKパケットを送信する。(接続許可)\nSYN ACKパケットを受信した要求元は接続開始を表す\nACKパケットを要求先に送信し、相手との通信を開始する。(コネクション確立)\nしたがって正しい手順の図は「ア」です。"
+        ],
+        [
+          "3ウェイハンドシェイク\nは、TCPが3回のパケット送信を経てTCPコネクションを確立する手順を表したものです。TCPがコネクションを確立する手順は次のようになっています。\n要求元から要求先に対して\nSYNパケットを送信する。(接続要求)\nSYNパケットを受信し要求先は、要求者の接続を許可することを表す\nSYN ACKパケットを送信する。(接続許可)\nSYN ACKパケットを受信した要求元は接続開始を表す\nACKパケットを要求先に送信し、相手との通信を開始する。(コネクション確立)\nしたがって正しい手順の図は「ア」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問14:https://www.nw-siken.com/kakomon/22_aki/am2_14.html",
+      "explanationText": [
+        "正しい。\n\n3 ウェイハンドシェイクは、接続要求側から SYN、応答側から SYN+ACK、最後に要求側から ACK を返して TCP コネクションを確立する手順である。",
+        "間違い。\n\n3 回の交換順序やフラグの組合せが TCP の接続確立手順と一致しない。",
+        "間違い。\n\nSYN、SYN+ACK、ACK の流れになっておらず、3 ウェイハンドシェイクを表していない。",
+        "間違い。\n\n接続確立時の制御フラグや送受方向が不適切であり、正しい手順図ではない。"
+      ],
+      "suggestedQuestions": [
+        "3ウェイハンドシェイクの順序はどうなりますか？",
+        "なぜ3回やり取りするのですか？",
+        "SYNとACKの役割は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "3ウェイハンドシェイクの順序はどうなりますか？",
+          "answer": "接続要求元が SYN、接続先が SYN+ACK、最後に要求元が ACK を返す。"
+        },
+        {
+          "question": "なぜ3回やり取りするのですか？",
+          "answer": "双方が送受信可能であることと、初期シーケンス番号の共有を確認するためである。"
+        },
+        {
+          "question": "SYNとACKの役割は何ですか？",
+          "answer": "SYN は接続開始要求、ACK は受信確認を表す。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "クラスCのIPアドレスを分割して，10個の同じ大きさのサブネットを使用したい。ホスト数が最も多くなるように分割した場合のサブネットマスクはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "255.255.255.192",
+        "255.255.255.224",
+        "255.255.255.240",
+        "255.255.255.248"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_15.html",
+      "public_question_id": "81949777bb990b87",
+      "original_question_id": "81949777bb990b87",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "192→1100 0000ネットワーク：2ビット→4通り\nホスト：6ビット→64通り"
+        ],
+        [
+          "224→1110 0000ネットワーク：3ビット→8通り\nホスト：5ビット→32通り"
+        ],
+        [
+          "240→1111 0000ネットワーク：4ビット→\n16通り\nホスト：4ビット→\n16通り"
+        ],
+        [
+          "248→1111 1000ネットワーク：5ビット→32通り\nホスト：3ビット→8通り"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問15:https://www.nw-siken.com/kakomon/22_aki/am2_15.html",
+      "explanationText": [
+        "間違い。\n\n255.255.255.192 は /26 で 4 サブネットしか作れず、10 個以上に分割できない。",
+        "間違い。\n\n255.255.255.224 は /27 で 8 サブネットしか作れず、10 個に足りない。",
+        "正しい。\n\n10 個以上の同サイズサブネットを作るには 4 ビット借用して 16 サブネット作れる /28 が必要で、サブネットマスクは 255.255.255.240 である。",
+        "間違い。\n\n255.255.255.248 でも 32 サブネット作れるが、ホスト数を最も多くする条件では /28 より不利である。"
+      ],
+      "suggestedQuestions": [
+        "なぜ4ビット借用が必要ですか？",
+        "/28のホスト数はいくつですか？",
+        "最も多くホストを残す考え方は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "なぜ4ビット借用が必要ですか？",
+          "answer": "3 ビットでは 8 サブネットまでしか作れず、10 個を満たせないからである。"
+        },
+        {
+          "question": "/28のホスト数はいくつですか？",
+          "answer": "従来の考え方では各サブネット 16 アドレス中、利用可能ホストは 14 台である。"
+        },
+        {
+          "question": "最も多くホストを残す考え方は何ですか？",
+          "answer": "条件を満たす範囲で借用ビット数を最小にして、ホスト部をできるだけ多く残す。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "SDP(Session Description Protocol)の説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "音声，映像などのメディアの種類，データ通信のためのプロトコル，使用するポート番号などを記述する。",
+        "音声情報をリアルタイムストリームとしてIPネットワークに送り出す際のペイロード種別，シーケンス番号，タイムスタンプを記述する。",
+        "パケットの欠落数やパケット到着間隔のばらつきなどの統計値のやり取りに使用する。",
+        "ユーザーエージェント相互間で，音声や映像などのマルチメディア通信のセションの確立，変更，切断を行う。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_16.html",
+      "public_question_id": "b04360d982ab16bc",
+      "original_question_id": "b04360d982ab16bc",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SDP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。SDPの説明です。"
+        ],
+        [
+          "RTP(Real Time Transport Protocol)の説明です。"
+        ],
+        [
+          "RTCP(Real Time Transport Control Protocol)の説明です。"
+        ],
+        [
+          "SIP(Session Initiation Protocol)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問16:https://www.nw-siken.com/kakomon/22_aki/am2_16.html",
+      "explanationText": [
+        "正しい。\n\nSDP は音声・映像などのメディア種別、使用プロトコル、ポート番号、コーデックなどセッション内容を記述する。",
+        "間違い。\n\nこれは RTP の説明であり、実際のリアルタイムデータ配送で使う情報である。",
+        "間違い。\n\nこれは RTCP の説明であり、品質統計や制御情報の交換に使う。",
+        "間違い。\n\nこれは SIP の説明であり、セッションの確立や変更、切断を行う。"
+      ],
+      "suggestedQuestions": [
+        "SDPは何を記述しますか？",
+        "SIPやRTPとの違いは何ですか？",
+        "ポート番号はなぜ重要ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "SDPは何を記述しますか？",
+          "answer": "メディア種別、利用プロトコル、ポート番号、コーデックなどのセッション属性を記述する。"
+        },
+        {
+          "question": "SIPやRTPとの違いは何ですか？",
+          "answer": "SIP はセッション制御、RTP はメディア配送、SDP はその内容記述を担う。"
+        },
+        {
+          "question": "ポート番号はなぜ重要ですか？",
+          "answer": "どのアプリケーションやストリームへデータを届けるかを受信側が判断するためである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ネットワーク管理プロトコルであるSNMPバージョン1のメッセージタイプのうち，事象の発生をエージェント自身が自発的にマネージャに知らせるために使用するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "get-request",
+        "get-response",
+        "set-request",
+        "trap"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク管理",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_17.html",
+      "public_question_id": "ad34b10140b1ac20",
+      "original_question_id": "ad34b10140b1ac20",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "SNMP",
+        "get-requestマネージャからエージェントへの参照要求\nget-responseエージェントからマネージャへの参照応答\nset-requestマネージャからエージェントへの設定要求\ntrapエージェントからマネージャへのイベント通知"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SNMP\n(Simple Network Management Protocol)は、TCP/IPネットワーク上でネットワーク上の機器の情報を収集して、監視や制御を行うためのプロトコルです。SNMPではエージェント(管理対象の機器)とマネージャ(ネットワーク管理ステーション)間で次のようなメッセージをやり取りすることで機器の監視・制御をしています。get-requestマネージャからエージェントへの参照要求\nget-responseエージェントからマネージャへの参照応答\nset-requestマネージャからエージェントへの設定要求\ntrapエージェントからマネージャへのイベント通知\nしたがって正解は「エ」になります。"
+        ],
+        [
+          "SNMP\n(Simple Network Management Protocol)は、TCP/IPネットワーク上でネットワーク上の機器の情報を収集して、監視や制御を行うためのプロトコルです。SNMPではエージェント(管理対象の機器)とマネージャ(ネットワーク管理ステーション)間で次のようなメッセージをやり取りすることで機器の監視・制御をしています。get-requestマネージャからエージェントへの参照要求\nget-responseエージェントからマネージャへの参照応答\nset-requestマネージャからエージェントへの設定要求\ntrapエージェントからマネージャへのイベント通知\nしたがって正解は「エ」になります。"
+        ],
+        [
+          "SNMP\n(Simple Network Management Protocol)は、TCP/IPネットワーク上でネットワーク上の機器の情報を収集して、監視や制御を行うためのプロトコルです。SNMPではエージェント(管理対象の機器)とマネージャ(ネットワーク管理ステーション)間で次のようなメッセージをやり取りすることで機器の監視・制御をしています。get-requestマネージャからエージェントへの参照要求\nget-responseエージェントからマネージャへの参照応答\nset-requestマネージャからエージェントへの設定要求\ntrapエージェントからマネージャへのイベント通知\nしたがって正解は「エ」になります。"
+        ],
+        [
+          "SNMP\n(Simple Network Management Protocol)は、TCP/IPネットワーク上でネットワーク上の機器の情報を収集して、監視や制御を行うためのプロトコルです。SNMPではエージェント(管理対象の機器)とマネージャ(ネットワーク管理ステーション)間で次のようなメッセージをやり取りすることで機器の監視・制御をしています。get-requestマネージャからエージェントへの参照要求\nget-responseエージェントからマネージャへの参照応答\nset-requestマネージャからエージェントへの設定要求\ntrapエージェントからマネージャへのイベント通知\nしたがって正解は「エ」になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問17:https://www.nw-siken.com/kakomon/22_aki/am2_17.html",
+      "explanationText": [
+        "間違い。\n\nget-request はマネージャからエージェントへ情報取得を要求するメッセージであり、自発通知ではない。",
+        "間違い。\n\nget-response は問い合わせに対する応答であり、事象発生を自発的に知らせる用途ではない。",
+        "間違い。\n\nset-request はマネージャからエージェントへ値設定を要求するメッセージである。",
+        "正しい。\n\ntrap は SNMP エージェントが障害や状態変化の発生を自発的にマネージャへ通知するときに使う。"
+      ],
+      "suggestedQuestions": [
+        "SNMPのtrapは何を通知しますか？",
+        "get-requestとの違いは何ですか？",
+        "SNMPの役割は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "SNMPのtrapは何を通知しますか？",
+          "answer": "障害発生やしきい値超過など、機器側で起きたイベントを自発的に通知する。"
+        },
+        {
+          "question": "get-requestとの違いは何ですか？",
+          "answer": "get-request はマネージャからの問い合わせ、trap はエージェントからの自発通知である。"
+        },
+        {
+          "question": "SNMPの役割は何ですか？",
+          "answer": "ネットワーク機器の監視や簡易制御を行うための管理プロトコルである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_01_monitoring"
+    },
+    {
+      "questionBodyText": "シングルサインオンの説明のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "クッキーを使ったシングルサインオンの場合，サーバごとの認証情報を含んだクッキーをクライアントで生成し，各サーバ上で保存，管理する。",
+        "クッキーを使ったシングルサインオンの場合，認証対象の各サーバを異なるインターネットドメインに配置する必要がある。",
+        "リバースプロキシを使ったシングルサインオンの場合，認証対象の各Webサーバを異なるインターネットドメインにする必要がある。",
+        "リバースプロキシを使ったシングルサインオンの場合，利用者認証においてパスワードの代わりにデジタル証明書を用いることができる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_18.html",
+      "public_question_id": "eb17990db473968b",
+      "original_question_id": "eb17990db473968b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "シングルサインオン",
+        "クッキーを使うSSO最初のログインの際には、Webサーバにインストールされたエージェントが認証サーバにアクセスで認証を行う。\nその認証・識別情報をクッキーに含めクライアントに返す。\n別のWebサーバにアクセスがあった場合には、エージェントが認証サーバにアクセスしクッキー情報をもとに認証を行う。\nリバースプロキシ型SSOすべてのWebサーバへのアクセスをリバースプロキシに集約する。\nリバースプロキシはアクセスしてきたユーザーを認証する。\nログインに成功すると、リバースプロキシはWebサーバに代理アクセスし結果をユーザーに返す。SAML(Security Assertion Markup Language)を使うSSO認証情報に加え、属性情報とアクセス制御情報を異なるドメインに伝達するためのWebサービスプロトコル。これを用いてほかのドメインとの間で認証情報を交換することで、同一ドメインに留まらない大規模なサイトにおいてもシングルサインオンの仕組みやセキュアな認証情報管理を実現できる。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "クッキーはサーバで生成され、クライアントのコンピュータに保存されます。"
+        ],
+        [
+          "クッキーの有効範囲は同一ドメイン内のページに限られています。異なるドメインに配置されたシステムは、他のドメインで生成されたクッキーにアクセスすることができないので認証を行うことはできません。"
+        ],
+        [
+          "リバースプロキシ型ではクッキーを用いた方式のようにドメインによる制限がないため、Webサーバの設置は同一ドメイン内でも異なるドメイン内でも構いません。\nしかし、Webサーバへアクセスするときには必ず認証サーバを経由しなければならないというネットワーク構成上の制限や、マルチドメイン間での安全な認証情報の送受という課題があるためマルチドメインSSOの実現は困難です。"
+        ],
+        [
+          "正しい。IDとパスワードの組合せのほかにデジタル証明書が使用可能です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問18:https://www.nw-siken.com/kakomon/22_aki/am2_18.html",
+      "explanationText": [
+        "間違い。\n\nクッキーは通常サーバ側で発行されてクライアントへ保存されるもので、クライアントが各サーバごとの認証情報入りクッキーを生成する説明は不適切である。",
+        "間違い。\n\nクッキー方式では同一ドメイン配下で使いやすく、異なるドメイン配置を必須とするものではない。",
+        "間違い。\n\nリバースプロキシ方式はドメイン制約が比較的少なく、各 Web サーバを異なるドメインにする必要はない。",
+        "正しい。\n\nリバースプロキシ型のシングルサインオンでは、パスワード以外にデジタル証明書を使った利用者認証も可能である。"
+      ],
+      "suggestedQuestions": [
+        "リバースプロキシ型SSOの特徴は何ですか？",
+        "クッキー型SSOの制約は何ですか？",
+        "デジタル証明書認証はどう使いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "リバースプロキシ型SSOの特徴は何ですか？",
+          "answer": "利用者はプロキシで一度認証され、その後は背後の複数 Web サーバへ再ログインなしでアクセスできる。"
+        },
+        {
+          "question": "クッキー型SSOの制約は何ですか？",
+          "answer": "クッキーの有効範囲がドメインに依存するため、マルチドメイン環境では扱いに制約がある。"
+        },
+        {
+          "question": "デジタル証明書認証はどう使いますか？",
+          "answer": "クライアント証明書を用いて利用者や端末を識別し、パスワードの代替または補強として使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "社内とインターネットの接続点にパケットフィルタリング型ファイアウォールを設置したネットワーク構成において，社内のPCからインターネット上のSMTPサーバに電子メールを送信するとき，ファイアウォールで通過許可とするTCPパケットのポート番号の組合せはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq4f3b3be5cfa0cb44_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq4f3b3be5cfa0cb44_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq4f3b3be5cfa0cb44_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq4f3b3be5cfa0cb44_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_19.html",
+      "public_question_id": "4f3b3be5cfa0cb44",
+      "original_question_id": "4f3b3be5cfa0cb44",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SMTP",
+        "PCからSMTPサーバへの発信パケット\nSMTPサーバからPCへの応答パケット",
+        "PC(1024以上)→SMTPサーバ(25)\nSMTPサーバ(25)→PC(1024以上)",
+        "POP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SMTP\n(Simple Mail Transfer Protocol)は、電子メールを転送するプロトコルで通信にTCP/25ポートを使用します。\n電子メールを送信するのに必要となる通信は、PCからSMTPサーバへの発信パケット\nSMTPサーバからPCへの応答パケット\nの2つです。PCは\"well-knownポート\"ではない1024番以降のポートを通信に使用するので、PC(1024以上)→SMTPサーバ(25)\nSMTPサーバ(25)→PC(1024以上)\nという2種類のパケットだけを通過許可すればSMTP通信を行うことができます。したがって「イ」の設定が適切となります。\nなおTCP/110は\nPOPで使用するポート番号です。"
+        ],
+        [
+          "SMTP\n(Simple Mail Transfer Protocol)は、電子メールを転送するプロトコルで通信にTCP/25ポートを使用します。\n電子メールを送信するのに必要となる通信は、PCからSMTPサーバへの発信パケット\nSMTPサーバからPCへの応答パケット\nの2つです。PCは\"well-knownポート\"ではない1024番以降のポートを通信に使用するので、PC(1024以上)→SMTPサーバ(25)\nSMTPサーバ(25)→PC(1024以上)\nという2種類のパケットだけを通過許可すればSMTP通信を行うことができます。したがって「イ」の設定が適切となります。\nなおTCP/110は\nPOPで使用するポート番号です。"
+        ],
+        [
+          "SMTP\n(Simple Mail Transfer Protocol)は、電子メールを転送するプロトコルで通信にTCP/25ポートを使用します。\n電子メールを送信するのに必要となる通信は、PCからSMTPサーバへの発信パケット\nSMTPサーバからPCへの応答パケット\nの2つです。PCは\"well-knownポート\"ではない1024番以降のポートを通信に使用するので、PC(1024以上)→SMTPサーバ(25)\nSMTPサーバ(25)→PC(1024以上)\nという2種類のパケットだけを通過許可すればSMTP通信を行うことができます。したがって「イ」の設定が適切となります。\nなおTCP/110は\nPOPで使用するポート番号です。"
+        ],
+        [
+          "SMTP\n(Simple Mail Transfer Protocol)は、電子メールを転送するプロトコルで通信にTCP/25ポートを使用します。\n電子メールを送信するのに必要となる通信は、PCからSMTPサーバへの発信パケット\nSMTPサーバからPCへの応答パケット\nの2つです。PCは\"well-knownポート\"ではない1024番以降のポートを通信に使用するので、PC(1024以上)→SMTPサーバ(25)\nSMTPサーバ(25)→PC(1024以上)\nという2種類のパケットだけを通過許可すればSMTP通信を行うことができます。したがって「イ」の設定が適切となります。\nなおTCP/110は\nPOPで使用するポート番号です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問19:https://www.nw-siken.com/kakomon/22_aki/am2_19.html",
+      "explanationText": [
+        "間違い。\n\nSMTP 送信では、社内 PC から外部サーバへ送る発信パケットと、その応答パケットの両方を許可する必要があり、この組合せではポートの向きが一致しない。",
+        "正しい。\n\nSMTP は TCP 25 番を使う。社内 PC は 1024 以上の動的ポートから SMTP サーバ 25 番へ接続し、応答は送信元 25 番・宛先 1024 以上で返るため、その組合せを許可すればよい。",
+        "間違い。\n\nクライアント側が 25 番を発信元として使う前提になっており、通常の SMTP クライアント通信と合わない。",
+        "間違い。\n\n応答方向またはポート番号の組合せが SMTP セッションの実際の流れと一致しない。"
+      ],
+      "suggestedQuestions": [
+        "SMTP送信時のポート番号はどうなりますか？",
+        "クライアント側はなぜ1024以上を使いますか？",
+        "ファイアウォールで双方向許可が必要な理由は何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "SMTP送信時のポート番号はどうなりますか？",
+          "answer": "クライアントの動的ポートからサーバの TCP 25 番へ接続し、応答はその逆向きに返る。"
+        },
+        {
+          "question": "クライアント側はなぜ1024以上を使いますか？",
+          "answer": "一般に OS が一時的なエフェメラルポートを割り当てるためである。"
+        },
+        {
+          "question": "ファイアウォールで双方向許可が必要な理由は何ですか？",
+          "answer": "要求だけでなく、SMTP サーバからの応答パケットも戻れるようにする必要があるからである。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ファイアウォールにおいて，自ネットワークのホストへの侵入を防止する対策のうち，IPスプーフィング(spoofing)攻撃の対策について述べたものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "外部から入るTCPコネクション確立要求パケットのうち，外部へのインターネットサービスの提供に必要なもの以外を破棄する。",
+        "外部から入るUDPパケットのうち，外部へのインターネットサービスの提供や利用したいインターネットサービスに必要なもの以外を破棄する。",
+        "外部から入るパケットのあて先IPアドレスが，インターネットとの直接の通信をすべきでない自ネットワークのホストのものであれば，そのパケットを破棄する。",
+        "外部から入るパケットの送信元IPアドレスが自ネットワークのものであれば，そのパケットを破棄する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ対策",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ対策"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ対策",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_20.html",
+      "public_question_id": "ec78f6be79f12bf0",
+      "original_question_id": "ec78f6be79f12bf0",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "IPスプーフィング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "IPスプーフィング\nは、攻撃者が身元を隠すためや応答パケットを攻撃対象に送りつけるために、IPヘッダーに含まれる送信元IPアドレスを偽装する攻撃手法です。\n単純にこの方法だけで不正アクセスを試みる攻撃のほか、「ポートスキャン」や「DNS攻撃」などの他の攻撃手法を成功させるために併用されるケースもあります。IPスプーフィング対策なので、注目すべき点は「送信元IPアドレス」です。\n外部から内部向けパケットの送信元IPアドレスに、内部のIPアドレス(プライベートアドレス等)が設定されている場合には、送信元IPアドレスが詐称されていると判断できます。これらの不自然なIPパケットをファイアウォールで破棄することで自ネットワークへの侵入を防止できます。\nしたがって「エ」の対策が適切です。"
+        ],
+        [
+          "IPスプーフィング\nは、攻撃者が身元を隠すためや応答パケットを攻撃対象に送りつけるために、IPヘッダーに含まれる送信元IPアドレスを偽装する攻撃手法です。\n単純にこの方法だけで不正アクセスを試みる攻撃のほか、「ポートスキャン」や「DNS攻撃」などの他の攻撃手法を成功させるために併用されるケースもあります。IPスプーフィング対策なので、注目すべき点は「送信元IPアドレス」です。\n外部から内部向けパケットの送信元IPアドレスに、内部のIPアドレス(プライベートアドレス等)が設定されている場合には、送信元IPアドレスが詐称されていると判断できます。これらの不自然なIPパケットをファイアウォールで破棄することで自ネットワークへの侵入を防止できます。\nしたがって「エ」の対策が適切です。"
+        ],
+        [
+          "IPスプーフィング\nは、攻撃者が身元を隠すためや応答パケットを攻撃対象に送りつけるために、IPヘッダーに含まれる送信元IPアドレスを偽装する攻撃手法です。\n単純にこの方法だけで不正アクセスを試みる攻撃のほか、「ポートスキャン」や「DNS攻撃」などの他の攻撃手法を成功させるために併用されるケースもあります。IPスプーフィング対策なので、注目すべき点は「送信元IPアドレス」です。\n外部から内部向けパケットの送信元IPアドレスに、内部のIPアドレス(プライベートアドレス等)が設定されている場合には、送信元IPアドレスが詐称されていると判断できます。これらの不自然なIPパケットをファイアウォールで破棄することで自ネットワークへの侵入を防止できます。\nしたがって「エ」の対策が適切です。"
+        ],
+        [
+          "IPスプーフィング\nは、攻撃者が身元を隠すためや応答パケットを攻撃対象に送りつけるために、IPヘッダーに含まれる送信元IPアドレスを偽装する攻撃手法です。\n単純にこの方法だけで不正アクセスを試みる攻撃のほか、「ポートスキャン」や「DNS攻撃」などの他の攻撃手法を成功させるために併用されるケースもあります。IPスプーフィング対策なので、注目すべき点は「送信元IPアドレス」です。\n外部から内部向けパケットの送信元IPアドレスに、内部のIPアドレス(プライベートアドレス等)が設定されている場合には、送信元IPアドレスが詐称されていると判断できます。これらの不自然なIPパケットをファイアウォールで破棄することで自ネットワークへの侵入を防止できます。\nしたがって「エ」の対策が適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問20:https://www.nw-siken.com/kakomon/22_aki/am2_20.html",
+      "explanationText": [
+        "間違い。\n\nこれは不要な外部向けサービス公開を抑える対策であり、送信元 IP の偽装を見抜く IP スプーフィング対策そのものではない。",
+        "間違い。\n\n不要な UDP パケットを遮断する方針ではあるが、偽装送信元アドレスの検出に直接着目していない。",
+        "間違い。\n\nあて先 IP アドレスで内部保護対象を制限する考え方であり、IP スプーフィング対策の本質ではない。",
+        "正しい。\n\nIP スプーフィング対策では、外部から入るパケットの送信元 IP アドレスが自ネットワーク内部のものなら偽装とみなし破棄する。"
+      ],
+      "suggestedQuestions": [
+        "IPスプーフィングとは何ですか？",
+        "なぜ送信元IPアドレスを見るのですか？",
+        "ingress filteringとは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "IPスプーフィングとは何ですか？",
+          "answer": "攻撃者が送信元 IP アドレスを偽装して通信元を装う攻撃手法である。"
+        },
+        {
+          "question": "なぜ送信元IPアドレスを見るのですか？",
+          "answer": "内部アドレスを名乗る外部パケットは不自然であり、偽装検知の重要な手掛かりになるからである。"
+        },
+        {
+          "question": "ingress filteringとは何ですか？",
+          "answer": "受信インタフェースで許可されない送信元アドレスを持つパケットを遮断する考え方である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    }
+  ]
+}
