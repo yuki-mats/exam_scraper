@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "桁落ちによる誤差の説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "値のほぼ等しい二つの数値の差を求めたとき，有効桁数が減ることによって発生する誤差",
+      "指定された有効桁数で演算結果を表すために，切捨て，切上げ，四捨五入などで下位の桁を削除することによって発生する誤差",
+      "絶対値の非常に大きな数値と小さな数値の加算や減算を行ったとき，小さい数値が計算結果に反映されないことによって発生する誤差",
+      "無限級数で表される数値の計算処理を有限項で打ち切ったことによって発生する誤差"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "42e3137a588b46a0",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "自然数をキーとするデータを，ハッシュ表を用いて管理する。キーxのハッシュ関数h(x)を\nh(x) = x mod nとすると，キーaとbが衝突する条件はどれか。ここで，nはハッシュ表の大きさであり，x mod nはxをnで割った余りを表す。",
+    "choiceTextList": [
+      "a＋bがnの倍数",
+      "a－bがnの倍数",
+      "nがa＋bの倍数",
+      "nがa－bの倍数"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "93a755f643064329",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "未整列の配列a[i](i＝1，2，…，n)を，流れ図で示すアルゴリズムによって昇順に整列する。n＝6でa[1]～a[6]の値がそれぞれ，21，5，53，71，3，17の場合，流れ図において，a[j－1]とa[j]の値の入替えは何回行われるか。",
+    "choiceTextList": [
+      "3",
+      "6",
+      "8",
+      "15"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "09ebfc5d646dcbee",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒のキャッシュメモリと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶とキャッシュメモリとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたいデータがキャッシュメモリに\n存在しない確率\nをrとし，キャッシュメモリ管理に関するオーバーヘッドは無視できるものとする。",
+    "choiceTextList": [
+      "(1－r)・aa＋b\n・x＋\nr・ba＋b\n・y",
+      "(1－r)・x＋r・y",
+      "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
+      "r・x＋(1－r)・y"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "28b90bc7a4adf17f",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "フェールセーフの考え方として，適切なものはどれか。",
+    "choiceTextList": [
+      "システムに障害が発生したときでも，常に安全側にシステムを制御する。",
+      "システムの機能に異常が発生したときに，すぐにシステムを停止しないで機能を縮退させて運用を継続する。",
+      "システムを構成する要素のうち，信頼性に大きく影響するものを複数備えることによって，システムの信頼性を高める。",
+      "不特定多数の人が操作しても，誤動作が起こりにくいように設計する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a81b817d7cc9e41c",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "稼働率がa(0＜a＜1)の装置三つを用いて図のようにシステムを設計するとき，システムの稼働率が装置単体の稼働率を上回るものはどれか。ここで，並列に接続されている部分は，いずれかの経路が稼働していればシステムは稼働しているものとする。",
+    "choiceTextList": [
+      "AとB",
+      "AとC",
+      "BとC",
+      "全て"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "cc41538e69e46064",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "記憶領域の動的な割当て及び解放を繰り返すことによって，どこからも利用されない記憶領域が発生することがある。このような記憶領域を再び利用可能にする機能はどれか。",
+    "choiceTextList": [
+      "ガーベジコレクション",
+      "スタック",
+      "ヒープ",
+      "フラグメンテーション"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "43e4db983b69522a",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "SRAMと比較した場合のDRAMの特徴はどれか。",
+    "choiceTextList": [
+      "主にキャッシュメモリとして使用される。",
+      "データを保持するためのリフレッシュ又はアクセス動作が不要である。",
+      "メモリセル構成が単純なので，ビット当たりの単価が安くなる。",
+      "メモリセルにフリップフロップを用いてデータを保存する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "07de2bd0fc083be0",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "クライアントサーバシステムにおけるストアドプロシージャに関する記述のうち，\n誤っているもの\nはどれか。",
+    "choiceTextList": [
+      "機密性の高いデータに対する処理を特定のプロシージャ呼出しに限定することによって，セキュリティを向上させることができる。",
+      "システム全体に共通な処理をプロシージャとして格納することによって，処理の標準化を行うことができる。",
+      "データベースへのアクセスを細かい単位でプロシージャ化することによって，処理性能(スループット)を向上させることができる。",
+      "複数のSQL文から成る手続を1回の呼出しで実行できるので，クライアントとサーバ間の通信回数を減らすことができる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "dfff39e065abf82e",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "関係を第2正規形から第3正規形に変換する手順はどれか。",
+    "choiceTextList": [
+      "候補キー以外の属性から，候補キーの一部の属性に対して関数従属性がある場合，その関係を分解する。",
+      "候補キー以外の属性間に関数従属性がある場合，その関係を分解する。",
+      "候補キーの一部の属性から，候補キー以外の属性への関数従属性がある場合，その関係を分解する。",
+      "一つの属性に複数の値が入っている場合，単一の値になるように分解する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f029e0bdc193a8bb",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "IPv4ネットワークで用いられる可変長サブネットマスクとして，正しいものはどれか。",
+    "choiceTextList": [
+      "255.255.255.1",
+      "255.255.255.32",
+      "255.255.255.64",
+      "255.255.255.128"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c6e87992015daa38",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "IPネットワークのプロトコルのうち，OSI基本参照モデルのトランスポート層に位置するものはどれか。",
+    "choiceTextList": [
+      "HTTP",
+      "ICMP",
+      "SMTP",
+      "UDP"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "7adfaf4ba672aea1",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "デジタル署名において，発信者がメッセージのハッシュ値からデジタル署名を生成するのに使う鍵はどれか。",
+    "choiceTextList": [
+      "受信者の公開鍵",
+      "受信者の秘密鍵",
+      "発信者の公開鍵",
+      "発信者の秘密鍵"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ed6d7b17945f0b32",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "ISMSにおいて定義することが求められている情報セキュリティ基本方針に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "重要な基本方針を定めた機密文書であり，社内の関係者以外の目に触れないようにする。",
+      "情報セキュリティの基本方針を述べたものであり，ビジネス環境や技術が変化しても変更してはならない。",
+      "情報セキュリティのための経営陣の方向性及び支持を規定する。",
+      "特定のシステムについてリスク分析を行い，そのセキュリティ対策とシステム運用の詳細を記述する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "a002fac331b5795f",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "クロスサイトスクリプティングの手口はどれか。",
+    "choiceTextList": [
+      "Webアプリケーションに用意された入力フィールドに，悪意のあるJavaScriptコードを含んだデータを入力する。",
+      "インターネットなどのネットワークを通じてサーバに不正にアクセスしたり，データの改ざん・破壊を行ったりする。",
+      "大量のデータをWebアプリケーションに送ることによって，用意されたバッファ領域をあふれさせる。",
+      "パス名を推定することによって，本来は認証された後にしかアクセスが許可されていないページに直接ジャンプする。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "37eb34fa9fabeec7",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "次のE-R図の解釈として，適切なものはどれか。ここで，\n*　*\nは多対多の関連を示し，自己参照は除くものとする。",
+    "choiceTextList": [
+      "ある組織の親組織の数が，子組織の数より多い可能性がある。",
+      "全ての組織は必ず子組織を持つ。",
+      "組織は2段階の階層構造である。",
+      "組織はネットワーク構造になっていない。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "cd4a1f5d5298c6c7",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "流れ図において，分岐網羅を満たし，かつ，条件網羅を満たすテストデータの組はどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c2a955441e8a7611",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "過去のプロジェクトの開発実績から構築した作業配分モデルがある。要件定義からシステム内部設計までをモデルどおりに228日で完了してプログラム開発を開始した。現在，200本のプログラムのうち100本のプログラム開発を完了し，残り100本は未着手の状況である。プログラム開発以降もモデルどおりに進捗すると仮定するとき，プロジェクト全体の完了まであと何日掛かるか。",
+    "choiceTextList": [
+      "140",
+      "150",
+      "161",
+      "172"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "eaf8b4b1a98fbc9b",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "プロジェクトマネジメントにおけるリスクの対応例のうち，PMBOKの分類における転嫁に該当するものはどれか。",
+    "choiceTextList": [
+      "あるサブプロジェクトの損失を，他のサブプロジェクトの利益で相殺する。",
+      "個人情報の漏えいが起こらないように，システムテストで使用する本番データの個人情報部分はマスキングする。",
+      "損害の発生に備えて，損害賠償保険を掛ける。",
+      "取引先の業績が悪化して，信用に不安があるので，新規取引を止める。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "0bdeadb181c05210",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "ミッションクリティカルシステムの意味として，適切なものはどれか。",
+    "choiceTextList": [
+      "OSなどのように，業務システムを稼働させる上で必要不可欠なシステム",
+      "システム運用条件が性能の限界に近い状態の下で稼働するシステム",
+      "障害が起きると，企業活動に重大な影響を及ぼすシステム",
+      "先行して試験導入され，成功すると本格的に導入されるシステム"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "356204cf5465899c",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "販売管理システムにおいて，起票された受注伝票が漏れなく，重複することなく入力されていることを確かめる監査手続のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "受注データから値引取引データなどの例外取引データを抽出し，承認の記録を確かめる。",
+      "受注伝票の入力時に論理チェック及びフォーマットチェックが行われているか，テストデータ法で確かめる。",
+      "プルーフリストと受注伝票との照合が行われているか，プルーフリスト又は受注伝票上の照合印を確かめる。",
+      "並行シミュレーション法を用いて，受注伝票を処理するプログラムの論理の正当性を確かめる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "e03ebae373380c66",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "システム開発計画の策定におけるコントロールのうち，適切なものはどれか。",
+    "choiceTextList": [
+      "システムの機能が利用者の立場に基づいて実装されるよう，全体最適よりも業務上の利便性を優先し，利用部門の要望に基づいて策定する。",
+      "状況の変化に合わせて柔軟に内容の変更が行えるよう，開発計画は開発作業に着手してから組織内での承認を得て策定する。",
+      "不必要なシステム開発コストを抑制するよう，情報システムの目的を達成するための複数の代替案を作成し，比較検討する。",
+      "利用部門，システム部門の分け隔てなく自由な議論が行われるよう，開発計画の策定は，利用部門とシステム部門の役割分担を決めずに実行する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "47c729fcefc8bba6",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "ITポートフォリオの説明はどれか。",
+    "choiceTextList": [
+      "管理費などの間接コストを，業務区分ごとのアクティビティの種別に着目して，製品やサービスの原価に割り振る手法である。",
+      "企業の経営戦略を，多面的な視点で体系立てて立案し，実行を管理し，業績を評価する手法である。",
+      "業界ごとなどで統一的に策定された評価尺度(指標値群)を用いて，企業全体の投資効果を測定する手法である。",
+      "情報化投資をリスクや投資価値の類似性で幾つかのカテゴリに整理し，ビジネス戦略実現のための最適な資源配分を管理する手法である。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9982f3377195593a",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "業務のあるべき姿を表す論理モデルを説明したものはどれか。",
+    "choiceTextList": [
+      "企業における主要機能を明確にして，現状の業務機能を分析し，体系化したもの",
+      "経営目標の達成に必要な業務機能を定義し，体系化したもの",
+      "現状の業務機能と情報システムでの処理を分析し，相互の関係を明確化したもの",
+      "本来あるべき業務機能と現状を比較して，その差異を分析し，評価したもの"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "53a5fb93a664c313",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "現在の動向から未来を予測したり，システム分析に使用したりする手法であり，専門的知識や経験を有する複数の人にアンケート調査を行い，その結果を互いに参照した上で調査を繰り返して，集団としての意見を収束させる手法はどれか。",
+    "choiceTextList": [
+      "因果関係分析法",
+      "クロスセクション法",
+      "時系列回帰分析法",
+      "デルファイ法"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "56a0968f43a01a37",
+    "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_25.html"
+  }
+]
