@@ -1,0 +1,1807 @@
+{
+  "list_group_id": "201002",
+  "question_bodies": [
+    {
+      "questionBodyText": "後置換記法（逆ポーランド表記法）では，例えば，式 Y＝(A－B)×C を YAB－C×＝ と表現する。\n次の式を後置換記法で表現したものはどれか。Y＝(A＋B)×(C－(D÷E))",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問1",
+      "questionLabel": "問1",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "YAB＋C－DE÷×＝",
+        "YAB＋CDE÷－×＝",
+        "YAB＋EDC÷－×＝",
+        "YAB＋CD－E÷×＝"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 情報に関する理論",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "情報に関する理論"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "情報に関する理論",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_1.html",
+      "public_question_id": "c4c34a095e454ab8",
+      "original_question_id": "c4c34a095e454ab8",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "逆ポーランド表記法",
+        "まず括弧内のA＋B と D÷Eを変換します。Y＝AB＋×(C－DE÷)\n次にもう一つの括弧内の(C－DE÷)を変換します。Y＝AB＋×CDE÷－\nこの時「DE÷」を一つの項として考えると、「C」－「DE÷」⇒CDE÷－となることを理解しやすいかと思います。\n次に右辺でまだ演算をしていない、\"×\"の左側と右側で演算します。先程と同様に「AB＋」×「CDE÷－」⇒AB＋CDE÷－×と考えます。Y＝AB＋CDE÷－×\n最後に 左辺と右辺を\"＝\"で演算して逆ポーランド表記法への変換が完了します。YAB＋CDE÷－×＝"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "逆ポーランド表記法\n(後置表記法)は、演算子を2つの被演算子の右側に記述する表記法です。通常の数式の「A＋B」を逆ポーランド表記法で表現すると「AB＋」となります。\n通常の式を逆ポーランド表記法で表現するときには、通常の式を計算するとの同じ順番（括弧の中優先、剰余算優先）で、普通に計算式を解くのと同じ要領で変換していきます。一度変換した部分はひとまとまりの項として扱うことがポイントです。Y＝(A＋B)×(C－(D÷E))を、ひとつずつ順番に逆ポーランド表記法に変換していきましょう。\nまず括弧内のA＋B と D÷Eを変換します。Y＝AB＋×(C－DE÷)\n次にもう一つの括弧内の(C－DE÷)を変換します。Y＝AB＋×CDE÷－\nこの時「DE÷」を一つの項として考えると、「C」－「DE÷」⇒CDE÷－となることを理解しやすいかと思います。\n次に右辺でまだ演算をしていない、\"×\"の左側と右側で演算します。先程と同様に「AB＋」×「CDE÷－」⇒AB＋CDE÷－×と考えます。Y＝AB＋CDE÷－×\n最後に 左辺と右辺を\"＝\"で演算して逆ポーランド表記法への変換が完了します。YAB＋CDE÷－×＝\nしたがって答えは、「イ」となります。\n通常の式から、逆ポーランド表記法への変換はそれほど難しくありませんが、その逆(逆ポーランド⇒普通の式)は、迷ってしまう人もいるのではないでしょうか。今後も出題される可能性がありますので押さえておきたいですね。"
+        ],
+        [
+          "逆ポーランド表記法\n(後置表記法)は、演算子を2つの被演算子の右側に記述する表記法です。通常の数式の「A＋B」を逆ポーランド表記法で表現すると「AB＋」となります。\n通常の式を逆ポーランド表記法で表現するときには、通常の式を計算するとの同じ順番（括弧の中優先、剰余算優先）で、普通に計算式を解くのと同じ要領で変換していきます。一度変換した部分はひとまとまりの項として扱うことがポイントです。Y＝(A＋B)×(C－(D÷E))を、ひとつずつ順番に逆ポーランド表記法に変換していきましょう。\nまず括弧内のA＋B と D÷Eを変換します。Y＝AB＋×(C－DE÷)\n次にもう一つの括弧内の(C－DE÷)を変換します。Y＝AB＋×CDE÷－\nこの時「DE÷」を一つの項として考えると、「C」－「DE÷」⇒CDE÷－となることを理解しやすいかと思います。\n次に右辺でまだ演算をしていない、\"×\"の左側と右側で演算します。先程と同様に「AB＋」×「CDE÷－」⇒AB＋CDE÷－×と考えます。Y＝AB＋CDE÷－×\n最後に 左辺と右辺を\"＝\"で演算して逆ポーランド表記法への変換が完了します。YAB＋CDE÷－×＝\nしたがって答えは、「イ」となります。\n通常の式から、逆ポーランド表記法への変換はそれほど難しくありませんが、その逆(逆ポーランド⇒普通の式)は、迷ってしまう人もいるのではないでしょうか。今後も出題される可能性がありますので押さえておきたいですね。"
+        ],
+        [
+          "逆ポーランド表記法\n(後置表記法)は、演算子を2つの被演算子の右側に記述する表記法です。通常の数式の「A＋B」を逆ポーランド表記法で表現すると「AB＋」となります。\n通常の式を逆ポーランド表記法で表現するときには、通常の式を計算するとの同じ順番（括弧の中優先、剰余算優先）で、普通に計算式を解くのと同じ要領で変換していきます。一度変換した部分はひとまとまりの項として扱うことがポイントです。Y＝(A＋B)×(C－(D÷E))を、ひとつずつ順番に逆ポーランド表記法に変換していきましょう。\nまず括弧内のA＋B と D÷Eを変換します。Y＝AB＋×(C－DE÷)\n次にもう一つの括弧内の(C－DE÷)を変換します。Y＝AB＋×CDE÷－\nこの時「DE÷」を一つの項として考えると、「C」－「DE÷」⇒CDE÷－となることを理解しやすいかと思います。\n次に右辺でまだ演算をしていない、\"×\"の左側と右側で演算します。先程と同様に「AB＋」×「CDE÷－」⇒AB＋CDE÷－×と考えます。Y＝AB＋CDE÷－×\n最後に 左辺と右辺を\"＝\"で演算して逆ポーランド表記法への変換が完了します。YAB＋CDE÷－×＝\nしたがって答えは、「イ」となります。\n通常の式から、逆ポーランド表記法への変換はそれほど難しくありませんが、その逆(逆ポーランド⇒普通の式)は、迷ってしまう人もいるのではないでしょうか。今後も出題される可能性がありますので押さえておきたいですね。"
+        ],
+        [
+          "逆ポーランド表記法\n(後置表記法)は、演算子を2つの被演算子の右側に記述する表記法です。通常の数式の「A＋B」を逆ポーランド表記法で表現すると「AB＋」となります。\n通常の式を逆ポーランド表記法で表現するときには、通常の式を計算するとの同じ順番（括弧の中優先、剰余算優先）で、普通に計算式を解くのと同じ要領で変換していきます。一度変換した部分はひとまとまりの項として扱うことがポイントです。Y＝(A＋B)×(C－(D÷E))を、ひとつずつ順番に逆ポーランド表記法に変換していきましょう。\nまず括弧内のA＋B と D÷Eを変換します。Y＝AB＋×(C－DE÷)\n次にもう一つの括弧内の(C－DE÷)を変換します。Y＝AB＋×CDE÷－\nこの時「DE÷」を一つの項として考えると、「C」－「DE÷」⇒CDE÷－となることを理解しやすいかと思います。\n次に右辺でまだ演算をしていない、\"×\"の左側と右側で演算します。先程と同様に「AB＋」×「CDE÷－」⇒AB＋CDE÷－×と考えます。Y＝AB＋CDE÷－×\n最後に 左辺と右辺を\"＝\"で演算して逆ポーランド表記法への変換が完了します。YAB＋CDE÷－×＝\nしたがって答えは、「イ」となります。\n通常の式から、逆ポーランド表記法への変換はそれほど難しくありませんが、その逆(逆ポーランド⇒普通の式)は、迷ってしまう人もいるのではないでしょうか。今後も出題される可能性がありますので押さえておきたいですね。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問1:https://www.nw-siken.com/kakomon/22_aki/am1_1.html"
+    },
+    {
+      "questionBodyText": "a，b，c，d の4文字からなるメッセージを符号化してビット列にする方法として表のア～エの4通りを考えた。この表は a，b，c，d の各1文字を符号化するときのビット列を表している。メッセージ中の a，b，c，d の出現頻度は，それぞれ，50%，30%，10%，10% であることが分かっている。符号化されたビット列から元のメッセージが一意に復号可能であって，ビット列の長さが最も短くなるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問2",
+      "questionLabel": "問2",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq73f7b074c2cd36b2_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq73f7b074c2cd36b2_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq73f7b074c2cd36b2_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq73f7b074c2cd36b2_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » 基礎理論 » 情報に関する理論",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "基礎理論",
+        "情報に関する理論"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "基礎理論",
+      "categorySmall": "情報に関する理論",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_2.html",
+      "public_question_id": "73f7b074c2cd36b2",
+      "original_question_id": "73f7b074c2cd36b2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "符号化後のビット列に\"11\"があった場合、bb(11)とd(11)の区別がつかないので、元のメッセージに一意に復号することができません。"
+        ],
+        [
+          "符号化後のビット列に\"00110\"があった場合、abc(00110)とaada(00110)の区別がつかないので、元のメッセージに一意に復号することができません。"
+        ],
+        [
+          "一意の復号が可能です。各文字の出現頻度を考慮すると、1文字を表現するのに必要な平均ビットは、\n(1×0.5)＋(2×0.3)＋(3×0.1)＋(3×0.1)\n＝0.5＋0.6＋0.3＋0.3＝\n1.7となり、4つの中では復号可能かつビット列の長さが最も短くなる方法となります。"
+        ],
+        [
+          "各文字が2ビットずつなので一意の復号が可能です。1文字を表現するのに必要な平均ビットは2ビットなので、「ウ」の方式よりはビット列が長くなります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問2:https://www.nw-siken.com/kakomon/22_aki/am1_2.html"
+    },
+    {
+      "questionBodyText": "探索表の構成法を例とともに a～c に示す。探索の平均計算量が最も小さい探索手法の組合せはどれか。ここで，探索表のコードの空欄は表の空きを示す。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問3",
+      "questionLabel": "問3",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq59488346ae7d6f8d_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq59488346ae7d6f8d_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq59488346ae7d6f8d_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq59488346ae7d6f8d_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » アルゴリズムとプログラミング » アルゴリズム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "アルゴリズムとプログラミング",
+        "アルゴリズム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "アルゴリズムとプログラミング",
+      "categorySmall": "アルゴリズム",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_3.html",
+      "public_question_id": "59488346ae7d6f8d",
+      "original_question_id": "59488346ae7d6f8d",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq59488346ae7d6f8d_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "(N＋1)／2",
+        "[log2\nN]",
+        "2分探索",
+        "線形探索",
+        "ハッシュ表探索",
+        "a＝2分探索",
+        "b＝線形探索",
+        "c＝ハッシュ表探索"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "[a コード順に格納した探索表]\n探索表はコード順に整列済みなので、線形探索または2分探索を使用可能です。各探索法の平均探索回数は、線形探索が\n(N＋1)／2回、2分探索法が\n[log2\nN]\n回ですので、探索表の要素数が同じならば平均探索回数は2分探索のほうが少なくて済みます。したがってa表には\n2分探索\nが適切です。(※[n]はnを超えない最大の整数を表します)\n[b コードの使用頻度順に格納した探索表]\n使用頻度が高いデータほど探索表の先頭のほうに位置していることになります。線形探索では探索表の先頭から順番に探索していくので、このような探索表に対しては効率的に探索できます。2分探索法は、データが整列されていないと使えないという制限がありますし、この表はハッシュ法に対応していないので、b表に対しては\n線形探索\nが唯一使用できる方法となります。\n[c コードから一意に決まる場所に格納した探索表]\nハッシュ法は、探索データのキー値から、そのデータの格納場所(アドレス)を直接計算する方法で、(シノニムが発生しなければ)1回の計算で一意に目的のデータにたどりつけます。1回の探索でいいので、このc表に対して最も計算量が少なくなる探索法は\nハッシュ表探索\nです。\nしたがって、a＝2分探索\n、b＝線形探索\n、c＝ハッシュ表探索\nの組合せが正解です。"
+        ],
+        [
+          "[a コード順に格納した探索表]\n探索表はコード順に整列済みなので、線形探索または2分探索を使用可能です。各探索法の平均探索回数は、線形探索が\n(N＋1)／2回、2分探索法が\n[log2\nN]\n回ですので、探索表の要素数が同じならば平均探索回数は2分探索のほうが少なくて済みます。したがってa表には\n2分探索\nが適切です。(※[n]はnを超えない最大の整数を表します)\n[b コードの使用頻度順に格納した探索表]\n使用頻度が高いデータほど探索表の先頭のほうに位置していることになります。線形探索では探索表の先頭から順番に探索していくので、このような探索表に対しては効率的に探索できます。2分探索法は、データが整列されていないと使えないという制限がありますし、この表はハッシュ法に対応していないので、b表に対しては\n線形探索\nが唯一使用できる方法となります。\n[c コードから一意に決まる場所に格納した探索表]\nハッシュ法は、探索データのキー値から、そのデータの格納場所(アドレス)を直接計算する方法で、(シノニムが発生しなければ)1回の計算で一意に目的のデータにたどりつけます。1回の探索でいいので、このc表に対して最も計算量が少なくなる探索法は\nハッシュ表探索\nです。\nしたがって、a＝2分探索\n、b＝線形探索\n、c＝ハッシュ表探索\nの組合せが正解です。"
+        ],
+        [
+          "[a コード順に格納した探索表]\n探索表はコード順に整列済みなので、線形探索または2分探索を使用可能です。各探索法の平均探索回数は、線形探索が\n(N＋1)／2回、2分探索法が\n[log2\nN]\n回ですので、探索表の要素数が同じならば平均探索回数は2分探索のほうが少なくて済みます。したがってa表には\n2分探索\nが適切です。(※[n]はnを超えない最大の整数を表します)\n[b コードの使用頻度順に格納した探索表]\n使用頻度が高いデータほど探索表の先頭のほうに位置していることになります。線形探索では探索表の先頭から順番に探索していくので、このような探索表に対しては効率的に探索できます。2分探索法は、データが整列されていないと使えないという制限がありますし、この表はハッシュ法に対応していないので、b表に対しては\n線形探索\nが唯一使用できる方法となります。\n[c コードから一意に決まる場所に格納した探索表]\nハッシュ法は、探索データのキー値から、そのデータの格納場所(アドレス)を直接計算する方法で、(シノニムが発生しなければ)1回の計算で一意に目的のデータにたどりつけます。1回の探索でいいので、このc表に対して最も計算量が少なくなる探索法は\nハッシュ表探索\nです。\nしたがって、a＝2分探索\n、b＝線形探索\n、c＝ハッシュ表探索\nの組合せが正解です。"
+        ],
+        [
+          "[a コード順に格納した探索表]\n探索表はコード順に整列済みなので、線形探索または2分探索を使用可能です。各探索法の平均探索回数は、線形探索が\n(N＋1)／2回、2分探索法が\n[log2\nN]\n回ですので、探索表の要素数が同じならば平均探索回数は2分探索のほうが少なくて済みます。したがってa表には\n2分探索\nが適切です。(※[n]はnを超えない最大の整数を表します)\n[b コードの使用頻度順に格納した探索表]\n使用頻度が高いデータほど探索表の先頭のほうに位置していることになります。線形探索では探索表の先頭から順番に探索していくので、このような探索表に対しては効率的に探索できます。2分探索法は、データが整列されていないと使えないという制限がありますし、この表はハッシュ法に対応していないので、b表に対しては\n線形探索\nが唯一使用できる方法となります。\n[c コードから一意に決まる場所に格納した探索表]\nハッシュ法は、探索データのキー値から、そのデータの格納場所(アドレス)を直接計算する方法で、(シノニムが発生しなければ)1回の計算で一意に目的のデータにたどりつけます。1回の探索でいいので、このc表に対して最も計算量が少なくなる探索法は\nハッシュ表探索\nです。\nしたがって、a＝2分探索\n、b＝線形探索\n、c＝ハッシュ表探索\nの組合せが正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問3:https://www.nw-siken.com/kakomon/22_aki/am1_3.html"
+    },
+    {
+      "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒のキャッシュメモリと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶とキャッシュメモリとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたいデータがキャッシュメモリに\n存在しない確率\nをrとし，キャッシュメモリ管理に関するオーバーヘッドは無視できるものとする。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問4",
+      "questionLabel": "問4",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(1－r)・aa＋b\n・x＋\nr・ba＋b\n・y",
+        "(1－r)・x＋r・y",
+        "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
+        "r・x＋(1－r)・y"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_4.html",
+      "public_question_id": "d4377e9ecd8542fa",
+      "original_question_id": "d4377e9ecd8542fa",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "キャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ],
+        [
+          "メモリの平均アクセス時間は、キャッシュへのアクセス時間と主記憶へのアクセス時間をヒット率で加重平均した以下の式で求められます。メモリの容量は関係ありません。\nキャッシュメモリのアクセス時間×ヒット率＋主記憶のアクセス時間×(1－ヒット率)\n式を立てる際に関係する値は次の4つです。\nキャッシュメモリのアクセス時間＝xヒット率＝存在しない確率の逆なので (1－r)\n主記憶のアクセス時間＝yヒットしない確率＝r各文字式を公式に該当部分に入れると\n(1－r)・x＋r・yしたがって「イ」が正解です。\n【補足】\n一般にキャッシュメモリ容量が大きくなればヒット率は上昇するはずです。したがってヒット率を計算するときには、キャッシュメモリと主記憶の容量が計算要素として使われることになります。しかし、この問題の場合はヒット率が定数として問題文の条件に示されているので、各メモリ容量を計算式に含める必要はありません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問4:https://www.nw-siken.com/kakomon/22_aki/am1_4.html"
+    },
+    {
+      "questionBodyText": "システムの信頼性向上技術に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問5",
+      "questionLabel": "問5",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "故障が発生したときに，あらかじめ指定された安全な状態にシステムを保つことをフェールソフトという。",
+        "故障が発生したときに，あらかじめ指定されている縮小した範囲のサービスを提供することをフォールトマスキングという。",
+        "故障が発生したときに，その影響が誤りとなって外部に出ないように訂正することをフェールセーフという。",
+        "故障が発生したときに対処するのではなく，品質管理などを通じてシステム構成要素の信頼性を高めることをフォールトアボイダンスという。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_5.html",
+      "public_question_id": "1401ed41e3fe2653",
+      "original_question_id": "1401ed41e3fe2653",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "フォールトアボイダンス"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "フェールセーフに関する記述です。フェールソフトは、システムに障害が発生した時に、多少の性能の低下を許容し、システム全体の運転継続に必要な機能を維持させようとする考え方です。"
+        ],
+        [
+          "フェールソフトに関する記述です。フォールトマスキングは、障害発生時にその障害を内部に留め、外部向けの機能やサービスに影響を与えないように制御する考え方です。"
+        ],
+        [
+          "フォールトマスキングに関する記述です。フェールセーフは、システムに不具合や故障が発生したときでも、障害の影響範囲を最小限にとどめ、常に安全を最優先にして制御を行う考え方です。"
+        ],
+        [
+          "正しい。フォールトアボイダンスに関する記述です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問5:https://www.nw-siken.com/kakomon/22_aki/am1_5.html"
+    },
+    {
+      "questionBodyText": "ほとんどのプログラムの大きさがページサイズの半分以下のシステムにおいて，ページサイズを半分にしたときに予想されるものはどれか。ここで，このシステムは主記憶が不足しがちで，多重度やスループットなどはシステム性能の限界で運用しているものとする。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問6",
+      "questionLabel": "問6",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ページサイズが小さくなるので，領域管理などのオーバーヘッドが減少する。",
+        "ページ内に余裕がなくなるので，ページ置換えによってシステム性能が低下する。",
+        "ページ内の無駄な空き領域が減少するので，主記憶不足が緩和される。",
+        "ページフォールトの回数が増加するので，システム性能が低下する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア » オペレーティングシステム",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア",
+        "オペレーティングシステム"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア",
+      "categorySmall": "オペレーティングシステム",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_6.html",
+      "public_question_id": "f429af0c58bb91db",
+      "original_question_id": "f429af0c58bb91db",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ページング方式",
+        "固定長"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ページサイズを半分にすると、同じ容量を管理するために必要なページ数は2倍になります。OSが管理するページテーブルのエントリ数も2倍になるため、システムのオーバーヘッドは増加します。"
+        ],
+        [
+          "ほとんどのプログラムはページサイズの半分以下なので、多くは1つのページに収まります。ページサイズが小さくなると、その分だけ主記憶上に展開できるプログラムが増えます。これにより、主記憶が不足しがちなシステムではページフォールトの回数が減って、システムの性能は向上します。"
+        ],
+        [
+          "正しい。ページ内の無駄な空き領域が減ることで、主記憶に載せられるページ数が増えます。これまで無駄になっていた主記憶の容量を有効に使うことができるので、主記憶不足が緩和されます。"
+        ],
+        [
+          "ページサイズが半分になると、その分だけ主記憶に展開できるプログラムが増えます。その結果、ページフォールトの回数が減って、システムの性能は向上します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問6:https://www.nw-siken.com/kakomon/22_aki/am1_6.html"
+    },
+    {
+      "questionBodyText": "デュアルライセンスのソフトウェアを利用する条件のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問7",
+      "questionLabel": "問7",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "複数のライセンスが設定されているので，利用者はすべてのライセンスに同意する。",
+        "複数のライセンスが設定されているので，利用者はそのうちの一つのライセンスを選択して同意する。",
+        "複数のライセンスが設定されているので，利用者はそのうちの二つのライセンスを選択して同意する。",
+        "複数のライセンスを組み合わせた一つのライセンスが設定されているので，利用者はそのライセンスに同意する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 知的財産適用管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "知的財産適用管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "知的財産適用管理",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_7.html",
+      "public_question_id": "c3392ccd3ff62291",
+      "original_question_id": "c3392ccd3ff62291",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "デュアルライセンス"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "デュアルライセンス\nとは、ひとつのソフトウェアを2種類以上の異なるライセンスの元で配布する形態のことです。\n市場販売されているソフトウェアパッケージの中でも、特に業務に使用されるような比較的高額な製品では、「パーソナル版」と「プロフェッショナル版」，「スタンダード版」と「アカデミック版」のように、使用できる機能や使途の制限などの分類によって２つ以上の複数のライセンスが設定されていることがあります。\nソフトウェアがデュアルライセンスで配布されている場合、その利用者はその目的に応じて複数のライセンスの中から一つを選択しソフトウェアを利用することができます。\nフリーウェア版と商用版といった分類でデュアルライセンスが設定されている場合もあります。このビジネスモデルの場合、フリーウェア版を無償で公開しユーザーを集め、一部のヘビーユーザーに商用ライセンス版を販売し利益を得ることでビジネスとして成り立っています。"
+        ],
+        [
+          "デュアルライセンス\nとは、ひとつのソフトウェアを2種類以上の異なるライセンスの元で配布する形態のことです。\n市場販売されているソフトウェアパッケージの中でも、特に業務に使用されるような比較的高額な製品では、「パーソナル版」と「プロフェッショナル版」，「スタンダード版」と「アカデミック版」のように、使用できる機能や使途の制限などの分類によって２つ以上の複数のライセンスが設定されていることがあります。\nソフトウェアがデュアルライセンスで配布されている場合、その利用者はその目的に応じて複数のライセンスの中から一つを選択しソフトウェアを利用することができます。\nフリーウェア版と商用版といった分類でデュアルライセンスが設定されている場合もあります。このビジネスモデルの場合、フリーウェア版を無償で公開しユーザーを集め、一部のヘビーユーザーに商用ライセンス版を販売し利益を得ることでビジネスとして成り立っています。"
+        ],
+        [
+          "デュアルライセンス\nとは、ひとつのソフトウェアを2種類以上の異なるライセンスの元で配布する形態のことです。\n市場販売されているソフトウェアパッケージの中でも、特に業務に使用されるような比較的高額な製品では、「パーソナル版」と「プロフェッショナル版」，「スタンダード版」と「アカデミック版」のように、使用できる機能や使途の制限などの分類によって２つ以上の複数のライセンスが設定されていることがあります。\nソフトウェアがデュアルライセンスで配布されている場合、その利用者はその目的に応じて複数のライセンスの中から一つを選択しソフトウェアを利用することができます。\nフリーウェア版と商用版といった分類でデュアルライセンスが設定されている場合もあります。このビジネスモデルの場合、フリーウェア版を無償で公開しユーザーを集め、一部のヘビーユーザーに商用ライセンス版を販売し利益を得ることでビジネスとして成り立っています。"
+        ],
+        [
+          "デュアルライセンス\nとは、ひとつのソフトウェアを2種類以上の異なるライセンスの元で配布する形態のことです。\n市場販売されているソフトウェアパッケージの中でも、特に業務に使用されるような比較的高額な製品では、「パーソナル版」と「プロフェッショナル版」，「スタンダード版」と「アカデミック版」のように、使用できる機能や使途の制限などの分類によって２つ以上の複数のライセンスが設定されていることがあります。\nソフトウェアがデュアルライセンスで配布されている場合、その利用者はその目的に応じて複数のライセンスの中から一つを選択しソフトウェアを利用することができます。\nフリーウェア版と商用版といった分類でデュアルライセンスが設定されている場合もあります。このビジネスモデルの場合、フリーウェア版を無償で公開しユーザーを集め、一部のヘビーユーザーに商用ライセンス版を販売し利益を得ることでビジネスとして成り立っています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問7:https://www.nw-siken.com/kakomon/22_aki/am1_7.html"
+    },
+    {
+      "questionBodyText": "図の論理回路と等価な回路はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問8",
+      "questionLabel": "問8",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "(論理和素子)",
+        "(論理積素子)",
+        "(排他的論理和素子)",
+        "(否定論理和素子)"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2ef1d78b89c8fb35_c01_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2ef1d78b89c8fb35_c02_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2ef1d78b89c8fb35_c03_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2ef1d78b89c8fb35_c04_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » ハードウェア » ハードウェア",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ハードウェア",
+        "ハードウェア"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ハードウェア",
+      "categorySmall": "ハードウェア",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_8.html",
+      "public_question_id": "2ef1d78b89c8fb35",
+      "original_question_id": "2ef1d78b89c8fb35",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2ef1d78b89c8fb35_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "OR素子なので不適切です。"
+        ],
+        [
+          "AND素子なので不適切です。"
+        ],
+        [
+          "正しい。XOR素子なので適切です。"
+        ],
+        [
+          "NOR素子なので不適切です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問8:https://www.nw-siken.com/kakomon/22_aki/am1_8.html"
+    },
+    {
+      "questionBodyText": "ヤコブ・ニールセンのユーザーインタフェースに関する10か条のヒューリスティックスの一つである \"システム状態の視認性\" に該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問9",
+      "questionLabel": "問9",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "異なる画面間でも，操作は類似の手順で実行できる。",
+        "実行中に処理の進捗度を表示する。",
+        "入力フォームの必須項目に印を付けて目立たせる。",
+        "表示する文字の大きさや色が適切で、効果的に画像も使用する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ユーザーインタフェース » ユーザーインタフェース技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ユーザーインタフェース",
+        "ユーザーインタフェース技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ユーザーインタフェース",
+      "categorySmall": "ユーザーインタフェース技術",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_9.html",
+      "public_question_id": "a4abb884b87b26d7",
+      "original_question_id": "a4abb884b87b26d7",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ヤコブ・ニールセン",
+        "ヒューリスティック評価",
+        "システム状態の視認性を高める\n実環境に合ったシステムを構築する\nユーザーにコントロールの主導権と自由度を与える\n一貫性と標準化を保持する\nエラーの発生を事前に防止する\n記憶しなくても、見ればわかるようなデザインを行う\n柔軟性と効率性を持たせる\n最小限で美しいデザインを施す\nユーザーによるエラー認識、診断、回復をサポートする\nヘルプとマニュアルを用意する"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "「一貫性と標準化を保持する」に該当します。"
+        ],
+        [
+          "正しい。「システム状態の視認性を高める」に該当します。"
+        ],
+        [
+          "「エラーの発生を事前に防止する」に該当します。"
+        ],
+        [
+          "「最小限で美しいデザインを施す」に該当します。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問9:https://www.nw-siken.com/kakomon/22_aki/am1_9.html"
+    },
+    {
+      "questionBodyText": "コンピュータグラフィックスに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問10",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "テクスチャマッピングは，すべてのピクセルについて，視線とすべての物体との交点を計算し，その中から視点に最も近い交点を選択することによって，陰面消去を行う。",
+        "メタボールは，反射・透過方向への視線追跡を行わず，与えられた空間中のデータから輝度を計算する。",
+        "ラジオシティ法は，拡散反射面間の相互反射による効果を考慮して拡散反射面の輝度を決める。",
+        "レイトレーシング法は，形状が定義された物体の表面に，別に定義された模様を張り付けて画像を作成する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » 情報メディア » マルチメディア応用",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "情報メディア",
+        "マルチメディア応用"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "情報メディア",
+      "categorySmall": "マルチメディア応用",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_10.html",
+      "public_question_id": "1c8e4b578325c985",
+      "original_question_id": "1c8e4b578325c985",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "テクスチャマッピングは、多数のポリゴン(多角形)の組合せで構成させる3DCG表面に壁紙のようなものを貼り付け、擬似的な凹凸や表面模様などを付加することで質感の向上をもたらす技法です。\n記述は陰面消去方法のひとつであるZバッファ法を説明した文です。"
+        ],
+        [
+          "メタボールは、物体を球やだ円体の集合として擬似的にモデル化することで、滑らかな物体を表現する技術です。\n記述はレイキャスティング法を説明した文です。"
+        ],
+        [
+          "正しい。ラジオシティは、各ポリゴンに光のエネルギー量を持たせて形状の相互反射を計算することで、間接光（やわらかい光の回り込み）などを表現する技術です。照明工学の分野で発達した技術を3DCGのレンダリングに応用したものです。"
+        ],
+        [
+          "レイトレーシングは、3DCGを作成する時に必要となる陰影をつけるときに使われる手法で、観察者(物体を見ている目)から光源の経路を逆に追跡し、算術演算によって物体表面の輝度を求める手法です。\n記述はテクスチャマッピングを説明した文です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問10:https://www.nw-siken.com/kakomon/22_aki/am1_10.html"
+    },
+    {
+      "questionBodyText": "次の表定義において，\"在庫\" 表の製品番号に定義された参照制約によって拒否される可能性のある操作はどれか。ここで，実線は主キーを，破線は外部キーを表す。\n在庫（\n在庫管理番号\n,\n製品番号\n, 在庫量）\n製品（\n製品番号\n, 製品名, 型, 単価）",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問11",
+      "questionLabel": "問11",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "\"在庫\"表の行削除",
+        "\"在庫\"表の表削除",
+        "\"在庫\"表への行追加",
+        "\"製品\"表への行追加"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » データベース » データベース設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "データベース",
+        "データベース設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "データベース",
+      "categorySmall": "データベース設計",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_11.html",
+      "public_question_id": "74cad726d33993b9",
+      "original_question_id": "74cad726d33993b9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "参照制約",
+        "参照元表への行の追加\n参照先の表に存在しない値を含む行が追加された場合、参照制約を満たせなくなる\n参照先表の行の削除\n別表から参照されている値を含む行が削除された場合、参照制約を満たせなくなる"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "\"在庫\"表は参照する側の表なので、削除に関しては制限されません。"
+        ],
+        [
+          "\"在庫\"表は参照する側の表なので、削除に関しては制限されません。"
+        ],
+        [
+          "正しい。\"在庫\"表の\"製品番号\"列の値は、\"製品\"表の\"製品番号\"列の値として存在していなければなりません。\"在庫\"表に行を追加する際、もし存在しない製品番号を指定すると、参照制約違反となるためデータベースはその追加操作を拒否します。"
+        ],
+        [
+          "\"製品\"表は参照される側の表なので、追加に関しては制限されません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問11:https://www.nw-siken.com/kakomon/22_aki/am1_11.html"
+    },
+    {
+      "questionBodyText": "図のようなIPネットワークのLAN環境で，ホストAからホストBにパケットを送信する。LAN1において，パケット内のイーサネットフレームのあて先とIPデータグラムのあて先の組合せとして，適切なものはどれか。ここで，図中の MACn/IPm はホスト又はルータがもつインタフェースのMACアドレスとIPアドレスを示す。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問12",
+      "questionLabel": "問12",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq056b3afc6b6d9eb5_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq056b3afc6b6d9eb5_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq056b3afc6b6d9eb5_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq056b3afc6b6d9eb5_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » ネットワーク » データ通信と制御",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "データ通信と制御"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "データ通信と制御",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_12.html",
+      "public_question_id": "056b3afc6b6d9eb5",
+      "original_question_id": "056b3afc6b6d9eb5",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq056b3afc6b6d9eb5_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "IPパケット\nIPアドレスによってネットワーク層の通信を行うIPヘッダーを付加したパケット\nイーサネットフレーム(MACフレーム)\nMACアドレスによってデータリンク層の通信を行うために、IPパケットにMACヘッダーを付加したパケット",
+        "IP2",
+        "MAC3"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "まずIPパケットとイーサネットフレームの違いについて確認しておきます。IPパケット\nIPアドレスによってネットワーク層の通信を行うIPヘッダーを付加したパケット\nイーサネットフレーム(MACフレーム)\nMACアドレスによってデータリンク層の通信を行うために、IPパケットにMACヘッダーを付加したパケット\nホストBは、ホストAから見てルータの外側(異なるブロードキャストドメイン)に属するので、直接通信ができません。そこでホストAは、ルータを経由してホストBにパケットを届けることになります。IPアドレスは通信する端末間でエンドトゥエンドなので、ホストAが送信するIPデータグラムの宛先IPアドレスにはホストBの\nIP2を指定します。ルータとホストAは、同じブロードキャストドメインに属するので、ホストAはARPでルータのMACアドレスを取得して、MAC3を宛先MACアドレスに指定します。IPパケットを受け取ったルータは、宛先IPアドレスを見てホストBが自身に直接接続されているネットワークに属していると判断します。ルータは、ARPによってホストBのMACアドレスを取得し、宛先MACアドレスをMAC2に書き換えて、LAN2側のポートからイーサネットフレームを送出します。\nしたがって、LAN1内におけるパケットの宛先はIPアドレス「IP2」、MACアドレス「MAC3」に設定されています。"
+        ],
+        [
+          "まずIPパケットとイーサネットフレームの違いについて確認しておきます。IPパケット\nIPアドレスによってネットワーク層の通信を行うIPヘッダーを付加したパケット\nイーサネットフレーム(MACフレーム)\nMACアドレスによってデータリンク層の通信を行うために、IPパケットにMACヘッダーを付加したパケット\nホストBは、ホストAから見てルータの外側(異なるブロードキャストドメイン)に属するので、直接通信ができません。そこでホストAは、ルータを経由してホストBにパケットを届けることになります。IPアドレスは通信する端末間でエンドトゥエンドなので、ホストAが送信するIPデータグラムの宛先IPアドレスにはホストBの\nIP2を指定します。ルータとホストAは、同じブロードキャストドメインに属するので、ホストAはARPでルータのMACアドレスを取得して、MAC3を宛先MACアドレスに指定します。IPパケットを受け取ったルータは、宛先IPアドレスを見てホストBが自身に直接接続されているネットワークに属していると判断します。ルータは、ARPによってホストBのMACアドレスを取得し、宛先MACアドレスをMAC2に書き換えて、LAN2側のポートからイーサネットフレームを送出します。\nしたがって、LAN1内におけるパケットの宛先はIPアドレス「IP2」、MACアドレス「MAC3」に設定されています。"
+        ],
+        [
+          "まずIPパケットとイーサネットフレームの違いについて確認しておきます。IPパケット\nIPアドレスによってネットワーク層の通信を行うIPヘッダーを付加したパケット\nイーサネットフレーム(MACフレーム)\nMACアドレスによってデータリンク層の通信を行うために、IPパケットにMACヘッダーを付加したパケット\nホストBは、ホストAから見てルータの外側(異なるブロードキャストドメイン)に属するので、直接通信ができません。そこでホストAは、ルータを経由してホストBにパケットを届けることになります。IPアドレスは通信する端末間でエンドトゥエンドなので、ホストAが送信するIPデータグラムの宛先IPアドレスにはホストBの\nIP2を指定します。ルータとホストAは、同じブロードキャストドメインに属するので、ホストAはARPでルータのMACアドレスを取得して、MAC3を宛先MACアドレスに指定します。IPパケットを受け取ったルータは、宛先IPアドレスを見てホストBが自身に直接接続されているネットワークに属していると判断します。ルータは、ARPによってホストBのMACアドレスを取得し、宛先MACアドレスをMAC2に書き換えて、LAN2側のポートからイーサネットフレームを送出します。\nしたがって、LAN1内におけるパケットの宛先はIPアドレス「IP2」、MACアドレス「MAC3」に設定されています。"
+        ],
+        [
+          "まずIPパケットとイーサネットフレームの違いについて確認しておきます。IPパケット\nIPアドレスによってネットワーク層の通信を行うIPヘッダーを付加したパケット\nイーサネットフレーム(MACフレーム)\nMACアドレスによってデータリンク層の通信を行うために、IPパケットにMACヘッダーを付加したパケット\nホストBは、ホストAから見てルータの外側(異なるブロードキャストドメイン)に属するので、直接通信ができません。そこでホストAは、ルータを経由してホストBにパケットを届けることになります。IPアドレスは通信する端末間でエンドトゥエンドなので、ホストAが送信するIPデータグラムの宛先IPアドレスにはホストBの\nIP2を指定します。ルータとホストAは、同じブロードキャストドメインに属するので、ホストAはARPでルータのMACアドレスを取得して、MAC3を宛先MACアドレスに指定します。IPパケットを受け取ったルータは、宛先IPアドレスを見てホストBが自身に直接接続されているネットワークに属していると判断します。ルータは、ARPによってホストBのMACアドレスを取得し、宛先MACアドレスをMAC2に書き換えて、LAN2側のポートからイーサネットフレームを送出します。\nしたがって、LAN1内におけるパケットの宛先はIPアドレス「IP2」、MACアドレス「MAC3」に設定されています。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問12:https://www.nw-siken.com/kakomon/22_aki/am1_12.html"
+    },
+    {
+      "questionBodyText": "ほかのコンピュータ上にあるデータやサービスを呼び出すためのプロトコルで，メッセージ記述がXMLのヘッダーとボディで構成されているものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問13",
+      "questionLabel": "問13",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "CORBA",
+        "DCOM",
+        "SIP",
+        "SOAP"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » 通信プロトコル",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "通信プロトコル"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "通信プロトコル",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_13.html",
+      "public_question_id": "006cc766227389a9",
+      "original_question_id": "006cc766227389a9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "SOAP",
+        "REST"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Common Object Request Broker Architectureの略。様々なコンピュータ上で様々なプログラミング言語で書かれたソフトウェアコンポーネントの相互利用を可能にするものです。"
+        ],
+        [
+          "Distributed Component Object Modelの略。ネットワーク上に分散配置されたコンピュータ上のソフトウェアコンポーネント同士が通信するためのマイクロソフト社独自の技術仕様です。"
+        ],
+        [
+          "Session Initiation Protocolの略。ユーザー間で、音声や映像などのマルチメディア通信のセッションの確立、変更、切断を行うプロトコルです。"
+        ],
+        [
+          "正しい。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問13:https://www.nw-siken.com/kakomon/22_aki/am1_13.html"
+    },
+    {
+      "questionBodyText": "公開鍵暗号方式によって，暗号を使ってn人が相互に通信する場合，異なる鍵は全体で幾つ必要になるか。ここで，公開鍵，秘密鍵をそれぞれ一つと数える。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問14",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "n＋1",
+        "2n",
+        "n(n－1)\n2",
+        "log2\nn"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » 情報セキュリティ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "情報セキュリティ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "情報セキュリティ",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_14.html",
+      "public_question_id": "1f1d56584fc0d4d9",
+      "original_question_id": "1f1d56584fc0d4d9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "公開鍵暗号方式",
+        "2n",
+        "共通鍵暗号方式",
+        "n(n－1)\n2"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "公開鍵暗号方式\nを使った暗号通信では、復号鍵(秘密鍵)を正規の受信者が保持し、暗号化鍵(公開鍵)を複数の送信者に向けて公開します。暗号化は誰でもできますが、正しく復号できるのは正規の受信者のみなので通信内容を秘匿にすることができます。\nこの方式では、一組の秘密鍵と公開鍵を用意するだけで、受信者1人が不特定多数の送信者と暗号通信を行うことができます。n人が相互に暗号通信する場合、秘密鍵を保持する受信者はn人なので必要となる秘密鍵はn個です。さらに、n個の秘密鍵に対応する公開鍵がn個必要になるため、鍵の総数は「n＋n＝\n2n個」となります。したがって「イ」が正解です。\nなお、\n共通鍵暗号方式\nでn人が相互に暗号化通信を行うには、n(n－1)\n2個（n人から2人を選ぶ組合せと同数）の鍵が必要となります。"
+        ],
+        [
+          "公開鍵暗号方式\nを使った暗号通信では、復号鍵(秘密鍵)を正規の受信者が保持し、暗号化鍵(公開鍵)を複数の送信者に向けて公開します。暗号化は誰でもできますが、正しく復号できるのは正規の受信者のみなので通信内容を秘匿にすることができます。\nこの方式では、一組の秘密鍵と公開鍵を用意するだけで、受信者1人が不特定多数の送信者と暗号通信を行うことができます。n人が相互に暗号通信する場合、秘密鍵を保持する受信者はn人なので必要となる秘密鍵はn個です。さらに、n個の秘密鍵に対応する公開鍵がn個必要になるため、鍵の総数は「n＋n＝\n2n個」となります。したがって「イ」が正解です。\nなお、\n共通鍵暗号方式\nでn人が相互に暗号化通信を行うには、n(n－1)\n2個（n人から2人を選ぶ組合せと同数）の鍵が必要となります。"
+        ],
+        [
+          "公開鍵暗号方式\nを使った暗号通信では、復号鍵(秘密鍵)を正規の受信者が保持し、暗号化鍵(公開鍵)を複数の送信者に向けて公開します。暗号化は誰でもできますが、正しく復号できるのは正規の受信者のみなので通信内容を秘匿にすることができます。\nこの方式では、一組の秘密鍵と公開鍵を用意するだけで、受信者1人が不特定多数の送信者と暗号通信を行うことができます。n人が相互に暗号通信する場合、秘密鍵を保持する受信者はn人なので必要となる秘密鍵はn個です。さらに、n個の秘密鍵に対応する公開鍵がn個必要になるため、鍵の総数は「n＋n＝\n2n個」となります。したがって「イ」が正解です。\nなお、\n共通鍵暗号方式\nでn人が相互に暗号化通信を行うには、n(n－1)\n2個（n人から2人を選ぶ組合せと同数）の鍵が必要となります。"
+        ],
+        [
+          "公開鍵暗号方式\nを使った暗号通信では、復号鍵(秘密鍵)を正規の受信者が保持し、暗号化鍵(公開鍵)を複数の送信者に向けて公開します。暗号化は誰でもできますが、正しく復号できるのは正規の受信者のみなので通信内容を秘匿にすることができます。\nこの方式では、一組の秘密鍵と公開鍵を用意するだけで、受信者1人が不特定多数の送信者と暗号通信を行うことができます。n人が相互に暗号通信する場合、秘密鍵を保持する受信者はn人なので必要となる秘密鍵はn個です。さらに、n個の秘密鍵に対応する公開鍵がn個必要になるため、鍵の総数は「n＋n＝\n2n個」となります。したがって「イ」が正解です。\nなお、\n共通鍵暗号方式\nでn人が相互に暗号化通信を行うには、n(n－1)\n2個（n人から2人を選ぶ組合せと同数）の鍵が必要となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "201002:am:問14:https://www.nw-siken.com/kakomon/22_aki/am1_14.html"
+    },
+    {
+      "questionBodyText": "プログラム実行中の特定の時点で成立する変数間の関係や条件を記述した論理式を埋め込んで，そのプログラムの正当性を検証する手法はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問15",
+      "questionLabel": "問15",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アサーションチェック",
+        "コード追跡",
+        "スナップショットダンプ",
+        "テストカバレッジ分析"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア構築",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア構築"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア構築",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_15.html",
+      "public_question_id": "0a21007b02b5992b",
+      "original_question_id": "0a21007b02b5992b",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "アサーションチェック"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "命令単位でプログラムを実行し、実行直後のメモリやレジスタの内容などの情報を逐一確認する手法です。コード追跡を可能にするツールにトレーサーがあります。"
+        ],
+        [
+          "プログラム中の特定の命令文が実行されるたびに、その時のメモリやレジスタの内容を出力するテスト支援ツールです。"
+        ],
+        [
+          "プログラムの品質を定量的に把握するために、テストの網羅率(カバレージ)を測定・分析する手法です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問15:https://www.nw-siken.com/kakomon/22_aki/am1_15.html"
+    },
+    {
+      "questionBodyText": "マッシュアップに該当するものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問16",
+      "questionLabel": "問16",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "既存のプログラムから，そのプログラムの仕様を導き出す。",
+        "既存のプログラムを部品化し，それらの部品を組み合わせて，新規プログラムを開発する。",
+        "クラスライブラリを利用して，新規プログラムを開発する。",
+        "公開されている複数のサービスを利用して，新たなサービスを提供する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_16.html",
+      "public_question_id": "08105478263200f0",
+      "original_question_id": "08105478263200f0",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "マッシュアップ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "リバースエンジニアリングの説明です。"
+        ],
+        [
+          "コンポーネント指向プログラミングの説明です。"
+        ],
+        [
+          "オブジェクト指向開発手法の説明です。"
+        ],
+        [
+          "正しい。マッシュアップの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問16:https://www.nw-siken.com/kakomon/22_aki/am1_16.html"
+    },
+    {
+      "questionBodyText": "特許権に関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問17",
+      "questionLabel": "問17",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "A社が特許を出願するより前に独自に開発して発売した製品は，A社の特許権の侵害にならない。",
+        "組込み機器におけるハードウェアは特許権で保護されるが，ソフトウェアは保護されない。",
+        "審査を受けて特許権を取得した後に，特許権が無効となることはない。",
+        "先行特許と同一の技術であっても，独自に開発した技術であれば特許権の侵害にならない。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 知的財産適用管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "知的財産適用管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "知的財産適用管理",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_17.html",
+      "public_question_id": "fb797821f9c59474",
+      "original_question_id": "fb797821f9c59474",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "正しい。"
+        ],
+        [
+          "ハードウェアと共にソフトウェアも保護対象になります。"
+        ],
+        [
+          "特許無効審判で無効になる可能性があります。"
+        ],
+        [
+          "著作権とは異なり、作成方法が違っても同一の技術であると認められれば特許権の侵害となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問17:https://www.nw-siken.com/kakomon/22_aki/am1_17.html"
+    },
+    {
+      "questionBodyText": "WBSの構成要素であるワークパッケージに関する記述のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問18",
+      "questionLabel": "問18",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ワークパッケージは，OBSのチームに，担当する人員を割り当てたものである。",
+        "ワークパッケージは，関連のある要素成果物をまとめたものである。",
+        "ワークパッケージは，更にアクティビティに分解される。",
+        "ワークパッケージは，一つ上位の要素成果物と1対1に対応する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトのスコープ",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトのスコープ"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトのスコープ",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_18.html",
+      "public_question_id": "8a9f73af4e8152c8",
+      "original_question_id": "8a9f73af4e8152c8",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "WBS",
+        "ワークパッケージ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "WBSに担当人員を割り振るとOBSになります。"
+        ],
+        [
+          "ワークパッケージは、WBSの最下層の要素成果物です。"
+        ],
+        [
+          "正しい。PMBOK第5版によれば、ワークパッケージは、タイムマネジメントの「アクティビティ定義」にて1つ以上のアクティビティに分解されます。"
+        ],
+        [
+          "ワークパッケージは、1階層上の成果物の一部分または中間成果物であり、必ずしも1対1で対応するとは限りません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問18:https://www.nw-siken.com/kakomon/22_aki/am1_18.html"
+    },
+    {
+      "questionBodyText": "アローダイアグラムで表される作業A～Hを見直したところ，作業Dだけが短縮可能であり，その所要日数を6日間に短縮できることが分かった。作業全体の所要日数は何日間短縮できるか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問19",
+      "questionLabel": "問19",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » プロジェクトマネジメント » プロジェクトの時間",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "プロジェクトマネジメント",
+        "プロジェクトの時間"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "プロジェクトマネジメント",
+      "categorySmall": "プロジェクトの時間",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_19.html",
+      "public_question_id": "ee6908a3d58ea0f3",
+      "original_question_id": "ee6908a3d58ea0f3",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqee6908a3d58ea0f3_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "A→B→E→G5＋3＋5＋3＝16日\nA→B→E→(ダミー)→H5＋3＋5＋0＋6＝19日\nA→C→D→E→G5＋5＋10＋5＋3＝28日\nA→C→D→E→(ダミー)→H5＋5＋10＋5＋0＋6＝\n31日\nA→C→F→H5＋5＋12＋6＝28日",
+        "A→C→D→E→G5＋5＋\n6\n＋5＋3＝\n24日\nA→C→D→E→(ダミー)→H5＋5＋\n6\n＋5＋0＋6＝\n27日"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "アローダイアグラムの定番問題です。\nまず、作業D短縮前の図におけるクリティカルパスを求めます。※ダミー作業は作業日数0日の作業として計算します。A→B→E→G5＋3＋5＋3＝16日\nA→B→E→(ダミー)→H5＋3＋5＋0＋6＝19日\nA→C→D→E→G5＋5＋10＋5＋3＝28日\nA→C→D→E→(ダミー)→H5＋5＋10＋5＋0＋6＝\n31日\nA→C→F→H5＋5＋12＋6＝28日\n以上の計算からクリティカルパスは「A→C→D→E→(ダミー)→H」、最短所要日数は「31日」であることがわかります。\n次に、作業Dの作業日数が10日間から6日間に短縮された場合ですが、作業Dを含む2つのパスについて所要日数が以下のように変化します。A→C→D→E→G5＋5＋\n6\n＋5＋3＝\n24日\nA→C→D→E→(ダミー)→H5＋5＋\n6\n＋5＋0＋6＝\n27日\n作業短縮前のクリティカルパスである「A→C→D→E→(ダミー)→H」の所要日数が27日に短縮されるので、短縮後のアローダイアグラムにおけるクリティカルパスは、より所要日数の長い「A→C→F→H（28日間）」に移ります。\n短縮前後の最短所要日数の差は「31日－28日＝3日」ですので、作業全体の短縮日数は「3日」となります。"
+        ],
+        [
+          "アローダイアグラムの定番問題です。\nまず、作業D短縮前の図におけるクリティカルパスを求めます。※ダミー作業は作業日数0日の作業として計算します。A→B→E→G5＋3＋5＋3＝16日\nA→B→E→(ダミー)→H5＋3＋5＋0＋6＝19日\nA→C→D→E→G5＋5＋10＋5＋3＝28日\nA→C→D→E→(ダミー)→H5＋5＋10＋5＋0＋6＝\n31日\nA→C→F→H5＋5＋12＋6＝28日\n以上の計算からクリティカルパスは「A→C→D→E→(ダミー)→H」、最短所要日数は「31日」であることがわかります。\n次に、作業Dの作業日数が10日間から6日間に短縮された場合ですが、作業Dを含む2つのパスについて所要日数が以下のように変化します。A→C→D→E→G5＋5＋\n6\n＋5＋3＝\n24日\nA→C→D→E→(ダミー)→H5＋5＋\n6\n＋5＋0＋6＝\n27日\n作業短縮前のクリティカルパスである「A→C→D→E→(ダミー)→H」の所要日数が27日に短縮されるので、短縮後のアローダイアグラムにおけるクリティカルパスは、より所要日数の長い「A→C→F→H（28日間）」に移ります。\n短縮前後の最短所要日数の差は「31日－28日＝3日」ですので、作業全体の短縮日数は「3日」となります。"
+        ],
+        [
+          "アローダイアグラムの定番問題です。\nまず、作業D短縮前の図におけるクリティカルパスを求めます。※ダミー作業は作業日数0日の作業として計算します。A→B→E→G5＋3＋5＋3＝16日\nA→B→E→(ダミー)→H5＋3＋5＋0＋6＝19日\nA→C→D→E→G5＋5＋10＋5＋3＝28日\nA→C→D→E→(ダミー)→H5＋5＋10＋5＋0＋6＝\n31日\nA→C→F→H5＋5＋12＋6＝28日\n以上の計算からクリティカルパスは「A→C→D→E→(ダミー)→H」、最短所要日数は「31日」であることがわかります。\n次に、作業Dの作業日数が10日間から6日間に短縮された場合ですが、作業Dを含む2つのパスについて所要日数が以下のように変化します。A→C→D→E→G5＋5＋\n6\n＋5＋3＝\n24日\nA→C→D→E→(ダミー)→H5＋5＋\n6\n＋5＋0＋6＝\n27日\n作業短縮前のクリティカルパスである「A→C→D→E→(ダミー)→H」の所要日数が27日に短縮されるので、短縮後のアローダイアグラムにおけるクリティカルパスは、より所要日数の長い「A→C→F→H（28日間）」に移ります。\n短縮前後の最短所要日数の差は「31日－28日＝3日」ですので、作業全体の短縮日数は「3日」となります。"
+        ],
+        [
+          "アローダイアグラムの定番問題です。\nまず、作業D短縮前の図におけるクリティカルパスを求めます。※ダミー作業は作業日数0日の作業として計算します。A→B→E→G5＋3＋5＋3＝16日\nA→B→E→(ダミー)→H5＋3＋5＋0＋6＝19日\nA→C→D→E→G5＋5＋10＋5＋3＝28日\nA→C→D→E→(ダミー)→H5＋5＋10＋5＋0＋6＝\n31日\nA→C→F→H5＋5＋12＋6＝28日\n以上の計算からクリティカルパスは「A→C→D→E→(ダミー)→H」、最短所要日数は「31日」であることがわかります。\n次に、作業Dの作業日数が10日間から6日間に短縮された場合ですが、作業Dを含む2つのパスについて所要日数が以下のように変化します。A→C→D→E→G5＋5＋\n6\n＋5＋3＝\n24日\nA→C→D→E→(ダミー)→H5＋5＋\n6\n＋5＋0＋6＝\n27日\n作業短縮前のクリティカルパスである「A→C→D→E→(ダミー)→H」の所要日数が27日に短縮されるので、短縮後のアローダイアグラムにおけるクリティカルパスは、より所要日数の長い「A→C→F→H（28日間）」に移ります。\n短縮前後の最短所要日数の差は「31日－28日＝3日」ですので、作業全体の短縮日数は「3日」となります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問19:https://www.nw-siken.com/kakomon/22_aki/am1_19.html"
+    },
+    {
+      "questionBodyText": "次の処理条件でサーバ上のファイルを磁気テープにバックアップするとき，バックアップの運用に必要な磁気テープは何本か。\n〔処理条件〕\n毎月初日(1日)にフルバックアップを取る。フルバックアップは1回につき1本の磁気テープを必要とする。\nフルバックアップを取った翌日から次のフルバックアップまでは，毎日，差分バックアップを取る。差分バックアップは，差分バックアップ用として別の磁気テープに追記し，1カ月分が1本に記録できる。\n常に6か月前の同一日までのデータについて，指定日の状態にファイルを復元できることを保証する。ただし，6か月前の同一日が存在しない場合は，当該月の月末以降のデータについて，指定日の状態にファイルを復元できることを保証する (例：10月31日の場合は，4月30日以降のデータについて，指定日の状態にファイルを復元できることを保証する)。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問20",
+      "questionLabel": "問20",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスの運用",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスの運用"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスの運用",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_20.html",
+      "public_question_id": "c496da717adbfa47",
+      "original_question_id": "c496da717adbfa47",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "14本"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "設問の例「10月31日の場合は、4月30日以降のデータについて、指定日の状態にファイルを復元できることを保証する」ために何本の磁気テープが必要かを考えます。\n差分バックアップ方式ではフルバックアップの適用後、差分バックアップを使ってフルバックアップ以後の変更箇所を反映することで復元を行います。このため指定日の状態に復元するためには、指定日の属する月の初日に取ったフルバックアップと、その月の毎日の差分を記録した差分バックアップの2つが必要となります。各月フル用と差分用で2本の磁気テープが必要であり、4月、5月、…、10月までには全部で7つの月が存在するので、必要となる磁気テープ数は「2本×7月＝\n14本\n」となります。\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "設問の例「10月31日の場合は、4月30日以降のデータについて、指定日の状態にファイルを復元できることを保証する」ために何本の磁気テープが必要かを考えます。\n差分バックアップ方式ではフルバックアップの適用後、差分バックアップを使ってフルバックアップ以後の変更箇所を反映することで復元を行います。このため指定日の状態に復元するためには、指定日の属する月の初日に取ったフルバックアップと、その月の毎日の差分を記録した差分バックアップの2つが必要となります。各月フル用と差分用で2本の磁気テープが必要であり、4月、5月、…、10月までには全部で7つの月が存在するので、必要となる磁気テープ数は「2本×7月＝\n14本\n」となります。\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "設問の例「10月31日の場合は、4月30日以降のデータについて、指定日の状態にファイルを復元できることを保証する」ために何本の磁気テープが必要かを考えます。\n差分バックアップ方式ではフルバックアップの適用後、差分バックアップを使ってフルバックアップ以後の変更箇所を反映することで復元を行います。このため指定日の状態に復元するためには、指定日の属する月の初日に取ったフルバックアップと、その月の毎日の差分を記録した差分バックアップの2つが必要となります。各月フル用と差分用で2本の磁気テープが必要であり、4月、5月、…、10月までには全部で7つの月が存在するので、必要となる磁気テープ数は「2本×7月＝\n14本\n」となります。\nしたがって「ウ」が正解です。"
+        ],
+        [
+          "設問の例「10月31日の場合は、4月30日以降のデータについて、指定日の状態にファイルを復元できることを保証する」ために何本の磁気テープが必要かを考えます。\n差分バックアップ方式ではフルバックアップの適用後、差分バックアップを使ってフルバックアップ以後の変更箇所を反映することで復元を行います。このため指定日の状態に復元するためには、指定日の属する月の初日に取ったフルバックアップと、その月の毎日の差分を記録した差分バックアップの2つが必要となります。各月フル用と差分用で2本の磁気テープが必要であり、4月、5月、…、10月までには全部で7つの月が存在するので、必要となる磁気テープ数は「2本×7月＝\n14本\n」となります。\nしたがって「ウ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問20:https://www.nw-siken.com/kakomon/22_aki/am1_20.html"
+    },
+    {
+      "questionBodyText": "サービス提供の時間帯を7:00～19:00としているシステムにおいて，16:00にシステム故障が発生し，サービスが停止した。修理は21:00までかかり，当日中にサービスは再開されなかった。この日の可用性は何％か。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "25",
+        "60",
+        "64",
+        "75"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » サービスマネジメント » サービスの運用",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "サービスマネジメント",
+        "サービスの運用"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "サービスマネジメント",
+      "categorySmall": "サービスの運用",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_21.html",
+      "public_question_id": "4d40b79ac29f39f6",
+      "original_question_id": "4d40b79ac29f39f6",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "75%"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "サービス提供時間帯が7:00～19:00なので、1日のサービス提供時間は12時間です。\nサービスが停止したのが16:00　修理が完了したのが21:00ですが、一日のサービスの終了時間が19:00なので、実際にサービス要求に応答できなかった時間は3時間だということになります。\nつまり可用性は、\n(12－3)／12＝0.75と計算できるので、正解は\n75%\nになります。"
+        ],
+        [
+          "サービス提供時間帯が7:00～19:00なので、1日のサービス提供時間は12時間です。\nサービスが停止したのが16:00　修理が完了したのが21:00ですが、一日のサービスの終了時間が19:00なので、実際にサービス要求に応答できなかった時間は3時間だということになります。\nつまり可用性は、\n(12－3)／12＝0.75と計算できるので、正解は\n75%\nになります。"
+        ],
+        [
+          "サービス提供時間帯が7:00～19:00なので、1日のサービス提供時間は12時間です。\nサービスが停止したのが16:00　修理が完了したのが21:00ですが、一日のサービスの終了時間が19:00なので、実際にサービス要求に応答できなかった時間は3時間だということになります。\nつまり可用性は、\n(12－3)／12＝0.75と計算できるので、正解は\n75%\nになります。"
+        ],
+        [
+          "サービス提供時間帯が7:00～19:00なので、1日のサービス提供時間は12時間です。\nサービスが停止したのが16:00　修理が完了したのが21:00ですが、一日のサービスの終了時間が19:00なので、実際にサービス要求に応答できなかった時間は3時間だということになります。\nつまり可用性は、\n(12－3)／12＝0.75と計算できるので、正解は\n75%\nになります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問21:https://www.nw-siken.com/kakomon/22_aki/am1_21.html"
+    },
+    {
+      "questionBodyText": "\"システム管理基準\" の説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "コンピュータウィルスに対する予防，発見，駆除，復旧などについて実効性の高い対策をとりまとめたもの",
+        "コンピュータ不正アクセスによる被害の予防，発見，再発防止などについて，組織及び個人が実行すべき対策をとりまとめたもの",
+        "情報戦略を立案し，効果的な情報システム投資とリスクを低減するためのコントロールを適切に整備・運用するための事項をとりまとめたもの",
+        "ソフトウェアの違法複製を防止するため，法人，団体などを対象として，ソフトウェアを使用するに当たって実行されるべき事項をとりまとめたもの"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "マネジメント系 » システム監査 » システム監査",
+      "categoryHierarchy": [
+        "マネジメント系",
+        "システム監査",
+        "システム監査"
+      ],
+      "categoryMajor": "マネジメント系",
+      "categoryMiddle": "システム監査",
+      "categorySmall": "システム監査",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_22.html",
+      "public_question_id": "a38f3a196c9513b3",
+      "original_question_id": "a38f3a196c9513b3",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "システム管理基準"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "コンピュータウィルス対策基準です。"
+        ],
+        [
+          "コンピュータ不正アクセス対策基準です。"
+        ],
+        [
+          "正しい。システム管理基準です。"
+        ],
+        [
+          "ソフトウェア管理ガイドラインです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問22:https://www.nw-siken.com/kakomon/22_aki/am1_22.html"
+    },
+    {
+      "questionBodyText": "エンタープライズアーキテクチャを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "企業が競争優位性の構築を目的にIT戦略の策定・実行をコントロールし，あるべき方向へ導く組織能力のことである。",
+        "業務を管理するシステムにおいて，承認された業務がすべて正確に処理，記録されることを確保するために，業務プロセスに組み込まれた内部統制のことである。",
+        "組織全体の業務とシステムを統一的な手法でモデル化し，業務とシステムを同時に改善することを目的とした，業務とシステムの最適化手法である。",
+        "プロジェクトの進捗や作業のパフォーマンスを，出来高の価値によって定量化し，プロジェクトの現在及び今後の状況を評価する手法である。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » 情報システム戦略",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "情報システム戦略"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "情報システム戦略",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_23.html",
+      "public_question_id": "55452c8624db3bb9",
+      "original_question_id": "55452c8624db3bb9",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "エンタープライズアーキテクチャ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "ITガバナンスの説明です"
+        ],
+        [
+          "業務処理統制の説明です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "EVM(Earned Value Management)の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問23:https://www.nw-siken.com/kakomon/22_aki/am1_23.html"
+    },
+    {
+      "questionBodyText": "SOAを説明したものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "企業改革において既存の組織やビジネスルールを抜本的に見直し，業務フロー，管理機構，情報システムを再構築する手法のこと",
+        "企業の経営資源を有効に活用して経営の効率を向上させるために，基幹業務を部門ごとでなく統合的に管理するための業務システムのこと",
+        "発注者とITアウトソーシングサービス提供者との間で，サービスの品質について合意した文書のこと",
+        "ビジネスプロセスの構成要素とそれを支援するIT基盤を，ソフトウェア部品であるサービスとして提供するシステムアーキテクチャのこと"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » システム戦略 » ソリューションビジネス",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "システム戦略",
+        "ソリューションビジネス"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "システム戦略",
+      "categorySmall": "ソリューションビジネス",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_24.html",
+      "public_question_id": "a0ba471b94586dff",
+      "original_question_id": "a0ba471b94586dff",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "SOA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "BPR(Business Process Reengineering)の説明です。"
+        ],
+        [
+          "ERP(Enterprise Resource Planning)の説明です。"
+        ],
+        [
+          "SLA(Service Level Agreement)の説明です。"
+        ],
+        [
+          "正しい。SOAの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問24:https://www.nw-siken.com/kakomon/22_aki/am1_24.html"
+    },
+    {
+      "questionBodyText": "サプライチェーンマネジメントの改善指標となるものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅰ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "残業時間の減少率",
+        "販売単価下落の防止率",
+        "不良在庫の減少率",
+        "優良顧客数の増加率"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "ストラテジ系 » 経営戦略マネジメント » 経営管理システム",
+      "categoryHierarchy": [
+        "ストラテジ系",
+        "経営戦略マネジメント",
+        "経営管理システム"
+      ],
+      "categoryMajor": "ストラテジ系",
+      "categoryMiddle": "経営戦略マネジメント",
+      "categorySmall": "経営管理システム",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_25.html",
+      "public_question_id": "d47003554b8de646",
+      "original_question_id": "d47003554b8de646",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "サプライチェーンマネジメント"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "サプライチェーンマネジメント\n(SCM)は、生産・在庫・購買・販売・物流など、すべての情報をリアルタイムに交換することによってサプライチェーン全体の効率を大幅に向上させる手法です。\n素材，部品，製品，流通および販売までの連鎖(サプライチェーン)を最適化することで無駄な在庫や生産を減らし効率化を図ることができます。\nしたがってSCM運用の効果を確認するには、不良在庫率の減少率を指標とすることが適切と言えます。"
+        ],
+        [
+          "サプライチェーンマネジメント\n(SCM)は、生産・在庫・購買・販売・物流など、すべての情報をリアルタイムに交換することによってサプライチェーン全体の効率を大幅に向上させる手法です。\n素材，部品，製品，流通および販売までの連鎖(サプライチェーン)を最適化することで無駄な在庫や生産を減らし効率化を図ることができます。\nしたがってSCM運用の効果を確認するには、不良在庫率の減少率を指標とすることが適切と言えます。"
+        ],
+        [
+          "サプライチェーンマネジメント\n(SCM)は、生産・在庫・購買・販売・物流など、すべての情報をリアルタイムに交換することによってサプライチェーン全体の効率を大幅に向上させる手法です。\n素材，部品，製品，流通および販売までの連鎖(サプライチェーン)を最適化することで無駄な在庫や生産を減らし効率化を図ることができます。\nしたがってSCM運用の効果を確認するには、不良在庫率の減少率を指標とすることが適切と言えます。"
+        ],
+        [
+          "サプライチェーンマネジメント\n(SCM)は、生産・在庫・購買・販売・物流など、すべての情報をリアルタイムに交換することによってサプライチェーン全体の効率を大幅に向上させる手法です。\n素材，部品，製品，流通および販売までの連鎖(サプライチェーン)を最適化することで無駄な在庫や生産を減らし効率化を図ることができます。\nしたがってSCM運用の効果を確認するには、不良在庫率の減少率を指標とすることが適切と言えます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問25:https://www.nw-siken.com/kakomon/22_aki/am1_25.html"
+    }
+  ]
+}

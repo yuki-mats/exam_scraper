@@ -1,0 +1,62 @@
+[
+  {
+    "questionBodyText": "送信元を詐称した電子メールを拒否するために，SPF(Sender Policy Framework)の仕組みにおいて受信側が行うことはどれか。",
+    "choiceTextList": [
+      "Resent-Sender:，Resent-From:，Sender:，From: などのメールヘッダーの送信者メールアドレスを基に送信メールアカウントを検証する。",
+      "SMTPが利用するポート番号25の通信を拒否する。",
+      "SMTP通信中にやり取りされるMAIL FROMコマンドで与えられた送信ドメインと送信サーバのIPアドレスの適合性を検証する。",
+      "電子メールに付加されたデジタル署名を検証する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f9c9b83af1218d11",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_21.html"
+  },
+  {
+    "questionBodyText": "表示解像度が1000×800ドットで，色数が65,536色(216色)を表示するのに最低限必要なビデオメモリ容量は何Mバイトか。ここで，1Mバイト＝1,000kバイト，1kバイト＝1,000バイトとする。",
+    "choiceTextList": [
+      "1.6",
+      "3.2",
+      "6.4",
+      "12.8"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1fb3d9cf336474e2",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_22.html"
+  },
+  {
+    "questionBodyText": "ノードN1とノードN2の間をノードNを介して通信路で結んだデータ伝送網がある。N1とN2の間の構成についてA～Cの三つの案を考えた。ノードは故障しないものとし，各ノード間の通信路が故障する確率は，全て等しくF(0＜F＜1)とする。三つの案を，稼働率が高い順に並べたものはどれか。",
+    "choiceTextList": [
+      "B案 ＞ A案 ＞ C案",
+      "B案 ＞ C案 ＞ A案",
+      "C案 ＞ A案 ＞ B案",
+      "C案 ＞ B案 ＞ A案"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1843fb51cd3b4564",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_23.html"
+  },
+  {
+    "questionBodyText": "オブジェクト指向におけるオブジェクト間の代表的な関係には，is-a と part-of の二つがある。表に示すオブジェクト間の関係の組合せのうち、適切なものはどれか。",
+    "choiceTextList": [
+      "ア",
+      "イ",
+      "ウ",
+      "エ"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "3836ca9418b40c03",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_24.html"
+  },
+  {
+    "questionBodyText": "SOA(Service Oriented Architecture)でサービスを設計する際の注意点のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "可用性を高めるために，ステートフルなインタフェースとする。",
+      "業務からの独立性を確保するために，サービスの命名は役割を表すものとする。",
+      "業務の変化に対応しやすくするために，サービス間の関係は疎結合にする。",
+      "セキュリティを高めるために，一度開発したサービスは再利用しない方がよい。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f891fb6d4c741628",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_25.html"
+  }
+]

@@ -1,0 +1,367 @@
+{
+  "list_group_id": "201002",
+  "question_bodies": [
+    {
+      "questionBodyText": "送信元を詐称した電子メールを拒否するために，SPF(Sender Policy Framework)の仕組みにおいて受信側が行うことはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Resent-Sender:，Resent-From:，Sender:，From: などのメールヘッダーの送信者メールアドレスを基に送信メールアカウントを検証する。",
+        "SMTPが利用するポート番号25の通信を拒否する。",
+        "SMTP通信中にやり取りされるMAIL FROMコマンドで与えられた送信ドメインと送信サーバのIPアドレスの適合性を検証する。",
+        "電子メールに付加されたデジタル署名を検証する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_21.html",
+      "public_question_id": "f9c9b83af1218d11",
+      "original_question_id": "f9c9b83af1218d11",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SPF",
+        "送信側は、送信側ドメインのDNSサーバのSPFレコード(またはTXTレコード)に正当なメールサーバのIPアドレスやホスト名を登録し、公開しておく。\n送信側から受信側へ、SMTPメールが送信される。\n受信側メールサーバは、受信側ドメインのDNSサーバを通じて、MAIL FROMコマンドに記載された送信者メールアドレスのドメインを管理するDNSサーバに問い合わせ、SPF情報を取得する。SPF情報との照合でSMTP接続してきたメールサーバのIPアドレスの確認に成功すれば、正当なドメインから送信されたと判断する。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SPFでは送信元のIPアドレス情報を元に正当性を確認します。"
+        ],
+        [
+          "OP25Bの仕組みです。"
+        ],
+        [
+          "正しい。SPFで受信側が行うことです。"
+        ],
+        [
+          "DKIM(DomainKeys Identified Mail)で受信側が行うことです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問21:https://www.nw-siken.com/kakomon/22_aki/am2_21.html"
+    },
+    {
+      "questionBodyText": "表示解像度が1000×800ドットで，色数が65,536色(216色)を表示するのに最低限必要なビデオメモリ容量は何Mバイトか。ここで，1Mバイト＝1,000kバイト，1kバイト＝1,000バイトとする。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "1.6",
+        "3.2",
+        "6.4",
+        "12.8"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_22.html",
+      "public_question_id": "1fb3d9cf336474e2",
+      "original_question_id": "1fb3d9cf336474e2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "16",
+        "1.6"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。1,000×800＝800,000(画素)\nまた65,536色(216色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。800,000×2＝1,600,000(バイト)＝\n1.6\n(MB)\nしたがって正解は「ア」です。"
+        ],
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。1,000×800＝800,000(画素)\nまた65,536色(216色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。800,000×2＝1,600,000(バイト)＝\n1.6\n(MB)\nしたがって正解は「ア」です。"
+        ],
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。1,000×800＝800,000(画素)\nまた65,536色(216色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。800,000×2＝1,600,000(バイト)＝\n1.6\n(MB)\nしたがって正解は「ア」です。"
+        ],
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。1,000×800＝800,000(画素)\nまた65,536色(216色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。800,000×2＝1,600,000(バイト)＝\n1.6\n(MB)\nしたがって正解は「ア」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問22:https://www.nw-siken.com/kakomon/22_aki/am2_22.html"
+    },
+    {
+      "questionBodyText": "ノードN1とノードN2の間をノードNを介して通信路で結んだデータ伝送網がある。N1とN2の間の構成についてA～Cの三つの案を考えた。ノードは故障しないものとし，各ノード間の通信路が故障する確率は，全て等しくF(0＜F＜1)とする。三つの案を，稼働率が高い順に並べたものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "B案 ＞ A案 ＞ C案",
+        "B案 ＞ C案 ＞ A案",
+        "C案 ＞ A案 ＞ B案",
+        "C案 ＞ B案 ＞ A案"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_23.html",
+      "public_question_id": "1843fb51cd3b4564",
+      "original_question_id": "1843fb51cd3b4564",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq1843fb51cd3b4564_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "0.92\n＝0.811－(1－0.81)\n2\n＝0.9639プログラムでの計算では約0.9781－(1－0.9)\n2\n＝0.990.99×0.99＝0.9801"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.92\n＝0.811－(1－0.81)\n2\n＝0.9639プログラムでの計算では約0.9781－(1－0.9)\n2\n＝0.990.99×0.99＝0.9801"
+        ],
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.92\n＝0.811－(1－0.81)\n2\n＝0.9639プログラムでの計算では約0.9781－(1－0.9)\n2\n＝0.990.99×0.99＝0.9801"
+        ],
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.92\n＝0.811－(1－0.81)\n2\n＝0.9639プログラムでの計算では約0.9781－(1－0.9)\n2\n＝0.990.99×0.99＝0.9801"
+        ],
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.92\n＝0.811－(1－0.81)\n2\n＝0.9639プログラムでの計算では約0.9781－(1－0.9)\n2\n＝0.990.99×0.99＝0.9801"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問23:https://www.nw-siken.com/kakomon/22_aki/am2_23.html"
+    },
+    {
+      "questionBodyText": "オブジェクト指向におけるオブジェクト間の代表的な関係には，is-a と part-of の二つがある。表に示すオブジェクト間の関係の組合せのうち、適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_24.html",
+      "public_question_id": "3836ca9418b40c03",
+      "original_question_id": "3836ca9418b40c03",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "is-a(汎化－特化)関係\n「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係\n「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係\n「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係\n「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。\n表の3つの関係をどちらかに当てはめると、\nタイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ],
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係\n「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係\n「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。\n表の3つの関係をどちらかに当てはめると、\nタイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ],
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係\n「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係\n「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。\n表の3つの関係をどちらかに当てはめると、\nタイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ],
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係\n「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係\n「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。\n表の3つの関係をどちらかに当てはめると、\nタイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問24:https://www.nw-siken.com/kakomon/22_aki/am2_24.html"
+    },
+    {
+      "questionBodyText": "SOA(Service Oriented Architecture)でサービスを設計する際の注意点のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "可用性を高めるために，ステートフルなインタフェースとする。",
+        "業務からの独立性を確保するために，サービスの命名は役割を表すものとする。",
+        "業務の変化に対応しやすくするために，サービス間の関係は疎結合にする。",
+        "セキュリティを高めるために，一度開発したサービスは再利用しない方がよい。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_25.html",
+      "public_question_id": "f891fb6d4c741628",
+      "original_question_id": "f891fb6d4c741628",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SOA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "サービスは、ある共有の状態を参照して動作するのではなく、受け渡された値のみによって機能を提供するステートレスなインタフェースでなくてはなりません。"
+        ],
+        [
+          "個々のサービスが1つの業務部品として扱われるため、サービスの名称は実世界の業務に合わせる形になります。"
+        ],
+        [
+          "正しい。サービス同士の独立性を高めるため関係を疎結合にします。"
+        ],
+        [
+          "ソフトウェアを部品化して再利用することが推奨されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問25:https://www.nw-siken.com/kakomon/22_aki/am2_25.html"
+    }
+  ]
+}
