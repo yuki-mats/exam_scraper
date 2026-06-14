@@ -1,0 +1,62 @@
+[
+  {
+    "questionBodyText": "利用者が別の機能によって認証された後，一定時間に限ってメールの送信を許可する仕組みはどれか。",
+    "choiceTextList": [
+      "DKIM",
+      "OP25B",
+      "POP before SMTP",
+      "SPF"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "90aa52db4d823066",
+    "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_21.html"
+  },
+  {
+    "questionBodyText": "メモリインターリーブの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "主記憶と外部記憶を一元的にアドレス付けし，主記憶の物理容量を超えるメモリ空間を提供する。",
+      "主記憶と磁気ディスク装置との間にバッファメモリを置いて，双方のアクセス速度の差を補う。",
+      "主記憶と入出力装置との間でCPUとは独立にデータ転送を行う。",
+      "主記憶の連続したアドレスを複数のブロックに分けて，並列的にアクセスすることでアクセスを高速化する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b3f70f381974d2dd",
+    "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_22.html"
+  },
+  {
+    "questionBodyText": "端末から400バイトの電文を送信し，ホストコンピュータが600バイトの電文を返信するトランザクション処理システムがある。回線速度を1×106ビット／秒，回線の伝送効率を80%，ホストコンピュータのトランザクション当たりの処理時間を40ミリ秒とする。ホストコンピュータでの処理待ち時間，伝送制御のための処理時間などは無視できるとした場合，端末における電文の送信開始から受信完了までの時間は何ミリ秒か。ここで，1バイトは8ビットである。",
+    "choiceTextList": [
+      "10",
+      "44",
+      "46",
+      "50"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "6a2fdad35f79c6cc",
+    "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_23.html"
+  },
+  {
+    "questionBodyText": "エラー埋込み法において，埋め込まれたエラー数をS，埋め込まれたエラーのうち発見されたエラー数をm，埋め込まれたエラーを含まないテスト開始前の潜在エラー数をT，発見された総エラー数をnとしたとき，S，T，m，nの関係を表す式はどれか。",
+    "choiceTextList": [
+      "mS\n＝\nn－mT",
+      "mS\n＝\nTn－m",
+      "mS\n＝\nnT",
+      "mS\n＝\nTn"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "34ae8e85880abdd4",
+    "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_24.html"
+  },
+  {
+    "questionBodyText": "ソフトウェアのリバースエンジニアリングの説明はどれか。",
+    "choiceTextList": [
+      "開発支援ツールなどを用いて，設計情報からソースコードを自動生成する。",
+      "外部から見たときの振る舞いを変えずに，ソフトウェアの内部構造を変える。",
+      "既存のソフトウェアを解析し，その仕様や構造を明らかにする。",
+      "既存のソフトウェアを分析し理解した上で，ソフトウェア全体を新しく構築し直す。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "373c8e426bf1d207",
+    "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_25.html"
+  }
+]

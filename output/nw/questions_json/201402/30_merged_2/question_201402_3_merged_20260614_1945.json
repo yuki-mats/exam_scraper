@@ -1,0 +1,495 @@
+{
+  "list_group_id": "201402",
+  "question_bodies": [
+    {
+      "questionBodyText": "利用者が別の機能によって認証された後，一定時間に限ってメールの送信を許可する仕組みはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成26年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DKIM",
+        "OP25B",
+        "POP before SMTP",
+        "SPF"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2014,
+      "list_group_id": "201402",
+      "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_21.html",
+      "public_question_id": "90aa52db4d823066",
+      "original_question_id": "90aa52db4d823066",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "POP before SMTP"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "DomainKeys Identified Mailの略。送信する電子メールにデジタル署名を付加し、受信側で発信元DNSサーバに登録されている公開鍵を使用してデジタル署名の検証を行うことで発信元メールサーバの正当性を検証する仕組みです。"
+        ],
+        [
+          "Outbound Port 25 Blockingの略。ISP管理下の動的IPアドレスからISPのメールサーバを経由せずに外向き(インターネット方向)に発信されるSMTP通信(ポート25番)を遮断することでスパムメールの投稿制限を行う手法です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "Sender Policy Frameworkの略。送信元IPアドレスを根拠に、正規のサーバから送られた電子メールかどうかを検証する技術です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201402:am:問21:https://www.nw-siken.com/kakomon/26_aki/am2_21.html",
+      "explanationText": [
+        "間違い。\n\nDKIM は送信メールに電子署名を付与し、受信側で送信ドメインの公開鍵を使って正当性を検証する仕組みであり、一定時間だけ送信を許可する方式ではない。",
+        "間違い。\n\nOP25B は ISP が外向きの 25 番ポート通信を制限するスパム対策であり、利用者認証後に送信許可を与える方式ではない。",
+        "正しい。\n\nPOP before SMTP は、利用者がまず POP で認証されたことを条件に、その後一定時間だけ SMTP 送信を許可する仕組みである。",
+        "間違い。\n\nSPF は送信元 IP アドレスが正規の送信サーバかどうかを受信側で検証する技術であり、送信許可の一時付与を行う方式ではない。"
+      ],
+      "suggestedQuestions": [
+        "POP before SMTPは何を条件に送信を許可しますか？",
+        "SMTP AUTHとの違いは何ですか？",
+        "DKIMやSPFは何を確認する技術ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "POP before SMTPは何を条件に送信を許可しますか？",
+          "answer": "直前に POP 認証へ成功した利用者に対して、一定時間だけ SMTP 送信を許可する。"
+        },
+        {
+          "question": "SMTP AUTHとの違いは何ですか？",
+          "answer": "SMTP AUTH は SMTP セッション中に直接認証するが、POP before SMTP は別の POP 認証結果を利用する。"
+        },
+        {
+          "question": "DKIMやSPFは何を確認する技術ですか？",
+          "answer": "どちらもメールの送信元詐称対策であり、受信側が送信元ドメインや送信サーバの正当性を検証する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "メモリインターリーブの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成26年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "主記憶と外部記憶を一元的にアドレス付けし，主記憶の物理容量を超えるメモリ空間を提供する。",
+        "主記憶と磁気ディスク装置との間にバッファメモリを置いて，双方のアクセス速度の差を補う。",
+        "主記憶と入出力装置との間でCPUとは独立にデータ転送を行う。",
+        "主記憶の連続したアドレスを複数のブロックに分けて，並列的にアクセスすることでアクセスを高速化する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2014,
+      "list_group_id": "201402",
+      "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_22.html",
+      "public_question_id": "b3f70f381974d2dd",
+      "original_question_id": "b3f70f381974d2dd",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "メモリインターリーブ"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "仮想記憶の説明です。"
+        ],
+        [
+          "ディスクバッファの説明です。"
+        ],
+        [
+          "DMA制御方式の説明です。"
+        ],
+        [
+          "正しい。メモリインターリーブの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201402:am:問22:https://www.nw-siken.com/kakomon/26_aki/am2_22.html",
+      "explanationText": [
+        "間違い。\n\n主記憶を超える仮想的なメモリ空間を提供するのは仮想記憶の説明であり、メモリインターリーブではない。",
+        "間違い。\n\n主記憶と磁気ディスクの速度差を埋めるためのバッファ利用はディスクキャッシュやバッファリングの説明である。",
+        "間違い。\n\nCPU と独立して主記憶と入出力装置の間で転送するのは DMA の説明である。",
+        "正しい。\n\nメモリインターリーブは、連続アドレスを複数メモリバンクへ分散し、並列的にアクセスして主記憶の実効アクセス速度を高める方式である。"
+      ],
+      "suggestedQuestions": [
+        "メモリインターリーブは何を高速化しますか？",
+        "DMAとの違いは何ですか？",
+        "仮想記憶との違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "メモリインターリーブは何を高速化しますか？",
+          "answer": "主記憶アクセスを複数バンクへ分散し、連続アクセス時の実効速度を高める。"
+        },
+        {
+          "question": "DMAとの違いは何ですか？",
+          "answer": "DMA は入出力装置と主記憶の転送方式、メモリインターリーブは主記憶内部の並列アクセス方式である。"
+        },
+        {
+          "question": "仮想記憶との違いは何ですか？",
+          "answer": "仮想記憶は記憶空間拡張の仕組みであり、メモリインターリーブは主記憶の高速化手法である。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs02_01_technology_product_evaluation"
+    },
+    {
+      "questionBodyText": "端末から400バイトの電文を送信し，ホストコンピュータが600バイトの電文を返信するトランザクション処理システムがある。回線速度を1×106ビット／秒，回線の伝送効率を80%，ホストコンピュータのトランザクション当たりの処理時間を40ミリ秒とする。ホストコンピュータでの処理待ち時間，伝送制御のための処理時間などは無視できるとした場合，端末における電文の送信開始から受信完了までの時間は何ミリ秒か。ここで，1バイトは8ビットである。",
+      "examLabel": "ネットワークスペシャリスト平成26年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "10",
+        "44",
+        "46",
+        "50"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ネットワーク » ネットワーク方式",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ネットワーク",
+        "ネットワーク方式"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ネットワーク",
+      "categorySmall": "ネットワーク方式",
+      "examYear": 2014,
+      "list_group_id": "201402",
+      "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_23.html",
+      "public_question_id": "6a2fdad35f79c6cc",
+      "original_question_id": "6a2fdad35f79c6cc",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "1,000バイトの電文の伝送時間＋トランザクションの処理時間",
+        "6",
+        "50"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "問題文がややこしいですが、整理すると送信開始から受信完了までの時間は次の3つの時間の合計になります。2つの電文をまとめて1つの電文と考えれば、求めるべき時間は、1,000バイトの電文の伝送時間＋トランザクションの処理時間\nということになります。\nまず設問のネットワークにおける回線速度1×106ビット／秒を電文と同じバイト単位に変換します。1,000,000÷8＝125,000(バイト／秒)\nさらに伝送効率が80%のため、実効伝送速度は次の通りです。125,000×0.8＝100,000(バイト／秒)\nこの回線で1,000バイトの電文を伝送するのに要する時間は以下のように計算できます。1,000÷100,000＝0.01(秒)＝10(ミリ秒)\nこの時間とホストコンピュータにおけるトランザクション処理時間40ミリ秒と合計して答えを算出します。10＋40＝\n50\n(ミリ秒)\nしたがって「エ」が正解です。"
+        ],
+        [
+          "問題文がややこしいですが、整理すると送信開始から受信完了までの時間は次の3つの時間の合計になります。2つの電文をまとめて1つの電文と考えれば、求めるべき時間は、1,000バイトの電文の伝送時間＋トランザクションの処理時間\nということになります。\nまず設問のネットワークにおける回線速度1×106ビット／秒を電文と同じバイト単位に変換します。1,000,000÷8＝125,000(バイト／秒)\nさらに伝送効率が80%のため、実効伝送速度は次の通りです。125,000×0.8＝100,000(バイト／秒)\nこの回線で1,000バイトの電文を伝送するのに要する時間は以下のように計算できます。1,000÷100,000＝0.01(秒)＝10(ミリ秒)\nこの時間とホストコンピュータにおけるトランザクション処理時間40ミリ秒と合計して答えを算出します。10＋40＝\n50\n(ミリ秒)\nしたがって「エ」が正解です。"
+        ],
+        [
+          "問題文がややこしいですが、整理すると送信開始から受信完了までの時間は次の3つの時間の合計になります。2つの電文をまとめて1つの電文と考えれば、求めるべき時間は、1,000バイトの電文の伝送時間＋トランザクションの処理時間\nということになります。\nまず設問のネットワークにおける回線速度1×106ビット／秒を電文と同じバイト単位に変換します。1,000,000÷8＝125,000(バイト／秒)\nさらに伝送効率が80%のため、実効伝送速度は次の通りです。125,000×0.8＝100,000(バイト／秒)\nこの回線で1,000バイトの電文を伝送するのに要する時間は以下のように計算できます。1,000÷100,000＝0.01(秒)＝10(ミリ秒)\nこの時間とホストコンピュータにおけるトランザクション処理時間40ミリ秒と合計して答えを算出します。10＋40＝\n50\n(ミリ秒)\nしたがって「エ」が正解です。"
+        ],
+        [
+          "問題文がややこしいですが、整理すると送信開始から受信完了までの時間は次の3つの時間の合計になります。2つの電文をまとめて1つの電文と考えれば、求めるべき時間は、1,000バイトの電文の伝送時間＋トランザクションの処理時間\nということになります。\nまず設問のネットワークにおける回線速度1×106ビット／秒を電文と同じバイト単位に変換します。1,000,000÷8＝125,000(バイト／秒)\nさらに伝送効率が80%のため、実効伝送速度は次の通りです。125,000×0.8＝100,000(バイト／秒)\nこの回線で1,000バイトの電文を伝送するのに要する時間は以下のように計算できます。1,000÷100,000＝0.01(秒)＝10(ミリ秒)\nこの時間とホストコンピュータにおけるトランザクション処理時間40ミリ秒と合計して答えを算出します。10＋40＝\n50\n(ミリ秒)\nしたがって「エ」が正解です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201402:am:問23:https://www.nw-siken.com/kakomon/26_aki/am2_23.html",
+      "explanationText": [
+        "間違い。\n\n400 バイト送信と 600 バイト受信の合計 1,000 バイトを回線へ流すので、10 ミリ秒だけではホスト処理時間 40 ミリ秒を含められていない。",
+        "間違い。\n\n44 ミリ秒では回線伝送時間 10 ミリ秒とホスト処理時間 40 ミリ秒の合計に届かない。",
+        "間違い。\n\n46 ミリ秒も同様に、送受信伝送時間とホスト処理時間の合計として不足している。",
+        "正しい。\n\n回線速度 1×10^6 ビット/秒は 125,000 バイト/秒、伝送効率 80% を掛けると実効速度は 100,000 バイト/秒である。送受信合計 1,000 バイトの伝送時間は 1,000 / 100,000 = 0.01 秒、つまり 10 ミリ秒であり、これにホスト処理時間 40 ミリ秒を加えると 50 ミリ秒になる。"
+      ],
+      "suggestedQuestions": [
+        "なぜ400バイトと600バイトを合計しますか？",
+        "伝送効率80%はどこに反映しますか？",
+        "ホスト処理時間はどう足し込みますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "なぜ400バイトと600バイトを合計しますか？",
+          "answer": "端末からの送信とホストからの返信の両方が完了して初めて処理が終わるため、合計 1,000 バイト分の伝送時間を見る。"
+        },
+        {
+          "question": "伝送効率80%はどこに反映しますか？",
+          "answer": "理論回線速度をバイト換算した後に 0.8 を掛けて、実効伝送速度を求める。"
+        },
+        {
+          "question": "ホスト処理時間はどう足し込みますか？",
+          "answer": "送受信の伝送時間とは別に、ホストで 40 ミリ秒処理するので最後に加算する。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs05_03_performance_analysis"
+    },
+    {
+      "questionBodyText": "エラー埋込み法において，埋め込まれたエラー数をS，埋め込まれたエラーのうち発見されたエラー数をm，埋め込まれたエラーを含まないテスト開始前の潜在エラー数をT，発見された総エラー数をnとしたとき，S，T，m，nの関係を表す式はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成26年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "mS\n＝\nn－mT",
+        "mS\n＝\nTn－m",
+        "mS\n＝\nnT",
+        "mS\n＝\nTn"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア構築",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア構築"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア構築",
+      "examYear": 2014,
+      "list_group_id": "201402",
+      "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_24.html",
+      "public_question_id": "34ae8e85880abdd4",
+      "original_question_id": "34ae8e85880abdd4",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "mS",
+        "n－mT",
+        "mS",
+        "n－mT"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "まず4つのエラー数の関係を図示します。\n潜在エラーのうちテストで発見されたエラー数は、次の式で表すことができます（下のオレンジ色の部分）。\n発見された総エラー数－埋め込まれたエラーのうち発見されたエラー数＝n－m埋め込まれたエラーの発見率\nmSと潜在エラーの発見率\nn－mTは同程度と考えられるので、mS\n＝\nn－mTの関係式が成り立ちます。"
+        ],
+        [
+          "まず4つのエラー数の関係を図示します。\n潜在エラーのうちテストで発見されたエラー数は、次の式で表すことができます（下のオレンジ色の部分）。\n発見された総エラー数－埋め込まれたエラーのうち発見されたエラー数＝n－m埋め込まれたエラーの発見率\nmSと潜在エラーの発見率\nn－mTは同程度と考えられるので、mS\n＝\nn－mTの関係式が成り立ちます。"
+        ],
+        [
+          "まず4つのエラー数の関係を図示します。\n潜在エラーのうちテストで発見されたエラー数は、次の式で表すことができます（下のオレンジ色の部分）。\n発見された総エラー数－埋め込まれたエラーのうち発見されたエラー数＝n－m埋め込まれたエラーの発見率\nmSと潜在エラーの発見率\nn－mTは同程度と考えられるので、mS\n＝\nn－mTの関係式が成り立ちます。"
+        ],
+        [
+          "まず4つのエラー数の関係を図示します。\n潜在エラーのうちテストで発見されたエラー数は、次の式で表すことができます（下のオレンジ色の部分）。\n発見された総エラー数－埋め込まれたエラーのうち発見されたエラー数＝n－m埋め込まれたエラーの発見率\nmSと潜在エラーの発見率\nn－mTは同程度と考えられるので、mS\n＝\nn－mTの関係式が成り立ちます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201402:am:問24:https://www.nw-siken.com/kakomon/26_aki/am2_24.html",
+      "explanationText": [
+        "正しい。\n\nエラー埋込み法では、埋め込んだエラーの発見率 m/S と、元々潜在していたエラーの発見率 (n-m)/T が同程度とみなせる。したがって m/S = (n-m)/T であり、変形すると m/S = (n-m)/T の関係、すなわち選択肢アの式が成り立つ。",
+        "間違い。\n\n分母と分子の対応が逆になっており、埋込みエラーの発見率と潜在エラーの発見率を等置した式になっていない。",
+        "間違い。\n\nn 全体をそのまま使うと、埋込みエラーと本来の潜在エラーを区別していないため誤りである。",
+        "間違い。\n\n埋込みエラーの発見率 m/S と、潜在エラーの発見率 (n-m)/T を対応させる必要があるので、この式にはならない。"
+      ],
+      "suggestedQuestions": [
+        "エラー埋込み法では何を同程度とみなしますか？",
+        "n-mは何を表しますか？",
+        "この式はどう変形して使いますか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "エラー埋込み法では何を同程度とみなしますか？",
+          "answer": "意図的に埋め込んだエラーの発見率と、元から潜在していたエラーの発見率を同程度とみなす。"
+        },
+        {
+          "question": "n-mは何を表しますか？",
+          "answer": "発見された総エラー数 n から、埋込みエラーで発見された数 m を引いた、本来潜在していたエラーの発見数である。"
+        },
+        {
+          "question": "この式はどう変形して使いますか？",
+          "answer": "m/S = (n-m)/T と置き、未知の潜在エラー数 T を推定する形へ変形して使う。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs03_05_test_result_analysis"
+    },
+    {
+      "questionBodyText": "ソフトウェアのリバースエンジニアリングの説明はどれか。",
+      "examLabel": "ネットワークスペシャリスト平成26年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "開発支援ツールなどを用いて，設計情報からソースコードを自動生成する。",
+        "外部から見たときの振る舞いを変えずに，ソフトウェアの内部構造を変える。",
+        "既存のソフトウェアを解析し，その仕様や構造を明らかにする。",
+        "既存のソフトウェアを分析し理解した上で，ソフトウェア全体を新しく構築し直す。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2014,
+      "list_group_id": "201402",
+      "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_25.html",
+      "public_question_id": "373c8e426bf1d207",
+      "original_question_id": "373c8e426bf1d207",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "リバースエンジニアリング"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "フォワードエンジニアリングの説明です。"
+        ],
+        [
+          "リファクタリングの説明です。"
+        ],
+        [
+          "正しい。リバースエンジニアリングの説明です。"
+        ],
+        [
+          "リエンジニアリングの説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201402:am:問25:https://www.nw-siken.com/kakomon/26_aki/am2_25.html",
+      "explanationText": [
+        "間違い。\n\n設計情報からコードを自動生成するのはフォワードエンジニアリングの説明である。",
+        "間違い。\n\n外部仕様を変えず内部構造だけを改善するのはリファクタリングの説明である。",
+        "正しい。\n\nリバースエンジニアリングは、既存ソフトウェアを解析して仕様や設計、構造を明らかにする活動であり、保守や再文書化で使われる。",
+        "間違い。\n\n既存ソフトウェアを分析した上で作り直すのはリエンジニアリングの説明であり、リバースエンジニアリングそのものではない。"
+      ],
+      "suggestedQuestions": [
+        "リバースエンジニアリングの目的は何ですか？",
+        "フォワードエンジニアリングとの違いは何ですか？",
+        "リエンジニアリングとの違いは何ですか？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "リバースエンジニアリングの目的は何ですか？",
+          "answer": "既存ソフトウェアの仕様や構造を理解し、文書化や保守へ役立てることである。"
+        },
+        {
+          "question": "フォワードエンジニアリングとの違いは何ですか？",
+          "answer": "フォワードは設計から実装へ進む方向、リバースは実装から設計や仕様を読み解く方向である。"
+        },
+        {
+          "question": "リエンジニアリングとの違いは何ですか？",
+          "answer": "リエンジニアリングは再構築まで含むが、リバースエンジニアリングはまず解析して構造を明らかにする段階を指す。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "nw_qs04_04_maintenance_update_execution"
+    }
+  ]
+}
