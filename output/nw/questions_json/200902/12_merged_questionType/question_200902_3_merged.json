@@ -1,0 +1,357 @@
+{
+  "list_group_id": "200902",
+  "question_bodies": [
+    {
+      "questionBodyText": "レイヤー2スイッチや無線LANアクセスポイントで接続を許可する仕組みはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "DHCP",
+        "Webシングルサインオン",
+        "認証VLAN",
+        "パーソナルファイアウォール"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_21.html",
+      "public_question_id": "4042a1692f164a48",
+      "original_question_id": "4042a1692f164a48",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "VLAN",
+        "ポートベースVLANスイッチの接続ポート単位でグルーピング\nアドレスベースVLANMACアドレスやIPアドレスを基準にグルーピング\nポリシーベースVLANIP、IPX、AppleTalkなどのネットワークプロトコルごとにグルーピング\nタグVLANパケット内の拡張タグに指定された情報によってグルーピング",
+        "認証VLAN"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "Dynamic Host Configuration Protocolの略。TCP/IPネットワークで、ネットワークに接続するノードへのIPアドレスの割り当てをアドレスプールから自動的に行うプロトコルです。"
+        ],
+        [
+          "Webシングルサインオンは、ユーザー認証を一度受けるだけで許可された複数のWebサイトへのアクセスについても認証する技術です。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "パーソナルファイアウォールは、個々のPCにインストールして利用するファイアウォールです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問21:https://www.nw-siken.com/kakomon/21_aki/am2_21.html"
+    },
+    {
+      "questionBodyText": "シリアルATAの説明として，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "PCと周辺機器とを結ぶシリアルインタフェースであり，キーボード，マウス，スピーカー，プリンター，CD-RWドライブなど多岐に渡る周辺装置を接続する。",
+        "PCと周辺機器とを結ぶシリアルインタフェースであり，磁気ディスク装置，DVDドライブなどの高速な周辺装置を接続する。",
+        "PCと周辺機器とを結ぶシリアルインタフェースであり，ルータ又はモデムを接続する。",
+        "PCとデジタルAV機器とを結ぶシリアルインタフェースであり，セットトップボックス，DVDプレーヤなどを接続する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » 入出力デバイス",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "入出力デバイス"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "入出力デバイス",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_22.html",
+      "public_question_id": "8c3ff89b4f244490",
+      "original_question_id": "8c3ff89b4f244490",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "シリアルATA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "USBの説明です。"
+        ],
+        [
+          "正しい。シリアルATAの説明です。"
+        ],
+        [
+          "RS-232の説明です。"
+        ],
+        [
+          "IEEE1394の説明です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問22:https://www.nw-siken.com/kakomon/21_aki/am2_22.html"
+    },
+    {
+      "questionBodyText": "シンクライアントシステムの利点のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "アプリケーションが使用する主記憶のフラグメンテーションが起こりにくいので，応答性が向上する。",
+        "サーバ側でアプリケーションやデータを管理するので，セキュリティが強化できる。",
+        "システムが利用するネットワーク資源が減るので，通信費を削減できる。",
+        "データを保管する費用が減るので，サーバへの投資を削減できる。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの構成",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの構成"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの構成",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_23.html",
+      "public_question_id": "31a14f17f7ed85c5",
+      "original_question_id": "31a14f17f7ed85c5",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "シンクライアント"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "クライアントPC内で処理をせず、その都度サーバから返される結果を取得するので、応答性は低下する可能性があります。"
+        ],
+        [
+          "正しい。"
+        ],
+        [
+          "ほとんどの処理をサーバ側で行うので通信が頻繁に発生し、通信コストが通常よりも掛かるようになります。"
+        ],
+        [
+          "通常はクライアントPCに記憶されていたデータもすべてサーバで保持することになるため、通常よりもサーバへの投資が必要になります。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問23:https://www.nw-siken.com/kakomon/21_aki/am2_23.html"
+    },
+    {
+      "questionBodyText": "ブラックボックステストのテストデータの作成方法のうち，最も適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "稼動中のシステムから実データを無作為に抽出し，テストデータを作成する。",
+        "機能仕様から同値クラスや限界値を識別し，テストデータを作成する。",
+        "業務で発生するデータの発生頻度を分析し，テストデータを作成する。",
+        "プログラムの流れ図から，分岐条件に基づいたテストデータを作成する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア構築",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア構築"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア構築",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_24.html",
+      "public_question_id": "7f75db5d659279aa",
+      "original_question_id": "7f75db5d659279aa",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "正しい",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "ブラックボックステスト"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "有効なデータが正しく処理されるだけでなく、無効なデータがエラーとして処理されるか否かも検証しなくてはなりません。"
+        ],
+        [
+          "正しい。有効データと無効データのそれぞれに対して正しい出力が得られるかどうかを検証可能なテストデータでなければなりません。"
+        ],
+        [
+          "ブラックボックステストでは、発生頻度ではなく入力データの範囲を分析してテストデータを作成します。"
+        ],
+        [
+          "ブラックボックステストではプログラムの内部構造に着目しません。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 2 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        2
+      ],
+      "source_question_id": "200902:am:問24:https://www.nw-siken.com/kakomon/21_aki/am2_24.html"
+    },
+    {
+      "questionBodyText": "開発した製品で利用している新規技術に関して特許の出願を行った。日本において特許権の取得ができない\nものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "学会で技術内容を発表した日から11か月目に出願した。",
+        "顧客と守秘義務の確認を取った上で技術内容を説明した後，製品発表前に出願した。",
+        "製品に使用した暗号の生成式を出願した。",
+        "製品を発売した後に出願した。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 知的財産適用管理",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "知的財産適用管理"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "知的財産適用管理",
+      "examYear": 2009,
+      "list_group_id": "200902",
+      "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_25.html",
+      "public_question_id": "0ff6e337541935aa",
+      "original_question_id": "0ff6e337541935aa",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "特許出願前に日本国内又は外国において公然知られた発明\n特許出願前に日本国内又は外国において公然実施をされた発明\n特許出願前に日本国内又は外国において、頒布された刊行物に記載された発明又は電気通信回線を通じて公衆に利用可能となつた発明\n特許出願前にその発明の属する技術の分野における通常の知識を有する者が上記(1)～(3)に掲げる発明に基いて容易に発明をすることができた発明"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "日本の特許制度においては、特許出願より前に公開された発明は原則として特許を受けることはできません。しかし、公知・実施された発明であっても、その公知・実施された日から1年以内であれば所定の書面を提出することで特許出願が可能です（30条2項）。本ケースでは公表した日から11か月での出願ですので、特許を受けることができます。"
+        ],
+        [
+          "発明は公知されておらず、その技術を用いた製品発表前であるため特許の要件を満たしています。"
+        ],
+        [
+          "正しい。特許の対象は自然法則を利用した技術的思想の創作のうち高度のものです（2条）。したがって、金融保険制度・課税方法などの人為的な取り決めや計算方法・暗号など、自然法則の利用がないものは特許を受けることができません。"
+        ],
+        [
+          "製品販売のように、特許を受ける権利を有する者の行為に起因して公知・実施に至った場合でも、その公知・実施された日から1年以内であれば所定の書面を提出することで特許出願が可能です（30条2項）。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "200902:am:問25:https://www.nw-siken.com/kakomon/21_aki/am2_25.html"
+    }
+  ]
+}
