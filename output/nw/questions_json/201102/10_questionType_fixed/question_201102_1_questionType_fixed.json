@@ -1,0 +1,302 @@
+[
+  {
+    "questionBodyText": "式A＋B×Cの逆ポーランド表記法による表現として，適切なものはどれか。",
+    "choiceTextList": [
+      "＋×CBA",
+      "×＋ABC",
+      "ABC×＋",
+      "CBA＋×"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c64005683257f6ff",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_1.html"
+  },
+  {
+    "questionBodyText": "符号長7ビット，情報ビット数4ビットのハミング符号による誤り訂正の方法を，次のとおりとする。\n受信した7ビットの符号語x1\nx2\nx3\nx4\nx5\nx6\nx7\n(xk\n=0又は1)に対して\nc0\n＝ x1\n＋x3\n＋x5\n＋x7\nc1\n＝   x2\n＋x3\n＋x6\n＋x7\nc2\n＝       x4\n＋x5\n＋x6\n＋x7\n(いずれも mod 2 での計算)\nを計算し，c0\n，c1\n，c2の中に少なくとも一つは0でないものがある場合には，\ni = c0\n＋c1\n×2＋c2\n×4を求めて，左から i ビット目を反転することによって誤りを訂正する。\n受信した符号語が1000101であった場合，誤り訂正後の符号語はどれか。",
+    "choiceTextList": [
+      "1000001",
+      "1000101",
+      "1001101",
+      "1010101"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "84243fa182b6e946",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_2.html"
+  },
+  {
+    "questionBodyText": "自然数をキーとするデータを，ハッシュ表を用いて管理する。キーxのハッシュ関数h(x)を\nh(x) = x mod nとすると，キーaとbが衝突する条件はどれか。ここで，nはハッシュ表の大きさであり，x mod nはxをnで割った余りを表す。",
+    "choiceTextList": [
+      "a＋bがnの倍数",
+      "a－bがnの倍数",
+      "nがa＋bの倍数",
+      "nがa－bの倍数"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "26c977a2e7d51f27",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_3.html"
+  },
+  {
+    "questionBodyText": "メモリインターリーブの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "新しい情報をキャッシュメモリに取り出すとき，キャッシュ上では不要になった情報を主記憶に書き込む。",
+      "主記憶のアクセス時間と磁気ディスクのアクセス時間とのギャップを補う。",
+      "主記憶の更新と同時にキャッシュメモリの更新を行う。",
+      "主記憶を幾つかの区画に分割し，連続したメモリへのアクセスを高速化する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "055e17c568b389b8",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_4.html"
+  },
+  {
+    "questionBodyText": "ジョブの多重度が1で，到着順にジョブが実行されるシステムにおいて，表に示す状態のジョブA～Cを処理するとき，ジョブCが到着してから実行が終了するまでのターンアラウンドタイムは何秒か。ここで， OSのオーバーヘッドは考慮しないものとする。",
+    "choiceTextList": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "1eeebc6c94e86b74",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_5.html"
+  },
+  {
+    "questionBodyText": "MTBFがx時間， MTTRがy時間のシステムがある。使用条件が変わったので，MTBF，MTTRがともに従来の1.5倍になった。新しい使用条件での稼働率はどうなるか。",
+    "choiceTextList": [
+      "x，yの値によって変化するが，従来の稼働率よりは大きい値になる。",
+      "従来の稼働率と同じ値である。",
+      "従来の稼働率の1.5倍になる。",
+      "従来の稼働率の2／3倍になる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "9162787d28f0b2a6",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_6.html"
+  },
+  {
+    "questionBodyText": "タスクのディスパッチの説明として，適切なものはどれか。",
+    "choiceTextList": [
+      "あるタスクの実行中に，別のタスクに切り替え，かつ実行権を渡すこと",
+      "各タスクの実行順序を決定すること",
+      "タスクの内部状態，置かれた状況，与えられた条件など，タスクの実行に必要な各種情報のこと",
+      "複数のタスクを同時に実行しているかのように見せかけた状態のこと"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c845c535ad6902dd",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_7.html"
+  },
+  {
+    "questionBodyText": "図の論理回路において，S=1，R=1，X=0，Y=1のとき，Sを一旦 0にした後，再び1に戻した。この操作を行った後のX，Yの値はどれか。",
+    "choiceTextList": [
+      "X＝0，Y＝0",
+      "X＝0，Y＝1",
+      "X＝1，Y＝0",
+      "X＝1，Y＝1"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "df77530c6b2fdb63",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_8.html"
+  },
+  {
+    "questionBodyText": "フールプルーフに該当するものはどれか。",
+    "choiceTextList": [
+      "更新の対象となるデータをコピーして保存する。",
+      "入力したデータの取消し操作を行うことができるようにする。",
+      "メニュー画面上の使用権限のない機能は，実行できないようにする。",
+      "利用者の操作内容をログとして保存する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "2b46d624d571be34",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_9.html"
+  },
+  {
+    "questionBodyText": "価格設定年月日にNULLを含む\"商品\"表に対して，次の問合せを行った。この検索結果の行数は幾つか。SELECT 商品コード FROM 商品 WHERE 価格設定年月日 < '2011-12-01'",
+    "choiceTextList": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b322b225b6cf0e87",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_10.html"
+  },
+  {
+    "questionBodyText": "元のデータベースと同じ内容の複製データベースをあらかじめ用意しておき，元のデータベースの更新に対し，非同期にその内容を複製データベースに反映する手法はどれか。",
+    "choiceTextList": [
+      "2相コミットメント",
+      "クラスタリング",
+      "ミラーリング",
+      "レプリケーション"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "72154b5534bf1edd",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_11.html"
+  },
+  {
+    "questionBodyText": "ルータの機能に関する記述のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "MACアドレステーブルの登録情報によって，データフレームをあるポートだけに中継するか，全てのポートに中継するかを判断する。",
+      "OSI基本参照モデルのデータリンク層において，ネットワーク同士を接続する。",
+      "OSI基本参照モデルのトランスポート層からアプリケーション層までの階層で，プロトコル変換を行う。",
+      "伝送媒体やアクセス制御方式の異なるネットワークの接続が可能であり，送信データのIPアドレスを識別し，データの転送経路を決定する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "8380f6f584354f1d",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_12.html"
+  },
+  {
+    "questionBodyText": "電子メールの内容の機密性を高めるために用いられるプロトコルはどれか。",
+    "choiceTextList": [
+      "IMAP4",
+      "POP3",
+      "SMTP",
+      "S/MIME"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b7999f70fb956dc7",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_13.html"
+  },
+  {
+    "questionBodyText": "デジタル署名を生成するときに，発信者がメッセージのハッシュ値をデジタル署名に変換するのに使う鍵はどれか。",
+    "choiceTextList": [
+      "受信者の公開鍵",
+      "受信者の秘密鍵",
+      "発信者の公開鍵",
+      "発信者の秘密鍵"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "b08f76b90706462f",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_14.html"
+  },
+  {
+    "questionBodyText": "パケットフィルタリング型ファイアウォールのフィルタリングルールを用いて，本来必要なサービスに影響を及ぼすことなく防げるものはどれか。",
+    "choiceTextList": [
+      "外部に公開していないサービスへのアクセス",
+      "サーバで動作するソフトウェアのセキュリティの脆(ぜい)弱性を突く攻撃",
+      "電子メールに添付されたファイルに含まれるマクロウイルスの侵入",
+      "電子メール爆弾などのDoS攻撃"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "221e7b5aec88735c",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_15.html"
+  },
+  {
+    "questionBodyText": "ブラックボックステストにおけるテストケースの設計に関する記述として，適切なものはどれか。",
+    "choiceTextList": [
+      "実データからテストデータを無作為に抽出して，テストケースを設計する。",
+      "実データのうち使用頻度が高いものを重点的に抽出して，テストケースを設計する。",
+      "プログラムがどのような機能を果たすのかを仕様書で調べて，テストケースを設計する。",
+      "プログラムの全命令が少なくとも1回は実行されるように，テストケースを設計する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "afac82f21f90aec5",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_16.html"
+  },
+  {
+    "questionBodyText": "知的財産権戦略として，特許化されていない技術を特許出願せずにノウハウとして秘匿することが適切な例はどれか。",
+    "choiceTextList": [
+      "社内の秘密保持体制が構築できない場合",
+      "セキュリティ分野のソフトウェアで，アルゴリズムを公開したくない場合",
+      "他社に積極的に技術使用許諾して，ライセンス収入を得たい場合",
+      "リバースエンジニアリングによって技術が容易に明らかになる場合"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "aed56d5e005a4e5d",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_17.html"
+  },
+  {
+    "questionBodyText": "プロジェクトの工程管理や進捗管理に使用されるガントチャートの特徴はどれか。",
+    "choiceTextList": [
+      "各作業の開始時点と終了時点が一目で把握できる。",
+      "各作業の前後関係が明確になり，クリティカルパスが把握できる。",
+      "各作業の余裕日数が容易に把握できる。",
+      "各作業を要素に分解することによって，管理がしやすくなる。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "21abc8bb93f06d54",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_18.html"
+  },
+  {
+    "questionBodyText": "アプリケーションにおける外部入力，外部出力，内部論理ファイル，外部インタフェースファイル，外部照会の五つの要素の個数を求め，それぞれを重み付けして集計する。集計した値がソフトウェア開発の規模に相関するという考え方に基づいて，開発規模の見積りに利用されるものはどれか。",
+    "choiceTextList": [
+      "COCOMO",
+      "Dotyモデル",
+      "putnamモデル",
+      "ファンクションポイント法"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "f2307a3bb04b665d",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_19.html"
+  },
+  {
+    "questionBodyText": "SLAを策定する際の方針のうち，適切なものはどれか。",
+    "choiceTextList": [
+      "考えられる全ての項目に対し，サービスレベルを設定する。",
+      "顧客の要望とコストとの兼ね合いで，サービスレベルを設定する。",
+      "サービスレベルを設定する全ての項目に対し，ペナルティとしての補償を設定する。",
+      "将来にわたって変更が不要なサービスレベルを設定する。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c9036a9cf4ebced9",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_20.html"
+  },
+  {
+    "questionBodyText": "ITサービスマネジメントの変更管理プロセスにおける変更要求の扱いのうち，適切なものはどれか。",
+    "choiceTextList": [
+      "緊急の変更要求に対応するために，変更による影響範囲などについてのアセスメントを実施せずに実装した。",
+      "顧客からの変更要求だったので他の変更要求より無条件に優先して実装した。",
+      "変更要求を漏れなく管理するために，承認されなかった変更要求も記録した。",
+      "法改正への対応だったので，変更に要するコストは見積もらずに実装した。"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "35b820152e0491f6",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_21.html"
+  },
+  {
+    "questionBodyText": "ドキュメント管理において，稼働しているシステムの仕様とドキュメントの内容が一致しないリスクを低減するコントロールのチェックポイントはどれか。",
+    "choiceTextList": [
+      "開発工程において，ドキュメント一覧をあらかじめ決めておくこと",
+      "ドキュメント作成計画に基づき，その進捗管理を行うこと",
+      "ドキュメントの機密性を確保するための対策を講じること",
+      "プログラム変更に伴い，ドキュメントを遅滞なく更新すること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "ff847c5bce1ba29b",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_22.html"
+  },
+  {
+    "questionBodyText": "情報化投資計画において，投資価値の評価指標であるROIを説明したものはどれか。",
+    "choiceTextList": [
+      "売上増やコスト削減などによって創出された利益額を投資額で割ったもの",
+      "売上高投資金額比，従業員当たりの投資金額などを他社と比較したもの",
+      "現金流入の現在価値から，現金流出の現在価値を差し引いたもの",
+      "プロジェクトを実施しない場合の，市場での競争力を表したもの"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "c6c78f8c07d23979",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_23.html"
+  },
+  {
+    "questionBodyText": "情報戦略における全体最適化計画策定の段階で，業務モデルを定義する目的はどれか。",
+    "choiceTextList": [
+      "企業の全体業務と使用される情報の関連を整理し，情報システムのあるべき姿を明確化すること",
+      "システム化の範囲や開発規模を把握し，システム化に要する期間，開発工数，開発費用を見積もること",
+      "情報システムの構築のために必要なハードウェア，ソフトウェア，ネットワークなどの構成要素を洗い出すこと",
+      "情報システムを実際に運用するために必要なユーザーマニュアルや運用マニュアルを作成するために，業務手順を確認すること"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "46cb96edd88a633d",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_24.html"
+  },
+  {
+    "questionBodyText": "\"提案評価方法の決定\"に始まる調達プロセスを，調達先との契約締結，調達先の選定，提案依頼書(RFP) の発行，提案評価に分類して順番に並べたとき， c に入るものはどれか。",
+    "choiceTextList": [
+      "調達先との契約締結",
+      "調達先の選定",
+      "提案依頼書(RFP)の発行",
+      "提案評価"
+    ],
+    "questionType": "true_false",
+    "original_question_id": "93ffc2d2c13cb2ee",
+    "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_25.html"
+  }
+]
