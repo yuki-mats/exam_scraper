@@ -38,10 +38,10 @@ execution:
     - "1993-2004: 200 questions/year"
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
-  active_year: 1993
-  active_source_file: "output/judoseifukushi/questions_json/1993/00_source/question_1993_8.json"
-  active_question_global_index: 176
-  next_step: "Start 01/02/04 prompt review for 1993 question_1993_8.json / 問176-200."
+  active_year: 1994
+  active_source_file: "output/judoseifukushi/questions_json/1994/00_source/question_1994_1.json"
+  active_question_global_index: 201
+  next_step: "Start 01/02/04 prompt review for 1994 question_1994_1.json / 問1-25."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 8
-  source_files_fully_completed_01_02_04: 7
-  source_files_fully_completed_01_04: 7
-  questions_reviewed_01_question_type: 175
-  questions_reviewed_02_question_intent: 175
-  questions_reviewed_03_explanation_text: 175
-  questions_reviewed_04_question_set_id: 175
-  questions_fully_completed_01_04: 175
+  source_files_started: 9
+  source_files_fully_completed_01_02_04: 8
+  source_files_fully_completed_01_04: 8
+  questions_reviewed_01_question_type: 200
+  questions_reviewed_02_question_intent: 200
+  questions_reviewed_03_explanation_text: 200
+  questions_reviewed_04_question_set_id: 200
+  questions_fully_completed_01_04: 200
   active_slice:
-    year: 1993
-    source_file: "question_1993_8.json"
-    question_labels: "問176-問200"
+    year: 1994
+    source_file: "question_1994_1.json"
+    question_labels: "問1-問25"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -104,6 +104,10 @@ progress:
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_7_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_7_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_7_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_8_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_8_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_8_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_8_questionSetId_linked.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
@@ -113,6 +117,7 @@ progress:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_5_merged_20260616_0143.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_6_merged_20260616_0157.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_7_merged_20260616_0210.json"
+    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_8_merged_20260616_0222.json"
   implementation_notes:
     - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
     - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
@@ -123,6 +128,7 @@ progress:
     - "1993 question_1993_5.json は臨床医学総論・各論、外科学が中心。問106は negative flash_card として 23_correctChoiceText_fixed を追加した。"
     - "1993 question_1993_6.json は外科学、整形外科学、運動学、リハビリテーション。問139は negative flash_card として 23_correctChoiceText_fixed を追加した。"
     - "1993 question_1993_7.json は柔道整復理論の関節損傷、軟部組織損傷、脱臼、骨折が中心。問156は『誤っている組合せ』として select_incorrect に補正した。"
+    - "1993 question_1993_8.json は柔道整復理論の上肢・下肢各論。23_correctChoiceText_fixed は不要で、1993年200問分の01〜04を完了した。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
@@ -133,3 +139,4 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file5-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file6-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file7-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file8-01-04-complete.md"
