@@ -103,7 +103,7 @@ def normalize_label(value: Any) -> Any:
 
 def has_trusted_unparseable_answer_text(qb: dict) -> bool:
     text = str(qb.get("answer_result_text") or "")
-    return "解説を参照" in text or "採点除外" in text
+    return "解説を参照" in text or "採点除外" in text or "解なし" in text
 
 
 @dataclass(frozen=True)
@@ -203,6 +203,10 @@ def validate_question_intent_correct_choice_distribution(
             )
             continue
 
+        answer_numbers = get_answer_numbers(qb)
+        if not answer_numbers and has_trusted_unparseable_answer_text(qb):
+            continue
+
         if any(v not in (LABEL_TRUE, LABEL_FALSE) for v in normalized):
             violations.append(
                 Violation(
@@ -217,10 +221,7 @@ def validate_question_intent_correct_choice_distribution(
             )
             continue
 
-        answer_numbers = get_answer_numbers(qb)
         if not answer_numbers:
-            if has_trusted_unparseable_answer_text(qb):
-                continue
             violations.append(
                 Violation(
                     source_path=source_path,
