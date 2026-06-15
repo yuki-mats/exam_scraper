@@ -10,6 +10,10 @@ class InferQuestionIntentFromTextTest(unittest.TestCase):
         text = "建設業法に関する次の記述のうち、誤っているものはどれか。"
         self.assertEqual(infer_question_intent_from_text(text), "select_incorrect")
 
+    def test_incorrect_sequence_prompt_words_map_to_select_incorrect(self) -> None:
+        text = "誤っている配列はどれか。"
+        self.assertEqual(infer_question_intent_from_text(text), "select_incorrect")
+
     def test_not_applicable_choice_stays_select_correct(self) -> None:
         text = (
             "公共工事標準請負契約約款上、該当しないものは次のうちどれか。"
