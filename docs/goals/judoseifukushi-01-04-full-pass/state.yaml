@@ -1,0 +1,61 @@
+version: 1
+
+goal:
+  title: "柔道整復師 01-04 prompt full pass"
+  slug: "judoseifukushi-01-04-full-pass"
+  qualification: "judoseifukushi"
+  qualification_name: "柔道整復師"
+  status: "prepared"
+  source_root: "output/judoseifukushi/questions_json"
+  category_json: "output/judoseifukushi/category/category.json"
+  queue: "docs/goals/judoseifukushi-01-04-full-pass/queue.jsonl"
+  inventory: "docs/goals/judoseifukushi-01-04-full-pass/inventory.json"
+
+counts:
+  years: 34
+  source_files: 316
+  questions: 7600
+  category_folders: 12
+  category_question_sets: 167
+
+baseline:
+  source_json_valid: true
+  source_missing_required_fields: 0
+  existing_patch_dirs:
+    10_questionType_fixed: 0
+    15_correctChoiceText_fixed: 0
+    21_explanationText_added: 0
+    22_questionSetId_linked: 0
+    23_correctChoiceText_fixed: 0
+  initial_question_type_distribution:
+    true_false: 7600
+  initial_question_intent_distribution:
+    select_correct: 5885
+    select_incorrect: 1715
+
+execution:
+  preferred_order:
+    - "1993-2004: 200 questions/year"
+    - "2005-2019: 230 questions/year"
+    - "2020-2026: 250 questions/year"
+  active_year: 1993
+  active_source_file: "output/judoseifukushi/questions_json/1993/00_source/question_1993_1.json"
+  active_question_global_index: 1
+  next_step: "Start 01 prompt review from 1993 question_1993_1.json / 問1."
+
+constraints:
+  preserve_unrelated_dirty_worktree: true
+  do_not_edit_source_json: true
+  fixed_patch_filenames_only: true
+  question_set_ids_from_category_only: true
+  external_web_for_01_02_04: false
+  external_web_for_03_only_when_primary_source_needed: true
+
+verification:
+  category_json_loaded: true
+  category_has_duplicate_folder_ids: false
+  category_has_duplicate_question_set_ids: false
+  category_has_bad_folder_refs: false
+  source_total_matches_user_request: true
+
+receipts: []
