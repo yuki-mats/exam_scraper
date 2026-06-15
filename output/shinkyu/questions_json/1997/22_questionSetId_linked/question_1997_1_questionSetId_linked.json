@@ -6,9 +6,22 @@
     "questionLabel": "問1",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs09_03",
     "category": "午前問題",
-    "questionBodyText": "インフォームド・コンセントについて直接関係ないのはどれか。"
+    "questionBodyText": "インフォームド・コンセントについて直接関係ないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "インフォームド・コンセントでは患者へ十分な説明を行うことが前提となるため直接関係する。",
+      "説明を受けた患者が理解し納得することはインフォームド・コンセントの中心要素であるため直接関係する。",
+      "診療内容や選択肢、危険性などの情報提供はインフォームド・コンセントに直接関係する。",
+      "プライバシーの保護は医療倫理上重要だが、説明と同意そのものの直接構成要素ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "16d337a31542c231",
@@ -17,9 +30,22 @@
     "questionLabel": "問2",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs09_02",
     "category": "午前問題",
-    "questionBodyText": "公費負担によらない医療はどれか。"
+    "questionBodyText": "公費負担によらない医療はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "養育医療は公費負担医療として扱われるため正しい。",
+      "特定疾患治療は公費負担の対象となる医療として扱われるため正しい。",
+      "労災保険医療は労働者災害補償保険による給付であり、公費負担医療そのものではないため誤り。",
+      "原子爆弾被爆者医療は公費負担の対象となる医療であるため正しい。"
+    ]
   },
   {
     "original_question_id": "08dfdb766979e426",
@@ -28,9 +54,22 @@
     "questionLabel": "問3",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_05",
     "category": "午前問題",
-    "questionBodyText": "ＶＤＴ作業による症状で適切でないのはどれか。"
+    "questionBodyText": "ＶＤＴ作業による症状で適切でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "VDT作業では上肢の反復使用や姿勢負荷により手・指・腕のだるさが起こりうるため正しい。",
+      "VDT作業では画面注視により眼精疲労が起こりやすいため正しい。",
+      "長時間のVDT作業では疲労に伴い集中力低下が起こりうるため正しい。",
+      "騒音性難聴は騒音曝露により起こる障害で、VDT作業による典型症状ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "1731a3ddb00383b6",
@@ -39,9 +78,22 @@
     "questionLabel": "問4",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_04",
     "category": "午前問題",
-    "questionBodyText": "上水道の消毒方法はどれか。"
+    "questionBodyText": "上水道の消毒方法はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "上水道の消毒には塩素消毒が広く用いられるため正しい。",
+      "トリハロメタンは塩素消毒などで生じる副生成物であり、消毒方法ではないため誤り。",
+      "煮沸は家庭などでの消毒法として用いられるが、上水道の一般的消毒方法としては不適切であるため誤り。",
+      "過酸化水素水は上水道の代表的な消毒方法ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "154788545eca4e9f",
@@ -50,9 +102,22 @@
     "questionLabel": "問5",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_04",
     "category": "午前問題",
-    "questionBodyText": "環境基本法で典型 7 公害に含まれないのはどれか。"
+    "questionBodyText": "環境基本法で典型 7 公害に含まれないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "大気汚染は典型7公害に含まれるため正しい。",
+      "水質汚濁は典型7公害に含まれるため正しい。",
+      "悪臭は典型7公害に含まれるため正しい。",
+      "放射能汚染は典型7公害には含まれないため誤り。"
+    ]
   },
   {
     "original_question_id": "d1cc4579e87d93ba",
@@ -61,9 +126,22 @@
     "questionLabel": "問6",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_13",
     "category": "午前問題",
-    "questionBodyText": "我が国の衛生統計で正しいのはどれか。"
+    "questionBodyText": "我が国の衛生統計で正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "当時の我が国の平均寿命は男女とも世界最高水準で、第1位として扱われるため正しい。",
+      "有病者数の第1位を糖尿病とする記述は当時の衛生統計として不適切であるため誤り。",
+      "日本の総人口は女性が男性を上回るため、男性の方が多いという記述は誤り。",
+      "出生数は一般に男児が女児より多いため、女児の方が多いという記述は誤り。"
+    ]
   },
   {
     "original_question_id": "8a6678d5a3d44efe",
@@ -72,9 +150,22 @@
     "questionLabel": "問7",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_10",
     "category": "午前問題",
-    "questionBodyText": "血液を介して感染する疾患はどれか。"
+    "questionBodyText": "血液を介して感染する疾患はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "インフルエンザは主に飛沫感染・接触感染であり、血液を介する感染症ではないため誤り。",
+      "C型肝炎は輸血や血液曝露など血液を介して感染するため正しい。",
+      "赤痢は主に経口感染であり、血液を介する感染症ではないため誤り。",
+      "結核は主に空気感染であり、血液を介する感染症ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "8c038530144bc578",
@@ -83,9 +174,22 @@
     "questionLabel": "問8",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_04",
     "category": "午前問題",
-    "questionBodyText": "光化学オキシダントの原因物質はどれか。"
+    "questionBodyText": "光化学オキシダントの原因物質はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "二酸化硫黄は硫黄酸化物による大気汚染物質だが、光化学オキシダント生成の主な原因物質としては不適切であるため誤り。",
+      "二酸化炭素は温室効果ガスであり、光化学オキシダントの主な原因物質ではないため誤り。",
+      "二酸化窒素などの窒素酸化物は光化学反応により光化学オキシダント生成に関与するため正しい。",
+      "オゾンは光化学オキシダントの主要成分であり、原因物質として問う場合は二酸化窒素が適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "35c185011dade7cf",
@@ -94,9 +198,22 @@
     "questionLabel": "問9",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_06",
     "category": "午前問題",
-    "questionBodyText": "精神障害者の入院について本人の同意により行われるのはどれか。"
+    "questionBodyText": "精神障害者の入院について本人の同意により行われるのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "措置入院は自傷他害のおそれなどに基づく行政処分による入院で、本人同意によるものではないため誤り。",
+      "医療保護入院は本人同意が得られない場合に家族等の同意で行われる入院であるため誤り。",
+      "応急入院は急速を要する場合の本人同意によらない入院であるため誤り。",
+      "任意入院は本人の同意に基づいて行われる入院であるため正しい。"
+    ]
   },
   {
     "original_question_id": "a42b261b8860ccce",
@@ -105,9 +222,22 @@
     "questionLabel": "問10",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_13",
     "category": "午前問題",
-    "questionBodyText": "我が国の死亡原因で最も多いのはどれか。"
+    "questionBodyText": "我が国の死亡原因で最も多いのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "感染症は現代日本の死亡原因の最多ではないため誤り。",
+      "当時の主要死亡原因は悪性新生物、心疾患、脳血管疾患などの成人病が中心であるため正しい。",
+      "外因死は事故や自殺などを含むが、死亡原因全体で最も多い区分ではないため誤り。",
+      "妊産婦および乳児の疾患は死亡原因全体で最も多い区分ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "0d04ba0b444a870e",
@@ -116,9 +246,22 @@
     "questionLabel": "問11",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs08_01",
     "category": "午前問題",
-    "questionBodyText": "按摩マッサージ指圧師、はり師、きゅう師等に関する法令で規定する欠格事由はどれか。"
+    "questionBodyText": "按摩マッサージ指圧師、はり師、きゅう師等に関する法令で規定する欠格事由はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "20歳未満であること自体は、あん摩マッサージ指圧師、はり師、きゅう師等の免許欠格事由ではないため誤り。",
+      "外国国籍を有すること自体は免許欠格事由ではないため誤り。",
+      "無免許施術を行った者は法令上の欠格事由に該当しうるため正しい。",
+      "身体障害者であること自体は一律の欠格事由ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "960cf7f1c8da20d0",
@@ -127,9 +270,22 @@
     "questionLabel": "問12",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs08_04",
     "category": "午前問題",
-    "questionBodyText": "食中毒の届出を規定する法律はどれか。"
+    "questionBodyText": "食中毒の届出を規定する法律はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "食中毒の届出は食品衛生法で規定されるため正しい。",
+      "地域保健法は保健所など地域保健体制に関する法律で、食中毒届出の直接根拠ではないため誤り。",
+      "栄養改善法は栄養改善に関する法律で、食中毒届出の根拠ではないため誤り。",
+      "伝染病予防法は感染症対策の旧法であり、食中毒届出の直接根拠としては食品衛生法が適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "dad704e86b177728",
@@ -138,9 +294,22 @@
     "questionLabel": "問13",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_09",
     "category": "午前問題",
-    "questionBodyText": "老人保健法の保健事業でないのはどれか。"
+    "questionBodyText": "老人保健法の保健事業でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "基本健康診査は老人保健法の保健事業に含まれるため正しい。",
+      "がん検診は老人保健法の保健事業に含まれるため正しい。",
+      "機能訓練は老人保健法の保健事業に含まれるため正しい。",
+      "ヘルパー派遣は福祉サービスの性格が強く、老人保健法の保健事業そのものではないため誤り。"
+    ]
   },
   {
     "original_question_id": "f7dee88e0c8484f1",
@@ -149,9 +318,22 @@
     "questionLabel": "問14",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs08_01",
     "category": "午前問題",
-    "questionBodyText": "施術業務が開始できるのはいつか。"
+    "questionBodyText": "施術業務が開始できるのはいつか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "試験に合格しただけでは免許を取得したことにならず、施術業務は開始できないため誤り。",
+      "合格証の受領だけでは免許名簿登録が完了していないため、施術業務は開始できないため誤り。",
+      "免許証交付申請を行っただけでは免許登録が完了していないため誤り。",
+      "免許名簿に登録されて免許が成立した時点で施術業務を開始できるため正しい。"
+    ]
   },
   {
     "original_question_id": "55e01e8f21b06351",
@@ -160,9 +342,22 @@
     "questionLabel": "問15",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_04",
     "category": "午前問題",
-    "questionBodyText": "胎児の臍静脈は生後どれに変化するか。"
+    "questionBodyText": "胎児の臍静脈は生後どれに変化するか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "胎児の臍静脈は生後に閉鎖し、肝円索などの索状結合組織となるため正しい。",
+      "臍静脈は生後に肝静脈へ変化するわけではないため誤り。",
+      "臍静脈は脂肪組織へ変化するわけではないため誤り。",
+      "臍静脈は鼠径靭帯の一部になるわけではないため誤り。"
+    ]
   },
   {
     "original_question_id": "ff6a333f5bc53376",
@@ -171,9 +366,22 @@
     "questionLabel": "問16",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_02",
     "category": "午前問題",
-    "questionBodyText": "最も大きい椎体をもつ椎骨はどれか。"
+    "questionBodyText": "最も大きい椎体をもつ椎骨はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "頸椎は頭部を支える椎骨で、腰椎より椎体は小さいため誤り。",
+      "第7頸椎は隆椎として棘突起が目立つが、最大の椎体をもつわけではないため誤り。",
+      "第12胸椎は胸椎の中では下位だが、腰椎より椎体は小さいため誤り。",
+      "腰椎は体重を支えるため椎体が大きく、特に第5腰椎は大きい椎体をもつため正しい。"
+    ]
   },
   {
     "original_question_id": "d864e5efb9c5e289",
@@ -182,9 +390,22 @@
     "questionLabel": "問17",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_03",
     "category": "午前問題",
-    "questionBodyText": "筋とその作用との組合せで正しいのはどれか。"
+    "questionBodyText": "筋とその作用との組合せで正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "烏口腕筋は上腕の屈曲・内転に関与し、前腕の屈曲筋ではないため誤り。",
+      "長掌筋は手関節掌屈に関与し、手の背屈ではないため誤り。",
+      "膝窩筋は膝関節を屈曲し、下腿を内旋させるため正しい。",
+      "長腓骨筋は足の外反と底屈に関与し、内反ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "a4c9535d04a48ed2",
@@ -193,9 +414,22 @@
     "questionLabel": "問18",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_03",
     "category": "午前問題",
-    "questionBodyText": "腓骨に停止する筋はどれか。"
+    "questionBodyText": "腓骨に停止する筋はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "縫工筋は脛骨上部内側に停止し、腓骨には停止しないため誤り。",
+      "大腿二頭筋は腓骨頭に停止するため正しい。",
+      "薄筋は脛骨上部内側に停止し、腓骨には停止しないため誤り。",
+      "半腱様筋は脛骨上部内側に停止し、腓骨には停止しないため誤り。"
+    ]
   },
   {
     "original_question_id": "3dd2024497e5eb91",
@@ -204,9 +438,22 @@
     "questionLabel": "問19",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_03",
     "category": "午前問題",
-    "questionBodyText": "肩関節の外旋筋はどれか。"
+    "questionBodyText": "肩関節の外旋筋はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "大胸筋は肩関節の内旋・内転などに関与し、外旋筋ではないため誤り。",
+      "広背筋は肩関節の内旋・内転・伸展に関与し、外旋筋ではないため誤り。",
+      "大円筋は肩関節の内旋・内転に関与し、外旋筋ではないため誤り。",
+      "小円筋は肩関節の外旋に関与するため正しい。"
+    ]
   },
   {
     "original_question_id": "a1753eb3917d981d",
@@ -215,9 +462,22 @@
     "questionLabel": "問20",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_05",
     "category": "午前問題",
-    "questionBodyText": "下鼻道に開口するのはどれか。"
+    "questionBodyText": "下鼻道に開口するのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "上顎洞は中鼻道に開口するため誤り。",
+      "篩骨洞は部位により上鼻道または中鼻道に開口し、下鼻道ではないため誤り。",
+      "鼻涙管は下鼻道に開口するため正しい。",
+      "耳管は鼻咽腔に開口し、下鼻道には開口しないため誤り。"
+    ]
   },
   {
     "original_question_id": "0ee31adf05c451cc",
@@ -226,9 +486,22 @@
     "questionLabel": "問21",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_06",
     "category": "午前問題",
-    "questionBodyText": "導管が口腔前庭に開口するのはどれか。"
+    "questionBodyText": "導管が口腔前庭に開口するのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "耳下腺管は上顎第2大臼歯付近の口腔前庭に開口するため正しい。",
+      "舌下腺の導管は口腔底に開口し、口腔前庭ではないため誤り。",
+      "舌腺は舌内の小唾液腺で、口腔前庭に開口する代表ではないため誤り。",
+      "顎下腺管は舌下小丘に開口し、口腔前庭ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "1668e6d72b7828f3",
@@ -237,9 +510,22 @@
     "questionLabel": "問22",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_06",
     "category": "午前問題",
-    "questionBodyText": "咽頭について誤っている記述はどれか。"
+    "questionBodyText": "咽頭について誤っている記述はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "咽頭筋は主に骨格筋で構成され、平滑筋からなるという記述は誤り。",
+      "咽頭扁桃は鼻咽頭の上部に位置するため正しい。",
+      "咽頭は後鼻孔を介して鼻腔とつながるため正しい。",
+      "咽頭は脊柱の前方、すなわち脊柱の直前に位置するため正しい。"
+    ]
   },
   {
     "original_question_id": "1e0899c405ee2f2d",
@@ -248,9 +534,22 @@
     "questionLabel": "問23",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_07",
     "category": "午前問題",
-    "questionBodyText": "尿道について誤っている記述はどれか。"
+    "questionBodyText": "尿道について誤っている記述はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "男性尿道は前立腺部を通るため正しい。",
+      "外尿道括約筋は横紋筋で随意的に働くため正しい。",
+      "男性の外尿道口は陰茎亀頭に開くため正しい。",
+      "女性尿道は腟の前壁に接し、後壁に接するという記述は誤り。"
+    ]
   },
   {
     "original_question_id": "49dbb14fb58541ce",
@@ -259,9 +558,22 @@
     "questionLabel": "問24",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_08",
     "category": "午前問題",
-    "questionBodyText": "生殖器について誤っている記述はどれか。"
+    "questionBodyText": "生殖器について誤っている記述はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "精巣は陰嚢内に位置するため正しい。",
+      "卵巣は骨盤腔内に位置するため正しい。",
+      "精索は精管や精巣動静脈などを含む索状構造で、精嚢を支持するものではないため誤り。",
+      "子宮円索は子宮を前方へ保つ支持構造として働くため正しい。"
+    ]
   },
   {
     "original_question_id": "2d38c052b44df42b",
@@ -270,8 +582,21 @@
     "questionLabel": "問25",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_09",
     "category": "午前問題",
-    "questionBodyText": "内分泌腺について誤っている記述はどれか。"
+    "questionBodyText": "内分泌腺について誤っている記述はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "下垂体前葉は腺性下垂体であり、神経組織で構成されるという記述は誤り。",
+      "甲状腺は多数の濾胞で構成されるため正しい。",
+      "副腎は皮質と髄質に分けられるため正しい。",
+      "ランゲルハンス島は膵臓内に分布する内分泌組織であるため正しい。"
+    ]
   }
 ]
