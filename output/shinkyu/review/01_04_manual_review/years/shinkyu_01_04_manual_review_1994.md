@@ -959,8 +959,8 @@
 - source: `output/shinkyu/questions_json/1994/00_source/question_1994_2.json`
 - question: 問26 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q26
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs01_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -970,16 +970,16 @@
 ### 選択肢
 
 1. 腹腔の左上部で横隔膜に接する。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 2. 内部は皮質と髄質とに分けられる。
-   - currentCorrectChoiceText: 正しい
+   - currentCorrectChoiceText: 間違い
    - expectedCorrectChoiceText: 正しい
 3. 集められた血液は門脈に流入する。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 4. 古い赤血球を処理する。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
@@ -998,7 +998,7 @@
 - question: 問27 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q27
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_10`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1036,7 +1036,7 @@
 - question: 問28 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q28
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_10`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1074,7 +1074,7 @@
 - question: 問29 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q29
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1112,7 +1112,7 @@
 - question: 問30 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q30
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1150,7 +1150,7 @@
 - question: 問31 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q31
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1188,7 +1188,7 @@
 - question: 問32 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q32
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1225,8 +1225,8 @@
 - source: `output/shinkyu/questions_json/1994/00_source/question_1994_2.json`
 - question: 問33 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q33
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs01_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1236,16 +1236,16 @@
 ### 選択肢
 
 1. 外腸骨動脈の続きである。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 2. 鼠径靭帯の下をくぐり、大腿の前面に出る。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 3. 坐骨神経に伴い大腿後面を下行する。
-   - currentCorrectChoiceText: 正しい
+   - currentCorrectChoiceText: 間違い
    - expectedCorrectChoiceText: 正しい
 4. 内転筋裂孔を出て膝窩動脈に続く。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
@@ -1264,7 +1264,7 @@
 - question: 問34 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q34
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1301,8 +1301,8 @@
 - source: `output/shinkyu/questions_json/1994/00_source/question_1994_2.json`
 - question: 問35 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q35
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs02_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1312,16 +1312,16 @@
 ### 選択肢
 
 1. 血漿中に最も多く含まれるタンパク質である。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 2. 細胞へのアミノ酸供給源である。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 3. 抗体として働く。
-   - currentCorrectChoiceText: 正しい
+   - currentCorrectChoiceText: 間違い
    - expectedCorrectChoiceText: 正しい
 4. 血漿の浸透圧維持に関与する。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
@@ -1340,7 +1340,7 @@
 - question: 問36 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q36
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1378,7 +1378,7 @@
 - question: 問37 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q37
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1416,7 +1416,7 @@
 - question: 問38 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q38
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1454,7 +1454,7 @@
 - question: 問39 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q39
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1492,7 +1492,7 @@
 - question: 問40 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q40
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_09`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1530,7 +1530,7 @@
 - question: 問41 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q41
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_07`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1568,7 +1568,7 @@
 - question: 問42 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q42
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_08`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1606,7 +1606,7 @@
 - question: 問43 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q43
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_09`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1643,8 +1643,8 @@
 - source: `output/shinkyu/questions_json/1994/00_source/question_1994_2.json`
 - question: 問44 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q44
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1654,16 +1654,16 @@
 ### 選択肢
 
 1. 起始部は脊髄または脳幹にある。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 2. 軸索は髄鞘に囲まれている。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 3. 軸索末端部には伝達物質がある。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 4. 錘内筋を支配する。
-   - currentCorrectChoiceText: 正しい
+   - currentCorrectChoiceText: 間違い
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
@@ -1682,7 +1682,7 @@
 - question: 問45 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q45
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1720,7 +1720,7 @@
 - question: 問46 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q46
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1758,7 +1758,7 @@
 - question: 問47 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q47
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1796,7 +1796,7 @@
 - question: 問48 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q48
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_14`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1833,8 +1833,8 @@
 - source: `output/shinkyu/questions_json/1994/00_source/question_1994_2.json`
 - question: 問49 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q49
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs02_14`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1844,16 +1844,16 @@
 ### 選択肢
 
 1. 鋭い痛みと鈍い痛みとがある。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 2. 深部痛覚は局在性が明確である。
-   - currentCorrectChoiceText: 正しい
+   - currentCorrectChoiceText: 間違い
    - expectedCorrectChoiceText: 正しい
 3. 受容器は自由神経終末である。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 4. エンドルフィンは内因性鎮痛物質である。
-   - currentCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
@@ -1872,7 +1872,7 @@
 - question: 問50 / https://kurohon.jp/gakusei/exams_hq/hq_2/#q50
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs03_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
