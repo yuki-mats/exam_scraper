@@ -60,6 +60,26 @@
 9. `check_questionSetId.py` で `category.json` との整合を確認する。
 10. 判定がぶれる設問が複数出たら、`prompt/04_prompt_link_questionSetId.md` または `category.json` の説明を改善してから再実行する。
 
+## 5.5 high 再確認フラグ sidecar
+- 判定に不安がある問題がある場合でも、`22_questionSetId_linked/` の本体パッチには `needs55HighReview`、`questionSetName`、`reason` などの追加メタフィールドを入れない。
+- 5.5 high で後から再確認したい問題だけ、同じ `list_group_id` 直下に `99_model_review_flags/` を作り、固定名の JSONL sidecar として保存してよい。
+  - 例: `questions_json/85010/99_model_review_flags/question_85010_2_questionSetId_needs_5_5_high_review.jsonl`
+- sidecar は1行1問の JSONL とし、対象がない場合は作成しなくてよい。
+- sidecar の各行は次のフィールドを持つ:
+```json
+{"original_question_id":"da6a8179822b27d9","reviewStage":"04_questionSetId","needs55HighReview":true,"uncertaintyLevel":"medium","reasonCategory":["multiple_candidate_question_sets"],"currentDecision":{"questionSetId":"g1_xxx"},"candidateQuestionSetIds":["g1_xxx","g1_yyy"],"reviewQuestion":"主題を設備横断として扱うか、省エネ単独として扱うかを再確認する。","evidenceChecked":["20_merged_1","category.json","qualification_docs"],"notes":"問題文は省エネを含むが、選択肢に設備横断の論点も混在している。"}
+```
+- `reasonCategory` は、必要に応じて次から選ぶ:
+  - `multiple_candidate_question_sets`
+  - `category_gap`
+  - `fusion_or_other_used`
+  - `category_hint_insufficient`
+  - `subject_boundary_ambiguous`
+  - `source_text_or_ocr_issue`
+  - `other`
+- `questionSetId: ""` を使う場合、または「融合」「その他」へ逃がす場合は、原則として sidecar に残す。
+- sidecar を作っても本作業を止めない。`category.json` 内の最も妥当な `questionSetId` を選び、後続監査で sidecar 対象だけ 5.5 high 確認に回す。
+
 ## 判断の基本原則
 - 設問タイトルだけで一意に決まるなら、その時点で確定してよい。
 - 候補が複数あるときは、最も具体的なカテゴリを優先する。

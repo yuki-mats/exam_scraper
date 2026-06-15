@@ -53,6 +53,22 @@
 - `question_url`
 - `source_question_id`
 
+### `explanation_*` が不足している場合の一次情報調査
+
+`explanation_common_summary`、`explanation_choice_snippets`、`explanation_common_prefix` が欠けている、空に近い、選択肢の正誤理由として薄い、または相互に矛盾している場合は、ローカル情報だけで無理に説明を作らない。
+
+この場合は次の順で根拠を補う。
+
+1. `20_merged_1` の `questionBodyText`、`choiceTextList`、`correctChoiceText`、`questionIntent` を確認する。
+2. 必要に応じて同一 `list_group_id` の `23_correctChoiceText_fixed/` と `00_source/` を確認する。
+3. 対象資格の `prompt/qualification_docs/<qualification>/` がある場合は、試験プロフィール、解説方針、法令・制度スコープ、category 方針を確認する。
+4. それでも正誤理由・数値・定義・制度趣旨を断定できない場合は、権威性のある一次情報または原典に近い資料を調査する。法令なら e-Gov・官公庁・自治体公式資料、制度なら所管官庁資料、医療・福祉・技術なら公的機関・標準規格団体・学会・公式ガイドラインなどを優先する。
+5. 一次情報で確認できた範囲だけを `explanationText` に書く。確認できない推測は断定しない。
+
+`question_url` の再取得や、そのページ内容を説明根拠として採用することは禁止のままとする。外部Webは、あくまで根拠確認・定義確認・条文確認・公式基準確認に使う。
+
+一次情報を調査しても判断が残る場合は、通常パッチは最も保守的な説明にし、下記の 5.5 high 再確認フラグ sidecar に残す。
+
 ## `suggestedQuestions` / `suggestedQuestionDetails` の生成方針
 
 `suggestedQuestions` は、アプリの解説ページにチップとして即時表示する補足質問候補である。`suggestedQuestionDetails` は、その質問を押したときに即表示する保存済み回答データである。画面を開くたびに AI 生成しないため、`explanationText` と同じタイミングで問題データ側に保存する。
@@ -551,6 +567,31 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 - 明らかな誤字、不自然な日本語、重複表現は修正する
 - 元データに含まれる文をそのまま貼るのではなく、受験者が理解しやすい説明文に整える
 - ただし、法令名、条項番号、数値、単位、技術用語は勝手に変更しない
+- `explanation_choice_snippets` や `explanation_common_summary` が不足している場合は、本文・選択肢・正答だけから想像で補完しない。上記「`explanation_*` が不足している場合の一次情報調査」に従い、権威ある一次情報または原典に近い資料で確認してから書く。
+- 一次情報まで確認しても根拠が弱い、現行制度と出題当時制度の差が疑われる、または選択肢ごとの説明に推論が残る場合は、通常パッチを完成させたうえで 5.5 high 再確認フラグ sidecar に残す。
+
+## 5.5 high 再確認フラグ sidecar
+
+- 判定に不安がある問題がある場合でも、`21_explanationText_added/` の本体パッチには `needs55HighReview` などの追加メタフィールドを入れない。
+- 5.5 high で後から再確認したい問題だけ、同じ `list_group_id` 直下に `99_model_review_flags/` を作り、固定名の JSONL sidecar として保存してよい。
+  - 例: `questions_json/85010/99_model_review_flags/question_85010_2_explanationText_needs_5_5_high_review.jsonl`
+- sidecar は1行1問の JSONL とし、対象がない場合は作成しなくてよい。
+- sidecar の各行は次のフィールドを持つ:
+```json
+{"original_question_id":"xxxx","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["missing_choice_snippets","primary_source_uncertain"],"currentDecision":{"lawGroundedExplanationNotNeeded":false},"reviewQuestion":"選択肢3の誤り理由が現行制度と出題当時制度で変わらないかを再確認する。","evidenceChecked":["20_merged_1","00_source","官公庁一次資料"],"notes":"explanation_choice_snippets が空で、一次情報では現行制度のみ確認できた。"}
+```
+- `reasonCategory` は、必要に応じて次から選ぶ:
+  - `missing_common_summary`
+  - `missing_choice_snippets`
+  - `thin_or_conflicting_explanation_source`
+  - `primary_source_uncertain`
+  - `current_vs_historical_rule`
+  - `law_reference_uncertain`
+  - `technical_standard_uncertain`
+  - `medical_or_welfare_guideline_uncertain`
+  - `choice_level_reasoning_gap`
+  - `other`
+- sidecar を作っても本作業を止めない。ただし、根拠が確認できない内容を断定してはいけない。通常パッチ側は保守的に書き、5.5 high 確認で重点的に見る論点を `reviewQuestion` に具体化する。
 
 ## 最小パッチ運用
 

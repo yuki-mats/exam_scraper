@@ -127,7 +127,28 @@
 
 
 ==================================================
-5. 最終確認
+5. 5.5 high 再確認フラグ sidecar
+==================================================
+
+- 判定に不安がある問題がある場合でも、`15_correctChoiceText_fixed/` の本体パッチには `needs55HighReview` などの追加メタフィールドを入れない。
+- 5.5 high で後から再確認したい問題だけ、同じ `list_group_id` 直下に `99_model_review_flags/` を作り、固定名の JSONL sidecar として保存してよい。
+  - 例: `questions_json/85010/99_model_review_flags/question_85010_2_questionIntent_needs_5_5_high_review.jsonl`
+- sidecar は1行1問の JSONL とし、対象がない場合は作成しなくてよい。
+- sidecar の各行は次のフィールドを持つ:
+```json
+{"original_question_id":"92e46de21bcb2232","reviewStage":"02_questionIntent","needs55HighReview":true,"uncertaintyLevel":"medium","reasonCategory":["ambiguous_negative_wording"],"currentDecision":{"questionIntent":"select_correct"},"reviewQuestion":"設問文が正しいものを選ばせているか、誤っているものを選ばせているかを再確認する。","evidenceChecked":["20_merged_1","00_source"],"notes":"問題文に否定語があるが、選択対象の否定か説明文中の否定かが紛らわしい。"}
+```
+- `reasonCategory` は、必要に応じて次から選ぶ:
+  - `ambiguous_negative_wording`
+  - `compound_instruction`
+  - `source_text_or_ocr_issue`
+  - `legacy_question_intent_conflict`
+  - `other`
+- sidecar を作っても本作業を止めない。明確な `select_incorrect` 根拠がなければ既存ルールどおり `select_correct` とし、後続監査で sidecar 対象だけ 5.5 high 確認に回す。
+
+
+==================================================
+6. 最終確認
 ==================================================
 
 - `select_incorrect` にすべき問題を取りこぼしていないこと

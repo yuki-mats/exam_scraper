@@ -125,6 +125,23 @@ python scripts/check/check_questiontype_patch_coverage.py \
 ```
 - `--source`/`--patch` をファイル単位で実行すること。
 
+[5.5 high 再確認フラグ sidecar]
+- 判定に不安がある問題がある場合でも、正式パッチJSONには `needs55HighReview` などのメタフィールドを入れてはいけない。正式パッチJSONは上記5フィールドだけにする。
+- 5.5 high で後から再確認したい問題だけ、同じ `list_group_id` 直下に `99_model_review_flags/` を作り、固定名の JSONL sidecar として保存してよい。
+  - 例: `questions_json/85010/99_model_review_flags/question_85010_2_questionType_needs_5_5_high_review.jsonl`
+- sidecar は1行1問の JSONL とし、対象がない場合は作成しなくてよい。
+- sidecar の各行は次のフィールドを持つ:
+```json
+{"original_question_id":"e0b892ab33c1e80e","reviewStage":"01_questionType","needs55HighReview":true,"uncertaintyLevel":"medium","reasonCategory":["ambiguous_learning_format"],"currentDecision":{"questionType":"flash_card"},"reviewQuestion":"問題文だけで正答導出できる形式か、選択肢比較が必須かを再確認する。","evidenceChecked":["00_source","20_merged_1","explanation_*"],"notes":"数値候補型だが explanation_* が薄く、flash_card/group_choice の境界が残る。"}
+```
+- `reasonCategory` は、必要に応じて次から選ぶ:
+  - `insufficient_explanation_source`
+  - `ambiguous_learning_format`
+  - `choice_comparison_boundary`
+  - `source_text_or_ocr_issue`
+  - `other`
+- sidecar を作っても本作業を止めない。ローカル一次情報から最も妥当な `questionType` を決め、後続監査で sidecar 対象だけ 5.5 high 確認に回す。
+
 [絶対に変更してはいけないもの]
 - 既存の `question_*_*.json` 内の **あらゆる** 内容:
   - questionType を含む、すべてのキー・値・構造。
