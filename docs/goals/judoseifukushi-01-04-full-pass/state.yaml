@@ -5,7 +5,7 @@ goal:
   slug: "judoseifukushi-01-04-full-pass"
   qualification: "judoseifukushi"
   qualification_name: "柔道整復師"
-  status: "prepared"
+  status: "in_progress"
   source_root: "output/judoseifukushi/questions_json"
   category_json: "output/judoseifukushi/category/category.json"
   queue: "docs/goals/judoseifukushi-01-04-full-pass/queue.jsonl"
@@ -41,7 +41,7 @@ execution:
   active_year: 1993
   active_source_file: "output/judoseifukushi/questions_json/1993/00_source/question_1993_1.json"
   active_question_global_index: 1
-  next_step: "Start 01 prompt review from 1993 question_1993_1.json / 問1."
+  next_step: "Write 03 prompt explanations for 1993 question_1993_1.json / 問1-25."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -58,4 +58,26 @@ verification:
   category_has_bad_folder_refs: false
   source_total_matches_user_request: true
 
-receipts: []
+progress:
+  source_files_started: 1
+  source_files_fully_completed_01_02_04: 1
+  questions_reviewed_01_question_type: 25
+  questions_reviewed_02_question_intent: 25
+  questions_reviewed_03_explanation_text: 0
+  questions_reviewed_04_question_set_id: 25
+  active_slice:
+    year: 1993
+    source_file: "question_1993_1.json"
+    question_labels: "問1-問25"
+  artifacts_created:
+    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_1_questionSetId_linked.json"
+  merge_outputs_verified:
+    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
+  implementation_notes:
+    - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
+    - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
+
+receipts:
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
