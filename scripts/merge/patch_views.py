@@ -210,6 +210,31 @@ def apply_correct_choice(
     return updated
 
 
+def apply_answer_result_overrides(
+    data: dict,
+    override_map: Mapping[str, dict],
+) -> int:
+    normalize_question_ids(data)
+    updated = 0
+    questions = data.get("question_bodies")
+    if not isinstance(questions, list):
+        raise ValueError("question_bodies が見つかりません")
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+        question_id = question.get("original_question_id")
+        if question_id is None:
+            continue
+        entry = override_map.get(str(question_id))
+        if not isinstance(entry, dict):
+            continue
+        for field in ("answer_result_text", "answer_result_inferred_correct_choice_numbers"):
+            if field in entry and entry[field] is not None and question.get(field) != entry[field]:
+                question[field] = entry[field]
+                updated += 1
+    return updated
+
+
 def apply_question_intent(
     data: dict,
     question_intent_map: Mapping[str, Any],

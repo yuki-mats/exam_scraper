@@ -39,9 +39,9 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 1993
-  active_source_file: "output/judoseifukushi/questions_json/1993/00_source/question_1993_3.json"
-  active_question_global_index: 51
-  next_step: "Start 01/02/04 prompt review for 1993 question_1993_3.json / 問51-75."
+  active_source_file: "output/judoseifukushi/questions_json/1993/00_source/question_1993_4.json"
+  active_question_global_index: 76
+  next_step: "Start 01/02/04 prompt review for 1993 question_1993_4.json / 問76-100."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 3
-  source_files_fully_completed_01_02_04: 2
-  source_files_fully_completed_01_04: 2
-  questions_reviewed_01_question_type: 50
-  questions_reviewed_02_question_intent: 50
-  questions_reviewed_03_explanation_text: 50
-  questions_reviewed_04_question_set_id: 50
-  questions_fully_completed_01_04: 50
+  source_files_started: 4
+  source_files_fully_completed_01_02_04: 3
+  source_files_fully_completed_01_04: 3
+  questions_reviewed_01_question_type: 75
+  questions_reviewed_02_question_intent: 75
+  questions_reviewed_03_explanation_text: 75
+  questions_reviewed_04_question_set_id: 75
+  questions_fully_completed_01_04: 75
   active_slice:
     year: 1993
-    source_file: "question_1993_3.json"
-    question_labels: "問51-問75"
+    source_file: "question_1993_4.json"
+    question_labels: "問76-問100"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -81,17 +81,25 @@ progress:
     - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_2_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_2_questionSetId_linked.json"
     - "output/judoseifukushi/questions_json/1993/23_correctChoiceText_fixed/question_1993_2_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_3_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_3_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_3_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_3_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1993/23_correctChoiceText_fixed/question_1993_3_correctChoiceText_fixed.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_2_merged_20260616_0049.json"
+    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_3_merged_20260616_0110.json"
   implementation_notes:
     - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
     - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
     - "00_source の explanation_common_* と explanation_choice_snippets が空の設問では、必要に応じて外部Web一次情報を確認してよい。"
     - "1993 question_1993_2.json では negative flash_card の2問に 23_correctChoiceText_fixed を追加した。"
+    - "1993 question_1993_3.json の問73は 00_source の正解1に疑義があり、一次情報寄りの確認を踏まえて正解4へ補正し、merge で answer_result_text も同期できるようにした。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file1-03-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file2-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file3-01-04-complete.md"

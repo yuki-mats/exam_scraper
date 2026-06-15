@@ -26,6 +26,7 @@ if __package__ in {None, ""}:
         select_latest_patch_files,
     )
     from scripts.merge.patch_views import (
+        apply_answer_result_overrides,
         apply_correct_choice,
         apply_explanation_fields,
         apply_question_intent,
@@ -43,6 +44,7 @@ else:
         select_latest_patch_files,
     )
     from .patch_views import (
+        apply_answer_result_overrides,
         apply_correct_choice,
         apply_explanation_fields,
         apply_question_intent,
@@ -475,6 +477,10 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
         value_key="correctChoiceText",
         key_fields=("original_question_id",),
     )
+    correct_entry_map = build_patch_map_from_paths(
+        correct_paths,
+        key_fields=("original_question_id",),
+    )
     correct_map_fallback = build_patch_map_from_paths(
         intent_paths,
         value_key="correctChoiceText",
@@ -488,6 +494,7 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
     expl_updates = 0
     qset_updates = 0
     correct_updates = 0
+    answer_result_updates = 0
     intent_updates_merged2 = 0
     true_false_intent_updates_merged2 = 0
     true_false_correct_choice_updates_merged2 = 0
@@ -503,6 +510,7 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
         expl_updates += apply_explanation_fields(data, expl_map)
         qset_updates += apply_question_set(data, qset_map)
         correct_updates += apply_correct_choice(data, correct_map)
+        answer_result_updates += apply_answer_result_overrides(data, correct_entry_map)
         intent_updates_merged2 += apply_question_intent(data, intent_map)
         u_intent, u_choice = normalize_true_false_intent_and_correct_choice(data)
         true_false_intent_updates_merged2 += u_intent
@@ -523,6 +531,8 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
     print(f"[INFO] explanationText 更新件数: {expl_updates}")
     print(f"[INFO] questionSetId 更新件数: {qset_updates}")
     print(f"[INFO] correctChoiceText 更新件数: {correct_updates}")
+    if answer_result_updates:
+        print(f"[INFO] answer_result 更新件数: {answer_result_updates}")
     print(f"[INFO] questionIntent 更新件数: {intent_updates_merged2}")
     print(f"[INFO] true_false questionIntent 正規化件数: {true_false_intent_updates_merged2}")
     print(f"[INFO] true_false correctChoiceText 正規化件数: {true_false_correct_choice_updates_merged2}")
