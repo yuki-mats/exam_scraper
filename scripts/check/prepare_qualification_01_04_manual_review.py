@@ -491,6 +491,28 @@ def export_artifacts(
     }
 
 
+def render_year_markdowns_from_rows(
+    *,
+    qualification: str,
+    rows: list[dict[str, Any]],
+    output_dir: Path,
+) -> int:
+    rows_by_year: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        rows_by_year[str(row["examYear"])].append(row)
+
+    years_dir = output_dir / "years"
+    years_dir.mkdir(parents=True, exist_ok=True)
+    written = 0
+    for year, year_rows in sorted(rows_by_year.items()):
+        write_text(
+            years_dir / f"{qualification}_01_04_manual_review_{year}.md",
+            build_year_markdown(year, year_rows),
+        )
+        written += 1
+    return written
+
+
 def export_command(args: argparse.Namespace) -> int:
     qualification = args.qualification
     questions_root = (args.questions_root or default_questions_root(qualification)).resolve()
@@ -646,6 +668,27 @@ def check_command(args: argparse.Namespace) -> int:
     return 1 if errors else 0
 
 
+def render_command(args: argparse.Namespace) -> int:
+    rows = load_jsonl(args.review_jsonl)
+    if not rows:
+        raise RuntimeError(f"review rows not found: {args.review_jsonl}")
+    qualification = args.qualification or str(rows[0].get("qualification") or "").strip()
+    if not qualification:
+        raise RuntimeError("--qualification is required when qualification is missing in review rows")
+    output_dir = (args.output_dir or args.review_jsonl.parent).resolve()
+    written = render_year_markdowns_from_rows(
+        qualification=qualification,
+        rows=rows,
+        output_dir=output_dir,
+    )
+    print(json.dumps({
+        "qualification": qualification,
+        "yearMarkdownCount": written,
+        "outputDir": rel(output_dir),
+    }, ensure_ascii=False, indent=2))
+    return 0
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="資格別 01〜04 manual review の準備台帳と固定名パッチ骨格を生成・検証する",
@@ -671,6 +714,12 @@ def parse_args() -> argparse.Namespace:
     check_parser.add_argument("--require-stage-files", action="store_true")
     check_parser.add_argument("--category", type=Path)
     check_parser.set_defaults(func=check_command)
+
+    render_parser = subparsers.add_parser("render")
+    render_parser.add_argument("review_jsonl", type=Path)
+    render_parser.add_argument("--qualification")
+    render_parser.add_argument("--output-dir", type=Path)
+    render_parser.set_defaults(func=render_command)
 
     return parser.parse_args()
 
