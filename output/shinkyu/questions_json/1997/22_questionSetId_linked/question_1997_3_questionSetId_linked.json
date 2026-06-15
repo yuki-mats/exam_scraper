@@ -6,9 +6,22 @@
     "questionLabel": "問51",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_08",
     "category": "午前問題",
-    "questionBodyText": "貧血とその原因との組合せで誤っているのはどれか。"
+    "questionBodyText": "貧血とその原因との組合せで誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "悪性貧血はビタミンB12欠乏や内因子欠乏に関連し、ビタミンC欠乏ではないため誤り。",
+      "鉄欠乏性貧血は慢性出血で起こり、月経過多症は代表的原因であるため正しい。",
+      "再生不良性貧血は放射線被曝などで造血障害を来して起こることがあり、原爆症との関連は正しい。",
+      "溶血性貧血はRh血液型不適合など免疫学的機序で起こりうるため正しい。"
+    ]
   },
   {
     "original_question_id": "4fa0c1f927187f6e",
@@ -17,9 +30,22 @@
     "questionLabel": "問52",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_04",
     "category": "午前問題",
-    "questionBodyText": "動脈粥状硬化症の誘因として適切でないのはどれか。"
+    "questionBodyText": "動脈粥状硬化症の誘因として適切でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "高脂血症は動脈粥状硬化症の重要な危険因子であるため正しい。",
+      "多血症は血栓形成には関与しうるが、動脈粥状硬化症の代表的誘因としては不適切であるため誤り。",
+      "糖尿病は動脈粥状硬化症を促進する危険因子であるため正しい。",
+      "高血圧症は血管壁障害を通じて動脈粥状硬化症を促進するため正しい。"
+    ]
   },
   {
     "original_question_id": "c95ffb5334009a78",
@@ -28,9 +54,22 @@
     "questionLabel": "問53",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs03_06",
     "category": "午前問題",
-    "questionBodyText": "マクロファージの役割で正しいのはどれか。"
+    "questionBodyText": "マクロファージの役割で正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "自己・非自己の認識は免疫系全体の働きで、マクロファージ固有の主役割としては不適切であるため誤り。",
+      "マクロファージは貪食した抗原を処理し、T細胞へ抗原情報を提示するため正しい。",
+      "免疫グロブリンを産生するのは主に形質細胞であり、マクロファージではないため誤り。",
+      "リンホカインは主にリンパ球が産生するサイトカインとして扱われ、マクロファージの主役割としては不適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "8806f8c62c2dabc9",
@@ -39,9 +78,22 @@
     "questionLabel": "問54",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs03_03",
     "category": "午前問題",
-    "questionBodyText": "生理的再生を示す組織はどれか。"
+    "questionBodyText": "生理的再生を示す組織はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "結合組織は修復・瘢痕形成に関与するが、代表的な生理的再生組織としては不適切であるため誤り。",
+      "神経膠組織は中枢神経支持組織で、腸粘膜上皮のような恒常的生理的再生を示す代表ではないため誤り。",
+      "腸粘膜上皮は常に脱落と再生を繰り返す生理的再生の代表であるため正しい。",
+      "毛細血管は創傷治癒などで増生するが、恒常的な生理的再生組織としては不適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "cbd78548890dee4b",
@@ -50,9 +102,22 @@
     "questionLabel": "問55",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs03_07",
     "category": "午前問題",
-    "questionBodyText": "腫瘍とその好発部位との組合せで正しいのはどれか。"
+    "questionBodyText": "腫瘍とその好発部位との組合せで正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "嚢胞腺腫は卵巣に好発する腫瘍として知られるため正しい。",
+      "乳頭腫は皮膚や粘膜上皮にみられやすく、肝臓好発とはいえないため誤り。",
+      "扁平上皮癌は皮膚、食道、子宮頸部などに多く、大腸の代表的腫瘍ではないため誤り。",
+      "膀胱癌は移行上皮癌が多く、腺癌を好発とする組合せは不適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "e61e23959b32d4ef",
@@ -61,9 +126,22 @@
     "questionLabel": "問56",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs03_07",
     "category": "午前問題",
-    "questionBodyText": "上皮内癌が発生する部位はどれか。"
+    "questionBodyText": "上皮内癌が発生する部位はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "胃癌でも早期癌はあるが、上皮内癌の典型部位として問う場合は子宮腟部がより適切であるため誤り。",
+      "結腸は腺癌が多く、上皮内癌の代表的発生部位としては不適切であるため誤り。",
+      "胆嚢は上皮内癌の代表的発生部位としては不適切であるため誤り。",
+      "子宮腟部では子宮頸部上皮内癌が発生するため正しい。"
+    ]
   },
   {
     "original_question_id": "54d9bb3d79634f56",
@@ -72,9 +150,22 @@
     "questionLabel": "問57",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_03",
     "category": "午前問題",
-    "questionBodyText": "過換気症候群の誘因で正しいのはどれか。"
+    "questionBodyText": "過換気症候群の誘因で正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "気管支喘息は呼吸困難を起こす疾患だが、過換気症候群の典型的誘因としては精神的興奮がより適切であるため誤り。",
+      "うっ血性心不全は呼吸困難を来すが、過換気症候群の典型的誘因ではないため誤り。",
+      "過換気症候群は不安や精神的興奮を契機に起こりやすいため正しい。",
+      "過食は過換気症候群の典型的誘因ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "c3ef13af288bdc65",
@@ -83,9 +174,22 @@
     "questionLabel": "問58",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs04_03",
     "category": "午前問題",
-    "questionBodyText": "白血球が増えない疾患はどれか。"
+    "questionBodyText": "白血球が増えない疾患はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "急性腎盂腎炎では細菌感染により白血球増多がみられやすいため正しい。",
+      "急性虫垂炎では炎症反応として白血球増多がみられやすいため正しい。",
+      "急性白血病では異常白血球の増加がみられることがあるため正しい。",
+      "インフルエンザなどウイルス感染では白血球が増えず、むしろ減少することがあるため誤り。"
+    ]
   },
   {
     "original_question_id": "4c9c40e9c0f9201a",
@@ -94,9 +198,22 @@
     "questionLabel": "問59",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_06",
     "category": "午前問題",
-    "questionBodyText": "低タンパク血症を特徴とする疾患はどれか。"
+    "questionBodyText": "低タンパク血症を特徴とする疾患はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "クインケ浮腫は血管性浮腫で、低タンパク血症を特徴とする疾患ではないため誤り。",
+      "うっ血性心不全は静脈圧上昇による浮腫が中心で、低タンパク血症を特徴とする疾患ではないため誤り。",
+      "ネフローゼ症候群では大量蛋白尿により低タンパク血症を来すため正しい。",
+      "慢性糸球体腎炎は血尿や蛋白尿、高血圧などが問題となるが、低タンパク血症を最も特徴とする選択肢ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "4cf12abd20873eb7",
@@ -105,9 +222,22 @@
     "questionLabel": "問60",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs04_02",
     "category": "午前問題",
-    "questionBodyText": "反射と徴候との組合せで適切でないのはどれか。"
+    "questionBodyText": "反射と徴候との組合せで適切でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "バビンスキー反射陽性は錐体路障害を示し、痙性歩行と関連するため正しい。",
+      "頸動脈洞反射では迷走神経反射により徐脈が起こるため正しい。",
+      "輻輳反射では近見反応として縮瞳を伴い、散瞳との組合せは誤り。",
+      "対光反射では光刺激により縮瞳が起こるため正しい。"
+    ]
   },
   {
     "original_question_id": "0ef702e69b14617b",
@@ -116,9 +246,22 @@
     "questionLabel": "問61",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_12",
     "category": "午前問題",
-    "questionBodyText": "頸肩腕痛の原因とならない疾患はどれか。"
+    "questionBodyText": "頸肩腕痛の原因とならない疾患はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "胸郭出口症候群は頸肩腕痛の原因となるため正しい。",
+      "後縦靭帯骨化症は頸髄・神経根症状を来し、頸肩腕痛の原因となりうるため正しい。",
+      "頸椎椎間板ヘルニアは神経根障害により頸肩腕痛の原因となるため正しい。",
+      "手根管症候群は手部の正中神経絞扼が主体で、頸肩腕痛の原因としては不適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "a76dc6e0b6f872bf",
@@ -127,9 +270,22 @@
     "questionLabel": "問62",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_12",
     "category": "午前問題",
-    "questionBodyText": "スポーツ障害と障害部位との組合せで適切でないのはどれか。"
+    "questionBodyText": "スポーツ障害と障害部位との組合せで適切でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "野球肘では上腕骨内側上顆骨端線障害が問題となるため正しい。",
+      "野球肩は肩関節周囲の投球障害であり、肩鎖関節を代表的障害部位とする組合せは不適切であるため誤り。",
+      "ジャンパー膝は膝蓋靭帯付着部周辺の障害であるため正しい。",
+      "疲労骨折は脛骨骨幹部などに起こりやすいため正しい。"
+    ]
   },
   {
     "original_question_id": "d3e8c47c1e62738b",
@@ -138,9 +294,22 @@
     "questionLabel": "問63",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs03_03",
     "category": "午前問題",
-    "questionBodyText": "創傷治癒を促進するのはどれか。"
+    "questionBodyText": "創傷治癒を促進するのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "創傷部の安静は組織修復を助け、創傷治癒を促進するため正しい。",
+      "感染は炎症を遷延させ、創傷治癒を妨げるため誤り。",
+      "異物は炎症や感染の原因となり、創傷治癒を妨げるため誤り。",
+      "低タンパク血症は組織修復材料の不足を招き、創傷治癒を遅らせるため誤り。"
+    ]
   },
   {
     "original_question_id": "8082172867b97104",
@@ -149,9 +318,22 @@
     "questionLabel": "問64",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs04_04",
     "category": "午前問題",
-    "questionBodyText": "運動神経をブロックする目的で利用されるのはどれか。"
+    "questionBodyText": "運動神経をブロックする目的で利用されるのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "大後頭神経は知覚神経であり、運動神経ブロック目的としては不適切であるため誤り。",
+      "顔面神経は表情筋を支配する運動神経であり、運動神経ブロック目的で利用されるため正しい。",
+      "三叉神経ブロックは主に知覚神経痛などを対象とし、運動神経ブロック目的としては不適切であるため誤り。",
+      "肋間神経ブロックは主に痛みの伝達を遮断する目的で用いられ、運動神経ブロックとしては不適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "a03027040cc38939",
@@ -160,9 +342,22 @@
     "questionLabel": "問65",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs04_04",
     "category": "午前問題",
-    "questionBodyText": "機械的止血法でないのはどれか。"
+    "questionBodyText": "機械的止血法でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "圧迫は血管を機械的に閉塞して止血する方法であるため正しい。",
+      "結紮は血管を縛って機械的に止血する方法であるため正しい。",
+      "縫合は創部や血管を機械的に閉じる止血方法として用いられるため正しい。",
+      "電気凝固は熱凝固を利用する方法であり、機械的止血法ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "c60c8103b3dab366",
@@ -171,9 +366,22 @@
     "questionLabel": "問66",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_14",
     "category": "午前問題",
-    "questionBodyText": "神経症はどれか。"
+    "questionBodyText": "神経症はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "心気症は身体疾患への過度な心配を主とする神経症性障害として扱われるため正しい。",
+      "狭心症は心筋虚血による循環器疾患であり、神経症ではないため誤り。",
+      "過換気症候群は不安と関連することがあるが、選択肢中で神経症そのものとして最も適切なのは心気症であるため誤り。",
+      "十二指腸潰瘍は消化器疾患であり、神経症ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "d758a8683e8f1a2d",
@@ -182,9 +390,22 @@
     "questionLabel": "問67",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_02",
     "category": "午前問題",
-    "questionBodyText": "錐体路障害の症状で適切なのはどれか。"
+    "questionBodyText": "錐体路障害の症状で適切なのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "錐体路障害ではバビンスキー反射など病的反射が出現するため正しい。",
+      "ロンベルグ徴候は深部感覚障害などでみられ、錐体路障害の典型症状ではないため誤り。",
+      "線維束性攣縮は下位運動ニューロン障害でみられやすく、錐体路障害の典型症状ではないため誤り。",
+      "錐体路障害では深部反射は亢進しやすく、減弱するという記述は誤り。"
+    ]
   },
   {
     "original_question_id": "1c84f260bed02d4a",
@@ -193,9 +414,22 @@
     "questionLabel": "問68",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs04_02",
     "category": "午前問題",
-    "questionBodyText": "深部反射とその中枢との組合せで誤っているのはどれか。"
+    "questionBodyText": "深部反射とその中枢との組合せで誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "上腕二頭筋反射の中枢はC5〜C6であるため正しい。",
+      "上腕三頭筋反射の中枢は主にC7〜C8であり、Th1〜Th2ではないため誤り。",
+      "膝蓋腱反射の中枢はL2〜L4であるため正しい。",
+      "アキレス腱反射の中枢はS1〜S2であるため正しい。"
+    ]
   },
   {
     "original_question_id": "d35ef4ae90b9f603",
@@ -204,9 +438,22 @@
     "questionLabel": "問69",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_03",
     "category": "午前問題",
-    "questionBodyText": "肺癌と関係ないのはどれか。"
+    "questionBodyText": "肺癌と関係ないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "ギラン・バレー症候群は急性炎症性脱髄性多発ニューロパチーで、肺癌との直接的関連は乏しいため誤り。",
+      "肺尖部腫瘍では交感神経障害によりホルネル症候群を来すことがあるため正しい。",
+      "肺癌では縦隔浸潤などにより上大静脈症候群を来すことがあるため正しい。",
+      "肺癌では反回神経麻痺により嗄声を来すことがあるため正しい。"
+    ]
   },
   {
     "original_question_id": "553e1ff9edc58bcc",
@@ -215,9 +462,22 @@
     "questionLabel": "問70",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_04",
     "category": "午前問題",
-    "questionBodyText": "心筋梗塞について正しいのはどれか。"
+    "questionBodyText": "心筋梗塞について正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "GPT（ALT）は主に肝障害の指標であり、心筋梗塞で正しい所見としては不適切であるため誤り。",
+      "ニトログリセリンは狭心症発作には有効だが、心筋梗塞の壊死そのものを改善する薬としては不適切であるため誤り。",
+      "心筋梗塞では炎症反応により白血球増多がみられやすく、白血球減少は誤り。",
+      "心筋梗塞では心電図で異常Q波がみられることがあるため正しい。"
+    ]
   },
   {
     "original_question_id": "26dffcd2d407c63a",
@@ -226,9 +486,22 @@
     "questionLabel": "問71",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_06",
     "category": "午前問題",
-    "questionBodyText": "急性糸球体腎炎の症状で正しいのはどれか。"
+    "questionBodyText": "急性糸球体腎炎の症状で正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "急性糸球体腎炎では乏尿傾向となることがあり、多尿は典型症状ではないため誤り。",
+      "細菌尿は尿路感染症でみられやすく、急性糸球体腎炎の代表症状ではないため誤り。",
+      "急性糸球体腎炎では糸球体障害により血尿がみられるため正しい。",
+      "糖尿は糖尿病などでみられる所見で、急性糸球体腎炎の代表症状ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "51295f471b5b3ebe",
@@ -237,9 +510,22 @@
     "questionLabel": "問72",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_08",
     "category": "午前問題",
-    "questionBodyText": "急性白血病の症状で誤っているのはどれか。"
+    "questionBodyText": "急性白血病の症状で誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "急性白血病では正常造血が抑制され貧血がみられるため正しい。",
+      "急性白血病では血小板減少により出血傾向がみられるため正しい。",
+      "急性白血病では白血病細胞の増加により白血球増多がみられることがあるため正しい。",
+      "急性白血病では血小板は減少しやすく、血小板増多という記述は誤り。"
+    ]
   },
   {
     "original_question_id": "5aa435733d162f6f",
@@ -248,9 +534,22 @@
     "questionLabel": "問73",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_06",
     "category": "午前問題",
-    "questionBodyText": "腎疾患で高血圧を特徴としないのはどれか。"
+    "questionBodyText": "腎疾患で高血圧を特徴としないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "ネフローゼ症候群は大量蛋白尿と低蛋白血症、浮腫が中心で、高血圧を特徴としないため誤り。",
+      "慢性糸球体腎炎では高血圧を伴うことが多いため正しい。",
+      "急性糸球体腎炎では水・ナトリウム貯留により高血圧を来しやすいため正しい。",
+      "腎硬化症は高血圧と密接に関連する腎疾患であるため正しい。"
+    ]
   },
   {
     "original_question_id": "a1e91edea7763942",
@@ -259,9 +558,22 @@
     "questionLabel": "問74",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_11",
     "category": "午前問題",
-    "questionBodyText": "全身性エリテマトーデスの症状で適切でないのはどれか。"
+    "questionBodyText": "全身性エリテマトーデスの症状で適切でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "蝶形紅斑は全身性エリテマトーデスの代表的皮膚症状であるため正しい。",
+      "関節痛は全身性エリテマトーデスでよくみられる症状であるため正しい。",
+      "ホルネル徴候は交感神経障害でみられる所見で、全身性エリテマトーデスの典型症状ではないため誤り。",
+      "レイノー現象は全身性エリテマトーデスなど膠原病でみられることがあるため正しい。"
+    ]
   },
   {
     "original_question_id": "b3c78e295702c102",
@@ -270,8 +582,21 @@
     "questionLabel": "問75",
     "examLabel": "第5回（1997年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1997/00_source/question_1997_3.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs05_13",
     "category": "午前問題",
-    "questionBodyText": "メニエール病について適切でないのはどれか。"
+    "questionBodyText": "メニエール病について適切でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "メニエール病は内リンパ水腫が病態として考えられるため正しい。",
+      "メニエール病では変動する感音難聴を伴うため、聴力正常という記述は不適切であり誤り。",
+      "メニエール病では反復するめまい発作がみられるため正しい。",
+      "メニエール病では耳鳴りを伴うことが多いため正しい。"
+    ]
   }
 ]
