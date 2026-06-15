@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 import unittest
 
-from scrape_kurohon import build_answer_result_text, parse_exam_page_html
+from scrape_kurohon import build_answer_result_text, extract_round_number_from_url, parse_exam_page_html
 
 
 SAMPLE_HTML = """
@@ -104,6 +104,12 @@ class ScrapeKurohonTests(unittest.TestCase):
 
     def test_build_answer_result_text_supports_multiple_answers(self) -> None:
         self.assertEqual(build_answer_result_text([1, 3]), "正解は 1, 3 です。")
+
+    def test_extract_round_number_from_url_supports_hq_pages(self) -> None:
+        self.assertEqual(
+            extract_round_number_from_url("https://kurohon.jp/gakusei/exams_hq/hq_34/"),
+            34,
+        )
 
 
 if __name__ == "__main__":
