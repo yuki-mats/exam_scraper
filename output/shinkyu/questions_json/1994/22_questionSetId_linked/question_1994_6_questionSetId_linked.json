@@ -6,9 +6,15 @@
     "questionLabel": "問126",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "頭痛と経絡との関係に基づいて治療する場合で正しい組合せはどれか。"
+    "questionBodyText": "頭痛と経絡との関係に基づいて治療する場合で正しい組合せはどれか。",
+    "explanationText": [
+      "頭頂部痛は主に足の厥陰肝経などとの関係で扱われ、足の陽明胃経との組合せではないので誤り。",
+      "側頭部は足の少陽胆経の走行部位であり、側頭部痛と足の少陽胆経の組合せは正しい。",
+      "前頭部痛は主に足の陽明胃経との関係で扱われ、足の太陽膀胱経との組合せではないので誤り。",
+      "後頭部痛は主に足の太陽膀胱経との関係で扱われ、足の厥陰肝経との組合せではないので誤り。"
+    ]
   },
   {
     "original_question_id": "d95db71184e32c56",
@@ -17,9 +23,15 @@
     "questionLabel": "問127",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "次の文で示す患者で末梢神経を直接対象として刺鍼するのに適した経穴はどれか。「48歳の女性。突然前額部に電撃様の痛み発作が数分間続いた。その後もしばしば発作が起こる。」"
+    "questionBodyText": "次の文で示す患者で末梢神経を直接対象として刺鍼するのに適した経穴はどれか。「48歳の女性。突然前額部に電撃様の痛み発作が数分間続いた。その後もしばしば発作が起こる。」",
+    "explanationText": [
+      "大迎は下顎角前方に取る経穴で、前額部の電撃様疼痛に対して前頭神経を直接対象にする部位ではないので誤り。",
+      "四白は眼窩下部に取る経穴で、主に眼窩下神経領域に関係し、前額部痛の直接対象ではないので誤り。",
+      "角孫は側頭部に取る経穴で、前額部の発作痛に対する末梢神経の直接対象としては適切でないので誤り。",
+      "陽白は前額部にあり、三叉神経第1枝の前頭神経領域を対象にしやすい経穴なので正しい。"
+    ]
   },
   {
     "original_question_id": "ab375c657327a01b",
@@ -28,9 +40,15 @@
     "questionLabel": "問128",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "次の文で示す患者の治療対象とする病証はどれか。「35歳の女性。半年前からめまい、目のかすみ、下肢のしびれ、月経周期の乱れ、月経量の減少がある。」"
+    "questionBodyText": "次の文で示す患者の治療対象とする病証はどれか。「35歳の女性。半年前からめまい、目のかすみ、下肢のしびれ、月経周期の乱れ、月経量の減少がある。」",
+    "explanationText": [
+      "めまい、目のかすみ、しびれ、月経周期の乱れ、月経量減少は肝血不足で説明しやすいため正しい。",
+      "脾陽虚証では冷え、腹部冷痛、下痢などが中心となり、本問の目や月経量減少の所見とは主病証が異なるので誤り。",
+      "肺気虚証では息切れ、自汗、易感冒などが中心で、本問の月経異常や目のかすみを主に説明しにくいので誤り。",
+      "腎陰虚証ではほてり、盗汗、腰膝酸軟などが中心で、本問の肝血虚を示す所見とは合わないので誤り。"
+    ]
   },
   {
     "original_question_id": "95ee95e3db9fbf62",
@@ -39,9 +57,22 @@
     "questionLabel": "問129",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "胸部の帯状疱疹痛について適切でない施術はどれか。"
+    "questionBodyText": "胸部の帯状疱疹痛について適切でない施術はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "疼痛領域を囲む水平刺は、発疹を避けて疼痛領域周囲から施術する方法として適切である。",
+      "帯状疱疹の発疹部へ直刺すると皮膚病変を刺激し感染や悪化の危険があるため、適切でない施術である。",
+      "罹患神経の高さで脊柱直側に置鍼する方法は、神経分節を考慮した施術として適切である。",
+      "疼痛領域を挟む鍼通電療法は、疼痛緩和を目的とした施術として用いられるため適切である。"
+    ]
   },
   {
     "original_question_id": "784f85992c381122",
@@ -50,9 +81,15 @@
     "questionLabel": "問130",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "腹痛のうち鍼灸治療が適応となる状況はどれか。"
+    "questionBodyText": "腹痛のうち鍼灸治療が適応となる状況はどれか。",
+    "explanationText": [
+      "著しい体重減少と食事嗜好の変化は悪性疾患などの精査を要する所見であり、鍼灸単独の適応とはしにくいので誤り。",
+      "下痢と便秘が交代しストレスで増悪する腹痛は機能性腸疾患が疑われ、鍼灸治療の適応となりやすいので正しい。",
+      "嚥下困難と嚥下痛は器質的疾患の精査を要する警告所見であり、鍼灸治療の適応とはしにくいので誤り。",
+      "飲酒家の心窩部激痛と悪心は急性膵炎などを疑う所見であり、医療機関での対応を優先するため誤り。"
+    ]
   },
   {
     "original_question_id": "c9781f42f8d45075",
@@ -61,9 +98,15 @@
     "questionLabel": "問131",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "次の文で示す患者の治療対象となる経絡はどれか。「40 歳の男性。2か月前から胃の膨満感、食欲不振および軟便があり、下腿内側で脛骨の際に沿って陥凹がみられる。」"
+    "questionBodyText": "次の文で示す患者の治療対象となる経絡はどれか。「40 歳の男性。2か月前から胃の膨満感、食欲不振および軟便があり、下腿内側で脛骨の際に沿って陥凹がみられる。」",
+    "explanationText": [
+      "手の厥陰心包経は胸部や心包の病証と関係し、胃の膨満感や下腿内側脛骨際の所見の主経絡ではないので誤り。",
+      "手の陽明大腸経は大腸や上肢外側の経絡で、下腿内側脛骨際を主に走る経絡ではないので誤り。",
+      "足の太陰脾経は下腿内側で脛骨後縁に沿って上行し、消化吸収や軟便とも関係するため正しい。",
+      "足の少陰腎経は下腿内側を走るが、胃の膨満感、食欲不振、軟便と脾経走行所見を主に説明する経絡ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "b582fb75b90fd8af",
@@ -72,9 +115,22 @@
     "questionLabel": "問132",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "月経困難症に対する鍼灸治療で誤っている記述はどれか。"
+    "questionBodyText": "月経困難症に対する鍼灸治療で誤っている記述はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "月経困難症では内分泌系や自律神経系の調整を目的に施術するため、この記述は正しい。",
+      "月経困難症では腰仙部の経穴を用いることがあり、この記述は正しい。",
+      "下腹部の経穴は月経困難症の施術で用いられることがあり、一律に刺鍼を避けるという記述は誤りである。",
+      "三陰交は婦人科症状でよく用いられる経穴であり、この記述は正しい。"
+    ]
   },
   {
     "original_question_id": "dee00c44a86ecf05",
@@ -83,9 +139,15 @@
     "questionLabel": "問133",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "理学的検査所見と刺鍼部位との組合せで適切でないのはどれか。"
+    "questionBodyText": "理学的検査所見と刺鍼部位との組合せで適切でないのはどれか。",
+    "explanationText": [
+      "ライトテスト陽性は胸郭出口症候群の評価で、後頸部を主たる刺鍼部位とする組合せは適切でない。",
+      "ヤーガソンテスト陽性では上腕二頭筋長頭腱炎などを考え、上腕二頭筋長頭腱部を対象にするのは適切である。",
+      "ペインフルアークサイン陽性では腱板障害が疑われ、腱板部を刺鍼対象にするのは適切である。",
+      "アレンテスト陽性では胸郭出口症候群を考え、斜角筋部を対象にするのは適切である。"
+    ]
   },
   {
     "original_question_id": "8aac3e5ec280bec5",
@@ -94,9 +156,15 @@
     "questionLabel": "問134",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "次の文で示す患者の治療対象となる主たる経絡はどれか。「53歳の男性。慢性の腰下肢痛があり、全身倦怠感、耳鳴および性欲減退を伴う。脈は細くて弱い。」"
+    "questionBodyText": "次の文で示す患者の治療対象となる主たる経絡はどれか。「53歳の男性。慢性の腰下肢痛があり、全身倦怠感、耳鳴および性欲減退を伴う。脈は細くて弱い。」",
+    "explanationText": [
+      "足の太陽膀胱経は腰下肢痛と関係するが、倦怠感、耳鳴、性欲減退、細弱脈からみる主たる経絡ではないので誤り。",
+      "慢性腰下肢痛に耳鳴、性欲減退、細弱脈を伴うため腎虚が考えられ、足の少陰腎経を主たる治療対象とするので正しい。",
+      "足の太陰脾経は消化吸収や水湿と関係するが、本問の腎虚を示す症状の主経絡ではないので誤り。",
+      "足の陽明胃経は胃腸や前面の経絡で、本問の耳鳴、性欲減退を伴う慢性腰下肢痛の主経絡ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "932803792c96d0ea",
@@ -105,9 +173,15 @@
     "questionLabel": "問135",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "根性坐骨神経痛で罹患神経を対象とした刺鍼部位として適切でないのはどれか。"
+    "questionBodyText": "根性坐骨神経痛で罹患神経を対象とした刺鍼部位として適切でないのはどれか。",
+    "explanationText": [
+      "膝窩中央部は坐骨神経の末梢走行や脛骨神経領域を対象にしうるため、罹患神経への刺鍼部位として適切である。",
+      "梨状筋下孔部は坐骨神経が通過する部位であり、坐骨神経を対象にする刺鍼部位として適切である。",
+      "第5腰椎棘突起の直側は腰仙部神経根を対象にしやすく、根性坐骨神経痛の刺鍼部位として適切である。",
+      "第2腰椎棘突起の直側は坐骨神経の主な神経根レベルから外れるため、根性坐骨神経痛の罹患神経を対象とする部位として適切でない。"
+    ]
   },
   {
     "original_question_id": "b9d9dcd5e636a25c",
@@ -116,9 +190,15 @@
     "questionLabel": "問136",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "次の文で示す神経麻痺で、麻痺神経と治療穴との組合せで正しいのはどれか。「母指が外転位で、母指と小指との対立運動が困難である。また母指球の萎縮があり、手掌が扁平となっている。」"
+    "questionBodyText": "次の文で示す神経麻痺で、麻痺神経と治療穴との組合せで正しいのはどれか。「母指が外転位で、母指と小指との対立運動が困難である。また母指球の萎縮があり、手掌が扁平となっている。」",
+    "explanationText": [
+      "橈骨神経麻痺では下垂手などが中心で、母指対立困難と母指球萎縮の病態には合わないので誤り。",
+      "母指対立困難と母指球萎縮は正中神経麻痺を示し、内関は正中神経領域に関係するため正しい。",
+      "尺骨神経麻痺では骨間筋萎縮や鷲手などが中心で、本問の母指球萎縮を主とする病態には合わないので誤り。",
+      "筋皮神経麻痺では肘屈曲障害などが中心で、母指対立困難と母指球萎縮の病態には合わないので誤り。"
+    ]
   },
   {
     "original_question_id": "bae949ffabd03081",
@@ -127,9 +207,15 @@
     "questionLabel": "問137",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_07",
     "category": "午後問題",
-    "questionBodyText": "境界域高血圧症患者の生活指導で誤っているのはどれか。"
+    "questionBodyText": "境界域高血圧症患者の生活指導で誤っているのはどれか。",
+    "explanationText": [
+      "境界域高血圧症では適度な運動や生活改善を行うため、単に安静を指導するのは誤りである。",
+      "禁煙は血圧管理と循環器リスク低減の生活指導として適切である。",
+      "飲酒制限または禁酒は血圧管理の生活指導として適切である。",
+      "減塩食は高血圧の生活指導として適切である。"
+    ]
   },
   {
     "original_question_id": "bbebf1ab167ae3e6",
@@ -138,9 +224,15 @@
     "questionLabel": "問138",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_04",
     "category": "午後問題",
-    "questionBodyText": "次の文で示す患者の治療として適切でないのはどれか。「主訴は肥満。甘いものや油っこいものを好む。胸のつかえ、口喝、痰が多く暑がりである。」"
+    "questionBodyText": "次の文で示す患者の治療として適切でないのはどれか。「主訴は肥満。甘いものや油っこいものを好む。胸のつかえ、口喝、痰が多く暑がりである。」",
+    "explanationText": [
+      "甘味・脂っこい食物、痰の多さ、暑がり、口渇から胃熱や痰湿が中心であり、肺の熱を除くことを主眼にするのは適切でない。",
+      "口渇、暑がり、過食傾向を伴うため、胃の熱を除く治療は適切である。",
+      "痰が多く胸のつかえがあるため、痰飲を除く治療は適切である。",
+      "肥満や痰湿には脾の運化失調が関与するため、脾の運化を助ける治療は適切である。"
+    ]
   },
   {
     "original_question_id": "11fb692b722c09c2",
@@ -149,9 +241,15 @@
     "questionLabel": "問139",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_03",
     "category": "午後問題",
-    "questionBodyText": "陽虚証に対する刺法で誤っているのはどれか。"
+    "questionBodyText": "陽虚証に対する刺法で誤っているのはどれか。",
+    "explanationText": [
+      "陽虚証では補法を用いるため、速刺速抜のような瀉法的刺激は誤りである。",
+      "経気の流れに沿った刺鍼は補法の考え方に合い、陽虚証への刺法として適切である。",
+      "置鍼は穏やかに補う目的で用いられ、陽虚証への刺法として適切である。",
+      "呼気に合わせた刺鍼は補法の刺法として扱われ、陽虚証への刺法として適切である。"
+    ]
   },
   {
     "original_question_id": "e48955f141c307ce",
@@ -160,9 +258,15 @@
     "questionLabel": "問140",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs14_05",
     "category": "午後問題",
-    "questionBodyText": "スポーツ外傷・障害と刺鍼する筋との組合せで正しいのはどれか。"
+    "questionBodyText": "スポーツ外傷・障害と刺鍼する筋との組合せで正しいのはどれか。",
+    "explanationText": [
+      "バックハンドテニス肘は上腕骨外側上顆周囲の前腕伸筋群に負荷がかかるため、前腕伸筋を刺鍼対象とする組合せは正しい。",
+      "フォアハンドテニス肘は主に前腕屈筋群などが関与し、前腕回外筋との組合せは適切でないので誤り。",
+      "シンスプリントは下腿内側部の障害であり、三角筋との組合せは誤り。",
+      "コンパートメント症候群は下腿などの筋区画内圧上昇が問題となり、大腿四頭筋との組合せは本問では適切でないので誤り。"
+    ]
   },
   {
     "original_question_id": "1e07e21711d28e1a",
@@ -171,9 +275,15 @@
     "questionLabel": "問141",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_01",
     "category": "午後問題",
-    "questionBodyText": "古代九鍼の用法のうち摩擦や圧迫を目的とした鍼はどれか。"
+    "questionBodyText": "古代九鍼の用法のうち摩擦や圧迫を目的とした鍼はどれか。",
+    "explanationText": [
+      "鍉鍼は刺入せず、皮膚表面の摩擦や圧迫を目的に用いる古代九鍼なので正しい。",
+      "鋒鍼は瀉血などに用いる鋭い鍼で、摩擦や圧迫を目的とする鍼ではないので誤り。",
+      "鈹鍼は切開・排膿などに用いられる鍼で、摩擦や圧迫を目的とする鍼ではないので誤り。",
+      "毫鍼は現在の刺入鍼に相当する細い鍼で、摩擦や圧迫を目的とする鍼ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "173d87c23191c10c",
@@ -182,9 +292,15 @@
     "questionLabel": "問142",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_02",
     "category": "午後問題",
-    "questionBodyText": "刺入した鍼の周囲の皮膚を鍼管または指頭で叩き、刺激を与える手技はどれか。"
+    "questionBodyText": "刺入した鍼の周囲の皮膚を鍼管または指頭で叩き、刺激を与える手技はどれか。",
+    "explanationText": [
+      "示指打法は鍼柄や鍼管を示指で叩いて刺入を助ける方法で、本問の周囲皮膚を叩く手技ではないので誤り。",
+      "内調術は刺入後の鍼を操作する手技で、周囲皮膚を鍼管や指頭で叩く手技ではないので誤り。",
+      "細刺術は細かく刺鍼する手技で、周囲皮膚を叩いて刺激する手技ではないので誤り。",
+      "副刺激術は刺入鍼の周囲の皮膚を鍼管または指頭で叩いて刺激を加える手技なので正しい。"
+    ]
   },
   {
     "original_question_id": "852a712560ffc8fb",
@@ -193,9 +309,15 @@
     "questionLabel": "問143",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_05",
     "category": "午後問題",
-    "questionBodyText": "拔鍼が困難な鍼（渋鍼）の周囲に刺鍼して筋肉を弛緩させてから抜鍼する処置法はどれか。"
+    "questionBodyText": "拔鍼が困難な鍼（渋鍼）の周囲に刺鍼して筋肉を弛緩させてから抜鍼する処置法はどれか。",
+    "explanationText": [
+      "返し鍼は抜鍼困難時に周囲へ刺して筋緊張を緩める処置法ではないので誤り。",
+      "通し鍼は一側から他側へ向ける刺法で、渋鍼の周囲を刺して抜鍼する処置ではないので誤り。",
+      "散鍼は浅く散らすように刺激する方法で、渋鍼の処置法ではないので誤り。",
+      "迎え鍼は渋鍼の周囲に刺鍼して筋を弛緩させ、抜鍼を容易にする処置法なので正しい。"
+    ]
   },
   {
     "original_question_id": "177d19f030b0c418",
@@ -204,9 +326,22 @@
     "questionLabel": "問144",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_07",
     "category": "午後問題",
-    "questionBodyText": "刺鍼により心拍数は減少する。このメカニズムとして考えられないのはどれか。"
+    "questionBodyText": "刺鍼により心拍数は減少する。このメカニズムとして考えられないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "交感神経機能の低下は心拍数減少の機序として考えられる。",
+      "副交感神経機能の亢進は心拍数減少の機序として考えられる。",
+      "交感神経機能の亢進と副交感神経機能の低下は心拍数を増加させる方向に働くため、心拍数減少の機序として考えられない。",
+      "交感神経機能の低下と副交感神経機能の亢進は心拍数減少の機序として考えられる。"
+    ]
   },
   {
     "original_question_id": "78d29b5b7969715e",
@@ -215,9 +350,15 @@
     "questionLabel": "問145",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_08",
     "category": "午後問題",
-    "questionBodyText": "内部環境という言葉で恒常性について述べたのは誰か。"
+    "questionBodyText": "内部環境という言葉で恒常性について述べたのは誰か。",
+    "explanationText": [
+      "ウォルター・キャノンはホメオスタシスの概念を発展させた人物だが、「内部環境」を述べた人物ではないので誤り。",
+      "クロード・ベルナールは内部環境の概念を示し、恒常性理解の基礎を述べた人物なので正しい。",
+      "ハンス・セリエはストレス学説で知られる人物で、内部環境の語を述べた人物ではないので誤り。",
+      "ノーバート・ウイナーはサイバネティックスで知られる人物で、内部環境を述べた人物ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "c05522fb5f6eec89",
@@ -226,9 +367,17 @@
     "questionLabel": "問146",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_06",
     "category": "午後問題",
-    "questionBodyText": "鍼の雀啄刺激の後、刺激した部位に鈍痛が残った。原因として考えにくいのはどれか。"
+    "questionBodyText": "鍼の雀啄刺激の後、刺激した部位に鈍痛が残った。原因として考えにくいのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": []
   },
   {
     "original_question_id": "a936ef0ff11e8df7",
@@ -237,9 +386,15 @@
     "questionLabel": "問147",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_06",
     "category": "午後問題",
-    "questionBodyText": "痛覚に関する組合せで正しいのはどれか。"
+    "questionBodyText": "痛覚に関する組合せで正しいのはどれか。",
+    "explanationText": [
+      "Aδ線維は速い鋭い痛みを伝えるため、鈍痛との組合せは誤り。",
+      "C線維は遅い鈍痛を伝えるため、刺痛との組合せは誤り。",
+      "ブラジキニンは代表的な発痛物質であり、この組合せは正しい。",
+      "ヒスタミンは血管拡張や血管透過性亢進に関与し、血管収縮との組合せは誤り。"
+    ]
   },
   {
     "original_question_id": "a7030fae9025ccd2",
@@ -248,9 +403,15 @@
     "questionLabel": "問148",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_06",
     "category": "午後問題",
-    "questionBodyText": "体幹部の痛覚の伝導路はどれか。"
+    "questionBodyText": "体幹部の痛覚の伝導路はどれか。",
+    "explanationText": [
+      "体幹部の痛覚は主に脊髄視床路、特に外側脊髄視床路を上行するため正しい。",
+      "前脊髄小脳路は無意識性深部感覚などに関係する経路で、体幹部痛覚の主伝導路ではないので誤り。",
+      "延髄視床路は識別性触圧覚や深部感覚に関係し、体幹部痛覚の主伝導路ではないので誤り。",
+      "視蓋脊髄路は姿勢反射や眼球・頭部運動に関係する下行路で、痛覚伝導路ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "6db57cd9712f57b2",
@@ -259,9 +420,15 @@
     "questionLabel": "問149",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_03",
     "category": "午後問題",
-    "questionBodyText": "低周波鍼通電療法で通常、電極として用いる鍼はどれか。"
+    "questionBodyText": "低周波鍼通電療法で通常、電極として用いる鍼はどれか。",
+    "explanationText": [
+      "金鍼は低周波鍼通電療法の通常の電極としては用いにくく、一般的な選択ではないので誤り。",
+      "銀鍼は低周波鍼通電療法の通常の電極としては用いにくく、一般的な選択ではないので誤り。",
+      "低周波鍼通電療法では通電に適したステンレス鍼を通常電極として用いるため正しい。",
+      "絶縁鍼は一般的な低周波鍼通電療法で通常用いる電極ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "516e8274e45ed721",
@@ -270,8 +437,21 @@
     "questionLabel": "問150",
     "examLabel": "第2回（1994年） 午後問題",
     "source_filepath": "output/shinkyu/questions_json/1994/00_source/question_1994_6.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs12_06",
     "category": "午後問題",
-    "questionBodyText": "自律神経について誤っている記述はどれか。"
+    "questionBodyText": "自律神経について誤っている記述はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "アトロピンはムスカリン受容体を遮断する副交感神経遮断薬であり、この記述は正しい。",
+      "副交感神経節前ニューロンの伝達物質はアセチルコリンであり、アドレナリンとする記述は誤り。",
+      "交感神経節前ニューロンの伝達物質はアセチルコリンであり、この記述は正しい。",
+      "交感神経節後ニューロンの多くはノルアドレナリンを伝達物質とするため、この記述は正しい。"
+    ]
   }
 ]
