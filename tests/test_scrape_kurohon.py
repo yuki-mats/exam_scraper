@@ -111,6 +111,12 @@ class ScrapeKurohonTests(unittest.TestCase):
             34,
         )
 
+    def test_extract_round_number_from_url_supports_am_pages(self) -> None:
+        self.assertEqual(
+            extract_round_number_from_url("https://kurohon.jp/gakusei/exams_am/am_23/"),
+            23,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

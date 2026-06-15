@@ -100,7 +100,7 @@ def parse_int_token(value: str) -> int | None:
 
 
 def extract_round_number_from_url(page_url: str) -> int | None:
-    match = re.search(r"/(?:js|hq)_([0-9]+)/?$", page_url)
+    match = re.search(r"/(?:am|js|hq)_([0-9]+)/?$", page_url)
     if not match:
         return None
     return int(match.group(1))

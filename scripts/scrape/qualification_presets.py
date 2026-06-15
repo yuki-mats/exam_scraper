@@ -56,7 +56,7 @@ def load_scrape_preset(
         ]
 
     return ScrapePreset(
-        qualification_code=qualification_code,
+        qualification_code=str(preset.get("qualification_code", qualification_code)),
         qualification_name=preset["qualification_name"],
         scraper_type=str(preset.get("scraper_type", "kakomonn")),
         list_first_page_url_template=preset["list_first_page_url_template"],

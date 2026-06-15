@@ -131,6 +131,24 @@ class ScrapePresetTests(unittest.TestCase):
             "https://anma.kakomonn.com/list1/81011?page=1",
         )
 
+    def test_load_scrape_preset_for_anma_kurohon_outputs_to_anma(self) -> None:
+        preset = load_scrape_preset("anma_kurohon")
+
+        self.assertEqual(preset.qualification_code, "anma")
+        self.assertEqual(preset.qualification_name, "あん摩マッサージ指圧師")
+        self.assertEqual(preset.scraper_type, "kurohon")
+        self.assertEqual(preset.list_group_ids[0], "2015")
+        self.assertEqual(preset.list_group_ids[-1], "1993")
+
+    def test_build_list_first_page_url_for_anma_kurohon(self) -> None:
+        preset = load_scrape_preset("anma_kurohon")
+        url = build_list_first_page_url(preset, "2015")
+
+        self.assertEqual(
+            url,
+            "https://kurohon.jp/gakusei/exams_am/am_23/",
+        )
+
     def test_load_scrape_preset_for_tsukanshi(self) -> None:
         preset = load_scrape_preset("tsukanshi")
 
