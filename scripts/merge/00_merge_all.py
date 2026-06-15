@@ -481,6 +481,12 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
         correct_paths,
         key_fields=("original_question_id",),
     )
+    correct_entry_map_fallback = build_patch_map_from_paths(
+        intent_paths,
+        key_fields=("original_question_id",),
+    )
+    for key, value in correct_entry_map_fallback.items():
+        correct_entry_map.setdefault(key, value)
     correct_map_fallback = build_patch_map_from_paths(
         intent_paths,
         value_key="correctChoiceText",

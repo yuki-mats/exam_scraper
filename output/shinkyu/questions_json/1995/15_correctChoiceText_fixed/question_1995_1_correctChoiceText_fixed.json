@@ -54,14 +54,15 @@
     "questionLabel": "問4",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "questionIntent": "select_correct",
+    "questionIntent": "select_incorrect",
     "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "間違い",
-      "正しい"
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
-    "answer_result_text": "正解は 4 です。"
+    "answer_result_text": "正解は 4 です。",
+    "manualQuestionIntentOverride": true
   },
   {
     "original_question_id": "cb433e6476af576c",
@@ -86,12 +87,12 @@
     "questionLabel": "問6",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "questionIntent": "select_correct",
+    "questionIntent": "select_incorrect",
     "correctChoiceText": [
-      "間違い",
-      "間違い",
       "正しい",
-      "間違い"
+      "正しい",
+      "間違い",
+      "正しい"
     ],
     "answer_result_text": "正解は 3 です。"
   },
@@ -230,12 +231,12 @@
     "questionLabel": "問15",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "questionIntent": "select_correct",
+    "questionIntent": "select_incorrect",
     "correctChoiceText": [
-      "間違い",
       "正しい",
       "間違い",
-      "間違い"
+      "正しい",
+      "正しい"
     ],
     "answer_result_text": "正解は 2 です。"
   },
@@ -262,12 +263,12 @@
     "questionLabel": "問17",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "questionIntent": "select_correct",
+    "questionIntent": "select_incorrect",
     "correctChoiceText": [
+      "間違い",
       "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
+      "正しい",
+      "正しい"
     ],
     "answer_result_text": "正解は 1 です。"
   },

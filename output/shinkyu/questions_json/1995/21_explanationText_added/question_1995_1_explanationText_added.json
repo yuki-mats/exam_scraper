@@ -6,7 +6,12 @@
     "questionLabel": "問1",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "患者の人権を尊重することは施術者倫理の基本であり正しい。",
+      "施術者本位ではなく患者中心の施療を行うべきであり、施術者本位の施療は誤り。",
+      "施術内容やリスクを説明し同意を得るインフォームド・コンセントは施術者倫理として正しい。",
+      "患者のQOLに配慮することは医療・施術の倫理として正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -23,6 +28,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ]
   },
   {
@@ -32,7 +44,12 @@
     "questionLabel": "問2",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "医療機械の導入は医療供給側の高度化・費用増加要因であり、需要増大そのものを示す選択肢ではないので誤り。",
+      "医薬品価格の上昇は価格・費用面の増加要因であり、医療需要を増大させる要因ではないので誤り。",
+      "診療の専門指向は医療提供体制や内容の高度化に関係するが、患者側の需要増大を直接示すものではないので誤り。",
+      "高度医療への患者の要求は患者側の需要を増大させる要因であり正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -49,6 +66,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
     ]
   },
   {
@@ -58,7 +82,12 @@
     "questionLabel": "問3",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "健康保険証の交付は医療保険制度の事務であり、老人保健法に規定された保健事業ではないため誤り。",
+      "健康相談は老人保健法の保健事業として扱われるため正しい。",
+      "健康診査は老人保健法の保健事業として扱われるため正しい。",
+      "訪問指導は老人保健法の保健事業として扱われるため正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -75,6 +104,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
     ]
   },
   {
@@ -84,7 +120,12 @@
     "questionLabel": "問4",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "出題当時、コレラは伝染病予防法の対象として扱われるため、この組合せは正しい。",
+      "出題当時、梅毒は性病予防法の対象として扱われるため、この組合せは正しい。",
+      "出題当時、結核は結核予防法の対象として扱われるため、この組合せは正しい。",
+      "エイズは検疫法の対象として扱う組合せではなく、出題時の誤った組合せとして正答となる。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -101,7 +142,15 @@
       null,
       null,
       null
-    ]
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "manualQuestionIntentOverride": true
   },
   {
     "original_question_id": "cb433e6476af576c",
@@ -110,7 +159,12 @@
     "questionLabel": "問5",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "コレラは汚染水などを介して水系流行を起こしうる感染症なので正しい。",
+      "ワイル病は汚染水との接触で感染しうるため、水系流行と関係する感染症として正しい。",
+      "ポリオは糞口感染で水系流行を起こしうるため正しい。",
+      "結核は主に飛沫核感染・空気感染で広がるため、水系流行による感染症ではなく誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -127,6 +181,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
@@ -136,7 +197,12 @@
     "questionLabel": "問6",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "高圧蒸気滅菌は鍼の滅菌法として適するため正しい。",
+      "エタノールは消毒に用いられるため、鍼の消毒法として適する扱いである。",
+      "逆性石けんは器具の消毒力や適用に限界があり、鍼の消毒には適さないため誤り。",
+      "エチレンオキサイドガスは医療器具の滅菌に用いられ、鍼の消毒・滅菌法として適するため正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -153,6 +219,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
     ]
   },
   {
@@ -162,7 +235,12 @@
     "questionLabel": "問7",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "オゾンは室内空気汚染物質の一つだが、室内環境測定の総合的指標として最も有用とはいえないので誤り。",
+      "悪臭は主観的要素が強く、室内環境測定の代表的指標として最も有用とはいえないので誤り。",
+      "ハウスダストはアレルギーなどに関係するが、換気状態を評価する一般指標として最も有用とはいえないので誤り。",
+      "二酸化炭素濃度は換気状態を反映する代表的な室内環境測定指標であり正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -179,6 +257,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
     ]
   },
   {
@@ -188,7 +273,12 @@
     "questionLabel": "問8",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "健康増進は生活習慣改善などが中心であり、職業訓練との組合せは適切でないので誤り。",
+      "第一次予防は疾病発生を未然に防ぐ段階であり、予防接種は第一次予防に当たるので正しい。",
+      "第二次予防は早期発見・早期治療が中心で、事故防止は第一次予防に近いため誤り。",
+      "第三次予防は障害の進行防止やリハビリテーションが中心で、職業病対策との組合せは適切でないので誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -205,6 +295,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ]
   },
   {
@@ -214,7 +311,12 @@
     "questionLabel": "問9",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "厚生大臣は母子健康手帳を個別に交付する主体ではないので誤り。",
+      "都道府県知事は母子健康手帳の交付主体ではないので誤り。",
+      "母子健康手帳は市町村長が交付するため正しい。",
+      "保健所長は母子健康手帳の交付主体ではないので誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -231,6 +333,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
     ]
   },
   {
@@ -240,7 +349,12 @@
     "questionLabel": "問10",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "我が国の総死亡では悪性新生物など生活習慣病関連死が多く、感染症が最も多いわけではないので誤り。",
+      "有訴者の90%以上が通院しているとはいえず、この記述は誤り。",
+      "当時の我が国では出生率の低下傾向がみられ、この記述は正しい。",
+      "死産では人工死産が自然死産より多い時期があり、自然死産が人工死産より多いという記述は誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -257,6 +371,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
     ]
   },
   {
@@ -266,7 +387,12 @@
     "questionLabel": "問11",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "厚生大臣は施術所開設届の届出先ではないので誤り。",
+      "施術所の開設届出先は都道府県知事であるため正しい。",
+      "市町村長は施術所開設届の届出先ではないので誤り。",
+      "保健所長は実務上の窓口となることがあっても、法令上の届出先としては都道府県知事であるため誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -283,6 +409,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ]
   },
   {
@@ -292,7 +425,12 @@
     "questionLabel": "問12",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "施術所開設の届出は開設前2週間までではないので誤り。",
+      "施術所開設の届出は開設前10日前までではないので誤り。",
+      "施術所を開設した者は開設後10日以内に届け出るため正しい。",
+      "開設後2週間以内ではなく、開設後10日以内であるため誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -309,6 +447,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
     ]
   },
   {
@@ -318,7 +463,12 @@
     "questionLabel": "問13",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "試験に合格しただけでは免許を受けたことにならず、業務を開始できないので誤り。",
+      "合格証の受領だけでは免許登録が完了しておらず、業務開始はできないので誤り。",
+      "免許申請を行っただけでは名簿登録前であり、業務開始はできないので誤り。",
+      "はり師・きゅう師として業務を開始できるのは名簿に登録され免許を受けた後なので正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -335,6 +485,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
     ]
   },
   {
@@ -344,7 +501,12 @@
     "questionLabel": "問14",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "日常生活用具の給付は身体障害者福祉法に基づく福祉の措置に含まれるため正しい。",
+      "補装具の交付は身体障害者福祉法に基づく福祉の措置に含まれるため正しい。",
+      "育成医療は児童福祉・更生医療等の制度で扱われ、身体障害者福祉法上の福祉措置としては含まれないため誤り。",
+      "医療施設への紹介は身体障害者福祉法に基づく相談・援護の措置に含まれるため正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -361,6 +523,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
     ]
   },
   {
@@ -370,7 +539,12 @@
     "questionLabel": "問15",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "骨格筋線維は長い円柱状の細胞で、長さが数cmに達することがあるため正しい。",
+      "紡錘形を呈するのは主に平滑筋細胞の特徴であり、骨格筋細胞の特徴としては誤り。",
+      "骨格筋細胞は横紋構造を有するため正しい。",
+      "骨格筋細胞は多数の核を持つ多核細胞であるため正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -387,6 +561,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ]
   },
   {
@@ -396,7 +577,12 @@
     "questionLabel": "問16",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "前頭骨など頭蓋冠の骨は膜内骨化によって形成されるため正しい。",
+      "上腕骨は主に軟骨内骨化によって形成される長骨であり誤り。",
+      "肋骨は主に軟骨内骨化によって形成されるため誤り。",
+      "腸骨は主に軟骨内骨化によって形成されるため誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -413,6 +599,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
     ]
   },
   {
@@ -422,7 +615,12 @@
     "questionLabel": "問17",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "大坐骨孔は大坐骨切痕に仙棘靱帯と仙結節靱帯が加わって形成されるため、仙結節靱帯だけで形成されるとする記述は誤り。",
+      "大坐骨切痕は寛骨の坐骨・腸骨の形態と関係するため、この記述は正しい。",
+      "大坐骨孔は梨状筋により梨状筋上孔と梨状筋下孔に分けられるため正しい。",
+      "上殿神経は梨状筋上孔を通るため正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -439,6 +637,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
     ]
   },
   {
@@ -448,7 +653,12 @@
     "questionLabel": "問18",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "小胸筋は肩甲骨に作用する筋で、上腕内旋に対する大胸筋の拮抗筋ではないので誤り。",
+      "大円筋は上腕を内旋・内転させ、大胸筋と同方向に働くため拮抗筋ではないので誤り。",
+      "棘下筋は上腕を外旋させる筋で、大胸筋の内旋作用に対する拮抗筋なので正しい。",
+      "肩甲下筋は上腕を内旋させる筋で、大胸筋と同方向に働くため拮抗筋ではないので誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -465,6 +675,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
     ]
   },
   {
@@ -474,7 +691,12 @@
     "questionLabel": "問19",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "大腿二頭筋は股関節伸展に関与し、屈曲との組合せは誤り。",
+      "半膜様筋はハムストリングスの一つで股関節伸展に関与するため正しい。",
+      "縫工筋は股関節屈曲・外転・外旋などに関与し、内旋との組合せは誤り。",
+      "大腿筋膜張筋は股関節屈曲・外転・内旋に関与し、外旋との組合せは誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -491,6 +713,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ]
   },
   {
@@ -500,7 +729,12 @@
     "questionLabel": "問20",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "十二指腸の長さは約25cmであり、約12cmではないので誤り。",
+      "総胆管は大十二指腸乳頭で十二指腸に開口し、空腸には開口しないので誤り。",
+      "集合リンパ節であるパイエル板は回腸下部に多いため正しい。",
+      "虫垂は盲腸に付属する大腸の一部であり、小腸には属さないので誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -517,6 +751,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
     ]
   },
   {
@@ -526,7 +767,12 @@
     "questionLabel": "問21",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "肝臓には無漿膜野があり、全面が腹膜で包まれるわけではないので誤り。",
+      "肝臓は右葉が左葉より大きく、同じ大きさではないので誤り。",
+      "門脈は機能血管であり、肝臓の栄養血管は主に肝動脈なので誤り。",
+      "肝静脈は直接下大静脈に注ぐため正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -543,6 +789,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
     ]
   },
   {
@@ -552,7 +805,12 @@
     "questionLabel": "問22",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "肺は右3葉、左2葉からなり、右2葉・左3葉ではないので誤り。",
+      "胸膜腔には少量の漿液があり、滑液で満たされるわけではないので誤り。",
+      "臓側胸膜は肺門部で壁側胸膜に移行し、肺尖で移行するわけではないので誤り。",
+      "肺門は肺の内側面にあり縦隔に面するため正しい。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -569,6 +827,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
     ]
   },
   {
@@ -578,7 +843,12 @@
     "questionLabel": "問23",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "弓状動脈は腎皮質と髄質の境界部を走るため正しい。",
+      "遠位尿細管は集合管へ続き、腎杯に直接注ぐわけではないので誤り。",
+      "集合管は尿細管系に続くが、通常ネフロンそのものには含めないため誤り。",
+      "ボーマン嚢は糸球体を包む上皮性構造であり、結合組織からなるわけではないので誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -595,6 +865,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
     ]
   },
   {
@@ -604,7 +881,12 @@
     "questionLabel": "問24",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "排卵後の卵胞は黄体となり、閉鎖卵胞となるのは発育途中で退行した卵胞なので誤り。",
+      "卵胞は卵巣の皮質に存在するため正しい。",
+      "成熟卵胞は約2cmに達するため正しい。",
+      "原始卵胞は出生時から存在し、思春期に初めて出現するわけではないので誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -621,6 +903,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
@@ -630,7 +919,12 @@
     "questionLabel": "問25",
     "examLabel": "第3回（1995年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1995/00_source/question_1995_1.json",
-    "explanationText": null,
+    "explanationText": [
+      "甲状腺は甲状軟骨の下方、気管前面に位置するため、上方に位置するという記述は誤り。",
+      "皮質と髄質に分かれるのは副腎などの特徴で、甲状腺の構造ではないので誤り。",
+      "甲状腺にはコロイドを含む多数の濾胞が存在するため正しい。",
+      "甲状腺は主に外頸動脈系の上甲状腺動脈と鎖骨下動脈系の下甲状腺動脈で栄養され、内頸動脈の枝ではないので誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -647,6 +941,13 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
     ]
   }
 ]

@@ -30,6 +30,7 @@ NEGATIVE_PROMPT_PHRASES = (
     "不適当なの",
     "不適切なもの",
     "不適切なの",
+    "適さない",
     "適切でない",
     "適切でないもの",
     "適切でないの",
@@ -234,7 +235,11 @@ def apply_answer_result_overrides(
         entry = override_map.get(str(question_id))
         if not isinstance(entry, dict):
             continue
-        for field in ("answer_result_text", "answer_result_inferred_correct_choice_numbers"):
+        for field in (
+            "answer_result_text",
+            "answer_result_inferred_correct_choice_numbers",
+            "manualQuestionIntentOverride",
+        ):
             if field in entry and entry[field] is not None and question.get(field) != entry[field]:
                 question[field] = entry[field]
                 updated += 1
@@ -351,12 +356,16 @@ def normalize_true_false_intent_and_correct_choice(
         if question_type != "true_false":
             continue
 
-        inferred_intent = infer_question_intent_from_text(
-            question.get("questionBodyText") or question.get("originalQuestionBodyText") or ""
-        )
-        if inferred_intent and question.get("questionIntent") != inferred_intent:
-            question["questionIntent"] = inferred_intent
-            intent_updates += 1
+        manual_intent_override = question.get("manualQuestionIntentOverride") is True
+        if manual_intent_override:
+            inferred_intent = None
+        else:
+            inferred_intent = infer_question_intent_from_text(
+                question.get("questionBodyText") or question.get("originalQuestionBodyText") or ""
+            )
+            if inferred_intent and question.get("questionIntent") != inferred_intent:
+                question["questionIntent"] = inferred_intent
+                intent_updates += 1
 
         intent = question.get("questionIntent")
         if intent not in {"select_correct", "select_incorrect"}:
@@ -405,6 +414,8 @@ def normalize_true_false_intent_and_correct_choice(
         if current != expected:
             question["correctChoiceText"] = expected
             correct_choice_updates += 1
+        if manual_intent_override:
+            question.pop("manualQuestionIntentOverride", None)
 
     return (intent_updates, correct_choice_updates)
 
