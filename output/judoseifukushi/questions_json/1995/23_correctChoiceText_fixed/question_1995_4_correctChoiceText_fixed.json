@@ -1,0 +1,20 @@
+[
+  {
+    "correctChoiceText_changed": true,
+    "correctChoiceText_change_detail": "negative flash_card labels normalized for answers 2 and 3",
+    "correctChoiceText_change_reason": "設問は「誤っている組合せ」を選ぶ形式で、正解番号2・3はいずれも誤った組合せである。flash_card では merge の自動正規化に任せず、誤りの組合せを「間違い」、正しい組合せを「正しい」として固定する。",
+    "original_question_id": "c0c5aa7c10088f8e",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "answer_result_text": "正解は 2, 3 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2,
+      3
+    ],
+    "question_url": "https://kurohon.jp/gakusei/exams_js/js_3/#q83"
+  }
+]
