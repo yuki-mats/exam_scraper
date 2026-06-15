@@ -56,3 +56,4 @@
 - `kyusuikouji-shunin`
 - `mecnet-kokushi`
 - `nw`
+- `shinkyu`
