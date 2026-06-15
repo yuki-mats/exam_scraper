@@ -57,6 +57,24 @@
 
 `explanation_common_summary`、`explanation_choice_snippets`、`explanation_common_prefix` が欠けている、空に近い、選択肢の正誤理由として薄い、または相互に矛盾している場合は、ローカル情報だけで無理に説明を作らない。
 
+特に、`00_source` 内の該当問題が次のように、共通解説・選択肢別解説の実質的な根拠を持たない場合は、`00_source` だけを根拠にして `explanationText` を推測生成してはいけない。この場合は、下記手順に従って外部Webの一次情報または原典に近い資料を使い、正誤理由・定義・数値・制度趣旨を確認してよい。
+
+```json
+{
+  "explanation_common_prefix": [],
+  "explanation_common_prefix_inferred_correct_choice": 3,
+  "explanation_common_summary": [],
+  "explanation_choice_snippets": [
+    [],
+    [],
+    [],
+    []
+  ]
+}
+```
+
+`explanation_common_prefix_inferred_correct_choice` のような推定正答情報だけでは、各選択肢の理由を説明する根拠として不十分である。正答番号の推定と、受験者向けの正誤理由の根拠確認は分けて扱う。
+
 この場合は次の順で根拠を補う。
 
 1. `20_merged_1` の `questionBodyText`、`choiceTextList`、`correctChoiceText`、`questionIntent` を確認する。
@@ -567,7 +585,7 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 - 明らかな誤字、不自然な日本語、重複表現は修正する
 - 元データに含まれる文をそのまま貼るのではなく、受験者が理解しやすい説明文に整える
 - ただし、法令名、条項番号、数値、単位、技術用語は勝手に変更しない
-- `explanation_choice_snippets` や `explanation_common_summary` が不足している場合は、本文・選択肢・正答だけから想像で補完しない。上記「`explanation_*` が不足している場合の一次情報調査」に従い、権威ある一次情報または原典に近い資料で確認してから書く。
+- `explanation_choice_snippets` や `explanation_common_summary` が不足している場合、または `00_source` 内でもこれらが空配列だけの場合は、本文・選択肢・正答だけから想像で補完しない。上記「`explanation_*` が不足している場合の一次情報調査」に従い、権威ある一次情報または原典に近い資料で確認してから書く。
 - 一次情報まで確認しても根拠が弱い、現行制度と出題当時制度の差が疑われる、または選択肢ごとの説明に推論が残る場合は、通常パッチを完成させたうえで 5.5 high 再確認フラグ sidecar に残す。
 
 ## 5.5 high 再確認フラグ sidecar
