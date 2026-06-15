@@ -6,9 +6,22 @@
     "questionLabel": "問1",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs09_03",
     "category": "午前問題",
-    "questionBodyText": "施術者の倫理について誤っているのはどれか。"
+    "questionBodyText": "施術者の倫理について誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "生活の質を尊重することは、患者中心の施術者倫理として正しい。",
+      "プライバシーの保護は施術者が守るべき倫理として正しい。",
+      "十分な情報提供はインフォームド・コンセントに関係し、倫理上重要であるため正しい。",
+      "施術内容を施術者が一方的に決定することは患者の自己決定を軽視するため誤り。"
+    ]
   },
   {
     "original_question_id": "314e1ea4143a612d",
@@ -17,9 +30,22 @@
     "questionLabel": "問2",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs09_02",
     "category": "午前問題",
-    "questionBodyText": "地域住民を対象とした保険はどれか。"
+    "questionBodyText": "地域住民を対象とした保険はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "組合管掌健康保険は主に事業所の被用者を対象とする職域保険であり、地域住民対象ではないので誤り。",
+      "船員保険は船員を対象とする職域保険であり、地域住民対象ではないので誤り。",
+      "国民健康保険は自営業者や地域住民などを対象とする地域保険であり正しい。",
+      "国家公務員等共済保険は公務員などを対象とする職域保険であり、地域住民対象ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "1cb49e3079e7aa1f",
@@ -28,9 +54,22 @@
     "questionLabel": "問3",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_11",
     "category": "午前問題",
-    "questionBodyText": "施術の消毒で誤っているのはどれか。"
+    "questionBodyText": "施術の消毒で誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "鍼は高圧蒸気滅菌など物理的な滅菌・消毒法の対象となるため正しい。",
+      "エチレンオキサイドガス滅菌は包装状態で滅菌後の無菌性を保ちやすく、効果が持続するため正しい。",
+      "施術部位の消毒は中心部から外側へ向かって行うのが原則であり、辺縁部から中心へ向かうのは誤り。",
+      "アルコール綿による清拭には皮脂を除く脱脂効果があるため正しい。"
+    ]
   },
   {
     "original_question_id": "b7f7c2c0f4cb3918",
@@ -39,9 +78,22 @@
     "questionLabel": "問4",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_13",
     "category": "午前問題",
-    "questionBodyText": "我が国の衛生統計で誤っている記述はどれか。"
+    "questionBodyText": "我が国の衛生統計で誤っている記述はどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "人口ピラミッドは人口を性別・年齢階級別に示すグラフであり正しい。",
+      "平均寿命は0歳の平均余命を指すため正しい。",
+      "出生率は出生・死亡などを扱う人口動態統計の指標であり正しい。",
+      "第4回試験当時の日本では老年人口割合は20%を超えておらず、この記述は誤り。"
+    ]
   },
   {
     "original_question_id": "d9f09e69374919eb",
@@ -50,9 +102,22 @@
     "questionLabel": "問5",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_10",
     "category": "午前問題",
-    "questionBodyText": "疾病と法律との組合せで誤っているのはどれか。"
+    "questionBodyText": "疾病と法律との組合せで誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "風疹は予防接種法の対象疾患として扱われるため、この組合せは正しい。",
+      "エイズは後天性免疫不全症候群であり、性病予防法との組合せは不適切であるため誤り。",
+      "当時のコレラは伝染病予防法の対象疾患として扱われるため、この組合せは正しい。",
+      "食中毒は食品衛生法に基づく届出・対応の対象であり、この組合せは正しい。"
+    ]
   },
   {
     "original_question_id": "c48e754d85f51f55",
@@ -61,9 +126,22 @@
     "questionLabel": "問6",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_10",
     "category": "午前問題",
-    "questionBodyText": "食事後最も短時間で発症する食中毒の原因菌はどれか。"
+    "questionBodyText": "食事後最も短時間で発症する食中毒の原因菌はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "ブドウ球菌食中毒は食品中で産生された毒素により、食後数時間以内の短時間で発症しやすいため正しい。",
+      "サルモネラ食中毒は感染型で潜伏時間が比較的長く、最短時間で発症する代表ではないので誤り。",
+      "腸炎ビブリオは通常、ブドウ球菌毒素型より潜伏時間が長いため誤り。",
+      "病原大腸菌は感染型で潜伏時間が比較的長く、最短時間で発症する代表ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "aed7089bf6e5d72d",
@@ -72,9 +150,22 @@
     "questionLabel": "問7",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_04",
     "category": "午前問題",
-    "questionBodyText": "地球温暖化に関係してる物質はどれか。"
+    "questionBodyText": "地球温暖化に関係してる物質はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "二酸化炭素は代表的な温室効果ガスで、地球温暖化に関係するため正しい。",
+      "二酸化硫黄は酸性雨や大気汚染と関係するが、温暖化の主要物質としては不適切であるため誤り。",
+      "一酸化炭素は中毒や大気汚染と関係するが、温暖化の主要物質としては不適切であるため誤り。",
+      "二酸化窒素は大気汚染や酸性雨に関係するが、温暖化の代表物質としては二酸化炭素が適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "66b699d7ae23e315",
@@ -83,9 +174,22 @@
     "questionLabel": "問8",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_13",
     "category": "午前問題",
-    "questionBodyText": "死亡率が増加している疾患はどれか。"
+    "questionBodyText": "死亡率が増加している疾患はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "子宮癌死亡率は選択肢中で増加傾向の代表とはいえないため誤り。",
+      "胃癌死亡率は長期的には低下傾向であり、増加している疾患としては不適切であるため誤り。",
+      "肺癌死亡率は喫煙などを背景に増加傾向が問題となっていたため正しい。",
+      "白血病は選択肢中で死亡率増加の代表としては肺癌が優先されるため誤り。"
+    ]
   },
   {
     "original_question_id": "3b1f281ee7f601ea",
@@ -94,9 +198,22 @@
     "questionLabel": "問9",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_04",
     "category": "午前問題",
-    "questionBodyText": "我が国の生活環境について正しい記述はどれか。"
+    "questionBodyText": "我が国の生活環境について正しい記述はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "第4回試験当時、下水道普及率は60%を超えているとはいえず誤り。",
+      "1人1日平均給水量は生活様式の変化などで増加傾向にあり、年々減少しているとはいえないため誤り。",
+      "井戸水の水質管理は設置者・使用者の管理が基本で、市町村が一律に行うという記述は誤り。",
+      "上水道の普及率は90%を超えており正しい。"
+    ]
   },
   {
     "original_question_id": "9561a26bcbe881e0",
@@ -105,9 +222,22 @@
     "questionLabel": "問10",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs07_03",
     "category": "午前問題",
-    "questionBodyText": "最近の我が国における栄養摂取状況で誤っているのはどれか。"
+    "questionBodyText": "最近の我が国における栄養摂取状況で誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "カルシウム摂取は不足しやすい栄養素であり、充足しているという記述は誤り。",
+      "食塩摂取は高水準で、当時は増加傾向として扱われるため正しい。",
+      "動物性脂肪摂取は食生活の欧米化により増加傾向であり正しい。",
+      "炭水化物摂取は大きく増加せず横ばいとして扱われるため正しい。"
+    ]
   },
   {
     "original_question_id": "aab11a51a67405e6",
@@ -116,9 +246,22 @@
     "questionLabel": "問11",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs08_02",
     "category": "午前問題",
-    "questionBodyText": "正しい記述はどれか。"
+    "questionBodyText": "正しい記述はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "施術所の開設届は開設後10日以内が原則であり、20日以内では誤り。",
+      "施術所には3.3平方メートル以上の待合室を設ける基準があり正しい。",
+      "施術者の経歴を新聞に広告することは広告制限に反するため誤り。",
+      "脱臼の患部への施術は医師の同意が必要であり、同意なく行うのは誤り。"
+    ]
   },
   {
     "original_question_id": "d03287ea055eaeb0",
@@ -127,9 +270,22 @@
     "questionLabel": "問12",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs08_03",
     "category": "午前問題",
-    "questionBodyText": "正しい記述はどれか。"
+    "questionBodyText": "正しい記述はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "試験合格だけでは業務開始できず、免許登録を受ける必要があるため誤り。",
+      "特定疾患を専門とするような名称は広告・名称として不適切であるため誤り。",
+      "施術所に関する罰則には法人にも科される両罰規定があり正しい。",
+      "施術者は医師のように薬品投与を指示できないため誤り。"
+    ]
   },
   {
     "original_question_id": "71eb6f28395d4f35",
@@ -138,9 +294,22 @@
     "questionLabel": "問13",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs08_04",
     "category": "午前問題",
-    "questionBodyText": "医療施設で誤っているのはどれか。"
+    "questionBodyText": "医療施設で誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "病院は20人以上の患者を入院させる施設であり正しい。",
+      "総合病院は単に患者50名以上の収容施設という定義ではなく、この記述は誤り。",
+      "助産所は妊婦・産婦・じょく婦を10人未満入所させる施設であり正しい。",
+      "診療所は入院施設がないか、19人以下の患者を入院させる施設であり正しい。"
+    ]
   },
   {
     "original_question_id": "2f19a24098b0b253",
@@ -149,9 +318,22 @@
     "questionLabel": "問14",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs08_04",
     "category": "午前問題",
-    "questionBodyText": "社会福祉の関係法規でないのはどれか。"
+    "questionBodyText": "社会福祉の関係法規でないのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "生活保護法は社会福祉に関係する法律であり正しい。",
+      "児童福祉法は社会福祉に関係する法律であり正しい。",
+      "身体障害者福祉法は社会福祉に関係する法律であり正しい。",
+      "優生保護法は母体保護・優生政策に関する法律で、社会福祉の関係法規としては不適切であるため誤り。"
+    ]
   },
   {
     "original_question_id": "98e7f71cb5c8ccb3",
@@ -160,9 +342,22 @@
     "questionLabel": "問15",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_01",
     "category": "午前問題",
-    "questionBodyText": "人の染色体について正しい記述はどれか。"
+    "questionBodyText": "人の染色体について正しい記述はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "ヒトの常染色体は44本であり、46個ではないので誤り。",
+      "ヒトの性染色体は通常2本であり正しい。",
+      "精子は半数体で23本の染色体を持ち、4個ではないので誤り。",
+      "精子はX染色体またはY染色体を1本持つため、X染色体を2個持つという記述は誤り。"
+    ]
   },
   {
     "original_question_id": "db44c9a4c15ff9f8",
@@ -171,9 +366,22 @@
     "questionLabel": "問16",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_02",
     "category": "午前問題",
-    "questionBodyText": "内頭蓋底を構成する骨はどれか。"
+    "questionBodyText": "内頭蓋底を構成する骨はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "頭頂骨は頭蓋冠を主に構成し、内頭蓋底の主構成骨ではないため誤り。",
+      "前頭骨は前頭蓋窩を構成し、内頭蓋底の一部となるため正しい。",
+      "頬骨は顔面頭蓋の骨であり、内頭蓋底を構成しないため誤り。",
+      "上顎骨は顔面頭蓋の骨であり、内頭蓋底を構成しないため誤り。"
+    ]
   },
   {
     "original_question_id": "428734b65bbdd480",
@@ -182,9 +390,22 @@
     "questionLabel": "問17",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_02",
     "category": "午前問題",
-    "questionBodyText": "骨とその部位との組合せで誤っているのはどれか。"
+    "questionBodyText": "骨とその部位との組合せで誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "仙骨には岬角があり、この組合せは正しい。",
+      "大腿骨には殿筋粗面があり、この組合せは正しい。",
+      "腰椎の横突起は肋骨突起とも呼ばれ、この組合せは正しい。",
+      "下顎窩は側頭骨にある構造であり、下顎骨との組合せは誤り。"
+    ]
   },
   {
     "original_question_id": "7e94789c8f753be2",
@@ -193,9 +414,22 @@
     "questionLabel": "問18",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_03",
     "category": "午前問題",
-    "questionBodyText": "筋とその付着部との組合せで正しいのはどれか。"
+    "questionBodyText": "筋とその付着部との組合せで正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "三角筋は鎖骨外側部、肩峰、肩甲棘から起こるため、肩甲棘との組合せは正しい。",
+      "円回内筋は主に上腕骨内側上顆などから起こり、外側上顆との組合せは誤り。",
+      "大殿筋は腸骨・仙骨などから起こり、腸脛靱帯や殿筋粗面に停止し、大転子との組合せは誤り。",
+      "後脛骨筋は足根骨や中足骨へ停止し、踵骨突起との組合せは誤り。"
+    ]
   },
   {
     "original_question_id": "77741522cbc8f05f",
@@ -204,9 +438,22 @@
     "questionLabel": "問19",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_03",
     "category": "午前問題",
-    "questionBodyText": "筋と上肢の運動との組合せで誤っているのはどれか。"
+    "questionBodyText": "筋と上肢の運動との組合せで誤っているのはどれか。",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [
+      "僧帽筋上部線維は肩甲骨挙上に関与するため正しい。",
+      "前鋸筋は肩甲骨を前方へ引き、外転・上方回旋に関与するため正しい。",
+      "肩甲下筋は上腕を内旋する筋であり、外旋との組合せは誤り。",
+      "三角筋は上腕外転の主動筋であり正しい。"
+    ]
   },
   {
     "original_question_id": "04a64eb96740e8c4",
@@ -215,9 +462,22 @@
     "questionLabel": "問20",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_03",
     "category": "午前問題",
-    "questionBodyText": "膝窩の上外壁を形成する筋はどれか。"
+    "questionBodyText": "膝窩の上外壁を形成する筋はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "大腿二頭筋は膝窩の上外側壁を形成するため正しい。",
+      "外側広筋は膝窩の上外側壁を形成する筋ではないため誤り。",
+      "半腱様筋は膝窩の上内側壁を形成するため、上外壁ではないので誤り。",
+      "腓腹筋は膝窩の下壁を形成するため、上外壁ではないので誤り。"
+    ]
   },
   {
     "original_question_id": "62ca37ffbbd1e585",
@@ -226,9 +486,22 @@
     "questionLabel": "問21",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_05",
     "category": "午前問題",
-    "questionBodyText": "気管について正しい記述はどれか。"
+    "questionBodyText": "気管について正しい記述はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "気管後壁は食道に接しており、直接脊柱に接するわけではないため誤り。",
+      "大動脈弓は胸部気管の前方から左側を横切るため正しい。",
+      "気管筋は平滑筋であり、骨格筋ではないため誤り。",
+      "気管粘膜上皮は多列線毛上皮であり、重層扁平上皮ではないため誤り。"
+    ]
   },
   {
     "original_question_id": "f9b10a9accbb6ba6",
@@ -237,9 +510,22 @@
     "questionLabel": "問22",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_06",
     "category": "午前問題",
-    "questionBodyText": "胃について正しい記述はどれか。"
+    "questionBodyText": "胃について正しい記述はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "胃体の上方に膨隆する部位を胃底といい正しい。",
+      "小網は小弯側に付着し、大弯から垂れ下がるのは大網であるため誤り。",
+      "噴門には幽門のような発達した弁はないため誤り。",
+      "輪状ヒダは小腸で発達し、胃体部粘膜のヒダは胃粘膜ヒダであるため誤り。"
+    ]
   },
   {
     "original_question_id": "20b45d74f8fca2aa",
@@ -248,9 +534,22 @@
     "questionLabel": "問23",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_06",
     "category": "午前問題",
-    "questionBodyText": "肝臓の血管系について正しい記述はどれか。"
+    "questionBodyText": "肝臓の血管系について正しい記述はどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "門脈には消化管からの静脈血が流れ、動脈血が流れるという記述は誤り。",
+      "肝小葉の洞様毛細血管は中心静脈へ血液を集めるため、設問の中心静脈への流れを問う趣旨として正しい。",
+      "中心静脈は小葉下静脈を経て肝静脈へ注ぎ、小葉間静脈へ注ぐわけではないため誤り。",
+      "肝静脈は肝門ではなく肝臓後面から下大静脈へ注ぐため誤り。"
+    ]
   },
   {
     "original_question_id": "09357d2f8ae1dab6",
@@ -259,9 +558,22 @@
     "questionLabel": "問24",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_07",
     "category": "午前問題",
-    "questionBodyText": "尿が流れる方向について正しいのはどれか。"
+    "questionBodyText": "尿が流れる方向について正しいのはどれか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [
+      "尿は尿細管から集合管へ流れるため正しい。",
+      "尿は腎杯から腎盂へ流れるため、腎盂から腎杯へという方向は誤り。",
+      "尿は膀胱から尿道へ流れるため、尿道から膀胱へという方向は誤り。",
+      "尿は尿管から膀胱へ流れるため、膀胱から尿管へという方向は誤り。"
+    ]
   },
   {
     "original_question_id": "3b6b0abe35a5f4fa",
@@ -270,8 +582,21 @@
     "questionLabel": "問25",
     "examLabel": "第4回（1996年） 午前問題",
     "source_filepath": "output/shinkyu/questions_json/1996/00_source/question_1996_1.json",
-    "questionSetId": null,
+    "questionSetId": "shinkyu_qs01_08",
     "category": "午前問題",
-    "questionBodyText": "胎盤において胎児の血液と母体の血液との間で物質交換が行われるのはどこか。"
+    "questionBodyText": "胎盤において胎児の血液と母体の血液との間で物質交換が行われるのはどこか。",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [
+      "臍帯は胎児と胎盤を結ぶ構造で、母体血と胎児血の主な物質交換部位ではないため誤り。",
+      "羊膜は胎児を包む膜であり、母体血と胎児血の主な物質交換部位ではないため誤り。",
+      "胎盤絨毛で母体血と胎児血の間のガス・栄養・老廃物交換が行われるため正しい。",
+      "脱落膜は母体側子宮内膜に由来する構造で、直接の物質交換部位としては絨毛が適切であるため誤り。"
+    ]
   }
 ]
