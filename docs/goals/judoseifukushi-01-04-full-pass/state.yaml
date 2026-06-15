@@ -39,9 +39,9 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 1995
-  active_source_file: "output/judoseifukushi/questions_json/1995/00_source/question_1995_6.json"
-  active_question_global_index: 526
-  next_step: "Start 01/02/04 prompt review for 1995 question_1995_6.json / 問126-150."
+  active_source_file: "output/judoseifukushi/questions_json/1995/00_source/question_1995_7.json"
+  active_question_global_index: 551
+  next_step: "Start 01/02/04 prompt review for 1995 question_1995_7.json / 問151-175."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 22
-  source_files_fully_completed_01_02_04: 21
-  source_files_fully_completed_01_04: 21
-  questions_reviewed_01_question_type: 525
-  questions_reviewed_02_question_intent: 525
-  questions_reviewed_03_explanation_text: 525
-  questions_reviewed_04_question_set_id: 525
-  questions_fully_completed_01_04: 525
+  source_files_started: 23
+  source_files_fully_completed_01_02_04: 22
+  source_files_fully_completed_01_04: 22
+  questions_reviewed_01_question_type: 550
+  questions_reviewed_02_question_intent: 550
+  questions_reviewed_03_explanation_text: 550
+  questions_reviewed_04_question_set_id: 550
+  questions_fully_completed_01_04: 550
   active_slice:
     year: 1995
-    source_file: "question_1995_6.json"
-    question_labels: "問126-問150"
+    source_file: "question_1995_7.json"
+    question_labels: "問151-問175"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -163,6 +163,10 @@ progress:
     - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_5_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_5_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_5_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_6_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_6_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_6_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_6_questionSetId_linked.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
@@ -186,6 +190,7 @@ progress:
     - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_3_merged_20260616_0439.json"
     - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_4_merged_20260616_0454.json"
     - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_5_merged_20260616_0508.json"
+    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_6_merged_20260616_0524.json"
   implementation_notes:
     - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
     - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
@@ -210,6 +215,7 @@ progress:
     - "1995 question_1995_3.json は生理学、運動学、病理学概論。問53・68は『誤っている組合せ』として select_incorrect に補正し、問56・58・67・72・73は a/b/c/d 組合せ比較のため group_choice、問65は複数正答のため flash_card にした。"
     - "1995 question_1995_4.json は病理学概論、衛生学・公衆衛生学、関係法規。問77・83は『誤っている組合せ』として select_incorrect に補正し、問76・86・92・97は group_choice、問83は複数正答の negative flash_card として 23_correctChoiceText_fixed を追加した。"
     - "1995 question_1995_5.json は一般臨床医学と外科学概論。問103・104・107・117・118・125は『誤っている組合せ』として select_incorrect に補正し、問112は a/b/c/d 組合せ比較のため group_choice にした。問105は現行 merge 正本に合わせ select_correct のまま説明ラベルを整合させた。"
+    - "1995 question_1995_6.json は外科学概論、整形外科学、リハビリテーション医学。問132は a/b/c/d 組合せ比較のため group_choice、問139・148は否定組合せとして select_incorrect に補正し、問145・146は現行 merge 正本に合わせ select_correct のまま説明ラベルを整合させた。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
@@ -234,3 +240,4 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file3-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file4-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file5-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file6-01-04-complete.md"
