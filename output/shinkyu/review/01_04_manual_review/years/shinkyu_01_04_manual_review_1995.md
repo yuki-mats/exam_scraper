@@ -960,8 +960,8 @@
 - question: 問26 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q26
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -998,8 +998,8 @@
 - question: 問27 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q27
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1035,9 +1035,9 @@
 - source: `output/shinkyu/questions_json/1995/00_source/question_1995_2.json`
 - question: 問28 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q28
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs01_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1046,17 +1046,17 @@
 ### 選択肢
 
 1. 側脳室は大脳半球の深部にある。
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-2. 脈絡叢は脳脊髄液を分泌する。
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-3. 第 3 脳室はくも膜下腔と交通する。
    - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 正しい
-4. 脳脊髄液はくも膜顆粒から吸収される。
+2. 脈絡叢は脳脊髄液を分泌する。
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
+3. 第 3 脳室はくも膜下腔と交通する。
    - currentCorrectChoiceText: 間違い
    - expectedCorrectChoiceText: 間違い
+4. 脳脊髄液はくも膜顆粒から吸収される。
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
 - review01QuestionType: pending
@@ -1074,8 +1074,8 @@
 - question: 問29 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q29
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1112,8 +1112,8 @@
 - question: 問30 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q30
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1150,8 +1150,8 @@
 - question: 問31 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q31
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1187,9 +1187,9 @@
 - source: `output/shinkyu/questions_json/1995/00_source/question_1995_2.json`
 - question: 問32 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q32
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs01_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1198,17 +1198,17 @@
 ### 選択肢
 
 1. 胸骨
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-2. 肋骨
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-3. 横隔膜
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-4. 胸膜
    - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 正しい
+2. 肋骨
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
+3. 横隔膜
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
+4. 胸膜
+   - currentCorrectChoiceText: 間違い
+   - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
 - review01QuestionType: pending
@@ -1226,8 +1226,8 @@
 - question: 問33 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q33
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1264,8 +1264,8 @@
 - question: 問34 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q34
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1302,8 +1302,8 @@
 - question: 問35 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q35
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1340,8 +1340,8 @@
 - question: 問36 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q36
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1378,8 +1378,8 @@
 - question: 問37 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q37
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1416,8 +1416,8 @@
 - question: 問38 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q38
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1454,8 +1454,8 @@
 - question: 問39 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q39
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1492,8 +1492,8 @@
 - question: 問40 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q40
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1530,8 +1530,8 @@
 - question: 問41 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q41
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1568,8 +1568,8 @@
 - question: 問42 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q42
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1606,8 +1606,8 @@
 - question: 問43 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q43
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1643,9 +1643,9 @@
 - source: `output/shinkyu/questions_json/1995/00_source/question_1995_2.json`
 - question: 問44 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q44
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1654,17 +1654,17 @@
 ### 選択肢
 
 1. 急速眼球運動が起こる。
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-2. 夢を見ていることが多い。
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-3. 呼吸が乱れることが多い。
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-4. 睡眠時間の約 75％を占める。
    - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 正しい
+2. 夢を見ていることが多い。
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
+3. 呼吸が乱れることが多い。
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
+4. 睡眠時間の約 75％を占める。
+   - currentCorrectChoiceText: 間違い
+   - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
 - review01QuestionType: pending
@@ -1682,8 +1682,8 @@
 - question: 問45 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q45
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1720,8 +1720,8 @@
 - question: 問46 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q46
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1758,8 +1758,8 @@
 - question: 問47 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q47
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1796,8 +1796,8 @@
 - question: 問48 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q48
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_14`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1834,8 +1834,8 @@
 - question: 問49 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q49
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_15`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1871,9 +1871,9 @@
 - source: `output/shinkyu/questions_json/1995/00_source/question_1995_2.json`
 - question: 問50 / https://kurohon.jp/gakusei/exams_hq/hq_3/#q50
 - questionType: `true_false`
-- questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionIntent: `select_incorrect`
+- questionSetId: `shinkyu_qs02_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1882,17 +1882,17 @@
 ### 選択肢
 
 1. ビタミンＤ
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
-2. 有機水銀
    - currentCorrectChoiceText: 正しい
    - expectedCorrectChoiceText: 正しい
+2. 有機水銀
+   - currentCorrectChoiceText: 間違い
+   - expectedCorrectChoiceText: 間違い
 3. リン酸塩
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
 4. 上皮小体ホルモン
-   - currentCorrectChoiceText: 間違い
-   - expectedCorrectChoiceText: 間違い
+   - currentCorrectChoiceText: 正しい
+   - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
 - review01QuestionType: pending
