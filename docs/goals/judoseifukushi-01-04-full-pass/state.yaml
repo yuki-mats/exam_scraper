@@ -38,10 +38,10 @@ execution:
     - "1993-2004: 200 questions/year"
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
-  active_year: 1999
-  active_source_file: "output/judoseifukushi/questions_json/1999/00_source/question_1999_8.json"
-  active_question_global_index: 1376
-  next_step: "Start 01/02/04 prompt review for 1999 question_1999_8.json / 問176-問200."
+  active_year: 2000
+  active_source_file: "output/judoseifukushi/questions_json/2000/00_source/question_2000_1.json"
+  active_question_global_index: 1401
+  next_step: "Start 01/02/04 prompt review for 2000 question_2000_1.json / 問1-問25."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 56
-  source_files_fully_completed_01_02_04: 55
-  source_files_fully_completed_01_04: 55
-  questions_reviewed_01_question_type: 1375
-  questions_reviewed_02_question_intent: 1375
-  questions_reviewed_03_explanation_text: 1375
-  questions_reviewed_04_question_set_id: 1375
-  questions_fully_completed_01_04: 1375
+  source_files_started: 57
+  source_files_fully_completed_01_02_04: 56
+  source_files_fully_completed_01_04: 56
+  questions_reviewed_01_question_type: 1400
+  questions_reviewed_02_question_intent: 1400
+  questions_reviewed_03_explanation_text: 1400
+  questions_reviewed_04_question_set_id: 1400
+  questions_fully_completed_01_04: 1400
   active_slice:
-    year: 1999
-    source_file: "question_1999_8.json"
-    question_labels: "問176-問200"
+    year: 2000
+    source_file: "question_2000_1.json"
+    question_labels: "問1-問25"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -219,6 +219,10 @@ progress:
     - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_7_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_7_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_7_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_8_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_8_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_8_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_8_questionSetId_linked.json"
     - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_2_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_2_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_2_explanationText_added.json"
@@ -410,6 +414,7 @@ progress:
     - "1999 question_1999_3.json は生理学、運動学、病理学概論、環境衛生。全問 true_false のまま、問60・66・69・73は『誤っている組合せ／みられない』の整理に合わせて select_incorrect に補正した。骨の生理、神経、筋肉の機能、感覚の生理、生殖、頭・頸部と四肢体幹の運動、歩行、姿勢、運動制御、循環障害、免疫異常、炎症、疾病の一般、病因、進行性病変、代謝障害、腫瘍、環境衛生に紐付けた。"
     - "1999 question_1999_4.json は公衆衛生と関係法規。問78・83・90・94は否定表現に合わせて select_incorrect に補正し、問92・100は a/b/c/d 組合せ比較のため group_choice に変更した。問100は 00_source の stem 欠落があり、外部参照で『施術所-6.6平方メートル以上の専用施術室』を補って explanation を記述し、診療放射線技師法・理学療法士及び作業療法士法の questionSetId も追加で使った。"
     - "1999 question_1999_7.json は柔道整復理論の骨折・脱臼・軟部組織損傷。問165を group_choice に補正し、問155・161・167は negative stem に合わせて select_incorrect と correctChoiceText を補正した。問151・152・173は 00_source に画像内容がなく、国試黒本の一次表示でも画像代替テキストが取れなかったため、正答番号と設問主題に限定した説明を記述した。問163は総論9 軟部組織損傷、問165は各論・骨折1 頭部・体幹に寄せた。"
+    - "1999 question_1999_8.json は柔道整復理論の下肢骨折・上下肢脱臼・軟部組織損傷。問183は『誤っている組合せ』に合わせて select_incorrect と correctChoiceText を補正した。問197・198は 00_source に図示内容がないが、正答肢と機序からそれぞれ尺骨神経麻痺、正中索断裂として explanation を記述した。問180は上肢脱臼固定肢位として `judoseifukushi_qs11_19`、問192・193・197・200は上肢骨折領域として `judoseifukushi_qs11_16` に寄せた。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
@@ -467,3 +472,4 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file7-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file8-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file7-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file8-01-04-complete.md"
