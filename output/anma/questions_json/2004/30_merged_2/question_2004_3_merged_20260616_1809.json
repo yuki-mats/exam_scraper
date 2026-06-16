@@ -62,7 +62,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "顔面神経は口腔や咽頭の一部感覚に関与します。",
+        "舌咽神経は咽頭や舌後方の感覚に関与します。",
+        "舌下神経は主として舌筋の運動神経であり、感覚には関与しないためこの選択肢が正解です。",
+        "迷走神経も咽頭・喉頭周囲の感覚に関与します。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "口腔・咽頭の脳神経支配を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "舌下神経は主として舌筋の運動神経であり、感覚には関与しないためこの選択肢が正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "顔面神経、舌咽神経、迷走神経はいずれも口腔や咽頭の感覚に関与します。"
+        },
+        {
+          "question": "口腔・咽頭の脳神経支配を整理したい。",
+          "answer": "舌下神経は運動、舌咽神経や迷走神経は感覚と運動、顔面神経は味覚や一部感覚に関与すると整理できます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs01_10_nervous_system"
     },
     {
       "questionBodyText": "脳幹に中枢がないのはどれか。",
@@ -90,12 +117,12 @@
       "public_question_id": "606845fb2b4e1fb4",
       "original_question_id": "606845fb2b4e1fb4",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
-        "正しい"
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
@@ -125,7 +152,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "対光反射中枢は中脳にあります。",
+        "排尿中枢は橋にあります。",
+        "呼吸中枢は延髄や橋にあります。",
+        "言語中枢は大脳皮質にあり、脳幹には存在しないためこの選択肢が正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "脳幹の主な中枢を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "言語中枢は大脳皮質にあり、脳幹には存在しないためこの選択肢が正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "対光反射中枢は中脳、排尿中枢は橋、呼吸中枢は橋・延髄にあります。"
+        },
+        {
+          "question": "脳幹の主な中枢を整理したい。",
+          "answer": "脳幹には呼吸、循環、排尿、姿勢反射など生命維持や基本反射に関わる中枢が集まっています。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs01_10_nervous_system"
     },
     {
       "questionBodyText": "中脳にある機能はどれか。",
@@ -188,7 +242,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "体温調節の中枢は主に視床下部です。",
+        "中脳は姿勢調節に関与する機能をもつため、これが正解です。",
+        "本能行動の中枢は主に辺縁系や視床下部に関わります。",
+        "下垂体ホルモン調節は主に視床下部が担います。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "中脳の役割を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "中脳は姿勢反射や筋緊張調節に関わるため、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "体温調節、本能行動、下垂体ホルモン調節は主に視床下部などが関与します。"
+        },
+        {
+          "question": "中脳の役割を整理したい。",
+          "answer": "中脳は視覚・聴覚反射や姿勢調節などに関わる脳幹の一部です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs01_10_nervous_system"
     },
     {
       "questionBodyText": "多シナプス反射でないのはどれか。",
@@ -251,7 +332,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "屈曲反射は介在ニューロンを介する多シナプス反射です。",
+        "引っかき反射も多シナプス反射です。",
+        "交緊張性頸反射も多シナプス反射として扱われます。",
+        "アキレス腱反射は単シナプス反射であり、多シナプス反射ではないためこれが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "単シナプス反射と多シナプス反射を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "アキレス腱反射は単シナプス反射であり、多シナプス反射ではないためこれが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "屈曲反射、引っかき反射、交緊張性頸反射はいずれも多シナプス反射です。"
+        },
+        {
+          "question": "単シナプス反射と多シナプス反射を整理したい。",
+          "answer": "伸張反射や腱反射は単シナプス、逃避反射や姿勢反射は多シナプスと整理できます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "皮膚への刺激で起こらない反射はどれか。",
@@ -314,7 +422,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "伸張反射は筋紡錘への刺激で起こる反射であり、皮膚刺激では起こらないためこの選択肢が正解です。",
+        "横隔膜反射は皮膚刺激で誘発されうる反射です。",
+        "交叉性伸展反射は皮膚刺激に伴う防御反射の一部です。",
+        "屈曲反射も皮膚刺激で起こる代表的反射です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "皮膚反射と伸張反射の違いを整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "伸張反射は筋紡錘への刺激で起こる反射であり、皮膚刺激では起こらないためこの選択肢が正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "横隔膜反射、交叉性伸展反射、屈曲反射はいずれも皮膚刺激に関連して起こりえます。"
+        },
+        {
+          "question": "皮膚反射と伸張反射の違いを整理したい。",
+          "answer": "伸張反射は筋の伸びに対する反射で、皮膚反射は皮膚刺激に対する防御・自律調節反射です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "筋の収縮で誤っている記述はどれか。",
@@ -377,7 +512,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "筋収縮時には熱を産生するため正しい記述です。",
+        "筋弛緩にはアクチン・ミオシンの結合解離のためATPが必要であり正しいです。",
+        "筋トーヌスは姿勢保持に関与するため正しいです。",
+        "歩行運動は等張性収縮を中心とする複合運動であり、等尺性収縮によるという記述は誤りで正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "等尺性収縮と等張性収縮の違いを整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "歩行運動は等張性収縮を中心とする複合運動であり、等尺性収縮によるという記述は誤りで正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "筋収縮では熱を産生し、弛緩にはATPが必要で、筋トーヌスは姿勢保持に関与します。"
+        },
+        {
+          "question": "等尺性収縮と等張性収縮の違いを整理したい。",
+          "answer": "等尺性収縮は筋長が変わらず力だけ発揮し、等張性収縮は筋長が変化して実際の運動を生みます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_12_muscle_function"
     },
     {
       "questionBodyText": "皮膚感覚点で最も密度が高いのはどれか。",
@@ -440,7 +602,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "触圧点よりも痛点の方が数は多いです。",
+        "温点も痛点ほど密ではありません。",
+        "冷点も痛点より少ないとされます。",
+        "皮膚感覚点では痛点が最も密度が高いため、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "皮膚感覚点の分布を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "皮膚感覚点では痛点が最も密度が高いため、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "触圧点、温点、冷点はいずれも痛点ほど高密度ではありません。"
+        },
+        {
+          "question": "皮膚感覚点の分布を整理したい。",
+          "answer": "一般に痛点は数が多く広く分布し、温点や冷点、触圧点はそれより疎に分布します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_14_sensation"
     },
     {
       "questionBodyText": "向神経ウイルスでないのはどれか。",
@@ -503,7 +692,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "麻疹ウイルスは中枢神経合併症を起こしうる向神経性をもちます。",
+        "狂犬病ウイルスは代表的な向神経ウイルスです。",
+        "ポリオウイルスも運動ニューロンを侵す向神経ウイルスです。",
+        "サイトメガロウイルスは本設問でいう代表的向神経ウイルスには含めないため、この選択肢が正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "向神経ウイルスの代表例を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "サイトメガロウイルスは本設問でいう代表的向神経ウイルスには含めないため、この選択肢が正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "麻疹ウイルス、狂犬病ウイルス、ポリオウイルスはいずれも神経系への親和性が知られます。"
+        },
+        {
+          "question": "向神経ウイルスの代表例を整理したい。",
+          "answer": "狂犬病、ポリオ、麻疹の一部合併症など、神経組織への親和性を示すウイルスを向神経ウイルスとして整理します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_02_etiology"
     },
     {
       "questionBodyText": "皮膚機能として老化の影響を最も受けにくいのはどれか。",
@@ -531,12 +747,12 @@
       "public_question_id": "64f5c2551ab77085",
       "original_question_id": "64f5c2551ab77085",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
-        "間違い",
-        "正しい"
+        "正しい",
+        "正しい",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 4,
@@ -566,7 +782,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "表皮のターンオーバーは加齢の影響を受けて遅くなります。",
+        "角質層のバリアー機能も加齢の影響を受けます。",
+        "角質層の水分含有状態も加齢で低下しやすいです。",
+        "皮膚血流量は本設問の選択肢の中では老化の影響を比較的受けにくいとされ、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "加齢による皮膚変化を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "皮膚血流量は本設問の選択肢の中では老化の影響を比較的受けにくいとされ、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "表皮ターンオーバー、角質層のバリアー機能、水分含有状態はいずれも加齢の影響を受けやすいです。"
+        },
+        {
+          "question": "加齢による皮膚変化を整理したい。",
+          "answer": "加齢では乾燥、治癒遅延、バリア機能低下などが目立ちやすく、皮膚機能の変化を総合的にみます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_03_cell_injury_repair"
     },
     {
       "questionBodyText": "部分切除で代償性肥大を起こすのはどれか。",
@@ -629,7 +872,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "肺臓は部分切除後に代償性肥大を示す代表臓器ではありません。",
+        "肝臓は部分切除後に代償性肥大・再生を起こしやすく、これが正解です。",
+        "脾臓はこの代表例ではありません。",
+        "膵臓も本設問で問う代表例ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "代償性肥大の代表例を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "肝臓は部分切除後に代償性肥大・再生を起こしやすく、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "肺臓、脾臓、膵臓はこの設問での代表的な代償性肥大の例ではありません。"
+        },
+        {
+          "question": "代償性肥大の代表例を整理したい。",
+          "answer": "肝臓や片腎摘出後の残存腎などは、負荷増加に応じて代償性肥大を起こす代表例です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_03_cell_injury_repair"
     },
     {
       "questionBodyText": "関連の少ない組み合わせはどれか。",
@@ -657,12 +927,12 @@
       "public_question_id": "a8032102315916d1",
       "original_question_id": "a8032102315916d1",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
+        "間違い",
         "正しい",
-        "間違い",
-        "間違い",
-        "間違い"
+        "正しい",
+        "正しい"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
@@ -692,7 +962,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "狭心症と敗血症の関連は他の組合せに比べて少なく、この組合せが正解です。",
+        "梅毒では大動脈瘤を生じうるため関連があります。",
+        "川崎病は血管炎の一種であり関連があります。",
+        "ショックは多臓器不全の原因となりうるため関連があります。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "病因と疾患の関連を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "狭心症と敗血症の関連は他の組合せに比べて少なく、この組合せが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "梅毒と動脈瘤、川崎病と血管炎、多臓器不全とショックはいずれも関連があります。"
+        },
+        {
+          "question": "病因と疾患の関連を整理したい。",
+          "answer": "病理では病因・病態・合併症の関連をまとめて覚えると、組合せ問題に対応しやすくなります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_04_circulatory_disturbance"
     },
     {
       "questionBodyText": "免疫担当細胞でないのはどれか。",
@@ -755,7 +1052,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "リンパ球は免疫担当細胞です。",
+        "形質細胞は抗体産生を担う免疫担当細胞です。",
+        "骨髄芽球は顆粒球系前駆細胞であり、成熟した免疫担当細胞ではないためこの選択肢が正解です。",
+        "マクロファージは免疫担当細胞です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "免疫担当細胞を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "骨髄芽球は顆粒球系前駆細胞であり、成熟した免疫担当細胞ではないためこの選択肢が正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "リンパ球、形質細胞、マクロファージはいずれも免疫反応に直接関わる細胞です。"
+        },
+        {
+          "question": "免疫担当細胞を整理したい。",
+          "answer": "リンパ球、形質細胞、マクロファージ、好中球などが主な免疫担当細胞で、前駆細胞とは区別します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_06_immunity_disorders"
     },
     {
       "questionBodyText": "肉芽腫を形成しない疾患はどれか。",
@@ -818,7 +1142,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "真菌症では肉芽腫性炎を形成することがあります。",
+        "サルコイドーシスは非乾酪性肉芽腫を特徴とします。",
+        "ハンセン病でも肉芽腫形成がみられます。",
+        "肝硬変はびまん性線維化と再生結節を特徴とし、肉芽腫形成疾患ではないためこれが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "肉芽腫性炎の代表例を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "肝硬変はびまん性線維化と再生結節を特徴とし、肉芽腫形成疾患ではないためこれが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "真菌症、サルコイドーシス、ハンセン病では肉芽腫形成がみられます。"
+        },
+        {
+          "question": "肉芽腫性炎の代表例を整理したい。",
+          "answer": "結核、サルコイドーシス、真菌症、ハンセン病などは肉芽腫形成の代表例です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_05_inflammation"
     },
     {
       "questionBodyText": "老年期に発生率が最も高くなるのはどれか。",
@@ -881,7 +1232,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "子宮頸癌は老年期より若年〜中年での比率も高い腫瘍です。",
+        "乳癌は高齢でもみられますが、本設問の中で最も高いものではありません。",
+        "前立腺癌は老年期に発生率が高く、これが正解です。",
+        "甲状腺癌は比較的若い年代にもみられます。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "高齢者に多い悪性腫瘍を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "前立腺癌は老年期に発生率が高く、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "子宮頸癌、乳癌、甲状腺癌は本設問の比較では前立腺癌ほど老年期偏重ではありません。"
+        },
+        {
+          "question": "高齢者に多い悪性腫瘍を整理したい。",
+          "answer": "前立腺癌や大腸癌などは高齢化とともに発生頻度が上がる代表例です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_07_tumors"
     },
     {
       "questionBodyText": "問診で誤っている記述はどれか。",
@@ -944,7 +1322,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "問診は通常、主訴から始めるため正しい記述です。",
+        "問診内容には守秘義務があり正しい記述です。",
+        "家族歴は現病歴ではなく、家族歴として別に扱うためこの記述が誤りで正解です。",
+        "輸血歴は既往歴に含めて確認するため正しい記述です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "問診項目の整理をしたい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "家族歴は現病歴ではなく、家族歴として別に扱うためこの記述が誤りで正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "問診は主訴から始め、守秘義務があり、輸血歴は既往歴の一部として確認します。"
+        },
+        {
+          "question": "問診項目の整理をしたい。",
+          "answer": "主訴、現病歴、既往歴、家族歴、生活歴などは区別して整理すると問診が組み立てやすくなります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_02_physical_examination"
     },
     {
       "questionBodyText": "打診で鼓音を呈するのはどれか。",
@@ -1007,7 +1412,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "気胸では胸腔内に空気がたまり、打診で鼓音を呈するためこれが正解です。",
+        "無気肺では含気が減少し濁音寄りになります。",
+        "肺炎でも肺実質の含気低下により濁音を示しやすいです。",
+        "肺腫瘍でも通常は鼓音ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "打診音の違いを整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "気胸では胸腔内に空気がたまり、打診で鼓音を呈するためこれが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "無気肺、肺炎、肺腫瘍では含気低下や腫瘤のため鼓音ではなく濁音寄りになります。"
+        },
+        {
+          "question": "打診音の違いを整理したい。",
+          "answer": "鼓音は空気が多い状態、濁音は実質化や液体貯留がある状態でみられやすいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_02_physical_examination"
     },
     {
       "questionBodyText": "多毛がみられるのはどれか。",
@@ -1070,7 +1502,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "クレチン病では多毛は代表的所見ではありません。",
+        "甲状腺機能亢進症の代表所見として多毛は通常目立ちません。",
+        "副甲状腺機能亢進症でも多毛は代表的ではありません。",
+        "クッシング症候群では副腎皮質ホルモン過剰に伴い多毛がみられるため、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "多毛をきたす内分泌疾患を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "クッシング症候群では副腎皮質ホルモン過剰に伴い多毛がみられるため、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "クレチン病、甲状腺機能亢進症、副甲状腺機能亢進症は本設問での多毛の代表疾患ではありません。"
+        },
+        {
+          "question": "多毛をきたす内分泌疾患を整理したい。",
+          "answer": "副腎皮質ホルモンやアンドロゲン過剰を伴う病態では多毛がみられやすくなります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "低血糖の症状はどれか。",
@@ -1133,7 +1592,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "口渇は高血糖や脱水でみられやすい症状です。",
+        "多飲も高血糖でみられやすい症状です。",
+        "多尿も高血糖時にみられやすい症状です。",
+        "低血糖では交感神経症状として冷汗が出現しやすく、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "低血糖症状を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "低血糖では交感神経症状として冷汗が出現しやすく、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "口渇、多飲、多尿は高血糖でみられる代表症状です。"
+        },
+        {
+          "question": "低血糖症状を整理したい。",
+          "answer": "低血糖では冷汗、振戦、動悸、意識障害などがみられ、高血糖症状と区別して覚えます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "呼吸困難の成因と疾患の組み合わせで誤っているのはどれか。",
@@ -1196,7 +1682,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "気管支喘息の呼吸困難は閉塞性・換気障害性であり、呼吸筋性とするこの組合せが誤りで正解です。",
+        "左心不全による呼吸困難は心臓性であり正しい組合せです。",
+        "尿毒症では代謝性アシドーシスなどに伴う代謝性呼吸困難がみられうるため正しいです。",
+        "頭蓋内圧亢進症では神経性の呼吸異常をきたすことがあり正しいです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "呼吸困難の成因分類を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "気管支喘息の呼吸困難は閉塞性・換気障害性であり、呼吸筋性とするこの組合せが誤りで正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "左心不全は心臓性、尿毒症は代謝性、頭蓋内圧亢進症は神経性の成因と対応します。"
+        },
+        {
+          "question": "呼吸困難の成因分類を整理したい。",
+          "answer": "呼吸困難は呼吸器性、心臓性、代謝性、神経性などに分類し、代表疾患と結び付けて覚えます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "安静時痛を特徴とする疾患はどれか。",
@@ -1259,7 +1772,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "脊椎先天奇形は安静時痛を代表的特徴とする疾患ではありません。",
+        "変形性脊椎症は動作時や負荷時痛が中心です。",
+        "骨粗鬆症単独では安静時痛が主徴とは限りません。",
+        "脊髄腫瘍では持続的で安静時にも強い痛みを呈しやすく、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "安静時痛をきたす疾患を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "脊髄腫瘍では持続的で安静時にも強い痛みを呈しやすく、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "脊椎先天奇形、変形性脊椎症、骨粗鬆症は本設問の比較では安静時痛を特徴とはしません。"
+        },
+        {
+          "question": "安静時痛をきたす疾患を整理したい。",
+          "answer": "腫瘍や感染症では安静時痛や夜間痛が目立ちやすく、変性疾患の負荷時痛と区別します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "熱傷局所の特徴で誤っている記述はどれか。",
@@ -1322,7 +1862,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "第1度熱傷は表皮のみの障害であり正しい記述です。",
+        "第2度熱傷では水疱形成がみられ正しい記述です。",
+        "第3度熱傷では神経終末も損傷され疼痛が乏しいことが多いため、この記述が誤りで正解です。",
+        "低温熱傷は深部まで傷害が及びやすく、難治性潰瘍となりやすいため正しいです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "熱傷の深さと症状を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "第3度熱傷では神経終末も損傷され疼痛が乏しいことが多いため、この記述が誤りで正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "第1度は表皮のみ、第2度は水疱形成、低温熱傷は難治化しやすいという特徴があります。"
+        },
+        {
+          "question": "熱傷の深さと症状を整理したい。",
+          "answer": "深達性が増すほど疼痛はむしろ減ることがあり、第3度では白色・乾燥・知覚鈍麻が特徴です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "小脳疾患の症状で誤っているのはどれか。",
@@ -1385,7 +1952,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "安静時振戦は主としてパーキンソン病でみられ、小脳疾患の典型ではないためこの選択肢が誤りで正解です。",
+        "失調性歩行は小脳疾患でみられます。",
+        "筋トーヌス低下も小脳疾患の所見です。",
+        "四肢協調運動障害も小脳疾患でみられます。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "小脳症状を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "安静時振戦は主としてパーキンソン病でみられ、小脳疾患の典型ではないためこの選択肢が誤りで正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "失調性歩行、筋トーヌス低下、四肢協調運動障害はいずれも小脳障害でみられます。"
+        },
+        {
+          "question": "小脳症状を整理したい。",
+          "answer": "小脳障害では失調、企図振戦、測定障害、構音障害、筋トーヌス低下などがみられます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "動眼神経麻痺で認められる所見はどれか。",
@@ -1448,7 +2042,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "動眼神経麻痺では縮瞳ではなく散瞳がみられやすいため誤りです。",
+        "動眼神経麻痺では外直筋と上斜筋が優位となり外斜視を示しやすく、これが正解です。",
+        "共同偏視は主に大脳・脳幹病変でみられる所見です。",
+        "眼球陥凹は動眼神経麻痺の代表所見ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "動眼神経麻痺の典型所見を整理したい."
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "動眼神経麻痺では外直筋と上斜筋が優位となり外斜視を示しやすく、これが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "縮瞳ではなく散瞳がみられ、共同偏視や眼球陥凹は典型所見ではありません。"
+        },
+        {
+          "question": "動眼神経麻痺の典型所見を整理したい.",
+          "answer": "動眼神経麻痺では眼瞼下垂、散瞳、外下方偏位、複視などがみられます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "高齢者の睡眠の特徴でないのはどれか。",
@@ -1511,7 +2132,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "高齢者は早い時刻に寝る傾向があり正しい記述です。",
+        "高齢者はむしろ寝つきが悪くなりやすいため、この記述が誤りで正解です。",
+        "夜間に何度も起きることは高齢者に多い睡眠特徴です。",
+        "朝早くに起きるのも高齢者の睡眠特徴です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "高齢者の睡眠特徴を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "高齢者はむしろ寝つきが悪くなりやすいため、この記述が誤りで正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "高齢者では早寝早起きや中途覚醒の増加がみられます。"
+        },
+        {
+          "question": "高齢者の睡眠特徴を整理したい。",
+          "answer": "高齢者では浅眠化、早朝覚醒、中途覚醒増加などが起こりやすくなります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs05_16_geriatric_diseases"
     },
     {
       "questionBodyText": "誤っている組み合わせはどれか。",
@@ -1574,7 +2222,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "スワンネック変形は関節リウマチでみられうるため正しい組合せです。",
+        "ヘバーデン結節は変形性関節症でみられ正しい組合せです。",
+        "デュプイトレン拘縮は手掌腱膜の線維性肥厚によるもので、痛風との組合せは誤りのためこれが正解です。",
+        "クモ状指はマルファン症候群でみられるため正しい組合せです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "他の選択肢はなぜ誤りか。",
+        "特徴的変形と疾患の対応を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "デュプイトレン拘縮は手掌腱膜の線維性肥厚によるもので、痛風との組合せは誤りのためこれが正解です。"
+        },
+        {
+          "question": "他の選択肢はなぜ誤りか。",
+          "answer": "スワンネック変形と関節リウマチ、ヘバーデン結節と変形性関節症、クモ状指とマルファン症候群は正しい対応です。"
+        },
+        {
+          "question": "特徴的変形と疾患の対応を整理したい。",
+          "answer": "手指変形や体型異常は疾患特異性が高いものが多く、代表的な組合せで覚えると有効です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs05_12_musculoskeletal_diseases"
     }
   ]
 }
