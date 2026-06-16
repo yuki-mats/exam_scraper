@@ -39,9 +39,9 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 1999
-  active_source_file: "output/judoseifukushi/questions_json/1999/00_source/question_1999_4.json"
-  active_question_global_index: 1276
-  next_step: "Start 01/02/04 prompt review for 1999 question_1999_4.json / 問76-問100."
+  active_source_file: "output/judoseifukushi/questions_json/1999/00_source/question_1999_5.json"
+  active_question_global_index: 1301
+  next_step: "Start 01/02/04 prompt review for 1999 question_1999_5.json / 問101-問125."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 52
-  source_files_fully_completed_01_02_04: 51
-  source_files_fully_completed_01_04: 51
-  questions_reviewed_01_question_type: 1275
-  questions_reviewed_02_question_intent: 1275
-  questions_reviewed_03_explanation_text: 1275
-  questions_reviewed_04_question_set_id: 1275
-  questions_fully_completed_01_04: 1275
+  source_files_started: 53
+  source_files_fully_completed_01_02_04: 52
+  source_files_fully_completed_01_04: 52
+  questions_reviewed_01_question_type: 1300
+  questions_reviewed_02_question_intent: 1300
+  questions_reviewed_03_explanation_text: 1300
+  questions_reviewed_04_question_set_id: 1300
+  questions_fully_completed_01_04: 1300
   active_slice:
     year: 1999
-    source_file: "question_1999_4.json"
-    question_labels: "問76-問100"
+    source_file: "question_1999_5.json"
+    question_labels: "問101-問125"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -289,6 +289,10 @@ progress:
     - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_3_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_3_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_3_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_4_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_4_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_4_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_4_questionSetId_linked.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
@@ -337,6 +341,7 @@ progress:
     - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_4_merged_20260616_1052.json"
     - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_5_merged_20260616_1102.json"
     - "output/judoseifukushi/questions_json/1999/30_merged_2/question_1999_3_merged_20260616_1239.json"
+    - "output/judoseifukushi/questions_json/1999/30_merged_2/question_1999_4_merged_20260616_1257.json"
   implementation_notes:
     - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
     - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
@@ -391,6 +396,7 @@ progress:
     - "1999 question_1999_1.json は解剖学。全問 true_false のまま既存 questionIntent を維持し、23_correctChoiceText_fixed は不要と判定した。人体解剖学概説、運動器系、脈管系、消化器系、呼吸器系、生殖器系、内分泌器系、神経系、感覚器系に紐付けた。"
     - "1999 question_1999_2.json は体表解剖と生理学。問38・40・41・45は negative stem に合わせて select_incorrect に補正し、問48は sourceAnswerStatus=no_answer の解なし問題として 15_correctChoiceText_fixed と 23_correctChoiceText_fixed で全選択肢を間違いに固定した。体表解剖、生理学総論、血液、循環、呼吸、栄養と代謝、体温とその調節、神経、感覚の生理、尿の生成と排泄、内分泌、生殖、消化と吸収に紐付けた。"
     - "1999 question_1999_3.json は生理学、運動学、病理学概論、環境衛生。全問 true_false のまま、問60・66・69・73は『誤っている組合せ／みられない』の整理に合わせて select_incorrect に補正した。骨の生理、神経、筋肉の機能、感覚の生理、生殖、頭・頸部と四肢体幹の運動、歩行、姿勢、運動制御、循環障害、免疫異常、炎症、疾病の一般、病因、進行性病変、代謝障害、腫瘍、環境衛生に紐付けた。"
+    - "1999 question_1999_4.json は公衆衛生と関係法規。問78・83・90・94は否定表現に合わせて select_incorrect に補正し、問92・100は a/b/c/d 組合せ比較のため group_choice に変更した。問100は 00_source の stem 欠落があり、外部参照で『施術所-6.6平方メートル以上の専用施術室』を補って explanation を記述し、診療放射線技師法・理学療法士及び作業療法士法の questionSetId も追加で使った。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
@@ -418,6 +424,7 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file6-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file7-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file8-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file4-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file1-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file2-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file3-01-04-complete.md"
