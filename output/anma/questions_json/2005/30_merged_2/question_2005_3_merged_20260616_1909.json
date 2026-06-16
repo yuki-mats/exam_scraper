@@ -27,12 +27,12 @@
       "public_question_id": "bc21467f9160c1a0",
       "original_question_id": "bc21467f9160c1a0",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
+        "間違い",
         "正しい",
-        "間違い",
-        "間違い",
-        "間違い"
+        "正しい",
+        "正しい"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
@@ -62,7 +62,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "瞳孔散大筋は主に交感神経支配を受け、通常は副交感神経との二重支配ではありません。",
+        "唾液腺は交感・副交感の両方の影響を受けます。",
+        "胃も交感・副交感の二重支配を受けます。",
+        "膀胱も排尿・蓄尿機能に関して交感・副交感の両方が関与するため、二重支配を受けないのは瞳孔散大筋でこれが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "自律神経の二重支配を整理したい。",
+        "瞳孔の自律神経支配を確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "瞳孔散大筋は交感神経優位で働く筋で、二重支配の代表には入りません。"
+        },
+        {
+          "question": "自律神経の二重支配を整理したい。",
+          "answer": "多くの内臓器官は交感・副交感の両支配を受け、作用が拮抗または協調します。"
+        },
+        {
+          "question": "瞳孔の自律神経支配を確認したい。",
+          "answer": "散大筋は交感神経、括約筋は副交感神経の支配が基本です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "筋性防御の原因となるのはどれか。",
@@ -125,7 +152,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "下肢の熱傷だけでは典型的な筋性防御の原因ではありません。",
+        "骨格筋の損傷では局所痛は起こっても、腹膜刺激による筋性防御とは異なります。",
+        "筋性防御は腹膜炎など腹膜刺激に対する防御性腹壁筋収縮であり、腹膜の炎症が原因となるためこれが正解です。",
+        "肋骨骨折でも疼痛は起こりますが、筋性防御の典型原因とはいえません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "筋性防御とは何か。",
+        "腹膜刺激症状を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "腹膜が炎症で刺激されると内臓体性反射で腹壁筋が緊張し、筋性防御が出現するためです。"
+        },
+        {
+          "question": "筋性防御とは何か。",
+          "answer": "腹部触診時に腹壁筋が反射的に硬く緊張する所見で、腹膜刺激を示唆します。"
+        },
+        {
+          "question": "腹膜刺激症状を整理したい。",
+          "answer": "筋性防御、圧痛、反跳痛などをまとめて覚えると臨床像を把握しやすいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "赤筋線維について正しい記述はどれか。",
@@ -188,7 +242,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "赤筋線維は酸化系代謝に富み、疲労しにくいためこの記述が正しく、これが正解です。",
+        "白筋線維の方が瞬発力が大きく、発生張力も大きい傾向があります。",
+        "白筋線維の方が収縮速度は速いです。",
+        "赤筋線維はミトコンドリアや毛細血管が豊富で酸素消費も多く、少ないわけではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "赤筋線維と白筋線維の違いは何か。",
+        "筋線維タイプを整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "赤筋線維は持久性に優れ、長時間活動に向くため疲れにくいのが特徴です。"
+        },
+        {
+          "question": "赤筋線維と白筋線維の違いは何か。",
+          "answer": "赤筋線維は遅筋で持久性、白筋線維は速筋で瞬発性に優れます。"
+        },
+        {
+          "question": "筋線維タイプを整理したい。",
+          "answer": "収縮速度、疲労耐性、ミトコンドリア量、代謝様式で比較すると理解しやすいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_12_muscle_function"
     },
     {
       "questionBodyText": "脊髄反射はどれか。",
@@ -251,7 +332,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "緊張性頸反射は脳幹・姿勢反射で、純粋な脊髄反射ではありません。",
+        "交叉性伸展反射は脊髄レベルで成立する多シナプス反射であり、これが正解です。",
+        "緊張性迷路反射は前庭・脳幹を介する姿勢反射です。",
+        "立ち直り反射も中枢レベルの統合を要する反射で、脊髄反射ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "脊髄反射の例を整理したい。",
+        "姿勢反射との違いは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "交叉性伸展反射は疼痛刺激時に対側伸筋を働かせる脊髄反射だからです。"
+        },
+        {
+          "question": "脊髄反射の例を整理したい。",
+          "answer": "伸張反射、屈曲反射、交叉性伸展反射などを代表例として押さえると整理しやすいです。"
+        },
+        {
+          "question": "姿勢反射との違いは何か。",
+          "answer": "姿勢反射は脳幹や前庭系の統合が重要で、脊髄反射より高位中枢の関与が大きいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_11_neural_function"
     },
     {
       "questionBodyText": "等尺性収縮を主とする運動はどれか。",
@@ -314,7 +422,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "壁を押し続ける運動は関節角度を変えずに筋張力だけを発生させるため、等尺性収縮の代表でこれが正解です。",
+        "ドアノブを回す動作は関節運動を伴います。",
+        "シャッターを上げる動作も筋長変化を伴う等張性収縮が中心です。",
+        "扉を開く動作も関節運動を伴うため、主に等尺性収縮とはいえません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "等尺性収縮とは何か。",
+        "等尺性収縮と等張性収縮の違いを整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "壁を押しても動かないため筋長は変わらず、張力のみ増す等尺性収縮になります。"
+        },
+        {
+          "question": "等尺性収縮とは何か。",
+          "answer": "筋の長さをほぼ変えずに力を発揮する収縮で、姿勢保持や静的運動でみられます。"
+        },
+        {
+          "question": "等尺性収縮と等張性収縮の違いを整理したい。",
+          "answer": "等尺性は筋長不変、等張性は筋長が変化して実際の運動が生じます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_12_muscle_function"
     },
     {
       "questionBodyText": "足先を強くぶつけた時に痛みを2度感じた。2番目の痛みで誤っているのはどれか。",
@@ -377,7 +512,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "2番目の痛みは遅い痛みで、ポリモーダル受容器の興奮と関連し正しいです。",
+        "2番目の痛みはC線維で伝導されるため正しいです。",
+        "2番目の痛みは鋭い痛みではなく、鈍く遅い痛みであるためこの記述が誤りで正解です。",
+        "遅い痛みは持続しやすく、ゆっくり消失する傾向があり正しいです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "1番目の痛みと2番目の痛みの違いは何か。",
+        "C線維の特徴を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "2番目の痛みは鈍く遅い痛みで、鋭い一次痛ではないからです。"
+        },
+        {
+          "question": "1番目の痛みと2番目の痛みの違いは何か。",
+          "answer": "1番目はAδ線維による鋭い痛み、2番目はC線維による鈍い持続痛です。"
+        },
+        {
+          "question": "C線維の特徴を整理したい。",
+          "answer": "無髄で伝導が遅く、鈍痛や灼熱痛など遅い痛みを伝えるのが特徴です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs02_14_sensation"
     },
     {
       "questionBodyText": "抗体について誤っているのはどれか。",
@@ -440,7 +602,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "抗体はT細胞ではなくB細胞が形質細胞へ分化して産生するため、この記述が誤りで正解です。",
+        "抗体は免疫グロブリン、すなわちγ-グロブリンに属します。",
+        "抗体は抗原特異性が高く、標的抗原に選択的に結合します。",
+        "再感染時には免疫記憶により抗体産生が増強されるため正しいです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "抗体はどの細胞が作るか。",
+        "一次応答と二次応答の違いを整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "抗体はB細胞系が産生し、T細胞は主に細胞性免疫を担うからです。"
+        },
+        {
+          "question": "抗体はどの細胞が作るか。",
+          "answer": "抗原刺激を受けたB細胞が形質細胞に分化して抗体を分泌します。"
+        },
+        {
+          "question": "一次応答と二次応答の違いを整理したい。",
+          "answer": "二次応答では記憶細胞の働きにより、より速く多量の抗体が作られます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_06_immunity_disorders"
     },
     {
       "questionBodyText": "病因のうち外因に属するのはどれか。",
@@ -503,7 +692,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "素因は内因に属します。",
+        "遺伝も内因に属します。",
+        "感染は病原体という外部要因によるため外因に属し、これが正解です。",
+        "免疫は生体側の反応や体質に関わる要素で、ここでは外因ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "内因と外因の違いは何か。",
+        "病因の分類を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "感染は細菌・ウイルスなど外部からの病原体によって起こるため外因です。"
+        },
+        {
+          "question": "内因と外因の違いは何か。",
+          "answer": "内因は遺伝や体質など生体内部の要素、外因は感染・外傷・中毒など外部要因です。"
+        },
+        {
+          "question": "病因の分類を整理したい。",
+          "answer": "内因と外因を対比し、各代表例をセットで覚えると整理しやすいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_02_etiology"
     },
     {
       "questionBodyText": "催奇形因子として最も関連の低いのはどれか。",
@@ -566,7 +782,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "風疹感染は代表的な催奇形因子です。",
+        "糖尿病も胎児奇形リスクと関連します。",
+        "ダイオキシンなど化学物質も催奇形性が問題となり得ます。",
+        "ビタミンCは通常、催奇形因子として代表的ではないため最も関連が低く、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "催奇形因子の代表例を整理したい。",
+        "母体糖尿病と胎児への影響を確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "ビタミンCは通常量で催奇形因子として扱われず、他の選択肢に比べ関連が低いからです。"
+        },
+        {
+          "question": "催奇形因子の代表例を整理したい。",
+          "answer": "感染、薬物、放射線、母体疾患などを代表例で覚えると整理しやすいです。"
+        },
+        {
+          "question": "母体糖尿病と胎児への影響を確認したい。",
+          "answer": "母体糖尿病は先天奇形や巨大児などのリスク因子になります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_02_etiology"
     },
     {
       "questionBodyText": "加齢に伴う変化で誤っているのはどれか。",
@@ -629,7 +872,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "加齢で実質細胞数が減少するのは正しい変化です。",
+        "間質組織の硬化も加齢変化として正しいです。",
+        "加齢に伴って軟骨や骨組織の再生能はむしろ低下するため、この記述が誤りで正解です。",
+        "リポフスチンなど消耗色素の蓄積も加齢変化としてみられます。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "加齢変化を整理したい。",
+        "消耗色素とは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "老化では再生能力が低下するため、軟骨や骨組織の再生が進むとはいえません。"
+        },
+        {
+          "question": "加齢変化を整理したい。",
+          "answer": "萎縮、硬化、再生能低下、色素沈着などを中心に整理すると理解しやすいです。"
+        },
+        {
+          "question": "消耗色素とは何か。",
+          "answer": "リポフスチンに代表される加齢性の色素顆粒で、細胞内に蓄積します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_03_cell_injury_repair"
     },
     {
       "questionBodyText": "肺からの出血に最も関連のある症状はどれか。",
@@ -692,7 +962,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "吐血は主に食道や胃など消化管上部からの出血に関連します。",
+        "喀血は気道や肺からの出血に最も関連する症状であり、これが正解です。",
+        "下血は下部消化管出血に関連します。",
+        "血尿は尿路系からの出血に関連します。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "吐血と喀血の違いは何か。",
+        "出血の表現を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "肺からの出血は咳とともに血を出す喀血として現れるのが代表的だからです。"
+        },
+        {
+          "question": "吐血と喀血の違いは何か。",
+          "answer": "吐血は消化管、喀血は呼吸器由来で、血液の性状や随伴症状も異なります。"
+        },
+        {
+          "question": "出血の表現を整理したい。",
+          "answer": "吐血、喀血、下血、血尿を出血部位ごとに整理すると混同しにくくなります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "浮腫の成因として最も関連の低いのはどれか。",
@@ -755,7 +1052,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "血小板減少症は出血傾向の原因にはなりますが、浮腫の主要成因ではないためこれが正解です。",
+        "低アルブミン血症では膠質浸透圧低下により浮腫が起こります。",
+        "うっ血性心不全では静水圧上昇により浮腫が起こります。",
+        "ネフローゼ症候群でも低アルブミン血症を介して浮腫が起こります。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "浮腫の成因を整理したい。",
+        "ネフローゼ症候群で浮腫が起こる理由は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "血小板減少は止血異常であり、体液貯留を主とする浮腫の機序とは異なるからです。"
+        },
+        {
+          "question": "浮腫の成因を整理したい。",
+          "answer": "静水圧上昇、膠質浸透圧低下、毛細血管透過性亢進、リンパ還流障害の4つで整理できます。"
+        },
+        {
+          "question": "ネフローゼ症候群で浮腫が起こる理由は何か。",
+          "answer": "大量蛋白尿により血清アルブミンが低下し、血漿膠質浸透圧が下がるためです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_04_circulatory_disturbance"
     },
     {
       "questionBodyText": "肉芽組織の構成成分でないのはどれか。",
@@ -818,7 +1142,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "上皮細胞は肉芽組織の主要構成成分ではないため、これが正解です。",
+        "貪食細胞は肉芽組織にみられます。",
+        "血管内皮細胞は新生血管形成に関わり、肉芽組織の重要成分です。",
+        "線維芽細胞もコラーゲン産生を担う肉芽組織の主要構成成分です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "肉芽組織の構成を整理したい。",
+        "新生血管の役割は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "肉芽組織は修復過程の組織で、線維芽細胞・毛細血管・炎症細胞が中心であり、上皮は主成分ではありません。"
+        },
+        {
+          "question": "肉芽組織の構成を整理したい。",
+          "answer": "新生毛細血管、線維芽細胞、マクロファージなどを中心に覚えると整理しやすいです。"
+        },
+        {
+          "question": "新生血管の役割は何か。",
+          "answer": "修復組織へ酸素と栄養を供給し、創傷治癒を支えます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_03_cell_injury_repair"
     },
     {
       "questionBodyText": "我が国のがん統計について誤っている記述はどれか。",
@@ -881,7 +1232,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "男性のがん死亡では肺癌が上位であり、この記述は正しいです。",
+        "女性のがん死亡で子宮癌が最も高いわけではないため、この記述が誤りで正解です。",
+        "前立腺癌の罹患率は増加傾向にあり正しいです。",
+        "乳癌罹患率も増加傾向にあり正しいです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "女性のがん死亡統計の見方を整理したい。",
+        "罹患率と死亡率の違いは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "女性のがん死亡で子宮癌が最多という統計ではなく、子宮癌を最多とするこの記述は不正確だからです。"
+        },
+        {
+          "question": "女性のがん死亡統計の見方を整理したい。",
+          "answer": "部位別死亡数と罹患数は別に見て、年代差も意識して整理すると混同しにくいです。"
+        },
+        {
+          "question": "罹患率と死亡率の違いは何か。",
+          "answer": "罹患率は新たに病気になる頻度、死亡率はその病気で死亡する頻度を示します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs03_07_tumors"
     },
     {
       "questionBodyText": "巨大舌がみられるのはどれか。",
@@ -944,7 +1322,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "甲状腺機能亢進症では典型的に巨大舌はみられません。",
+        "ベーチェット病も巨大舌の代表疾患ではありません。",
+        "アミロイドーシスではアミロイド沈着により巨大舌がみられることがあり、これが正解です。",
+        "猩紅熱も巨大舌の代表疾患ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "巨大舌をきたす疾患を整理したい。",
+        "アミロイドーシスとは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "アミロイド沈着が舌に及ぶと舌が肥大し、巨大舌としてみられることがあるからです。"
+        },
+        {
+          "question": "巨大舌をきたす疾患を整理したい。",
+          "answer": "アミロイドーシス、先端巨大症、先天性疾患などを代表例として整理します。"
+        },
+        {
+          "question": "アミロイドーシスとは何か。",
+          "answer": "異常蛋白が組織へ沈着して臓器障害を起こす病態です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "病的骨折の原因となるのはどれか。",
@@ -1007,7 +1412,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "クレチン病は成長発達障害が中心で、病的骨折の代表原因ではありません。",
+        "クッシング病では骨粗鬆症が進み病的骨折の原因となり得るため、これが正解です。",
+        "アジソン病は副腎皮質機能低下症で、病的骨折の代表原因ではありません。",
+        "バセドウ病でも骨代謝への影響はありますが、本問の代表的原因としてはクッシング病が適切です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "クッシング病で骨折しやすい理由は何か。",
+        "病的骨折の原因を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "過剰な糖質コルチコイド作用で骨形成が抑制され、骨粗鬆症から病的骨折を起こしやすくなるためです。"
+        },
+        {
+          "question": "クッシング病で骨折しやすい理由は何か。",
+          "answer": "骨吸収亢進や骨形成低下により骨量が減少するためです。"
+        },
+        {
+          "question": "病的骨折の原因を整理したい。",
+          "answer": "骨粗鬆症、骨腫瘍、感染、代謝性骨疾患などを代表例として整理すると分かりやすいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs05_10_endocrine_diseases"
     },
     {
       "questionBodyText": "高血糖がみられるのはどれか。",
@@ -1070,7 +1502,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "尿崩症は高血糖を主徴としません。",
+        "粘液水腫も高血糖が代表所見ではありません。",
+        "アジソン病ではむしろ低血糖傾向が問題になることがあります。",
+        "褐色細胞腫ではカテコールアミン過剰により高血糖がみられ、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "褐色細胞腫の症状を整理したい。",
+        "高血糖をきたす内分泌疾患を確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "褐色細胞腫ではアドレナリン・ノルアドレナリン過剰で糖分解や糖新生が促進されるためです。"
+        },
+        {
+          "question": "褐色細胞腫の症状を整理したい。",
+          "answer": "発作性高血圧、動悸、発汗、頭痛、高血糖などをまとめて覚えると整理しやすいです。"
+        },
+        {
+          "question": "高血糖をきたす内分泌疾患を確認したい。",
+          "answer": "糖尿病のほか、クッシング症候群、褐色細胞腫、甲状腺機能亢進などでも高血糖がみられます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs05_10_endocrine_diseases"
     },
     {
       "questionBodyText": "歩行異常について正しい組み合わせはどれか。",
@@ -1133,7 +1592,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "随意跛行は疼痛回避による跛行で、先天性股関節脱臼との代表的組合せではありません。",
+        "間欠跛行は閉塞性動脈硬化症などでみられる歩行障害で、小児股関節結核の代表ではありません。",
+        "はさみ足歩行は痙性麻痺でみられ、脳性小児麻痺との組合せが正しく、これが正解です。",
+        "墜落跛行は腓骨神経麻痺などの下垂足でみられ、片麻痺の代表歩行ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "代表的な異常歩行を整理したい。",
+        "はさみ足歩行の原因は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "はさみ足歩行は下肢内転筋群の痙縮でみられ、脳性小児麻痺に典型的だからです。"
+        },
+        {
+          "question": "代表的な異常歩行を整理したい。",
+          "answer": "間欠跛行、鶏歩、痙性歩行、失調性歩行などを疾患とセットで覚えると整理しやすいです。"
+        },
+        {
+          "question": "はさみ足歩行の原因は何か。",
+          "answer": "痙性麻痺、とくに両下肢痙性が背景にあるときにみられます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "捻挫局所の初期治療で適切でないのはどれか。",
@@ -1196,7 +1682,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "挙上は急性捻挫初期の適切な処置です。",
+        "固定も患部安静化のため適切です。",
+        "冷却もRICE処置の基本で適切です。",
+        "急性期のマッサージは出血や腫脹を悪化させるおそれがあり適切でないため、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "捻挫の初期対応を整理したい。",
+        "RICEとは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "急性炎症期にマッサージを行うと組織損傷や腫脹を増悪させる可能性があるからです。"
+        },
+        {
+          "question": "捻挫の初期対応を整理したい。",
+          "answer": "Rest, Ice, Compression, Elevation のRICEが基本です。"
+        },
+        {
+          "question": "RICEとは何か。",
+          "answer": "安静、冷却、圧迫、挙上による急性外傷の基本処置を指します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_04_therapeutics"
     },
     {
       "questionBodyText": "浮腫がみられないのはどれか。",
@@ -1259,7 +1772,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "急性腎炎では浮腫がみられます。",
+        "肝硬変でも低アルブミン血症や門脈圧亢進により浮腫・腹水がみられます。",
+        "甲状腺機能低下症では粘液水腫がみられます。",
+        "副甲状腺機能低下症は浮腫を主徴としないため、浮腫がみられないものとしてこれが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "浮腫をきたす疾患を整理したい。",
+        "粘液水腫とは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "副甲状腺機能低下症の主問題は低カルシウム血症であり、浮腫は代表所見ではないからです。"
+        },
+        {
+          "question": "浮腫をきたす疾患を整理したい。",
+          "answer": "腎疾患、肝疾患、心不全、内分泌異常などを機序別に整理すると理解しやすいです。"
+        },
+        {
+          "question": "粘液水腫とは何か。",
+          "answer": "甲状腺機能低下症でみられるムコ多糖蓄積による非圧痕性浮腫です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "血圧測定で誤っている記述はどれか。",
@@ -1322,7 +1862,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "坐位で測定すること自体は一般的で正しいです。",
+        "マンシェット中心を心臓の高さに合わせるのも正しいです。",
+        "減圧速度を1心拍あたり約6mmHgとすると速すぎ、測定誤差の原因になるためこの記述が誤りで正解です。",
+        "収縮期血圧はコロトコフ音第1点で判定するため正しいです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "血圧測定の基本手順を整理したい。",
+        "減圧速度はどのくらいが適切か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "減圧が速すぎると真の収縮期・拡張期血圧を読み誤るため、約2〜3mmHg/秒程度が基本です。"
+        },
+        {
+          "question": "血圧測定の基本手順を整理したい。",
+          "answer": "安静、心臓の高さ、適切なカフ幅、適正減圧速度を押さえると測定精度が上がります。"
+        },
+        {
+          "question": "減圧速度はどのくらいが適切か。",
+          "answer": "一般には毎秒2〜3mmHg程度で徐々に減圧します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_03_clinical_tests"
     },
     {
       "questionBodyText": "バイタルサインに含まれないのはどれか。",
@@ -1385,7 +1952,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "尿量は全身状態把握には有用ですが、基本的なバイタルサインには通常含めません。",
+        "呼吸は代表的なバイタルサインです。",
+        "体温も代表的なバイタルサインです。",
+        "脈拍も代表的なバイタルサインであり、含まれないのは尿量でこれが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "バイタルサインを整理したい。",
+        "尿量をみる意義は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "バイタルサインの基本は意識、呼吸、脈拍、血圧、体温などで、尿量は通常別管理だからです。"
+        },
+        {
+          "question": "バイタルサインを整理したい。",
+          "answer": "脈拍、呼吸、血圧、体温を中心に、場面により意識レベルも含めて把握します。"
+        },
+        {
+          "question": "尿量をみる意義は何か。",
+          "answer": "腎機能や循環血液量の評価に有用で、重症管理では重要な指標です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_03_clinical_tests"
     },
     {
       "questionBodyText": "呼吸異常と疾患との組み合わせで正しいのはどれか。",
@@ -1448,7 +2042,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "チェーン・ストークス呼吸は心不全や中枢神経障害でみられやすく、糖尿病性アシドーシスの代表ではありません。",
+        "起座呼吸はうっ血性心不全でみられる代表的な呼吸異常であり、この組合せが正しくこれが正解です。",
+        "クスマウル大呼吸は糖尿病性アシドーシスなど代謝性アシドーシスでみられます。",
+        "下顎呼吸は終末期の重篤な呼吸で、過換気症候群とは結び付きません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "代表的な異常呼吸を整理したい。",
+        "クスマウル呼吸はどんなときに出るか。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "起座呼吸は横になると呼吸困難が増す心不全で典型的にみられるからです。"
+        },
+        {
+          "question": "代表的な異常呼吸を整理したい。",
+          "answer": "起座呼吸、チェーン・ストークス呼吸、クスマウル呼吸、下顎呼吸を病態ごとに整理すると分かりやすいです。"
+        },
+        {
+          "question": "クスマウル呼吸はどんなときに出るか。",
+          "answer": "代謝性アシドーシス、とくに糖尿病性ケトアシドーシスでみられる深大呼吸です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_01_symptoms_signs"
     },
     {
       "questionBodyText": "ネブライザ−療法の適応疾患はどれか。",
@@ -1511,7 +2132,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "ネブライザー療法は気道へ薬液を吸入させる治療で、気管支喘息が代表的適応でありこれが正解です。",
+        "自然気胸では胸腔ドレナージなどが中心で、ネブライザーが主適応ではありません。",
+        "肺結核もネブライザー療法の代表的適応ではありません。",
+        "肺線維症でもネブライザーが基本治療とはなりません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "ネブライザー療法の目的を整理したい。",
+        "気管支喘息の治療を確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "喘息では気管支拡張薬や吸入薬を気道へ直接届ける治療として有効だからです。"
+        },
+        {
+          "question": "ネブライザー療法の目的を整理したい。",
+          "answer": "気道加湿や薬剤吸入により、気道抵抗軽減や痰の排出補助を図ります。"
+        },
+        {
+          "question": "気管支喘息の治療を確認したい。",
+          "answer": "発作時は気管支拡張薬、長期管理では吸入ステロイドなどが中心です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs04_04_therapeutics"
     },
     {
       "questionBodyText": "細菌が原因の感染症はどれか。",
@@ -1574,7 +2222,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "ジフテリアはジフテリア菌による細菌感染症であり、これが正解です。",
+        "エイズはHIVによるウイルス感染症です。",
+        "麻疹は麻疹ウイルスによる感染症です。",
+        "流行性耳下腺炎もムンプスウイルスによる感染症です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "細菌とウイルスの代表感染症を整理したい。",
+        "ジフテリアの原因菌を確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "ジフテリアは Corynebacterium diphtheriae による細菌感染症だからです。"
+        },
+        {
+          "question": "細菌とウイルスの代表感染症を整理したい。",
+          "answer": "細菌性とウイルス性の代表疾患を対比して覚えると鑑別しやすくなります。"
+        },
+        {
+          "question": "ジフテリアの原因菌を確認したい。",
+          "answer": "ジフテリア菌が原因で、上気道病変や偽膜形成を特徴とします。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs05_01_infectious_diseases"
     }
   ]
 }
