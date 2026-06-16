@@ -363,7 +363,6 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
     )
     qtype_map_by_id = build_patch_map_from_paths(
         qtype_paths,
-        value_key="questionType",
         key_fields=("original_question_id",),
     )
 

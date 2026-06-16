@@ -161,7 +161,25 @@ def apply_question_type(
         question_id = question.get("original_question_id")
         if question_id is None:
             continue
-        new_type = qtype_map.get(str(question_id))
+        patch_entry = qtype_map.get(str(question_id))
+        if isinstance(patch_entry, dict):
+            changed = False
+            new_type = patch_entry.get("questionType")
+            if new_type is not None and question.get("questionType") != new_type:
+                question["questionType"] = new_type
+                changed = True
+            new_body = patch_entry.get("questionBodyText")
+            if new_body is not None and question.get("questionBodyText") != new_body:
+                question["questionBodyText"] = new_body
+                changed = True
+            new_choices = patch_entry.get("choiceTextList")
+            if new_choices is not None and question.get("choiceTextList") != new_choices:
+                question["choiceTextList"] = new_choices
+                changed = True
+            if changed:
+                updated += 1
+            continue
+        new_type = patch_entry
         if new_type is not None:
             question["questionType"] = new_type
             updated += 1

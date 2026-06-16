@@ -84,10 +84,24 @@ def merge_patch(original_data: dict, patch_data: Any) -> dict:
             patch_entry = lookup_by_id[str(pid)]
         if not patch_entry:
             continue
+        changed = False
         if "questionType" in patch_entry and patch_entry["questionType"] is not None:
-            q["questionType"] = patch_entry["questionType"]
+            if q.get("questionType") != patch_entry["questionType"]:
+                q["questionType"] = patch_entry["questionType"]
+                changed = True
+        # questionType patch files are also the repo's canonical place for
+        # manual questionBodyText / choiceTextList typo fixes.
+        if "questionBodyText" in patch_entry and patch_entry["questionBodyText"] is not None:
+            if q.get("questionBodyText") != patch_entry["questionBodyText"]:
+                q["questionBodyText"] = patch_entry["questionBodyText"]
+                changed = True
+        if "choiceTextList" in patch_entry and patch_entry["choiceTextList"] is not None:
+            if q.get("choiceTextList") != patch_entry["choiceTextList"]:
+                q["choiceTextList"] = patch_entry["choiceTextList"]
+                changed = True
+        if changed:
             updated += 1
-    print(f"[INFO] {updated} 件の questionType を更新しました")
+    print(f"[INFO] {updated} 件の questionType/questionBodyText/choiceTextList を更新しました")
     return original_data
 
 
