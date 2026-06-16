@@ -1,0 +1,13 @@
+[
+  {
+    "original_question_id": "534e24bcdbf1e9e6",
+    "question_url": "https://kurohon.jp/gakusei/exams_am/am_10/#q16",
+    "severity": "medium",
+    "summary": "問16は公開正答4だが、選択肢1の大腿二頭筋も横紋筋で設問文に曖昧さがある。",
+    "evidence": [
+      "kurohon の公開正答は 4",
+      "大腿二頭筋は骨格筋で横紋をもつため、設問文だけだと 1 も該当しうる"
+    ],
+    "handling": "本番データでは公開正答を維持し、explanationText 側で曖昧性を明示した。"
+  }
+]
