@@ -62,7 +62,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "ピアノを弾くときは前腕回内位から中間位での操作が中心で、回外位の代表ではありません。",
+        "瓶のふたを開ける動作は前腕の回旋を伴いますが、設問でいう明確な回外位を取る代表動作とはしにくいです。",
+        "床の雑巾がけは通常、手掌を下に向ける回内位が中心です。",
+        "両手で水をすくう動作は手掌を上に向けるため前腕回外位となり、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "回内と回外の違いを整理したい。",
+        "前腕の回旋に関わる関節を確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "手のひらを上に向けて水を受ける姿勢は、前腕回外位の典型だからです。"
+        },
+        {
+          "question": "回内と回外の違いを整理したい。",
+          "answer": "手掌を上に向けるのが回外、下に向けるのが回内です。"
+        },
+        {
+          "question": "前腕の回旋に関わる関節を確認したい。",
+          "answer": "橈尺関節を中心に橈骨が尺骨の周囲を回旋することで回内・回外が起こります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs06_05_kinesiology"
     },
     {
       "questionBodyText": "鶏歩がみられるのはどれか。",
@@ -125,7 +152,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "パーキンソン病では小刻み歩行や突進歩行が代表で、鶏歩ではありません。",
+        "筋ジストロフィー症では動揺性歩行やアヒル歩行が代表で、鶏歩とは異なります。",
+        "膝前十字靱帯損傷では不安定性や疼痛性跛行が問題となり、鶏歩の代表ではありません。",
+        "総腓骨神経麻痺では下垂足となり、つま先を引っかけないよう膝を高く上げる鶏歩がみられるため、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "鶏歩が起こる理由は何か。",
+        "代表的な異常歩行を整理したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "総腓骨神経麻痺では足関節背屈が障害され、下垂足を代償して鶏歩になるためです。"
+        },
+        {
+          "question": "鶏歩が起こる理由は何か。",
+          "answer": "つま先が床に引っかからないように、股関節と膝関節を過剰に屈曲して歩くためです。"
+        },
+        {
+          "question": "代表的な異常歩行を整理したい。",
+          "answer": "鶏歩、小刻み歩行、失調性歩行、トレンデレンブルグ歩行などを原因疾患と対で覚えると整理しやすいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs06_05_kinesiology"
     },
     {
       "questionBodyText": "脳梗塞急性期の患者で運動を開始してはならないのはどれか。",
@@ -153,12 +207,12 @@
       "public_question_id": "f41e7ae97d248d0b",
       "original_question_id": "f41e7ae97d248d0b",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_correct",
+      "questionIntent": "select_incorrect",
       "correctChoiceText": [
-        "間違い",
         "正しい",
         "間違い",
-        "間違い"
+        "正しい",
+        "正しい"
       ],
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 2,
@@ -188,7 +242,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "収縮期血圧150mmHgは急性期脳梗塞の運動開始基準として直ちに禁忌とまではいえません。",
+        "脈拍毎分150回は著明な頻脈であり、急性期に運動を開始してはならない条件なのでこれが正解です。",
+        "呼吸数毎分12回はおおむね正常範囲で、この選択肢は正解ではありません。",
+        "体温35.2℃は低めですが、本問で運動開始を最も控えるべき所見として優先されるのは高度頻脈です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "脳梗塞急性期の運動開始で注意するバイタルは何か。",
+        "頻脈が危険な理由は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "毎分150回の頻脈は循環動態が不安定で、急性期運動開始の禁忌に相当するからです。"
+        },
+        {
+          "question": "脳梗塞急性期の運動開始で注意するバイタルは何か。",
+          "answer": "血圧、脈拍、呼吸、体温、意識状態などを総合して安全性を判断します。"
+        },
+        {
+          "question": "頻脈が危険な理由は何か。",
+          "answer": "心負荷や循環不安定性が強く、運動により病態悪化を招くおそれがあるためです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs06_06_stroke_head_injury_rehabilitation"
     },
     {
       "questionBodyText": "生後4か月児で発達異常が疑われるのはどれか。",
@@ -251,7 +332,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "首のすわりは4か月ごろ完成するため、この時点で未完成でも直ちに異常とは断定しにくいです。",
+        "寝返りは一般に5〜6か月ごろ獲得するため、4か月で打たないことだけでは異常とはいえません。",
+        "ガラガラを握らないのは、4か月ごろにみられる把握発達から外れており、発達異常が疑われるためこれが正解です。",
+        "母親を呼ぶような言語的表出は4か月では期待されないため、この選択肢は正解ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "4か月児の発達目安を整理したい。",
+        "寝返りはいつ頃みられるか。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "4か月ごろには玩具把持がみられ始めるため、ガラガラを握れないのは発達の遅れを疑う所見だからです。"
+        },
+        {
+          "question": "4か月児の発達目安を整理したい。",
+          "answer": "追視、笑顔、頸定、玩具把持などを月齢ごとに整理すると判断しやすいです。"
+        },
+        {
+          "question": "寝返りはいつ頃みられるか。",
+          "answer": "一般に5〜6か月ごろに出現することが多いです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs06_09_pediatric_rehabilitation"
     },
     {
       "questionBodyText": "変形性膝関節症患者に勧めるものとして誤っているのはどれか。",
@@ -314,7 +422,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "柔軟体操は関節可動域維持や筋緊張改善に役立ち、変形性膝関節症患者に勧められます。",
+        "プール内歩行は荷重負担を減らしつつ運動できるため、勧められる内容です。",
+        "登山は膝関節への負荷が大きく、変形性膝関節症患者に勧めるものとしては誤りで、これが正解です。",
+        "適正体重の維持は膝への負担軽減に重要であり、勧める内容です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "変形性膝関節症で勧める運動を整理したい。",
+        "体重管理が重要な理由は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "登山は上り下りで膝関節負荷が大きく、症状悪化を招きやすいためです。"
+        },
+        {
+          "question": "変形性膝関節症で勧める運動を整理したい。",
+          "answer": "水中歩行、大腿四頭筋訓練、軽いストレッチなど負担の少ない運動が基本です。"
+        },
+        {
+          "question": "体重管理が重要な理由は何か。",
+          "answer": "体重増加は膝関節への機械的負担を増やし、痛みや変形進行の一因になるためです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs06_11_musculoskeletal_rehabilitation"
     },
     {
       "questionBodyText": "腰痛の運動療法で正しいのはどれか。",
@@ -377,7 +512,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "腰痛の運動療法は再発予防や慢性化予防の比重が大きく、この記述が正しいためこれが正解です。",
+        "速いスピードで体幹を動かすと疼痛増悪や代償動作を招きやすく、適切ではありません。",
+        "腰痛の運動療法では体幹回旋を含めた柔軟性・安定性訓練を行うことがあり、伴わないと断定するのは誤りです。",
+        "腰椎前弯を増強する姿勢は病態により疼痛を助長し得るため、一般的な指導として適切ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "腰痛の運動療法の目的を整理したい。",
+        "体幹安定化訓練とは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "腰痛の運動療法は痛み治療だけでなく、再発予防や機能維持が大きな目的になるからです。"
+        },
+        {
+          "question": "腰痛の運動療法の目的を整理したい。",
+          "answer": "疼痛軽減、再発予防、体幹機能改善、日常生活動作の安定化などが主な目的です。"
+        },
+        {
+          "question": "体幹安定化訓練とは何か。",
+          "answer": "腹筋群や背筋群を協調的に働かせて脊柱の安定性を高める訓練です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs06_11_musculoskeletal_rehabilitation"
     },
     {
       "questionBodyText": "陽に属するのはどれか。",
@@ -440,7 +602,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "腑は機能的・外向的な性質を持ち、東洋医学では陽に属するためこれが正解です。",
+        "胸腹部は身体前面・内側に位置し、陰の性質として整理されます。",
+        "血は物質的で滋潤的な性質を持つため陰に属します。",
+        "慢性は急性に対して静的・持続的な性格を持ち、陰に属します。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "陰陽の基本分類を整理したい。",
+        "臓と腑の陰陽関係はどう考えるか。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "腑は六腑として陽に属し、臓が陰に属する対比が基本だからです。"
+        },
+        {
+          "question": "陰陽の基本分類を整理したい。",
+          "answer": "陽は外・上・熱・動・明、陰は内・下・寒・静・暗で整理すると覚えやすいです。"
+        },
+        {
+          "question": "臓と腑の陰陽関係はどう考えるか。",
+          "answer": "五臓は陰、六腑は陽として対応づけて覚えるのが基本です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_01_oriental_medicine_basics"
     },
     {
       "questionBodyText": "胆について誤っているのはどれか。",
@@ -503,7 +692,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "胆は六腑であると同時に奇恒の腑としても扱われ、この記述は誤りではありません。",
+        "胆は足少陽胆経に属し、背部兪穴は第10胸椎レベルの胆兪と関連するため、この記述は誤りではありません。",
+        "胆は決断を主るとされ、この記述は正しいです。",
+        "君主の官は心を指し、胆は中正の官であるため、この記述が誤りで正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "胆の生理作用を整理したい。",
+        "中正の官とは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "君主の官は心の別称であり、胆に当てはめるのは誤りだからです。"
+        },
+        {
+          "question": "胆の生理作用を整理したい。",
+          "answer": "胆汁の貯蔵排泄とともに、決断を主るという働きで覚えると整理しやすいです。"
+        },
+        {
+          "question": "中正の官とは何か。",
+          "answer": "胆を指す表現で、決断を司る働きを象徴しています。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "五主と五色との組合せで正しいのはどれか。",
@@ -566,7 +782,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "骨は腎に主られ、色は黒と対応するため、骨—黄は誤りです。",
+        "筋は肝に主られ、色は青と対応するため、この組合せが正しくこれが正解です。",
+        "肌肉は脾に主られ、色は黄と対応するため、肌肉—白は誤りです。",
+        "皮毛は肺に主られ、色は白と対応するため、皮毛—黒は誤りです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "五主と五色の対応を整理したい。",
+        "筋を主る臓は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "筋は肝、青も肝に配当される五色なので一致するためです。"
+        },
+        {
+          "question": "五主と五色の対応を整理したい。",
+          "answer": "肝筋青、心脈赤、脾肌肉黄、肺皮毛白、腎骨黒で整理すると覚えやすいです。"
+        },
+        {
+          "question": "筋を主る臓は何か。",
+          "answer": "肝が筋を主るとされます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "五臓と七情との組合せで正しいのはどれか。",
@@ -629,7 +872,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "肝は怒と対応し、恐ではないため誤りです。",
+        "脾は思を主るとされ、この組合せが正しくこれが正解です。",
+        "肺は悲・憂と関係し、怒ではないため誤りです。",
+        "腎は恐と関係し、喜ではないため誤りです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "五臓と七情の対応を整理したい。",
+        "腎と対応する情志は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "七情では脾と思が対応する基本事項だからです。"
+        },
+        {
+          "question": "五臓と七情の対応を整理したい。",
+          "answer": "肝怒、心喜、脾思、肺悲憂、腎恐で整理すると覚えやすいです。"
+        },
+        {
+          "question": "腎と対応する情志は何か。",
+          "answer": "恐が対応します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "食欲減退、下痢、月経過多を示す病証はどれか。",
@@ -692,7 +962,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "肝の病証では疏泄失調や怒り、脇痛などが目立ち、本問の症状像とは合いません。",
+        "心の病証では動悸、不眠、精神症状が中心で、本問とは合いません。",
+        "食欲減退、下痢、月経過多は脾気虚や脾不統血を示し、脾の病証が最も適切なのでこれが正解です。",
+        "肺の病証では咳嗽や息切れ、皮毛の異常が中心で、本問の症状像とは合いません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "脾気虚の症状を整理したい。",
+        "脾不統血とは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "脾は運化と統血を主るため、食欲低下、下痢、月経過多がそろうと脾の病証を考えるからです。"
+        },
+        {
+          "question": "脾気虚の症状を整理したい。",
+          "answer": "食欲不振、倦怠感、軟便・下痢、腹部膨満などが代表です。"
+        },
+        {
+          "question": "脾不統血とは何か。",
+          "answer": "脾気虚により血を脈内に保持できず、出血傾向を示す病態です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "心の臓の作用で正しいのはどれか。",
@@ -755,7 +1052,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "運化を主るのは脾の作用であり、心ではありません。",
+        "皮毛を主るのは肺の作用であり、心ではありません。",
+        "心は神を蔵すとされ、精神・意識活動と関わるため、この記述が正しくこれが正解です。",
+        "血を蔵すのは肝の作用であり、心の作用としては誤りです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "心の主な作用を整理したい。",
+        "血を蔵すのはどの臓か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "心の代表的作用は血脈を主り、神を蔵すことだからです。"
+        },
+        {
+          "question": "心の主な作用を整理したい。",
+          "answer": "血脈を主ることと神志を司ることが中心です。"
+        },
+        {
+          "question": "血を蔵すのはどの臓か。",
+          "answer": "肝が血を蔵すとされます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_03_zang_fu_theory"
     },
     {
       "questionBodyText": "津液について正しいのはどれか。",
@@ -818,7 +1142,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "臓腑を栄養するという表現は血の働きにより近く、津液の代表的作用としては適切ではありません。",
+        "津液は汗や尿などに変化して体外へ排泄されるため、この記述が正しくこれが正解です。",
+        "精神活動の基本物質とされるのは主に血や精であり、津液の代表的説明ではありません。",
+        "生命活動の原動力となるのは気の作用であり、津液の説明ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "気・血・津液の違いを整理したい。",
+        "津液の主な働きは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "津液は体内水分であり、汗や尿などとして代謝・排泄されるからです。"
+        },
+        {
+          "question": "気・血・津液の違いを整理したい。",
+          "answer": "気は機能、血は栄養・精神支持、津液は滋潤と水液代謝で整理すると覚えやすいです。"
+        },
+        {
+          "question": "津液の主な働きは何か。",
+          "answer": "身体各部を潤し、関節や皮膚、粘膜を保ち、汗・尿として代謝されます。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_02_qi_blood_fluids"
     },
     {
       "questionBodyText": "八綱病証について正しい記述はどれか。",
@@ -881,7 +1232,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "陰陽は八綱の総綱であり、正邪の盛衰を示すのは主に虚実なのでこの記述は誤りです。",
+        "表裏は病位の浅深を示す項目であり、八綱を統括するのは陰陽なので誤りです。",
+        "寒熱は疾病の性質を示す八綱であり、この記述が正しくこれが正解です。",
+        "虚実は正邪の盛衰を示す項目であり、病位の深浅を示すという説明は誤りです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "八綱の役割を整理したい。",
+        "虚実と表裏の違いは何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "寒熱は病証の性質を判断する基本軸だからです。"
+        },
+        {
+          "question": "八綱の役割を整理したい。",
+          "answer": "陰陽、表裏、寒熱、虚実の4対で病位・病性・正邪関係を整理します。"
+        },
+        {
+          "question": "虚実と表裏の違いは何か。",
+          "answer": "虚実は正気と邪気の盛衰、表裏は病位の浅深を示します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_05_pattern_theory"
     },
     {
       "questionBodyText": "?血の腹証はどれか。",
@@ -944,7 +1322,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "心下痞硬はみぞおちのつかえを示す腹証で、瘀血の代表ではありません。",
+        "胸脇苦満は少陽病や肝胆系の病証でみられる腹証で、瘀血腹証の代表ではありません。",
+        "瘀血の腹証では小腹急結が代表的であり、これが正解です。",
+        "小腹不仁は感覚鈍麻や虚証寄りの腹証で、瘀血の代表とはしません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "瘀血腹証を整理したい。",
+        "小腹急結とはどのような所見か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "瘀血では下腹部に抵抗・圧痛を伴う小腹急結が代表的腹証だからです。"
+        },
+        {
+          "question": "瘀血腹証を整理したい。",
+          "answer": "圧痛、抵抗、刺痛、月経異常などと合わせて下腹部所見を押さえると整理しやすいです。"
+        },
+        {
+          "question": "小腹急結とはどのような所見か。",
+          "answer": "下腹部に急迫感や抵抗、圧痛がみられる腹証です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_09_japanese_traditional_medicine"
     },
     {
       "questionBodyText": "次の文で示す経絡病証について適切なのはどれか。「歯痛鼻出血、のどの痛み、上肢外側の痛み。」",
@@ -1007,7 +1412,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "胆経は側頭部や脇、下肢外側との関連が強く、本問の症状とは一致しません。",
+        "肝経は下肢内側や生殖器、胸脇との関連が中心で、本問とは一致しません。",
+        "肺経は上肢前外側や呼吸器症状が中心で、歯痛や鼻出血との対応が弱いです。",
+        "歯痛、鼻出血、咽頭痛、上肢外側痛は手陽明大腸経の経脈病証に合致するため、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "大腸経の走行を整理したい。",
+        "経絡病証の見分け方を知りたい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "大腸経は示指から上肢外側を通り、頸部・顔面・鼻翼へ至るため、症状分布と一致するからです。"
+        },
+        {
+          "question": "大腸経の走行を整理したい。",
+          "answer": "示指から上肢外側、肩、頸部を経て鼻翼の反対側へ至る流れで覚えると整理しやすいです。"
+        },
+        {
+          "question": "経絡病証の見分け方を知りたい。",
+          "answer": "症状部位と経脈走行、加えてその経の主病を組み合わせて判断します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "経脈と所属経穴との組合せで正しいのはどれか。",
@@ -1070,7 +1502,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "陰谷は腎経の経穴であり、胃経には属しないため誤りです。",
+        "陰陵泉は足太陰脾経の合穴であり脾経に属するため、この組合せが正しくこれが正解です。",
+        "地機は脾経の郄穴であり、腎経には属しないため誤りです。",
+        "太衝は肝経の原穴であり、胆経には属しないため誤りです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "脾経の代表的経穴を整理したい。",
+        "太衝はどの経脈の経穴か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "陰陵泉は足太陰脾経に属する代表的経穴だからです。"
+        },
+        {
+          "question": "脾経の代表的経穴を整理したい。",
+          "answer": "太白、地機、三陰交、陰陵泉などを脾経とセットで覚えると整理しやすいです。"
+        },
+        {
+          "question": "太衝はどの経脈の経穴か。",
+          "answer": "足厥陰肝経の原穴です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "手の薬指で接続する経脈の組合せで正しいのはどれか。",
@@ -1133,7 +1592,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         3
-      ]
+      ],
+      "explanationText": [
+        "大腸経と胃経は手の示指と顔面部で接続し、薬指ではないため誤りです。",
+        "心経と小腸経は手の小指で接続するため、薬指ではなく誤りです。",
+        "心包経と三焦経は手の薬指で接続する経脈の組合せであり、これが正解です。",
+        "胆経と肝経は足の第4趾や第1趾周辺と関わる経脈で、手の薬指とは関係しません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "手三陰経と手三陽経の接続を整理したい。",
+        "薬指で接続する経脈を覚えたい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "手厥陰心包経と手少陽三焦経は薬指で接続する組合せだからです。"
+        },
+        {
+          "question": "手三陰経と手三陽経の接続を整理したい。",
+          "answer": "母指・示指、小指、薬指など手指ごとの接続部位で整理すると覚えやすいです。"
+        },
+        {
+          "question": "薬指で接続する経脈を覚えたい。",
+          "answer": "心包経と三焦経が薬指で接続すると覚えるのが基本です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "同じ高さにない経穴の組合せはどれか。",
@@ -1196,7 +1682,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "中脘は臍上4寸、不容は臍上6寸で同じ高さではないため、この組合せが誤りで正解です。",
+        "天枢と大横はいずれも臍の高さにあるため、同じ高さの組合せです。",
+        "身柱と肺兪はいずれも第3胸椎レベルに位置し、同じ高さの組合せです。",
+        "命門と志室はいずれも第2腰椎レベルにあり、同じ高さの組合せです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "腹部や背部の経穴の高さを整理したい。",
+        "天枢と大横の位置関係はどうか。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "中脘と不容では縦方向の位置が異なり、同一高位ではないからです。"
+        },
+        {
+          "question": "腹部や背部の経穴の高さを整理したい。",
+          "answer": "臍や椎骨レベルを基準に、同じ高さの経穴を対で覚えると整理しやすいです。"
+        },
+        {
+          "question": "天枢と大横の位置関係はどうか。",
+          "answer": "どちらも臍の高さにあり、正中からの外方距離が異なります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "陰経に所属する経穴はどれか。",
@@ -1259,7 +1772,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "肩井は足少陽胆経の経穴で、陽経に属します。",
+        "曲池は手陽明大腸経の経穴で、陽経に属します。",
+        "梁丘は足陽明胃経の郄穴で、陽経に属します。",
+        "公孫は足太陰脾経の絡穴で陰経に属するため、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "陰経と陽経の経穴を整理したい。",
+        "公孫はどの経脈の経穴か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "公孫は足太陰脾経の経穴であり、陰経所属だからです。"
+        },
+        {
+          "question": "陰経と陽経の経穴を整理したい。",
+          "answer": "所属経脈を先に確認し、その経が陰か陽かで判断すると整理しやすいです。"
+        },
+        {
+          "question": "公孫はどの経脈の経穴か。",
+          "answer": "足太陰脾経の絡穴です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "内眼角から発して、頭部を循り、体幹の後面を下り、足の小指に至る経脈はどれか。",
@@ -1322,7 +1862,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "肝経は足の第1趾から下肢内側、胸脇へ向かう経脈で、内眼角からは始まりません。",
+        "胃経は鼻翼から始まり顔面・前胸腹・下肢前面を下る経脈で、体幹後面を主走行しません。",
+        "腎経は足底から下肢内側、腹胸部へ上る経脈で、内眼角から小趾へ至る走行ではありません。",
+        "膀胱経は内眼角から頭部・背部・下肢後面を下り足の小趾に至るため、これが正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "膀胱経の走行を整理したい。",
+        "内眼角から始まる経脈を覚えたい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "内眼角起始、背部二行線、下肢後面、小趾終止という膀胱経の特徴と一致するためです。"
+        },
+        {
+          "question": "膀胱経の走行を整理したい。",
+          "answer": "内眼角から頭頂、背部、臀部、大腿後面、下腿後面を通り小趾へ至る流れで覚えます。"
+        },
+        {
+          "question": "内眼角から始まる経脈を覚えたい。",
+          "answer": "足太陽膀胱経が代表です。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_13_twelve_primary_meridians"
     },
     {
       "questionBodyText": "第4腰椎棘突起の下の外方1寸5分にある経穴はどれか。",
@@ -1385,7 +1952,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "腎兪は第2腰椎棘突起下の外方1寸5分にあり、本問の位置ではありません。",
+        "大腸兪は第4腰椎棘突起下の外方1寸5分にあるため、これが正解です。",
+        "小腸兪は第1仙椎後仙骨孔と同じ高さにあり、本問の位置ではありません。",
+        "膀胱兪は第2仙椎後仙骨孔と同じ高さにあり、本問の位置ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "背部兪穴の高さを整理したい。",
+        "腎兪と大腸兪の違いを確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "大腸兪はL4棘突起下外方1寸5分という取穴が基本だからです。"
+        },
+        {
+          "question": "背部兪穴の高さを整理したい。",
+          "answer": "胸椎・腰椎・仙骨のレベルと対応臓腑をセットで覚えると整理しやすいです。"
+        },
+        {
+          "question": "腎兪と大腸兪の違いを確認したい。",
+          "answer": "腎兪はL2、大腸兪はL4レベルです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "経脈と原穴との組合せで誤っているのはどれか。",
@@ -1448,7 +2042,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         4
-      ]
+      ],
+      "explanationText": [
+        "太淵は肺経の原穴であり、この組合せは正しいです。",
+        "神門は心経の原穴であり、この組合せは正しいです。",
+        "太白は脾経の原穴であり、この組合せは正しいです。",
+        "太谿は腎経の原穴であり、肝経の原穴ではないため、この組合せが誤りで正解です。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "肝経と腎経の原穴を整理したい。",
+        "原穴の対応を覚えたい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "肝経の原穴は太衝であり、太谿は腎経の原穴だからです。"
+        },
+        {
+          "question": "肝経と腎経の原穴を整理したい。",
+          "answer": "肝経は太衝、腎経は太谿と対で覚えると混同しにくいです。"
+        },
+        {
+          "question": "原穴の対応を覚えたい。",
+          "answer": "主要経脈ごとに原穴を一覧で反復すると定着しやすいです。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "腹部正中から外方2寸に取穴する経穴はどれか。",
@@ -1511,7 +2132,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         1
-      ]
+      ],
+      "explanationText": [
+        "梁門は腹部正中から外方2寸に取る胃経の経穴であり、これが正解です。",
+        "日月は腹部正中から外方4寸の胆経の経穴で、2寸ではありません。",
+        "肓兪は腹部正中から外方0寸5分の腎経の経穴で、2寸ではありません。",
+        "石門は任脈上で腹部正中にあり、2寸外方ではありません。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "腹部の経穴取穴を整理したい。",
+        "梁門の所属経脈は何か。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "梁門は胃経上にあり、腹部正中から外方2寸の位置を取るからです。"
+        },
+        {
+          "question": "腹部の経穴取穴を整理したい。",
+          "answer": "正中からの外方距離と臍・肋骨との高さをセットで覚えると整理しやすいです。"
+        },
+        {
+          "question": "梁門の所属経脈は何か。",
+          "answer": "足陽明胃経に属します。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs10_14_acupoint_application"
     },
     {
       "questionBodyText": "病態と治療法との組合せで適切でないのはどれか。",
@@ -1574,7 +2222,34 @@
       ],
       "choiceClassCorrectChoiceNumbers": [
         2
-      ]
+      ],
+      "explanationText": [
+        "神経痛に対して持続圧迫法を用いるのは一般的な対応であり、この組合せは適切です。",
+        "頸椎症にスラスト法を行うのは症状悪化やリスクの点から適切でなく、この組合せが誤りで正解です。",
+        "神経麻痺に対して運動法を用いるのは機能回復を図る基本対応であり、適切です。",
+        "循環障害に対する軽擦法は穏やかな循環促進を期待できるため、適切な組合せです。"
+      ],
+      "suggestedQuestions": [
+        "正解肢はなぜこれか。",
+        "スラスト法の適応と注意点を整理したい。",
+        "持続圧迫法の適応を確認したい。"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "正解肢はなぜこれか。",
+          "answer": "頸椎症では神経・血管への影響もあり、スラスト法のような急激操作は一般に不適切だからです。"
+        },
+        {
+          "question": "スラスト法の適応と注意点を整理したい。",
+          "answer": "急激な矯正操作は適応を厳密に判断し、頸部では特に慎重なリスク管理が必要です。"
+        },
+        {
+          "question": "持続圧迫法の適応を確認したい。",
+          "answer": "神経痛や圧痛点、筋緊張部への抑制的刺激として用いられることがあります。"
+        }
+      ],
+      "lawGroundedExplanationNotNeeded": true,
+      "questionSetId": "anma_qs11_04_related_therapies"
     }
   ]
 }
