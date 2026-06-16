@@ -381,6 +381,10 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
         value_key="questionIntent",
         key_fields=("original_question_id",),
     )
+    intent_entry_map = build_patch_map_from_paths(
+        intent_paths,
+        key_fields=("original_question_id",),
+    )
 
     base_files = iter_base_files(source_dir)
     if not base_files:
@@ -403,9 +407,11 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
     true_false_correct_choice_updates = 0
     exam_year_backfills = 0
     correct_choice_backfills = 0
+    answer_result_override_updates = 0
     for base_path in base_files:
         data = load_json(base_path)
         qtype_updates += apply_question_type(data, qtype_map_by_id)
+        answer_result_override_updates += apply_answer_result_overrides(data, intent_entry_map)
         intent_updates += apply_question_intent(data, intent_map)
         u_intent, u_choice = normalize_true_false_intent_and_correct_choice(data)
         true_false_intent_updates += u_intent
@@ -424,6 +430,8 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
     print(f"[INFO] questionIntent 更新件数: {intent_updates}")
     print(f"[INFO] true_false questionIntent 正規化件数: {true_false_intent_updates}")
     print(f"[INFO] true_false correctChoiceText 正規化件数: {true_false_correct_choice_updates}")
+    if answer_result_override_updates:
+        print(f"[INFO] answer_result override 更新件数: {answer_result_override_updates}")
     if exam_year_backfills:
         print(f"[INFO] examYear 推定補完件数: {exam_year_backfills}")
     if correct_choice_backfills:
