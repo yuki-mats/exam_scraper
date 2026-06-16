@@ -301,7 +301,7 @@ git status --short | awk '{print $1}' | sort | uniq -c
 
 結果:
 
-- latest commit: `03cbce59 Document git cleanup for Drive migration`
+- latest commit: source repo と候補 repo の `git log -1 --oneline` が一致することを確認する
 - status count: `142 D` / `54 M`
 
 symlink 経由の読み取り確認:
@@ -336,6 +336,7 @@ find -L output/mecnet-kokushi/questions_json/upload_to_firestore -type f | wc -l
 Drive stream 上での pytest:
 
 通常の pytest は Drive stream 配下で 2 分以上無出力になったため中断。プラグイン自動読み込みを切ると通る。
+また、候補 repo 直下を cwd にすると既知の `code.py` shadow 問題で pytest が落ちるため、親ディレクトリを cwd にしてテストファイルを指定する。
 
 ```bash
 cd "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営"
