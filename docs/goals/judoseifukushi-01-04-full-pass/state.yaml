@@ -39,9 +39,9 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 1998
-  active_source_file: "output/judoseifukushi/questions_json/1998/00_source/question_1998_3.json"
-  active_question_global_index: 1051
-  next_step: "Start 01/02/04 prompt review for 1998 question_1998_3.json / 問51-問75."
+  active_source_file: "output/judoseifukushi/questions_json/1998/00_source/question_1998_4.json"
+  active_question_global_index: 1076
+  next_step: "Start 01/02/04 prompt review for 1998 question_1998_4.json / 問76-問100."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 43
-  source_files_fully_completed_01_02_04: 42
-  source_files_fully_completed_01_04: 42
-  questions_reviewed_01_question_type: 1050
-  questions_reviewed_02_question_intent: 1050
-  questions_reviewed_03_explanation_text: 1050
-  questions_reviewed_04_question_set_id: 1050
-  questions_fully_completed_01_04: 1050
+  source_files_started: 44
+  source_files_fully_completed_01_02_04: 43
+  source_files_fully_completed_01_04: 43
+  questions_reviewed_01_question_type: 1075
+  questions_reviewed_02_question_intent: 1075
+  questions_reviewed_03_explanation_text: 1075
+  questions_reviewed_04_question_set_id: 1075
+  questions_fully_completed_01_04: 1075
   active_slice:
     year: 1998
-    source_file: "question_1998_3.json"
-    question_labels: "問51-問75"
+    source_file: "question_1998_4.json"
+    question_labels: "問76-問100"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -249,6 +249,10 @@ progress:
     - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_2_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_2_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_2_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_3_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_3_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_3_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_3_questionSetId_linked.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
@@ -293,6 +297,7 @@ progress:
     - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_8_merged_20260616_0945.json"
     - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_1_merged_20260616_1002.json"
     - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_2_merged_20260616_1020.json"
+    - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_3_merged_20260616_1038.json"
   implementation_notes:
     - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
     - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
@@ -338,6 +343,7 @@ progress:
     - "1997 question_1997_8.json は柔道整復理論の上肢脱臼、下肢骨折、下肢脱臼、下肢軟部組織損傷、症例問題。問190・197は a/b/c/d 組合せ比較のため group_choice にし、問187は sourceAnswerStatus=no_answer の解なし問題として 23_correctChoiceText_fixed で全選択肢を間違いに固定した。上肢脱臼、上肢骨折、下肢骨折、下肢脱臼、下肢軟部組織損傷に紐付けた。"
     - "1998 question_1998_1.json は解剖学。全問 true_false のまま、問5は sourceAnswerStatus=no_answer の解なし問題として 15_correctChoiceText_fixed と 23_correctChoiceText_fixed で全選択肢を間違いに固定した。問9・18・24は公開 answer key を維持しつつ explanation で本試験の整理基準が分かるよう補った。人体解剖学概説、運動器系、脈管系、消化器系、呼吸器系、泌尿器系、生殖器系、内分泌器系、神経系、感覚器系、体表解剖に紐付けた。"
     - "1998 question_1998_2.json は解剖学後半と生理学。全問 true_false のまま、問32・38・44・45・46・47・50は否定表現として select_incorrect に補正し、問48は複数正答の true_false として維持した。解剖学の内分泌器系・神経系・運動器系・人体解剖学概説・体表解剖と、生理学の血液・呼吸・栄養と代謝・体温・尿の生成と排泄・内分泌・生殖・骨の生理・神経・筋肉の機能・感覚の生理に紐付けた。"
+    - "1998 question_1998_3.json は生理学、運動学、病理学概論、公衆衛生、整形外科学。問67は a/b/c/d 組合せ比較のため group_choice に変更し、問58・70・74は否定表現として select_incorrect に補正した。副腎髄質ホルモン、神経、筋収縮、感覚、生殖、体幹・肩・股・膝・足関節運動、歩行、病因、免疫異常、炎症、腫瘍、公害・中毒疾患、ビタミン欠乏、進行性筋疾患に紐付けた。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
@@ -383,3 +389,4 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file8-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file1-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file2-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file3-01-04-complete.md"
