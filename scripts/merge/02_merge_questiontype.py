@@ -19,6 +19,7 @@ from scripts.merge.merge_utils import (
 )
 
 PATCH_TAG = "questionType_fixed"
+REPO_ROOT = Path(__file__).resolve().parents[2]
 PATCH_TAGS_FOR_FILTER = (
     "questionType_fixed",
     "questionSetId_linked",
@@ -232,7 +233,7 @@ def main():
     parser.add_argument(
         "--base-dir",
         "-d",
-        default="/Users/yuki/development/exam_scraper/output/2nd-class-kenchikushi/questions_json",
+        default=str(REPO_ROOT / "output" / "2nd-class-kenchikushi" / "questions_json"),
         help="list_group_id のベースディレクトリ",
     )
     args = parser.parse_args()

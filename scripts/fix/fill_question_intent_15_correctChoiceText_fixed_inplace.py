@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
 NEGATIVE_PROMPT_PHRASES = (
     "最も不適当なもの",
     "最も不適当",
@@ -170,7 +171,7 @@ def main() -> int:
     parser.add_argument(
         "--base-dir",
         type=Path,
-        default=Path("/Users/yuki/development/exam_scraper/output"),
+        default=REPO_ROOT / "output",
         help="検索のベースディレクトリ（例: output や output/<資格>/questions_json）",
     )
     parser.add_argument(

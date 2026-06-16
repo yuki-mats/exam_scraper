@@ -7,6 +7,9 @@ import unittest
 from pathlib import Path
 
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
 def load_module(module_path: Path, module_name: str):
     spec = importlib.util.spec_from_file_location(module_name, module_path)
     module = importlib.util.module_from_spec(spec)
@@ -16,19 +19,19 @@ def load_module(module_path: Path, module_name: str):
 
 
 COUNT_SUMMARY_MODULE = load_module(
-    Path("/Users/yuki/development/exam_scraper/scripts/count_questions/1_update_question_count.py"),
+    REPO_ROOT / "scripts" / "count_questions" / "1_update_question_count.py",
     "count_summary_module",
 )
 COMMON_QUESTION_COUNTING_MODULE = load_module(
-    Path("/Users/yuki/development/exam_scraper/scripts/common/question_counting.py"),
+    REPO_ROOT / "scripts" / "common" / "question_counting.py",
     "question_counting_module",
 )
 CATEGORY_COUNT_MODULE = load_module(
-    Path("/Users/yuki/development/exam_scraper/scripts/count_questions/2_update_category_counts.py"),
+    REPO_ROOT / "scripts" / "count_questions" / "2_update_category_counts.py",
     "category_count_module",
 )
 UPLOAD_CATEGORY_MODULE = load_module(
-    Path("/Users/yuki/development/exam_scraper/scripts/upload/upload_category_to_firestore.py"),
+    REPO_ROOT / "scripts" / "upload" / "upload_category_to_firestore.py",
     "upload_category_module",
 )
 

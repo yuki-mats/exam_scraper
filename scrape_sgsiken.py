@@ -28,7 +28,7 @@ QUALIFICATION_NAME = "情報セキュリティマネジメント"
 LIST_FIRST_PAGE_URL = "https://www.sg-siken.com/kakomon/01_aki/"
 JSON_SUBDIR_NAME = "00_source"
 MAX_QUESTIONS: int | None = None
-OUTPUT_DIR = "/Users/yuki/development/exam_scraper/output"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 IMAGE_OUTPUT_DIR: str | None = None
 
 Q_PAGE_HREF_RE = re.compile(r"^q(?P<num>[0-9]+)\.html$")

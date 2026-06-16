@@ -35,7 +35,7 @@ QUALIFICATION_NAME = "医師国家試験（MEC Net.）"
 LIST_FIRST_PAGE_URL = "https://study.mecnet.jp/exercises/exercise_list/1"
 OUTPUT_LIST_GROUP_ID = "120A"
 JSON_SUBDIR_NAME = "00_source"
-OUTPUT_DIR = "/Users/yuki/development/exam_scraper/output"
+OUTPUT_DIR = str(Path(__file__).resolve().parent / "output")
 MAX_QUESTIONS: int | None = None
 IMAGE_OUTPUT_DIR: str | None = None
 

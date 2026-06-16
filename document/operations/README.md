@@ -13,6 +13,8 @@
 - [ai_patch_execution_prompt_templates.md](/Users/yuki/development/exam_scraper/document/operations/ai_patch_execution_prompt_templates.md)
   - Codex / Gemini / Claude などへ patch 作成を依頼するときの省トークン指示テンプレート。
   - prompt の入力正本や出力先を変更した場合はここも直す。
+- [google_drive_stream_migration.md](google_drive_stream_migration.md)
+  - Google Drive stream 配下へ段階移行するときの検証手順とロールバック手順。
 
 ## goal テンプレート
 

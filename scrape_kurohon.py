@@ -33,7 +33,7 @@ QUALIFICATION_NAME = "柔道整復師"
 LIST_FIRST_PAGE_URL = "https://kurohon.jp/gakusei/exams_js/js_34/"
 JSON_SUBDIR_NAME = "00_source"
 MAX_QUESTIONS: int | None = None
-OUTPUT_DIR = "/Users/yuki/development/exam_scraper/output"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 IMAGE_OUTPUT_DIR: str | None = None
 
 FULLWIDTH_DIGIT_TRANS = str.maketrans("０１２３４５６７８９", "0123456789")

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
 DEBUG_FIELDS = (
     "answer_result_selected_choice_numbers",
     "answer_result_is_selected_choice_correct",
@@ -61,7 +62,7 @@ def main() -> int:
     parser.add_argument(
         "--base-dir",
         type=Path,
-        default=Path("/Users/yuki/development/exam_scraper/output"),
+        default=REPO_ROOT / "output",
         help="検索のベースディレクトリ（デフォルト: output）",
     )
     parser.add_argument(
@@ -102,4 +103,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

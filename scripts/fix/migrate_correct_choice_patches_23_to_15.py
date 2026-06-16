@@ -8,6 +8,7 @@ from pathlib import Path
 
 OLD_SUBDIR = "23_correctChoiceText_fixed"
 NEW_SUBDIR = "15_correctChoiceText_fixed"
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def files_are_same(left: Path, right: Path) -> bool:
@@ -79,7 +80,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--base-dir",
-        default="/Users/yuki/development/exam_scraper/output/kounin-shinrishi/questions_json",
+        default=str(REPO_ROOT / "output" / "kounin-shinrishi" / "questions_json"),
         help="questions_json のベースディレクトリ",
     )
     parser.add_argument(

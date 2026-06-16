@@ -61,7 +61,7 @@ JSON_SUBDIR_NAME = "00_source"
 MAX_QUESTIONS = None
 
 # JSON/画像の出力ルート
-OUTPUT_DIR = "/Users/yuki/development/exam_scraper/output"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
 # Firebase Storage の公開 URL 用ベース
 FIREBASE_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o"

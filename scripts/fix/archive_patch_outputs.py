@@ -95,7 +95,7 @@ def main() -> int:
     parser.add_argument("--list-group-id", help="対象 list_group_id")
     parser.add_argument(
         "--base-dir",
-        default="/Users/yuki/development/exam_scraper/output/2nd-class-kenchikushi/questions_json",
+        default=str(ROOT_DIR / "output" / "2nd-class-kenchikushi" / "questions_json"),
         help="questions_json のベースディレクトリ",
     )
     parser.add_argument("--patch-dir", help="対象パッチディレクトリを直接指定する")

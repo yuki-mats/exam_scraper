@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
 FULLWIDTH_DIGIT_TRANSLATION = str.maketrans("０１２３４５６７８９", "0123456789")
 ANSWER_RE = re.compile(r"正解は\s*([0-9]+(?:\s*,\s*[0-9]+)*)\s*です。")
 NEGATIVE_PROMPT_PHRASES = (
@@ -241,7 +242,7 @@ def main() -> int:
     parser.add_argument(
         "--base-dir",
         type=Path,
-        default=Path("/Users/yuki/development/exam_scraper/output/2nd-class-kenchikushi/questions_json"),
+        default=REPO_ROOT / "output" / "2nd-class-kenchikushi" / "questions_json",
         help="questions_json のベースディレクトリ",
     )
     parser.add_argument(

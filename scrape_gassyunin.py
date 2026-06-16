@@ -29,7 +29,7 @@ QUALIFICATION_NAME = "ガス主任技術者乙種"
 LIST_FIRST_PAGE_URL = "https://gassyunin.com/exam/otsu/otsu_2025/"
 JSON_SUBDIR_NAME = "00_source"
 MAX_QUESTIONS: int | None = None
-OUTPUT_DIR = "/Users/yuki/development/exam_scraper/output"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 IMAGE_OUTPUT_DIR: str | None = None
 
 SUBJECT_DEFINITIONS = [
