@@ -38,10 +38,10 @@ execution:
     - "1993-2004: 200 questions/year"
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
-  active_year: 1997
-  active_source_file: "output/judoseifukushi/questions_json/1997/00_source/question_1997_8.json"
-  active_question_global_index: 976
-  next_step: "Start 01/02/04 prompt review for 1997 question_1997_8.json / 問176-問200."
+  active_year: 1998
+  active_source_file: "output/judoseifukushi/questions_json/1998/00_source/question_1998_1.json"
+  active_question_global_index: 1001
+  next_step: "Start 01/02/04 prompt review for 1998 question_1998_1.json / 問1-問25."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 40
-  source_files_fully_completed_01_02_04: 39
-  source_files_fully_completed_01_04: 39
-  questions_reviewed_01_question_type: 975
-  questions_reviewed_02_question_intent: 975
-  questions_reviewed_03_explanation_text: 975
-  questions_reviewed_04_question_set_id: 975
-  questions_fully_completed_01_04: 975
+  source_files_started: 41
+  source_files_fully_completed_01_02_04: 40
+  source_files_fully_completed_01_04: 40
+  questions_reviewed_01_question_type: 1000
+  questions_reviewed_02_question_intent: 1000
+  questions_reviewed_03_explanation_text: 1000
+  questions_reviewed_04_question_set_id: 1000
+  questions_fully_completed_01_04: 1000
   active_slice:
-    year: 1997
-    source_file: "question_1997_8.json"
-    question_labels: "問176-問200"
+    year: 1998
+    source_file: "question_1998_1.json"
+    question_labels: "問1-問25"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -235,6 +235,11 @@ progress:
     - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_7_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_7_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_7_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_8_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_8_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_8_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1997/23_correctChoiceText_fixed/question_1997_8_correctChoiceText_fixed.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
@@ -276,6 +281,7 @@ progress:
     - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_5_merged_20260616_0847.json"
     - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_6_merged_20260616_0909.json"
     - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_7_merged_20260616_0928.json"
+    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_8_merged_20260616_0945.json"
   implementation_notes:
     - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
     - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
@@ -318,6 +324,7 @@ progress:
     - "1997 question_1997_5.json は一般臨床医学と外科学概論。問102・104・106・114は a/b/c/d 組合せ比較のため group_choice、問105・108・110・111・112・118・119・121・122・124は否定表現として select_incorrect に補正した。診察概論、診察各論、検査法、主要な疾患、滅菌法と消毒法、止血、麻酔、腹部外傷、腫瘍に紐付けた。"
     - "1997 question_1997_6.json は外科学概論、整形外科学、リハビリテーション医学。問131・139・146は a/b/c/d 組合せ比較のため group_choice、問126・127・128・136は誤っている組合せとして、問147・149は否定表現として select_incorrect に補正した。失血と輸血・輸液、頭部外傷、心肺蘇生法、脊柱損傷、整形外科的治療法、骨端症、大腿・膝関節、体幹、骨および軟部腫瘍、非感染性軟部・骨疾患、整形外科検査法、神経・筋疾患、リハビリテーションの評価・治療・関連職種・実際に紐付けた。"
     - "1997 question_1997_7.json は柔道整復理論の総論、骨折、脱臼。問164は a/b/c/d 組合せ比較のため group_choice、問165・174・175は否定表現に合わせて select_incorrect に補正した。偽関節、骨癒合遅延、筋損傷、初期の施術、頭部・体幹骨折、上肢骨折、頭部・体幹脱臼、上肢脱臼に紐付けた。"
+    - "1997 question_1997_8.json は柔道整復理論の上肢脱臼、下肢骨折、下肢脱臼、下肢軟部組織損傷、症例問題。問190・197は a/b/c/d 組合せ比較のため group_choice にし、問187は sourceAnswerStatus=no_answer の解なし問題として 23_correctChoiceText_fixed で全選択肢を間違いに固定した。上肢脱臼、上肢骨折、下肢骨折、下肢脱臼、下肢軟部組織損傷に紐付けた。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
@@ -360,3 +367,4 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file5-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file6-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file7-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file8-01-04-complete.md"
