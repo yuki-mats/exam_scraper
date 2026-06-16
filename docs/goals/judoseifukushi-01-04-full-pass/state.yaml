@@ -39,9 +39,9 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 2000
-  active_source_file: "output/judoseifukushi/questions_json/2000/00_source/question_2000_1.json"
-  active_question_global_index: 1401
-  next_step: "Start 01/02/04 prompt review for 2000 question_2000_1.json / 問1-問25."
+  active_source_file: "output/judoseifukushi/questions_json/2000/00_source/question_2000_2.json"
+  active_question_global_index: 1426
+  next_step: "Start 01/02/04 prompt review for 2000 question_2000_2.json / 問26-問50."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 57
-  source_files_fully_completed_01_02_04: 56
-  source_files_fully_completed_01_04: 56
-  questions_reviewed_01_question_type: 1400
-  questions_reviewed_02_question_intent: 1400
-  questions_reviewed_03_explanation_text: 1400
-  questions_reviewed_04_question_set_id: 1400
-  questions_fully_completed_01_04: 1400
+  source_files_started: 58
+  source_files_fully_completed_01_02_04: 57
+  source_files_fully_completed_01_04: 57
+  questions_reviewed_01_question_type: 1425
+  questions_reviewed_02_question_intent: 1425
+  questions_reviewed_03_explanation_text: 1425
+  questions_reviewed_04_question_set_id: 1425
+  questions_fully_completed_01_04: 1425
   active_slice:
     year: 2000
-    source_file: "question_2000_1.json"
-    question_labels: "問1-問25"
+    source_file: "question_2000_2.json"
+    question_labels: "問26-問50"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -219,6 +219,10 @@ progress:
     - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_7_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_7_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_7_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_1_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_1_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_1_questionSetId_linked.json"
     - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_8_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_8_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_8_explanationText_added.json"
