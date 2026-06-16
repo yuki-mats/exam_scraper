@@ -14,6 +14,18 @@ class InferQuestionIntentFromTextTest(unittest.TestCase):
         text = "誤っている配列はどれか。"
         self.assertEqual(infer_question_intent_from_text(text), "select_incorrect")
 
+    def test_not_combined_prompt_maps_to_select_incorrect(self) -> None:
+        text = "関節リウマチに合併しない変形はどれか。"
+        self.assertEqual(infer_question_intent_from_text(text), "select_incorrect")
+
+    def test_hard_to_find_prompt_maps_to_select_incorrect(self) -> None:
+        text = "下部腰椎椎間板ヘルニアで認めにくい記述はどれか。"
+        self.assertEqual(infer_question_intent_from_text(text), "select_incorrect")
+
+    def test_low_related_prompt_maps_to_select_incorrect(self) -> None:
+        text = "ショックと最も関連の低いのはどれか。"
+        self.assertEqual(infer_question_intent_from_text(text), "select_incorrect")
+
     def test_not_applicable_choice_stays_select_correct(self) -> None:
         text = (
             "公共工事標準請負契約約款上、該当しないものは次のうちどれか。"

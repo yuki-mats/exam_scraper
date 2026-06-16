@@ -67,11 +67,13 @@ NEGATIVE_PROMPT_PHRASES = (
     "原因でない",
     "指標とならない",
     "特徴としない",
+    "合併しない",
     "関与しない",
     "受けていない",
     "によらない",
     "行われない",
     "みられない",
+    "認めにくい",
     "できない",
     "きたさない",
     "起こらない",
@@ -80,6 +82,7 @@ NEGATIVE_PROMPT_PHRASES = (
     "減弱しない",
     "関係ない",
     "関係のない",
+    "関連の低い",
     "使用しない",
     "含まれない",
     "含まれないもの",
@@ -342,7 +345,9 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
     if not text:
         return None
 
-    positive_select_keywords = ()
+    positive_select_keywords = (
+        "使用しない機材",
+    )
     positive_required_keywords = (
         "見落としてはならない",
         "見逃してはならない",
