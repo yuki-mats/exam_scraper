@@ -265,3 +265,89 @@ git status --short | awk '{print $1}' | sort | uniq -c
 
 - tracked output files のうち、今後も Git 管理すべきものと生成物として外すものを分類する。
 - 本体 repo を Drive stream へコピーし、旧パスを symlink にする検証へ進む。
+
+## 2026-06-16 phase 4
+
+実施済み:
+
+- Drive stream 上に `.git` 付きの本体候補コピーを作成。
+- `.venv`、一時ファイル、cache 類はコピー対象から除外。
+- `.git/fsmonitor--daemon*` は macOS fsmonitor socket のため rsync から除外。
+
+候補 repo:
+
+```bash
+/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate
+```
+
+候補 repo のサイズ:
+
+```bash
+du -sh . .git output
+```
+
+結果:
+
+- repo 全体: 1.7G
+- `.git`: 340M
+- `output`: 1.1G
+
+候補 repo の Git 状態:
+
+```bash
+git log -1 --oneline
+git status --short | awk '{print $1}' | sort | uniq -c
+```
+
+結果:
+
+- latest commit: `03cbce59 Document git cleanup for Drive migration`
+- status count: `142 D` / `54 M`
+
+symlink 経由の読み取り確認:
+
+```bash
+find -L output/mecnet-kokushi/question_images -type f | wc -l
+find -L output/mecnet-kokushi/questions_json/upload_to_firestore -type f | wc -l
+```
+
+結果:
+
+- `output/mecnet-kokushi/question_images`: 3,317 files
+- `output/mecnet-kokushi/questions_json/upload_to_firestore`: 52 files
+
+候補 repo 上で検証済み:
+
+```bash
+/Users/yuki/development/exam_scraper/.venv/bin/python -m unittest \
+  tests.test_question_count_grouping \
+  tests.test_scrape_presets
+```
+
+結果: 32 tests OK
+
+```bash
+/Users/yuki/development/exam_scraper/.venv/bin/python \
+  scripts/scrape/run_qualification_scrape.py anma --dry-run
+```
+
+結果: 既存 `00_source` を検出し、実行対象なしで完了。
+
+Drive stream 上での pytest:
+
+通常の pytest は Drive stream 配下で 2 分以上無出力になったため中断。プラグイン自動読み込みを切ると通る。
+
+```bash
+cd "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営"
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 /Users/yuki/development/exam_scraper/.venv/bin/python -m pytest -q \
+  exam_scraper_drive_candidate/tests/test_question_count_grouping.py \
+  exam_scraper_drive_candidate/tests/test_scrape_presets.py
+```
+
+結果: 32 passed in 0.54s
+
+次の候補:
+
+- 候補 repo を最新 commit まで再同期する。
+- `/Users/yuki/development/exam_scraper` を退避して、候補 repo への symlink を張る。
+- symlink 経由で `unittest`、`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest`、`anma --dry-run` を再検証する。
