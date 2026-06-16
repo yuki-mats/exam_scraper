@@ -352,3 +352,92 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 /Users/yuki/development/exam_scraper/.venv/bin/
 - 候補 repo を最新 commit まで再同期する。
 - `/Users/yuki/development/exam_scraper` を退避して、候補 repo への symlink を張る。
 - symlink 経由で `unittest`、`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest`、`anma --dry-run` を再検証する。
+
+## 2026-06-16 phase 5
+
+実施済み:
+
+- `/Users/yuki/development/exam_scraper/.venv` を `/Users/yuki/development/exam_scraper_venv` へ外出し。
+- Drive stream 側 candidate repo に `.venv` symlink を作成。
+- 元 repo を `/Users/yuki/development/exam_scraper.before-drive-stream-20260616_224955` へ退避。
+- `/Users/yuki/development/exam_scraper` を Drive stream 側 candidate repo への symlink に切り替え。
+- `.venv` symlink が Git の untracked に出ないよう `.gitignore` に `.venv` を追加。
+
+現在の配置:
+
+```bash
+/Users/yuki/development/exam_scraper
+  -> /Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate
+
+/Users/yuki/development/exam_scraper/.venv
+  -> /Users/yuki/development/exam_scraper_venv
+```
+
+退避済みの元 repo:
+
+```bash
+/Users/yuki/development/exam_scraper.before-drive-stream-20260616_224955
+```
+
+サイズ:
+
+```bash
+du -sh /Users/yuki/development/exam_scraper \
+  /Users/yuki/development/exam_scraper.before-drive-stream-20260616_224955 \
+  /Users/yuki/development/exam_scraper_venv
+```
+
+結果:
+
+- `/Users/yuki/development/exam_scraper`: 0B symlink
+- backup repo: 1.9G
+- local venv: 146M
+
+symlink 経由で検証済み:
+
+```bash
+cd /Users/yuki/development/exam_scraper
+.venv/bin/python -m unittest tests.test_question_count_grouping tests.test_scrape_presets
+```
+
+結果: 32 tests OK
+
+```bash
+cd /Users/yuki/development
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 exam_scraper/.venv/bin/python -m pytest -q \
+  exam_scraper/tests/test_question_count_grouping.py \
+  exam_scraper/tests/test_scrape_presets.py
+```
+
+結果: 32 passed in 0.58s
+
+```bash
+cd /Users/yuki/development/exam_scraper
+.venv/bin/python scripts/scrape/run_qualification_scrape.py anma --dry-run
+```
+
+結果: 既存 `00_source` を検出し、実行対象なしで完了。
+
+```bash
+find -L output/mecnet-kokushi/question_images -type f | wc -l
+find -L output/mecnet-kokushi/questions_json/upload_to_firestore -type f | wc -l
+```
+
+結果:
+
+- `output/mecnet-kokushi/question_images`: 3,317 files
+- `output/mecnet-kokushi/questions_json/upload_to_firestore`: 52 files
+
+phase 5 rollback:
+
+```bash
+rm /Users/yuki/development/exam_scraper
+mv /Users/yuki/development/exam_scraper.before-drive-stream-20260616_224955 /Users/yuki/development/exam_scraper
+rm /Users/yuki/development/exam_scraper/.venv
+mv /Users/yuki/development/exam_scraper_venv /Users/yuki/development/exam_scraper/.venv
+```
+
+次の候補:
+
+- 数日運用して問題がなければ、backup repo を削除する。
+- tracked output files の整理方針を決め、`output` の Git 管理対象を減らす。
