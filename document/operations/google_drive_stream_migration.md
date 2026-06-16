@@ -111,3 +111,108 @@ exam_scraper/.venv/bin/python -m pytest exam_scraper/tests/...
 rm /Users/yuki/development/exam_scraper
 mv /Users/yuki/development/exam_scraper.before-drive-stream /Users/yuki/development/exam_scraper
 ```
+
+## 2026-06-16 phase 2
+
+実施済み:
+
+- `output` 全体の symlink 化は避けた。
+  - 理由: `git ls-files output` で 4,615 件の tracked file があり、`output` ディレクトリ全体を symlink 化すると tracked file が削除扱いになる。
+- tracked file を含まない重い生成物だけを Drive stream 側へ移動し、元パスには absolute symlink を作成。
+- `output/2nd-class-kenchikushi/questions_json/upload_to_firestore` は tracked file が 1 件あるため移動対象から除外。
+
+Drive stream 側の外部出力置き場:
+
+```bash
+/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_external_output
+```
+
+移動対象:
+
+```bash
+output/*/question_images
+output/*/questions_json/upload_to_firestore
+```
+
+ただし、tracked file を含むディレクトリは除外。
+
+移動後のサイズ:
+
+```bash
+du -sh output exam_scraper_external_output .
+```
+
+結果:
+
+- `output`: 1.1G
+- `exam_scraper_external_output`: 1.4G
+- repo 全体: 4.4G
+
+移動前の参考値:
+
+- `output`: 2.5G
+- repo 全体: 5.7G
+
+検証済み:
+
+```bash
+.venv/bin/python -m unittest tests.test_question_count_grouping tests.test_scrape_presets
+```
+
+結果: 32 tests OK
+
+```bash
+cd /Users/yuki/development
+exam_scraper/.venv/bin/python -m pytest \
+  exam_scraper/tests/test_question_count_grouping.py \
+  exam_scraper/tests/test_scrape_presets.py
+```
+
+結果: 32 passed
+
+```bash
+.venv/bin/python scripts/scrape/run_qualification_scrape.py anma --dry-run
+```
+
+結果: 既存 `00_source` を検出し、実行対象なしで完了。
+
+symlink 経由の読み取り確認:
+
+```bash
+find -L output/mecnet-kokushi/question_images -type f | wc -l
+find -L output/mecnet-kokushi/questions_json/upload_to_firestore -type f | wc -l
+```
+
+結果:
+
+- `output/mecnet-kokushi/question_images`: 3,317 files
+- `output/mecnet-kokushi/questions_json/upload_to_firestore`: 52 files
+
+Git 状態への影響:
+
+```bash
+git status --short | awk '{print $1}' | sort | uniq -c
+```
+
+移動前後とも `142 D` / `54 M` で変化なし。symlink 化による追加 tracked 差分はなし。
+
+phase 2 rollback:
+
+```bash
+DRIVE_ROOT="/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_external_output"
+for link in output/*/question_images output/*/questions_json/upload_to_firestore; do
+  [ -L "$link" ] || continue
+  target=$(readlink "$link")
+  case "$target" in
+    "$DRIVE_ROOT"/*)
+      rm "$link"
+      mv "$target" "$link"
+      ;;
+  esac
+done
+```
+
+次に進める前の注意:
+
+- `output` 全体を Drive stream へ移すには、tracked output files の整理方針が必要。
+- 本体 repo の移動は、`output` の tracked file と `.git` の扱いを決めてから行う。
