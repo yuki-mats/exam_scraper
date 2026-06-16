@@ -216,3 +216,52 @@ done
 
 - `output` 全体を Drive stream へ移すには、tracked output files の整理方針が必要。
 - 本体 repo の移動は、`output` の tracked file と `.git` の扱いを決めてから行う。
+
+## 2026-06-16 phase 3
+
+実施済み:
+
+- 本体移行前の容量削減として `git gc --prune=now` を実行。
+
+実行前:
+
+```bash
+git count-objects -vH
+du -sh .git .
+```
+
+結果:
+
+- loose objects: 9,541
+- loose object size: 2.36 GiB
+- pack size: 262.22 MiB
+- `.git`: 2.6G
+- repo 全体: 4.4G
+
+実行後:
+
+```bash
+git count-objects -vH
+du -sh .git .
+```
+
+結果:
+
+- loose objects: 0
+- loose object size: 0 bytes
+- pack size: 329.37 MiB
+- `.git`: 331M
+- repo 全体: 2.1G
+
+Git 状態への影響:
+
+```bash
+git status --short | awk '{print $1}' | sort | uniq -c
+```
+
+結果は `142 D` / `54 M` のままで、`git gc` による working tree 差分はなし。
+
+次の候補:
+
+- tracked output files のうち、今後も Git 管理すべきものと生成物として外すものを分類する。
+- 本体 repo を Drive stream へコピーし、旧パスを symlink にする検証へ進む。
