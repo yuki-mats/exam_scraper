@@ -39,9 +39,9 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 1998
-  active_source_file: "output/judoseifukushi/questions_json/1998/00_source/question_1998_8.json"
-  active_question_global_index: 1176
-  next_step: "Start 01/02/04 prompt review for 1998 question_1998_8.json / 問176-問200."
+  active_source_file: "output/judoseifukushi/questions_json/1999/00_source/question_1999_1.json"
+  active_question_global_index: 1201
+  next_step: "Start 01/02/04 prompt review for 1999 question_1999_1.json / 問1-問25."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 48
-  source_files_fully_completed_01_02_04: 47
-  source_files_fully_completed_01_04: 47
-  questions_reviewed_01_question_type: 1175
-  questions_reviewed_02_question_intent: 1175
-  questions_reviewed_03_explanation_text: 1175
-  questions_reviewed_04_question_set_id: 1175
-  questions_fully_completed_01_04: 1175
+  source_files_started: 49
+  source_files_fully_completed_01_02_04: 48
+  source_files_fully_completed_01_04: 48
+  questions_reviewed_01_question_type: 1200
+  questions_reviewed_02_question_intent: 1200
+  questions_reviewed_03_explanation_text: 1200
+  questions_reviewed_04_question_set_id: 1200
+  questions_fully_completed_01_04: 1200
   active_slice:
-    year: 1998
-    source_file: "question_1998_8.json"
-    question_labels: "問176-問200"
+    year: 1999
+    source_file: "question_1999_1.json"
+    question_labels: "問1-問25"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -272,6 +272,10 @@ progress:
     - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_7_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_7_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_7_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_8_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_8_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_8_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_8_questionSetId_linked.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
@@ -369,6 +373,7 @@ progress:
     - "1998 question_1998_5.json は一般臨床医学と外科学。問102は a/b/c/d 組合せ比較のため group_choice、問105は複数正答の negative flash_card として 23_correctChoiceText_fixed を追加し、問101・109・115・122は否定表現に合わせて select_incorrect に補正した。診察各論、主要な疾患、進行性病変、ショック、輸血・輸液、麻酔、止血、神経筋疾患に紐付けた。"
     - "1998 question_1998_6.json は外科学概論、整形外科学、リハビリテーション医学。問127・128は解なしとして 23_correctChoiceText_fixed で全選択肢を間違いに固定し、問132は複数正答の flash_card、問135・137・138は『誤っている組合せ』として select_incorrect に補正した。心肺蘇生法、頭部・脳卒中・胸腹部外傷、骨端症、骨関節損傷、体幹、感染性疾患、骨腫瘍、検査法、障害分類、リハビリ評価・治療・実際に紐付けた。"
     - "1998 question_1998_7.json は柔道整復理論の骨折、脱臼、関節損傷、軟部組織損傷、初期施術。全問 true_false のまま既存 questionIntent を維持し、23_correctChoiceText_fixed は不要と判定した。疲労骨折、固定材料、捻挫初期治療、上肢骨折、胸鎖・肩・手根中手・肘関節脱臼、腱板損傷に紐付けた。"
+    - "1998 question_1998_8.json は柔道整復理論の下肢領域と整形外科学の骨盤・体幹・股関節・膝・足関節をまたぐ内容。問184は a/b/c/d 組合せ比較のため group_choice にし、問185・193・195は否定設問として select_incorrect に補正した。問188は 00_source の stem 欠落があり、外部参照で大腿骨下1/3部骨折の設問として explanation を補った。1998年200問分の01〜04を完了した。"
 
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
@@ -418,3 +423,5 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file4-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file5-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file6-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file7-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file8-01-04-complete.md"
