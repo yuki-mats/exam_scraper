@@ -64,6 +64,7 @@ NEGATIVE_PROMPT_PHRASES = (
     "存在しない",
     "増えない",
     "原因とならない",
+    "原因でない",
     "指標とならない",
     "特徴としない",
     "関与しない",
@@ -337,14 +338,20 @@ def infer_question_intent_from_text(question_body_text: Any) -> str | None:
         line = lines[index]
         if "どれか" not in line and "選べ" not in line:
             continue
-        if any(phrase in line for phrase in NEGATIVE_PROMPT_PHRASES):
-            intent_text = line
+        focus_end = max(line.rfind("どれか"), line.rfind("選べ"))
+        if focus_end >= 0:
+            focus_start = max(0, focus_end - 48)
+            focus_text = line[focus_start : focus_end + 3]
+        else:
+            focus_text = line
+        if any(phrase in focus_text for phrase in NEGATIVE_PROMPT_PHRASES):
+            intent_text = focus_text
             break
         if not line.startswith(("のは", "は")) and len(line) > 8:
-            intent_text = line
+            intent_text = focus_text
             break
         previous = lines[index - 1] if index > 0 else ""
-        intent_text = f"{previous}\n{line}".strip() or line
+        intent_text = f"{previous}\n{focus_text}".strip() or focus_text
         break
 
     if any(keyword in intent_text for keyword in positive_required_keywords):
