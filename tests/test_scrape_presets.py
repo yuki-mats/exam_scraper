@@ -11,6 +11,7 @@ from scripts.scrape.qualification_presets import (
     load_scrape_preset,
     resolve_target_list_group_ids,
 )
+from scripts.scrape.run_qualification_scrape import source_filename_suffix_for_kougai_url
 
 
 class ScrapePresetTests(unittest.TestCase):
@@ -256,6 +257,53 @@ class ScrapePresetTests(unittest.TestCase):
                     output_root=repo_root / "output",
                 )
             )
+
+    def test_has_existing_source_json_can_filter_by_source_prefix(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            repo_root = Path(tmp_dir)
+            source_dir = (
+                repo_root
+                / "output"
+                / "kougai"
+                / "questions_json"
+                / "2022"
+                / "00_source"
+            )
+            source_dir.mkdir(parents=True)
+            (source_dir / "question_2022_yakutik_1.json").write_text("{}", encoding="utf-8")
+
+            self.assertTrue(
+                has_existing_source_json(
+                    repo_root,
+                    "kougai",
+                    "2022",
+                    output_root=repo_root / "output",
+                    filename_glob="question_2022_yakutik_*.json",
+                )
+            )
+            self.assertFalse(
+                has_existing_source_json(
+                    repo_root,
+                    "kougai",
+                    "2022",
+                    output_root=repo_root / "output",
+                    filename_glob="question_2022_qualification_text_*.json",
+                )
+            )
+
+    def test_kougai_runner_source_filename_suffixes(self) -> None:
+        self.assertEqual(
+            source_filename_suffix_for_kougai_url("https://yaku-tik.com/kougai/category/kako/kako-r7/"),
+            "yakutik",
+        )
+        self.assertEqual(
+            source_filename_suffix_for_kougai_url("https://qualification-text.com/r04questions.php"),
+            "qualification_text",
+        )
+        self.assertEqual(
+            source_filename_suffix_for_kougai_url("https://zoron.hatenablog.com/entry/R6"),
+            "zoron",
+        )
 
 
 if __name__ == "__main__":

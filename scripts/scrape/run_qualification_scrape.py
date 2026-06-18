@@ -19,6 +19,16 @@ from scripts.scrape.qualification_presets import (
 )
 
 
+def source_filename_suffix_for_kougai_url(url: str) -> str | None:
+    if "yaku-tik.com" in url:
+        return "yakutik"
+    if "qualification-text.com" in url:
+        return "qualification_text"
+    if "zoron.hatenablog.com" in url:
+        return "zoron"
+    return None
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="資格プリセットに基づいて対象スクレイパーを複数 list_group_id で順番に実行する。"
@@ -87,17 +97,23 @@ def main() -> int:
 
     run_targets: list[tuple[str, str]] = []
     for output_list_group_id in target_group_ids:
+        list_url = build_list_first_page_url(preset, output_list_group_id)
+        filename_glob = "question_*.json"
+        if preset.scraper_type == "kougai":
+            source_suffix = source_filename_suffix_for_kougai_url(list_url)
+            if source_suffix:
+                filename_glob = f"question_{output_list_group_id}_{source_suffix}_*.json"
         already_scraped = has_existing_source_json(
             REPO_ROOT,
             preset.qualification_code,
             output_list_group_id,
             output_root=resolved_output_dir,
+            filename_glob=filename_glob,
         )
         if already_scraped and not args.force:
             print(f"[SKIP] list_group_id={output_list_group_id} は既に 00_source があります")
             continue
 
-        list_url = build_list_first_page_url(preset, output_list_group_id)
         run_targets.append((output_list_group_id, list_url))
 
     if not run_targets:

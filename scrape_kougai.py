@@ -217,6 +217,56 @@ def nodes_text(nodes: list[Tag]) -> str:
     return clean_text("\n".join(node_text(node) for node in nodes if node_text(node)))
 
 
+def first_table_in_nodes(nodes: list[Tag]) -> Tag | None:
+    for node in nodes:
+        if node.name == "table":
+            return node
+        nested = node.find("table")
+        if nested is not None:
+            return nested
+    return None
+
+
+def nodes_text_without_tables(nodes: list[Tag]) -> str:
+    parts: list[str] = []
+    for node in nodes:
+        if node.name == "table":
+            continue
+        if node.find("table") is None:
+            text = node_text(node)
+        else:
+            clone = BeautifulSoup(str(node), "html.parser")
+            for table in clone.find_all("table"):
+                table.decompose()
+            text = node_text(clone)
+        if text:
+            parts.append(text)
+    return clean_text("\n".join(parts))
+
+
+def node_contains_descendant(node: Tag, descendant: Tag) -> bool:
+    return any(candidate is descendant for candidate in node.descendants)
+
+
+def nodes_text_before_table(nodes: list[Tag], target_table: Tag) -> str:
+    parts: list[str] = []
+    for node in nodes:
+        if node is target_table:
+            break
+        if node_contains_descendant(node, target_table):
+            clone = BeautifulSoup(str(node), "html.parser")
+            for table in clone.find_all("table"):
+                table.decompose()
+            text = node_text(clone)
+            if text:
+                parts.append(text)
+            break
+        text = node_text(node)
+        if text:
+            parts.append(text)
+    return clean_text("\n".join(parts))
+
+
 def is_heading_noise_text(text: str) -> bool:
     compact = re.sub(r"\s+", "", normalize_inline_text(text or ""))
     return compact in {"問題", "問", "解説", "解答"} or "解答（こちらをクリック）" in compact
@@ -233,6 +283,16 @@ def parse_choice_number_token(text: str) -> int | None:
     if len(stripped) == 1 and stripped in CIRCLED_NUMBER_MAP:
         return CIRCLED_NUMBER_MAP[stripped]
     match = re.search(r"[（(]?\s*(\d{1,2})\s*[)）]?", stripped)
+    if match:
+        return int(match.group(1))
+    return None
+
+
+def parse_standalone_choice_number_token(text: str) -> int | None:
+    stripped = normalize_digits((text or "").strip())
+    if stripped in CIRCLED_NUMBER_MAP:
+        return CIRCLED_NUMBER_MAP[stripped]
+    match = re.fullmatch(r"[（(]?\s*(\d{1,2})\s*[)）]?", stripped)
     if match:
         return int(match.group(1))
     return None
@@ -310,16 +370,30 @@ def determine_question_intent(question_text: str) -> str | None:
         "値はどれか",
         "量はどれか",
         "率はどれか",
+        "どの程度になるか",
         "いくらか",
         "いくらになるか",
+        "いくらにすればよいか",
+        "いくらに設定すればよいか",
+        "いくつあるか",
+        "何分の1",
+        "何倍量",
         "何倍か",
+        "何mg/MJか",
+        "何%か",
+        "何％か",
+        "どれだけになるか",
         "求めよ",
         "算出せよ",
         "計算せよ",
     ]
     if any(token in normalized for token in correct_tokens):
         return "select_correct"
-    if re.search(r"何.*(よいか|なるか|必要か|求められるか)", normalized):
+    if re.search(r"どの.+か", normalized):
+        return "select_correct"
+    if re.search(r"(何|いくら|どれだけ).*?(よいか|なるか|必要か|必要とするか|求められるか|変化するか|減少するか)", normalized):
+        return "select_correct"
+    if re.search(r"何[0-9a-zA-Z/%％・^\\-]+\s*か", normalized):
         return "select_correct"
     if re.search(r"(もの|の|組合せ)?は?どれか", normalized):
         return "select_correct"
@@ -520,6 +594,29 @@ def parse_candidate_terms_from_text(text: str) -> dict[str, str]:
     return terms
 
 
+def parse_candidate_terms_from_lines_before_table(
+    problem_nodes: list[Tag],
+    table: Tag,
+    labels: list[str],
+) -> dict[str, str]:
+    text = nodes_text_before_table(problem_nodes, table)
+    lines = [line.strip() for line in clean_text(text).splitlines() if line.strip()]
+    candidate_lines: list[str] = []
+    for line in reversed(lines):
+        compact = re.sub(r"\s+", "", line)
+        if len(compact) == len(labels) and len(parse_blank_labels(compact)) == len(labels):
+            continue
+        if re.fullmatch(r"[アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン]+", compact):
+            continue
+        candidate_lines.append(line)
+        if len(candidate_lines) == len(labels):
+            break
+    if len(candidate_lines) != len(labels):
+        return {}
+    candidate_lines.reverse()
+    return {label: term for label, term in zip(labels, candidate_lines, strict=True)}
+
+
 def parse_blank_labels(text: str) -> list[str]:
     labels = re.findall(r"[ア-ンＡ-ＺA-Z]", text or "")
     result: list[str] = []
@@ -578,10 +675,8 @@ def parse_yakutik_combination(question_nodes: list[Tag]) -> CombinationData | No
 def parse_zoron_combination(problem_nodes: list[Tag]) -> CombinationData | None:
     problem_text = nodes_text(problem_nodes)
     candidate_terms = parse_candidate_terms_from_text(problem_text)
-    if not candidate_terms:
-        return None
 
-    table = next((node for node in problem_nodes if node.name == "table"), None)
+    table = first_table_in_nodes(problem_nodes)
     if table is None:
         return None
 
@@ -598,11 +693,22 @@ def parse_zoron_combination(problem_nodes: list[Tag]) -> CombinationData | None:
         cells = [cell for cell in cells if cell != ""]
         row_number = parse_choice_number_token(cells[0])
         tokens = [normalize_alpha_label(cell) for cell in cells[1:]]
-        tokens = [token for token in tokens if token]
+        tokens = [token for token in tokens if re.fullmatch(r"[a-z]", token or "")]
         if row_number is not None and tokens:
             rows.append(tokens)
             row_numbers.append(row_number)
     if not blank_labels or not rows:
+        return None
+    needed_labels = [label for label in NUMBER_TO_ALPHA if any(label in row for row in rows)]
+    if any(label not in candidate_terms for label in needed_labels):
+        inferred_terms = parse_candidate_terms_from_lines_before_table(problem_nodes, table, needed_labels)
+        if inferred_terms:
+            candidate_terms = {
+                label: candidate_terms.get(label) or inferred_terms[label]
+                for label in needed_labels
+                if label in inferred_terms or label in candidate_terms
+            }
+    if any(label not in candidate_terms for label in needed_labels):
         return None
     return CombinationData(blank_labels, candidate_terms, rows, row_numbers)
 
@@ -677,13 +783,45 @@ def parse_choices_from_ordered_list(ol: Tag) -> list[str]:
     return choices
 
 
+def choices_cover_answer_numbers(choices: list[str], answer_numbers: list[int]) -> bool:
+    if not choices:
+        return False
+    if not answer_numbers:
+        return True
+    return len(choices) >= max(answer_numbers)
+
+
+def select_ordered_choice_list(question_nodes: list[Tag], answer_numbers: list[int]) -> Tag | None:
+    ordered_lists = [node for node in question_nodes if node.name == "ol"]
+    if not ordered_lists:
+        return None
+    min_choice_count = max(answer_numbers) if answer_numbers else 2
+    candidates: list[tuple[int, Tag]] = []
+    for node in ordered_lists:
+        choices = parse_choices_from_ordered_list(node)
+        if len(choices) >= min_choice_count:
+            candidates.append((len(choices), node))
+    if candidates:
+        return candidates[-1][1]
+    return None
+
+
 def parse_inline_numbered_choices(text: str) -> tuple[str, list[str]]:
     source = clean_text(text)
-    matches = list(re.finditer(r"[（(]\s*([0-9０-９]{1,2})\s*[)）]", source))
+    marker_pattern = r"(?:[（(]\s*([0-9０-９]{1,2})\s*[)）]|([①-⑩⑴-⑽]))"
+    matches = list(re.finditer(marker_pattern, source))
     if len(matches) < 2:
         return normalize_question_body_text(source), []
 
-    numbers = [int(normalize_digits(match.group(1))) for match in matches]
+    numbers: list[int] = []
+    for match in matches:
+        if match.group(1):
+            numbers.append(int(normalize_digits(match.group(1))))
+            continue
+        circled_number = parse_choice_number_token(match.group(2) or "")
+        if circled_number is None:
+            return normalize_question_body_text(source), []
+        numbers.append(circled_number)
     runs: list[tuple[int, int]] = []
     for start_index, number in enumerate(numbers):
         if number != 1:
@@ -706,6 +844,54 @@ def parse_inline_numbered_choices(text: str) -> tuple[str, list[str]]:
         segment_end = matches[index + 1].start() if index + 1 < end_index else len(source)
         body = normalize_question_body_text(source[segment_start:segment_end])
         choices.append(f"({numbers[index]}) {body}".strip())
+    return stem, choices
+
+
+def parse_embedded_numbered_choices(text: str, answer_numbers: list[int]) -> list[str]:
+    source = clean_text(text)
+    matches = list(re.finditer(r"[（(]\s*([0-9０-９]{1,2})\s*[)）]", source))
+    if len(matches) < 2:
+        return []
+
+    numbered: dict[int, str] = {}
+    for index, match in enumerate(matches):
+        number = int(normalize_digits(match.group(1)))
+        if number in numbered or not 1 <= number <= 10:
+            continue
+        segment_end = matches[index + 1].start() if index + 1 < len(matches) else len(source)
+        body = normalize_question_body_text(source[match.end() : segment_end])
+        body = body.strip(" \t\n、。，．.・")
+        if body:
+            numbered[number] = body
+
+    if not numbered:
+        return []
+    max_choice_number = max(max(numbered), max(answer_numbers or [0]))
+    if max_choice_number < 2 or max_choice_number > 10:
+        return []
+    if any(number not in numbered for number in range(1, max_choice_number + 1)):
+        return []
+    return [f"({number}) {numbered[number]}" for number in range(1, max_choice_number + 1)]
+
+
+def is_alpha_combination_choice_line(line: str) -> bool:
+    normalized = normalize_inline_text(line).translate(FULLWIDTH_ALPHA_TRANS).lower()
+    normalized = normalized.replace("，", ",").replace("、", ",")
+    return bool(re.fullmatch(r"[a-z](?:\s*,\s*[a-z]){1,9}", normalized))
+
+
+def parse_trailing_alpha_combination_choices(text: str) -> tuple[str, list[str]]:
+    lines = [line.strip() for line in clean_text(text).splitlines() if line.strip()]
+    if len(lines) < 3:
+        return normalize_question_body_text(text), []
+    start_index = len(lines)
+    while start_index > 0 and is_alpha_combination_choice_line(lines[start_index - 1]):
+        start_index -= 1
+    choice_lines = lines[start_index:]
+    if len(choice_lines) < 2:
+        return normalize_question_body_text(text), []
+    stem = normalize_question_body_text("\n".join(lines[:start_index]))
+    choices = [f"({index}) {line}" for index, line in enumerate(choice_lines, start=1)]
     return stem, choices
 
 
@@ -751,6 +937,9 @@ def parse_choices_from_lines(text: str) -> tuple[str, list[str]]:
 
     flush_choice()
     if len(choices) < 2:
+        alpha_stem, alpha_choices = parse_trailing_alpha_combination_choices(text)
+        if alpha_choices:
+            return alpha_stem, alpha_choices
         inline_stem, inline_choices = parse_inline_numbered_choices(text)
         if inline_choices:
             return inline_stem, inline_choices
@@ -816,6 +1005,14 @@ def parse_underlined_choices(main: Tag) -> list[str]:
         targets.append(underline)
 
     for span in targets:
+        span_text = node_text(span)
+        inline_number = re.match(r"^[（(]\s*(\d{1,2})\s*[)）]\s*(.+)$", normalize_digits(span_text))
+        if inline_number:
+            choice = f"({inline_number.group(1)}) {inline_number.group(2).strip()}"
+            if choice not in choices:
+                choices.append(choice)
+            continue
+
         previous_text = ""
         for previous in span.previous_elements:
             if isinstance(previous, NavigableString):
@@ -826,7 +1023,7 @@ def parse_underlined_choices(main: Tag) -> list[str]:
         if not numbers:
             continue
         number = numbers[-1]
-        choice = f"({number}) {node_text(span)}"
+        choice = f"({number}) {span_text}"
         if choice not in choices:
             choices.append(choice)
     return choices
@@ -877,6 +1074,15 @@ def parse_yakutik_question_page(html: str, url: str) -> ParsedPage:
         None,
     )
     if answer_index is None:
+        answer_index = next(
+            (
+                index
+                for index, child in enumerate(children)
+                if re.match(r"^正解\s*[（(]\s*\d+", normalize_inline_text(node_text(child)))
+            ),
+            None,
+        )
+    if answer_index is None:
         raise ValueError(f"yaku-tik の正解欄が見つかりません: {url}")
 
     question_nodes = children[:answer_index]
@@ -921,7 +1127,7 @@ def parse_yakutik_question_page(html: str, url: str) -> ParsedPage:
             choices = original_choices_from_combination(combination)
             stem = question_text_raw
         else:
-            candidate_ol = next((node for node in question_nodes if node.name == "ol"), None)
+            candidate_ol = select_ordered_choice_list(question_nodes, answer_numbers)
             if candidate_ol is None:
                 underline_container = BeautifulSoup("<div></div>", "html.parser").div
                 for node in question_nodes:
@@ -930,8 +1136,15 @@ def parse_yakutik_question_page(html: str, url: str) -> ParsedPage:
                 stem = question_text_raw
                 if not choices:
                     stem, choices = parse_choices_from_lines(question_text_raw)
+                if not choices_cover_answer_numbers(choices, answer_numbers):
+                    embedded_choices = parse_embedded_numbered_choices(question_text_raw, answer_numbers)
+                    if embedded_choices:
+                        choices = embedded_choices
+                        stem = question_text_raw
                 if not choices:
                     image_choice_count = infer_image_choice_count(explanation_text_raw, answer_numbers)
+                    if image_choice_count is None:
+                        image_choice_count = infer_default_image_choice_count(question_nodes, answer_numbers)
                     if image_choice_count:
                         choices = make_image_placeholder_choices(image_choice_count)
                         stem = "\n\n".join(
@@ -945,8 +1158,16 @@ def parse_yakutik_question_page(html: str, url: str) -> ParsedPage:
             else:
                 choices = parse_choices_from_ordered_list(candidate_ol)
                 stem = nodes_text(question_nodes[: question_nodes.index(candidate_ol)])
+                if not choices_cover_answer_numbers(choices, answer_numbers):
+                    embedded_choices = parse_embedded_numbered_choices(question_text_raw, answer_numbers)
+                    if embedded_choices:
+                        choices = embedded_choices
+                        stem = question_text_raw
         if question_intent is None:
-            raise ValueError(f"yaku-tik の問題意図を推定できません: {url}")
+            if choices and nodes_have_images(question_nodes):
+                question_intent = "select_correct"
+            else:
+                raise ValueError(f"yaku-tik の問題意図を推定できません: {url}")
         question_body_text = stem
         correctness = build_correct_choice_text(
             choice_count=len(choices),
@@ -990,7 +1211,11 @@ def parse_zoron_question_page(html: str, url: str) -> ParsedPage:
 
     content = longest_entry_content(soup)
     sections = split_zoron_entry_sections(content)
-    problem_nodes = sections.get("問題") or []
+    problem_nodes = [
+        node
+        for node in (sections.get("問題") or [])
+        if not is_heading_noise_text(node_text(node))
+    ]
     answer_nodes = sections.get("解答") or []
     explanation_nodes = sections.get("解説") or []
     if not problem_nodes or not answer_nodes:
@@ -1005,7 +1230,7 @@ def parse_zoron_question_page(html: str, url: str) -> ParsedPage:
 
     transform_mode = "original_choice_true_false"
     if combination and question_intent == "select_correct":
-        table = next(node for node in problem_nodes if node.name == "table")
+        table = first_table_in_nodes(problem_nodes)
         stem_nodes = [
             node
             for node in problem_nodes
@@ -1013,7 +1238,7 @@ def parse_zoron_question_page(html: str, url: str) -> ParsedPage:
             and not is_heading_noise_text(node_text(node))
             and not is_candidate_terms_node(node)
         ]
-        stem = nodes_text(stem_nodes)
+        stem = nodes_text_without_tables(stem_nodes)
         candidate_text = format_candidate_terms(combination.candidate_terms)
         question_body_text = "\n\n".join(
             part
@@ -1035,6 +1260,11 @@ def parse_zoron_question_page(html: str, url: str) -> ParsedPage:
         if question_intent is None:
             raise ValueError(f"zoron の問題意図を推定できません: {url}")
         stem, choices = parse_zoron_regular_choices(problem_nodes)
+        if not choices_cover_answer_numbers(choices, answer_numbers):
+            embedded_choices = parse_embedded_numbered_choices(problem_text, answer_numbers)
+            if embedded_choices:
+                choices = embedded_choices
+                stem = problem_text
         if not choices:
             image_choice_count = infer_image_choice_count(explanation_text_raw, answer_numbers)
             if image_choice_count is None:
@@ -1082,19 +1312,21 @@ def parse_zoron_question_page(html: str, url: str) -> ParsedPage:
 
 
 def parse_zoron_regular_choices(problem_nodes: list[Tag]) -> tuple[str, list[str]]:
-    table = next((node for node in problem_nodes if node.name == "table"), None)
+    table = first_table_in_nodes(problem_nodes)
     if table is not None:
         rows = []
         for tr in table.find_all("tr"):
             cells = [node_text(cell) for cell in tr.find_all(["td", "th"], recursive=False)]
-            cells = [cell for cell in cells if cell]
             if not cells:
                 continue
-            number = parse_choice_number_token(cells[0])
+            number = parse_standalone_choice_number_token(cells[0])
             if number is None:
                 continue
-            rows.append(f"({number}) " + " / ".join(cells[1:]))
-        stem = nodes_text([node for node in problem_nodes if node is not table])
+            row_values = [cell for cell in cells[1:] if cell]
+            if not row_values:
+                continue
+            rows.append(f"({number}) " + " / ".join(row_values))
+        stem = nodes_text_without_tables(problem_nodes)
         if rows:
             return stem, rows
     ol = next((node for node in problem_nodes if node.name == "ol"), None)
@@ -1339,6 +1571,15 @@ def sanitize_filename_token(value: str) -> str:
     return re.sub(r"[^0-9A-Za-z_-]+", "_", value).strip("_") or "question"
 
 
+def source_filename_suffix_for_url(url: str) -> str:
+    source_kind = infer_source_kind(url)
+    if source_kind == "yaku-tik":
+        return "yakutik"
+    if source_kind == "qualification-text":
+        return "qualification_text"
+    return sanitize_filename_token(source_kind.replace("-", "_"))
+
+
 def attach_downloaded_images(http_session, parsed_page: ParsedPage) -> dict:
     question = dict(parsed_page.question)
     if not parsed_page.source_image_urls or not IMAGE_OUTPUT_DIR:
@@ -1395,6 +1636,7 @@ def main() -> int:
         json_output_dir,
         output_list_group_id,
         question_bodies,
+        base_filename_suffix=source_filename_suffix_for_url(LIST_FIRST_PAGE_URL),
         chunk_size=25,
     )
     print(

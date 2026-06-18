@@ -99,6 +99,7 @@ def has_existing_source_json(
     qualification_code: str,
     list_group_id: str,
     output_root: Path | None = None,
+    filename_glob: str = "question_*.json",
 ) -> bool:
     root = output_root if output_root is not None else (repo_root / "output")
     source_dir = (
@@ -108,4 +109,4 @@ def has_existing_source_json(
         / list_group_id
         / "00_source"
     )
-    return source_dir.exists() and any(source_dir.glob("question_*.json"))
+    return source_dir.exists() and any(source_dir.glob(filename_glob))
