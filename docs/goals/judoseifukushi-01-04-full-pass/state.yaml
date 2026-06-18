@@ -39,9 +39,9 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 2002
-  active_source_file: "output/judoseifukushi/questions_json/2002/00_source/question_2002_3.json"
-  active_question_global_index: 1851
-  next_step: "Start 01/02/04 prompt review for 2002 question_2002_3.json / 問51-問75."
+  active_source_file: "output/judoseifukushi/questions_json/2002/00_source/question_2002_4.json"
+  active_question_global_index: 1876
+  next_step: "Start 01/02/04 prompt review for 2002 question_2002_4.json / 問76-問100."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 72
-  source_files_fully_completed_01_02_04: 72
-  source_files_fully_completed_01_04: 73
-  questions_reviewed_01_question_type: 1825
-  questions_reviewed_02_question_intent: 1825
-  questions_reviewed_03_explanation_text: 1825
-  questions_reviewed_04_question_set_id: 1825
-  questions_fully_completed_01_04: 1825
+  source_files_started: 73
+  source_files_fully_completed_01_02_04: 73
+  source_files_fully_completed_01_04: 74
+  questions_reviewed_01_question_type: 1850
+  questions_reviewed_02_question_intent: 1850
+  questions_reviewed_03_explanation_text: 1850
+  questions_reviewed_04_question_set_id: 1850
+  questions_fully_completed_01_04: 1850
   active_slice:
     year: 2002
-    source_file: "question_2002_3.json"
-    question_labels: "問51-問75"
+    source_file: "question_2002_4.json"
+    question_labels: "問76-問100"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -490,6 +490,11 @@ progress:
     - "1999 question_1999_8.json は柔道整復理論の下肢骨折・上下肢脱臼・軟部組織損傷。問183は『誤っている組合せ』に合わせて select_incorrect と correctChoiceText を補正した。問197・198は 00_source に図示内容がないが、正答肢と機序からそれぞれ尺骨神経麻痺、正中索断裂として explanation を記述した。問180は上肢脱臼固定肢位として `judoseifukushi_qs11_19`、問192・193・197・200は上肢骨折領域として `judoseifukushi_qs11_16` に寄せた。"
 
     - "2001 question_2001_4.json は公衆衛生と関係法規。問76と問97を select_incorrect に補正し、問83を flash_card に変更した。感染症、環境衛生、放射線障害、感染症法、廃棄物処理、柔道整復師法、広告、法の優先順位、職能分類に紐付けた。"
+    - "2002 question_2002_3.json は解剖学後半と生理学、病理学概論、臨床医学総論・各論、リハビリ、公衆衛生、関係法規、医療概論、東洋医学概論、あん摩マッサージ指圧理論、東洋医学臨床論。問54の性染色体異常は一次情報で確認し、XX/XY と仮性半陰陽の組合せを誤りとして整理した。"
+    - "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_3_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/2002/15_correctChoiceText_fixed/question_2002_3_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/2002/21_explanationText_added/question_2002_3_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/2002/22_questionSetId_linked/question_2002_3_questionSetId_linked.json"
 receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file1-03-complete.md"
@@ -553,3 +558,4 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2001-file3-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2001-file4-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2001-file5-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260619-2002-file3-01-04-complete.md"
