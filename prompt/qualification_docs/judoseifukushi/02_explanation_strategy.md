@@ -11,7 +11,7 @@
 ## 一次情報の使い方
 
 - `explanation_common_prefix`、`explanation_common_summary`、`explanation_choice_snippets` がある場合は、まずそれを土台にする。
-- それらが薄い、または空で判断が足りない場合は、外部 Web の一次情報を使ってよい。
+- `00_source` の `explanation_common_prefix`、`explanation_common_summary`、`explanation_choice_snippets` が欠損・全空・根拠不足なら、外部 Web の一次情報を使ってよい。
 - 外部 Web を使う場合は、法令・制度は e-Gov、行政資料は厚生労働省や関係省庁、学校保健などは文部科学省、資格制度は試験実施団体の公開資料を優先する。
 
 ## 書き方

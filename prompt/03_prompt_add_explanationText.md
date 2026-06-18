@@ -74,6 +74,7 @@
 ```
 
 `explanation_common_prefix_inferred_correct_choice` のような推定正答情報だけでは、各選択肢の理由を説明する根拠として不十分である。正答番号の推定と、受験者向けの正誤理由の根拠確認は分けて扱う。
+特に、`00_source` に `explanation_common_prefix` / `explanation_common_summary` / `explanation_choice_snippets` が無い、またはすべて空のときは、その不足を理由に外部Webの一次情報を使ってよい。
 
 この場合は次の順で根拠を補う。
 

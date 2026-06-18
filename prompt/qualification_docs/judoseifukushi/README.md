@@ -20,5 +20,5 @@
 ## 使い分け
 
 - `01` / `02` / `04` は、まずローカル一次情報を土台にする。
-- `03` は、`00_source` に解説根拠が薄い場合だけ、権威ある一次情報を外部 Web で補強してよい。
+- `03` は、`00_source` の `explanation_common_prefix` / `explanation_common_summary` / `explanation_choice_snippets` が欠損または全空で、解説根拠が薄い場合だけ、権威ある一次情報を外部 Web で補強してよい。
 - 関係法規や制度問題は、`04_law_reference_policy.md` を先に確認する。
