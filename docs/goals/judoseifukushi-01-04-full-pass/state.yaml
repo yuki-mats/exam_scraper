@@ -39,16 +39,16 @@ execution:
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
   active_year: 2002
-  active_source_file: "output/judoseifukushi/questions_json/2002/00_source/question_2002_4.json"
-  active_question_global_index: 1876
-  next_step: "Start 01/02/04 prompt review for 2002 question_2002_4.json / 問76-問100."
+  active_source_file: "output/judoseifukushi/questions_json/2002/00_source/question_2002_6.json"
+  active_question_global_index: 1926
+  next_step: "Start 01/02/04 prompt review for 2002 question_2002_6.json / 問126-問150."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
   do_not_edit_source_json: true
   fixed_patch_filenames_only: true
   question_set_ids_from_category_only: true
-  external_web_for_01_02_04: false
+  external_web_for_01_02_04: true
   external_web_for_03_only_when_primary_source_needed: true
 
 verification:
@@ -69,8 +69,8 @@ progress:
   questions_fully_completed_01_04: 1850
   active_slice:
     year: 2002
-    source_file: "question_2002_4.json"
-    question_labels: "問76-問100"
+    source_file: "question_2002_6.json"
+    question_labels: "問126-問150"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
