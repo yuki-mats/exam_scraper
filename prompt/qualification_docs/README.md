@@ -32,7 +32,7 @@
 
 法令問題を扱う資格では、上記に加えて次を必ず整備する。
 
-- `01_law_reference_policy.md` または `02_law_reference_scope.md`
+- `01_law_reference_policy.md` / `02_law_reference_scope.md` / `04_law_reference_policy.md`
   - 試験で通常参照する法令・政令・省令・告示・条例・通達の範囲
   - 正式法令名、`lawId` 候補、短縮表記、使う場面、使わない場面
   - スコープ外法令を追加する条件
@@ -56,4 +56,5 @@
 - `kyusuikouji-shunin`
 - `mecnet-kokushi`
 - `nw`
+- `judoseifukushi`
 - `shinkyu`
