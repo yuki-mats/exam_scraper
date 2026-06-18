@@ -6,7 +6,7 @@
 - ローカル集計で 34 年、316 source files、7,600 問を確認済み。
 - `output/judoseifukushi/category/category.json` は 12 folders、167 questionSets。
 - `category.json` は folder ID / questionSet ID の重複なし、questionSet の folder 参照切れなし。
-- 現時点の柔道整復師配下は `00_source` のみで、01-04 の patch/merge 出力は未作成。
+- `output/judoseifukushi/review/01_04_manual_review/` に 7,600 問分の review JSONL と年別メモを生成済み。
 
 ## 年別件数
 
@@ -28,14 +28,15 @@
 - `state.yaml`: 現時点の棚卸し状態と次の作業位置。
 - `inventory.json`: 年・source file 単位の件数一覧。
 - `queue.jsonl`: 7,600 問の question-level queue。
+- `output/judoseifukushi/review/01_04_manual_review/`: 7,600 問分の review JSONL、progress summary、README、年別メモ。
 
 ## 次の開始位置
 
 最初の作業対象は次。
 
 ```text
-output/judoseifukushi/questions_json/1993/00_source/question_1993_1.json
-問1 / original_question_id=2779fd82ea2099b3
+output/judoseifukushi/questions_json/2001/00_source/question_2001_4.json
+問76 / original_question_id=76f56251de4a63e7
 ```
 
 ## 作業上の注意
