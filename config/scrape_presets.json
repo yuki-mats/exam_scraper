@@ -667,6 +667,166 @@
       }
     ]
   },
+  "kougai-yakutik": {
+    "qualification_code": "kougai",
+    "scraper_type": "kougai",
+    "qualification_name": "公害防止管理者",
+    "list_first_page_url_template": "https://yaku-tik.com/kougai/category/kako/kako-{list_group_id}/",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "r7",
+        "output_list_group_id": "2025"
+      },
+      {
+        "source_list_group_id": "r6",
+        "output_list_group_id": "2024"
+      },
+      {
+        "source_list_group_id": "r5",
+        "output_list_group_id": "2023"
+      },
+      {
+        "source_list_group_id": "r4",
+        "output_list_group_id": "2022"
+      },
+      {
+        "source_list_group_id": "r3",
+        "output_list_group_id": "2021"
+      },
+      {
+        "source_list_group_id": "r2",
+        "output_list_group_id": "2020"
+      },
+      {
+        "source_list_group_id": "r1",
+        "output_list_group_id": "2019"
+      },
+      {
+        "source_list_group_id": "h30",
+        "output_list_group_id": "2018"
+      },
+      {
+        "source_list_group_id": "h29",
+        "output_list_group_id": "2017"
+      },
+      {
+        "source_list_group_id": "h28",
+        "output_list_group_id": "2016"
+      },
+      {
+        "source_list_group_id": "h27",
+        "output_list_group_id": "2015"
+      },
+      {
+        "source_list_group_id": "h26",
+        "output_list_group_id": "2014"
+      },
+      {
+        "source_list_group_id": "h25",
+        "output_list_group_id": "2013"
+      },
+      {
+        "source_list_group_id": "h24",
+        "output_list_group_id": "2012"
+      },
+      {
+        "source_list_group_id": "h23",
+        "output_list_group_id": "2011"
+      },
+      {
+        "source_list_group_id": "h22",
+        "output_list_group_id": "2010"
+      }
+    ]
+  },
+  "kougai-qualification-text": {
+    "qualification_code": "kougai",
+    "scraper_type": "kougai",
+    "qualification_name": "公害防止管理者",
+    "list_first_page_url_template": "https://qualification-text.com/{list_group_id}questions.php",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "r04",
+        "output_list_group_id": "2022"
+      },
+      {
+        "source_list_group_id": "r03",
+        "output_list_group_id": "2021"
+      },
+      {
+        "source_list_group_id": "r02",
+        "output_list_group_id": "2020"
+      },
+      {
+        "source_list_group_id": "r01",
+        "output_list_group_id": "2019"
+      },
+      {
+        "source_list_group_id": "h30",
+        "output_list_group_id": "2018"
+      },
+      {
+        "source_list_group_id": "h29",
+        "output_list_group_id": "2017"
+      },
+      {
+        "source_list_group_id": "h28",
+        "output_list_group_id": "2016"
+      },
+      {
+        "source_list_group_id": "h27",
+        "output_list_group_id": "2015"
+      },
+      {
+        "source_list_group_id": "h26",
+        "output_list_group_id": "2014"
+      },
+      {
+        "source_list_group_id": "h25",
+        "output_list_group_id": "2013"
+      },
+      {
+        "source_list_group_id": "h24",
+        "output_list_group_id": "2012"
+      },
+      {
+        "source_list_group_id": "h23",
+        "output_list_group_id": "2011"
+      }
+    ]
+  },
+  "kougai-zoron": {
+    "qualification_code": "kougai",
+    "scraper_type": "kougai",
+    "qualification_name": "公害防止管理者",
+    "list_first_page_url_template": "https://zoron.hatenablog.com/entry/{list_group_id}",
+    "scrape_targets": [
+      {
+        "source_list_group_id": "R6",
+        "output_list_group_id": "2024"
+      },
+      {
+        "source_list_group_id": "R5",
+        "output_list_group_id": "2023"
+      },
+      {
+        "source_list_group_id": "R4",
+        "output_list_group_id": "2022"
+      },
+      {
+        "source_list_group_id": "R3",
+        "output_list_group_id": "2021"
+      },
+      {
+        "source_list_group_id": "R2",
+        "output_list_group_id": "2020"
+      },
+      {
+        "source_list_group_id": "R1",
+        "output_list_group_id": "2019"
+      }
+    ]
+  },
   "sg": {
     "scraper_type": "sgsiken",
     "qualification_name": "情報セキュリティマネジメント",
