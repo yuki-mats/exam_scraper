@@ -38,10 +38,10 @@ execution:
     - "1993-2004: 200 questions/year"
     - "2005-2019: 230 questions/year"
     - "2020-2026: 250 questions/year"
-  active_year: 2000
-  active_source_file: "output/judoseifukushi/questions_json/2000/00_source/question_2000_8.json"
-  active_question_global_index: 1576
-  next_step: "Start 01/02/04 prompt review for 2000 question_2000_8.json / 問176-問200."
+  active_year: 2001
+  active_source_file: "output/judoseifukushi/questions_json/2001/00_source/question_2001_1.json"
+  active_question_global_index: 1601
+  next_step: "Start 01/02/04 prompt review for 2001 question_2001_1.json / 問1-問25."
 
 constraints:
   preserve_unrelated_dirty_worktree: true
@@ -59,18 +59,18 @@ verification:
   source_total_matches_user_request: true
 
 progress:
-  source_files_started: 64
-  source_files_fully_completed_01_02_04: 63
-  source_files_fully_completed_01_04: 63
-  questions_reviewed_01_question_type: 1575
-  questions_reviewed_02_question_intent: 1575
-  questions_reviewed_03_explanation_text: 1575
-  questions_reviewed_04_question_set_id: 1575
-  questions_fully_completed_01_04: 1575
+  source_files_started: 65
+  source_files_fully_completed_01_02_04: 64
+  source_files_fully_completed_01_04: 64
+  questions_reviewed_01_question_type: 1600
+  questions_reviewed_02_question_intent: 1600
+  questions_reviewed_03_explanation_text: 1600
+  questions_reviewed_04_question_set_id: 1600
+  questions_fully_completed_01_04: 1600
   active_slice:
-    year: 2000
-    source_file: "question_2000_8.json"
-    question_labels: "問176-問200"
+    year: 2001
+    source_file: "question_2001_1.json"
+    question_labels: "問1-問25"
   artifacts_created:
     - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
     - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
@@ -338,6 +338,10 @@ progress:
     - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_5_correctChoiceText_fixed.json"
     - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_5_explanationText_added.json"
     - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_5_questionSetId_linked.json"
+    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_8_questionType_fixed.json"
+    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_8_correctChoiceText_fixed.json"
+    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_8_explanationText_added.json"
+    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_8_questionSetId_linked.json"
   merge_outputs_verified:
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
     - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
@@ -387,6 +391,7 @@ progress:
     - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_5_merged_20260616_1102.json"
     - "output/judoseifukushi/questions_json/1999/30_merged_2/question_1999_3_merged_20260616_1239.json"
     - "output/judoseifukushi/questions_json/1999/30_merged_2/question_1999_4_merged_20260616_1257.json"
+    - "output/judoseifukushi/questions_json/2000/30_merged_2/question_2000_8_merged_20260618_2125.json"
   implementation_notes:
     - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
     - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
@@ -502,3 +507,4 @@ receipts:
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file8-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file7-01-04-complete.md"
   - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file8-01-04-complete.md"
+  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2000-file8-01-04-complete.md"
