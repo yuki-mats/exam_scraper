@@ -2,26 +2,57 @@
 
 ## Objective
 
-`output/judoseifukushi/questions_json/` 配下の 1993-2026 年、合計 7,600 問について、01-04 prompt の作業を一問ずつ目視相当で実施し、Firestore 取り込み前の品質に到達させる。
+`output/judoseifukushi/questions_json/` 配下の 1993-2026 年、合計 7,600 問を、`01_prompt_fix_questionType.md` → `02_prompt_fix_questionIntent.md` → `03_prompt_add_explanationText.md` → `04_prompt_link_questionSetId.md` の順で、一問ずつ目視相当で整備し、Firestore 取り込み前の品質に到達させる。
 
-## Scope
+## Original Request
 
-- qualification: `judoseifukushi`
-- qualificationName: `柔道整復師`
-- years: `1993-2026`
-- total questions: `7,600`
-- source of truth: `output/judoseifukushi/questions_json/<year>/00_source/question_<year>_<n>.json`
-- category source: `output/judoseifukushi/category/category.json`
-- taxonomy basis: 柔道整復研修試験財団の公式出題基準に基づく既存 `category.json`
+`01~04prompt` の作業を柔道整復師対象で進めたい。合計 7,600 問を一問ずつ確認し、まずは下準備を整えたい。
 
-## Required Patch Families
+## Intake Summary
 
-1. `10_questionType_fixed`
-2. `15_correctChoiceText_fixed`
-3. `21_explanationText_added`
-4. `22_questionSetId_linked`
+- Input shape: `existing_plan`
+- Audience: 柔道整復師の問題データ整備とアプリ利用者
+- Authority: `requested`
+- Proof type: `artifact`
+- Completion proof: `7,600問` すべてについて `01` `02` `03` `04` の patch / merge / verification が揃い、`prepare_firestore_upload.py judoseifukushi` の dry-run まで通ること
+- Goal oracle: `output/judoseifukushi/questions_json/*/10_questionType_fixed/`, `15_correctChoiceText_fixed/`, `21_explanationText_added/`, `22_questionSetId_linked/` が全 52 出題回で揃い、coverage check / merge / upload-dry-run が一致すること
+- Likely misfire: 一部年だけで完了扱いにする、03 の一次情報確認を省く、または merge / upload-dry-run まで到達せずに止めること
+- Blind spots considered: `00_source` の解説補強が空の設問、年度ごとの件数差、questionSetId の category 依存、既存 dirty worktree の混在
+- Existing plan facts:
+  - `00_source` は編集しない
+  - `03` で `explanation_common_prefix` / `explanation_common_summary` / `explanation_choice_snippets` が不足する場合は外部 Web の一次情報を使ってよい
+  - `01` `02` `04` はローカルファイルのみで判断する
+  - 出力は固定ファイル名で上書きし、タイムスタンプ付き patch を増やさない
+  - `questionSetId` は `category.json` の `questionSets[].questionSetId` のみ使う
+  - 柔道整復師以外の dirty worktree は戻さず stage しない
 
-`23_correctChoiceText_fixed` は、`answer_result_text` と `questionIntent` からの自動補完後に、実正答と `correctChoiceText` の不整合が残る場合だけ使う。
+## Goal Oracle
+
+The oracle for this goal is:
+
+`output/judoseifukushi/questions_json/*` 配下の全 52 出題回について、`01` `02` `03` `04` の成果物が揃い、検証コマンドが通り、件数が 7,600 問で一致していること。`03` は不足時に一次情報補完を使ってもよいが、解説補強の根拠が追えること。
+
+PM は各 task receipt をこの oracle と照合し続ける。途中で一部の slice が終わっても、全体 oracle を満たすまで goal は完了しない。
+
+## Goal Kind
+
+`existing_plan`
+
+## Current Tranche
+
+全 7,600 問を単一の完了対象として `01→02→03→04` の順に整備する。現在は GoalBuddy v2 board への移行と再開準備を整え、次の Worker package を安全に立ち上げられる状態にする。個別の出題回は checkpoint / resume の単位であり、一部の年や一部の出題回だけを完了扱いにしない。
+
+## Non-Negotiable Constraints
+
+- 1問ごとの精度を落とさない
+- `01` → `02` → `03` → `04` の順番を守る
+- `00_source` を編集しない
+- `03` では不足情報がある設問に限り外部 Web の一次情報を補う
+- `01` `02` `04` はローカルファイルのみで判断する
+- 問題文・選択肢・元解説の突き合わせで判断し、キーワード一致だけの機械的な分類に寄せない
+- `questionSetId` は `category.json` の `questionSets[].questionSetId` のみ使う
+- 出力ファイルは固定ファイル名で上書きし、タイムスタンプ付き patch を増やさない
+- 柔道整復師以外の dirty worktree は戻さず、stage 対象にも含めない
 
 ## Execution Order
 
@@ -33,16 +64,6 @@
 6. 03 prompt: `explanationText` を `20_merged_1` 基準で作り、`21_explanationText_added/` に固定ファイル名で保存する。
 7. 04 prompt: `category.json` の `questionSets[].questionSetId` だけを使い、`22_questionSetId_linked/` に固定ファイル名で保存する。
 8. 年単位で merge と検証を通し、全件完了後に資格単位の最終監査を行う。
-
-## Non-Negotiable Constraints
-
-- 会話と報告は日本語で行う。
-- `00_source` は編集しない。
-- `00_source` に `explanation_common_prefix` / `explanation_common_summary` / `explanation_choice_snippets` がない、または不足する設問は、03 prompt の解説補強として外部Webの一次情報を参照してよい。`question_url` の再取得や問題サイト依存はしない。
-- 01、02、04 prompt はローカルファイルだけで判断する。
-- 出力ファイルは固定ファイル名で上書きし、タイムスタンプ付き patch を増やさない。
-- `questionSetId` は `category.json` の `questionSets[].questionSetId` のみ使う。`folderId` を設問に直接付与しない。
-- 現在のワークツリーには他資格の未コミット差分があるため、柔道整復師以外の差分を戻さず、stage しない。
 
 ## Verification Commands
 
@@ -84,10 +105,24 @@ python3 scripts/check/check_questionSetId.py \
   --questionset-only
 ```
 
-## Completion Proof
+## Stop Rule
 
-- `queue.jsonl` の 7,600 行がすべて処理済み。
-- 各年で必要 patch family の coverage check が全ファイル終了コード 0。
-- 各年で `scripts/merge/00_merge_all.py` が成功し、`30_merged_2/` に `questionSetId` が入っている。
-- `prepare_firestore_upload.py judoseifukushi` の dry-run が通る。
-- 最終 receipt に `full_outcome_complete: true` を記録する。
+Stop only when a final audit proves the full original outcome is complete.
+
+Do not stop after planning, discovery, or Judge selection if a safe Worker task can be activated.
+
+Do not stop after one verified Worker package when the broader owner outcome still has safe local follow-up work.
+
+Do not create one Worker/Judge pair per repeated file or repeated source slice. Put repeated same-shape work into one bounded package and review the package as a whole.
+
+## Slice Sizing
+
+Safe means bounded, explicit, verified, and reversible. It does not mean tiny.
+
+A good task is the largest safe useful slice.
+
+Small is not the goal. Useful is the goal.
+
+A Worker should finish the whole assigned slice. A Judge should judge the whole assigned slice. A PM should reorient the board when tasks are safe but not moving the outcome.
+
+Tiny tasks are allowed when the failure is isolated, the risk is high, the scope is unknown, or the tiny task unlocks a larger slice. Tiny tasks are bad when they keep happening, do not change behavior, only add wrappers/contracts/proof files, or avoid the real milestone.

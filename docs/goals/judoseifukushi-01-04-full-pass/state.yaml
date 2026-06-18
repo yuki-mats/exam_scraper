@@ -1,64 +1,78 @@
-version: 1
+# GoalBuddy v2 state.yaml
+version: 2
 
 goal:
   title: "柔道整復師 01-04 prompt full pass"
   slug: "judoseifukushi-01-04-full-pass"
-  qualification: "judoseifukushi"
-  qualification_name: "柔道整復師"
-  status: "in_progress"
-  source_root: "output/judoseifukushi/questions_json"
-  category_json: "output/judoseifukushi/category/category.json"
-  queue: "docs/goals/judoseifukushi-01-04-full-pass/queue.jsonl"
-  inventory: "docs/goals/judoseifukushi-01-04-full-pass/inventory.json"
+  kind: existing_plan
+  tranche: "1993-2026 の 7,600 問を、01→02→03→04 の順で、出題回ごとに checkpoint/resume しながら最後まで整備する。"
+  status: active
+  oracle:
+    signal: "output/judoseifukushi/questions_json/*/10_questionType_fixed/, 15_correctChoiceText_fixed/, 21_explanationText_added/, 22_questionSetId_linked/ が全 52 出題回で揃い、coverage check と merge / prepare_firestore_upload.py の dry-run が通ること。"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "7,600 問すべてについて 01→04 の成果物と検証結果が揃い、Firestore dry-run まで通った receipt が残っていること。"
+  intake:
+    original_request: "01~04promptの作業を柔道整復師対象で進めたい。合計 7,600 問を一問ずつ確認し、まずは下準備を整えたい。"
+    interpreted_outcome: "柔道整復師の 7,600 問を 01→04 の順で一問ずつ高精度に整備し、まずは安全に回せる準備を整える。"
+    input_shape: existing_plan
+    audience: "柔道整復師の問題データ整備とアプリ利用者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "7,600 問すべてに必要な patch families が揃い、年別の coverage / merge / prepare_firestore_upload.py dry-run が通ること。"
+    likely_misfire: "一部年や一部 patch family だけで完了扱いにすること"
+    blind_spots_considered:
+      - "00_source の解説補強が空の設問"
+      - "年度ごとの件数差"
+      - "questionSetId の category 依存"
+      - "既存 dirty worktree の混在"
+    existing_plan_facts:
+      - "01→02→03→04 の順を厳守する"
+      - "00_source は編集しない"
+      - "03 で explanation_common_prefix / explanation_common_summary / explanation_choice_snippets が不足する場合は外部 Web の一次情報を使ってよい"
+      - "01 / 02 / 04 はローカルファイルのみで判断する"
+      - "出力は固定ファイル名で上書きし、タイムスタンプ付き patch を増やさない"
+      - "questionSetId は category.json の questionSets[].questionSetId のみ使う"
+      - "柔道整復師以外の dirty worktree は戻さず stage しない"
 
-counts:
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  # installed | bundled_not_installed | missing | unknown
+  scout: unknown
+  worker: unknown
+  judge: unknown
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/judoseifukushi-01-04-full-pass/"
+    command: "npx goalbuddy board docs/goals/judoseifukushi-01-04-full-pass"
+
+progress:
   years: 34
   source_files: 316
   questions: 7600
   category_folders: 12
   category_question_sets: 167
-
-baseline:
-  source_json_valid: true
-  source_missing_required_fields: 0
-  existing_patch_dirs:
-    10_questionType_fixed: 0
-    15_correctChoiceText_fixed: 0
-    21_explanationText_added: 0
-    22_questionSetId_linked: 0
-    23_correctChoiceText_fixed: 0
-  initial_question_type_distribution:
-    true_false: 7600
-  initial_question_intent_distribution:
-    select_correct: 5885
-    select_incorrect: 1715
-
-execution:
-  preferred_order:
-    - "1993-2004: 200 questions/year"
-    - "2005-2019: 230 questions/year"
-    - "2020-2026: 250 questions/year"
-  active_year: 2002
-  active_source_file: "output/judoseifukushi/questions_json/2002/00_source/question_2002_8.json"
-  active_question_global_index: 1976
-  next_step: "Start 01/02/04 prompt review for 2002 question_2002_8.json / 問176-問200."
-
-constraints:
-  preserve_unrelated_dirty_worktree: true
-  do_not_edit_source_json: true
-  fixed_patch_filenames_only: true
-  question_set_ids_from_category_only: true
-  external_web_for_01_02_04: true
-  external_web_for_03_only_when_primary_source_needed: true
-
-verification:
-  category_json_loaded: true
-  category_has_duplicate_folder_ids: false
-  category_has_duplicate_question_set_ids: false
-  category_has_bad_folder_refs: false
-  source_total_matches_user_request: true
-
-progress:
   source_files_started: 73
   source_files_fully_completed_01_02_04: 73
   source_files_fully_completed_01_04: 75
@@ -71,491 +85,99 @@ progress:
     year: 2002
     source_file: "question_2002_8.json"
     question_labels: "問176-問200"
-  artifacts_created:
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1993/23_correctChoiceText_fixed/question_1993_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1993/23_correctChoiceText_fixed/question_1993_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1993/23_correctChoiceText_fixed/question_1993_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1993/23_correctChoiceText_fixed/question_1993_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1993/10_questionType_fixed/question_1993_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/15_correctChoiceText_fixed/question_1993_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1993/21_explanationText_added/question_1993_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1993/22_questionSetId_linked/question_1993_8_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/23_correctChoiceText_fixed/question_1994_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1994/10_questionType_fixed/question_1994_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/15_correctChoiceText_fixed/question_1994_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1994/21_explanationText_added/question_1994_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1994/22_questionSetId_linked/question_1994_8_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/23_correctChoiceText_fixed/question_1995_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/23_correctChoiceText_fixed/question_1995_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1995/10_questionType_fixed/question_1995_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/15_correctChoiceText_fixed/question_1995_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1995/21_explanationText_added/question_1995_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1995/22_questionSetId_linked/question_1995_8_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1996/10_questionType_fixed/question_1996_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/15_correctChoiceText_fixed/question_1996_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1996/21_explanationText_added/question_1996_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1996/22_questionSetId_linked/question_1996_8_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2000/23_correctChoiceText_fixed/question_2000_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_8_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/10_questionType_fixed/question_1997_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/15_correctChoiceText_fixed/question_1997_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1997/21_explanationText_added/question_1997_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1997/22_questionSetId_linked/question_1997_8_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1997/23_correctChoiceText_fixed/question_1997_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1998/23_correctChoiceText_fixed/question_1998_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1998/23_correctChoiceText_fixed/question_1998_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1998/23_correctChoiceText_fixed/question_1998_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_6_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_6_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_6_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1998/23_correctChoiceText_fixed/question_1998_6_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_7_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_7_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_7_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_7_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1998/10_questionType_fixed/question_1998_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/15_correctChoiceText_fixed/question_1998_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1998/21_explanationText_added/question_1998_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1998/22_questionSetId_linked/question_1998_8_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/23_correctChoiceText_fixed/question_1999_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/1999/10_questionType_fixed/question_1999_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/15_correctChoiceText_fixed/question_1999_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/1999/21_explanationText_added/question_1999_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/1999/22_questionSetId_linked/question_1999_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2000/10_questionType_fixed/question_2000_8_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/15_correctChoiceText_fixed/question_2000_8_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2000/21_explanationText_added/question_2000_8_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2000/22_questionSetId_linked/question_2000_8_questionSetId_linked.json"
-  merge_outputs_verified:
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260615_2327.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_1_merged_20260616_0028.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_2_merged_20260616_0049.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_3_merged_20260616_0110.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_4_merged_20260616_0129.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_5_merged_20260616_0143.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_6_merged_20260616_0157.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_7_merged_20260616_0210.json"
-    - "output/judoseifukushi/questions_json/1993/30_merged_2/question_1993_8_merged_20260616_0222.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_1_merged_20260616_0231.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_2_merged_20260616_0240.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_3_merged_20260616_0254.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_4_merged_20260616_0309.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_5_merged_20260616_0325.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_6_merged_20260616_0338.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_7_merged_20260616_0351.json"
-    - "output/judoseifukushi/questions_json/1994/30_merged_2/question_1994_8_merged_20260616_0400.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_1_merged_20260616_0413.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_2_merged_20260616_0424.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_3_merged_20260616_0439.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_4_merged_20260616_0454.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_5_merged_20260616_0508.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_6_merged_20260616_0524.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_7_merged_20260616_0536.json"
-    - "output/judoseifukushi/questions_json/1995/30_merged_2/question_1995_8_merged_20260616_0549.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_1_merged_20260616_0604.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_2_merged_20260616_0616.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_3_merged_20260616_0626.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_4_merged_20260616_0636.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_5_merged_20260616_0651.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_6_merged_20260616_0703.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_7_merged_20260616_0711.json"
-    - "output/judoseifukushi/questions_json/1996/30_merged_2/question_1996_8_merged_20260616_0719.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_1_merged_20260616_0756.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_2_merged_20260616_0808.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_3_merged_20260616_0830.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_4_merged_20260616_0841.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_5_merged_20260616_0847.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_6_merged_20260616_0909.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_7_merged_20260616_0928.json"
-    - "output/judoseifukushi/questions_json/1997/30_merged_2/question_1997_8_merged_20260616_0945.json"
-    - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_1_merged_20260616_1002.json"
-    - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_2_merged_20260616_1020.json"
-    - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_3_merged_20260616_1038.json"
-    - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_4_merged_20260616_1052.json"
-    - "output/judoseifukushi/questions_json/1998/30_merged_2/question_1998_5_merged_20260616_1102.json"
-    - "output/judoseifukushi/questions_json/1999/30_merged_2/question_1999_3_merged_20260616_1239.json"
-    - "output/judoseifukushi/questions_json/1999/30_merged_2/question_1999_4_merged_20260616_1257.json"
-    - "output/judoseifukushi/questions_json/2000/30_merged_2/question_2000_8_merged_20260618_2125.json"
-    - "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_1_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/15_correctChoiceText_fixed/question_2001_1_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_1_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2001/22_questionSetId_linked/question_2001_1_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2001/20_merged_1/question_2001_1_merged.json"
-    - "output/judoseifukushi/questions_json/2001/30_merged_2/question_2001_1_merged_20260618_2145.json"
-    - "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_2_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/15_correctChoiceText_fixed/question_2001_2_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_2_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2001/22_questionSetId_linked/question_2001_2_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2001/20_merged_1/question_2001_2_merged.json"
-    - "output/judoseifukushi/questions_json/2001/30_merged_2/question_2001_2_merged_20260618_2208.json"
-    - "output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl"
-    - "output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_progress_summary.json"
-    - "output/judoseifukushi/review/01_04_manual_review/README.md"
-    - "output/judoseifukushi/review/01_04_manual_review/years/judoseifukushi_01_04_manual_review_2001.md"
-    - "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/15_correctChoiceText_fixed/question_2001_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2001/22_questionSetId_linked/question_2001_3_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2001/23_correctChoiceText_fixed/question_2001_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/20_merged_1/question_2001_3_merged.json"
-    - "output/judoseifukushi/questions_json/2001/30_merged_2/question_2001_3_merged_20260618_2234.json"
-    - "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_4_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/15_correctChoiceText_fixed/question_2001_4_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_4_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2001/22_questionSetId_linked/question_2001_4_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2001/20_merged_1/question_2001_4_merged.json"
-    - "output/judoseifukushi/questions_json/2001/30_merged_2/question_2001_4_merged_20260618_2340.json"
-    - "output/judoseifukushi/questions_json/2001/10_questionType_fixed/question_2001_5_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/15_correctChoiceText_fixed/question_2001_5_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2001/21_explanationText_added/question_2001_5_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2001/22_questionSetId_linked/question_2001_5_questionSetId_linked.json"
-    - "output/judoseifukushi/questions_json/2001/20_merged_1/question_2001_5_merged.json"
-    - "output/judoseifukushi/questions_json/2001/30_merged_2/question_2001_5_merged_20260618_2357.json"
-  implementation_notes:
-    - "questionIntent の negative phrase 推定に『誤っている組合せ』『誤っている組み合わせ』『誤った組合せ』『誤った組み合わせ』を追加した。"
-    - "2001 question_2001_2.json は解剖学後半と生理学。問39・46を『誤っている組合せ』として select_incorrect に補正し、外胚葉、感覚器、体表解剖、脈管、血液、呼吸、栄養と代謝、体温、尿の生成と排泄、内分泌、骨の生理、神経に紐付けた。00_source の explanation_common_* が空だったため、一部の解説は外部Web一次情報で裏取りした。"
-    - "2001 question_2001_3.json は生理学、運動学、病理学概論。問58は sourceAnswerStatus=no_answer の解なし問題として 23_correctChoiceText_fixed を追加し、問56・問70・問71・問73・問75 を含む 25 問を完了した。"
-    - "7,600問分の review JSONL / progress summary / README / 年別メモを output/judoseifukushi/review/01_04_manual_review に生成し、rowCount=7600 と 34 年分の年別メモを確認した。"
-    - "1993 question_1993_1.json は anatomy / physiology 基礎の単問が多く、flash_card への切替が 5 問発生した。"
-    - "00_source の explanation_common_* と explanation_choice_snippets が空の設問では、必要に応じて外部Web一次情報を確認してよい。"
-    - "2001 question_2001_5.json は神経・内分泌・消化器・泌尿器・感染症・腫瘍・麻酔が中心。問110・111・125は複数正答のため flash_card、問112・116は『誤っている組合せ』として select_incorrect に補正した。00_source の explanation_common_* が空だったため、必要な解説は一次情報と既存分類ルールで補った。"
-    - "1993 question_1993_2.json では negative flash_card の2問に 23_correctChoiceText_fixed を追加した。"
-    - "1993 question_1993_3.json の問73は 00_source の正解1に疑義があり、一次情報寄りの確認を踏まえて正解4へ補正し、merge で answer_result_text も同期できるようにした。"
-    - "1993 question_1993_4.json は病理、公衆衛生、関係法規の混在。法規・統計系は当時の用語や制度値を前提に説明した。"
-    - "1993 question_1993_5.json は臨床医学総論・各論、外科学が中心。問106は negative flash_card として 23_correctChoiceText_fixed を追加した。"
-    - "1993 question_1993_6.json は外科学、整形外科学、運動学、リハビリテーション。問139は negative flash_card として 23_correctChoiceText_fixed を追加した。"
-    - "1993 question_1993_7.json は柔道整復理論の関節損傷、軟部組織損傷、脱臼、骨折が中心。問156は『誤っている組合せ』として select_incorrect に補正した。"
-    - "1993 question_1993_8.json は柔道整復理論の上肢・下肢各論。23_correctChoiceText_fixed は不要で、1993年200問分の01〜04を完了した。"
-    - "1994 question_1994_1.json は解剖学・生理学の基礎。全問 true_false、23_correctChoiceText_fixed は不要だった。"
-    - "1994 question_1994_2.json は神経・感覚器・体表解剖と生理学。問32と問49は『誤っている組合せ』として select_incorrect、問41は複数正答のため flash_card にした。"
-    - "1994 question_1994_3.json は生理学、運動学、病理学概論。問51と問66は『誤っている組合せ』として select_incorrect に補正した。"
-    - "1994 question_1994_4.json は病理学概論、公衆衛生、関係法規。問80・81・83は複数正答のため flash_card、問82は空気組成から正答2へ補正し 23_correctChoiceText_fixed を追加した。"
-    - "1994 question_1994_5.json は一般臨床医学と外科学。問109・113は a/b/c/d 組合せ比較のため group_choice、問108・110・120は否定設問として select_incorrect に補正した。"
-    - "1994 question_1994_6.json は外科学、整形外科学、リハビリテーション。問134・139は a/b/c/d 組合せ比較のため group_choice、問144・147は複数正答のため flash_card、問128・146は否定組合せとして select_incorrect に補正した。"
-    - "1994 question_1994_7.json は柔道整復理論の骨折・脱臼・上肢各論。問158は『誤っている組合せ』として select_incorrect に補正し、問165は a/b/c/d 組合せ比較のため group_choice にした。"
-    - "1994 question_1994_8.json は柔道整復理論の下肢骨折、各論・脱臼、軟部組織損傷。問177は『誤っている組合せ』として select_incorrect に補正し、問180・184・186・196は a/b/c/d 組合せ比較のため group_choice にした。1994年200問分の01〜04を完了した。"
-    - "1995 question_1995_1.json は解剖学。問3は sourceAnswerStatus=no_answer のため 23_correctChoiceText_fixed で全選択肢を間違いに固定し、問15は『関与しない』設問として select_incorrect に補正した。解なし問題を distribution check で trusted unparseable として扱うよう更新した。"
-    - "1995 question_1995_2.json は解剖学と生理学。問40・41は『関与しない』、問47は『誤っている組合せ』として select_incorrect に補正した。問28・29は現行推定ルールに合わせ select_correct のまま説明ラベルを整合させた。"
-    - "1995 question_1995_3.json は生理学、運動学、病理学概論。問53・68は『誤っている組合せ』として select_incorrect に補正し、問56・58・67・72・73は a/b/c/d 組合せ比較のため group_choice、問65は複数正答のため flash_card にした。"
-    - "1995 question_1995_4.json は病理学概論、衛生学・公衆衛生学、関係法規。問77・83は『誤っている組合せ』として select_incorrect に補正し、問76・86・92・97は group_choice、問83は複数正答の negative flash_card として 23_correctChoiceText_fixed を追加した。"
-    - "1995 question_1995_5.json は一般臨床医学と外科学概論。問103・104・107・117・118・125は『誤っている組合せ』として select_incorrect に補正し、問112は a/b/c/d 組合せ比較のため group_choice にした。問105は現行 merge 正本に合わせ select_correct のまま説明ラベルを整合させた。"
-    - "1995 question_1995_6.json は外科学概論、整形外科学、リハビリテーション医学。問132は a/b/c/d 組合せ比較のため group_choice、問139・148は否定組合せとして select_incorrect に補正し、問145・146は現行 merge 正本に合わせ select_correct のまま説明ラベルを整合させた。"
-    - "1995 question_1995_7.json は柔道整復理論の骨折・脱臼。問154・159・175は group_choice、問165は複数正答の flash_card、問151・166は否定組合せとして select_incorrect に補正した。"
-    - "1995 question_1995_8.json は柔道整復理論の脱臼・下肢骨折・関節損傷・症例問題。問188・198は a/b/c/d 組合せ比較のため group_choice、問178・196は『誤っている組合せ』として select_incorrect、問187は『みられない』設問として select_incorrect に補正した。1995年200問分の01〜04を完了した。"
-    - "1996 question_1996_1.json は解剖学。全問 true_false のまま、既存 questionIntent を維持した。循環器系、呼吸器系、消化器系、泌尿器系、生殖器系、神経系、感覚器系、運動器系、体表解剖、人体解剖学概説に紐付けた。"
-    - "1996 question_1996_2.json は解剖学後半と生理学。全問 true_false のまま、問32・34・42・45・48・49は否定表現として select_incorrect に補正した。神経系、消化器系、体表解剖、内分泌器系、生理学総論、血液、呼吸、栄養と代謝、尿の生成と排泄、神経、体温、消化と吸収、内分泌、筋肉の機能に紐付けた。"
-    - "1996 question_1996_3.json は生理学、運動学、病理学概論。全問 true_false のまま、問51・52・68は否定表現として select_incorrect に補正した。内分泌、神経、筋肉、感覚、生殖、歩行、運動制御、姿勢、免疫異常、疾病一般、代謝障害、病因、腫瘍に紐付けた。"
-    - "1996 question_1996_4.json は病理学概論、衛生学・公衆衛生学、関係法規、医療法。問92・94は a/b/c/d 組合せ比較のため group_choice、問76・77・83・85は否定表現として select_incorrect に補正した。問84は sourceAnswerStatus=no_answer の解なし問題として、提示4疾患すべてが検疫で重視される感染症に該当する説明にした。"
-    - "1996 question_1996_5.json は一般臨床医学と外科学概論。問106・108・119は a/b/c/d 組合せ比較のため group_choice、問107・110・111・113・114・117は否定表現として select_incorrect に補正した。"
-    - "1996 question_1996_6.json は外科学概論、整形外科学、リハビリテーション医学。問130・133・142・143は a/b/c/d 組合せ比較のため group_choice、問142・143は否定組合せとして select_incorrect に補正した。"
-    - "1996 question_1996_7.json は柔道整復理論の総論、上肢骨折、下肢骨折。問151・153・174は a/b/c/d 組合せ比較のため group_choice、問162・172は複数正答のため flash_card、問154は否定組合せとして select_incorrect に補正した。"
-    - "1996 question_1996_8.json は柔道整復理論の下肢骨折、脱臼、軟部組織損傷、症例問題。問184・189・196は a/b/c/d 組合せ比較のため group_choice、問183は複数正答のため flash_card、問176は否定組合せとして select_incorrect に補正した。1996年200問分の01〜04を完了した。"
-    - "1997 question_1997_1.json は解剖学中心。全問 true_false のまま、問4・10・20・21・22は否定表現として select_incorrect に補正した。運動器系、呼吸器系、神経系、体表解剖、消化器系、泌尿器系、生殖器系、内分泌器系、感覚器系、生理学総論に紐付けた。"
-    - "1997 question_1997_2.json は解剖学後半と生理学前半。全問 true_false のまま、問27・32・35・41・46・48・49は否定表現として select_incorrect に補正した。内分泌器系、体表解剖、神経系、運動器系、感覚器系、生理学総論、血液、循環、呼吸、消化と吸収、栄養と代謝、体温とその調節、尿の生成と排泄、内分泌、生殖、筋肉の機能に紐付けた。"
-    - "1997 question_1997_3.json は生理学後半、運動学、病理学概論。問58は a/b/c/d 組合せ比較のため group_choice、問52・56・67・71は否定表現として select_incorrect に補正した。感覚の生理、生殖、筋肉の機能、神経、歩行、運動学総論、運動器の構造と機能、姿勢、頭・頸部・四肢と体幹の運動、免疫異常・アレルギー、腫瘍、先天性異常、進行性病変、炎症、循環障害、疾病の一般に紐付けた。"
-    - "1997 question_1997_4.json は衛生学・公衆衛生学と関係法規。問92・95・98・99は a/b/c/d 組合せ比較のため group_choice、問76・77・79・81・90は『誤っている組合せ』として select_incorrect に補正した。公衆衛生、感染症、消毒、環境衛生、柔道整復師法、医師法、医療法に紐付けた。"
-    - "1997 question_1997_5.json は一般臨床医学と外科学概論。問102・104・106・114は a/b/c/d 組合せ比較のため group_choice、問105・108・110・111・112・118・119・121・122・124は否定表現として select_incorrect に補正した。診察概論、診察各論、検査法、主要な疾患、滅菌法と消毒法、止血、麻酔、腹部外傷、腫瘍に紐付けた。"
-    - "1997 question_1997_6.json は外科学概論、整形外科学、リハビリテーション医学。問131・139・146は a/b/c/d 組合せ比較のため group_choice、問126・127・128・136は誤っている組合せとして、問147・149は否定表現として select_incorrect に補正した。失血と輸血・輸液、頭部外傷、心肺蘇生法、脊柱損傷、整形外科的治療法、骨端症、大腿・膝関節、体幹、骨および軟部腫瘍、非感染性軟部・骨疾患、整形外科検査法、神経・筋疾患、リハビリテーションの評価・治療・関連職種・実際に紐付けた。"
-    - "1997 question_1997_7.json は柔道整復理論の総論、骨折、脱臼。問164は a/b/c/d 組合せ比較のため group_choice、問165・174・175は否定表現に合わせて select_incorrect に補正した。偽関節、骨癒合遅延、筋損傷、初期の施術、頭部・体幹骨折、上肢骨折、頭部・体幹脱臼、上肢脱臼に紐付けた。"
-    - "1997 question_1997_8.json は柔道整復理論の上肢脱臼、下肢骨折、下肢脱臼、下肢軟部組織損傷、症例問題。問190・197は a/b/c/d 組合せ比較のため group_choice にし、問187は sourceAnswerStatus=no_answer の解なし問題として 23_correctChoiceText_fixed で全選択肢を間違いに固定した。上肢脱臼、上肢骨折、下肢骨折、下肢脱臼、下肢軟部組織損傷に紐付けた。"
-    - "1998 question_1998_1.json は解剖学。全問 true_false のまま、問5は sourceAnswerStatus=no_answer の解なし問題として 15_correctChoiceText_fixed と 23_correctChoiceText_fixed で全選択肢を間違いに固定した。問9・18・24は公開 answer key を維持しつつ explanation で本試験の整理基準が分かるよう補った。人体解剖学概説、運動器系、脈管系、消化器系、呼吸器系、泌尿器系、生殖器系、内分泌器系、神経系、感覚器系、体表解剖に紐付けた。"
-    - "1998 question_1998_2.json は解剖学後半と生理学。全問 true_false のまま、問32・38・44・45・46・47・50は否定表現として select_incorrect に補正し、問48は複数正答の true_false として維持した。解剖学の内分泌器系・神経系・運動器系・人体解剖学概説・体表解剖と、生理学の血液・呼吸・栄養と代謝・体温・尿の生成と排泄・内分泌・生殖・骨の生理・神経・筋肉の機能・感覚の生理に紐付けた。"
-    - "1998 question_1998_3.json は生理学、運動学、病理学概論、公衆衛生、整形外科学。問67は a/b/c/d 組合せ比較のため group_choice に変更し、問58・70・74は否定表現として select_incorrect に補正した。副腎髄質ホルモン、神経、筋収縮、感覚、生殖、体幹・肩・股・膝・足関節運動、歩行、病因、免疫異常、炎症、腫瘍、公害・中毒疾患、ビタミン欠乏、進行性筋疾患に紐付けた。"
-    - "1998 question_1998_4.json は外科学、公衆衛生、関係法規。問92・93は a/b/c/d 組合せ比較のため group_choice、問90は否定表現に合わせて select_incorrect に補正し、問83は解なしとして 23_correctChoiceText_fixed を追加した。熱傷、腫瘍、出血、疫学、衛生統計、母子保健、職業病、食中毒、水質、感染性廃棄物、大気汚染、予防接種、消毒、柔道整復師法、保健師助産師看護師法、医師法に紐付けた。"
-    - "1998 question_1998_5.json は一般臨床医学と外科学。問102は a/b/c/d 組合せ比較のため group_choice、問105は複数正答の negative flash_card として 23_correctChoiceText_fixed を追加し、問101・109・115・122は否定表現に合わせて select_incorrect に補正した。診察各論、主要な疾患、進行性病変、ショック、輸血・輸液、麻酔、止血、神経筋疾患に紐付けた。"
-    - "1998 question_1998_6.json は外科学概論、整形外科学、リハビリテーション医学。問127・128は解なしとして 23_correctChoiceText_fixed で全選択肢を間違いに固定し、問132は複数正答の flash_card、問135・137・138は『誤っている組合せ』として select_incorrect に補正した。心肺蘇生法、頭部・脳卒中・胸腹部外傷、骨端症、骨関節損傷、体幹、感染性疾患、骨腫瘍、検査法、障害分類、リハビリ評価・治療・実際に紐付けた。"
-    - "1998 question_1998_7.json は柔道整復理論の骨折、脱臼、関節損傷、軟部組織損傷、初期施術。全問 true_false のまま既存 questionIntent を維持し、23_correctChoiceText_fixed は不要と判定した。疲労骨折、固定材料、捻挫初期治療、上肢骨折、胸鎖・肩・手根中手・肘関節脱臼、腱板損傷に紐付けた。"
-    - "1998 question_1998_8.json は柔道整復理論の下肢領域と整形外科学の骨盤・体幹・股関節・膝・足関節をまたぐ内容。問184は a/b/c/d 組合せ比較のため group_choice にし、問185・193・195は否定設問として select_incorrect に補正した。問188は 00_source の stem 欠落があり、外部参照で大腿骨下1/3部骨折の設問として explanation を補った。1998年200問分の01〜04を完了した。"
-    - "1999 question_1999_1.json は解剖学。全問 true_false のまま既存 questionIntent を維持し、23_correctChoiceText_fixed は不要と判定した。人体解剖学概説、運動器系、脈管系、消化器系、呼吸器系、生殖器系、内分泌器系、神経系、感覚器系に紐付けた。"
-    - "1999 question_1999_2.json は体表解剖と生理学。問38・40・41・45は negative stem に合わせて select_incorrect に補正し、問48は sourceAnswerStatus=no_answer の解なし問題として 15_correctChoiceText_fixed と 23_correctChoiceText_fixed で全選択肢を間違いに固定した。体表解剖、生理学総論、血液、循環、呼吸、栄養と代謝、体温とその調節、神経、感覚の生理、尿の生成と排泄、内分泌、生殖、消化と吸収に紐付けた。"
-    - "1999 question_1999_3.json は生理学、運動学、病理学概論、環境衛生。全問 true_false のまま、問60・66・69・73は『誤っている組合せ／みられない』の整理に合わせて select_incorrect に補正した。骨の生理、神経、筋肉の機能、感覚の生理、生殖、頭・頸部と四肢体幹の運動、歩行、姿勢、運動制御、循環障害、免疫異常、炎症、疾病の一般、病因、進行性病変、代謝障害、腫瘍、環境衛生に紐付けた。"
-    - "1999 question_1999_4.json は公衆衛生と関係法規。問78・83・90・94は否定表現に合わせて select_incorrect に補正し、問92・100は a/b/c/d 組合せ比較のため group_choice に変更した。問100は 00_source の stem 欠落があり、外部参照で『施術所-6.6平方メートル以上の専用施術室』を補って explanation を記述し、診療放射線技師法・理学療法士及び作業療法士法の questionSetId も追加で使った。"
-    - "1999 question_1999_7.json は柔道整復理論の骨折・脱臼・軟部組織損傷。問165を group_choice に補正し、問155・161・167は negative stem に合わせて select_incorrect と correctChoiceText を補正した。問151・152・173は 00_source に画像内容がなく、国試黒本の一次表示でも画像代替テキストが取れなかったため、正答番号と設問主題に限定した説明を記述した。問163は総論9 軟部組織損傷、問165は各論・骨折1 頭部・体幹に寄せた。"
-    - "1999 question_1999_8.json は柔道整復理論の下肢骨折・上下肢脱臼・軟部組織損傷。問183は『誤っている組合せ』に合わせて select_incorrect と correctChoiceText を補正した。問197・198は 00_source に図示内容がないが、正答肢と機序からそれぞれ尺骨神経麻痺、正中索断裂として explanation を記述した。問180は上肢脱臼固定肢位として `judoseifukushi_qs11_19`、問192・193・197・200は上肢骨折領域として `judoseifukushi_qs11_16` に寄せた。"
 
-    - "2001 question_2001_4.json は公衆衛生と関係法規。問76と問97を select_incorrect に補正し、問83を flash_card に変更した。感染症、環境衛生、放射線障害、感染症法、廃棄物処理、柔道整復師法、広告、法の優先順位、職能分類に紐付けた。"
-    - "2002 question_2002_3.json は解剖学後半と生理学、病理学概論、臨床医学総論・各論、リハビリ、公衆衛生、関係法規、医療概論、東洋医学概論、あん摩マッサージ指圧理論、東洋医学臨床論。問54の性染色体異常は一次情報で確認し、XX/XY と仮性半陰陽の組合せを誤りとして整理した。"
-    - "output/judoseifukushi/questions_json/2002/10_questionType_fixed/question_2002_3_questionType_fixed.json"
-    - "output/judoseifukushi/questions_json/2002/15_correctChoiceText_fixed/question_2002_3_correctChoiceText_fixed.json"
-    - "output/judoseifukushi/questions_json/2002/21_explanationText_added/question_2002_3_explanationText_added.json"
-    - "output/judoseifukushi/questions_json/2002/22_questionSetId_linked/question_2002_3_questionSetId_linked.json"
-receipts:
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260615-prep-and-file1-010204.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file1-03-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file6-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file7-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file1-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file6-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file7-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1994-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file1-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file6-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file7-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1995-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file1-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file6-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file7-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1996-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file1-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file6-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file7-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1997-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file1-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file1-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file6-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file7-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1998-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file7-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260616-1999-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2000-file8-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2001-file2-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-prep-review-board.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2001-file3-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2001-file4-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260618-2001-file5-01-04-complete.md"
-  - "docs/goals/judoseifukushi-01-04-full-pass/receipts/20260619-2002-file3-01-04-complete.md"
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: pass
+    task: T001
+    commands:
+      - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/judoseifukushi-01-04-full-pass/state.yaml"
+        status: pass
+      - cmd: "npx goalbuddy board docs/goals/judoseifukushi-01-04-full-pass"
+        status: pass
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: active
+    reasoning_hint: high
+    objective: "Validate the existing 01→04 plan, finish the v2 board migration, and lock the first safe Worker package."
+    inputs:
+      - "docs/goals/judoseifukushi-01-04-full-pass/goal.md"
+      - "docs/goals/judoseifukushi-01-04-full-pass/state.yaml"
+      - "output/judoseifukushi/category/category.json"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "prompt/04_prompt_link_questionSetId.md"
+    constraints:
+      - "Read-only except for goal state files."
+      - "Do not edit implementation files."
+      - "Preserve the user's existing plan facts."
+      - "Keep the goal root v2-clean by leaving only goal.md, state.yaml, notes/, subgoals/, and .goalbuddy-board/ at the root."
+    expected_output:
+      - "Validated tranche scope"
+      - "Board migration receipt"
+      - "First safe Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "Agent availability truth"
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Review the PM validation and choose the first safe Worker package."
+    inputs:
+      - "T001 receipt"
+    constraints:
+      - "Do not implement."
+      - "Pick the largest safe useful slice with explicit allowed_files, verify commands, and stop conditions."
+    expected_output:
+      - "Decision"
+      - "Exact Worker objective"
+      - "allowed_files"
+      - "verify"
+      - "stop_if"
+      - "Blocked or deferred tasks"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "Execute the first safe implementation task selected by Judge."
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Behavior is ambiguous."
+      - "Verification fails twice."
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Audit whether the implemented slices satisfy the full 7,600-question 01→04 outcome."
+    inputs:
+      - "All done task receipts"
+      - "Last verification"
+      - "Current dirty diff"
+    constraints:
+      - "Do not implement."
+      - "Reject completion if required Worker work is still queued or active."
+      - "Reject completion if any year still lacks required outputs."
+      - "Reject stopping only because a slice needs owner input, credentials, production access, destructive operations, or policy decisions."
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
