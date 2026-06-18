@@ -38,7 +38,7 @@
 
 - 会話と報告は日本語で行う。
 - `00_source` は編集しない。
-- 外部Web参照は 03 prompt の解説補強で必要な一次情報に限定する。`question_url` の再取得や問題サイト依存はしない。
+- `00_source` に `explanation_common_prefix` / `explanation_common_summary` / `explanation_choice_snippets` がない、または不足する設問は、03 prompt の解説補強として外部Webの一次情報を参照してよい。`question_url` の再取得や問題サイト依存はしない。
 - 01、02、04 prompt はローカルファイルだけで判断する。
 - 出力ファイルは固定ファイル名で上書きし、タイムスタンプ付き patch を増やさない。
 - `questionSetId` は `category.json` の `questionSets[].questionSetId` のみ使う。`folderId` を設問に直接付与しない。

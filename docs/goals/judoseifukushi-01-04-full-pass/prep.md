@@ -19,6 +19,7 @@
 - 全 7,600 問の `questionType` が `true_false` で初期化されている。
 - `questionIntent` は `select_correct` が 5,885 問、`select_incorrect` が 1,715 問。
 - `explanation_common_prefix` と `explanation_common_summary` は全件空。既存の解説断片は主に `explanation_choice_snippets` 側を確認する。
+- `00_source` に上記の解説補強情報がない場合は、03 prompt の一次情報確認として外部Webを使ってよい。`question_url` の再取得や問題サイト依存はしない。
 - 1993 問1 のように、問題文が「正しいのはどれか。」だけの設問があるため、01 と 04 は問題文だけではなく選択肢と既存解説断片まで読む必要がある。
 
 ## 準備成果物
