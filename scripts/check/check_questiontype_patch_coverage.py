@@ -16,6 +16,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from scripts.common.question_identity import review_question_id
 from scripts.common.questions_json_paths import resolve_list_group_base_dir
 
 
@@ -80,7 +81,7 @@ def get_source_questions(data: Any) -> List[Dict[str, Any]]:
 
 
 def resolve_source_original_id(question: Dict[str, Any]) -> Any:
-    return question.get("original_question_id") or question.get("public_question_id")
+    return review_question_id(question)
 
 
 def get_patch_entries(data: Any) -> List[Dict[str, Any]]:

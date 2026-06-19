@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping
 
+from scripts.common.question_identity import review_question_id
 from scripts.merge.merge_utils import (
     build_manual_output_path,
     maybe_split_for_manual_output,
@@ -131,6 +132,10 @@ def build_patch_map_from_paths(
     patch_paths: Iterable[Path],
     *,
     value_key: str | None = None,
+def patch_target_id(question: Mapping[str, Any]) -> str:
+    return review_question_id(question)
+
+
     key_fields: Iterable[str] = ("original_question_id",),
 ) -> Dict[str, Any]:
     mapping: Dict[str, Any] = {}
@@ -161,8 +166,8 @@ def apply_question_type(
     for question in questions:
         if not isinstance(question, dict):
             continue
-        question_id = question.get("original_question_id")
-        if question_id is None:
+        question_id = patch_target_id(question)
+        if not question_id:
             continue
         patch_entry = qtype_map.get(str(question_id))
         if isinstance(patch_entry, dict):
@@ -209,8 +214,8 @@ def apply_explanation_fields(
     for question in questions:
         if not isinstance(question, dict):
             continue
-        question_id = question.get("original_question_id")
-        if question_id is None:
+        question_id = patch_target_id(question)
+        if not question_id:
             continue
         entry = explanation_map.get(str(question_id))
         if not isinstance(entry, dict):
@@ -234,8 +239,8 @@ def apply_question_set(
     for question in questions:
         if not isinstance(question, dict):
             continue
-        question_id = question.get("original_question_id")
-        if question_id is None:
+        question_id = patch_target_id(question)
+        if not question_id:
             continue
         new_value = question_set_map.get(str(question_id))
         if new_value is None:
@@ -257,8 +262,8 @@ def apply_correct_choice(
     for question in questions:
         if not isinstance(question, dict):
             continue
-        question_id = question.get("original_question_id")
-        if question_id is None:
+        question_id = patch_target_id(question)
+        if not question_id:
             continue
         new_value = correct_choice_map.get(str(question_id))
         if new_value is None:
@@ -280,8 +285,8 @@ def apply_answer_result_overrides(
     for question in questions:
         if not isinstance(question, dict):
             continue
-        question_id = question.get("original_question_id")
-        if question_id is None:
+        question_id = patch_target_id(question)
+        if not question_id:
             continue
         entry = override_map.get(str(question_id))
         if not isinstance(entry, dict):
@@ -309,8 +314,8 @@ def apply_question_intent(
     for question in questions:
         if not isinstance(question, dict):
             continue
-        question_id = question.get("original_question_id")
-        if question_id is None:
+        question_id = patch_target_id(question)
+        if not question_id:
             continue
         new_value = question_intent_map.get(str(question_id))
         if new_value is None:

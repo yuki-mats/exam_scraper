@@ -32,7 +32,7 @@ import argparse
 import sys
 from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Tuple
+from typing import Any, Dict, Iterable, List, Set, Tuple
 
 # `python scripts/check/...` でも `python -m scripts.check...` でも動くようにする。
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -40,6 +40,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.check.question_set_validation import collect_category_ids, load_json
+from scripts.common.question_identity import review_question_id
 
 
 
@@ -118,11 +119,8 @@ def detect_question_key(questions: List[Dict[str, Any]]) -> str:
 
 
 def get_normalized_question_id(question: Dict[str, Any]) -> str | None:
-    for field in ("original_question_id", "public_question_id", "question_url"):
-        value = question.get(field)
-        if value:
-            return str(value)
-    return None
+    value = review_question_id(question)
+    return value or None
 
 
 def get_question_ids_by_field(obj: Any, field: str) -> Set[str]:

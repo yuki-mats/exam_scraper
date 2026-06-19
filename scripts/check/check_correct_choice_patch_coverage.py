@@ -7,8 +7,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.common.question_identity import review_question_id
 
 
 REQUIRED_FIELDS = [
@@ -43,7 +50,7 @@ def build_source_index(
 ) -> Dict[str, Tuple[int, Dict[str, Any]]]:
     index: Dict[str, Tuple[int, Dict[str, Any]]] = {}
     for idx, q in enumerate(questions):
-        pid = q.get("original_question_id") or q.get("public_question_id")
+        pid = review_question_id(q)
         if pid:
             index[str(pid)] = (idx, q)
     return index

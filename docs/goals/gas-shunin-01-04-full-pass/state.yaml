@@ -1,0 +1,166 @@
+version: 2
+
+goal:
+  title: "ガス主任技術者 甲種・乙種 01-04 manual review"
+  slug: "gas-shunin-01-04-full-pass"
+  kind: existing_plan
+  tranche: "gas-shunin-kou 2019-2025 412問、gas-shunin-otsu 2017-2025 522問を 1問=1Worker でレビューする。"
+  status: active
+  oracle:
+    signal: "対象934問について 01 questionType、02 questionIntent/correctChoiceText、03 explanationText、04 questionSetId が一問ずつ確認され、coverage/merge/upload-prep相当の検証に通る。"
+    cadence: "各Worker完了後と最終監査時"
+    final_proof: "review jsonl の全行完了、固定名patch、検証結果、最終Judge/PM監査receipt。"
+  intake:
+    original_request: "ガス主任技術者試験においても01〜04promptの作業をできるようにし、甲種・乙種を一問一問、精度高く目視クオリティで実施したい。必要な準備をまずしてほしい。"
+    interpreted_outcome: "Firestore既存IDを保ったまま、甲種・乙種の01〜04手作業レビューを一問ずつ安全に進められる状態にする。"
+    input_shape: existing_plan
+    audience: "ガス主任技術者試験の受験者と運用者"
+    authority: requested
+    proof_type: artifact
+    completion_proof: "甲種412問・乙種522問の台帳全行が完了し、coverage/merge/upload-prep相当の検証と最終監査が通ること。"
+    likely_misfire: "複数問を機械的にまとめる、Firestore既存IDを変える、00_sourceを直接書き換える、根拠なしに解説を生成する、検証通過だけで目視確認済みにする。"
+    blind_spots_considered:
+      - "甲種Firestore由来データには重複originalQuestionIdがあり、doc ID由来のreviewQuestionIdが必要。"
+      - "乙種サイト由来データはpublicQuestionIdを主キーにする。"
+      - "03 explanationText は既存解説・サイト取得・PDF/OCR・一次情報の根拠を分ける必要がある。"
+      - "04 questionSetId はFirestore snapshot由来categoryを使う。"
+      - "coverage check は必要条件であり、目視品質の十分条件ではない。"
+    existing_plan_facts:
+      - "会話・報告は日本語で行う。"
+      - "変更時には作業内容と保存先を明示する。"
+      - "文字列本文・解説本文をプログラムで生成しない。"
+      - "1 Worker は1問だけを扱う。"
+      - "既存FirestoreのquestionId/originalQuestionIdを変更しない。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 934
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: false
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: generated
+    url: "http://goalbuddy.localhost:41737/gas-shunin-01-04-full-pass/"
+    command: "npx goalbuddy board docs/goals/gas-shunin-01-04-full-pass"
+
+active_task: T002
+
+tasks:
+  - id: T001
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: medium
+    objective: "Firestore category、review jsonl、01〜04固定名patch雛形を甲種・乙種で生成し、pending許容で検証する。"
+    expected_output:
+      - "甲種412問、乙種522問のreview jsonl"
+      - "各source fileに対応する10/15/21/22固定名patch雛形"
+      - "Firestore snapshot由来category.json"
+      - "検証結果"
+    receipt:
+      result: done
+      summary: "甲種412問・乙種522問のreview jsonl、Firestore snapshot由来category、10/15/21/22固定名patch雛形を生成し、pending許容の整合性検証と関連ユニットテストに通した。"
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-prep-complete.md"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "output/gas-shunin-kou/category/category.json"
+        - "output/gas-shunin-otsu/category/category.json"
+
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "最初にレビューする一問を選び、Workerが触るsource/patch/review行/検証コマンドを確定する。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/goal.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "prompt/04_prompt_link_questionSetId.md"
+    constraints:
+      - "Do not edit content."
+      - "一問だけを選ぶ。"
+      - "Firestore既存IDを変更しない。"
+      - "00_sourceを編集対象にしない。"
+      - "03の解説生成を開始しない。"
+    expected_output:
+      - "selected reviewQuestionId"
+      - "source path"
+      - "patch paths"
+      - "review jsonl line identity"
+      - "verification commands"
+    receipt: null
+
+  - id: T101
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "T002で選ばれた一問について、01〜04を目視クオリティで処理し、必要な固定名patchとreview jsonl行だけを更新する。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/**/10_questionType_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/15_correctChoiceText_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/21_explanationText_added/*.json"
+      - "output/gas-shunin-kou/questions_json/**/22_questionSetId_linked/*.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-otsu/questions_json/**/10_questionType_fixed/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/15_correctChoiceText_fixed/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/21_explanationText_added/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/22_questionSetId_linked/*.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check <review_jsonl> --expected-total <count> --require-stage-files --category <category_json> --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source <source_json> --patch <questionType_patch>"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source <source_json> --patch <correctChoice_patch> --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source <source_json> --patch <questionSet_patch> --category <category_json>"
+    stop_if:
+      - "問題文・選択肢・解説の根拠が不足して正誤を断定できない。"
+      - "文字列本文をプログラムで作りたくなる。"
+      - "00_sourceやFirestore既存IDを書き換える必要が出る。"
+      - "一問を超える範囲をまとめて更新しそうになる。"
+    receipt: null
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全934問の01〜04完了後、oracleに照らして最終監査する。"
+    inputs:
+      - "全Worker receipt"
+      - "全review jsonl"
+      - "coverage/merge/upload-prep検証結果"
+    constraints:
+      - "Do not edit content."
+      - "未処理行がある場合は完了扱いにしない。"
+      - "Firestore既存ID変更があれば完了扱いにしない。"
+    expected_output:
+      - "Decision"
+      - "Oracle mapping"
+      - "Residual risks"
+    receipt: null

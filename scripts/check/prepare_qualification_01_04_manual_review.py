@@ -13,6 +13,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+from scripts.common.question_identity import review_question_id
 from scripts.fix.auto_assign_correct_choice_text import build_expected_correct_choice_text
 
 
@@ -95,11 +96,7 @@ def rel(path: Path) -> str:
 
 
 def question_id(question: dict[str, Any]) -> str:
-    for key in ("original_question_id", "public_question_id", "question_url"):
-        value = question.get(key)
-        if value:
-            return str(value)
-    return ""
+    return review_question_id(question)
 
 
 def patch_path_for(source_path: Path, stage_key: str) -> Path:
@@ -120,12 +117,16 @@ def load_category_question_sets(category_path: Path) -> set[str]:
 
 
 def stage_entry_base(source_path: Path, question: dict[str, Any]) -> dict[str, Any]:
+    source_original_id = question.get("original_question_id")
     return {
-        "original_question_id": question.get("original_question_id") or question.get("public_question_id"),
+        "original_question_id": question_id(question),
+        "source_original_question_id": source_original_id,
         "public_question_id": question.get("public_question_id"),
         "question_url": question.get("question_url"),
         "questionLabel": question.get("questionLabel"),
         "examLabel": question.get("examLabel"),
+        "questionBodyText": question.get("questionBodyText"),
+        "choiceTextList": question.get("choiceTextList") if isinstance(question.get("choiceTextList"), list) else [],
         "source_filepath": rel(source_path),
     }
 
@@ -164,9 +165,8 @@ def build_stage_entries(source_path: Path, questions: list[dict[str, Any]]) -> d
         })
         entries["questionSet"].append({
             **base,
-            "questionSetId": question.get("questionSetId"),
+            "questionSetId": question.get("questionSetId") or "",
             "category": question.get("category"),
-            "questionBodyText": question.get("questionBodyText"),
         })
 
     return entries
@@ -234,6 +234,7 @@ def build_review_row(
         "sourceFileIndex": source_file_index,
         "questionIndexInFile": question_index_in_file,
         "globalQuestionIndex": global_index,
+        "reviewQuestionId": qid,
         "originalQuestionId": str(question.get("original_question_id") or ""),
         "publicQuestionId": str(question.get("public_question_id") or ""),
         "questionUrl": str(question.get("question_url") or ""),
@@ -582,13 +583,13 @@ def validate_rows(
             "reviewId",
             "qualification",
             "sourceFile",
-            "originalQuestionId",
             "questionBodyText",
             "questionType",
-            "questionIntent",
         ):
             if not str(row.get(key) or "").strip():
                 errors.append(f"{prefix} {key} is required")
+        if not any(str(row.get(key) or "").strip() for key in ("originalQuestionId", "publicQuestionId", "questionUrl")):
+            errors.append(f"{prefix} one of originalQuestionId/publicQuestionId/questionUrl is required")
         for field in STEP_FIELDS:
             if row.get(field) not in VALID_REVIEW_VALUES:
                 errors.append(f"{prefix} {field} must be one of {sorted(VALID_REVIEW_VALUES)}")
