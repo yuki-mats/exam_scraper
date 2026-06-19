@@ -22,6 +22,8 @@ goal:
     blind_spots_considered:
       - "甲種Firestore由来データには重複originalQuestionIdがあり、doc ID由来のreviewQuestionIdが必要。"
       - "乙種サイト由来データはpublicQuestionIdを主キーにする。"
+      - "sourceQuestionKey/sourceUniqueKeyは照合キーであり、既存Firestore document IDの置換キーではない。"
+      - "upload用questionIdは既存Firestore由来ならfirestoreQuestionIds[index]を使い、新規問題だけsourceUniqueKey由来の決定的IDを作る。"
       - "03 explanationText は既存解説・サイト取得・PDF/OCR・一次情報の根拠を分ける必要がある。"
       - "04 questionSetId はFirestore snapshot由来categoryを使う。"
       - "coverage check は必要条件であり、目視品質の十分条件ではない。"
@@ -31,6 +33,7 @@ goal:
       - "文字列本文・解説本文をプログラムで生成しない。"
       - "1 Worker は1問だけを扱う。"
       - "既存FirestoreのquestionId/originalQuestionIdを変更しない。"
+      - "既存Firestore由来のupload JSONでは questions[].questionId が firestoreQuestionIds の既存doc IDと一致することをdry-run前に検証する。"
 
 rules:
   pm_owns_state: true

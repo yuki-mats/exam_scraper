@@ -26,6 +26,8 @@
 - `00_source` の問題文・選択肢・既存本文はこの review workflow 中に直接書き換えない。
 - 既存 Firestore の `questionId` / `originalQuestionId` は変更しない。
 - Firestore 由来の既存問題は `firestoreQuestionIds` から作った `reviewQuestionId` をレビュー・patch適用キーにする。
+- Firestore upload 用の `questions[].questionId` は、既存問題では `firestoreQuestionIds[index]` を使う。`sourceQuestionKey` / `sourceUniqueKey` は照合・merge用キーであり、既存Firestore document IDの置換には使わない。
+- gassyunin.com / PDF / OCR 由来の新規問題だけ、`sourceUniqueKey` から決定的な新規 `questionId` を作る。既存Firestoreと一致する `sourceUniqueKey` がある場合は、必ず既存doc IDへ解決する。
 - `originalQuestionId` は台帳上に保持し、patch雛形では `source_original_question_id` として残す。
 - 甲種・乙種とも、一問ずつ目視クオリティで進める。複数問を機械的にまとめて ok にしない。
 - 文字列本文・解説本文をプログラムで生成しない。プログラム利用は棚卸し、雛形生成、検証、merge、差分確認に限る。
@@ -36,6 +38,16 @@
 ## Oracle
 
 完了条件は、甲種412問・乙種522問の全934問について、01 `questionType`、02 `questionIntent` / `correctChoiceText`、03 `explanationText`、04 `questionSetId` が一問ずつ確認され、該当 patch が固定名ファイルに反映され、coverage / merge / upload-prep dry-run 相当の検証を通り、最終監査で既存 Firestore ID を変更していないことが証明されること。
+
+## ID Policy
+
+- `sourceQuestionKey`: 問題単位の自然キー。形式は `gas-shunin:{grade}:{year}:{subject}:q{questionNo}`。
+- `sourceUniqueKey`: 選択肢・設問単位の自然キー。形式は `gas-shunin:{grade}:{year}:{subject}:q{questionNo}:s{statementNo}`。
+- `reviewQuestionId`: 01〜04のreview/patch照合キー。既存Firestore由来では `firestore:<doc ids>`、サイト由来では `publicQuestionId` または `sourceUniqueKey`。
+- `questionId`: Firestore `questions` のdocument ID。既存Firestore由来では絶対に既存doc IDを使う。
+- `originalQuestionId`: Firestore既存フィールド。既存値を維持する。
+
+`sourceQuestionKey` / `sourceUniqueKey` は、Firestore・gassyunin.com・PDF/OCRの同一問題照合に使う。既存Firestore document IDを直接置き換える用途には使わない。
 
 ## Current Status
 
