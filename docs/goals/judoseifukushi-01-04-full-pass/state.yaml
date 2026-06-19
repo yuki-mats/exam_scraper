@@ -73,48 +73,48 @@ progress:
   questions: 7600
   category_folders: 12
   category_question_sets: 167
-  source_files_started: 101
-  source_files_fully_completed_01_02_04: 99
-  source_files_fully_completed_01_04: 107
-  questions_reviewed_01_question_type: 2680
-  questions_reviewed_02_question_intent: 2680
-  questions_reviewed_03_explanation_text: 2680
-  questions_reviewed_04_question_set_id: 2680
-  questions_fully_completed_01_04: 2680
+  source_files_started: 102
+  source_files_fully_completed_01_02_04: 100
+  source_files_fully_completed_01_04: 108
+  questions_reviewed_01_question_type: 2685
+  questions_reviewed_02_question_intent: 2685
+  questions_reviewed_03_explanation_text: 2685
+  questions_reviewed_04_question_set_id: 2685
+  questions_fully_completed_01_04: 2685
   active_slice:
-    year: 2006
-    source_file: "question_2006_10.json"
-    question_labels: "問226-問250"
+    year: 2007
+    source_file: "question_2007_1.json"
+    question_labels: "問1-問25"
 
 checks:
   dirty_fingerprint: unknown
   last_verification:
     result: pass
-    task: T037
+    task: T038
     commands:
-      - cmd: "python3 scripts/check/check_questiontype_patch_coverage.py --source output/judoseifukushi/questions_json/2006/00_source/question_2006_9.json --patch output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_9_questionType_fixed.json"
+      - cmd: "python3 scripts/check/check_questiontype_patch_coverage.py --source output/judoseifukushi/questions_json/2006/00_source/question_2006_10.json --patch output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_10_questionType_fixed.json"
         status: pass
-      - cmd: "python3 scripts/check/check_correct_choice_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_9_merged.json --patch output/judoseifukushi/questions_json/2006/15_correctChoiceText_fixed/question_2006_9_correctChoiceText_fixed.json --require-full --require-snippets --require-change-meta"
+      - cmd: "python3 scripts/check/check_correct_choice_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_10_merged.json --patch output/judoseifukushi/questions_json/2006/15_correctChoiceText_fixed/question_2006_10_correctChoiceText_fixed.json --require-full --require-snippets --require-change-meta"
         status: pass
-      - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_9_merged.json --patch output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_9_explanationText_added.json --require-law-grounded-flag"
+      - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_10_merged.json --patch output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_10_explanationText_added.json --require-law-grounded-flag"
         status: pass
-      - cmd: "python3 scripts/check/check_question_set_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_9_merged.json --patch output/judoseifukushi/questions_json/2006/22_questionSetId_linked/question_2006_9_questionSetId_linked.json --category output/judoseifukushi/category/category.json --questionset-only"
+      - cmd: "python3 scripts/check/check_question_set_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_10_merged.json --patch output/judoseifukushi/questions_json/2006/22_questionSetId_linked/question_2006_10_questionSetId_linked.json --category output/judoseifukushi/category/category.json --questionset-only"
         status: pass
-      - cmd: "python3 scripts/check/check_questionSetId.py --category output/judoseifukushi/category/category.json --original output/judoseifukushi/questions_json/2006/00_source/question_2006_9.json --fixed output/judoseifukushi/questions_json/2006/30_merged_2/question_2006_9_merged_20260620_0747.json --compare-count --questionset-only"
+      - cmd: "python3 scripts/check/check_questionSetId.py --category output/judoseifukushi/category/category.json --original output/judoseifukushi/questions_json/2006/00_source/question_2006_10.json --fixed output/judoseifukushi/questions_json/2006/30_merged_2/question_2006_10_merged_20260620_0747.json --compare-count --questionset-only"
         status: pass
       - cmd: ".venv/bin/python scripts/merge/00_merge_all.py 2006 --base-dir output/judoseifukushi/questions_json"
         status: pass
       - cmd: "python3 scripts/check/prepare_qualification_01_04_manual_review.py render output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl --qualification judoseifukushi --output-dir output/judoseifukushi/review/01_04_manual_review"
         status: pass
     evidence:
-      - "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_9_questionType_fixed.json"
-      - "output/judoseifukushi/questions_json/2006/15_correctChoiceText_fixed/question_2006_9_correctChoiceText_fixed.json"
-      - "output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_9_explanationText_added.json"
-      - "output/judoseifukushi/questions_json/2006/22_questionSetId_linked/question_2006_9_questionSetId_linked.json"
-      - "output/judoseifukushi/questions_json/2006/30_merged_2/question_2006_9_merged_20260620_0747.json"
+      - "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_10_questionType_fixed.json"
+      - "output/judoseifukushi/questions_json/2006/15_correctChoiceText_fixed/question_2006_10_correctChoiceText_fixed.json"
+      - "output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_10_explanationText_added.json"
+      - "output/judoseifukushi/questions_json/2006/22_questionSetId_linked/question_2006_10_questionSetId_linked.json"
+      - "output/judoseifukushi/questions_json/2006/30_merged_2/question_2006_10_merged_20260620_0747.json"
       - "output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl"
       - "output/judoseifukushi/review/01_04_manual_review/years/judoseifukushi_01_04_manual_review_2006.md"
-active_task: T038
+active_task: T039
 
 tasks:
   - id: T001
@@ -2110,7 +2110,7 @@ tasks:
   - id: T038
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Execute 2006 question_2006_10 end-to-end through 01→04, generate fixed patch files and merged outputs, and verify the slice."
     allowed_files:
@@ -2129,6 +2129,61 @@ tasks:
       - "python3 scripts/check/check_question_set_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_10_merged.json --patch output/judoseifukushi/questions_json/2006/22_questionSetId_linked/question_2006_10_questionSetId_linked.json --category output/judoseifukushi/category/category.json --questionset-only"
       - "python3 scripts/check/check_questionSetId.py --category output/judoseifukushi/category/category.json --original output/judoseifukushi/questions_json/2006/00_source/question_2006_10.json --fixed output/judoseifukushi/questions_json/2006/30_merged_2/<latest merged file> --compare-count --questionset-only"
       - ".venv/bin/python scripts/merge/00_merge_all.py 2006 --base-dir output/judoseifukushi/questions_json"
+      - "python3 scripts/check/prepare_qualification_01_04_manual_review.py render output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl --qualification judoseifukushi --output-dir output/judoseifukushi/review/01_04_manual_review"
+    stop_if:
+      - "Need files outside allowed_files."
+      - "Behavior is ambiguous."
+      - "Verification fails twice."
+    receipt:
+      result: done
+      summary: "2006 question_2006_10 is complete end-to-end through 01→04, the review ledger is marked ok, and the next safe slice moves to 2007 question_2007_1."
+      changed_files:
+        - "output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_10_questionType_fixed.json"
+        - "output/judoseifukushi/questions_json/2006/15_correctChoiceText_fixed/question_2006_10_correctChoiceText_fixed.json"
+        - "output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_10_explanationText_added.json"
+        - "output/judoseifukushi/questions_json/2006/22_questionSetId_linked/question_2006_10_questionSetId_linked.json"
+        - "output/judoseifukushi/questions_json/2006/30_merged_2/question_2006_10_merged_20260620_0747.json"
+        - "output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl"
+        - "output/judoseifukushi/review/01_04_manual_review/years/judoseifukushi_01_04_manual_review_2006.md"
+      commands:
+        - cmd: "python3 scripts/check/check_questiontype_patch_coverage.py --source output/judoseifukushi/questions_json/2006/00_source/question_2006_10.json --patch output/judoseifukushi/questions_json/2006/10_questionType_fixed/question_2006_10_questionType_fixed.json"
+          status: pass
+        - cmd: "python3 scripts/check/check_correct_choice_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_10_merged.json --patch output/judoseifukushi/questions_json/2006/15_correctChoiceText_fixed/question_2006_10_correctChoiceText_fixed.json --require-full --require-snippets --require-change-meta"
+          status: pass
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_10_merged.json --patch output/judoseifukushi/questions_json/2006/21_explanationText_added/question_2006_10_explanationText_added.json --require-law-grounded-flag"
+          status: pass
+        - cmd: "python3 scripts/check/check_question_set_patch_coverage.py --source output/judoseifukushi/questions_json/2006/20_merged_1/question_2006_10_merged.json --patch output/judoseifukushi/questions_json/2006/22_questionSetId_linked/question_2006_10_questionSetId_linked.json --category output/judoseifukushi/category/category.json --questionset-only"
+          status: pass
+        - cmd: "python3 scripts/check/check_questionSetId.py --category output/judoseifukushi/category/category.json --original output/judoseifukushi/questions_json/2006/00_source/question_2006_10.json --fixed output/judoseifukushi/questions_json/2006/30_merged_2/question_2006_10_merged_20260620_0747.json --compare-count --questionset-only"
+          status: pass
+        - cmd: ".venv/bin/python scripts/merge/00_merge_all.py 2006 --base-dir output/judoseifukushi/questions_json"
+          status: pass
+        - cmd: "python3 scripts/check/prepare_qualification_01_04_manual_review.py render output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl --qualification judoseifukushi --output-dir output/judoseifukushi/review/01_04_manual_review"
+          status: pass
+      spawned_tasks:
+        - T039
+  - id: T039
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "Execute 2007 question_2007_1 end-to-end through 01→04, generate fixed patch files and merged outputs, and verify the slice."
+    allowed_files:
+      - "output/judoseifukushi/questions_json/2007/10_questionType_fixed/**"
+      - "output/judoseifukushi/questions_json/2007/15_correctChoiceText_fixed/**"
+      - "output/judoseifukushi/questions_json/2007/12_merged_questionType/**"
+      - "output/judoseifukushi/questions_json/2007/20_merged_1/**"
+      - "output/judoseifukushi/questions_json/2007/21_explanationText_added/**"
+      - "output/judoseifukushi/questions_json/2007/22_questionSetId_linked/**"
+      - "output/judoseifukushi/questions_json/2007/30_merged_2/**"
+      - "output/judoseifukushi/review/01_04_manual_review/**"
+    verify:
+      - "python3 scripts/check/check_questiontype_patch_coverage.py --source output/judoseifukushi/questions_json/2007/00_source/question_2007_1.json --patch output/judoseifukushi/questions_json/2007/10_questionType_fixed/question_2007_1_questionType_fixed.json"
+      - "python3 scripts/check/check_correct_choice_patch_coverage.py --source output/judoseifukushi/questions_json/2007/20_merged_1/question_2007_1_merged.json --patch output/judoseifukushi/questions_json/2007/15_correctChoiceText_fixed/question_2007_1_correctChoiceText_fixed.json --require-full --require-snippets --require-change-meta"
+      - "python3 scripts/check/check_explanation_patch_coverage.py --source output/judoseifukushi/questions_json/2007/20_merged_1/question_2007_1_merged.json --patch output/judoseifukushi/questions_json/2007/21_explanationText_added/question_2007_1_explanationText_added.json --require-law-grounded-flag"
+      - "python3 scripts/check/check_question_set_patch_coverage.py --source output/judoseifukushi/questions_json/2007/20_merged_1/question_2007_1_merged.json --patch output/judoseifukushi/questions_json/2007/22_questionSetId_linked/question_2007_1_questionSetId_linked.json --category output/judoseifukushi/category/category.json --questionset-only"
+      - "python3 scripts/check/check_questionSetId.py --category output/judoseifukushi/category/category.json --original output/judoseifukushi/questions_json/2007/00_source/question_2007_1.json --fixed output/judoseifukushi/questions_json/2007/30_merged_2/<latest merged file> --compare-count --questionset-only"
+      - ".venv/bin/python scripts/merge/00_merge_all.py 2007 --base-dir output/judoseifukushi/questions_json"
       - "python3 scripts/check/prepare_qualification_01_04_manual_review.py render output/judoseifukushi/review/01_04_manual_review/judoseifukushi_01_04_manual_review.jsonl --qualification judoseifukushi --output-dir output/judoseifukushi/review/01_04_manual_review"
     stop_if:
       - "Need files outside allowed_files."
