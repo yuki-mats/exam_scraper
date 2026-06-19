@@ -53,6 +53,8 @@ SOURCE_ID_PATTERN = re.compile(
 )
 QUESTION_LABEL_PATTERN = re.compile(r"問\s*(?P<question_no>\d+)")
 QUESTION_URL_PATTERN = re.compile(r"#(?P<subject>[a-z]+)-q(?P<question_no>\d+)$")
+RAW_SITE_FILENAME_PATTERN = re.compile(r"^question_(?P<year>\d{4})_(?P<chunk>\d+)\.json$")
+RAW_SITE_ARCHIVE_DIR_NAME = "99_archived_gassyunin_full"
 
 
 def utc_now_label() -> str:
@@ -182,7 +184,21 @@ def load_firestore_questions(snapshot_dir: Path) -> list[dict[str, Any]]:
 def load_gassyunin_questions(qualification: str, output_root: Path) -> list[dict[str, Any]]:
     questions_root = output_root / qualification / "questions_json"
     records: list[dict[str, Any]] = []
-    for path in sorted(questions_root.glob("*/00_source/question_*.json")):
+    paths: list[Path] = []
+    for source_dir in sorted(questions_root.glob("*/00_source")):
+        immediate = sorted(
+            path
+            for path in source_dir.glob("question_*.json")
+            if RAW_SITE_FILENAME_PATTERN.match(path.name)
+        )
+        archived = sorted(
+            path
+            for path in (source_dir / RAW_SITE_ARCHIVE_DIR_NAME).glob("question_*.json")
+            if RAW_SITE_FILENAME_PATTERN.match(path.name)
+        )
+        paths.extend(immediate or archived)
+
+    for path in paths:
         data = json.loads(path.read_text(encoding="utf-8"))
         bodies = data.get("question_bodies") if isinstance(data, dict) else None
         if not isinstance(bodies, list):
