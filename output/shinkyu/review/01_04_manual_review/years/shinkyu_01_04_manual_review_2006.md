@@ -10,8 +10,8 @@
 - question: 問1 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q1
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs09_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -33,12 +33,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -48,8 +48,8 @@
 - question: 問2 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q2
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs09_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -71,12 +71,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -86,8 +86,8 @@
 - question: 問3 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q3
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -109,12 +109,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -124,8 +124,8 @@
 - question: 問4 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q4
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -147,12 +147,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -162,8 +162,8 @@
 - question: 問5 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q5
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -185,12 +185,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -200,8 +200,8 @@
 - question: 問6 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q6
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -223,12 +223,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -238,8 +238,8 @@
 - question: 問7 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q7
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -261,12 +261,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -276,8 +276,8 @@
 - question: 問8 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q8
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -299,12 +299,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -314,8 +314,8 @@
 - question: 問9 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q9
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -337,12 +337,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -352,8 +352,8 @@
 - question: 問10 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q10
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -375,12 +375,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -390,8 +390,8 @@
 - question: 問11 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q11
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -413,12 +413,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -428,8 +428,8 @@
 - question: 問12 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q12
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -451,12 +451,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -466,8 +466,8 @@
 - question: 問13 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q13
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -489,12 +489,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -504,8 +504,8 @@
 - question: 問14 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q14
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -527,12 +527,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -542,8 +542,8 @@
 - question: 問15 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q15
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -565,12 +565,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -580,8 +580,8 @@
 - question: 問16 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q16
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -603,12 +603,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -618,8 +618,8 @@
 - question: 問17 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q17
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -641,12 +641,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -656,8 +656,8 @@
 - question: 問18 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q18
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -679,12 +679,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -694,8 +694,8 @@
 - question: 問19 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q19
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -717,12 +717,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -732,8 +732,8 @@
 - question: 問20 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q20
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -755,12 +755,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -770,8 +770,8 @@
 - question: 問21 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q21
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -793,12 +793,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -808,8 +808,8 @@
 - question: 問22 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q22
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -831,12 +831,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -846,8 +846,8 @@
 - question: 問23 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q23
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -869,12 +869,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -884,8 +884,8 @@
 - question: 問24 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q24
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -907,12 +907,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -922,8 +922,8 @@
 - question: 問25 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q25
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -945,12 +945,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -960,8 +960,8 @@
 - question: 問26 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q26
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -983,12 +983,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -998,8 +998,8 @@
 - question: 問27 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q27
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1021,12 +1021,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1036,8 +1036,8 @@
 - question: 問28 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q28
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1059,12 +1059,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1074,8 +1074,8 @@
 - question: 問29 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q29
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1097,12 +1097,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1112,8 +1112,8 @@
 - question: 問30 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q30
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1135,12 +1135,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1150,8 +1150,8 @@
 - question: 問31 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q31
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1173,12 +1173,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1188,8 +1188,8 @@
 - question: 問32 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q32
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1211,12 +1211,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1226,8 +1226,8 @@
 - question: 問33 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q33
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1249,12 +1249,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1264,8 +1264,8 @@
 - question: 問34 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q34
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1287,12 +1287,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1302,8 +1302,8 @@
 - question: 問35 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q35
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1325,12 +1325,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1340,8 +1340,8 @@
 - question: 問36 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q36
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1363,12 +1363,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1378,8 +1378,8 @@
 - question: 問37 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q37
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1401,12 +1401,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1416,8 +1416,8 @@
 - question: 問38 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q38
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1439,12 +1439,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1454,8 +1454,8 @@
 - question: 問39 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q39
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1477,12 +1477,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1492,8 +1492,8 @@
 - question: 問40 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q40
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1515,12 +1515,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1530,8 +1530,8 @@
 - question: 問41 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q41
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1553,12 +1553,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1568,8 +1568,8 @@
 - question: 問42 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q42
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1591,12 +1591,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1606,8 +1606,8 @@
 - question: 問43 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q43
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1629,12 +1629,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1644,8 +1644,8 @@
 - question: 問44 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q44
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1667,12 +1667,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1682,8 +1682,8 @@
 - question: 問45 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q45
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1705,12 +1705,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1720,8 +1720,8 @@
 - question: 問46 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q46
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1743,12 +1743,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1758,8 +1758,8 @@
 - question: 問47 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q47
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_14`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1781,12 +1781,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1796,8 +1796,8 @@
 - question: 問48 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q48
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1819,12 +1819,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1834,8 +1834,8 @@
 - question: 問49 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q49
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1857,12 +1857,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1872,8 +1872,8 @@
 - question: 問50 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q50
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1895,12 +1895,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1910,8 +1910,8 @@
 - question: 問51 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q51
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_16`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1933,12 +1933,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1948,8 +1948,8 @@
 - question: 問52 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q52
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs03_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1971,12 +1971,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -1986,8 +1986,8 @@
 - question: 問53 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q53
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs03_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2009,12 +2009,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2024,8 +2024,8 @@
 - question: 問54 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q54
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2047,12 +2047,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2062,8 +2062,8 @@
 - question: 問55 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q55
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2085,12 +2085,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2100,8 +2100,8 @@
 - question: 問56 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q56
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2123,12 +2123,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2138,8 +2138,8 @@
 - question: 問57 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q57
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2161,12 +2161,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2176,8 +2176,8 @@
 - question: 問58 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q58
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2199,12 +2199,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2214,8 +2214,8 @@
 - question: 問59 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q59
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2237,12 +2237,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2252,8 +2252,8 @@
 - question: 問60 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q60
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2275,12 +2275,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2290,8 +2290,8 @@
 - question: 問61 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q61
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2313,12 +2313,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2328,8 +2328,8 @@
 - question: 問62 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q62
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2351,12 +2351,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2366,8 +2366,8 @@
 - question: 問63 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q63
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2389,12 +2389,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2404,8 +2404,8 @@
 - question: 問64 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q64
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2427,12 +2427,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2442,8 +2442,8 @@
 - question: 問65 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q65
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2465,12 +2465,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2480,8 +2480,8 @@
 - question: 問66 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q66
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2503,12 +2503,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2518,8 +2518,8 @@
 - question: 問67 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q67
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2541,12 +2541,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2556,8 +2556,8 @@
 - question: 問68 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q68
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2579,12 +2579,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2594,8 +2594,8 @@
 - question: 問69 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q69
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2617,12 +2617,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2632,8 +2632,8 @@
 - question: 問70 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q70
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2655,12 +2655,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2670,8 +2670,8 @@
 - question: 問71 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q71
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2693,12 +2693,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2708,8 +2708,8 @@
 - question: 問72 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q72
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2731,12 +2731,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2746,8 +2746,8 @@
 - question: 問73 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q73
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2769,12 +2769,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2784,8 +2784,8 @@
 - question: 問74 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q74
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2807,12 +2807,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2822,8 +2822,8 @@
 - question: 問75 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q75
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2845,12 +2845,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2860,8 +2860,8 @@
 - question: 問76 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q76
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2883,12 +2883,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2898,8 +2898,8 @@
 - question: 問77 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q77
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2921,12 +2921,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2936,8 +2936,8 @@
 - question: 問78 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q78
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2959,12 +2959,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -2974,8 +2974,8 @@
 - question: 問79 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q79
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs03_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2997,12 +2997,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3012,8 +3012,8 @@
 - question: 問80 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q80
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs03_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3035,12 +3035,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3050,8 +3050,8 @@
 - question: 問81 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q81
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3073,12 +3073,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3088,8 +3088,8 @@
 - question: 問82 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q82
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3111,12 +3111,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3126,8 +3126,8 @@
 - question: 問83 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q83
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3149,12 +3149,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3164,8 +3164,8 @@
 - question: 問84 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q84
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3187,12 +3187,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3202,8 +3202,8 @@
 - question: 問85 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q85
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3225,12 +3225,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3240,8 +3240,8 @@
 - question: 問86 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q86
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3263,12 +3263,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3278,8 +3278,8 @@
 - question: 問87 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q87
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3301,12 +3301,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3316,8 +3316,8 @@
 - question: 問88 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q88
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3339,12 +3339,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3354,8 +3354,8 @@
 - question: 問89 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q89
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3377,12 +3377,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3392,8 +3392,8 @@
 - question: 問90 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q90
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3415,12 +3415,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3430,8 +3430,8 @@
 - question: 問91 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q91
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3453,12 +3453,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3468,8 +3468,8 @@
 - question: 問92 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q92
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3491,12 +3491,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3506,8 +3506,8 @@
 - question: 問93 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q93
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3529,12 +3529,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3544,8 +3544,8 @@
 - question: 問94 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q94
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3567,12 +3567,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3582,8 +3582,8 @@
 - question: 問95 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q95
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3605,12 +3605,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3620,8 +3620,8 @@
 - question: 問96 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q96
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3643,12 +3643,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3658,8 +3658,8 @@
 - question: 問97 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q97
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3681,12 +3681,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3696,8 +3696,8 @@
 - question: 問98 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q98
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3719,12 +3719,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3734,8 +3734,8 @@
 - question: 問99 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q99
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3757,12 +3757,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3772,8 +3772,8 @@
 - question: 問100 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q100
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3795,12 +3795,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3810,8 +3810,8 @@
 - question: 問101 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q101
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3833,12 +3833,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3848,8 +3848,8 @@
 - question: 問102 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q102
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3871,12 +3871,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3886,8 +3886,8 @@
 - question: 問103 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q103
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3909,12 +3909,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3924,8 +3924,8 @@
 - question: 問104 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q104
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3947,12 +3947,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -3962,8 +3962,8 @@
 - question: 問105 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q105
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3985,12 +3985,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4000,8 +4000,8 @@
 - question: 問106 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q106
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4023,12 +4023,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4038,8 +4038,8 @@
 - question: 問107 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q107
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4061,12 +4061,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4076,8 +4076,8 @@
 - question: 問108 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q108
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4099,12 +4099,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4114,8 +4114,8 @@
 - question: 問109 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q109
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4137,12 +4137,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4152,8 +4152,8 @@
 - question: 問110 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q110
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4175,12 +4175,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4190,8 +4190,8 @@
 - question: 問111 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q111
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4213,12 +4213,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4228,8 +4228,8 @@
 - question: 問112 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q112
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4251,12 +4251,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4266,8 +4266,8 @@
 - question: 問113 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q113
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4289,12 +4289,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4304,8 +4304,8 @@
 - question: 問114 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q114
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4327,12 +4327,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4342,8 +4342,8 @@
 - question: 問115 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q115
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4365,12 +4365,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4380,8 +4380,8 @@
 - question: 問116 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q116
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4403,12 +4403,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4418,8 +4418,8 @@
 - question: 問117 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q117
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4441,12 +4441,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4456,8 +4456,8 @@
 - question: 問118 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q118
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4479,12 +4479,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4494,8 +4494,8 @@
 - question: 問119 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q119
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4517,12 +4517,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4532,8 +4532,8 @@
 - question: 問120 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q120
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4555,12 +4555,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4570,8 +4570,8 @@
 - question: 問121 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q121
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4593,12 +4593,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4608,8 +4608,8 @@
 - question: 問122 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q122
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4631,12 +4631,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4646,8 +4646,8 @@
 - question: 問123 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q123
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4669,12 +4669,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4684,8 +4684,8 @@
 - question: 問124 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q124
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4707,12 +4707,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4722,8 +4722,8 @@
 - question: 問125 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q125
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4745,12 +4745,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4760,8 +4760,8 @@
 - question: 問126 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q126
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4783,12 +4783,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4798,8 +4798,8 @@
 - question: 問127 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q127
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4821,12 +4821,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4836,8 +4836,8 @@
 - question: 問128 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q128
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4859,12 +4859,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4874,8 +4874,8 @@
 - question: 問129 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q129
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4897,12 +4897,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4912,8 +4912,8 @@
 - question: 問130 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q130
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4935,12 +4935,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2, 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4950,8 +4950,8 @@
 - question: 問131 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q131
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4973,12 +4973,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -4988,8 +4988,8 @@
 - question: 問132 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q132
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5011,12 +5011,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5026,8 +5026,8 @@
 - question: 問133 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q133
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5049,12 +5049,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5064,8 +5064,8 @@
 - question: 問134 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q134
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5087,12 +5087,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5102,8 +5102,8 @@
 - question: 問135 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q135
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5125,12 +5125,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5140,8 +5140,8 @@
 - question: 問136 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q136
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5163,12 +5163,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5178,8 +5178,8 @@
 - question: 問137 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q137
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5201,12 +5201,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5216,8 +5216,8 @@
 - question: 問138 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q138
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5239,12 +5239,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5254,8 +5254,8 @@
 - question: 問139 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q139
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5277,12 +5277,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5292,8 +5292,8 @@
 - question: 問140 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q140
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5315,12 +5315,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5330,8 +5330,8 @@
 - question: 問141 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q141
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5353,12 +5353,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5368,8 +5368,8 @@
 - question: 問142 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q142
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5391,12 +5391,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5406,8 +5406,8 @@
 - question: 問143 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q143
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5429,12 +5429,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5444,8 +5444,8 @@
 - question: 問144 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q144
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5467,12 +5467,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5482,8 +5482,8 @@
 - question: 問145 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q145
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5505,12 +5505,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5520,8 +5520,8 @@
 - question: 問146 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q146
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5543,12 +5543,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5558,8 +5558,8 @@
 - question: 問147 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q147
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5581,12 +5581,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5596,8 +5596,8 @@
 - question: 問148 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q148
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5619,12 +5619,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5634,8 +5634,8 @@
 - question: 問149 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q149
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5657,12 +5657,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5672,8 +5672,8 @@
 - question: 問150 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q150
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5695,12 +5695,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5710,8 +5710,8 @@
 - question: 問151 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q151
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5733,12 +5733,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5748,8 +5748,8 @@
 - question: 問152 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q152
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5771,12 +5771,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5786,8 +5786,8 @@
 - question: 問153 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q153
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5809,12 +5809,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5824,8 +5824,8 @@
 - question: 問154 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q154
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5847,12 +5847,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5862,8 +5862,8 @@
 - question: 問155 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q155
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5885,12 +5885,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5900,8 +5900,8 @@
 - question: 問156 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q156
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5923,12 +5923,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5938,8 +5938,8 @@
 - question: 問157 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q157
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5961,12 +5961,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -5976,8 +5976,8 @@
 - question: 問158 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q158
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5999,12 +5999,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -6014,8 +6014,8 @@
 - question: 問159 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q159
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6037,12 +6037,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
 
@@ -6052,8 +6052,8 @@
 - question: 問160 / https://kurohon.jp/gakusei/exams_hq/hq_14/#q160
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6075,11 +6075,11 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: ok
-- review02QuestionIntent: ok
-- review02CorrectChoiceText: ok
-- review03ExplanationText: ok
-- review04QuestionSetId: ok
-- reviewDecision: ok
+- review01QuestionType: pending
+- review02QuestionIntent: pending
+- review02CorrectChoiceText: pending
+- review03ExplanationText: pending
+- review04QuestionSetId: pending
+- reviewDecision: pending
 - reviewNotes:
 - fixInstructions:
