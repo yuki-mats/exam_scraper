@@ -17,11 +17,11 @@
 - canonical source は yaku-tik のみを使う。
 - 2010〜2025 の全年度で、questionLabel / source_question_id の prefix が安定している。
 - 問題形式は全問 `true_false` だが、穴埋め由来の設問が多い。
-- 04 の `questionSetId` は、年度ではなく topic prefix で固定する。
+- `category.json` は JEMAI 公式の18試験科目を folder とし、PDF「試験科目の範囲」の各 numbered range を questionSet とする。
+- 04 の `questionSetId` は、yaku-tik prefix ではなく公式PDF範囲に合わせて付ける。
 
 ## 参照順
 
 1. `01_exam_profile.md`
 2. `02_explanation_strategy.md`
 3. `03_category_preparation.md`
-

@@ -28,6 +28,7 @@ QUALIFICATION_NAME_BY_CODE = {
     "2nd-class-kenchikushi": "二級建築士",
     "kaigofukushi": "介護福祉士",
     "kounin-shinrishi": "公認心理師",
+    "kougai": "公害防止管理者",
     "kyusuikouji-shunin": "給水装置工事主任技術者",
     "mecnet-kokushi": "医師",
 }

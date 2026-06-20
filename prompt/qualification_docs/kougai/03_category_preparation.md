@@ -4,70 +4,65 @@
 
 ## 方針
 
-- folder は 1 つにまとめる
-- questionSet は yaku-tik の `questionLabel` / `source_question_id` prefix に 1:1 で対応させる
-- 年度別の切り分けはしない
-- 同じ topic を別 year で別 ID にしない
+- folder は JEMAI 過去問題ページの18試験科目に対応させる。
+- questionSet は `/Users/yuki/Downloads/pol_subjects1.pdf` の「試験科目の範囲」にある numbered range に対応させる。
+- questionSetId は `kougai_qs<folder番号>_<範囲番号>` の固定形式にする。
+- 年度別 folder / questionSet は作らない。
+- yaku-tik の topic prefix は source 由来の補助情報であり、category の正本にはしない。
+
+## source
+
+- JEMAI 過去問題ページ: `https://www.jemai.or.jp/polconman/examination/past.html`
+- PDF: `/Users/yuki/Downloads/pol_subjects1.pdf`
+- PDF ページ数: 2
 
 ## folder
 
-- `公害防止管理者`
-  - yaku-tik の 10 topic 群を束ねる最上位 folder
+1. `kougai_f01_kougai_soron`: 公害総論
+2. `kougai_f02_taiki_gairon`: 大気概論
+3. `kougai_f03_taiki_tokuron`: 大気特論
+4. `kougai_f04_baifun_tokuron`: ばいじん・粉じん特論
+5. `kougai_f05_taiki_yugai_tokuron`: 大気有害物質特論
+6. `kougai_f06_daikibo_taiki_tokuron`: 大規模大気特論
+7. `kougai_f07_suishitsu_gairon`: 水質概論
+8. `kougai_f08_osui_shori_tokuron`: 汚水処理特論
+9. `kougai_f09_suishitsu_yugai_tokuron`: 水質有害物質特論
+10. `kougai_f10_daikibo_suishitsu_tokuron`: 大規模水質特論
+11. `kougai_f11_soon_shindo_gairon`: 騒音・振動概論
+12. `kougai_f12_soon_shindo_tokuron`: 騒音・振動特論
+13. `kougai_f13_baifun_ippan_tokuron`: ばいじん・一般粉じん特論
+14. `kougai_f14_dioxin_gairon`: ダイオキシン類概論
+15. `kougai_f15_dioxin_tokuron`: ダイオキシン類特論
+16. `kougai_f16_taiki_suishitsu_gairon`: 大気・水質概論
+17. `kougai_f17_taiki_gijutsu_tokuron`: 大気関係技術特論
+18. `kougai_f18_suishitsu_gijutsu_tokuron`: 水質関係技術特論
 
-## questionSet 一覧
+## questionSet 粒度
 
-1. `kougai_qs01_kousou`
-   - name: `公害総論`
-   - count: 240
-   - hints: `公害総論`, `環境基本法`, `環境基準`, `責務`, `総論`
-2. `kougai_qs02_baifun`
-   - name: `ばいじん・粉じん特論`
-   - count: 240
-   - hints: `ばいじん`, `粉じん`, `集じん`, `除じん`, `ばいじん特論`
-3. `kougai_qs03_daitai`
-   - name: `大規模大気特論`
-   - count: 160
-   - hints: `大規模大気特論`, `排ガス処理`, `NOx`, `SOx`, `ダイオキシン`, `水銀`
-4. `kougai_qs04_daisui`
-   - name: `大規模水質特論`
-   - count: 160
-   - hints: `大規模水質特論`, `排水処理`, `公共用水域`, `水質測定`, `水質基準`
-5. `kougai_qs05_osui`
-   - name: `汚水処理特論`
-   - count: 400
-   - hints: `汚水処理`, `活性汚泥`, `凝集`, `沈殿`, `ろ過`, `脱水`
-6. `kougai_qs06_suigai`
-   - name: `水質概論`
-   - count: 160
-   - hints: `水質概論`, `BOD`, `COD`, `SS`, `pH`, `DO`, `公共用水域`
-7. `kougai_qs07_suiyuu`
-   - name: `水質有害物質特論`
-   - count: 240
-   - hints: `有害物質`, `重金属`, `シアン`, `吸着`, `中和`, `水質有害物質特論`
-8. `kougai_qs08_taigai`
-   - name: `大気概論`
-   - count: 160
-   - hints: `大気概論`, `大気汚染`, `気象`, `ばい煙`, `浮遊粒子状物質`
-9. `kougai_qs09_taitoku`
-   - name: `大気特論`
-   - count: 240
-   - hints: `大気特論`, `燃焼`, `脱硫`, `脱硝`, `集じん`, `排ガス`
-10. `kougai_qs10_taiyuu`
-   - name: `大気有害物質特論`
-   - count: 160
-   - hints: `大気有害物質特論`, `VOC`, `ベンゼン`, `ダイオキシン`, `水銀`, `有害大気汚染物質`
+- 公害総論: 5
+- 大気概論: 5
+- 大気特論: 6
+- ばいじん・粉じん特論: 6
+- 大気有害物質特論: 4
+- 大規模大気特論: 5
+- 水質概論: 6
+- 汚水処理特論: 5
+- 水質有害物質特論: 3
+- 大規模水質特論: 3
+- 騒音・振動概論: 14
+- 騒音・振動特論: 4
+- ばいじん・一般粉じん特論: 5
+- ダイオキシン類概論: 7
+- ダイオキシン類特論: 5
+- 大気・水質概論: 11
+- 大気関係技術特論: 17
+- 水質関係技術特論: 8
 
-## 境界ルール
-
-- `水質概論` は基礎概論として扱い、処理設備の詳細は `汚水処理特論` に寄せる
-- `大気概論` は基礎概論として扱い、設備・処理法の詳細は `大気特論` に寄せる
-- `大気有害物質特論` は、有害大気汚染物質や微量有害成分を扱う
-- `ばいじん・粉じん特論` は、集じん・除じん・粉じん対策を扱う
-- `大規模水質特論` と `汚水処理特論` はどちらも水処理だが、前者は大規模施設の管理論点、後者は処理法の詳細に寄せる
+合計 119 questionSets。
 
 ## 04 での運用
 
-- `questionSetId` は上の 10 個だけを使う
-- 年度別の ID を作らない
-- source の `questionLabel` / `source_question_id` prefix が一致しない場合は、まず source の分類ミスを疑う
-
+- `questionSetId` は `output/kougai/category/category.json` の `questionSets[].questionSetId` だけを使う。
+- source の `questionLabel` が旧 yaku-tik topic の場合でも、そのまま questionSetId にはしない。
+- PDF の numbered range に対応する根拠が薄い場合は、review ledger か `99_model_review_flags/` に保留理由を残す。
+- `questionCount` は問題側の questionSetId 再マッピング後に集計する。category 正本上は、公式分類を active に保つため `isDeleted: false` を明示する。
