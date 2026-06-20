@@ -94,6 +94,14 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
                 "aggregatedQuestionTags": [],
                 "licenseName": "公害防止管理者",
                 "qualificationId": "kougai-taiki-1",
+                "licenseNames": [
+                    "大気関係第1種公害防止管理者",
+                    "大気関係第2種公害防止管理者",
+                ],
+                "qualificationIds": [
+                    "kougai-taiki-1",
+                    "kougai-taiki-2",
+                ],
                 "questionCount": 0,
                 "createdById": module.CREATED_BY_ID,
                 "updatedById": module.UPDATED_BY_ID,

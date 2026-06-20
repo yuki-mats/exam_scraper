@@ -25,6 +25,7 @@ PROJECT_ID = DEFAULT_PROJECT_ID
 UPDATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
 CREATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
 FOLDER_REFERENCE_FIELDS = ("canonicalFolderId", "sourceSharedFolderId")
+FOLDER_SCOPE_FIELDS = ("licenseNames", "qualificationIds")
 QUESTION_SET_REFERENCE_FIELDS = (
     "canonicalFolderId",
     "canonicalQuestionSetId",
@@ -45,6 +46,27 @@ def copy_reference_fields(doc_data: dict, source_data: dict, field_names: tuple[
     for field_name in field_names:
         if field_name in source_data:
             doc_data[field_name] = source_data[field_name]
+
+
+def copy_folder_scope_fields(doc_data: dict, source_data: dict) -> None:
+    for field_name in FOLDER_SCOPE_FIELDS:
+        value = source_data.get(field_name)
+        if value is None:
+            continue
+        if not isinstance(value, list):
+            doc_data[field_name] = value
+            continue
+        deduped: list[str] = []
+        seen: set[str] = set()
+        for item in value:
+            if not isinstance(item, str):
+                deduped.append(item)
+                continue
+            item = item.strip()
+            if item and item not in seen:
+                seen.add(item)
+                deduped.append(item)
+        doc_data[field_name] = deduped
 
 
 def infer_qualification_id_from_path(category_json_path: str) -> str:
@@ -262,6 +284,7 @@ def upsert_folder(db, folder, now, license_name: str, qualification_id: str):
         "createdAt": created_at,
     }
     copy_reference_fields(doc_data, folder, FOLDER_REFERENCE_FIELDS)
+    copy_folder_scope_fields(doc_data, folder)
     # updatedAt は「差分が発生して変更される時のみ」更新する（ユーザー要望）
     if existing_data is not None:
         comparable_keys = (
@@ -270,6 +293,9 @@ def upsert_folder(db, folder, now, license_name: str, qualification_id: str):
             "isPublic",
             "isOfficial",
             "licenseName",
+            "qualificationId",
+            "licenseNames",
+            "qualificationIds",
             "questionCount",
             *(field_name for field_name in FOLDER_REFERENCE_FIELDS if field_name in doc_data),
         )
@@ -426,6 +452,7 @@ def main():
                 "updatedAt": now,
             }
             copy_reference_fields(doc_data, folder, FOLDER_REFERENCE_FIELDS)
+            copy_folder_scope_fields(doc_data, folder)
             validate_folder_doc(doc_data, doc_id=str(folder_id))
             print(f"Folder {folder_id}: questionCount -> {question_count}")
 
