@@ -129,10 +129,24 @@ def list_input_files(input_path: Path) -> list[Path]:
     return sorted(input_path.glob("*/upload_to_firestore/*.json"))
 
 
-def infer_list_group_id(input_file: Path) -> str:
+def infer_list_group_id(input_file: Path, payload: Any | None = None) -> str:
+    if isinstance(payload, dict):
+        list_group_id = payload.get("list_group_id")
+        if isinstance(list_group_id, str) and list_group_id.strip():
+            return list_group_id.strip()
+        questions = payload.get("questions")
+        if isinstance(questions, list):
+            for question in questions:
+                if not isinstance(question, dict):
+                    continue
+                list_group_id = question.get("listGroupId")
+                if isinstance(list_group_id, str) and list_group_id.strip():
+                    return list_group_id.strip()
     try:
         if input_file.parent.name == "upload_to_firestore":
-            return input_file.parent.parent.name
+            candidate = input_file.parent.parent.name
+            if candidate != "questions_json":
+                return candidate
     except IndexError:
         pass
     return "unknown"
@@ -148,20 +162,27 @@ def materialize_file(
     payload = load_json(input_file)
     records = question_records(payload)
     materialized = materialize_records(records, context)
-    list_group_id = infer_list_group_id(input_file)
+    list_group_id = infer_list_group_id(input_file, payload)
     counts: dict[str, int] = {}
     for qualification_id, qualification_records in sorted(materialized.items()):
         counts[qualification_id] = len(qualification_records)
+        questions_json_dir = output_root / qualification_id / "questions_json"
+        list_group_dir = questions_json_dir / list_group_id
         output_path = (
-            output_root
-            / qualification_id
-            / "questions_json"
-            / list_group_id
+            questions_json_dir
             / "upload_to_firestore"
             / input_file.name
         )
         if not dry_run:
-            write_json(output_path, qualification_records)
+            list_group_dir.mkdir(parents=True, exist_ok=True)
+            write_json(
+                output_path,
+                {
+                    "list_group_id": list_group_id,
+                    "questions": qualification_records,
+                    "total_count": len(qualification_records),
+                },
+            )
     return counts
 
 

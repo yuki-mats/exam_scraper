@@ -61,6 +61,53 @@ class KougaiMaterializationPipelineTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "not found in canonical category"):
             materialize_module.materialize_records(records, self.context)
 
+    def test_common_upload_dir_uses_payload_list_group_id(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            input_dir = root / "output" / "kougai" / "questions_json" / "upload_to_firestore"
+            input_dir.mkdir(parents=True)
+            input_file = input_dir / "2025_firestore_20260620_000000.json"
+            input_file.write_text(
+                json.dumps(
+                    {
+                        "list_group_id": "2025",
+                        "questions": [
+                            {
+                                "questionId": "source-doc-1",
+                                "questionSetId": "kougai_qs02_01",
+                                "questionText": "大気概論の問題",
+                                "questionType": "true_false",
+                            }
+                        ],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            counts = materialize_module.materialize_file(
+                input_file=input_file,
+                output_root=root / "output",
+                context=self.context,
+                dry_run=False,
+            )
+
+            self.assertEqual(counts["kougai-taiki-1"], 1)
+            output_path = (
+                root
+                / "output"
+                / "kougai-taiki-1"
+                / "questions_json"
+                / "upload_to_firestore"
+                / input_file.name
+            )
+            self.assertTrue(output_path.exists())
+            self.assertTrue((root / "output" / "kougai-taiki-1" / "questions_json" / "2025").exists())
+            output_payload = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertEqual(output_payload["list_group_id"], "2025")
+            self.assertEqual(output_payload["total_count"], 1)
+            self.assertEqual(output_payload["questions"][0]["questionId"], "kougai-taiki-1__source-doc-1")
+
     def test_official_question_set_check_reports_legacy_ids(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
