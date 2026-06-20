@@ -141,10 +141,33 @@
       "高圧整圧器に付属するラインヒーターには、温水槽加熱方式や温水循環加熱方式がある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "フィッシャー式整圧器では、需要家のガス使用量が減少すると駆動圧力は低下する。上昇するとしているため誤り。",
+      "パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅して主弁の作動に反映し、ロックアップを小さくできるため正しい。",
+      "パイロット式アンローディング型整圧器では、駆動圧力が最も高くなるのはメインバルブ全開時ではなく全閉時である。全開時としているため誤り。",
+      "アキシャルフロー式整圧器でパイロットバルブの締め切り不良があると、二次圧力の異常低下ではなく異常上昇の原因となる。異常低下としているため誤り。",
+      "高圧整圧器に付属するラインヒーターには、温水槽加熱方式や温水循環加熱方式が用いられるため正しい。"
+    ],
+    "suggestedQuestions": [
+      "フィッシャー式整圧器で需要が減ると駆動圧力はどうなる？",
+      "パイロット式アンローディング型整圧器の駆動圧力が最大となるのはいつ？",
+      "パイロットバルブ締め切り不良は二次圧力にどう影響する？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "フィッシャー式整圧器で需要が減ると駆動圧力はどうなる？",
+        "answer": "需要家のガス使用量が減少すると駆動圧力は低下する。上昇するとする記述は逆である。"
+      },
+      {
+        "question": "パイロット式アンローディング型整圧器の駆動圧力が最大となるのはいつ？",
+        "answer": "パイロット式アンローディング型整圧器では、駆動圧力が最も高くなるのはメインバルブ全閉時であり、全開時ではない。"
+      },
+      {
+        "question": "パイロットバルブ締め切り不良は二次圧力にどう影響する？",
+        "answer": "パイロットバルブの締め切り不良は、ガスが流れ続ける方向に働くため、二次圧力の異常上昇の原因となる。異常低下ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [

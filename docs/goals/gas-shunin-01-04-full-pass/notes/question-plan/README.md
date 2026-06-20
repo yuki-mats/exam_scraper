@@ -13,7 +13,7 @@
 ## Counts
 
 - Total: 934
-- gas-shunin-kou: 412 / decisions {'pending': 408, 'ok': 4}
+- gas-shunin-kou: 412 / decisions {'pending': 407, 'ok': 5}
 - gas-shunin-otsu: 522 / decisions {'pending': 522}
 
 ## Execution Phases
@@ -44,4 +44,4 @@
 
 ## Next Execution
 
-Next pending: sequence 3 / gas-shunin-kou 2019 問11 / `firestore:chiefgasengineerlicense-A-80-1541,chiefgasengineerlicense-A-80-1542,chiefgasengineerlicense-A-80-1543,chiefgasengineerlicense-A-80-1544,chiefgasengineerlicense-A-80-1545`
+Next pending: sequence 4 / gas-shunin-kou 2019 問12 / `firestore:chiefgasengineerlicense-A-80-1546,chiefgasengineerlicense-A-80-1547,chiefgasengineerlicense-A-80-1548,chiefgasengineerlicense-A-80-1549,chiefgasengineerlicense-A-80-1550`
