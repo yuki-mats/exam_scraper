@@ -69,6 +69,19 @@
 
 生成先は `output/<qualificationId>/category/category.json` とする。各 folder / questionSet は資格区分ごとに materialize し、`canonicalFolderId` / `canonicalQuestionSetId` / `sourceSharedFolderId` / `sourceSharedQuestionSetId` で `kougai` canonical taxonomy に戻れるようにする。
 
+問題側の `questionSetId` は、資格区分別 materialize の前に canonical `kougai_qsNN_MM` へ揃える。旧 yaku-tik topic 由来の `kougai_qs01_kousou`、`kougai_qs05_osui` などは folder 相当の粗い分類であり、公式 questionSet としては使わない。
+
+```bash
+.venv/bin/python scripts/check/check_kougai_official_question_set_ids.py --json
+```
+
+上記 gate が `invalidRecordCount: 0` になった後、Firestore upload 用 JSON を13資格区分へ展開する。
+
+```bash
+.venv/bin/python scripts/pipeline/materialize_kougai_qualification_uploads.py \
+  output/kougai/questions_json
+```
+
 ## questionSet 粒度
 
 - 公害総論: 5

@@ -1,0 +1,42 @@
+# 2026-06-20 official questionSetId gate
+
+## Summary
+
+公害防止管理者の13資格区分別 `category.json` は生成済みだが、現行 `output/kougai/questions_json/*/22_questionSetId_linked/` は旧 yaku-tik topic 由来の coarse `questionSetId` を使っている。
+
+そのため、資格区分別 upload JSON へ materialize する前に、04 作業で `output/kougai/category/category.json` の公式 119 questionSets へ再割当する必要がある。
+
+## Gate command
+
+```bash
+.venv/bin/python scripts/check/check_kougai_official_question_set_ids.py --json
+```
+
+## Current result
+
+```json
+{
+  "filesScanned": 96,
+  "recordsScanned": 2160,
+  "invalidRecordCount": 2160,
+  "invalidQuestionSetIdCounts": {
+    "kougai_qs01_kousou": 240,
+    "kougai_qs02_baifun": 240,
+    "kougai_qs03_daitai": 160,
+    "kougai_qs04_daisui": 160,
+    "kougai_qs05_osui": 400,
+    "kougai_qs06_suigai": 160,
+    "kougai_qs07_suiyuu": 240,
+    "kougai_qs08_taigai": 160,
+    "kougai_qs09_taitoku": 240,
+    "kougai_qs10_taiyuu": 160
+  }
+}
+```
+
+## Next rule
+
+- 旧IDを機械的に公式IDへ置換しない。
+- 旧IDは folder 相当の粗い分類であり、公式PDFの numbered range までは確定できない。
+- 04 は問題本文・選択肢・解説を見て、`kougai_qsNN_MM` の公式 questionSetId を一問ずつ付与する。
+- この gate が `invalidRecordCount: 0` になってから、`scripts/pipeline/materialize_kougai_qualification_uploads.py` で13資格区分へ展開する。
