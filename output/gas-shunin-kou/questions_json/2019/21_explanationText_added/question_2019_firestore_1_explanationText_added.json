@@ -15,10 +15,33 @@
       "LNGは急激な圧力上昇や温度低下により、配管中でペーパーロックが起こることがあり、送液が不可能になる等のおそれがある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "LNGが層状化した場合、上層液では軽質成分がBOGとして抜けるため、残った液は濃縮して液密度が上昇する。液密度が低下するとしている点が誤り。",
+      "バイオガスは水分の多い有機物を無酸素状態でメタン発酵させて得られ、主成分はメタンと二酸化炭素である。ほとんどがメタンと窒素であるという説明は誤り。",
+      "液封状態でLNGが外気から熱を受けると、温度上昇に伴う膨張で内部圧力が上がり、フランジなど弱い部分を損傷するおそれがある。液封時の危険として正しい記述。",
+      "メタンは常温では空気より軽く拡散しやすいが、低温のメタンガスは密度が大きく、地表面付近に滞留しやすい。低温時の滞留に注意するという記述は正しい。",
+      "LNG配管で流れが妨げられるベーパーロックは、急激な圧力低下や温度上昇で気化が進む場合に起こりやすい。急激な圧力上昇や温度低下で起こるとしている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "LNGの層状化で上層液の密度はどうなる？",
+      "バイオガスの主成分は何？",
+      "LNGの液封とベーパーロックはどう違う？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "LNGの層状化で上層液の密度はどうなる？",
+        "answer": "軽質成分がBOGとして抜けるため、上層液は濃縮して液密度が上昇する。密度が低下するという説明は逆である。"
+      },
+      {
+        "question": "バイオガスの主成分は何？",
+        "answer": "バイオガスの主成分はメタンと二酸化炭素である。窒素が主体という説明ではない。"
+      },
+      {
+        "question": "LNGの液封とベーパーロックはどう違う？",
+        "answer": "液封は閉じ込められた液が熱膨張して圧力上昇を起こす危険である。ベーパーロックは気化によって流れが妨げられる現象で、圧力低下や温度上昇が原因になりやすい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
