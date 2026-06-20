@@ -41,6 +41,34 @@
 17. `kougai_f17_taiki_gijutsu_tokuron`: 大気関係技術特論
 18. `kougai_f18_suishitsu_gijutsu_tokuron`: 水質関係技術特論
 
+## qualification mapping
+
+13種類の資格区分は `output/kougai/category/qualification_mappings.json` を正本にする。JEMAI 公式時間割 `pol_timetable_1.pdf` を主根拠とし、マイナビ転職エージェント記事は13区分と科目一覧の補助確認に使う。
+
+| qualificationId | 資格区分 | canonical folder |
+| --- | --- | --- |
+| `kougai-taiki-1` | 大気関係第1種 | 01 公害総論 / 02 大気概論 / 03 大気特論 / 04 ばいじん・粉じん特論 / 05 大気有害物質特論 / 06 大規模大気特論 |
+| `kougai-taiki-2` | 大気関係第2種 | 01 公害総論 / 02 大気概論 / 03 大気特論 / 04 ばいじん・粉じん特論 / 05 大気有害物質特論 |
+| `kougai-taiki-3` | 大気関係第3種 | 01 公害総論 / 02 大気概論 / 03 大気特論 / 04 ばいじん・粉じん特論 / 06 大規模大気特論 |
+| `kougai-taiki-4` | 大気関係第4種 | 01 公害総論 / 02 大気概論 / 03 大気特論 / 04 ばいじん・粉じん特論 |
+| `kougai-tokutei-funjin` | 特定粉じん関係 | 01 公害総論 / 02 大気概論 / 04 ばいじん・粉じん特論 |
+| `kougai-ippan-funjin` | 一般粉じん関係 | 01 公害総論 / 02 大気概論 / 13 ばいじん・一般粉じん特論 |
+| `kougai-suishitsu-1` | 水質関係第1種 | 01 公害総論 / 07 水質概論 / 08 汚水処理特論 / 09 水質有害物質特論 / 10 大規模水質特論 |
+| `kougai-suishitsu-2` | 水質関係第2種 | 01 公害総論 / 07 水質概論 / 08 汚水処理特論 / 09 水質有害物質特論 |
+| `kougai-suishitsu-3` | 水質関係第3種 | 01 公害総論 / 07 水質概論 / 08 汚水処理特論 / 10 大規模水質特論 |
+| `kougai-suishitsu-4` | 水質関係第4種 | 01 公害総論 / 07 水質概論 / 08 汚水処理特論 |
+| `kougai-soon-shindo` | 騒音・振動関係 | 01 公害総論 / 11 騒音・振動概論 / 12 騒音・振動特論 |
+| `kougai-dioxin` | ダイオキシン類関係 | 01 公害総論 / 14 ダイオキシン類概論 / 15 ダイオキシン類特論 |
+| `kougai-chief` | 公害防止主任管理者 | 01 公害総論 / 16 大気・水質概論 / 17 大気関係技術特論 / 18 水質関係技術特論 |
+
+資格区分別 `category.json` は次で生成する。
+
+```bash
+.venv/bin/python scripts/category/build_kougai_qualification_categories.py
+```
+
+生成先は `output/<qualificationId>/category/category.json` とする。各 folder / questionSet は資格区分ごとに materialize し、`canonicalFolderId` / `canonicalQuestionSetId` / `sourceSharedFolderId` / `sourceSharedQuestionSetId` で `kougai` canonical taxonomy に戻れるようにする。
+
 ## questionSet 粒度
 
 - 公害総論: 5

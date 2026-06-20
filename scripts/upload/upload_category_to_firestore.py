@@ -128,9 +128,17 @@ def gather_all_list_group_latest_files(questions_json_dir: Path) -> list[Path]:
     return files
 
 
-def resolve_license_name(category_json_path: str, explicit_license_name: str | None) -> str:
+def resolve_license_name(
+    category_json_path: str,
+    explicit_license_name: str | None,
+    category_data: dict | None = None,
+) -> str:
     if explicit_license_name:
         return explicit_license_name
+
+    metadata_license_name = (category_data or {}).get("metadata", {}).get("licenseName")
+    if isinstance(metadata_license_name, str) and metadata_license_name.strip():
+        return metadata_license_name.strip()
 
     category_path = Path(category_json_path).expanduser().resolve()
     qualification_code = ""
@@ -358,7 +366,7 @@ def main():
     data = load_category_json(args.category_json)
 
     # licenseName: 未指定なら category.json のパス（output/<qual>/category/category.json）から推定
-    license_name = resolve_license_name(args.category_json, args.licenseName)
+    license_name = resolve_license_name(args.category_json, args.licenseName, data)
     qualification_id = infer_qualification_id_from_path(args.category_json)
 
     if args.source and args.all_list_groups:

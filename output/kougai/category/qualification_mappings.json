@@ -1,0 +1,194 @@
+{
+  "metadata": {
+    "qualificationGroupId": "kougai",
+    "qualificationGroupName": "公害防止管理者",
+    "canonicalCategoryJson": "output/kougai/category/category.json",
+    "mappingBasis": "JEMAI official timetable and subject range, cross-checked with Mynavi Agent qualification overview.",
+    "sourceUrls": {
+      "jemaiPastQuestions": "https://www.jemai.or.jp/polconman/examination/past.html",
+      "jemaiExamPoint": "https://www.jemai.or.jp/polconman/examination/point.html",
+      "jemaiSubjectRangePdf": "https://www.jemai.or.jp/polconman/examination/dd4ht300000005eq-att/pol_subjects1.pdf",
+      "jemaiTimetablePdf": "https://www.jemai.or.jp/polconman/examination/dd4ht300000005eq-att/pol_timetable_1.pdf",
+      "mynaviAgentOverview": "https://mynavi-agent.jp/knowledge/maker/645.html"
+    },
+    "notes": [
+      "JEMAI exam point states that questions for each exam subject are common regardless of exam division.",
+      "JEMAI timetable is the primary source for which subjects each qualification division uses.",
+      "Mynavi Agent is used only as secondary cross-check for the 13 qualification divisions and subject lists.",
+      "canonicalFolderIds are kept in official subject-number order, not exam-day timetable order."
+    ],
+    "qualificationCountExpected": 13,
+    "updatedAt": "2026-06-20T00:00:00Z"
+  },
+  "qualifications": [
+    {
+      "qualificationId": "kougai-taiki-1",
+      "licenseName": "大気関係第1種公害防止管理者",
+      "displayName": "大気関係第1種",
+      "shortName": "大気1種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f02_taiki_gairon",
+        "kougai_f03_taiki_tokuron",
+        "kougai_f04_baifun_tokuron",
+        "kougai_f05_taiki_yugai_tokuron",
+        "kougai_f06_daikibo_taiki_tokuron"
+      ],
+      "examQuestionCount": 75
+    },
+    {
+      "qualificationId": "kougai-taiki-2",
+      "licenseName": "大気関係第2種公害防止管理者",
+      "displayName": "大気関係第2種",
+      "shortName": "大気2種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f02_taiki_gairon",
+        "kougai_f03_taiki_tokuron",
+        "kougai_f04_baifun_tokuron",
+        "kougai_f05_taiki_yugai_tokuron"
+      ],
+      "examQuestionCount": 65
+    },
+    {
+      "qualificationId": "kougai-taiki-3",
+      "licenseName": "大気関係第3種公害防止管理者",
+      "displayName": "大気関係第3種",
+      "shortName": "大気3種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f02_taiki_gairon",
+        "kougai_f03_taiki_tokuron",
+        "kougai_f04_baifun_tokuron",
+        "kougai_f06_daikibo_taiki_tokuron"
+      ],
+      "examQuestionCount": 65
+    },
+    {
+      "qualificationId": "kougai-taiki-4",
+      "licenseName": "大気関係第4種公害防止管理者",
+      "displayName": "大気関係第4種",
+      "shortName": "大気4種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f02_taiki_gairon",
+        "kougai_f03_taiki_tokuron",
+        "kougai_f04_baifun_tokuron"
+      ],
+      "examQuestionCount": 55
+    },
+    {
+      "qualificationId": "kougai-tokutei-funjin",
+      "licenseName": "特定粉じん関係公害防止管理者",
+      "displayName": "特定粉じん関係",
+      "shortName": "特定粉じん",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f02_taiki_gairon",
+        "kougai_f04_baifun_tokuron"
+      ],
+      "examQuestionCount": 40
+    },
+    {
+      "qualificationId": "kougai-ippan-funjin",
+      "licenseName": "一般粉じん関係公害防止管理者",
+      "displayName": "一般粉じん関係",
+      "shortName": "一般粉じん",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f02_taiki_gairon",
+        "kougai_f13_baifun_ippan_tokuron"
+      ],
+      "examQuestionCount": 35
+    },
+    {
+      "qualificationId": "kougai-suishitsu-1",
+      "licenseName": "水質関係第1種公害防止管理者",
+      "displayName": "水質関係第1種",
+      "shortName": "水質1種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f07_suishitsu_gairon",
+        "kougai_f08_osui_shori_tokuron",
+        "kougai_f09_suishitsu_yugai_tokuron",
+        "kougai_f10_daikibo_suishitsu_tokuron"
+      ],
+      "examQuestionCount": 75
+    },
+    {
+      "qualificationId": "kougai-suishitsu-2",
+      "licenseName": "水質関係第2種公害防止管理者",
+      "displayName": "水質関係第2種",
+      "shortName": "水質2種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f07_suishitsu_gairon",
+        "kougai_f08_osui_shori_tokuron",
+        "kougai_f09_suishitsu_yugai_tokuron"
+      ],
+      "examQuestionCount": 65
+    },
+    {
+      "qualificationId": "kougai-suishitsu-3",
+      "licenseName": "水質関係第3種公害防止管理者",
+      "displayName": "水質関係第3種",
+      "shortName": "水質3種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f07_suishitsu_gairon",
+        "kougai_f08_osui_shori_tokuron",
+        "kougai_f10_daikibo_suishitsu_tokuron"
+      ],
+      "examQuestionCount": 60
+    },
+    {
+      "qualificationId": "kougai-suishitsu-4",
+      "licenseName": "水質関係第4種公害防止管理者",
+      "displayName": "水質関係第4種",
+      "shortName": "水質4種",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f07_suishitsu_gairon",
+        "kougai_f08_osui_shori_tokuron"
+      ],
+      "examQuestionCount": 50
+    },
+    {
+      "qualificationId": "kougai-soon-shindo",
+      "licenseName": "騒音・振動関係公害防止管理者",
+      "displayName": "騒音・振動関係",
+      "shortName": "騒音・振動",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f11_soon_shindo_gairon",
+        "kougai_f12_soon_shindo_tokuron"
+      ],
+      "examQuestionCount": 70
+    },
+    {
+      "qualificationId": "kougai-dioxin",
+      "licenseName": "ダイオキシン類関係公害防止管理者",
+      "displayName": "ダイオキシン類関係",
+      "shortName": "ダイオキシン類",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f14_dioxin_gairon",
+        "kougai_f15_dioxin_tokuron"
+      ],
+      "examQuestionCount": 55
+    },
+    {
+      "qualificationId": "kougai-chief",
+      "licenseName": "公害防止主任管理者",
+      "displayName": "公害防止主任管理者",
+      "shortName": "主任管理者",
+      "canonicalFolderIds": [
+        "kougai_f01_kougai_soron",
+        "kougai_f16_taiki_suishitsu_gairon",
+        "kougai_f17_taiki_gijutsu_tokuron",
+        "kougai_f18_suishitsu_gijutsu_tokuron"
+      ],
+      "examQuestionCount": 65
+    }
+  ]
+}

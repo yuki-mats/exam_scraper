@@ -54,6 +54,15 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
 
         self.assertEqual(module.resolve_license_name(path, None), "医師")
 
+    def test_license_name_prefers_category_metadata(self) -> None:
+        path = "output/kougai-taiki-1/category/category.json"
+        category = {"metadata": {"licenseName": "大気関係第1種公害防止管理者"}}
+
+        self.assertEqual(
+            module.resolve_license_name(path, None, category),
+            "大気関係第1種公害防止管理者",
+        )
+
     def test_copy_reference_fields_keeps_only_supported_keys(self) -> None:
         doc_data = {"name": "01_公害総論"}
         source_data = {
