@@ -305,4 +305,4 @@ Updated gate result:
 - 旧IDを機械的に公式IDへ置換しない。
 - 旧IDは folder 相当の粗い分類であり、公式PDFの numbered range までは確定できない。
 - 04 は問題本文・選択肢・解説を見て、`kougai_qsNN_MM` の公式 questionSetId を一問ずつ付与する。
-- この gate が `invalidRecordCount: 0` になってから、`scripts/pipeline/materialize_kougai_qualification_uploads.py` で13資格区分へ展開する。
+- この gate が `invalidRecordCount: 0` になってから、共有正本の `output/kougai/category/category.json` に folder 単位の `qualificationIds` / `licenseNames` を持たせて公開する。
