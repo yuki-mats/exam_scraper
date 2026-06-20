@@ -207,10 +207,33 @@
       "マイコンメーターに内蔵している感震器は、少々の傾斜状態であれば、自動水平調整を行う。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "渦流式ガスメーターは、カルマン渦の発生周波数が流量に対応することを利用して瞬時流量を測定するため正しい。",
+      "タービン式ガスメーターは羽根車の回転速度が流速に比例するが、ガスは圧力で体積が変わるため、高圧で使用する場合は圧力補正が必要となる。圧力にかかわらず不要としているため誤り。",
+      "ガスがメーターを通過できない故障は「不通」である。「不動」は計量機構が動かない故障を指すため、この記述は用語が誤り。",
+      "器差不良は、使用中のメーターの器差が計量法上の使用公差を外れる故障である。検定時の検定公差としているため誤り。",
+      "マイコンメーター内蔵の感震器は、少々の傾斜状態であれば自動水平調整を行うため正しい。"
+    ],
+    "suggestedQuestions": [
+      "渦流式ガスメーターは何から流量を測る？",
+      "タービン式ガスメーターで圧力補正が必要になるのはなぜ？",
+      "ガスメーターの不通・不動・器差不良はどう区別する？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "渦流式ガスメーターは何から流量を測る？",
+        "answer": "渦流式ガスメーターは、カルマン渦の発生周波数から瞬時流量を測定する。"
+      },
+      {
+        "question": "タービン式ガスメーターで圧力補正が必要になるのはなぜ？",
+        "answer": "ガスは圧力によって体積が変わるため、高圧で使用するタービン式ガスメーターでは圧力補正が必要になる。圧力にかかわらず不要ではない。"
+      },
+      {
+        "question": "ガスメーターの不通・不動・器差不良はどう区別する？",
+        "answer": "不通はガスがメーターを通過できない故障、不動は計量機構が動かない故障、器差不良は使用中の器差が使用公差を外れる故障である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
