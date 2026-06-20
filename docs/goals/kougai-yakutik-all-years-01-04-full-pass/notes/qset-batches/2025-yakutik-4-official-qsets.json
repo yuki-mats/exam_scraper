@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2025-yakutik-4-official-qsets",
+  "targetFile": "output/kougai/questions_json/2025/22_questionSetId_linked/question_2025_yakutik_4_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2025/20_merged_1/question_2025_yakutik_4_merged.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、大気概論・大気特論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "大気概論 問1",
+      "original_question_id": "404009f1368b47f4",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-01/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_01",
+      "reason": "二酸化窒素に係る環境基準を問うため、大気汚染防止対策の法規制に該当する。"
+    },
+    {
+      "label": "大気概論 問2",
+      "original_question_id": "9bee704adea1e119",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-02/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_01",
+      "reason": "大気汚染防止法のばい煙発生施設を問うため、大気汚染防止対策の法規制に該当する。"
+    },
+    {
+      "label": "大気概論 問3",
+      "original_question_id": "04239e2defd29748",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-03/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_01",
+      "reason": "大気汚染防止法のVOC施策等の実施指針を問うため、大気汚染防止対策の法規制に該当する。"
+    },
+    {
+      "label": "大気概論 問4",
+      "original_question_id": "caabedb10a01ccc9",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-04/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_01",
+      "reason": "公害防止組織法に規定する一般粉じん発生施設該当性を問う法規制問題で、大気汚染防止対策の法規制に該当する。"
+    },
+    {
+      "label": "大気概論 問5",
+      "original_question_id": "61ba04711b1541f5",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-05/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_02",
+      "reason": "環境基準未達成の有効測定局・測定地点を問う統計問題で、大気汚染の現状に該当する。"
+    },
+    {
+      "label": "大気概論 問6",
+      "original_question_id": "305f78b0846f5eba",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-06/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_03",
+      "reason": "大気成分のOHラジカル反応を問う大気化学の問題で、大気汚染の発生機構に該当する。"
+    },
+    {
+      "label": "大気概論 問7",
+      "original_question_id": "79a972509aee4d17",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-07/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_02",
+      "reason": "温室効果ガスの世界平均濃度の現状を問うため、大気汚染の現状に該当する。"
+    },
+    {
+      "label": "大気概論 問8",
+      "original_question_id": "558627d9ef9bdf9a",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-08/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_02",
+      "reason": "大気汚染物質排出量総合調査の業種別排出量を問うため、大気汚染の現状に該当する。"
+    },
+    {
+      "label": "大気概論 問9",
+      "original_question_id": "100fc0d55c81da74",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-09/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_03",
+      "reason": "VOCの光化学オキシダント・粒子状物質生成への関与と固定発生源を問うため、大気汚染の発生機構に該当する。"
+    },
+    {
+      "label": "大気概論 問10",
+      "original_question_id": "667192856379af03",
+      "question_url": "https://yaku-tik.com/kougai/r7-taigai-10/",
+      "fromQuestionSetId": "kougai_qs08_taigai",
+      "toQuestionSetId": "kougai_qs02_04",
+      "reason": "粒子状物質の性質と呼吸器への生体影響を問うため、大気汚染による影響に該当する。"
+    },
+    {
+      "label": "大気特論 問1",
+      "original_question_id": "57a52dbb0ca4b4a9",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-01/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_01",
+      "reason": "気体燃料の高発熱量・低発熱量を問うため、燃料に該当する。"
+    },
+    {
+      "label": "大気特論 問2",
+      "original_question_id": "bd56d23692f7c65c",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-02/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_01",
+      "reason": "石炭の性状とコークス製造に関する燃料性質を問うため、燃料に該当する。"
+    },
+    {
+      "label": "大気特論 問3",
+      "original_question_id": "a52f0212dc527134",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-03/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_02",
+      "reason": "プロパン完全燃焼時の空気比と排ガス酸素濃度を問うため、燃焼計算に該当する。"
+    },
+    {
+      "label": "大気特論 問4",
+      "original_question_id": "7131e14d09d0adac",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-04/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_02",
+      "reason": "水素燃焼と酸素富化空気の排ガス量計算を問うため、燃焼計算に該当する。"
+    },
+    {
+      "label": "大気特論 問5",
+      "original_question_id": "33d2635ed22ee97e",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-05/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_03",
+      "reason": "気体・液体燃料のバーナーを問うため、燃焼方法・燃焼装置に該当する。"
+    },
+    {
+      "label": "大気特論 問6",
+      "original_question_id": "7bf160741ee1b213",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-06/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_03",
+      "reason": "石炭の流動層燃焼と装置を問うため、燃焼方法・燃焼装置に該当する。"
+    },
+    {
+      "label": "大気特論 問7",
+      "original_question_id": "447aa12ca4ec9c7f",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-07/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_03",
+      "reason": "燃焼排ガスによる低温腐食の防止対策を問うため、燃焼方法・燃焼装置に該当する。"
+    },
+    {
+      "label": "大気特論 問8",
+      "original_question_id": "fa6b9069992dc9a3",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-08/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_04",
+      "reason": "排煙脱硫プロセスと吸収剤・副生物を問うため、排煙脱硫技術に該当する。"
+    },
+    {
+      "label": "大気特論 問9",
+      "original_question_id": "108f1715f86c9f99",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-09/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_04",
+      "reason": "石灰スラリー吸収法排煙脱硫装置の運転トラブルを問うため、排煙脱硫技術に該当する。"
+    },
+    {
+      "label": "大気特論 問10",
+      "original_question_id": "850cba7a45c4044f",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-10/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_05",
+      "reason": "NOx抑制方式と生成機構別抑制効果を問うため、窒素酸化物排出防止技術に該当する。"
+    },
+    {
+      "label": "大気特論 問11",
+      "original_question_id": "4fffc400e324238d",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-11/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_05",
+      "reason": "排煙脱硝技術を問うため、窒素酸化物排出防止技術に該当する。"
+    },
+    {
+      "label": "大気特論 問12",
+      "original_question_id": "748a98836d7ae92e",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-12/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_06",
+      "reason": "JISによる燃料ガス・天然ガスの分析方法を問うため、測定に該当する。"
+    },
+    {
+      "label": "大気特論 問13",
+      "original_question_id": "d550c6fdea9f69ea",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-13/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_06",
+      "reason": "排ガス試料採取位置のJIS判定を問うため、測定に該当する。"
+    },
+    {
+      "label": "大気特論 問14",
+      "original_question_id": "36397800b6207d2c",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-14/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_06",
+      "reason": "排ガス中の二酸化硫黄自動計測器を問うため、測定に該当する。"
+    },
+    {
+      "label": "大気特論 問15",
+      "original_question_id": "39ed2a306cfa83c9",
+      "question_url": "https://yaku-tik.com/kougai/r7-taitoku-15/",
+      "fromQuestionSetId": "kougai_qs09_taitoku",
+      "toQuestionSetId": "kougai_qs03_06",
+      "reason": "排ガス中の窒素酸化物自動計測器を問うため、測定に該当する。"
+    }
+  ]
+}
