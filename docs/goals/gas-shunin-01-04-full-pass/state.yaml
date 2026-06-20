@@ -75,11 +75,11 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 6
-  pending_questions: 928
+  completed_questions: 7
+  pending_questions: 927
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T109
+active_task: T110
 
 tasks:
   - id: T001
@@ -523,6 +523,69 @@ tasks:
         - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-t108-kou-2019-q12.md"
 
   - id: T109
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "全問計画 `all_questions_plan.jsonl` の最小 pending 行を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/**/10_questionType_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/15_correctChoiceText_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/21_explanationText_added/*.json"
+      - "output/gas-shunin-kou/questions_json/**/22_questionSetId_linked/*.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-otsu/questions_json/**/10_questionType_fixed/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/15_correctChoiceText_fixed/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/21_explanationText_added/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/22_questionSetId_linked/*.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check <review_jsonl> --expected-total <count> --require-stage-files --category <category_json> --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source <source_json> --patch <questionType_patch>"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source <source_json> --patch <correctChoice_patch> --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source <source_json> --patch <questionSet_patch> --category <category_json>"
+      - "target explanation shape check for the processed row"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2019 問13の01〜04を完了。00_sourceは変更せず、15/21/22固定名patch、review jsonl、question-planを更新。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: "target explanation shape check for gas-shunin-kou 2019 問13"
+          status: pass
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-t109-kou-2019-q13.md"
+
+  - id: T110
     type: worker
     assignee: Worker
     status: active

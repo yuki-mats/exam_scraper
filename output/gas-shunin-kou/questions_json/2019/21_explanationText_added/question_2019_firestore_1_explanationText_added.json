@@ -273,10 +273,33 @@
       "600"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "温度差は 50 - (-10) = 60℃ であり、熱応力は σ = EαΔT = 2×10^5 × 1×10^-5 × 60 = 120 N/mm² となる。12 N/mm² は小さすぎるため誤り。",
+      "熱応力は σ = EαΔT で求める。Eα = 2 なので、温度差60℃を掛けると 120 N/mm² となる。60 N/mm² は半分であり誤り。",
+      "計算結果は 120 N/mm² である。100 N/mm² は近い値ではあるが、選択肢に120があるため最も近い値ではない。",
+      "両端固定のため温度上昇による自由膨張が拘束され、熱応力は σ = EαΔT で求める。2×10^5 × 1×10^-5 × 60 = 120 N/mm² なので正しい。",
+      "600 N/mm² は温度差や係数の扱いを過大にした値である。正しくは σ = 2×10^5 × 1×10^-5 × 60 = 120 N/mm² である。"
+    ],
+    "suggestedQuestions": [
+      "両端固定管の熱応力はどの式で求める？",
+      "この問題の温度差はいくら？",
+      "この問題の応力計算はどう進める？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "両端固定管の熱応力はどの式で求める？",
+        "answer": "自由膨張が拘束される場合の熱応力は、σ = EαΔT で求める。Eはヤング率、αは線膨張係数、ΔTは温度差である。"
+      },
+      {
+        "question": "この問題の温度差はいくら？",
+        "answer": "設置時が -10℃、夏期が 50℃ なので、温度差は 50 - (-10) = 60℃ である。"
+      },
+      {
+        "question": "この問題の応力計算はどう進める？",
+        "answer": "σ = EαΔT = 2×10^5 × 1×10^-5 × 60 と計算する。2×10^5 × 1×10^-5 = 2 なので、2×60 = 120 N/mm² となる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
