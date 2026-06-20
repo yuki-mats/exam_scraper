@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-01-04-full-pass/"
     command: "npx goalbuddy board docs/goals/gas-shunin-01-04-full-pass"
 
-active_task: T102
+active_task: T104
 
 tasks:
   - id: T001
@@ -178,6 +178,67 @@ tasks:
         - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
 
   - id: T102
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: high
+    objective: "次にレビューする一問を選び、Workerが触るsource/patch/review行/検証コマンドを確定する。"
+    constraints:
+      - "Do not edit content."
+      - "一問だけを選ぶ。"
+      - "Firestore既存IDを変更しない。"
+      - "00_sourceを編集対象にしない。"
+    expected_output:
+      - "selected reviewQuestionId"
+      - "source path"
+      - "patch paths"
+      - "verification commands"
+    receipt:
+      result: done
+      decision: "select gas-shunin-kou 2019 問18 for next Worker slice"
+      summary: "次のWorker対象として gas-shunin-kou 2019 問18 を選定。Firestore既存IDを維持し、01/02/03/04を1問だけ更新する。"
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-t102-next-question-selected.md"
+        - "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+
+  - id: T103
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "gas-shunin-kou 2019 問18（reviewQuestionId=firestore:chiefgasengineerlicense-A-80-1572,chiefgasengineerlicense-A-80-1573,chiefgasengineerlicense-A-80-1574,chiefgasengineerlicense-A-80-1575,chiefgasengineerlicense-A-80-1576）について、01〜04を完了する。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/**/10_questionType_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/15_correctChoiceText_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/21_explanationText_added/*.json"
+      - "output/gas-shunin-kou/questions_json/**/22_questionSetId_linked/*.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2019 問18の01〜04を完了。00_sourceは変更せず、15/21/22固定名patchとreview jsonlのみ更新。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-t103-kou-2019-q18.md"
+        - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+
+  - id: T104
     type: judge
     assignee: Judge
     status: active

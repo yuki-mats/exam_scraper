@@ -413,10 +413,33 @@
       "移動式ガス発生設備のうち、圧縮ガス式（CNG式）は、低温用容器に充てんされた熱量調整・付臭済みの液化天然ガスを気化して供給する方式である。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "高圧導管の液状化に対する耐震性能評価では、終局限界状態を超えると導管が気密機能を失い、要求される耐震性能を確保できない状態になる。したがって、終局限界状態をこのように説明する記述は正しい。",
+      "地盤変位吸収能力を実験で求める場合は、単に配管系に変形が生じる時点ではなく、配管に漏えいが生じるときの地盤変位を基準にする。変形の発生だけを基準にしているため、この記述は誤り。",
+      "非裏波溶接は、溶融した金属が溶接した面の裏側まで十分に溶け込んでいない溶接状態をいう。中圧導管被害の要因として問題になるため、この記述は正しい。",
+      "供給停止ブロックには、個別の単位ブロックと、複数の単位ブロックをまとめて供給停止する統合ブロックがある。地震時の供給停止範囲を判断するための区分として、この記述は正しい。",
+      "圧縮ガス式（CNG式）は、ボンベなどに圧縮充てんしたガスを供給する方式である。低温用容器内の液化天然ガスを気化して供給する説明はLNG式に当たるため、この記述は誤り。"
+    ],
+    "suggestedQuestions": [
+      "終局限界状態は何を失う状態？",
+      "地盤変位吸収能力は何を基準にする？",
+      "CNG式とLNG式はどう区別する？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "終局限界状態は何を失う状態？",
+        "answer": "導管が気密機能を失い、設計上求められる耐震性能を確保できなくなる状態を指す。液状化に対する高圧導管の耐震性能評価では、この限界を超えないかが重要になる。"
+      },
+      {
+        "question": "地盤変位吸収能力は何を基準にする？",
+        "answer": "実験で求める場合は、配管系に漏えいが生じるときの地盤変位を基準にする。単なる変形発生時点ではなく、気密性を失う限界に着目する。"
+      },
+      {
+        "question": "CNG式とLNG式はどう区別する？",
+        "answer": "CNG式は圧縮したガスを供給する方式で、LNG式は液化天然ガスを気化して供給する方式である。低温用容器や液化天然ガスの気化が出てきたらLNG式の説明と考える。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
