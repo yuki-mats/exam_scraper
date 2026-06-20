@@ -333,10 +333,33 @@
       "強制排流法は、他の金属構造物への干渉及び過防食を考慮する必要があるが、選択排流法は考慮する必要がない。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "選択排流法は、導管と電気鉄道のレールを電気的に接続し、導管に流れる迷走電流をレールへ帰流させる方法であるため正しい。",
+      "選択排流法は電気鉄道の迷走電流を利用して排流する方法なので、電気鉄道が走行していない場合は防食効果が得られないため正しい。",
+      "強制排流法は、導管からレール側へ強制的に排流する方法で、外部電源法より安価に設置できるため正しい。",
+      "強制排流法は、電気鉄道の走行状態に左右されず電源を用いて排流できるため、常時防食が可能であり正しい。",
+      "強制排流法だけでなく選択排流法でも、他の金属構造物への干渉や過防食を考慮する必要がある。選択排流法では考慮不要としているため誤り。"
+    ],
+    "suggestedQuestions": [
+      "選択排流法は何をどこへ戻す方法？",
+      "選択排流法の防食効果は何に左右される？",
+      "排流法で干渉や過防食を考慮するのはどの方法？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "選択排流法は何をどこへ戻す方法？",
+        "answer": "導管に流れる迷走電流を、導管と電気鉄道レールを電気的に接続してレールへ帰流させる方法である。"
+      },
+      {
+        "question": "選択排流法の防食効果は何に左右される？",
+        "answer": "選択排流法は電気鉄道の迷走電流を利用するため、電気鉄道が走行していない場合は電気防食の効果が得られない。"
+      },
+      {
+        "question": "排流法で干渉や過防食を考慮するのはどの方法？",
+        "answer": "強制排流法だけでなく、選択排流法でも他の金属構造物への干渉や過防食を考慮する必要がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
