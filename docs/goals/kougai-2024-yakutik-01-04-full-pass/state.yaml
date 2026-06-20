@@ -1,0 +1,349 @@
+version: 2
+
+goal:
+  title: "公害防止管理者 2024 yaku-tik 01-04 full pass"
+  slug: "kougai-2024-yakutik-01-04-full-pass"
+  kind: existing_plan
+  tranche: "2024 年度 yaku-tik 6ファイル・135問を canonical 00_source にして、01→02→03→04 を一問一問目視クオリティで完走する。"
+  status: active
+  oracle:
+    signal: "2024 canonical 00_source が yaku-tik 6ファイル・135問だけになり、10_questionType_fixed/, 15_correctChoiceText_fixed/, 21_explanationText_added/, 22_questionSetId_linked/ が review ledger と coverage check で全 135 問一致すること。"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "135 問すべてについて 01→04 の固定名 patch、20_merged_1、30_merged_2、review ledger 完了行、検証 receipt、upload dry-run readiness が揃っていること。"
+  intake:
+    original_request: "00_source配下をyaku-tikのみにして、全ての問題を一問一問目視クオリティで01~04プロンプトの作業を進められるようにgoal計画を作成してほしい。"
+    interpreted_outcome: "公害防止管理者 2024 年度を yaku-tik only source として固定し、135 問を 01〜04 の順で安全に人手レビューできる計画と board を用意する。"
+    input_shape: existing_plan
+    audience: "公害防止管理者の問題データ整備とアプリ利用者"
+    authority: requested
+    proof_type: "artifact + review + test"
+    completion_proof: "canonical source 135 問、stage patch coverage、review ledger、merge、dry-run readiness が一致すること。"
+    likely_misfire: "zoron / qualification-text などの重複 source を混ぜる、bulk 自動生成だけで目視済みにする、questionSetId を category 外で作る、merge/dry-run なしで完了扱いにする。"
+    blind_spots_considered:
+      - "現在の 2024 00_source は yaku-tik 6ファイル 135問と zoron 3ファイル 75問の混在状態。"
+      - "yaku-tik は穴埋めが多く、choice-level true/false として扱う設計確認が必要。"
+      - "03 は yaku-tik 解説が第一根拠。不足時だけ一次情報を補助する。"
+      - "04 の前提となる kougai qualification docs / category.json が不足する可能性がある。"
+      - "output/ 配下は ignore 対象が多く、Git 管理する成果物は明示的に範囲確認が必要。"
+    existing_plan_facts:
+      - "2024 年度は yaku-tik のみを canonical source にする。"
+      - "multi-source raw evidence は削除せず退避する。"
+      - "01→02→03→04 の順を守る。"
+      - "一問一問の本文・設問・選択肢・正誤・解説を照合する。"
+      - "固定ファイル名で上書きし、タイムスタンプ付き patch を増やさない。"
+      - "questionSetId は category.json の questionSets[].questionSetId のみ使う。"
+      - "Firestore live upload は別途ユーザー承認なしに実行しない。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/kougai-2024-yakutik-01-04-full-pass/"
+    command: "npx goalbuddy board docs/goals/kougai-2024-yakutik-01-04-full-pass"
+
+progress:
+  qualification: "kougai"
+  target_year: 2024
+  target_source: "yaku-tik"
+  current_00_source_files: 9
+  current_yakutik_files: 6
+  current_yakutik_questions: 135
+  current_zoron_files: 3
+  current_zoron_questions: 75
+  canonical_source_ready: false
+  manual_review_ledger_ready: false
+  questions_total: 135
+  questions_reviewed_01_question_type: 0
+  questions_reviewed_02_question_intent: 0
+  questions_reviewed_03_explanation_text: 0
+  questions_reviewed_04_question_set_id: 0
+  questions_fully_completed_01_04: 0
+
+checks:
+  dirty_fingerprint: "pre-existing unrelated dirty worktree; do not stage or revert unrelated files"
+  agent_doctor:
+    result: warn
+    runtime_state: "stale-agents"
+    installed_agents:
+      - "goal_judge.toml"
+      - "goal_scout.toml"
+      - "goal_worker.toml"
+    stale_agents:
+      - "goal_judge.toml"
+      - "goal_worker.toml"
+    next_action: "Before relying on dedicated Judge/Worker delegation, run: npx goalbuddy update --target codex"
+  last_verification:
+    result: pending
+    task: T001
+    commands:
+      - cmd: "jq -s '[.[].question_bodies | length] | {files:length,total:add,per_file:.}' output/kougai/questions_json/2024/00_source/question_2024_yakutik_*.json"
+        status: pass
+        summary: "6 files, 135 questions, per_file [25,25,25,25,25,10]"
+      - cmd: "find output/kougai/questions_json/2024/00_source -maxdepth 1 -type f \\( -name '*zoron*' -o -name '*qualification*' -o -name '*qtext*' \\) -print"
+        status: pass
+        summary: "3 zoron files still present; canonicalization not yet done"
+    evidence:
+      - "output/kougai/questions_json/2024/00_source/question_2024_yakutik_1.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_yakutik_2.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_yakutik_3.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_yakutik_4.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_yakutik_5.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_yakutik_6.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_zoron_1.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_zoron_2.json"
+      - "output/kougai/questions_json/2024/00_source/question_2024_zoron_3.json"
+
+active_task: T001
+
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: high
+    objective: "現行 2024 00_source を read-only で監査し、yaku-tik-only canonicalization の具体的な退避・検証手順を確定する。"
+    inputs:
+      - "output/kougai/questions_json/2024/00_source"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/source-canonicalization-plan.md"
+      - "prompt/01_prompt_fix_questionType.md"
+      - "prompt/02_prompt_fix_questionIntent.md"
+      - "prompt/03_prompt_add_explanationText.md"
+      - "prompt/04_prompt_link_questionSetId.md"
+      - "scripts/check/prepare_qualification_01_04_manual_review.py"
+    constraints:
+      - "Read-only except for notes/receipts under this goal."
+      - "Do not edit output/kougai yet."
+      - "Do not delete or move raw source files in scout task."
+      - "Confirm exact file counts and question counts before Worker activation."
+    expected_output:
+      - "source count receipt"
+      - "canonicalization target list"
+      - "raw evidence retention plan"
+      - "risk list for 01〜04"
+      - "next Worker allowed_files / verify / stop_if"
+    receipt:
+      result: pending
+
+  - id: T002
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "2024 00_source の raw evidence を退避し、canonical 00_source を yaku-tik 6ファイル・135問だけにする。"
+    allowed_files:
+      - "output/kougai/questions_json/2024/00_source/**"
+      - "output/kougai/questions_json/2024/00_source_raw/**"
+      - "output/kougai/source_audit/**"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - "jq -s '[.[].question_bodies | length] | {files:length,total:add,per_file:.}' output/kougai/questions_json/2024/00_source/question_2024_yakutik_*.json"
+      - "find output/kougai/questions_json/2024/00_source -maxdepth 1 -type f \\( -name '*zoron*' -o -name '*qualification*' -o -name '*qtext*' \\) -print | wc -l"
+      - "find output/kougai/questions_json/2024/00_source -maxdepth 1 -type f -name '*.json' | wc -l"
+    stop_if:
+      - "yaku-tik files are missing or total is not 135 questions."
+      - "Raw evidence cannot be preserved before canonicalization."
+      - "Any destructive deletion is required instead of reversible move/copy."
+      - "Need to modify files outside allowed_files."
+    receipt:
+      result: pending
+
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "公害防止管理者 2024 yaku-tik 用の qualification docs と category.json の前提を確認し、03/04 が安全に走る状態を作る。"
+    allowed_files:
+      - "prompt/qualification_docs/kougai/**"
+      - "output/kougai/category/category.json"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - "test -f output/kougai/category/category.json"
+      - "jq '.questionSets | length' output/kougai/category/category.json"
+      - "jq -r '.questionSets[].questionSetId' output/kougai/category/category.json | sort | uniq -d"
+    stop_if:
+      - "公害防止管理者の分類正本が見つからない。"
+      - "category を AI 独自分類で作る必要がある。"
+      - "questionSetId の新設判断にユーザー確認が必要。"
+    receipt:
+      result: pending
+
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "2024 yaku-tik 135問の 01〜04 manual review ledger を作成し、pending 許容で検証する。"
+    allowed_files:
+      - "output/kougai/review/01_04_manual_review/**"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl --expected-total 135 --category output/kougai/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py render output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl --qualification kougai --output-dir output/kougai/review/01_04_manual_review"
+    stop_if:
+      - "ledger IDs are duplicated."
+      - "Script cannot represent 2024 yaku-tik-only scope."
+      - "Expected total is not 135."
+    receipt:
+      result: pending
+
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "01 prompt に沿って questionType を全 135 問で一問ずつ確認し、固定名 patch と review ledger を更新する。"
+    allowed_files:
+      - "output/kougai/questions_json/2024/10_questionType_fixed/**"
+      - "output/kougai/review/01_04_manual_review/**"
+      - "output/kougai/questions_json/2024/99_model_review_flags/**"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/kougai/questions_json/2024/00_source/question_2024_yakutik_<n>.json --patch output/kougai/questions_json/2024/10_questionType_fixed/question_2024_yakutik_<n>_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl --expected-total 135 --category output/kougai/category/category.json --allow-pending"
+    stop_if:
+      - "questionType policy is ambiguous for fill-in choice-level true/false."
+      - "Source answer/explanation conflict is found."
+      - "Need to alter original question body or choice text."
+    receipt:
+      result: pending
+
+  - id: T006
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "01 後に merge し、02 prompt に沿って questionIntent / correctChoiceText 整合を全 135 問で一問ずつ確認する。"
+    allowed_files:
+      - "output/kougai/questions_json/2024/12_merged_questionType/**"
+      - "output/kougai/questions_json/2024/15_correctChoiceText_fixed/**"
+      - "output/kougai/questions_json/2024/20_merged_1/**"
+      - "output/kougai/questions_json/2024/23_correctChoiceText_fixed/**"
+      - "output/kougai/review/01_04_manual_review/**"
+      - "output/kougai/questions_json/2024/99_model_review_flags/**"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - ".venv/bin/python scripts/merge/00_merge_all.py 2024 --base-dir output/kougai/questions_json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/kougai/questions_json/2024/20_merged_1/question_2024_yakutik_<n>_merged.json --patch output/kougai/questions_json/2024/15_correctChoiceText_fixed/question_2024_yakutik_<n>_correctChoiceText_fixed.json --require-full --require-snippets --require-change-meta"
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl --expected-total 135 --category output/kougai/category/category.json --allow-pending"
+    stop_if:
+      - "correct choice cannot be proven from yaku-tik source."
+      - "answer_result_text and choice-level true/false conflict."
+      - "Need web evidence for 02; 02 must remain local-source based."
+    receipt:
+      result: pending
+
+  - id: T007
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "03 prompt に沿って explanationText / suggested 系を全 135 問で一問ずつ作成・確認する。"
+    allowed_files:
+      - "output/kougai/questions_json/2024/21_explanationText_added/**"
+      - "output/kougai/review/01_04_manual_review/**"
+      - "output/kougai/questions_json/2024/99_model_review_flags/**"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - ".venv/bin/python scripts/check/check_explanation_patch_coverage.py --source output/kougai/questions_json/2024/20_merged_1/question_2024_yakutik_<n>_merged.json --patch output/kougai/questions_json/2024/21_explanationText_added/question_2024_yakutik_<n>_explanationText_added.json --require-law-grounded-flag"
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl --expected-total 135 --category output/kougai/category/category.json --allow-pending"
+    stop_if:
+      - "yaku-tik explanation is insufficient and primary source is required but not found."
+      - "Explanation would become unsupported or speculative."
+      - "lawReferences / source references need a policy decision."
+    receipt:
+      result: pending
+
+  - id: T008
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "04 prompt に沿って questionSetId を全 135 問に紐付け、category.json と照合する。"
+    allowed_files:
+      - "output/kougai/questions_json/2024/22_questionSetId_linked/**"
+      - "output/kougai/review/01_04_manual_review/**"
+      - "output/kougai/questions_json/2024/99_model_review_flags/**"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/kougai/questions_json/2024/20_merged_1/question_2024_yakutik_<n>_merged.json --patch output/kougai/questions_json/2024/22_questionSetId_linked/question_2024_yakutik_<n>_questionSetId_linked.json --category output/kougai/category/category.json --questionset-only"
+      - ".venv/bin/python scripts/check/check_questionSetId.py --category output/kougai/category/category.json --original output/kougai/questions_json/2024/00_source/question_2024_yakutik_<n>.json --fixed output/kougai/questions_json/2024/30_merged_2/<latest merged file> --compare-count --questionset-only"
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl --expected-total 135 --category output/kougai/category/category.json --allow-pending"
+    stop_if:
+      - "No suitable questionSetId exists in category.json."
+      - "New category/questionSet is needed."
+      - "folderId or display label would be used instead of questionSetId."
+    receipt:
+      result: pending
+
+  - id: T009
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "最終 merge と upload dry-run readiness を実施し、135問の成果物が canonical source と一致することを証明する。"
+    allowed_files:
+      - "output/kougai/questions_json/2024/12_merged_questionType/**"
+      - "output/kougai/questions_json/2024/20_merged_1/**"
+      - "output/kougai/questions_json/2024/30_merged_2/**"
+      - "output/kougai/questions_json/upload_to_firestore/**"
+      - "output/kougai/review/01_04_manual_review/**"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/notes/**"
+    verify:
+      - ".venv/bin/python scripts/merge/00_merge_all.py 2024 --base-dir output/kougai/questions_json"
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl --expected-total 135 --require-stage-files --category output/kougai/category/category.json"
+      - ".venv/bin/python scripts/prepare_firestore_upload.py kougai --years 2024 --dry-run"
+    stop_if:
+      - "Dry-run command would write live Firestore."
+      - "Expected total differs from 135."
+      - "Any stage coverage is incomplete."
+      - "category.json is incomplete or invalid."
+    receipt:
+      result: pending
+
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全 receipts を Goal Oracle と照合し、2024 yaku-tik 135問の 01〜04 full pass 完了可否を判定する。"
+    inputs:
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/goal.md"
+      - "docs/goals/kougai-2024-yakutik-01-04-full-pass/state.yaml"
+      - "output/kougai/review/01_04_manual_review/kougai_2024_yakutik_01_04_manual_review.jsonl"
+      - "output/kougai/questions_json/2024/30_merged_2"
+    constraints:
+      - "Do not implement."
+      - "Do not mark complete if any Worker task is queued or pending."
+      - "Map each completion claim to a concrete receipt."
+    expected_output:
+      - "full_outcome_complete true/false"
+      - "missing proof list"
+      - "remaining task list if incomplete"
+    receipt:
+      result: pending
