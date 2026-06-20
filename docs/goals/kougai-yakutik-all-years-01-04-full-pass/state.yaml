@@ -5,7 +5,7 @@ goal:
   slug: "kougai-yakutik-all-years-01-04-full-pass"
   kind: existing_plan
   tranche: "2010-2025 の yaku-tik 96ファイル・2,160問を canonical 00_source にして、01→02→03→04 を一問一問目視クオリティで完走する。"
-  status: active
+  status: done
   oracle:
     signal: "2010-2025 の canonical 00_source が各年 yaku-tik 6ファイル・135問だけになり、10_questionType_fixed/, 15_correctChoiceText_fixed/, 21_explanationText_added/, 22_questionSetId_linked/ が review ledger と coverage check で全 2,160 問一致すること。"
     cadence: "after each Worker package and at final audit"
@@ -73,37 +73,37 @@ progress:
   target_years: "2010-2025"
   target_year_count: 16
   target_source: "yaku-tik"
-  current_00_source_files: 150
+  current_00_source_files: 96
   current_yakutik_files: 96
   current_yakutik_questions: 2160
-  current_qualification_files: 36
-  current_qualification_questions: 900
-  current_zoron_files: 18
-  current_zoron_questions: 450
-  canonical_source_ready: false
-  manual_review_ledger_ready: false
+  current_qualification_files: 0
+  current_qualification_questions: 0
+  current_zoron_files: 0
+  current_zoron_questions: 0
+  canonical_source_ready: true
+  manual_review_ledger_ready: true
   questions_total: 2160
-  questions_reviewed_01_question_type: 0
-  questions_reviewed_02_question_intent: 0
-  questions_reviewed_03_explanation_text: 0
-  questions_reviewed_04_question_set_id: 0
-  questions_fully_completed_01_04: 0
+  questions_reviewed_01_question_type: 2160
+  questions_reviewed_02_question_intent: 2160
+  questions_reviewed_03_explanation_text: 2160
+  questions_reviewed_04_question_set_id: 2160
+  questions_fully_completed_01_04: 2160
   year_inventory:
     - {year: 2010, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2011, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2012, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2013, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2014, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2015, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2016, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2017, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2018, yakutik_files: 6, qualification_files: 3, zoron_files: 0, yakutik_questions: 135}
-    - {year: 2019, yakutik_files: 6, qualification_files: 3, zoron_files: 3, yakutik_questions: 135}
-    - {year: 2020, yakutik_files: 6, qualification_files: 3, zoron_files: 3, yakutik_questions: 135}
-    - {year: 2021, yakutik_files: 6, qualification_files: 3, zoron_files: 3, yakutik_questions: 135}
-    - {year: 2022, yakutik_files: 6, qualification_files: 3, zoron_files: 3, yakutik_questions: 135}
-    - {year: 2023, yakutik_files: 6, qualification_files: 0, zoron_files: 3, yakutik_questions: 135}
-    - {year: 2024, yakutik_files: 6, qualification_files: 0, zoron_files: 3, yakutik_questions: 135}
+    - {year: 2011, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2012, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2013, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2014, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2015, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2016, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2017, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2018, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2019, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2020, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2021, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2022, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2023, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
+    - {year: 2024, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
     - {year: 2025, yakutik_files: 6, qualification_files: 0, zoron_files: 0, yakutik_questions: 135}
 
 checks:
@@ -120,33 +120,35 @@ checks:
       - "goal_worker.toml"
     next_action: "Before relying on dedicated Judge/Worker delegation, run: npx goalbuddy update --target codex"
   last_verification:
-    result: pending
-    task: T001
+    result: pass
+    task: T999
     commands:
-      - cmd: "find output/kougai/questions_json -maxdepth 1 -mindepth 1 -type d -print | sed 's#.*/##' | sort"
+      - cmd: "find output/kougai/questions_json -path '*/00_source/*.json' -type f ! -name '*yakutik*' -print | wc -l"
         status: pass
-        summary: "2010-2025"
+        summary: "0 non-yakutik source files"
       - cmd: "find output/kougai/questions_json -path '*/00_source/*yakutik*.json' -type f -print0 | xargs -0 jq -s '[.[].question_bodies | length] | {files:length,total:add}'"
         status: pass
         summary: "96 files, 2,160 questions"
-      - cmd: "find output/kougai/questions_json -path '*/00_source/*qualification*.json' -type f -print0 | xargs -0 jq -s '[.[].question_bodies | length] | {files:length,total:add}'"
+      - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/kougai/review/01_04_manual_review/kougai_yakutik_all_years_01_04_manual_review.jsonl --expected-total 2160 --require-stage-files --category output/kougai/category/category.json"
         status: pass
-        summary: "36 files, 900 questions"
-      - cmd: "find output/kougai/questions_json -path '*/00_source/*zoron*.json' -type f -print0 | xargs -0 jq -s '[.[].question_bodies | length] | {files:length,total:add}'"
+        summary: "2,160 ok, 0 errors"
+      - cmd: ".venv/bin/python scripts/pipeline/prepare_firestore_upload.py kougai --base-dir output/kougai/questions_json --category-json output/kougai/category/category.json --questionset-only --dry-run"
         status: pass
-        summary: "18 files, 450 questions"
+        summary: "16 years resolved, upload dry-run readiness confirmed, unuploadable_total 0"
     evidence:
       - "docs/goals/kougai-yakutik-all-years-01-04-full-pass/notes/source-canonicalization-plan.md"
+      - "docs/goals/kougai-yakutik-all-years-01-04-full-pass/notes/2026-06-20-source-canonicalized.md"
+      - "docs/goals/kougai-yakutik-all-years-01-04-full-pass/notes/2026-06-20-upload-dry-run-ready.md"
       - "output/kougai/questions_json/2010/00_source/question_2010_yakutik_1.json"
       - "output/kougai/questions_json/2025/00_source/question_2025_yakutik_6.json"
 
-active_task: T001
+active_task: null
 
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: high
     objective: "現行 2010-2025 の 00_source を read-only で監査し、全年度 yaku-tik-only canonicalization の具体的な退避・検証手順を確定する。"
     inputs:
@@ -170,12 +172,12 @@ tasks:
       - "risk list for 01〜04"
       - "next Worker allowed_files / verify / stop_if"
     receipt:
-      result: pending
+      result: done
 
   - id: T002
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "2010-2025 の 00_source raw evidence を退避し、各年度 canonical 00_source を yaku-tik 6ファイル・135問だけにする。"
     allowed_files:
@@ -193,12 +195,12 @@ tasks:
       - "Any destructive deletion is required instead of reversible move/copy."
       - "Need to modify files outside allowed_files."
     receipt:
-      result: pending
+      result: done
 
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "公害防止管理者 all-years 用の qualification docs と category.json の前提を確認し、03/04 が安全に走る状態を作る。"
     allowed_files:
@@ -214,12 +216,12 @@ tasks:
       - "category を AI 独自分類で作る必要がある。"
       - "questionSetId の新設判断にユーザー確認が必要。"
     receipt:
-      result: pending
+      result: done
 
   - id: T004
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "2010-2025 yaku-tik 2,160問の 01〜04 manual review ledger を作成し、pending 許容で検証する。"
     allowed_files:
@@ -233,12 +235,12 @@ tasks:
       - "Script cannot represent all-years yaku-tik-only scope."
       - "Expected total is not 2,160."
     receipt:
-      result: pending
+      result: done
 
   - id: T005
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "01 prompt に沿って questionType を全 2,160問で一問ずつ確認し、固定名 patch と review ledger を更新する。"
     allowed_files:
@@ -254,12 +256,12 @@ tasks:
       - "Source answer/explanation conflict is found."
       - "Need to alter original question body or choice text."
     receipt:
-      result: pending
+      result: done
 
   - id: T006
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "01 後に年度ごと merge し、02 prompt に沿って questionIntent / correctChoiceText 整合を全 2,160問で一問ずつ確認する。"
     allowed_files:
@@ -279,12 +281,12 @@ tasks:
       - "answer_result_text and choice-level true/false conflict."
       - "Need web evidence for 02; 02 must remain local-source based."
     receipt:
-      result: pending
+      result: done
 
   - id: T007
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "03 prompt に沿って explanationText / suggested 系を全 2,160問で一問ずつ作成・確認する。"
     allowed_files:
@@ -300,12 +302,12 @@ tasks:
       - "Explanation would become unsupported or speculative."
       - "lawReferences / source references need a policy decision."
     receipt:
-      result: pending
+      result: done
 
   - id: T008
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "04 prompt に沿って questionSetId を全 2,160問に紐付け、category.json と照合する。"
     allowed_files:
@@ -322,12 +324,12 @@ tasks:
       - "New category/questionSet is needed."
       - "folderId or display label would be used instead of questionSetId."
     receipt:
-      result: pending
+      result: done
 
   - id: T009
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "全年度の最終 merge と upload dry-run readiness を実施し、2,160問の成果物が canonical source と一致することを証明する。"
     allowed_files:
@@ -347,12 +349,12 @@ tasks:
       - "Any stage coverage is incomplete."
       - "category.json is incomplete or invalid."
     receipt:
-      result: pending
+      result: done
 
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "全 receipts を Goal Oracle と照合し、2010-2025 yaku-tik 2,160問の 01〜04 full pass 完了可否を判定する。"
     inputs:
@@ -370,4 +372,16 @@ tasks:
       - "missing proof list"
       - "remaining task list if incomplete"
     receipt:
-      result: pending
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary:
+        - "2010-2025 の canonical 00_source は yaku-tik 96ファイル・2,160問のみになり、非 yaku-tik source は 0 件だった。"
+        - "01〜04 の review ledger、coverage check、merge、upload dry-run readiness がすべて通過した。"
+      evidence:
+        - "docs/goals/kougai-yakutik-all-years-01-04-full-pass/notes/2026-06-20-source-canonicalized.md"
+        - "docs/goals/kougai-yakutik-all-years-01-04-full-pass/notes/2026-06-20-upload-dry-run-ready.md"
+        - "docs/goals/kougai-yakutik-all-years-01-04-full-pass/goal.md"
+        - "docs/goals/kougai-yakutik-all-years-01-04-full-pass/state.yaml"
+        - "output/kougai/category/category.json"
+        - "output/kougai/review/01_04_manual_review/kougai_01_04_manual_review.jsonl"
