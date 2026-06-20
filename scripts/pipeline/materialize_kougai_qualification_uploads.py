@@ -188,14 +188,30 @@ def materialize_file(
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Materialize canonical kougai Firestore upload JSON into qualification-specific upload JSON."
+        description=(
+            "Deprecated: materialize canonical kougai Firestore upload JSON into "
+            "qualification-specific upload JSON. Use shared folder scopes instead."
+        )
     )
     parser.add_argument("input", type=Path, help="Canonical upload JSON file or questions_json root.")
     parser.add_argument("--canonical-category-json", type=Path, default=DEFAULT_CANONICAL_CATEGORY_JSON)
     parser.add_argument("--mapping-json", type=Path, default=DEFAULT_MAPPING_JSON)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--allow-legacy-materialization",
+        action="store_true",
+        help="Allow deprecated per-qualification question materialization.",
+    )
     args = parser.parse_args()
+    if not args.allow_legacy_materialization:
+        print(
+            "deprecated: per-qualification kougai question materialization is disabled. "
+            "Use shared questions/questionSets and folder qualificationIds/licenseNames, "
+            "or rerun with --allow-legacy-materialization for an explicit legacy audit.",
+            file=sys.stderr,
+        )
+        return 2
 
     context = category_context(
         load_json(args.canonical_category_json.expanduser().resolve()),

@@ -177,7 +177,11 @@ def build_all_categories(canonical: dict[str, Any], mapping: dict[str, Any]) -> 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Build materialized kougai category.json files for each qualification division."
+        description=(
+            "Deprecated: build materialized kougai category.json files for each "
+            "qualification division. Use output/kougai/category/category.json "
+            "with folder qualificationIds/licenseNames instead."
+        )
     )
     parser.add_argument("--canonical-category-json", type=Path, default=DEFAULT_CANONICAL_CATEGORY_JSON)
     parser.add_argument("--mapping-json", type=Path, default=DEFAULT_MAPPING_JSON)
@@ -188,7 +192,20 @@ def main() -> int:
         default=[],
         help="Build only the specified qualificationId. Repeatable. Defaults to all.",
     )
+    parser.add_argument(
+        "--allow-legacy-materialization",
+        action="store_true",
+        help="Allow deprecated per-qualification materialized category generation.",
+    )
     args = parser.parse_args()
+    if not args.allow_legacy_materialization:
+        print(
+            "deprecated: per-qualification kougai category materialization is disabled. "
+            "Use the shared output/kougai/category/category.json folder scopes, or rerun "
+            "with --allow-legacy-materialization for an explicit legacy audit.",
+            file=sys.stderr,
+        )
+        return 2
 
     canonical = load_json(args.canonical_category_json.expanduser().resolve())
     mapping = load_json(args.mapping_json.expanduser().resolve())

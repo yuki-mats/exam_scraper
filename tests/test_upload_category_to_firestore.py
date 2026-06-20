@@ -82,6 +82,35 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
             },
         )
 
+    def test_folder_scope_fields_default_to_single_qualification(self) -> None:
+        doc_data = {}
+
+        module.apply_folder_scope_fields(
+            doc_data,
+            {},
+            license_name="ガス主任技術者",
+            qualification_id="chiefgasengineerlicense",
+        )
+
+        self.assertEqual(doc_data["licenseNames"], ["ガス主任技術者"])
+        self.assertEqual(doc_data["qualificationIds"], ["chiefgasengineerlicense"])
+
+    def test_folder_scope_fields_preserve_multi_qualification_arrays(self) -> None:
+        doc_data = {}
+
+        module.apply_folder_scope_fields(
+            doc_data,
+            {
+                "licenseNames": ["大気関係第1種公害防止管理者", "大気関係第1種公害防止管理者"],
+                "qualificationIds": ["kougai-taiki-1", "kougai-taiki-2"],
+            },
+            license_name="公害防止管理者",
+            qualification_id="kougai",
+        )
+
+        self.assertEqual(doc_data["licenseNames"], ["大気関係第1種公害防止管理者"])
+        self.assertEqual(doc_data["qualificationIds"], ["kougai-taiki-1", "kougai-taiki-2"])
+
     def test_schema_allows_canonical_folder_and_question_set_references(self) -> None:
         now = datetime.now()
 

@@ -31,6 +31,8 @@ FOLDER_SCHEMA = CollectionSchema(
         "aggregatedQuestionTags",
         "licenseName",
         "qualificationId",
+        "licenseNames",
+        "qualificationIds",
         "questionCount",
         "createdById",
         "updatedById",
@@ -258,8 +260,8 @@ def validate_folder_doc(doc: dict[str, Any], *, doc_id: str) -> None:
         if not _is_non_empty_str(doc.get(key)):
             raise ValueError(f"folders:{doc_id} {key} must be non-empty string")
     for key in ("licenseNames", "qualificationIds"):
-        if key in doc and not _is_list_of_str(doc.get(key)):
-            raise ValueError(f"folders:{doc_id} {key} must be list[str]")
+        if not _is_list_of_str(doc.get(key)) or not doc.get(key):
+            raise ValueError(f"folders:{doc_id} {key} must be non-empty list[str]")
     _ensure_optional_string_fields(
         doc,
         doc_id=doc_id,

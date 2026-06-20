@@ -48,25 +48,39 @@ def copy_reference_fields(doc_data: dict, source_data: dict, field_names: tuple[
             doc_data[field_name] = source_data[field_name]
 
 
-def copy_folder_scope_fields(doc_data: dict, source_data: dict) -> None:
-    for field_name in FOLDER_SCOPE_FIELDS:
-        value = source_data.get(field_name)
-        if value is None:
+def normalize_scope_values(value: object, *, fallback: str) -> list[str]:
+    raw_values = value if value is not None else [fallback]
+    if not isinstance(raw_values, list):
+        return raw_values  # type: ignore[return-value]
+
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for item in raw_values:
+        if not isinstance(item, str):
+            deduped.append(item)
             continue
-        if not isinstance(value, list):
-            doc_data[field_name] = value
-            continue
-        deduped: list[str] = []
-        seen: set[str] = set()
-        for item in value:
-            if not isinstance(item, str):
-                deduped.append(item)
-                continue
-            item = item.strip()
-            if item and item not in seen:
-                seen.add(item)
-                deduped.append(item)
-        doc_data[field_name] = deduped
+        item = item.strip()
+        if item and item not in seen:
+            seen.add(item)
+            deduped.append(item)
+    return deduped
+
+
+def apply_folder_scope_fields(
+    doc_data: dict,
+    source_data: dict,
+    *,
+    license_name: str,
+    qualification_id: str,
+) -> None:
+    doc_data["licenseNames"] = normalize_scope_values(
+        source_data.get("licenseNames"),
+        fallback=license_name,
+    )
+    doc_data["qualificationIds"] = normalize_scope_values(
+        source_data.get("qualificationIds"),
+        fallback=qualification_id,
+    )
 
 
 def infer_qualification_id_from_path(category_json_path: str) -> str:
@@ -284,7 +298,12 @@ def upsert_folder(db, folder, now, license_name: str, qualification_id: str):
         "createdAt": created_at,
     }
     copy_reference_fields(doc_data, folder, FOLDER_REFERENCE_FIELDS)
-    copy_folder_scope_fields(doc_data, folder)
+    apply_folder_scope_fields(
+        doc_data,
+        folder,
+        license_name=license_name,
+        qualification_id=qualification_id,
+    )
     # updatedAt は「差分が発生して変更される時のみ」更新する（ユーザー要望）
     if existing_data is not None:
         comparable_keys = (
@@ -452,7 +471,12 @@ def main():
                 "updatedAt": now,
             }
             copy_reference_fields(doc_data, folder, FOLDER_REFERENCE_FIELDS)
-            copy_folder_scope_fields(doc_data, folder)
+            apply_folder_scope_fields(
+                doc_data,
+                folder,
+                license_name=license_name,
+                qualification_id=qualification_id,
+            )
             validate_folder_doc(doc_data, doc_id=str(folder_id))
             print(f"Folder {folder_id}: questionCount -> {question_count}")
 
