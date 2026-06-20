@@ -67,7 +67,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-01-04-full-pass/"
     command: "npx goalbuddy board docs/goals/gas-shunin-01-04-full-pass"
 
-active_task: T002
+active_task: T102
 
 tasks:
   - id: T001
@@ -94,7 +94,7 @@ tasks:
   - id: T002
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: high
     objective: "最初にレビューする一問を選び、Workerが触るsource/patch/review行/検証コマンドを確定する。"
     inputs:
@@ -117,14 +117,21 @@ tasks:
       - "patch paths"
       - "review jsonl line identity"
       - "verification commands"
-    receipt: null
+    receipt:
+      result: done
+      decision: "select gas-shunin-kou 2019 問17 for first Worker slice"
+      summary: "最初のWorker対象として gas-shunin-kou 2019 問17 を選定。01/02/04は既存Firestore情報だけで確定可能、03はexplanation生成許可を受けてT101で完了させる。"
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-t002-first-question-selected.md"
+        - "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
 
   - id: T101
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
-    objective: "T002で選ばれた一問について、01〜04を目視クオリティで処理し、必要な固定名patchとreview jsonl行だけを更新する。"
+    objective: "gas-shunin-kou 2019 問17（reviewQuestionId=firestore:chiefgasengineerlicense-A-80-1567,chiefgasengineerlicense-A-80-1568,chiefgasengineerlicense-A-80-1569,chiefgasengineerlicense-A-80-1570,chiefgasengineerlicense-A-80-1571）について、03 suggested系を根拠確認付きで完成させ、holdを解除する。"
     allowed_files:
       - "output/gas-shunin-kou/questions_json/**/10_questionType_fixed/*.json"
       - "output/gas-shunin-kou/questions_json/**/15_correctChoiceText_fixed/*.json"
@@ -146,6 +153,46 @@ tasks:
       - "文字列本文をプログラムで作りたくなる。"
       - "00_sourceやFirestore既存IDを書き換える必要が出る。"
       - "一問を超える範囲をまとめて更新しそうになる。"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2019 問17の01〜04を完了。00_sourceは変更せず、15/21/22固定名patchとreview jsonlのみ更新。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json --patch output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-t101-kou-2019-q17.md"
+        - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+
+  - id: T102
+    type: judge
+    assignee: Judge
+    status: active
+    reasoning_hint: high
+    objective: "次にレビューする一問を選び、Workerが触るsource/patch/review行/検証コマンドを確定する。"
+    constraints:
+      - "Do not edit content."
+      - "一問だけを選ぶ。"
+      - "Firestore既存IDを変更しない。"
+      - "00_sourceを編集対象にしない。"
+    expected_output:
+      - "selected reviewQuestionId"
+      - "source path"
+      - "patch paths"
+      - "verification commands"
     receipt: null
 
   - id: T999
