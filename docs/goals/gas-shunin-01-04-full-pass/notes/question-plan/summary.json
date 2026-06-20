@@ -1,60 +1,34 @@
 {
-  "byExecutionPhase": {
-    "already_reviewed": 2,
-    "phase_1_kou_existing_firestore": 292,
+  "duplicateQualifiedReviewQuestionIdCount": 0,
+  "firestoreSourceQuestionCount": 294,
+  "generatedAt": "2026-06-20T03:49:42Z",
+  "nextPending": {
+    "examYear": 2019,
+    "planSequence": 1,
+    "qualification": "gas-shunin-kou",
+    "questionLabel": "問1",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1495,chiefgasengineerlicense-A-40-1496,chiefgasengineerlicense-A-40-1497,chiefgasengineerlicense-A-40-1498,chiefgasengineerlicense-A-40-1499",
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json"
+  },
+  "phaseCounts": {
+    "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
     "phase_3_otsu_all_sources": 522
   },
-  "byQualification": {
-    "gas-shunin-kou": {
-      "byYear": {
-        "2019": 58,
-        "2020": 59,
-        "2021": 60,
-        "2022": 59,
-        "2023": 60,
-        "2024": 58,
-        "2025": 58
-      },
-      "reviewDecisionCounts": {
-        "ok": 8,
-        "pending": 404
-      },
-      "sourceOriginCounts": {
-        "firestore_snapshot": 294,
-        "gassyunin_site": 118
-      },
-      "total": 412
-    },
-    "gas-shunin-otsu": {
-      "byYear": {
-        "2017": 58,
-        "2018": 58,
-        "2019": 58,
-        "2020": 58,
-        "2021": 58,
-        "2022": 58,
-        "2023": 58,
-        "2024": 58,
-        "2025": 58
-      },
-      "reviewDecisionCounts": {
-        "pending": 522
-      },
-      "sourceOriginCounts": {
-        "gassyunin_site": 522
-      },
-      "total": 522
-    }
+  "qualificationCounts": {
+    "gas-shunin-kou": 412,
+    "gas-shunin-otsu": 522
   },
-  "bySourceOrigin": {
+  "qualifiedReviewQuestionIdCount": 934,
+  "reviewDecisionCounts": {
+    "pending": 934
+  },
+  "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
+  "siteSourceQuestionCount": 640,
+  "sourceKeyConflictQuestionCount": 10,
+  "sourceOriginCounts": {
     "firestore_snapshot": 294,
     "gassyunin_site": 640
   },
-  "reviewDecisionCounts": {
-    "ok": 8,
-    "pending": 926
-  },
-  "schemaVersion": "gas-shunin-question-plan-summary/v1",
-  "totalQuestions": 934
+  "total": 934
 }

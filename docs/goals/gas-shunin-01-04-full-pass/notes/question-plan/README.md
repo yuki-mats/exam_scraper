@@ -1,7 +1,7 @@
 # Gas Shunin 01-04 Per-Question Execution Plan
 
 この計画は review ledger の各1行を1問として、全934問を一問ずつ処理するための実行キューです。
-`00_source` の本文・選択肢は編集対象外で、`originalQuestionBodyText` / `originalQuestionChoiceText` と既存 Firestore document ID を保持します。
+`00_source` の本文・選択肢は編集対象外で、`originalQuestionBodyText` / `originalQuestionChoiceText`、既存 Firestore document ID、`sourceQuestionKey` / `sourceUniqueKeys` を保持します。
 `explanationText` と suggested 系は、本文・選択肢を変更しない範囲で補完対象です。
 
 ## Files
@@ -10,16 +10,20 @@
 - `all_questions_plan.tsv`: 目視確認用の一覧
 - `summary.json`: 件数集計
 
+`reviewQuestionId` は資格内で一意です。横断処理では `qualifiedReviewQuestionId = qualification + ":" + reviewQuestionId` を使います。
+
 ## Counts
 
 - Total: 934
-- gas-shunin-kou: 412 / decisions {'pending': 404, 'ok': 8}
+- gas-shunin-kou: 412 / decisions {'pending': 412}
 - gas-shunin-otsu: 522 / decisions {'pending': 522}
+- Firestore source rows: 294
+- Site source rows: 640
+- Legacy source-key conflict rows: 10
 
 ## Execution Phases
 
-- Phase 1: 甲種 Firestore既存IDあり: 292
-- レビュー済み: 2
+- Phase 1: 甲種 Firestore既存IDあり: 294
 - Phase 2: 甲種 gassyunin.com/新規系: 118
 - Phase 3: 乙種 全source: 522
 
@@ -29,7 +33,7 @@
 
 1. `00_source` を読んで questionType が設問形式と一致するか確認する。
 2. 設問文から questionIntent を確定し、correctChoiceText が選択肢位置と一致するか確認する。
-3. explanationText / suggestedQuestions / suggestedQuestionDetails を補完する。本文・選択肢は変更しない。
+3. explanationText / suggestedQuestions / suggestedQuestionDetails を補完する。suggested 系は選択肢ごとの真偽・正誤に合わせ、問題単位で一括生成しない。
 4. Firestore category 由来の questionSetId を確定する。
 5. 対象行検証、file-level coverage、review ledger check を通す。
 6. 該当 review ledger 行だけを `ok` または理由付き `hold` にする。
@@ -41,7 +45,8 @@
 - correctChoiceText の根拠が不足する場合。
 - questionSetId のカテゴリ判断が曖昧な場合。
 - explanationText が未検証の事実を必要とする場合。
+- suggestedQuestions を選択肢単位ではなく問題単位で処理しそうな場合。
 
 ## Next Execution
 
-Next pending: sequence 7 / gas-shunin-kou 2019 問15 / `firestore:chiefgasengineerlicense-A-80-1557,chiefgasengineerlicense-A-80-1558,chiefgasengineerlicense-A-80-1559,chiefgasengineerlicense-A-80-1560,chiefgasengineerlicense-A-80-1561`
+Next pending: sequence 1 / gas-shunin-kou 2019 問1 / `firestore:chiefgasengineerlicense-A-40-1495,chiefgasengineerlicense-A-40-1496,chiefgasengineerlicense-A-40-1497,chiefgasengineerlicense-A-40-1498,chiefgasengineerlicense-A-40-1499`

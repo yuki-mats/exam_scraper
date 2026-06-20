@@ -15,33 +15,10 @@
       "LNGは急激な圧力上昇や温度低下により、配管中でペーパーロックが起こることがあり、送液が不可能になる等のおそれがある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "LNGが層状化した場合、上層液では軽質成分がBOGとして抜けるため、残った液は濃縮して液密度が上昇する。液密度が低下するとしている点が誤り。",
-      "バイオガスは水分の多い有機物を無酸素状態でメタン発酵させて得られ、主成分はメタンと二酸化炭素である。ほとんどがメタンと窒素であるという説明は誤り。",
-      "液封状態でLNGが外気から熱を受けると、温度上昇に伴う膨張で内部圧力が上がり、フランジなど弱い部分を損傷するおそれがある。液封時の危険として正しい記述。",
-      "メタンは常温では空気より軽く拡散しやすいが、低温のメタンガスは密度が大きく、地表面付近に滞留しやすい。低温時の滞留に注意するという記述は正しい。",
-      "LNG配管で流れが妨げられるベーパーロックは、急激な圧力低下や温度上昇で気化が進む場合に起こりやすい。急激な圧力上昇や温度低下で起こるとしている点が誤り。"
-    ],
-    "suggestedQuestions": [
-      "LNGの層状化で上層液の密度はどうなる？",
-      "バイオガスの主成分は何？",
-      "LNGの液封とベーパーロックはどう違う？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "LNGの層状化で上層液の密度はどうなる？",
-        "answer": "軽質成分がBOGとして抜けるため、上層液は濃縮して液密度が上昇する。密度が低下するという説明は逆である。"
-      },
-      {
-        "question": "バイオガスの主成分は何？",
-        "answer": "バイオガスの主成分はメタンと二酸化炭素である。窒素が主体という説明ではない。"
-      },
-      {
-        "question": "LNGの液封とベーパーロックはどう違う？",
-        "answer": "液封は閉じ込められた液が熱膨張して圧力上昇を起こす危険である。ベーパーロックは気化によって流れが妨げられる現象で、圧力低下や温度上昇が原因になりやすい。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -81,33 +58,10 @@
       "5.6Q"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "低圧導管の圧力損失は、同一条件ではおおむね流量の2乗に比例し、管径の5乗に反比例する。口径を2倍にすると同じ流量での圧力損失は1/32となるため、圧力損失が0.6kPaから0.3kPaへ半分になる条件では流量倍率は4倍であり、1.4Qではない。",
-      "圧力損失比は0.3/0.6=1/2、口径比は2である。流量倍率をxとすると、1/2=x^2/2^5 なので x=4 となり、2.0Qでは不足する。",
-      "計算式は 1/2=x^2/32 であり、x^2=16、x=4 となる。したがって増量後の流量は4.0Qで、2.8Qではない。",
-      "圧力損失は流量の2乗に比例し、管径の5乗に反比例するため、口径を2倍にした条件では 1/2=x^2/32 となる。これを解くと x=4 なので、増量後の流量は4.0Qが最も近い。",
-      "5.6Qとすると流量倍率の2乗は31.36となり、口径2倍による1/32の効果と合わせても圧力損失比は約0.98で、0.3/0.6=0.5に合わない。正しい倍率は4.0Qである。"
-    ],
-    "suggestedQuestions": [
-      "低圧導管の圧力損失は何に比例する？",
-      "この問題の流量倍率はどう計算する？",
-      "口径2倍の効果はどこに効く？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "低圧導管の圧力損失は何に比例する？",
-        "answer": "同一条件では、圧力損失は流量の2乗に比例し、管径の5乗に反比例する関係で扱う。流量が増えると圧力損失は二乗で増え、管径が大きくなると圧力損失は大きく下がる。"
-      },
-      {
-        "question": "この問題の流量倍率はどう計算する？",
-        "answer": "流量倍率をxとすると、圧力損失比は0.3/0.6=1/2で、口径比は2である。1/2=x^2/2^5 から x^2=16、x=4 となる。"
-      },
-      {
-        "question": "口径2倍の効果はどこに効く？",
-        "answer": "管径は5乗で効くため、口径を2倍にすると同じ流量での圧力損失は1/32になる。そこに流量増加分のx^2を掛けて、実際の圧力損失比に合わせる。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -141,33 +95,10 @@
       "高圧整圧器に付属するラインヒーターには、温水槽加熱方式や温水循環加熱方式がある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "フィッシャー式整圧器では、需要家のガス使用量が減少すると駆動圧力は低下する。上昇するとしているため誤り。",
-      "パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅して主弁の作動に反映し、ロックアップを小さくできるため正しい。",
-      "パイロット式アンローディング型整圧器では、駆動圧力が最も高くなるのはメインバルブ全開時ではなく全閉時である。全開時としているため誤り。",
-      "アキシャルフロー式整圧器でパイロットバルブの締め切り不良があると、二次圧力の異常低下ではなく異常上昇の原因となる。異常低下としているため誤り。",
-      "高圧整圧器に付属するラインヒーターには、温水槽加熱方式や温水循環加熱方式が用いられるため正しい。"
-    ],
-    "suggestedQuestions": [
-      "フィッシャー式整圧器で需要が減ると駆動圧力はどうなる？",
-      "パイロット式アンローディング型整圧器の駆動圧力が最大となるのはいつ？",
-      "パイロットバルブ締め切り不良は二次圧力にどう影響する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フィッシャー式整圧器で需要が減ると駆動圧力はどうなる？",
-        "answer": "需要家のガス使用量が減少すると駆動圧力は低下する。上昇するとする記述は逆である。"
-      },
-      {
-        "question": "パイロット式アンローディング型整圧器の駆動圧力が最大となるのはいつ？",
-        "answer": "パイロット式アンローディング型整圧器では、駆動圧力が最も高くなるのはメインバルブ全閉時であり、全開時ではない。"
-      },
-      {
-        "question": "パイロットバルブ締め切り不良は二次圧力にどう影響する？",
-        "answer": "パイロットバルブの締め切り不良は、ガスが流れ続ける方向に働くため、二次圧力の異常上昇の原因となる。異常低下ではない。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -207,33 +138,10 @@
       "マイコンメーターに内蔵している感震器は、少々の傾斜状態であれば、自動水平調整を行う。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "渦流式ガスメーターは、カルマン渦の発生周波数が流量に対応することを利用して瞬時流量を測定するため正しい。",
-      "タービン式ガスメーターは羽根車の回転速度が流速に比例するが、ガスは圧力で体積が変わるため、高圧で使用する場合は圧力補正が必要となる。圧力にかかわらず不要としているため誤り。",
-      "ガスがメーターを通過できない故障は「不通」である。「不動」は計量機構が動かない故障を指すため、この記述は用語が誤り。",
-      "器差不良は、使用中のメーターの器差が計量法上の使用公差を外れる故障である。検定時の検定公差としているため誤り。",
-      "マイコンメーター内蔵の感震器は、少々の傾斜状態であれば自動水平調整を行うため正しい。"
-    ],
-    "suggestedQuestions": [
-      "渦流式ガスメーターは何から流量を測る？",
-      "タービン式ガスメーターで圧力補正が必要になるのはなぜ？",
-      "ガスメーターの不通・不動・器差不良はどう区別する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "渦流式ガスメーターは何から流量を測る？",
-        "answer": "渦流式ガスメーターは、カルマン渦の発生周波数から瞬時流量を測定する。"
-      },
-      {
-        "question": "タービン式ガスメーターで圧力補正が必要になるのはなぜ？",
-        "answer": "ガスは圧力によって体積が変わるため、高圧で使用するタービン式ガスメーターでは圧力補正が必要になる。圧力にかかわらず不要ではない。"
-      },
-      {
-        "question": "ガスメーターの不通・不動・器差不良はどう区別する？",
-        "answer": "不通はガスがメーターを通過できない故障、不動は計量機構が動かない故障、器差不良は使用中の器差が使用公差を外れる故障である。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -273,33 +181,10 @@
       "600"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "温度差は 50 - (-10) = 60℃ であり、熱応力は σ = EαΔT = 2×10^5 × 1×10^-5 × 60 = 120 N/mm² となる。12 N/mm² は小さすぎるため誤り。",
-      "熱応力は σ = EαΔT で求める。Eα = 2 なので、温度差60℃を掛けると 120 N/mm² となる。60 N/mm² は半分であり誤り。",
-      "計算結果は 120 N/mm² である。100 N/mm² は近い値ではあるが、選択肢に120があるため最も近い値ではない。",
-      "両端固定のため温度上昇による自由膨張が拘束され、熱応力は σ = EαΔT で求める。2×10^5 × 1×10^-5 × 60 = 120 N/mm² なので正しい。",
-      "600 N/mm² は温度差や係数の扱いを過大にした値である。正しくは σ = 2×10^5 × 1×10^-5 × 60 = 120 N/mm² である。"
-    ],
-    "suggestedQuestions": [
-      "両端固定管の熱応力はどの式で求める？",
-      "この問題の温度差はいくら？",
-      "この問題の応力計算はどう進める？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "両端固定管の熱応力はどの式で求める？",
-        "answer": "自由膨張が拘束される場合の熱応力は、σ = EαΔT で求める。Eはヤング率、αは線膨張係数、ΔTは温度差である。"
-      },
-      {
-        "question": "この問題の温度差はいくら？",
-        "answer": "設置時が -10℃、夏期が 50℃ なので、温度差は 50 - (-10) = 60℃ である。"
-      },
-      {
-        "question": "この問題の応力計算はどう進める？",
-        "answer": "σ = EαΔT = 2×10^5 × 1×10^-5 × 60 と計算する。2×10^5 × 1×10^-5 = 2 なので、2×60 = 120 N/mm² となる。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -333,33 +218,10 @@
       "強制排流法は、他の金属構造物への干渉及び過防食を考慮する必要があるが、選択排流法は考慮する必要がない。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "選択排流法は、導管と電気鉄道のレールを電気的に接続し、導管に流れる迷走電流をレールへ帰流させる方法であるため正しい。",
-      "選択排流法は電気鉄道の迷走電流を利用して排流する方法なので、電気鉄道が走行していない場合は防食効果が得られないため正しい。",
-      "強制排流法は、導管からレール側へ強制的に排流する方法で、外部電源法より安価に設置できるため正しい。",
-      "強制排流法は、電気鉄道の走行状態に左右されず電源を用いて排流できるため、常時防食が可能であり正しい。",
-      "強制排流法だけでなく選択排流法でも、他の金属構造物への干渉や過防食を考慮する必要がある。選択排流法では考慮不要としているため誤り。"
-    ],
-    "suggestedQuestions": [
-      "選択排流法は何をどこへ戻す方法？",
-      "選択排流法の防食効果は何に左右される？",
-      "排流法で干渉や過防食を考慮するのはどの方法？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "選択排流法は何をどこへ戻す方法？",
-        "answer": "導管に流れる迷走電流を、導管と電気鉄道レールを電気的に接続してレールへ帰流させる方法である。"
-      },
-      {
-        "question": "選択排流法の防食効果は何に左右される？",
-        "answer": "選択排流法は電気鉄道の迷走電流を利用するため、電気鉄道が走行していない場合は電気防食の効果が得られない。"
-      },
-      {
-        "question": "排流法で干渉や過防食を考慮するのはどの方法？",
-        "answer": "強制排流法だけでなく、選択排流法でも他の金属構造物への干渉や過防食を考慮する必要がある。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -481,33 +343,10 @@
       "高圧導管のフランジ部から漏えいが発生したので、溶接スリーブ工法で修理した。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "金属テープによる外面シールは一時的な漏えい抑制にとどまり、管体亀裂の恒久修理としては不適切。恒久修理では、割スリーブによる補強や管体の切断・取替えなど、管体強度と気密性を回復できる方法を選ぶ必要がある。",
-      "樹脂ライニング系の更生修理工法は管内面の更生を目的とする工法であり、腐食孔が生じた管体の恒久修理としては不適切。腐食孔では、割スリーブや管体取替えなど、漏えい部を構造的に補修できる方法を選ぶ必要がある。",
-      "パイプロケーターは一般に電磁誘導などを利用して埋設管を探査する機器であり、超音波の反射を用いるという記述は不適切。地中に電磁波を入射し反射を捉える説明は、地中探査レーダーの原理に近い。",
-      "半導体式ガス検知器は可燃性ガスだけに限定されるものではなく、検知対象ガスに応じたセンサを用いる。したがって、検知可能なガスが可燃性ガスに限られるという断定は不適切。",
-      "高圧導管のフランジ部漏えいでは、まずボルトの増締めやガスケット交換など、フランジ部に適した修理方法を検討する。溶接スリーブ工法は管体部の漏えい修理に用いる考え方であり、フランジ部の漏えい修理としては不適切。"
-    ],
-    "suggestedQuestions": [
-      "恒久修理と応急修理はどこで見分ける？",
-      "埋設管探査機器の原理はどう区別する？",
-      "フランジ部漏えいで溶接スリーブを避ける理由は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "恒久修理と応急修理はどこで見分ける？",
-        "answer": "恒久修理は、漏えいを止めるだけでなく管体の強度・気密性を継続的に確保できるかで判断する。金属テープや不適切なライニングのように、損傷部そのものの強度回復につながらない方法は恒久修理として扱いにくい。割スリーブや管体取替えのように、損傷箇所を構造的に補修できる方法を選ぶ点が分岐になる。"
-      },
-      {
-        "question": "埋設管探査機器の原理はどう区別する？",
-        "answer": "問題では、探査対象と使う物理現象の組合せを見る。パイプロケーターは埋設管の位置確認に使う機器だが、超音波反射で探査するという説明ではない。地中へ電磁波を入れて反射を捉える説明は地中探査レーダー側の特徴なので、機器名と原理の取り違えに注意する。"
-      },
-      {
-        "question": "フランジ部漏えいで溶接スリーブを避ける理由は？",
-        "answer": "フランジ部はボルト締結部とガスケットで気密を保つ構造なので、漏えい時は増締めやガスケット交換など、その接合部に対応した修理を考える。溶接スリーブは管体部を外側から覆って補修する発想で、フランジ接合部の漏えいには適用しにくい。部位に合う修理工法を選ぶのがこの選択肢の論点。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -551,33 +390,10 @@
       "移動式ガス発生設備のうち、圧縮ガス式（CNG式）は、低温用容器に充てんされた熱量調整・付臭済みの液化天然ガスを気化して供給する方式である。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": [
-      "高圧導管の液状化に対する耐震性能評価では、終局限界状態を超えると導管が気密機能を失い、要求される耐震性能を確保できない状態になる。したがって、終局限界状態をこのように説明する記述は正しい。",
-      "地盤変位吸収能力を実験で求める場合は、単に配管系に変形が生じる時点ではなく、配管に漏えいが生じるときの地盤変位を基準にする。変形の発生だけを基準にしているため、この記述は誤り。",
-      "非裏波溶接は、溶融した金属が溶接した面の裏側まで十分に溶け込んでいない溶接状態をいう。中圧導管被害の要因として問題になるため、この記述は正しい。",
-      "供給停止ブロックには、個別の単位ブロックと、複数の単位ブロックをまとめて供給停止する統合ブロックがある。地震時の供給停止範囲を判断するための区分として、この記述は正しい。",
-      "圧縮ガス式（CNG式）は、ボンベなどに圧縮充てんしたガスを供給する方式である。低温用容器内の液化天然ガスを気化して供給する説明はLNG式に当たるため、この記述は誤り。"
-    ],
-    "suggestedQuestions": [
-      "終局限界状態は何を失う状態？",
-      "地盤変位吸収能力は何を基準にする？",
-      "CNG式とLNG式はどう区別する？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "終局限界状態は何を失う状態？",
-        "answer": "導管が気密機能を失い、設計上求められる耐震性能を確保できなくなる状態を指す。液状化に対する高圧導管の耐震性能評価では、この限界を超えないかが重要になる。"
-      },
-      {
-        "question": "地盤変位吸収能力は何を基準にする？",
-        "answer": "実験で求める場合は、配管系に漏えいが生じるときの地盤変位を基準にする。単なる変形発生時点ではなく、気密性を失う限界に着目する。"
-      },
-      {
-        "question": "CNG式とLNG式はどう区別する？",
-        "answer": "CNG式は圧縮したガスを供給する方式で、LNG式は液化天然ガスを気化して供給する方式である。低温用容器や液化天然ガスの気化が出てきたらLNG式の説明と考える。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
