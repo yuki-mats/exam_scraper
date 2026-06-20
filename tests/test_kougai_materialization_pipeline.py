@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 
 from scripts.check import check_kougai_official_question_set_ids as check_module
+from scripts.fix import apply_kougai_official_qset_batch as qset_batch_module
 from scripts.pipeline import materialize_kougai_qualification_uploads as materialize_module
 
 
@@ -91,6 +92,58 @@ class KougaiMaterializationPipelineTest(unittest.TestCase):
         self.assertEqual(summary["recordsScanned"], 2)
         self.assertEqual(summary["invalidQuestionSetIdCounts"], {"kougai_qs08_taigai": 1})
         self.assertEqual(summary["invalidRecordCount"], 1)
+
+    def test_apply_official_qset_batch_updates_reviewed_records(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            category_path = root / "category.json"
+            target_path = root / "question_2025_yakutik_1_questionSetId_linked.json"
+            batch_path = root / "batch.json"
+            category_path.write_text(
+                json.dumps({"questionSets": [{"questionSetId": "kougai_qs01_01"}]}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            target_path.write_text(
+                json.dumps(
+                    [
+                        {
+                            "original_question_id": "q1",
+                            "question_url": "https://example.test/q1",
+                            "questionSetId": "kougai_qs01_kousou",
+                        }
+                    ],
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            batch_path.write_text(
+                json.dumps(
+                    {
+                        "targetFile": str(target_path),
+                        "assignments": [
+                            {
+                                "original_question_id": "q1",
+                                "question_url": "https://example.test/q1",
+                                "fromQuestionSetId": "kougai_qs01_kousou",
+                                "toQuestionSetId": "kougai_qs01_01",
+                            }
+                        ],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            summary = qset_batch_module.apply_batch(
+                batch_path=batch_path,
+                category_json=category_path,
+                write=True,
+            )
+
+            self.assertEqual(summary["assignments"], 1)
+            self.assertEqual(summary["changed"], 1)
+            updated = json.loads(target_path.read_text(encoding="utf-8"))
+            self.assertEqual(updated[0]["questionSetId"], "kougai_qs01_01")
 
 
 if __name__ == "__main__":

@@ -34,6 +34,48 @@
 }
 ```
 
+## Progress
+
+### 2026-06-20: 2025 `question_2025_yakutik_1`
+
+- Added reviewed batch: `notes/qset-batches/2025-yakutik-1-official-qsets.json`
+- Applied to local generated file: `output/kougai/questions_json/2025/22_questionSetId_linked/question_2025_yakutik_1_questionSetId_linked.json`
+- Scope: 25 records
+  - 公害総論: 15 records
+  - 水質概論: 10 records
+- Target file check:
+
+```bash
+.venv/bin/python scripts/check/check_questionSetId.py \
+  --category output/kougai/category/category.json \
+  --fixed output/kougai/questions_json/2025/22_questionSetId_linked/question_2025_yakutik_1_questionSetId_linked.json \
+  --questionset-only
+```
+
+Result: 25 records, 8 unique official questionSetIds, all present in `category.json`.
+
+Updated gate result:
+
+```json
+{
+  "filesScanned": 96,
+  "recordsScanned": 2160,
+  "invalidRecordCount": 2135,
+  "invalidQuestionSetIdCounts": {
+    "kougai_qs01_kousou": 225,
+    "kougai_qs02_baifun": 240,
+    "kougai_qs03_daitai": 160,
+    "kougai_qs04_daisui": 160,
+    "kougai_qs05_osui": 400,
+    "kougai_qs06_suigai": 150,
+    "kougai_qs07_suiyuu": 240,
+    "kougai_qs08_taigai": 160,
+    "kougai_qs09_taitoku": 240,
+    "kougai_qs10_taiyuu": 160
+  }
+}
+```
+
 ## Next rule
 
 - 旧IDを機械的に公式IDへ置換しない。
