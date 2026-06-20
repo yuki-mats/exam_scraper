@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2024-yakutik-1-official-qsets",
+  "targetFile": "output/kougai/questions_json/2024/22_questionSetId_linked/question_2024_yakutik_1_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2024/20_merged_1/question_2024_yakutik_1_merged.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、公害総論・水質概論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "公害総論 問1",
+      "original_question_id": "143892615e3df713",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-01/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "環境基本法第1条の目的条文を問うため、環境基本法・環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問2",
+      "original_question_id": "e7e020845393e6af",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-02/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "環境基本法第16条の環境基準を問うため、環境基本法・環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問3",
+      "original_question_id": "1694e93a316fb824",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-03/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "環境基本法・大気汚染防止法・水質汚濁防止法などの法定事項を問うため、環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問4",
+      "original_question_id": "4e8967894041d64d",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-04/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_02",
+      "reason": "特定工場における公害防止組織の整備に関する法律を問うため、同法律体系に該当する。"
+    },
+    {
+      "label": "公害総論 問5",
+      "original_question_id": "f3757b612f429f08",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-05/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "我が国で発生した公害と原因物質を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問6",
+      "original_question_id": "0978e0ca28987092",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-06/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "温室効果ガス排出量の統計を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問7",
+      "original_question_id": "08c653c7f337667a",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-07/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "二酸化窒素の環境影響・健康影響を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問8",
+      "original_question_id": "3d1c840d38522cff",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-08/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "水質汚濁の現状統計を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問9",
+      "original_question_id": "07e78970e0bbfd91",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-09/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "典型7公害の苦情受付件数の推移を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問10",
+      "original_question_id": "77b43d9b67c89e94",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-10/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "騒音に係る環境基準の特徴を問うため、環境基本法・環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問11",
+      "original_question_id": "c4679ad63f674aa0",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-11/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "産業廃棄物の業種別排出量を問う環境統計問題で、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問12",
+      "original_question_id": "4a958c6a5d82c1e5",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-12/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "ダイオキシン類の性質と排出量表現を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問13",
+      "original_question_id": "e799aa419be47990",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-13/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "PFAS・PFOS・PFOAの包含関係を問う近年の環境問題で、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問14",
+      "original_question_id": "cf737fcb286a9b78",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-14/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_04",
+      "reason": "PRTR制度に基づく届出排出量を問うため、環境管理手法に該当する。"
+    },
+    {
+      "label": "公害総論 問15",
+      "original_question_id": "6ebbd387861f33c9",
+      "question_url": "https://yaku-tik.com/kougai/r6-kousou-15/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_04",
+      "reason": "環境影響評価法に基づく環境アセスメント手続を問うため、環境管理手法に該当する。"
+    },
+    {
+      "label": "水質概論 問1",
+      "original_question_id": "5a82815c669d9e5a",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-01/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "水質汚濁に係る環境基準の基準値を問うため、水質汚濁防止対策の法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問2",
+      "original_question_id": "e62dc7b88e633814",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-02/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "水質汚濁防止法第3条の排水基準を問うため、法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問3",
+      "original_question_id": "c6018e327e481678",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-03/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "水質汚濁防止法の有害物質貯蔵指定施設届出事項を問うため、法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問4",
+      "original_question_id": "7dfbd2ba719df626",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-04/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "公害防止組織法施行令の汚水等排出施設該当性を問うため、法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問5",
+      "original_question_id": "61f019c719f4f634",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-05/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "水生生物保全に係る環境基準項目を問うため、法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問6",
+      "original_question_id": "c395ad63c3990a46",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-06/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_02",
+      "reason": "海洋汚染原因別の油汚染確認件数を問う現状問題で、水質汚濁の現状に該当する。"
+    },
+    {
+      "label": "水質概論 問7",
+      "original_question_id": "b770624e81366c6b",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-07/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_04",
+      "reason": "富栄養化指標と窒素・りんの形態を問うため、水質汚濁の機構に該当する。"
+    },
+    {
+      "label": "水質概論 問8",
+      "original_question_id": "1d068803f0de6ef1",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-08/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_04",
+      "reason": "地下水汚染物質の移動性や自然的要因を問うため、水質汚濁の機構に該当する。"
+    },
+    {
+      "label": "水質概論 問9",
+      "original_question_id": "2f870ca93f7e0ef6",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-09/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_05",
+      "reason": "有害物質の人の健康影響を問うため、水質汚濁の影響に該当する。"
+    },
+    {
+      "label": "水質概論 問10",
+      "original_question_id": "6ee0ce361e6bc5c5",
+      "question_url": "https://yaku-tik.com/kougai/r6-suigai-10/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "PFOS・PFOAの要監視項目、指針値、製造規制を問うため、法規制に該当する。"
+    }
+  ]
+}
