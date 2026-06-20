@@ -271,6 +271,35 @@ Updated gate result:
 }
 ```
 
+### 2026-06-20: 2024 `question_2024_yakutik_2`
+
+- Added reviewed batch: `notes/qset-batches/2024-yakutik-2-official-qsets.json`
+- Applied to local generated file: `output/kougai/questions_json/2024/22_questionSetId_linked/question_2024_yakutik_2_questionSetId_linked.json`
+- Scope: 25 汚水処理特論 records
+- Target file check: 25 records, 5 unique official questionSetIds, all present in `category.json`.
+
+Updated gate result:
+
+```json
+{
+  "filesScanned": 96,
+  "recordsScanned": 2160,
+  "invalidRecordCount": 1975,
+  "invalidQuestionSetIdCounts": {
+    "kougai_qs01_kousou": 210,
+    "kougai_qs02_baifun": 225,
+    "kougai_qs03_daitai": 150,
+    "kougai_qs04_daisui": 150,
+    "kougai_qs05_osui": 350,
+    "kougai_qs06_suigai": 140,
+    "kougai_qs07_suiyuu": 225,
+    "kougai_qs08_taigai": 150,
+    "kougai_qs09_taitoku": 225,
+    "kougai_qs10_taiyuu": 150
+  }
+}
+```
+
 ## Next rule
 
 - 旧IDを機械的に公式IDへ置換しない。
