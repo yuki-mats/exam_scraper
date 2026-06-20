@@ -5,7 +5,7 @@
 ## 方針
 
 - folder は JEMAI 過去問題ページの18試験科目に対応させる。
-- questionSet は `/Users/yuki/Downloads/pol_subjects1.pdf` の「試験科目の範囲」にある numbered range に対応させる。
+- questionSet は JEMAI 公式PDF `pol_subjects1.pdf` の「試験科目の範囲」にある numbered range に対応させる。
 - questionSetId は `kougai_qs<folder番号>_<範囲番号>` の固定形式にする。
 - 年度別 folder / questionSet は作らない。
 - yaku-tik の topic prefix は source 由来の補助情報であり、category の正本にはしない。
@@ -13,7 +13,8 @@
 ## source
 
 - JEMAI 過去問題ページ: `https://www.jemai.or.jp/polconman/examination/past.html`
-- PDF: `/Users/yuki/Downloads/pol_subjects1.pdf`
+- PDF: `https://www.jemai.or.jp/polconman/examination/dd4ht300000005eq-att/pol_subjects1.pdf`
+- Local checked copy: `/Users/yuki/Downloads/pol_subjects1.pdf`
 - PDF ページ数: 2
 
 ## folder
