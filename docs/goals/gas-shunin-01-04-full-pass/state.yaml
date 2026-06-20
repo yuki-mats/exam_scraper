@@ -18,7 +18,7 @@ goal:
     authority: requested
     proof_type: artifact
     completion_proof: "甲種412問・乙種522問の台帳全行が完了し、coverage/merge/upload-prep相当の検証と最終監査が通ること。"
-    likely_misfire: "複数問を機械的にまとめる、Firestore既存IDを変える、00_sourceを直接書き換える、根拠なしに解説を生成する、検証通過だけで目視確認済みにする。"
+    likely_misfire: "複数問を機械的にまとめる、Firestore既存IDを変える、00_sourceを直接書き換える、本文・選択肢を生成する、根拠薄い解説を確定する、検証通過だけで目視確認済みにする。"
     blind_spots_considered:
       - "甲種Firestore由来データには重複originalQuestionIdがあり、doc ID由来のreviewQuestionIdが必要。"
       - "乙種サイト由来データはpublicQuestionIdを主キーにする。"
@@ -30,7 +30,8 @@ goal:
     existing_plan_facts:
       - "会話・報告は日本語で行う。"
       - "変更時には作業内容と保存先を明示する。"
-      - "文字列本文・解説本文をプログラムで生成しない。"
+      - "originalQuestionBodyText/originalQuestionChoiceText と 00_source の本文・選択肢を生成・改変しない。"
+      - "explanationText/suggested系は、正誤根拠を確認できる場合に生成・補完してよい。"
       - "1 Worker は1問だけを扱う。"
       - "既存FirestoreのquestionId/originalQuestionIdを変更しない。"
       - "既存Firestore由来のupload JSONでは questions[].questionId が firestoreQuestionIds の既存doc IDと一致することをdry-run前に検証する。"
@@ -67,7 +68,18 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/gas-shunin-01-04-full-pass/"
     command: "npx goalbuddy board docs/goals/gas-shunin-01-04-full-pass"
 
-active_task: T104
+execution_plan:
+  status: generated
+  root: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan"
+  jsonl: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+  tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+  summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+  total_questions: 934
+  completed_questions: 2
+  pending_questions: 932
+  next_pending_policy: "lowest planSequence with executionStatus=pending"
+
+active_task: T105
 
 tasks:
   - id: T001
@@ -239,21 +251,63 @@ tasks:
         - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
 
   - id: T104
-    type: judge
-    assignee: Judge
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "全934問について、一問ごとの実行計画を作成し、次のgoal実行が迷わず進める状態にする。"
+    expected_output:
+      - "1問1行の実行計画"
+      - "計画サマリー"
+      - "次のWorker入口"
+    receipt:
+      result: done
+      summary: "甲種412問・乙種522問、合計934問の一問単位実行計画を notes/question-plan 配下に作成。本文・選択肢の保持、Firestore ID保持、03解説生成可の最新制約を反映した。"
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260620-t104-all-question-plan.md"
+
+  - id: T105
+    type: worker
+    assignee: Worker
     status: active
     reasoning_hint: high
-    objective: "次にレビューする一問を選び、Workerが触るsource/patch/review行/検証コマンドを確定する。"
-    constraints:
-      - "Do not edit content."
-      - "一問だけを選ぶ。"
-      - "Firestore既存IDを変更しない。"
-      - "00_sourceを編集対象にしない。"
-    expected_output:
-      - "selected reviewQuestionId"
-      - "source path"
-      - "patch paths"
-      - "verification commands"
+    objective: "全問計画 `all_questions_plan.jsonl` の最小 pending 行を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/**/10_questionType_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/15_correctChoiceText_fixed/*.json"
+      - "output/gas-shunin-kou/questions_json/**/21_explanationText_added/*.json"
+      - "output/gas-shunin-kou/questions_json/**/22_questionSetId_linked/*.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-otsu/questions_json/**/10_questionType_fixed/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/15_correctChoiceText_fixed/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/21_explanationText_added/*.json"
+      - "output/gas-shunin-otsu/questions_json/**/22_questionSetId_linked/*.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check <review_jsonl> --expected-total <count> --require-stage-files --category <category_json> --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source <source_json> --patch <questionType_patch>"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source <source_json> --patch <correctChoice_patch> --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source <source_json> --patch <questionSet_patch> --category <category_json>"
+      - "target explanation shape check for the processed row"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
     receipt: null
 
   - id: T999

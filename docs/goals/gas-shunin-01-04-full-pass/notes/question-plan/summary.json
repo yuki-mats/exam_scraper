@@ -1,0 +1,60 @@
+{
+  "byExecutionPhase": {
+    "already_reviewed": 2,
+    "phase_1_kou_existing_firestore": 292,
+    "phase_2_kou_new_or_site_source": 118,
+    "phase_3_otsu_all_sources": 522
+  },
+  "byQualification": {
+    "gas-shunin-kou": {
+      "byYear": {
+        "2019": 58,
+        "2020": 59,
+        "2021": 60,
+        "2022": 59,
+        "2023": 60,
+        "2024": 58,
+        "2025": 58
+      },
+      "reviewDecisionCounts": {
+        "ok": 2,
+        "pending": 410
+      },
+      "sourceOriginCounts": {
+        "firestore_snapshot": 294,
+        "gassyunin_site": 118
+      },
+      "total": 412
+    },
+    "gas-shunin-otsu": {
+      "byYear": {
+        "2017": 58,
+        "2018": 58,
+        "2019": 58,
+        "2020": 58,
+        "2021": 58,
+        "2022": 58,
+        "2023": 58,
+        "2024": 58,
+        "2025": 58
+      },
+      "reviewDecisionCounts": {
+        "pending": 522
+      },
+      "sourceOriginCounts": {
+        "gassyunin_site": 522
+      },
+      "total": 522
+    }
+  },
+  "bySourceOrigin": {
+    "firestore_snapshot": 294,
+    "gassyunin_site": 640
+  },
+  "reviewDecisionCounts": {
+    "ok": 2,
+    "pending": 932
+  },
+  "schemaVersion": "gas-shunin-question-plan-summary/v1",
+  "totalQuestions": 934
+}

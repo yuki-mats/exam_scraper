@@ -30,10 +30,10 @@
 - gassyunin.com / PDF / OCR 由来の新規問題だけ、`sourceUniqueKey` から決定的な新規 `questionId` を作る。既存Firestoreと一致する `sourceUniqueKey` がある場合は、必ず既存doc IDへ解決する。
 - `originalQuestionId` は台帳上に保持し、patch雛形では `source_original_question_id` として残す。
 - 甲種・乙種とも、一問ずつ目視クオリティで進める。複数問を機械的にまとめて ok にしない。
-- 文字列本文・解説本文をプログラムで生成しない。プログラム利用は棚卸し、雛形生成、検証、merge、差分確認に限る。
-- 03 の解説は Firestore 既存解説、gassyunin.com 由来データ、PDF/スクショ/OCR、信頼できる一次情報を根拠にし、根拠なしの推測で確定しない。
+- `originalQuestionBodyText` / `originalQuestionChoiceText` と `00_source` の本文・選択肢は、過去問通りの正本として生成・改変しない。
+- 03 の `explanationText` / suggested 系は生成・補完してよい。ただし、Firestore 既存解説、gassyunin.com 由来データ、PDF/スクショ/OCR、信頼できる一次情報、または目視で確認できる正誤根拠に基づけ、根拠なしの推測で確定しない。
 - 04 の `questionSetId` は Firestore snapshot から復元した category を使う。
-- `output/` 配下の成果物は Git 管理外でよい。GitHubへは script / test / goal docs のみを対象にする。
+- `output/` 配下の成果物は通常 Git 管理外だが、この goal の review ledger / 固定名 patch を進捗証跡としてコミット対象にする場合は対象ファイルだけを `git add -f` で限定する。
 
 ## Oracle
 
@@ -51,7 +51,7 @@
 
 ## Current Status
 
-準備は完了。レビュー台帳・固定名パッチ雛形・Firestore category は生成済みで、pending 許容の整合性検証は通過済み。実レビューはまだ開始していない。
+準備は完了。レビュー台帳・固定名パッチ雛形・Firestore category は生成済みで、pending 許容の整合性検証は通過済み。甲種2019問17・問18はレビュー済み。全934問の一問単位実行計画は `docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/` に保存済み。
 
 ## Next Command
 
