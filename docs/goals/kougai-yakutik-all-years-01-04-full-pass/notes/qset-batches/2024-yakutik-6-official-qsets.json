@@ -1,0 +1,88 @@
+{
+  "batchId": "kougai-2024-yakutik-6-official-qsets",
+  "targetFile": "output/kougai/questions_json/2024/22_questionSetId_linked/question_2024_yakutik_6_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2024/20_merged_1/question_2024_yakutik_6_merged.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、大規模大気特論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "大規模大気特論 問1",
+      "original_question_id": "00679223be44bcaf",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-01/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "低層大気中の気温分布と気塊の鉛直移動を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問2",
+      "original_question_id": "1df5e3b0f1bcfd9f",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-02/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "煙突から排出される汚染物質の拡散現象を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問3",
+      "original_question_id": "31792f0980038d06",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-03/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "混合層の特性を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問4",
+      "original_question_id": "7b8f5f4c1d8bdbfd",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-04/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "煙の上昇に関する現象を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問5",
+      "original_question_id": "2c0cebbfe4f47fcf",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-05/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_04",
+      "reason": "一般的なプルーム式・パフ式が適用できない場合の拡散濃度予測手法・モデルを問うため、大気環境濃度の予測手法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問6",
+      "original_question_id": "211eaa63d5373a7c",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-06/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "逆転層がある場合の拡散濃度式を問うため、拡散濃度の計算法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問7",
+      "original_question_id": "9771dfe8ebe5f0a9",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-07/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "製油所における大気汚染対策を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問8",
+      "original_question_id": "3c9abf5bed448605",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-08/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "石炭火力発電所の排煙処理システムを問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問9",
+      "original_question_id": "7925189b95d4e65f",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-09/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "ごみ焼却設備におけるダイオキシン類除去手法を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問10",
+      "original_question_id": "bebb2eb078fa1806",
+      "question_url": "https://yaku-tik.com/kougai/r6-daitai-10/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "鉄鋼プロセスの焼結炉における集じん対策を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    }
+  ]
+}
