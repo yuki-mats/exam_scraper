@@ -9,6 +9,9 @@
 - questionSetId は `kougai_qs<folder番号>_<範囲番号>` の固定形式にする。
 - 年度別 folder / questionSet は作らない。
 - yaku-tik の topic prefix は source 由来の補助情報であり、category の正本にはしない。
+- `output/kougai/category/category.json` は、公害防止管理者ファミリー全体で共有する canonical taxonomy として扱う。
+- 大気関係第1種〜第4種、水質関係第1種〜第4種、ダイオキシン類、騒音・振動、粉じん、主任管理者などの資格区分別 category は、canonical taxonomy と qualification mapping から生成する。
+- 資格区分や難度は folder で表現しない。`folder = 科目`、`qualification = 資格区分`、`mapping = その資格で使う科目セット` として扱う。共通方針は `prompt/qualification_docs/shared_taxonomy_mapping_policy.md` を参照する。
 
 ## source
 

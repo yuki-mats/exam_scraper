@@ -24,6 +24,13 @@ from scripts.common.repaso_firestore_schema import (
 PROJECT_ID = DEFAULT_PROJECT_ID
 UPDATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
 CREATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
+FOLDER_REFERENCE_FIELDS = ("canonicalFolderId", "sourceSharedFolderId")
+QUESTION_SET_REFERENCE_FIELDS = (
+    "canonicalFolderId",
+    "canonicalQuestionSetId",
+    "sourceSharedFolderId",
+    "sourceSharedQuestionSetId",
+)
 QUALIFICATION_NAME_BY_CODE = {
     "2nd-class-kenchikushi": "二級建築士",
     "kaigofukushi": "介護福祉士",
@@ -32,6 +39,12 @@ QUALIFICATION_NAME_BY_CODE = {
     "kyusuikouji-shunin": "給水装置工事主任技術者",
     "mecnet-kokushi": "医師",
 }
+
+
+def copy_reference_fields(doc_data: dict, source_data: dict, field_names: tuple[str, ...]) -> None:
+    for field_name in field_names:
+        if field_name in source_data:
+            doc_data[field_name] = source_data[field_name]
 
 
 def infer_qualification_id_from_path(category_json_path: str) -> str:
@@ -240,9 +253,18 @@ def upsert_folder(db, folder, now, license_name: str, qualification_id: str):
         "createdById": CREATED_BY_ID,
         "createdAt": created_at,
     }
+    copy_reference_fields(doc_data, folder, FOLDER_REFERENCE_FIELDS)
     # updatedAt は「差分が発生して変更される時のみ」更新する（ユーザー要望）
     if existing_data is not None:
-        comparable_keys = ("name", "isDeleted", "isPublic", "isOfficial", "licenseName", "questionCount")
+        comparable_keys = (
+            "name",
+            "isDeleted",
+            "isPublic",
+            "isOfficial",
+            "licenseName",
+            "questionCount",
+            *(field_name for field_name in FOLDER_REFERENCE_FIELDS if field_name in doc_data),
+        )
         changed = any(existing_data.get(k) != doc_data.get(k) for k in comparable_keys)
         if not changed:
             print(f"Skip folder (no diff): {folder_id}")
@@ -281,9 +303,17 @@ def upsert_question_set(db, qset, now, qualification_id: str):
         "createdById": CREATED_BY_ID,
         "createdAt": created_at,
     }
+    copy_reference_fields(doc_data, qset, QUESTION_SET_REFERENCE_FIELDS)
     # updatedAt は「差分が発生して変更される時のみ」更新する（ユーザー要望）
     if existing_data is not None:
-        comparable_keys = ("name", "isDeleted", "isOfficial", "folderId", "questionCount")
+        comparable_keys = (
+            "name",
+            "isDeleted",
+            "isOfficial",
+            "folderId",
+            "questionCount",
+            *(field_name for field_name in QUESTION_SET_REFERENCE_FIELDS if field_name in doc_data),
+        )
         changed = any(existing_data.get(k) != doc_data.get(k) for k in comparable_keys)
         if not changed:
             print(f"Skip questionSet (no diff): {qset_id}")
@@ -387,6 +417,7 @@ def main():
                 "updatedById": UPDATED_BY_ID,
                 "updatedAt": now,
             }
+            copy_reference_fields(doc_data, folder, FOLDER_REFERENCE_FIELDS)
             validate_folder_doc(doc_data, doc_id=str(folder_id))
             print(f"Folder {folder_id}: questionCount -> {question_count}")
 
@@ -414,6 +445,7 @@ def main():
                 "updatedById": UPDATED_BY_ID,
                 "updatedAt": now,
             }
+            copy_reference_fields(doc_data, qset, QUESTION_SET_REFERENCE_FIELDS)
             validate_question_set_doc(doc_data, doc_id=str(qset_id))
             print(f"QuestionSet {qset_id}: questionCount -> {question_count}")
 

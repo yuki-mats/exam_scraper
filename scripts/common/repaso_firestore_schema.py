@@ -52,6 +52,8 @@ FOLDER_SCHEMA = CollectionSchema(
         "updatedByRef",
         "updatedAt",
         "deletedAt",
+        "canonicalFolderId",
+        "sourceSharedFolderId",
     },
 )
 
@@ -84,6 +86,9 @@ QUESTION_SET_SCHEMA = CollectionSchema(
         "updatedById",
         "updatedAt",
         "deletedAt",
+        "canonicalFolderId",
+        "canonicalQuestionSetId",
+        "sourceSharedFolderId",
         "sourceSharedQuestionSetId",
     },
 )
@@ -154,6 +159,8 @@ QUESTION_SCHEMA = CollectionSchema(
         "createdAt",
         "updatedAt",
         "deletedAt",
+        "canonicalFolderId",
+        "canonicalQuestionSetId",
         "sourceSharedQuestionSetId",
         "sourceSharedQuestionId",
     },
@@ -223,6 +230,18 @@ def _ensure_required_fields(schema: CollectionSchema, doc: dict[str, Any], *, do
         raise ValueError(f"{schema.name}:{doc_id} missing required fields: {missing}")
 
 
+def _ensure_optional_string_fields(
+    doc: dict[str, Any],
+    *,
+    doc_id: str,
+    collection_name: str,
+    keys: Iterable[str],
+) -> None:
+    for key in keys:
+        if key in doc and not _is_non_empty_str(doc.get(key)):
+            raise ValueError(f"{collection_name}:{doc_id} {key} must be non-empty string")
+
+
 def validate_folder_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     _ensure_required_fields(FOLDER_SCHEMA, doc, doc_id=doc_id)
     _ensure_only_allowed_fields(FOLDER_SCHEMA, doc, doc_id=doc_id)
@@ -236,6 +255,12 @@ def validate_folder_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     for key in ("licenseName", "qualificationId", "createdById", "updatedById"):
         if not _is_non_empty_str(doc.get(key)):
             raise ValueError(f"folders:{doc_id} {key} must be non-empty string")
+    _ensure_optional_string_fields(
+        doc,
+        doc_id=doc_id,
+        collection_name="folders",
+        keys=("canonicalFolderId", "sourceSharedFolderId"),
+    )
     if not isinstance(doc.get("questionCount"), int) or doc["questionCount"] < 0:
         raise ValueError(f"folders:{doc_id} questionCount must be non-negative int")
     for key in ("createdAt", "updatedAt"):
@@ -254,6 +279,17 @@ def validate_question_set_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     for key in ("isDeleted", "isOfficial"):
         if not isinstance(doc.get(key), bool):
             raise ValueError(f"questionSets:{doc_id} {key} must be bool")
+    _ensure_optional_string_fields(
+        doc,
+        doc_id=doc_id,
+        collection_name="questionSets",
+        keys=(
+            "canonicalFolderId",
+            "canonicalQuestionSetId",
+            "sourceSharedFolderId",
+            "sourceSharedQuestionSetId",
+        ),
+    )
     if not isinstance(doc.get("questionCount"), int) or doc["questionCount"] < 0:
         raise ValueError(f"questionSets:{doc_id} questionCount must be non-negative int")
     for key in ("createdAt", "updatedAt"):
@@ -283,6 +319,17 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     for key in ("createdById", "updatedById"):
         if not _is_non_empty_str(doc.get(key)):
             raise ValueError(f"questions:{doc_id} {key} must be non-empty string")
+    _ensure_optional_string_fields(
+        doc,
+        doc_id=doc_id,
+        collection_name="questions",
+        keys=(
+            "canonicalFolderId",
+            "canonicalQuestionSetId",
+            "sourceSharedQuestionSetId",
+            "sourceSharedQuestionId",
+        ),
+    )
     for key in ("createdAt", "updatedAt"):
         if not _is_timestamp_like(doc.get(key)):
             raise ValueError(f"questions:{doc_id} {key} must be datetime")
