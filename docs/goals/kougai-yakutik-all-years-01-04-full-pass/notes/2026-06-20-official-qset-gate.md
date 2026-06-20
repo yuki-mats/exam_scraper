@@ -198,6 +198,48 @@ Updated gate result:
 }
 ```
 
+### 2026-06-20: 2025 `question_2025_yakutik_6`
+
+- Added reviewed batch: `notes/qset-batches/2025-yakutik-6-official-qsets.json`
+- Applied to local generated file: `output/kougai/questions_json/2025/22_questionSetId_linked/question_2025_yakutik_6_questionSetId_linked.json`
+- Scope: 10 大規模大気特論 records
+- Target file check: 10 records, 5 unique official questionSetIds, all present in `category.json`.
+
+Updated gate result:
+
+```json
+{
+  "filesScanned": 96,
+  "recordsScanned": 2160,
+  "invalidRecordCount": 2025,
+  "invalidQuestionSetIdCounts": {
+    "kougai_qs01_kousou": 225,
+    "kougai_qs02_baifun": 225,
+    "kougai_qs03_daitai": 150,
+    "kougai_qs04_daisui": 150,
+    "kougai_qs05_osui": 375,
+    "kougai_qs06_suigai": 150,
+    "kougai_qs07_suiyuu": 225,
+    "kougai_qs08_taigai": 150,
+    "kougai_qs09_taitoku": 225,
+    "kougai_qs10_taiyuu": 150
+  }
+}
+```
+
+### 2025 completion checkpoint
+
+- Completed reviewed official questionSetId batches for all 2025 yaku-tik 22-stage files.
+- 2025 local generated files updated:
+  - `question_2025_yakutik_1_questionSetId_linked.json`: 25 records
+  - `question_2025_yakutik_2_questionSetId_linked.json`: 25 records
+  - `question_2025_yakutik_3_questionSetId_linked.json`: 25 records
+  - `question_2025_yakutik_4_questionSetId_linked.json`: 25 records
+  - `question_2025_yakutik_5_questionSetId_linked.json`: 25 records
+  - `question_2025_yakutik_6_questionSetId_linked.json`: 10 records
+- Total fixed for 2025: 135 records.
+- Gate delta: `invalidRecordCount` 2160 -> 2025.
+
 ## Next rule
 
 - 旧IDを機械的に公式IDへ置換しない。
