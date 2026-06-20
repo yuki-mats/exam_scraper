@@ -13,13 +13,13 @@
 ## Counts
 
 - Total: 934
-- gas-shunin-kou: 412 / decisions {'pending': 409, 'ok': 3}
+- gas-shunin-kou: 412 / decisions {'pending': 408, 'ok': 4}
 - gas-shunin-otsu: 522 / decisions {'pending': 522}
 
 ## Execution Phases
 
-- Phase 1: 甲種 Firestore既存IDあり: 291
-- レビュー済み: 3
+- Phase 1: 甲種 Firestore既存IDあり: 292
+- レビュー済み: 2
 - Phase 2: 甲種 gassyunin.com/新規系: 118
 - Phase 3: 乙種 全source: 522
 
@@ -44,4 +44,4 @@
 
 ## Next Execution
 
-Next pending: sequence 2 / gas-shunin-kou 2019 問10 / `firestore:chiefgasengineerlicense-gizyutu-koushu-2019-10-1,chiefgasengineerlicense-gizyutu-koushu-2019-10-2,chiefgasengineerlicense-gizyutu-koushu-2019-10-3,chiefgasengineerlicense-gizyutu-koushu-2019-10-4,chiefgasengineerlicense-gizyutu-koushu-2019-10-5`
+Next pending: sequence 3 / gas-shunin-kou 2019 問11 / `firestore:chiefgasengineerlicense-A-80-1541,chiefgasengineerlicense-A-80-1542,chiefgasengineerlicense-A-80-1543,chiefgasengineerlicense-A-80-1544,chiefgasengineerlicense-A-80-1545`

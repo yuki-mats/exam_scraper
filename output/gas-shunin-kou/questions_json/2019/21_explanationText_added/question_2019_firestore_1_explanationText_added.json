@@ -81,10 +81,33 @@
       "5.6Q"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "低圧導管の圧力損失は、同一条件ではおおむね流量の2乗に比例し、管径の5乗に反比例する。口径を2倍にすると同じ流量での圧力損失は1/32となるため、圧力損失が0.6kPaから0.3kPaへ半分になる条件では流量倍率は4倍であり、1.4Qではない。",
+      "圧力損失比は0.3/0.6=1/2、口径比は2である。流量倍率をxとすると、1/2=x^2/2^5 なので x=4 となり、2.0Qでは不足する。",
+      "計算式は 1/2=x^2/32 であり、x^2=16、x=4 となる。したがって増量後の流量は4.0Qで、2.8Qではない。",
+      "圧力損失は流量の2乗に比例し、管径の5乗に反比例するため、口径を2倍にした条件では 1/2=x^2/32 となる。これを解くと x=4 なので、増量後の流量は4.0Qが最も近い。",
+      "5.6Qとすると流量倍率の2乗は31.36となり、口径2倍による1/32の効果と合わせても圧力損失比は約0.98で、0.3/0.6=0.5に合わない。正しい倍率は4.0Qである。"
+    ],
+    "suggestedQuestions": [
+      "低圧導管の圧力損失は何に比例する？",
+      "この問題の流量倍率はどう計算する？",
+      "口径2倍の効果はどこに効く？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "低圧導管の圧力損失は何に比例する？",
+        "answer": "同一条件では、圧力損失は流量の2乗に比例し、管径の5乗に反比例する関係で扱う。流量が増えると圧力損失は二乗で増え、管径が大きくなると圧力損失は大きく下がる。"
+      },
+      {
+        "question": "この問題の流量倍率はどう計算する？",
+        "answer": "流量倍率をxとすると、圧力損失比は0.3/0.6=1/2で、口径比は2である。1/2=x^2/2^5 から x^2=16、x=4 となる。"
+      },
+      {
+        "question": "口径2倍の効果はどこに効く？",
+        "answer": "管径は5乗で効くため、口径を2倍にすると同じ流量での圧力損失は1/32になる。そこに流量増加分のx^2を掛けて、実際の圧力損失比に合わせる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
