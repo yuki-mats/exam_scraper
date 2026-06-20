@@ -19,7 +19,12 @@
 - gas-shunin-otsu: 522 / decisions {'pending': 522}
 - Firestore source rows: 294
 - Site source rows: 640
-- Legacy source-key conflict rows: 10
+- Source-key conflict rows: 11
+- Source conflict status: none 805 / metadata_resolved 4 / needs_source_review 125
+- Firestore/site content conflicts: 441 fields across 121 canonical questions
+
+Content conflicts are listed in `output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl`.
+The default upload gate fails while `needs_source_review` rows remain, unless the run explicitly passes `--allow-source-conflicts`.
 
 ## Execution Phases
 
@@ -46,6 +51,7 @@
 - questionSetId のカテゴリ判断が曖昧な場合。
 - explanationText が未検証の事実を必要とする場合。
 - suggestedQuestions を選択肢単位ではなく問題単位で処理しそうな場合。
+- `sourceConflictStatus = needs_source_review` の行で、Firestore と gassyunin.com の差分を目視確認していない場合。
 
 ## Next Execution
 

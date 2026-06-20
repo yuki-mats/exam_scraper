@@ -1,7 +1,7 @@
 {
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-20T03:49:42Z",
+  "generatedAt": "2026-06-20T05:23:01Z",
   "nextPending": {
     "examYear": 2019,
     "planSequence": 1,
@@ -25,7 +25,19 @@
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
-  "sourceKeyConflictQuestionCount": 10,
+  "sourceConflictPolicy": {
+    "needs_source_review": "01-04 work must verify source conflict before changing upload-facing fields",
+    "questionId": "existing Firestore document IDs are preserved"
+  },
+  "sourceConflictStatusCounts": {
+    "metadata_resolved": 4,
+    "needs_source_review": 125,
+    "none": 805
+  },
+  "sourceContentConflictCount": 441,
+  "sourceContentConflictLedgerPath": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl",
+  "sourceContentConflictQuestionCount": 121,
+  "sourceKeyConflictQuestionCount": 11,
   "sourceOriginCounts": {
     "firestore_snapshot": 294,
     "gassyunin_site": 640

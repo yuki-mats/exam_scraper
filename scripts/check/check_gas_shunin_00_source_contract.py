@@ -32,6 +32,16 @@ from scripts.pipeline.build_gas_shunin_source_key_mapping import (  # noqa: E402
 QUESTION_LABEL_RE = re.compile(r"問\s*(\d+)")
 VALID_QUESTION_TYPES = {"true_false", "flash_card", "group_choice"}
 VALID_CORRECT_CHOICE_TEXT = {"正しい", "間違い", "正解", "不正解", "誤り", ""}
+SOURCE_SUBJECT_ALIASES = {
+    "hourei": "law",
+    "law": "law",
+    "kiso": "kiso",
+    "seizo": "seizo",
+    "kyokyu": "kyokyu",
+    "shohi": "shohi",
+    "gijutsu": "gijutsu",
+    "gizyutsu": "gijutsu",
+}
 
 
 def utc_now() -> str:
@@ -77,17 +87,18 @@ def question_no_for(question: dict[str, Any]) -> int | None:
 def subject_for(question: dict[str, Any]) -> str | None:
     value = str(question.get("sourceSubject") or "").strip()
     if value:
-        return value
+        return SOURCE_SUBJECT_ALIASES.get(value, value)
 
     subject = parse_question_subject(question)
     if subject:
-        return subject
+        return SOURCE_SUBJECT_ALIASES.get(subject, subject)
 
     parsed = parse_firestore_original_question_id(
         str(question.get("original_question_id") or question.get("originalQuestionId") or "")
     )
     if parsed:
-        return str(parsed.get("subject") or "")
+        subject = str(parsed.get("subject") or "")
+        return SOURCE_SUBJECT_ALIASES.get(subject, subject)
 
     category = str(question.get("category") or "").strip()
     if category in GASSYUNIN_SUBJECTS:
@@ -137,9 +148,15 @@ def source_keys_for(
         statement_parts = dict(parts)
         statement_parts["statementNo"] = statement_no
         source_unique_keys.append(build_source_unique_key(statement_parts))
-    variant = source_key_conflict_variant(question) if apply_conflict_variant else None
-    if variant:
-        source_unique_keys = [f"{key}:legacy:{variant}" for key in source_unique_keys]
+    if apply_conflict_variant:
+        conflict = question.get("sourceKeyConflict")
+        resolved_keys = conflict.get("resolvedSourceUniqueKeys") if isinstance(conflict, dict) else None
+        if isinstance(resolved_keys, list) and len(resolved_keys) == statement_count:
+            source_unique_keys = resolved_keys
+        else:
+            variant = source_key_conflict_variant(question)
+            if variant:
+                source_unique_keys = [f"{key}:legacy:{variant}" for key in source_unique_keys]
     return source_question_key, source_unique_keys, parts
 
 
@@ -176,13 +193,29 @@ def expected_statement_statuses(
 ) -> list[dict[str, Any]]:
     firestore_ids = question.get("firestoreQuestionIds") if isinstance(question.get("firestoreQuestionIds"), list) else []
     firestore = is_firestore_source(question)
+    registered_numbers = {
+        int(item)
+        for item in question.get("firestoreRegisteredStatementNumbers", [])
+        if str(item).isdigit()
+    } if isinstance(question.get("firestoreRegisteredStatementNumbers"), list) else set()
+    site_only_numbers = {
+        int(item)
+        for item in question.get("siteOnlyStatementNumbers", [])
+        if str(item).isdigit()
+    } if isinstance(question.get("siteOnlyStatementNumbers"), list) else set()
     statuses: list[dict[str, Any]] = []
     for index, source_unique_key in enumerate(source_unique_keys, start=1):
+        if registered_numbers or site_only_numbers:
+            firestore_registered = index in registered_numbers
+            site_only = index in site_only_numbers or not firestore_registered
+        else:
+            firestore_registered = firestore
+            site_only = not firestore
         status: dict[str, Any] = {
             "statementNo": index,
             "sourceUniqueKey": source_unique_key,
-            "firestoreRegistered": firestore,
-            "siteOnly": not firestore,
+            "firestoreRegistered": firestore_registered,
+            "siteOnly": site_only,
         }
         if natural_source_unique_keys and index <= len(natural_source_unique_keys):
             natural_key = natural_source_unique_keys[index - 1]
