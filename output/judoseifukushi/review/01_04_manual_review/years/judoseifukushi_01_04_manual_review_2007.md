@@ -5721,16 +5721,16 @@
 
 1. 猩紅熱 ─── ハンター(Ｈunter)舌炎
    - currentCorrectChoiceText: None
-   - expectedCorrectChoiceText: 
+   - expectedCorrectChoiceText:
 2. ジフテリア ─── コプリック斑
    - currentCorrectChoiceText: None
-   - expectedCorrectChoiceText: 
+   - expectedCorrectChoiceText:
 3. 麻疹 ─── 咽頭偽膜形成
    - currentCorrectChoiceText: None
-   - expectedCorrectChoiceText: 
+   - expectedCorrectChoiceText:
 4. ビタミンB1欠乏症 ─── 口角びらん
    - currentCorrectChoiceText: None
-   - expectedCorrectChoiceText: 
+   - expectedCorrectChoiceText:
 
 - answerResultText: 解なしです。
 - review01QuestionType: pending
