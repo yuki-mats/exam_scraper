@@ -33,12 +33,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -71,12 +71,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -109,12 +109,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -147,12 +147,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -185,12 +185,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -223,12 +223,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -261,12 +261,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -299,12 +299,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -337,12 +337,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -375,12 +375,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -413,12 +413,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -451,12 +451,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -489,12 +489,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -527,12 +527,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -565,12 +565,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -603,12 +603,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -641,12 +641,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -679,12 +679,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -717,12 +717,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -755,12 +755,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -793,12 +793,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -831,12 +831,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -869,12 +869,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -907,12 +907,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -945,12 +945,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -983,12 +983,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1021,12 +1021,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1059,12 +1059,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1097,12 +1097,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1135,12 +1135,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1173,12 +1173,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1211,12 +1211,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1249,12 +1249,12 @@ DNAについて誤っているのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1287,12 +1287,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1325,12 +1325,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1363,12 +1363,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1401,12 +1401,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1439,12 +1439,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1477,12 +1477,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1515,12 +1515,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1553,12 +1553,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1591,12 +1591,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1629,12 +1629,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1667,12 +1667,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1705,12 +1705,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1743,12 +1743,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1781,12 +1781,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1819,12 +1819,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1857,12 +1857,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1895,12 +1895,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1933,12 +1933,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1971,12 +1971,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2009,12 +2009,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2047,12 +2047,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2085,12 +2085,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2123,12 +2123,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2161,12 +2161,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1, 2, 3, 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2199,12 +2199,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2237,12 +2237,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2275,12 +2275,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2313,12 +2313,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2351,12 +2351,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2389,12 +2389,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2427,12 +2427,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2465,12 +2465,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2503,12 +2503,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2541,12 +2541,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2579,12 +2579,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2617,12 +2617,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2655,12 +2655,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2693,12 +2693,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2731,12 +2731,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2769,12 +2769,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2807,12 +2807,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2845,12 +2845,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2883,12 +2883,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2921,12 +2921,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2959,12 +2959,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2997,12 +2997,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3035,12 +3035,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3073,12 +3073,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3111,12 +3111,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3149,12 +3149,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3187,12 +3187,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3225,12 +3225,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3263,12 +3263,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3301,12 +3301,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3339,12 +3339,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3377,12 +3377,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3415,12 +3415,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3453,12 +3453,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3491,12 +3491,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3529,12 +3529,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3567,12 +3567,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3605,12 +3605,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3643,12 +3643,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3681,12 +3681,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3719,12 +3719,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3757,12 +3757,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3795,12 +3795,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3833,12 +3833,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3871,12 +3871,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3909,12 +3909,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3947,12 +3947,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3985,12 +3985,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4023,12 +4023,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4061,12 +4061,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4099,12 +4099,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4137,12 +4137,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4175,12 +4175,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4213,12 +4213,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4251,12 +4251,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4289,12 +4289,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4327,12 +4327,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4365,12 +4365,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4403,12 +4403,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4441,12 +4441,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4479,12 +4479,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4517,12 +4517,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4555,12 +4555,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4593,12 +4593,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4631,12 +4631,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4669,12 +4669,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4707,12 +4707,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4745,12 +4745,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4760,8 +4760,8 @@ DNAウイルスはどれか。
 - question: 問126 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q126
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4783,12 +4783,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4798,8 +4798,8 @@ DNAウイルスはどれか。
 - question: 問127 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q127
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4821,12 +4821,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4836,8 +4836,8 @@ DNAウイルスはどれか。
 - question: 問128 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q128
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4859,12 +4859,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4874,8 +4874,8 @@ DNAウイルスはどれか。
 - question: 問129 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q129
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4897,12 +4897,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4912,8 +4912,8 @@ DNAウイルスはどれか。
 - question: 問130 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q130
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4935,12 +4935,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4950,8 +4950,8 @@ DNAウイルスはどれか。
 - question: 問131 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q131
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4973,12 +4973,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4988,8 +4988,8 @@ DNAウイルスはどれか。
 - question: 問132 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q132
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5011,12 +5011,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5026,8 +5026,8 @@ DNAウイルスはどれか。
 - question: 問133 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q133
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5049,12 +5049,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5064,8 +5064,8 @@ DNAウイルスはどれか。
 - question: 問134 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q134
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5087,12 +5087,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5102,8 +5102,8 @@ DNAウイルスはどれか。
 - question: 問135 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q135
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5125,12 +5125,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5140,8 +5140,8 @@ DNAウイルスはどれか。
 - question: 問136 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q136
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5163,12 +5163,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5178,8 +5178,8 @@ DNAウイルスはどれか。
 - question: 問137 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q137
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5201,12 +5201,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5216,8 +5216,8 @@ DNAウイルスはどれか。
 - question: 問138 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q138
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5239,12 +5239,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5254,8 +5254,8 @@ DNAウイルスはどれか。
 - question: 問139 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q139
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5277,12 +5277,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5292,8 +5292,8 @@ DNAウイルスはどれか。
 - question: 問140 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q140
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5315,12 +5315,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5330,8 +5330,8 @@ DNAウイルスはどれか。
 - question: 問141 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q141
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5353,12 +5353,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5368,8 +5368,8 @@ DNAウイルスはどれか。
 - question: 問142 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q142
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5391,12 +5391,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5406,8 +5406,8 @@ DNAウイルスはどれか。
 - question: 問143 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q143
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5429,12 +5429,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5444,8 +5444,8 @@ DNAウイルスはどれか。
 - question: 問144 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q144
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5467,12 +5467,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5482,8 +5482,8 @@ DNAウイルスはどれか。
 - question: 問145 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q145
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5505,12 +5505,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5520,8 +5520,8 @@ DNAウイルスはどれか。
 - question: 問146 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q146
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5543,12 +5543,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5558,8 +5558,8 @@ DNAウイルスはどれか。
 - question: 問147 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q147
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5581,12 +5581,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5596,8 +5596,8 @@ DNAウイルスはどれか。
 - question: 問148 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q148
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5619,12 +5619,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5634,8 +5634,8 @@ DNAウイルスはどれか。
 - question: 問149 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q149
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5657,12 +5657,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5672,8 +5672,8 @@ DNAウイルスはどれか。
 - question: 問150 / https://kurohon.jp/gakusei/exams_hq/hq_30/#q150
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5695,12 +5695,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5711,7 +5711,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5733,12 +5733,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5749,7 +5749,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5771,12 +5771,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5787,7 +5787,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5809,12 +5809,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5825,7 +5825,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5847,12 +5847,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5863,7 +5863,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5885,12 +5885,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5901,7 +5901,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5923,12 +5923,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5939,7 +5939,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5961,12 +5961,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5977,7 +5977,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5999,12 +5999,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6015,7 +6015,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6037,12 +6037,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6053,7 +6053,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6075,12 +6075,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6091,7 +6091,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6113,12 +6113,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6129,7 +6129,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6151,12 +6151,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6167,7 +6167,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6189,12 +6189,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6205,7 +6205,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6227,12 +6227,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6243,7 +6243,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6265,12 +6265,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6281,7 +6281,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6303,12 +6303,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6319,7 +6319,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6341,12 +6341,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6357,7 +6357,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6379,12 +6379,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6395,7 +6395,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6417,12 +6417,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6433,7 +6433,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6455,12 +6455,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6471,7 +6471,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6493,12 +6493,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6509,7 +6509,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6531,12 +6531,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6547,7 +6547,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6569,12 +6569,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6585,7 +6585,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6607,12 +6607,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6623,7 +6623,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6645,12 +6645,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6661,7 +6661,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6683,12 +6683,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6699,7 +6699,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6721,12 +6721,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6737,7 +6737,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6759,12 +6759,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6775,7 +6775,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6797,12 +6797,12 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6813,7 +6813,7 @@ DNAウイルスはどれか。
 - questionType: `true_false`
 - questionIntent: `select_correct`
 - questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": false, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6835,11 +6835,11 @@ DNAウイルスはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:

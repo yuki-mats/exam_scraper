@@ -10,7 +10,7 @@
 - question: 問1 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q1
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs09_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -33,12 +33,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -48,7 +48,7 @@
 - question: 問2 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q2
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs09_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -71,12 +71,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -86,7 +86,7 @@
 - question: 問3 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q3
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs09_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -109,12 +109,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -124,7 +124,7 @@
 - question: 問4 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q4
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs09_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -147,12 +147,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -162,7 +162,7 @@
 - question: 問5 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q5
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs07_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -185,12 +185,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -200,7 +200,7 @@
 - question: 問6 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q6
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs07_08`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -223,12 +223,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -238,7 +238,7 @@
 - question: 問7 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q7
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs07_10`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -261,12 +261,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -276,7 +276,7 @@
 - question: 問8 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q8
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs07_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -299,12 +299,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -314,7 +314,7 @@
 - question: 問9 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q9
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs07_13`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -337,12 +337,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -352,7 +352,7 @@
 - question: 問10 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q10
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs07_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -375,12 +375,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -390,7 +390,7 @@
 - question: 問11 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q11
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs08_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -413,12 +413,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -428,7 +428,7 @@
 - question: 問12 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q12
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs08_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -451,12 +451,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -466,7 +466,7 @@
 - question: 問13 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q13
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs08_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -489,12 +489,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -504,7 +504,7 @@
 - question: 問14 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q14
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs08_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -527,12 +527,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -542,7 +542,7 @@
 - question: 問15 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q15
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_12`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -565,12 +565,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -580,7 +580,7 @@
 - question: 問16 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q16
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -603,12 +603,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -618,7 +618,7 @@
 - question: 問17 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q17
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -641,12 +641,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -656,7 +656,7 @@
 - question: 問18 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q18
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_08`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -679,12 +679,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -694,7 +694,7 @@
 - question: 問19 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q19
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -717,12 +717,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -732,7 +732,7 @@
 - question: 問20 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q20
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -755,12 +755,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -770,7 +770,7 @@
 - question: 問21 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q21
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_09`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -793,12 +793,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -808,7 +808,7 @@
 - question: 問22 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q22
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_10`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -831,12 +831,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -846,7 +846,7 @@
 - question: 問23 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q23
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -869,12 +869,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -884,7 +884,7 @@
 - question: 問24 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q24
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -907,12 +907,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -922,7 +922,7 @@
 - question: 問25 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q25
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -945,12 +945,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -960,7 +960,7 @@
 - question: 問26 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q26
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -983,12 +983,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -998,7 +998,7 @@
 - question: 問27 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q27
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1021,12 +1021,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1036,7 +1036,7 @@
 - question: 問28 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q28
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_16`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1059,12 +1059,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1074,7 +1074,7 @@
 - question: 問29 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q29
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_09`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1097,12 +1097,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1112,7 +1112,7 @@
 - question: 問30 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q30
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1135,12 +1135,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1150,7 +1150,7 @@
 - question: 問31 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q31
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1173,12 +1173,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1188,7 +1188,7 @@
 - question: 問32 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q32
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1211,12 +1211,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1226,7 +1226,7 @@
 - question: 問33 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q33
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs03_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1249,12 +1249,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1264,7 +1264,7 @@
 - question: 問34 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q34
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs03_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1287,12 +1287,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1302,7 +1302,7 @@
 - question: 問35 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q35
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs03_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1325,12 +1325,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1340,7 +1340,7 @@
 - question: 問36 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q36
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs03_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1363,12 +1363,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1378,7 +1378,7 @@
 - question: 問37 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q37
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1401,12 +1401,12 @@ HIV感染によって最も傷害を受ける細胞はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1416,7 +1416,7 @@ HIV感染によって最も傷害を受ける細胞はどれか。
 - question: 問38 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q38
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1439,12 +1439,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1454,7 +1454,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問39 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q39
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1477,12 +1477,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1492,7 +1492,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問40 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q40
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1515,12 +1515,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1530,7 +1530,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問41 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q41
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1553,12 +1553,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1568,7 +1568,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問42 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q42
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1591,12 +1591,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1606,7 +1606,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問43 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q43
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs03_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1629,12 +1629,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1644,7 +1644,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問44 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q44
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1667,12 +1667,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1682,7 +1682,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問45 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q45
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1705,12 +1705,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1720,7 +1720,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問46 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q46
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1743,12 +1743,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1758,7 +1758,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問47 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q47
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs02_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1781,12 +1781,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1796,7 +1796,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問48 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q48
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1819,12 +1819,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1834,7 +1834,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問49 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q49
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1857,12 +1857,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1872,7 +1872,7 @@ HPV感染について最も適切なのはどれか。
 - question: 問50 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q50
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs01_11`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1895,12 +1895,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1910,8 +1910,8 @@ HPV感染について最も適切なのはどれか。
 - question: 問51 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q51
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_14`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1933,12 +1933,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1948,8 +1948,8 @@ HPV感染について最も適切なのはどれか。
 - question: 問52 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q52
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1971,12 +1971,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1986,8 +1986,8 @@ HPV感染について最も適切なのはどれか。
 - question: 問53 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q53
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2009,12 +2009,12 @@ HPV感染について最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2024,8 +2024,8 @@ HPV感染について最も適切なのはどれか。
 - question: 問54 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q54
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2047,12 +2047,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2062,8 +2062,8 @@ COPDについて最も適切なのはどれか。
 - question: 問55 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q55
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2085,12 +2085,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2100,8 +2100,8 @@ COPDについて最も適切なのはどれか。
 - question: 問56 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q56
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2123,12 +2123,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2138,8 +2138,8 @@ COPDについて最も適切なのはどれか。
 - question: 問57 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q57
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2161,12 +2161,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2176,8 +2176,8 @@ COPDについて最も適切なのはどれか。
 - question: 問58 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q58
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2199,12 +2199,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2214,8 +2214,8 @@ COPDについて最も適切なのはどれか。
 - question: 問59 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q59
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2237,12 +2237,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2252,8 +2252,8 @@ COPDについて最も適切なのはどれか。
 - question: 問60 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q60
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2275,12 +2275,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2290,8 +2290,8 @@ COPDについて最も適切なのはどれか。
 - question: 問61 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q61
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2313,12 +2313,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2328,8 +2328,8 @@ COPDについて最も適切なのはどれか。
 - question: 問62 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q62
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2351,12 +2351,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2366,8 +2366,8 @@ COPDについて最も適切なのはどれか。
 - question: 問63 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q63
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_15`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2389,12 +2389,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2404,8 +2404,8 @@ COPDについて最も適切なのはどれか。
 - question: 問64 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q64
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2427,12 +2427,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2442,8 +2442,8 @@ COPDについて最も適切なのはどれか。
 - question: 問65 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q65
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2465,12 +2465,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2480,8 +2480,8 @@ COPDについて最も適切なのはどれか。
 - question: 問66 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q66
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2503,12 +2503,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2518,8 +2518,8 @@ COPDについて最も適切なのはどれか。
 - question: 問67 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q67
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2541,12 +2541,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2556,8 +2556,8 @@ COPDについて最も適切なのはどれか。
 - question: 問68 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q68
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2579,12 +2579,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2594,8 +2594,8 @@ COPDについて最も適切なのはどれか。
 - question: 問69 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q69
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2617,12 +2617,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2632,8 +2632,8 @@ COPDについて最も適切なのはどれか。
 - question: 問70 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q70
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2655,12 +2655,12 @@ COPDについて最も適切なのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2670,8 +2670,8 @@ COPDについて最も適切なのはどれか。
 - question: 問71 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q71
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2693,12 +2693,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2708,8 +2708,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問72 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q72
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2731,12 +2731,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2746,8 +2746,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問73 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q73
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2769,12 +2769,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2784,8 +2784,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問74 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q74
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2807,12 +2807,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2822,8 +2822,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問75 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q75
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2845,12 +2845,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2860,7 +2860,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問76 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q76
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs05_02`
+- questionSetId: `shinkyu_qs05_16`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -2883,12 +2883,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2898,7 +2898,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問77 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q77
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs05_02`
+- questionSetId: `shinkyu_qs05_15`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -2921,12 +2921,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2959,12 +2959,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2974,7 +2974,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問79 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q79
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs03_04`
+- questionSetId: `shinkyu_qs06_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -2997,12 +2997,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3012,7 +3012,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問80 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q80
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs03_04`
+- questionSetId: `shinkyu_qs06_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3035,12 +3035,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3050,7 +3050,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問81 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q81
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs07_10`
+- questionSetId: `shinkyu_qs05_12`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3073,12 +3073,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3088,7 +3088,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問82 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q82
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs07_10`
+- questionSetId: `shinkyu_qs06_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3111,12 +3111,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3126,7 +3126,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問83 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q83
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs05_13`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3149,12 +3149,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3164,7 +3164,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問84 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q84
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs08_04`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3187,12 +3187,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3202,7 +3202,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問85 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q85
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs06_02`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3225,12 +3225,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3240,7 +3240,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問86 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q86
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs06_09`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3263,12 +3263,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3278,7 +3278,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問87 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q87
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs06_03`
+- questionSetId: `shinkyu_qs05_12`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3301,12 +3301,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3316,7 +3316,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問88 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q88
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `shinkyu_qs06_04`
+- questionSetId: `shinkyu_qs05_12`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3339,12 +3339,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3354,7 +3354,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問89 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q89
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs06_06`
+- questionSetId: `shinkyu_qs07_10`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3377,12 +3377,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3392,7 +3392,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問90 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q90
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs06_06`
+- questionSetId: `shinkyu_qs07_10`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3415,12 +3415,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3430,7 +3430,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問91 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q91
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs06_07`
+- questionSetId: `shinkyu_qs10_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3453,12 +3453,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3468,7 +3468,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問92 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q92
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs10_03`
+- questionSetId: `shinkyu_qs10_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3491,12 +3491,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3529,12 +3529,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3544,7 +3544,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問94 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q94
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs10_06`
+- questionSetId: `shinkyu_qs10_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3567,12 +3567,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3605,12 +3605,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3620,7 +3620,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問96 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q96
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs10_05`
+- questionSetId: `shinkyu_qs10_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3643,12 +3643,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3658,7 +3658,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問97 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q97
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs11_05`
+- questionSetId: `shinkyu_qs10_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3681,12 +3681,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3696,7 +3696,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問98 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q98
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs04_01`
+- questionSetId: `shinkyu_qs10_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3719,12 +3719,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3734,7 +3734,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問99 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q99
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_01`
+- questionSetId: `shinkyu_qs10_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3757,12 +3757,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3772,7 +3772,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問100 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q100
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs10_07`
+- questionSetId: `shinkyu_qs10_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -3795,12 +3795,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3810,8 +3810,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問101 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q101
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3833,12 +3833,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3848,8 +3848,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問102 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q102
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3871,12 +3871,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3886,8 +3886,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問103 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q103
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3909,12 +3909,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3924,8 +3924,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問104 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q104
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3947,12 +3947,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3962,8 +3962,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問105 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q105
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3985,12 +3985,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4000,8 +4000,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問106 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q106
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4023,12 +4023,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4038,8 +4038,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問107 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q107
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4061,12 +4061,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4076,8 +4076,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問108 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q108
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4099,12 +4099,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4114,8 +4114,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問109 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q109
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4137,12 +4137,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4152,8 +4152,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問110 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q110
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4175,12 +4175,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4190,8 +4190,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問111 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q111
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4213,12 +4213,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4228,8 +4228,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問112 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q112
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4251,12 +4251,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4266,8 +4266,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問113 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q113
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4289,12 +4289,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4304,8 +4304,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問114 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q114
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4327,12 +4327,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4342,8 +4342,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問115 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q115
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4365,12 +4365,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4380,8 +4380,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問116 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q116
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4403,12 +4403,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4418,8 +4418,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問117 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q117
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4441,12 +4441,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4456,8 +4456,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問118 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q118
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4479,12 +4479,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4494,8 +4494,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問119 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q119
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4517,12 +4517,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4532,8 +4532,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問120 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q120
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4555,12 +4555,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4570,8 +4570,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問121 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q121
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4593,12 +4593,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4608,8 +4608,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問122 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q122
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4631,12 +4631,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4646,8 +4646,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問123 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q123
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4669,12 +4669,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4684,8 +4684,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問124 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q124
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4707,12 +4707,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4722,8 +4722,8 @@ ICFの「活動」に該当するのはどれか。
 - question: 問125 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q125
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4745,12 +4745,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4760,7 +4760,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問126 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q126
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs11_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -4783,12 +4783,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4798,7 +4798,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問127 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q127
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs04_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -4821,12 +4821,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4836,7 +4836,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問128 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q128
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -4859,12 +4859,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4874,7 +4874,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問129 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q129
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -4897,12 +4897,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4912,7 +4912,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問130 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q130
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -4935,12 +4935,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4950,7 +4950,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問131 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q131
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs11_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -4973,12 +4973,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4988,7 +4988,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問132 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q132
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5011,12 +5011,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5026,7 +5026,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問133 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q133
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_12`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5049,12 +5049,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5064,7 +5064,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問134 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q134
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5087,12 +5087,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5102,7 +5102,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問135 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q135
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5125,12 +5125,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5140,7 +5140,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問136 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q136
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5163,12 +5163,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5178,7 +5178,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問137 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q137
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5201,12 +5201,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5216,7 +5216,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問138 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q138
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5239,12 +5239,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5254,7 +5254,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問139 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q139
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5277,12 +5277,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5292,7 +5292,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問140 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q140
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs06_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5315,12 +5315,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5330,7 +5330,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問141 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q141
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5353,12 +5353,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5368,7 +5368,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問142 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q142
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs11_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5391,12 +5391,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5406,7 +5406,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問143 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q143
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5429,12 +5429,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5444,7 +5444,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問144 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q144
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5467,12 +5467,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5482,7 +5482,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問145 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q145
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5505,12 +5505,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5520,7 +5520,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問146 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q146
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs11_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5543,12 +5543,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5558,7 +5558,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問147 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q147
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs10_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5581,12 +5581,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5596,7 +5596,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問148 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q148
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs12_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5619,12 +5619,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5634,7 +5634,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問149 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q149
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs14_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5657,12 +5657,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5672,7 +5672,7 @@ ICFの「活動」に該当するのはどれか。
 - question: 問150 / https://kurohon.jp/gakusei/exams_hq/hq_33/#q150
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
+- questionSetId: `shinkyu_qs10_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -5695,12 +5695,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5733,12 +5733,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5771,12 +5771,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5809,12 +5809,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5847,12 +5847,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5885,12 +5885,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5923,12 +5923,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5961,12 +5961,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5999,12 +5999,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6037,12 +6037,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6075,12 +6075,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6113,12 +6113,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6151,12 +6151,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6189,12 +6189,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6227,12 +6227,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6265,12 +6265,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6303,12 +6303,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6341,12 +6341,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6379,12 +6379,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6417,12 +6417,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6455,12 +6455,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6493,12 +6493,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6531,12 +6531,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6569,12 +6569,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6607,12 +6607,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6645,12 +6645,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6683,12 +6683,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6721,12 +6721,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6759,12 +6759,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6797,12 +6797,12 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6835,11 +6835,11 @@ ICFの「活動」に該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:

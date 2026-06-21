@@ -33,12 +33,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -71,12 +71,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -109,12 +109,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -147,12 +147,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -185,12 +185,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -223,12 +223,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -261,12 +261,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -299,12 +299,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -337,12 +337,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -375,12 +375,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -413,12 +413,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -451,12 +451,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -489,12 +489,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -527,12 +527,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -565,12 +565,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -603,12 +603,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -641,12 +641,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -679,12 +679,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -717,12 +717,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -755,12 +755,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -793,12 +793,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -831,12 +831,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -869,12 +869,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -907,12 +907,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -945,12 +945,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -983,12 +983,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1021,12 +1021,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1059,12 +1059,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1097,12 +1097,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1135,12 +1135,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1, 2, 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1173,12 +1173,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1211,12 +1211,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1249,12 +1249,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1287,12 +1287,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1325,12 +1325,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1363,12 +1363,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1401,12 +1401,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1439,12 +1439,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1477,12 +1477,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1515,12 +1515,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1553,12 +1553,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1591,12 +1591,12 @@ WHOの主な活動はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1629,12 +1629,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1667,12 +1667,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1705,12 +1705,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1743,12 +1743,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1781,12 +1781,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1819,12 +1819,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1857,12 +1857,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1895,12 +1895,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1933,12 +1933,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1971,12 +1971,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2009,12 +2009,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2047,12 +2047,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2085,12 +2085,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2123,12 +2123,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2161,12 +2161,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2199,12 +2199,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2237,12 +2237,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2275,12 +2275,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2313,12 +2313,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2351,12 +2351,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2389,12 +2389,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2427,12 +2427,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2465,12 +2465,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2503,12 +2503,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2541,12 +2541,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2579,12 +2579,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2617,12 +2617,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2655,12 +2655,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2693,12 +2693,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2731,12 +2731,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2769,12 +2769,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2807,12 +2807,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2845,12 +2845,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2883,12 +2883,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2921,12 +2921,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2959,12 +2959,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2997,12 +2997,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3035,12 +3035,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3073,12 +3073,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3111,12 +3111,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3149,12 +3149,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3187,12 +3187,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3225,12 +3225,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3263,12 +3263,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3301,12 +3301,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3339,12 +3339,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3377,12 +3377,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3415,12 +3415,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3453,12 +3453,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3491,12 +3491,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3529,12 +3529,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3567,12 +3567,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3605,12 +3605,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3643,12 +3643,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3681,12 +3681,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3719,12 +3719,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3757,12 +3757,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3795,12 +3795,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3833,12 +3833,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3871,12 +3871,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3909,12 +3909,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3947,12 +3947,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3985,12 +3985,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4023,12 +4023,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4061,12 +4061,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4099,12 +4099,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4137,12 +4137,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4175,12 +4175,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4213,12 +4213,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4251,12 +4251,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4289,12 +4289,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4327,12 +4327,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4365,12 +4365,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4403,12 +4403,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4441,12 +4441,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4479,12 +4479,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4517,12 +4517,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4555,12 +4555,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4593,12 +4593,12 @@ GVH反応が最も起きやすい移植臓器はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4631,12 +4631,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4669,12 +4669,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4707,12 +4707,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4745,12 +4745,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4760,7 +4760,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問126 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q126
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_04`
+- questionSetId: `shinkyu_qs11_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -4783,12 +4783,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4798,7 +4798,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問127 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q127
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_05`
+- questionSetId: `shinkyu_qs04_01`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -4821,12 +4821,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4836,7 +4836,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問128 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q128
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_05`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -4859,12 +4859,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4874,7 +4874,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問129 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q129
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_02`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -4897,12 +4897,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4912,7 +4912,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問130 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q130
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs11_06`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -4935,12 +4935,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4950,7 +4950,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問131 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q131
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_02`
+- questionSetId: `shinkyu_qs11_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -4973,12 +4973,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4988,7 +4988,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問132 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q132
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_04`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5011,12 +5011,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5026,7 +5026,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問133 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q133
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_02`
+- questionSetId: `shinkyu_qs05_12`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5049,12 +5049,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5064,7 +5064,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問134 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q134
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs11_06`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5087,12 +5087,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5102,7 +5102,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問135 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q135
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs05_03`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5125,12 +5125,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5163,12 +5163,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5178,7 +5178,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問137 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q137
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_05`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5201,12 +5201,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5216,7 +5216,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問138 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q138
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs10_06`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5239,12 +5239,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5254,7 +5254,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問139 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q139
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_02`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5277,12 +5277,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5292,7 +5292,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問140 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q140
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_04`
+- questionSetId: `shinkyu_qs06_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5315,12 +5315,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5330,7 +5330,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問141 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q141
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_01`
+- questionSetId: `shinkyu_qs05_02`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5353,12 +5353,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5368,7 +5368,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問142 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q142
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_02`
+- questionSetId: `shinkyu_qs11_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5391,12 +5391,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5406,7 +5406,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問143 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q143
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_02`
+- questionSetId: `shinkyu_qs14_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5429,12 +5429,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5444,7 +5444,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問144 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q144
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_03`
+- questionSetId: `shinkyu_qs14_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5467,12 +5467,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5482,7 +5482,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問145 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q145
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs14_08`
+- questionSetId: `shinkyu_qs14_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5505,12 +5505,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5520,7 +5520,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問146 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q146
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_05`
+- questionSetId: `shinkyu_qs11_05`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5543,12 +5543,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5558,7 +5558,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問147 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q147
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_05`
+- questionSetId: `shinkyu_qs10_04`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5581,12 +5581,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5596,7 +5596,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問148 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q148
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_06`
+- questionSetId: `shinkyu_qs12_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5619,12 +5619,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5634,7 +5634,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問149 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q149
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_07`
+- questionSetId: `shinkyu_qs14_03`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5657,12 +5657,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5672,7 +5672,7 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
 - question: 問150 / https://kurohon.jp/gakusei/exams_hq/hq_25/#q150
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `shinkyu_qs12_07`
+- questionSetId: `shinkyu_qs10_06`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
@@ -5695,12 +5695,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5733,12 +5733,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5771,12 +5771,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5809,12 +5809,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5847,12 +5847,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5885,12 +5885,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5923,12 +5923,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5961,12 +5961,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5999,12 +5999,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6037,12 +6037,12 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1, 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6075,11 +6075,11 @@ C8神経根障害でデルマトームを応用した低周波鍼通電療法を
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:

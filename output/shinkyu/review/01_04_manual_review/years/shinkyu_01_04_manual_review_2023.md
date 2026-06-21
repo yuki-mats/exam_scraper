@@ -10,8 +10,8 @@
 - question: 問1 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q1
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs09_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -33,12 +33,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -48,8 +48,8 @@
 - question: 問2 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q2
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs09_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -71,12 +71,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -86,8 +86,8 @@
 - question: 問3 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q3
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs09_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -109,12 +109,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -124,8 +124,8 @@
 - question: 問4 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q4
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs09_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -147,12 +147,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -162,8 +162,8 @@
 - question: 問5 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q5
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -185,12 +185,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -200,8 +200,8 @@
 - question: 問6 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q6
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -223,12 +223,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -238,8 +238,8 @@
 - question: 問7 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q7
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -261,12 +261,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -276,8 +276,8 @@
 - question: 問8 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q8
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -299,12 +299,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -314,8 +314,8 @@
 - question: 問9 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q9
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs09_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -337,12 +337,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -352,8 +352,8 @@
 - question: 問10 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q10
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -375,12 +375,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -390,8 +390,8 @@
 - question: 問11 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q11
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -413,12 +413,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -428,8 +428,8 @@
 - question: 問12 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q12
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -451,12 +451,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -466,8 +466,8 @@
 - question: 問13 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q13
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -489,12 +489,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -504,8 +504,8 @@
 - question: 問14 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q14
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs08_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -527,12 +527,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -542,8 +542,8 @@
 - question: 問15 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q15
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -565,12 +565,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -580,8 +580,8 @@
 - question: 問16 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q16
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -603,12 +603,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -618,8 +618,8 @@
 - question: 問17 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q17
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -641,12 +641,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -656,8 +656,8 @@
 - question: 問18 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q18
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -679,12 +679,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -694,8 +694,8 @@
 - question: 問19 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q19
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -717,12 +717,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -732,8 +732,8 @@
 - question: 問20 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q20
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -755,12 +755,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -770,8 +770,8 @@
 - question: 問21 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q21
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -793,12 +793,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -808,8 +808,8 @@
 - question: 問22 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q22
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -831,12 +831,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -846,8 +846,8 @@
 - question: 問23 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q23
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -869,12 +869,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -884,8 +884,8 @@
 - question: 問24 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q24
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -907,12 +907,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -922,8 +922,8 @@
 - question: 問25 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q25
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -945,12 +945,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -960,8 +960,8 @@
 - question: 問26 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q26
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -983,12 +983,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -998,8 +998,8 @@
 - question: 問27 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q27
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1021,12 +1021,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1036,8 +1036,8 @@
 - question: 問28 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q28
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1059,12 +1059,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1074,8 +1074,8 @@
 - question: 問29 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q29
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_11`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1097,12 +1097,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1112,8 +1112,8 @@
 - question: 問30 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q30
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1135,12 +1135,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1150,8 +1150,8 @@
 - question: 問31 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q31
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_15`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1173,12 +1173,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1188,8 +1188,8 @@
 - question: 問32 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q32
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs02_16`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1211,12 +1211,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1226,8 +1226,8 @@
 - question: 問33 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q33
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1249,12 +1249,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1264,8 +1264,8 @@
 - question: 問34 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q34
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs03_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1287,12 +1287,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1302,8 +1302,8 @@
 - question: 問35 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q35
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1325,12 +1325,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1340,8 +1340,8 @@
 - question: 問36 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q36
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs03_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1363,12 +1363,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1378,8 +1378,8 @@
 - question: 問37 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q37
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs03_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1401,12 +1401,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1416,8 +1416,8 @@
 - question: 問38 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q38
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1439,12 +1439,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1454,8 +1454,8 @@
 - question: 問39 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q39
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1477,12 +1477,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1492,8 +1492,8 @@
 - question: 問40 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q40
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1515,12 +1515,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1530,8 +1530,8 @@
 - question: 問41 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q41
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1553,12 +1553,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1568,8 +1568,8 @@
 - question: 問42 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q42
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1591,12 +1591,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1606,8 +1606,8 @@
 - question: 問43 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q43
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1629,12 +1629,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1644,8 +1644,8 @@
 - question: 問44 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q44
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1667,12 +1667,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1682,8 +1682,8 @@
 - question: 問45 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q45
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1705,12 +1705,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1720,8 +1720,8 @@
 - question: 問46 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q46
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1743,12 +1743,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1758,8 +1758,8 @@
 - question: 問47 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q47
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1781,12 +1781,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1796,8 +1796,8 @@
 - question: 問48 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q48
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_14`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1819,12 +1819,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1834,8 +1834,8 @@
 - question: 問49 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q49
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_13`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1857,12 +1857,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1872,8 +1872,8 @@
 - question: 問50 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q50
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1895,12 +1895,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1910,8 +1910,8 @@
 - question: 問51 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q51
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_14`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1933,12 +1933,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1948,8 +1948,8 @@
 - question: 問52 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q52
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -1971,12 +1971,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -1986,8 +1986,8 @@
 - question: 問53 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q53
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2009,12 +2009,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2024,8 +2024,8 @@
 - question: 問54 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q54
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2047,12 +2047,12 @@
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2062,8 +2062,8 @@
 - question: 問55 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q55
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2085,12 +2085,12 @@
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2100,8 +2100,8 @@
 - question: 問56 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q56
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2123,12 +2123,12 @@ COPDについて正しいのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2138,8 +2138,8 @@ COPDについて正しいのはどれか。
 - question: 問57 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q57
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2161,12 +2161,12 @@ COPDについて正しいのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2176,8 +2176,8 @@ COPDについて正しいのはどれか。
 - question: 問58 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q58
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2199,12 +2199,12 @@ COPDについて正しいのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2214,8 +2214,8 @@ COPDについて正しいのはどれか。
 - question: 問59 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q59
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2237,12 +2237,12 @@ COPDについて正しいのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2252,8 +2252,8 @@ COPDについて正しいのはどれか。
 - question: 問60 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q60
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2275,12 +2275,12 @@ COPDについて正しいのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2290,8 +2290,8 @@ COPDについて正しいのはどれか。
 - question: 問61 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q61
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_08`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2313,12 +2313,12 @@ COPDについて正しいのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2328,8 +2328,8 @@ COPDについて正しいのはどれか。
 - question: 問62 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q62
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2351,12 +2351,12 @@ COPDについて正しいのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2366,8 +2366,8 @@ COPDについて正しいのはどれか。
 - question: 問63 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q63
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2389,12 +2389,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2404,8 +2404,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問64 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q64
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2427,12 +2427,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2442,8 +2442,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問65 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q65
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2465,12 +2465,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2480,8 +2480,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問66 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q66
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2503,12 +2503,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2518,8 +2518,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問67 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q67
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2541,12 +2541,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2556,8 +2556,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問68 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q68
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2579,12 +2579,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2594,8 +2594,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問69 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q69
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_14`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2617,12 +2617,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2632,8 +2632,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問70 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q70
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs07_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2655,12 +2655,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2670,8 +2670,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問71 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q71
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2693,12 +2693,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2708,8 +2708,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問72 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q72
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2731,12 +2731,12 @@ HbA1cが反映する血糖値の期間はどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2746,8 +2746,8 @@ HbA1cが反映する血糖値の期間はどれか。
 - question: 問73 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q73
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2769,12 +2769,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2784,8 +2784,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問74 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q74
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2807,12 +2807,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2822,8 +2822,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問75 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q75
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs01_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -2845,12 +2845,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2883,12 +2883,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2921,12 +2921,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2959,12 +2959,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -2997,12 +2997,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3035,12 +3035,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3073,12 +3073,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3111,12 +3111,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3149,12 +3149,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3187,12 +3187,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3225,12 +3225,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3263,12 +3263,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3301,12 +3301,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3339,12 +3339,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3377,12 +3377,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3415,12 +3415,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3453,12 +3453,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3491,12 +3491,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3529,12 +3529,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3567,12 +3567,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3605,12 +3605,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3643,12 +3643,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3681,12 +3681,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3719,12 +3719,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3757,12 +3757,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3795,12 +3795,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3810,8 +3810,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問101 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q101
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3833,12 +3833,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3848,8 +3848,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問102 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q102
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3871,12 +3871,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3886,8 +3886,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問103 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q103
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3909,12 +3909,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3924,8 +3924,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問104 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q104
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3947,12 +3947,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -3962,8 +3962,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問105 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q105
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -3985,12 +3985,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4000,8 +4000,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問106 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q106
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4023,12 +4023,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4038,8 +4038,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問107 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q107
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4061,12 +4061,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4076,8 +4076,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問108 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q108
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4099,12 +4099,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4114,8 +4114,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問109 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q109
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4137,12 +4137,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4152,8 +4152,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問110 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q110
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4175,12 +4175,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4190,8 +4190,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問111 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q111
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4213,12 +4213,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4228,8 +4228,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問112 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q112
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4251,12 +4251,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4266,8 +4266,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問113 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q113
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4289,12 +4289,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4304,8 +4304,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問114 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q114
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4327,12 +4327,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4342,8 +4342,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問115 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q115
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4365,12 +4365,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4380,8 +4380,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問116 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q116
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4403,12 +4403,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4418,8 +4418,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問117 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q117
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4441,12 +4441,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4456,8 +4456,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問118 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q118
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4479,12 +4479,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4494,8 +4494,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問119 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q119
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4517,12 +4517,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4532,8 +4532,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問120 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q120
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4555,12 +4555,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4570,8 +4570,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問121 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q121
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4593,12 +4593,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4608,8 +4608,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問122 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q122
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4631,12 +4631,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4646,8 +4646,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問123 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q123
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4669,12 +4669,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4684,8 +4684,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問124 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q124
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4707,12 +4707,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4722,8 +4722,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問125 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q125
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4745,12 +4745,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4760,8 +4760,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問126 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q126
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4783,12 +4783,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4798,8 +4798,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問127 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q127
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4821,12 +4821,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4836,8 +4836,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問128 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q128
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4859,12 +4859,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4874,8 +4874,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問129 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q129
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4897,12 +4897,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4912,8 +4912,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問130 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q130
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4935,12 +4935,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4950,8 +4950,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問131 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q131
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4973,12 +4973,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -4988,8 +4988,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問132 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q132
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5011,12 +5011,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5026,8 +5026,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問133 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q133
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5049,12 +5049,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5064,8 +5064,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問134 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q134
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5087,12 +5087,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5102,8 +5102,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問135 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q135
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5125,12 +5125,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5140,8 +5140,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問136 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q136
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5163,12 +5163,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 1, 2, 3, 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5178,8 +5178,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問137 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q137
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5201,12 +5201,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5216,8 +5216,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問138 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q138
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5239,12 +5239,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5254,8 +5254,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問139 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q139
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5277,12 +5277,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5292,8 +5292,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問140 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q140
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs06_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5315,12 +5315,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5330,8 +5330,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問141 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q141
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5353,12 +5353,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5368,8 +5368,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問142 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q142
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5391,12 +5391,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5406,8 +5406,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問143 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q143
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5429,12 +5429,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5444,8 +5444,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問144 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q144
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5467,12 +5467,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5482,8 +5482,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問145 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q145
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5505,12 +5505,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5520,8 +5520,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問146 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q146
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5543,12 +5543,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5558,8 +5558,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問147 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q147
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5581,12 +5581,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5596,8 +5596,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問148 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q148
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5619,12 +5619,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5634,8 +5634,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問149 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q149
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs14_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5657,12 +5657,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5672,8 +5672,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問150 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q150
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5695,12 +5695,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5710,8 +5710,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問151 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q151
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_10`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5733,12 +5733,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5748,8 +5748,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問152 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q152
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs10_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5771,12 +5771,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5786,8 +5786,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問153 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q153
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5809,12 +5809,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5824,8 +5824,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問154 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q154
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_12`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5847,12 +5847,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5862,8 +5862,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問155 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q155
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5885,12 +5885,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5900,8 +5900,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問156 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q156
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5923,12 +5923,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5938,8 +5938,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問157 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q157
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs05_09`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5961,12 +5961,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -5976,8 +5976,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問158 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q158
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs11_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5999,12 +5999,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6014,8 +6014,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問159 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q159
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6037,12 +6037,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6052,8 +6052,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問160 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q160
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs04_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6075,12 +6075,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6090,8 +6090,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問161 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q161
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6113,12 +6113,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6128,8 +6128,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問162 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q162
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6151,12 +6151,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6166,8 +6166,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問163 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q163
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_03`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6189,12 +6189,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6204,8 +6204,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問164 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q164
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6227,12 +6227,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6242,8 +6242,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問165 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q165
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6265,12 +6265,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6280,8 +6280,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問166 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q166
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6303,12 +6303,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6318,8 +6318,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問167 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q167
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6341,12 +6341,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6356,8 +6356,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問168 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q168
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6379,12 +6379,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6394,8 +6394,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問169 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q169
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_07`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6417,12 +6417,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6432,8 +6432,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問170 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q170
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs12_06`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6455,12 +6455,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6470,8 +6470,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問171 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q171
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6493,12 +6493,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 2 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6508,8 +6508,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問172 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q172
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_01`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6531,12 +6531,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6546,8 +6546,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問173 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q173
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_02`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6569,12 +6569,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6584,8 +6584,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問174 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q174
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_04`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6607,12 +6607,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6622,8 +6622,8 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
 - question: 問175 / https://kurohon.jp/gakusei/exams_hq/hq_31/#q175
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `pending`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
+- questionSetId: `shinkyu_qs13_05`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6645,12 +6645,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6683,12 +6683,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 1 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6721,12 +6721,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6759,12 +6759,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6797,12 +6797,12 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 正しい
 
 - answerResultText: 正解は 4 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
 
@@ -6835,11 +6835,11 @@ FIMの運動項目のうちセルフケアに該当するのはどれか。
    - expectedCorrectChoiceText: 間違い
 
 - answerResultText: 正解は 3 です。
-- review01QuestionType: pending
-- review02QuestionIntent: pending
-- review02CorrectChoiceText: pending
-- review03ExplanationText: pending
-- review04QuestionSetId: pending
-- reviewDecision: pending
+- review01QuestionType: ok
+- review02QuestionIntent: ok
+- review02CorrectChoiceText: ok
+- review03ExplanationText: ok
+- review04QuestionSetId: ok
+- reviewDecision: ok
 - reviewNotes:
 - fixInstructions:
