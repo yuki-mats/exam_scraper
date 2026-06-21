@@ -313,10 +313,43 @@
       "600"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "両端固定の温度変化による熱応力は σ=EαΔT で求める。ΔTは-10℃から50℃までの60℃なので、σ=2×10⁵×1×10⁻⁵×60=120N/mm²となり、12N/mm²は小さすぎる。",
+      "温度差は60℃であり、線膨張係数1×10⁻⁵とヤング率2×10⁵を掛けると応力は120N/mm²になる。60N/mm²は温度差または係数の扱いが不足している。",
+      "計算式は σ=EαΔT で、2×10⁵×1×10⁻⁵=2、さらに温度差60℃を掛けて120N/mm²となる。100N/mm²は最も近い値ではない。",
+      "設置時-10℃から夏期50℃までの温度上昇は60℃である。σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²となるため、120N/mm²が正しい。",
+      "熱応力は長さ20mや口径200mmではなく、両端固定で自由膨張できない温度ひずみαΔTとヤング率Eから求める。計算結果は120N/mm²なので、600N/mm²は大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "12N/mm²では小さすぎる理由は？",
+      "60N/mm²では不足する理由は？",
+      "100N/mm²が最も近い値にならない理由は？",
+      "120N/mm²になる計算の要点は？",
+      "600N/mm²では大きすぎる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "12N/mm²では小さすぎる理由は？",
+        "answer": "両端固定管の温度変化による応力は σ=EαΔT で評価する。温度差60℃を使うと 2×10⁵×1×10⁻⁵×60=120N/mm² となるため、12N/mm²は一桁小さい。"
+      },
+      {
+        "question": "60N/mm²では不足する理由は？",
+        "answer": "設置時-10℃から夏期50℃までの温度差は60℃である。Eαは2なので、応力は2×60=120N/mm²となり、60N/mm²では不足する。"
+      },
+      {
+        "question": "100N/mm²が最も近い値にならない理由は？",
+        "answer": "条件をそのまま式に入れると、温度差60℃、線膨張係数1×10⁻⁵、ヤング率2×10⁵から応力は120N/mm²になる。選択肢中では120N/mm²が最も近い。"
+      },
+      {
+        "question": "120N/mm²になる計算の要点は？",
+        "answer": "自由膨張が両端固定で拘束されるため、温度ひずみαΔTにヤング率Eを掛ける。ΔT=60℃なので、σ=2×10⁵×1×10⁻⁵×60=120N/mm²である。"
+      },
+      {
+        "question": "600N/mm²では大きすぎる理由は？",
+        "answer": "熱応力の計算では、長さや口径ではなくE、α、温度差を用いる。今回のEαΔTは120N/mm²であり、600N/mm²は条件から得られる値より大きすぎる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
