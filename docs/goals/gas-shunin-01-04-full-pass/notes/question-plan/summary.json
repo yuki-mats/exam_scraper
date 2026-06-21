@@ -1,13 +1,13 @@
 {
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-20T05:23:01Z",
+  "generatedAt": "2026-06-21T10:18:59Z",
   "nextPending": {
     "examYear": 2019,
-    "planSequence": 1,
+    "planSequence": 2,
     "qualification": "gas-shunin-kou",
-    "questionLabel": "問1",
-    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1495,chiefgasengineerlicense-A-40-1496,chiefgasengineerlicense-A-40-1497,chiefgasengineerlicense-A-40-1498,chiefgasengineerlicense-A-40-1499",
+    "questionLabel": "問10",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-gizyutu-koushu-2019-10-1,chiefgasengineerlicense-gizyutu-koushu-2019-10-2,chiefgasengineerlicense-gizyutu-koushu-2019-10-3,chiefgasengineerlicense-gizyutu-koushu-2019-10-4,chiefgasengineerlicense-gizyutu-koushu-2019-10-5",
     "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json"
   },
   "phaseCounts": {
@@ -21,7 +21,8 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "pending": 934
+    "ok": 1,
+    "pending": 933
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -42,5 +43,9 @@
     "firestore_snapshot": 294,
     "gassyunin_site": 640
   },
-  "total": 934
+  "total": 934,
+  "executionStatusCounts": {
+    "done": 1,
+    "pending": 933
+  }
 }
