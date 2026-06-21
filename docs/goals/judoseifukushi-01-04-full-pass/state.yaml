@@ -114,7 +114,7 @@ last_verification:
     - "output/judoseifukushi/questions_json/2010/30_merged_2/question_2010_1_merged_20260621_1221.json"
   summary: "2010 question_2010_1 is complete end-to-end through 01→04, and the next safe slice moves to 2010 question_2010_2."
 
-active_task: T1000
+active_task: T1001
 
 tasks:
   - id: T001
@@ -3924,7 +3924,7 @@ tasks:
   - id: T1000
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "Execute 2010 question_2010_2 end-to-end through 01→04, generate fixed patch files and merged outputs, and verify the slice."
     allowed_files:
@@ -3947,11 +3947,40 @@ tasks:
       - "Need files outside allowed_files."
       - "Behavior is ambiguous."
       - "Verification fails twice."
-    receipt: null
+    receipt:
+      result: done
+      summary: "2010 question_2010_2 is complete end-to-end through 01→04, and the next safe slice moves to 2010 question_2010_3."
+      changed_files:
+        - "output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_2_questionType_fixed.json"
+        - "output/judoseifukushi/questions_json/2010/15_correctChoiceText_fixed/question_2010_2_correctChoiceText_fixed.json"
+        - "output/judoseifukushi/questions_json/2010/21_explanationText_added/question_2010_2_explanationText_added.json"
+        - "output/judoseifukushi/questions_json/2010/22_questionSetId_linked/question_2010_2_questionSetId_linked.json"
+        - "output/judoseifukushi/questions_json/2010/12_merged_questionType/question_2010_2_merged.json"
+        - "output/judoseifukushi/questions_json/2010/20_merged_1/question_2010_2_merged.json"
+        - "output/judoseifukushi/questions_json/2010/30_merged_2/question_2010_2_merged_20260621_1314.json"
+      commands:
+        - cmd: "python3 scripts/check/check_questiontype_patch_coverage.py --source output/judoseifukushi/questions_json/2010/00_source/question_2010_2.json --patch output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_2_questionType_fixed.json"
+          status: pass
+        - cmd: "python3 scripts/check/check_correct_choice_patch_coverage.py --source output/judoseifukushi/questions_json/2010/20_merged_1/question_2010_2_merged.json --patch output/judoseifukushi/questions_json/2010/15_correctChoiceText_fixed/question_2010_2_correctChoiceText_fixed.json --require-full --require-snippets --require-change-meta"
+          status: pass
+        - cmd: "python3 scripts/check/check_explanation_patch_coverage.py --source output/judoseifukushi/questions_json/2010/20_merged_1/question_2010_2_merged.json --patch output/judoseifukushi/questions_json/2010/21_explanationText_added/question_2010_2_explanationText_added.json"
+          status: pass
+        - cmd: "python3 scripts/check/check_question_set_patch_coverage.py --source output/judoseifukushi/questions_json/2010/20_merged_1/question_2010_2_merged.json --patch output/judoseifukushi/questions_json/2010/22_questionSetId_linked/question_2010_2_questionSetId_linked.json --category output/judoseifukushi/category/category.json --questionset-only"
+          status: pass
+        - cmd: "python3 scripts/check/check_questionSetId.py --category output/judoseifukushi/category/category.json --original output/judoseifukushi/questions_json/2010/00_source/question_2010_2.json --fixed output/judoseifukushi/questions_json/2010/30_merged_2/question_2010_2_merged_20260621_1314.json --compare-count --questionset-only"
+          status: pass
+        - cmd: ".venv/bin/python scripts/merge/00_merge_all.py 2010 --base-dir output/judoseifukushi/questions_json"
+          status: pass
+      evidence:
+        - "output/judoseifukushi/questions_json/2010/10_questionType_fixed/question_2010_2_questionType_fixed.json"
+        - "output/judoseifukushi/questions_json/2010/15_correctChoiceText_fixed/question_2010_2_correctChoiceText_fixed.json"
+        - "output/judoseifukushi/questions_json/2010/21_explanationText_added/question_2010_2_explanationText_added.json"
+        - "output/judoseifukushi/questions_json/2010/22_questionSetId_linked/question_2010_2_questionSetId_linked.json"
+        - "output/judoseifukushi/questions_json/2010/30_merged_2/question_2010_2_merged_20260621_1314.json"
   - id: T1001
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "Review the 2010 question_2010_2 package and choose the next safe Worker package."
     inputs:
