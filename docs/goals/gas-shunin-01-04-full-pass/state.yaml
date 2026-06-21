@@ -845,6 +845,46 @@ tasks:
       - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
     receipt: null
 
+  - id: T115
+    type: pm
+    assignee: PM
+    status: done
+    reasoning_hint: high
+    objective: "Firestore既存問題のdoc ID保持と全934問の作業可能性を監査し、次の一問作業を安全に再開できる状態を確認する。"
+    expected_output:
+      - "firestoreQuestionIds による既存statement-level doc ID保持チェック"
+      - "甲種・乙種の作業問題数"
+      - "upload gate の安全停止状態"
+      - "次のactive task"
+    receipt:
+      result: done
+      summary: "既存Firestore由来294問・statement-level doc ID 1449件について、firestoreQuestionIds重複0、sourceUniqueKeys重複0、patch/reviewは1問単位であることを確認。通常upload gateはneeds_source_review 125件で安全に停止し、01〜04作業は継続可能。"
+      changed_files:
+        - "scripts/check/audit_gas_shunin_goal_readiness.py"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260622-goal-readiness-audit.md"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/audit_gas_shunin_goal_readiness.py --report output/gas-shunin-goal-readiness-report.json --max-issues 40"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_upload_gate.py --report output/gas-shunin-upload-gate-report.json --max-samples 5"
+          status: expected_fail
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_upload_gate.py --allow-source-conflicts --report output/gas-shunin-upload-gate-allow-conflicts-report.json --max-samples 5"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      evidence:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/receipts/20260622-goal-readiness-audit.md"
+        - "output/gas-shunin-goal-readiness-report.json"
+        - "output/gas-shunin-00-source-contract-final.json"
+        - "output/gas-shunin-upload-gate-report.json"
+        - "output/gas-shunin-upload-gate-allow-conflicts-report.json"
+
   - id: T999
     type: judge
     assignee: Judge
