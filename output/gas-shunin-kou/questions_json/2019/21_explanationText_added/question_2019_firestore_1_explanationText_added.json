@@ -761,10 +761,43 @@
       "パルス燃焼式は高負荷燃焼が可能であるが、一般に加熱の効率は低い。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "赤火燃焼式の赤い輝きは、重炭化水素の一部が分解して生じた炭素が赤熱されるためである。水素が分離して赤熱されるとしている点が誤り。",
+      "ブンゼン燃焼の外炎では、内炎で生じた中間生成物が二次空気と接触して完全燃焼する。一次空気と接触するとしている点が誤り。",
+      "全一次空気燃焼式の機器には、フラッシュバックを防ぐために炎口を特別な構造にしたものがある。構造上の説明として正しい。",
+      "全一次空気燃焼式では、一般に低NOx化が可能である。低NOx化が難しいとしている点が誤り。",
+      "パルス燃焼式は高負荷燃焼が可能で、一般に加熱効率も高い。加熱の効率が低いとしている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "赤火燃焼式の赤い輝きは水素が分離して赤熱するため？",
+      "ブンゼン燃焼の外炎では一次空気と接触して完全燃焼する？",
+      "全一次空気燃焼式にはフラッシュバック防止の特別な炎口構造がある？",
+      "全一次空気燃焼式では一般に低NOx化が難しい？",
+      "パルス燃焼式は高負荷だが加熱効率は低い？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "赤火燃焼式の赤い輝きは水素が分離して赤熱するため？",
+        "answer": "違う。赤火燃焼式の赤い輝きは、重炭化水素の一部が分解して生じた炭素が赤熱されるためである。"
+      },
+      {
+        "question": "ブンゼン燃焼の外炎では一次空気と接触して完全燃焼する？",
+        "answer": "違う。ブンゼン燃焼の外炎では、内炎の中間生成物が二次空気と接触して完全燃焼する。"
+      },
+      {
+        "question": "全一次空気燃焼式にはフラッシュバック防止の特別な炎口構造がある？",
+        "answer": "ある。全一次空気燃焼式の機器には、フラッシュバックを防ぐために炎口を特別な構造にしたものがある。"
+      },
+      {
+        "question": "全一次空気燃焼式では一般に低NOx化が難しい？",
+        "answer": "難しくない。全一次空気燃焼式では、一般に低NOx化が可能である。"
+      },
+      {
+        "question": "パルス燃焼式は高負荷だが加熱効率は低い？",
+        "answer": "低くない。パルス燃焼式は高負荷燃焼が可能で、一般に加熱効率も高い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
