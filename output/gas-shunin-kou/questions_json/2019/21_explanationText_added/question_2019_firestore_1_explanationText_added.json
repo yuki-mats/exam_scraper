@@ -839,10 +839,43 @@
       "ポンプのキャビテーションを防止するためには、有効吸込ヘッドを必要有効吸込ヘッドより小さくしなければならない。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "リターンガスブロワは、LNG船タンクの内圧低下を防止するための設備である。内圧の上昇を防止するとしている点が誤り。",
+      "ボンネット内に液が封入される形式の低温弁では、圧力の異常上昇を防ぐため、弁体の片側にディスクホールを設ける。両側としている点が誤り。",
+      "LNG貯槽の保冷材には、低温域で熱伝導率が小さく、吸水率が小さいことなどが求められる。吸水率が大きいとしている点が誤り。",
+      "膜沸騰は、伝熱面のLNGが沸騰して蒸気膜が形成され、熱伝達性能が低下する状態である。熱伝達性能が向上するとしている点が誤り。",
+      "ポンプのキャビテーション防止には、有効吸込ヘッドを必要有効吸込ヘッドより大きく確保する必要がある。小さくしなければならないとしている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "リターンガスブロワはLNG船タンク内圧の上昇を防ぐ設備？",
+      "低温弁のディスクホールは弁体の両側に設ける？",
+      "LNG貯槽の保冷材は吸水率が大きいことが要求される？",
+      "膜沸騰では熱伝達性能が向上する？",
+      "キャビテーション防止では有効吸込ヘッドを必要値より小さくする？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "リターンガスブロワはLNG船タンク内圧の上昇を防ぐ設備？",
+        "answer": "違う。リターンガスブロワは、LNG船タンク内圧の低下を防止するための設備である。"
+      },
+      {
+        "question": "低温弁のディスクホールは弁体の両側に設ける？",
+        "answer": "両側ではない。ボンネット内に液が封入される形式の低温弁では、弁体の片側にディスクホールを設ける。"
+      },
+      {
+        "question": "LNG貯槽の保冷材は吸水率が大きいことが要求される？",
+        "answer": "違う。LNG貯槽の保冷材には、低温域で熱伝導率が小さく、吸水率が小さいことが求められる。"
+      },
+      {
+        "question": "膜沸騰では熱伝達性能が向上する？",
+        "answer": "向上しない。膜沸騰では蒸気膜が形成され、熱伝達性能が低下する。"
+      },
+      {
+        "question": "キャビテーション防止では有効吸込ヘッドを必要値より小さくする？",
+        "answer": "小さくしない。有効吸込ヘッドを必要有効吸込ヘッドより大きく確保してキャビテーションを防ぐ。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
