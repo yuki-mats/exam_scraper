@@ -1144,10 +1144,43 @@
       "COは、ヘモグロビンに対する結合力が酸素の200〜300倍強い。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。自然換気では、風圧による圧力差と、室内外の温度差によって生じる浮力が空気の流れを起こす主な力になる。",
+      "間違い。必要換気量は、室内の酸素濃度をある限界に保つために必要な最小換気量として扱う。CO濃度を保つためとしている点が誤り。",
+      "間違い。調理室の必要換気量の式自体はよいが、排気フードI型の定数は30である。40は排気フードなしの場合の定数であり、I型の定数としては誤り。",
+      "間違い。自然換気回数0.5回/hは、1時間あたり室容積の0.5倍が自然換気されるという意味である。室容積の2倍ではない。",
+      "正しい。COはヘモグロビンと強く結合し、その結合力は酸素の約200〜300倍とされるため、酸素運搬を阻害して中毒を起こす。"
+    ],
+    "suggestedQuestions": [
+      "自然換気の空気の流れは風圧と温度差による浮力で生じる？",
+      "必要換気量はCO濃度をある限界以下に保つための最小換気量？",
+      "排気フードI型を使用する場合の必要換気量の定数は40？",
+      "自然換気回数0.5回/hなら1時間あたり室容積の2倍が換気される？",
+      "COのヘモグロビンへの結合力は酸素の約200〜300倍強い？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "自然換気の空気の流れは風圧と温度差による浮力で生じる？",
+        "answer": "生じる。自然換気では風圧差と、温度差による浮力が空気の流れを生じさせる。"
+      },
+      {
+        "question": "必要換気量はCO濃度をある限界以下に保つための最小換気量？",
+        "answer": "誤り。必要換気量は室内の酸素濃度をある限界に保つための最小換気量であり、CO濃度を基準にした説明ではない。"
+      },
+      {
+        "question": "排気フードI型を使用する場合の必要換気量の定数は40？",
+        "answer": "誤り。排気フードI型の定数は30であり、40は排気フードなしの場合の定数である。"
+      },
+      {
+        "question": "自然換気回数0.5回/hなら1時間あたり室容積の2倍が換気される？",
+        "answer": "誤り。0.5回/hは1時間に室容積の0.5倍が換気されることを示す。2倍ではない。"
+      },
+      {
+        "question": "COのヘモグロビンへの結合力は酸素の約200〜300倍強い？",
+        "answer": "正しい。COはヘモグロビンに酸素より非常に強く結合し、酸素運搬を妨げる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
