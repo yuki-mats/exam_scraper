@@ -72,10 +72,28 @@
       "理想気体では、N種の成分からなる混合ガスの定圧モル熱容量Cₚは、成分iのモル分率xᵢと成分iの定圧モル熱容量Cₚᵢを用いて、次の式で求めることができる。\\nCₚ＝Σᵢ₌₁ᴺ xᵢCₚᵢ"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。熱容量は、一定量の物質の温度を1K上昇させるのに必要な熱量である。",
+      "間違い。物質1kgあたりの熱容量は質量基準、1molあたりの熱容量は物質量基準であり、同じ量ではない。",
+      "正しい。理想気体では、定圧モル熱容量Cₚは定積モル熱容量Cᵥと気体定数Rの和で表される。",
+      "正しい。定圧モル熱容量Cₚと定積モル熱容量Cᵥの比Cₚ/Cᵥを比熱比という。",
+      "正しい。理想気体の混合ガスの定圧モル熱容量は、各成分の定圧モル熱容量をモル分率で加重平均して求められる。"
+    ],
+    "suggestedQuestions": [
+      "熱容量は一定量の物質の温度を1K上昇させるのに必要な熱量？",
+      "物質1kgあたりの熱容量と1molあたりの熱容量は同じ？",
+      "理想気体ではCₚ＝Cᵥ＋R？",
+      "CₚとCᵥの比は比熱比？",
+      "混合ガスのCₚはモル分率による加重平均で求められる？"
+    ],
+    "suggestedQuestionDetails": [
+      "正しい。一定量の物質の温度を1K上げるために必要な熱量を熱容量という。",
+      "違う。1kgあたりと1molあたりでは基準量が異なるため、同じ熱容量ではない。",
+      "正しい。理想気体のモル熱容量にはCₚ＝Cᵥ＋Rの関係が成り立つ。",
+      "正しい。定圧モル熱容量と定積モル熱容量の比Cₚ/Cᵥを比熱比という。",
+      "正しい。理想気体混合ガスでは、各成分のCₚᵢにモル分率xᵢを掛けて合計する。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
