@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 123
-  pending_questions: 786
+  completed_questions: 124
+  pending_questions: 785
   held_questions: 27
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T262
+active_task: T263
 tasks:
   - id: T001
     type: pm
@@ -10710,9 +10710,53 @@ tasks:
   - id: T262
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=149（gas-shunin-kou 2021 法令 問12）を1問だけ処理し、source_conflict_ledger確認後に01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_2_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_2_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2021 法令 問12の01〜04を完了。source conflict ledgerを確認し、e-Gov技省令51条・52条でFirestore側の正誤を採用。00_sourceは変更せず、15/21/22固定名patch、review JSONL、plan/stateを更新。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_2_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: "e-Gov Laws API lawdata/412M50000400111 article extraction for articles 51 and 52"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=needs_source_review; conflict ledger lines 278-280 checked"
+        - "official e-Gov Gas Facilities Technical Standards Ordinance articles 51 and 52 support Firestore correctChoiceText [正しい, 間違い, 間違い, 正しい, 間違い]"
+        - "archive-site answer_result_text=正解は 3 です。 agrees with three incorrect statements, but archive per-statement correctness conflicts for choices 2 and 4 and was not used"
+        - "questionType=true_false because each statement is judged correct/incorrect"
+        - "questionIntent=select_incorrect because the prompt asks how many statements are incorrect"
+        - "questionSetId=chiefgasengineerlicense-A-10-510（技省令_導管（甲種）） verified from all existing Firestore statement-level questionSetIds and category.json"
+        - "existing firestoreQuestionIds chiefgasengineerlicense-A-10-0216..0220 preserved"
+        - "00_source body/choices unchanged"
+      worker_notes:
+        - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+      verification_attempts: 1
+
+  - id: T263
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=150（gas-shunin-kou 2021 法令 問13）を1問だけ処理し、source_conflict_ledger確認後に01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
@@ -10745,7 +10789,6 @@ tasks:
       - "explanationText が未検証の事実を必要とする。"
       - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
     receipt: null
-
   - id: T900
     type: judge
     assignee: Judge
