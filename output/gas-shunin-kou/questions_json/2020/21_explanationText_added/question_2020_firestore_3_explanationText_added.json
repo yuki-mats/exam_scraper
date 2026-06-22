@@ -392,10 +392,22 @@
       "11"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "正しい。プロパンは C3H8+5O2→3CO2+4H2O より、0.4m³を完全燃焼させるには酸素2.0m³を要する。混合ガス中に酸素0.2m³が含まれるため外部から必要な酸素は1.8m³であり、空気中の酸素濃度20vol%で割ると必要空気量は1.8/0.2=9.0m³である。",
+      "間違い。プロパン0.4m³の燃焼に必要な酸素は2.0m³で、混合ガス中の酸素0.2m³を差し引くと外部酸素は1.8m³で足りる。空気量は1.8/0.2=9.0m³なので、9.5m³ではない。",
+      "間違い。必要酸素量はプロパン由来で2.0m³、混合ガス中酸素を控除して1.8m³である。酸素20vol%の空気に換算すると1.8/0.2=9.0m³となり、10m³ではない。",
+      "間違い。混合ガス中の酸素0.2m³を燃焼用酸素として差し引く必要がある。外部から必要な酸素1.8m³を空気20vol%で換算すると9.0m³であり、10.5m³ではない。",
+      "間違い。プロパン0.4m³に必要な酸素2.0m³から混合ガス中の酸素0.2m³を差し引くため、空気から供給すべき酸素は1.8m³である。必要空気量は1.8/0.2=9.0m³なので、11m³ではない。"
+    ],
+    "suggestedQuestions": [
+      "空気比1で完全燃焼させるのに必要な空気量は9m³に最も近い？",
+      "空気比1で完全燃焼させるのに必要な空気量は9.5m³に最も近い？",
+      "空気比1で完全燃焼させるのに必要な空気量は10m³に最も近い？",
+      "空気比1で完全燃焼させるのに必要な空気量は10.5m³に最も近い？",
+      "空気比1で完全燃焼させるのに必要な空気量は11m³に最も近い？"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
