@@ -243,10 +243,28 @@
       "−75"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "標準反応熱は、生成系の標準生成熱の和から反応系の標準生成熱の和を引いて求める。206=(−111+3×0)−(ΔHf(CH₄)−242)より、ΔHf(CH₄)=−75kJ/molであるため、75kJ/molではない。",
+      "ヘスの法則より206=−111−ΔHf(CH₄)+242となる。したがってΔHf(CH₄)=−75kJ/molであり、31kJ/molではない。",
+      "H₂の標準生成熱は0であるが、CH₄の標準生成熱は反応熱の式から求める未知数である。計算すると−75kJ/molであり、0kJ/molではない。",
+      "206=(−111+0)−(ΔHf(CH₄)−242)=131−ΔHf(CH₄)である。よってΔHf(CH₄)=−75kJ/molとなり、−31kJ/molではない。",
+      "標準反応熱は生成系−反応系なので、206=(−111+3×0)−(ΔHf(CH₄)+(−242))である。整理すると206=131−ΔHf(CH₄)、したがってΔHf(CH₄)=−75kJ/molとなり、−75kJ/molが正しい。"
+    ],
+    "suggestedQuestions": [
+      "CH₄の標準生成熱は75kJ/mol？",
+      "CH₄の標準生成熱は31kJ/mol？",
+      "CH₄の標準生成熱は0kJ/mol？",
+      "CH₄の標準生成熱は−31kJ/mol？",
+      "CH₄の標準生成熱は−75kJ/mol？"
+    ],
+    "suggestedQuestionDetails": [
+      "違う。ヘスの法則で計算すると、CH₄の標準生成熱は−75kJ/molになる。",
+      "違う。206=−111−ΔHf(CH₄)+242より、ΔHf(CH₄)=−75kJ/molである。",
+      "違う。H₂の標準生成熱は0だが、CH₄の標準生成熱は−75kJ/molと求まる。",
+      "違う。標準反応熱の式を整理すると、CH₄の標準生成熱は−31ではなく−75kJ/molである。",
+      "正しい。206=(−111+3×0)−(ΔHf(CH₄)−242)から、ΔHf(CH₄)=−75kJ/molとなる。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
