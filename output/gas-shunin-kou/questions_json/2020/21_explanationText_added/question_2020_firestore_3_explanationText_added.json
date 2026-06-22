@@ -188,10 +188,22 @@
       "2"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "間違い。定圧下での膨張なので、シャルルの法則よりT2=273×6/3=546Kとなる。PV=nRTよりn=100×3/(8.3×273)kmolで、Q=n×10^3×29.2×(546−273)≒1.1MJである。したがって0.1MJではない。",
+      "間違い。定圧下での膨張なので、シャルルの法則よりT2=273×6/3=546Kとなる。PV=nRTよりn=100×3/(8.3×273)kmolで、Q=n×10^3×29.2×(546−273)≒1.1MJである。したがって0.5MJではない。",
+      "正しい。定圧下での膨張なので、シャルルの法則よりT2=273×6/3=546Kとなる。PV=nRTよりn=100×3/(8.3×273)kmolで、Q=n×10^3×29.2×(546−273)≒1.1MJである。よって最も近い値は1.1MJである。",
+      "間違い。定圧下での膨張なので、シャルルの法則よりT2=273×6/3=546Kとなる。PV=nRTよりn=100×3/(8.3×273)kmolで、Q=n×10^3×29.2×(546−273)≒1.1MJである。したがって1.5MJではない。",
+      "間違い。定圧下での膨張なので、シャルルの法則よりT2=273×6/3=546Kとなる。PV=nRTよりn=100×3/(8.3×273)kmolで、Q=n×10^3×29.2×(546−273)≒1.1MJである。したがって2MJではない。"
+    ],
+    "suggestedQuestions": [
+      "気体に与えられた熱量は0.1MJに最も近い？",
+      "気体に与えられた熱量は0.5MJに最も近い？",
+      "気体に与えられた熱量は1.1MJに最も近い？",
+      "気体に与えられた熱量は1.5MJに最も近い？",
+      "気体に与えられた熱量は2MJに最も近い？"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
