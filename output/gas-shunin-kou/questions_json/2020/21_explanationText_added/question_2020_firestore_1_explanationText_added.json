@@ -802,10 +802,43 @@
       "大口径LNG配管においては、直接低温液を導入することによりボーイング現象（配管が弓状に持ち上がる現象）が発生する。このため一般的には低温のガスを用いてプレクールを行う。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "金属二重殻式平底円筒形LNG貯槽では、内外槽間の窒素ガスの圧力変化を吸収するためにブリージングタンクが付属する。記述は正しい。",
+      "ガスを圧縮すると温度は上昇するため、多段圧縮では中間冷却器を用いる。温度が低下し中間加熱器を用いるとしている点が誤り。",
+      "遠心式BOG圧縮機で流量を絞りすぎると問題になるのはサージングである。キャビテーションが起こるとしている点が誤り。",
+      "サブマージド式LNG気化器は運転費が高く、ピークシェービング用や緊急予備用として用いられることが多い。運転費が安くベースロード用とする点が誤り。",
+      "大口径LNG配管に直接低温液を導入するとボーイング現象が発生するため、一般に低温ガスでプレクールを行う。記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "金属二重殻式平底円筒形LNG貯槽にはブリージングタンクが付属する？",
+      "往復式BOG圧縮機の多段圧縮では中間加熱器を用いる？",
+      "遠心式BOG圧縮機で流量を絞りすぎるとキャビテーションが起こる？",
+      "サブマージド式LNG気化器は運転費が安くベースロード用に多い？",
+      "大口径LNG配管では低温ガスでプレクールしてボーイング現象を避ける？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "金属二重殻式平底円筒形LNG貯槽にはブリージングタンクが付属する？",
+        "answer": "付属する。内外槽間の窒素ガスの圧力変化を吸収するためにブリージングタンクを用いる。"
+      },
+      {
+        "question": "往復式BOG圧縮機の多段圧縮では中間加熱器を用いる？",
+        "answer": "用いない。圧縮により温度は上昇するため、中間冷却器を用いる。"
+      },
+      {
+        "question": "遠心式BOG圧縮機で流量を絞りすぎるとキャビテーションが起こる？",
+        "answer": "起こらない。遠心式圧縮機で低流量時に問題となるのはサージングである。"
+      },
+      {
+        "question": "サブマージド式LNG気化器は運転費が安くベースロード用に多い？",
+        "answer": "多くない。サブマージド式LNG気化器は運転費が高く、ピークシェービング用や緊急予備用が中心である。"
+      },
+      {
+        "question": "大口径LNG配管では低温ガスでプレクールしてボーイング現象を避ける？",
+        "answer": "避ける。低温液を直接導入するとボーイング現象が生じるため、低温ガスでプレクールを行う。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
