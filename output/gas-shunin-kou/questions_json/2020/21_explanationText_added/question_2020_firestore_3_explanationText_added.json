@@ -443,10 +443,22 @@
       "メタン80 プロパン20"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "間違い。ル・シャトリエの混合燃焼下限界の式 L=100/(M/5.0+P/2.0) を用いると、メタン20vol%、プロパン80vol%では L=100/(20/5.0+80/2.0)=100/44≈2.27vol%であり、3.8vol%には最も近くない。",
+      "間違い。メタン40vol%、プロパン60vol%では、混合燃焼下限界は L=100/(40/5.0+60/2.0)=100/38≈2.63vol%となる。設問の3.8vol%とは離れている。",
+      "間違い。メタン50vol%、プロパン50vol%では、L=100/(50/5.0+50/2.0)=100/35≈2.86vol%である。3.8vol%に最も近い組成ではない。",
+      "間違い。メタン60vol%、プロパン40vol%では、L=100/(60/5.0+40/2.0)=100/32=3.125vol%となる。3.8vol%に最も近い選択肢ではない。",
+      "正しい。メタンを80vol%、プロパンを20vol%とすると、L=100/(80/5.0+20/2.0)=100/26≈3.85vol%となり、設問の3.8vol%に最も近い。したがって混合組成はメタン80vol%、プロパン20vol%である。"
+    ],
+    "suggestedQuestions": [
+      "混合燃焼下限界3.8vol%に最も近い組成は、メタン20vol%、プロパン80vol%か？",
+      "混合燃焼下限界3.8vol%に最も近い組成は、メタン40vol%、プロパン60vol%か？",
+      "混合燃焼下限界3.8vol%に最も近い組成は、メタン50vol%、プロパン50vol%か？",
+      "混合燃焼下限界3.8vol%に最も近い組成は、メタン60vol%、プロパン40vol%か？",
+      "混合燃焼下限界3.8vol%に最も近い組成は、メタン80vol%、プロパン20vol%か？"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
