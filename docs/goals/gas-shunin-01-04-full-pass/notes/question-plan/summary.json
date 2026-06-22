@@ -4,31 +4,33 @@
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 124,
-    "hold": 30,
-    "pending": 780
+    "hold": 31,
+    "pending": 779
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
-  "hold": 30,
-  "hold_questions": 30,
+  "hold": 31,
+  "hold_questions": 31,
   "kouCompleted": 129,
-  "kouHold": 30,
-  "kouPending": 258,
+  "kouHold": 31,
+  "kouPending": 257,
   "nextPending": {
     "examYear": 2021,
-    "planSequence": 155,
+    "planSequence": 156,
     "qualification": "gas-shunin-kou",
-    "questionLabel": "問2",
-    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0166,chiefgasengineerlicense-A-10-0167,chiefgasengineerlicense-A-10-0168,chiefgasengineerlicense-A-10-0169,chiefgasengineerlicense-A-10-0170",
-    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json"
+    "questionLabel": "問3",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0171,chiefgasengineerlicense-A-10-0172,chiefgasengineerlicense-A-10-0173,chiefgasengineerlicense-A-10-0174,chiefgasengineerlicense-A-10-0175",
+    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+    "sourceFileIndex": 8,
+    "sourceConflictStatus": "needs_source_review"
   },
-  "nextPendingPlanSequence": 155,
-  "nextPendingTaskId": "T268",
+  "nextPendingPlanSequence": 156,
+  "nextPendingTaskId": "T269",
   "otsuCompleted": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 780,
-  "pending_questions": 780,
+  "pending": 779,
+  "pending_questions": 779,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -40,9 +42,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "hold": 30,
+    "hold": 31,
     "ok": 124,
-    "pending": 780
+    "pending": 779
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -64,5 +66,8 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-23T08:31:08+09:00"
+  "updatedAt": "2026-06-23T08:41:45+09:00",
+  "held_questions": 31,
+  "kouHeld": 31,
+  "otsuHeld": 0
 }

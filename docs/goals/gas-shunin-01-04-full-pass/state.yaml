@@ -76,11 +76,11 @@ execution_plan:
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
   completed_questions: 129
-  pending_questions: 780
-  held_questions: 30
+  pending_questions: 779
+  held_questions: 31
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T268
+active_task: T269
 tasks:
   - id: T001
     type: pm
@@ -10574,6 +10574,7 @@ tasks:
         - "00_source body/choices unchanged"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
         - "problem-level questionSetId remains blank pending T900 per-statement questionSetId policy."
       verification_attempts: 1
 
@@ -10640,6 +10641,7 @@ tasks:
         - "00_source body/choices unchanged"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
         - "problem-level questionSetId remains blank pending T900 per-statement questionSetId policy."
       verification_attempts: 1
 
@@ -10705,6 +10707,7 @@ tasks:
         - "00_source body/choices unchanged"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
       verification_attempts: 1
 
   - id: T262
@@ -10748,6 +10751,7 @@ tasks:
         - "00_source body/choices unchanged"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
       verification_attempts: 1
 
   - id: T263
@@ -10792,6 +10796,7 @@ tasks:
         - "00_source body/choices unchanged"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
       verification_attempts: 1
 
   - id: T264
@@ -10837,6 +10842,7 @@ tasks:
         - "00_source body/choices unchanged"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
       verification_attempts: 1
 
   - id: T265
@@ -10899,6 +10905,7 @@ tasks:
         - "既存Firestore IDs chiefgasengineerlicense-A-10-0231..0235を保持し、00_source本文・選択肢は未変更。"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
       verification_attempts: 1
 
   - id: T266
@@ -10960,6 +10967,7 @@ tasks:
         - "既存Firestore IDs chiefgasengineerlicense-A-10-0236..0240を保持し、00_source本文・選択肢は未変更。"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
       verification_attempts: 1
 
   - id: T267
@@ -11021,12 +11029,13 @@ tasks:
         - "既存Firestore ID chiefgasengineerlicense-A-10-0246を保持し、00_source本文・選択肢は未変更。"
       worker_notes:
         - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
       verification_attempts: 1
 
   - id: T268
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=155（gas-shunin-kou 2021 法令 問2）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
@@ -11034,6 +11043,85 @@ tasks:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
       - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
       - "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json"
+      - "output/gas-shunin-kou/category/category.json"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_2_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_2_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json --patch output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_2_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json --patch output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json --patch output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
+      - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
+    receipt:
+      result: done
+      summary: "planSequence=155（gas-shunin-kou 2021 法令 問2, 5-statement metadata_resolved行）は、01〜03をok、04を理由付きholdにした。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: "e-Gov Laws API lawdata/329AC0000000051 article extraction for articles 47, 48, 91 and 93"
+          status: pass
+        - cmd: "e-Gov Laws API lawdata/345M50000400097 article extraction for articles 64 and 144"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json --patch output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_2_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json --patch output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json --patch output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=metadata_resolved; duplicate natural key was resolved with legacy sourceUniqueKeys for chiefgasengineerlicense-A-10-0166〜0170。"
+        - "Firestore correctChoiceText [間違い, 正しい, 正しい, 間違い, 間違い] を e-Gov ガス事業法（LawId 329AC0000000051）第47条・第48条・第91条・第93条、同法施行規則（LawId 345M50000400097）第64条・第144条で確認。"
+        - "questionType=true_false、questionIntent=select_correct。"
+        - "04は既存Firestore statement-level questionSetIdが chiefgasengineerlicense-A-10-070（事業の届出等（甲種））と chiefgasengineerlicense-A-10-030（ガス事業の業務（甲種））に混在するためhold。problem-level questionSetIdは空欄維持。"
+        - "既存Firestore ID chiefgasengineerlicense-A-10-0166〜0170を保持し、00_source本文・選択肢は未変更。"
+      worker_notes:
+        - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "readiness audit was run separately and remains expected-fail because the full goal still has source_conflict_needs_review=125 and suggested_question_details_count_mismatch=12."
+      extra_verification:
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-kou output/gas-shunin-otsu output/gas-shunin-00-source-contract-final.json output/gas-shunin-goal-readiness-report.json"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      verification_attempts: 1
+
+  - id: T269
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=156（gas-shunin-kou 2021 法令 問3）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json"
+      - "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl"
       - "output/gas-shunin-kou/category/category.json"
     allowed_files:
       - "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_2_questionType_fixed.json"
