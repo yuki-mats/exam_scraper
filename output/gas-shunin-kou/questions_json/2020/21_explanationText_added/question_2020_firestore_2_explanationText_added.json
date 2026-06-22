@@ -1417,10 +1417,28 @@
       "1.4"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "質量流量Qm=10kg/s、密度ρ=1000kg/m³なので体積流量はQ=Qm/ρ=0.01m³/sである。内径0.1mの断面積はπd²/4=3.14×0.1²/4=0.00785m²で、平均流速は約1.27m/sとなるため、1.0m/sは小さすぎる。",
+      "平均流速は v=Q/A=4Qm/(ρπd²) で求める。4×10/(1000×3.14×0.1²)=1.27m/sとなり、1.1m/sより1.3m/sが近い。",
+      "計算値は約1.27m/sである。選択肢1.2m/sとの差は約0.074m/s、1.3m/sとの差は約0.026m/sなので、1.2m/sではなく1.3m/sが最も近い。",
+      "連続の式より Qm=ρAv、A=πd²/4である。したがって v=4Qm/(ρπd²)=4×10/(1000×3.14×0.1²)=1.27m/sとなり、最も近い1.3m/sが正しい。",
+      "平均流速の計算値は約1.27m/sである。1.4m/sとの差は約0.126m/sで、1.3m/sとの差より大きいため、1.4m/sは最も近い値ではない。"
+    ],
+    "suggestedQuestions": [
+      "平均流速は1.0m/sに近い？",
+      "平均流速は1.1m/sに近い？",
+      "平均流速は1.2m/sに近い？",
+      "平均流速は1.3m/sに近い？",
+      "平均流速は1.4m/sに近い？"
+    ],
+    "suggestedQuestionDetails": [
+      "1.0m/sではない。連続の式から平均流速は約1.27m/sであり、1.3m/sが最も近い。",
+      "1.1m/sではない。v=4Qm/(ρπd²)=1.27m/sで、1.1m/sより1.3m/sが近い。",
+      "1.2m/sではない。計算値1.27m/sは1.2m/sより1.3m/sに近い。",
+      "1.3m/sに近い。Qm=10kg/s、ρ=1000kg/m³、d=0.1mより v=4Qm/(ρπd²)=約1.27m/sとなる。",
+      "1.4m/sではない。計算値は約1.27m/sで、1.4m/sより1.3m/sが近い。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
