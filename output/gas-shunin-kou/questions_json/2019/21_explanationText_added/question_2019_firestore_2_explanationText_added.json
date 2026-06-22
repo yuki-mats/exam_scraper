@@ -72,10 +72,28 @@
       "特別管理産業廃棄物のうち、廃PCBや廃石綿は、特定有害産業廃棄物に指定されている。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "サーマルNOxの発生は、燃焼雰囲気の温度及び酸素濃度が高いほど、また滞留時間が長いほど増加する傾向がある。温度が低いほど増加するとしている点が誤り。",
+      "圧力回収設備（膨張タービン）を導入することは、エネルギー使用の合理化に有効な施策である。記述は正しい。",
+      "モーターのようにコイル要素を持つ負荷では、電圧に対して電流が遅れるため、力率改善による省エネルギーが期待できる。記述は正しい。",
+      "冷熱発電のLNG直接膨張方式は、システムが単純である一方、市中送出ガス圧力により出力が左右される。左右されないとしている点が誤り。",
+      "特別管理産業廃棄物のうち、廃PCBや廃石綿は、特定有害産業廃棄物に指定されている。記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "サーマルNOxは高温・高酸素濃度・長い滞留時間で増加する？",
+      "圧力回収設備の導入はエネルギー使用の合理化に有効？",
+      "コイル要素を持つ負荷では力率改善による省エネルギーが期待できる？",
+      "LNG直接膨張方式の出力は市中送出ガス圧力に左右される？",
+      "廃PCBや廃石綿は特定有害産業廃棄物に指定されている？"
+    ],
+    "suggestedQuestionDetails": [
+      "増加する。サーマルNOxは燃焼雰囲気の温度及び酸素濃度が高く、滞留時間が長いほど発生しやすい。",
+      "有効である。圧力回収設備（膨張タービン）はエネルギー使用の合理化に役立つ施策である。",
+      "期待できる。モーターなどのコイル要素を持つ負荷では電流が電圧より遅れるため、力率改善が省エネルギーにつながる。",
+      "左右される。LNG直接膨張方式は市中送出ガス圧力の影響を受けるため、左右されないとはいえない。",
+      "指定されている。廃PCBや廃石綿は、特別管理産業廃棄物のうち特定有害産業廃棄物に該当する。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
