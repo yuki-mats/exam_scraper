@@ -1598,10 +1598,43 @@
       "蒸発方式の付臭設備では、沸点が大きく異なる付臭成分を混合した付臭剤を使用した場合、各成分の蒸気圧が異なるため均一な付臭が難しくなる。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。臭気濃度とは、試料ガスを無臭の空気で徐々に希釈したとき、臭気を感知できる最大の希釈倍数をいう。",
+      "間違い。ガスの臭気濃度が高すぎると、ガス器具の点火・消火時のわずかな未燃ガスなどをガス漏えいと誤認しやすくなる。特に問題は生じないとしている点が誤り。",
+      "間違い。TBM、DMS、シクロヘキセンのうち、比較的土壌透過性が高いのはDMSとシクロヘキセンである。TBMとしている点が誤り。",
+      "間違い。TBMとDMSは硫黄（S）を含むが、シクロヘキセンは硫黄を含まない。いずれも硫黄を含むとしている点が誤り。",
+      "正しい。蒸発方式の付臭設備では、沸点が大きく異なる付臭成分を混合した付臭剤を用いると、各成分の蒸気圧が異なるため均一な付臭が難しくなる。"
+    ],
+    "suggestedQuestions": [
+      "臭気濃度は感知できる最大の希釈倍数をいう？",
+      "ガスの臭気濃度は高すぎても特に問題は生じない？",
+      "TBM、DMS、シクロヘキセンのうち土壌透過性が高いのはTBM？",
+      "TBM、DMS、シクロヘキセンはいずれも硫黄（S）を含む？",
+      "蒸発方式で沸点差が大きい混合付臭剤を使うと均一な付臭が難しくなる？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "臭気濃度は感知できる最大の希釈倍数をいう？",
+        "answer": "いう。試料ガスを無臭の空気で徐々に希釈した場合に、臭気を感知できる最大の希釈倍数をいう。"
+      },
+      {
+        "question": "ガスの臭気濃度は高すぎても特に問題は生じない？",
+        "answer": "問題が生じる。高すぎると、点火・消火時の未燃ガスなどをガス漏えいと誤認しやすくなる。"
+      },
+      {
+        "question": "TBM、DMS、シクロヘキセンのうち土壌透過性が高いのはTBM？",
+        "answer": "TBMではない。比較的土壌透過性が高いのはDMSとシクロヘキセンである。"
+      },
+      {
+        "question": "TBM、DMS、シクロヘキセンはいずれも硫黄（S）を含む？",
+        "answer": "いずれもではない。シクロヘキセンは硫黄を含まず、TBMとDMSが硫黄を含む。"
+      },
+      {
+        "question": "蒸発方式で沸点差が大きい混合付臭剤を使うと均一な付臭が難しくなる？",
+        "answer": "難しくなる。各成分の蒸気圧が異なるため、均一な付臭が難しくなる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
