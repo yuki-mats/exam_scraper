@@ -1440,10 +1440,43 @@
       "無停電電源装置（UPS）は、鉛蓄電池、アルカリ蓄電池等の蓄電池とVVVF（可変電圧可変周波数装置）から構成される。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。測温抵抗体温度計は、金属の電気抵抗値が温度上昇によって増加する特性を利用して温度を測定する。低下するとしている点が誤り。",
+      "間違い。超音波式流量計は、流体の温度・密度・粘度の影響を受けにくい。これらの影響を受けやすいとしている点が誤り。",
+      "間違い。配線や機器では、電線相互間や電線と大地間を電気をほとんど通さない絶縁物で絶縁する。電気抵抗の小さい物を用いるとしている点が誤り。",
+      "間違い。非常用発電設備の原動機には、短時間で起動できるディーゼル機関、ガスタービン、ガスエンジンなどが用いられる。用いることはできないとしている点が誤り。",
+      "間違い。無停電電源装置（UPS）は、蓄電池とCVCF（定電圧定周波数装置）などで構成される。VVVF（可変電圧可変周波数装置）としている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "測温抵抗体温度計は温度上昇で金属の電気抵抗値が低下する特性を使う？",
+      "超音波式流量計は温度・密度・粘度の影響を受けやすい？",
+      "配線や機器の絶縁には電気抵抗の小さい物を用いる？",
+      "非常用発電設備の原動機にはディーゼル機関やガスエンジンを用いることはできない？",
+      "UPSは蓄電池とVVVFから構成される？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "測温抵抗体温度計は温度上昇で金属の電気抵抗値が低下する特性を使う？",
+        "answer": "低下しない。測温抵抗体温度計は、金属の電気抵抗値が温度上昇で増加する特性を利用する。"
+      },
+      {
+        "question": "超音波式流量計は温度・密度・粘度の影響を受けやすい？",
+        "answer": "受けやすいわけではない。超音波式流量計は、温度・密度・粘度の影響を受けにくい。"
+      },
+      {
+        "question": "配線や機器の絶縁には電気抵抗の小さい物を用いる？",
+        "answer": "用いない。絶縁には電気をほとんど通さない絶縁物を用いる。"
+      },
+      {
+        "question": "非常用発電設備の原動機にはディーゼル機関やガスエンジンを用いることはできない？",
+        "answer": "用いられる。非常用発電設備には、ディーゼル機関、ガスタービン、ガスエンジンなどが用いられる。"
+      },
+      {
+        "question": "UPSは蓄電池とVVVFから構成される？",
+        "answer": "VVVFではない。UPSは蓄電池とCVCF（定電圧定周波数装置）などで構成される。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
