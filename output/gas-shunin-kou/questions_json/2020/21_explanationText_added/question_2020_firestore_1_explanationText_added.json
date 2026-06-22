@@ -878,10 +878,43 @@
       "サーマルNOxの生成量は、燃焼ガス温度や滞留時間と正の相関がある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "全一次空気燃焼式は、燃焼用空気を一次空気として混合してから燃焼するため、混合気がバーナー内に戻るフラッシュバックを起こしやすい。記述は正しい。",
+      "パイロットバーナーには、安定した小火炎を得やすいセミ・ブンゼン燃焼式が主に用いられる。記述は正しい。",
+      "燃焼速度がガスの噴出速度に対して低下すると、火炎が炎口から離れてリフティングが生じる。記述は正しい。",
+      "空気比などの変化で燃焼速度が速くなると、燃焼に伴う圧力変動が大きくなり、燃焼騒音は大きくなる。記述は正しい。",
+      "サーマルNOxは高温域で生成されやすく、燃焼ガス温度が高いほど、また高温域での滞留時間が長いほど生成量が増える。記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "全一次空気燃焼式はフラッシュバックしやすい？",
+      "パイロットバーナーには主にセミ・ブンゼン燃焼式が用いられる？",
+      "燃焼速度が噴出速度に対して低下するとリフティングが生じる？",
+      "燃焼速度が速くなると燃焼騒音は大きくなる？",
+      "サーマルNOxの生成量は燃焼ガス温度や滞留時間と正の相関がある？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "全一次空気燃焼式はフラッシュバックしやすい？",
+        "answer": "しやすい。全一次空気燃焼式は混合気をあらかじめ作るため、火炎がバーナー内へ戻るフラッシュバックに注意が必要である。"
+      },
+      {
+        "question": "パイロットバーナーには主にセミ・ブンゼン燃焼式が用いられる？",
+        "answer": "用いられる。パイロットバーナーでは主にセミ・ブンゼン燃焼式が使われる。"
+      },
+      {
+        "question": "燃焼速度が噴出速度に対して低下するとリフティングが生じる？",
+        "answer": "生じる。噴出速度に対して燃焼速度が低くなると、炎が炎口から浮き上がるリフティングが起こる。"
+      },
+      {
+        "question": "燃焼速度が速くなると燃焼騒音は大きくなる？",
+        "answer": "大きくなる。燃焼速度が速くなると燃焼騒音は増大する。"
+      },
+      {
+        "question": "サーマルNOxの生成量は燃焼ガス温度や滞留時間と正の相関がある？",
+        "answer": "ある。サーマルNOxは高温かつ滞留時間が長い条件で生成されやすい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
