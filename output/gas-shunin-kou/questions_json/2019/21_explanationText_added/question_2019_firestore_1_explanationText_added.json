@@ -989,10 +989,43 @@
       "給湯暖房用熱源機では、熱効率向上策の一つとして給湯側で間欠燃焼させている。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "現在販売されている開放式瞬間湯沸器にはブンゼンバーナーが用いられている。記述は正しい。",
+      "瞬間湯沸器には元止め式と先止め式があり、RF式瞬間湯沸器は先止め式に分類される。記述は正しい。",
+      "BF式ふろがまでも、電池を電源とした電子回路によりタイムスタンプ機能を搭載できるものがあるため、記述は誤り。",
+      "多段式バーナーでは、燃焼しているバーナー本数が少ないと熱効率は低くなる傾向にあるため、記述は誤り。",
+      "給湯暖房用熱源機の熱効率向上策として用いられる間欠燃焼は暖房側であり、給湯側ではないため、記述は誤り。"
+    ],
+    "suggestedQuestions": [
+      "開放式瞬間湯沸器にはブンゼンバーナーが用いられている？",
+      "RF式瞬間湯沸器は先止め式に分類される？",
+      "現在販売されているBF式ふろがまにはタイムスタンプ機能を搭載できない？",
+      "多段式バーナーは燃焼本数が少ないほど熱効率が高くなる？",
+      "給湯暖房用熱源機の熱効率向上策は給湯側の間欠燃焼？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "開放式瞬間湯沸器にはブンゼンバーナーが用いられている？",
+        "answer": "用いられている。現在販売されている開放式瞬間湯沸器にはブンゼンバーナーが使われている。"
+      },
+      {
+        "question": "RF式瞬間湯沸器は先止め式に分類される？",
+        "answer": "分類される。瞬間湯沸器には元止め式と先止め式があり、RF式瞬間湯沸器は先止め式である。"
+      },
+      {
+        "question": "現在販売されているBF式ふろがまにはタイムスタンプ機能を搭載できない？",
+        "answer": "搭載できないとはいえない。電池を電源とした電子回路により、BF式ふろがまにもタイムスタンプ機能を搭載できるものがある。"
+      },
+      {
+        "question": "多段式バーナーは燃焼本数が少ないほど熱効率が高くなる？",
+        "answer": "高くならない。多段式バーナーでは燃焼本数が少ないと熱効率は低くなる傾向にある。"
+      },
+      {
+        "question": "給湯暖房用熱源機の熱効率向上策は給湯側の間欠燃焼？",
+        "answer": "給湯側ではない。熱効率向上策としての間欠燃焼は暖房側で用いられる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
