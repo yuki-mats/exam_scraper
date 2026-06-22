@@ -1435,10 +1435,28 @@
       "火災警報器の検知方式には、熱式と煙式とがある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "ガス警報器は、爆発下限界の1/200以下では警報を発しないように定められている。1/4以下では警報を発しないとしている点が誤り。",
+      "熱線型半導体式のガス警報器センサーは、濃度の薄いガスに比較的敏感で、濃度上昇に伴う出力上昇は緩やかになる。記述は正しい。",
+      "空気より軽い都市ガス用のガス警報器では、雑ガスの影響を抑えるため、一般にセンサー部に雑ガス除去フィルターが取り付けられる。記述は正しい。",
+      "CO警報器には浴室に設置可能な防湿構造品がある。浴室に設置可能な防湿対策品はないとしている点が誤り。",
+      "火災警報器の検知方式には、熱を検知する熱式と煙を検知する煙式がある。記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "ガス警報器は爆発下限界の1/4以下では警報を発しない？",
+      "熱線型半導体式センサーは低濃度ガスに比較的敏感？",
+      "空気より軽い都市ガス用警報器には雑ガス除去フィルターが付く？",
+      "CO警報器には浴室設置可能な防湿構造品がある？",
+      "火災警報器の検知方式には熱式と煙式がある？"
+    ],
+    "suggestedQuestionDetails": [
+      "発しないわけではない。ガス警報器は爆発下限界の1/200以下では警報を発しないように定められている。",
+      "敏感である。熱線型半導体式センサーは低濃度ガスに比較的敏感で、濃度上昇に伴う出力上昇は緩やかになる。",
+      "付く。空気より軽い都市ガス用のガス警報器には、一般にセンサー部に雑ガス除去フィルターが取り付けられる。",
+      "ある。CO警報器には浴室に設置可能な防湿構造品があり、防湿対策品はないという記述は誤り。",
+      "ある。火災警報器の検知方式には、熱式と煙式がある。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
