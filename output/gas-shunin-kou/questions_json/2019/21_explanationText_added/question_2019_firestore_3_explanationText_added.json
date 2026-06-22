@@ -414,10 +414,28 @@
       "1.5"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "メタン0.9m³の燃焼に必要な酸素は1.8m³、プロパン0.1m³の燃焼に必要な酸素は0.5m³で、合計2.3m³である。理論空気量は2.3÷0.20=11.5m³、空気比は15÷11.5≒1.3なので、1.1ではない。",
+      "必要酸素量は0.9×2+0.1×5=2.3m³であり、理論空気量は11.5m³である。空気比は15÷11.5≒1.3となるため、1.2ではない。",
+      "CH₄は1m³あたり2m³、C₃H₈は1m³あたり5m³の酸素を必要とする。したがって必要酸素量は0.9×2+0.1×5=2.3m³、理論空気量は2.3÷0.20=11.5m³であり、空気比は15÷11.5≒1.3となる。",
+      "理論空気量は11.5m³で、実際の空気量15m³をこれで割ると空気比は約1.3である。したがって、1.4ではない。",
+      "空気比は実際空気量を理論空気量で割って求める。15÷11.5≒1.3であり、1.5ではない。"
+    ],
+    "suggestedQuestions": [
+      "この条件の空気比は1.1？",
+      "この条件の空気比は1.2？",
+      "この条件の空気比は1.3？",
+      "この条件の空気比は1.4？",
+      "この条件の空気比は1.5？"
+    ],
+    "suggestedQuestionDetails": [
+      "違う。必要酸素量2.3m³、理論空気量11.5m³なので、空気比は約1.3である。",
+      "違う。空気比は15÷11.5≒1.3であり、1.2ではない。",
+      "正しい。必要酸素量は2.3m³、理論空気量は11.5m³で、15÷11.5≒1.3となる。",
+      "違う。計算上の空気比は約1.3であり、1.4ではない。",
+      "違う。空気比は実際空気量15m³を理論空気量11.5m³で割るため、約1.3である。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
