@@ -1365,10 +1365,43 @@
       "給湯器の水量制御装置は、出湯量が多い等、設定温度を維持できない場合に水量を制御する。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "点火装置には、圧電素子の放電を利用する圧電式と、火花を連続して発生させる連続スパーク式がある。記述は正しい。",
+      "瞬時点火装置（クイック点火）は、点火操作後すぐに点火できる装置で、こんろや開放式瞬間湯沸器に搭載されている。記述は正しい。",
+      "緩点火装置（スローイグニッション）は、点火時の急激な燃焼を抑える装置で、主に先止め式瞬間湯沸器に搭載されている。記述は正しい。",
+      "ガス量制御には、ガス量を段階的に切り替える方式と、連続的に調整する方式がある。記述は正しい。",
+      "給湯器の水量制御装置は、出湯量が多いなど設定温度を維持できない場合に水量を制御して温度を保つ。記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "点火装置には圧電式と連続スパーク式がある？",
+      "瞬時点火装置はこんろや開放式瞬間湯沸器に搭載される？",
+      "緩点火装置は主に先止め式瞬間湯沸器に搭載される？",
+      "ガス量制御には段階式と連続式がある？",
+      "給湯器の水量制御装置は設定温度維持のため水量を制御する？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "点火装置には圧電式と連続スパーク式がある？",
+        "answer": "ある。点火装置には、圧電式と連続スパーク式がある。"
+      },
+      {
+        "question": "瞬時点火装置はこんろや開放式瞬間湯沸器に搭載される？",
+        "answer": "搭載される。瞬時点火装置（クイック点火）は、こんろや開放式瞬間湯沸器に用いられる。"
+      },
+      {
+        "question": "緩点火装置は主に先止め式瞬間湯沸器に搭載される？",
+        "answer": "搭載される。緩点火装置（スローイグニッション）は、主に先止め式瞬間湯沸器に用いられる。"
+      },
+      {
+        "question": "ガス量制御には段階式と連続式がある？",
+        "answer": "ある。ガス量を段階的に制御する方式と、連続的に制御する方式がある。"
+      },
+      {
+        "question": "給湯器の水量制御装置は設定温度維持のため水量を制御する？",
+        "answer": "制御する。出湯量が多いなど設定温度を維持できない場合に水量を制御する。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
