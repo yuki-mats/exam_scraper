@@ -274,10 +274,43 @@
       "20"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。軸方向応力は σv=PD/(4t) で求める。内径Dは200-2×5=190mmなので、σv=1.0×190/(4×5)=9.5N/mm²となり、5N/mm²ではない。",
+      "正しい。内圧による軸方向応力は σv=PD/(4t)。内径D=200-2×5=190mm、P=1.0MPa、t=5mmを代入すると、σv=1.0×190/(4×5)=9.5N/mm²である。",
+      "間違い。計算値は9.5N/mm²であり、10N/mm²より9.5N/mm²の選択肢が一致する。",
+      "間違い。19N/mm²は円周方向応力 σt=PD/(2t) に相当する値で、設問が問う軸方向応力 σv=PD/(4t) ではない。",
+      "間違い。20N/mm²は外径200mmを用いた円周方向応力 PD/(2t) に近い値であり、内径190mmを用いる軸方向応力の9.5N/mm²ではない。"
+    ],
+    "suggestedQuestions": [
+      "外径200mm・管厚5mm・内圧1MPaの軸方向応力は5N/mm²？",
+      "外径200mm・管厚5mm・内圧1MPaの軸方向応力は9.5N/mm²？",
+      "外径200mm・管厚5mm・内圧1MPaの軸方向応力は10N/mm²？",
+      "19N/mm²は軸方向応力の値？",
+      "20N/mm²は軸方向応力の値？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "外径200mm・管厚5mm・内圧1MPaの軸方向応力は5N/mm²？",
+        "answer": "違う。内径190mmを用いて σv=PD/(4t)=1.0×190/(4×5)=9.5N/mm²となる。"
+      },
+      {
+        "question": "外径200mm・管厚5mm・内圧1MPaの軸方向応力は9.5N/mm²？",
+        "answer": "そのとおり。軸方向応力は σv=PD/(4t) で、D=190mm、t=5mmより9.5N/mm²である。"
+      },
+      {
+        "question": "外径200mm・管厚5mm・内圧1MPaの軸方向応力は10N/mm²？",
+        "answer": "最も近い値ではない。計算値は9.5N/mm²で、選択肢9.5が一致する。"
+      },
+      {
+        "question": "19N/mm²は軸方向応力の値？",
+        "answer": "違う。19N/mm²は PD/(2t) による円周方向応力に相当し、軸方向応力はその半分の9.5N/mm²である。"
+      },
+      {
+        "question": "20N/mm²は軸方向応力の値？",
+        "answer": "違う。20N/mm²は外径を使った円周方向応力に近く、設問の軸方向応力は9.5N/mm²である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
