@@ -76,11 +76,11 @@ execution_plan:
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
   completed_questions: 112
-  pending_questions: 798
-  held_questions: 24
+  pending_questions: 797
+  held_questions: 25
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T250
+active_task: T251
 tasks:
   - id: T001
     type: pm
@@ -9861,9 +9861,83 @@ tasks:
   - id: T250
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=137（gas-shunin-kou 2021 消費機器 問27）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_1_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_1_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json --patch output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_1_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json --patch output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json --patch output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "sourceConflictStatus=needs_source_review の根拠確認なしにupload-facing fieldsを確定しそうになる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
+      - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
+    receipt:
+      result: done
+      decision: hold
+      summary: "gas-shunin-kou 2021 消費機器 問27 は01/02 intent/04を確認したが、statement 1 と 5 の correctChoiceText がFirestoreとarchive-siteで逆転しているため、Firestore値を保持したまま正誤・解説確定を保留した。"
+      changed_files:
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json --patch output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json --patch output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json --patch output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "source conflict ledger lines 309-312 checked"
+        - "statement 1 conflict Firestore=間違い; archive-site=正しい"
+        - "statement 5 conflict Firestore=正しい; archive-site=間違い"
+        - "archive-site answer_result_text=正解は 2 です。 and Firestore both count two correct statements, but disagree on which statements are correct"
+        - "questionSetId=chiefgasengineerlicense-A-60-172（接続具及び警報器（甲種））"
+        - "existing firestoreQuestionIds chiefgasengineerlicense-A-60-1365..1369 preserved"
+        - "reviewDecision=hold because high-severity correctChoiceText conflict remains unresolved"
+      worker_notes:
+        - "questionIntent=select_correct"
+        - "correctChoiceText retained as Firestore snapshot value [間違い, 間違い, 正しい, 間違い, 正しい]"
+        - "21_explanationText_added was not changed because explanationText would depend on unresolved correctness"
+      remaining_blockers:
+        - "gas-shunin-kou 2021 消費機器 問27 requires official PDF/primary source review before strict upload."
+      verification_attempts: 1
+      stopped_because: "source_content_conflict_unresolved"
+
+  - id: T251
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=138（gas-shunin-kou 2021 製造 問3）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
