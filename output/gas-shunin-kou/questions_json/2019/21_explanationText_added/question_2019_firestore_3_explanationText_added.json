@@ -186,10 +186,28 @@
       "理想気体を定積条件のもとで温度を上昇させると、エントロピーは増大する。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。エントロピーは状態量であり、その値は現在の状態で決まり、そこへ至る経路には依存しない。",
+      "正しい。エントロピーは熱量を温度で割った次元を持つため、通常J/Kを単位として表される。",
+      "正しい。理想気体を等温膨張させると、体積の増加に伴ってエントロピーは増大する。",
+      "間違い。2種の理想気体を等温定圧下で混合すると、混合によりエントロピーは増大するため、減少するとする記述は誤りである。",
+      "正しい。理想気体を定積条件で加熱すると温度上昇によりエントロピーは増大する。"
+    ],
+    "suggestedQuestions": [
+      "エントロピーは状態だけで決まる状態量？",
+      "エントロピーの単位は通常J/K？",
+      "理想気体を等温膨張させるとエントロピーは増大する？",
+      "2種の理想気体を等温定圧下で混合するとエントロピーは減少する？",
+      "理想気体を定積で加熱するとエントロピーは増大する？"
+    ],
+    "suggestedQuestionDetails": [
+      "正しい。エントロピーは状態量なので、到達経路によらず状態によって定まる。",
+      "正しい。エントロピーは熱量を温度で割った量として扱われ、単位はJ/Kで表される。",
+      "正しい。等温膨張では体積が増え、理想気体のエントロピーは増大する。",
+      "違う。理想気体の混合ではエントロピーは減少せず、増大する。",
+      "正しい。定積条件でも温度が上昇すれば、理想気体のエントロピーは増大する。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
