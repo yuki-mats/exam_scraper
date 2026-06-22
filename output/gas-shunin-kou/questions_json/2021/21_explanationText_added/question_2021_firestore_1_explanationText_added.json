@@ -1,0 +1,1062 @@
+[
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-40-1255,chiefgasengineerlicense-A-40-1256,chiefgasengineerlicense-A-40-1257,chiefgasengineerlicense-A-40-1258,chiefgasengineerlicense-A-40-1259",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-1",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問1",
+    "examLabel": null,
+    "questionBodyText": "都市ガスの原料に関する次の記述のうち、誤っているものはいくつあるか。",
+    "choiceTextList": [
+      "LNGは急激な圧力低下や温度上昇により、配管中でベーパーロックが起こることがあり、送液が不可能になる等のおそれがある。",
+      "キャビテーションが起こると、ポンプ効率や吐出量が急激に上昇し、この状態が継続すると羽根や胴体の一部が損傷することがある。",
+      "液撃は、弁の閉鎖やポンプの停止等の急激な変化によって、配管内流体の運動エネルギーの一部が圧力エネルギーに変換され、流体の圧力が上昇することにより起こる。",
+      "LNGの主成分であるメタンの臨界温度は約－82℃と非常に低いため、常温で液化させるには高圧に圧縮する必要がある。",
+      "バイオマスは、ライフサイクルの中では大気中の二酸化炭素を増加させないためカーボンニュートラルである。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": [
+      "正しい。LNGは低温液体であり、急激な圧力低下や温度上昇により一部が気化すると、配管中でベーパーロックが起こり、送液が困難または不可能になるおそれがある。",
+      "間違い。キャビテーションではポンプ内で気泡が発生・崩壊し、ポンプ効率や吐出量は低下する。効率や吐出量が急激に上昇するとしている点が誤りで、継続すると羽根や胴体の損傷につながる。",
+      "正しい。液撃は、弁の閉鎖やポンプの停止などの急激な流動変化により、配管内流体の運動エネルギーが圧力エネルギーに変わって圧力が上昇する現象である。",
+      "間違い。メタンの臨界温度は約－82℃であり、常温は臨界温度を大きく上回るため、圧力を高くするだけでは液化できない。液化には臨界温度以下への冷却が必要である。",
+      "正しい。バイオマス由来の炭素は成長過程で大気中から取り込まれた炭素であり、ライフサイクル全体では大気中の二酸化炭素を増加させないと扱われるため、カーボンニュートラルとされる。"
+    ],
+    "suggestedQuestions": [
+      "LNGは圧力低下や温度上昇でベーパーロックを起こすことがある？",
+      "キャビテーションでポンプ効率や吐出量は急激に上昇する？",
+      "液撃は急激な流動変化で圧力が上昇する現象？",
+      "メタンは常温で高圧にすれば液化できる？",
+      "バイオマスはライフサイクル上カーボンニュートラルとされる？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "LNGは圧力低下や温度上昇でベーパーロックを起こすことがある？",
+        "answer": "起こることがある。圧力低下や温度上昇によりLNGの気化が進むと、配管中でベーパーロックが生じ、送液不能などのおそれがある。"
+      },
+      {
+        "question": "キャビテーションでポンプ効率や吐出量は急激に上昇する？",
+        "answer": "上昇ではなく低下する。キャビテーションでは気泡の発生・崩壊によりポンプ性能が低下し、羽根や胴体を損傷することがある。"
+      },
+      {
+        "question": "液撃は急激な流動変化で圧力が上昇する現象？",
+        "answer": "そのとおり。弁の閉鎖やポンプ停止などで流体の運動エネルギーが圧力エネルギーに変わり、配管内圧が上昇する。"
+      },
+      {
+        "question": "メタンは常温で高圧にすれば液化できる？",
+        "answer": "液化できない。メタンの臨界温度は約－82℃なので、常温では圧力を高めるだけでは液化せず、低温冷却が必要である。"
+      },
+      {
+        "question": "バイオマスはライフサイクル上カーボンニュートラルとされる？",
+        "answer": "される。バイオマスは成長過程で吸収した二酸化炭素を循環させるものとして扱われ、ライフサイクル上は大気中の二酸化炭素を増加させない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "「キャビテーションで吐出量が急上昇」が誤り。正しくは「急減少」。ポンプ内に気泡が生じ、衝撃で翼などが損傷し性能が低下する。"
+      ],
+      [],
+      [
+        "「メタンは常温で高圧のみで液化可」が誤り。正しくは「臨界温度が－82℃と低く、常温加圧だけでは液化できない」。極低温冷却が必要。"
+      ],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2021-10-1,gasushunin-koushu-gizyutsu-2021-10-2,gasushunin-koushu-gizyutsu-2021-10-3,gasushunin-koushu-gizyutsu-2021-10-4,gasushunin-koushu-gizyutsu-2021-10-5",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-10",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問10",
+    "examLabel": null,
+    "questionBodyText": "問10 A点からB点にガスを200m³/h供給している低圧導管AB（口径20cm、延長200m）がある。このとき、A点の圧力P_Aは2.3kPa、B点の圧力P_Bは2.1kPaであった。（図1）\\n今、図2のようにAB間の中間点（A点から100m）のC点にもガスを200m³/h供給することになった。A点の圧力P_Aが2.3kPaのとき、B点の圧力P_B（kPa）として最も近い値はどれか。ただし、高低差は考慮しないものとする。",
+    "choiceTextList": [
+      "1.5",
+      "1.6",
+      "1.7",
+      "1.8",
+      "1.9"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-80-1297,chiefgasengineerlicense-A-80-1298,chiefgasengineerlicense-A-80-1299,chiefgasengineerlicense-A-80-1300,chiefgasengineerlicense-A-80-1301",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-11",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問11",
+    "examLabel": null,
+    "questionBodyText": "整圧器に関する次の記述のうち、誤っているものはいくつあるか。",
+    "choiceTextList": [
+      "直動式整圧器は、二次圧力を駆動圧力としているため、作動最小差圧を考慮する必要がある。",
+      "分解点検完了後は、ピーク時間帯の作動状況を調べ、異常の無いことを確認することが望ましい。",
+      "負荷変動が急激、かつ、大きいーの使用者にガスを供給する整圧器には、静特性に優れた整圧器を選定する。",
+      "整圧器の特性として、オフセット及びロックアップは静特性であり、安定性及びシフトは動特性である。",
+      "高圧整圧器の付属設備であるラインヒーターは、熱効率のよさ、設置面積の小ささ等の点から一般に整圧器の二次側に設置される。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「作動最小差圧を考慮する必要がある」が誤りで、正しくは「不要」。直動式整圧器は二次圧力を直接検出するため、差圧の影響を受けにくい。"
+      ],
+      [],
+      [
+        "「静特性に優れた整圧器を選定」が誤りで、正しくは「動特性に優れた整圧器」。負荷変動が大きい環境では応答性が求められる。"
+      ],
+      [
+        "「オフセットとロックアップが静特性、安定性とシフトが動特性」が誤りで、正しくは「オフセット・ロックアップ・シフトは静特性、安定性は動特性」。"
+      ],
+      [
+        "「ラインヒーターは整圧器の二次側に設置」が誤りで、正しくは「一次側に設置」。減圧時のガス温度低下に伴う凍結防止のため高圧側で加熱する。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2021-12-1,gasushunin-koushu-gizyutsu-2021-12-2,gasushunin-koushu-gizyutsu-2021-12-3,gasushunin-koushu-gizyutsu-2021-12-4,gasushunin-koushu-gizyutsu-2021-12-5",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-12",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問12",
+    "examLabel": null,
+    "questionBodyText": "問12 以下の表は、主なガスメーターの種類ごとの一般的な特徴を示している。3つの特徴（使用圧力、メーター前後の直管、メーターフィルター）をすべて正しく表しているガスメーターの種類はいくつあるか。",
+    "choiceTextList": [
+      "膜式",
+      "回転子式",
+      "タービン式",
+      "渦流式",
+      "サーマルフロー式"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2021-13-1,gasushunin-koushu-gizyutsu-2021-13-2,gasushunin-koushu-gizyutsu-2021-13-3,gasushunin-koushu-gizyutsu-2021-13-4,gasushunin-koushu-gizyutsu-2021-13-5",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-13",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問13",
+    "examLabel": null,
+    "questionBodyText": "問13 外径200mm、管厚5mmの導管が内圧1MPaを受けるときに生じる軸方向の応力（N/mm²）として最も近い値はどれか。",
+    "choiceTextList": [
+      "5",
+      "9.5",
+      "10",
+      "19",
+      "20"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-80-1304,chiefgasengineerlicense-A-80-1305,chiefgasengineerlicense-A-80-1306,chiefgasengineerlicense-A-80-1307,chiefgasengineerlicense-A-80-1308",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-14",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問14",
+    "examLabel": null,
+    "questionBodyText": "腐食と防食に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "電解質の中にある２つの金属を接続すると電流が流れ、アノードとなる金属が腐食する。",
+      "ミクロセル腐食とは、金属表面においてアノードとカソードの部位が刻々と変化するタイプの腐食で、全面腐食となる。",
+      "導管における設計上の防食電位は、安全を考慮して、管対地電位を−1000mV（飽和硫酸銅電極基準）程度とすることが望ましい。",
+      "導管の路線上の２点間で、管対地電位に大きな差があれば、マクロセルが形成されており、電位の低い方で腐食の可能性がある。",
+      "建物に引き込まれた配管は、マクロセル腐食の原因となるコンクリートに接触する機会が多いため、一般に埋設配管部近くの架空配管部に絶縁継手を設置する。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-80-1309,chiefgasengineerlicense-A-80-1310,chiefgasengineerlicense-A-80-1311,chiefgasengineerlicense-A-80-1312,chiefgasengineerlicense-A-80-1313",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-15",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問15",
+    "examLabel": null,
+    "questionBodyText": "導管の工事に関する次の記述のうち、誤っているものはいくつあるか。",
+    "choiceTextList": [
+      "ポリエチレン管の接合方法の１つであるヒートフュージョン接合において、接合面のインジケーターの高さ、幅等により接合後の融着状態を確認した。",
+      "架管の施工において、橋台等の壁貫通部にスリーブを設け、スリーブとガス管の隙間には弾力性のあるシール材を隙間なく充てんした。",
+      "中圧導管の連絡工事にあたり、整圧器を操作して減圧作業を行った。",
+      "エアーパージ作業として、気密試験完了後に管内の空気又は不活性ガスを供給ガスに置換した。",
+      "道路舗装の復旧範囲について、道路交通法に基づき、所轄の警察署と協議した。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「インジケーター高さで融着確認」が誤りで、正しくは「ビード形成状況で確認」。ヒートフュージョン接合では、接合面で溶融した材料が一体化する際に、余分な溶融材が「ビート」として現れます。適正なビートの高さは、十分な熱と圧力で材料が均一に溶融し、一体化していることの指標となります。"
+      ],
+      [],
+      [],
+      [],
+      [
+        "「道路交通法に基づき警察署と協議」が誤りで、正しくは「道路施工規則に基づき道路管理者と協議」。舗装復旧は道路管理者の承認が必要。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-80-1314,chiefgasengineerlicense-A-80-1315,chiefgasengineerlicense-A-80-1316,chiefgasengineerlicense-A-80-1317,chiefgasengineerlicense-A-80-1318",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-16",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問16",
+    "examLabel": null,
+    "questionBodyText": "溶接と非破壊試験に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "被覆アーク溶接は、溶接設備が安価であるが、溶接姿勢に制限を受ける。",
+      "ティグ溶接は、溶加材を電極とし、不活性ガスでアーク及び溶融池を完全にシールドしているため、不純物が混入せず、高品質な溶接が得られる。",
+      "溶接部の構造上の欠陥として、溶込み不良、融合不良、ブローホール、アンダーカット等のきずがある。",
+      "放射線透過試験の二重壁片面撮影法は、主に大口径管の場合に用いられる。",
+      "超音波探傷試験は、超音波が物質の端面や違う物質に当たると吸収される性質を利用し、内部のきずの存在や位置・大きさを検知する方法である。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「被覆アーク溶接は溶接姿勢に制限」が誤りで、正しくは「姿勢制限が少ない」。手溶接のため状況に合わせて施工しやすく、設備も比較的安価。"
+      ],
+      [
+        "「溶加材を電極とする」が誤りで、正しくは「タングステン電極を用いる」。TIG溶接ではタングステンでアークを形成し、不活性ガスシールド下で高品質溶接を行う。"
+      ],
+      [],
+      [
+        "「二重壁片面撮影法は大口径管用」が誤りで、正しくは「小口径管に適用」。管周りのスペース確保が難しい場合などにフィルムを効率的に撮影できる手法である。"
+      ],
+      [
+        "「超音波が吸収される性質で欠陥検出」が誤りで、正しくは「反射を利用」。欠陥部との界面で反射波を測定し、きずの位置や大きさを調べる。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-80-1319,chiefgasengineerlicense-A-80-1320,chiefgasengineerlicense-A-80-1321,chiefgasengineerlicense-A-80-1322,chiefgasengineerlicense-A-80-1323",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-17",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問17",
+    "examLabel": null,
+    "questionBodyText": "導管の維持管理に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "接触燃焼式ガス検知器(識別型ガス検知器)は、ガス中の可燃性ガス濃度を検知することができ、メタンの識別も可能である。",
+      "他工事の巡回及び立会業務に従事する者に対しては、防護基準類、各種要領、保安規程等についての教育及び訓練等を実施し、事故防止に努める。",
+      "敷地内の他工事対策の1つとして、ガス設備の資産区分、解体、改装時の注意事項等を記載したチラシ等を配付し需要家への注意喚起を図る。",
+      "溶接スリーブ工法とは、高圧導管が損傷又は貫通に至った場合に、恒久的な修理を行う前の応急処置である。",
+      "サンドブラストによる供給支障は、低圧導管のみに発生する。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [
+        "「溶接スリーブ工法は損傷時の応急処置」が誤りで、正しくは「応急修理用スリーブの装着が暫定対策」。恒久修理までの一時的措置として実施される。\n溶接スリーブ工法は、適切に施工されれば恒久修理として評価されることが多いです。正しい設計、施工管理、材料選定を行えば、元のパイプラインの強度や密閉性を回復させ、長期にわたり安全な運用が可能な修理方法とされています。"
+      ],
+      [
+        "「サンドブラストによる供給支障は低圧導管のみ」が誤りで、正しくは「地下水の浸水等により供給支障が生じる」。適切な防水措置でリスク低減する。\nサンドブラスト作業中に供給支障が発生するリスクは、導管の圧力レベルだけで決まるわけではありません。確かに低圧導管は、設計上の余裕が少ないため外部作業の影響を受けやすい傾向がありますが、高圧導管でも、作業手順や安全対策が十分でなければ供給支障が発生する可能性はあります。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-80-1324,chiefgasengineerlicense-A-80-1325,chiefgasengineerlicense-A-80-1326,chiefgasengineerlicense-A-80-1327,chiefgasengineerlicense-A-80-1328",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-18",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問18",
+    "examLabel": null,
+    "questionBodyText": "地震対策に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "高圧導管のレベル2地震動(ガス導管の供用期間中に発生する確率は低いが、非常に強い地震動)に対する許容ひずみは、3.0%である。",
+      "マイコンメーターには、ガスメーターの設置場所において200ガルの地震動を瞬間的に検知した場合に遮断する機能がある。",
+      "SI値は、地震による一般的な建物の揺れの大きさを評価する指標であり、速度の単位カイン(cm/s)で表わされる。",
+      "第1次緊急停止判断の供給停止判断基準値は、供給継続地区の想定被害数が緊急時対応能力の範囲内に収まるように、あらかじめ設定する。",
+      "移動式ガス発生設備のうち、空気吸入式(PA式)は、ボンベに圧縮・充てんされた熱量調整・付臭済みの天然ガスを供給するものである。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "「200ガルで瞬時に遮断」が誤りで、正しくは「250ガル超を継続検知で遮断」。マイコンメーターは一定条件下で地震を感知し、ガスを自動遮断する。"
+      ],
+      [],
+      [],
+      [
+        "「空気吸入式(PA式)」が誤りで、正しくは「圧縮ガス式(CNG式)」。CNG式はボンベに圧縮・充てんされたガスを供給する方式であり、PA式は空気と混合して供給するため異なる。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1329,chiefgasengineerlicense-A-60-1330,chiefgasengineerlicense-A-60-1331,chiefgasengineerlicense-A-60-1332,chiefgasengineerlicense-A-60-1333",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-19",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問19",
+    "examLabel": null,
+    "questionBodyText": "ガスの性質及び燃焼に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "燃焼過程において発生した熱は、放射や伝導等により周壁や受熱面に伝わって失われるため、理論火炎温度は実際の火炎温度より低い。",
+      "メタンと空気との混合ガスの燃焼範囲は、大気圧、室温の環境においてメタン濃度5～15%である。",
+      "不活性ガスを可燃性ガスに混入していくと、燃焼範囲は狭くなる。",
+      "ガスが燃焼して発生した熱量のうち、目的以外の物質の加熱に使われたり、排気とともに大気中に逃げてしまった熱量を損失熱量という。",
+      "乾き燃焼排ガス量とは、湿り燃焼排ガス量から、燃焼により生成された水（水蒸気）及び燃焼に使われた空気中の湿分を除いたものである。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「理論火炎温度は実際の火炎温度より低い」が誤りで、正しくは「高い」。理論火炎温度は燃焼ガスが完全燃焼した場合の最高温度であり、実際の燃焼では放熱があるため低下する。"
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-40-1260,chiefgasengineerlicense-A-40-1261,chiefgasengineerlicense-A-40-1262,chiefgasengineerlicense-A-40-1263,chiefgasengineerlicense-A-40-1264",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-2",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問2",
+    "examLabel": null,
+    "questionBodyText": "都市ガスの製造設備に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "ガスの製造プロセスの1つであるLNG気化によるプロセスは、原料であるLNGの受入設備の形態により、内航船で受け入れる1次受入基地、外航船で受け入れる2次受入基地、及びLNGローリー等で受け入れるサテライト基地に分類される。",
+      "LNG船と陸上側のLNG配管を接続するアンローディングアームは、回転自在のジョイントとパイプを組み合わせたものである。",
+      "LNG配管は、LNG貯槽からLNG気化器までの移送やLNG貯槽間の移送に用いられるため、低温靭性に優れた材料で配管を製作し、原則としてフランジ溶接構造とする。",
+      "加圧式LPG貯槽には円筒形と球形があり、円筒形は比較的小容量の貯槽として最も経済的であるので広く使用されている。",
+      "往復式BOG圧縮機の構造は比較的複雑であり、ピストンの往復動により発生したガスの脈動を抑制するため、安全弁を設置する必要がある。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「外航船で受入れる2次受入基地」が誤り。正しくは「外航船を受け入れるのが1次、内航船が2次、ローリーがサテライト基地」。受入形態で分類する。"
+      ],
+      [],
+      [
+        "「原則フランジ溶接構造」が誤り。正しくは「原則、溶接継手構造」。フランジ接続は、温度変化が激しくなく、極端な低温・高温状態でない環境に適しています。特に、配管のメンテナンスや検査、将来的な改修・分解が必要なシステムにおいて、容易な着脱が求められる場合に有用です。また、圧力も比較的中程度で、応力集中のリスクが低い状況で効果を発揮します。"
+      ],
+      [],
+      [
+        "「安全弁で脈動を抑制」が誤り。正しくは「スナッバタンクで脈動を抑える」。往復式BOG圧縮機はピストン往復によるガス脈動対策が必要。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1334,chiefgasengineerlicense-A-60-1335,chiefgasengineerlicense-A-60-1336,chiefgasengineerlicense-A-60-1337,chiefgasengineerlicense-A-60-1338",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-20",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問20",
+    "examLabel": null,
+    "questionBodyText": "ガスの燃焼及び熱量調整に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "バーナーの炎口負荷は、インプットに比例し、バーナーの炎口面積に反比例する。",
+      "ユニバーサルバーナーは、燃焼速度の異なるガスに対応するために、炎口負荷の適正範囲が広く設計されている。",
+      "熱量調整前後においてインプットを一定にするためには、ウォッベ指数やガス圧力に応じてガス機器のノズル口径を変更する必要がある。",
+      "ブンゼンバーナーでは、ウォッベ指数が低下した場合、フラッシュバックしやすくなる。",
+      "現在は、国内すべての都市ガス事業者において、一酸化炭素を含まないガスへの燃料転換が完了している。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1339,chiefgasengineerlicense-A-60-1340,chiefgasengineerlicense-A-60-1341,chiefgasengineerlicense-A-60-1342,chiefgasengineerlicense-A-60-1343",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-21",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問21",
+    "examLabel": null,
+    "questionBodyText": "家庭用ガス温水機器及びそれに使われる技術に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "潜熱回収型温水機器の排気温度は、従来型温水機器の排気温度に比べて低い。",
+      "現在販売されている開放式小型湯沸器には、10万回を超える使用を知らせるタイムスタンプ機能が搭載されている。",
+      "バーナーの低NOx化技術は、ブンゼンバーナーの空気過剰率を低くすると火炎温度が高くなり、NOx濃度が低下する現象を利用している。",
+      "給湯器の「Q機能」は、再出湯時の冷水サンドイッチ現象を防止する機能である。",
+      "2缶3水の給湯暖房用熱源機には、燃焼により加熱される2つの熱交換器のほかに、温水により加熱される熱交換器が備わっている。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [
+        "「空気過剰率を低くするとNOx濃度が低下する」が誤りで、正しくは「空気過剰率を高くするとNOx濃度が低下」。空気比を適正に増加させることで燃焼温度が低くなり、NOxの生成を抑制できる。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1344,chiefgasengineerlicense-A-60-1345,chiefgasengineerlicense-A-60-1346,chiefgasengineerlicense-A-60-1347,chiefgasengineerlicense-A-60-1348",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-22",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問22",
+    "examLabel": null,
+    "questionBodyText": "家庭用ガス機器に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "オーブンでは、主に放射伝熱により調理が行われる。",
+      "「Siセンサーコンロ」の標準搭載機能は、調理油過熱防止装置、立ち消え安全装置、消し忘れ消火機能、早切れ防止機能である。",
+      "ファンヒーターのメインバーナーには、主に全一次空気燃焼式が用いられている。",
+      "気密性が高い部屋でFF暖房機を長時間使用しても、酸欠による事故は起きにくい。",
+      "回転ドラム式衣類乾燥機は、空気で希釈された燃焼排ガスにより、ドラムの中の洗濯物を直接乾燥させるものである。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「オーブンでは主に放射伝熱」が誤りで、正しくは「主に対流伝熱」。オーブン内では温風を循環させて均一に加熱するため、対流が主要な加熱方式となる。"
+      ],
+      [],
+      [
+        "「ファンヒーターのメインバーナーは全一次空気燃焼式」が誤りで、正しくは「ブンゼン式」。ブンゼンバーナーを用いることで、安定した燃焼と低NOx排出を実現している。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1349,chiefgasengineerlicense-A-60-1350,chiefgasengineerlicense-A-60-1351,chiefgasengineerlicense-A-60-1352,chiefgasengineerlicense-A-60-1353",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-23",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問23",
+    "examLabel": null,
+    "questionBodyText": "コージェネレーションシステム及びガス冷暖房機器に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "ガスタービン式のコージェネレーションシステムは、電気出力に比べて熱出力の割合が大きく、蒸気を多量に必要とする産業用や地域冷暖房への導入が多い。",
+      "コージェネレーション設備では、電気主任技術者の選任や保安規程の届け出が必要であり、点検を委託することはできない。",
+      "固体酸化物形燃料電池（SOFC）は、電解質に高分子（陽イオン交換膜）を使用し、作動温度が約600～1000℃と高いため触媒が不要である。",
+      "吸収冷凍機の再生器では、冷媒を吸収して濃度が薄くなった吸収溶液を加熱して冷媒を蒸発させている。",
+      "吸収冷温水機には、加熱源としてガスの燃焼熱に加え、コージェネレーションシステムからの廃熱を利用したものがある。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "「コージェネ設備では電気主任技術者の選任が必要」が誤りで、正しくは「一定の出力以下なら不要」。小規模な設備は主任技術者なしで運用可能であり、点検も委託できる。"
+      ],
+      [
+        "「SOFCの電解質は高分子（陽イオン交換膜）」が誤りで、正しくは「セラミックスの一種である安定化ジルコニア」。SOFCは高温動作するためセラミック電解質を使用する。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2021-24-1,gasushunin-koushu-gizyutsu-2021-24-2,gasushunin-koushu-gizyutsu-2021-24-3,gasushunin-koushu-gizyutsu-2021-24-4,gasushunin-koushu-gizyutsu-2021-24-5",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-24",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問24",
+    "examLabel": null,
+    "questionBodyText": "問24 排気フードI型の下で燃料消費量が5kWのガスこんろを使用するとき、部屋の必要換気量（m³/h）として最も近い値はどれか。ただし、燃料の単位発熱量あたりの理論排ガス量は0.93m³/kWhとする。",
+    "choiceTextList": [
+      "5",
+      "45",
+      "90",
+      "140",
+      "190"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1355,chiefgasengineerlicense-A-60-1356,chiefgasengineerlicense-A-60-1357,chiefgasengineerlicense-A-60-1358,chiefgasengineerlicense-A-60-1359",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-25",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問25",
+    "examLabel": null,
+    "questionBodyText": "ガス機器の給排気方式に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "自然排気式機器及び自然給排気式機器では、高温度で膨張している燃焼排ガスに働く浮力を利用して排気が行われる。",
+      "自然排気式機器のバフラーには、排気に必要なドラフトを生じさせる役割がある。",
+      "自然排気式機器及び強制排気式機器の排気筒トップは、風圧帯内に設置することができる。",
+      "共用排気ダクトに機器を設置する場合には、低酸素濃度下での燃焼検査に合格した半密閉式機器を用いる。",
+      "強制給排気式機器は、給排気筒を延長できるため、機器本体は外壁に面して設置する必要がない。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "「自然排気式機器のバフラーには排気ドラフト生成の役割」が誤りで、正しくは「逆風止めの役割」。排気の逆流を防ぎ、安全に排気を行う機能を持つ。"
+      ],
+      [
+        "「自然排気式機器の排気筒トップは風圧帯内に設置可」が誤りで、正しくは「設置不可」。風圧帯では排気が妨げられ、一酸化炭素中毒のリスクが高まるため避ける必要がある。"
+      ],
+      [
+        "「共用排気ダクトには半密閉式機器を用いる」が誤りで、正しくは「密閉式機器を用いる」。共用排気ダクトでは逆流を防ぐため密閉構造の機器が求められる。"
+      ],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1360,chiefgasengineerlicense-A-60-1361,chiefgasengineerlicense-A-60-1362,chiefgasengineerlicense-A-60-1363,chiefgasengineerlicense-A-60-1364",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-26",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問26",
+    "examLabel": null,
+    "questionBodyText": "ガス機器の安全装置及び制御装置に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "給湯器の空だき防止装置は、水量センサーで給湯器の最高作動水量を検知して、ガス電磁弁を閉閉するものである。",
+      "開放式小型湯沸器の不完全燃焼防止装置は、酸欠状態になるとバーナーの炎が短くなる現象を利用している。",
+      "消し忘れ防止装置は、長時間使用による事故を未然に防止する効果があり、開放式小型湯沸器やこんろに搭載されているが、ファンヒーターには搭載されていない。",
+      "温度制御に用いられるサーミスタは、温度変化に対して抵抗値が正の特性を持つ。",
+      "水量制御装置には、機械的に水量を制御するものと、電気的に水量を制御するものがある。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「給湯器の空だき防止装置は最高作動水量を検知」が誤りで、正しくは「最低作動水量を検知」。最低作動水量を下回ると自動的にガス供給を停止し、空だきを防ぐ。"
+      ],
+      [
+        "「不完全燃焼防止装置は酸欠時にバーナーの炎が短くなる」が誤りで、正しくは「炎が長く伸びる」。酸素不足では燃焼が不完全になり、炎の色や形状が変化する。"
+      ],
+      [
+        "「消し忘れ防止装置はファンヒーターに搭載されていない」が誤りで、正しくは「一部のファンヒーターにも搭載」。長時間使用による事故防止のため、一定時間で自動停止する。"
+      ],
+      [
+        "「サーミスタの抵抗値は温度変化に対して正の特性」が誤りで、正しくは「負の特性」。温度が上昇すると抵抗値が低下する「負の温度係数」を持つ。"
+      ],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-60-1365,chiefgasengineerlicense-A-60-1366,chiefgasengineerlicense-A-60-1367,chiefgasengineerlicense-A-60-1368,chiefgasengineerlicense-A-60-1369",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-27",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問27",
+    "examLabel": null,
+    "questionBodyText": "接続具及び警報器に関する次の記述のうち、正しいものはいくつあるか。",
+    "choiceTextList": [
+      "ガスコードでは、一般にガス機器側のソケットが自在になっている。",
+      "ガスソフトコードは、ガスコンセントに接続して用いられる。",
+      "金属可とう管には、屋内用のものと、屋内及び屋外兼用のものがある。",
+      "ガス警報器は、メタン濃度が爆発下限界の1/2に相当する2.5%程度で鳴り始めるよう調整されている。",
+      "業務用換気警報器は、血中一酸化炭素ヘモグロビン濃度の推定演算を行い、その値が設定値に達したときに警報を発する。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「ガスコードではガス機器側のソケットが自在」が誤りで、正しくは「ガス栓側が自在」。ガス栓側が可動式であることで、接続時の負担を軽減する。"
+      ],
+      [
+        "「ガスソフトコードはガスコンセントに接続」が誤りで、正しくは「ホースエンド口のガス栓に接続」。接続方式が異なるため、誤接続を防ぐ注意が必要。"
+      ],
+      [],
+      [
+        "「ガス警報器はメタン濃度2.5%で作動」が誤りで、正しくは「0.2～0.5%で作動」。爆発の危険を未然に防ぐため、低濃度でも検知して警報を発する。"
+      ],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-40-1265,chiefgasengineerlicense-A-40-1266,chiefgasengineerlicense-A-40-1267,chiefgasengineerlicense-A-40-1268,chiefgasengineerlicense-A-40-1269",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-3",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問3",
+    "examLabel": null,
+    "questionBodyText": "ガス製造所における保安電源に関する次の記述のうち、誤っているものはいくつあるか。",
+    "choiceTextList": [
+      "非常用発電設備の容量選定にあたっては、起動する電動機の起動電流が大きく影響するため、負荷の積み上げ合計値よりも十分大きい定格容量のものが必要になる。",
+      "非常用発電設備は、停電時に短時間で起動する必要があることから、原動機にディーゼル機関やガスタービンを用いることはできない。",
+      "直流電源装置は、交流を出力する無停電電源装置（UPS）に比べ複雑な回路構成となる。",
+      "停電時、UPSでは、蓄電池の放電により整流部を経由して交流出力される。",
+      "常用発電設備は、電気事業法の「発電所」には該当しない。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "「非常用発電にディーゼル機関やタービンは使えない」が誤り。正しくは「原動機にディーゼル機関やガスタービンが用いられる」。速やかな起動が可能なため。"
+      ],
+      [
+        "「直流電源装置はUPSより回路が複雑」が誤り。正しくは「単純」。UPSはインバーターや切替回路などが含まれ、構成が複雑になる。"
+      ],
+      [
+        "「UPS停電時、整流部を経由し交流出力」が誤り。正しくは「インバーター部を経由し交流出力」。蓄電池から直流を得てインバーターで交流化する。\n\n\n\n\n\n\n\n"
+      ],
+      [
+        "誤りの内容：「常用発電設備は、電気事業法の『発電所』には該当しない」が誤り。\n正しい内容：常用発電設備は、電気事業法上の「発電所」に該当する。\n"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-40-1270,chiefgasengineerlicense-A-40-1271,chiefgasengineerlicense-A-40-1272,chiefgasengineerlicense-A-40-1273,chiefgasengineerlicense-A-40-1274",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-4",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問4",
+    "examLabel": null,
+    "questionBodyText": "ガスの熱量・比重の測定に関する次の記述のうち、誤っているものはいくつあるか。",
+    "choiceTextList": [
+      "ガス事業法では、ガスの熱量はガスクロマトグラフ法によって得られた成分組成から計算によって求める方法と、ブンゼン−シリング法によって測定する方法が規定されている。",
+      "ガスクロマトグラフにおいて、試料ガスの各成分の移動速度は、カラム中の固定相に対する溶解性や吸着性が強いほど速くなる。",
+      "ガスクロマトグラフの水素炎イオン化検出器（FID）は、無機化合物、有機化合物のいずれも検出できるが、一般に熱伝導度検出器（TCD）より感度が低い。",
+      "ガスクロマトグラフでは、クロマトグラムのそれぞれのピークの面積を、同一条件下で得られるキャリアガスのピーク面積と比較し、各成分を定量する。",
+      "ガス比重とは、同一温度及び同一圧力における等しい体積のガスと乾燥空気の質量の比と定義される。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「ブンゼン−シリング法」が誤りで、正しくは「ユンカース式流水形ガス熱量計」による測定。ブンゼン−シリング法は、燃焼試験における熱損失や燃焼条件のばらつきなどから、再現性や精度に課題があり、現場の実運用条件に近い測定が難しいとされています。一方、ユンカース式流水形ガス熱量計は、ガスを連続的に流して直接燃焼させ、発生した熱を効率よく回収するため、実際の使用環境に近い状態で高精度・高再現性の熱量測定が可能となります。そのため、ガス事業法ではブンゼン−シリング法ではなく、ユンカース式流水形ガス熱量計による測定が規定されています。"
+      ],
+      [
+        "「吸着性が強いほど速くなる」が誤りで、正しくは「遅くなる」。成分が固定相に強く吸着されカラム通過が遅延するため。"
+      ],
+      [
+        "「FIDはTCDより感度が低い」が誤りで、正しくは「TCDのほうが一般に感度が低い」。\nTCDの場合\n温度変化による抵抗変化を検出する仕組みですが、検出対象成分が担体ガスと比べて持つ熱伝導率の差が小さいと、信号も微弱になりやすく、感度が低くなります。\n\nFIDの場合\n有機成分が水素炎中で燃焼する際、炭素原子に由来するイオンが大量に生成され、そのイオン電流が大きな信号となって検出されます。これにより、微量の有機成分でも高感度に検出可能です。"
+      ],
+      [
+        "「キャリアガスのピーク面積と比較」が誤りで、正しくは「標準ガスのピーク面積と比較」。混合標準ガスや純ガスを基準に各成分を定量する。"
+      ],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-40-1275,chiefgasengineerlicense-A-40-1276,chiefgasengineerlicense-A-40-1277,chiefgasengineerlicense-A-40-1278,chiefgasengineerlicense-A-40-1279",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-5",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問5",
+    "examLabel": null,
+    "questionBodyText": "都市ガスの付臭に関する次の記述のうち、誤っているものはいくつあるか。",
+    "choiceTextList": [
+      "付臭剤は、一般に存在するにおい（生活臭）とは明瞭に区別でき、ドキッとさせるインパクトを持った警告臭であり、極めて低い濃度でも特有の臭気が認められる必要がある。",
+      "臭気濃度とは、試料ガスを無臭の不活性ガスで徐々に希釈していった場合に、感知できる最大の希釈倍率をいう。",
+      "ジメチルサルファイド（DMS）は、比較的土壌透過性が高く、一般に単独で使用される。",
+      "液体注入方式の1つであるポンプ注入方式は、小容量のダイヤフラムポンプ等により付臭剤を注入する方式で、ガス量の変動に対応してポンプの吐出バルブの開度を変化させ、ガス中の付臭剤濃度を常に一定に保つことができる。",
+      "パネル法は、あらかじめ適正に選定された臭気の判定者4名以上により、においの有無を判定し、ガスの臭気濃度を求める方法である。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "「無臭の不活性ガスで希釈」が誤りで、正しくは「無臭の空気で希釈」。最大希釈倍数まで希釈して感知できるかで臭気濃度を評価する。"
+      ],
+      [
+        "「DMSは単独で使用される」が誤りで、正しくは「他の付臭剤と混合して使用」。複数成分を組み合わせて検知しやすい臭気を付与する。"
+      ],
+      [
+        "「ポンプの吐出バルブ開度を変化」が誤りで、正しくは「ポンプのストロークや回転数を変化」。ガス量変動に応じて付臭剤濃度を一定に保つ。"
+      ],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2021-6-1,gasushunin-koushu-gizyutsu-2021-6-2,gasushunin-koushu-gizyutsu-2021-6-3,gasushunin-koushu-gizyutsu-2021-6-4,gasushunin-koushu-gizyutsu-2021-6-5",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-6",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問6",
+    "examLabel": null,
+    "questionBodyText": "問6 製造設備の地震対策に関する次の記述について、[  ]の中の（イ）〜（ニ）にあてはまる語句の組合せとして最も適切なものはどれか。\\n地震対策は、①設備対策、②緊急対策、③復旧対策で構成される。\\n① 設備対策は、地震による[ （イ） ]を防ぐため、設備の[ （ロ） ]に応じた耐震設計を行い、耐震性能の維持を図るため定期的な維持管理を行うことが基本である。\\n② 緊急対策は、地震発生時の[ （ハ） ]を防止し、[ （ニ） ]ことが基本である。\\n③ 復旧対策は、緊急措置を講じた後、速やかに被災設備の復旧を図ることを目的とする。",
+    "choiceTextList": [
+      "（イ）被害、（ロ）重要度、（ハ）二次災害、（ニ）保安を確保する",
+      "（イ）被害、（ロ）形状、（ハ）設備の緊急停止、（ニ）ガス送出を継続する",
+      "（イ）設備の変形、（ロ）重要度、（ハ）設備の緊急停止、（ニ）ガス送出を継続する",
+      "（イ）設備の変形、（ロ）形状、（ハ）設備の緊急停止、（ニ）保安を確保する",
+      "（イ）被害、（ロ）重要度、（ハ）二次災害、（ニ）ガス送出を継続する"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-A-40-1281,chiefgasengineerlicense-A-40-1282,chiefgasengineerlicense-A-40-1283,chiefgasengineerlicense-A-40-1284,chiefgasengineerlicense-A-40-1285",
+    "source_original_question_id": "gasushunin-koushu-gizyutsu-2021-7",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問7",
+    "examLabel": null,
+    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、誤っているものはいくつあるか。",
+    "choiceTextList": [
+      "都市ガスの需要は、時間的な使用量の変動や、季節的な需要の変動があり、「ベースロード」と呼ばれる需要に対応する設備には、ガスの発生・停止が容易な設備を選ぶ。",
+      "事業場のレイアウトを設計する際に留意する必要があるガス事業法で定める「離隔距離」とは、可燃性のガス又は液化ガスを通ずるガス工作物と、ボイラー等の火気を取り扱う設備との距離のことである。",
+      "レベル1地震動とは、供用期間中に発生する確率の高い地震動であり、それに対する耐震性能評価は、弾性設計法により、耐震上重要な部位に生ずる応答塑性率が許容塑性率を超えないことを確認する。",
+      "LNG船の入港日は売主や買主等との調整が必要であり、事前に綿密な受入計画を作成するため、船舶トラブルや気象海象の影響を考慮した在庫確保は必要ない。",
+      "設備の巡視、点検の結果、技術基準に適合しない事項を発見した場合は、速やかに改善を実施すれば記録に残す必要はない。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "「ベースロード設備は発生・停止が容易」が誤りで、正しくは「ピークロード設備が発生・停止しやすい」。ベースロードは連続運転を想定する。"
+      ],
+      [
+        "「離隔距離」とする箇所が誤りで、正しくは「火気設備との距離」。可燃性ガス設備と火気取扱設備の安全な離隔をガス事業法で定めている。"
+      ],
+      [
+        "「応答塑性率が許容塑性率を超えない」が誤りで、正しくは「弾性範囲内で許容応力を超えないことを確認」。レベル1地震動では弾性設計を行う。"
+      ],
+      [
+        "「在庫確保は不要」が誤りで、正しくは「船舶トラブルや天候を考慮し十分な在庫を確保」。想定外の遅延時に備え、安定供給を図る必要がある。"
+      ],
+      [
+        "「速やかに改善すれば記録不要」が誤りで、正しくは「改善内容を含め必ず記録」。問題点の追跡や再発防止のため、すべての点検結果は残す必要がある。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
+  }
+]
