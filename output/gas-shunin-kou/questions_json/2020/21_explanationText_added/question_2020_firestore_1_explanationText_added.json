@@ -1520,10 +1520,43 @@
       "液－液熱量調整方式は、LNGにLPGを液体のまま混合するため、LPG中に含まれる可能性のある不純物成分の凍結による閉そく対策等が必要となる場合がある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。空気を用いて高発熱量ガスを希釈して熱量を調整しても、燃焼速度（MCP）は変化しない。速くなるとしている点が誤り。",
+      "間違い。空気を用いて高発熱量ガスを希釈すると、ウォッベ指数（WI）は低下する。変化しないとしている点が誤り。",
+      "間違い。LNGをLPGで熱量調整する場合、ガス―ガス熱量調整方式は液―ガス熱量調整方式に比べてランニングコストが高い。低いとしている点が誤り。",
+      "間違い。液―ガス熱量調整方式は、LPGを気化させる熱源として気化された天然ガス（NG）の顕熱を利用する。潜熱を利用するとしている点が誤り。",
+      "正しい。液－液熱量調整方式では、LNGにLPGを液体のまま混合するため、LPG中の不純物成分が凍結して閉そくすることへの対策等が必要となる場合がある。"
+    ],
+    "suggestedQuestions": [
+      "空気で高発熱量ガスを希釈すると燃焼速度（MCP）は速くなる？",
+      "空気で高発熱量ガスを希釈してもウォッベ指数（WI）は変化しない？",
+      "ガス―ガス熱量調整方式は液―ガス方式よりランニングコストが低い？",
+      "液―ガス熱量調整方式はNGの潜熱をLPG気化の熱源に使う？",
+      "液－液熱量調整方式では不純物凍結による閉そく対策が必要な場合がある？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "空気で高発熱量ガスを希釈すると燃焼速度（MCP）は速くなる？",
+        "answer": "速くならない。空気希釈で熱量を調整しても燃焼速度（MCP）は変化しない。"
+      },
+      {
+        "question": "空気で高発熱量ガスを希釈してもウォッベ指数（WI）は変化しない？",
+        "answer": "変化しないわけではない。空気希釈によりウォッベ指数（WI）は低下する。"
+      },
+      {
+        "question": "ガス―ガス熱量調整方式は液―ガス方式よりランニングコストが低い？",
+        "answer": "低くない。ガス―ガス方式は液―ガス方式よりランニングコストが高い。"
+      },
+      {
+        "question": "液―ガス熱量調整方式はNGの潜熱をLPG気化の熱源に使う？",
+        "answer": "潜熱ではない。液―ガス方式では、気化されたNGの顕熱をLPG気化の熱源として利用する。"
+      },
+      {
+        "question": "液－液熱量調整方式では不純物凍結による閉そく対策が必要な場合がある？",
+        "answer": "必要となる場合がある。LNGにLPGを液体のまま混合するため、不純物成分の凍結による閉そくへの対策等が必要となる場合がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
