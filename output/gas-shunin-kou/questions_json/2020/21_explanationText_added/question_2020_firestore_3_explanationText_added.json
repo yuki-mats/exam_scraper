@@ -86,10 +86,22 @@
       "5"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "間違い。水素と窒素の体積比1:4はモル比1:4なので、混合ガス1kmolの質量は2×1/5+28×4/5=22.8kgである。46kgは約2kmolとなり、P=nRT/V≒5MPaであるため、0.5MPaではない。",
+      "間違い。46kgの混合ガスは約2kmolであり、27℃を300Kとして理想気体の状態方程式に代入すると、圧力は約5MPaとなる。1MPaではない。",
+      "間違い。n≒46/22.8=2.0kmol、T=300K、V=1.0m3より、P=(2.0×10^3×8.3×300)/1.0≒5.0×10^6Pa=5MPaである。2MPaではない。",
+      "間違い。理想気体の状態方程式から求める圧力は約5MPaであり、4MPaより5MPaに最も近い。",
+      "正しい。混合ガス1kmolの質量は22.8kgなので46kgは約2kmolである。P=nRT/V=(2.0×10^3×8.3×300)/1.0≒5.0×10^6Pa=5MPaとなる。"
+    ],
+    "suggestedQuestions": [
+      "充てん後の圧力は0.5MPaに最も近い？",
+      "充てん後の圧力は1MPaに最も近い？",
+      "充てん後の圧力は2MPaに最も近い？",
+      "充てん後の圧力は4MPaに最も近い？",
+      "充てん後の圧力は5MPaに最も近い？"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
