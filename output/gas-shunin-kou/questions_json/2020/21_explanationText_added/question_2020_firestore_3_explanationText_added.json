@@ -239,10 +239,22 @@
       "321"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "間違い。断熱圧縮ではP1V1^γ=P2V2^γが成り立つ。P2=100/(0.95^1.4)≒100/(1−1.4×0.05)=107.5kPa、T2=300×(107.5×0.95)/(100×1)≒306Kである。したがって300Kではない。",
+      "正しい。断熱圧縮ではP1V1^γ=P2V2^γが成り立つ。P2=100/(0.95^1.4)≒100/(1−1.4×0.05)=107.5kPa、T2=300×(107.5×0.95)/(100×1)≒306Kである。よって最も近い値は306Kである。",
+      "間違い。断熱圧縮ではP1V1^γ=P2V2^γが成り立つ。P2=100/(0.95^1.4)≒100/(1−1.4×0.05)=107.5kPa、T2=300×(107.5×0.95)/(100×1)≒306Kである。したがって309Kではない。",
+      "間違い。断熱圧縮ではP1V1^γ=P2V2^γが成り立つ。P2=100/(0.95^1.4)≒100/(1−1.4×0.05)=107.5kPa、T2=300×(107.5×0.95)/(100×1)≒306Kである。したがって315Kではない。",
+      "間違い。断熱圧縮ではP1V1^γ=P2V2^γが成り立つ。P2=100/(0.95^1.4)≒100/(1−1.4×0.05)=107.5kPa、T2=300×(107.5×0.95)/(100×1)≒306Kである。したがって321Kではない。"
+    ],
+    "suggestedQuestions": [
+      "断熱圧縮後の空気の温度は300Kに最も近い？",
+      "断熱圧縮後の空気の温度は306Kに最も近い？",
+      "断熱圧縮後の空気の温度は309Kに最も近い？",
+      "断熱圧縮後の空気の温度は315Kに最も近い？",
+      "断熱圧縮後の空気の温度は321Kに最も近い？"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
