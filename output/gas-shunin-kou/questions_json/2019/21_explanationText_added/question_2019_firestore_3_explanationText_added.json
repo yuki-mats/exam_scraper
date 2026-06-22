@@ -300,10 +300,28 @@
       "アレニウスの式によれば、速度定数の対数と絶対温度の逆数は直線関係を示す。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "触媒は反応速度を増加させるが、平衡定数には影響を与えない。したがって、平衡定数に影響を与えるという記述は誤りである。",
+      "触媒と反応物質が異なる相にある触媒反応は、不均一触媒反応と呼ばれる。したがって、この記述は正しい。",
+      "速度定数は温度に依存するが、温度が一定であればその反応に固有の定数として扱われる。したがって、この記述は正しい。",
+      "一次反応では、反応速度は反応物質の濃度に比例する。したがって、この記述は正しい。",
+      "アレニウスの式を対数形にすると、速度定数の対数と絶対温度の逆数は直線関係を示す。したがって、この記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "触媒は平衡定数に影響を与え、反応速度を増加させる？",
+      "異なる相での触媒反応は不均一触媒反応？",
+      "温度一定なら速度定数は反応固有の定数？",
+      "一次反応の反応速度は反応物質濃度に比例する？",
+      "速度定数の対数と絶対温度の逆数は直線関係？"
+    ],
+    "suggestedQuestionDetails": [
+      "誤り。触媒は反応速度を大きくするが、平衡定数や平衡組成は変えない。",
+      "正しい。触媒と反応物質が異なる相にある反応は、不均一触媒反応である。",
+      "正しい。温度が一定なら、速度定数はその反応に固有の値として扱う。",
+      "正しい。一次反応では、反応速度は反応物質の濃度に比例する。",
+      "正しい。アレニウス式を対数形にすると、log k と 1/T は直線関係になる。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
