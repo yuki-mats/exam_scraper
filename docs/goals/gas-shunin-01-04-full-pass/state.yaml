@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 83
-  pending_questions: 833
+  completed_questions: 84
+  pending_questions: 832
   held_questions: 18
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T215
+active_task: T216
 tasks:
   - id: T001
     type: pm
@@ -7331,9 +7331,79 @@ tasks:
   - id: T215
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=102（gas-shunin-kou 2020 基礎理論 問1）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2020/10_questionType_fixed/question_2020_firestore_2_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2020/15_correctChoiceText_fixed/question_2020_firestore_2_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2020/22_questionSetId_linked/question_2020_firestore_2_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json --patch output/gas-shunin-kou/questions_json/2020/10_questionType_fixed/question_2020_firestore_2_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json --patch output/gas-shunin-kou/questions_json/2020/15_correctChoiceText_fixed/question_2020_firestore_2_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json --patch output/gas-shunin-kou/questions_json/2020/22_questionSetId_linked/question_2020_firestore_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
+      - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2020 基礎理論 問1の01〜04を完了。Firestore snapshot/sourcePriority=1を優先し、既存statement-level doc IDを保持。00_sourceは変更せず、15/21/22固定名patchとreview/plan台帳のみ更新した。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2020/15_correctChoiceText_fixed/question_2020_firestore_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2020/22_questionSetId_linked/question_2020_firestore_2_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      evidence:
+        - "sourceConflictStatus=none; 00_source body/choices unchanged and Firestore document IDs gasushunin-koushu-kiso-2020-1-1, gasushunin-koushu-kiso-2020-1-2, chiefgasengineerlicense-C-10109, gasushunin-koushu-kiso-2020-1-4, gasushunin-koushu-kiso-2020-1-5 preserved"
+        - "correctChoiceText verified by ideal gas equation: liquid methane 1m³ has mass 416kg, n=416000/16=26000mol, T=300K, P=100000Pa, so V=nRT/P=647.4m³ and nearest option is 650"
+        - "questionIntent=select_correct because the prompt asks for the nearest value"
+        - "questionSetId verified against Firestore reconstructed snapshot: all five statements=chiefgasengineerlicense--A-1000（物性・基礎（甲種））"
+        - "Target explanation shape checked for 5 choices, suggestedQuestions/details alignment, snippets, and lawGroundedExplanationNotNeeded=true."
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json --patch output/gas-shunin-kou/questions_json/2020/10_questionType_fixed/question_2020_firestore_2_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json --patch output/gas-shunin-kou/questions_json/2020/15_correctChoiceText_fixed/question_2020_firestore_2_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json --patch output/gas-shunin-kou/questions_json/2020/22_questionSetId_linked/question_2020_firestore_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: ".venv/bin/python - <<'PY' ... T215 target shape check ... PY"
+          status: pass
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass/state.yaml docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl output/gas-shunin-kou/questions_json/2020/15_correctChoiceText_fixed/question_2020_firestore_2_correctChoiceText_fixed.json output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json output/gas-shunin-kou/questions_json/2020/22_questionSetId_linked/question_2020_firestore_2_questionSetId_linked.json"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      verification_attempts: 1
+
+  - id: T216
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=103（gas-shunin-kou 2020 基礎理論 問10）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"

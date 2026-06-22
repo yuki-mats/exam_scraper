@@ -1360,10 +1360,28 @@
       "3760"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "液化メタン1m³の質量は416kgで、メタンの分子量16g/molより物質量は416000/16=26000molである。理想気体の状態方程式から体積は約647m³となるため、240m³は小さすぎる。",
+      "物質量26000mol、温度300K、圧力100kPaとして V=nRT/P を用いると、V=(26000×8.3×300)/(100×10³)=647.4m³となる。590m³より650m³が近い。",
+      "液化メタン1m³は416kgなので、n=416000/16=26000molである。27℃を300K、100kPaを100000Paとして V=nRT/P=647.4m³となり、最も近い650m³が正しい。",
+      "理想気体として計算した体積は約647m³である。1560m³は計算値から大きく離れており、最も近い値ではない。",
+      "計算値は約647m³で、選択肢では650m³が最も近い。3760m³は物質量、温度、圧力の換算を正しく反映した値ではない。"
+    ],
+    "suggestedQuestions": [
+      "液化メタン1m³の気化後体積は240m³に近い？",
+      "液化メタン1m³の気化後体積は590m³に近い？",
+      "液化メタン1m³の気化後体積は650m³に近い？",
+      "液化メタン1m³の気化後体積は1560m³に近い？",
+      "液化メタン1m³の気化後体積は3760m³に近い？"
+    ],
+    "suggestedQuestionDetails": [
+      "240m³ではない。液化メタン1m³は416kgで、物質量26000molから理想気体の状態方程式で約647m³となる。",
+      "590m³ではない。計算値は647.4m³であり、590m³より650m³の方が近い。",
+      "650m³に近い。n=26000mol、T=300K、P=100000Paとして V=nRT/P=647.4m³となる。",
+      "1560m³ではない。理想気体の状態方程式による計算値は約647m³である。",
+      "3760m³ではない。質量、分子量、温度、圧力を換算して求めた体積は約647m³である。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
