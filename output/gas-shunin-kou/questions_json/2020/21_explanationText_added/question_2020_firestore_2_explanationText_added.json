@@ -1588,10 +1588,28 @@
       "20"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。同方向流れの端部温度差は入口側で500−20=480K、出口側で160−80=80Kである。対数平均温度差は(480−80)/ln(480/80)=400/1.8≒222.2Kとなり、伝熱面積は9000/(8.1×222.2)≒5m²であるため、1.5m²ではない。",
+      "正しい。同方向流れの対数平均温度差は(480−80)/ln(480/80)=400/1.8≒222.2Kである。A=Q/(KΔT_m)=9000/(8.1×222.2)≒5m²となるため、最も近い値は5m²である。",
+      "間違い。対数平均温度差を約222.2Kとして A=9000/(8.1×222.2) を計算すると約5m²になる。12m²はこの計算値から離れている。",
+      "間違い。伝熱量9.0kWを9000Wとして、熱通過率8.1W/(m²・K)と対数平均温度差約222.2Kで割ると、伝熱面積は約5m²である。15m²ではない。",
+      "間違い。温度差の比は480/80=6で、ln6=1.8より対数平均温度差は約222.2Kである。したがって必要面積は約5m²であり、20m²は大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "この熱交換器の伝熱面積として1.5m²は最も近い？",
+      "この熱交換器の伝熱面積として5m²は最も近い？",
+      "この熱交換器の伝熱面積として12m²は最も近い？",
+      "この熱交換器の伝熱面積として15m²は最も近い？",
+      "この熱交換器の伝熱面積として20m²は最も近い？"
+    ],
+    "suggestedQuestionDetails": [
+      "間違い。対数平均温度差は約222.2K、A=9000/(8.1×222.2)≒5m²なので、1.5m²ではない。",
+      "正しい。対数平均温度差は約222.2Kで、A=9000/(8.1×222.2)≒5m²となる。",
+      "間違い。計算される伝熱面積は約5m²であり、12m²ではない。",
+      "間違い。伝熱面積は約5m²であり、15m²は大きすぎる。",
+      "間違い。伝熱面積は約5m²であり、20m²は大きすぎる。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
