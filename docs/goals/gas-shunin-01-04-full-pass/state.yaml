@@ -76,10 +76,11 @@ execution_plan:
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
   completed_questions: 30
-  pending_questions: 904
+  pending_questions: 903
+  held_questions: 1
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T144
+active_task: T145
 
 tasks:
   - id: T001
@@ -2779,9 +2780,58 @@ tasks:
   - id: T144
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=31（gas-shunin-kou 2019 問12）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_2_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_2_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+    receipt:
+      result: blocked
+      summary: "gas-shunin-kou 2019 問12は01〜03を完了し、04 questionSetIdのみhold。既存Firestoreのstatement-level questionSetIdが整圧器3件・昇圧供給装置2件に分かれており、単一problem-level questionSetIdを設定すると既存分類を壊す可能性があるため、22 patchのquestionSetIdは空のまま保持。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json --patch output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_2_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json --patch output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_2_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json --patch output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "target doc-id/source preservation and mixed questionSet hold check for gas-shunin-kou 2019 問12"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/audit_gas_shunin_goal_readiness.py --plan docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl --report output/gas-shunin-goal-readiness-report.json --max-issues 40"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      evidence:
+        - "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_2_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+
+  - id: T145
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=32（gas-shunin-kou 2019 問13）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
@@ -2810,6 +2860,28 @@ tasks:
       - "questionSetId のカテゴリ判断が曖昧。"
       - "explanationText が未検証の事実を必要とする。"
       - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
+    receipt: null
+
+  - id: T900
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Firestore既存問題でstatement-level questionSetIdが混在するhold行の扱いを決め、既存doc分類を壊さない01〜04/アップロード方針を確定する。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/**/00_source/question_*.json"
+      - "scripts/convert/convert_merged_to_firestore.py"
+      - "scripts/upload/upload_questions_to_firestore.py"
+    constraints:
+      - "Read-only decision task."
+      - "既存Firestoreのstatement-level doc IDとquestionSetIdを単一problem-level値で上書きしない。"
+      - "本文・選択肢・originalQuestionBodyText/originalQuestionChoiceTextは変更しない。"
+    expected_output:
+      - "per-statement questionSetIdを保持するか、sidecar/patch schemaを拡張するかの決定"
+      - "hold行を安全に解除するための次Worker task"
+      - "upload前に必要なguard/check"
     receipt: null
 
   - id: T999
