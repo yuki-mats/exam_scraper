@@ -1,0 +1,385 @@
+[
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-C-10139,chiefgasengineerlicense-C-10140,chiefgasengineerlicense-C-10141,chiefgasengineerlicense-C-10142,chiefgasengineerlicense-C-10143",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-15",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問15",
+    "examLabel": null,
+    "questionBodyText": "構造物を構成するそれぞれの材料が安全上許容できる限度の応力を許容応力といい、基準強さ（破損限度）を安全係数で除して求められる。使用状況と基準強さ（破損限度）との組合せとして、誤っているものはどれか。",
+    "choiceTextList": [
+      "繰返応力を受けるとき — 破壊強さ",
+      "ぜい性材料が常温において静荷重を受けるとき — 破壊強さ",
+      "高温において静荷重を受けるとき — クリープ破壊応力",
+      "延性材料が常温において静荷重を受けるとき — 耐力",
+      "延性材料が常温において静荷重を受けるとき — 降伏点"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": [
+      "間違い。繰返応力を受ける場合の基準強さは、破壊強さではなく疲労限度を用いる。",
+      "正しい。ぜい性材料が常温で静荷重を受ける場合は、破壊強さを基準強さとして用いる。",
+      "正しい。高温で静荷重を受ける場合は、時間依存の破壊を考慮してクリープ破壊応力を基準強さとして用いる。",
+      "正しい。延性材料が常温で静荷重を受ける場合、明瞭な降伏点を示さない材料では耐力を基準強さとして用いる。",
+      "正しい。延性材料が常温で静荷重を受け、明瞭な降伏点を示す場合は、降伏点を基準強さとして用いる。"
+    ],
+    "suggestedQuestions": [
+      {
+        "question": "繰返応力を受ける場合の基準強さは破壊強さか。",
+        "answer": false,
+        "detail": "繰返応力を受ける場合は、破壊強さではなく疲労限度を基準強さとして用いる。"
+      },
+      {
+        "question": "ぜい性材料が常温で静荷重を受ける場合の基準強さは破壊強さか。",
+        "answer": true,
+        "detail": "ぜい性材料が常温で静荷重を受ける場合は、破壊強さを基準強さとして用いる。"
+      },
+      {
+        "question": "高温で静荷重を受ける場合の基準強さはクリープ破壊応力か。",
+        "answer": true,
+        "detail": "高温で静荷重を受ける場合は、クリープ破壊応力を基準強さとして用いる。"
+      },
+      {
+        "question": "延性材料が常温で静荷重を受ける場合、耐力を基準強さとして用いることがあるか。",
+        "answer": true,
+        "detail": "明瞭な降伏点を示さない延性材料では、耐力を基準強さとして用いる。"
+      },
+      {
+        "question": "延性材料が常温で静荷重を受ける場合、降伏点を基準強さとして用いることがあるか。",
+        "answer": true,
+        "detail": "明瞭な降伏点を示す延性材料では、降伏点を基準強さとして用いる。"
+      }
+    ],
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "繰返応力を受けるとき — 疲労限度。"
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2020-2-1,gasushunin-koushu-kiso-2020-2-2,gasushunin-koushu-kiso-2020-2-3,gasushunin-koushu-kiso-2020-2-4,chiefgasengineerlicense-C-10110",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-2",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問2",
+    "examLabel": null,
+    "questionBodyText": "水素と窒素を体積比1：4で混合したガスを、内容積1.0m³の空の圧力容器に充てんした。充てん後の圧力容器の質量は46kg増加した。充てん後の圧力容器内の圧力（MPa）として最も近い値はどれか。ただし、容器内の混合ガスの温度は27℃、混合ガスは理想気体とし、気体定数R＝8.3J/(mol・K)とする。",
+    "choiceTextList": [
+      "0.5",
+      "1",
+      "2",
+      "4",
+      "5"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      [
+        "理想気体の状態方程式より P=nRT/V 水素と窒素の体積比が1:4であるので、混合ガス1kmolの質量は、2×(1/(1+4))+28×(4/(1+4))=22.8kg 混合ガス46kgは、46/22.8≒2kmol 27℃は、300Kより P=(2×10^3×8.3×300)/(1.0×10^6)≒5MPa"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-C-10111,chiefgasengineerlicense-C-10112,chiefgasengineerlicense-C-10113,chiefgasengineerlicense-C-10114,chiefgasengineerlicense-C-10115",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-3",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問3",
+    "examLabel": null,
+    "questionBodyText": "気体の諸性質に関する次の記述のうち、誤っているものはどれか。",
+    "choiceTextList": [
+      "実在気体の状態式として知られるファン・デル・ワールスの状態式は、分子間引力と気体分子の体積を考慮して理想気体の状態方程式を補正する式である。",
+      "シャルルの法則によれば、温度が一定の場合、気体の体積は圧力に反比例する。",
+      "ラウールの法則によれば、希薄溶液の蒸気圧降下は不揮発性の溶質の種類に無関係で、溶質のモル分率に比例する。",
+      "ヘンリーの法則によれば、溶解度が小さい場合、一定の温度で一定質量の液体に溶解する気体の質量は、気体の圧力に比例する。",
+      "ドルトンの分圧の法則によれば、混合気体全体の圧力（全圧）は、各成分気体の分圧の和である。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "ボイルの法則によれば、温度が一定の場合、気体の体積は圧力に反比例する。"
+      ],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2020-4-1,gasushunin-koushu-kiso-2020-4-2,chiefgasengineerlicense-C-10116,gasushunin-koushu-kiso-2020-4-4,gasushunin-koushu-kiso-2020-4-5",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-4",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問4",
+    "examLabel": null,
+    "questionBodyText": "温度0℃、圧力100kPaの気体3m³を定圧膨張させて6m³にした。このとき気体に与えられた熱量（MJ）として最も近い値はどれか。ただし、気体は理想気体とし、定圧モル熱容量Cₚ＝29.2J/(mol・K)、気体定数R＝8.3J/(mol・K)とする。",
+    "choiceTextList": [
+      "0.1",
+      "0.5",
+      "1.1",
+      "1.5",
+      "2"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [
+        "定圧下での膨張であるから、シャルルの法則より V1/T1=V2/T2 が成り立ち、V1=3m^3、T1=273K、V2=6m^3、T2=546K PV=nRT だから 100×3=nR×273 よって n=300/(273×R)kmol 気体に与えられた熱は、Q=nCpΔTで求めることができる。ここで、Q:与えられた熱量[J] n:気体のモル数[mol] Cp:定圧モル熱容量[J/(mol・K)] よって: Q=(n×10^3)×29.2×(546−273)=300/(273×8.3)×10^3×29.2×273 Q≒1.1MJ。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2020-5-1,chiefgasengineerlicense-C-10117,gasushunin-koushu-kiso-2020-5-3,gasushunin-koushu-kiso-2020-5-4,gasushunin-koushu-kiso-2020-5-5",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-5",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問5",
+    "examLabel": null,
+    "questionBodyText": "温度300K、圧力100kPaの空気1m³を断熱圧縮して0.95m³にした。このときの空気の温度（K）として最も近い値はどれか。ただし、空気の比熱比は1.40とする。また、xの絶対値が1より十分小さいとき、（1＋x）ⁿ ≒ 1＋nxと近似できるものとする。",
+    "choiceTextList": [
+      "300",
+      "306",
+      "309",
+      "315",
+      "321"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "断熱圧縮の場合の気体の状態変化は、P1V1^γ=P2V2^γ(γ=Cp/Cv)と表すことができるので 100×1^1.4=P2×0.95^1.4 (1+x)^n≒1+nx より P2=100/(1−0.05)^1.4=100/(1−(1.4×0.05))=100/(1−0.07)=107.5kPa P1V1/T1=P2V2/T2 から T2=T1×P2V2/P1V1=300×(107.5×0.95)/(100×1)≒306K。"
+      ],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2020-6-1,gasushunin-koushu-kiso-2020-6-2,chiefgasengineerlicense-C-10118,gasushunin-koushu-kiso-2020-6-4,gasushunin-koushu-kiso-2020-6-5",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-6",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問6",
+    "examLabel": null,
+    "questionBodyText": "混合気体（CO：1.2mol、H₂O：1.2mol）を用いて、次のCOシフト反応を進行させた。\\nCO(g)＋H₂O(g) → CO₂(g)＋H₂(g)\\n平衡状態におけるCOが0.2molである場合、平衡定数（圧平衡定数）として最も近い値はどれか。",
+    "choiceTextList": [
+      "1",
+      "5",
+      "25",
+      "50",
+      "100"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [
+        "平衡状態におけるCOが0.2molである場合、反応後の組成はそれぞれ CO:0.2mol、H2O:0.2mol、CO2:1.0mol、H2:1.0molとなる。COシフト反応は、モル数の変化のない反応であり反応後の全体のモル数は2.4molのままである。各ガスの分圧は pCO=0.2/2.4 pH2O=0.2/2.4 pCO2=1.0/2.4 pH2=1.0/2.4 となる。よって平衡定数Kpは Kp=pCO2×pH2/(pCO×pH2O)=(1.0/2.4)×(1.0/2.4)/((0.2/2.4)×(0.2/2.4))=1.0×1.0/(0.2×0.2)=25。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2020-7-1,gasushunin-koushu-kiso-2020-7-2,gasushunin-koushu-kiso-2020-7-3,gasushunin-koushu-kiso-2020-7-4,chiefgasengineerlicense-C-10119",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-7",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問7",
+    "examLabel": null,
+    "questionBodyText": "一次反応において、反応物が50%反応するのに100秒を要した。87.5%反応するのに要する時間（秒）として最も近い値はどれか。",
+    "choiceTextList": [
+      "138",
+      "175",
+      "200",
+      "250",
+      "300"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      [
+        "式4.51を用いて算出する。反応物の初期濃度をaとすると50%反応すると反応物の濃度は1/2aとなり題意より ln(a/(1/2a))=k×100 → ln2=k×100 ……(1) 次にt時間経過後に、反応物の87.5%が反応しているとすると反応物濃度は1/8aとなる。したがって ln(a/(1/8a))=k×t → ln8=k×t また ln8=ln2^3=3×ln2 であるから 3×ln2=k×t ……(2) (2)式を(1)式で割って比を求めれば 3=t/100 よって t=300。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-C-10120,gasushunin-koushu-kiso-2020-8-2,gasushunin-koushu-kiso-2020-8-3,gasushunin-koushu-kiso-2020-8-4,gasushunin-koushu-kiso-2020-8-5",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-8",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問8",
+    "examLabel": null,
+    "questionBodyText": "プロパン40vol%、窒素40vol%、酸素20vol%からなる混合ガス1m³を空気比1で完全燃焼させるのに必要な空気量（m³）として最も近い値はどれか。ただし、混合ガス及び空気は標準状態（0℃、101325Pa）とし、空気中の酸素濃度は20vol%とする。",
+    "choiceTextList": [
+      "9",
+      "9.5",
+      "10",
+      "10.5",
+      "11"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "混合ガス1m^3中の各ガスの体積は、組成の割合から、プロパン0.4m^3、窒素0.4m^3、酸素0.2m^3となる。プロパンの反応式 C3H8+5O2→3CO2+4H2O より、プロパン0.4m^3の燃焼に必要な酸素量は 0.4×5=2.0m^3。混合ガス中の酸素を差し引くと 2.0−0.2=1.8m^3。空気中の酸素濃度は20vol%なので必要空気量は 1.8/0.2=9.0m^3。"
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2020-9-1,gasushunin-koushu-kiso-2020-9-2,gasushunin-koushu-kiso-2020-9-3,gasushunin-koushu-kiso-2020-9-4,chiefgasengineerlicense-C-10121",
+    "source_original_question_id": "gasushunin-koushu-kiso-2020-9",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問9",
+    "examLabel": null,
+    "questionBodyText": "メタンとプロパンの混合ガスの空気中における燃焼下限界が3.8vol%のとき、メタン（vol%）とプロパン（vol%）の混合組成として最も近い値はどれか。ただし、単体ガスの燃焼下限界は、メタン5.0vol%、プロパン2.0vol%とする。",
+    "choiceTextList": [
+      "メタン20 プロパン80",
+      "メタン40 プロパン60",
+      "メタン50 プロパン50",
+      "メタン60 プロパン40",
+      "メタン80 プロパン20"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      [
+        "混合組成をそれぞれメタン:x、プロパン:100−xとすると、ル・シャトリエの式より 燃焼下限界[%]=100/(x/5.0+(100−x)/2.0)=3.8。よって x=80vol%（メタン）、100−x=20vol%（プロパン）。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  }
+]
