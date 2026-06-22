@@ -129,10 +129,28 @@
       "110000"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "空気1m³は1000/22.4=44.64molであり、1m³あたりの定圧熱容量は29.2×44.64=約1303J/Kである。利用できる熱量36MJを25Kの温度上昇に使うと約1100m³となるため、11m³ではない。",
+      "都市ガス1m³から有効に利用できる熱量は45×10⁶×0.8=36×10⁶Jである。空気1m³を25K上げる熱量は約1303×25Jなので、体積は約1100m³であり、110m³ではない。",
+      "空気1m³は1000/22.4=44.64molで、空気1m³あたりの定圧熱容量は29.2×44.64=約1303J/Kである。したがって45×10⁶×0.8÷(1303×(30−5))≒1100m³となり、1100m³が正しい。",
+      "必要熱量の分母は空気1m³あたり約1303J/Kに温度差25Kを掛けた値である。計算結果は約1100m³であり、11000m³は10倍大きい。",
+      "有効熱量36MJを、空気1m³を25K上げる熱量で割ると約1100m³である。110000m³は計算値より大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "暖められた空気の体積は11m³？",
+      "暖められた空気の体積は110m³？",
+      "暖められた空気の体積は1100m³？",
+      "暖められた空気の体積は11000m³？",
+      "暖められた空気の体積は110000m³？"
+    ],
+    "suggestedQuestionDetails": [
+      "違う。空気1m³あたりの定圧熱容量と25Kの温度上昇で割ると、体積は約1100m³になる。",
+      "違う。有効熱量は36MJであり、空気を5℃から30℃まで暖めると約1100m³分になる。",
+      "正しい。45×10⁶×0.8÷(29.2×1000/22.4×25)≒1100m³である。",
+      "違う。計算値は約1100m³であり、11000m³は1桁大きい。",
+      "違う。空気1m³を25K上げる熱量で36MJを割ると約1100m³で、110000m³にはならない。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
