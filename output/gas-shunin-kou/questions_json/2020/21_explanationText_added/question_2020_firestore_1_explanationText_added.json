@@ -91,10 +91,43 @@
       "1.7"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "延長後はA-B間をC点分も含む100m³/hが流れるため、A-B間の圧力降下は元の0.1kPaの4倍で0.4kPaとなる。さらにB-C間の0.1kPaを足すと全圧力降下は0.5kPaなので、C点圧力は2.3-0.5=1.8kPaであり、2.1kPaではない。",
+      "同一口径・同一延長では、低圧導管の圧力降下は流量の2乗に比例する。延長後のA-B間は100m³/h、B-C間は50m³/hなので、全圧力降下は0.4+0.1=0.5kPaとなる。C点圧力は1.8kPaであり、2.0kPaではない。",
+      "A-B間の流量は50m³/hから100m³/hへ2倍になるため、A-B間の圧力降下は0.1kPaから0.4kPaになる。B-C間の0.1kPaを加えると、A-C間では0.5kPa低下するため、C点圧力は1.8kPaであり、1.9kPaではない。",
+      "元のA-B間では50m³/h、100mで0.1kPa低下している。延長後はA-B間に100m³/hが流れて0.4kPa、B-C間に50m³/hが流れて0.1kPa低下するので、合計0.5kPa低下する。したがってC点圧力は2.3-0.5=1.8kPaとなる。",
+      "全圧力降下は、A-B間0.4kPaとB-C間0.1kPaの合計0.5kPaである。A点圧力2.3kPaから0.5kPaを差し引くため、C点圧力は1.8kPaとなり、1.7kPaではない。"
+    ],
+    "suggestedQuestions": [
+      "C点圧力は2.1kPa？",
+      "C点圧力は2.0kPa？",
+      "C点圧力は1.9kPa？",
+      "C点圧力は1.8kPa？",
+      "C点圧力は1.7kPa？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "C点圧力は2.1kPa？",
+        "answer": "違う。延長後の全圧力降下は0.5kPaなので、C点圧力は2.3-0.5=1.8kPaである。"
+      },
+      {
+        "question": "C点圧力は2.0kPa？",
+        "answer": "違う。A-B間は流量が2倍となり圧力降下が4倍の0.4kPa、B-C間は0.1kPaで、合計0.5kPa低下する。"
+      },
+      {
+        "question": "C点圧力は1.9kPa？",
+        "answer": "違う。A-C間全体の圧力降下は0.5kPaとなるため、C点圧力は1.8kPaである。"
+      },
+      {
+        "question": "C点圧力は1.8kPa？",
+        "answer": "正しい。A-B間0.4kPa、B-C間0.1kPaの合計0.5kPaが低下し、2.3-0.5=1.8kPaとなる。"
+      },
+      {
+        "question": "C点圧力は1.7kPa？",
+        "answer": "違う。全圧力降下は0.6kPaではなく0.5kPaなので、C点圧力は1.7kPaではなく1.8kPaである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
