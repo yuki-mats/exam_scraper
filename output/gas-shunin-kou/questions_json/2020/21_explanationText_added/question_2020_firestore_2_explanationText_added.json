@@ -1675,10 +1675,36 @@
       "高分子材料の応力ひずみ線図では、軟鋼のような明瞭な降伏点が見られない場合がある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "間違い。延性材料は、破断するまでに大きい塑性変形を伴う材料である。ほとんど塑性変形を伴わない材料は脆性材料の説明に近い。",
+      "正しい。軟鋼の応力とひずみは、比例限度までは比例関係にあり、フックの法則に従う。",
+      "正しい。ひずみは、応力に伴って生じる変形量を変形前の長さで割った割合として表される。",
+      "正しい。高分子材料の応力ひずみ線図では、軟鋼のような明瞭な降伏点が現れない場合がある。"
+    ],
+    "suggestedQuestions": [
+      {
+        "question": "延性材料は破断までにほとんど塑性変形を伴わない材料か。",
+        "answer": false,
+        "detail": "延性材料は破断までに大きい塑性変形を伴う材料であり、ほとんど塑性変形を伴わない材料は脆性材料に近い。"
+      },
+      {
+        "question": "軟鋼の変形は比例限度まではフックの法則に従うか。",
+        "answer": true,
+        "detail": "比例限度までは応力とひずみが比例し、フックの法則が成り立つ。"
+      },
+      {
+        "question": "変形量の変形前長さに対する割合をひずみというか。",
+        "answer": true,
+        "detail": "ひずみは、応力に伴う変形量を変形前の長さで割った割合として表される。"
+      },
+      {
+        "question": "高分子材料では明瞭な降伏点が見られない場合があるか。",
+        "answer": true,
+        "detail": "高分子材料の応力ひずみ線図では、軟鋼のような明瞭な降伏点が現れない場合がある。"
+      }
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
