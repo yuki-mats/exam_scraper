@@ -1209,10 +1209,28 @@
       "5.5"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "ゲージ圧は液柱の密度、重力加速度、液面高低差の積で求める。900×9.8×0.5=4410Pa=4.41kPaとなるため、1.1kPaではない。",
+      "液面高低差500mmは0.5mであり、ゲージ圧は900×9.8×0.5=4.41kPaとなる。2.2kPaでは小さすぎる。",
+      "ゲージ圧はρgHで計算し、900×9.8×0.5=4410Pa=4.41kPaである。3.3kPaではない。",
+      "ゲージ圧は測定圧力と大気圧との差であり、ρgH=900×9.8×0.5=4410Pa=4.41kPaとなる。最も近い値は4.4kPaなので正しい。",
+      "計算値は4.41kPaであり、最も近い選択肢は4.4kPaである。5.5kPaでは大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "この条件でゲージ圧は1.1kPa？",
+      "この条件でゲージ圧は2.2kPa？",
+      "この条件でゲージ圧は3.3kPa？",
+      "この条件でゲージ圧は4.4kPa？",
+      "この条件でゲージ圧は5.5kPa？"
+    ],
+    "suggestedQuestionDetails": [
+      "違う。ゲージ圧はρgHで、900×9.8×0.5=4410Pa=4.41kPaとなるため、1.1kPaではない。",
+      "違う。500mmを0.5mとして計算すると4.41kPaとなり、2.2kPaではない。",
+      "違う。ρgH=900×9.8×0.5=4.41kPaであり、3.3kPaではない。",
+      "正しい。ρgH=900×9.8×0.5=4410Pa=4.41kPaで、最も近い値は4.4kPaである。",
+      "違う。計算値は4.41kPaなので、5.5kPaではなく4.4kPaが最も近い。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
