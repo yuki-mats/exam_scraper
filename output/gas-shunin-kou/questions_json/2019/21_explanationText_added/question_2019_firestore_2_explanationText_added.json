@@ -1095,10 +1095,28 @@
       "1：1"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "混合気体では各成分の分圧比がモル比に等しい。酸素とメタンのモル比は2.0:0.5=4:1で、モル質量比は32:16=2:1であるため、質量比は4×2:1=8:1となる。記述は正しい。",
+      "分圧比からモル比はO2:CH4=4:1となり、さらにモル質量比32:16=2:1を掛けるため、質量比は8:1である。4:1ではない。",
+      "酸素とメタンの分圧比は4:1で、モル質量比は2:1であるため、質量比は8:1となる。3:1ではない。",
+      "酸素とメタンの質量比は、分圧比4:1にモル質量比2:1を反映して8:1となる。2:1ではない。",
+      "分圧比とモル質量比を考慮すると酸素の質量はメタンの8倍となるため、1:1ではない。"
+    ],
+    "suggestedQuestions": [
+      "酸素2.0MPa、メタン0.5MPaなら質量比は8:1？",
+      "酸素とメタンの質量比は4:1？",
+      "酸素とメタンの質量比は3:1？",
+      "酸素とメタンの質量比は2:1？",
+      "酸素とメタンの質量比は1:1？"
+    ],
+    "suggestedQuestionDetails": [
+      "8:1である。分圧比2.0:0.5=4:1がモル比となり、モル質量比32:16=2:1を掛けると質量比は8:1になる。",
+      "4:1ではない。4:1はモル比であり、質量比では酸素とメタンのモル質量比2:1も反映するため8:1になる。",
+      "3:1ではない。分圧比4:1とモル質量比2:1から、酸素とメタンの質量比は8:1になる。",
+      "2:1ではない。2:1は酸素とメタンのモル質量比であり、分圧比4:1を掛ける必要がある。",
+      "1:1ではない。酸素は分圧比でもモル質量比でもメタンより大きく、質量比は8:1になる。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
