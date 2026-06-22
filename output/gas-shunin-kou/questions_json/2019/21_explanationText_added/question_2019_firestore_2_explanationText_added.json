@@ -1266,10 +1266,28 @@
       "0.55"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "熱流束q=λΔT/Lより、厚さはL=λΔT/qで求める。断熱材Aは0.01×(300−100)/10=0.2m、断熱材Bは0.02×(400−300)/10=0.2mなので、総厚さは0.4mであり、0.35mではない。",
+      "断熱材Aの厚さは0.01×200/10=0.2m、断熱材Bの厚さは0.02×100/10=0.2mである。合計は0.4mとなるため、0.4mが正しい。",
+      "各層の厚さは、断熱材Aが0.2m、断熱材Bが0.2mで、合計0.4mである。0.45mではない。",
+      "総厚さはL_A+L_B=0.2+0.2=0.4mである。0.5mでは大きすぎる。",
+      "熱流束と各層の温度差から求める総厚さは0.4mである。0.55mではない。"
+    ],
+    "suggestedQuestions": [
+      "炉壁の厚さは0.35m？",
+      "炉壁の厚さは0.4m？",
+      "炉壁の厚さは0.45m？",
+      "炉壁の厚さは0.5m？",
+      "炉壁の厚さは0.55m？"
+    ],
+    "suggestedQuestionDetails": [
+      "違う。L=λΔT/qより、断熱材Aは0.2m、断熱材Bも0.2mとなり、合計0.4mである。",
+      "正しい。断熱材Aの厚さは0.01×200/10=0.2m、断熱材Bの厚さは0.02×100/10=0.2mで、合計0.4mである。",
+      "違う。計算上の総厚さは0.4mであり、0.45mではない。",
+      "違う。断熱材AとBの厚さを合計すると0.4mで、0.5mではない。",
+      "違う。熱流束10W/m²で各層の温度差を用いると、総厚さは0.4mになる。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
