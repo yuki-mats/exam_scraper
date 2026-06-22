@@ -988,10 +988,28 @@
       "190"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。排気フードⅠ型では必要換気量V=30×K×Qで求めるため、30×0.93×5=139.5m³/hとなる。5m³/hは小さすぎる。",
+      "間違い。必要換気量は30×0.93×5=139.5m³/hで、45m³/hは必要換気量として不足する。",
+      "間違い。排気フードⅠ型の定数30を用いると、V=30×0.93×5=139.5m³/hとなるため、90m³/hでは小さい。",
+      "正しい。必要換気量V=30×0.93×5=139.5m³/hで、選択肢では140m³/hが最も近い。",
+      "間違い。計算値は139.5m³/hであり、190m³/hは選択肢の中では大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "排気フードⅠ型で5kW、K=0.93の必要換気量は5m³/hに近い。",
+      "排気フードⅠ型で5kW、K=0.93の必要換気量は45m³/hに近い。",
+      "排気フードⅠ型で5kW、K=0.93の必要換気量は90m³/hに近い。",
+      "排気フードⅠ型で5kW、K=0.93の必要換気量は140m³/hに近い。",
+      "排気フードⅠ型で5kW、K=0.93の必要換気量は190m³/hに近い。"
+    ],
+    "suggestedQuestionDetails": [
+      "排気フードⅠ型の必要換気量は、定数30に理論排ガス量Kと燃料消費量Qを掛けて求める。30×0.93×5=139.5m³/hなので、5m³/hではない。",
+      "30×0.93×5=139.5m³/hで、必要換気量はおよそ140m³/hとなる。45m³/hは小さすぎる。",
+      "式はV=30×K×Qで、K=0.93、Q=5を代入すると139.5m³/hとなる。90m³/hは近い値ではない。",
+      "30×0.93×5=139.5m³/hであり、最も近い選択肢は140m³/hである。",
+      "計算値は139.5m³/hなので、190m³/hは過大である。最も近いのは140m³/hである。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
