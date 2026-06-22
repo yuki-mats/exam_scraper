@@ -919,10 +919,43 @@
       "同様に下図において、②は不完全燃焼が発生しやすい領域を示している。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "円形ノズルからのガス噴出量は、ガス圧力の平方根に比例し、流路面積に対応するノズル口径の2乗に比例する。記述は正しい。",
+      "炎口詰まりで有効面積が小さくなると、バーナー内圧と炎口流速が上がり、火炎が炎口から離れるリフティングが発生しやすくなる。記述は正しい。",
+      "サーマルNOxの生成速度は燃焼温度に強く依存する。空気比が変わると燃焼温度も変わるため、生成速度も変化する。記述は正しい。",
+      "図の①は低い一次空気率側の領域で、空気不足によりイエローチップが発生しやすい領域を示している。記述は正しい。",
+      "図の②は高インプット側で良好燃焼域を外れる領域であり、不完全燃焼が発生しやすい領域を示している。記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "円形ノズルのガス量は圧力の平方根と口径の2乗に比例する？",
+      "炎口詰まりで内圧が上がるとリフティングが起きやすい？",
+      "サーマルNOx生成速度は空気比の変化でも変わる？",
+      "図の①はイエローチップが発生しやすい領域？",
+      "図の②は不完全燃焼が発生しやすい領域？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "円形ノズルのガス量は圧力の平方根と口径の2乗に比例する？",
+        "answer": "比例する。円形ノズルの噴出量はガス圧力の平方根に比例し、ノズル口径の2乗に比例する。"
+      },
+      {
+        "question": "炎口詰まりで内圧が上がるとリフティングが起きやすい？",
+        "answer": "起きやすい。炎口の有効面積が小さくなると内圧と流速が上がり、リフティングが発生しやすくなる。"
+      },
+      {
+        "question": "サーマルNOx生成速度は空気比の変化でも変わる？",
+        "answer": "変わる。サーマルNOxは燃焼温度に依存し、空気比の変化は燃焼温度を変えるため生成速度も変化する。"
+      },
+      {
+        "question": "図の①はイエローチップが発生しやすい領域？",
+        "answer": "そのとおり。図の①は一次空気率が低い側で、イエローチップが発生しやすい領域を示す。"
+      },
+      {
+        "question": "図の②は不完全燃焼が発生しやすい領域？",
+        "answer": "そのとおり。図の②は良好燃焼域を外れ、不完全燃焼が発生しやすい領域を示す。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
