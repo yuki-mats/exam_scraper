@@ -652,10 +652,43 @@
       "移動式ガス発生設備には、「空気吸入式（PA式）」「圧縮ガス式（CNG式）」「液化ガス式（LNG式）」がある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "レベル1地震動に対する高圧導管の直管接合部や異形管部の許容ひずみは3.0%ではなく1.0%である。記述は誤り。",
+      "中・低圧導管では、地盤変位吸収能力と設計地盤変位を比較して耐震性を評価する。記述は正しい。",
+      "ガス防災支援システム（G-React）は、大規模地震発生時の早期復旧に向け、国とガス事業者が被害情報や復旧活動に必要な情報を共有するためのシステムである。記述は正しい。",
+      "供給停止ブロックをさらに分割して得られる復旧作業用のブロックは、単位ブロックではなく復旧ブロックである。記述は誤り。",
+      "移動式ガス発生設備には、空気吸入式（PA式）、圧縮ガス式（CNG式）、液化ガス式（LNG式）がある。記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "レベル1地震動に対する高圧導管の許容ひずみは3.0%？",
+      "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位の比較で評価する？",
+      "G-Reactは大規模地震時に被害情報や復旧活動に必要な情報共有を図る？",
+      "供給停止ブロックをさらに分割した復旧作業用ブロックは単位ブロック？",
+      "移動式ガス発生設備にはPA式、CNG式、LNG式がある？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "レベル1地震動に対する高圧導管の許容ひずみは3.0%？",
+        "answer": "3.0%ではない。レベル1地震動では1.0%が基準であり、3.0%は誤り。"
+      },
+      {
+        "question": "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位の比較で評価する？",
+        "answer": "評価する。地盤変位吸収能力と設計地盤変位を比較して耐震性を評価する。"
+      },
+      {
+        "question": "G-Reactは大規模地震時に被害情報や復旧活動に必要な情報共有を図る？",
+        "answer": "図る。G-Reactは被害情報や復旧活動に必要な情報を国とガス事業者が共有するためのシステムである。"
+      },
+      {
+        "question": "供給停止ブロックをさらに分割した復旧作業用ブロックは単位ブロック？",
+        "answer": "単位ブロックではない。この内容は復旧ブロックの説明であり、単位ブロックとしている点が誤り。"
+      },
+      {
+        "question": "移動式ガス発生設備にはPA式、CNG式、LNG式がある？",
+        "answer": "ある。移動式ガス発生設備にはPA式、CNG式、LNG式がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
