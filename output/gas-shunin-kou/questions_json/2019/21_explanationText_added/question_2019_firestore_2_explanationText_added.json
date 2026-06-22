@@ -908,10 +908,28 @@
       "中圧のガス圧力により大口供給の用に供するガスは、容易に臭気によるガスの感知ができるように、付臭されていなければならない。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "「低圧」ではなく「高圧若しくは中圧」と規定されている。（技省令第17条）",
+      "「特定ガス発生設備を除く」ではなく「移動式ガス発生設備を除く」と規定されている。（技省令第18条の1）",
+      "「移動式ガス発生設備には設置」ではなく「移動式ガス発生設備を除く」と規定されている。（技省令第19条）",
+      "「特定製造所にあってはこの限りでない」ではなく「例外規定なし」と規定されている。（技省令第21条）",
+      "「中圧のガス圧力により大口供給」ではなく「使用者に供給」と規定されている。（技省令第22条）"
+    ],
+    "suggestedQuestions": [
+      "低圧のガスホルダーで過圧のおそれがある場合、安全弁の対象？",
+      "ガス発生設備の計測・確認装置で除外されるのは特定ガス発生設備？",
+      "移動式ガス発生設備には警報装置を設ける？",
+      "保安上重要な設備の停電対策に特定製造所の例外はある？",
+      "付臭措置は中圧の大口供給だけが対象？"
+    ],
+    "suggestedQuestionDetails": [
+      "対象は高圧又は中圧のガスホルダーであり、低圧としている点が誤り。",
+      "除外されるのは移動式ガス発生設備であり、特定ガス発生設備を除くとしている点が誤り。",
+      "警報装置の規定は移動式ガス発生設備を除くガス発生設備等が対象であり、移動式ガス発生設備としている点が誤り。",
+      "停電等で機能が失われない措置に特定製造所の例外規定はなく、ただし書きを置いている点が誤り。",
+      "付臭措置は使用者に供給するガスについて容易に臭気で感知できるよう求めるもので、中圧の大口供給に限定している点が誤り。"
+    ],
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
