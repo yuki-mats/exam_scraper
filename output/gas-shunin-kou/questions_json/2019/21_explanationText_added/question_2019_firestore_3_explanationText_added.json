@@ -1,0 +1,332 @@
+[
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2019-2-1,gasushunin-koushu-kiso-2019-2-2,chiefgasengineerlicense-C-10145,gasushunin-koushu-kiso-2019-2-4,gasushunin-koushu-kiso-2019-2-5",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-2",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問2",
+    "examLabel": null,
+    "questionBodyText": "プロパンとブタンが質量比1：1で混合している液化ガスがある。この液化ガスの27℃における蒸気圧（MPa）として最も近い値はどれか。ただし、ラウールの法則が成立するものとし、27℃におけるプロパン及びブタンの蒸気圧は、それぞれ1.0MPa及び0.3MPaとする。",
+    "choiceTextList": [
+      "0.6",
+      "0.65",
+      "0.7",
+      "0.75",
+      "0.8"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": [
+      "質量比1：1なので、プロパンとブタンの物質量はそれぞれ1/44、1/58である。プロパンのモル分率は58/102、ブタンは44/102となり、蒸気圧は(58/102)×1.0+(44/102)×0.3≒0.70MPaであるため、0.6MPaではない。",
+      "ラウールの法則より全蒸気圧は各成分のモル分率と蒸気圧の積の和で求める。計算値は約0.70MPaであり、0.65MPaではない。",
+      "プロパンのモル分率は(1/44)/(1/44+1/58)、ブタンのモル分率は(1/58)/(1/44+1/58)である。よってP=(1/44)/(1/44+1/58)×1.0+(1/58)/(1/44+1/58)×0.3≒0.70MPaとなり、0.7MPaが正しい。",
+      "質量比からモル分率に換算してラウールの法則を用いると、全蒸気圧は約0.70MPaとなる。0.75MPaではない。",
+      "プロパンだけの蒸気圧1.0MPaに近づけるのではなく、ブタンのモル分率分だけ0.3MPaを加重平均するため、全蒸気圧は約0.70MPaである。0.8MPaではない。"
+    ],
+    "suggestedQuestions": [
+      "液化ガスの蒸気圧は0.6MPa？",
+      "液化ガスの蒸気圧は0.65MPa？",
+      "液化ガスの蒸気圧は0.7MPa？",
+      "液化ガスの蒸気圧は0.75MPa？",
+      "液化ガスの蒸気圧は0.8MPa？"
+    ],
+    "suggestedQuestionDetails": [
+      "違う。質量比1：1をモル分率に直してラウールの法則を用いると、蒸気圧は約0.70MPaになる。",
+      "違う。プロパンとブタンのモル分率で加重平均すると約0.70MPaであり、0.65MPaではない。",
+      "正しい。P=(1/44)/(1/44+1/58)×1.0+(1/58)/(1/44+1/58)×0.3≒0.70MPaである。",
+      "違う。計算値は約0.70MPaで、0.75MPaより小さい。",
+      "違う。ブタンの蒸気圧0.3MPaもモル分率で反映するため、0.8MPaではなく約0.70MPaとなる。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [
+        "プロパンおよびブタンのモル分率は、それぞれ(1/44)/(1/44+1/58)、(1/58)/(1/44+1/58)。よって、ラウールの法則より、蒸気圧Pは次のとおり求められる。P=(1/44)/(1/44+1/58)×1.0+(1/58)/(1/44+1/58)×0.3≒0.70MPa。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-C-10146,chiefgasengineerlicense-C-10147,chiefgasengineerlicense-C-10148,chiefgasengineerlicense-C-10149,chiefgasengineerlicense-C-10150",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-3",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問3",
+    "examLabel": null,
+    "questionBodyText": "気体の熱容量に関する次の記述のうち、誤っているものはどれか。",
+    "choiceTextList": [
+      "一定量の物質の温度を1K上昇させるのに必要な熱量を熱容量という。",
+      "物質1kgあたりの熱容量と1molあたりの熱容量は同じである。",
+      "理想気体において、定圧モル熱容量Cₚは、定積モル熱容量Cᵥと気体定数R（＝8.314J/(mol・K)）の和に等しい。（Cₚ＝Cᵥ＋R）",
+      "定圧モル熱容量Cₚと定積モル熱容量Cᵥの比を比熱比という。",
+      "理想気体では、N種の成分からなる混合ガスの定圧モル熱容量Cₚは、成分iのモル分率xᵢと成分iの定圧モル熱容量Cₚᵢを用いて、次の式で求めることができる。\\nCₚ＝Σᵢ₌₁ᴺ xᵢCₚᵢ"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "物質1kgあたりの熱容量と1molあたりの熱容量は違う。"
+      ],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2019-4-1,gasushunin-koushu-kiso-2019-4-2,chiefgasengineerlicense-C-10151,gasushunin-koushu-kiso-2019-4-4,gasushunin-koushu-kiso-2019-4-5",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-4",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問4",
+    "examLabel": null,
+    "questionBodyText": "都市ガス1m³を燃焼させて、空気を5℃から30℃に暖めた。熱効率を80%とした場合、暖められた空気の体積（m³）として最も近い値はどれか。ただし、体積は標準状態（0℃、101325Pa）における体積とし、空気の定圧モル熱容量を29.2J/(mol・K)、都市ガスの発熱量を45MJ/m³とする。",
+    "choiceTextList": [
+      "11",
+      "110",
+      "1100",
+      "11000",
+      "110000"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [
+        "空気1m^3は、1000/22.4=44.64molである。したがって空気1m^3あたりの定圧熱容量は29.2×44.64=1303J/K。45×10^6×0.8÷(1303×(30−5))≒1100m^3。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-C-10152,chiefgasengineerlicense-C-10153,chiefgasengineerlicense-C-10154,chiefgasengineerlicense-C-10155,chiefgasengineerlicense-C-10156",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-5",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問5",
+    "examLabel": null,
+    "questionBodyText": "エントロピーに関する次の記述のうち、誤っているものはどれか。",
+    "choiceTextList": [
+      "エントロピーはその状態のみによって決まり、どのような経路でその状態に到達したかには無関係である。",
+      "エントロピーは、通常J/Kを単位として表される。",
+      "理想気体を等温膨張させると、エントロピーは増大する。",
+      "2種の理想気体を等温定圧下で混合すると、エントロピーは減少する。",
+      "理想気体を定積条件のもとで温度を上昇させると、エントロピーは増大する。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [
+        "2種の理想気体を等温定圧下で混合すると、エントロピーは増大する。"
+      ],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2019-6-1,gasushunin-koushu-kiso-2019-6-2,gasushunin-koushu-kiso-2019-6-3,gasushunin-koushu-kiso-2019-6-4,chiefgasengineerlicense-C-10157",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-6",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問6",
+    "examLabel": null,
+    "questionBodyText": "CH₄(g)＋H₂O(g) → CO(g)＋3H₂(g)の標準反応熱は、206kJ/molである。この時、CH₄(g)の標準生成熱（kJ/mol）として、最も近い値はどれか。ただし、各成分の標準生成熱は以下のとおりとし、（g）は気体状態を、（l）は液体状態を示す。\\nH₂O(g)：−242kJ/mol\\nH₂O(l)：−286kJ/mol\\nH₂(g)：0kJ/mol\\nCO(g)：−111kJ/mol",
+    "choiceTextList": [
+      "75",
+      "31",
+      "0",
+      "−31",
+      "−75"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [],
+      [],
+      [
+        "ヘスの法則より ΔH°(T_ST)=(cH°_m(C,T_ST)+dH°_m(D,T_ST))_生成系−(aH°_m(A,T_ST)+bH°_m(B,T_ST))_反応系=(cΔH°_f(C)+dΔH°_f(D))_生成系−(aΔH°_f(A)+bΔH°_f(B))_反応系。 ΔH°(T_ST)=(ΔH°_f(CO)+3×ΔH°_f(H2))−(ΔH°_f(CH4)+ΔH°_f(H2O))=(−111)+(3×0)−(ΔH°_f(CH4))−(−242)=206 よって ΔH°_f(CH4)=−111+0+242−206=−75。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-C-10158,chiefgasengineerlicense-C-10159,chiefgasengineerlicense-C-10160,chiefgasengineerlicense-C-10161,chiefgasengineerlicense-C-10162",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-7",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問7",
+    "examLabel": null,
+    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
+    "choiceTextList": [
+      "触媒は平衡定数に影響を与え、反応速度を増加させる機能を持つ。",
+      "触媒と反応物質が異なる相にある触媒反応を不均一触媒反応という。",
+      "温度一定の条件では、速度定数はその反応に固有な定数である。",
+      "温度一定の条件では、一次反応において反応速度は反応物質の濃度に比例する。",
+      "アレニウスの式によれば、速度定数の対数と絶対温度の逆数は直線関係を示す。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "触媒は平衡定数に影響を与えず、反応速度を増加させる機能を持つ。"
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:chiefgasengineerlicense-C-10163,chiefgasengineerlicense-C-10164,chiefgasengineerlicense-C-10165,chiefgasengineerlicense-C-10166,chiefgasengineerlicense-C-10167",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-8",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問8",
+    "examLabel": null,
+    "questionBodyText": "気体燃料の発熱量に関する次の記述のうち、誤っているものはどれか。",
+    "choiceTextList": [
+      "一般に気体燃料の発熱量は、標準状態における1m³あたりの値で示す。",
+      "総発熱量は、真発熱量より小さい。",
+      "可燃性ガスを不完全燃焼させた場合に得られる熱量は、完全燃焼させた場合に得られる熱量より小さい。",
+      "混合ガスは、その組成によって発熱量が変わる。",
+      "メタンやプロパンのような飽和炭化水素では、分子中の炭素数が多いほど単位体積あたりの発熱量が大きい。"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [
+        "総発熱量は、真発熱量より大きい。"
+      ],
+      [],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ]
+  },
+  {
+    "original_question_id": "firestore:gasushunin-koushu-kiso-2019-9-1,gasushunin-koushu-kiso-2019-9-2,chiefgasengineerlicense-C-10168,gasushunin-koushu-kiso-2019-9-4,gasushunin-koushu-kiso-2019-9-5",
+    "source_original_question_id": "gasushunin-koushu-kiso-2019-9",
+    "public_question_id": null,
+    "question_url": null,
+    "questionLabel": "問9",
+    "examLabel": null,
+    "questionBodyText": "メタン90vol%、プロパン10vol%の混合燃料1m³を空気15m³で燃焼させた場合の空気比として最も近い値はどれか。ただし、気体は標準状態（0℃、101325Pa）とし、空気中の酸素濃度は20vol%とする。",
+    "choiceTextList": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.5"
+    ],
+    "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_3.json",
+    "explanationText": null,
+    "suggestedQuestions": null,
+    "suggestedQuestionDetails": null,
+    "lawGroundedExplanationNotNeeded": null,
+    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [],
+      [],
+      [
+        "CH4+2O2→CO2+2H2O、C3H8+5O2→3CO2+4H2O。CH4=0.9m^3、C3H8=0.1m^3 の燃焼に必要なO2は 0.9×2+0.1×5=2.3m^3。空気中の酸素濃度が20%とすれば理論空気量は 2.3÷0.2=11.5m^3。空気比 λ=A/A0 よって空気比は 15/11.5≒1.3。"
+      ],
+      [],
+      []
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ]
+  }
+]
