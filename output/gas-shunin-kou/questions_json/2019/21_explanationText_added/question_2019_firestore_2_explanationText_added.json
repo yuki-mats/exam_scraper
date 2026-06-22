@@ -1323,10 +1323,28 @@
       "0.86"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "低温流体の入口温度をTとすると、低温流体の温度効率は0.4=(97−T)/(220−T)であり、T=15℃となる。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8なので、0.25ではない。",
+      "低温流体入口温度は0.4=(97−T)/(220−T)から15℃である。高温流体の温度効率は(220−56)/(220−15)=0.8であり、0.35ではない。",
+      "高温流体の温度効率は、高温流体の温度低下164℃を最大温度差205℃で割って0.8となる。0.67ではない。",
+      "低温流体入口温度をTとすると、0.4=(97−T)/(220−T)よりT=15℃である。高温流体の温度効率は(220−56)/(220−15)=164/205=0.8なので、0.8が正しい。",
+      "計算上、高温流体の温度効率は0.8である。0.86は、低温流体入口温度を求めたうえでの温度差比と一致しない。"
+    ],
+    "suggestedQuestions": [
+      "高温流体の温度効率は0.25？",
+      "高温流体の温度効率は0.35？",
+      "高温流体の温度効率は0.67？",
+      "高温流体の温度効率は0.8？",
+      "高温流体の温度効率は0.86？"
+    ],
+    "suggestedQuestionDetails": [
+      "違う。低温流体入口温度は15℃で、高温流体の温度効率は(220−56)/(220−15)=0.8となる。",
+      "違う。温度効率の計算値は0.8であり、0.35ではない。",
+      "違う。高温流体の温度低下164℃を最大温度差205℃で割るため、0.67ではなく0.8である。",
+      "正しい。低温流体入口温度Tは15℃となり、高温流体の温度効率は164/205=0.8である。",
+      "違う。高温流体の温度効率は0.8であり、0.86ではない。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
