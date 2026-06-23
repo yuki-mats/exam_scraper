@@ -1239,10 +1239,53 @@
       "導管であって、最高使用圧力が高圧のガスを通ずるもの"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。技術基準は、所定のガス工作物について、ガス又は液化ガスによる圧力を受ける部分を溶接する場合、適切な機械試験等で確認した溶接施工方法等によることを定めている。",
+      "正しい。液化ガスを通ずる容器は、最高使用圧力と内容積の積が0.004以下のものを除き、溶接施工方法等をあらかじめ確認すべき対象となる。",
+      "間違い。内径150mm以上の配管でガスを通ずるものが対象となるのは、最高使用圧力が高圧の場合である。中圧としている点が誤り。",
+      "正しい。内径150mm以上の配管で液化ガスを通ずるものは、溶接施工方法等をあらかじめ確認すべき対象となる。",
+      "正しい。最高使用圧力が高圧のガスを通ずる導管は、溶接施工方法等をあらかじめ確認すべき対象となる。"
+    ],
+    "suggestedQuestions": [
+      "ガス又は液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。",
+      "容器であって、液化ガスを通ずるもの（最高使用圧力をメガパスカルで表した数値と内容積を立法メートルで表した数値との積が0.004以下のものを除く。）",
+      "内径が１５０ｍｍ以上の配管であって、最高使用圧力が中圧のガスを通ずるもの",
+      "内径が１５０ｍｍ以上の配管であって、液化ガスを通ずるもの",
+      "導管であって、最高使用圧力が高圧のガスを通ずるもの"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "ガス又は液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。技術基準は、所定のガス工作物について、ガス又は液化ガスによる圧力を受ける部分を溶接する場合、適切な機械試験等で確認した溶接施工方法等によることを定めている。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "容器であって、液化ガスを通ずるもの（最高使用圧力をメガパスカルで表した数値と内容積を立法メートルで表した数値との積が0.004以下のものを除く。）",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。液化ガスを通ずる容器は、最高使用圧力と内容積の積が0.004以下のものを除き、溶接施工方法等をあらかじめ確認すべき対象となる。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "内径が１５０ｍｍ以上の配管であって、最高使用圧力が中圧のガスを通ずるもの",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。内径150mm以上の配管でガスを通ずるものが対象となるのは、最高使用圧力が高圧の場合である。中圧としている点が誤り。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "内径が１５０ｍｍ以上の配管であって、液化ガスを通ずるもの",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。内径150mm以上の配管で液化ガスを通ずるものは、溶接施工方法等をあらかじめ確認すべき対象となる。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "導管であって、最高使用圧力が高圧のガスを通ずるもの",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。最高使用圧力が高圧のガスを通ずる導管は、溶接施工方法等をあらかじめ確認すべき対象となる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
