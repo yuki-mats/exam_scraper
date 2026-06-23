@@ -1765,10 +1765,48 @@
       "5.5"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。熱通過率は K=1/(1/h_i+L/k+1/h_o) で求める。L=0.05m、k=1.2W/(m・K)、h_i=10W/(m²・K)、h_o=25W/(m²・K)を代入するとK≈5.50W/(m²・K)となるため、0.02ではない。",
+      "間違い。全熱抵抗は1/10+0.05/1.2+1/25=0.1817であり、熱通過率はその逆数の約5.50W/(m²・K)である。0.04ではない。",
+      "間違い。熱通過率は全熱抵抗の逆数であり、計算値は約5.50W/(m²・K)である。0.23は最も近い値ではない。",
+      "間違い。1/10+0.05/1.2+1/25=0.1817よりK≈5.50W/(m²・K)となる。2.5では小さすぎる。",
+      "正しい。K=1/(1/10+0.05/1.2+1/25)=1/0.1817≈5.50W/(m²・K)であり、最も近い値は5.5である。"
+    ],
+    "suggestedQuestions": [
+      "0.02",
+      "0.04",
+      "0.23",
+      "2.5",
+      "5.5"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "0.02",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。熱通過率は K=1/(1/h_i+L/k+1/h_o) で求める。L=0.05m、k=1.2W/(m・K)、h_i=10W/(m²・K)、h_o=25W/(m²・K)を代入するとK≈5.50W/(m²・K)となるため、0.02ではない。"
+      },
+      {
+        "question": "0.04",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。全熱抵抗は1/10+0.05/1.2+1/25=0.1817であり、熱通過率はその逆数の約5.50W/(m²・K)である。0.04ではない。"
+      },
+      {
+        "question": "0.23",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。熱通過率は全熱抵抗の逆数であり、計算値は約5.50W/(m²・K)である。0.23は最も近い値ではない。"
+      },
+      {
+        "question": "2.5",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。1/10+0.05/1.2+1/25=0.1817よりK≈5.50W/(m²・K)となる。2.5では小さすぎる。"
+      },
+      {
+        "question": "5.5",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。K=1/(1/10+0.05/1.2+1/25)=1/0.1817≈5.50W/(m²・K)であり、最も近い値は5.5である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
