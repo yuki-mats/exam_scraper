@@ -1121,10 +1121,53 @@
       "FE式機器では、排気筒の横引き長さと高さとの関係に関する法令上の規定はない。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。BF-D式機器のUダクト式では、排気を適切にダクトへ導くため、機器の排気口をダクト内へ40～50㎜突き出す必要がある。",
+      "正しい。CF式機器の排気筒に排気用送風機を取り付けて強制的に排気するものは強制排気システムであり、給排気方式はFE式として取り扱う。",
+      "正しい。BF-C式機器のチャンバーは外気に開放された廊下で、給排気口は風による渦流や風圧差等によって逆流が生じない位置及び構造とする必要がある。",
+      "間違い。CF式機器の排気筒トップは、トップから水平方向1m以内に軒のある建物が隣接する場合、隣接建物の軒から600㎜以上高くする必要がある。300㎜以上としている点が誤り。",
+      "正しい。FE式機器は送風機で強制的に排気する方式であり、排気筒の横引き長さと高さとの関係について法令上の規定はない。"
+    ],
+    "suggestedQuestions": [
+      "BF-D式機器のUダクト式では、機器の排気口をダクト内へ40～50㎜突き出す必要がある。",
+      "CF式機器の排気筒に排気用送風機を取り付け、強制的に排気を行うものを強制排気システムといい、その給排気方式はFE式として取り扱う。",
+      "BF-C式機器のチャンバーは、外気に開放された廊下で、給排気口が風による渦流や風圧差等によらず、逆流の生じない位置及び構造とする。",
+      "CF式機器の排気筒トップは、排気筒トップから水平方向1ｍ以内に軒のある建物が隣接する場合、その隣接する建物の軒から300㎜以上高くする必要がある。",
+      "FE式機器では、排気筒の横引き長さと高さとの関係に関する法令上の規定はない。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "BF-D式機器のUダクト式では、機器の排気口をダクト内へ40～50㎜突き出す必要がある。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。BF-D式機器のUダクト式では、排気を適切にダクトへ導くため、機器の排気口をダクト内へ40～50㎜突き出す必要がある。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "CF式機器の排気筒に排気用送風機を取り付け、強制的に排気を行うものを強制排気システムといい、その給排気方式はFE式として取り扱う。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。CF式機器の排気筒に排気用送風機を取り付けて強制的に排気するものは強制排気システムであり、給排気方式はFE式として取り扱う。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "BF-C式機器のチャンバーは、外気に開放された廊下で、給排気口が風による渦流や風圧差等によらず、逆流の生じない位置及び構造とする。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。BF-C式機器のチャンバーは外気に開放された廊下で、給排気口は風による渦流や風圧差等によって逆流が生じない位置及び構造とする必要がある。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "CF式機器の排気筒トップは、排気筒トップから水平方向1ｍ以内に軒のある建物が隣接する場合、その隣接する建物の軒から300㎜以上高くする必要がある。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。CF式機器の排気筒トップは、トップから水平方向1m以内に軒のある建物が隣接する場合、隣接建物の軒から600㎜以上高くする必要がある。300㎜以上としている点が誤り。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "FE式機器では、排気筒の横引き長さと高さとの関係に関する法令上の規定はない。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。FE式機器は送風機で強制的に排気する方式であり、排気筒の横引き長さと高さとの関係について法令上の規定はない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
