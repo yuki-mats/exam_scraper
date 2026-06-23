@@ -321,10 +321,48 @@
       "等温、定圧で2種の理想気体を混合するとき、エントロピーは減少する。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。エントロピーは状態量であり、系がある状態から別の状態に移るときの変化量は途中の経路によらない。",
+      "正しい。エントロピーは熱量を温度で割った量として扱われるため、次元はエネルギーを温度で割ったものになる。",
+      "正しい。理想気体を定圧で加熱すると温度上昇に伴って熱が加えられ、エントロピーは増加する。",
+      "正しい。孤立系の不可逆過程ではエントロピーは増大する。",
+      "間違い。等温、定圧で2種の理想気体を混合すると、混合によって取り得る状態数が増えるためエントロピーは増大する。減少するとする記述は誤りである。"
+    ],
+    "suggestedQuestions": [
+      "系がある状態から別の状態に移るときのエントロピー変化量は、途中の経路にはよらない。",
+      "エントロピーの次元は［エネルギー］/［温度］である。",
+      "理想気体では、定圧条件において温度を上昇させるとエントロピーは増加する。",
+      "孤立系の不可逆過程において、エントロピーは常に増大する。",
+      "等温、定圧で2種の理想気体を混合するとき、エントロピーは減少する。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceText": "系がある状態から別の状態に移るときのエントロピー変化量は、途中の経路にはよらない。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。エントロピーは状態量であり、系がある状態から別の状態に移るときの変化量は途中の経路によらない。"
+      },
+      {
+        "choiceText": "エントロピーの次元は［エネルギー］/［温度］である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。エントロピーは熱量を温度で割った量として扱われるため、次元はエネルギーを温度で割ったものになる。"
+      },
+      {
+        "choiceText": "理想気体では、定圧条件において温度を上昇させるとエントロピーは増加する。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。理想気体を定圧で加熱すると温度上昇に伴って熱が加えられ、エントロピーは増加する。"
+      },
+      {
+        "choiceText": "孤立系の不可逆過程において、エントロピーは常に増大する。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。孤立系の不可逆過程ではエントロピーは増大する。"
+      },
+      {
+        "choiceText": "等温、定圧で2種の理想気体を混合するとき、エントロピーは減少する。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。等温、定圧で2種の理想気体を混合すると、混合によって取り得る状態数が増えるためエントロピーは増大する。減少するとする記述は誤りである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
