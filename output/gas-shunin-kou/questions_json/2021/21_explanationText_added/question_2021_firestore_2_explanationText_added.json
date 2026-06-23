@@ -1688,10 +1688,48 @@
       "20"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。ピトー管とマノメーターの関係から、u=√{2(ρ'−ρ)gH/ρ}で求める。H=13mm=0.013m、ρ=1.04kg/m³、ρ'=800kg/m³を代入するとu≈14.1m/sとなるため、4m/sは最も近い値ではない。",
+      "間違い。u=√{2(800−1.04)×10×0.013÷1.04}≈14.1m/sであり、10m/sより14m/sに近い。",
+      "間違い。計算値は約14.1m/sであり、12m/sより14m/sに近い。",
+      "正しい。u²=2(800−1.04)×10×0.013÷1.04=199.74、したがってu≈14.1m/sとなるため、最も近い値は14m/sである。",
+      "間違い。計算値は約14.1m/sであり、20m/sは大きすぎるため最も近い値ではない。"
+    ],
+    "suggestedQuestions": [
+      "4",
+      "10",
+      "12",
+      "14",
+      "20"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "4",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ピトー管とマノメーターの関係から、u=√{2(ρ'−ρ)gH/ρ}で求める。H=13mm=0.013m、ρ=1.04kg/m³、ρ'=800kg/m³を代入するとu≈14.1m/sとなるため、4m/sは最も近い値ではない。"
+      },
+      {
+        "question": "10",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。u=√{2(800−1.04)×10×0.013÷1.04}≈14.1m/sであり、10m/sより14m/sに近い。"
+      },
+      {
+        "question": "12",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。計算値は約14.1m/sであり、12m/sより14m/sに近い。"
+      },
+      {
+        "question": "14",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。u²=2(800−1.04)×10×0.013÷1.04=199.74、したがってu≈14.1m/sとなるため、最も近い値は14m/sである。"
+      },
+      {
+        "question": "20",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。計算値は約14.1m/sであり、20m/sは大きすぎるため最も近い値ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
