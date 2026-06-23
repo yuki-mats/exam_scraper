@@ -398,10 +398,48 @@
       "3200"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。メタン0.5molとプロパン0.5molの完全燃焼で発生する熱は、標準生成熱から 0.5×891+0.5×2222=1556.5kJ と求まる。900kJはこの値から離れており、最も近い値ではない。",
+      "間違い。CH4(g)+2O2(g)→CO2(g)+2H2O(l) の反応熱は -891kJ/mol、C3H8(g)+5O2(g)→3CO2(g)+4H2O(l) の反応熱は -2222kJ/molである。1:1混合ガス1molでは 1556.5kJ となるため、1200kJは最も近い値ではない。",
+      "正しい。体積比1:1の気体混合物ではメタンとプロパンがそれぞれ0.5molである。標準生成熱より、メタン燃焼は -394+2×(-286)-(-75)=-891kJ/mol、プロパン燃焼は 3×(-394)+4×(-286)-(-104)=-2222kJ/mol。発生熱は 0.5×891+0.5×2222=1556.5kJ なので、1600kJが最も近い。",
+      "間違い。混合ガス1molはメタン0.5mol、プロパン0.5molであり、発生熱は 1556.5kJ である。2400kJはプロパン1molの燃焼熱に近い側の値で、混合ガス1molの値としては大きすぎる。",
+      "間違い。標準生成熱を用いて計算すると混合ガス1molの完全燃焼で発生する熱は約1556.5kJである。3200kJはこの値から大きく外れるため、最も近い値ではない。"
+    ],
+    "suggestedQuestions": [
+      "900",
+      "1200",
+      "1600",
+      "2400",
+      "3200"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceText": "900",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。メタン0.5molとプロパン0.5molの完全燃焼で発生する熱は、標準生成熱から 0.5×891+0.5×2222=1556.5kJ と求まる。900kJはこの値から離れており、最も近い値ではない。"
+      },
+      {
+        "choiceText": "1200",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。CH4(g)+2O2(g)→CO2(g)+2H2O(l) の反応熱は -891kJ/mol、C3H8(g)+5O2(g)→3CO2(g)+4H2O(l) の反応熱は -2222kJ/molである。1:1混合ガス1molでは 1556.5kJ となるため、1200kJは最も近い値ではない。"
+      },
+      {
+        "choiceText": "1600",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。体積比1:1の気体混合物ではメタンとプロパンがそれぞれ0.5molである。標準生成熱より、メタン燃焼は -394+2×(-286)-(-75)=-891kJ/mol、プロパン燃焼は 3×(-394)+4×(-286)-(-104)=-2222kJ/mol。発生熱は 0.5×891+0.5×2222=1556.5kJ なので、1600kJが最も近い。"
+      },
+      {
+        "choiceText": "2400",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。混合ガス1molはメタン0.5mol、プロパン0.5molであり、発生熱は 1556.5kJ である。2400kJはプロパン1molの燃焼熱に近い側の値で、混合ガス1molの値としては大きすぎる。"
+      },
+      {
+        "choiceText": "3200",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。標準生成熱を用いて計算すると混合ガス1molの完全燃焼で発生する熱は約1556.5kJである。3200kJはこの値から大きく外れるため、最も近い値ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
