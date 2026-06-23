@@ -76,11 +76,11 @@ execution_plan:
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
   completed_questions: 153
-  pending_questions: 750
-  held_questions: 36
+  pending_questions: 749
+  held_questions: 37
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T298
+active_task: T299
 tasks:
   - id: T001
     type: pm
@@ -13172,9 +13172,64 @@ tasks:
   - id: T298
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=185（gas-shunin-kou 2022 供給 問16）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2022 供給 問16はFirestore snapshotに対する01〜04を完了し、未解決source conflictのため理由付きholdにした。00_source本文・選択肢と既存Firestore IDsは保持した。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json --patch output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json --patch output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json --patch output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=needs_source_review for gas-shunin:kou:2022:kyokyu:q16"
+        - "source conflict ledger checked: q16:s03 Firestore 溶接事業所の溶接士ごと vs site 溶接事業所かつ溶接士ごと; q16:s04 Firestore 開先不良とは vs site 開先不良は"
+        - "questionType=true_false because the problem asks how many statements are incorrect"
+        - "questionIntent=select_incorrect because the prompt asks 誤っているものはいくつあるか"
+        - "Firestore statement correctness preserved: choice 4 is correct; choices 1, 2, 3, and 5 are incorrect"
+        - "questionSetId=chiefgasengineerlicense-A-80-192 from category.json/source questionSetIdList/Firestore source questionSetId (溶接と非破壊試験・甲種)"
+        - "existing firestoreQuestionIds chiefgasengineerlicense-A-80-1195..1199 preserved"
+        - "00_source body/choices unchanged; reviewDecision=hold because unresolved source conflict remains for strict upload gate"
+      worker_notes:
+        - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "lawGroundedExplanationNotNeeded=true because this is a technical welding/NDT question rather than a law citation question."
+      verification_attempts: 1
+
+  - id: T299
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=186（gas-shunin-kou 2022 供給 問17）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
