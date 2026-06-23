@@ -1739,10 +1739,53 @@
       "100"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "低温側の温度効率は φ_c=(低温流体出口温度−低温流体入口温度)/(高温流体入口温度−低温流体入口温度) で表される。0.4=(T−15)/(190−15)よりT=85℃となるため、80℃では小さすぎる。",
+      "0.4=(T−15)/(190−15)より、T−15=0.4×175=70、T=85℃となる。したがって85℃が最も近い値であり正しい。",
+      "計算値は85℃である。90℃は計算値より高く、最も近い値ではない。",
+      "低温流体出口温度は0.4×(190−15)+15=85℃である。95℃では高すぎる。",
+      "温度効率の式から求める低温流体出口温度は85℃であり、100℃では大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "80",
+      "85",
+      "90",
+      "95",
+      "100"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "80",
+        "correctChoiceText": "間違い",
+        "explanationText": "低温側の温度効率は φ_c=(低温流体出口温度−低温流体入口温度)/(高温流体入口温度−低温流体入口温度) で表される。0.4=(T−15)/(190−15)よりT=85℃となるため、80℃では小さすぎる。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "85",
+        "correctChoiceText": "正しい",
+        "explanationText": "0.4=(T−15)/(190−15)より、T−15=0.4×175=70、T=85℃となる。したがって85℃が最も近い値であり正しい。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "90",
+        "correctChoiceText": "間違い",
+        "explanationText": "計算値は85℃である。90℃は計算値より高く、最も近い値ではない。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "95",
+        "correctChoiceText": "間違い",
+        "explanationText": "低温流体出口温度は0.4×(190−15)+15=85℃である。95℃では高すぎる。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "100",
+        "correctChoiceText": "間違い",
+        "explanationText": "温度効率の式から求める低温流体出口温度は85℃であり、100℃では大きすぎる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
