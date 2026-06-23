@@ -244,10 +244,48 @@
       "4.5"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 1.5m^3は計算結果と一致しない。",
+      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 2m^3は計算結果と一致しない。",
+      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 3.2m^3は計算結果より小さく、最も近い値ではない。",
+      "正しい。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。",
+      "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 4.5m^3は計算結果より大きく、4.0m^3の方が近い。"
+    ],
+    "suggestedQuestions": [
+      "1.5",
+      "2",
+      "3.2",
+      "4",
+      "4.5"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceText": "1.5",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 1.5m^3は計算結果と一致しない。"
+      },
+      {
+        "choiceText": "2",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 2m^3は計算結果と一致しない。"
+      },
+      {
+        "choiceText": "3.2",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 3.2m^3は計算結果より小さく、最も近い値ではない。"
+      },
+      {
+        "choiceText": "4",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。"
+      },
+      {
+        "choiceText": "4.5",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。必要な熱量は Q=mC_vΔT=300×0.7×(900-300)=126000kJ=126MJ。都市ガスの有効発熱量は 45MJ/m^3×0.70=31.5MJ/m^3 なので、必要体積は 126/31.5=4.0m^3 となる。 4.5m^3は計算結果より大きく、4.0m^3の方が近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
