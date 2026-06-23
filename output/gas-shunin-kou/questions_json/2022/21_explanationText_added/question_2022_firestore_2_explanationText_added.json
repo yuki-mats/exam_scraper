@@ -1575,10 +1575,53 @@
       "80000"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。",
+      "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。20000は最も近い値ではない。",
+      "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。40000は最も近い値ではない。",
+      "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。50000は最も近い値ではない。",
+      "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。80000は最も近い値ではない。"
+    ],
+    "suggestedQuestions": [
+      "10000",
+      "20000",
+      "40000",
+      "50000",
+      "80000"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "10000",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "20000",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。20000は最も近い値ではない。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "40000",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。40000は最も近い値ではない。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "50000",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。50000は最も近い値ではない。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "80000",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。レイノルズ数は Re=vd/ν で表される。空気では Re=2000、動粘度16mm²/sなので vd=2000×16=32000。水では平均流速が1/4、動粘度が0.8mm²/sだから、Re=32000/(4×0.8)=10000となる。80000は最も近い値ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
