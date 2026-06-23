@@ -1405,10 +1405,53 @@
       "多原子気体を熱する際に与えられた熱エネルギーは、気体分子全体が運動する並進運動エネルギーの増加に使われるが、気体分子内の回転運動及び振動運動エネルギーに使われることはない。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。実在気体では分子間引力が分子の壁面衝突による圧力を弱めるため、理想気体の状態方程式から求められる圧力よりも低くなる。",
+      "間違い。流体の粘りの程度は粘度で表されるが、粘度の単位はPa/sではなくPa・sである。単位が誤り。",
+      "間違い。水の三重点の温度は0.01℃であり、0℃より高い。0℃より低いとしている点が誤り。",
+      "間違い。不揮発物質を溶解した希薄溶液では蒸気圧は低下する。不揮発物質のモル分率に比例して上昇するとしている点が誤り。",
+      "間違い。多原子気体に与えられた熱エネルギーは、並進運動エネルギーだけでなく、分子内の回転運動及び振動運動エネルギーにも使われる。"
+    ],
+    "suggestedQuestions": [
+      "実在気体における分子間引力は、理想気体の状態方程式を用いて求められる圧力よりも、圧力を低くする作用をもたらす。",
+      "液体や気体が流動するとき各部分が互いに引き合い混ざり合う程度は、粘度で表され、単位はPa/sである。",
+      "固体、液体、気体の3つの状態が共存する温度及び圧力の条件を三重点といい、水の三重点の温度は0℃より低い。",
+      "ラウールの法則によれば、液体に不揮発物質を溶解した希薄溶液の蒸気圧は、その不揮発物質のモル分率に比例して上昇する。",
+      "多原子気体を熱する際に与えられた熱エネルギーは、気体分子全体が運動する並進運動エネルギーの増加に使われるが、気体分子内の回転運動及び振動運動エネルギーに使われることはない。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "実在気体における分子間引力は、理想気体の状態方程式を用いて求められる圧力よりも、圧力を低くする作用をもたらす。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。実在気体では分子間引力が分子の壁面衝突による圧力を弱めるため、理想気体の状態方程式から求められる圧力よりも低くなる。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "液体や気体が流動するとき各部分が互いに引き合い混ざり合う程度は、粘度で表され、単位はPa/sである。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。流体の粘りの程度は粘度で表されるが、粘度の単位はPa/sではなくPa・sである。単位が誤り。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "固体、液体、気体の3つの状態が共存する温度及び圧力の条件を三重点といい、水の三重点の温度は0℃より低い。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。水の三重点の温度は0.01℃であり、0℃より高い。0℃より低いとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "ラウールの法則によれば、液体に不揮発物質を溶解した希薄溶液の蒸気圧は、その不揮発物質のモル分率に比例して上昇する。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。不揮発物質を溶解した希薄溶液では蒸気圧は低下する。不揮発物質のモル分率に比例して上昇するとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "多原子気体を熱する際に与えられた熱エネルギーは、気体分子全体が運動する並進運動エネルギーの増加に使われるが、気体分子内の回転運動及び振動運動エネルギーに使われることはない。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。多原子気体に与えられた熱エネルギーは、並進運動エネルギーだけでなく、分子内の回転運動及び振動運動エネルギーにも使われる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
