@@ -1,36 +1,39 @@
 {
-  "completed": 196,
-  "completed_questions": 196,
+  "completed": 197,
+  "completed_questions": 197,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 150,
-    "hold": 46,
-    "pending": 738
+    "hold": 47,
+    "pending": 737
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
-  "hold": 46,
-  "hold_questions": 46,
-  "kouCompleted": 196,
-  "kouHold": 46,
-  "kouPending": 216,
+  "held_questions": 47,
+  "hold": 47,
+  "hold_questions": 47,
+  "kouCompleted": 197,
+  "kouHeld": 47,
+  "kouHold": 47,
+  "kouPending": 215,
   "nextPending": {
     "examYear": 2022,
-    "planSequence": 197,
+    "planSequence": 198,
     "qualification": "gas-shunin-kou",
-    "questionLabel": "問27",
-    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1250,chiefgasengineerlicense-A-60-1251,chiefgasengineerlicense-A-60-1252,chiefgasengineerlicense-A-60-1253,chiefgasengineerlicense-A-60-1254",
+    "questionLabel": "問3",
+    "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1138,chiefgasengineerlicense-A-40-1139,chiefgasengineerlicense-A-40-1140,chiefgasengineerlicense-A-40-1141,chiefgasengineerlicense-A-40-1142",
+    "sourceConflictStatus": "needs_source_review",
     "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "sourceFileIndex": 10,
-    "sourceConflictStatus": "needs_source_review"
+    "sourceFileIndex": 10
   },
-  "nextPendingPlanSequence": 197,
-  "nextPendingTaskId": "T310",
+  "nextPendingPlanSequence": 198,
+  "nextPendingTaskId": "T311",
   "otsuCompleted": 0,
+  "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 738,
-  "pending_questions": 738,
+  "pending": 737,
+  "pending_questions": 737,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -42,9 +45,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "hold": 46,
+    "hold": 47,
     "ok": 150,
-    "pending": 738
+    "pending": 737
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -66,8 +69,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-23T12:38:42+09:00",
-  "held_questions": 46,
-  "kouHeld": 46,
-  "otsuHeld": 0
+  "updatedAt": "2026-06-23T12:47:25+09:00"
 }
