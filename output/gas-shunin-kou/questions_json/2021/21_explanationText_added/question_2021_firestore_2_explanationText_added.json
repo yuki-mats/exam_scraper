@@ -1534,10 +1534,48 @@
       "1molあたりで比較すると、圧縮係数が1より小さい気体の体積は、同じ温度、同じ圧力の理想気体の体積より小さくなる。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。圧縮係数は、Z=PV/(nRT)で表され、理想気体の法則を実在気体に適用するための補正係数である。圧縮比は圧縮前後の体積比を表すため、圧縮係数とは異なる。",
+      "正しい。圧縮係数は、対応状態の考え方では換算温度及び換算圧力によって表される実在気体の補正係数である。",
+      "正しい。圧縮係数は、理想気体の状態方程式からのずれを表し、実在気体を扱うために用いる補正係数である。",
+      "正しい。Z=PV/(nRT)より、同じ物質量、温度及び体積で比較すると、圧縮係数Zが1より大きい場合、実在気体の圧力は理想気体の圧力より大きい。",
+      "正しい。Z=PV/(nRT)より、同じ物質量、温度及び圧力で比較すると、圧縮係数Zが1より小さい場合、実在気体の体積は理想気体の体積より小さい。"
+    ],
+    "suggestedQuestions": [
+      "圧縮係数は圧縮比と同じである。",
+      "圧縮係数は換算温度と換算圧力の関数である。",
+      "圧縮係数は、理想気体の法則を修正し、実在気体を取り扱うための補正係数である。",
+      "1molあたりで比較すると、圧縮係数が1より大きい気体の圧力は、同じ温度、同じ体積の理想気体の圧力より大きくなる。",
+      "1molあたりで比較すると、圧縮係数が1より小さい気体の体積は、同じ温度、同じ圧力の理想気体の体積より小さくなる。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "圧縮係数は圧縮比と同じである。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。圧縮係数は、Z=PV/(nRT)で表され、理想気体の法則を実在気体に適用するための補正係数である。圧縮比は圧縮前後の体積比を表すため、圧縮係数とは異なる。"
+      },
+      {
+        "question": "圧縮係数は換算温度と換算圧力の関数である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。圧縮係数は、対応状態の考え方では換算温度及び換算圧力によって表される実在気体の補正係数である。"
+      },
+      {
+        "question": "圧縮係数は、理想気体の法則を修正し、実在気体を取り扱うための補正係数である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。圧縮係数は、理想気体の状態方程式からのずれを表し、実在気体を扱うために用いる補正係数である。"
+      },
+      {
+        "question": "1molあたりで比較すると、圧縮係数が1より大きい気体の圧力は、同じ温度、同じ体積の理想気体の圧力より大きくなる。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。Z=PV/(nRT)より、同じ物質量、温度及び体積で比較すると、圧縮係数Zが1より大きい場合、実在気体の圧力は理想気体の圧力より大きい。"
+      },
+      {
+        "question": "1molあたりで比較すると、圧縮係数が1より小さい気体の体積は、同じ温度、同じ圧力の理想気体の体積より小さくなる。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。Z=PV/(nRT)より、同じ物質量、温度及び圧力で比較すると、圧縮係数Zが1より小さい場合、実在気体の体積は理想気体の体積より小さい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
