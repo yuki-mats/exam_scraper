@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 147
-  pending_questions: 757
+  completed_questions: 148
+  pending_questions: 756
   held_questions: 35
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T291
+active_task: T292
 tasks:
   - id: T001
     type: pm
@@ -12784,9 +12784,64 @@ tasks:
   - id: T291
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=178（gas-shunin-kou 2022 製造 問1）を1問だけ処理し、source_conflict_ledgerを確認した上で01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2022 製造 問1の01〜04を完了。source conflictは句読点・改行のみの差分として確認し、00_source本文・選択肢と既存Firestore IDsは保持した。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json --patch output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json --patch output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json --patch output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.8/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=needs_source_review; conflict ledger line 348 reviewed as format-only punctuation/newline difference for gas-shunin:kou:2022:seizo:q01:s01"
+        - "questionType=true_false because the problem asks how many statements are incorrect"
+        - "questionIntent=select_incorrect because the prompt asks 誤っているものはいくつあるか"
+        - "correctChoiceText is all five 間違い from existing Firestore/source explanation"
+        - "choice 1 should remove CO₂, not CO; choice 2 LNG pool fire water injection is inappropriate; choice 3 SPB adoption is limited; choice 4 LPG also needs liquid-seal prevention; choice 5 is siloxane, not cyclohexene"
+        - "questionSetId=chiefgasengineerlicense-A-40-173 from category.json/source questionSetIdList/Firestore source questionSetId (都市ガスの原料（甲種）)"
+        - "existing firestoreQuestionIds chiefgasengineerlicense-A-40-1128..chiefgasengineerlicense-A-40-1132 preserved"
+        - "00_source body/choices unchanged"
+      worker_notes:
+        - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "lawGroundedExplanationNotNeeded=true because this is a technical raw-materials question rather than a law citation question."
+      verification_attempts: 1
+
+  - id: T292
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=179（gas-shunin-kou 2022 供給 問10）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
