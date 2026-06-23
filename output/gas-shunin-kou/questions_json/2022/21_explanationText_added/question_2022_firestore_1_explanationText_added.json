@@ -789,10 +789,53 @@
       "都市ガス用触媒燃焼バーナーは、触媒マットを用いた全二次空気燃焼方式により、約600℃以下で無炎燃焼する。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。メタンの完全燃焼は CH4 + 2O2 -> CO2 + 2H2O であり、1立方メートルのメタンに理論上必要な酸素量は2立方メートルである。酸素当量を1.0立方メートル/立方メートルとしている点が誤り。",
+      "正しい。CO2はH2OやN2に比べて比熱が大きく、燃焼温度を下げて燃焼範囲を狭くする効果が大きい。",
+      "正しい。高空気比の全一次空気燃焼式は希薄予混合燃焼であり、火炎温度を抑えられるため低NOxバーナーに用いられる。",
+      "間違い。濃淡燃焼の淡バーナー用混合気は空気過剰側であり、一次空気比は1.5から2.0程度である。0.5から0.7程度としている点が誤り。",
+      "正しい。都市ガス用触媒燃焼バーナーは、触媒マットを用いた全二次空気燃焼方式により、約600度以下で無炎燃焼する。"
+    ],
+    "suggestedQuestions": [
+      "成分ガス1㎥を燃焼させるのに理論上必要な酸素量のことを酸素当量といい、メタンでは1.0㎥/㎥である。",
+      "一般に、CO₂はH₂O、N₂に比べて比熱が大きいため、燃焼範囲を狭くする効果が最も大きい。",
+      "高空気比の全一次空気燃焼式は、希薄予混合燃焼と呼ばれ、低NOxバーナーに用いられる。",
+      "濃淡燃焼に使われる淡バーナー用混合気の一次空気比は、0.5～0.7程度である。",
+      "都市ガス用触媒燃焼バーナーは、触媒マットを用いた全二次空気燃焼方式により、約600℃以下で無炎燃焼する。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "成分ガス1㎥を燃焼させるのに理論上必要な酸素量のことを酸素当量といい、メタンでは1.0㎥/㎥である。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。メタンの完全燃焼は CH4 + 2O2 -> CO2 + 2H2O であり、1立方メートルのメタンに理論上必要な酸素量は2立方メートルである。酸素当量を1.0立方メートル/立方メートルとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "一般に、CO₂はH₂O、N₂に比べて比熱が大きいため、燃焼範囲を狭くする効果が最も大きい。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。CO2はH2OやN2に比べて比熱が大きく、燃焼温度を下げて燃焼範囲を狭くする効果が大きい。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "高空気比の全一次空気燃焼式は、希薄予混合燃焼と呼ばれ、低NOxバーナーに用いられる。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。高空気比の全一次空気燃焼式は希薄予混合燃焼であり、火炎温度を抑えられるため低NOxバーナーに用いられる。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "濃淡燃焼に使われる淡バーナー用混合気の一次空気比は、0.5～0.7程度である。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。濃淡燃焼の淡バーナー用混合気は空気過剰側であり、一次空気比は1.5から2.0程度である。0.5から0.7程度としている点が誤り。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "都市ガス用触媒燃焼バーナーは、触媒マットを用いた全二次空気燃焼方式により、約600℃以下で無炎燃焼する。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。都市ガス用触媒燃焼バーナーは、触媒マットを用いた全二次空気燃焼方式により、約600度以下で無炎燃焼する。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
