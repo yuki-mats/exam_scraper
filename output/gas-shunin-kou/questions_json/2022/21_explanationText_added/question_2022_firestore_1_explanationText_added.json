@@ -255,10 +255,28 @@
       "126"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなるため、9mmではない。",
+      "間違い。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなるため、24mmではない。",
+      "正しい。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなる。したがって30mmが最も近い。",
+      "間違い。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなるため、40mmではない。",
+      "間違い。伸縮継手で対処する設計変位量は温度変化による伸び量であり、内圧やヤング率ではなく δ=αΔT l で求める。δ=1.2×10⁻⁵×50×50000=30mmとなるため、126mmではない。"
+    ],
+    "suggestedQuestions": [
+      "9",
+      "24",
+      "30",
+      "40",
+      "126"
+    ],
+    "suggestedQuestionDetails": [
+      "間違い。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなるため、9mmではない。",
+      "間違い。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなるため、24mmではない。",
+      "正しい。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなる。したがって30mmが最も近い。",
+      "間違い。設計変位量は伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmより、δ=1.2×10⁻⁵×50×50000=30mmとなるため、40mmではない。",
+      "間違い。伸縮継手で対処する設計変位量は温度変化による伸び量であり、内圧やヤング率ではなく δ=αΔT l で求める。δ=1.2×10⁻⁵×50×50000=30mmとなるため、126mmではない。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
