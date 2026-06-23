@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 254
-  pending_questions: 680
-  held_questions: 71
+  completed_questions: 255
+  pending_questions: 679
+  held_questions: 72
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T368
+active_task: T369
 tasks:
   - id: T001
     type: pm
@@ -17894,9 +17894,52 @@ tasks:
   - id: T368
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=255（gas-shunin-kou 2023 消費機器 問26、5肢セット）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_1_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_1_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_1_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_1_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2023 消費機器 問26は理由付きhold。第3文・第5文のcorrectChoiceTextがFirestoreとarchive-siteで反対のため、upload-facing patchは変更せず、公式PDFまたは一次資料確認待ちにした。"
+      changed_files:
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json --patch output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json --patch output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json --patch output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=needs_source_review; ledger lines 438-440 conflictIds=589b47110c1b0ee5,014b2a0410307c9b,686b201e01c27021."
+        - "correctChoiceText conflicts: statement3 Firestore=正しい / archive-site=間違い; statement5 Firestore=間違い / archive-site=正しい."
+        - "archive answer_result_text=正解は 2 です。 conflicts with Firestore candidate correctChoiceText=[間違い, 正しい, 正しい, 間違い, 間違い]."
+        - "Firestore candidate questionSetId=chiefgasengineerlicense-A-60-169（家庭用ガス機器（甲種）） retained as candidate only."
+        - "reviewedAt=2026-06-23T09:04:50Z"
+
+  - id: T369
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=256（gas-shunin-kou 2023 消費機器 問27、5肢セット）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
