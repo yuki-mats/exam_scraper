@@ -1039,10 +1039,53 @@
       "ガスエンジンヒートポンプ（GHP）に用いられる４サイクルエンジンの爆発行程では、ピストンが上死点に近づいたときに点火プラグで火花を飛ばす。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。家庭用の固体高分子形燃料電池（PEFC）は、発電効率が系統電力より低い性能であり、原則として毎日起動・停止する運転となる。系統電力より高いとしている点が誤り。",
+      "正しい。熱電比（熱需要/電気需要）が比較的高い建物では、発電時の排熱を有効利用しやすく、コージェネレーションシステムの導入に向いている。",
+      "正しい。麺ゆで器の丸釜式には、ダウンドラフト方式により燃焼排気の熱利用を高め、省エネルギー性を高めたタイプがある。",
+      "正しい。ガススチームコンベクションオーブンは、庫内を加熱する庫内用バーナー部と、庫内空気を強制対流させるファンを備える。",
+      "正しい。GHPに用いられる4サイクルエンジンでは、ピストンが上死点に近づくと点火プラグで混合気に火花を飛ばし、爆発行程に移る。"
+    ],
+    "suggestedQuestions": [
+      "家庭用の固体高分子形燃料電池（PEFC）は、発電効率が系統電力より高い性能を有し、原則として毎日起動・停止する運転となっている。",
+      "熱電比（熱需要/電気需要）が比較的高い建物は、コージェネレーションシステムの導入に向いている。",
+      "麺ゆで器の丸釜式には、ダウンドラフト方式により、省エネルギー性を高めたタイプがある。",
+      "ガススチームコンベクションオーブンの加熱部には、庫内を加熱する庫内用バーナー部と庫内空気を強制対流させるファンが搭載されている。",
+      "ガスエンジンヒートポンプ（GHP）に用いられる４サイクルエンジンの爆発行程では、ピストンが上死点に近づいたときに点火プラグで火花を飛ばす。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "家庭用の固体高分子形燃料電池（PEFC）は、発電効率が系統電力より高い性能を有し、原則として毎日起動・停止する運転となっている。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。家庭用の固体高分子形燃料電池（PEFC）は、発電効率が系統電力より低い性能であり、原則として毎日起動・停止する運転となる。系統電力より高いとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "熱電比（熱需要/電気需要）が比較的高い建物は、コージェネレーションシステムの導入に向いている。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。熱電比（熱需要/電気需要）が比較的高い建物では、発電時の排熱を有効利用しやすく、コージェネレーションシステムの導入に向いている。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "麺ゆで器の丸釜式には、ダウンドラフト方式により、省エネルギー性を高めたタイプがある。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。麺ゆで器の丸釜式には、ダウンドラフト方式により燃焼排気の熱利用を高め、省エネルギー性を高めたタイプがある。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "ガススチームコンベクションオーブンの加熱部には、庫内を加熱する庫内用バーナー部と庫内空気を強制対流させるファンが搭載されている。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガススチームコンベクションオーブンは、庫内を加熱する庫内用バーナー部と、庫内空気を強制対流させるファンを備える。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "ガスエンジンヒートポンプ（GHP）に用いられる４サイクルエンジンの爆発行程では、ピストンが上死点に近づいたときに点火プラグで火花を飛ばす。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。GHPに用いられる4サイクルエンジンでは、ピストンが上死点に近づくと点火プラグで混合気に火花を飛ばし、爆発行程に移る。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
