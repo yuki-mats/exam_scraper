@@ -1842,10 +1842,48 @@
       "単管式熱交換器"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。ブロック形熱交換器は、固体ブロック内に流路を設けて熱交換する形式であり、凹凸形にプレスした伝熱板をガスケットではさんで重ね合わせる構造ではない。",
+      "間違い。ジャケット形熱交換器は、容器の外側などにジャケットを設けて加熱・冷却する形式であり、伝熱板を多数重ねる構造ではない。",
+      "正しい。プレート形熱交換器は、凹凸形にプレスされた伝熱板をガスケット等を介して重ね、伝熱板の間を交互に2つの流体が流れるようにした熱交換器である。",
+      "間違い。二重管式熱交換器は、内管と外管からなる二重管で2つの流体を流して熱交換する形式であり、伝熱板を重ねる構造ではない。",
+      "間違い。単管式熱交換器は単一の管を用いる形式であり、凹凸形の伝熱板を重ね合わせるプレート形熱交換器の構造とは異なる。"
+    ],
+    "suggestedQuestions": [
+      "ブロック形熱交換器",
+      "ジャケット形熱交換器",
+      "プレート形熱交換器",
+      "二重管式熱交換器",
+      "単管式熱交換器"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceText": "ブロック形熱交換器",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ブロック形熱交換器は、固体ブロック内に流路を設けて熱交換する形式であり、凹凸形にプレスした伝熱板をガスケットではさんで重ね合わせる構造ではない。"
+      },
+      {
+        "choiceText": "ジャケット形熱交換器",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ジャケット形熱交換器は、容器の外側などにジャケットを設けて加熱・冷却する形式であり、伝熱板を多数重ねる構造ではない。"
+      },
+      {
+        "choiceText": "プレート形熱交換器",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。プレート形熱交換器は、凹凸形にプレスされた伝熱板をガスケット等を介して重ね、伝熱板の間を交互に2つの流体が流れるようにした熱交換器である。"
+      },
+      {
+        "choiceText": "二重管式熱交換器",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。二重管式熱交換器は、内管と外管からなる二重管で2つの流体を流して熱交換する形式であり、伝熱板を重ねる構造ではない。"
+      },
+      {
+        "choiceText": "単管式熱交換器",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。単管式熱交換器は単一の管を用いる形式であり、凹凸形の伝熱板を重ね合わせるプレート形熱交換器の構造とは異なる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
