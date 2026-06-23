@@ -629,10 +629,48 @@
       "4.6"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。混合ガスの燃焼下限界はル・シャトリエの式で L=100/(80/5+12/3+8/2) と計算する。分母は 16+4+4=24 なので、L=100/24=4.17vol% となり、4.2vol%が最も近い。",
+      "間違い。ル・シャトリエの式より混合ガスの燃焼下限界は約4.17vol%である。4.3vol%より4.2vol%の方が近いため、4.3は最も近い値ではない。",
+      "間違い。計算値は L=100/(80/5+12/3+8/2)=100/24=約4.17vol% である。4.4vol%はこの値から離れており、最も近い値ではない。",
+      "間違い。メタン80vol%、エタン12vol%、プロパン8vol%の下限界を各単体ガスの下限界で割って合算すると分母は24となるため、混合ガスの下限界は約4.17vol%である。4.5vol%は大きすぎる。",
+      "間違い。ル・シャトリエ式による燃焼下限界は約4.17vol%であり、4.6vol%ではない。選択肢中では4.2vol%が最も近い。"
+    ],
+    "suggestedQuestions": [
+      "4.2",
+      "4.3",
+      "4.4",
+      "4.5",
+      "4.6"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceText": "4.2",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。混合ガスの燃焼下限界はル・シャトリエの式で L=100/(80/5+12/3+8/2) と計算する。分母は 16+4+4=24 なので、L=100/24=4.17vol% となり、4.2vol%が最も近い。"
+      },
+      {
+        "choiceText": "4.3",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ル・シャトリエの式より混合ガスの燃焼下限界は約4.17vol%である。4.3vol%より4.2vol%の方が近いため、4.3は最も近い値ではない。"
+      },
+      {
+        "choiceText": "4.4",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。計算値は L=100/(80/5+12/3+8/2)=100/24=約4.17vol% である。4.4vol%はこの値から離れており、最も近い値ではない。"
+      },
+      {
+        "choiceText": "4.5",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。メタン80vol%、エタン12vol%、プロパン8vol%の下限界を各単体ガスの下限界で割って合算すると分母は24となるため、混合ガスの下限界は約4.17vol%である。4.5vol%は大きすぎる。"
+      },
+      {
+        "choiceText": "4.6",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ル・シャトリエ式による燃焼下限界は約4.17vol%であり、4.6vol%ではない。選択肢中では4.2vol%が最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
