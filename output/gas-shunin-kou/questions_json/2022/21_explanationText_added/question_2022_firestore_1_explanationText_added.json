@@ -1203,10 +1203,53 @@
       "CO中毒の症状は、空気中におけるCO濃度と吸入時間とにより異なり、CO濃度が0.02％（200ppm）程度であっても、2～3時間で死亡に至る。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。第3種換気は、送風機で室内空気を屋外へ排出し、室内の給気口から外気を自然に流入させる換気方式である。",
+      "正しい。自然換気回数が1回/hであれば、1時間あたりに室の容積と同量の空気が自然換気されることを表す。",
+      "間違い。調理室の必要換気量は、レンジフードの形状だけでなく、ガス機器の燃料消費量や理論排ガス量などを踏まえて決まる。レンジフードの形状のみで決まるとしている点が誤り。",
+      "間違い。COは酸素に比べてヘモグロビンに対する結合力が強く、吸入すると一酸化炭素ヘモグロビンが増えて酸素運搬を阻害する。結合力が弱いとしている点が誤り。",
+      "間違い。CO濃度0.02％（200ppm）程度では、一般に頭痛などの症状が問題となる濃度であり、2～3時間で死亡に至るとする記述は過大である。"
+    ],
+    "suggestedQuestions": [
+      "機械換気における第3種換気とは、室内空気を送風機により屋外に排出し、室内の適当な位置に設けた給気口より、外気を室内へ自然に流入させる方法である。",
+      "自然換気回数が1回/hであれば、1時間あたりの自然換気量は、室の容積と同量である。",
+      "調理室の必要換気量は、レンジフードの形状のみで決まる。",
+      "COは酸素に比べヘモグロビンに対する結合力が弱く、一定濃度以上のCOを吸入すると、血液中の酸化ヘモグロビン（O₂Hb）の濃度が低くなる。",
+      "CO中毒の症状は、空気中におけるCO濃度と吸入時間とにより異なり、CO濃度が0.02％（200ppm）程度であっても、2～3時間で死亡に至る。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "機械換気における第3種換気とは、室内空気を送風機により屋外に排出し、室内の適当な位置に設けた給気口より、外気を室内へ自然に流入させる方法である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。第3種換気は、送風機で室内空気を屋外へ排出し、室内の給気口から外気を自然に流入させる換気方式である。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "自然換気回数が1回/hであれば、1時間あたりの自然換気量は、室の容積と同量である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。自然換気回数が1回/hであれば、1時間あたりに室の容積と同量の空気が自然換気されることを表す。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "調理室の必要換気量は、レンジフードの形状のみで決まる。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。調理室の必要換気量は、レンジフードの形状だけでなく、ガス機器の燃料消費量や理論排ガス量などを踏まえて決まる。レンジフードの形状のみで決まるとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "COは酸素に比べヘモグロビンに対する結合力が弱く、一定濃度以上のCOを吸入すると、血液中の酸化ヘモグロビン（O₂Hb）の濃度が低くなる。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。COは酸素に比べてヘモグロビンに対する結合力が強く、吸入すると一酸化炭素ヘモグロビンが増えて酸素運搬を阻害する。結合力が弱いとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "CO中毒の症状は、空気中におけるCO濃度と吸入時間とにより異なり、CO濃度が0.02％（200ppm）程度であっても、2～3時間で死亡に至る。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。CO濃度0.02％（200ppm）程度では、一般に頭痛などの症状が問題となる濃度であり、2～3時間で死亡に至るとする記述は過大である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
