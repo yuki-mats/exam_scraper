@@ -80,10 +80,28 @@
       "1.9"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。基準状態では導管AB（口径10cm、延長100m、流量100m³/h）の圧力損失は2.3-2.2=0.1kPaである。変更後、ABの流量はB点150m³/hとC点50m³/hの合計200m³/hなので、圧力損失は0.1×(200/100)^2=0.4kPa、B点圧力は1.9kPa。BCは流量50m³/h、延長50m、口径5cmなので、圧力損失は0.1×(50/100)^2×(50/100)×(10/5)^5=0.4kPa。したがってC点圧力は1.9-0.4=1.5kPaである。",
+      "間違い。ABの圧力損失は流量が200m³/hとなるため0.4kPa、B点圧力は1.9kPa。BCの圧力損失も、流量・延長・口径条件を基準ABと比較すると0.4kPaとなるので、C点圧力は1.5kPaであり、1.6kPaではない。",
+      "間違い。ABで0.4kPa、BCで0.4kPaの圧力損失が生じるため、A点2.3kPaから合計0.8kPa低下する。C点圧力は1.5kPaであり、1.7kPaは高すぎる。",
+      "間違い。変更後のABは流量が2倍となり圧力損失は4倍の0.4kPaとなる。さらに口径5cmのBCでも0.4kPa低下するため、C点は1.5kPaで、1.8kPaではない。",
+      "間違い。BCは延長と流量だけを見ると小さいが、口径が10cmから5cmへ半分になるためD^5の影響で圧力損失は0.4kPaとなる。ABの0.4kPaと合わせてC点圧力は1.5kPaであり、1.9kPaではない。"
+    ],
+    "suggestedQuestions": [
+      "1.5",
+      "1.6",
+      "1.7",
+      "1.8",
+      "1.9"
+    ],
+    "suggestedQuestionDetails": [
+      "正しい。基準状態では導管AB（口径10cm、延長100m、流量100m³/h）の圧力損失は2.3-2.2=0.1kPaである。変更後、ABの流量はB点150m³/hとC点50m³/hの合計200m³/hなので、圧力損失は0.1×(200/100)^2=0.4kPa、B点圧力は1.9kPa。BCは流量50m³/h、延長50m、口径5cmなので、圧力損失は0.1×(50/100)^2×(50/100)×(10/5)^5=0.4kPa。したがってC点圧力は1.9-0.4=1.5kPaである。",
+      "間違い。ABの圧力損失は流量が200m³/hとなるため0.4kPa、B点圧力は1.9kPa。BCの圧力損失も、流量・延長・口径条件を基準ABと比較すると0.4kPaとなるので、C点圧力は1.5kPaであり、1.6kPaではない。",
+      "間違い。ABで0.4kPa、BCで0.4kPaの圧力損失が生じるため、A点2.3kPaから合計0.8kPa低下する。C点圧力は1.5kPaであり、1.7kPaは高すぎる。",
+      "間違い。変更後のABは流量が2倍となり圧力損失は4倍の0.4kPaとなる。さらに口径5cmのBCでも0.4kPa低下するため、C点は1.5kPaで、1.8kPaではない。",
+      "間違い。BCは延長と流量だけを見ると小さいが、口径が10cmから5cmへ半分になるためD^5の影響で圧力損失は0.4kPaとなる。ABの0.4kPaと合わせてC点圧力は1.5kPaであり、1.9kPaではない。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
