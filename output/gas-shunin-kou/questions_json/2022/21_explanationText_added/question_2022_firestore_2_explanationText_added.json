@@ -907,10 +907,53 @@
       "ガス栓の欠陥によりガス栓から漏えいしたガスに引火することで発生した物損事故"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故は、ガス事故速報及びガス事故詳報の報告対象である。",
+      "正しい。保安閉栓を除き、供給支障戸数が100の供給支障事故は、ガス事故速報及びガス事故詳報の報告対象である。",
+      "正しい。製造支障時間が10時間の製造支障事故は、ガス事故速報及びガス事故詳報の報告対象である。",
+      "正しい。消費機器の使用に伴い人が死亡した事故は、ガス事故速報及びガス事故詳報の報告対象である。",
+      "正しい。ガス栓の欠陥によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及びガス事故詳報の報告対象である。"
+    ],
+    "suggestedQuestions": [
+      "ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故",
+      "供給支障戸数が１００の供給支障事故（保安閉栓を除く。）",
+      "製造支障時間が１０時間の製造支障事故",
+      "消費機器の使用に伴い人が死亡した事故",
+      "ガス栓の欠陥によりガス栓から漏えいしたガスに引火することで発生した物損事故"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故は、ガス事故速報及びガス事故詳報の報告対象である。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "供給支障戸数が１００の供給支障事故（保安閉栓を除く。）",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。保安閉栓を除き、供給支障戸数が100の供給支障事故は、ガス事故速報及びガス事故詳報の報告対象である。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "製造支障時間が１０時間の製造支障事故",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。製造支障時間が10時間の製造支障事故は、ガス事故速報及びガス事故詳報の報告対象である。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "消費機器の使用に伴い人が死亡した事故",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。消費機器の使用に伴い人が死亡した事故は、ガス事故速報及びガス事故詳報の報告対象である。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "ガス栓の欠陥によりガス栓から漏えいしたガスに引火することで発生した物損事故",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス栓の欠陥によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及びガス事故詳報の報告対象である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
