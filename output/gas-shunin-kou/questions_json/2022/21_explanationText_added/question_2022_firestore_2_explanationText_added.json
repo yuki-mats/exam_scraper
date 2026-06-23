@@ -1657,10 +1657,53 @@
       "隔壁を通して高温流体から低温流体へ熱エネルギーを移動させる伝熱装置を、熱交換器として用いることがある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。伝熱には熱伝導、対流熱伝達、熱放射の3形態があり、実際の伝熱現象ではこれらが組み合わさって生じることがある。",
+      "間違い。熱伝達率は物質固有の値ではなく、流体の流れの状態、温度条件、表面状態などによって変化する。流体の流れの状態によって変化しないとしている点が誤り。",
+      "正しい。沸騰や凝縮のように相変化を伴う熱伝達では、相変化を伴わない場合より熱伝達率が大きくなる傾向がある。",
+      "正しい。熱放射は電磁波による伝熱であり、媒質を必要としないため真空中でも伝熱する。",
+      "正しい。隔壁を通して高温流体から低温流体へ熱エネルギーを移動させる装置は、熱交換器として用いられることがある。"
+    ],
+    "suggestedQuestions": [
+      "伝熱現象には熱伝導、対流熱伝達、熱放射の3つの形態があり、これらの形態が組み合わさった現象もある。",
+      "熱伝達率は、物質固有の値であり、流体の流れの状態によって変化しない。",
+      "沸騰・凝縮等の相変化のある場合の熱伝達率は、相変化を伴わない場合の熱伝達率より大きい傾向がある。",
+      "熱放射では、真空中においても伝熱する。",
+      "隔壁を通して高温流体から低温流体へ熱エネルギーを移動させる伝熱装置を、熱交換器として用いることがある。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "伝熱現象には熱伝導、対流熱伝達、熱放射の3つの形態があり、これらの形態が組み合わさった現象もある。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。伝熱には熱伝導、対流熱伝達、熱放射の3形態があり、実際の伝熱現象ではこれらが組み合わさって生じることがある。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "熱伝達率は、物質固有の値であり、流体の流れの状態によって変化しない。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。熱伝達率は物質固有の値ではなく、流体の流れの状態、温度条件、表面状態などによって変化する。流体の流れの状態によって変化しないとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "沸騰・凝縮等の相変化のある場合の熱伝達率は、相変化を伴わない場合の熱伝達率より大きい傾向がある。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。沸騰や凝縮のように相変化を伴う熱伝達では、相変化を伴わない場合より熱伝達率が大きくなる傾向がある。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "熱放射では、真空中においても伝熱する。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。熱放射は電磁波による伝熱であり、媒質を必要としないため真空中でも伝熱する。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "隔壁を通して高温流体から低温流体へ熱エネルギーを移動させる伝熱装置を、熱交換器として用いることがある。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。隔壁を通して高温流体から低温流体へ熱エネルギーを移動させる装置は、熱交換器として用いられることがある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
