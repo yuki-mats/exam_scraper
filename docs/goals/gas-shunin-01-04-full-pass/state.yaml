@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 143
-  pending_questions: 761
+  completed_questions: 144
+  pending_questions: 760
   held_questions: 35
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T287
+active_task: T288
 tasks:
   - id: T001
     type: pm
@@ -12482,9 +12482,85 @@ tasks:
   - id: T287
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=174（gas-shunin-kou 2021 基礎理論 問6）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json"
+      - "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl"
+      - "output/gas-shunin-kou/category/category.json"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_3_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_3_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_3_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json --patch output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json --patch output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json --patch output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_3_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
+      - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
+      - "source_content_conflict_unresolved"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2021 基礎理論 問6の01〜04を完了。source conflict ledgerに該当行がないことを確認し、00_sourceは変更せず、15/21/22固定名patch、review jsonl、plan/stateのみ更新した。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_3_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_3_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_3_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json --patch output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_3_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json --patch output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_3_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json --patch output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_3_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=none for gas-shunin:kou:2021:kiso:q06; conflict ledger has no matching rows"
+        - "questionType=flash_card because existing Firestore statement-level rows carry correct/incorrect values per choice"
+        - "questionIntent=select_correct because the prompt asks for the closest standard reaction heat"
+        - "target reaction CH4+2H2O(g)→CO2(g)+4H2(g) is derived by subtracting four hydrogen combustion equations from methane combustion"
+        - "standard reaction heat is -801-4×(-242)=167kJ/mol"
+        - "choice 3, 167, is the closest value"
+        - "questionSetId=chiefgasengineerlicense-A-1002 from category.json 化学反応・平衡・反応熱・速度論（甲種）, source questionSetIdList, and Firestore source questionSetId"
+        - "existing firestoreQuestionIds gasushunin-koushu-kiso-2021-6-1, gasushunin-koushu-kiso-2021-6-2, chiefgasengineerlicense-C-10087, gasushunin-koushu-kiso-2021-6-4, gasushunin-koushu-kiso-2021-6-5 preserved"
+        - "00_source body/choices unchanged"
+      worker_notes:
+        - "suggestedQuestions are aligned per choice and copied from existing source choiceTextList."
+        - "lawGroundedExplanationNotNeeded=true because this is a thermochemistry concept question rather than a law citation question."
+      verification_attempts: 1
+
+  - id: T288
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=175（gas-shunin-kou 2021 基礎理論 問7）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"

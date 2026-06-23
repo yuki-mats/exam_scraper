@@ -475,10 +475,48 @@
       "1043"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。求める反応 CH4+2H2O→CO2+4H2 は、メタンの完全燃焼反応 CH4+2O2→CO2+2H2O から水素の完全燃焼反応 H2+1/2O2→H2O を4倍した式を差し引いて得られる。標準反応熱は -801-4×(-242)=167kJ/mol なので、-559kJ/molではない。",
+      "間違い。ヘスの法則により、CH4+2H2O→CO2+4H2 の標準反応熱は、メタン燃焼熱 -801kJ/mol から水素燃焼熱4mol分 4×(-242kJ/mol) を差し引く。計算結果は 167kJ/mol であり、-167kJ/molではない。",
+      "正しい。水素の完全燃焼 H2+1/2O2→H2O の標準反応熱は -242kJ/molなので、4倍すると 4H2+2O2→4H2O、標準反応熱は 4×(-242)=-968kJ/mol である。メタン燃焼 CH4+2O2→CO2+2H2O の -801kJ/mol からこの式を差し引くと、CH4+2H2O→CO2+4H2 となり、標準反応熱は -801-(-968)=167kJ/mol となる。",
+      "間違い。与えられた2つの燃焼反応を組み合わせると、対象反応の標準反応熱は -801-4×(-242)=167kJ/mol である。559kJ/molは符号・大きさともにこの計算結果と一致しない。",
+      "間違い。対象反応はメタン燃焼反応から水素燃焼反応4倍を引いて作るため、標準反応熱は 167kJ/mol となる。1043kJ/molは燃焼熱の組合せを正しく反映した値ではない。"
+    ],
+    "suggestedQuestions": [
+      "−559",
+      "−167",
+      "167",
+      "559",
+      "1043"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceText": "−559",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。求める反応 CH4+2H2O→CO2+4H2 は、メタンの完全燃焼反応 CH4+2O2→CO2+2H2O から水素の完全燃焼反応 H2+1/2O2→H2O を4倍した式を差し引いて得られる。標準反応熱は -801-4×(-242)=167kJ/mol なので、-559kJ/molではない。"
+      },
+      {
+        "choiceText": "−167",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ヘスの法則により、CH4+2H2O→CO2+4H2 の標準反応熱は、メタン燃焼熱 -801kJ/mol から水素燃焼熱4mol分 4×(-242kJ/mol) を差し引く。計算結果は 167kJ/mol であり、-167kJ/molではない。"
+      },
+      {
+        "choiceText": "167",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。水素の完全燃焼 H2+1/2O2→H2O の標準反応熱は -242kJ/molなので、4倍すると 4H2+2O2→4H2O、標準反応熱は 4×(-242)=-968kJ/mol である。メタン燃焼 CH4+2O2→CO2+2H2O の -801kJ/mol からこの式を差し引くと、CH4+2H2O→CO2+4H2 となり、標準反応熱は -801-(-968)=167kJ/mol となる。"
+      },
+      {
+        "choiceText": "559",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。与えられた2つの燃焼反応を組み合わせると、対象反応の標準反応熱は -801-4×(-242)=167kJ/mol である。559kJ/molは符号・大きさともにこの計算結果と一致しない。"
+      },
+      {
+        "choiceText": "1043",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。対象反応はメタン燃焼反応から水素燃焼反応4倍を引いて作るため、標準反応熱は 167kJ/mol となる。1043kJ/molは燃焼熱の組合せを正しく反映した値ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
