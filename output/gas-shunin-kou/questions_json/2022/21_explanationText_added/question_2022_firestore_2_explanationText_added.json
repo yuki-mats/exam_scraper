@@ -1821,10 +1821,53 @@
       "水素 Al合金"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。i－ブタンの沸点近くの温度域では、低温用としてSiキルド炭素鋼を用いる組合せは適切である。",
+      "正しい。プロパンの沸点近くの温度域では、低温じん性を考慮したAlキルド炭素鋼を用いる組合せは適切である。",
+      "正しい。エタンの沸点近くの低温域では、3.5%Ni鋼を用いる組合せは適切である。",
+      "間違い。メタンの沸点近くの極低温域では9%Ni鋼などの低温用材料を用いるのが適切であり、炭素鋼（リムド）との組合せは不適切である。",
+      "正しい。水素の沸点近くの極低温域では、Al合金を用いる組合せは適切である。"
+    ],
+    "suggestedQuestions": [
+      "i－ブタン 炭素鋼（Siキルド）",
+      "プロパン 炭素鋼（Alキルド）",
+      "エタン 3.5%Ni鋼",
+      "メタン 炭素鋼（リムド）",
+      "水素 Al合金"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "i－ブタン 炭素鋼（Siキルド）",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。i－ブタンの沸点近くの温度域では、低温用としてSiキルド炭素鋼を用いる組合せは適切である。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "プロパン 炭素鋼（Alキルド）",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。プロパンの沸点近くの温度域では、低温じん性を考慮したAlキルド炭素鋼を用いる組合せは適切である。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "エタン 3.5%Ni鋼",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。エタンの沸点近くの低温域では、3.5%Ni鋼を用いる組合せは適切である。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "メタン 炭素鋼（リムド）",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。メタンの沸点近くの極低温域では9%Ni鋼などの低温用材料を用いるのが適切であり、炭素鋼（リムド）との組合せは不適切である。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "水素 Al合金",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。水素の沸点近くの極低温域では、Al合金を用いる組合せは適切である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
