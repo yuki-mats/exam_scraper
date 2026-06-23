@@ -1611,10 +1611,48 @@
       "7500"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。ダルシー・ワイズバッハ式 Δh=λ(L/d)(v^2/2g) に、Δh=0.3m、λ=0.03、d=0.15m、v=2m/s、g=10m/s²を代入すると、L=0.3×0.15/(0.03×(4/20))=7.5mとなるため、4.5mは最も近い値ではない。",
+      "正しい。v^2/2g=2^2/(2×10)=0.2であり、L=Δh×d/(λ×v^2/2g)=0.3×0.15/(0.03×0.2)=7.5mとなる。",
+      "間違い。計算値は7.5mであり、15mでは損失ヘッドが条件の0.3mより大きくなるため、最も近い値ではない。",
+      "間違い。ダルシー・ワイズバッハ式から求まる直円管の長さは7.5mであり、750mは桁が大きすぎる。",
+      "間違い。ダルシー・ワイズバッハ式から求まる直円管の長さは7.5mであり、7500mは桁が大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "4.5",
+      "7.5",
+      "15",
+      "750",
+      "7500"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "4.5",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ダルシー・ワイズバッハ式 Δh=λ(L/d)(v^2/2g) に、Δh=0.3m、λ=0.03、d=0.15m、v=2m/s、g=10m/s²を代入すると、L=0.3×0.15/(0.03×(4/20))=7.5mとなるため、4.5mは最も近い値ではない。"
+      },
+      {
+        "question": "7.5",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。v^2/2g=2^2/(2×10)=0.2であり、L=Δh×d/(λ×v^2/2g)=0.3×0.15/(0.03×0.2)=7.5mとなる。"
+      },
+      {
+        "question": "15",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。計算値は7.5mであり、15mでは損失ヘッドが条件の0.3mより大きくなるため、最も近い値ではない。"
+      },
+      {
+        "question": "750",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ダルシー・ワイズバッハ式から求まる直円管の長さは7.5mであり、750mは桁が大きすぎる。"
+      },
+      {
+        "question": "7500",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ダルシー・ワイズバッハ式から求まる直円管の長さは7.5mであり、7500mは桁が大きすぎる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
