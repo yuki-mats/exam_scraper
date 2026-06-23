@@ -1631,10 +1631,53 @@
       "付臭剤に求められる要件として、きわめて低い濃度でも特有の臭気が認められること、土壌透過性が低いこと等がある。"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。付臭剤は単一で用いられるだけでなく、複数を混合して用いられる場合もある。混合したものは使用されないとしている点が誤り。",
+      "間違い。付臭設備を密閉した室内に設置する場合は、換気により室内から排出する空気を活性炭等で十分に脱臭する必要がある。室内に吸い込む外気を脱臭するとしている点が誤り。",
+      "間違い。ジメチルサルファイド（DMS）とテトラヒドロチオフェン（THT）は硫黄を含むが、シクロヘキセンは炭化水素であり硫黄を含まない。いずれも硫黄を含むとしている点が誤り。",
+      "間違い。液付臭方式は、原料LPGの液中に直接付臭剤を注入する方式である。原料LNGの液中としている点が誤り。",
+      "間違い。付臭剤には、土壌を通っても臭気が残り漏えいを発見しやすいよう、土壌透過性が高いことが求められる。土壌透過性が低いこととしている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "現在使用されている付臭剤は、主にターシャリーブチルメルカプタン（TBM）、ジメチルサルファイド（DMS）、テトラヒドロチオフェン（THT）等の単一使用であり、これらを混合したものは使用されない。",
+      "付臭設備を密閉した室内に設置する場合は、換気のために室内に吸い込む外気を活性炭等で十分に脱臭する必要がある。",
+      "付臭剤として使用されているジメチルサルファイド（DMS）、テトラヒドロチオフェン（THT）、シクロヘキセンは、いずれも構成元素に硫黄（S）を含む。",
+      "付臭方式のうち、液付臭方式は、原料LNGの液中に直接付臭剤を注入する方式である。",
+      "付臭剤に求められる要件として、きわめて低い濃度でも特有の臭気が認められること、土壌透過性が低いこと等がある。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "現在使用されている付臭剤は、主にターシャリーブチルメルカプタン（TBM）、ジメチルサルファイド（DMS）、テトラヒドロチオフェン（THT）等の単一使用であり、これらを混合したものは使用されない。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。付臭剤は単一で用いられるだけでなく、複数を混合して用いられる場合もある。混合したものは使用されないとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "付臭設備を密閉した室内に設置する場合は、換気のために室内に吸い込む外気を活性炭等で十分に脱臭する必要がある。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。付臭設備を密閉した室内に設置する場合は、換気により室内から排出する空気を活性炭等で十分に脱臭する必要がある。室内に吸い込む外気を脱臭するとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "付臭剤として使用されているジメチルサルファイド（DMS）、テトラヒドロチオフェン（THT）、シクロヘキセンは、いずれも構成元素に硫黄（S）を含む。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ジメチルサルファイド（DMS）とテトラヒドロチオフェン（THT）は硫黄を含むが、シクロヘキセンは炭化水素であり硫黄を含まない。いずれも硫黄を含むとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "付臭方式のうち、液付臭方式は、原料LNGの液中に直接付臭剤を注入する方式である。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。液付臭方式は、原料LPGの液中に直接付臭剤を注入する方式である。原料LNGの液中としている点が誤り。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "付臭剤に求められる要件として、きわめて低い濃度でも特有の臭気が認められること、土壌透過性が低いこと等がある。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。付臭剤には、土壌を通っても臭気が残り漏えいを発見しやすいよう、土壌透過性が高いことが求められる。土壌透過性が低いこととしている点が誤り。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
