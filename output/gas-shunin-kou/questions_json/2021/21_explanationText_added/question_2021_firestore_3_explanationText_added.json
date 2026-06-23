@@ -706,10 +706,48 @@
       "100"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。体積比4:1としてメタン4m3、水素1m3を燃焼させると、必要酸素量はメタン分2×4=8m3、水素分0.5×1=0.5m3で合計8.5m3である。8.5は理論酸素量であり、乾き燃焼ガス中のCO2濃度ではない。",
+      "正しい。メタン4m3、水素1m3とすると、理論酸素量は2×4+0.5×1=8.5m3である。空気中のN2:O2=4:1より窒素量は8.5×4=34m3、生成CO2量はメタン由来の4m3である。乾き燃焼ガスはCO2とN2なので、CO2濃度は4/(34+4)×100=10.5vol%となり、11vol%が最も近い。",
+      "間違い。乾き燃焼ガス中では水蒸気を除外し、CO2 4m3 と窒素 34m3 を合計した38m3を分母にする。CO2濃度は約10.5vol%であり、25vol%ではない。",
+      "間違い。空気比1では投入酸素に伴う窒素が8.5×4=34m3含まれるため、乾き燃焼ガスの大部分は窒素である。CO2濃度は4/(34+4)×100=約10.5vol%で、31vol%ではない。",
+      "間違い。水素燃焼ではCO2を生じず、メタン4m3からCO2は4m3だけ生じる。乾き燃焼ガスには窒素34m3も含まれるため、CO2濃度が100vol%になることはない。"
+    ],
+    "suggestedQuestions": [
+      "8.5",
+      "11",
+      "25",
+      "31",
+      "100"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceText": "8.5",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。体積比4:1としてメタン4m3、水素1m3を燃焼させると、必要酸素量はメタン分2×4=8m3、水素分0.5×1=0.5m3で合計8.5m3である。8.5は理論酸素量であり、乾き燃焼ガス中のCO2濃度ではない。"
+      },
+      {
+        "choiceText": "11",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。メタン4m3、水素1m3とすると、理論酸素量は2×4+0.5×1=8.5m3である。空気中のN2:O2=4:1より窒素量は8.5×4=34m3、生成CO2量はメタン由来の4m3である。乾き燃焼ガスはCO2とN2なので、CO2濃度は4/(34+4)×100=10.5vol%となり、11vol%が最も近い。"
+      },
+      {
+        "choiceText": "25",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。乾き燃焼ガス中では水蒸気を除外し、CO2 4m3 と窒素 34m3 を合計した38m3を分母にする。CO2濃度は約10.5vol%であり、25vol%ではない。"
+      },
+      {
+        "choiceText": "31",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。空気比1では投入酸素に伴う窒素が8.5×4=34m3含まれるため、乾き燃焼ガスの大部分は窒素である。CO2濃度は4/(34+4)×100=約10.5vol%で、31vol%ではない。"
+      },
+      {
+        "choiceText": "100",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。水素燃焼ではCO2を生じず、メタン4m3からCO2は4m3だけ生じる。乾き燃焼ガスには窒素34m3も含まれるため、CO2濃度が100vol%になることはない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
