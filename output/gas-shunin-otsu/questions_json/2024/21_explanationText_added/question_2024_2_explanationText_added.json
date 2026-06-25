@@ -533,10 +533,48 @@
       "e-methane (イーメタン)とは、グリーン水素等の非化石エネルギー源を原料として製造された合成メタンのことをいう。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "間違い。排ガス再循環は、燃焼排ガスの一部を燃焼用空気に混入して燃焼温度を下げ、NOxの発生を減少させる技術である。CO2の発生の減少を図るとしている点が誤りである。",
+      "正しい。水素イオン濃度指数（pH）は水質管理上の重要項目であり、多くの水中生物や農作物にとって望ましい水のpH範囲は5.8～8.6とされる。",
+      "間違い。天然ガスの主成分であるメタンは、石炭や石油に比べて分子中の炭素原子の割合が小さいため、燃焼時のCO2排出量が少ない。炭素原子の割合が大きいとしている点が誤りである。",
+      "正しい。カーボンニュートラルは、温室効果ガスの排出量と森林等による吸収量や除去量を均衡させ、実質的な排出量をゼロにする考え方である。",
+      "正しい。e-methane（イーメタン）は、グリーン水素等の非化石エネルギー源を原料として合成されたメタンを指す。"
+    ],
+    "suggestedQuestions": [
+      "排ガス再循環とは、燃焼排ガスの一部を燃焼用空気に混入して炉内に送り込み、CO2の発生の減少を図るものである\n。",
+      "すべての水域において、水素イオン濃度指数(pH)は常に規制される項目の一つであり、多くの水中生物、農作物にとって望ましい水のpHは、5.8～8.6である。",
+      "メタンを主成分とする天然ガスは、石炭や石油に比べ、分子中の\n炭素原子の割合が大きいため\n、燃焼時のCO2排出量が最も少ない化石燃料である。",
+      "カーボンニュートラルとは、温室効果ガスの排出量と吸収量を均衡させることを意味する。",
+      "e-methane (イーメタン)とは、グリーン水素等の非化石エネルギー源を原料として製造された合成メタンのことをいう。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "questionText": "排ガス再循環とは、燃焼排ガスの一部を燃焼用空気に混入して炉内に送り込み、CO2の発生の減少を図るものである\n。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。排ガス再循環は、燃焼排ガスの一部を燃焼用空気に混入して燃焼温度を下げ、NOxの発生を減少させる技術である。CO2の発生の減少を図るとしている点が誤りである。"
+      },
+      {
+        "questionText": "すべての水域において、水素イオン濃度指数(pH)は常に規制される項目の一つであり、多くの水中生物、農作物にとって望ましい水のpHは、5.8～8.6である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。水素イオン濃度指数（pH）は水質管理上の重要項目であり、多くの水中生物や農作物にとって望ましい水のpH範囲は5.8～8.6とされる。"
+      },
+      {
+        "questionText": "メタンを主成分とする天然ガスは、石炭や石油に比べ、分子中の\n炭素原子の割合が大きいため\n、燃焼時のCO2排出量が最も少ない化石燃料である。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。天然ガスの主成分であるメタンは、石炭や石油に比べて分子中の炭素原子の割合が小さいため、燃焼時のCO2排出量が少ない。炭素原子の割合が大きいとしている点が誤りである。"
+      },
+      {
+        "questionText": "カーボンニュートラルとは、温室効果ガスの排出量と吸収量を均衡させることを意味する。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。カーボンニュートラルは、温室効果ガスの排出量と森林等による吸収量や除去量を均衡させ、実質的な排出量をゼロにする考え方である。"
+      },
+      {
+        "questionText": "e-methane (イーメタン)とは、グリーン水素等の非化石エネルギー源を原料として製造された合成メタンのことをいう。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。e-methane（イーメタン）は、グリーン水素等の非化石エネルギー源を原料として合成されたメタンを指す。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -547,12 +585,14 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "explanationTextCount": 5
   },
   {
     "original_question_id": "2d6f28e79d59f1ff",
