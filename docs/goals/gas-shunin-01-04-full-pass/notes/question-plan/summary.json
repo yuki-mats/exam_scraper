@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T602",
-  "completed": 502,
-  "completed_questions": 502,
-  "done": 387,
+  "activeTaskId": "T603",
+  "completed": 503,
+  "completed_questions": 503,
+  "done": 388,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 387,
+    "done": 388,
     "hold": 115,
-    "pending": 432
+    "pending": 431
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-26T07:58:24+09:00",
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "(イ)導管の内径 (ロ)2 (ハ)許容引張応力",
-      "(イ)導管の内径 (ロ)4 (ハ)引張強さ",
-      "(イ)導管の内径 (ロ)2 (ハ)引張強さ",
-      "(イ)導管の外径 (ロ)4 (ハ)引張強さ",
-      "(イ)導管の外径 (ロ)2 (ハ)許容引張応力"
+      "渦流式ガスメーター",
+      "超音波式ガスメーター",
+      "膜式\nガスメーター",
+      "オリフィス式ガスメーター",
+      "回転子式\nガスメーター"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -85,28 +85,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 862,
-    "publicQuestionId": "6602bb83e4a77334",
+    "planSequence": 861,
+    "publicQuestionId": "e6ce621ee6bf7c78",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6602bb83e4a77334",
-    "questionBodyText": "内圧を受ける鋼管の管厚t(mm)を求める場合のガス事業法の管厚計算式について、[ ]の中の(イ)～(ハ)にあてはまる語句等の組合せとして、適切なものはどれか。なお、この鋼管の外径と内径の比は1.5以下とする。\nt = (P × [イ]) / (2 × [ハ] × η + 0.8 × P) + C\nP: 内圧(MPa)\nη: 継手効率\n[ハ] = ([ロ] × 10^3) / 4\nC: 腐れしろ(mm)",
-    "questionIndexInFile": 19,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:e6ce621ee6bf7c78",
+    "questionBodyText": "次のガスメーターのうち、推量式に分類されるものはいくつあるか。",
+    "questionIndexInFile": 18,
     "questionIntent": "",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "questionLabel": "問12",
+    "questionNo": 12,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q13",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q12",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:6602bb83e4a77334",
+    "reviewId": "2024:question_2024_2:e6ce621ee6bf7c78",
     "reviewNotes": "",
-    "reviewQuestionId": "6602bb83e4a77334",
+    "reviewQuestionId": "e6ce621ee6bf7c78",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -121,7 +121,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 12,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -130,45 +130,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q13",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kyokyu:q13:s01",
-      "gas-shunin:otsu:2024:kyokyu:q13:s02",
-      "gas-shunin:otsu:2024:kyokyu:q13:s03",
-      "gas-shunin:otsu:2024:kyokyu:q13:s04",
-      "gas-shunin:otsu:2024:kyokyu:q13:s05"
+      "gas-shunin:otsu:2024:kyokyu:q12:s01",
+      "gas-shunin:otsu:2024:kyokyu:q12:s02",
+      "gas-shunin:otsu:2024:kyokyu:q12:s03",
+      "gas-shunin:otsu:2024:kyokyu:q12:s04",
+      "gas-shunin:otsu:2024:kyokyu:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q13",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q13:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q13:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q13:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q13:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q13:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s05",
         "statementNo": 5
       }
     ],
@@ -181,15 +181,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 862,
-  "nextPendingTaskId": "T602",
-  "otsuCompleted": 90,
-  "otsuDone": 77,
+  "nextPendingPlanSequence": 861,
+  "nextPendingTaskId": "T603",
+  "otsuCompleted": 91,
+  "otsuDone": 78,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 432,
-  "pending": 432,
-  "pending_questions": 432,
+  "otsuPending": 431,
+  "pending": 431,
+  "pending_questions": 431,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
