@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T541",
-  "completed": 441,
-  "completed_questions": 441,
-  "done": 328,
+  "activeTaskId": "T542",
+  "completed": 442,
+  "completed_questions": 442,
+  "done": 329,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 328,
+    "done": 329,
     "hold": 113,
-    "pending": 493
+    "pending": 492
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-25T14:33:30Z",
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,29 +34,29 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "自然換気は、自然条件を利用した非常に不安定な換気方法であるため、\n常時大量の熱や煙を発生するような工場では効果が出ない\n。",
-      "機械換気の方式のうち局所換気方式は、フードの取付け位置や形状等にある程度の制限はあるが、高濃度排気による高い換気効率が得られる。",
-      "ガス機器のガス消費量が同じ場合でも、換気扇のフード有無やフードの形状等によって、調理室の必要換気量は変わる。",
-      "換気を行うために必要な条件は、空気の排出口があること、空気の流入口があること、空気の流れを起こす力があることである。",
-      "自然換気回数は、室の容積分の空気量が1時間に何回自然に入れ替わるかを「回/h」で表したものである。"
+      "業務用厨房の排気ダクト接続型半密閉式湯沸器には、防火性能評定試験基準に合格している潜熱回収型がある。",
+      "マルチ温水機は、30号から50号等の給湯器を複数台設置し、流量負荷に応じて、台数制御して大量給湯を行う。",
+      "空調用吸収冷凍機は作動媒体として、冷媒に水、吸収剤に臭化リチウム水溶液を用いている。",
+      "ガスエンジンヒートポンプ(GHP)の暖房サイクルでは、室内の熱交換器を凝縮器、室外の熱交換器を蒸発器として利用している。",
+      "ガスエンジン式CGSでは、\n数千kW規模の需要には対応できない\n。"
     ],
     "correctChoiceText": [
-      "間違い",
       "正しい",
       "正しい",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "間違い",
       "正しい",
       "正しい",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 931,
-    "publicQuestionId": "620333366e793249",
+    "planSequence": 930,
+    "publicQuestionId": "3a65f66e45517939",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:620333366e793249",
-    "questionBodyText": "換気に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:3a65f66e45517939",
+    "questionBodyText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステム(CGS)に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 4,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問24",
-    "questionNo": 24,
+    "questionLabel": "問23",
+    "questionNo": 23,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#shohi-q24",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#shohi-q23",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_3:620333366e793249",
+    "reviewId": "2025:question_2025_3:3a65f66e45517939",
     "reviewNotes": "",
-    "reviewQuestionId": "620333366e793249",
+    "reviewQuestionId": "3a65f66e45517939",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 24,
+      "questionNo": 23,
       "subject": "shohi",
       "year": 2025
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q24",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q23",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:shohi:q24:s01",
-      "gas-shunin:otsu:2025:shohi:q24:s02",
-      "gas-shunin:otsu:2025:shohi:q24:s03",
-      "gas-shunin:otsu:2025:shohi:q24:s04",
-      "gas-shunin:otsu:2025:shohi:q24:s05"
+      "gas-shunin:otsu:2025:shohi:q23:s01",
+      "gas-shunin:otsu:2025:shohi:q23:s02",
+      "gas-shunin:otsu:2025:shohi:q23:s03",
+      "gas-shunin:otsu:2025:shohi:q23:s04",
+      "gas-shunin:otsu:2025:shohi:q23:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#shohi-q24",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#shohi-q23",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q24:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q23:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q24:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q23:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q24:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q23:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q24:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q23:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q24:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q23:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 931,
-  "nextPendingTaskId": "T541",
-  "otsuCompleted": 29,
-  "otsuDone": 18,
+  "nextPendingPlanSequence": 930,
+  "nextPendingTaskId": "T542",
+  "otsuCompleted": 30,
+  "otsuDone": 19,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 493,
-  "pending": 493,
-  "pending_questions": 493,
+  "otsuPending": 492,
+  "pending": 492,
+  "pending_questions": 492,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -208,8 +208,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 113,
-    "ok": 328,
-    "pending": 493
+    "ok": 329,
+    "pending": 492
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -231,5 +231,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-26T01:33:38+09:00"
+  "updatedAt": "2026-06-26T01:37:19+09:00"
 }
