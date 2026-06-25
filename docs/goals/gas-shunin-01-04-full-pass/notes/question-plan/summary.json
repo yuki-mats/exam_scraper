@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T504",
+  "activeTaskId": "T509",
   "completed": 404,
-  "completed_questions": 407,
+  "completed_questions": 408,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 299,
+    "done": 300,
     "hold": 109,
-    "pending": 526
+    "pending": 525
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 109,
   "hold": 108,
   "hold_questions": 108,
-  "kouCompleted": 390,
+  "kouCompleted": 391,
   "kouHeld": 101,
   "kouHold": 101,
-  "kouPending": 22,
+  "kouPending": 21,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,17 +32,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "LNG1次受入基地用アンローディングアームの緊急時の安全対策には、緊急遮断システム(ESDS)や緊急離脱装置(ERS)がある。",
-      "可燃性のガス又は液化ガスを通ずるガス工作物は、ボイラー等の火気を取り扱う設備までの最低限必要な距離が定められている。",
-      "放散処理設備であるベントスタックには、放出したガスが周囲に障害を与えるおそれのないよう適切な措置を講ずる必要がある。",
-      "停電によりガス工作物の機能が失われることなく、製造設備を安全に停止するために、保安電力又は電力以外の動力源等の確保が必要である。",
-      "非常用発電設備の定格容量は、負荷の積み上げ\n合計値と同容量\nにする必要がある。"
+      "整圧器を大規模地区で使用する場合には、できるだけオフセット及びロックアップが小さい\n動特性\nの優れた整圧器を選定する。",
+      "直動式整圧器は、二次圧力を駆動圧力としているため、作動最小差圧を\n考慮する必要がある\n。",
+      "パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅してメインガバナーを作動させるため、ロックアップは小さくなる。",
+      "流量特性\nとは、定常状態における流量と二次圧力の関係をいう。",
+      "流量がゼロになるとメインバルブは締切状態になる。この時、二次圧力は基準状態よりも高くなるが、この締切圧力と基準二次圧力との差を\nシフト\nという。"
     ],
     "correctChoiceText": [
+      "間違い",
+      "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
+      "間違い",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -50,10 +50,10 @@
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
       "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -89,33 +89,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 391,
-    "publicQuestionId": "e4ef8e531fbc435b",
+    "planSequence": 396,
+    "publicQuestionId": "6e3cdbf4facea64e",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:e4ef8e531fbc435b",
-    "questionBodyText": "製造設備の保安及び防災に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 12,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:6e3cdbf4facea64e",
+    "questionBodyText": "整圧器に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 17,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問6",
-    "questionNo": 6,
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#seizo-q6",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:e4ef8e531fbc435b",
+    "reviewId": "2025:question_2025_gassyunin_site_2:6e3cdbf4facea64e",
     "reviewNotes": "",
-    "reviewQuestionId": "e4ef8e531fbc435b",
+    "reviewQuestionId": "6e3cdbf4facea64e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
+    "sourceCategory": "供給",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -125,8 +125,8 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 6,
-      "subject": "seizo",
+      "questionNo": 11,
+      "subject": "kyokyu",
       "year": 2025
     },
     "sourceNaturalQuestionKey": null,
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:seizo:q06",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kyokyu:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:seizo:q06:s01",
-      "gas-shunin:kou:2025:seizo:q06:s02",
-      "gas-shunin:kou:2025:seizo:q06:s03",
-      "gas-shunin:kou:2025:seizo:q06:s04",
-      "gas-shunin:kou:2025:seizo:q06:s05"
+      "gas-shunin:kou:2025:kyokyu:q11:s01",
+      "gas-shunin:kou:2025:kyokyu:q11:s02",
+      "gas-shunin:kou:2025:kyokyu:q11:s03",
+      "gas-shunin:kou:2025:kyokyu:q11:s04",
+      "gas-shunin:kou:2025:kyokyu:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#seizo-q6",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q06:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q06:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q06:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q06:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q06:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q11:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 395,
-  "nextPendingTaskId": "T508",
+  "nextPendingPlanSequence": 396,
+  "nextPendingTaskId": "T509",
   "otsuCompleted": 14,
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
   "pending": 530,
-  "pending_questions": 526,
+  "pending_questions": 525,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 102,
-    "ok": 292,
-    "pending": 18
+    "ok": 293,
+    "pending": 17
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
