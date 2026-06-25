@@ -1,54 +1,60 @@
 {
-  "completed": 342,
-  "completed_questions": 342,
+  "completed": 343,
+  "completed_questions": 343,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 251,
+    "done": 252,
     "hold": 91,
-    "pending": 592
+    "pending": 591
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 336,
+  "kouCompleted": 337,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 76,
+  "kouPending": 75,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "120",
-      "240",
-      "260",
-      "340",
-      "480"
+      "直動式整圧器は、二次圧力を信号兼駆動圧力として利用するため、オフセットは大きくなる。",
+      "整圧器の能力は、使用条件にもよるが、一般に最低一次圧力時の最大能力の60〜80%程度の負荷となるように選定する。",
+      "流量特性とは、流量と\n二次圧力\nの関係をいう。",
+      "直動式整圧器の主な二次圧力異常上昇原因の例としては、メインバルブへのダスト類のかみ込みによる締め切り不良、メインバルブシートの不具合がある。",
+      "パイロット式アンローディング型整圧器は、メインバルブ全閉時に駆動圧力が最も高くなるため、この駆動圧力以上の一次圧力が確保されないとメインバルブが閉止不能となる。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -82,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 337,
-    "publicQuestionId": "2d6f28e79d59f1ff",
+    "planSequence": 338,
+    "publicQuestionId": "85386c740cb302e8",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:2d6f28e79d59f1ff",
-    "questionBodyText": "口径10cm、延長200mの低圧導管において、起点圧力と末端圧力との差が0.4kPaのときのガス流量は120m³/hであった。口径20cm、延長400mの低圧導管において、起点圧力と末端圧力との差が0.1kPaのときのガス流量(m³/h)として、最も近い値はどれか。なお、いずれも同一のガスを流すものとし、高低差は考慮しないものとする。",
-    "questionIndexInFile": 16,
-    "questionIntent": "",
-    "questionLabel": "問10",
-    "questionNo": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:85386c740cb302e8",
+    "questionBodyText": "整圧器に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 17,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q10",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:2d6f28e79d59f1ff",
+    "reviewId": "2024:question_2024_gassyunin_site_2:85386c740cb302e8",
     "reviewNotes": "",
-    "reviewQuestionId": "2d6f28e79d59f1ff",
+    "reviewQuestionId": "85386c740cb302e8",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 10,
+      "questionNo": 11,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -127,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q10",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kyokyu:q10:s01",
-      "gas-shunin:kou:2024:kyokyu:q10:s02",
-      "gas-shunin:kou:2024:kyokyu:q10:s03",
-      "gas-shunin:kou:2024:kyokyu:q10:s04",
-      "gas-shunin:kou:2024:kyokyu:q10:s05"
+      "gas-shunin:kou:2024:kyokyu:q11:s01",
+      "gas-shunin:kou:2024:kyokyu:q11:s02",
+      "gas-shunin:kou:2024:kyokyu:q11:s03",
+      "gas-shunin:kou:2024:kyokyu:q11:s04",
+      "gas-shunin:kou:2024:kyokyu:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q10",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q11:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 337,
-  "nextPendingTaskId": "T450",
+  "nextPendingPlanSequence": 338,
+  "nextPendingTaskId": "T451",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 592,
-  "pending_questions": 592,
+  "pending": 591,
+  "pending_questions": 591,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -197,9 +203,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "ok": 251,
+    "ok": 252,
     "hold": 91,
-    "pending": 592
+    "pending": 591
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T15:32:27+09:00",
-  "activeTaskId": "T450"
+  "updatedAt": "2026-06-25T15:47:06+09:00",
+  "activeTaskId": "T451"
 }
