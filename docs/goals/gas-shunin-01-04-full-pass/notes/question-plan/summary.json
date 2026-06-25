@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T520",
-  "completed": 410,
-  "completed_questions": 420,
+  "activeTaskId": "T521",
+  "completed": 421,
+  "completed_questions": 421,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 311,
+    "done": 312,
     "hold": 109,
-    "pending": 514
+    "pending": 513
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 109,
-  "hold": 108,
-  "hold_questions": 108,
-  "kouCompleted": 406,
+  "hold": 109,
+  "hold_questions": 109,
+  "kouCompleted": 407,
   "kouHeld": 102,
-  "kouHold": 101,
-  "kouPending": 6,
+  "kouHold": 102,
+  "kouPending": 5,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,18 +32,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガスオーブンを有するガスこんろは、ガス消費量の総和が21kW以下であっても、こんろバーナー1個当たりのガス消費量が5.8kWを超えるものはガス用品に指定されない。",
-      "こんろでは、調理油過熱防止装置の温度センサーを過熱防止以外にも活用することで、油温度調節機能、炊飯機能、沸騰自動消火機能を実現した。",
-      "オーブンは、主に熱風を強制的に対流させることにより調理を行う。",
-      "赤外線ストーブの放射体には、セラミックプレートを用いたものと、特殊耐熱鋼金網を用いたものがある。",
-      "ファンヒーターに搭載されている安全装置は、不完全燃焼防止装置、転倒時安全装置、過熱防止装置等である。"
+      "スチームコンベクションオーブンは、熱風と蒸気を単独あるいは組合せて、オーブンモード、スチームモード、コンビモード等の加熱モードを設定できる。",
+      "業務用厨房において、半密閉式瞬間湯沸器(ガス消費量が12kWを超えるもの)を、既設の排気専用ダクトに接続する場合には、排気ダクト直結型、排気ダクト接続型及び排気フード受け型の3種類の設置形態がある。",
+      "吸収冷凍機では、冷媒を吸収し濃度の薄くなった吸収溶液を\n凝縮器\nで濃縮・再生を行っている。",
+      "CGSの優位性には、省エネルギー性、環境保全性、電力負荷平準化、エネルギーセキュリティ向上が上げられる。",
+      "CGSは、省エネルギーに\n寄与するものの、設備設置のための機械室が大きくなるため、エネルギーの使用の合理化及び非化石エネルギーへの転換等に関する法律にて一定の条件の下に容積率の緩和が認められている。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
+      "間違い",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -52,9 +52,9 @@
     "expectedCorrectChoiceText": [
       "間違い",
       "間違い",
+      "正しい",
       "間違い",
-      "間違い",
-      "正しい"
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 407,
-    "publicQuestionId": "36671e7d6f13eec2",
+    "planSequence": 408,
+    "publicQuestionId": "3a65f66e45517939",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:36671e7d6f13eec2",
-    "questionBodyText": "家庭用ガス機器に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:3a65f66e45517939",
+    "questionBodyText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステム(CGS)に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 4,
     "questionIntent": "select_correct",
-    "questionLabel": "問22",
-    "questionNo": 22,
+    "questionLabel": "問23",
+    "questionNo": 23,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q22",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q23",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_3:36671e7d6f13eec2",
+    "reviewId": "2025:question_2025_gassyunin_site_3:3a65f66e45517939",
     "reviewNotes": "",
-    "reviewQuestionId": "36671e7d6f13eec2",
+    "reviewQuestionId": "3a65f66e45517939",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 22,
+      "questionNo": 23,
       "subject": "shohi",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q22",
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q23",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:shohi:q22:s01",
-      "gas-shunin:kou:2025:shohi:q22:s02",
-      "gas-shunin:kou:2025:shohi:q22:s03",
-      "gas-shunin:kou:2025:shohi:q22:s04",
-      "gas-shunin:kou:2025:shohi:q22:s05"
+      "gas-shunin:kou:2025:shohi:q23:s01",
+      "gas-shunin:kou:2025:shohi:q23:s02",
+      "gas-shunin:kou:2025:shohi:q23:s03",
+      "gas-shunin:kou:2025:shohi:q23:s04",
+      "gas-shunin:kou:2025:shohi:q23:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q22",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q23",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q22:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q22:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q22:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q22:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q22:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 407,
-  "nextPendingTaskId": "T520",
+  "nextPendingPlanSequence": 408,
+  "nextPendingTaskId": "T521",
   "otsuCompleted": 14,
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
-  "pending": 524,
-  "pending_questions": 514,
+  "pending": 513,
+  "pending_questions": 513,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 109,
-    "ok": 311,
-    "pending": 514
+    "ok": 312,
+    "pending": 513
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T22:18:34+09:00"
+  "updatedAt": "2026-06-25T22:23:09+09:00"
 }
