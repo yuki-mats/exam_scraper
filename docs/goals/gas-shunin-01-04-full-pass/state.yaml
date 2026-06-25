@@ -30569,17 +30569,16 @@ tasks:
           status: pass
         - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2025 output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
           status: pass
-      summary: "gas-shunin-otsu 2025 基礎理論 問12の01〜04を完了。平板熱伝導式 q=λΔT/L より平均熱伝導率0.02W/(m·K)を正解と確認し、伝熱（乙種）へ分類した。"
+      summary: "gas-shunin-otsu 2025 基礎理論 問12の01〜04を完了。平板定常熱伝導の式から平均熱伝導率0.02W/(m·K)を確認し、伝熱（乙種）へ分類した。"
       evidence:
         - "00_source body/choices unchanged"
         - "questionType=group_choice / questionIntent=select_correct"
         - "answer_result_text=正解は 2 です。と correctChoiceText=[不正解, 正解, 不正解, 不正解, 不正解] が一致"
-        - "温度差100K、厚さ0.2m、熱流束10W/m²より λ=10×0.2/100=0.02W/(m·K)"
+        - "q=λΔT/L、ΔT=100K、L=0.2m、q=10W/m²より λ=0.02W/(m·K)"
         - "questionSetId=chiefgasengineerlicense-B-2150（伝熱（乙種））"
       remaining_blockers: []
       verification_attempts: 1
       stopped_because: null
-
 
   - id: T568
     type: worker
