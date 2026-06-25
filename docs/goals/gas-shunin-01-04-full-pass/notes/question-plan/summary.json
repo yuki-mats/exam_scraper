@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T589",
-  "completed": 489,
-  "completed_questions": 489,
-  "done": 374,
+  "activeTaskId": "T590",
+  "completed": 490,
+  "completed_questions": 490,
+  "done": 375,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 374,
+    "done": 375,
     "hold": 115,
-    "pending": 445
+    "pending": 444
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T07:10:00+09:00",
+  "generatedAt": "2026-06-26T06:51:26+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,16 +34,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "調理油過熱防止装置は、現在販売されている2口以上の家庭用こんろの全口に搭載することが義務化されている。",
-      "不完全燃焼防止装置に使用されているCOセンサーには、固体電解質式、接触燃焼式及び半導体式がある。",
-      "温水機器の\n空だき安全装置\nには、水位スイッチ式や水流スイッチ式等がある。",
-      "瞬時点火装置では、熱電対の起電力が十分に発生するまでの間、コンデンサーの放電電流によりガス弁を開状態に保持している。",
-      "比例電磁弁は、コイルに流れる電流による電磁力により弁を制御し、連続的にガス量を調節するものである。"
+      "合計インプットが6kWを超える開放式ガス機器を調理室以外の部屋に設置する場合、その部屋には機械換気を設ける必要がある。",
+      "CF式機器を設置する際、現場状況に合わせて\n一次排気筒及び二次排気筒ともに適切な長さに現場で加工調整する必要がある\n。",
+      "BF-W式機器の設置に際しては、給排気部が壁を貫通する箇所に隙間があってはならない。",
+      "FF式機器には、BF式機器と同様、外壁式、チャンバー式及びダクト式がある。",
+      "既存のBF式機器の給排気筒トップ穴を利用して、壁貫通部に設置するタイプのRF式機器がある。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
       "間違い",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -53,8 +53,8 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "正しい",
       "間違い",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 875,
-    "publicQuestionId": "f70c9aa836367882",
+    "planSequence": 874,
+    "publicQuestionId": "c91739a7a2f130a1",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:f70c9aa836367882",
-    "questionBodyText": "ガス機器の安全装置、点火装置及び制御装置に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 7,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:c91739a7a2f130a1",
+    "questionBodyText": "ガス機器の給排気に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 6,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問26",
-    "questionNo": 26,
+    "questionLabel": "問25",
+    "questionNo": 25,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q26",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q25",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_3:f70c9aa836367882",
+    "reviewId": "2024:question_2024_3:c91739a7a2f130a1",
     "reviewNotes": "",
-    "reviewQuestionId": "f70c9aa836367882",
+    "reviewQuestionId": "c91739a7a2f130a1",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 26,
+      "questionNo": 25,
       "subject": "shohi",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:shohi:q26",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:shohi:q25",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:shohi:q26:s01",
-      "gas-shunin:otsu:2024:shohi:q26:s02",
-      "gas-shunin:otsu:2024:shohi:q26:s03",
-      "gas-shunin:otsu:2024:shohi:q26:s04",
-      "gas-shunin:otsu:2024:shohi:q26:s05"
+      "gas-shunin:otsu:2024:shohi:q25:s01",
+      "gas-shunin:otsu:2024:shohi:q25:s02",
+      "gas-shunin:otsu:2024:shohi:q25:s03",
+      "gas-shunin:otsu:2024:shohi:q25:s04",
+      "gas-shunin:otsu:2024:shohi:q25:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q26",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q25",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q26:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q25:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q26:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q25:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q26:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q25:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q26:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q25:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q26:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q25:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 875,
-  "nextPendingTaskId": "T589",
-  "otsuCompleted": 77,
-  "otsuDone": 64,
+  "nextPendingPlanSequence": 874,
+  "nextPendingTaskId": "T590",
+  "otsuCompleted": 78,
+  "otsuDone": 65,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 445,
-  "pending": 445,
-  "pending_questions": 445,
+  "otsuPending": 444,
+  "pending": 444,
+  "pending_questions": 444,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
