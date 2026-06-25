@@ -1,55 +1,61 @@
 {
-  "activeTaskId": "T496",
-  "completed": 380,
-  "completed_questions": 388,
+  "activeTaskId": "T497",
+  "completed": 397,
+  "completed_questions": 397,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 288,
-    "hold": 100,
-    "pending": 546
+    "done": 290,
+    "hold": 107,
+    "pending": 537
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
-  "held_questions": 100,
-  "hold": 100,
-  "hold_questions": 100,
-  "kouCompleted": 382,
+  "held_questions": 107,
+  "hold": 107,
+  "hold_questions": 107,
+  "kouCompleted": 383,
   "kouHeld": 100,
   "kouHold": 100,
-  "kouPending": 30,
+  "kouPending": 29,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.25",
-      "0.50",
-      "0.67",
-      "0.75",
-      "0.90"
+      "n-ブタン: 炭素鋼(リムド)",
+      "i-ブタン: 炭素鋼(Siキルド)",
+      "メタン: 炭素鋼(Alキルド)",
+      "酸素: 9% Ni鋼",
+      "水素: Al合金"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -83,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 383,
-    "publicQuestionId": "75fe8fc18f6594b2",
+    "planSequence": 384,
+    "publicQuestionId": "c21cf801fe0d51e0",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:75fe8fc18f6594b2",
-    "questionBodyText": "高温流体の入口温度は210℃で出口温度が60℃である熱交換器がある。低温流体の温度効率は0.4で出口温度が90℃である場合、高温流体の温度効率として最も近い値はどれか。",
-    "questionIndexInFile": 4,
-    "questionIntent": "",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:c21cf801fe0d51e0",
+    "questionBodyText": "気体と、その沸点近くの温度で使用される金属材料の組合せとして、最も不適切なものはどれか。",
+    "questionIndexInFile": 5,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問14",
+    "questionNo": 14,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q13",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q14",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:75fe8fc18f6594b2",
+    "reviewId": "2025:question_2025_gassyunin_site_2:c21cf801fe0d51e0",
     "reviewNotes": "",
-    "reviewQuestionId": "75fe8fc18f6594b2",
+    "reviewQuestionId": "c21cf801fe0d51e0",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -119,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 14,
       "subject": "kiso",
       "year": 2025
     },
@@ -128,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q13",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q14",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kiso:q13:s01",
-      "gas-shunin:kou:2025:kiso:q13:s02",
-      "gas-shunin:kou:2025:kiso:q13:s03",
-      "gas-shunin:kou:2025:kiso:q13:s04",
-      "gas-shunin:kou:2025:kiso:q13:s05"
+      "gas-shunin:kou:2025:kiso:q14:s01",
+      "gas-shunin:kou:2025:kiso:q14:s02",
+      "gas-shunin:kou:2025:kiso:q14:s03",
+      "gas-shunin:kou:2025:kiso:q14:s04",
+      "gas-shunin:kou:2025:kiso:q14:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q13",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q14",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q14:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q14:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q14:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q14:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q14:s05",
         "statementNo": 5
       }
     ],
@@ -179,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 383,
-  "nextPendingTaskId": "T496",
-  "otsuCompleted": 6,
-  "otsuHeld": 0,
-  "otsuHold": 0,
-  "otsuPending": 516,
-  "pending": 554,
-  "pending_questions": 546,
+  "nextPendingPlanSequence": 384,
+  "nextPendingTaskId": "T497",
+  "otsuCompleted": 14,
+  "otsuHeld": 7,
+  "otsuHold": 7,
+  "otsuPending": 508,
+  "pending": 537,
+  "pending_questions": 537,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -199,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 100,
-    "ok": 282,
-    "pending": 30
+    "ok": 283,
+    "pending": 29
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -222,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T19:57:22+09:00"
+  "updatedAt": "2026-06-25T20:05:32+09:00"
 }
