@@ -1,23 +1,23 @@
 {
-  "completed": 339,
-  "completed_questions": 339,
+  "completed": 340,
+  "completed_questions": 340,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 249,
+    "done": 250,
     "hold": 90,
-    "pending": 595
+    "pending": 594
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 90,
   "hold": 90,
   "hold_questions": 90,
-  "kouCompleted": 333,
+  "kouCompleted": 334,
   "kouHeld": 90,
   "kouHold": 90,
-  "kouPending": 79,
+  "kouPending": 78,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,16 +31,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "製造設備を安全かつ円滑に運転するため、あらかじめ運転管理基準、運転操作要領等を作成し、それに従って関係者の教育・訓練を実施する。",
-      "ガス製造設備の大型の平底円筒形貯槽等では、一般的な構造物とは地震応答が異なり、スロッシングが生じる\n短周期地震動\nによる設計も必要となる。",
-      "LNG受入基地の稼働調整方式の一つである圧力制御は、設備から流出する流体の圧力を一定に保つ制御方法であり、需要変動に応じて供給量を自動的に調整できる。",
-      "溶接方法のうち、シールドガスとしてアルゴン等の不活性ガスを用い、母材と非消耗のタングステン電極との間に発生させるアーク内に溶加材を送り込んで溶接する方法を\n被覆アーク溶接\nという。",
-      "LNG受入基地におけるLNG受入方法は、受入貯槽内LNGと受入LNGとの密度差、受入貯槽の液レベル及び受入速度を考慮し決定する。"
+      "定期保全\nとは、設備が予定の累積運転時間に達したときに行う保全のことである。",
+      "超音波探傷試験(UT)は、検査物の片側だけから検査できるが、割れのような\n平面欠陥の検出には適さない\n。",
+      "溶接部において、溶融金属が冷却される際に収縮することにより、\n圧縮の残留応力\nが生ずる。",
+      "磁粉探傷試験(MT)は、\n表面から数mm以上の内部欠陥の検出が可能\nな検査方法である。",
+      "ポンプのインペラのように、材料と流動する溶液の界面で気泡の発生と破壊を繰り返すことで生ずる孔食状の腐食は、キャビテーションエロージョンと呼ばれる。"
     ],
     "correctChoiceText": [
-      "正しい",
       "間違い",
-      "正しい",
+      "間違い",
+      "間違い",
       "間違い",
       "正しい"
     ],
@@ -50,9 +50,9 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
+      "正しい",
+      "正しい",
       "間違い",
-      "正しい",
-      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -88,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 334,
-    "publicQuestionId": "61e22295f24a06e4",
+    "planSequence": 335,
+    "publicQuestionId": "40fde79515772c6c",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:61e22295f24a06e4",
-    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:40fde79515772c6c",
+    "questionBodyText": "製造設備の保全に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 14,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "questionLabel": "問8",
+    "questionNo": 8,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q7",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q8",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:61e22295f24a06e4",
+    "reviewId": "2024:question_2024_gassyunin_site_2:40fde79515772c6c",
     "reviewNotes": "",
-    "reviewQuestionId": "61e22295f24a06e4",
+    "reviewQuestionId": "40fde79515772c6c",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 8,
       "subject": "seizo",
       "year": 2024
     },
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:seizo:q07",
+    "sourceQuestionKey": "gas-shunin:kou:2024:seizo:q08",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:seizo:q07:s01",
-      "gas-shunin:kou:2024:seizo:q07:s02",
-      "gas-shunin:kou:2024:seizo:q07:s03",
-      "gas-shunin:kou:2024:seizo:q07:s04",
-      "gas-shunin:kou:2024:seizo:q07:s05"
+      "gas-shunin:kou:2024:seizo:q08:s01",
+      "gas-shunin:kou:2024:seizo:q08:s02",
+      "gas-shunin:kou:2024:seizo:q08:s03",
+      "gas-shunin:kou:2024:seizo:q08:s04",
+      "gas-shunin:kou:2024:seizo:q08:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q7",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q8",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q07:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q08:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q07:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q08:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q07:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q08:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q07:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q08:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q07:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q08:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 334,
-  "nextPendingTaskId": "T447",
+  "nextPendingPlanSequence": 335,
+  "nextPendingTaskId": "T448",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 595,
-  "pending_questions": 595,
+  "pending": 594,
+  "pending_questions": 594,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -203,9 +203,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "ok": 249,
+    "ok": 250,
     "hold": 90,
-    "pending": 595
+    "pending": 594
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T15:12:36+09:00",
-  "activeTaskId": "T447"
+  "updatedAt": "2026-06-25T15:16:50+09:00",
+  "activeTaskId": "T448"
 }
