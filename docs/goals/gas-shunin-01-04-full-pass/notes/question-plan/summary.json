@@ -1,54 +1,60 @@
 {
-  "completed": 318,
-  "completed_questions": 318,
+  "completed": 319,
+  "completed_questions": 319,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 229,
+    "done": 230,
     "hold": 89,
-    "pending": 616
+    "pending": 615
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 318,
+  "kouCompleted": 319,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 94,
+  "kouPending": 93,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "1.17",
-      "1.37",
-      "1.57",
-      "1.77",
-      "1.97"
+      "コジェネレーション等の効率を求める際には、供給ガスの発熱量として低位発熱量を用いて計算することが多い。",
+      "メタンの燃焼において、十分な空気量が確保されていたとしても燃焼反応に十分な時間が確保できない場合等では、COが燃焼ガスとして排出される可能性がある。",
+      "水素の層流燃焼速度はメタンと比べて速く、空気比0.5付近が最大となる。",
+      "燃料と空気を混合した可燃予混合気の空気比が1より小さいブンゼン火炎の燃焼形態は、部分予混合燃焼である。",
+      "層流燃焼速度は乱流予混合火炎にみられる渦運動の影響がなく、\n乱流燃焼速度より速い\n。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -82,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 319,
-    "publicQuestionId": "f85e9fe6f17617ab",
+    "planSequence": 320,
+    "publicQuestionId": "fa7c3f6fbd308f6e",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:f85e9fe6f17617ab",
-    "questionBodyText": "メタンを空気で完全燃焼させたところ、湿り燃焼ガスの酸素濃度が5vol%であった。このときの空気比として最も近い値はどれか。ただし、空気中の窒素と酸素の体積比は4:1とする。",
-    "questionIndexInFile": 23,
-    "questionIntent": "",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:fa7c3f6fbd308f6e",
+    "questionBodyText": "燃焼に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 24,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問8",
+    "questionNo": 8,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q7",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q8",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:f85e9fe6f17617ab",
+    "reviewId": "2024:question_2024_gassyunin_site_1:fa7c3f6fbd308f6e",
     "reviewNotes": "",
-    "reviewQuestionId": "f85e9fe6f17617ab",
+    "reviewQuestionId": "fa7c3f6fbd308f6e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 8,
       "subject": "kiso",
       "year": 2024
     },
@@ -127,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q07",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q08",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kiso:q07:s01",
-      "gas-shunin:kou:2024:kiso:q07:s02",
-      "gas-shunin:kou:2024:kiso:q07:s03",
-      "gas-shunin:kou:2024:kiso:q07:s04",
-      "gas-shunin:kou:2024:kiso:q07:s05"
+      "gas-shunin:kou:2024:kiso:q08:s01",
+      "gas-shunin:kou:2024:kiso:q08:s02",
+      "gas-shunin:kou:2024:kiso:q08:s03",
+      "gas-shunin:kou:2024:kiso:q08:s04",
+      "gas-shunin:kou:2024:kiso:q08:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q7",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q8",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q08:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q08:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q08:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q08:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q08:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 319,
-  "nextPendingTaskId": "T432",
+  "nextPendingPlanSequence": 320,
+  "nextPendingTaskId": "T433",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 616,
-  "pending_questions": 616,
+  "pending": 615,
+  "pending_questions": 615,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -198,8 +204,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 229,
-    "pending": 616
+    "ok": 230,
+    "pending": 615
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T13:33:05+09:00",
-  "activeTaskId": "T432"
+  "updatedAt": "2026-06-25T13:39:04+09:00",
+  "activeTaskId": "T433"
 }
