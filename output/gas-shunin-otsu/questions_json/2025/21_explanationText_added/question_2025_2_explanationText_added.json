@@ -237,25 +237,44 @@
       "再生可能エネルギーの観点から都市ガスの原料として利用が進められているバイオガスは、有機性廃棄物をもとに\nメタン合成により生成される\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。LNGは液化工程でCO2、H2S、水分、水銀、重質炭化水素などの不純物が除去される。",
+      "正しい。軽質と重質の異種LNGを同一貯槽に受け入れる場合、層状化は常に起きるわけではないが、密度差が大きい液の受入では生じる可能性がある。",
+      "間違い。LNGのベーパーロックは、急激な圧力低下や温度上昇（入熱）で液の気化が進むことにより起こる。圧力上昇や温度低下としている点が誤りである。",
+      "正しい。LPGは水と反応して氷に似た水和物を生成し、ライン閉そくの原因となるため、LPGを取り扱う前には機器内を十分乾燥させる必要がある。",
+      "間違い。バイオガスは下水汚泥や食品廃棄物などの有機性廃棄物を嫌気性発酵（メタン発酵）させて得られる。メタン合成（メタネーション）はCO2とH2からメタンを生成する化学プロセスであり、バイオガスの生成方法ではない。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造 第1章「LNGプロジェクト・LPG・オフガス・バイオガス・次世代エネルギー原料」が本問の関連論点。",
+      "焦点ポイント: LNGのベーパーロックは圧力低下や入熱による気化、バイオガスは嫌気性発酵（メタン発酵）で生成される点を確認する。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "関連: LNG液化工程では酸性ガス、水分、水銀、重質炭化水素などを除去する。"
+      ],
+      [
+        "関連: 異種LNGの受入では密度差が大きい場合に層状化が生じ、ロールオーバー等の管理論点となる。"
+      ],
+      [
+        "正しくは: 急激な圧力低下や温度上昇（入熱）。ベーパーロックは液の気化により送液が困難になる現象である。"
+      ],
+      [
+        "関連: LPG取扱いでは水和物によるライン閉そくを避けるため、機器内の乾燥が必要となる。"
+      ],
+      [
+        "正しくは: メタン発酵（嫌気性微生物による生物学的分解）。メタン合成はCO2とH2からメタンを作る別プロセスである。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
     ]
   },
   {
