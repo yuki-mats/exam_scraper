@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T529",
-  "completed": 429,
-  "completed_questions": 429,
-  "done": 320,
+  "activeTaskId": "T530",
+  "completed": 430,
+  "completed_questions": 430,
+  "done": 321,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 320,
+    "done": 321,
     "hold": 109,
-    "pending": 505
+    "pending": 504
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-25T14:23:29Z",
+  "generatedAt": "2026-06-25T14:28:18Z",
   "held_questions": 109,
   "hold": 109,
   "hold_questions": 109,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,28 +34,28 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "(イ)体制 (ロ)地震 (ハ)毎年度 (ニ)立会検査 (ホ)保存",
-      "(イ)体制 (ロ)災害 (ハ)毎年度 (ニ)立会検査 (ホ)提出",
-      "(イ)計画 (ロ)災害 (ハ)毎年度 (ニ)自主検査 (ホ)保存",
-      "(イ)計画 (ロ)地震 (ハ)定期に (ニ)立会検査 (ホ)提出",
-      "(イ)計画 (ロ)災害 (ハ)定期に (ニ)自主検査 (ホ)保存"
+      "製造所には、\n周囲の状況によらず\n、構内に公衆がみだりに立ち入らないよう、適切な措置を講じなければならない。",
+      "製造所(特定製造所を除く。)には、緊急時に迅速な通信を確保するため、適切な通信設備を設けなければならない。",
+      "製造所に設置する中圧の天然ガスを通ずる熱交換器は、その外面から火気を取り扱う設備(当該熱交換器と一体となって製造の用に供するものを除く。)に対し適切な距離を有しなければならない。",
+      "液化ガスを通ずるガス工作物には、当該ガス工作物に生ずる静電気を除去する措置を講じなければならない。ただし、当該静電気によりガスに引火するおそれがない場合にあっては、この限りでない。",
+      "特定ガス発生設備に係る容器であって\n最高使用圧力が中圧のもの\n(液化ガスを通ずるものを除く。)は、その外面から保安物件に対し告示で定める距離を有しなければならない。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2017,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
+      "正しい",
       "間違い",
-      "間違い",
-      "間違い",
-      "間違い",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 416,
-    "publicQuestionId": "85637e8473839657",
+    "planSequence": 417,
+    "publicQuestionId": "1c4d8cb16b58e5c0",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:85637e8473839657",
-    "questionBodyText": "法令で規定されているガス工作物に関する次の記述について、[ ]の中の(イ)～(ホ)にあてはまる語句の組合せとして正しいものはどれか。\n①一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物の設置又は変更の工事であって、経済産業省令で定めるものをしようとするときは、その工事の[(イ)]を経済産業大臣に届け出なければならない。ただし、ガス工作物が流失し、若しくは損壊した場合又は[(ロ)]その他非常の場合において、やむを得ない一時的な工事としてするときは、この限りでない。\n②一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物であって経済産業省令で定めるものについては、経済産業省令で定めるところにより、[(ハ)][(ニ)]を行い、その検査記録を作成し、これを[(ホ)]しなければならない。",
-    "questionIndexInFile": 4,
-    "questionIntent": "select_correct",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:1c4d8cb16b58e5c0",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものの組合せはどれか。",
+    "questionIndexInFile": 5,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q4",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2017:question_2017_1:85637e8473839657",
+    "reviewId": "2017:question_2017_1:1c4d8cb16b58e5c0",
     "reviewNotes": "",
-    "reviewQuestionId": "85637e8473839657",
+    "reviewQuestionId": "1c4d8cb16b58e5c0",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 5,
       "subject": "law",
       "year": 2017
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q04",
+    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2017:law:q04:s01",
-      "gas-shunin:otsu:2017:law:q04:s02",
-      "gas-shunin:otsu:2017:law:q04:s03",
-      "gas-shunin:otsu:2017:law:q04:s04",
-      "gas-shunin:otsu:2017:law:q04:s05"
+      "gas-shunin:otsu:2017:law:q05:s01",
+      "gas-shunin:otsu:2017:law:q05:s02",
+      "gas-shunin:otsu:2017:law:q05:s03",
+      "gas-shunin:otsu:2017:law:q05:s04",
+      "gas-shunin:otsu:2017:law:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q4",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q04:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q04:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q04:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q04:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q04:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 416,
-  "nextPendingTaskId": "T529",
-  "otsuCompleted": 17,
-  "otsuDone": 10,
+  "nextPendingPlanSequence": 417,
+  "nextPendingTaskId": "T530",
+  "otsuCompleted": 18,
+  "otsuDone": 11,
   "otsuHeld": 7,
   "otsuHold": 7,
-  "otsuPending": 505,
-  "pending": 505,
-  "pending_questions": 505,
+  "otsuPending": 504,
+  "pending": 504,
+  "pending_questions": 504,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
