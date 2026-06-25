@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T554",
-  "completed": 454,
-  "completed_questions": 454,
-  "done": 341,
+  "activeTaskId": "T555",
+  "completed": 455,
+  "completed_questions": 455,
+  "done": 342,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 341,
+    "done": 342,
     "hold": 113,
-    "pending": 480
+    "pending": 479
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-25T17:54:47Z",
+  "generatedAt": "2026-06-25T18:02:10Z",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,44 +20,38 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "整圧器を大規模地区で使用する場合には、できるだけオフセット及びロックアップが小さい\n動特性の優れた整圧器\nを選定する。",
-      "直動式整圧器は、二次圧力を駆動圧力としているため、\n作動最小差圧を考慮する必要がある\n。",
-      "流量特性とは、定常状態における流量と二次圧力の関係をいう\n。",
-      "流量がゼロになるとメインバルブは締切状態になる。この時、二次圧力は基準状態よりも高くなるが、この\n締切圧力と基準二次圧力との差をシフトという\n。",
-      "パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅してメインガバナーを作動させるため、ロックアップは小さくなる。"
+      "2.0",
+      "1.9",
+      "1.8",
+      "1.7",
+      "1.6"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い",
-      "正しい"
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -91,28 +85,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 918,
-    "publicQuestionId": "6e3cdbf4facea64e",
+    "planSequence": 917,
+    "publicQuestionId": "ffa4745b469a77a9",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6e3cdbf4facea64e",
-    "questionBodyText": "整圧器に関する次の記述のうち、正しいものはどれか。",
-    "questionIndexInFile": 17,
-    "questionIntent": "select_correct",
-    "questionLabel": "問11",
-    "questionNo": 11,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:ffa4745b469a77a9",
+    "questionBodyText": "A点からB点に低圧のガスを供給している導管ABにおいて、A点の圧力は2.2kPa、B点の圧力は2.1kPaであった。今、B点に供給する流量を2倍にした場合、A点の圧力を2.2kPaのままとすると、B点の圧力(kPa)として最も近い値はどれか。ただし、高低差は考慮しないものとする。",
+    "questionIndexInFile": 16,
+    "questionIntent": "",
+    "questionLabel": "問10",
+    "questionNo": 10,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q11",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q10",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:6e3cdbf4facea64e",
+    "reviewId": "2025:question_2025_2:ffa4745b469a77a9",
     "reviewNotes": "",
-    "reviewQuestionId": "6e3cdbf4facea64e",
+    "reviewQuestionId": "ffa4745b469a77a9",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +121,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 11,
+      "questionNo": 10,
       "subject": "kyokyu",
       "year": 2025
     },
@@ -136,45 +130,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q11",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q10",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kyokyu:q11:s01",
-      "gas-shunin:otsu:2025:kyokyu:q11:s02",
-      "gas-shunin:otsu:2025:kyokyu:q11:s03",
-      "gas-shunin:otsu:2025:kyokyu:q11:s04",
-      "gas-shunin:otsu:2025:kyokyu:q11:s05"
+      "gas-shunin:otsu:2025:kyokyu:q10:s01",
+      "gas-shunin:otsu:2025:kyokyu:q10:s02",
+      "gas-shunin:otsu:2025:kyokyu:q10:s03",
+      "gas-shunin:otsu:2025:kyokyu:q10:s04",
+      "gas-shunin:otsu:2025:kyokyu:q10:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q11",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q10",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q10:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q10:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q10:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q10:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q10:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +181,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "otsuCompleted": 42,
-  "otsuDone": 31,
+  "otsuCompleted": 43,
+  "otsuDone": 32,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 480,
-  "pending": 480,
-  "pending_questions": 480,
+  "otsuPending": 479,
+  "pending": 479,
+  "pending_questions": 479,
   "total": 934,
   "total_questions": 934,
-  "nextPendingPlanSequence": 918,
-  "nextPendingTaskId": "T554"
+  "nextPendingPlanSequence": 917,
+  "nextPendingTaskId": "T555"
 }
