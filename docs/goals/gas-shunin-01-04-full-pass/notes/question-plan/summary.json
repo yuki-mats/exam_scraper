@@ -1,54 +1,60 @@
 {
-  "completed": 316,
-  "completed_questions": 316,
+  "completed": 317,
+  "completed_questions": 317,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 227,
+    "done": 228,
     "hold": 89,
-    "pending": 618
+    "pending": 617
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 316,
+  "kouCompleted": 317,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 96,
+  "kouPending": 95,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "180",
-      "210",
-      "240",
-      "360",
-      "480"
+      "Aは活性化エネルギーに相当する。",
+      "触媒を用いると\nBを小さくすることができる\n。",
+      "Cは反応熱に相当する\n。",
+      "Dは臨界状態である\n。",
+      "この反応は吸熱反応である\n。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -82,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 317,
-    "publicQuestionId": "d2358c6ec9cf0811",
+    "planSequence": 318,
+    "publicQuestionId": "9fde1b61cadb2ba6",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:d2358c6ec9cf0811",
-    "questionBodyText": "一次反応において、反応物が初期濃度から50%反応するのに120秒を要した。この反応において、初期濃度から87.5%反応するのに要する時間(秒)として、最も近い値はどれか。",
-    "questionIndexInFile": 21,
-    "questionIntent": "",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:9fde1b61cadb2ba6",
+    "questionBodyText": "下の図は、化学反応の過程における、エネルギーの変化を表したものである。この図に関する次の記述のうち、正しいものはどれか。",
+    "questionIndexInFile": 22,
+    "questionIntent": "select_correct",
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q5",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:d2358c6ec9cf0811",
+    "reviewId": "2024:question_2024_gassyunin_site_1:9fde1b61cadb2ba6",
     "reviewNotes": "",
-    "reviewQuestionId": "d2358c6ec9cf0811",
+    "reviewQuestionId": "9fde1b61cadb2ba6",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 6,
       "subject": "kiso",
       "year": 2024
     },
@@ -127,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q05",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kiso:q05:s01",
-      "gas-shunin:kou:2024:kiso:q05:s02",
-      "gas-shunin:kou:2024:kiso:q05:s03",
-      "gas-shunin:kou:2024:kiso:q05:s04",
-      "gas-shunin:kou:2024:kiso:q05:s05"
+      "gas-shunin:kou:2024:kiso:q06:s01",
+      "gas-shunin:kou:2024:kiso:q06:s02",
+      "gas-shunin:kou:2024:kiso:q06:s03",
+      "gas-shunin:kou:2024:kiso:q06:s04",
+      "gas-shunin:kou:2024:kiso:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q5",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 317,
-  "nextPendingTaskId": "T430",
+  "nextPendingPlanSequence": 318,
+  "nextPendingTaskId": "T431",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 618,
-  "pending_questions": 618,
+  "pending": 617,
+  "pending_questions": 617,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -198,8 +204,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 227,
-    "pending": 618
+    "ok": 228,
+    "pending": 617
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T13:23:06+09:00",
-  "activeTaskId": "T430"
+  "updatedAt": "2026-06-25T13:27:25+09:00",
+  "activeTaskId": "T431"
 }
