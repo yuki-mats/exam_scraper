@@ -1,60 +1,54 @@
 {
-  "completed": 341,
-  "completed_questions": 341,
+  "completed": 342,
+  "completed_questions": 342,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 250,
+    "done": 251,
     "hold": 91,
-    "pending": 593
+    "pending": 592
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 335,
+  "kouCompleted": 336,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 77,
+  "kouPending": 76,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "モーターのようなコイル要素を持った負荷を運転する場合は、電圧に比べ電流が遅れた波形になるので、進相コンデンサーを用いて\n力率を0に近づけることが省エネルギー上有効\nである。",
-      "ボランタリークレジット制度とは、省エネ設備の導入や再生可能エネルギーの活用によるCO₂等の排出削減量や、適切な森林管理によるCO₂等の吸収量を、クレジットとして\n国が認証する制度\nである。",
-      "CCS(Carbon dioxide Capture and Storage)とは、発電所や化学工場等から排出されたCO₂を、ほかの気体から分離して集め、地中深くに圧入、貯留するものである。",
-      "グリーントランスフォーメーション(GX)とは、化石燃料をできるだけ使わず、太陽光や水素等の自然環境に負荷の少ないエネルギーを活用していくための変革やその実現に向けた活動のことをいう。",
-      "一般に、LNG冷熱の10〜20%\nは、ガス送出圧力エネルギーとして回収されており、残りの未利用の冷熱エネルギーの活用が工夫されている。"
+      "120",
+      "240",
+      "260",
+      "340",
+      "480"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -88,33 +82,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 336,
-    "publicQuestionId": "fc50a39e093fa458",
+    "planSequence": 337,
+    "publicQuestionId": "2d6f28e79d59f1ff",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:fc50a39e093fa458",
-    "questionBodyText": "環境対策及び省エネルギーに関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 15,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問9",
-    "questionNo": 9,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:2d6f28e79d59f1ff",
+    "questionBodyText": "口径10cm、延長200mの低圧導管において、起点圧力と末端圧力との差が0.4kPaのときのガス流量は120m³/hであった。口径20cm、延長400mの低圧導管において、起点圧力と末端圧力との差が0.1kPaのときのガス流量(m³/h)として、最も近い値はどれか。なお、いずれも同一のガスを流すものとし、高低差は考慮しないものとする。",
+    "questionIndexInFile": 16,
+    "questionIntent": "",
+    "questionLabel": "問10",
+    "questionNo": 10,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q9",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q10",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:fc50a39e093fa458",
+    "reviewId": "2024:question_2024_gassyunin_site_2:2d6f28e79d59f1ff",
     "reviewNotes": "",
-    "reviewQuestionId": "fc50a39e093fa458",
+    "reviewQuestionId": "2d6f28e79d59f1ff",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
+    "sourceCategory": "供給",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -124,8 +118,8 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 9,
-      "subject": "seizo",
+      "questionNo": 10,
+      "subject": "kyokyu",
       "year": 2024
     },
     "sourceNaturalQuestionKey": null,
@@ -133,45 +127,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:seizo:q09",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q10",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:seizo:q09:s01",
-      "gas-shunin:kou:2024:seizo:q09:s02",
-      "gas-shunin:kou:2024:seizo:q09:s03",
-      "gas-shunin:kou:2024:seizo:q09:s04",
-      "gas-shunin:kou:2024:seizo:q09:s05"
+      "gas-shunin:kou:2024:kyokyu:q10:s01",
+      "gas-shunin:kou:2024:kyokyu:q10:s02",
+      "gas-shunin:kou:2024:kyokyu:q10:s03",
+      "gas-shunin:kou:2024:kyokyu:q10:s04",
+      "gas-shunin:kou:2024:kyokyu:q10:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q9",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q10",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q09:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q09:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q09:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q09:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q09:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q10:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +178,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 336,
-  "nextPendingTaskId": "T449",
+  "nextPendingPlanSequence": 337,
+  "nextPendingTaskId": "T450",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 593,
-  "pending_questions": 593,
+  "pending": 592,
+  "pending_questions": 592,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -203,9 +197,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "ok": 250,
+    "ok": 251,
     "hold": 91,
-    "pending": 593
+    "pending": 592
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +221,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T15:29:01+09:00",
-  "activeTaskId": "T449"
+  "updatedAt": "2026-06-25T15:32:27+09:00",
+  "activeTaskId": "T450"
 }
