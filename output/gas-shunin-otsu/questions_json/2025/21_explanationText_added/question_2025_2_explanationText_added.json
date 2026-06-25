@@ -52,18 +52,70 @@
       "2.5"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "不正解。平均流速は v=質量流量/(密度×断面積) で求める。内径0.20mなので断面積 A=πD²/4=π×0.20²/4≈0.0314m²、v=20/(320×0.0314)≈2.0m/s となり、0.5m/sではない。",
+      "不正解。1.0m/sでは質量流量が 320×0.0314×1.0≈10kg/s となり、問題の20kg/sに足りない。",
+      "不正解。1.5m/sでは質量流量が 320×0.0314×1.5≈15kg/s となり、問題の20kg/sより小さい。",
+      "正解。内径20cm=0.20m、断面積 A=πD²/4≈0.0314m²。質量流量 m=ρAv より v=m/(ρA)=20/(320×0.0314)≈1.99m/s なので、最も近い値は2.0m/sである。",
+      "不正解。2.5m/sでは質量流量が 320×0.0314×2.5≈25kg/s となり、問題の20kg/sより大きい。"
+    ],
+    "suggestedQuestions": [
+      "質量流量・密度・断面積・平均流速の関係式は？",
+      "内径20cmの直円管の断面積はどのように求める？",
+      "本問の平均流速はどのように計算する？",
+      "1.5m/sが不正解になる理由は？",
+      "2.5m/sが不正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "質量流量・密度・断面積・平均流速の関係式は？",
+        "answer": "質量流量 m=ρAv を用いる。",
+        "explanation": "密度ρ、断面積A、平均流速vを掛けると単位時間あたりに流れる質量になる。"
+      },
+      {
+        "question": "内径20cmの直円管の断面積はどのように求める？",
+        "answer": "A=πD²/4=π×0.20²/4≈0.0314m²。",
+        "explanation": "円管の断面は円なので、直径Dをmに直して円面積の式に代入する。"
+      },
+      {
+        "question": "本問の平均流速はどのように計算する？",
+        "answer": "v=20/(320×0.0314)≈2.0m/s。",
+        "explanation": "質量流量式 m=ρAv を v=m/(ρA) に変形して、与えられた値を代入する。"
+      },
+      {
+        "question": "1.5m/sが不正解になる理由は？",
+        "answer": "質量流量が約15kg/sとなり、20kg/sに不足するため。",
+        "explanation": "ρAv=320×0.0314×1.5≈15kg/sであり、問題の質量流量20kg/sと一致しない。"
+      },
+      {
+        "question": "2.5m/sが不正解になる理由は？",
+        "answer": "質量流量が約25kg/sとなり、20kg/sより大きいため。",
+        "explanation": "ρAv=320×0.0314×2.5≈25kg/sであり、問題の質量流量20kg/sを超える。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の管内流れと連続の式が本問の関連論点。",
+      "質量流量は m=ρAv で表されるため、平均流速は v=m/(ρA) で求める。",
+      "本問では D=0.20m、A=πD²/4≈0.0314m²、ρ=320kg/m³、m=20kg/sより、v≈2.0m/sとなる。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "0.5m/sでは質量流量が約5kg/sとなり小さすぎる。"
+      ],
+      [
+        "1.0m/sでは質量流量が約10kg/sとなり小さすぎる。"
+      ],
+      [
+        "1.5m/sでは質量流量が約15kg/sとなり小さすぎる。"
+      ],
+      [
+        "v=20/(320×π×0.20²/4)≈2.0m/s。"
+      ],
+      [
+        "2.5m/sでは質量流量が約25kg/sとなり大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
