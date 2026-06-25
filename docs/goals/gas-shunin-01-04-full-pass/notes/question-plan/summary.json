@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T598",
-  "completed": 498,
-  "completed_questions": 498,
-  "done": 383,
+  "activeTaskId": "T599",
+  "completed": 499,
+  "completed_questions": 499,
+  "done": 384,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 383,
+    "done": 384,
     "hold": 115,
-    "pending": 436
+    "pending": 435
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-25T22:37:49Z",
+  "generatedAt": "2026-06-26T07:42:38+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,11 +20,11 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
+      "correctChoiceMatchesExpected": true,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -34,29 +34,29 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "半導体式ガス検知器は、半導体の電導度が雰囲気ガスの吸着によって変化することを利用したものである。",
-      "本支管への浸水による供給支障の際に、管内から採取された水が水道水か否かを判別するため、水道事業者に緊急調査を依頼した。",
-      "低圧導管の管体に腐食孔が発生したので、\n樹脂ライニング系工法\nによる恒久修理を行った。",
-      "中圧導管の管体に発生した亀裂からの漏えいを修理するために、鋼製修理バンド工法を適用した。",
-      "需要家等からのガス漏えい等の通報に対する出動は、その内容に応じて一般出動、緊急出動及び特別出動に区分する。"
+      "ブローホールとは、溶接金属内に残留したガスのため空洞が生じた状態をいう。",
+      "融合不良とは、溶接金属と母材又は溶接金属同士が溶着していない状態をいう。",
+      "スラグ巻込みとは、スラグが溶接金属に残留したものをいう。",
+      "溶込み不良とは、開先の一部がそのまま残った状態をいう。",
+      "クレーター\nとは、表面における溶接金属と母材の境界の凹みをいう。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "間違い",
       "正しい",
       "正しい",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 866,
-    "publicQuestionId": "23126d5753d089ac",
+    "planSequence": 865,
+    "publicQuestionId": "9ad6e87ef8da4548",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:23126d5753d089ac",
-    "questionBodyText": "導管の維持管理に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 23,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:9ad6e87ef8da4548",
+    "questionBodyText": "導管の溶接欠陥に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 22,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問17",
-    "questionNo": 17,
+    "questionLabel": "問16",
+    "questionNo": 16,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q17",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q16",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:23126d5753d089ac",
+    "reviewId": "2024:question_2024_2:9ad6e87ef8da4548",
     "reviewNotes": "",
-    "reviewQuestionId": "23126d5753d089ac",
+    "reviewQuestionId": "9ad6e87ef8da4548",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 17,
+      "questionNo": 16,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q17",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q16",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kyokyu:q17:s01",
-      "gas-shunin:otsu:2024:kyokyu:q17:s02",
-      "gas-shunin:otsu:2024:kyokyu:q17:s03",
-      "gas-shunin:otsu:2024:kyokyu:q17:s04",
-      "gas-shunin:otsu:2024:kyokyu:q17:s05"
+      "gas-shunin:otsu:2024:kyokyu:q16:s01",
+      "gas-shunin:otsu:2024:kyokyu:q16:s02",
+      "gas-shunin:otsu:2024:kyokyu:q16:s03",
+      "gas-shunin:otsu:2024:kyokyu:q16:s04",
+      "gas-shunin:otsu:2024:kyokyu:q16:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q17",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q16",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 866,
-  "nextPendingTaskId": "T598",
-  "otsuCompleted": 86,
-  "otsuDone": 73,
+  "nextPendingPlanSequence": 865,
+  "nextPendingTaskId": "T599",
+  "otsuCompleted": 87,
+  "otsuDone": 74,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 436,
-  "pending": 436,
-  "pending_questions": 436,
+  "otsuPending": 435,
+  "pending": 435,
+  "pending_questions": 435,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
