@@ -1,27 +1,27 @@
 {
-  "completed": 326,
-  "completed_questions": 326,
+  "completed": 244,
+  "completed_questions": 244,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 237,
+    "done": 244,
     "hold": 89,
-    "pending": 608
+    "pending": 601
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 326,
+  "kouCompleted": 238,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 86,
+  "kouPending": 85,
   "nextPending": {
     "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -31,17 +31,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガラス転移温度とは、高分子材料の非晶質部分の分子鎖が回転や振動を始める温度であり、この温度を超えると剛性と粘度が低下し流動性が増す。",
-      "熱硬化性樹脂は、一般に成形は一回しか行えない。",
-      "高分子材料のクリープは常温であっても生じる。",
-      "ポリエチレンの引張強さ(MPa)は、高張力鋼より小さい。",
-      "ポリプロピレンの破断伸び(%)は\n3〜6\n(ASTM規格に基づいた測定値)である。"
+      "LNGの漏えい、流出に伴って発生する白い霧は、可燃性混合気を含むが、着火、爆発等が発生する危険はなく\n安全な領域を示す一つの目安\nである。",
+      "LNG船では、万が一LNGがタンクから漏えいし、低温液体が船体に触れた場合、船体の鋼材が\n低温靭性\nによって損傷することを防ぐため、タンクの外側に防壁を設けている。",
+      "LNGを取り扱う際に\nボーイング\nが起こると、外気熱による温度の上昇により、LNGが膨張しようとするため、内部の圧力が上昇し、フランジ等の弱い部分が破壊されるおそれがある。",
+      "バイオガスは、下水、家畜糞尿、生ごみなどの水分の多い有機物を無酸素状態でメタン発酵することにより発生する。発生するガスの組成はほとんどがメタンと\n窒素\nである。",
+      "密度差の大きい異種LNGを同じ貯槽に入れる場合、貯槽内部において対流が盛んに行われるために、\n液全体が均質な密度分布\nとなる。"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -88,33 +88,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 327,
-    "publicQuestionId": "211e4c2510298123",
+    "planSequence": 328,
+    "publicQuestionId": "b55f464a2ab10d24",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:211e4c2510298123",
-    "questionBodyText": "高分子材料に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 6,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:b55f464a2ab10d24",
+    "questionBodyText": "都市ガスの原料及びその取り扱いに関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 7,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問15",
-    "questionNo": 15,
+    "questionLabel": "問1",
+    "questionNo": 1,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q15",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q1",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:211e4c2510298123",
+    "reviewId": "2024:question_2024_gassyunin_site_2:b55f464a2ab10d24",
     "reviewNotes": "",
-    "reviewQuestionId": "211e4c2510298123",
+    "reviewQuestionId": "b55f464a2ab10d24",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "基礎理論",
+    "sourceCategory": "製造",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -124,8 +124,8 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 15,
-      "subject": "kiso",
+      "questionNo": 1,
+      "subject": "seizo",
       "year": 2024
     },
     "sourceNaturalQuestionKey": null,
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q15",
+    "sourceQuestionKey": "gas-shunin:kou:2024:seizo:q01",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kiso:q15:s01",
-      "gas-shunin:kou:2024:kiso:q15:s02",
-      "gas-shunin:kou:2024:kiso:q15:s03",
-      "gas-shunin:kou:2024:kiso:q15:s04",
-      "gas-shunin:kou:2024:kiso:q15:s05"
+      "gas-shunin:kou:2024:seizo:q01:s01",
+      "gas-shunin:kou:2024:seizo:q01:s02",
+      "gas-shunin:kou:2024:seizo:q01:s03",
+      "gas-shunin:kou:2024:seizo:q01:s04",
+      "gas-shunin:kou:2024:seizo:q01:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q15",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#seizo-q1",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q15:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q01:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q15:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q01:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q15:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q01:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q15:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q01:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q15:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:seizo:q01:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 327,
-  "nextPendingTaskId": "T440",
-  "otsuCompleted": 0,
+  "nextPendingPlanSequence": 328,
+  "nextPendingTaskId": "T441",
+  "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
-  "otsuPending": 522,
-  "pending": 608,
-  "pending_questions": 608,
+  "otsuPending": 516,
+  "pending": 601,
+  "pending_questions": 601,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -203,9 +203,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
+    "ok": 244,
     "hold": 89,
-    "ok": 237,
-    "pending": 608
+    "pending": 601
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T14:35:28+09:00",
-  "activeTaskId": "T440"
+  "updatedAt": "2026-06-25T14:41:20+09:00",
+  "activeTaskId": "T441"
 }
