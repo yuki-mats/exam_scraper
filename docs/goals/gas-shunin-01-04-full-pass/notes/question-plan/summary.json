@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T594",
-  "completed": 494,
-  "completed_questions": 494,
-  "done": 379,
+  "activeTaskId": "T595",
+  "completed": 495,
+  "completed_questions": 495,
+  "done": 380,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 379,
+    "done": 380,
     "hold": 115,
-    "pending": 440
+    "pending": 439
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-25T22:16:00Z",
@@ -24,7 +24,7 @@
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
+      "correctChoiceMatchesExpected": true,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "自己診断機能には、給排気通路の閉そく状態ではファンの風量が少なくなり、ファンモーターに流れる電流値が小さくなる特徴を利用する方法がある。",
-      "燃焼用の空気を屋内からとり、燃焼排ガスを排気筒で屋外に排出する方式のふろがまを\nBF式ふろがま\nという。",
-      "Q機能を搭載した瞬間湯沸器では、冷水サンドイッチ現象を緩和し、安定した湯温を得ることができる。",
-      "元止め式瞬間湯沸器は、湯を使用する場所に取り付けられ、湯沸器の出湯管から直接湯を使う機器である。",
-      "給湯能力が20号の瞬間湯沸器では、10℃から40℃に昇温させたお湯を毎分20L供給\nできる。"
+      "ブンゼンバーナーでは、インプットの高い範囲で燃焼させた場合、一次空気量を上げるとリフティングが発生し、下げると不完全燃焼が発生するという燃焼特性を有する。",
+      "火移り不良は、一部の炎口のつまり等で炎口と炎口の間隔が開きすぎている時にも発生する場合がある。",
+      "イエローチップの炎でガス機器を使用していると、すすが熱交換器等に付着して不完全燃焼の原因となるおそれがある。",
+      "ブンゼンバーナーでは、ガスの組成変化により\nウォッベ指数が小さくなると、不完全燃焼が発生\nするおそれがある。",
+      "ブンゼンバーナーでは、バーナー部分が高温になりそこを通る混合ガスの温度が極端に上昇すると、フラッシュバックが発生する場合がある。"
     ],
     "correctChoiceText": [
       "正しい",
+      "正しい",
+      "正しい",
       "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 870,
-    "publicQuestionId": "a575e345b73548ca",
+    "planSequence": 869,
+    "publicQuestionId": "a227f152a94ed421",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:a575e345b73548ca",
-    "questionBodyText": "家庭用ガス温水機器に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 2,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:a227f152a94ed421",
+    "questionBodyText": "ガスの燃焼に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 1,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問21",
-    "questionNo": 21,
+    "questionLabel": "問20",
+    "questionNo": 20,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q21",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q20",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_3:a575e345b73548ca",
+    "reviewId": "2024:question_2024_3:a227f152a94ed421",
     "reviewNotes": "",
-    "reviewQuestionId": "a575e345b73548ca",
+    "reviewQuestionId": "a227f152a94ed421",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 21,
+      "questionNo": 20,
       "subject": "shohi",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:shohi:q21",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:shohi:q20",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:shohi:q21:s01",
-      "gas-shunin:otsu:2024:shohi:q21:s02",
-      "gas-shunin:otsu:2024:shohi:q21:s03",
-      "gas-shunin:otsu:2024:shohi:q21:s04",
-      "gas-shunin:otsu:2024:shohi:q21:s05"
+      "gas-shunin:otsu:2024:shohi:q20:s01",
+      "gas-shunin:otsu:2024:shohi:q20:s02",
+      "gas-shunin:otsu:2024:shohi:q20:s03",
+      "gas-shunin:otsu:2024:shohi:q20:s04",
+      "gas-shunin:otsu:2024:shohi:q20:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q21",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#shohi-q20",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q21:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q20:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q21:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q20:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q21:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q20:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q21:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q20:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q21:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:shohi:q20:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 870,
-  "nextPendingTaskId": "T594",
-  "otsuCompleted": 82,
-  "otsuDone": 69,
+  "nextPendingPlanSequence": 869,
+  "nextPendingTaskId": "T595",
+  "otsuCompleted": 83,
+  "otsuDone": 70,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 440,
-  "pending": 440,
-  "pending_questions": 440,
+  "otsuPending": 439,
+  "pending": 439,
+  "pending_questions": 439,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934

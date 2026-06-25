@@ -52,25 +52,43 @@
       "給湯能力が20号の瞬間湯沸器では、10℃から40℃に昇温させたお湯を毎分20L供給\nできる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。給排気通路の閉そく状態を診断する自己診断機能には、閉そく時にファンの風量が少なくなり、ファンモーターに流れる電流値が小さくなる特徴を利用する方法がある。",
+      "間違い。燃焼用の空気を屋内から取り、燃焼排ガスを排気筒で屋外に排出する方式のふろがまはCF式ふろがまである。BF式ふろがまとしている点が誤り。",
+      "正しい。Q機能を搭載した瞬間湯沸器では、再出湯時の冷水サンドイッチ現象を緩和し、安定した湯温を得ることができる。",
+      "正しい。元止め式瞬間湯沸器は湯を使用する場所に取り付けられ、湯沸器の出湯管から直接湯を使用する機器である。",
+      "間違い。給湯能力20号は、水温を25℃上昇させたお湯を毎分20L供給できる能力を表す。10℃から40℃への昇温は30℃上昇であり、毎分20L供給できるとしている点が誤り。"
+    ],
+    "suggestedQuestions": [],
+    "suggestedQuestionDetails": [],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+      "家庭用ガス温水機器について、自己診断機能、ふろがま方式、Q機能、元止め式瞬間湯沸器、20号給湯能力の正誤を確認した。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "正しい。給排気通路の閉そく状態を診断する自己診断機能には、閉そく時にファンの風量が少なくなり、ファンモーターに流れる電流値が小さくなる特徴を利用する方法がある。"
+      ],
+      [
+        "間違い。燃焼用の空気を屋内から取り、燃焼排ガスを排気筒で屋外に排出する方式のふろがまはCF式ふろがまである。BF式ふろがまとしている点が誤り。"
+      ],
+      [
+        "正しい。Q機能を搭載した瞬間湯沸器では、再出湯時の冷水サンドイッチ現象を緩和し、安定した湯温を得ることができる。"
+      ],
+      [
+        "正しい。元止め式瞬間湯沸器は湯を使用する場所に取り付けられ、湯沸器の出湯管から直接湯を使用する機器である。"
+      ],
+      [
+        "間違い。給湯能力20号は、水温を25℃上昇させたお湯を毎分20L供給できる能力を表す。10℃から40℃への昇温は30℃上昇であり、毎分20L供給できるとしている点が誤り。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
