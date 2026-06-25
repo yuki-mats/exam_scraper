@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T558",
-  "completed": 458,
-  "completed_questions": 458,
-  "done": 345,
+  "activeTaskId": "T559",
+  "completed": 459,
+  "completed_questions": 459,
+  "done": 346,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 458,
+    "done": 346,
     "hold": 113,
-    "pending": 476
+    "pending": 475
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-25T18:09:32Z",
+  "generatedAt": "2026-06-26T03:36:15+09:00",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,28 +34,28 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "製造設備を安全かつ円滑に運転するため、あらかじめ運転管理基準、運転操作要領等を作成し、それに従って関係者の教育・訓練、日常の監視及び現場パトロール等を実施し、運転状況を適切に管理する。",
-      "レベル2地震動とは、供用期間中に発生する確率の高い地震動であり、それに対する耐震性能評価は、弾性設計法により\n、耐震上重要な部材に生ずる応力が部材の有する許容応力を超えないことを確認する。",
-      "LNG貯槽内のロールオーバー現象の発生を防止するため、貯槽内LNGの高さ方向の密度分布（温度分布）を監視することが必要である。",
-      "エアフィン式LNG気化器の運転管理項目として、LNGや気化ガスの流量、気温、パネルの着氷状態等がある。",
-      "稼働調整方式の一つである\n圧力制御は、設備から流出する流体の圧力を一定に保つ制御方法であり、設備負荷を一定に保つことができる\nが、急激な需要変動に追従できない可能性がある。"
+      "気化装置には、液化ガスが液体のまま気化装置から先へ流出することを防止する\n逆流防止装置が必要である\n。",
+      "ガス工作物のガス又は液化ガスを通ずる部分には、点検や修理時等に可燃物を安全に置換できるように、ガス抜き口や不活性ガスの注入口等を設置しなければならない。",
+      "保安電源として確保する自家発電設備の原動機には、ディーゼル機関やガスタービン等が用いられるが、確実な始動が必要なため、液体燃料とガスの切り替えが可能な\nデュアルフューエル型は使用してはならない\n。",
+      "停電が発生した場合、買電で稼働していたガス製造設備が安全側に移行及び停止していること、保安電源等が正常に作動していることを確認する必要がある。",
+      "保安管理組織を適正に運用するためには、責任権限や相互の意思の疎通、社内手続き等を明確にしておく必要がある。"
     ],
     "correctChoiceText": [
+      "間違い",
       "正しい",
       "間違い",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 914,
-    "publicQuestionId": "ff4acfaca7ea857b",
+    "planSequence": 913,
+    "publicQuestionId": "e4ef8e531fbc435b",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:ff4acfaca7ea857b",
-    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:e4ef8e531fbc435b",
+    "questionBodyText": "製造設備の保安及び防災に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 12,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q7",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:ff4acfaca7ea857b",
+    "reviewId": "2025:question_2025_2:e4ef8e531fbc435b",
     "reviewNotes": "",
-    "reviewQuestionId": "ff4acfaca7ea857b",
+    "reviewQuestionId": "e4ef8e531fbc435b",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "seizo",
       "year": 2025
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:seizo:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:seizo:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:seizo:q07:s01",
-      "gas-shunin:otsu:2025:seizo:q07:s02",
-      "gas-shunin:otsu:2025:seizo:q07:s03",
-      "gas-shunin:otsu:2025:seizo:q07:s04",
-      "gas-shunin:otsu:2025:seizo:q07:s05"
+      "gas-shunin:otsu:2025:seizo:q06:s01",
+      "gas-shunin:otsu:2025:seizo:q06:s02",
+      "gas-shunin:otsu:2025:seizo:q06:s03",
+      "gas-shunin:otsu:2025:seizo:q06:s04",
+      "gas-shunin:otsu:2025:seizo:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q06:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "otsuCompleted": 46,
-  "otsuDone": 35,
+  "otsuCompleted": 47,
+  "otsuDone": 36,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 476,
-  "pending": 476,
-  "pending_questions": 476,
+  "otsuPending": 475,
+  "pending": 475,
+  "pending_questions": 475,
   "total": 934,
   "total_questions": 934,
-  "nextPendingPlanSequence": 914,
-  "nextPendingTaskId": "T558"
+  "nextPendingPlanSequence": 913,
+  "nextPendingTaskId": "T559"
 }
