@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T471",
-  "completed": 363,
-  "completed_questions": 363,
+  "activeTaskId": "T472",
+  "completed": 364,
+  "completed_questions": 364,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 272,
+    "done": 273,
     "hold": 91,
-    "pending": 571
+    "pending": 570
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 357,
+  "kouCompleted": 358,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 55,
+  "kouPending": 54,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,17 +32,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "毎年のガス事故の報告書は、\n当該年の翌年3月末日まで\nに提出しなければならない。",
-      "ガス事故速報は、事故が発生した時から\n48時間以内\n可能な限り速やかに報告しなければならない。",
-      "供給支障事故であって、\n供給支障戸数が20のものは、ガス事故速報及びガス事故詳報の両方を報告しなければならない。",
-      "製造支障事故であって、\n製造支障時間が5時間\nのものは、ガス事故速報及びガス事故詳報の両方を報告しなければならない。",
-      "消費機器から漏えいしたガスに引火することにより、発生した物損事故(消費機器が損傷した事故であって、人が死亡せず、又は負傷しないものに限る。)は、\nガス事故速報及びガス事故詳報の両方を報告\nしなければならない。"
+      "一般ガス導管事業者は、ガスホルダーを有する供給所及び導管を管理する事業場におけるガス主任技術者の選任については、選任に係る事業場に駐在しない者をガス主任技術者に選任し、又はガス主任技術者に2以上の事業場のガス主任技術者を兼ねさせてはならない。ただし、経済産業大臣又は産業保安監督部長の承認を受けた場合には、この限りでない。",
+      "ガス主任技術者免状は、ガス主任技術者試験に合格した者又はその者と同等以上の知識及び技能を有していると経済産業大臣が認定した者でなければ、その交付を受けることができない。",
+      "ガス主任技術者試験は、毎年1回ガス主任技術者免状の種類ごとに、経済産業大臣が行う。",
+      "経済産業大臣は、ガス主任技術者にその職務を行わせることが一般ガス導管事業の用に供するガス工作物の工事、維持及び運用に関する保安に支障を及ぼすと認めるときは、一般ガス導管事業者に対し、ガス主任技術者の解任を命ずることができる。",
+      "経済産業大臣は、ガス事業法の施行に必要な限度において、\n登録ガス工作物検査機関\nに、ガス事業者の営業所、事務所その他の事業場に立ち入り、帳簿、書類その他の物件を検査させることができる。"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -50,9 +50,9 @@
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
       "正しい",
       "間違い"
     ],
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 358,
-    "publicQuestionId": "bf1f4414f56731a4",
+    "planSequence": 359,
+    "publicQuestionId": "270520054cd311ea",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:bf1f4414f56731a4",
-    "questionBodyText": "法令で規定されているガス事故の報告について、誤っているものはいくつあるか。ただし、ロからホのガス事故は、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。",
-    "questionIndexInFile": 4,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:270520054cd311ea",
+    "questionBodyText": "法令で規定されているガス主任技術者と立入検査に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 5,
+    "questionIntent": "select_correct",
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#law-q4",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#law-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_1:bf1f4414f56731a4",
+    "reviewId": "2025:question_2025_gassyunin_site_1:270520054cd311ea",
     "reviewNotes": "",
-    "reviewQuestionId": "bf1f4414f56731a4",
+    "reviewQuestionId": "270520054cd311ea",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 5,
       "subject": "law",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:law:q04",
+    "sourceQuestionKey": "gas-shunin:kou:2025:law:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:law:q04:s01",
-      "gas-shunin:kou:2025:law:q04:s02",
-      "gas-shunin:kou:2025:law:q04:s03",
-      "gas-shunin:kou:2025:law:q04:s04",
-      "gas-shunin:kou:2025:law:q04:s05"
+      "gas-shunin:kou:2025:law:q05:s01",
+      "gas-shunin:kou:2025:law:q05:s02",
+      "gas-shunin:kou:2025:law:q05:s03",
+      "gas-shunin:kou:2025:law:q05:s04",
+      "gas-shunin:kou:2025:law:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#law-q4",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#law-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:law:q04:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:law:q04:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:law:q04:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:law:q04:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:law:q04:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q05:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 358,
-  "nextPendingTaskId": "T471",
+  "nextPendingPlanSequence": 359,
+  "nextPendingTaskId": "T472",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 571,
-  "pending_questions": 571,
+  "pending": 570,
+  "pending_questions": 570,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 91,
-    "ok": 272,
-    "pending": 571
+    "ok": 273,
+    "pending": 570
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T17:35:18+09:00"
+  "updatedAt": "2026-06-25T17:39:20+09:00"
 }
