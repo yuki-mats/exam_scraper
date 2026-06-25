@@ -1,60 +1,54 @@
 {
-  "completed": 313,
-  "completed_questions": 313,
+  "completed": 314,
+  "completed_questions": 314,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 224,
+    "done": 225,
     "hold": 89,
-    "pending": 621
+    "pending": 620
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 313,
+  "kouCompleted": 314,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 99,
+  "kouPending": 98,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "「ガス用品」とは、\n主として一般消費者等がガスを消費する場合に用いられるすべての機械、器具及び材料\n(液化石油ガス器具等を除く。)をいう。",
-      "「特定ガス用品」とは、構造、使用条件、使用状況等からみて特にガスによる災害の発生のおそれが多いと認められるガス用品であって、\n密閉燃焼式のガス瞬間湯沸器等がある\n。",
-      "ガス用品の製造、輸入又は販売の事業を行う者は、経済産業省令で定める技術上の基準に対する適合性についての表示が付されているものでなければ、ガス用品を販売し、又は販売の目的で陳列してはならない。",
-      "「特定工事」とは、特定ガス用品の設置又は\n変更の工事(経済産業省令で定める軽微なものを除く。)をいう。",
-      "液化石油ガス設備士である者は、ガス消費機器設置工事監督者の資格を有する者に該当する。"
+      "5",
+      "10",
+      "15",
+      "20",
+      "50"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "間違い",
-      "正しい"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -88,33 +82,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 310,
-    "publicQuestionId": "a42e5bc2a9c012a5",
+    "planSequence": 315,
+    "publicQuestionId": "7f60b01f36d95283",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:a42e5bc2a9c012a5",
-    "questionBodyText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 14,
-    "questionIntent": "select_correct",
-    "questionLabel": "問14",
-    "questionNo": 14,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:7f60b01f36d95283",
+    "questionBodyText": "温度400Kの高温熱源と温度200Kの低温熱源の間で作動する逆カルノーサイクルの時間あたりの仕事が10kWであった。この逆カルノーサイクルの高温熱源への放熱量(kW)として、最も近い値はどれか。",
+    "questionIndexInFile": 19,
+    "questionIntent": "",
+    "questionLabel": "問3",
+    "questionNo": 3,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q14",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q3",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:a42e5bc2a9c012a5",
+    "reviewId": "2024:question_2024_gassyunin_site_1:7f60b01f36d95283",
     "reviewNotes": "",
-    "reviewQuestionId": "a42e5bc2a9c012a5",
+    "reviewQuestionId": "7f60b01f36d95283",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "法令",
+    "sourceCategory": "基礎理論",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -124,8 +118,8 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 14,
-      "subject": "law",
+      "questionNo": 3,
+      "subject": "kiso",
       "year": 2024
     },
     "sourceNaturalQuestionKey": null,
@@ -133,45 +127,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:law:q14",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q03",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:law:q14:s01",
-      "gas-shunin:kou:2024:law:q14:s02",
-      "gas-shunin:kou:2024:law:q14:s03",
-      "gas-shunin:kou:2024:law:q14:s04",
-      "gas-shunin:kou:2024:law:q14:s05"
+      "gas-shunin:kou:2024:kiso:q03:s01",
+      "gas-shunin:kou:2024:kiso:q03:s02",
+      "gas-shunin:kou:2024:kiso:q03:s03",
+      "gas-shunin:kou:2024:kiso:q03:s04",
+      "gas-shunin:kou:2024:kiso:q03:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q14",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q3",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q03:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q03:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q03:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q03:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q03:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +178,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 314,
-  "nextPendingTaskId": "T427",
+  "nextPendingPlanSequence": 315,
+  "nextPendingTaskId": "T428",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 621,
-  "pending_questions": 621,
+  "pending": 620,
+  "pending_questions": 620,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -204,8 +198,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 224,
-    "pending": 621
+    "ok": 225,
+    "pending": 620
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +221,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T12:17:50+09:00",
-  "activeTaskId": "T427"
+  "updatedAt": "2026-06-25T13:12:56+09:00",
+  "activeTaskId": "T428"
 }
