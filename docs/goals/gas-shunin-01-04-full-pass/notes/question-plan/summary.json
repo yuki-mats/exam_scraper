@@ -1,27 +1,27 @@
 {
-  "completed": 305,
-  "completed_questions": 305,
+  "completed": 306,
+  "completed_questions": 306,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 221,
-    "hold": 84,
-    "pending": 629
+    "hold": 85,
+    "pending": 628
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
-  "held_questions": 84,
-  "hold": 84,
-  "hold_questions": 84,
-  "kouCompleted": 305,
-  "kouHeld": 84,
-  "kouHold": 84,
-  "kouPending": 107,
+  "held_questions": 85,
+  "hold": 85,
+  "hold_questions": 85,
+  "kouCompleted": 306,
+  "kouHeld": 85,
+  "kouHold": 85,
+  "kouPending": 106,
   "nextPending": {
     "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -31,18 +31,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "製造設備(ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。)には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合にガス又は液化ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。",
-      "移動式ガス発生設備には、使用中に生じた異常による\n災害の発生を防止するため、その異常が発生\nした場合に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理することができる装置を設けなければならない。",
-      "移動式ガス発生設備は、ガス又は液化ガス(不活性のものを除く。)が漏えいした場合の火災等の発生を防止するため、\n適切な場所に設置し、容易に\n腐食又は転倒しないように適切な措置が講じられていなければならない。",
-      "移動式ガス発生設備の容器又は容器の設置場所には、\n容器内の圧力が異常に低下しないよう\n適切な温度に維持できる適切な措置を講じなければならない。",
-      "容器に附属する気化装置内においてガスを発生させる特定ガス発生設備であって当該気化装置を電源によって操作するものは、自家発電機その他の\n操作用電源が停止した際にガス\nの供給を遮断するための装置を設けなければならない。"
+      "水のたまるおそれのある導管には、\n適切な勾配を設けなければならない\n。",
+      "道路に埋設される本支管(最高使用圧力が\n10kPa以上のポリエチレン管に限る\n。)には、掘削等による損傷を防止するための適切な措置を講じなければならない。",
+      "ガスの使用場所である地下室等にガスを供給する導管には、\nその地下室等から十分離れた\n適切な場所に、危急の場合に当該地下室等へのガスの供給を地上から速やかに遮断することができる適切な装置を設けなければならない。",
+      "ガスメーターは、ガスが流入している状態において、\n異常なガス圧力の上昇を検知した場合に、ガスを速やかに遮断する機能\nを有するものでなければならない。",
+      "ガスメーターは、ガスが流入している状態において、災害の発生するおそれのある大きさの地震動を検知した場合に、ガスを速やかに遮断する機能を有するものでなければならない。ただし、一の団地内における供給地点の数が300未満の団地であって、当該団地にガスを供給する特定製造所に、250ガルを超える地震動を継続して検知したときに、当該団地に対するガスの供給を速やかに遮断する設備を設置した場合は、この限りでない。"
     ],
     "correctChoiceText": [
-      "正しい",
       "間違い",
       "間違い",
       "間違い",
-      "間違い"
+      "間違い",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -88,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 306,
-    "publicQuestionId": "db637cee87824d57",
+    "planSequence": 307,
+    "publicQuestionId": "2401c6d4fa7111a5",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:db637cee87824d57",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:2401c6d4fa7111a5",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。ただし、ニ及びホのガスメーターは、ガス事業者がガスの使用者との取引のために使用するものであり、使用最大流量が毎時16m³以下、使用最大圧力が4kPa以下及び口径250mm以下のものとする。",
+    "questionIndexInFile": 11,
     "questionIntent": "select_correct",
-    "questionLabel": "問10",
-    "questionNo": 10,
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q10",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:db637cee87824d57",
+    "reviewId": "2024:question_2024_gassyunin_site_1:2401c6d4fa7111a5",
     "reviewNotes": "",
-    "reviewQuestionId": "db637cee87824d57",
+    "reviewQuestionId": "2401c6d4fa7111a5",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 10,
+      "questionNo": 11,
       "subject": "law",
       "year": 2024
     },
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:law:q10",
+    "sourceQuestionKey": "gas-shunin:kou:2024:law:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:law:q10:s01",
-      "gas-shunin:kou:2024:law:q10:s02",
-      "gas-shunin:kou:2024:law:q10:s03",
-      "gas-shunin:kou:2024:law:q10:s04",
-      "gas-shunin:kou:2024:law:q10:s05"
+      "gas-shunin:kou:2024:law:q11:s01",
+      "gas-shunin:kou:2024:law:q11:s02",
+      "gas-shunin:kou:2024:law:q11:s03",
+      "gas-shunin:kou:2024:law:q11:s04",
+      "gas-shunin:kou:2024:law:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q10",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q11:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 306,
-  "nextPendingTaskId": "T419",
+  "nextPendingPlanSequence": 307,
+  "nextPendingTaskId": "T420",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 629,
-  "pending_questions": 629,
+  "pending": 628,
+  "pending_questions": 628,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -204,8 +204,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "ok": 221,
-    "hold": 84,
-    "pending": 629
+    "hold": 85,
+    "pending": 628
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,5 +227,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T12:13:03+09:00"
+  "updatedAt": "2026-06-25T12:17:50+09:00"
 }
