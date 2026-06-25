@@ -29679,11 +29679,9 @@ tasks:
           status: pass
         - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
           status: pass
-        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.9/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
-          status: pass
         - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2025 output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
           status: pass
-      summary: "T553 completed 01-04 for gas-shunin-otsu 2025 supply q12; answer_result_text=正解は 2 です。 matches the manually reviewed vector [間違い, 正しい, 間違い, 間違い, 間違い], and active category chiefgasengineerlicense-B-2000 was linked."
+      summary: "T553 completed 01-04 for gas-shunin-otsu 2025 supply q12; answer_result_text=正解は 2 です。 matches the manually reviewed true_false vector [間違い, 正しい, 間違い, 間違い, 間違い], and active category chiefgasengineerlicense-B-2000 was linked."
       evidence:
         - "planSequence=919"
         - "reviewId=2025:question_2025_2:3746645048eafc91"
@@ -29691,7 +29689,7 @@ tasks:
         - "correctChoiceText=[間違い, 正しい, 間違い, 間違い, 間違い]"
         - "questionSetId=chiefgasengineerlicense-B-2000"
         - "乙種 reviewDecisionCounts={hold:4, ok:24, pending:494}"
-        - "使用最大流量16m³/h以下のガスメーターは10年、30日連続流量の警報表示は正しい、故障名は器差異常/不通/脈動と確認。"
+        - "使用最大流量16m3/hの検定有効期間は10年、30日連続流量のガス漏れ警報は正しい、故障名称は器差不良・不通・あおりと確認。"
 
   - id: T554
     type: worker
