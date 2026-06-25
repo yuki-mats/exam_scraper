@@ -1,23 +1,23 @@
 {
-  "completed": 315,
-  "completed_questions": 315,
+  "completed": 316,
+  "completed_questions": 316,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 226,
+    "done": 227,
     "hold": 89,
-    "pending": 619
+    "pending": 618
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 315,
+  "kouCompleted": 316,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 97,
+  "kouPending": 96,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,18 +31,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.60",
-      "0.80",
-      "1.1",
-      "1.3",
-      "1.7"
+      "180",
+      "210",
+      "240",
+      "360",
+      "480"
     ],
     "correctChoiceText": [
       "不正解",
       "不正解",
       "不正解",
-      "不正解",
-      "正解"
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -82,28 +82,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 316,
-    "publicQuestionId": "432c71c596363c74",
+    "planSequence": 317,
+    "publicQuestionId": "d2358c6ec9cf0811",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:432c71c596363c74",
-    "questionBodyText": "都市ガスを燃焼させて、1000m³、10℃の空気を圧力一定のもと55℃まで暖めたい。熱効率を80%とした場合、必要な都市ガスの体積(m³)として最も近い値はどれか。ただし、体積は標準状態(0℃、101325Pa)における体積とし、空気の定圧モル熱容量を30J/(mol K)、都市ガスの発熱量を45MJ/m³とする。",
-    "questionIndexInFile": 20,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:d2358c6ec9cf0811",
+    "questionBodyText": "一次反応において、反応物が初期濃度から50%反応するのに120秒を要した。この反応において、初期濃度から87.5%反応するのに要する時間(秒)として、最も近い値はどれか。",
+    "questionIndexInFile": 21,
     "questionIntent": "",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q4",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:432c71c596363c74",
+    "reviewId": "2024:question_2024_gassyunin_site_1:d2358c6ec9cf0811",
     "reviewNotes": "",
-    "reviewQuestionId": "432c71c596363c74",
+    "reviewQuestionId": "d2358c6ec9cf0811",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +118,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 5,
       "subject": "kiso",
       "year": 2024
     },
@@ -127,45 +127,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q04",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kiso:q04:s01",
-      "gas-shunin:kou:2024:kiso:q04:s02",
-      "gas-shunin:kou:2024:kiso:q04:s03",
-      "gas-shunin:kou:2024:kiso:q04:s04",
-      "gas-shunin:kou:2024:kiso:q04:s05"
+      "gas-shunin:kou:2024:kiso:q05:s01",
+      "gas-shunin:kou:2024:kiso:q05:s02",
+      "gas-shunin:kou:2024:kiso:q05:s03",
+      "gas-shunin:kou:2024:kiso:q05:s04",
+      "gas-shunin:kou:2024:kiso:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q4",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q04:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q04:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q04:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q04:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q04:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q05:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +178,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 316,
-  "nextPendingTaskId": "T429",
+  "nextPendingPlanSequence": 317,
+  "nextPendingTaskId": "T430",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 619,
-  "pending_questions": 619,
+  "pending": 618,
+  "pending_questions": 618,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -198,8 +198,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 226,
-    "pending": 619
+    "ok": 227,
+    "pending": 618
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +221,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T13:18:31+09:00",
-  "activeTaskId": "T429"
+  "updatedAt": "2026-06-25T13:23:06+09:00",
+  "activeTaskId": "T430"
 }
