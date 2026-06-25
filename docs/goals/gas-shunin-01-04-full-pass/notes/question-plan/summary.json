@@ -1,27 +1,27 @@
 {
-  "completed": 304,
-  "completed_questions": 304,
+  "completed": 305,
+  "completed_questions": 305,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 221,
-    "hold": 83,
-    "pending": 630
+    "hold": 84,
+    "pending": 629
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
-  "held_questions": 83,
-  "hold": 83,
-  "hold_questions": 83,
-  "kouCompleted": 304,
-  "kouHeld": 83,
-  "kouHold": 83,
-  "kouPending": 108,
+  "held_questions": 84,
+  "hold": 84,
+  "hold_questions": 84,
+  "kouCompleted": 305,
+  "kouHeld": 84,
+  "kouHold": 84,
+  "kouPending": 107,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
+      "correctChoiceMatchesExpected": true,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -31,18 +31,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "液化ガスを通ずるガス発生設備のうち、過圧が生ずるおそれのあるものには、その\n圧力を逃すために適切なインターロック機構を設けなければならない\n。",
-      "製造設備(特定ガス発生設備を除く。)の運転を継続させるのに必要な装置その他の製造所及び供給所の保安上重要な設備には、\n停電等により当該設備の機能\nが失われることのないよう適切な措置を講じなければならない。",
-      "ガスホルダーであって、凝縮液により機能の低下又は損傷のおそれがあるものには、ガスホルダーの凝縮液を抜く装置を設けなければならない。",
-      "液化ガス用貯槽(不活性の液化ガス用のものを除く。)又はこれらの付近には、その\n外部から見やすいようにガス小売事業者の名称及び連絡先の表示\nをしなければならない。",
-      "液化ガス用貯槽(不活性の液化ガス用のものを除く。)の防液堤の外面から防災作業のために必要な距離の内側には、液化ガスの漏えい又は火災等の拡大を防止する上で支障のない設備以外の設備を設置してはならない。"
+      "製造設備(ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。)には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合にガス又は液化ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。",
+      "移動式ガス発生設備には、使用中に生じた異常による\n災害の発生を防止するため、その異常が発生\nした場合に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理することができる装置を設けなければならない。",
+      "移動式ガス発生設備は、ガス又は液化ガス(不活性のものを除く。)が漏えいした場合の火災等の発生を防止するため、\n適切な場所に設置し、容易に\n腐食又は転倒しないように適切な措置が講じられていなければならない。",
+      "移動式ガス発生設備の容器又は容器の設置場所には、\n容器内の圧力が異常に低下しないよう\n適切な温度に維持できる適切な措置を講じなければならない。",
+      "容器に附属する気化装置内においてガスを発生させる特定ガス発生設備であって当該気化装置を電源によって操作するものは、自家発電機その他の\n操作用電源が停止した際にガス\nの供給を遮断するための装置を設けなければならない。"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -50,10 +50,10 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "正しい",
       "間違い",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -88,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 305,
-    "publicQuestionId": "fd9364f45fe29acc",
+    "planSequence": 306,
+    "publicQuestionId": "db637cee87824d57",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:fd9364f45fe29acc",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 9,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問9",
-    "questionNo": 9,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:db637cee87824d57",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 10,
+    "questionIntent": "select_correct",
+    "questionLabel": "問10",
+    "questionNo": 10,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q9",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q10",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:fd9364f45fe29acc",
+    "reviewId": "2024:question_2024_gassyunin_site_1:db637cee87824d57",
     "reviewNotes": "",
-    "reviewQuestionId": "fd9364f45fe29acc",
+    "reviewQuestionId": "db637cee87824d57",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 9,
+      "questionNo": 10,
       "subject": "law",
       "year": 2024
     },
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:law:q09",
+    "sourceQuestionKey": "gas-shunin:kou:2024:law:q10",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:law:q09:s01",
-      "gas-shunin:kou:2024:law:q09:s02",
-      "gas-shunin:kou:2024:law:q09:s03",
-      "gas-shunin:kou:2024:law:q09:s04",
-      "gas-shunin:kou:2024:law:q09:s05"
+      "gas-shunin:kou:2024:law:q10:s01",
+      "gas-shunin:kou:2024:law:q10:s02",
+      "gas-shunin:kou:2024:law:q10:s03",
+      "gas-shunin:kou:2024:law:q10:s04",
+      "gas-shunin:kou:2024:law:q10:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q9",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q10",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q09:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q09:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q09:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q09:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q09:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q10:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 305,
-  "nextPendingTaskId": "T418",
+  "nextPendingPlanSequence": 306,
+  "nextPendingTaskId": "T419",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 630,
-  "pending_questions": 630,
+  "pending": 629,
+  "pending_questions": 629,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -204,8 +204,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "ok": 221,
-    "hold": 83,
-    "pending": 630
+    "hold": 84,
+    "pending": 629
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,5 +227,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T11:53:10+09:00"
+  "updatedAt": "2026-06-25T12:13:03+09:00"
 }
