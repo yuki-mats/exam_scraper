@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T549",
-  "completed": 449,
-  "completed_questions": 449,
-  "done": 336,
+  "activeTaskId": "T550",
+  "completed": 450,
+  "completed_questions": 450,
+  "done": 337,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 336,
+    "done": 337,
     "hold": 113,
-    "pending": 485
+    "pending": 484
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-25T14:33:30Z",
@@ -20,11 +20,11 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "被覆アーク溶接棒の心線は\n、大気中に放置すると水分を吸収し、ブローホール等の欠陥の原因となる。",
-      "放射線透過試験において、フィルムで露光すると、きずのある部分は健全部より濃度が濃くなる。",
-      "融合不良とは、溶接金属と母材又は溶接金属同士が溶着していない状態をいう。",
-      "スラグ巻込みとは、スラグが溶接金属に残留したものをいう。",
-      "アンダーカットとは、表面における溶接金属と母材の境界の凹みをいう。"
+      "ポリエチレン管を屋外に保管する際に、紫外線による管材の劣化を防止するため、シートで覆った。",
+      "ポリエチレン管の\nエレクトロフュージョン(EF)接合には、バット融着、ソケット融着、サドル融着の3種類がある\n。",
+      "ポリエチレン管は、\n口径にかかわらずスクイズオフ工具\nによりガス遮断を行うことができる。",
+      "屋内の露出部に被覆鋼管を用いる場合、管材料の使用温度範囲を超える熱の影響を受けるおそれのある場所に配管してはならない。",
+      "フレキ管で配管する際に、管が釘打ち等によって損傷するおそれがある場所に、\nゴムシートを巻いて防護した\n。"
     ],
     "correctChoiceText": [
+      "正しい",
+      "間違い",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -54,9 +54,9 @@
     "expectedCorrectChoiceText": [
       "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 923,
-    "publicQuestionId": "42393caf853a3f2c",
+    "planSequence": 922,
+    "publicQuestionId": "6472a4ae655d7828",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:42393caf853a3f2c",
-    "questionBodyText": "溶接と非破壊検査に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 22,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問16",
-    "questionNo": 16,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6472a4ae655d7828",
+    "questionBodyText": "導管の工事に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 21,
+    "questionIntent": "select_correct",
+    "questionLabel": "問15",
+    "questionNo": 15,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q16",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q15",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:42393caf853a3f2c",
+    "reviewId": "2025:question_2025_2:6472a4ae655d7828",
     "reviewNotes": "",
-    "reviewQuestionId": "42393caf853a3f2c",
+    "reviewQuestionId": "6472a4ae655d7828",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 16,
+      "questionNo": 15,
       "subject": "kyokyu",
       "year": 2025
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q16",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q15",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kyokyu:q16:s01",
-      "gas-shunin:otsu:2025:kyokyu:q16:s02",
-      "gas-shunin:otsu:2025:kyokyu:q16:s03",
-      "gas-shunin:otsu:2025:kyokyu:q16:s04",
-      "gas-shunin:otsu:2025:kyokyu:q16:s05"
+      "gas-shunin:otsu:2025:kyokyu:q15:s01",
+      "gas-shunin:otsu:2025:kyokyu:q15:s02",
+      "gas-shunin:otsu:2025:kyokyu:q15:s03",
+      "gas-shunin:otsu:2025:kyokyu:q15:s04",
+      "gas-shunin:otsu:2025:kyokyu:q15:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q16",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q15",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q16:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q15:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q16:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q15:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q16:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q15:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q16:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q15:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q16:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q15:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 923,
-  "nextPendingTaskId": "T549",
-  "otsuCompleted": 37,
-  "otsuDone": 26,
+  "nextPendingPlanSequence": 922,
+  "nextPendingTaskId": "T550",
+  "otsuCompleted": 38,
+  "otsuDone": 27,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 485,
-  "pending": 485,
-  "pending_questions": 485,
+  "otsuPending": 484,
+  "pending": 484,
+  "pending_questions": 484,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -208,8 +208,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 113,
-    "ok": 336,
-    "pending": 485
+    "ok": 337,
+    "pending": 484
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -231,5 +231,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-26T02:20:38+09:00"
+  "updatedAt": "2026-06-26T02:31:46+09:00"
 }
