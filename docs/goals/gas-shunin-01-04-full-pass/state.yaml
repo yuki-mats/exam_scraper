@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 306
-  pending_questions: 628
-  held_questions: 85
+  completed_questions: 307
+  pending_questions: 627
+  held_questions: 86
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T420
+active_task: T421
 tasks:
   - id: T001
     type: pm
@@ -20970,9 +20970,58 @@ tasks:
   - id: T420
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=307（gas-shunin-kou 2024 法令 問11）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    receipt:
+      result: done
+      summary: "planSequence=307（gas-shunin-kou 2024 法令 問11）を目視確認。questionIntent=select_correct、correctChoiceTextはchoice5のみ正しい。01〜03はok。statement-level categoriesが混在するため04/reviewDecision/executionStatusはhold。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.9/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=none; site-only publicQuestionId=2401c6d4fa7111a5."
+        - "00_source body/choices preserved; no Firestore doc IDs are overwritten for this site question."
+        - "answer_result_text=正解は 1 です。; choice 5 is 正しい and choices 1-4 are 間違い."
+        - "expectedCorrectChoiceText corrected to match verified statement-level correctChoiceText."
+        - "questionIntent=select_correct because the prompt asks how many statements are correct."
+        - "04 held because statement-level categories are mixed: A-10-430, A-10-510, A-10-270, and gas meter shutoff function category remains problem-level unresolved."
+
+  - id: T421
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=308（gas-shunin-kou 2024 法令 問12）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
