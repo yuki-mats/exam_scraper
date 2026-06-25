@@ -1,61 +1,55 @@
 {
-  "activeTaskId": "T493",
-  "completed": 377,
-  "completed_questions": 385,
+  "activeTaskId": "T494",
+  "completed": 378,
+  "completed_questions": 386,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 285,
+    "done": 286,
     "hold": 100,
-    "pending": 549
+    "pending": 548
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 100,
   "hold": 100,
   "hold_questions": 100,
-  "kouCompleted": 379,
+  "kouCompleted": 380,
   "kouHeld": 100,
   "kouHold": 100,
-  "kouPending": 33,
+  "kouPending": 32,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "常温常圧における水と空気の流体としての特性を比べると、粘度は水の方が大きいが、動粘度は空気の方が大きい。",
-      "流体における連続の式は、質量保存の法則より導かれる。",
-      "オリフィスメーターは、測定に現れた圧力差の大部分が下流において回復されずに損失となる。",
-      "ベンチュリメーターは、測定に現れた圧力差の大部分が下流において回復する。",
-      "管路内で、急激に流れの方向を変化させる部分をエルボといい、ゆるやかに流れが曲がる部分をベンドという。"
+      "25.0",
+      "32.5",
+      "38.5",
+      "42.5",
+      "47.5"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -89,28 +83,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 380,
-    "publicQuestionId": "b9574ed6de478e60",
+    "planSequence": 381,
+    "publicQuestionId": "87e96a07f7e35ea9",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:b9574ed6de478e60",
-    "questionBodyText": "流体に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 1,
-    "questionIntent": "select_correct",
-    "questionLabel": "問10",
-    "questionNo": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:87e96a07f7e35ea9",
+    "questionBodyText": "直円管の一端を円錐状に絞り、内径が元の直円管の1/2である別の直円管を下流につなげて水を流した。上流の管内では、圧力が40kPa、平均流速が1m/sであったとき、下流の管内での圧力(kPa)として、最も近い値はどれか。ただし、水は非圧縮性かつ非粘性の流体として扱い、その密度は1000kg/m³とする。",
+    "questionIndexInFile": 2,
+    "questionIntent": "",
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q10",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:b9574ed6de478e60",
+    "reviewId": "2025:question_2025_gassyunin_site_2:87e96a07f7e35ea9",
     "reviewNotes": "",
-    "reviewQuestionId": "b9574ed6de478e60",
+    "reviewQuestionId": "87e96a07f7e35ea9",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +119,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 10,
+      "questionNo": 11,
       "subject": "kiso",
       "year": 2025
     },
@@ -134,45 +128,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q10",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kiso:q10:s01",
-      "gas-shunin:kou:2025:kiso:q10:s02",
-      "gas-shunin:kou:2025:kiso:q10:s03",
-      "gas-shunin:kou:2025:kiso:q10:s04",
-      "gas-shunin:kou:2025:kiso:q10:s05"
+      "gas-shunin:kou:2025:kiso:q11:s01",
+      "gas-shunin:kou:2025:kiso:q11:s02",
+      "gas-shunin:kou:2025:kiso:q11:s03",
+      "gas-shunin:kou:2025:kiso:q11:s04",
+      "gas-shunin:kou:2025:kiso:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q10",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +179,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 380,
-  "nextPendingTaskId": "T493",
+  "nextPendingPlanSequence": 381,
+  "nextPendingTaskId": "T494",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 557,
-  "pending_questions": 549,
+  "pending": 556,
+  "pending_questions": 548,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +199,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 100,
-    "ok": 279,
-    "pending": 33
+    "ok": 280,
+    "pending": 32
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +222,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T19:44:38+09:00"
+  "updatedAt": "2026-06-25T19:48:52+09:00"
 }
