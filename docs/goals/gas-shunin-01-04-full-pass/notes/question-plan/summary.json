@@ -1,28 +1,28 @@
 {
-  "activeTaskId": "T523",
-  "completed": 423,
-  "completed_questions": 423,
+  "activeTaskId": "T524",
+  "completed": 424,
+  "completed_questions": 424,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 314,
+    "done": 315,
     "hold": 109,
-    "pending": 511
+    "pending": 510
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 109,
   "hold": 109,
   "hold_questions": 109,
-  "kouCompleted": 409,
+  "kouCompleted": 410,
   "kouHeld": 102,
   "kouHold": 102,
-  "kouPending": 3,
+  "kouPending": 2,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
+      "correctChoiceMatchesExpected": true,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -32,17 +32,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "開放式機器は、燃焼用の空気を屋内から取り、燃焼排ガスを屋内へ排出する。",
-      "自然排気式(CF式)ふろがまの排気筒は、横引き部分をなるべく短くし、屋外に向かって\n先下がり勾配とする\n。",
-      "強制排気式(FE式)機器を設置する室には、給気口又は開口部は\n不要\nである。",
-      "強制給排気式(FF式)機器は、給排気筒を延長できるため、機器本体が外壁に面している必要はない。",
-      "屋外式(RF式)機器は、給排気を全て屋外で行うため\n保安上優れており、屋外であれば制約なく設置できる\n。"
+      "ガス機器の安全装置は、機器が不安全側の条件にあるとき安全に停止し、不安全条件を取り除かない限り再起動しない、フェイルセーフの思想で構成されている。",
+      "立ち消え安全装置には、\nサーミスター式\nとフレームロッド式がある。",
+      "不完全燃焼防止装置は、現在販売されている\n全ての家庭用ガス機器に搭載されている\n。",
+      "FF暖房機の排気筒外れ検知装置は、排気筒が外れた場合に排気筒接続部の\nマイクロスイッチがOFFとなることを検知\nして、自動的に停止する。",
+      "現在販売されている開放式小型湯沸器には、機器の使用が10万回を超えると\n機器を強制停止するタイムスタンプ機能\nが搭載されている。"
     ],
     "correctChoiceText": [
       "正しい",
       "間違い",
       "間違い",
-      "正しい",
+      "間違い",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -50,8 +50,8 @@
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "間違い",
       "正しい",
+      "間違い",
       "間違い",
       "間違い",
       "間違い"
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 410,
-    "publicQuestionId": "232faed18eb90bc1",
+    "planSequence": 411,
+    "publicQuestionId": "851ce6e11c7168a8",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:232faed18eb90bc1",
-    "questionBodyText": "ガス機器の給排気に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 6,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:851ce6e11c7168a8",
+    "questionBodyText": "ガス機器の安全装置及び安全機能に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 7,
     "questionIntent": "select_correct",
-    "questionLabel": "問25",
-    "questionNo": 25,
+    "questionLabel": "問26",
+    "questionNo": 26,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q25",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q26",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_3:232faed18eb90bc1",
+    "reviewId": "2025:question_2025_gassyunin_site_3:851ce6e11c7168a8",
     "reviewNotes": "",
-    "reviewQuestionId": "232faed18eb90bc1",
+    "reviewQuestionId": "851ce6e11c7168a8",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 25,
+      "questionNo": 26,
       "subject": "shohi",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q25",
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q26",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:shohi:q25:s01",
-      "gas-shunin:kou:2025:shohi:q25:s02",
-      "gas-shunin:kou:2025:shohi:q25:s03",
-      "gas-shunin:kou:2025:shohi:q25:s04",
-      "gas-shunin:kou:2025:shohi:q25:s05"
+      "gas-shunin:kou:2025:shohi:q26:s01",
+      "gas-shunin:kou:2025:shohi:q26:s02",
+      "gas-shunin:kou:2025:shohi:q26:s03",
+      "gas-shunin:kou:2025:shohi:q26:s04",
+      "gas-shunin:kou:2025:shohi:q26:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q25",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q26",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q26:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q26:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q26:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q26:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q26:s05",
         "statementNo": 5
       }
     ],
@@ -191,8 +191,8 @@
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
-  "pending": 511,
-  "pending_questions": 511,
+  "pending": 510,
+  "pending_questions": 510,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
