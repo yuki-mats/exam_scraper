@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 284
-  pending_questions: 649
+  completed_questions: 286
+  pending_questions: 648
   held_questions: 80
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T399
+active_task: T400
 tasks:
   - id: T001
     type: pm
@@ -19708,15 +19708,9 @@ tasks:
   - id: T399
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=286（gas-shunin-kou 2023 基礎理論 問15、5肢セット）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
-    inputs:
-      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
-      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
-      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
-      - "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json"
-      - "output/gas-shunin-kou/category/category.json"
     allowed_files:
       - "output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_2_questionType_fixed.json"
       - "output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_2_correctChoiceText_fixed.json"
@@ -19727,11 +19721,65 @@ tasks:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
       - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    receipt:
+      result: done
+      decision: ok
+      summary: "gas-shunin-kou 2023 基礎理論 問15は、sourceConflictStatus=needs_source_reviewのためledger e3784db705c28affを確認し、Firestoreのα鉄/γ鉄本文と既存doc IDを保持。questionType=true_false、questionIntent=select_incorrect、answer_result_text=正解は 5 です。を確定。選択肢5は遅れ割れが組織が硬いほど・水素量が多いほど発生しやすい点から誤り。questionSetIdはsource questionSetIdList/Firestore snapshot/category.jsonのchiefgasengineerlicense-A-1006（材料力学・材料（甲種））で確定。00_source本文・選択肢と既存Firestore doc IDは保持。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_2_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json --patch output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_2_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json --patch output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_2_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json --patch output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=needs_source_review for gas-shunin:kou:2023:kiso:q15"
+        - "conflict ledger e3784db705c28aff: statement 2 Firestore=α鉄/γ鉄, archived site=鉄; resolutionPolicy=preserve_firestore_until_pdf_or_source_review"
+        - "JIA current answer page lists only R6/R7 PDFs; direct R5 PDF URL pattern returned 404, so no source body/choice rewrite was attempted"
+        - "Firestore snapshot correctChoiceText=正しい,正しい,正しい,正しい,間違い"
+        - "source questionSetIdList=chiefgasengineerlicense-A-1006 and all Firestore statement questionSetId=chiefgasengineerlicense-A-1006"
+        - "category.json questionSetId=chiefgasengineerlicense-A-1006 name=材料力学・材料（甲種）"
+
+  - id: T400
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=287（gas-shunin-kou 2023 基礎理論 問2）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json"
+      - "output/gas-shunin-kou/category/category.json"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_3_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_3_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_3_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
     verify:
       - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
-      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json --patch output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_2_questionType_fixed.json"
-      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json --patch output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_2_correctChoiceText_fixed.json --require-full"
-      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json --patch output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json --patch output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json --patch output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_3.json --patch output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_3_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
       - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
     stop_if:
       - "00_source の本文・選択肢を直したくなる。"
