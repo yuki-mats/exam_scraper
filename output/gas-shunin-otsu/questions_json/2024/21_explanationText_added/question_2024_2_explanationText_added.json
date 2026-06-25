@@ -607,10 +607,63 @@
       "整圧器を並列に設置している場合、予備整圧器を分解点検したときは、点検完了後に常用整圧器を停止し、予備整圧器が正常に作動することを確認する。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。アキシャルフロー式（軸流式）整圧器では、パイロット部のスプリング力を調整することで二次圧力の設定を行う。",
+      "正しい。パイロット式整圧器は、作動に必要な一次圧力と二次圧力の差圧が確保されないと、パイロットやメインバルブを正常に作動させることができない。",
+      "間違い。大規模地区整圧器として使用する場合は、オフセット及びロックアップが小さい静特性の優れた整圧器を選定する。これを動特性の優れた整圧器としている点が誤りである。",
+      "正しい。ハウスレギュレーターは、一般に不純物を除去する機能と、二次圧力の異常上昇を防止する機能を一体化した構造で用いられる。",
+      "正しい。整圧器を並列に設置している場合、予備整圧器の分解点検後には常用整圧器を停止して、予備整圧器が正常に作動することを確認する。"
+    ],
+    "suggestedQuestions": [
+      {
+        "question": "アキシャルフロー式整圧器の二次圧力設定は何で調整するか。",
+        "answer": "パイロットスプリングで調整する。"
+      },
+      {
+        "question": "パイロット式整圧器は作動に必要な差圧が不足しても作動できるか。",
+        "answer": "いいえ。一次圧力と二次圧力の差圧が一定以上確保されないと作動できなくなる。"
+      },
+      {
+        "question": "大規模地区整圧器で特に重視される小さいオフセット・ロックアップは何特性か。",
+        "answer": "静特性である。動特性としている記述は誤り。"
+      },
+      {
+        "question": "ハウスレギュレーターは不純物除去装置と圧力上昇防止装置を一体化しているか。",
+        "answer": "はい。一般にこれらを一体化している。"
+      },
+      {
+        "question": "予備整圧器の分解点検後は正常作動を確認する必要があるか。",
+        "answer": "はい。常用整圧器を停止し、予備整圧器が正常に作動することを確認する。"
+      }
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "question": "アキシャルフロー式整圧器の二次圧力設定は何で調整するか。",
+        "answer": "パイロットスプリングで調整する。"
+      },
+      {
+        "choiceIndex": 2,
+        "question": "パイロット式整圧器は作動に必要な差圧が不足しても作動できるか。",
+        "answer": "いいえ。一次圧力と二次圧力の差圧が一定以上確保されないと作動できなくなる。"
+      },
+      {
+        "choiceIndex": 3,
+        "question": "大規模地区整圧器で特に重視される小さいオフセット・ロックアップは何特性か。",
+        "answer": "静特性である。動特性としている記述は誤り。"
+      },
+      {
+        "choiceIndex": 4,
+        "question": "ハウスレギュレーターは不純物除去装置と圧力上昇防止装置を一体化しているか。",
+        "answer": "はい。一般にこれらを一体化している。"
+      },
+      {
+        "choiceIndex": 5,
+        "question": "予備整圧器の分解点検後は正常作動を確認する必要があるか。",
+        "answer": "はい。常用整圧器を停止し、予備整圧器が正常に作動することを確認する。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -621,12 +674,14 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "explanationTextCount": 5
   },
   {
     "original_question_id": "e6ce621ee6bf7c78",
