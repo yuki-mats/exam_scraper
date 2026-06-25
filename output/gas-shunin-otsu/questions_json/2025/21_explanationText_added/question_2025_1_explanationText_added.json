@@ -866,18 +866,70 @@
       "18.2"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "不正解。メタン1molの完全燃焼では CH4+2O2→CO2+2H2O となり、水蒸気は2mol発生する。空気比1.2では供給O2が2×1.2=2.4mol、N2が2.4×4=9.6mol、余剰O2が0.4molとなる。湿り燃焼ガス全量は1+2+0.4+9.6=13.0molなので、水蒸気濃度は2/13×100=約15.4vol%であり、12.5vol%ではない。",
+      "不正解。14.1vol%は、湿り燃焼ガス全量13.0molに対する水蒸気2molの割合ではない。湿り燃焼ガスには生成水蒸気、CO2、余剰O2、N2を含める。",
+      "正解。CH4 1molからH2Oは2mol生じる。空気比1.2では余剰O2が0.4mol、N2が9.6molなので、湿り燃焼ガス全量はCO2 1mol、H2O 2mol、O2 0.4mol、N2 9.6molの合計13.0molである。水蒸気濃度は2/13×100=約15.4vol%となる。",
+      "不正解。16.7vol%は、燃焼ガス全量を12mol程度として扱った場合に近いが、本問では空気比1.2による余剰O2 0.4molも湿り燃焼ガスに含めるため、全量は13.0molとなる。",
+      "不正解。18.2vol%は水蒸気割合を大きく見積もりすぎている。空気比1.2で供給される窒素9.6molと余剰酸素0.4molを含めると、水蒸気濃度は約15.4vol%である。"
+    ],
+    "suggestedQuestions": [
+      "メタン1molの完全燃焼式は？",
+      "空気比1.2のとき供給酸素量はいくらか？",
+      "空気中の窒素量はどう求める？",
+      "湿り燃焼ガス全量には何を含める？",
+      "本問の水蒸気濃度は何vol%か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "メタン1molの完全燃焼式は？",
+        "answer": "CH4+2O2→CO2+2H2O。",
+        "explanation": "メタン1molの完全燃焼では、酸素2molを消費してCO2 1molとH2O 2molが生じる。"
+      },
+      {
+        "question": "空気比1.2のとき供給酸素量はいくらか？",
+        "answer": "2×1.2=2.4mol。",
+        "explanation": "理論酸素量2molに空気比1.2を掛けて供給酸素量を求める。"
+      },
+      {
+        "question": "空気中の窒素量はどう求める？",
+        "answer": "O2:N2=1:4なので、N2=2.4×4=9.6mol。",
+        "explanation": "問題文の体積比から、供給酸素に伴う窒素量を計算する。"
+      },
+      {
+        "question": "湿り燃焼ガス全量には何を含める？",
+        "answer": "CO2、H2O、余剰O2、N2を含める。",
+        "explanation": "湿り燃焼ガスなので水蒸気を除かず、空気比1.2による余剰酸素も含めて全量を求める。"
+      },
+      {
+        "question": "本問の水蒸気濃度は何vol%か？",
+        "answer": "2/13×100=約15.4vol%。",
+        "explanation": "湿り燃焼ガス全量13.0molに対する水蒸気2molの割合を百分率にする。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「燃焼・燃料（乙種）」の完全燃焼計算と湿り燃焼ガス組成が本問の関連論点。",
+      "メタン1molの完全燃焼は CH4+2O2→CO2+2H2O であり、理論酸素量は2molである。",
+      "空気比1.2では供給O2=2.4mol、N2=9.6mol、余剰O2=0.4molとなり、湿り燃焼ガス全量は1+2+0.4+9.6=13.0molである。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "湿り燃焼ガス全量13.0molに対するH2O 2molの割合は約15.4vol%で、12.5vol%ではない。"
+      ],
+      [
+        "14.1vol%は、CO2・H2O・余剰O2・N2を含む全量13.0molで割った値ではない。"
+      ],
+      [
+        "2/13×100=約15.4vol%なので、この値が最も近い。"
+      ],
+      [
+        "余剰O2 0.4molも含めるため、16.7vol%にはならない。"
+      ],
+      [
+        "N2 9.6molを含めると、18.2vol%より小さい約15.4vol%となる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",

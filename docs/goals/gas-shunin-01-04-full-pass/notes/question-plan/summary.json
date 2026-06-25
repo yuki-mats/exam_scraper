@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T571",
-  "completed": 471,
-  "completed_questions": 471,
-  "done": 358,
+  "activeTaskId": "T572",
+  "completed": 472,
+  "completed_questions": 472,
+  "done": 359,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 358,
+    "done": 359,
     "hold": 113,
-    "pending": 463
+    "pending": 462
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T04:58:31+09:00",
+  "generatedAt": "2026-06-26T05:04:16+09:00",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "12.5",
-      "14.1",
-      "15.4",
-      "16.7",
-      "18.2"
+      "20",
+      "30",
+      "40",
+      "50",
+      "60"
     ],
     "correctChoiceText": [
       "不正解",
       "不正解",
-      "正解",
       "不正解",
-      "不正解"
+      "不正解",
+      "正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -85,28 +85,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 900,
-    "publicQuestionId": "ca805949b8b8f7b4",
+    "planSequence": 899,
+    "publicQuestionId": "bc0ba21d1bbbe3f5",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:ca805949b8b8f7b4",
-    "questionBodyText": "メタンを空気比1.2で完全燃焼させた。このとき発生する湿り燃焼ガス中の水蒸気濃度(vol%)として、最も近い値はどれか。ただし、空気中の窒素と酸素の体積比は4:1とする。",
-    "questionIndexInFile": 24,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bc0ba21d1bbbe3f5",
+    "questionBodyText": "一次反応において、反応物質の濃度が、初期濃度a₀から(1/2)×a₀になるまでに要した時間（半減期）が10分であった。初期濃度a₀から(1/64)×a₀になるまでに要する時間（分）として最も近い値はどれか。",
+    "questionIndexInFile": 23,
     "questionIntent": "",
-    "questionLabel": "問8",
-    "questionNo": 8,
+    "questionLabel": "問7",
+    "questionNo": 7,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q8",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q7",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_1:ca805949b8b8f7b4",
+    "reviewId": "2025:question_2025_1:bc0ba21d1bbbe3f5",
     "reviewNotes": "",
-    "reviewQuestionId": "ca805949b8b8f7b4",
+    "reviewQuestionId": "bc0ba21d1bbbe3f5",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -121,7 +121,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 8,
+      "questionNo": 7,
       "subject": "kiso",
       "year": 2025
     },
@@ -130,45 +130,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q08",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q07",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kiso:q08:s01",
-      "gas-shunin:otsu:2025:kiso:q08:s02",
-      "gas-shunin:otsu:2025:kiso:q08:s03",
-      "gas-shunin:otsu:2025:kiso:q08:s04",
-      "gas-shunin:otsu:2025:kiso:q08:s05"
+      "gas-shunin:otsu:2025:kiso:q07:s01",
+      "gas-shunin:otsu:2025:kiso:q07:s02",
+      "gas-shunin:otsu:2025:kiso:q07:s03",
+      "gas-shunin:otsu:2025:kiso:q07:s04",
+      "gas-shunin:otsu:2025:kiso:q07:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q8",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q7",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q08:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q07:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q08:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q07:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q08:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q07:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q08:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q07:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q08:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q07:s05",
         "statementNo": 5
       }
     ],
@@ -181,15 +181,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 900,
-  "nextPendingTaskId": "T571",
-  "otsuCompleted": 59,
-  "otsuDone": 48,
+  "nextPendingPlanSequence": 899,
+  "nextPendingTaskId": "T572",
+  "otsuCompleted": 60,
+  "otsuDone": 49,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 463,
-  "pending": 463,
-  "pending_questions": 463,
+  "otsuPending": 462,
+  "pending": 462,
+  "pending_questions": 462,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
