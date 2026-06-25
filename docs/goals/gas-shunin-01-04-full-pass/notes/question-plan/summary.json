@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T464",
-  "completed": 356,
-  "completed_questions": 356,
+  "activeTaskId": "T465",
+  "completed": 357,
+  "completed_questions": 357,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 265,
+    "done": 266,
     "hold": 91,
-    "pending": 578
+    "pending": 577
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 350,
+  "kouCompleted": 351,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 62,
+  "kouPending": 61,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,18 +32,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "調理室の換気に排気フード型を使用すると、排気フードを使用しない場合と比べて、必要換気量を75%にすることができる。",
-      "自然換気回数は、一般的にn=Q/Vで表される。",
-      "高層住宅等では、外風圧の影響により換気風量が大きく変動するため、シロッコファン等の高静圧な換気扇を使う必要がある。",
-      "血液中のヘモグロビンは、COと結合しやすく、その結合力は酸素の200〜300倍もあり、少量であっても一定濃度以上のCOを吸引した場合、酸素欠乏症状に至るおそれがある。",
-      "ガスこんろ上部の排気フードは、火源から所定の距離を取り、こんろ上面から1000mmを超えて設置してはならない。"
+      "合計インプットにかかわらず開放式ガス機器を調理室に設置する場合、換気扇と給気口(換気上有効な隙間は給気口とみなすことができる。)を設ける必要がある。",
+      "FF式機器にはBF式機器と同様、外壁式、チャンバー式及びダクト式がある。",
+      "既存のBF式機器の給排気筒トップ穴を利用して、壁貫通部に設置するタイプのRF式機器がある。",
+      "密閉式機器の設置に際しては、給排気筒が壁を貫通する箇所に隙間があってはならない。",
+      "CF式機器を設置する際、現場状況に合わせて\n一次排気筒及び二次排気筒ともに適切な長さに現場で加工調整する必要がある\n。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
       "正しい",
       "正しい",
-      "正しい"
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -53,8 +53,8 @@
       "間違い",
       "間違い",
       "間違い",
-      "間違い",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 351,
-    "publicQuestionId": "d43f35bf9e1cca41",
+    "planSequence": 352,
+    "publicQuestionId": "c91739a7a2f130a1",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:d43f35bf9e1cca41",
-    "questionBodyText": "換気及び一酸化炭素(CO)中毒に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:c91739a7a2f130a1",
+    "questionBodyText": "ガス機器の給排気に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 6,
     "questionIntent": "select_correct",
-    "questionLabel": "問24",
-    "questionNo": 24,
+    "questionLabel": "問25",
+    "questionNo": 25,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#shohi-q24",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#shohi-q25",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_3:d43f35bf9e1cca41",
+    "reviewId": "2024:question_2024_gassyunin_site_3:c91739a7a2f130a1",
     "reviewNotes": "",
-    "reviewQuestionId": "d43f35bf9e1cca41",
+    "reviewQuestionId": "c91739a7a2f130a1",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 24,
+      "questionNo": 25,
       "subject": "shohi",
       "year": 2024
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q24",
+    "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q25",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:shohi:q24:s01",
-      "gas-shunin:kou:2024:shohi:q24:s02",
-      "gas-shunin:kou:2024:shohi:q24:s03",
-      "gas-shunin:kou:2024:shohi:q24:s04",
-      "gas-shunin:kou:2024:shohi:q24:s05"
+      "gas-shunin:kou:2024:shohi:q25:s01",
+      "gas-shunin:kou:2024:shohi:q25:s02",
+      "gas-shunin:kou:2024:shohi:q25:s03",
+      "gas-shunin:kou:2024:shohi:q25:s04",
+      "gas-shunin:kou:2024:shohi:q25:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#shohi-q24",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#shohi-q25",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q24:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q25:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q24:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q25:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q24:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q25:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q24:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q25:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q24:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q25:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 351,
-  "nextPendingTaskId": "T464",
+  "nextPendingPlanSequence": 352,
+  "nextPendingTaskId": "T465",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 578,
-  "pending_questions": 578,
+  "pending": 577,
+  "pending_questions": 577,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 91,
-    "ok": 265,
-    "pending": 578
+    "ok": 266,
+    "pending": 577
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T17:05:00+09:00"
+  "updatedAt": "2026-06-25T17:08:04+09:00"
 }
