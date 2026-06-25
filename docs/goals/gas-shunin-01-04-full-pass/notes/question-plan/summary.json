@@ -1,60 +1,54 @@
 {
-  "completed": 322,
-  "completed_questions": 322,
+  "completed": 323,
+  "completed_questions": 323,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 233,
+    "done": 234,
     "hold": 89,
-    "pending": 612
+    "pending": 611
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 322,
+  "kouCompleted": 323,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 90,
+  "kouPending": 89,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "壁近くでは、流体が粘性の影響を受けて流速が急激に変化する。",
-      "流体の粘性や乱れによって、流れの下流の圧力が上流の圧力と比べ低くなることを圧力損失という。",
-      "配管の屈曲部で生じる圧力損失は、流れの方向を急激に変化させるより緩やかに変化させる方が小さい。",
-      "直円管内の流れでは、レイノルズ数がある値以上となると層流から乱流に遷移する。",
-      "乱流における管摩擦係数は、\n管壁面の粗さに依存しない\n。"
+      "28",
+      "44",
+      "74",
+      "81",
+      "88"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -88,28 +82,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 845,
-    "publicQuestionId": "6ec9b12d812fcd54",
+    "planSequence": 846,
+    "publicQuestionId": "8d1ff4a7220cdc14",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ec9b12d812fcd54",
-    "questionBodyText": "管内を流れる流体に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 2,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問11",
-    "questionNo": 11,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:8d1ff4a7220cdc14",
+    "questionBodyText": "熱交換器において、高温流体の入口温度は180℃、出口温度は50℃であった。また、低温流体の入口温度は20℃、出口温度は90℃であった。このときの高温流体の温度効率(%)として、最も近い値はどれか。",
+    "questionIndexInFile": 3,
+    "questionIntent": "",
+    "questionLabel": "問12",
+    "questionNo": 12,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q11",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q12",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:6ec9b12d812fcd54",
+    "reviewId": "2024:question_2024_2:8d1ff4a7220cdc14",
     "reviewNotes": "",
-    "reviewQuestionId": "6ec9b12d812fcd54",
+    "reviewQuestionId": "8d1ff4a7220cdc14",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +118,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 11,
+      "questionNo": 12,
       "subject": "kiso",
       "year": 2024
     },
@@ -133,45 +127,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q11",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kiso:q11:s01",
-      "gas-shunin:otsu:2024:kiso:q11:s02",
-      "gas-shunin:otsu:2024:kiso:q11:s03",
-      "gas-shunin:otsu:2024:kiso:q11:s04",
-      "gas-shunin:otsu:2024:kiso:q11:s05"
+      "gas-shunin:otsu:2024:kiso:q12:s01",
+      "gas-shunin:otsu:2024:kiso:q12:s02",
+      "gas-shunin:otsu:2024:kiso:q12:s03",
+      "gas-shunin:otsu:2024:kiso:q12:s04",
+      "gas-shunin:otsu:2024:kiso:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q11",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +178,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 323,
-  "nextPendingTaskId": "T436",
+  "nextPendingPlanSequence": 324,
+  "nextPendingTaskId": "T437",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 612,
-  "pending_questions": 612,
+  "pending": 611,
+  "pending_questions": 611,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -204,8 +198,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 233,
-    "pending": 612
+    "ok": 234,
+    "pending": 611
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +221,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T14:14:29+09:00",
-  "activeTaskId": "T436"
+  "updatedAt": "2026-06-25T14:23:32+09:00",
+  "activeTaskId": "T437"
 }
