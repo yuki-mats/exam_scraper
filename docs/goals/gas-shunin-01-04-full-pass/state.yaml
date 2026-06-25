@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 400
-  pending_questions: 534
-  held_questions: 107
+  completed_questions: 401
+  pending_questions: 533
+  held_questions: 108
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T500
+active_task: T501
 tasks:
   - id: T001
     type: pm
@@ -26442,16 +26442,86 @@ tasks:
       evidence:
         - "sourceConflictStatus=none; site answer_result_text=正解は 3 です。"
         - "correctChoiceText=[正しい, 間違い, 間違い, 間違い, 正しい]; questionIntent=select_incorrect."
-        - "Choice 2 is RPT/急速相転移 rather than 液撃; choice 3 has density decrease, not increase; choice 4 has tank-level restrictions for sloshing."
+        - "Choice 2 is ガイザリング rather than 液撃; choice 3 has density decrease, not increase; choice 4 has tank-level restrictions for sloshing."
         - "questionSetId=chiefgasengineerlicense-A-40-173 都市ガスの原料（甲種）; prior kou seizo q1 rows use the same category."
       verification_attempts: 1
 
   - id: T500
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=387（gas-shunin-kou 2025 製造 問2）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json"
+      - "output/gas-shunin-kou/category/category.json"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_2_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_2_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_2_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_2_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "sourceConflictStatus=needs_source_review の根拠確認なしにupload-facing fieldsを確定しそうになる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
+      - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json --patch output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_2_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json --patch output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_2_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json --patch output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2025 製造 問2は01/02a/04を確認し、02b/03をsource wording ambiguityでhold。00_sourceは変更せず、22固定名patch、review jsonl、question-plan/stateを更新。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_2_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_2_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json --patch output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_2_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json --patch output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_2_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json --patch output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_2_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.9/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_2_correctChoiceText_fixed.json output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_2_explanationText_added.json output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_2_questionSetId_linked.json"
+          status: pass
+      evidence:
+        - "sourceConflictStatus=none; site answer_result_text=正解は 2 です。"
+        - "site/local 00_source choice 4 says LNG receiving bases use LPG pumps while site marks the statement correct."
+        - "Literal source wording likely needs primary-source confirmation or source correction before safe explanationText completion."
+        - "questionSetId=chiefgasengineerlicense-A-40-164 製造所の製造設備（甲種）; prior kou seizo q2 rows use the same category."
+      verification_attempts: 1
+
+  - id: T501
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=388（gas-shunin-kou 2025 製造 問3）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
