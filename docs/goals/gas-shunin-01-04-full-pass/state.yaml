@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 319
-  pending_questions: 615
+  completed_questions: 320
+  pending_questions: 614
   held_questions: 89
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T433
+active_task: T434
 tasks:
   - id: T001
     type: pm
@@ -21779,9 +21779,75 @@ tasks:
   - id: T433
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=320（gas-shunin-kou 2024 基礎理論 問8）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    inputs:
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json"
+      - "output/gas-shunin-kou/category/category.json"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/*.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    stop_if:
+      - "00_source の本文・選択肢を直したくなる。"
+      - "sourceConflictStatus=needs_source_review の根拠確認なしにupload-facing fieldsを確定しそうになる。"
+      - "originalQuestionBodyText/originalQuestionChoiceText が過去問通りか判断できない。"
+      - "Firestore既存IDやoriginalQuestionIdの対応が曖昧。"
+      - "correctChoiceText の根拠が不足する。"
+      - "questionSetId のカテゴリ判断が曖昧。"
+      - "explanationText が未検証の事実を必要とする。"
+      - "suggestedQuestions を選択肢単位ではなく問題単位で処理しそうになる。"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    receipt:
+      result: done
+      summary: "gas-shunin-kou 2024 基礎理論 問8の01〜04を完了。00_sourceは変更せず、21/22固定名patch、review ledger、question-planを更新した。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json --patch output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.3.9/skills/goalbuddy/scripts/check-goal-state.mjs docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+          status: pass
+      evidence:
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+
+
+  - id: T434
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=321（gas-shunin-kou 2024 基礎理論 問9）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     inputs:
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
       - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/README.md"
