@@ -1,23 +1,23 @@
 {
-  "completed": 346,
-  "completed_questions": 346,
+  "completed": 347,
+  "completed_questions": 347,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 255,
+    "done": 256,
     "hold": 91,
-    "pending": 588
+    "pending": 587
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 340,
+  "kouCompleted": 341,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 72,
+  "kouPending": 71,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,18 +31,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "通気性の異なる土壌にまたがって埋設されている導管では、通気性の悪い部分をアノードとする\nミクロセル\nが形成され腐食が生じることがある。",
-      "流電陽極法とは、導管よりも自然電位がマイナス側の金属を接続することで、\n導管から防食電流を流出\nさせ腐食を防止するものである。",
-      "地表面電位勾配とは、\n土壌、コンクリート等の電解質に設置した照合電極と導管の電位差\nであり、迷走電流の流出入の調査に活用できる。",
-      "鋼管と鋳鉄管が電気的に接続されている場合、\n鋳鉄管がアノード\nとなり腐食する傾向がある。",
-      "土壌比抵抗が高い\nと腐食電流が流れやすくなる。"
+      "外径80mm以上の低圧本支管の道路への埋設にあたっては、\n管の表面に3mの間隔で占用物件の名称、管理者、埋設年、ガスの圧力をテープ等で明示する。",
+      "電気防食を施した鋼管の切断にあたっては、電気防食施設の電源を切っておき、\n管の切断後に鋼管の両側を短絡\nさせる。",
+      "気密試験の試験圧力は、\n必ず最高使用圧力の1.1倍以上\nでなければならない。",
+      "放射線透過試験にあたっては、エックス線管の焦点又は放射線源から5m以内のエリアを立入禁止区域として明示し、放射線業務従事者以外の第三者の立入を禁止する。",
+      "鉄筋コンクリート建物等の外壁貫通部は、壁貫通管又は壁貫通リング等を用いて堅固に固定し、貫通部の補修にはモルタル等を充てんする。"
     ],
     "correctChoiceText": [
       "間違い",
       "間違い",
       "間違い",
-      "間違い",
-      "間違い"
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -51,9 +51,9 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
+      "間違い",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -88,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 341,
-    "publicQuestionId": "3147d6811ce1cb5f",
+    "planSequence": 342,
+    "publicQuestionId": "282458465cb3fb36",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:3147d6811ce1cb5f",
-    "questionBodyText": "腐食と防食に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 20,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:282458465cb3fb36",
+    "questionBodyText": "導管の工事に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 21,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問14",
-    "questionNo": 14,
+    "questionLabel": "問15",
+    "questionNo": 15,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q14",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q15",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:3147d6811ce1cb5f",
+    "reviewId": "2024:question_2024_gassyunin_site_2:282458465cb3fb36",
     "reviewNotes": "",
-    "reviewQuestionId": "3147d6811ce1cb5f",
+    "reviewQuestionId": "282458465cb3fb36",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 14,
+      "questionNo": 15,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q14",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q15",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kyokyu:q14:s01",
-      "gas-shunin:kou:2024:kyokyu:q14:s02",
-      "gas-shunin:kou:2024:kyokyu:q14:s03",
-      "gas-shunin:kou:2024:kyokyu:q14:s04",
-      "gas-shunin:kou:2024:kyokyu:q14:s05"
+      "gas-shunin:kou:2024:kyokyu:q15:s01",
+      "gas-shunin:kou:2024:kyokyu:q15:s02",
+      "gas-shunin:kou:2024:kyokyu:q15:s03",
+      "gas-shunin:kou:2024:kyokyu:q15:s04",
+      "gas-shunin:kou:2024:kyokyu:q15:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q14",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q15",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q15:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q15:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q15:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q15:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q15:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 341,
-  "nextPendingTaskId": "T454",
+  "nextPendingPlanSequence": 342,
+  "nextPendingTaskId": "T455",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 588,
-  "pending_questions": 588,
+  "pending": 587,
+  "pending_questions": 587,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -203,9 +203,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "ok": 255,
+    "ok": 256,
     "hold": 91,
-    "pending": 588
+    "pending": 587
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T16:22:18+09:00",
-  "activeTaskId": "T454"
+  "updatedAt": "2026-06-25T16:40:02+09:00",
+  "activeTaskId": "T455"
 }
