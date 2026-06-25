@@ -1,61 +1,55 @@
 {
-  "activeTaskId": "T485",
+  "activeTaskId": "T486",
   "completed": 375,
-  "completed_questions": 377,
+  "completed_questions": 378,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 277,
+    "done": 278,
     "hold": 100,
-    "pending": 557
+    "pending": 556
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 100,
   "hold": 100,
   "hold_questions": 100,
-  "kouCompleted": 371,
+  "kouCompleted": 372,
   "kouHeld": 100,
   "kouHold": 100,
-  "kouPending": 41,
+  "kouPending": 40,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "気体の液化など実在気体に特有の性質は、分子間の\n万有引力\nが主たる原因である。",
-      "窒素、水素のような多原子気体は、並進運動に加えて、分子内で振動運動と回転運動を行っている。",
-      "水素は常温で圧力を加えても液化しないが、アンモニアは常温で圧力を加えると液化する。",
-      "気体の拡散係数は、圧力の増加により減少し温度の上昇に伴い増加する。",
-      "常圧において気体の熱伝導率は温度の上昇とともに増加するが、固体の熱伝導率は必ずしもそうではない。"
+      "95",
+      "100",
+      "105",
+      "107",
+      "110"
     ],
     "correctChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -89,28 +83,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 372,
-    "publicQuestionId": "347b106e030fed8e",
+    "planSequence": 373,
+    "publicQuestionId": "019781c25343a50e",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:347b106e030fed8e",
-    "questionBodyText": "気体の性質に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 18,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問2",
-    "questionNo": 2,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:019781c25343a50e",
+    "questionBodyText": "圧力100kPaで1m³の空気を可逆的に断熱圧縮して0.95m³としたときの圧力(kPa)として最も近い値はどれか。ただし、空気の比熱比は1.40とする。また、xの絶対値が1より十分小さいとき、(1+x)^n≅1+nxで近似できるものとする。",
+    "questionIndexInFile": 19,
+    "questionIntent": "",
+    "questionLabel": "問3",
+    "questionNo": 3,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q2",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q3",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_1:347b106e030fed8e",
+    "reviewId": "2025:question_2025_gassyunin_site_1:019781c25343a50e",
     "reviewNotes": "",
-    "reviewQuestionId": "347b106e030fed8e",
+    "reviewQuestionId": "019781c25343a50e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +119,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 2,
+      "questionNo": 3,
       "subject": "kiso",
       "year": 2025
     },
@@ -134,45 +128,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q02",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q03",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kiso:q02:s01",
-      "gas-shunin:kou:2025:kiso:q02:s02",
-      "gas-shunin:kou:2025:kiso:q02:s03",
-      "gas-shunin:kou:2025:kiso:q02:s04",
-      "gas-shunin:kou:2025:kiso:q02:s05"
+      "gas-shunin:kou:2025:kiso:q03:s01",
+      "gas-shunin:kou:2025:kiso:q03:s02",
+      "gas-shunin:kou:2025:kiso:q03:s03",
+      "gas-shunin:kou:2025:kiso:q03:s04",
+      "gas-shunin:kou:2025:kiso:q03:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q2",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q3",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q02:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q03:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q02:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q03:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q02:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q03:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q02:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q03:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q02:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q03:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +179,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 372,
-  "nextPendingTaskId": "T485",
+  "nextPendingPlanSequence": 373,
+  "nextPendingTaskId": "T486",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
   "pending": 559,
-  "pending_questions": 557,
+  "pending_questions": 556,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +199,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 100,
-    "ok": 271,
-    "pending": 41
+    "ok": 272,
+    "pending": 40
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
