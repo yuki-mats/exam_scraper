@@ -1,61 +1,55 @@
 {
-  "activeTaskId": "T510",
+  "activeTaskId": "T511",
   "completed": 404,
-  "completed_questions": 409,
+  "completed_questions": 410,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 301,
+    "done": 302,
     "hold": 109,
-    "pending": 524
+    "pending": 523
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 109,
   "hold": 108,
   "hold_questions": 108,
-  "kouCompleted": 392,
+  "kouCompleted": 393,
   "kouHeld": 101,
   "kouHold": 101,
-  "kouPending": 20,
+  "kouPending": 19,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガスメーターが計量法の規定による検定を受ける際の検定公差は、\n流量によらず±1.5%\nである。",
-      "マイコンメーターの感震器は、\n水平に設置しないと正常に作動しない\n。",
-      "サーマルフロー式ガスメーターは、ダスト・ミストの影響を避けるための専用のフィルターが必要である。",
-      "タービン式ガスメーターは、流れの中に置いた羽根車の回転速度が流速に比例する原理を利用したメーターで、羽根車の回転により、流速(流量)の測定を行う。",
-      "渦流式ガスメーターは、渦発生体により生み出されたカルマン渦の発生周波数から、瞬時流量を測定する。"
+      "14",
+      "15",
+      "28",
+      "30",
+      "56"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -89,28 +83,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 397,
-    "publicQuestionId": "3746645048eafc91",
+    "planSequence": 398,
+    "publicQuestionId": "828023772aa37293",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:3746645048eafc91",
-    "questionBodyText": "ガスメーターに関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 18,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:828023772aa37293",
+    "questionBodyText": "外径150mm、管厚5mmの鋼管が内圧2MPaを受けるときに生じる円周方向の応力(N/mm²)として最も近い値はどれか。",
+    "questionIndexInFile": 19,
+    "questionIntent": "",
+    "questionLabel": "問13",
+    "questionNo": 13,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q12",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q13",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:3746645048eafc91",
+    "reviewId": "2025:question_2025_gassyunin_site_2:828023772aa37293",
     "reviewNotes": "",
-    "reviewQuestionId": "3746645048eafc91",
+    "reviewQuestionId": "828023772aa37293",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +119,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 13,
       "subject": "kyokyu",
       "year": 2025
     },
@@ -134,45 +128,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kyokyu:q12",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kyokyu:q13",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kyokyu:q12:s01",
-      "gas-shunin:kou:2025:kyokyu:q12:s02",
-      "gas-shunin:kou:2025:kyokyu:q12:s03",
-      "gas-shunin:kou:2025:kyokyu:q12:s04",
-      "gas-shunin:kou:2025:kyokyu:q12:s05"
+      "gas-shunin:kou:2025:kyokyu:q13:s01",
+      "gas-shunin:kou:2025:kyokyu:q13:s02",
+      "gas-shunin:kou:2025:kyokyu:q13:s03",
+      "gas-shunin:kou:2025:kyokyu:q13:s04",
+      "gas-shunin:kou:2025:kyokyu:q13:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q12",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q13",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q12:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q13:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q12:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q13:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q12:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q13:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q12:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q13:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q12:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q13:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +179,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 397,
-  "nextPendingTaskId": "T510",
+  "nextPendingPlanSequence": 398,
+  "nextPendingTaskId": "T511",
   "otsuCompleted": 14,
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
   "pending": 530,
-  "pending_questions": 524,
+  "pending_questions": 523,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +199,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 102,
-    "ok": 294,
-    "pending": 16
+    "ok": 295,
+    "pending": 15
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +222,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T21:16:38+09:00"
+  "updatedAt": "2026-06-25T21:21:10+09:00"
 }
