@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T560",
-  "completed": 460,
-  "completed_questions": 460,
-  "done": 347,
+  "activeTaskId": "T561",
+  "completed": 461,
+  "completed_questions": 461,
+  "done": 348,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 347,
+    "done": 348,
     "hold": 113,
-    "pending": 474
+    "pending": 473
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T03:46:58+09:00",
+  "generatedAt": "2026-06-26T03:51:57+09:00",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,38 +20,44 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "（イ）DMS／（ロ）THT／（ハ）TBM",
-      "（イ）THT／（ロ）シクロヘキセン／（ハ）TBM",
-      "（イ）シクロヘキセン／（ロ）DMS／（ハ）THT",
-      "（イ）TBM／（ロ）DMS／（ハ）THT",
-      "（イ）DMS／（ロ）シクロヘキセン／（ハ）TBM"
+      "液−ガス熱量調整方式は、LPGを気化させるための熱源として気化された天然ガス(NG)の\n気化潜熱を利用している\nため、NGの温度により運転範囲の制限を受ける場合がある。",
+      "液−液熱量調整方式は、LNGとLPGを液体のまま混合し熱量調整した後、気化させてガスを製造する方式である。",
+      "ガス−ガス熱量調整方式、液−ガス熱量調整方式、液−液熱量調整方式の中で、ランニングコストが最も高いのは、ガス−ガス熱量調整式である。",
+      "ガスクロマトグラフとは、固定相（充てん剤）に移動相と呼ばれるキャリアガスを流して、固定相と移動相との間における試料各成分の溶解性、吸着性の差によって成分物質を分離し、測定する装置である。",
+      "特殊成分の分析方法であるイオンクロマトグラフ法は、\n全硫黄及び硫化水素の分析に使用できる\n。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -85,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 912,
-    "publicQuestionId": "6fde3c0701bf1013",
+    "planSequence": 911,
+    "publicQuestionId": "118355ef06bb5c99",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6fde3c0701bf1013",
-    "questionBodyText": "次の表は、都市ガスの代表的な付臭剤の特徴をまとめたものである。（イ）〜（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。なお、(1)〜(5)の選択肢におけるDMSはジメチルサルファイド、THTはテトラヒドロチオフェン、TBMはターシャリーブチルメルカプタンである。",
-    "questionIndexInFile": 11,
-    "questionIntent": "",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:118355ef06bb5c99",
+    "questionBodyText": "都市ガスの熱量調整、燃焼性管理及び特殊成分の分析に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 10,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問4",
+    "questionNo": 4,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q5",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q4",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:6fde3c0701bf1013",
+    "reviewId": "2025:question_2025_2:118355ef06bb5c99",
     "reviewNotes": "",
-    "reviewQuestionId": "6fde3c0701bf1013",
+    "reviewQuestionId": "118355ef06bb5c99",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -121,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 4,
       "subject": "seizo",
       "year": 2025
     },
@@ -130,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:seizo:q05",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:seizo:q04",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:seizo:q05:s01",
-      "gas-shunin:otsu:2025:seizo:q05:s02",
-      "gas-shunin:otsu:2025:seizo:q05:s03",
-      "gas-shunin:otsu:2025:seizo:q05:s04",
-      "gas-shunin:otsu:2025:seizo:q05:s05"
+      "gas-shunin:otsu:2025:seizo:q04:s01",
+      "gas-shunin:otsu:2025:seizo:q04:s02",
+      "gas-shunin:otsu:2025:seizo:q04:s03",
+      "gas-shunin:otsu:2025:seizo:q04:s04",
+      "gas-shunin:otsu:2025:seizo:q04:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q5",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q4",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q05:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q04:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q05:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q04:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q05:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q04:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q05:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q04:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q05:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q04:s05",
         "statementNo": 5
       }
     ],
@@ -181,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "otsuCompleted": 48,
-  "otsuDone": 37,
+  "otsuCompleted": 49,
+  "otsuDone": 38,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 474,
-  "pending": 474,
-  "pending_questions": 474,
+  "otsuPending": 473,
+  "pending": 473,
+  "pending_questions": 473,
   "total": 934,
   "total_questions": 934,
-  "nextPendingPlanSequence": 912,
-  "nextPendingTaskId": "T560"
+  "nextPendingPlanSequence": 911,
+  "nextPendingTaskId": "T561"
 }

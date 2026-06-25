@@ -385,10 +385,48 @@
       "（イ）DMS／（ロ）シクロヘキセン／（ハ）TBM"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢1は（ロ）をTHTとしている点が誤り。",
+      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢2は（イ）をTHTとしている点が誤り。",
+      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢3は（イ）をシクロヘキセン、（ロ）をDMS、（ハ）をTHTとしており、いずれも対応が違う。",
+      "不正解。表の空欄は、（イ）がDMS、（ロ）がシクロヘキセン、（ハ）がTBMに対応する。選択肢4は（イ）をTBM、（ロ）をDMS、（ハ）をTHTとしている点が誤り。",
+      "正解。都市ガスの代表的な付臭剤の特徴では、DMSは代表的な硫黄系付臭剤の一つ、シクロヘキセンは硫黄を含まない炭化水素系付臭剤、TBMは臭気閾値が低く強い臭気をもつメルカプタン系付臭剤として整理されるため、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMの組合せが正しい。"
+    ],
+    "suggestedQuestions": [
+      "表の空欄（イ）（ロ）（ハ）は、DMS、THT、TBMの組合せである？",
+      "表の空欄（イ）はTHTではなくDMSである？",
+      "表の空欄（ロ）はDMSではなくシクロヘキセンで、（ハ）はTHTではなくTBMである？",
+      "表の空欄（イ）はTBMではなくDMSである？",
+      "都市ガスの代表的な付臭剤の特徴表では、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMの組合せが正しい？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "表の空欄（イ）（ロ）（ハ）は、DMS、THT、TBMの組合せである？",
+        "answer": false,
+        "explanation": "（ロ）はTHTではなくシクロヘキセンであるため、この組合せは不正解である。"
+      },
+      {
+        "question": "表の空欄（イ）はTHTではなくDMSである？",
+        "answer": true,
+        "explanation": "正しい組合せでは（イ）はDMSであり、THTではない。"
+      },
+      {
+        "question": "表の空欄（ロ）はDMSではなくシクロヘキセンで、（ハ）はTHTではなくTBMである？",
+        "answer": true,
+        "explanation": "正しい組合せでは（ロ）はシクロヘキセン、（ハ）はTBMである。"
+      },
+      {
+        "question": "表の空欄（イ）はTBMではなくDMSである？",
+        "answer": true,
+        "explanation": "正しい組合せでは（イ）はDMSであり、TBMではない。"
+      },
+      {
+        "question": "都市ガスの代表的な付臭剤の特徴表では、（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMの組合せが正しい？",
+        "answer": true,
+        "explanation": "answer_result_text=正解は5で、選択肢5の（イ）DMS、（ロ）シクロヘキセン、（ハ）TBMが正しい組合せである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
