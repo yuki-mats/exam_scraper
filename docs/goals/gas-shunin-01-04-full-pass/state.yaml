@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 417
-  pending_questions: 516
+  completed_questions: 418
+  pending_questions: 515
   held_questions: 109
   next_pending_policy: "lowest planSequence with executionStatus=pending"
 
-active_task: T518
+active_task: T519
 tasks:
   - id: T001
     type: pm
@@ -27537,9 +27537,66 @@ tasks:
   - id: T518
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=405（gas-shunin-kou 2025 消費機器 問20）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_3_questionType_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_3_explanationText_added.json"
+      - "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_3_questionSetId_linked.json"
+      - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json --patch output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json --patch output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json --patch output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_3_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      summary: "2025甲種 消費機器 問20の01〜04を目視確認し、2・3を正しい、1・4・5を間違い、questionSetId=chiefgasengineerlicense-A-60-182として保存した。"
+      changed_files:
+        - "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_3_explanationText_added.json"
+        - "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_3_questionSetId_linked.json"
+        - "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl --expected-total 412 --require-stage-files --category output/gas-shunin-kou/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json --patch output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_3_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json --patch output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_3_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_3.json --patch output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_3_questionSetId_linked.json --category output/gas-shunin-kou/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "reviewId=2025:question_2025_gassyunin_site_3:60d5be92ebd868da"
+        - "questionType=true_false / questionIntent=select_correct"
+        - "answer_result_text=正解は 2 です; choices 2 and 3 are correct"
+        - "correctChoiceText=[間違い, 正しい, 正しい, 間違い, 間違い]"
+        - "questionSetId=chiefgasengineerlicense-A-60-182"
+        - "explanationText 5件を各選択肢の正誤に対応させて保存"
+
+  - id: T519
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "再確定した全問計画の planSequence=406（gas-shunin-kou 2025 消費機器 問21）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
       - "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_3_questionType_fixed.json"
       - "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_3_correctChoiceText_fixed.json"
