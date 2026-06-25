@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T553",
-  "completed": 453,
-  "completed_questions": 453,
-  "done": 340,
+  "activeTaskId": "T554",
+  "completed": 454,
+  "completed_questions": 454,
+  "done": 341,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 340,
+    "done": 341,
     "hold": 113,
-    "pending": 481
+    "pending": 480
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-25T14:33:30Z",
+  "generatedAt": "2026-06-25T17:54:47Z",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "使用最大流量が16m³/hのガスメーターの検定有効期間は、\n検定を受けた翌月1日から起算して7年である\n。",
-      "マイコンメーターには、内管での少量漏れや口火を連続使用した場合等、30日間連続してガスが流れ続けた場合、ガス漏れ警報を表示する機能がある。",
-      "部品の摩耗等により、器差が変化し計量法に規定された\n使用公差を外れる故障は感度不良である\n。",
-      "クランク軸のさび付き等により、\nガスがメーターを通過できない故障は不動である\n。",
-      "メーター出口側の圧力変動が著しくなり、\nガスの燃焼状態が不安定になる故障は通り抜けである\n。"
+      "整圧器を大規模地区で使用する場合には、できるだけオフセット及びロックアップが小さい\n動特性の優れた整圧器\nを選定する。",
+      "直動式整圧器は、二次圧力を駆動圧力としているため、\n作動最小差圧を考慮する必要がある\n。",
+      "流量特性とは、定常状態における流量と二次圧力の関係をいう\n。",
+      "流量がゼロになるとメインバルブは締切状態になる。この時、二次圧力は基準状態よりも高くなるが、この\n締切圧力と基準二次圧力との差をシフトという\n。",
+      "パイロット式整圧器は、パイロットで二次圧力の小さな変化を増幅してメインガバナーを作動させるため、ロックアップは小さくなる。"
     ],
     "correctChoiceText": [
       "間違い",
-      "正しい",
       "間違い",
       "間違い",
-      "間違い"
+      "間違い",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -53,10 +53,10 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "間違い",
-      "正しい",
       "間違い",
       "間違い",
-      "間違い"
+      "間違い",
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 919,
-    "publicQuestionId": "3746645048eafc91",
+    "planSequence": 918,
+    "publicQuestionId": "6e3cdbf4facea64e",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:3746645048eafc91",
-    "questionBodyText": "ガスメーターに関する次の記述のうち、正しいものはどれか。",
-    "questionIndexInFile": 18,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6e3cdbf4facea64e",
+    "questionBodyText": "整圧器に関する次の記述のうち、正しいものはどれか。",
+    "questionIndexInFile": 17,
     "questionIntent": "select_correct",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q12",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:3746645048eafc91",
+    "reviewId": "2025:question_2025_2:6e3cdbf4facea64e",
     "reviewNotes": "",
-    "reviewQuestionId": "3746645048eafc91",
+    "reviewQuestionId": "6e3cdbf4facea64e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 11,
       "subject": "kyokyu",
       "year": 2025
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kyokyu:q12:s01",
-      "gas-shunin:otsu:2025:kyokyu:q12:s02",
-      "gas-shunin:otsu:2025:kyokyu:q12:s03",
-      "gas-shunin:otsu:2025:kyokyu:q12:s04",
-      "gas-shunin:otsu:2025:kyokyu:q12:s05"
+      "gas-shunin:otsu:2025:kyokyu:q11:s01",
+      "gas-shunin:otsu:2025:kyokyu:q11:s02",
+      "gas-shunin:otsu:2025:kyokyu:q11:s03",
+      "gas-shunin:otsu:2025:kyokyu:q11:s04",
+      "gas-shunin:otsu:2025:kyokyu:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q11:s05",
         "statementNo": 5
       }
     ],
@@ -187,49 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 920,
-  "nextPendingTaskId": "T552",
-  "otsuCompleted": 41,
-  "otsuDone": 30,
+  "otsuCompleted": 42,
+  "otsuDone": 31,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 481,
-  "pending": 481,
-  "pending_questions": 481,
-  "phaseCounts": {
-    "phase_1_kou_existing_firestore": 294,
-    "phase_2_kou_new_or_site_source": 118,
-    "phase_3_otsu_all_sources": 522
-  },
-  "qualificationCounts": {
-    "gas-shunin-kou": 412,
-    "gas-shunin-otsu": 522
-  },
-  "qualifiedReviewQuestionIdCount": 934,
-  "reviewDecisionCounts": {
-    "hold": 113,
-    "ok": 339,
-    "pending": 482
-  },
-  "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
-  "siteSourceQuestionCount": 640,
-  "sourceConflictPolicy": {
-    "needs_source_review": "01-04 work must verify source conflict before changing upload-facing fields",
-    "questionId": "existing Firestore document IDs are preserved"
-  },
-  "sourceConflictStatusCounts": {
-    "metadata_resolved": 4,
-    "needs_source_review": 125,
-    "none": 805
-  },
-  "sourceContentConflictCount": 462,
-  "sourceContentConflictLedgerPath": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl",
-  "sourceContentConflictQuestionCount": 125,
-  "sourceKeyConflictQuestionCount": 11,
-  "sourceOriginCounts": {
-    "firestore_snapshot": 294,
-    "gassyunin_site": 640
-  },
+  "otsuPending": 480,
+  "pending": 480,
+  "pending_questions": 480,
   "total": 934,
-  "updatedAt": "2026-06-26T02:42:24+09:00"
+  "total_questions": 934,
+  "nextPendingPlanSequence": 918,
+  "nextPendingTaskId": "T554"
 }
