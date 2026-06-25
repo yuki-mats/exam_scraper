@@ -1,60 +1,54 @@
 {
-  "completed": 317,
-  "completed_questions": 317,
+  "completed": 318,
+  "completed_questions": 318,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 228,
+    "done": 229,
     "hold": 89,
-    "pending": 617
+    "pending": 616
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 317,
+  "kouCompleted": 318,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 95,
+  "kouPending": 94,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "Aは活性化エネルギーに相当する。",
-      "触媒を用いると\nBを小さくすることができる\n。",
-      "Cは反応熱に相当する\n。",
-      "Dは臨界状態である\n。",
-      "この反応は吸熱反応である\n。"
+      "1.17",
+      "1.37",
+      "1.57",
+      "1.77",
+      "1.97"
     ],
     "correctChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -88,28 +82,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 318,
-    "publicQuestionId": "9fde1b61cadb2ba6",
+    "planSequence": 319,
+    "publicQuestionId": "f85e9fe6f17617ab",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:9fde1b61cadb2ba6",
-    "questionBodyText": "下の図は、化学反応の過程における、エネルギーの変化を表したものである。この図に関する次の記述のうち、正しいものはどれか。",
-    "questionIndexInFile": 22,
-    "questionIntent": "select_correct",
-    "questionLabel": "問6",
-    "questionNo": 6,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:f85e9fe6f17617ab",
+    "questionBodyText": "メタンを空気で完全燃焼させたところ、湿り燃焼ガスの酸素濃度が5vol%であった。このときの空気比として最も近い値はどれか。ただし、空気中の窒素と酸素の体積比は4:1とする。",
+    "questionIndexInFile": 23,
+    "questionIntent": "",
+    "questionLabel": "問7",
+    "questionNo": 7,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q6",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q7",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:9fde1b61cadb2ba6",
+    "reviewId": "2024:question_2024_gassyunin_site_1:f85e9fe6f17617ab",
     "reviewNotes": "",
-    "reviewQuestionId": "9fde1b61cadb2ba6",
+    "reviewQuestionId": "f85e9fe6f17617ab",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +118,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 6,
+      "questionNo": 7,
       "subject": "kiso",
       "year": 2024
     },
@@ -133,45 +127,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q06",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kiso:q07",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kiso:q06:s01",
-      "gas-shunin:kou:2024:kiso:q06:s02",
-      "gas-shunin:kou:2024:kiso:q06:s03",
-      "gas-shunin:kou:2024:kiso:q06:s04",
-      "gas-shunin:kou:2024:kiso:q06:s05"
+      "gas-shunin:kou:2024:kiso:q07:s01",
+      "gas-shunin:kou:2024:kiso:q07:s02",
+      "gas-shunin:kou:2024:kiso:q07:s03",
+      "gas-shunin:kou:2024:kiso:q07:s04",
+      "gas-shunin:kou:2024:kiso:q07:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q6",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kiso-q7",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q06:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kiso:q07:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +178,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 318,
-  "nextPendingTaskId": "T431",
+  "nextPendingPlanSequence": 319,
+  "nextPendingTaskId": "T432",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 617,
-  "pending_questions": 617,
+  "pending": 616,
+  "pending_questions": 616,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -204,8 +198,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 228,
-    "pending": 617
+    "ok": 229,
+    "pending": 616
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +221,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T13:27:25+09:00",
-  "activeTaskId": "T431"
+  "updatedAt": "2026-06-25T13:33:05+09:00",
+  "activeTaskId": "T432"
 }
