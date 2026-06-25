@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T521",
-  "completed": 421,
-  "completed_questions": 421,
+  "activeTaskId": "T522",
+  "completed": 422,
+  "completed_questions": 422,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 312,
+    "done": 313,
     "hold": 109,
-    "pending": 513
+    "pending": 512
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 109,
   "hold": 109,
   "hold_questions": 109,
-  "kouCompleted": 407,
+  "kouCompleted": 409,
   "kouHeld": 102,
   "kouHold": 102,
-  "kouPending": 5,
+  "kouPending": 4,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,18 +32,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "スチームコンベクションオーブンは、熱風と蒸気を単独あるいは組合せて、オーブンモード、スチームモード、コンビモード等の加熱モードを設定できる。",
-      "業務用厨房において、半密閉式瞬間湯沸器(ガス消費量が12kWを超えるもの)を、既設の排気専用ダクトに接続する場合には、排気ダクト直結型、排気ダクト接続型及び排気フード受け型の3種類の設置形態がある。",
-      "吸収冷凍機では、冷媒を吸収し濃度の薄くなった吸収溶液を\n凝縮器\nで濃縮・再生を行っている。",
-      "CGSの優位性には、省エネルギー性、環境保全性、電力負荷平準化、エネルギーセキュリティ向上が上げられる。",
-      "CGSは、省エネルギーに\n寄与するものの、設備設置のための機械室が大きくなるため、エネルギーの使用の合理化及び非化石エネルギーへの転換等に関する法律にて一定の条件の下に容積率の緩和が認められている。"
+      "開放式又は半密閉式ガス機器の使用においては、燃焼に必要な空気の取り入れや燃焼排気の排出を確実に行うことが重要である。",
+      "換気を行うために必要な条件は、空気の排出口があること、空気の流入口があること、空気の流れを起こす力があることである。",
+      "自然換気回数は、室の容積分の空気量が1時間に何回自然に入れ替わるかを「回/h」で表したものである。",
+      "必要換気量とは、室内のCO濃度を\nある限界以下に保つ\nための換気量の最小値のことである。",
+      "都市ガスが燃焼する際に、換気不足等により酸素が欠乏すると燃焼反応が終結せず、COが発生する。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "間違い"
+      "間違い",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -52,8 +52,8 @@
     "expectedCorrectChoiceText": [
       "間違い",
       "間違い",
-      "正しい",
       "間違い",
+      "正しい",
       "間違い"
     ],
     "explanationText": [],
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 408,
-    "publicQuestionId": "3a65f66e45517939",
+    "planSequence": 409,
+    "publicQuestionId": "620333366e793249",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:3a65f66e45517939",
-    "questionBodyText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステム(CGS)に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 4,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:620333366e793249",
+    "questionBodyText": "換気及び一酸化炭素(CO)中毒に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 5,
     "questionIntent": "select_correct",
-    "questionLabel": "問23",
-    "questionNo": 23,
+    "questionLabel": "問24",
+    "questionNo": 24,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q23",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q24",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_3:3a65f66e45517939",
+    "reviewId": "2025:question_2025_gassyunin_site_3:620333366e793249",
     "reviewNotes": "",
-    "reviewQuestionId": "3a65f66e45517939",
+    "reviewQuestionId": "620333366e793249",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 23,
+      "questionNo": 24,
       "subject": "shohi",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q23",
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q24",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:shohi:q23:s01",
-      "gas-shunin:kou:2025:shohi:q23:s02",
-      "gas-shunin:kou:2025:shohi:q23:s03",
-      "gas-shunin:kou:2025:shohi:q23:s04",
-      "gas-shunin:kou:2025:shohi:q23:s05"
+      "gas-shunin:kou:2025:shohi:q24:s01",
+      "gas-shunin:kou:2025:shohi:q24:s02",
+      "gas-shunin:kou:2025:shohi:q24:s03",
+      "gas-shunin:kou:2025:shohi:q24:s04",
+      "gas-shunin:kou:2025:shohi:q24:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q23",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q24",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q23:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s05",
         "statementNo": 5
       }
     ],
@@ -191,8 +191,8 @@
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
-  "pending": 513,
-  "pending_questions": 513,
+  "pending": 512,
+  "pending_questions": 512,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
