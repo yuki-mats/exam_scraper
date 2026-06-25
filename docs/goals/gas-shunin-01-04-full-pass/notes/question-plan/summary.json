@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T586",
-  "completed": 486,
-  "completed_questions": 486,
-  "done": 371,
+  "activeTaskId": "T587",
+  "completed": 487,
+  "completed_questions": 487,
+  "done": 372,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 371,
+    "done": 372,
     "hold": 115,
-    "pending": 448
+    "pending": 447
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T06:28:26+09:00",
+  "generatedAt": "2026-06-26T06:32:56+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,11 +20,11 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
+      "correctChoiceMatchesExpected": true,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -34,11 +34,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "一般ガス導管事業者は、その供給区域における託送供給に係る料金その他の供給条件について、経済産業省令で定めるところにより、\n託送供給約款を定め、経済産業大臣に届け出なければならない\n。",
-      "一般ガス導管事業者は、共同して、経済産業省令で定めるところにより、災害その他の事由による事故によりガスの安定供給の確保に支障が生ずる場合に備えるための災害時連携計画を作成し、経済産業大臣に届け出なければならない。",
-      "一般ガス導管事業者は、経済産業省令で定めるところにより、その最終保障供給に係るガスの成分のうち、人体に危害を及ぼし、又は物件に損傷を与えるおそれがあるものの量が経済産業省令で定める数量を超えていないかどうかを検査し、\nその結果を経済産業大臣に報告しなければならない\n。",
-      "特定ガス導管事業者は、正当な理由がなければ、その供給地点における\n最終保障供給を拒んではならない\n。",
-      "特定ガス導管事業者は、経済産業省令で定めるところにより、その供給するガスの熱量、圧力及び燃焼性を測定し、\nその結果を経済産業大臣に報告しなければならない\n。"
+      "「小売供給」とは、一般の需要に応じ導管によりガスを供給すること（特定ガス発生設備においてガスを発生させ、導管によりこれを供給するものにあっては、一の団地内におけるガスの供給地点の数が\n70未満\nのものに限る。）をいう。",
+      "「ガス工作物」とは、ガスの供給のために施設するガス発生設備、ガスホルダー、ガス精製設備、排送機、圧送機、整圧器、導管、受電設備その他の工作物及びこれらの附属設備であって、ガス事業の用に供するものをいう。",
+      "「熱量」とは、標準状態の乾燥した\nガス22.4L中\nで測定される総熱量をいう。",
+      "「液化ガス」とは、常用の温度において、圧力が0.2MPa以上となる液化ガスであって、現にその圧力が0.2MPa以上であるもの又は圧力が0.2MPaとなる場合の\n温度が40℃以下\nである液化ガスをいう。",
+      "高圧ガス保安法中高圧ガスの製造又は販売の事業及び高圧ガスの製造又は販売のための施設に関する規定は、ガス事業及びガス工作物についても、\n適用しなければならない\n。"
     ],
     "correctChoiceText": [
       "間違い",
@@ -52,11 +52,11 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 878,
-    "publicQuestionId": "b85f33d43566b1fe",
+    "planSequence": 877,
+    "publicQuestionId": "675ce6f3db722a24",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:b85f33d43566b1fe",
-    "questionBodyText": "法令で規定されている一般ガス導管事業者、特定ガス導管事業者の業務に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 2,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問2",
-    "questionNo": 2,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:675ce6f3db722a24",
+    "questionBodyText": "法令で規定されている用語の定義等に関する次の記述のうち、正しいものはどれか。",
+    "questionIndexInFile": 1,
+    "questionIntent": "select_correct",
+    "questionLabel": "問1",
+    "questionNo": 1,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q2",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q1",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_1:b85f33d43566b1fe",
+    "reviewId": "2025:question_2025_1:675ce6f3db722a24",
     "reviewNotes": "",
-    "reviewQuestionId": "b85f33d43566b1fe",
+    "reviewQuestionId": "675ce6f3db722a24",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 2,
+      "questionNo": 1,
       "subject": "law",
       "year": 2025
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:law:q02",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:law:q01",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:law:q02:s01",
-      "gas-shunin:otsu:2025:law:q02:s02",
-      "gas-shunin:otsu:2025:law:q02:s03",
-      "gas-shunin:otsu:2025:law:q02:s04",
-      "gas-shunin:otsu:2025:law:q02:s05"
+      "gas-shunin:otsu:2025:law:q01:s01",
+      "gas-shunin:otsu:2025:law:q01:s02",
+      "gas-shunin:otsu:2025:law:q01:s03",
+      "gas-shunin:otsu:2025:law:q01:s04",
+      "gas-shunin:otsu:2025:law:q01:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q2",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q1",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q02:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q01:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q02:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q01:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q02:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q01:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q02:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q01:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q02:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q01:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 878,
-  "nextPendingTaskId": "T586",
-  "otsuCompleted": 74,
-  "otsuDone": 61,
+  "nextPendingPlanSequence": 877,
+  "nextPendingTaskId": "T587",
+  "otsuCompleted": 75,
+  "otsuDone": 62,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 448,
-  "pending": 448,
-  "pending_questions": 448,
+  "otsuPending": 447,
+  "pending": 447,
+  "pending_questions": 447,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
