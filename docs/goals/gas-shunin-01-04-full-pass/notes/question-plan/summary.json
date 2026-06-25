@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T603",
-  "completed": 503,
-  "completed_questions": 503,
-  "done": 388,
+  "activeTaskId": "T604",
+  "completed": 504,
+  "completed_questions": 504,
+  "done": 389,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 388,
+    "done": 389,
     "hold": 115,
-    "pending": 431
+    "pending": 430
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-26T08:06:49+09:00",
@@ -24,38 +24,48 @@
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "渦流式ガスメーター",
-      "超音波式ガスメーター",
-      "膜式\nガスメーター",
-      "オリフィス式ガスメーター",
-      "回転子式\nガスメーター"
+      "アキシャルフロー式(軸流式)整圧器の二次圧力の設定は、パイロットスプリングで調整する。",
+      "パイロット式整圧器は、一次圧力と二次圧力の差圧が一定以上確保されない場合、作動できなくなる。",
+      "大規模地区整圧器として使用する場合には、オフセット及びロックアップが小さく、\n動特性の優れた\n整圧器を選定する。",
+      "ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を一体化している。",
+      "整圧器を並列に設置している場合、予備整圧器を分解点検したときは、点検完了後に常用整圧器を停止し、予備整圧器が正常に作動することを確認する。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
       "間違い",
       "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
-    "explanationText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+
+    ],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
+    "firestoreQuestionIds": [
+
+    ],
     "fixInstructions": "",
     "grade": "乙種",
     "hasAnswerResultText": true,
@@ -85,28 +95,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 861,
-    "publicQuestionId": "e6ce621ee6bf7c78",
+    "planSequence": 860,
+    "publicQuestionId": "85386c740cb302e8",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:e6ce621ee6bf7c78",
-    "questionBodyText": "次のガスメーターのうち、推量式に分類されるものはいくつあるか。",
-    "questionIndexInFile": 18,
-    "questionIntent": "",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:85386c740cb302e8",
+    "questionBodyText": "整圧器に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 17,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q12",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:e6ce621ee6bf7c78",
+    "reviewId": "2024:question_2024_2:85386c740cb302e8",
     "reviewNotes": "",
-    "reviewQuestionId": "e6ce621ee6bf7c78",
+    "reviewQuestionId": "85386c740cb302e8",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -114,61 +124,65 @@
     "sourceCategory": "供給",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
+    "sourceContentConflictFields": [
+
+    ],
     "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
     "sourceFileIndex": 23,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 11,
       "subject": "kyokyu",
       "year": 2024
     },
     "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
+    "sourceNaturalUniqueKeys": [
+
+    ],
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kyokyu:q12:s01",
-      "gas-shunin:otsu:2024:kyokyu:q12:s02",
-      "gas-shunin:otsu:2024:kyokyu:q12:s03",
-      "gas-shunin:otsu:2024:kyokyu:q12:s04",
-      "gas-shunin:otsu:2024:kyokyu:q12:s05"
+      "gas-shunin:otsu:2024:kyokyu:q11:s01",
+      "gas-shunin:otsu:2024:kyokyu:q11:s02",
+      "gas-shunin:otsu:2024:kyokyu:q11:s03",
+      "gas-shunin:otsu:2024:kyokyu:q11:s04",
+      "gas-shunin:otsu:2024:kyokyu:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q11:s05",
         "statementNo": 5
       }
     ],
@@ -181,16 +195,38 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 861,
-  "nextPendingTaskId": "T603",
-  "otsuCompleted": 91,
-  "otsuDone": 78,
+  "nextPendingPlanSequence": 860,
+  "nextPendingTaskId": "T604",
+  "otsuCompleted": 92,
+  "otsuDone": 79,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 431,
-  "pending": 431,
-  "pending_questions": 431,
+  "otsuPending": 430,
+  "pending": 430,
+  "pending_questions": 430,
   "rowCount": 934,
   "total": 934,
-  "total_questions": 934
+  "total_questions": 934,
+  "done_questions": 389,
+  "lastCompletedQuestion": {
+    "reviewId": "2024:question_2024_2:e6ce621ee6bf7c78",
+    "planSequence": 861,
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2024,
+    "sourceCategory": "供給",
+    "questionLabel": "問12",
+    "publicQuestionId": "e6ce621ee6bf7c78",
+    "questionBodyText": "次のガスメーターのうち、推量式に分類されるものはいくつあるか。",
+    "reviewedAt": "2026-06-26T08:10:37+09:00"
+  },
+  "nextPendingQuestion": {
+    "reviewId": "2024:question_2024_2:85386c740cb302e8",
+    "planSequence": 860,
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2024,
+    "sourceCategory": "供給",
+    "questionLabel": "問11",
+    "publicQuestionId": "85386c740cb302e8",
+    "questionBodyText": "整圧器に関する次の記述のうち、誤っているものはどれか。"
+  }
 }

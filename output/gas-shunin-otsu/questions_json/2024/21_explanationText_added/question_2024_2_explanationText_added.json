@@ -644,10 +644,63 @@
       "回転子式\nガスメーター"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。渦流式ガスメーターは、流れの中に発生する渦の周波数から流量を推定して計量する方式であり、推量式に分類される。",
+      "正しい。超音波式ガスメーターは、超音波の伝搬時間差などから流速・流量を推定して計量する方式であり、推量式に分類される。",
+      "間違い。膜式ガスメーターは、一定容積の計量室を膜の往復運動で順次満たして通過量を積算する容積式の実測式であり、推量式ではない。",
+      "正しい。オリフィス式ガスメーターは、絞り機構で生じる差圧から流量を推定して計量する方式であり、推量式に分類される。",
+      "間違い。回転子式ガスメーターは、回転子で一定容積のガスを区切って通過量を積算する容積式の実測式であり、推量式ではない。"
+    ],
+    "suggestedQuestions": [
+      {
+        "question": "渦流式ガスメーターは推量式か。",
+        "answer": "はい。流れで発生する渦の周波数から流量を推定するため推量式である。"
+      },
+      {
+        "question": "超音波式ガスメーターは推量式か。",
+        "answer": "はい。超音波の伝搬時間差などから流量を推定するため推量式である。"
+      },
+      {
+        "question": "膜式ガスメーターは推量式か。",
+        "answer": "いいえ。一定容積を膜の動きで積算する容積式の実測式である。"
+      },
+      {
+        "question": "オリフィス式ガスメーターは推量式か。",
+        "answer": "はい。差圧から流量を推定するため推量式である。"
+      },
+      {
+        "question": "回転子式ガスメーターは推量式か。",
+        "answer": "いいえ。回転子で一定容積を区切って積算する容積式の実測式である。"
+      }
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "question": "渦流式ガスメーターは推量式か。",
+        "answer": "はい。流れで発生する渦の周波数から流量を推定するため推量式である。"
+      },
+      {
+        "choiceIndex": 2,
+        "question": "超音波式ガスメーターは推量式か。",
+        "answer": "はい。超音波の伝搬時間差などから流量を推定するため推量式である。"
+      },
+      {
+        "choiceIndex": 3,
+        "question": "膜式ガスメーターは推量式か。",
+        "answer": "いいえ。一定容積を膜の動きで積算する容積式の実測式である。"
+      },
+      {
+        "choiceIndex": 4,
+        "question": "オリフィス式ガスメーターは推量式か。",
+        "answer": "はい。差圧から流量を推定するため推量式である。"
+      },
+      {
+        "choiceIndex": 5,
+        "question": "回転子式ガスメーターは推量式か。",
+        "answer": "いいえ。回転子で一定容積を区切って積算する容積式の実測式である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -658,12 +711,14 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "questionIntent": "select_correct",
+    "explanationTextCount": 5
   },
   {
     "original_question_id": "6602bb83e4a77334",
