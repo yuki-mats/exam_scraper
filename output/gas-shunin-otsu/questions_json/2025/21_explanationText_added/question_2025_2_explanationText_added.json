@@ -163,25 +163,44 @@
       "高温度で長時間使用していると、劣化する。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。高分子材料は一般に金属材料に比べて熱伝導率が小さく、熱を伝えにくい性質がある。",
+      "正しい。高分子材料は一般に金属材料に比べて引張強さが小さい。",
+      "間違い。高分子材料は粘弾性を示し、荷重を受けた状態で時間とともに変形が進むクリープが常温でも発生する。常温では発生しないとしている点が誤りである。",
+      "正しい。高分子材料は紫外線を吸収すると分子鎖の切断などにより分解・劣化することがある。",
+      "正しい。高分子材料は高温度で長時間使用すると、熱による酸化や分子構造の変化などで劣化することがある。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「高分子材料（乙種）」の一般的性質が本問の関連論点。",
+      "焦点ポイント: 高分子材料は熱伝導率・引張強さが金属より小さく、クリープは常温でも発生し、紫外線や高温長時間使用で劣化する。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "高分子材料は金属材料より熱伝導率が小さく、断熱性が高い。"
+      ],
+      [
+        "高分子材料は金属材料より引張強さが小さい傾向がある。"
+      ],
+      [
+        "正しくは: 常温でもクリープが発生する。高分子材料は粘弾性により時間依存変形を示す。"
+      ],
+      [
+        "紫外線吸収により分子鎖切断などの分解・劣化が起こることがある。"
+      ],
+      [
+        "高温で長時間使用すると熱劣化が進むことがある。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ]
   },
   {
