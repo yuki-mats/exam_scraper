@@ -1,19 +1,19 @@
 {
-  "activeTaskId": "T530",
-  "completed": 430,
-  "completed_questions": 430,
+  "activeTaskId": "T531",
+  "completed": 431,
+  "completed_questions": 431,
   "done": 321,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 321,
-    "hold": 109,
-    "pending": 504
+    "hold": 110,
+    "pending": 503
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-25T14:28:18Z",
-  "held_questions": 109,
-  "hold": 109,
-  "hold_questions": 109,
+  "generatedAt": "2026-06-25T14:33:30Z",
+  "held_questions": 110,
+  "hold": 110,
+  "hold_questions": 110,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "製造所には、\n周囲の状況によらず\n、構内に公衆がみだりに立ち入らないよう、適切な措置を講じなければならない。",
-      "製造所(特定製造所を除く。)には、緊急時に迅速な通信を確保するため、適切な通信設備を設けなければならない。",
-      "製造所に設置する中圧の天然ガスを通ずる熱交換器は、その外面から火気を取り扱う設備(当該熱交換器と一体となって製造の用に供するものを除く。)に対し適切な距離を有しなければならない。",
-      "液化ガスを通ずるガス工作物には、当該ガス工作物に生ずる静電気を除去する措置を講じなければならない。ただし、当該静電気によりガスに引火するおそれがない場合にあっては、この限りでない。",
-      "特定ガス発生設備に係る容器であって\n最高使用圧力が中圧のもの\n(液化ガスを通ずるものを除く。)は、その外面から保安物件に対し告示で定める距離を有しなければならない。"
+      "ガス発生設備に属する容器(法令に規定する容器を除く。)及び管のうち、ガスを通ずるものであって\n内面に零Paを超える圧力\nを受ける部分の構造は、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対し、設備の種類、規模に応じて適切な構造でなければならない。",
+      "液化ガスを通ずる容器(最高使用圧力をMPaで表した数値と内容積をm³で表した数値との積が0.004以下のものを除く。)であって、液化ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。",
+      "液化ガスを通ずるガス発生設備であって、過圧が生ずるおそれのあるものには、その圧力を逃すために適切な\n安全弁を2個以上設けなければならない\n。",
+      "移動式ガス発生設備には、設備の損傷を防止するため使用の状態を計測又は確認できる適切な措置が講じられていなければならない。",
+      "製造所に設置する遮断装置には、誤操作を防止し、かつ、確実に操作することができる措置を講じなければならない。"
     ],
     "correctChoiceText": [
       "間違い",
       "正しい",
+      "間違い",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2017,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 417,
-    "publicQuestionId": "1c4d8cb16b58e5c0",
+    "planSequence": 418,
+    "publicQuestionId": "f0084aa8e90d25b4",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1c4d8cb16b58e5c0",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものの組合せはどれか。",
-    "questionIndexInFile": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:f0084aa8e90d25b4",
+    "questionBodyText": "技術基準で規定されている製造設備に関する次の記述のうち、誤っているものの組合せはどれか。",
+    "questionIndexInFile": 6,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q5",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2017:question_2017_1:1c4d8cb16b58e5c0",
+    "reviewId": "2017:question_2017_1:f0084aa8e90d25b4",
     "reviewNotes": "",
-    "reviewQuestionId": "1c4d8cb16b58e5c0",
+    "reviewQuestionId": "f0084aa8e90d25b4",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 6,
       "subject": "law",
       "year": 2017
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q05",
+    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2017:law:q05:s01",
-      "gas-shunin:otsu:2017:law:q05:s02",
-      "gas-shunin:otsu:2017:law:q05:s03",
-      "gas-shunin:otsu:2017:law:q05:s04",
-      "gas-shunin:otsu:2017:law:q05:s05"
+      "gas-shunin:otsu:2017:law:q06:s01",
+      "gas-shunin:otsu:2017:law:q06:s02",
+      "gas-shunin:otsu:2017:law:q06:s03",
+      "gas-shunin:otsu:2017:law:q06:s04",
+      "gas-shunin:otsu:2017:law:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q5",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q05:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q06:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 417,
-  "nextPendingTaskId": "T530",
-  "otsuCompleted": 18,
+  "nextPendingPlanSequence": 418,
+  "nextPendingTaskId": "T531",
+  "otsuCompleted": 19,
   "otsuDone": 11,
   "otsuHeld": 7,
-  "otsuHold": 7,
-  "otsuPending": 504,
-  "pending": 504,
-  "pending_questions": 504,
+  "otsuHold": 8,
+  "otsuPending": 503,
+  "pending": 503,
+  "pending_questions": 503,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
