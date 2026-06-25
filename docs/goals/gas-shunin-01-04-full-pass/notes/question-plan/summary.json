@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T573",
-  "completed": 473,
-  "completed_questions": 473,
-  "done": 360,
+  "activeTaskId": "T574",
+  "completed": 474,
+  "completed_questions": 474,
+  "done": 361,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 360,
+    "done": 361,
     "hold": 113,
-    "pending": 461
+    "pending": 460
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T05:11:56+09:00",
+  "generatedAt": "2026-06-26T05:18:14+09:00",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,16 +34,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "温度及び圧力一定の条件の下で化学反応が起こるとき、生成系のエンタルピーが反応系のエンタルピーよりも低い場合は、発熱反応になる。",
-      "反応熱は、反応の始状態と終状態だけで決まり、反応の経路によらない。",
-      "反応熱は、\n反応温度によらず一定である\n。",
-      "単位量の物質が完全燃焼する際の反応熱を燃焼熱という。",
-      "反応に関わるすべての成分の標準生成熱がわかっているとき、標準反応熱は計算により求めることができる。"
+      "孤立系は、外界との間でエネルギー（熱及び仕事）も物質も交換しない。",
+      "系がある状態から別の状態に移るときのエントロピー変化は、\nその途中の経路に依存する\n。",
+      "系の性質が時間的に変化しないとき、その系は平衡状態にある。",
+      "温度や圧力は状態量である。",
+      "熱力学の第二法則によれば、熱は自然には低温度の物体から高温度の物体へ移ることはできない。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
       "間違い",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -53,8 +53,8 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "正しい",
       "間違い",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 898,
-    "publicQuestionId": "e195549cd2dc1c5c",
+    "planSequence": 897,
+    "publicQuestionId": "0e6e024a83f02349",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:e195549cd2dc1c5c",
-    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 22,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:0e6e024a83f02349",
+    "questionBodyText": "気体の熱力学に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 21,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問6",
-    "questionNo": 6,
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q6",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_1:e195549cd2dc1c5c",
+    "reviewId": "2025:question_2025_1:0e6e024a83f02349",
     "reviewNotes": "",
-    "reviewQuestionId": "e195549cd2dc1c5c",
+    "reviewQuestionId": "0e6e024a83f02349",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 6,
+      "questionNo": 5,
       "subject": "kiso",
       "year": 2025
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q06",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kiso:q06:s01",
-      "gas-shunin:otsu:2025:kiso:q06:s02",
-      "gas-shunin:otsu:2025:kiso:q06:s03",
-      "gas-shunin:otsu:2025:kiso:q06:s04",
-      "gas-shunin:otsu:2025:kiso:q06:s05"
+      "gas-shunin:otsu:2025:kiso:q05:s01",
+      "gas-shunin:otsu:2025:kiso:q05:s02",
+      "gas-shunin:otsu:2025:kiso:q05:s03",
+      "gas-shunin:otsu:2025:kiso:q05:s04",
+      "gas-shunin:otsu:2025:kiso:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q6",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q06:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q06:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q06:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q06:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q06:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q05:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 898,
-  "nextPendingTaskId": "T573",
-  "otsuCompleted": 61,
-  "otsuDone": 50,
+  "nextPendingPlanSequence": 897,
+  "nextPendingTaskId": "T574",
+  "otsuCompleted": 62,
+  "otsuDone": 51,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 461,
-  "pending": 461,
-  "pending_questions": 461,
+  "otsuPending": 460,
+  "pending": 460,
+  "pending_questions": 460,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
