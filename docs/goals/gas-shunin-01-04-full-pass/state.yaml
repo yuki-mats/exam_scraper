@@ -29368,6 +29368,10 @@ tasks:
           status: pass
         - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json --patch output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_2_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
           status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2025 output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+          status: pass
       summary: "T548 completed 01-04 for gas-shunin-otsu 2025 supply q17; answer_result_text=正解は 4 です。 matches the manually reviewed correctness vector [正しい, 正しい, 正しい, 間違い, 正しい], and active category chiefgasengineerlicense-B-2060 was linked."
       evidence:
         - "planSequence=924"
