@@ -1,23 +1,23 @@
 {
-  "completed": 348,
-  "completed_questions": 348,
+  "completed": 349,
+  "completed_questions": 349,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 257,
+    "done": 258,
     "hold": 91,
-    "pending": 586
+    "pending": 585
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 342,
+  "kouCompleted": 343,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 70,
+  "kouPending": 69,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,14 +31,14 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "割れ – 溶接部の急冷、開先不良",
-      "溶込み不良 – 開先不良、\n過大電流",
-      "ブローホール – 溶接棒の吸湿、雨風",
-      "融合不良 – 過小電流、スラグ清掃不良",
-      "パイプ – 溶接棒の吸湿、過大電流"
+      "半導体式ガス検知器は、低濃度での感度が非常に高く、\n高濃度でも感度が維持されるため、ガス濃度測定にも用いられる\n。",
+      "漏えい磁束ピグは、主に\n高圧導管の塗覆装の損傷を検査\nするために用いられる。",
+      "中圧鋼管で腐食による漏えいが発生したため、緊急修理用バンドを用いて応急処置を行った。",
+      "需要家等からのガス漏えい等の通報に対する出動は、その内容に応じて一般出動、緊急出動及び特別出動に区分する。",
+      "亀裂・折損漏えい予防を目的とした本支管の更生修理工法には、反転シール系、樹脂ライニング系がある。"
     ],
     "correctChoiceText": [
-      "正しい",
+      "間違い",
       "間違い",
       "正しい",
       "正しい",
@@ -50,10 +50,10 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "間違い",
+      "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -88,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 343,
-    "publicQuestionId": "9ad6e87ef8da4548",
+    "planSequence": 344,
+    "publicQuestionId": "23126d5753d089ac",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:9ad6e87ef8da4548",
-    "questionBodyText": "溶接欠陥の種類と発生原因の例に関する次の記述のうち、語句の組合せとして誤っているものはいくつあるか。",
-    "questionIndexInFile": 22,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問16",
-    "questionNo": 16,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:23126d5753d089ac",
+    "questionBodyText": "導管の維持管理に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 23,
+    "questionIntent": "select_correct",
+    "questionLabel": "問17",
+    "questionNo": 17,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q16",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q17",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:9ad6e87ef8da4548",
+    "reviewId": "2024:question_2024_gassyunin_site_2:23126d5753d089ac",
     "reviewNotes": "",
-    "reviewQuestionId": "9ad6e87ef8da4548",
+    "reviewQuestionId": "23126d5753d089ac",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 16,
+      "questionNo": 17,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q16",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q17",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kyokyu:q16:s01",
-      "gas-shunin:kou:2024:kyokyu:q16:s02",
-      "gas-shunin:kou:2024:kyokyu:q16:s03",
-      "gas-shunin:kou:2024:kyokyu:q16:s04",
-      "gas-shunin:kou:2024:kyokyu:q16:s05"
+      "gas-shunin:kou:2024:kyokyu:q17:s01",
+      "gas-shunin:kou:2024:kyokyu:q17:s02",
+      "gas-shunin:kou:2024:kyokyu:q17:s03",
+      "gas-shunin:kou:2024:kyokyu:q17:s04",
+      "gas-shunin:kou:2024:kyokyu:q17:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q16",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q17",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q16:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q17:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q16:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q17:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q16:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q17:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q16:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q17:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q16:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q17:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 343,
-  "nextPendingTaskId": "T456",
+  "nextPendingPlanSequence": 344,
+  "nextPendingTaskId": "T457",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 586,
-  "pending_questions": 586,
+  "pending": 585,
+  "pending_questions": 585,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -203,9 +203,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "ok": 257,
+    "ok": 258,
     "hold": 91,
-    "pending": 586
+    "pending": 585
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -227,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T16:52:11+09:00",
-  "activeTaskId": "T456"
+  "updatedAt": "2026-06-25T17:05:44+09:00",
+  "activeTaskId": "T457"
 }
