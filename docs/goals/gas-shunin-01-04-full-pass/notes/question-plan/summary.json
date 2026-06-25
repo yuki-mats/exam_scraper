@@ -1,21 +1,21 @@
 {
-  "completed": 308,
-  "completed_questions": 308,
+  "completed": 309,
+  "completed_questions": 309,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 222,
-    "hold": 86,
-    "pending": 626
+    "hold": 87,
+    "pending": 625
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
-  "held_questions": 86,
-  "hold": 86,
-  "hold_questions": 86,
-  "kouCompleted": 308,
-  "kouHeld": 86,
-  "kouHold": 86,
-  "kouPending": 104,
+  "held_questions": 87,
+  "hold": 87,
+  "hold_questions": 87,
+  "kouCompleted": 309,
+  "kouHeld": 87,
+  "kouHold": 87,
+  "kouPending": 103,
   "nextPending": {
     "answerResultText": "正解は 2 です。",
     "autoAudit": {
@@ -31,17 +31,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガス事業者の掘削により周囲が露出することとなった導管の露出している部分の両端は、地くずれのおそれがない地中に支持されていなければならない。",
-      "ガス事業者の掘削により周\n囲が露出することとなったガスの供給の用に供されている導管で、露出している部分が直管以外の管の接合部であって、フランジ接合されているものには、抜出しを防止する適切な措置を講じなければならない。",
-      "整圧器の入口には、\nガス遮断装置を設けなければならない\n。ただし、一の使用者にガスを供給するためのものにあっては、この限りでない。",
-      "ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じなければならない。",
-      "整圧器の制御用配管、補助整圧器その他の附属設備は、地震に対し耐えるよう支持されていなければならない。"
+      "「ガス用品」とは、\n主として一般消費者等がガスを消費する場合に用いられるすべての機械、器具及び材料\n(液化石油ガス器具等を除く。)をいう。",
+      "「特定ガス用品」とは、構造、使用条件、使用状況等からみて特にガスによる災害の発生のおそれが多いと認められるガス用品であって、\n密閉燃焼式のガス瞬間湯沸器等がある\n。",
+      "ガス用品の製造、輸入又は販売の事業を行う者は、経済産業省令で定める技術上の基準に対する適合性についての表示が付されているものでなければ、ガス用品を販売し、又は販売の目的で陳列してはならない。",
+      "「特定工事」とは、特定ガス用品の設置又は\n変更の工事(経済産業省令で定める軽微なものを除く。)をいう。",
+      "液化石油ガス設備士である者は、ガス消費機器設置工事監督者の資格を有する者に該当する。"
     ],
     "correctChoiceText": [
-      "正しい",
       "間違い",
       "間違い",
       "正しい",
+      "間違い",
       "正しい"
     ],
     "correctChoiceTextCount": 5,
@@ -49,11 +49,11 @@
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -88,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 309,
-    "publicQuestionId": "5d3de50bde7929c2",
+    "planSequence": 310,
+    "publicQuestionId": "a42e5bc2a9c012a5",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:5d3de50bde7929c2",
-    "questionBodyText": "技術基準で規定されている導管及び整圧器に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 13,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:a42e5bc2a9c012a5",
+    "questionBodyText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 14,
+    "questionIntent": "select_correct",
+    "questionLabel": "問14",
+    "questionNo": 14,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q13",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q14",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:5d3de50bde7929c2",
+    "reviewId": "2024:question_2024_gassyunin_site_1:a42e5bc2a9c012a5",
     "reviewNotes": "",
-    "reviewQuestionId": "5d3de50bde7929c2",
+    "reviewQuestionId": "a42e5bc2a9c012a5",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 14,
       "subject": "law",
       "year": 2024
     },
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:law:q13",
+    "sourceQuestionKey": "gas-shunin:kou:2024:law:q14",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:law:q13:s01",
-      "gas-shunin:kou:2024:law:q13:s02",
-      "gas-shunin:kou:2024:law:q13:s03",
-      "gas-shunin:kou:2024:law:q13:s04",
-      "gas-shunin:kou:2024:law:q13:s05"
+      "gas-shunin:kou:2024:law:q14:s01",
+      "gas-shunin:kou:2024:law:q14:s02",
+      "gas-shunin:kou:2024:law:q14:s03",
+      "gas-shunin:kou:2024:law:q14:s04",
+      "gas-shunin:kou:2024:law:q14:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q13",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q14",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q13:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q13:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q13:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q13:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q13:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q14:s05",
         "statementNo": 5
       }
     ],
@@ -184,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 309,
-  "nextPendingTaskId": "T422",
+  "nextPendingPlanSequence": 310,
+  "nextPendingTaskId": "T423",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 626,
-  "pending_questions": 626,
+  "pending": 625,
+  "pending_questions": 625,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -203,9 +203,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "hold": 86,
+    "hold": 87,
     "ok": 222,
-    "pending": 626
+    "pending": 625
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
