@@ -1,22 +1,22 @@
 {
-  "activeTaskId": "T494",
-  "completed": 378,
-  "completed_questions": 386,
+  "activeTaskId": "T495",
+  "completed": 379,
+  "completed_questions": 387,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 286,
+    "done": 287,
     "hold": 100,
-    "pending": 548
+    "pending": 547
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 100,
   "hold": 100,
   "hold_questions": 100,
-  "kouCompleted": 380,
+  "kouCompleted": 381,
   "kouHeld": 100,
   "kouHold": 100,
-  "kouPending": 32,
+  "kouPending": 31,
   "nextPending": {
     "answerResultText": "正解は 2 です。",
     "autoAudit": {
@@ -32,11 +32,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "25.0",
-      "32.5",
-      "38.5",
-      "42.5",
-      "47.5"
+      "35",
+      "60",
+      "78",
+      "87",
+      "93"
     ],
     "correctChoiceText": [
       "不正解",
@@ -83,28 +83,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 381,
-    "publicQuestionId": "87e96a07f7e35ea9",
+    "planSequence": 382,
+    "publicQuestionId": "d3a875bb5d87861a",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:87e96a07f7e35ea9",
-    "questionBodyText": "直円管の一端を円錐状に絞り、内径が元の直円管の1/2である別の直円管を下流につなげて水を流した。上流の管内では、圧力が40kPa、平均流速が1m/sであったとき、下流の管内での圧力(kPa)として、最も近い値はどれか。ただし、水は非圧縮性かつ非粘性の流体として扱い、その密度は1000kg/m³とする。",
-    "questionIndexInFile": 2,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:d3a875bb5d87861a",
+    "questionBodyText": "熱伝導率1.2W/(m·K)、厚さ0.04mの平板の片側に、温度100℃に保たれた液体が保持されており、反対側は20℃の大気に接している。液体と平板の液体側表面の熱伝達率を60W/(m²K)、大気と平板の大気側表面の熱伝達率を20W/(m²K)としたとき、平板の大気側表面の温度(℃)として最も近い値はどれか。",
+    "questionIndexInFile": 3,
     "questionIntent": "",
-    "questionLabel": "問11",
-    "questionNo": 11,
+    "questionLabel": "問12",
+    "questionNo": 12,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q11",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q12",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:87e96a07f7e35ea9",
+    "reviewId": "2025:question_2025_gassyunin_site_2:d3a875bb5d87861a",
     "reviewNotes": "",
-    "reviewQuestionId": "87e96a07f7e35ea9",
+    "reviewQuestionId": "d3a875bb5d87861a",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -119,7 +119,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 11,
+      "questionNo": 12,
       "subject": "kiso",
       "year": 2025
     },
@@ -128,45 +128,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q11",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kiso:q11:s01",
-      "gas-shunin:kou:2025:kiso:q11:s02",
-      "gas-shunin:kou:2025:kiso:q11:s03",
-      "gas-shunin:kou:2025:kiso:q11:s04",
-      "gas-shunin:kou:2025:kiso:q11:s05"
+      "gas-shunin:kou:2025:kiso:q12:s01",
+      "gas-shunin:kou:2025:kiso:q12:s02",
+      "gas-shunin:kou:2025:kiso:q12:s03",
+      "gas-shunin:kou:2025:kiso:q12:s04",
+      "gas-shunin:kou:2025:kiso:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q11",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q11:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s05",
         "statementNo": 5
       }
     ],
@@ -179,14 +179,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 381,
-  "nextPendingTaskId": "T494",
+  "nextPendingPlanSequence": 382,
+  "nextPendingTaskId": "T495",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 556,
-  "pending_questions": 548,
+  "pending": 555,
+  "pending_questions": 547,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -199,8 +199,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 100,
-    "ok": 280,
-    "pending": 32
+    "ok": 281,
+    "pending": 31
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -222,5 +222,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T19:48:52+09:00"
+  "updatedAt": "2026-06-25T19:53:05+09:00"
 }
