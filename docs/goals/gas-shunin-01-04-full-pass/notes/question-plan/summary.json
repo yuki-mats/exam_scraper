@@ -1,54 +1,60 @@
 {
-  "completed": 321,
-  "completed_questions": 321,
+  "completed": 322,
+  "completed_questions": 322,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 232,
+    "done": 233,
     "hold": 89,
-    "pending": 613
+    "pending": 612
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 321,
+  "kouCompleted": 322,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 91,
+  "kouPending": 90,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "49",
-      "196",
-      "490",
-      "980",
-      "1960"
+      "壁近くでは、流体が粘性の影響を受けて流速が急激に変化する。",
+      "流体の粘性や乱れによって、流れの下流の圧力が上流の圧力と比べ低くなることを圧力損失という。",
+      "配管の屈曲部で生じる圧力損失は、流れの方向を急激に変化させるより緩やかに変化させる方が小さい。",
+      "直円管内の流れでは、レイノルズ数がある値以上となると層流から乱流に遷移する。",
+      "乱流における管摩擦係数は、\n管壁面の粗さに依存しない\n。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -82,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 844,
-    "publicQuestionId": "05674b5a8eccee4d",
+    "planSequence": 845,
+    "publicQuestionId": "6ec9b12d812fcd54",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:05674b5a8eccee4d",
-    "questionBodyText": "気体容器内の圧力を測定するため、水を注入したマノメーターの一端を気体容器に接続し、別の一端を大気開放した。水位の差Hは50mmであった。気体容器内のゲージ圧力(Pa)として、最も近い値はどれか。ただし、水の密度は1000kg/m³、重力加速度は9.8m/s²とする。",
-    "questionIndexInFile": 1,
-    "questionIntent": "",
-    "questionLabel": "問10",
-    "questionNo": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ec9b12d812fcd54",
+    "questionBodyText": "管内を流れる流体に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 2,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q10",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:05674b5a8eccee4d",
+    "reviewId": "2024:question_2024_2:6ec9b12d812fcd54",
     "reviewNotes": "",
-    "reviewQuestionId": "05674b5a8eccee4d",
+    "reviewQuestionId": "6ec9b12d812fcd54",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 10,
+      "questionNo": 11,
       "subject": "kiso",
       "year": 2024
     },
@@ -127,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q10",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kiso:q10:s01",
-      "gas-shunin:otsu:2024:kiso:q10:s02",
-      "gas-shunin:otsu:2024:kiso:q10:s03",
-      "gas-shunin:otsu:2024:kiso:q10:s04",
-      "gas-shunin:otsu:2024:kiso:q10:s05"
+      "gas-shunin:otsu:2024:kiso:q11:s01",
+      "gas-shunin:otsu:2024:kiso:q11:s02",
+      "gas-shunin:otsu:2024:kiso:q11:s03",
+      "gas-shunin:otsu:2024:kiso:q11:s04",
+      "gas-shunin:otsu:2024:kiso:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q10",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q10:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q10:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q10:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q10:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q10:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q11:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 322,
-  "nextPendingTaskId": "T435",
+  "nextPendingPlanSequence": 323,
+  "nextPendingTaskId": "T436",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 613,
-  "pending_questions": 613,
+  "pending": 612,
+  "pending_questions": 612,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -198,8 +204,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 232,
-    "pending": 613
+    "ok": 233,
+    "pending": 612
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T14:10:42+09:00",
-  "activeTaskId": "T435"
+  "updatedAt": "2026-06-25T14:14:29+09:00",
+  "activeTaskId": "T436"
 }
