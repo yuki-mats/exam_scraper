@@ -570,10 +570,48 @@
       "1.6"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "不正解。初期条件ではA点2.2kPa、B点2.1kPaなので圧力損失は0.1kPaである。流量を2倍にすると同一導管の圧力損失は4倍の0.4kPaとなり、B点圧力は1.8kPaとなるため、2.0kPaでは高すぎる。",
+      "不正解。低圧導管の圧力損失は流量の2乗に比例する。初期の0.1kPaを基準にすると、流量2倍時の損失は0.4kPaであり、B点圧力は2.2−0.4=1.8kPaとなる。1.9kPaではない。",
+      "正解。同じ導管で高低差を考慮しない場合、圧力損失は流量の2乗に比例する。初期圧力損失0.1kPaに対し、流量を2倍にすると損失は0.1×2²=0.4kPaとなるため、B点圧力は2.2−0.4=1.8kPaである。",
+      "不正解。流量2倍時の圧力損失は0.4kPaで、B点圧力は1.8kPaとなる。1.7kPaは圧力損失を0.5kPaと見込む計算になり、損失を大きく取りすぎている。",
+      "不正解。流量を2倍にしたときの圧力損失は初期0.1kPaの4倍で0.4kPaである。B点圧力は1.8kPaであり、1.6kPaは圧力損失を0.6kPaと見込むため小さすぎる。"
+    ],
+    "suggestedQuestions": [
+      "同一導管で流量を2倍にすると、低圧導管の圧力損失は4倍になる？",
+      "初期圧力損失が0.1kPaなら、流量2倍時の圧力損失は0.4kPaになる？",
+      "A点2.2kPa、流量2倍時の圧力損失0.4kPaなら、B点圧力は1.8kPaになる？",
+      "この条件でB点圧力を1.7kPaとするのは、圧力損失を大きく見積もりすぎている？",
+      "この条件でB点圧力を1.6kPaとするのは正しい？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "同一導管で流量を2倍にすると、低圧導管の圧力損失は4倍になる？",
+        "answer": true,
+        "explanation": "低圧導管の圧力損失は、同一導管では流量の2乗に比例するため、流量2倍なら損失は4倍になる。"
+      },
+      {
+        "question": "初期圧力損失が0.1kPaなら、流量2倍時の圧力損失は0.4kPaになる？",
+        "answer": true,
+        "explanation": "初期損失0.1kPaに2²を掛けるので、流量2倍時の圧力損失は0.4kPaである。"
+      },
+      {
+        "question": "A点2.2kPa、流量2倍時の圧力損失0.4kPaなら、B点圧力は1.8kPaになる？",
+        "answer": true,
+        "explanation": "A点圧力2.2kPaから圧力損失0.4kPaを差し引くため、B点圧力は1.8kPaである。"
+      },
+      {
+        "question": "この条件でB点圧力を1.7kPaとするのは、圧力損失を大きく見積もりすぎている？",
+        "answer": true,
+        "explanation": "1.7kPaは圧力損失0.5kPaに相当し、流量2倍時の0.4kPaより大きい。"
+      },
+      {
+        "question": "この条件でB点圧力を1.6kPaとするのは正しい？",
+        "answer": false,
+        "explanation": "1.6kPaは圧力損失0.6kPaに相当する。正しいB点圧力は1.8kPaである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
