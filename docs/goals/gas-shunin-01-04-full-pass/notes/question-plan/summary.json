@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T502",
-  "completed": 402,
-  "completed_questions": 402,
+  "activeTaskId": "T503",
+  "completed": 403,
+  "completed_questions": 403,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 294,
+    "done": 295,
     "hold": 108,
-    "pending": 532
+    "pending": 531
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 108,
   "hold": 108,
   "hold_questions": 108,
-  "kouCompleted": 388,
+  "kouCompleted": 389,
   "kouHeld": 101,
   "kouHold": 101,
-  "kouPending": 24,
+  "kouPending": 23,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,17 +32,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "液-液熱量調整方式は、LNGにLPGを液体のまま混合するため、LNG中\nに含まれる可能性のある不純物成分の凍結による閉そく対策等が必要となる場合がある。",
-      "ガスクロマトグラフ法によって得られた成分組成から、計算により試料ガスの発熱量を求める際には、その計算の過程で各成分の圧縮係数から試料ガスの圧縮係数を算出する必要がある。",
-      "ガスクロマトグラフの熱伝導度検出器(TCD)は、キャリアガスと熱伝導度を異にするすべての成分を検出するもので、これらが検出器に入ったときに現れるホイートストンブリッジの不平衡電圧を検出する。",
-      "熱伝導度検出器(TCD)を備えたガスクロマトグラフでは、試料ガスの各成分それぞれの\nピーク高さ\nを、同一条件下で得られた混合標準ガス又は純ガスのピーク高さと比較して、各成分を定量する。",
-      "硫化水素の分析方法には\nインドフェノール吸光光度法、アンモニアの分析方法にはメチレンブルー\n吸光光度法がある。"
+      "蒸発方式の設置場所は、一般に圧力、温度の変動が小さく、管内ガス流速の\n小さい\nところが望ましい。",
+      "ポンプ注入方式は、小容量のダイヤフラムポンプ等により付臭剤を直接ガス中に注入する方式であり、\n小規模\nの付臭設備に適している。",
+      "パネル法による臭気濃度の測定において、希釈倍数500倍でにおいあり、1000倍でにおいあり、2000倍でにおいあり\n、4000倍でにおい無し、8000倍でにおいありの場合、このパネルの感知希釈倍数は、2000倍となる。",
+      "付臭剤濃度測定法の1つであるFPD付ガスクロマトグラフ法は、試料ガスをガスクロマトグラフの分離管で各成分に分け、検出器に導入し、還元性の水素炎中で燃焼させることで発する特有の炎光を光学フィルターで分光して定量するものである。",
+      "都市ガスの代表的な付臭剤であるターシャリーブチルメルカプタン(TBM)、テトラヒドロチオフェン(THT)、ジメチルサルファイド(DMS)、シクロヘキセンは、\nいずれも硫黄元素を含む化合物である\n。"
     ],
     "correctChoiceText": [
       "間違い",
-      "正しい",
-      "正しい",
       "間違い",
+      "間違い",
+      "正しい",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -52,8 +52,8 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
+      "間違い",
       "正しい"
     ],
     "explanationText": [],
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 389,
-    "publicQuestionId": "118355ef06bb5c99",
+    "planSequence": 390,
+    "publicQuestionId": "6fde3c0701bf1013",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:118355ef06bb5c99",
-    "questionBodyText": "都市ガスの熱量調整、燃焼性管理及び特殊成分の分析に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:6fde3c0701bf1013",
+    "questionBodyText": "都市ガスの付臭及び付臭設備に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 11,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#seizo-q4",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#seizo-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:118355ef06bb5c99",
+    "reviewId": "2025:question_2025_gassyunin_site_2:6fde3c0701bf1013",
     "reviewNotes": "",
-    "reviewQuestionId": "118355ef06bb5c99",
+    "reviewQuestionId": "6fde3c0701bf1013",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 5,
       "subject": "seizo",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:seizo:q04",
+    "sourceQuestionKey": "gas-shunin:kou:2025:seizo:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:seizo:q04:s01",
-      "gas-shunin:kou:2025:seizo:q04:s02",
-      "gas-shunin:kou:2025:seizo:q04:s03",
-      "gas-shunin:kou:2025:seizo:q04:s04",
-      "gas-shunin:kou:2025:seizo:q04:s05"
+      "gas-shunin:kou:2025:seizo:q05:s01",
+      "gas-shunin:kou:2025:seizo:q05:s02",
+      "gas-shunin:kou:2025:seizo:q05:s03",
+      "gas-shunin:kou:2025:seizo:q05:s04",
+      "gas-shunin:kou:2025:seizo:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#seizo-q4",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#seizo-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q04:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q04:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q04:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q04:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q04:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:seizo:q05:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 389,
-  "nextPendingTaskId": "T502",
+  "nextPendingPlanSequence": 390,
+  "nextPendingTaskId": "T503",
   "otsuCompleted": 14,
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
-  "pending": 532,
-  "pending_questions": 532,
+  "pending": 531,
+  "pending_questions": 531,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 101,
-    "ok": 287,
-    "pending": 24
+    "ok": 288,
+    "pending": 23
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T20:34:55+09:00"
+  "updatedAt": "2026-06-25T20:39:31+09:00"
 }
