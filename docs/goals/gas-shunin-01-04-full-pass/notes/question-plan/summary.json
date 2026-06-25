@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T495",
-  "completed": 379,
-  "completed_questions": 387,
+  "activeTaskId": "T496",
+  "completed": 380,
+  "completed_questions": 388,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 287,
+    "done": 288,
     "hold": 100,
-    "pending": 547
+    "pending": 546
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 100,
   "hold": 100,
   "hold_questions": 100,
-  "kouCompleted": 381,
+  "kouCompleted": 382,
   "kouHeld": 100,
   "kouHold": 100,
-  "kouPending": 31,
+  "kouPending": 30,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,17 +32,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "35",
-      "60",
-      "78",
-      "87",
-      "93"
+      "0.25",
+      "0.50",
+      "0.67",
+      "0.75",
+      "0.90"
     ],
     "correctChoiceText": [
       "不正解",
+      "不正解",
+      "不正解",
       "正解",
-      "不正解",
-      "不正解",
       "不正解"
     ],
     "correctChoiceTextCount": 5,
@@ -83,28 +83,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 382,
-    "publicQuestionId": "d3a875bb5d87861a",
+    "planSequence": 383,
+    "publicQuestionId": "75fe8fc18f6594b2",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:d3a875bb5d87861a",
-    "questionBodyText": "熱伝導率1.2W/(m·K)、厚さ0.04mの平板の片側に、温度100℃に保たれた液体が保持されており、反対側は20℃の大気に接している。液体と平板の液体側表面の熱伝達率を60W/(m²K)、大気と平板の大気側表面の熱伝達率を20W/(m²K)としたとき、平板の大気側表面の温度(℃)として最も近い値はどれか。",
-    "questionIndexInFile": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:75fe8fc18f6594b2",
+    "questionBodyText": "高温流体の入口温度は210℃で出口温度が60℃である熱交換器がある。低温流体の温度効率は0.4で出口温度が90℃である場合、高温流体の温度効率として最も近い値はどれか。",
+    "questionIndexInFile": 4,
     "questionIntent": "",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "questionLabel": "問13",
+    "questionNo": 13,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q12",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q13",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:d3a875bb5d87861a",
+    "reviewId": "2025:question_2025_gassyunin_site_2:75fe8fc18f6594b2",
     "reviewNotes": "",
-    "reviewQuestionId": "d3a875bb5d87861a",
+    "reviewQuestionId": "75fe8fc18f6594b2",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -119,7 +119,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 13,
       "subject": "kiso",
       "year": 2025
     },
@@ -128,45 +128,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q12",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q13",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kiso:q12:s01",
-      "gas-shunin:kou:2025:kiso:q12:s02",
-      "gas-shunin:kou:2025:kiso:q12:s03",
-      "gas-shunin:kou:2025:kiso:q12:s04",
-      "gas-shunin:kou:2025:kiso:q12:s05"
+      "gas-shunin:kou:2025:kiso:q13:s01",
+      "gas-shunin:kou:2025:kiso:q13:s02",
+      "gas-shunin:kou:2025:kiso:q13:s03",
+      "gas-shunin:kou:2025:kiso:q13:s04",
+      "gas-shunin:kou:2025:kiso:q13:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q12",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q13",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q12:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q13:s05",
         "statementNo": 5
       }
     ],
@@ -179,14 +179,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 382,
-  "nextPendingTaskId": "T495",
+  "nextPendingPlanSequence": 383,
+  "nextPendingTaskId": "T496",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 555,
-  "pending_questions": 547,
+  "pending": 554,
+  "pending_questions": 546,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -199,8 +199,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 100,
-    "ok": 281,
-    "pending": 31
+    "ok": 282,
+    "pending": 30
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -222,5 +222,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T19:53:05+09:00"
+  "updatedAt": "2026-06-25T19:57:22+09:00"
 }
