@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T556",
-  "completed": 456,
-  "completed_questions": 456,
-  "done": 343,
+  "activeTaskId": "T557",
+  "completed": 457,
+  "completed_questions": 457,
+  "done": 344,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 343,
+    "done": 457,
     "hold": 113,
-    "pending": 478
+    "pending": 477
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-25T18:09:32Z",
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,17 +34,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "フューエルNOxの発生は、燃焼雰囲気の温度及び酸素濃度が高いほど、また滞留時間が長いほど増加する傾向がある。",
-      "J−クレジット制度とは、省エネ設備の導入や再生可能エネルギーの活用によるCO₂等の排出削減量や、適切な森林管理によるCO₂等の吸収量を、クレジットとして国が認証する制度である。",
-      "産業廃棄物の処理は、廃棄物を排出する事業者が自ら行うか、廃棄物処理法で定められた委託基準（マニフェストの交付等）に沿って委託処理しなければならない。",
-      "空気分離システムとは、空気を液化分離し、液体窒素、液体酸素及び液体アルゴン等を製造するもので、LNGを利用するシステムは大幅に電力使用量が節減できる。",
-      "電気エネルギーの管理では、\n力率を0に近づけると\n省エネルギー効果を上げることができる。"
+      "ポンプのインペラのように、材料と流動する液体の界面で気泡の発生と破壊を繰り返すことで生ずる孔食状の腐食は、キャビテーションエロージョンと呼ばれる。",
+      "超音波探傷試験(UT)は、検査物の片側だけから検査でき、割れのような平面欠陥の検出に適している。",
+      "浸透探傷試験(PT)は、金属、非金属のあらゆる材料の表面欠陥を調べることができる。",
+      "コンクリートの劣化現象には、大気中の二酸化炭素(CO₂)\nによるアルカリ化\nや海水による塩害のほか、冷熱による凍害がある。",
+      "時間計画保全とは\n、発生した場合の影響度と発生確率で表されるリスクの大小により、優先度をつけて設備の保全を行っていく手法である。"
     ],
     "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
       "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -53,10 +53,10 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "間違い",
       "正しい",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 916,
-    "publicQuestionId": "07dff3424a00183a",
+    "planSequence": 915,
+    "publicQuestionId": "dbe5ecc0d9952b92",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:07dff3424a00183a",
-    "questionBodyText": "環境対策及び省エネルギーに関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 15,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:dbe5ecc0d9952b92",
+    "questionBodyText": "製造設備の保全に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 14,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問9",
-    "questionNo": 9,
+    "questionLabel": "問8",
+    "questionNo": 8,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q9",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q8",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:07dff3424a00183a",
+    "reviewId": "2025:question_2025_2:dbe5ecc0d9952b92",
     "reviewNotes": "",
-    "reviewQuestionId": "07dff3424a00183a",
+    "reviewQuestionId": "dbe5ecc0d9952b92",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 9,
+      "questionNo": 8,
       "subject": "seizo",
       "year": 2025
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:seizo:q09",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:seizo:q08",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:seizo:q09:s01",
-      "gas-shunin:otsu:2025:seizo:q09:s02",
-      "gas-shunin:otsu:2025:seizo:q09:s03",
-      "gas-shunin:otsu:2025:seizo:q09:s04",
-      "gas-shunin:otsu:2025:seizo:q09:s05"
+      "gas-shunin:otsu:2025:seizo:q08:s01",
+      "gas-shunin:otsu:2025:seizo:q08:s02",
+      "gas-shunin:otsu:2025:seizo:q08:s03",
+      "gas-shunin:otsu:2025:seizo:q08:s04",
+      "gas-shunin:otsu:2025:seizo:q08:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q9",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#seizo-q8",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q09:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q08:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q09:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q08:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q09:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q08:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q09:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q08:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q09:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:seizo:q08:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "otsuCompleted": 44,
-  "otsuDone": 33,
+  "otsuCompleted": 45,
+  "otsuDone": 34,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 478,
-  "pending": 478,
-  "pending_questions": 478,
+  "otsuPending": 477,
+  "pending": 477,
+  "pending_questions": 477,
   "total": 934,
   "total_questions": 934,
-  "nextPendingPlanSequence": 916,
-  "nextPendingTaskId": "T556"
+  "nextPendingPlanSequence": 915,
+  "nextPendingTaskId": "T557"
 }
