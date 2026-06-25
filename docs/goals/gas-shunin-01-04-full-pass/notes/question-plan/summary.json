@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T516",
-  "completed": 407,
-  "completed_questions": 415,
+  "activeTaskId": "T517",
+  "completed": 408,
+  "completed_questions": 416,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 307,
+    "done": 308,
     "hold": 109,
-    "pending": 518
+    "pending": 517
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 109,
   "hold": 108,
   "hold_questions": 108,
-  "kouCompleted": 398,
+  "kouCompleted": 399,
   "kouHeld": 101,
   "kouHold": 101,
-  "kouPending": 14,
+  "kouPending": 13,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,17 +32,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "建物内のガス配管については、建築設備の一つとして建物と同等以上の耐震性が求められ、ガス配管の耐震性を向上させるには、ガス配管の支持固定が重要な要素となる。",
-      "液状化に対する高圧導管の耐震性は、地盤及び管体に生じる変位を算出し、導管の終局限界状態に対応する変位と比較して評価する。",
-      "中・低圧導管の耐震性評価における設計地盤変位は、標準設計地盤変位量に管種と埋設条件の組合せによる補正係数と地域別の補正係数を掛けて求める。",
-      "地震時の供給停止地区の極小化を図るため、導管網を事前にバルブ等により、適正な規模のブロックに分割しておく必要がある。",
-      "低圧導管の復旧は、復旧ブロックごとに、閉栓、被害箇所の調査・修理、エアパージ、開栓の順に行う。"
+      "空気中におけるメタンの着火温度は、プロパンの着火温度より\n低い\n。",
+      "燃焼速度は、ガスの成分、ガスと空気の混合割合、混合ガスの温度及び混合ガスの圧力等によって異なる。",
+      "メタンと空気との混合ガスの燃焼範囲は、大気圧、室温の環境においてメタン濃度5〜15%である。",
+      "ブンゼン燃焼式の外炎では、内炎で生じた中間生成物が\n一次空気\nと接触して完全燃焼する。",
+      "全一次空気燃焼式の機器には、フラッシュバックが生じないように、炎口を特別な構造にしたものがある。"
     ],
     "correctChoiceText": [
+      "間違い",
       "正しい",
       "正しい",
-      "正しい",
-      "正しい",
+      "間違い",
       "正しい"
     ],
     "correctChoiceTextCount": 5,
@@ -52,9 +52,9 @@
     "expectedCorrectChoiceText": [
       "間違い",
       "間違い",
+      "正しい",
       "間違い",
-      "間違い",
-      "正しい"
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -89,33 +89,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 403,
-    "publicQuestionId": "39e2b01fd3cdb8a6",
+    "planSequence": 404,
+    "publicQuestionId": "b52dda6015da8b95",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:39e2b01fd3cdb8a6",
-    "questionBodyText": "地震対策に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 24,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:b52dda6015da8b95",
+    "questionBodyText": "ガスの燃焼及び燃焼方式に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 25,
     "questionIntent": "select_correct",
-    "questionLabel": "問18",
-    "questionNo": 18,
+    "questionLabel": "問19",
+    "questionNo": 19,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q18",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q19",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_2:39e2b01fd3cdb8a6",
+    "reviewId": "2025:question_2025_gassyunin_site_2:b52dda6015da8b95",
     "reviewNotes": "",
-    "reviewQuestionId": "39e2b01fd3cdb8a6",
+    "reviewQuestionId": "b52dda6015da8b95",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "供給",
+    "sourceCategory": "消費機器",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -125,8 +125,8 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 18,
-      "subject": "kyokyu",
+      "questionNo": 19,
+      "subject": "shohi",
       "year": 2025
     },
     "sourceNaturalQuestionKey": null,
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kyokyu:q18",
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q19",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kyokyu:q18:s01",
-      "gas-shunin:kou:2025:kyokyu:q18:s02",
-      "gas-shunin:kou:2025:kyokyu:q18:s03",
-      "gas-shunin:kou:2025:kyokyu:q18:s04",
-      "gas-shunin:kou:2025:kyokyu:q18:s05"
+      "gas-shunin:kou:2025:shohi:q19:s01",
+      "gas-shunin:kou:2025:shohi:q19:s02",
+      "gas-shunin:kou:2025:shohi:q19:s03",
+      "gas-shunin:kou:2025:shohi:q19:s04",
+      "gas-shunin:kou:2025:shohi:q19:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kyokyu-q18",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q19",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q18:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q19:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q18:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q19:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q18:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q19:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q18:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q19:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kyokyu:q18:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q19:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 403,
-  "nextPendingTaskId": "T516",
+  "nextPendingPlanSequence": 404,
+  "nextPendingTaskId": "T517",
   "otsuCompleted": 14,
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
-  "pending": 527,
-  "pending_questions": 518,
+  "pending": 526,
+  "pending_questions": 517,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 102,
-    "ok": 300,
-    "pending": 10
+    "ok": 301,
+    "pending": 9
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T21:49:16+09:00"
+  "updatedAt": "2026-06-25T21:57:23+09:00"
 }
