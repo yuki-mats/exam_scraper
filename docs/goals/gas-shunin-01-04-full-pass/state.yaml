@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 439
-  pending_questions: 495
+  completed_questions: 441
+  pending_questions: 493
   held_questions: 113
   next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
-active_task: T539
+active_task: T541
 tasks:
   - id: T001
     type: pm
@@ -28793,9 +28793,130 @@ tasks:
   - id: T539
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "降順方針で最大pendingブロックの次問 planSequence=933（gas-shunin-otsu 2025 消費機器 問26）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json"
+        - "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2025 output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+          status: pass
+      summary: "T539 completed 01-04 for gas-shunin-otsu 2025 consumer-appliance q26; answer_result_text=正解は 3 です。 matches the manually reviewed correctness vector [正しい, 正しい, 間違い, 正しい, 正しい], and active category chiefgasengineerlicense-B-1930 was linked."
+      evidence:
+        - "planSequence=933"
+        - "reviewId=2025:question_2025_3:851ce6e11c7168a8"
+        - "questionIntent=select_incorrect"
+        - "correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい]"
+        - "questionSetId=chiefgasengineerlicense-B-1930"
+        - "乙種 reviewDecisionCounts={hold:4, ok:10, pending:508}"
+        - "開放式小型湯沸器には10万回程度で点検時期を知らせるタイムスタンプ機能があり、立ち消え安全装置には熱電対式・フレームロッド式がある。"
+
+  - id: T540
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロックの次問 planSequence=932（gas-shunin-otsu 2025 消費機器 問25）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2025 output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+          status: pass
+      summary: "T540 completed 01-04 for gas-shunin-otsu 2025 consumer-appliance q25; answer_result_text=正解は 4 です。 matches the manually reviewed correctness vector [正しい, 正しい, 正しい, 間違い, 正しい], and active category chiefgasengineerlicense-B-1900 was linked."
+      evidence:
+        - "planSequence=932"
+        - "reviewId=2025:question_2025_3:232faed18eb90bc1"
+        - "questionIntent=select_incorrect"
+        - "correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい]"
+        - "questionSetId=chiefgasengineerlicense-B-1900"
+        - "乙種 reviewDecisionCounts={hold:4, ok:11, pending:507}"
+        - "FE式機器は排気を強制排出するが燃焼用空気は室内から取り入れるため、設置室には給気口又は開口部が必要。"
+
+  - id: T541
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロックの次問 planSequence=931（gas-shunin-otsu 2025 消費機器 問24）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
       - "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
       - "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json"
