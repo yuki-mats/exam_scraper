@@ -15,18 +15,70 @@
       "80000"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "不正解。レイノルズ数は Re=ρvD/μ で求める。D=0.075m、v=0.8m/s、ρ=1000kg/m³、μ=1.0×10⁻³Pa·sなので、Re=1000×0.8×0.075/(1.0×10⁻³)=60000となり、10000ではない。",
+      "不正解。20000は計算値60000より小さい。式 Re=ρvD/μ に与えられた値を代入すると60000となる。",
+      "不正解。40000は計算値60000より小さい。内径75mmを0.075mに換算し、Re=1000×0.8×0.075/(1.0×10⁻³)で計算する。",
+      "正解。内径75mm=0.075mである。Re=ρvD/μ=1000×0.8×0.075/(1.0×10⁻³)=60000となるため、最も近い値は60000である。",
+      "不正解。80000は計算値60000より大きい。密度、平均流速、管内径を掛けて粘度で割ると60000となる。"
+    ],
+    "suggestedQuestions": [
+      "レイノルズ数の定義式は？",
+      "内径75mmは何mとして計算する？",
+      "本問のレイノルズ数はいくらか？",
+      "40000が不正解になる理由は？",
+      "80000が不正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "レイノルズ数の定義式は？",
+        "answer": "Re=ρvD/μ。",
+        "explanation": "密度ρ、平均流速v、代表長さDを掛け、粘度μで割る。"
+      },
+      {
+        "question": "内径75mmは何mとして計算する？",
+        "answer": "0.075m。",
+        "explanation": "75mmは1000で割ってmに直すため0.075mである。"
+      },
+      {
+        "question": "本問のレイノルズ数はいくらか？",
+        "answer": "60000。",
+        "explanation": "1000×0.8×0.075/(1.0×10⁻³)=60000となる。"
+      },
+      {
+        "question": "40000が不正解になる理由は？",
+        "answer": "計算値60000より小さいため。",
+        "explanation": "与えられた密度、流速、内径、粘度を代入した値は40000ではなく60000である。"
+      },
+      {
+        "question": "80000が不正解になる理由は？",
+        "answer": "計算値60000より大きいため。",
+        "explanation": "レイノルズ数は60000なので、80000は最も近い値ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」のレイノルズ数が本問の関連論点。",
+      "レイノルズ数は Re=ρvD/μ で表され、管内流れの慣性力と粘性力の比を示す無次元数である。",
+      "本問では D=75mm=0.075m、v=0.8m/s、ρ=1000kg/m³、μ=1.0×10⁻³Pa·sより、Re=60000となる。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "10000は計算値60000より小さい。"
+      ],
+      [
+        "20000は計算値60000より小さい。"
+      ],
+      [
+        "40000は計算値60000より小さい。"
+      ],
+      [
+        "Re=1000×0.8×0.075/(1.0×10⁻³)=60000。"
+      ],
+      [
+        "80000は計算値60000より大きい。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
