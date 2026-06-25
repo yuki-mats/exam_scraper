@@ -1,7 +1,7 @@
 {
   "activeTaskId": "T537",
   "completed": 437,
-  "completed_questions": 437,
+  "completed_questions": 438,
   "done": 324,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,15 +34,15 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "道路に埋設されている最高使用圧力が中圧の導管\n埋設の日以後4年に1回以上",
-      "道路に埋設されているポリエチレン管\n埋設の日以後4年に1回以上",
-      "道路に埋設されている導管からガス栓までに埋設されていて、本支管からガス栓までの間に絶縁措置が講じられており、当該絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分\n埋設の日以後6年に1回以上",
-      "道路に埋設されている導管からガス栓までに設置されている屋外の埋設されていない部分\n(設置)の日以後6年に1回以上",
-      "道路に埋設されている導管からガス栓までに\n埋設されているポリエチレン管\n埋設の日以後4年に1回以上"
+      "「ガス用品」とは、主として一般消費者等がガスを消費する場合に用いられる機械、器具又は材料であって、法令で定めるものをいう。",
+      "ガス用品の製造又は輸入の事業を行う者は、法令で定めるガス用品の区分に従い、法令で定める事項を経済産業大臣に届け出ることができる。",
+      "届出事業者は、当該届出に係る事業を廃止したときは、遅滞なく、その旨を経済産業大臣に届け出なければならない。",
+      "届出事業者は、届出に係る型式のガス用品を\n試験用に製造し、又は輸入するときは、経済産業省令で定める技術上の基準に適合\nするようにしなければならない。",
+      "届出事業者は、特定ガス用品の適合性検査を求められたときは、正当な理由がある場合を除き、遅滞なく、\n自ら適合性検査を行わなければならない\n。"
     ],
     "correctChoiceText": [
       "正しい",
-      "間違い",
+      "正しい",
       "正しい",
       "間違い",
       "間違い"
@@ -52,10 +52,10 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "間違い",
       "正しい",
-      "間違い",
-      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
       "間違い"
     ],
     "explanationText": [],
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 424,
-    "publicQuestionId": "cdcdbd1ed55b192d",
+    "planSequence": 425,
+    "publicQuestionId": "85a17f2db1c0b6c3",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:cdcdbd1ed55b192d",
-    "questionBodyText": "技術基準で規定されている漏えい検査について、13Aガスを供給する下表の導管の種類と検査頻度の組合せのうち、正しいものはいくつあるか。なお、漏えい検知装置は設置されておらず、検査にあたって、導管が設置されている場所に立ち入ることができるものとする。\n導管の種類 (特定地下街等又は特定地下室等にガスを供給するものを除く。)\n検査頻度",
-    "questionIndexInFile": 12,
-    "questionIntent": "select_correct",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:85a17f2db1c0b6c3",
+    "questionBodyText": "法令で規定されているガス用品等に関する次の記述のうち、誤っているものの組合せはどれか。",
+    "questionIndexInFile": 13,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問13",
+    "questionNo": 13,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q12",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q13",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2017:question_2017_1:cdcdbd1ed55b192d",
+    "reviewId": "2017:question_2017_1:85a17f2db1c0b6c3",
     "reviewNotes": "",
-    "reviewQuestionId": "cdcdbd1ed55b192d",
+    "reviewQuestionId": "85a17f2db1c0b6c3",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 13,
       "subject": "law",
       "year": 2017
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q13",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2017:law:q12:s01",
-      "gas-shunin:otsu:2017:law:q12:s02",
-      "gas-shunin:otsu:2017:law:q12:s03",
-      "gas-shunin:otsu:2017:law:q12:s04",
-      "gas-shunin:otsu:2017:law:q12:s05"
+      "gas-shunin:otsu:2017:law:q13:s01",
+      "gas-shunin:otsu:2017:law:q13:s02",
+      "gas-shunin:otsu:2017:law:q13:s03",
+      "gas-shunin:otsu:2017:law:q13:s04",
+      "gas-shunin:otsu:2017:law:q13:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q13",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q13:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q13:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q13:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q13:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q13:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 424,
-  "nextPendingTaskId": "T537",
+  "nextPendingPlanSequence": 425,
+  "nextPendingTaskId": "T538",
   "otsuCompleted": 25,
   "otsuDone": 14,
   "otsuHeld": 11,
   "otsuHold": 11,
   "otsuPending": 497,
   "pending": 497,
-  "pending_questions": 497,
+  "pending_questions": 496,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -208,8 +208,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 113,
-    "ok": 324,
-    "pending": 497
+    "ok": 325,
+    "pending": 496
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,

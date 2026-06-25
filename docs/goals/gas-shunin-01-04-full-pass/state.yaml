@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 437
-  pending_questions: 497
+  completed_questions: 438
+  pending_questions: 496
   held_questions: 113
-  next_pending_policy: "lowest planSequence with executionStatus=pending"
+  next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
-active_task: T537
+active_task: T538
 tasks:
   - id: T001
     type: pm
@@ -28671,7 +28671,7 @@ tasks:
   - id: T537
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "再確定した全問計画の planSequence=424（gas-shunin-otsu 2017 法令 問12）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
@@ -28689,6 +28689,67 @@ tasks:
       - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json --patch output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
       - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json --patch output/gas-shunin-otsu/questions_json/2017/15_correctChoiceText_fixed/question_2017_1_correctChoiceText_fixed.json --require-full"
       - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json --patch output/gas-shunin-otsu/questions_json/2017/22_questionSetId_linked/question_2017_1_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2017/15_correctChoiceText_fixed/question_2017_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2017/22_questionSetId_linked/question_2017_1_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json --patch output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json --patch output/gas-shunin-otsu/questions_json/2017/15_correctChoiceText_fixed/question_2017_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json --patch output/gas-shunin-otsu/questions_json/2017/22_questionSetId_linked/question_2017_1_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2017 output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+          status: pass
+      summary: "T537 completed 01-04 for gas-shunin-otsu 2017 law q12; Article 51 confirms choices 1 and 3 are correct leak-inspection frequency combinations and choices 2, 4, and 5 are excluded by provisos. The active parent conduit technical-standard category chiefgasengineerlicense-B-1620 was linked because the exact leak-inspection category is deleted."
+      evidence:
+        - "planSequence=424"
+        - "reviewId=2017:question_2017_1:cdcdbd1ed55b192d"
+        - "questionIntent=select_correct"
+        - "correctChoiceText=[正しい, 間違い, 正しい, 間違い, 間違い]"
+        - "questionSetId=chiefgasengineerlicense-B-1620"
+        - "乙種 reviewDecisionCounts={hold:4, ok:8, pending:510}"
+        - "https://laws.e-gov.go.jp/api/1/lawdata/412M50000400111"
+
+  - id: T538
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロック planSequence=934..927（gas-shunin-otsu 2025 消費機器 問27〜問20、source=question_2025_3）を予約し、各問を目視で1問ずつ01〜04完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json --patch output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
       - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
     stop_if:
       - "00_source の本文・選択肢を変える必要が出た。"
