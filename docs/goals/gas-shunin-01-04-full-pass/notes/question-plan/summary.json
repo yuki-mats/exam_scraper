@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T578",
-  "completed": 478,
-  "completed_questions": 478,
-  "done": 365,
+  "activeTaskId": "T579",
+  "completed": 479,
+  "completed_questions": 479,
+  "done": 366,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 365,
+    "done": 366,
     "hold": 113,
-    "pending": 456
+    "pending": 455
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T05:38:51+09:00",
+  "generatedAt": "2026-06-26T05:44:45+09:00",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -24,7 +24,7 @@
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -34,15 +34,15 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "臨界温度より高い温度では、圧力をどれほど高くしても気体を液化させることができない。",
-      "ヘンリーの法則では、溶解度が小さい場合、温度一定で一定質量の液体に溶解する気体の質量は、気体の圧力に比例する。",
-      "アボガドロの法則によれば、すべての気体は、同じ温度、同じ圧力のとき、同じ体積中に同数の分子が存在する。",
-      "気体の粘度は、液体の粘度に比べて小さく、\n温度が上昇すると減少する\n。",
-      "単一物質の相変化において、温度一定で吸収、又は放出される熱を潜熱という。"
+      "ガスの消費量が12kWを超える屋内に設置するガス調理機器であって、密閉燃焼式以外のものには、当該燃焼器に接続して排気筒を設けること。ただし、当該燃焼器の構造上その他の理由によりこれによることが困難な場合において、当該燃焼器のための排気フードを設けるときは、この限りでない。",
+      "屋内に設置する自然排気式の燃焼器の排気筒（排気扇を接続するものを除く。）の有効断面積は、当該燃焼器の排気部との接続部の\n有効断面積より小さいこと\n。",
+      "燃焼器の排気筒に接続する排気扇には、これが停止した場合に当該燃焼器へのガスの供給を自動的に遮断する装置を設けること。",
+      "ガス湯沸器（暖房兼用のものを含む。）であって、密閉燃焼式のもの（屋内に設置するものに限る。）の給排気部が外壁を貫通する箇所には、当該給排気部と外壁との間に\n点検のための隙間を設けること\n。",
+      "ガス湯沸器（暖房兼用のものを含む。）であって、密閉燃焼式のもの（屋内に設置するものに限る。）の給排気部の先端は、鳥の侵入により給排気が妨げられるおそれのない構造であること。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
       "正しい"
@@ -91,33 +91,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 893,
-    "publicQuestionId": "58f763b6e5c54803",
+    "planSequence": 892,
+    "publicQuestionId": "bd05d02105026f15",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:58f763b6e5c54803",
-    "questionBodyText": "気体の諸性質に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 17,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bd05d02105026f15",
+    "questionBodyText": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 16,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問1",
-    "questionNo": 1,
+    "questionLabel": "問16",
+    "questionNo": 16,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q1",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q16",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_1:58f763b6e5c54803",
+    "reviewId": "2025:question_2025_1:bd05d02105026f15",
     "reviewNotes": "",
-    "reviewQuestionId": "58f763b6e5c54803",
+    "reviewQuestionId": "bd05d02105026f15",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "基礎理論",
+    "sourceCategory": "法令",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -127,8 +127,8 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 1,
-      "subject": "kiso",
+      "questionNo": 16,
+      "subject": "law",
       "year": 2025
     },
     "sourceNaturalQuestionKey": null,
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q01",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:law:q16",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kiso:q01:s01",
-      "gas-shunin:otsu:2025:kiso:q01:s02",
-      "gas-shunin:otsu:2025:kiso:q01:s03",
-      "gas-shunin:otsu:2025:kiso:q01:s04",
-      "gas-shunin:otsu:2025:kiso:q01:s05"
+      "gas-shunin:otsu:2025:law:q16:s01",
+      "gas-shunin:otsu:2025:law:q16:s02",
+      "gas-shunin:otsu:2025:law:q16:s03",
+      "gas-shunin:otsu:2025:law:q16:s04",
+      "gas-shunin:otsu:2025:law:q16:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q1",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q16",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q01:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q01:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q01:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q01:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q01:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 893,
-  "nextPendingTaskId": "T578",
-  "otsuCompleted": 66,
-  "otsuDone": 55,
+  "nextPendingPlanSequence": 892,
+  "nextPendingTaskId": "T579",
+  "otsuCompleted": 67,
+  "otsuDone": 56,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 456,
-  "pending": 456,
-  "pending_questions": 456,
+  "otsuPending": 455,
+  "pending": 455,
+  "pending_questions": 455,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
