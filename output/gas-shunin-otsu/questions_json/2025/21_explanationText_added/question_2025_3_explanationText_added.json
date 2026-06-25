@@ -126,10 +126,43 @@
       "ガスエンジン式CGSでは、\n数千kW規模の需要には対応できない\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。業務用厨房の排気ダクト接続型半密閉式湯沸器には、排気温度低減や安全装置などの防火性能評定試験基準に適合した潜熱回収型がある。",
+      "正しい。マルチ温水機は、複数台の給湯器を組み合わせ、流量負荷に応じて運転台数を制御することで、大量給湯に対応する方式である。",
+      "正しい。空調用吸収冷凍機では、一般に冷媒として水を用い、吸収剤として臭化リチウム水溶液を用いる。",
+      "正しい。GHPの暖房運転では、室内側熱交換器が凝縮器として室内へ放熱し、室外側熱交換器が蒸発器として外気から熱をくみ上げる。",
+      "間違い。ガスエンジン式CGSは小容量から数千kW規模、さらに大容量の需要にも対応できるものがある。数千kW規模の需要には対応できないとしている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "業務用厨房の排気ダクト接続型半密閉式湯沸器には潜熱回収型がある？",
+      "マルチ温水機は複数台の給湯器を台数制御して大量給湯を行う？",
+      "空調用吸収冷凍機は冷媒に水、吸収剤に臭化リチウム水溶液を用いる？",
+      "GHPの暖房サイクルでは室内熱交換器が凝縮器、室外熱交換器が蒸発器になる？",
+      "ガスエンジン式CGSは数千kW規模の需要には対応できない？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "業務用厨房の排気ダクト接続型半密閉式湯沸器には潜熱回収型がある？",
+        "answer": "正しい。防火性能評定試験基準に適合した排気ダクト接続型の高効率・潜熱回収型湯沸器がある。"
+      },
+      {
+        "question": "マルチ温水機は複数台の給湯器を台数制御して大量給湯を行う？",
+        "answer": "正しい。複数台の給湯器を流量負荷に応じて台数制御し、大量給湯へ対応する。"
+      },
+      {
+        "question": "空調用吸収冷凍機は冷媒に水、吸収剤に臭化リチウム水溶液を用いる？",
+        "answer": "正しい。吸収冷凍機は冷媒に水、吸収剤に臭化リチウム水溶液を用いる方式が一般的である。"
+      },
+      {
+        "question": "GHPの暖房サイクルでは室内熱交換器が凝縮器、室外熱交換器が蒸発器になる？",
+        "answer": "正しい。暖房時は室内側で凝縮・放熱し、室外側で蒸発・吸熱する。"
+      },
+      {
+        "question": "ガスエンジン式CGSは数千kW規模の需要には対応できない？",
+        "answer": "誤り。ガスエンジン式CGSには数千kW規模の需要に対応できるものがある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -140,11 +173,11 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
