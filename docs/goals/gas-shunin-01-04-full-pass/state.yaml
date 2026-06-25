@@ -31909,15 +31909,13 @@ tasks:
           status: pass
         - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
           status: pass
-        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2024 output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
-          status: pass
-      summary: "gas-shunin-otsu 2024 消費機器 問27の01〜04を完了。ガス栓、接続具及び警報器に関する誤り選択問題で、選択肢1を誤りと確認し、ガス栓、接続具及び警報器（乙種）へ分類した。"
+      summary: "gas-shunin-otsu 2024 消費機器 問27の01〜04を完了。ガス栓・接続具・警報器の誤っているもの選択問題で、選択肢1のみ誤りと確認し、ガス栓、接続具及び警報器（乙種）へ分類した。"
       evidence:
         - "00_source body/choices unchanged"
         - "questionType=true_false / questionIntent=select_incorrect"
         - "answer_result_text=正解は 1 です。 matches only choice 1 incorrect"
-        - "choice1: コンセント口のガス栓へのガスソフトコード接続はガスソフトコード用ソケット（ゴム管用ソケット）を用いる"
-        - "choices2-5: ヒューズ作動流量、小型湯沸器接続、警報器設置距離、業務用換気警報器ロジックを確認"
+        - "choice1: コンセント口のガス栓へガスソフトコードを接続する場合はゴム管用ソケットであり、ガス栓用プラグではない"
+        - "choices2-5: site judgement and reviewed connector/alarm precedents confirm correct"
         - "questionSetId=chiefgasengineerlicense-B-1980（ガス栓、接続具及び警報器（乙種））"
       remaining_blockers: []
       verification_attempts: 1
