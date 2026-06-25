@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T599",
-  "completed": 499,
-  "completed_questions": 499,
-  "done": 384,
+  "activeTaskId": "T600",
+  "completed": 500,
+  "completed_questions": 500,
+  "done": 385,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 384,
+    "done": 385,
     "hold": 115,
-    "pending": 435
+    "pending": 434
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T07:42:38+09:00",
+  "generatedAt": "2026-06-26T07:47:02+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,11 +20,11 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -34,29 +34,29 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ブローホールとは、溶接金属内に残留したガスのため空洞が生じた状態をいう。",
-      "融合不良とは、溶接金属と母材又は溶接金属同士が溶着していない状態をいう。",
-      "スラグ巻込みとは、スラグが溶接金属に残留したものをいう。",
-      "溶込み不良とは、開先の一部がそのまま残った状態をいう。",
-      "クレーター\nとは、表面における溶接金属と母材の境界の凹みをいう。"
+      "外径80mm以上の低圧本支管を道路に埋設する際に、管の表面に2mの間隔で占用物件の名称、管理者、埋設年、ガスの圧力をテープで明示した。",
+      "屋内露出部の横引配管にフレキ管を使用し、3mごとに支持固定\nした。",
+      "漏えいしたガスが滞留するおそれのあるピット内に配管したので、点検口を設けた。",
+      "防火区画を貫通する内管を施工する際に、壁との隙間をモルタルで埋めた。",
+      "耐圧試験を最高使用圧力の1.5倍以上の圧力で、不活性ガスを用いて行った。"
     ],
     "correctChoiceText": [
       "正しい",
+      "間違い",
       "正しい",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
+      "間違い",
       "正しい",
       "正しい",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 865,
-    "publicQuestionId": "9ad6e87ef8da4548",
+    "planSequence": 864,
+    "publicQuestionId": "282458465cb3fb36",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:9ad6e87ef8da4548",
-    "questionBodyText": "導管の溶接欠陥に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 22,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:282458465cb3fb36",
+    "questionBodyText": "導管の工事に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 21,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問16",
-    "questionNo": 16,
+    "questionLabel": "問15",
+    "questionNo": 15,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q16",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q15",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:9ad6e87ef8da4548",
+    "reviewId": "2024:question_2024_2:282458465cb3fb36",
     "reviewNotes": "",
-    "reviewQuestionId": "9ad6e87ef8da4548",
+    "reviewQuestionId": "282458465cb3fb36",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 16,
+      "questionNo": 15,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q16",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q15",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kyokyu:q16:s01",
-      "gas-shunin:otsu:2024:kyokyu:q16:s02",
-      "gas-shunin:otsu:2024:kyokyu:q16:s03",
-      "gas-shunin:otsu:2024:kyokyu:q16:s04",
-      "gas-shunin:otsu:2024:kyokyu:q16:s05"
+      "gas-shunin:otsu:2024:kyokyu:q15:s01",
+      "gas-shunin:otsu:2024:kyokyu:q15:s02",
+      "gas-shunin:otsu:2024:kyokyu:q15:s03",
+      "gas-shunin:otsu:2024:kyokyu:q15:s04",
+      "gas-shunin:otsu:2024:kyokyu:q15:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q16",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q15",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q15:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q15:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q15:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q15:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q16:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q15:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 865,
-  "nextPendingTaskId": "T599",
-  "otsuCompleted": 87,
-  "otsuDone": 74,
+  "nextPendingPlanSequence": 864,
+  "nextPendingTaskId": "T600",
+  "otsuCompleted": 88,
+  "otsuDone": 75,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 435,
-  "pending": 435,
-  "pending_questions": 435,
+  "otsuPending": 434,
+  "pending": 434,
+  "pending_questions": 434,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934

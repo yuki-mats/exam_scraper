@@ -792,10 +792,43 @@
       "クレーター\nとは、表面における溶接金属と母材の境界の凹みをいう。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。ブローホールは、溶接金属内に残留したガスにより空洞が生じる溶接欠陥である。",
+      "正しい。融合不良は、溶接金属と母材、又は溶接金属同士が十分に溶着していない状態をいう。",
+      "正しい。スラグ巻込みは、溶接時に生じたスラグが溶接金属中に残留した溶接欠陥である。",
+      "正しい。溶込み不良は、開先の一部が溶融せずに残った状態をいう。",
+      "間違い。表面における溶接金属と母材の境界の凹みはアンダーカットである。クレーターは溶接終端部などに生じるくぼみをいうため、この説明は誤り。"
+    ],
+    "suggestedQuestions": [
+      "ブローホールは溶接金属内に残留したガスによる空洞である？",
+      "融合不良は溶接金属と母材又は溶接金属同士が溶着していない状態である？",
+      "スラグ巻込みはスラグが溶接金属中に残留したものである？",
+      "溶込み不良は開先の一部がそのまま残った状態である？",
+      "クレーターは表面における溶接金属と母材の境界の凹みである？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ブローホールは溶接金属内に残留したガスによる空洞である？",
+        "answer": "正しい。ブローホールは残留ガスにより溶接金属内に空洞ができた欠陥である。"
+      },
+      {
+        "question": "融合不良は溶接金属と母材又は溶接金属同士が溶着していない状態である？",
+        "answer": "正しい。融合不良は溶接金属と母材などが十分に溶着していない状態である。"
+      },
+      {
+        "question": "スラグ巻込みはスラグが溶接金属中に残留したものである？",
+        "answer": "正しい。スラグ巻込みはスラグが溶接金属中に残留した欠陥である。"
+      },
+      {
+        "question": "溶込み不良は開先の一部がそのまま残った状態である？",
+        "answer": "正しい。溶込み不良は開先の一部が溶融せず残る状態である。"
+      },
+      {
+        "question": "クレーターは表面における溶接金属と母材の境界の凹みである？",
+        "answer": "誤り。その説明はアンダーカットであり、クレーターは溶接終端部などのくぼみをいう。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -806,11 +839,11 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
