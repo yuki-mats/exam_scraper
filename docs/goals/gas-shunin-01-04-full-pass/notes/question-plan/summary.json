@@ -1,28 +1,28 @@
 {
-  "activeTaskId": "T482",
-  "completed": 374,
-  "completed_questions": 374,
+  "activeTaskId": "T483",
+  "completed": 375,
+  "completed_questions": 375,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 275,
-    "hold": 99,
-    "pending": 560
+    "hold": 100,
+    "pending": 559
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
-  "held_questions": 99,
-  "hold": 99,
-  "hold_questions": 99,
-  "kouCompleted": 368,
-  "kouHeld": 99,
-  "kouHold": 99,
-  "kouPending": 44,
+  "held_questions": 100,
+  "hold": 100,
+  "hold_questions": 100,
+  "kouCompleted": 369,
+  "kouHeld": 100,
+  "kouHold": 100,
+  "kouPending": 43,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -32,29 +32,29 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガス小売事業者は、経済産業省令で定めるところにより、\n消費機器の所有者又は占有者に対し\n、当該ガス小売事業者が供給するガスの使用に伴う危険の発生の防止に関し必要な事項を周知させなければならない。",
-      "ガス小売事業者は、経済産業省令で定めるところにより、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならない。ただし、その消費機器を設置し、又は使用する場所に立ち入ることにつき、その所有者又は占有者の承諾を得ることができないときは、この限りでない。",
-      "ガス小売事業者は、消費機器に関する調査の結果、消費機器が経済産業省令で定める技術上の基準に適合していないと認めるときは、\n速やかにその使用を禁止しなければならない\n。",
-      "ガス小売事業者は、経済産業省令で定めるところにより、保安業務規程を定め、\nその事業の開始の後、遅滞なく\n、経済産業大臣に届け出なければならない。",
-      "経済産業大臣は、保安業務の適正な実施を確保するため必要があると認めるときは、\n保安業務監督者に対し\n、保安業務規程を変更すべきことを命ずることができる。"
+      "ガスの消費量が12kWを超える屋内に設置するガス調理機器であって、密閉燃焼式以外のものには、当該燃焼器に接続して排気筒を設けること。ただし、当該燃焼器の構造上その他の理由によりこれによることが困難な場合において、当該燃焼器のための排気フードを設けるときは、この限りでない。",
+      "屋内に設置する自然排気式の燃焼器の排気筒（排気扇を接続するものを除く。）の有効断面積は、当該燃焼器の排気部との接続部の\n有効断面積より小さいこと\n。",
+      "燃焼器の排気筒に接続する排気扇には、これが停止した場合に当該燃焼器へのガスの供給を自動的に遮断する装置を設けること。",
+      "ガス湯沸器（暖房兼用のものを含む。）であって、密閉燃焼式のもの（屋内に設置するものに限る。）の給排気部が外壁を貫通する箇所には、当該給排気部と外壁との間に\n点検のための隙間を設けること\n。",
+      "ガス湯沸器（暖房兼用のものを含む。）であって、密閉燃焼式のもの（屋内に設置するものに限る。）の給排気部の先端は、鳥の侵入により給排気が妨げられるおそれのない構造であること。"
     ],
     "correctChoiceText": [
+      "正しい",
       "間違い",
       "正しい",
       "間違い",
-      "間違い",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "間違い",
+      "正しい",
+      "正しい",
       "正しい",
       "間違い",
-      "間違い",
-      "間違い"
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 891,
-    "publicQuestionId": "7bd905381415c9b4",
+    "planSequence": 892,
+    "publicQuestionId": "bd05d02105026f15",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:7bd905381415c9b4",
-    "questionBodyText": "法令で規定されている消費機器に関する周知及び調査、保安業務規程に関する次の記述のうち、正しいものはどれか。",
-    "questionIndexInFile": 15,
-    "questionIntent": "select_correct",
-    "questionLabel": "問15",
-    "questionNo": 15,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bd05d02105026f15",
+    "questionBodyText": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 16,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問16",
+    "questionNo": 16,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q15",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q16",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_1:7bd905381415c9b4",
+    "reviewId": "2025:question_2025_1:bd05d02105026f15",
     "reviewNotes": "",
-    "reviewQuestionId": "7bd905381415c9b4",
+    "reviewQuestionId": "bd05d02105026f15",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 15,
+      "questionNo": 16,
       "subject": "law",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:law:q15",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:law:q16",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:law:q15:s01",
-      "gas-shunin:otsu:2025:law:q15:s02",
-      "gas-shunin:otsu:2025:law:q15:s03",
-      "gas-shunin:otsu:2025:law:q15:s04",
-      "gas-shunin:otsu:2025:law:q15:s05"
+      "gas-shunin:otsu:2025:law:q16:s01",
+      "gas-shunin:otsu:2025:law:q16:s02",
+      "gas-shunin:otsu:2025:law:q16:s03",
+      "gas-shunin:otsu:2025:law:q16:s04",
+      "gas-shunin:otsu:2025:law:q16:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q15",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#law-q16",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q15:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q15:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q15:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q15:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q15:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:law:q16:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 369,
-  "nextPendingTaskId": "T482",
+  "nextPendingPlanSequence": 370,
+  "nextPendingTaskId": "T483",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 560,
-  "pending_questions": 560,
+  "pending": 559,
+  "pending_questions": 559,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -204,9 +204,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "hold": 99,
+    "hold": 100,
     "ok": 269,
-    "pending": 44
+    "pending": 43
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
