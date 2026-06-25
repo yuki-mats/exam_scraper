@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T492",
-  "completed": 376,
-  "completed_questions": 384,
+  "activeTaskId": "T493",
+  "completed": 377,
+  "completed_questions": 385,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 284,
+    "done": 285,
     "hold": 100,
-    "pending": 550
+    "pending": 549
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 100,
   "hold": 100,
   "hold_questions": 100,
-  "kouCompleted": 378,
+  "kouCompleted": 379,
   "kouHeld": 100,
   "kouHold": 100,
-  "kouPending": 34,
+  "kouPending": 33,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,17 +32,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "可燃性ガスにおいて、総発熱量は\n常に\n真発熱量よりも大きい。",
-      "安定した\n円錐\n火炎の層流燃焼速度と可燃混合気流速は等しい。",
-      "メタンの酸化反応において、空気量が十分に確保された状況であっても、反応に十分な時間が確保できない場合には、COが燃焼ガスとして排出される可能性がある。",
-      "ブンゼン火炎は可燃予混合気の空気比が\n1以上の完全予混合燃焼\nである。",
-      "炭化水素類の可燃性ガス混合物の燃焼下限界は、ル・シャトリエの式により精度よく推定することができる。"
+      "常温常圧における水と空気の流体としての特性を比べると、粘度は水の方が大きいが、動粘度は空気の方が大きい。",
+      "流体における連続の式は、質量保存の法則より導かれる。",
+      "オリフィスメーターは、測定に現れた圧力差の大部分が下流において回復されずに損失となる。",
+      "ベンチュリメーターは、測定に現れた圧力差の大部分が下流において回復する。",
+      "管路内で、急激に流れの方向を変化させる部分をエルボといい、ゆるやかに流れが曲がる部分をベンドという。"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
       "正しい",
-      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "correctChoiceTextCount": 5,
@@ -51,10 +51,10 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "間違い",
-      "正しい",
       "間違い",
       "間違い",
-      "間違い"
+      "間違い",
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -76,10 +76,10 @@
     ],
     "originalQuestionId": "",
     "patchFiles": {
-      "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_2_questionType_fixed.json"
     },
     "perQuestionSteps": [
       "01_confirm_questionType_against_source_shape",
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 379,
-    "publicQuestionId": "eded687b0ca663d0",
+    "planSequence": 380,
+    "publicQuestionId": "b9574ed6de478e60",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:eded687b0ca663d0",
-    "questionBodyText": "燃焼に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 25,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:b9574ed6de478e60",
+    "questionBodyText": "流体に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 1,
     "questionIntent": "select_correct",
-    "questionLabel": "問9",
-    "questionNo": 9,
+    "questionLabel": "問10",
+    "questionNo": 10,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q9",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q10",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_1:eded687b0ca663d0",
+    "reviewId": "2025:question_2025_gassyunin_site_2:b9574ed6de478e60",
     "reviewNotes": "",
-    "reviewQuestionId": "eded687b0ca663d0",
+    "reviewQuestionId": "b9574ed6de478e60",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -119,13 +119,13 @@
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
-    "sourceFileIndex": 20,
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json",
+    "sourceFileIndex": 21,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 9,
+      "questionNo": 10,
       "subject": "kiso",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q09",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q10",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kiso:q09:s01",
-      "gas-shunin:kou:2025:kiso:q09:s02",
-      "gas-shunin:kou:2025:kiso:q09:s03",
-      "gas-shunin:kou:2025:kiso:q09:s04",
-      "gas-shunin:kou:2025:kiso:q09:s05"
+      "gas-shunin:kou:2025:kiso:q10:s01",
+      "gas-shunin:kou:2025:kiso:q10:s02",
+      "gas-shunin:kou:2025:kiso:q10:s03",
+      "gas-shunin:kou:2025:kiso:q10:s04",
+      "gas-shunin:kou:2025:kiso:q10:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q9",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q10",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q09:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q09:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q09:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q09:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q09:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q10:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 379,
-  "nextPendingTaskId": "T492",
+  "nextPendingPlanSequence": 380,
+  "nextPendingTaskId": "T493",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 558,
-  "pending_questions": 550,
+  "pending": 557,
+  "pending_questions": 549,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 100,
-    "ok": 278,
-    "pending": 34
+    "ok": 279,
+    "pending": 33
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T19:39:12+09:00"
+  "updatedAt": "2026-06-25T19:44:38+09:00"
 }
