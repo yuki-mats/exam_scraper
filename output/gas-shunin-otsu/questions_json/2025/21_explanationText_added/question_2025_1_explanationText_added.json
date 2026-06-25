@@ -829,18 +829,70 @@
       "60"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "不正解。一次反応では半減期ごとに反応物質の濃度が半分になる。20分は半減期2回分なので、濃度はa₀×(1/2)^2=a₀/4であり、a₀/64にはならない。",
+      "不正解。30分は半減期3回分であり、濃度はa₀×(1/2)^3=a₀/8である。a₀/64まで減少するにはさらに半減を3回要する。",
+      "不正解。40分は半減期4回分なので、濃度はa₀×(1/2)^4=a₀/16である。設問のa₀/64には届かない。",
+      "不正解。50分は半減期5回分で、濃度はa₀×(1/2)^5=a₀/32である。a₀/64にするにはもう1回分の半減期が必要である。",
+      "正解。一次反応の半減期は濃度によらず一定である。a₀からa₀/64にするには (1/2)^6=1/64 となる6回の半減が必要なので、10分×6=60分である。"
+    ],
+    "suggestedQuestions": [
+      "一次反応の半減期とは何か？",
+      "a₀からa₀/64になるには半減を何回繰り返すか？",
+      "半減期が10分なら必要時間は何分か？",
+      "20分では濃度はどこまで下がるか？",
+      "50分では濃度はどこまで下がるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "一次反応の半減期とは何か？",
+        "answer": "反応物質の濃度が半分になるまでの時間。",
+        "explanation": "一次反応では半減期が濃度によらず一定になる。"
+      },
+      {
+        "question": "a₀からa₀/64になるには半減を何回繰り返すか？",
+        "answer": "6回。",
+        "explanation": "1/64=(1/2)^6 なので、半減を6回繰り返す必要がある。"
+      },
+      {
+        "question": "半減期が10分なら必要時間は何分か？",
+        "answer": "60分。",
+        "explanation": "半減6回分なので 10分×6=60分である。"
+      },
+      {
+        "question": "20分では濃度はどこまで下がるか？",
+        "answer": "a₀/4。",
+        "explanation": "20分は半減期2回分なので (1/2)^2=a₀/4 となる。"
+      },
+      {
+        "question": "50分では濃度はどこまで下がるか？",
+        "answer": "a₀/32。",
+        "explanation": "50分は半減期5回分なので (1/2)^5=a₀/32 で、a₀/64には足りない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の一次反応と半減期が本問の関連論点。",
+      "一次反応では半減期が濃度によらず一定で、半減期ごとに反応物質の濃度は1/2倍になる。",
+      "a₀からa₀/64になるには (1/2)^6=1/64 より6回の半減が必要で、半減期10分なら60分である。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "20分は半減期2回分でa₀/4までしか減少しない。"
+      ],
+      [
+        "30分は半減期3回分でa₀/8までの減少である。"
+      ],
+      [
+        "40分は半減期4回分でa₀/16までの減少である。"
+      ],
+      [
+        "50分は半減期5回分でa₀/32までの減少である。"
+      ],
+      [
+        "60分は半減期6回分でa₀/64まで減少する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
