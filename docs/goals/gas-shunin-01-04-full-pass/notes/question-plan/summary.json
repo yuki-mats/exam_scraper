@@ -1,23 +1,23 @@
 {
-  "completed": 344,
-  "completed_questions": 344,
+  "completed": 345,
+  "completed_questions": 345,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 253,
+    "done": 254,
     "hold": 91,
-    "pending": 590
+    "pending": 589
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 338,
+  "kouCompleted": 339,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 74,
+  "kouPending": 73,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,18 +31,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "使用圧力が10kPa以下\nのガスの計量に用いる口径50mmの膜式ガスメーター",
-      "使用圧力が10kPa以下のガスの計量に用いる口径300㎜の回転子式ガスメーター",
-      "口径200mmの実測湿式ガスメーター",
-      "使用圧力が中圧のガスの計量に用いる口径100mmのタービン式ガスメーター",
-      "使用圧力が中圧のガスの計量に用いる口径50mmの回転子式ガスメーター"
+      "9.2",
+      "8.1",
+      "4.6",
+      "3.4",
+      "2.2"
     ],
     "correctChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -82,28 +82,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 339,
-    "publicQuestionId": "e6ce621ee6bf7c78",
+    "planSequence": 340,
+    "publicQuestionId": "6602bb83e4a77334",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:e6ce621ee6bf7c78",
-    "questionBodyText": "次のガスメーターのうち、計量法の規定において検定対象外とされているものはいくつあるか。",
-    "questionIndexInFile": 18,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:6602bb83e4a77334",
+    "questionBodyText": "外径300㎜の鋼管が内圧3MPaを受ける場合、ガス事業法の管厚計算式を用いたときの管厚(mm)として、最も近い値はどれか。なお、この鋼管の外径と内径の比は1.5以下とし、鋼管の許容引張応力は100N/mm²、継手効率は1.0、腐れしろは1.0mmとする。",
+    "questionIndexInFile": 19,
     "questionIntent": "",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "questionLabel": "問13",
+    "questionNo": 13,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q12",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q13",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:e6ce621ee6bf7c78",
+    "reviewId": "2024:question_2024_gassyunin_site_2:6602bb83e4a77334",
     "reviewNotes": "",
-    "reviewQuestionId": "e6ce621ee6bf7c78",
+    "reviewQuestionId": "6602bb83e4a77334",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +118,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 13,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -127,45 +127,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q12",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q13",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kyokyu:q12:s01",
-      "gas-shunin:kou:2024:kyokyu:q12:s02",
-      "gas-shunin:kou:2024:kyokyu:q12:s03",
-      "gas-shunin:kou:2024:kyokyu:q12:s04",
-      "gas-shunin:kou:2024:kyokyu:q12:s05"
+      "gas-shunin:kou:2024:kyokyu:q13:s01",
+      "gas-shunin:kou:2024:kyokyu:q13:s02",
+      "gas-shunin:kou:2024:kyokyu:q13:s03",
+      "gas-shunin:kou:2024:kyokyu:q13:s04",
+      "gas-shunin:kou:2024:kyokyu:q13:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q12",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q13",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q12:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q12:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q12:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q12:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q12:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +178,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 339,
-  "nextPendingTaskId": "T452",
+  "nextPendingPlanSequence": 340,
+  "nextPendingTaskId": "T453",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 590,
-  "pending_questions": 590,
+  "pending": 589,
+  "pending_questions": 589,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -197,9 +197,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "ok": 253,
+    "ok": 254,
     "hold": 91,
-    "pending": 590
+    "pending": 589
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +221,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T15:51:12+09:00",
-  "activeTaskId": "T452"
+  "updatedAt": "2026-06-25T16:08:34+09:00",
+  "activeTaskId": "T453"
 }
