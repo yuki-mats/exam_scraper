@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T597",
-  "completed": 497,
-  "completed_questions": 497,
-  "done": 382,
+  "activeTaskId": "T598",
+  "completed": 498,
+  "completed_questions": 498,
+  "done": 383,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 382,
+    "done": 383,
     "hold": 115,
-    "pending": 437
+    "pending": 436
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T07:32:53+09:00",
+  "generatedAt": "2026-06-25T22:37:49Z",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,11 +20,11 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -34,17 +34,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "中・低圧導管の地盤変位吸収能力を実験により求める場合、配管系に漏えいが生じるときの地盤変位量を地盤変位吸収能力とする。",
-      "特殊地形地区における中圧導管では、非裏波溶接鋼管の耐震性向上対策として、反転シール工法が適用できる。",
-      "供給停止判断のため、SI値又は最大速度値の計測が可能な地震計を統合ブロックに1台以上設置する必要がある。",
-      "第1次緊急停止判断は、二次災害防止を最優先として、\n巡回点検等により経時的に得られる被害情報と緊急時対応能力等に応じて実施する\n。",
-      "供給継続地区の需要家等からのガス漏えい通報に対しては、供給停止地区に優先して迅速かつ適切に対応し、二次災害防止に必要な措置を講ずる。"
+      "半導体式ガス検知器は、半導体の電導度が雰囲気ガスの吸着によって変化することを利用したものである。",
+      "本支管への浸水による供給支障の際に、管内から採取された水が水道水か否かを判別するため、水道事業者に緊急調査を依頼した。",
+      "低圧導管の管体に腐食孔が発生したので、\n樹脂ライニング系工法\nによる恒久修理を行った。",
+      "中圧導管の管体に発生した亀裂からの漏えいを修理するために、鋼製修理バンド工法を適用した。",
+      "需要家等からのガス漏えい等の通報に対する出動は、その内容に応じて一般出動、緊急出動及び特別出動に区分する。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
-      "正しい",
       "間違い",
+      "正しい",
       "正しい"
     ],
     "correctChoiceTextCount": 5,
@@ -52,10 +52,10 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 867,
-    "publicQuestionId": "452f05e1b4e6388b",
+    "planSequence": 866,
+    "publicQuestionId": "23126d5753d089ac",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:452f05e1b4e6388b",
-    "questionBodyText": "地震対策に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 24,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:23126d5753d089ac",
+    "questionBodyText": "導管の維持管理に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 23,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問18",
-    "questionNo": 18,
+    "questionLabel": "問17",
+    "questionNo": 17,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q18",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q17",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:452f05e1b4e6388b",
+    "reviewId": "2024:question_2024_2:23126d5753d089ac",
     "reviewNotes": "",
-    "reviewQuestionId": "452f05e1b4e6388b",
+    "reviewQuestionId": "23126d5753d089ac",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 18,
+      "questionNo": 17,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q18",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kyokyu:q17",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kyokyu:q18:s01",
-      "gas-shunin:otsu:2024:kyokyu:q18:s02",
-      "gas-shunin:otsu:2024:kyokyu:q18:s03",
-      "gas-shunin:otsu:2024:kyokyu:q18:s04",
-      "gas-shunin:otsu:2024:kyokyu:q18:s05"
+      "gas-shunin:otsu:2024:kyokyu:q17:s01",
+      "gas-shunin:otsu:2024:kyokyu:q17:s02",
+      "gas-shunin:otsu:2024:kyokyu:q17:s03",
+      "gas-shunin:otsu:2024:kyokyu:q17:s04",
+      "gas-shunin:otsu:2024:kyokyu:q17:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q18",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kyokyu-q17",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q18:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q18:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q18:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q18:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q18:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kyokyu:q17:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 867,
-  "nextPendingTaskId": "T597",
-  "otsuCompleted": 85,
-  "otsuDone": 72,
+  "nextPendingPlanSequence": 866,
+  "nextPendingTaskId": "T598",
+  "otsuCompleted": 86,
+  "otsuDone": 73,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 437,
-  "pending": 437,
-  "pending_questions": 437,
+  "otsuPending": 436,
+  "pending": 436,
+  "pending_questions": 436,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
