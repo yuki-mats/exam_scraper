@@ -89,18 +89,37 @@
       "0.05"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "不正解。平板の定常熱伝導では熱流束 q=λΔT/L である。温度差は25−(−75)=100K、厚さL=0.2m、q=10W/m²なので、λ=qL/ΔT=10×0.2/100=0.02W/(m·K)となり、0.01ではない。",
+      "正解。温度差は−75℃と25℃の差で100Kである。q=λΔT/L より λ=qL/ΔT=10×0.2/100=0.02W/(m·K)となる。",
+      "不正解。0.03W/(m·K)とすると、q=0.03×100/0.2=15W/m²となり、問題の熱流束10W/m²より大きい。",
+      "不正解。0.04W/(m·K)とすると、q=0.04×100/0.2=20W/m²となり、問題条件に合わない。",
+      "不正解。0.05W/(m·K)とすると、q=0.05×100/0.2=25W/m²となり、問題の熱流束10W/m²と一致しない。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」の平板内定常熱伝導が本問の関連論点。",
+      "焦点ポイント: 熱流束 q=λΔT/L を用い、温度差は−75℃と25℃の差として100Kで計算する。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "0.01では q=0.01×100/0.2=5W/m² となり、条件の10W/m²に合わない。"
+      ],
+      [
+        "λ=qL/ΔT=10×0.2/100=0.02W/(m·K)。"
+      ],
+      [
+        "0.03では q=15W/m² となり大きすぎる。"
+      ],
+      [
+        "0.04では q=20W/m² となり大きすぎる。"
+      ],
+      [
+        "0.05では q=25W/m² となり大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",

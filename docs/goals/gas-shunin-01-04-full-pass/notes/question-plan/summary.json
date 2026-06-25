@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T567",
-  "completed": 467,
-  "completed_questions": 467,
-  "done": 354,
+  "activeTaskId": "T568",
+  "completed": 468,
+  "completed_questions": 468,
+  "done": 355,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 354,
+    "done": 355,
     "hold": 113,
-    "pending": 467
+    "pending": 466
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T04:33:35+09:00",
+  "generatedAt": "2026-06-26T04:38:25+09:00",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,17 +34,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.01",
-      "0.02",
-      "0.03",
-      "0.04",
-      "0.05"
+      "0.5",
+      "1.0",
+      "1.5",
+      "2.0",
+      "2.5"
     ],
     "correctChoiceText": [
       "不正解",
+      "不正解",
+      "不正解",
       "正解",
-      "不正解",
-      "不正解",
       "不正解"
     ],
     "correctChoiceTextCount": 5,
@@ -85,28 +85,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 904,
-    "publicQuestionId": "d3a875bb5d87861a",
+    "planSequence": 903,
+    "publicQuestionId": "87e96a07f7e35ea9",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:d3a875bb5d87861a",
-    "questionBodyText": "厚さ0.2mの平板断熱材の片面を−75℃とし、反対の面を25℃に保った時の熱流束が10W/m²であった。このとき、平板断熱材の平均熱伝導率(W/(m·K))として最も近い値はどれか。",
-    "questionIndexInFile": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:87e96a07f7e35ea9",
+    "questionBodyText": "内径20cmの直円管内を流体が質量流量20kg/sで流れているときの平均流速(m/s)として、最も近い値はどれか。ただし、流体の密度は320kg/m³とする。",
+    "questionIndexInFile": 2,
     "questionIntent": "",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q12",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:d3a875bb5d87861a",
+    "reviewId": "2025:question_2025_2:87e96a07f7e35ea9",
     "reviewNotes": "",
-    "reviewQuestionId": "d3a875bb5d87861a",
+    "reviewQuestionId": "87e96a07f7e35ea9",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -121,7 +121,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 11,
       "subject": "kiso",
       "year": 2025
     },
@@ -130,45 +130,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kiso:q12:s01",
-      "gas-shunin:otsu:2025:kiso:q12:s02",
-      "gas-shunin:otsu:2025:kiso:q12:s03",
-      "gas-shunin:otsu:2025:kiso:q12:s04",
-      "gas-shunin:otsu:2025:kiso:q12:s05"
+      "gas-shunin:otsu:2025:kiso:q11:s01",
+      "gas-shunin:otsu:2025:kiso:q11:s02",
+      "gas-shunin:otsu:2025:kiso:q11:s03",
+      "gas-shunin:otsu:2025:kiso:q11:s04",
+      "gas-shunin:otsu:2025:kiso:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q11:s05",
         "statementNo": 5
       }
     ],
@@ -183,13 +183,13 @@
   },
   "nextPendingPlanSequence": 904,
   "nextPendingTaskId": "T567",
-  "otsuCompleted": 55,
-  "otsuDone": 44,
+  "otsuCompleted": 56,
+  "otsuDone": 45,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 467,
-  "pending": 467,
-  "pending_questions": 467,
+  "otsuPending": 466,
+  "pending": 466,
+  "pending_questions": 466,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
