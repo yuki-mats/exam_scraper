@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T536",
-  "completed": 436,
-  "completed_questions": 436,
-  "done": 323,
+  "activeTaskId": "T537",
+  "completed": 437,
+  "completed_questions": 437,
+  "done": 324,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 323,
+    "done": 324,
     "hold": 113,
-    "pending": 498
+    "pending": 497
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-25T14:33:30Z",
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,11 +34,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "一の使用者にガスを供給するための整圧器には、ガスの圧力が異常に上昇することを防止する装置を設けなければならない。",
-      "一の使用者にガスを供給するための整圧器の入口には、\n不純物を除去する装置を設けなければならない\n。",
-      "ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じなければならない。",
-      "整圧器の制御用配管、補助整圧器その他の附属設備は、\n津波に対し耐えるよう支持\nされていなければならない。",
-      "最高使用圧力が中圧の整圧器\nには、ガスの漏えいによる火災等の発生を防止するための適切な措置を講じなければならない。"
+      "道路に埋設されている最高使用圧力が中圧の導管\n埋設の日以後4年に1回以上",
+      "道路に埋設されているポリエチレン管\n埋設の日以後4年に1回以上",
+      "道路に埋設されている導管からガス栓までに埋設されていて、本支管からガス栓までの間に絶縁措置が講じられており、当該絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分\n埋設の日以後6年に1回以上",
+      "道路に埋設されている導管からガス栓までに設置されている屋外の埋設されていない部分\n(設置)の日以後6年に1回以上",
+      "道路に埋設されている導管からガス栓までに\n埋設されているポリエチレン管\n埋設の日以後4年に1回以上"
     ],
     "correctChoiceText": [
       "正しい",
@@ -52,11 +52,11 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
       "間違い",
       "正しい",
-      "正しい"
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 423,
-    "publicQuestionId": "9eb95e1b239cc473",
+    "planSequence": 424,
+    "publicQuestionId": "cdcdbd1ed55b192d",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:9eb95e1b239cc473",
-    "questionBodyText": "技術基準で規定されている整圧器に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 11,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問11",
-    "questionNo": 11,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:cdcdbd1ed55b192d",
+    "questionBodyText": "技術基準で規定されている漏えい検査について、13Aガスを供給する下表の導管の種類と検査頻度の組合せのうち、正しいものはいくつあるか。なお、漏えい検知装置は設置されておらず、検査にあたって、導管が設置されている場所に立ち入ることができるものとする。\n導管の種類 (特定地下街等又は特定地下室等にガスを供給するものを除く。)\n検査頻度",
+    "questionIndexInFile": 12,
+    "questionIntent": "select_correct",
+    "questionLabel": "問12",
+    "questionNo": 12,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q11",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q12",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2017:question_2017_1:9eb95e1b239cc473",
+    "reviewId": "2017:question_2017_1:cdcdbd1ed55b192d",
     "reviewNotes": "",
-    "reviewQuestionId": "9eb95e1b239cc473",
+    "reviewQuestionId": "cdcdbd1ed55b192d",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 11,
+      "questionNo": 12,
       "subject": "law",
       "year": 2017
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q11",
+    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2017:law:q11:s01",
-      "gas-shunin:otsu:2017:law:q11:s02",
-      "gas-shunin:otsu:2017:law:q11:s03",
-      "gas-shunin:otsu:2017:law:q11:s04",
-      "gas-shunin:otsu:2017:law:q11:s05"
+      "gas-shunin:otsu:2017:law:q12:s01",
+      "gas-shunin:otsu:2017:law:q12:s02",
+      "gas-shunin:otsu:2017:law:q12:s03",
+      "gas-shunin:otsu:2017:law:q12:s04",
+      "gas-shunin:otsu:2017:law:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q11",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q11:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q11:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q11:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q11:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q11:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q12:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 423,
-  "nextPendingTaskId": "T536",
-  "otsuCompleted": 24,
-  "otsuDone": 13,
+  "nextPendingPlanSequence": 424,
+  "nextPendingTaskId": "T537",
+  "otsuCompleted": 25,
+  "otsuDone": 14,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 498,
-  "pending": 498,
-  "pending_questions": 498,
+  "otsuPending": 497,
+  "pending": 497,
+  "pending_questions": 497,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -208,8 +208,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 113,
-    "ok": 323,
-    "pending": 498
+    "ok": 324,
+    "pending": 497
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
