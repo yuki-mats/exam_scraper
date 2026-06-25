@@ -681,10 +681,43 @@
       "14.0"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正解。内圧を受ける閉じた薄肉円筒の軸方向応力は σ=pD/(4t) で求める。内径D=150-2×5=140mm、p=0.5N/mm²、t=5mmより、σ=0.5×140/(4×5)=3.5N/mm²となる。",
+      "不正解。3.8N/mm²は外径150mmをそのまま用いて σ=0.5×150/(4×5)=3.75 とした近似値で、管厚を考慮した内径140mmによる軸方向応力3.5N/mm²が最も近い。",
+      "不正解。7.0N/mm²は内径140mmを用いた円周方向応力 σ=pD/(2t)=0.5×140/(2×5) に相当する。問われているのは軸方向応力なので半分の3.5N/mm²である。",
+      "不正解。7.5N/mm²は外径150mmを用いた円周方向応力に近い値であり、軸方向応力の式 pD/(4t) ではない。",
+      "不正解。14.0N/mm²は軸方向応力・円周方向応力のいずれの適切な計算にも合わない過大な値である。"
+    ],
+    "suggestedQuestions": [
+      "内圧を受ける閉じた薄肉円筒の軸方向応力は pD/(4t) で求める？",
+      "外径150mmをそのまま使うと軸方向応力は約3.8N/mm²になる？",
+      "内径140mmで pD/(2t) を使うと円周方向応力7.0N/mm²になる？",
+      "7.5N/mm²は外径を使った円周方向応力に近い？",
+      "この条件の軸方向応力として14.0N/mm²は適切？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "内圧を受ける閉じた薄肉円筒の軸方向応力は pD/(4t) で求める？",
+        "answer": "正しい。閉じた薄肉円筒の軸方向応力は pD/(4t) で、内径140mmを使うと3.5N/mm²となる。"
+      },
+      {
+        "question": "外径150mmをそのまま使うと軸方向応力は約3.8N/mm²になる？",
+        "answer": "計算値としては近いが、管厚を考慮した内径140mmを用いるため最適解ではない。"
+      },
+      {
+        "question": "内径140mmで pD/(2t) を使うと円周方向応力7.0N/mm²になる？",
+        "answer": "正しいが、それは円周方向応力であり、本問の軸方向応力ではない。"
+      },
+      {
+        "question": "7.5N/mm²は外径を使った円周方向応力に近い？",
+        "answer": "正しい。外径150mmで pD/(2t) を使うと7.5N/mm²となるが、問われている軸方向応力ではない。"
+      },
+      {
+        "question": "この条件の軸方向応力として14.0N/mm²は適切？",
+        "answer": "誤り。適切な軸方向応力は3.5N/mm²であり、14.0N/mm²は過大である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
