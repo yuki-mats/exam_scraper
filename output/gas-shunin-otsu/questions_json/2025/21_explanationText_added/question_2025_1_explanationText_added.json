@@ -681,18 +681,70 @@
       "500"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "不正解。メタン8kgは分子量16より0.5kmol、プロパン4.4kgは分子量44より0.1kmolで、合計0.6kmolである。理想気体の状態方程式 P=nRT/V を用いると P=600mol×8.3×300/3=498000Pa=498kPa となるため、45kPaでは小さすぎる。",
+      "不正解。混合ガスの物質量は0.6kmolで、27℃=300K、容積3m³である。P=nRT/V より圧力は約498kPaとなるため、60kPaでは小さすぎる。",
+      "不正解。理想気体として P=nRT/V を用いると、n=0.6kmol、T=300K、V=3m³から P≈498kPa となる。120kPaは計算値から大きく外れる。",
+      "不正解。メタンとプロパンの合計物質量は0.6kmolであり、P=nRT/V に代入すると約498kPaとなる。250kPaは最も近い値ではない。",
+      "正解。メタン8kgは8/16=0.5kmol、プロパン4.4kgは4.4/44=0.1kmolなので、合計0.6kmol=600molである。27℃=300Kとして P=nRT/V=600×8.3×300/3=498000Pa=498kPa となり、500kPaが最も近い。"
+    ],
+    "suggestedQuestions": [
+      "メタン8kgは何kmolか？",
+      "プロパン4.4kgは何kmolか？",
+      "混合ガスの合計物質量は？",
+      "理想気体の状態方程式で圧力はどう求める？",
+      "本問の圧力に最も近い選択肢は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "メタン8kgは何kmolか？",
+        "answer": "0.5kmol。",
+        "explanation": "メタンの分子量を16kg/kmolとして、8/16=0.5kmolとなる。"
+      },
+      {
+        "question": "プロパン4.4kgは何kmolか？",
+        "answer": "0.1kmol。",
+        "explanation": "プロパンの分子量を44kg/kmolとして、4.4/44=0.1kmolとなる。"
+      },
+      {
+        "question": "混合ガスの合計物質量は？",
+        "answer": "0.6kmol。",
+        "explanation": "メタン0.5kmolとプロパン0.1kmolを合計する。"
+      },
+      {
+        "question": "理想気体の状態方程式で圧力はどう求める？",
+        "answer": "P=nRT/Vで求める。",
+        "explanation": "n=600mol、R=8.3J/(mol・K)、T=300K、V=3m³を代入する。"
+      },
+      {
+        "question": "本問の圧力に最も近い選択肢は？",
+        "answer": "500kPa。",
+        "explanation": "計算値は498kPaなので、選択肢5の500kPaが最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式、混合ガスの物質量計算が本問の関連論点。",
+      "理想気体では、混合ガス全体の圧力は合計物質量を用いて P=nRT/V で求められる。",
+      "本問ではメタン0.5kmol、プロパン0.1kmol、合計0.6kmolを用い、P≈498kPaとなる。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "45kPaはP=nRT/Vで求めた約498kPaより大幅に小さい。"
+      ],
+      [
+        "60kPaは混合ガス0.6kmolを用いた計算値に合わない。"
+      ],
+      [
+        "120kPaは理想気体計算による約498kPaから離れている。"
+      ],
+      [
+        "250kPaは約498kPaの半分程度で、最も近い値ではない。"
+      ],
+      [
+        "500kPaは計算値498kPaに最も近い。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",

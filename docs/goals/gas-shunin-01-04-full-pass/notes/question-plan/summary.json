@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T576",
-  "completed": 476,
-  "completed_questions": 476,
-  "done": 363,
+  "activeTaskId": "T577",
+  "completed": 477,
+  "completed_questions": 477,
+  "done": 364,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 363,
+    "done": 364,
     "hold": 113,
-    "pending": 458
+    "pending": 457
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T05:27:35+09:00",
+  "generatedAt": "2026-06-26T05:31:47+09:00",
   "held_questions": 113,
   "hold": 113,
   "hold_questions": 113,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "45",
-      "60",
-      "120",
-      "250",
-      "500"
+      "0.34",
+      "0.44",
+      "0.54",
+      "0.63",
+      "0.75"
     ],
     "correctChoiceText": [
       "不正解",
       "不正解",
       "不正解",
-      "不正解",
-      "正解"
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -85,28 +85,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 895,
-    "publicQuestionId": "019781c25343a50e",
+    "planSequence": 894,
+    "publicQuestionId": "347b106e030fed8e",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:019781c25343a50e",
-    "questionBodyText": "メタン8kgとプロパン4.4kgを混合して、容積3m³の容器に充てんした。充てん後の容器内の温度が27℃のとき、容器内の混合ガスの圧力(kPa)として、最も近い値はどれか。ただし、この混合ガスは理想気体とし、気体定数R=8.3J/(mol・K)とする。",
-    "questionIndexInFile": 19,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:347b106e030fed8e",
+    "questionBodyText": "プロパンとブタンがモル比2：1で混合している液化ガスの20℃における蒸気圧(MPa)として最も近い値はどれか。ただし、ラウールの法則が成立するものとし、20℃におけるプロパン及びブタンの蒸気圧は、それぞれ0.83MPa及び0.24MPaとする。",
+    "questionIndexInFile": 18,
     "questionIntent": "",
-    "questionLabel": "問3",
-    "questionNo": 3,
+    "questionLabel": "問2",
+    "questionNo": 2,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q3",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q2",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_1:019781c25343a50e",
+    "reviewId": "2025:question_2025_1:347b106e030fed8e",
     "reviewNotes": "",
-    "reviewQuestionId": "019781c25343a50e",
+    "reviewQuestionId": "347b106e030fed8e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -121,7 +121,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 3,
+      "questionNo": 2,
       "subject": "kiso",
       "year": 2025
     },
@@ -130,45 +130,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q03",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kiso:q02",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kiso:q03:s01",
-      "gas-shunin:otsu:2025:kiso:q03:s02",
-      "gas-shunin:otsu:2025:kiso:q03:s03",
-      "gas-shunin:otsu:2025:kiso:q03:s04",
-      "gas-shunin:otsu:2025:kiso:q03:s05"
+      "gas-shunin:otsu:2025:kiso:q02:s01",
+      "gas-shunin:otsu:2025:kiso:q02:s02",
+      "gas-shunin:otsu:2025:kiso:q02:s03",
+      "gas-shunin:otsu:2025:kiso:q02:s04",
+      "gas-shunin:otsu:2025:kiso:q02:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q3",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kiso-q2",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q03:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q02:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q03:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q02:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q03:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q02:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q03:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q02:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q03:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kiso:q02:s05",
         "statementNo": 5
       }
     ],
@@ -181,15 +181,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 895,
-  "nextPendingTaskId": "T576",
-  "otsuCompleted": 64,
-  "otsuDone": 53,
+  "nextPendingPlanSequence": 894,
+  "nextPendingTaskId": "T577",
+  "otsuCompleted": 65,
+  "otsuDone": 54,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 458,
-  "pending": 458,
-  "pending_questions": 458,
+  "otsuPending": 457,
+  "pending": 457,
+  "pending_questions": 457,
   "rowCount": 934,
   "total": 934,
   "total_questions": 934
