@@ -1,54 +1,60 @@
 {
-  "completed": 323,
-  "completed_questions": 323,
+  "completed": 324,
+  "completed_questions": 324,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 234,
+    "done": 235,
     "hold": 89,
-    "pending": 611
+    "pending": 610
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 89,
   "hold": 89,
   "hold_questions": 89,
-  "kouCompleted": 323,
+  "kouCompleted": 324,
   "kouHeld": 89,
   "kouHold": 89,
-  "kouPending": 89,
+  "kouPending": 88,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "28",
-      "44",
-      "74",
-      "81",
-      "88"
+      "熱伝導での伝熱量の大きさは、温度勾配に比例する。",
+      "対流熱伝達には、自然対流や強制対流、相変化を伴う沸騰と凝縮等の様々な形態がある。",
+      "熱放射では、原子や分子のような物質を介さず真空中でも伝熱が可能である。",
+      "外部から入射してくる電磁波を完全に吸収する仮想の物体を、黒体という。",
+      "熱交換器では対流熱伝達が生じ、\n熱伝導は生じない\n。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -82,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 846,
-    "publicQuestionId": "8d1ff4a7220cdc14",
+    "planSequence": 847,
+    "publicQuestionId": "c43fbf195b5d0be5",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:8d1ff4a7220cdc14",
-    "questionBodyText": "熱交換器において、高温流体の入口温度は180℃、出口温度は50℃であった。また、低温流体の入口温度は20℃、出口温度は90℃であった。このときの高温流体の温度効率(%)として、最も近い値はどれか。",
-    "questionIndexInFile": 3,
-    "questionIntent": "",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:c43fbf195b5d0be5",
+    "questionBodyText": "伝熱に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 4,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問13",
+    "questionNo": 13,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q12",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q13",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:8d1ff4a7220cdc14",
+    "reviewId": "2024:question_2024_2:c43fbf195b5d0be5",
     "reviewNotes": "",
-    "reviewQuestionId": "8d1ff4a7220cdc14",
+    "reviewQuestionId": "c43fbf195b5d0be5",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 13,
       "subject": "kiso",
       "year": 2024
     },
@@ -127,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q13",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kiso:q12:s01",
-      "gas-shunin:otsu:2024:kiso:q12:s02",
-      "gas-shunin:otsu:2024:kiso:q12:s03",
-      "gas-shunin:otsu:2024:kiso:q12:s04",
-      "gas-shunin:otsu:2024:kiso:q12:s05"
+      "gas-shunin:otsu:2024:kiso:q13:s01",
+      "gas-shunin:otsu:2024:kiso:q13:s02",
+      "gas-shunin:otsu:2024:kiso:q13:s03",
+      "gas-shunin:otsu:2024:kiso:q13:s04",
+      "gas-shunin:otsu:2024:kiso:q13:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q13",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q13:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q13:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q13:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q13:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q13:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 324,
-  "nextPendingTaskId": "T437",
+  "nextPendingPlanSequence": 325,
+  "nextPendingTaskId": "T438",
   "otsuCompleted": 0,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 611,
-  "pending_questions": 611,
+  "pending": 610,
+  "pending_questions": 610,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -198,8 +204,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 89,
-    "ok": 234,
-    "pending": 611
+    "ok": 235,
+    "pending": 610
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T14:23:32+09:00",
-  "activeTaskId": "T437"
+  "updatedAt": "2026-06-25T14:29:25+09:00",
+  "activeTaskId": "T438"
 }
