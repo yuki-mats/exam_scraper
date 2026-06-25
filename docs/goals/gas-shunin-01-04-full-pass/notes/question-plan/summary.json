@@ -1,63 +1,57 @@
 {
-  "activeTaskId": "T533",
-  "completed": 433,
-  "completed_questions": 433,
+  "activeTaskId": "T534",
+  "completed": 434,
+  "completed_questions": 434,
   "done": 321,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 321,
-    "hold": 112,
-    "pending": 501
+    "hold": 113,
+    "pending": 500
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-25T14:33:30Z",
-  "held_questions": 112,
-  "hold": 112,
-  "hold_questions": 112,
+  "held_questions": 113,
+  "hold": 113,
+  "hold_questions": 113,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "液化ガス用貯槽(不活性の液化ガス用のものを除く。)及びガスホルダー又はこれらの付近には、その外部から見やすいように液化ガス用貯槽又はガスホルダーである旨の表示をしなければならない。",
-      "最高使用圧力が中圧のガスホルダー\n及びその支持物は、当該設備が受けるおそれのある熱に対し十分に耐えるものとし、又は適切な冷却装置を設置しなければならない。",
-      "液化窒素用低温貯槽\nには、負圧による破壊を防止するため、適切な措置を講じなければならない。",
-      "技術基準の規定により設置した液化ガス用貯槽の防液堤の外面から防災作業のために必要な距離の内側には、液化ガスの漏えい又は火災等の拡大を防止する上で支障のない設備以外の設備を設置してはならない。",
-      "液化ガス用貯槽(不活性の液化ガス用のものを除く。)の埋設された部分には、設置された状況により腐食を生ずるおそれがある場合には、当該設備の腐食を防止するための適切な措置を講じなければならない。"
+      "最高使用圧力が0.3MPaのガスを通ずる、内径が150mmの導管",
+      "最高使用圧力が0.7MPaのガスを通ずる、\n内径が100mmの導管",
+      "最高使用圧力が0.3MPaのガスを通ずる、内径が150mmの配管",
+      "最高使用圧力が0.7MPaのガスを通ずる、内径が100mmの配管",
+      "最高使用圧力が0.2MPaのガスを通ずる、内容積が0.02m³の容器"
     ],
     "correctChoiceText": [
       "正しい",
       "間違い",
       "間違い",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2017,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -91,28 +85,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 420,
-    "publicQuestionId": "f44221b2f39b2de0",
+    "planSequence": 421,
+    "publicQuestionId": "19e9a8c53cf00144",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:f44221b2f39b2de0",
-    "questionBodyText": "技術基準で規定されているガスホルダー及び液化ガス用貯槽に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 8,
-    "questionIntent": "select_correct",
-    "questionLabel": "問8",
-    "questionNo": 8,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:19e9a8c53cf00144",
+    "questionBodyText": "技術基準で「ガス工作物であって、ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。」と規定されているが、次のガス工作物の溶接部分のうち、これに該当するものはどれか。",
+    "questionIndexInFile": 9,
+    "questionIntent": "",
+    "questionLabel": "問9",
+    "questionNo": 9,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q8",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q9",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2017:question_2017_1:f44221b2f39b2de0",
+    "reviewId": "2017:question_2017_1:19e9a8c53cf00144",
     "reviewNotes": "",
-    "reviewQuestionId": "f44221b2f39b2de0",
+    "reviewQuestionId": "19e9a8c53cf00144",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +121,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 8,
+      "questionNo": 9,
       "subject": "law",
       "year": 2017
     },
@@ -136,45 +130,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q08",
+    "sourceQuestionKey": "gas-shunin:otsu:2017:law:q09",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2017:law:q08:s01",
-      "gas-shunin:otsu:2017:law:q08:s02",
-      "gas-shunin:otsu:2017:law:q08:s03",
-      "gas-shunin:otsu:2017:law:q08:s04",
-      "gas-shunin:otsu:2017:law:q08:s05"
+      "gas-shunin:otsu:2017:law:q09:s01",
+      "gas-shunin:otsu:2017:law:q09:s02",
+      "gas-shunin:otsu:2017:law:q09:s03",
+      "gas-shunin:otsu:2017:law:q09:s04",
+      "gas-shunin:otsu:2017:law:q09:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q8",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2017/#law-q9",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q08:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q09:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q08:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q09:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q08:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q09:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q08:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q09:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q08:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2017:law:q09:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +181,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 420,
-  "nextPendingTaskId": "T533",
-  "otsuCompleted": 21,
+  "nextPendingPlanSequence": 421,
+  "nextPendingTaskId": "T534",
+  "otsuCompleted": 22,
   "otsuDone": 11,
-  "otsuHeld": 10,
-  "otsuHold": 10,
-  "otsuPending": 501,
-  "pending": 501,
-  "pending_questions": 501,
+  "otsuHeld": 11,
+  "otsuHold": 11,
+  "otsuPending": 500,
+  "pending": 500,
+  "pending_questions": 500,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -207,9 +201,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "hold": 112,
+    "hold": 113,
     "ok": 321,
-    "pending": 501
+    "pending": 500
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -231,5 +225,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T22:23:09+09:00"
+  "updatedAt": "2026-06-26T00:19:17+09:00"
 }
