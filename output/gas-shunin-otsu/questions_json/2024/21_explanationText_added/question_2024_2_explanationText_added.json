@@ -570,10 +570,48 @@
       "480"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "不正解。条件変更後の流量比は、低圧導管の流量式から√((20/10)^5×(0.1/0.4)×(200/400))=√4=2となる。120m³/hは元の流量であり、求める値ではない。",
+      "正解。流量比は√(2^5×0.25×0.5)=√4=2であるため、変更後の流量は120×2=240m³/hとなる。",
+      "不正解。計算上の流量は240m³/hであり、260m³/hはこれより大きい。口径・圧力差・延長の比を低圧導管の流量式に入れると240m³/hが最も近い。",
+      "不正解。低圧導管の流量はD^5、圧力差、延長の比を平方根で評価する。計算結果は240m³/hであり、340m³/hではない。",
+      "不正解。√を取らずに比を4倍としてしまうと480m³/hになるが、低圧導管の流量は√(D^5H/L)に比例するため、正しくは240m³/hである。"
+    ],
+    "suggestedQuestions": [
+      "120",
+      "240",
+      "260",
+      "340",
+      "480"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "questionText": "120",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。条件変更後の流量比は、低圧導管の流量式から√((20/10)^5×(0.1/0.4)×(200/400))=√4=2となる。120m³/hは元の流量であり、求める値ではない。"
+      },
+      {
+        "questionText": "240",
+        "correctChoiceText": "正解",
+        "explanationText": "正解。流量比は√(2^5×0.25×0.5)=√4=2であるため、変更後の流量は120×2=240m³/hとなる。"
+      },
+      {
+        "questionText": "260",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。計算上の流量は240m³/hであり、260m³/hはこれより大きい。口径・圧力差・延長の比を低圧導管の流量式に入れると240m³/hが最も近い。"
+      },
+      {
+        "questionText": "340",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。低圧導管の流量はD^5、圧力差、延長の比を平方根で評価する。計算結果は240m³/hであり、340m³/hではない。"
+      },
+      {
+        "questionText": "480",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。√を取らずに比を4倍としてしまうと480m³/hになるが、低圧導管の流量は√(D^5H/L)に比例するため、正しくは240m³/hである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -589,7 +627,9 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "explanationTextCount": 5
   },
   {
     "original_question_id": "85386c740cb302e8",
