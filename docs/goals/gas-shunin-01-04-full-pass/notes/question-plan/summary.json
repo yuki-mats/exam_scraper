@@ -1,12 +1,12 @@
 {
-  "activeTaskId": "T522",
-  "completed": 422,
-  "completed_questions": 422,
+  "activeTaskId": "T523",
+  "completed": 423,
+  "completed_questions": 423,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 313,
+    "done": 314,
     "hold": 109,
-    "pending": 512
+    "pending": 511
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
@@ -16,9 +16,9 @@
   "kouCompleted": 409,
   "kouHeld": 102,
   "kouHold": 102,
-  "kouPending": 4,
+  "kouPending": 3,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,18 +32,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "開放式又は半密閉式ガス機器の使用においては、燃焼に必要な空気の取り入れや燃焼排気の排出を確実に行うことが重要である。",
-      "換気を行うために必要な条件は、空気の排出口があること、空気の流入口があること、空気の流れを起こす力があることである。",
-      "自然換気回数は、室の容積分の空気量が1時間に何回自然に入れ替わるかを「回/h」で表したものである。",
-      "必要換気量とは、室内のCO濃度を\nある限界以下に保つ\nための換気量の最小値のことである。",
-      "都市ガスが燃焼する際に、換気不足等により酸素が欠乏すると燃焼反応が終結せず、COが発生する。"
+      "開放式機器は、燃焼用の空気を屋内から取り、燃焼排ガスを屋内へ排出する。",
+      "自然排気式(CF式)ふろがまの排気筒は、横引き部分をなるべく短くし、屋外に向かって\n先下がり勾配とする\n。",
+      "強制排気式(FE式)機器を設置する室には、給気口又は開口部は\n不要\nである。",
+      "強制給排気式(FF式)機器は、給排気筒を延長できるため、機器本体が外壁に面している必要はない。",
+      "屋外式(RF式)機器は、給排気を全て屋外で行うため\n保安上優れており、屋外であれば制約なく設置できる\n。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
-      "正しい",
       "間違い",
-      "正しい"
+      "間違い",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -51,9 +51,9 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "間違い",
-      "間違い",
-      "間違い",
       "正しい",
+      "間違い",
+      "間違い",
       "間違い"
     ],
     "explanationText": [],
@@ -89,28 +89,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 409,
-    "publicQuestionId": "620333366e793249",
+    "planSequence": 410,
+    "publicQuestionId": "232faed18eb90bc1",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:620333366e793249",
-    "questionBodyText": "換気及び一酸化炭素(CO)中毒に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:232faed18eb90bc1",
+    "questionBodyText": "ガス機器の給排気に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 6,
     "questionIntent": "select_correct",
-    "questionLabel": "問24",
-    "questionNo": 24,
+    "questionLabel": "問25",
+    "questionNo": 25,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q24",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q25",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_3:620333366e793249",
+    "reviewId": "2025:question_2025_gassyunin_site_3:232faed18eb90bc1",
     "reviewNotes": "",
-    "reviewQuestionId": "620333366e793249",
+    "reviewQuestionId": "232faed18eb90bc1",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -125,7 +125,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 24,
+      "questionNo": 25,
       "subject": "shohi",
       "year": 2025
     },
@@ -134,45 +134,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q24",
+    "sourceQuestionKey": "gas-shunin:kou:2025:shohi:q25",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:shohi:q24:s01",
-      "gas-shunin:kou:2025:shohi:q24:s02",
-      "gas-shunin:kou:2025:shohi:q24:s03",
-      "gas-shunin:kou:2025:shohi:q24:s04",
-      "gas-shunin:kou:2025:shohi:q24:s05"
+      "gas-shunin:kou:2025:shohi:q25:s01",
+      "gas-shunin:kou:2025:shohi:q25:s02",
+      "gas-shunin:kou:2025:shohi:q25:s03",
+      "gas-shunin:kou:2025:shohi:q25:s04",
+      "gas-shunin:kou:2025:shohi:q25:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q24",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#shohi-q25",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q24:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:shohi:q25:s05",
         "statementNo": 5
       }
     ],
@@ -191,8 +191,8 @@
   "otsuHeld": 7,
   "otsuHold": 7,
   "otsuPending": 508,
-  "pending": 512,
-  "pending_questions": 512,
+  "pending": 511,
+  "pending_questions": 511,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
