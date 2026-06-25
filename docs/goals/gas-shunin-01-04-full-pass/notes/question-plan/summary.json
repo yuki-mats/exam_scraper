@@ -1,54 +1,60 @@
 {
-  "completed": 345,
-  "completed_questions": 345,
+  "completed": 346,
+  "completed_questions": 346,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 254,
+    "done": 255,
     "hold": 91,
-    "pending": 589
+    "pending": 588
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 339,
+  "kouCompleted": 340,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 73,
+  "kouPending": 72,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "9.2",
-      "8.1",
-      "4.6",
-      "3.4",
-      "2.2"
+      "通気性の異なる土壌にまたがって埋設されている導管では、通気性の悪い部分をアノードとする\nミクロセル\nが形成され腐食が生じることがある。",
+      "流電陽極法とは、導管よりも自然電位がマイナス側の金属を接続することで、\n導管から防食電流を流出\nさせ腐食を防止するものである。",
+      "地表面電位勾配とは、\n土壌、コンクリート等の電解質に設置した照合電極と導管の電位差\nであり、迷走電流の流出入の調査に活用できる。",
+      "鋼管と鋳鉄管が電気的に接続されている場合、\n鋳鉄管がアノード\nとなり腐食する傾向がある。",
+      "土壌比抵抗が高い\nと腐食電流が流れやすくなる。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -82,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 340,
-    "publicQuestionId": "6602bb83e4a77334",
+    "planSequence": 341,
+    "publicQuestionId": "3147d6811ce1cb5f",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:6602bb83e4a77334",
-    "questionBodyText": "外径300㎜の鋼管が内圧3MPaを受ける場合、ガス事業法の管厚計算式を用いたときの管厚(mm)として、最も近い値はどれか。なお、この鋼管の外径と内径の比は1.5以下とし、鋼管の許容引張応力は100N/mm²、継手効率は1.0、腐れしろは1.0mmとする。",
-    "questionIndexInFile": 19,
-    "questionIntent": "",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:3147d6811ce1cb5f",
+    "questionBodyText": "腐食と防食に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 20,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問14",
+    "questionNo": 14,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q13",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q14",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_2:6602bb83e4a77334",
+    "reviewId": "2024:question_2024_gassyunin_site_2:3147d6811ce1cb5f",
     "reviewNotes": "",
-    "reviewQuestionId": "6602bb83e4a77334",
+    "reviewQuestionId": "3147d6811ce1cb5f",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -118,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 14,
       "subject": "kyokyu",
       "year": 2024
     },
@@ -127,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q13",
+    "sourceQuestionKey": "gas-shunin:kou:2024:kyokyu:q14",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:kyokyu:q13:s01",
-      "gas-shunin:kou:2024:kyokyu:q13:s02",
-      "gas-shunin:kou:2024:kyokyu:q13:s03",
-      "gas-shunin:kou:2024:kyokyu:q13:s04",
-      "gas-shunin:kou:2024:kyokyu:q13:s05"
+      "gas-shunin:kou:2024:kyokyu:q14:s01",
+      "gas-shunin:kou:2024:kyokyu:q14:s02",
+      "gas-shunin:kou:2024:kyokyu:q14:s03",
+      "gas-shunin:kou:2024:kyokyu:q14:s04",
+      "gas-shunin:kou:2024:kyokyu:q14:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q13",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#kyokyu-q14",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q13:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:kyokyu:q14:s05",
         "statementNo": 5
       }
     ],
@@ -178,14 +184,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 340,
-  "nextPendingTaskId": "T453",
+  "nextPendingPlanSequence": 341,
+  "nextPendingTaskId": "T454",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 589,
-  "pending_questions": 589,
+  "pending": 588,
+  "pending_questions": 588,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -197,9 +203,9 @@
   },
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
-    "ok": 254,
+    "ok": 255,
     "hold": 91,
-    "pending": 589
+    "pending": 588
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -221,6 +227,6 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T16:08:34+09:00",
-  "activeTaskId": "T453"
+  "updatedAt": "2026-06-25T16:22:18+09:00",
+  "activeTaskId": "T454"
 }
