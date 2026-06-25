@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T551",
-  "completed": 451,
-  "completed_questions": 451,
-  "done": 338,
+  "activeTaskId": "T552",
+  "completed": 452,
+  "completed_questions": 452,
+  "done": 339,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 338,
+    "done": 339,
     "hold": 113,
-    "pending": 483
+    "pending": 482
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-25T14:33:30Z",
@@ -20,44 +20,38 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "導管の防食方法には、塗覆装による措置、絶縁による措置、電気防食による措置等がある。",
-      "他防食施設からの干渉による電食は、近接する埋設導管に他防食施設から防食電流の一部が流入し、流出部において発生する腐食である。",
-      "鋳鉄管と鋼管が電気的に接続されている場合、鋼管がアノードとなり腐食する傾向がある。",
-      "土壌中に埋設された金属材料の表面は、表面状態、組成、環境等のわずかな違いにより、\nマクロセルが形成され\n、比較的均一な腐食を引き起こす。",
-      "選択排流法は、埋設導管と電気鉄道のレールを電気的に接続し、導管に流れる電流をレールに帰流させる方法である。"
+      "3.5",
+      "3.8",
+      "7.0",
+      "7.5",
+      "14.0"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -91,28 +85,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 921,
-    "publicQuestionId": "a7c9e783d12c3ed5",
+    "planSequence": 920,
+    "publicQuestionId": "828023772aa37293",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:a7c9e783d12c3ed5",
-    "questionBodyText": "防食と腐食に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 20,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問14",
-    "questionNo": 14,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:828023772aa37293",
+    "questionBodyText": "外径150mm、管厚5mmの鋼管が内圧0.5MPaを受けるときに生じる軸方向の応力(N/mm²)として最も近い値はどれか。",
+    "questionIndexInFile": 19,
+    "questionIntent": "",
+    "questionLabel": "問13",
+    "questionNo": 13,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q14",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q13",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_2:a7c9e783d12c3ed5",
+    "reviewId": "2025:question_2025_2:828023772aa37293",
     "reviewNotes": "",
-    "reviewQuestionId": "a7c9e783d12c3ed5",
+    "reviewQuestionId": "828023772aa37293",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +121,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 14,
+      "questionNo": 13,
       "subject": "kyokyu",
       "year": 2025
     },
@@ -136,45 +130,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q14",
+    "sourceQuestionKey": "gas-shunin:otsu:2025:kyokyu:q13",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:kyokyu:q14:s01",
-      "gas-shunin:otsu:2025:kyokyu:q14:s02",
-      "gas-shunin:otsu:2025:kyokyu:q14:s03",
-      "gas-shunin:otsu:2025:kyokyu:q14:s04",
-      "gas-shunin:otsu:2025:kyokyu:q14:s05"
+      "gas-shunin:otsu:2025:kyokyu:q13:s01",
+      "gas-shunin:otsu:2025:kyokyu:q13:s02",
+      "gas-shunin:otsu:2025:kyokyu:q13:s03",
+      "gas-shunin:otsu:2025:kyokyu:q13:s04",
+      "gas-shunin:otsu:2025:kyokyu:q13:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q14",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#kyokyu-q13",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q14:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q13:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q14:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q13:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q14:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q13:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q14:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q13:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q14:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2025:kyokyu:q13:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +181,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 921,
-  "nextPendingTaskId": "T551",
-  "otsuCompleted": 39,
-  "otsuDone": 28,
+  "nextPendingPlanSequence": 920,
+  "nextPendingTaskId": "T552",
+  "otsuCompleted": 40,
+  "otsuDone": 29,
   "otsuHeld": 11,
   "otsuHold": 11,
-  "otsuPending": 483,
-  "pending": 483,
-  "pending_questions": 483,
+  "otsuPending": 482,
+  "pending": 482,
+  "pending_questions": 482,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -208,8 +202,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 113,
-    "ok": 338,
-    "pending": 483
+    "ok": 339,
+    "pending": 482
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -231,5 +225,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-26T02:37:40+09:00"
+  "updatedAt": "2026-06-26T02:42:24+09:00"
 }
