@@ -718,18 +718,70 @@
       "110"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "不正解。容積一定で空気を加熱するので、加えた熱量は Q=mCvΔT で表される。ΔT=56/(1×0.7)=80K であり、初期温度30℃に加えると110℃になる。70℃は温度上昇40Kに相当し、必要な56kJとは合わない。",
+      "不正解。80℃は初期温度30℃からの温度上昇が50Kであり、必要熱量は1×0.7×50=35kJである。与えられた56kJではさらに温度が上がる。",
+      "不正解。90℃は温度上昇60Kで、必要熱量は1×0.7×60=42kJである。加えた熱量56kJに対応する温度上昇は80Kである。",
+      "不正解。100℃は温度上昇70Kで、必要熱量は1×0.7×70=49kJである。56kJを加える場合の温度上昇は80Kであり、100℃より高くなる。",
+      "正解。容積一定の条件では定積比熱容量を用い、Q=mCvΔT とする。56=1×0.7×ΔT より ΔT=80K で、加熱後の温度は30℃+80℃=110℃となる。"
+    ],
+    "suggestedQuestions": [
+      "容積一定で加熱するときに使う比熱は？",
+      "本問の温度上昇ΔTは何Kか？",
+      "加熱後の温度は何℃か？",
+      "90℃が不正解になる理由は？",
+      "100℃が不正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "容積一定で加熱するときに使う比熱は？",
+        "answer": "定積比熱容量Cvを使う。",
+        "explanation": "容積一定では体積変化による仕事がないため、温度上昇の計算に定積比熱容量を用いる。"
+      },
+      {
+        "question": "本問の温度上昇ΔTは何Kか？",
+        "answer": "80K。",
+        "explanation": "Q=mCvΔT に 56kJ、m=1kg、Cv=0.7kJ/(kg・K) を代入すると ΔT=56/0.7=80K。"
+      },
+      {
+        "question": "加熱後の温度は何℃か？",
+        "answer": "110℃。",
+        "explanation": "初期温度30℃に温度上昇80Kを加えると110℃になる。"
+      },
+      {
+        "question": "90℃が不正解になる理由は？",
+        "answer": "90℃は温度上昇60Kで、必要熱量42kJにしかならないため。",
+        "explanation": "1×0.7×60=42kJであり、与えられた56kJより小さい。"
+      },
+      {
+        "question": "100℃が不正解になる理由は？",
+        "answer": "100℃は温度上昇70Kで、必要熱量49kJにしかならないため。",
+        "explanation": "56kJでは温度上昇80Kとなるので、100℃では足りない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の定積加熱、定積比熱容量、熱量と温度上昇の関係が本問の関連論点。",
+      "容積一定で気体を加熱する場合、熱量は Q=mCvΔT で計算する。",
+      "本問では ΔT=56/(1×0.7)=80K となり、初期温度30℃から110℃まで上昇する。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "70℃は温度上昇40Kで、必要熱量は28kJ。"
+      ],
+      [
+        "80℃は温度上昇50Kで、必要熱量は35kJ。"
+      ],
+      [
+        "90℃は温度上昇60Kで、必要熱量は42kJ。"
+      ],
+      [
+        "100℃は温度上昇70Kで、必要熱量は49kJ。"
+      ],
+      [
+        "110℃は温度上昇80Kで、必要熱量は56kJ。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
