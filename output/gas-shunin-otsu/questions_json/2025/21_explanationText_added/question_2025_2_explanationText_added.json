@@ -274,25 +274,45 @@
       "LPG球形貯槽は、円筒形と比較すると、同一容量に対する表面積が小さく周囲からの受熱面積が少ない等の特徴がある。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "正しい。エアフィン式気化器は周囲空気を熱源としてLNGなどを気化するため運転費が低廉で、LNGサテライト基地等でベースロード用として使用される。",
+      "間違い。往復式BOG圧縮機は一般に高圧・小容量の用途に適し、低圧・大容量には遠心式圧縮機が用いられる。往復式を低圧で大容量用としている点が誤り。",
+      "正しい。往復式BOG圧縮機は容積式であり、ガス流量は圧力変化によって大きく変わらない。一方、吐出管を絞ると圧力が上昇するため、安全装置が必要となる。",
+      "間違い。シートリングが弾性体で傷に弱く、破損が急激な漏れにつながるという特徴はボール弁等の説明であり、バタフライ弁の特徴としている点が誤り。",
+      "正しい。LPG球形貯槽は円筒形と比べ、同一容量に対する表面積が小さいため、周囲からの受熱面積が少ないなどの特徴がある。"
+    ],
+    "suggestedQuestions": [],
+    "suggestedQuestionDetails": [],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造 第2章「製造設備」が本問の関連論点。気化器、BOG圧縮機、弁類、LPG貯槽など、製造所設備の方式別特徴を区別する。",
+      "製造 第2章「BOG処理設備」が本問の関連論点。往復式・遠心式・回転式スクリュー型の適用容量、圧力範囲、運転上の注意点を確認する。",
+      "製造 第2章「弁類・貯槽」が本問の関連論点。弁のシート構造による特徴と、球形貯槽の表面積・受熱面積の関係を確認する。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "エアフィン式気化器は空気を熱源にするため運転費が低廉で、LNGサテライト基地等で使用される。"
+      ],
+      [
+        "往復式BOG圧縮機は高圧・小容量向き。低圧・大容量用途には遠心式が用いられる。"
+      ],
+      [
+        "往復式BOG圧縮機では吐出管を絞ると圧力が上昇するため、安全装置が必要。"
+      ],
+      [
+        "シートリングが弾性体で傷に弱いという特徴はボール弁等の説明で、バタフライ弁としては不適切。"
+      ],
+      [
+        "球形貯槽は円筒形より同一容量あたりの表面積が小さく、周囲からの受熱面積が少ない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい"
     ]
   },
   {
