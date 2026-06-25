@@ -1,11 +1,11 @@
 {
-  "completed": 301,
+  "completed": 302,
   "completed_questions": 299,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 220,
+    "done": 221,
     "hold": 81,
-    "pending": 633
+    "pending": 632
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
@@ -17,7 +17,7 @@
   "kouHold": 81,
   "kouPending": 113,
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,28 +31,28 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物の設置又は変更の工事であって、経済産業省令で定めるものをしようとするときは、その工事の計画を経済産業大臣に届け出なければならない。ただし、ガス工作物が滅失し、若しくは損壊した場合又は災害その他非常の場合において、やむを得ない一時的な工事としてするときは、この限りでない。",
-      "工事計画の届出をした者は、\nその届出を提出した日から30日を経過した後でなければ\n、その届出に係る工事を開始してはならない。ただし、経済産業大臣が認めるときは、工事を開始するまでの期間を短縮することができる。",
-      "一般ガス導管事業者は、\n工事計画の届出をして工事をするガス工作物であって、経済産業省令で定めるものの工事について自主検査を行うことで、これを使用することができる\n。",
-      "経済産業省令で定める使用前検査の対象のガス工作物であっても、試験のために使用する場合は使用前検査を受けずに、そのガス工作物を使用することができる。ただし、そのガス工作物に係るガスを使用者に供給する場合にあっては、当該ガス工作物の使用の方法を変更するごとにガスの熱量等を測定して供給する場合に限る。",
-      "一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物であって経済産業省令で定めるものについては、経済産業省令で定めるところにより、定期に、自主検査を行い、その検査記録を作成し、\n経済産業大臣に届け出なければならない\n。"
+      "製造所(特定製造所を除く。)、供給所及び導管を管理する事業場には、緊急時に迅速な通信を確保するため、適切な通信設備を設けなければならない。",
+      "製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+      "液化ガス用貯槽(不活性の液化ガス用のもの、貯蔵能力が3t未満のもの及び地盤面下に全部埋設されたものを除く。)の相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。",
+      "製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、その規模に応じて、適切な防消火設備を適切な箇所に設けなければならない。",
+      "ガス又は液化ガスを通ずるガス工作物を設置する室(製造所及び供給所に存するものに限る。)は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。"
     ],
     "correctChoiceText": [
       "正しい",
-      "間違い",
-      "間違い",
       "正しい",
-      "間違い"
+      "正しい",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
       "間違い",
-      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
       "正しい"
     ],
     "explanationText": [],
@@ -88,28 +88,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 302,
-    "publicQuestionId": "cdb9cad7080f3d37",
+    "planSequence": 303,
+    "publicQuestionId": "ffc0cd209ba5b141",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:cdb9cad7080f3d37",
-    "questionBodyText": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 6,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問6",
-    "questionNo": 6,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:ffc0cd209ba5b141",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 7,
+    "questionIntent": "select_correct",
+    "questionLabel": "問7",
+    "questionNo": 7,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q6",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q7",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_1:cdb9cad7080f3d37",
+    "reviewId": "2024:question_2024_gassyunin_site_1:ffc0cd209ba5b141",
     "reviewNotes": "",
-    "reviewQuestionId": "cdb9cad7080f3d37",
+    "reviewQuestionId": "ffc0cd209ba5b141",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -124,7 +124,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 6,
+      "questionNo": 7,
       "subject": "law",
       "year": 2024
     },
@@ -133,45 +133,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:law:q06",
+    "sourceQuestionKey": "gas-shunin:kou:2024:law:q07",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:law:q06:s01",
-      "gas-shunin:kou:2024:law:q06:s02",
-      "gas-shunin:kou:2024:law:q06:s03",
-      "gas-shunin:kou:2024:law:q06:s04",
-      "gas-shunin:kou:2024:law:q06:s05"
+      "gas-shunin:kou:2024:law:q07:s01",
+      "gas-shunin:kou:2024:law:q07:s02",
+      "gas-shunin:kou:2024:law:q07:s03",
+      "gas-shunin:kou:2024:law:q07:s04",
+      "gas-shunin:kou:2024:law:q07:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q6",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#law-q7",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q06:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q07:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q06:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q07:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q06:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q07:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q06:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q07:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:law:q06:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2024:law:q07:s05",
         "statementNo": 5
       }
     ],
@@ -190,7 +190,7 @@
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 522,
-  "pending": 633,
+  "pending": 632,
   "pending_questions": 635,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
@@ -205,7 +205,7 @@
   "reviewDecisionCounts": {
     "hold": 81,
     "ok": 218,
-    "pending": 633
+    "pending": 632
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
