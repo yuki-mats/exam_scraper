@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T487",
+  "activeTaskId": "T488",
   "completed": 375,
-  "completed_questions": 379,
+  "completed_questions": 380,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 279,
+    "done": 280,
     "hold": 100,
-    "pending": 555
+    "pending": 554
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 100,
   "hold": 100,
   "hold_questions": 100,
-  "kouCompleted": 373,
+  "kouCompleted": 374,
   "kouHeld": 100,
   "kouHold": 100,
-  "kouPending": 39,
+  "kouPending": 38,
   "nextPending": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,18 +32,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "カルノーサイクルの熱効率は、高温熱源の温度と低温熱源の温度だけで決まる。",
-      "カルノーサイクルは、ヒートポンプで利用される\n。",
-      "カルノーサイクルは、\n最小の仕事\nを取り出すことのできる理想的な熱機関である。",
-      "カルノーサイクルは、\n不可逆なサイクル\nである。",
-      "カルノーサイクルは、2つの等圧過程\nと2つの断熱過程からなる。"
+      "20",
+      "70",
+      "120",
+      "140",
+      "280"
     ],
     "correctChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い"
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2025,
@@ -83,28 +83,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 374,
-    "publicQuestionId": "cff9e52d5b9531e8",
+    "planSequence": 375,
+    "publicQuestionId": "0e6e024a83f02349",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:cff9e52d5b9531e8",
-    "questionBodyText": "カルノーサイクルに関する次の記述のうち、最も適切なものはどれか。",
-    "questionIndexInFile": 20,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:0e6e024a83f02349",
+    "questionBodyText": "混合気体(CO: 1.4mol、H₂O: 1.4mol)を用いて、圧力280kPaにおいて、次のCOシフト反応を進行させた。\nCO(g)+H₂O(g)→CO₂(g)+H₂(g)\n平衡定数が36である場合、平衡状態におけるCO₂の分圧(kPa)として、最も近い値はどれか。",
+    "questionIndexInFile": 21,
     "questionIntent": "",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q4",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2025:question_2025_gassyunin_site_1:cff9e52d5b9531e8",
+    "reviewId": "2025:question_2025_gassyunin_site_1:0e6e024a83f02349",
     "reviewNotes": "",
-    "reviewQuestionId": "cff9e52d5b9531e8",
+    "reviewQuestionId": "0e6e024a83f02349",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -119,7 +119,7 @@
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 5,
       "subject": "kiso",
       "year": 2025
     },
@@ -128,45 +128,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q04",
+    "sourceQuestionKey": "gas-shunin:kou:2025:kiso:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2025:kiso:q04:s01",
-      "gas-shunin:kou:2025:kiso:q04:s02",
-      "gas-shunin:kou:2025:kiso:q04:s03",
-      "gas-shunin:kou:2025:kiso:q04:s04",
-      "gas-shunin:kou:2025:kiso:q04:s05"
+      "gas-shunin:kou:2025:kiso:q05:s01",
+      "gas-shunin:kou:2025:kiso:q05:s02",
+      "gas-shunin:kou:2025:kiso:q05:s03",
+      "gas-shunin:kou:2025:kiso:q05:s04",
+      "gas-shunin:kou:2025:kiso:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q4",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#kiso-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q04:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q04:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q04:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q04:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q04:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:kiso:q05:s05",
         "statementNo": 5
       }
     ],
@@ -179,14 +179,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 374,
-  "nextPendingTaskId": "T487",
+  "nextPendingPlanSequence": 375,
+  "nextPendingTaskId": "T488",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
   "pending": 559,
-  "pending_questions": 555,
+  "pending_questions": 554,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -199,8 +199,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 100,
-    "ok": 273,
-    "pending": 39
+    "ok": 274,
+    "pending": 38
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
