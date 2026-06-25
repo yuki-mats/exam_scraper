@@ -1,24 +1,24 @@
 {
-  "activeTaskId": "T467",
-  "completed": 359,
-  "completed_questions": 359,
+  "activeTaskId": "T468",
+  "completed": 360,
+  "completed_questions": 360,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 268,
+    "done": 269,
     "hold": 91,
-    "pending": 575
+    "pending": 574
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-22T01:21:39Z",
   "held_questions": 91,
   "hold": 91,
   "hold_questions": 91,
-  "kouCompleted": 353,
+  "kouCompleted": 354,
   "kouHeld": 91,
   "kouHold": 91,
-  "kouPending": 59,
+  "kouPending": 58,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -32,29 +32,29 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "熱線型半導体式のガス警報器は、半導体式に比べ、消費電力が少なく、小型化が可能という特徴がある。",
-      "ガスコンセントのヒューズガス弁の作動流量は、弁型とシリンダー内径、弁質量、スプリング荷重等で決まる。",
-      "熱線型半導体式のガス警報器のセンサーは、濃度の薄いガスに対して比較的敏感であり、ガス濃度の上昇に伴い出力上昇は緩やかになる。",
-      "ガス瞬間湯沸器、ガスふろがま等の常設形ガス機器と接続具との接続方法は、ねじ接続とする。",
-      "ゴム管用ソケットは、ガスソフトコードに取り付けて使用し、コンセント口のガス栓と接続する迅速継手である。"
+      "「小売供給」とは、一般の需要に応じ導管によりガスを供給すること(特定ガス発生設備においてガスを発生させ、導管によりこれを供給するものにあっては、一の団地内におけるガスの供給地点の数が\n70未満\nのものに限る。)をいう。",
+      "「ガス工作物」とは、ガスの供給のために施設するガス発生設備、ガスホルダー、ガス精製設備、排送機、圧送機、整圧器、導管、受電設備その他の工作物及びこれらの附属設備であって、ガス事業の用に供するものをいう。",
+      "「熱量」とは、標準状態の乾燥したガス\n22.4L中で測定される総熱量をいう。",
+      "「液化ガス」とは、常用の温度において、圧力が0.2MPa以上となる液化ガスであって、現にその圧力が0.2MPa以上であるもの又は圧力が0.2MPaとなる場合の温度が\n40℃\n以下である液化ガスをいう。",
+      "高圧ガス保安法中高圧ガス\nの製造又は販売の事業及び高圧ガスの製造又は販売のための施設に関する規定は、ガス事業及びガス工作物についても、適用しなければならない。"
     ],
     "correctChoiceText": [
+      "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
-    "examYear": 2024,
+    "examYear": 2025,
     "executionPhase": "phase_2_kou_new_or_site_source",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
+      "正しい",
       "間違い",
       "間違い",
       "間違い",
-      "間違い",
-      "正しい"
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -64,7 +64,7 @@
     "grade": "甲種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
-    "listGroupId": "2024",
+    "listGroupId": "2025",
     "mustPreserve": [
       "00_source_question_body_and_choices",
       "originalQuestionBodyText",
@@ -76,10 +76,10 @@
     ],
     "originalQuestionId": "",
     "patchFiles": {
-      "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_3_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_3_explanationText_added.json",
-      "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_3_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_3_questionType_fixed.json"
+      "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
     },
     "perQuestionSteps": [
       "01_confirm_questionType_against_source_shape",
@@ -89,90 +89,90 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 354,
-    "publicQuestionId": "36c478e27d6f5c7e",
+    "planSequence": 355,
+    "publicQuestionId": "675ce6f3db722a24",
     "qualification": "gas-shunin-kou",
     "qualificationName": "ガス主任技術者甲種",
-    "qualifiedReviewQuestionId": "gas-shunin-kou:36c478e27d6f5c7e",
-    "questionBodyText": "ガス栓、接続具及び警報器に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 8,
+    "qualifiedReviewQuestionId": "gas-shunin-kou:675ce6f3db722a24",
+    "questionBodyText": "法令で規定されている用語の定義等に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 1,
     "questionIntent": "select_correct",
-    "questionLabel": "問27",
-    "questionNo": 27,
+    "questionLabel": "問1",
+    "questionNo": 1,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/kou/kou_2024/#shohi-q27",
+    "questionUrl": "https://gassyunin.com/exam/kou/kou_2025/#law-q1",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_gassyunin_site_3:36c478e27d6f5c7e",
+    "reviewId": "2025:question_2025_gassyunin_site_1:675ce6f3db722a24",
     "reviewNotes": "",
-    "reviewQuestionId": "36c478e27d6f5c7e",
+    "reviewQuestionId": "675ce6f3db722a24",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
+    "sourceCategory": "法令",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_3.json",
-    "sourceFileIndex": 19,
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceFileIndex": 20,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "kou",
       "qualification": "gas-shunin",
-      "questionNo": 27,
-      "subject": "shohi",
-      "year": 2024
+      "questionNo": 1,
+      "subject": "law",
+      "year": 2025
     },
     "sourceNaturalQuestionKey": null,
     "sourceNaturalUniqueKeys": [],
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:kou:2024:shohi:q27",
+    "sourceQuestionKey": "gas-shunin:kou:2025:law:q01",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:kou:2024:shohi:q27:s01",
-      "gas-shunin:kou:2024:shohi:q27:s02",
-      "gas-shunin:kou:2024:shohi:q27:s03",
-      "gas-shunin:kou:2024:shohi:q27:s04",
-      "gas-shunin:kou:2024:shohi:q27:s05"
+      "gas-shunin:kou:2025:law:q01:s01",
+      "gas-shunin:kou:2025:law:q01:s02",
+      "gas-shunin:kou:2025:law:q01:s03",
+      "gas-shunin:kou:2025:law:q01:s04",
+      "gas-shunin:kou:2025:law:q01:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2024/#shohi-q27",
+    "sourceUrl": "https://gassyunin.com/exam/kou/kou_2025/#law-q1",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q27:s01",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q01:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q27:s02",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q01:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q27:s03",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q01:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q27:s04",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q01:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:kou:2024:shohi:q27:s05",
+        "sourceUniqueKey": "gas-shunin:kou:2025:law:q01:s05",
         "statementNo": 5
       }
     ],
@@ -185,14 +185,14 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 354,
-  "nextPendingTaskId": "T467",
+  "nextPendingPlanSequence": 355,
+  "nextPendingTaskId": "T468",
   "otsuCompleted": 6,
   "otsuHeld": 0,
   "otsuHold": 0,
   "otsuPending": 516,
-  "pending": 575,
-  "pending_questions": 575,
+  "pending": 574,
+  "pending_questions": 574,
   "phaseCounts": {
     "phase_1_kou_existing_firestore": 294,
     "phase_2_kou_new_or_site_source": 118,
@@ -205,8 +205,8 @@
   "qualifiedReviewQuestionIdCount": 934,
   "reviewDecisionCounts": {
     "hold": 91,
-    "ok": 268,
-    "pending": 575
+    "ok": 269,
+    "pending": 574
   },
   "schemaVersion": "gas-shunin-question-execution-plan-summary/v2",
   "siteSourceQuestionCount": 640,
@@ -228,5 +228,5 @@
     "gassyunin_site": 640
   },
   "total": 934,
-  "updatedAt": "2026-06-25T17:16:26+09:00"
+  "updatedAt": "2026-06-25T17:23:08+09:00"
 }
