@@ -681,10 +681,48 @@
       "500"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正解。定圧膨張で気体がする仕事は W=PΔV で求める。圧力100kPa、体積変化は2m³-1m³=1m³なので、W=100kPa×1m³=100kJとなる。",
+      "不正解。200kJは体積変化を2m³として扱った場合などの値である。本問の仕事は初めから終わりまでの体積差1m³に圧力100kPaを掛けるので100kJである。",
+      "不正解。300kJとするには体積変化を3m³相当と見る必要があるが、本問の体積変化は1m³である。定圧仕事は100kPa×1m³=100kJである。",
+      "不正解。400kJは与えられた圧力と体積変化から得られる値より大きすぎる。1kPa・m³=1kJなので、100kPa×1m³=100kJである。",
+      "不正解。500kJは体積変化を5m³相当とした値であり、本問の条件とは合わない。定圧膨張の仕事は圧力に体積変化を掛けた100kJである。"
+    ],
+    "suggestedQuestions": [
+      "定圧膨張で気体がする仕事はどう求めるか？",
+      "本問の体積変化はいくらか？",
+      "1kPa・m³は何kJに等しいか？",
+      "本問で200kJを選ばない理由は？",
+      "定圧仕事の計算で使う体積はどの値か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "定圧膨張で気体がする仕事はどう求めるか？",
+        "answer": "W=PΔVで求める。",
+        "explanation": "圧力が一定の場合、外部へした仕事は圧力と体積変化の積で表される。"
+      },
+      {
+        "question": "本問の体積変化はいくらか？",
+        "answer": "1m³である。",
+        "explanation": "終状態2m³から初状態1m³を引くので、ΔV=1m³である。"
+      },
+      {
+        "question": "1kPa・m³は何kJに等しいか？",
+        "answer": "1kJに等しい。",
+        "explanation": "kPaはkN/m²なので、kPa・m³はkN・mとなり1kJに相当する。"
+      },
+      {
+        "question": "本問で200kJを選ばない理由は？",
+        "answer": "体積変化を2m³として計算しているため。",
+        "explanation": "仕事に使うのは最終体積ではなく体積変化であり、本問では1m³である。"
+      },
+      {
+        "question": "定圧仕事の計算で使う体積はどの値か？",
+        "answer": "初期体積と最終体積の差を使う。",
+        "explanation": "定圧仕事はP×(V2-V1)であり、最終体積そのものではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -700,6 +738,67 @@
       "不正解",
       "不正解",
       "不正解"
+    ],
+    "explanation_common_prefix": [
+      "基礎理論「熱力学（乙種）」の定圧膨張における仕事 W=PΔV が本問の関連論点。",
+      "圧力100kPaで体積が1m³から2m³へ増えるため、体積変化は1m³である。",
+      "1kPa・m³=1kJとして単位換算すると、仕事は100kJとなる。"
+    ],
+    "explanation_common_summary": [
+      "定圧膨張で気体がした仕事は W=PΔV。P=100kPa、ΔV=1m³より W=100kPa・m³=100kJ なので選択肢1が正解。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "W=PΔV=100kPa×(2-1)m³=100kJである。"
+      ],
+      [
+        "200kJは体積変化を2m³と誤って扱った値である。"
+      ],
+      [
+        "300kJは本問の圧力と体積変化からは得られない。"
+      ],
+      [
+        "400kJは100kPa×1m³より大きすぎる。"
+      ],
+      [
+        "500kJは体積変化5m³相当であり条件に合わない。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "expectedCorrectChoiceText": [
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）",
+    "explanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の定圧膨張における仕事 W=PΔV が本問の関連論点。",
+      "圧力100kPaで体積が1m³から2m³へ増えるため、体積変化は1m³である。",
+      "1kPa・m³=1kJとして単位換算すると、仕事は100kJとなる。"
+    ],
+    "choiceExplanationSnippets": [
+      "W=PΔV=100kPa×(2-1)m³=100kJである。",
+      "200kJは体積変化を2m³と誤って扱った値である。",
+      "300kJは本問の圧力と体積変化からは得られない。",
+      "400kJは100kPa×1m³より大きすぎる。",
+      "500kJは体積変化5m³相当であり条件に合わない。"
     ]
   },
   {
