@@ -1,26 +1,26 @@
 {
-  "activeTaskId": "T627",
-  "completed": 527,
-  "completed_questions": 527,
-  "done": 527,
+  "activeTaskId": "T628",
+  "completed": 528,
+  "completed_questions": 528,
+  "done": 528,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 411,
-    "hold": 116,
-    "pending": 407
+    "hold": 117,
+    "pending": 406
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T12:02:46+09:00",
-  "held_questions": 116,
-  "hold": 116,
-  "hold_questions": 116,
+  "generatedAt": "2026-06-26T12:09:34+09:00",
+  "held_questions": 117,
+  "hold": 117,
+  "hold_questions": 117,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,17 +34,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガス事業者の掘削により周囲が露出することとなった導管の露出している部分の両端は、地くずれのおそれがない地中に支持されていなければならない。",
-      "ガス事業者の掘削により周囲が露出することとなったガスの供給の用に供されている導管で、露出している部分が直管以外の管の接合部であって、\nフランジ接合されているものには\n、抜出しを防止する適切な措置を講じなければならない。",
-      "整圧器の入口には、ガス遮断装置を設けなければならない。\nただし、一の使用者にガスを供給するためのものにあっては、この限りでない。",
-      "ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じなければならない。",
-      "整圧器の制御用配管、補助整圧器その他の附属設備は、地震に対し耐えるよう支持されていなければならない。"
+      "道路に埋設されている導管(ポリエチレン管を使用している部分を除く。)で最高使用圧力が低圧のものは、\n埋設の日以後6年に1回以上\n、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
+      "道路に埋設されている導管からガス栓までに設置されている導管は、\n屋外において、埋設されていない部分にあっては\n、設置の日以後4年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
+      "導管の漏えい検査を、前回の検査の日から省令で定める期間を経過した日(以下、基準日という。)前4月以内の期間に行った場合にあっては、基準日において当該検査を行ったものとみなす。",
+      "最高使用圧力が中圧の導管であって、\n工場に設置される建物にガスを供給するものは\n、適切な自動ガス遮断装置又は適切なガス漏れ警報器の検知区域において、当該建物の外壁を貫通するように設置しなければならない。",
+      "導管を共同溝に設置する場合は、ガス漏れにより当該共同溝及び当該共同溝に設置された他の物件の構造又は管理に支障を及ぼすことがないよう導管に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置しなければならない。"
     ],
     "correctChoiceText": [
-      "正しい",
       "間違い",
       "間違い",
       "正しい",
+      "間違い",
       "正しい"
     ],
     "correctChoiceTextCount": 5,
@@ -52,11 +52,11 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
+      "間違い",
+      "間違い",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 831,
-    "publicQuestionId": "5d3de50bde7929c2",
+    "planSequence": 830,
+    "publicQuestionId": "5ab400b643bac920",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:5d3de50bde7929c2",
-    "questionBodyText": "技術基準で規定されている導管及び整圧器に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 13,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:5ab400b643bac920",
+    "questionBodyText": "技術基準で規定されている漏えい検査及び導管の設置場所に関する次の記述のうち、いずれも正しいものの組合せはどれか。ただし、イ、ロ及びハについては、この導管は特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検査を行う区間に漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
+    "questionIndexInFile": 12,
+    "questionIntent": "select_correct",
+    "questionLabel": "問12",
+    "questionNo": 12,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q13",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q12",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_1:5d3de50bde7929c2",
+    "reviewId": "2024:question_2024_1:5ab400b643bac920",
     "reviewNotes": "",
-    "reviewQuestionId": "5d3de50bde7929c2",
+    "reviewQuestionId": "5ab400b643bac920",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 12,
       "subject": "law",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q13",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:law:q13:s01",
-      "gas-shunin:otsu:2024:law:q13:s02",
-      "gas-shunin:otsu:2024:law:q13:s03",
-      "gas-shunin:otsu:2024:law:q13:s04",
-      "gas-shunin:otsu:2024:law:q13:s05"
+      "gas-shunin:otsu:2024:law:q12:s01",
+      "gas-shunin:otsu:2024:law:q12:s02",
+      "gas-shunin:otsu:2024:law:q12:s03",
+      "gas-shunin:otsu:2024:law:q12:s04",
+      "gas-shunin:otsu:2024:law:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q13",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q13:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q13:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q13:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q13:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q13:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s05",
         "statementNo": 5
       }
     ],
@@ -187,15 +187,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 831,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:5d3de50bde7929c2",
-  "otsuCompleted": 115,
+  "nextPendingPlanSequence": 830,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:5ab400b643bac920",
+  "otsuCompleted": 116,
   "otsuDone": 101,
-  "otsuHeld": 14,
-  "otsuHold": 14,
-  "otsuPending": 407,
-  "pending": 407,
-  "pending_questions": 407,
+  "otsuHeld": 15,
+  "otsuHold": 15,
+  "otsuPending": 406,
+  "pending": 406,
+  "pending_questions": 406,
   "total": 934,
   "total_questions": 934,
   "lastCompletedQuestion": {
@@ -454,6 +454,6 @@
     "questionSetName": "消費機器の周知及び調査（乙種）",
     "category": "消費機器の周知及び調査（乙種）"
   },
-  "nextPendingTaskId": "T627",
-  "nextPendingReviewId": "2024:question_2024_1:5d3de50bde7929c2"
+  "nextPendingTaskId": "T628",
+  "nextPendingReviewId": "2024:question_2024_1:5ab400b643bac920"
 }
