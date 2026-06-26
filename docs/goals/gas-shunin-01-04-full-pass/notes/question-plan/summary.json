@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T617",
-  "completed": 517,
-  "completed_questions": 517,
-  "done": 402,
+  "activeTaskId": "T618",
+  "completed": 518,
+  "completed_questions": 518,
+  "done": 403,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 402,
+    "done": 403,
     "hold": 115,
-    "pending": 417
+    "pending": 416
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T10:34:14+09:00",
+  "generatedAt": "2026-06-26T10:45:23+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,18 +34,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "物質の持つ自由エネルギーを直接電気エネルギーとして取り出すことができる。",
-      "電子を受け取る反応をカソード反応という。",
-      "標準電極電位が高い金属ほど、イオン化傾向は小さい。",
-      "電池を構成したとき、標準電極電位が高い方がプラス側の電極となる。",
-      "銅(Cu)の標準電極電位はマグネシウム(Mg)より低い\n。"
+      "一次反応において、反応物質の濃度が半分に減少するのに要する時間は、反応のどの時点から測っても同じである。",
+      "化学平衡とは、可逆反応において、順方向と逆方向の反応速度が等しくなった状態をいう。",
+      "ある反応温度で発熱反応を平衡状態になるまで進行させたのちに、\n反応温度を上げると、反応はさらに進行して、新たな平衡状態に達する\n。",
+      "ある反応の標準自由エネルギー変化がわかれば、平衡定数を計算により求めることができる。",
+      "水を電気分解すれば、水素と酸素を発生させることができる。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
+      "間違い",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
@@ -54,9 +54,9 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
+      "間違い",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 841,
-    "publicQuestionId": "f85e9fe6f17617ab",
+    "planSequence": 840,
+    "publicQuestionId": "9fde1b61cadb2ba6",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:f85e9fe6f17617ab",
-    "questionBodyText": "電気化学反応に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 23,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:9fde1b61cadb2ba6",
+    "questionBodyText": "化学反応と化学平衡に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 22,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q7",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_1:f85e9fe6f17617ab",
+    "reviewId": "2024:question_2024_1:9fde1b61cadb2ba6",
     "reviewNotes": "",
-    "reviewQuestionId": "f85e9fe6f17617ab",
+    "reviewQuestionId": "9fde1b61cadb2ba6",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "kiso",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kiso:q07:s01",
-      "gas-shunin:otsu:2024:kiso:q07:s02",
-      "gas-shunin:otsu:2024:kiso:q07:s03",
-      "gas-shunin:otsu:2024:kiso:q07:s04",
-      "gas-shunin:otsu:2024:kiso:q07:s05"
+      "gas-shunin:otsu:2024:kiso:q06:s01",
+      "gas-shunin:otsu:2024:kiso:q06:s02",
+      "gas-shunin:otsu:2024:kiso:q06:s03",
+      "gas-shunin:otsu:2024:kiso:q06:s04",
+      "gas-shunin:otsu:2024:kiso:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s05",
         "statementNo": 5
       }
     ],
@@ -186,17 +186,17 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T617"
+    "taskId": "T618"
   },
-  "nextPendingPlanSequence": 841,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:f85e9fe6f17617ab",
-  "otsuCompleted": 105,
-  "otsuDone": 92,
+  "nextPendingPlanSequence": 840,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:9fde1b61cadb2ba6",
+  "otsuCompleted": 106,
+  "otsuDone": 93,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 417,
-  "pending": 417,
-  "pending_questions": 417,
+  "otsuPending": 416,
+  "pending": 416,
+  "pending_questions": 416,
   "total": 934,
   "total_questions": 934,
   "lastCompletedQuestion": {
@@ -205,20 +205,21 @@
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_gas_valve_connector_alarm_installation_references",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_standard_electrode_potential_relation",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
       "questionSetIdPresent": true,
-      "questionTypePresent": true
+      "questionTypePresent": true,
+      "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "シリンダーとヒューズボール等から構成されているガス栓のヒューズ機構では、ガス栓が誤開放されるとヒューズボール等が通過孔をふさぐことによりガスを遮断する。",
-      "ガス機器のホースエンド口に器具用スリムプラグを取りつけることで、ガスコードを使って、ガスコンセントと接続することができる。",
-      "都市ガス用のガス警報器には、一過性のガスによる警報を防止するため、一定時間連続してガスを検知した後に警報する遅延警報型がある。",
-      "家庭用のCO警報器のCOセンサーには、アルコールの影響を抑えるため活性炭フィルターが内蔵されている。",
-      "業務用換気警報器は、\n天井より30cm以内の高さに設置する\n。"
+      "物質の持つ自由エネルギーを直接電気エネルギーとして取り出すことができる。",
+      "電子を受け取る反応をカソード反応という。",
+      "標準電極電位が高い金属ほど、イオン化傾向は小さい。",
+      "電池を構成したとき、標準電極電位が高い方がプラス側の電極となる。",
+      "銅(Cu)の標準電極電位はマグネシウム(Mg)より低い\n。"
     ],
     "correctChoiceText": [
       "正しい",
@@ -228,7 +229,7 @@
       "間違い"
     ],
     "correctChoiceTextCount": 5,
-    "examYear": 2025,
+    "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
@@ -239,182 +240,13 @@
       "間違い"
     ],
     "explanationText": [
-      "正しい。ヒューズ機構付きガス栓は、誤開放などで過大流量が生じたときにヒューズボール等が通過孔をふさぎ、ガスを遮断する構造である。",
-      "正しい。ガス機器のホースエンド口に器具用スリムプラグを取り付ければ、ガスコードを用いてガスコンセントと接続できる。",
-      "正しい。都市ガス用のガス警報器には、一過性のガスで不要な警報を出さないよう、一定時間連続してガスを検知した後に警報する遅延警報型がある。",
-      "正しい。家庭用CO警報器のCOセンサーには、アルコール等による影響を抑えるため活性炭フィルターを備えるものがある。",
-      "間違い。業務用換気警報器は業務用厨房等のCOを検知する警報器で、設置例では給気口から170±20cm程度、燃焼器から水平8m以内などの位置に設置する。天井より30cm以内に設置するとしている点が誤り。"
+      "正しい。電池などの電気化学反応では、化学物質が持つ自由エネルギーを酸化還元反応によって直接電気エネルギーとして取り出すことができる。",
+      "正しい。電子を受け取る反応は還元反応であり、電池では還元が起こる電極をカソードという。したがって電子を受け取る反応をカソード反応という。",
+      "正しい。標準電極電位が高い金属ほど、電子を放出して陽イオンになりにくく、イオン化傾向は小さい。",
+      "正しい。電池を構成したときは、標準電極電位が高い電極で還元反応が起こり、正極となる。",
+      "間違い。銅の標準電極電位は Cu2+/Cu で約+0.34V、マグネシウムの標準電極電位は Mg2+/Mg で約-2.37Vであり、銅の方がマグネシウムより高い。低いとしている点が誤りである。"
     ],
     "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2025",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 934,
-    "publicQuestionId": "03f7edabcc660a32",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:03f7edabcc660a32",
-    "questionBodyText": "ガス栓、接続具及び警報器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 8,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問27",
-    "questionNo": 27,
-    "questionSetId": "chiefgasengineerlicense-B-1980",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#shohi-q27",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2025:question_2025_3:03f7edabcc660a32",
-    "reviewNotes": "T538-desc-934: 降順ブロック planSequence=934..927 の1問目。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=03f7edabcc660a32。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect、answer_result_text=正解は 5 です。と correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] が一致。業務用換気警報器は給気口から170±20cm程度・燃焼器から水平8m以内等の設置例で、天井より30cm以内ではないため選択肢5を誤りと確認。04は active category の ガス栓、接続具及び警報器（乙種） を選択。",
-    "reviewQuestionId": "03f7edabcc660a32",
-    "reviewedAt": "2026-06-26T01:13:23+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
-    "sourceFileIndex": 27,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 27,
-      "subject": "shohi",
-      "year": 2025
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2025:shohi:q27",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2025:shohi:q27:s01",
-      "gas-shunin:otsu:2025:shohi:q27:s02",
-      "gas-shunin:otsu:2025:shohi:q27:s03",
-      "gas-shunin:otsu:2025:shohi:q27:s04",
-      "gas-shunin:otsu:2025:shohi:q27:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2025/#shohi-q27",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q27:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q27:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q27:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q27:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2025:shohi:q27:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingTaskId": "T617",
-  "nextPendingQuestion": {
-    "answerResultText": "正解は 5 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "物質の持つ自由エネルギーを直接電気エネルギーとして取り出すことができる。",
-      "電子を受け取る反応をカソード反応という。",
-      "標準電極電位が高い金属ほど、イオン化傾向は小さい。",
-      "電池を構成したとき、標準電極電位が高い方がプラス側の電極となる。",
-      "銅(Cu)の標準電極電位はマグネシウム(Mg)より低い\n。"
-    ],
-    "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "explanationText": [],
-    "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -456,20 +288,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問7",
     "questionNo": 7,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-2120",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q7",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_1:f85e9fe6f17617ab",
-    "reviewNotes": "",
+    "reviewNotes": "T617: 降順ブロック planSequence=841。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=f85e9fe6f17617ab。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 5 です。と correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] が一致。電気化学反応では自由エネルギーを電気エネルギーとして取り出せ、カソードは電子を受け取る還元反応、標準電極電位が高い金属ほどイオン化傾向は小さく電池ではプラス側の電極となる。銅(Cu)の標準電極電位はマグネシウム(Mg)より高いため、選択肢5を誤りと確認。04は category.json の active category と甲種2025電気化学反応先例に合わせ、エネルギー変換・燃料電池（乙種）を選択。",
     "reviewQuestionId": "f85e9fe6f17617ab",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-26T10:43:34+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "基礎理論",
@@ -541,7 +373,262 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T617"
+    "taskId": "T617",
+    "questionSetName": "エネルギー変換・燃料電池（乙種）",
+    "category": "エネルギー変換・燃料電池（乙種）",
+    "questionTypeReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-26T10:43:34+09:00",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-26T10:43:34+09:00",
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-26T10:43:34+09:00",
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-26T10:43:34+09:00",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-26T10:43:34+09:00",
+    "workerTaskId": "T617",
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「エネルギー変換・燃料電池（乙種）」の電気化学反応、電極反応、標準電極電位が本問の関連論点。",
+      "カソードは電子を受け取る還元反応の電極であり、標準電極電位が高い電極は電池のプラス側になる。",
+      "標準電極電位が高い金属ほどイオン化傾向は小さく、銅(Cu)の標準電極電位はマグネシウム(Mg)より高い。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "電気化学反応では自由エネルギーを電気エネルギーとして取り出せる。標準電極電位が高いほどイオン化傾向は小さく、電池ではプラス側の電極になる。銅はマグネシウムより標準電極電位が高いため、選択肢5が誤り。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "自由エネルギーを電気エネルギーとして取り出すのが電池・燃料電池の基本である。"
+      ],
+      [
+        "電子を受け取る還元反応がカソード反応である。"
+      ],
+      [
+        "標準電極電位が高いほどイオン化傾向は小さい。"
+      ],
+      [
+        "標準電極電位が高い方が電池のプラス側の電極になる。"
+      ],
+      [
+        "銅の標準電極電位はマグネシウムより高く、低いとしている点が誤り。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "suggestedQuestions": [
+      "電池で自由エネルギーはどのように利用される？",
+      "カソード反応とは何か？",
+      "標準電極電位とイオン化傾向の関係は？",
+      "電池で正極となるのはどちらの電極か？",
+      "銅とマグネシウムの標準電極電位はどちらが高いか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "電池で自由エネルギーはどのように利用される？",
+        "answer": "酸化還元反応により直接電気エネルギーとして取り出せる。",
+        "explanation": "電池は化学物質の自由エネルギー変化を電気エネルギーに変換する装置である。"
+      },
+      {
+        "question": "カソード反応とは何か？",
+        "answer": "電子を受け取る還元反応である。",
+        "explanation": "カソードは還元が起こる電極であり、電子を受け取る反応が対応する。"
+      },
+      {
+        "question": "標準電極電位とイオン化傾向の関係は？",
+        "answer": "標準電極電位が高いほどイオン化傾向は小さい。",
+        "explanation": "標準電極電位が高い金属は還元されやすく、電子を放出して陽イオンになりにくい。"
+      },
+      {
+        "question": "電池で正極となるのはどちらの電極か？",
+        "answer": "標準電極電位が高い方が正極となる。",
+        "explanation": "電池では高い標準電極電位側で還元が起こり、プラス側の電極になる。"
+      },
+      {
+        "question": "銅とマグネシウムの標準電極電位はどちらが高いか？",
+        "answer": "銅の方が高い。",
+        "explanation": "Cu2+/Cu は約+0.34V、Mg2+/Mg は約-2.37Vであり、銅の標準電極電位の方が高い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
   },
-  "nextPendingReviewId": "2024:question_2024_1:f85e9fe6f17617ab"
+  "nextPendingTaskId": "T618",
+  "nextPendingQuestion": {
+    "answerResultText": "正解は 3 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "一次反応において、反応物質の濃度が半分に減少するのに要する時間は、反応のどの時点から測っても同じである。",
+      "化学平衡とは、可逆反応において、順方向と逆方向の反応速度が等しくなった状態をいう。",
+      "ある反応温度で発熱反応を平衡状態になるまで進行させたのちに、\n反応温度を上げると、反応はさらに進行して、新たな平衡状態に達する\n。",
+      "ある反応の標準自由エネルギー変化がわかれば、平衡定数を計算により求めることができる。",
+      "水を電気分解すれば、水素と酸素を発生させることができる。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 840,
+    "publicQuestionId": "9fde1b61cadb2ba6",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:9fde1b61cadb2ba6",
+    "questionBodyText": "化学反応と化学平衡に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 22,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問6",
+    "questionNo": 6,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q6",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:9fde1b61cadb2ba6",
+    "reviewNotes": "",
+    "reviewQuestionId": "9fde1b61cadb2ba6",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "基礎理論",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceFileIndex": 22,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 6,
+      "subject": "kiso",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q06",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:kiso:q06:s01",
+      "gas-shunin:otsu:2024:kiso:q06:s02",
+      "gas-shunin:otsu:2024:kiso:q06:s03",
+      "gas-shunin:otsu:2024:kiso:q06:s04",
+      "gas-shunin:otsu:2024:kiso:q06:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q6",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "taskId": "T618"
+  },
+  "nextPendingReviewId": "2024:question_2024_1:9fde1b61cadb2ba6",
+  "reviewDecisionCounts": {
+    "hold": 115,
+    "ok": 403,
+    "pending": 416
+  }
 }
