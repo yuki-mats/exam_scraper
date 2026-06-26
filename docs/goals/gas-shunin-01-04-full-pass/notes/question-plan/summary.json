@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T625",
-  "completed": 525,
-  "completed_questions": 525,
-  "done": 410,
+  "activeTaskId": "T626",
+  "completed": 526,
+  "completed_questions": 526,
+  "done": 526,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 409,
+    "done": 411,
     "hold": 115,
-    "pending": 410
+    "pending": 408
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T11:31:56+09:00",
+  "generatedAt": "2026-06-26T11:52:29+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,6 +31,186 @@
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "「ガス用品」とは、主として一般消費者等がガスを消費する場合に用いられる\nすべての機械、器具及び材料\n(液化石油ガス器具等を除く。)をいう。",
+      "「特定ガス用品」とは、構造、使用条件、使用状況等からみて特にガスによる災害の発生のおそれが多いと認められるガス用品であって、\n密閉燃焼式のガス瞬間湯沸器等がある\n。",
+      "ガス用品の製造、輸入又は販売の事業を行う者は、経済産業省令で定める技術上の基準に対する適合性についての表示が付されているものでなければ、ガス用品を販売し、又は販売の目的で陳列してはならない。",
+      "「特定工事」とは、\n特定ガス用品の設置又は変更の工事\n(経済産業省令で定める軽微なものを除く。)をいう。",
+      "液化石油ガス設備士である者は、ガス消費機器設置工事監督者の資格を有する者に該当する。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 832,
+    "publicQuestionId": "a42e5bc2a9c012a5",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:a42e5bc2a9c012a5",
+    "questionBodyText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 14,
+    "questionIntent": "select_correct",
+    "questionLabel": "問14",
+    "questionNo": 14,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q14",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:a42e5bc2a9c012a5",
+    "reviewNotes": "",
+    "reviewQuestionId": "a42e5bc2a9c012a5",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "法令",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceFileIndex": 22,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 14,
+      "subject": "law",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q14",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:law:q14:s01",
+      "gas-shunin:otsu:2024:law:q14:s02",
+      "gas-shunin:otsu:2024:law:q14:s03",
+      "gas-shunin:otsu:2024:law:q14:s04",
+      "gas-shunin:otsu:2024:law:q14:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q14",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q14:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q14:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q14:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q14:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q14:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 832,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:a42e5bc2a9c012a5",
+  "otsuCompleted": 114,
+  "otsuDone": 101,
+  "otsuHeld": 13,
+  "otsuHold": 13,
+  "otsuPending": 408,
+  "pending": 408,
+  "pending_questions": 408,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "manual_reviewed_count_answer_against_gas_business_act_articles_159_160_161",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true,
+      "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
@@ -50,16 +230,22 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "hold",
     "expectedCorrectChoiceText": [
-      "間違い",
+      "正しい",
       "正しい",
       "間違い",
       "間違い",
       "間違い"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。ガス事業法第159条第2項は、ガス小売事業者が、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならないと定めている。ただし、設置又は使用する場所への立入りについて所有者又は占有者の承諾を得られないときは、この限りでない。",
+      "正しい。ガス事業法第159条第5項は、供給に係るガスによる災害が発生し、又は発生するおそれがある場合に、ガスの使用者から通知され措置を求められたときは、速やかにその措置をとらなければならないと定めている。",
+      "間違い。ガス事業法第161条は、消費機器が技術上の基準に適合していないと認めるとき、経済産業大臣はその所有者又は占有者に対して修理、改造又は移転を命ずることができると定めている。ガス小売事業者に対して命ずるとしている点が誤り。",
+      "間違い。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したときは、遅滞なく変更した事項を経済産業大臣に届け出なければならないと定めている。変更しようとするときにあらかじめ届け出るとしている点が誤り。",
+      "間違い。ガス事業法第160条第4項は、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。ガスの使用者も守らなければならないとしている点が誤り。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -104,17 +290,17 @@
     "questionSetId": "",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q15",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "hold",
+    "reviewDecision": "hold",
     "reviewId": "2024:question_2024_1:9629e0f0e30a9ba6",
-    "reviewNotes": "",
+    "reviewNotes": "T625: 降順ブロック planSequence=833。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=9629e0f0e30a9ba6。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 2 です。は正しい記述が2個であることを示し、correctChoiceText=[正しい, 正しい, 間違い, 間違い, 間違い] と一致。e-Gov LawId 329AC0000000051（ガス事業法159条2項・5項、160条2項・4項、161条）を確認。選択肢1は消費機器の技術基準適合調査、選択肢2は災害発生等の通知時の速やかな措置として正しい。選択肢3は命令先が所有者又は占有者、選択肢4は変更後遅滞なく届出、選択肢5は遵守義務者がガス小売事業者及びその従業者であるため誤り。04は選択肢1-3が消費機器の周知及び調査（乙種）、選択肢4-5が保安業務規程系にまたがり、かつ保安業務規程（乙種）はcategory.jsonでdeletedのため、単一problem-level questionSetIdに潰さずhold。",
     "reviewQuestionId": "9629e0f0e30a9ba6",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-26T11:51:31+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "法令",
@@ -186,197 +372,86 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T625"
-  },
-  "nextPendingPlanSequence": 833,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:9629e0f0e30a9ba6",
-  "otsuCompleted": 112,
-  "otsuDone": 99,
-  "otsuHeld": 13,
-  "otsuHold": 13,
-  "otsuPending": 410,
-  "pending": 409,
-  "pending_questions": 410,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 2 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_article_202_and_correct_combination_answer",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true,
-      "sourceConflictStatus": "none"
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "ガスの消費量が12kWを超える屋内に設置するガス瞬間湯沸器であって、密閉燃焼式以外のものには、当該燃焼器に接続して排気筒を設けること。ただし、当該燃焼器の構造上その他の理由によりこれによることが困難な場合において、当該燃焼器のための排気フードを設けるときは、この限りでない。",
-      "自然排気式の燃焼器の排気筒の天井裏、床裏等にある部分は、燃焼器出口の排気ガスの温度が100℃を超える場合は、\n金属材料で覆われていなければならない\n。",
-      "自然排気式の燃焼器の排気筒に接続する排気扇には、これが停止した場合に\n当該燃焼器を安全に制御し、燃焼を継続する装置を設けること\n。",
-      "燃焼器であって、建物区分のうち特定地下室等に設置するものには、告示で定める規格に適合する\n自動ガス遮断装置\nを告示で定める方法により設けること。",
-      "燃焼器は、供給されるガスに適応したものであること。"
+    "taskId": "T625",
+    "workerTaskId": "T625",
+    "questionTypeReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-26T11:51:31+09:00",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-26T11:51:31+09:00",
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-26T11:51:31+09:00",
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-26T11:51:31+09:00",
+    "questionSetReviewStatus": "hold",
+    "questionSetReviewedAt": "2026-06-26T11:51:31+09:00",
+    "sourceExplanationCommonPrefix": [
+      "法令「消費機器の周知及び調査（乙種）」及び「保安業務規程（乙種）」にまたがる問題。",
+      "ガス事業法第159条第2項・第5項、第160条第2項・第4項、第161条が本問の関連条文。",
+      "本問は正しい記述の個数を問う形式で、正しい記述は1と2の2個である。"
     ],
-    "correctChoiceText": [
+    "sourceExplanationCommonSummary": [
+      "選択肢1は消費機器の技術基準適合調査、選択肢2は災害発生時等の措置義務として正しい。選択肢3は命令先が所有者又は占有者であり、選択肢4は変更後遅滞なく届出、選択肢5は遵守義務者がガス小売事業者及びその従業者であるため誤り。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "ガス小売事業者は消費機器の技術基準適合性を調査する。"
+      ],
+      [
+        "災害発生等の通知を受け措置を求められたときは速やかに措置をとる。"
+      ],
+      [
+        "基準適合命令は所有者又は占有者に対する。"
+      ],
+      [
+        "保安業務規程の変更は変更後に遅滞なく届け出る。"
+      ],
+      [
+        "保安業務規程を守るのはガス小売事業者及びその従業者。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
       "正しい",
       "間違い",
       "間違い",
-      "間違い",
-      "正しい"
+      "間違い"
     ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い",
-      "正しい"
+    "suggestedQuestions": [
+      "ガス小売事業者は消費機器の技術基準適合を調査する義務があるか。",
+      "ガスによる災害のおそれを使用者から通知された場合、ガス小売事業者はどうする必要があるか。",
+      "技術基準に適合しない消費機器への基準適合命令は誰に対して出されるか。",
+      "保安業務規程を変更したときの届出時期はいつか。",
+      "保安業務規程を守る義務があるのは誰か。"
     ],
-    "explanationText": [
-      "正しい。屋内設置のガス消費量12kW超のガス瞬間湯沸器で密閉燃焼式以外のものは、原則として燃焼器に接続して排気筒を設ける必要がある。構造上等で困難な場合に排気フードを設ける例外も規定されている。",
-      "間違い。自然排気式燃焼器の排気筒で、天井裏・床裏等にある部分について排気ガス温度が100℃を超える場合は、金属材料ではなく金属以外の不燃性材料で覆う旨の基準である。金属材料で覆うとしている点が誤り。",
-      "間違い。自然排気式燃焼器の排気筒に接続する排気扇には、排気扇が停止した場合に燃焼器へのガス供給を自動的に遮断する装置を設ける必要がある。燃焼を継続する装置としている点が誤り。",
-      "間違い。特定地下室等に設置する燃焼器について規定されるのは、告示で定める規格に適合するガス漏れ警報設備である。自動ガス遮断装置としている点が誤り。",
-      "正しい。燃焼器は、供給されるガスの種類、圧力、燃焼特性などに適応したものでなければならない。供給ガスに適応しない燃焼器は安全な燃焼を確保できない。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 834,
-    "publicQuestionId": "8254b1976c93db27",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:8254b1976c93db27",
-    "questionBodyText": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 16,
-    "questionIntent": "select_correct",
-    "questionLabel": "問16",
-    "questionNo": 16,
-    "questionSetId": "chiefgasengineerlicense-B-1190",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q16",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_1:8254b1976c93db27",
-    "reviewNotes": "T624: 降順ブロック planSequence=834。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=8254b1976c93db27。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 2 です。は組合せ選択肢番号であり、statement-level correctChoiceText=[正しい, 間違い, 間違い, 間違い, 正しい] が正本。ガス事業法施行規則第202条の消費機器の技術上の基準に照らし、イは12kW超屋内ガス瞬間湯沸器の排気筒、ホは供給ガスへの適応で正しい。ロは金属以外の不燃性材料、ハは排気扇停止時のガス遮断、ニはガス漏れ警報設備の規定に反するため誤り。04は category.json と2025乙種 問16同種先例に合わせ、消費機器の技術上の基準（乙種）を選択。",
-    "reviewQuestionId": "8254b1976c93db27",
-    "reviewedAt": "2026-06-26T11:40:00+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "法令",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "sourceFileIndex": 22,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 16,
-      "subject": "law",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q16",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:law:q16:s01",
-      "gas-shunin:otsu:2024:law:q16:s02",
-      "gas-shunin:otsu:2024:law:q16:s03",
-      "gas-shunin:otsu:2024:law:q16:s04",
-      "gas-shunin:otsu:2024:law:q16:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q16",
-    "statementSourceStatuses": [
+    "suggestedQuestionDetails": [
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q16:s01",
-        "statementNo": 1
+        "question": "ガス小売事業者は消費機器の技術基準適合を調査する義務があるか。",
+        "answer": "調査する義務がある。",
+        "explanation": "ガス事業法第159条第2項は、供給ガスに係る消費機器の技術基準適合性を調査する義務を定めている。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q16:s02",
-        "statementNo": 2
+        "question": "ガスによる災害のおそれを使用者から通知された場合、ガス小売事業者はどうする必要があるか。",
+        "answer": "速やかにその措置をとる必要がある。",
+        "explanation": "同条第5項は、災害発生又は発生のおそれについて使用者から通知され措置を求められた場合の速やかな措置義務を定めている。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q16:s03",
-        "statementNo": 3
+        "question": "技術基準に適合しない消費機器への基準適合命令は誰に対して出されるか。",
+        "answer": "所有者又は占有者に対して出される。",
+        "explanation": "ガス事業法第161条の基準適合命令は、ガス小売事業者ではなく、消費機器の所有者又は占有者に対する命令である。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q16:s04",
-        "statementNo": 4
+        "question": "保安業務規程を変更したときの届出時期はいつか。",
+        "answer": "変更したときは遅滞なく届け出る。",
+        "explanation": "ガス事業法第160条第2項は、変更前の事前届出ではなく、変更後に遅滞なく変更事項を届け出ることを定めている。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q16:s05",
-        "statementNo": 5
+        "question": "保安業務規程を守る義務があるのは誰か。",
+        "answer": "ガス小売事業者及びその従業者。",
+        "explanation": "ガス事業法第160条第4項は、保安業務規程の遵守義務者をガス小売事業者及びその従業者としている。"
       }
     ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "taskId": "T624",
-    "category": "消費機器の技術上の基準（乙種）",
-    "questionSetName": "消費機器の技術上の基準（乙種）"
+    "lawGroundedExplanationNotNeeded": false
   },
-  "nextPendingTaskId": "T625",
-  "nextPendingReviewId": "2024:question_2024_1:9629e0f0e30a9ba6"
+  "nextPendingTaskId": "T626",
+  "nextPendingReviewId": "2024:question_2024_1:a42e5bc2a9c012a5"
 }
