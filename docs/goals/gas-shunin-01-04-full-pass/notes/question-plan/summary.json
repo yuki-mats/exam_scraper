@@ -1,8 +1,8 @@
 {
-  "activeTaskId": "T612",
-  "completed": 512,
+  "activeTaskId": "T613",
+  "completed": 513,
   "completed_questions": 512,
-  "done": 397,
+  "done": 398,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 397,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -34,16 +34,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "PID制御における\nD動作とは、P動作により生じた偏差を時間的に積分してこの値がゼロになるよう修正する\nものである。",
-      "カスケード制御とは、あるプロセス量とそれ以外のプロセス量を、ある一定の比率に保つように制御する\n方式をいう。",
-      "安全増防爆構造\nとは、電気機械器具を構成する部分に発生する火花、アーク又は熱が、ガス又は蒸気に点火するおそれがないことが点火試験等により確認された構造のことである。",
-      "電気使用場所における使用電圧が低圧の電路の電線相互間及び電路と大地の間の絶縁抵抗は、300Vを超える場合に0.4MΩ以上でなければならない。",
-      "電気事業法における事業用電気工作物に該当する電気設備を設置する者は、電気事業法に基づく保安規程の作成、電気主任技術者の選任などを行い、製造所における自主保安体制を確立しなければならない。"
+      "回転式スクリュー型圧縮機は、圧力が変化すると、\nガス流量も変動する\n。",
+      "仕切弁(ゲート弁)は、\n開閉時のストロークが小さく、開閉時間が短い\n。",
+      "うず巻ポンプは、他の型式に比較して軽量、構造が簡単で取り扱いが容易であるため、ガス製造所では多く採用されている。",
+      "円筒形LPG貯槽は、加圧式貯蔵法に分類され、比較的小容量の貯槽として最も経済的であるため広く使用されている。",
+      "エアフィン式気化器は、運転費が低廉でベースロード用として使用されるが、長時間運転すると空気中の水分が伝熱管の表面に氷となって付着し、連続運転時間に制約が生ずる。"
     ],
     "correctChoiceText": [
       "間違い",
       "間違い",
-      "間違い",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -53,9 +53,9 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "間違い",
-      "間違い",
-      "間違い",
-      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 852,
-    "publicQuestionId": "fafd5412e2152b2e",
+    "planSequence": 851,
+    "publicQuestionId": "25907a4eeba420fd",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:fafd5412e2152b2e",
-    "questionBodyText": "製造設備の電気設備及び計装設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 9,
-    "questionIntent": "select_correct",
-    "questionLabel": "問3",
-    "questionNo": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:25907a4eeba420fd",
+    "questionBodyText": "製造設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 8,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問2",
+    "questionNo": 2,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q3",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q2",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_2:fafd5412e2152b2e",
+    "reviewId": "2024:question_2024_2:25907a4eeba420fd",
     "reviewNotes": "",
-    "reviewQuestionId": "fafd5412e2152b2e",
+    "reviewQuestionId": "25907a4eeba420fd",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 3,
+      "questionNo": 2,
       "subject": "seizo",
       "year": 2024
     },
@@ -136,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q03",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q02",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:seizo:q03:s01",
-      "gas-shunin:otsu:2024:seizo:q03:s02",
-      "gas-shunin:otsu:2024:seizo:q03:s03",
-      "gas-shunin:otsu:2024:seizo:q03:s04",
-      "gas-shunin:otsu:2024:seizo:q03:s05"
+      "gas-shunin:otsu:2024:seizo:q02:s01",
+      "gas-shunin:otsu:2024:seizo:q02:s02",
+      "gas-shunin:otsu:2024:seizo:q02:s03",
+      "gas-shunin:otsu:2024:seizo:q02:s04",
+      "gas-shunin:otsu:2024:seizo:q02:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q3",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q2",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s05",
         "statementNo": 5
       }
     ],
@@ -186,16 +186,16 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T612"
+    "taskId": "T613"
   },
-  "nextPendingPlanSequence": 852,
+  "nextPendingPlanSequence": 851,
   "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:fafd5412e2152b2e",
-  "otsuCompleted": 100,
-  "otsuDone": 87,
+  "otsuCompleted": 101,
+  "otsuDone": 88,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 422,
-  "pending": 422,
+  "otsuPending": 421,
+  "pending": 421,
   "pending_questions": 422,
   "total": 934,
   "total_questions": 934,
@@ -441,7 +441,7 @@
       }
     ]
   },
-  "nextPendingTaskId": "T612",
+  "nextPendingTaskId": "T613",
   "nextPendingQuestion": "問3",
   "nextPendingReviewId": "2024:question_2024_2:fafd5412e2152b2e"
 }
