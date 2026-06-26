@@ -204,11 +204,11 @@
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_count_answer_against_gas_business_act_articles_159_160_161",
+      "correctChoiceReason": "manual_reviewed_against_official_egov_gas_business_act_and_answer_count",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
-      "questionSetIdPresent": false,
+      "questionSetIdPresent": true,
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
     },
@@ -230,7 +230,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "hold",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
@@ -239,11 +239,11 @@
       "間違い"
     ],
     "explanationText": [
-      "正しい。ガス事業法第159条第2項は、ガス小売事業者が、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならないと定めている。ただし、設置又は使用する場所への立入りについて所有者又は占有者の承諾を得られないときは、この限りでない。",
-      "正しい。ガス事業法第159条第5項は、供給に係るガスによる災害が発生し、又は発生するおそれがある場合に、ガスの使用者から通知され措置を求められたときは、速やかにその措置をとらなければならないと定めている。",
-      "間違い。ガス事業法第161条は、消費機器が技術上の基準に適合していないと認めるとき、経済産業大臣はその所有者又は占有者に対して修理、改造又は移転を命ずることができると定めている。ガス小売事業者に対して命ずるとしている点が誤り。",
-      "間違い。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したときは、遅滞なく変更した事項を経済産業大臣に届け出なければならないと定めている。変更しようとするときにあらかじめ届け出るとしている点が誤り。",
-      "間違い。ガス事業法第160条第4項は、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。ガスの使用者も守らなければならないとしている点が誤り。"
+      "正しい。ガス事業法第159条第2項は、ガス小売事業者が、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならないと規定し、立入りについて所有者又は占有者の承諾を得られない場合のただし書も定めている。",
+      "正しい。ガス事業法第159条第5項は、供給に係るガスによる災害が発生し、又は発生するおそれがある場合に、使用者から通知され措置を求められたときは、速やかにその措置をとることを求めている。",
+      "間違い。ガス事業法第161条の基準適合命令は、消費機器の所有者又は占有者に対し、技術上の基準に適合するように消費機器を修理し、改造し、又は移転すべきことを命ずるものであり、ガス小売事業者に対する命令ではない。",
+      "間違い。ガス事業法第160条第2項は、保安業務規程を変更したときは、遅滞なく変更した事項を届け出ると規定している。変更前にあらかじめ届け出るとしている点が誤り。",
+      "間違い。ガス事業法第160条第4項は、保安業務規程を守る主体をガス小売事業者及びその従業者としている。ガスの使用者を含めている点が誤り。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -287,19 +287,19 @@
     "questionIntent": "select_correct",
     "questionLabel": "問15",
     "questionNo": 15,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1200",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q15",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
-    "review04QuestionSetId": "hold",
-    "reviewDecision": "hold",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_1:9629e0f0e30a9ba6",
-    "reviewNotes": "T625: 降順ブロック planSequence=833。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=9629e0f0e30a9ba6。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 2 です。は正しい記述が2個であることを示し、correctChoiceText=[正しい, 正しい, 間違い, 間違い, 間違い] と一致。e-Gov LawId 329AC0000000051（ガス事業法159条2項・5項、160条2項・4項、161条）を確認。選択肢1は消費機器の技術基準適合調査、選択肢2は災害発生等の通知時の速やかな措置として正しい。選択肢3は命令先が所有者又は占有者、選択肢4は変更後遅滞なく届出、選択肢5は遵守義務者がガス小売事業者及びその従業者であるため誤り。04は選択肢1-3が消費機器の周知及び調査（乙種）、選択肢4-5が保安業務規程系にまたがり、かつ保安業務規程（乙種）はcategory.jsonでdeletedのため、単一problem-level questionSetIdに潰さずhold。",
+    "reviewNotes": "T625: 降順ブロック planSequence=833。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=9629e0f0e30a9ba6。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 2 です。は正しい記述が2個であることを示し、correctChoiceText=[正しい, 正しい, 間違い, 間違い, 間違い] と一致。e-Gov LawId 329AC0000000051（ガス事業法159条2項・5項、160条2項・4項、161条）を確認。選択肢1は消費機器の技術基準適合調査、選択肢2は災害発生等の通知時の速やかな措置として正しい。選択肢3は命令先が所有者又は占有者、選択肢4は変更後遅滞なく届出、選択肢5は遵守義務者がガス小売事業者及びその従業者であるため誤り。04は設問主題と有効カテゴリに合わせ、problem-level questionSetId=chiefgasengineerlicense-B-1200（消費機器の周知及び調査（乙種））へリンク。",
     "reviewQuestionId": "9629e0f0e30a9ba6",
-    "reviewedAt": "2026-06-26T11:51:31+09:00",
+    "reviewedAt": "2026-06-26T11:52:29+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -382,8 +382,8 @@
     "correctChoiceReviewedAt": "2026-06-26T11:51:31+09:00",
     "explanationReviewStatus": "ok",
     "explanationReviewedAt": "2026-06-26T11:51:31+09:00",
-    "questionSetReviewStatus": "hold",
-    "questionSetReviewedAt": "2026-06-26T11:51:31+09:00",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-26T11:52:29+09:00",
     "sourceExplanationCommonPrefix": [
       "法令「消費機器の周知及び調査（乙種）」及び「保安業務規程（乙種）」にまたがる問題。",
       "ガス事業法第159条第2項・第5項、第160条第2項・第4項、第161条が本問の関連条文。",
@@ -450,7 +450,9 @@
         "explanation": "ガス事業法第160条第4項は、保安業務規程の遵守義務者をガス小売事業者及びその従業者としている。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "questionSetName": "消費機器の周知及び調査（乙種）",
+    "category": "消費機器の周知及び調査（乙種）"
   },
   "nextPendingTaskId": "T626",
   "nextPendingReviewId": "2024:question_2024_1:a42e5bc2a9c012a5"
