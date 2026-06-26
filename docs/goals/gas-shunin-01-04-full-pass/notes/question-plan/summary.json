@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T611",
-  "completed": 511,
-  "completed_questions": 511,
-  "done": 396,
+  "activeTaskId": "T612",
+  "completed": 512,
+  "completed_questions": 512,
+  "done": 397,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 396,
+    "done": 397,
     "hold": 115,
-    "pending": 423
+    "pending": 422
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T09:39:49+09:00",
+  "generatedAt": "2026-06-26T09:47:14+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -30,6 +30,186 @@
       "explanationTextPresent": false,
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "PID制御における\nD動作とは、P動作により生じた偏差を時間的に積分してこの値がゼロになるよう修正する\nものである。",
+      "カスケード制御とは、あるプロセス量とそれ以外のプロセス量を、ある一定の比率に保つように制御する\n方式をいう。",
+      "安全増防爆構造\nとは、電気機械器具を構成する部分に発生する火花、アーク又は熱が、ガス又は蒸気に点火するおそれがないことが点火試験等により確認された構造のことである。",
+      "電気使用場所における使用電圧が低圧の電路の電線相互間及び電路と大地の間の絶縁抵抗は、300Vを超える場合に0.4MΩ以上でなければならない。",
+      "電気事業法における事業用電気工作物に該当する電気設備を設置する者は、電気事業法に基づく保安規程の作成、電気主任技術者の選任などを行い、製造所における自主保安体制を確立しなければならない。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 852,
+    "publicQuestionId": "fafd5412e2152b2e",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:fafd5412e2152b2e",
+    "questionBodyText": "製造設備の電気設備及び計装設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 9,
+    "questionIntent": "select_correct",
+    "questionLabel": "問3",
+    "questionNo": 3,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q3",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_2:fafd5412e2152b2e",
+    "reviewNotes": "",
+    "reviewQuestionId": "fafd5412e2152b2e",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
+    "sourceFileIndex": 23,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 3,
+      "subject": "seizo",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q03",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:seizo:q03:s01",
+      "gas-shunin:otsu:2024:seizo:q03:s02",
+      "gas-shunin:otsu:2024:seizo:q03:s03",
+      "gas-shunin:otsu:2024:seizo:q03:s04",
+      "gas-shunin:otsu:2024:seizo:q03:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q3",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q03:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "taskId": "T612"
+  },
+  "nextPendingPlanSequence": 852,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:fafd5412e2152b2e",
+  "otsuCompleted": 100,
+  "otsuDone": 87,
+  "otsuHeld": 13,
+  "otsuHold": 13,
+  "otsuPending": 422,
+  "pending": 422,
+  "pending_questions": 422,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 4 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "manual_reviewed: answer_result_text=正解は 4 です is a combination-choice answer; statement-level review confirms ハ and ホ are wrong.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -50,16 +230,22 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
-      "正しい",
       "間違い",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。燃焼速度はガス組成や空気比などの条件で変化し、ガスごとにある空気比で最大となる。この値を最大燃焼速度（MCP）という。",
+      "正しい。ウォッベ指数（WI）はガス機器ノズルから供給される熱量の大きさに関係する指数で、ガスの総発熱量に比例し、比重の平方根に反比例する。",
+      "間違い。水素炎イオン化検出器（FID）は、有機化合物成分が水素炎中で燃焼してイオン化するときに電極間を流れる電流を検出する。電圧を検出するとしている点が誤りである。",
+      "正しい。ガスクロマトグラフでは、クロマトグラムの各ピーク面積を、同一条件下で得られる混合標準ガス又は純ガスのピーク面積と比較して各成分を定量する。",
+      "間違い。LPGを用いて増熱する場合、LPGの燃焼速度は比較的遅いため、WI-MCP図で混合ガスの燃焼性の範囲を確認する。燃焼速度が比較的速いとしている点が誤りである。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,20 +287,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問4",
     "questionNo": 4,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1810",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q4",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_2:ac156d57d1e51b9d",
-    "reviewNotes": "",
+    "reviewNotes": "T611: 降順ブロック planSequence=853。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=ac156d57d1e51b9d。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は組合せ選択肢上で誤りハ・ホに対応し、correctChoiceText=[正しい, 正しい, 間違い, 正しい, 間違い] と一致。choiceTextMarkedList/過去Firestore根拠により、ハはFIDが電圧ではなく電流を検出する点、ホはLPGの燃焼速度が比較的遅い点を確認。ロのWI定義、ニのピーク面積比較による定量は正しい。04は 2025乙種製造問4 の同系先例と category.json に合わせ、都市ガスの熱量調整及び燃焼性管理（乙種）を選択。",
     "reviewQuestionId": "ac156d57d1e51b9d",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-26T09:47:14+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "製造",
@@ -186,196 +372,76 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T611"
-  },
-  "nextPendingPlanSequence": 853,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:ac156d57d1e51b9d",
-  "otsuCompleted": 99,
-  "otsuDone": 86,
-  "otsuHeld": 13,
-  "otsuHold": 13,
-  "otsuPending": 423,
-  "pending": 423,
-  "pending_questions": 423,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed: answer_result_text=正解は 3 です matches the correct blank combination （イ）蒸発方式／（ロ）滴下注入方式／（ハ）ポンプ注入方式.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "(イ)滴下注入方式 (ロ)蒸発方式 (ハ)ポンプ注入方式",
-      "(イ)滴下注入方式 (ロ)ポンプ注入方式 (ハ)蒸発方式",
-      "(イ)蒸発方式 (ロ)滴下注入方式 (ハ)ポンプ注入方式",
-      "(イ)蒸発方式 (ロ)ポンプ注入方式 (ハ)滴下注入方式",
-      "(イ)ポンプ注入方式 (ロ)滴下注入方式 (ハ)蒸発方式"
+    "taskId": "T611",
+    "questionSetName": "都市ガスの熱量調整及び燃焼性管理（乙種）",
+    "reviewStatus": "ok",
+    "workerTaskId": "T611",
+    "sourceExplanationCommonPrefix": [
+      "製造 第4章「熱量と燃焼性（ウォッベ指数・MCP）」が本問の関連論点。ガスの熱量、ウォッベ指数、燃焼速度の定義と、燃焼性管理の位置づけを確認する。",
+      "製造 第4章「ガスの熱量調整（増熱・希釈・3方式）」が本問の関連論点。LPG増熱時の燃焼性確認と、WI-MCP図による管理を区別する。",
+      "製造 第4章「熱量・比重の測定と特殊成分分析」が本問の関連論点。ガスクロマトグラフ法の定量方法とFIDの検出原理を確認する。"
     ],
-    "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "最大燃焼速度（MCP）は、ガス組成・空気比等により変化し、ある空気比で最大となる燃焼速度である。"
+      ],
+      [
+        "ウォッベ指数（WI）は総発熱量に比例し、比重の平方根に反比例する。"
+      ],
+      [
+        "FIDは水素炎中で有機成分が燃焼・イオン化するときの電流を検出する。電圧ではない。"
+      ],
+      [
+        "ガスクロマトグラフの定量では、各ピーク面積を標準ガス又は純ガスのピーク面積と比較する。"
+      ],
+      [
+        "LPGの燃焼速度は比較的遅い。速いとしている点が誤り。"
+      ]
     ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
     ],
-    "explanationText": [
-      "不正解。表の特徴は、（イ）が小規模・混合付臭剤不適・建設費小・設置面積中であるため蒸発方式、（ロ）が中規模・混合付臭剤適・建設費中・設置面積小であるため滴下注入方式、（ハ）が中〜大規模・混合付臭剤適・建設費大・設置面積大であるためポンプ注入方式に対応する。選択肢1は（イ）と（ロ）が逆である。",
-      "不正解。正しい組合せは（イ）蒸発方式、（ロ）滴下注入方式、（ハ）ポンプ注入方式である。選択肢2は（イ）を滴下注入方式、（ロ）をポンプ注入方式、（ハ）を蒸発方式としており、表の特徴と一致しない。",
-      "正解。蒸発方式は小規模、混合付臭剤は原則不適、建設費が小さく設置面積は中程度である。滴下注入方式は中規模で混合付臭剤に適し、建設費中・設置面積小に対応する。ポンプ注入方式は中〜大規模で混合付臭剤に適し、建設費大・設置面積大に対応するため、この組合せが最も適切である。",
-      "不正解。選択肢4は（イ）蒸発方式までは表の特徴と合うが、（ロ）をポンプ注入方式、（ハ）を滴下注入方式としている。中規模・設置面積小の（ロ）は滴下注入方式、中〜大規模・建設費大・設置面積大の（ハ）はポンプ注入方式である。",
-      "不正解。選択肢5は（ロ）滴下注入方式は合っているが、（イ）をポンプ注入方式、（ハ）を蒸発方式としている。小規模・混合付臭剤不適・建設費小の（イ）は蒸発方式であり、中〜大規模・建設費大・設置面積大の（ハ）はポンプ注入方式である。"
+    "suggestedQuestions": [
+      "燃焼速度は、ガス組成、空気比等の条件により変化する値であり、どのガスでも組成に応じて、ある空気比のときに最大となる。この値を最大燃焼速度(MCP)という。",
+      "ウォッベ指数(WI)は、ガス機器ノズルの開度調整に必要な指数であり、ガスの総発熱量に比例、比重の平方根に反比例する。",
+      "ガスクロマトグラフの水素炎イオン化検出器(FID)は、水素炎中においてカラムで分離された有機化合物成分が燃焼するときに電極間に発生する\n電圧を検出する\n。",
+      "ガスクロマトグラフでは、クロマトグラムのそれぞれのピークの面積を、同一条件下で得られる混合標準ガス又は純ガスのピークの面積と比較し、各成分を定量する。",
+      "LPGを用いて増熱し熱量を調整する場合、LPGの燃焼速度は比較的速い\nため、WI-MCP図で、混合ガスの燃焼性の範囲を確認する。"
     ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 854,
-    "publicQuestionId": "515727ddd8156a5d",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:515727ddd8156a5d",
-    "questionBodyText": "次表は、都市ガスの付臭方式の特徴をまとめたものである。次表の(イ)～(ハ)に当てはまる語句の組合せとして最も適切なものはどれか。",
-    "questionIndexInFile": 11,
-    "questionIntent": "select_correct",
-    "questionLabel": "問5",
-    "questionNo": 5,
-    "questionSetId": "chiefgasengineerlicense-B-1840",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q5",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_2:515727ddd8156a5d",
-    "reviewNotes": "T610: 降順ブロック planSequence=854。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=515727ddd8156a5d。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 3 です。と correctChoiceText=[不正解, 不正解, 正解, 不正解, 不正解] が一致。表の特徴は（イ）小・混合付臭剤不適・建設費小・設置面積中、（ロ）中・混合付臭剤適・建設費中・設置面積小、（ハ）中〜大・混合付臭剤適・建設費大・設置面積大であり、それぞれ蒸発方式、滴下注入方式、ポンプ注入方式に対応する。04は category.json と乙種2025同主題レビューに合わせ、都市ガスの付臭（乙種）を選択。",
-    "reviewQuestionId": "515727ddd8156a5d",
-    "reviewedAt": "2026-06-26T09:39:49+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "sourceFileIndex": 23,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 5,
-      "subject": "seizo",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q05",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:seizo:q05:s01",
-      "gas-shunin:otsu:2024:seizo:q05:s02",
-      "gas-shunin:otsu:2024:seizo:q05:s03",
-      "gas-shunin:otsu:2024:seizo:q05:s04",
-      "gas-shunin:otsu:2024:seizo:q05:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q5",
-    "statementSourceStatuses": [
+    "suggestedQuestionDetails": [
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s01",
-        "statementNo": 1
+        "questionText": "燃焼速度は、ガス組成、空気比等の条件により変化する値であり、どのガスでも組成に応じて、ある空気比のときに最大となる。この値を最大燃焼速度(MCP)という。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。燃焼速度はガス組成や空気比などの条件で変化し、ガスごとにある空気比で最大となる。この値を最大燃焼速度（MCP）という。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s02",
-        "statementNo": 2
+        "questionText": "ウォッベ指数(WI)は、ガス機器ノズルの開度調整に必要な指数であり、ガスの総発熱量に比例、比重の平方根に反比例する。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ウォッベ指数（WI）はガス機器ノズルから供給される熱量の大きさに関係する指数で、ガスの総発熱量に比例し、比重の平方根に反比例する。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s03",
-        "statementNo": 3
+        "questionText": "ガスクロマトグラフの水素炎イオン化検出器(FID)は、水素炎中においてカラムで分離された有機化合物成分が燃焼するときに電極間に発生する\n電圧を検出する\n。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。水素炎イオン化検出器（FID）は、有機化合物成分が水素炎中で燃焼してイオン化するときに電極間を流れる電流を検出する。電圧を検出するとしている点が誤りである。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s04",
-        "statementNo": 4
+        "questionText": "ガスクロマトグラフでは、クロマトグラムのそれぞれのピークの面積を、同一条件下で得られる混合標準ガス又は純ガスのピークの面積と比較し、各成分を定量する。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガスクロマトグラフでは、クロマトグラムの各ピーク面積を、同一条件下で得られる混合標準ガス又は純ガスのピーク面積と比較して各成分を定量する。"
       },
       {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s05",
-        "statementNo": 5
+        "questionText": "LPGを用いて増熱し熱量を調整する場合、LPGの燃焼速度は比較的速い\nため、WI-MCP図で、混合ガスの燃焼性の範囲を確認する。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。LPGを用いて増熱する場合、LPGの燃焼速度は比較的遅いため、WI-MCP図で混合ガスの燃焼性の範囲を確認する。燃焼速度が比較的速いとしている点が誤りである。"
       }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "taskId": "T610",
-    "questionSetName": "都市ガスの付臭（乙種）"
+    ]
   },
-  "nextPendingTaskId": "T611",
-  "nextPendingQuestion": "問4",
-  "nextPendingReviewId": "2024:question_2024_2:ac156d57d1e51b9d"
+  "nextPendingTaskId": "T612",
+  "nextPendingQuestion": "問3",
+  "nextPendingReviewId": "2024:question_2024_2:fafd5412e2152b2e"
 }
