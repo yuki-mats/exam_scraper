@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T609",
-  "completed": 509,
-  "completed_questions": 509,
-  "done": 394,
+  "activeTaskId": "T610",
+  "completed": 510,
+  "completed_questions": 510,
+  "done": 395,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 394,
+    "done": 395,
     "hold": 115,
-    "pending": 425
+    "pending": 424
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T09:24:38+09:00",
+  "generatedAt": "2026-06-26T09:33:08+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,16 +20,190 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "(イ)滴下注入方式 (ロ)蒸発方式 (ハ)ポンプ注入方式",
+      "(イ)滴下注入方式 (ロ)ポンプ注入方式 (ハ)蒸発方式",
+      "(イ)蒸発方式 (ロ)滴下注入方式 (ハ)ポンプ注入方式",
+      "(イ)蒸発方式 (ロ)ポンプ注入方式 (ハ)滴下注入方式",
+      "(イ)ポンプ注入方式 (ロ)滴下注入方式 (ハ)蒸発方式"
+    ],
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 854,
+    "publicQuestionId": "515727ddd8156a5d",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:515727ddd8156a5d",
+    "questionBodyText": "次表は、都市ガスの付臭方式の特徴をまとめたものである。次表の(イ)～(ハ)に当てはまる語句の組合せとして最も適切なものはどれか。",
+    "questionIndexInFile": 11,
+    "questionIntent": "",
+    "questionLabel": "問5",
+    "questionNo": 5,
+    "questionSetId": "",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q5",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_2:515727ddd8156a5d",
+    "reviewNotes": "",
+    "reviewQuestionId": "515727ddd8156a5d",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
+    "sourceFileIndex": 23,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 5,
+      "subject": "seizo",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q05",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:seizo:q05:s01",
+      "gas-shunin:otsu:2024:seizo:q05:s02",
+      "gas-shunin:otsu:2024:seizo:q05:s03",
+      "gas-shunin:otsu:2024:seizo:q05:s04",
+      "gas-shunin:otsu:2024:seizo:q05:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q5",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q05:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "taskId": "T610"
+  },
+  "nextPendingPlanSequence": 854,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:515727ddd8156a5d",
+  "otsuCompleted": 98,
+  "otsuDone": 85,
+  "otsuHeld": 13,
+  "otsuHold": 13,
+  "otsuPending": 424,
+  "pending": 424,
+  "pending_questions": 424,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 4 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "manual_reviewed: answer_result_text=正解は 4 です is a combination-choice answer; statement-level review confirms ロ and ホ are wrong.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -50,16 +224,22 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
-      "正しい",
-      "正しい",
       "間違い",
-      "正しい"
+      "正しい",
+      "正しい",
+      "間違い"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。電気設備を可燃性ガス又は液化ガスを通ずる設備の付近に設置する場合は、設置場所の状況及びガスの種類に応じた防爆性能を有するものとする必要がある。",
+      "間違い。ガス主任技術者は、原則として、保安統括者、保安管理者（保安管理者を置かない製造所等では保安主任者）又は保安企画推進員に選ばれた者から選任される。保安係員としている点が誤りである。",
+      "正しい。製造設備の運転及び監視に係る制御システムには、サイバー攻撃等のリスクを判断した上で、適切なセキュリティ対策を講ずる必要がある。",
+      "正しい。停電等によりBOG圧縮機の停止時間が長くなると、LNG貯槽の内部圧力が上昇するため、内部圧力の監視を強化し、必要に応じて放散処理設備による降圧の準備等を行う必要がある。",
+      "間違い。台風接近時は気圧低下により相対的にLNG貯槽の圧力が上昇しやすいため、事前にLNG貯槽の圧力を下げておく。事前に圧力を上げておくとしている点が誤りである。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,20 +281,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問6",
     "questionNo": 6,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1760",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q6",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_2:460b0695bbd7b211",
-    "reviewNotes": "",
+    "reviewNotes": "T609: 降順ブロック planSequence=855。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=460b0695bbd7b211。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は組合せ選択肢(4) ロ・ホを指し、statement-level correctChoiceText=[正しい, 間違い, 正しい, 正しい, 間違い] と一致。ロはガス主任技術者の選任対象を保安係員としている点が誤りで、正しくは保安企画推進員。ホは台風接近時の気圧低下により相対的にLNG貯槽圧力が上昇しやすいため事前に下げるべきところ、上げておくとしている点が誤り。イの防爆性能、ハの制御システムのサイバーセキュリティ対策、ニのBOG圧縮機停止時の圧力監視・降圧準備は正しい。04は category.json と乙種2025同主題レビューに合わせ、製造設備の保安及び防災（乙種）を選択。",
     "reviewQuestionId": "460b0695bbd7b211",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-26T09:33:08+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "製造",
@@ -186,272 +366,86 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T609"
-  },
-  "nextPendingPlanSequence": 855,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:460b0695bbd7b211",
-  "otsuCompleted": 97,
-  "otsuDone": 84,
-  "otsuHeld": 13,
-  "otsuHold": 13,
-  "otsuPending": 425,
-  "pending": 425,
-  "pending_questions": 425,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 2 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed: answer_result_text=正解は 2 です is a combination-choice answer; statement-level review confirms イ and ホ are wrong.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "category": "製造設備の建設及び操業（乙種）",
-    "choiceCount": 5,
-    "choiceTextList": [
-      "レベル1地震動に対する耐震性能評価では、構造物の塑性変形能力を期待した設計法\nにより、耐震上重要な部位に生ずる応答塑性率が許容塑性率を超えないことを確認する。",
-      "LNGは貯蔵中に外部からの入熱によりBOGが常に発生するため、貯槽内のLNGの濃縮が進むが、その度合いは貯槽レベルにより異なる。",
-      "LNG受入れ時には大量のBOGが発生し、BOG圧縮機の負荷を上げるため、電力デマンドの管理が必要となる。",
-      "LNGサテライト基地における熱量管理は、出荷元のLNG熱量に依存しており、貯槽の保有数も限定されるため、貯槽内濃縮の管理が重要である。",
-      "ガス事業法の定めにより、製造所では熱量等については毎日1回以上、臭気濃度については毎月1回以上、供給ガスに\n特殊成分が含まれる場合はその特殊成分を毎月1回以上\n、それぞれ定められた方法で測定し、記録を残さなければならない。"
-    ],
-    "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-26T00:22:24Z",
-    "correctChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-26T00:22:24Z",
-    "explanationText": [
-      "間違い。レベル1地震動に対する耐震性能評価では、原則として弾性設計により耐震性を確認する。構造物の塑性変形能力を期待し、応答塑性率が許容塑性率を超えないことを確認する設計はレベル2地震動側の考え方である。",
-      "正しい。LNGは貯蔵中に外部から入熱を受けるためBOGが常に発生し、貯槽内LNGの濃縮が進む。その濃縮の度合いは貯槽レベルなどによって異なる。",
-      "正しい。LNG受入れ時には大量のBOGが発生し、BOG圧縮機の負荷が増えるため、受入れ運用では電力デマンドの管理が必要となる。",
-      "正しい。LNGサテライト基地では、熱量管理が出荷元のLNG熱量に依存し、貯槽数も限定されるため、貯槽内の濃縮状態を管理することが重要である。",
-      "間違い。製造所では熱量等を毎日1回以上、臭気濃度を毎月1回以上測定するが、供給ガスに特殊成分が含まれる場合、その特殊成分は週1回以上測定する必要がある。毎月1回以上としている点が誤りである。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "lawGroundedExplanationNotNeeded": false,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 856,
-    "publicQuestionId": "61e22295f24a06e4",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:61e22295f24a06e4",
-    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 13,
-    "questionIntent": "select_incorrect",
-    "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-26T00:22:24Z",
-    "questionLabel": "問7",
-    "questionNo": 7,
-    "questionSetId": "chiefgasengineerlicense-B-1850",
-    "questionSetName": "製造設備の建設及び操業（乙種）",
-    "questionSetReviewStatus": "ok",
-    "questionSetReviewedAt": "2026-06-26T00:22:24Z",
-    "questionType": "true_false",
+    "taskId": "T609",
+    "workerTaskId": "T609",
+    "category": "製造設備の保安及び防災（乙種）",
     "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-26T00:22:24Z",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q7",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_2:61e22295f24a06e4",
-    "reviewNotes": "T608: 降順ブロック planSequence=856。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=61e22295f24a06e4。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は組合せ選択肢(2) イ・ホを指し、statement-level correctChoiceText=[間違い, 正しい, 正しい, 正しい, 間違い] と一致。レベル1地震動は弾性設計であり、塑性変形能力を期待する記述は誤り。特殊成分は週1回以上測定が必要で、毎月1回以上としている記述は誤り。LNG貯蔵中のBOG/濃縮、LNG受入時のBOG圧縮機負荷と電力デマンド管理、LNGサテライト基地の熱量管理は正しい。04は同一publicQuestionIdの甲種T447と category.json に合わせ、製造設備の建設及び操業（乙種）を選択。",
-    "reviewQuestionId": "61e22295f24a06e4",
-    "reviewedAt": "2026-06-26T09:22:58+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "レベル1地震動は弾性設計法・許容応力確認。塑性変形能力と応答塑性率はレベル2地震動側。"
-      ],
-      [
-        "LNG貯蔵中はBOG発生により濃縮が進み、度合いは貯槽レベル等に左右される。"
-      ],
-      [
-        "LNG受入れ時は大量BOGでBOG圧縮機負荷が上がり、電力デマンド管理が必要。"
-      ],
-      [
-        "LNGサテライトは出荷元熱量依存と限定的な貯槽数のため、貯槽内濃縮管理が重要。"
-      ],
-      [
-        "特殊成分測定は毎月1回以上ではなく、熱量等・臭気濃度とは頻度が異なる。"
-      ]
-    ],
+    "questionTypeReviewedAt": "2026-06-26T00:32:10Z",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-26T00:32:10Z",
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-26T00:32:10Z",
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-26T00:32:10Z",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-26T00:32:10Z",
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
-      "製造「製造設備の建設及び操業（乙種）」のうち、耐震性能評価、LNG貯蔵・受入れ、LNGサテライト、供給ガス測定頻度が本問の関連論点。",
-      "設問は誤っている記述の組合せを問う形式で、選択肢1と5が誤りである。"
+      "製造「製造設備の保安及び防災（乙種）」のうち、防爆電気設備、保安管理体制、制御システムのセキュリティ、停電時のBOG対応、台風時のLNG貯槽圧力管理が本問の関連論点。",
+      "設問は誤っている記述の組合せを問う形式で、選択肢2と5が誤りである。"
     ],
     "sourceExplanationCommonSummary": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "sourceFileIndex": 23,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 7,
-      "subject": "seizo",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q07",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:seizo:q07:s01",
-      "gas-shunin:otsu:2024:seizo:q07:s02",
-      "gas-shunin:otsu:2024:seizo:q07:s03",
-      "gas-shunin:otsu:2024:seizo:q07:s04",
-      "gas-shunin:otsu:2024:seizo:q07:s05"
+    "sourceExplanationChoiceSnippets": [
+      [
+        "可燃性ガス設備付近の電気設備は、場所の状況とガス種類に応じた防爆性能が必要。"
+      ],
+      [
+        "ガス主任技術者の選任対象に含まれるのは保安企画推進員であり、保安係員ではない。"
+      ],
+      [
+        "運転・監視制御システムにはサイバー攻撃等のリスク判断に基づくセキュリティ対策が必要。"
+      ],
+      [
+        "BOG圧縮機停止が長引くとLNG貯槽内圧が上昇するため、監視強化と降圧準備が必要。"
+      ],
+      [
+        "台風接近時は気圧低下で相対的に貯槽圧が上がりやすく、事前に圧力を上げるのは誤り。"
+      ]
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q7",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q07:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q07:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q07:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q07:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q07:s05",
-        "statementNo": 5
-      }
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    "suggestedQuestions": [
+      "可燃性ガス設備付近の電気設備にはどのような性能が必要か。",
+      "ガス主任技術者は原則としてどの役職者等から選任されるか。",
+      "製造設備の制御システムにはどのようなサイバー対策が必要か。",
+      "BOG圧縮機停止が長引くとLNG貯槽圧力はどうなるか。",
+      "台風接近時のLNG貯槽圧力は事前に上げるべきか。"
     ],
     "suggestedQuestionDetails": [
       {
-        "answer": "弾性設計法により、耐震上重要な部位の応力が許容応力を超えないこと。",
-        "explanation": "レベル1は弾性設計法で許容応力確認。塑性変形能力・応答塑性率はレベル2側。",
-        "question": "レベル1地震動の耐震性能評価では何を確認するか。"
+        "question": "可燃性ガス設備付近の電気設備にはどのような性能が必要か。",
+        "answer": "設置場所と可燃性ガスの種類に応じた防爆性能。",
+        "explanation": "可燃性ガスの漏えい・滞留のおそれに応じ、防爆性能を有する電気設備が必要である。"
       },
       {
-        "answer": "低沸点成分がBOGとして抜け、残液の濃縮が進む。",
-        "explanation": "BOG発生で低沸点成分が抜け、残液濃縮が進み、貯槽レベル等で度合いが変わる。",
-        "question": "LNG貯蔵中のBOG発生は貯槽内濃縮にどう影響するか。"
+        "question": "ガス主任技術者は原則としてどの役職者等から選任されるか。",
+        "answer": "保安統括者、保安管理者又は保安主任者、保安企画推進員に選ばれた者。",
+        "explanation": "保安係員ではなく保安企画推進員が含まれるため、記述は誤り。"
       },
       {
-        "answer": "大量BOGによりBOG圧縮機の負荷と電力需要が増えるため。",
-        "explanation": "大量BOG発生でBOG圧縮機負荷・電力需要が増えるため。",
-        "question": "LNG受入れ時に電力デマンド管理が必要な理由は何か。"
+        "question": "製造設備の制御システムにはどのようなサイバー対策が必要か。",
+        "answer": "サイバー攻撃等のリスクを判断し、適切なセキュリティ対策を講ずる。",
+        "explanation": "運転・監視制御システムはサイバー攻撃等のリスクを踏まえた対策が必要である。"
       },
       {
-        "answer": "熱量が出荷元LNGに依存し、貯槽数も限られるため。",
-        "explanation": "熱量が出荷元LNGに依存し貯槽数も限られるため、濃縮が熱量管理に影響する。",
-        "question": "LNGサテライト基地で貯槽内濃縮管理が重要な理由は何か。"
+        "question": "BOG圧縮機停止が長引くとLNG貯槽圧力はどうなるか。",
+        "answer": "内部圧力が上昇するため、監視強化と降圧準備等を行う。",
+        "explanation": "BOG処理能力が低下すると貯槽圧力上昇につながるため、放散処理設備による降圧準備等が必要となる。"
       },
       {
-        "answer": "毎月1回以上ではない。特殊成分は別の頻度で扱われる。",
-        "explanation": "熱量等・臭気濃度とは測定頻度が異なり、特殊成分は毎月1回以上ではない。",
-        "question": "供給ガスの特殊成分測定頻度は毎月1回以上か。"
+        "question": "台風接近時のLNG貯槽圧力は事前に上げるべきか。",
+        "answer": "上げるのではなく、相対的な圧力上昇に備えて下げる方向で管理する。",
+        "explanation": "台風接近時は気圧低下により相対的に貯槽圧が上昇しやすい。"
       }
     ],
-    "suggestedQuestions": [
-      "レベル1地震動の耐震性能評価では何を確認するか。",
-      "LNG貯蔵中のBOG発生は貯槽内濃縮にどう影響するか。",
-      "LNG受入れ時に電力デマンド管理が必要な理由は何か。",
-      "LNGサテライト基地で貯槽内濃縮管理が重要な理由は何か。",
-      "供給ガスの特殊成分測定頻度は毎月1回以上か。"
-    ],
-    "taskId": "T608",
-    "workerTaskId": "T608"
+    "questionSetName": "製造設備の保安及び防災（乙種）"
   },
-  "nextPendingTaskId": "T609",
-  "nextPendingQuestion": "問6",
-  "nextPendingReviewId": "2024:question_2024_2:460b0695bbd7b211"
+  "nextPendingTaskId": "T610",
+  "nextPendingQuestion": "問5",
+  "nextPendingReviewId": "2024:question_2024_2:515727ddd8156a5d"
 }
