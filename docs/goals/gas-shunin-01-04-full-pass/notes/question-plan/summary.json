@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T619",
-  "completed": 519,
-  "completed_questions": 519,
-  "done": 404,
+  "activeTaskId": "T620",
+  "completed": 520,
+  "completed_questions": 520,
+  "done": 405,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 404,
+    "done": 405,
     "hold": 115,
-    "pending": 415
+    "pending": 414
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T10:51:20+09:00",
+  "generatedAt": "2026-06-26T10:57:13+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -24,34 +24,40 @@
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.10",
-      "0.40",
-      "1.00",
-      "2.50",
-      "7.50"
+      "熱も仕事もエネルギーの一形態である。",
+      "等温、定圧で2種の理想気体を混合すると、\nエントロピーは減少する\n。",
+      "逆カルノーサイクルを用いたヒートポンプの成績係数(COP)は必ず1以上となる。",
+      "熱力学の第二法則によれば、熱は自然には低温度の物体から高温度の物体へ移ることはできない。",
+      "理想気体を可逆的に断熱膨張させた場合、内部エネルギーは減少する。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -85,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 839,
-    "publicQuestionId": "d2358c6ec9cf0811",
+    "planSequence": 838,
+    "publicQuestionId": "432c71c596363c74",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:d2358c6ec9cf0811",
-    "questionBodyText": "カルノーサイクルにおいて、高温熱源(750K)から熱Q₁を吸収し、低温熱源(300K)に熱Q₂を放出する場合、放熱量と吸熱量の比(Q₂/Q₁)として、最も近い値はどれか。",
-    "questionIndexInFile": 21,
-    "questionIntent": "",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:432c71c596363c74",
+    "questionBodyText": "気体の熱力学に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 20,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問4",
+    "questionNo": 4,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q5",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q4",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2024:question_2024_1:d2358c6ec9cf0811",
+    "reviewId": "2024:question_2024_1:432c71c596363c74",
     "reviewNotes": "",
-    "reviewQuestionId": "d2358c6ec9cf0811",
+    "reviewQuestionId": "432c71c596363c74",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -121,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 4,
       "subject": "kiso",
       "year": 2024
     },
@@ -130,45 +136,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q05",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q04",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kiso:q05:s01",
-      "gas-shunin:otsu:2024:kiso:q05:s02",
-      "gas-shunin:otsu:2024:kiso:q05:s03",
-      "gas-shunin:otsu:2024:kiso:q05:s04",
-      "gas-shunin:otsu:2024:kiso:q05:s05"
+      "gas-shunin:otsu:2024:kiso:q04:s01",
+      "gas-shunin:otsu:2024:kiso:q04:s02",
+      "gas-shunin:otsu:2024:kiso:q04:s03",
+      "gas-shunin:otsu:2024:kiso:q04:s04",
+      "gas-shunin:otsu:2024:kiso:q04:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q5",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q4",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q05:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q05:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q05:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q05:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q05:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s05",
         "statementNo": 5
       }
     ],
@@ -180,26 +186,26 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T619"
+    "taskId": "T620"
   },
-  "nextPendingPlanSequence": 839,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:d2358c6ec9cf0811",
-  "otsuCompleted": 107,
-  "otsuDone": 94,
+  "nextPendingPlanSequence": 838,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:432c71c596363c74",
+  "otsuCompleted": 108,
+  "otsuDone": 95,
   "otsuHeld": 13,
   "otsuHold": 13,
-  "otsuPending": 415,
-  "pending": 415,
-  "pending_questions": 415,
+  "otsuPending": 414,
+  "pending": 414,
+  "pending_questions": 414,
   "total": 934,
   "total_questions": 934,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_and_exothermic_equilibrium_shift",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_carnot_temperature_ratio",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -209,36 +215,36 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "一次反応において、反応物質の濃度が半分に減少するのに要する時間は、反応のどの時点から測っても同じである。",
-      "化学平衡とは、可逆反応において、順方向と逆方向の反応速度が等しくなった状態をいう。",
-      "ある反応温度で発熱反応を平衡状態になるまで進行させたのちに、\n反応温度を上げると、反応はさらに進行して、新たな平衡状態に達する\n。",
-      "ある反応の標準自由エネルギー変化がわかれば、平衡定数を計算により求めることができる。",
-      "水を電気分解すれば、水素と酸素を発生させることができる。"
+      "0.10",
+      "0.40",
+      "1.00",
+      "2.50",
+      "7.50"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "explanationText": [
-      "正しい。一次反応では半減期が濃度によらず一定であるため、反応物質の濃度が半分に減少するのに要する時間は、反応のどの時点から測っても同じである。",
-      "正しい。化学平衡は、可逆反応で順方向反応と逆方向反応の速度が等しくなり、各成分の濃度が見かけ上変化しなくなった状態である。",
-      "間違い。発熱反応では温度を上げると、ルシャトリエの原理により熱を吸収する逆方向へ平衡が移動しやすい。したがって、温度を上げると発熱反応がさらに進行する、としている点が誤りである。",
-      "正しい。標準自由エネルギー変化 ΔG° と平衡定数 K には ΔG°=-RT ln K の関係があるため、標準自由エネルギー変化がわかれば平衡定数を計算できる。",
-      "正しい。水を電気分解すると、陰極で水素、陽極で酸素が発生する。全体として水から水素と酸素を発生させることができる。"
+      "不正解。カルノーサイクルでは可逆サイクルの熱量比は絶対温度比に等しく、Q2/Q1=T2/T1=300/750=0.40である。0.10では小さすぎる。",
+      "正解。カルノーサイクルでは、低温熱源へ放出する熱量と高温熱源から吸収する熱量の比は Q2/Q1=T2/T1 である。T2=300K、T1=750K より 300/750=0.40 となる。",
+      "不正解。Q2/Q1=1.00 は吸収熱量と放熱量が等しいことを意味するが、カルノーサイクルでは高温熱源750Kと低温熱源300Kの温度比から0.40となる。",
+      "不正解。2.50 は T1/T2=750/300 の値であり、求める Q2/Q1 は逆の T2/T1=300/750=0.40 である。",
+      "不正解。7.50 は本問の絶対温度比や熱量比に対応しない。カルノーサイクルの放熱量と吸熱量の比は低温熱源温度を高温熱源温度で割った0.40である。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -272,250 +278,6 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 840,
-    "publicQuestionId": "9fde1b61cadb2ba6",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:9fde1b61cadb2ba6",
-    "questionBodyText": "化学反応と化学平衡に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 22,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問6",
-    "questionNo": 6,
-    "questionSetId": "chiefgasengineerlicense-B-2110",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q6",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_1:9fde1b61cadb2ba6",
-    "reviewNotes": "T618: 降順ブロック planSequence=840。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=9fde1b61cadb2ba6。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 3 です。と correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい] が一致。一次反応の半減期は一定、化学平衡は順逆反応速度が等しい状態、ΔG°=-RT ln K、水の電気分解は正しい。発熱反応で温度を上げると平衡は吸熱方向（逆方向）へ移りやすく、さらに進行するとする選択肢3を誤りと確認。04は category.json と2025乙種の化学反応・一次反応先例に合わせ、化学反応・平衡・反応熱・速度論（乙種）を選択。",
-    "reviewQuestionId": "9fde1b61cadb2ba6",
-    "reviewedAt": "2026-06-26T10:48:56+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "基礎理論",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "sourceFileIndex": 22,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 6,
-      "subject": "kiso",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q06",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kiso:q06:s01",
-      "gas-shunin:otsu:2024:kiso:q06:s02",
-      "gas-shunin:otsu:2024:kiso:q06:s03",
-      "gas-shunin:otsu:2024:kiso:q06:s04",
-      "gas-shunin:otsu:2024:kiso:q06:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q6",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q06:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "taskId": "T618",
-    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
-    "category": "化学反応・平衡・反応熱・速度論（乙種）",
-    "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-26T10:48:56+09:00",
-    "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-26T10:48:56+09:00",
-    "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-26T10:48:56+09:00",
-    "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-26T10:48:56+09:00",
-    "questionSetReviewStatus": "ok",
-    "questionSetReviewedAt": "2026-06-26T10:48:56+09:00",
-    "workerTaskId": "T618",
-    "sourceExplanationCommonPrefix": [
-      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の一次反応、化学平衡、反応熱、標準自由エネルギー変化が本問の関連論点。",
-      "一次反応の半減期は濃度によらず一定で、化学平衡は順方向と逆方向の反応速度が等しい状態である。",
-      "発熱反応では温度を上げると吸熱方向へ平衡が移動しやすく、標準自由エネルギー変化から平衡定数を計算できる。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "一次反応の半減期、化学平衡の定義、ΔG°=-RT ln K、水の電気分解はいずれも正しい。発熱反応で温度を上げると平衡は熱を吸収する逆方向へ移りやすいため、選択肢3が誤り。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "一次反応の半減期は濃度によらず一定である。"
-      ],
-      [
-        "化学平衡では順方向と逆方向の反応速度が等しい。"
-      ],
-      [
-        "発熱反応で温度を上げると、平衡は吸熱方向へ移りやすい。"
-      ],
-      [
-        "ΔG°=-RT ln K により、標準自由エネルギー変化から平衡定数を求められる。"
-      ],
-      [
-        "水の電気分解では水素と酸素が発生する。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
-    "suggestedQuestions": [
-      "一次反応の半減期の特徴は？",
-      "化学平衡とはどのような状態か？",
-      "発熱反応で温度を上げると平衡はどちらへ移るか？",
-      "標準自由エネルギー変化と平衡定数の関係は？",
-      "水の電気分解で発生する気体は？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "一次反応の半減期の特徴は？",
-        "answer": "濃度によらず一定である。",
-        "explanation": "一次反応では濃度が半分になるまでの時間は反応のどの時点から測っても同じである。"
-      },
-      {
-        "question": "化学平衡とはどのような状態か？",
-        "answer": "順方向と逆方向の反応速度が等しい状態。",
-        "explanation": "可逆反応で両方向の速度が等しくなると、各成分濃度は見かけ上一定になる。"
-      },
-      {
-        "question": "発熱反応で温度を上げると平衡はどちらへ移るか？",
-        "answer": "吸熱方向、つまり逆方向へ移りやすい。",
-        "explanation": "温度上昇は熱を加える操作なので、発熱反応では熱を吸収する方向へ平衡が移動する。"
-      },
-      {
-        "question": "標準自由エネルギー変化と平衡定数の関係は？",
-        "answer": "ΔG°=-RT ln K。",
-        "explanation": "この関係から、標準自由エネルギー変化がわかれば平衡定数を求められる。"
-      },
-      {
-        "question": "水の電気分解で発生する気体は？",
-        "answer": "水素と酸素。",
-        "explanation": "水の電気分解では陰極側で水素、陽極側で酸素が発生する。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true
-  },
-  "nextPendingTaskId": "T619",
-  "nextPendingQuestion": {
-    "answerResultText": "正解は 2 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": false,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "0.10",
-      "0.40",
-      "1.00",
-      "2.50",
-      "7.50"
-    ],
-    "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
-    "explanationText": [],
-    "explanationTextCount": 0,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
     "planSequence": 839,
     "publicQuestionId": "d2358c6ec9cf0811",
     "qualification": "gas-shunin-otsu",
@@ -523,23 +285,23 @@
     "qualifiedReviewQuestionId": "gas-shunin-otsu:d2358c6ec9cf0811",
     "questionBodyText": "カルノーサイクルにおいて、高温熱源(750K)から熱Q₁を吸収し、低温熱源(300K)に熱Q₂を放出する場合、放熱量と吸熱量の比(Q₂/Q₁)として、最も近い値はどれか。",
     "questionIndexInFile": 21,
-    "questionIntent": "",
+    "questionIntent": "select_correct",
     "questionLabel": "問5",
     "questionNo": 5,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-2100",
     "questionType": "group_choice",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q5",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_1:d2358c6ec9cf0811",
-    "reviewNotes": "",
+    "reviewNotes": "T619: 降順ブロック planSequence=839。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=d2358c6ec9cf0811。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 2 です。と correctChoiceText=[不正解, 正解, 不正解, 不正解, 不正解] が一致。カルノーサイクルでは可逆サイクルの熱量比 Q2/Q1 が絶対温度比 T2/T1 に等しく、低温熱源300K・高温熱源750Kより 300/750=0.40 となるため選択肢2を正解と確認。04は category.json と2025乙種熱力学先例に合わせ、熱力学（乙種）を選択。",
     "reviewQuestionId": "d2358c6ec9cf0811",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-26T10:55:12+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "基礎理論",
@@ -611,12 +373,262 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T619"
+    "taskId": "T619",
+    "questionSetName": "熱力学（乙種）",
+    "category": "熱力学（乙種）",
+    "questionTypeReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-26T10:55:12+09:00",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-26T10:55:12+09:00",
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-26T10:55:12+09:00",
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-26T10:55:12+09:00",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-26T10:55:12+09:00",
+    "workerTaskId": "T619",
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」のカルノーサイクルと絶対温度比が本問の関連論点。",
+      "可逆なカルノーサイクルでは、放熱量と吸熱量の比 Q2/Q1 は低温熱源温度と高温熱源温度の比 T2/T1 に等しい。",
+      "本問では T2=300K、T1=750K なので Q2/Q1=300/750=0.40 となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "カルノーサイクルでは Q2/Q1=T2/T1。低温熱源300K、高温熱源750Kより300/750=0.40なので、選択肢2が正解。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "0.10は300/750の値ではなく小さすぎる。"
+      ],
+      [
+        "Q2/Q1=300/750=0.40。"
+      ],
+      [
+        "1.00は吸収熱量と放熱量が等しい場合で、本問の温度比と合わない。"
+      ],
+      [
+        "2.50は750/300で、求める比の逆数である。"
+      ],
+      [
+        "7.50は本問の温度比・熱量比に対応しない。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "suggestedQuestions": [
+      "カルノーサイクルのQ2/Q1は何に等しいか？",
+      "本問のT2/T1はいくらか？",
+      "0.40が正解になる計算は？",
+      "2.50を選ばない理由は？",
+      "カルノーサイクルの熱効率との関係は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "カルノーサイクルのQ2/Q1は何に等しいか？",
+        "answer": "低温熱源温度と高温熱源温度の比 T2/T1。",
+        "explanation": "可逆なカルノーサイクルでは熱量比が絶対温度比に等しい。"
+      },
+      {
+        "question": "本問のT2/T1はいくらか？",
+        "answer": "300/750=0.40。",
+        "explanation": "低温熱源300K、高温熱源750Kを用いる。"
+      },
+      {
+        "question": "0.40が正解になる計算は？",
+        "answer": "Q2/Q1=T2/T1=300/750=0.40。",
+        "explanation": "放熱量と吸熱量の比なので、低温側を高温側で割る。"
+      },
+      {
+        "question": "2.50を選ばない理由は？",
+        "answer": "750/300=T1/T2で逆数を取っているため。",
+        "explanation": "求めるのはQ2/Q1であり、Q1/Q2ではない。"
+      },
+      {
+        "question": "カルノーサイクルの熱効率との関係は？",
+        "answer": "η=1-Q2/Q1=1-T2/T1。",
+        "explanation": "本問ではη=1-0.40=0.60となるが、問われているのはQ2/Q1である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
   },
-  "nextPendingReviewId": "2024:question_2024_1:d2358c6ec9cf0811",
+  "nextPendingTaskId": "T620",
+  "nextPendingQuestion": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "熱も仕事もエネルギーの一形態である。",
+      "等温、定圧で2種の理想気体を混合すると、\nエントロピーは減少する\n。",
+      "逆カルノーサイクルを用いたヒートポンプの成績係数(COP)は必ず1以上となる。",
+      "熱力学の第二法則によれば、熱は自然には低温度の物体から高温度の物体へ移ることはできない。",
+      "理想気体を可逆的に断熱膨張させた場合、内部エネルギーは減少する。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 838,
+    "publicQuestionId": "432c71c596363c74",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:432c71c596363c74",
+    "questionBodyText": "気体の熱力学に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 20,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問4",
+    "questionNo": 4,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q4",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:432c71c596363c74",
+    "reviewNotes": "",
+    "reviewQuestionId": "432c71c596363c74",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "基礎理論",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceFileIndex": 22,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 4,
+      "subject": "kiso",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q04",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:kiso:q04:s01",
+      "gas-shunin:otsu:2024:kiso:q04:s02",
+      "gas-shunin:otsu:2024:kiso:q04:s03",
+      "gas-shunin:otsu:2024:kiso:q04:s04",
+      "gas-shunin:otsu:2024:kiso:q04:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q4",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q04:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "taskId": "T620"
+  },
+  "nextPendingReviewId": "2024:question_2024_1:432c71c596363c74",
   "reviewDecisionCounts": {
     "hold": 115,
-    "ok": 404,
-    "pending": 415
+    "ok": 405,
+    "pending": 414
   }
 }

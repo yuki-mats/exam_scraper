@@ -755,10 +755,48 @@
       "7.50"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "不正解。カルノーサイクルでは可逆サイクルの熱量比は絶対温度比に等しく、Q2/Q1=T2/T1=300/750=0.40である。0.10では小さすぎる。",
+      "正解。カルノーサイクルでは、低温熱源へ放出する熱量と高温熱源から吸収する熱量の比は Q2/Q1=T2/T1 である。T2=300K、T1=750K より 300/750=0.40 となる。",
+      "不正解。Q2/Q1=1.00 は吸収熱量と放熱量が等しいことを意味するが、カルノーサイクルでは高温熱源750Kと低温熱源300Kの温度比から0.40となる。",
+      "不正解。2.50 は T1/T2=750/300 の値であり、求める Q2/Q1 は逆の T2/T1=300/750=0.40 である。",
+      "不正解。7.50 は本問の絶対温度比や熱量比に対応しない。カルノーサイクルの放熱量と吸熱量の比は低温熱源温度を高温熱源温度で割った0.40である。"
+    ],
+    "suggestedQuestions": [
+      "カルノーサイクルのQ2/Q1は何に等しいか？",
+      "本問のT2/T1はいくらか？",
+      "0.40が正解になる計算は？",
+      "2.50を選ばない理由は？",
+      "カルノーサイクルの熱効率との関係は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "カルノーサイクルのQ2/Q1は何に等しいか？",
+        "answer": "低温熱源温度と高温熱源温度の比 T2/T1。",
+        "explanation": "可逆なカルノーサイクルでは熱量比が絶対温度比に等しい。"
+      },
+      {
+        "question": "本問のT2/T1はいくらか？",
+        "answer": "300/750=0.40。",
+        "explanation": "低温熱源300K、高温熱源750Kを用いる。"
+      },
+      {
+        "question": "0.40が正解になる計算は？",
+        "answer": "Q2/Q1=T2/T1=300/750=0.40。",
+        "explanation": "放熱量と吸熱量の比なので、低温側を高温側で割る。"
+      },
+      {
+        "question": "2.50を選ばない理由は？",
+        "answer": "750/300=T1/T2で逆数を取っているため。",
+        "explanation": "求めるのはQ2/Q1であり、Q1/Q2ではない。"
+      },
+      {
+        "question": "カルノーサイクルの熱効率との関係は？",
+        "answer": "η=1-Q2/Q1=1-T2/T1。",
+        "explanation": "本問ではη=1-0.40=0.60となるが、問われているのはQ2/Q1である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -774,6 +812,67 @@
       "不正解",
       "不正解",
       "不正解"
+    ],
+    "explanation_common_prefix": [
+      "基礎理論「熱力学（乙種）」のカルノーサイクルと絶対温度比が本問の関連論点。",
+      "可逆なカルノーサイクルでは、放熱量と吸熱量の比 Q2/Q1 は低温熱源温度と高温熱源温度の比 T2/T1 に等しい。",
+      "本問では T2=300K、T1=750K なので Q2/Q1=300/750=0.40 となる。"
+    ],
+    "explanation_common_summary": [
+      "カルノーサイクルでは Q2/Q1=T2/T1。低温熱源300K、高温熱源750Kより300/750=0.40なので、選択肢2が正解。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "0.10は300/750の値ではなく小さすぎる。"
+      ],
+      [
+        "Q2/Q1=300/750=0.40。"
+      ],
+      [
+        "1.00は吸収熱量と放熱量が等しい場合で、本問の温度比と合わない。"
+      ],
+      [
+        "2.50は750/300で、求める比の逆数である。"
+      ],
+      [
+        "7.50は本問の温度比・熱量比に対応しない。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "expectedCorrectChoiceText": [
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）",
+    "explanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」のカルノーサイクルと絶対温度比が本問の関連論点。",
+      "可逆なカルノーサイクルでは、放熱量と吸熱量の比 Q2/Q1 は低温熱源温度と高温熱源温度の比 T2/T1 に等しい。",
+      "本問では T2=300K、T1=750K なので Q2/Q1=300/750=0.40 となる。"
+    ],
+    "choiceExplanationSnippets": [
+      "0.10は300/750の値ではなく小さすぎる。",
+      "Q2/Q1=300/750=0.40。",
+      "1.00は吸収熱量と放熱量が等しい場合で、本問の温度比と合わない。",
+      "2.50は750/300で、求める比の逆数である。",
+      "7.50は本問の温度比・熱量比に対応しない。"
     ]
   },
   {
