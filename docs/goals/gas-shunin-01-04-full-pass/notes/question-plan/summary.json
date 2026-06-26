@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T614",
-  "completed": 514,
-  "completed_questions": 514,
-  "done": 399,
+  "activeTaskId": "T615",
+  "completed": 515,
+  "completed_questions": 515,
+  "done": 400,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 399,
+    "done": 400,
     "hold": 115,
-    "pending": 420
+    "pending": 419
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T10:06:44+09:00",
+  "generatedAt": "2026-06-26T10:14:31+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,18 +20,193 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "0.2",
+      "0.5",
+      "2",
+      "5",
+      "10"
+    ],
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 849,
+    "publicQuestionId": "211e4c2510298123",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:211e4c2510298123",
+    "questionBodyText": "ある延性材料の試験片について、常温で引張試験を行ったところ、降伏点での引張応力が450MPaであった。この材料を許容応力90MPaで使用するときの安全係数として、最も近い値はどれか。",
+    "questionIndexInFile": 6,
+    "questionIntent": "",
+    "questionLabel": "問15",
+    "questionNo": 15,
+    "questionSetId": "",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q15",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_2:211e4c2510298123",
+    "reviewNotes": "",
+    "reviewQuestionId": "211e4c2510298123",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "基礎理論",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
+    "sourceFileIndex": 23,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 15,
+      "subject": "kiso",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q15",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:kiso:q15:s01",
+      "gas-shunin:otsu:2024:kiso:q15:s02",
+      "gas-shunin:otsu:2024:kiso:q15:s03",
+      "gas-shunin:otsu:2024:kiso:q15:s04",
+      "gas-shunin:otsu:2024:kiso:q15:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q15",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q15:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q15:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q15:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q15:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q15:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "taskId": "T615"
+  },
+  "nextPendingPlanSequence": 849,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:211e4c2510298123",
+  "otsuCompleted": 103,
+  "otsuDone": 90,
+  "otsuHeld": 13,
+  "otsuHold": 13,
+  "otsuPending": 419,
+  "pending": 419,
+  "pending_questions": 419,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "manual_reviewed: answer_result_text=正解は 2 です is a combination-choice answer; statement-level review confirms イ and ニ are wrong.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
+      "questionTypePresent": true
+    },
+    "category": "都市ガスの原料（乙種）",
     "choiceCount": 5,
     "choiceTextList": [
       "メタンは常温では空気の約半分の重さであり拡散しやすいが、\n-82℃以下の低温では、空気より重いので\n注意を要する。",
@@ -50,16 +225,22 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "正しい",
       "間違い",
       "正しい",
       "正しい",
+      "間違い",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。メタンは常温では空気の約半分の重さで拡散しやすいが、-82℃程度では空気より重くなるとはいえない。冷たいメタンガスが空気より重く滞留しやすくなるのはさらに低温の範囲であり、-82℃以下では空気より重いとしている点が誤りである。",
+      "正しい。LNG貯槽では外部からの入熱により、沸点の低いメタンを主成分とするボイルオフガス（BOG）が発生する。その結果、貯槽内のLNGでは高沸点成分の割合が相対的に高まり、濃縮が進む。",
+      "正しい。LNG配管などをクールダウンする際、急冷すると配管の上部と下部で温度差が大きくなり、熱収縮差によるボーイングを生じるおそれがあるため、時間をかけて行う必要がある。",
+      "間違い。ガス漏えいに伴う火災では、漏えいを止めないまま消火すると未燃ガスが滞留して爆発性混合気を形成するおそれがある。原則として漏えいを遮断し、周囲への延焼防止などを行う必要があり、漏えいした状態でも早期消火するほうが安全としている点が誤りである。",
+      "正しい。LNGを取り扱う機器は極低温にさらされるため、低温で脆化しにくく低温靭性に優れた材料を用いる必要がある。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,26 +282,56 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問1",
     "questionNo": 1,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1790",
+    "questionSetName": "都市ガスの原料（乙種）",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q1",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_2:b55f464a2ab10d24",
-    "reviewNotes": "",
+    "reviewNotes": "T614: 降順ブロック planSequence=850。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=b55f464a2ab10d24。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は組合せ選択肢上で誤っている記述イ・ニに対応し、statement-level correctChoiceText=[間違い, 正しい, 正しい, 間違い, 正しい] と一致。イはメタンが-82℃以下で空気より重いとしている点が誤り。ロのLNG濃縮、ハのクールダウン時のボーイング防止、ホの低温靭性材料は正しい。ニはガス漏えい状態で早期消火するほうが安全としている点が誤りで、漏えい遮断前の消火は未燃ガス滞留の危険がある。04は category.json と2024甲種同系原料問題の先例に合わせ、都市ガスの原料（乙種）を選択。",
     "reviewQuestionId": "b55f464a2ab10d24",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-26T10:14:31+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "製造",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "メタンは常温で空気より軽いが、-82℃程度を境に空気より重いとはいえない。"
+      ],
+      [
+        "LNG貯蔵中の入熱でメタン主体のBOGが発生し、残液の濃縮が進む。"
+      ],
+      [
+        "LNG配管のクールダウンでは上下温度差によるボーイングを避けるため時間をかける。"
+      ],
+      [
+        "ガス漏えい火災では漏えいを遮断せず消火すると未燃ガス滞留の危険がある。"
+      ],
+      [
+        "LNG取扱機器には極低温に耐える低温靭性に優れた材料が必要である。"
+      ]
+    ],
+    "sourceExplanationCommonPrefix": [
+      "製造 第1章「都市ガスの原料（LNG等）」が本問の関連論点。メタンの比重、LNGの濃縮、BOG発生など、原料ガスとLNGの基本特性を確認する。",
+      "製造 第1章「LNGの取扱い・保安」が本問の関連論点。LNG配管のクールダウン、漏えい火災時の対応、低温用材料の必要性を確認する。"
+    ],
+    "sourceExplanationCommonSummary": [],
     "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
     "sourceFileIndex": 23,
     "sourceKeyConflict": null,
@@ -186,262 +397,45 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "taskId": "T614"
-  },
-  "nextPendingPlanSequence": 850,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:b55f464a2ab10d24",
-  "otsuCompleted": 102,
-  "otsuDone": 89,
-  "otsuHeld": 13,
-  "otsuHold": 13,
-  "otsuPending": 420,
-  "pending": 420,
-  "pending_questions": 420,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed: answer_result_text=正解は 1 です is a combination-choice answer; statement-level review confirms イ and ロ are wrong.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "回転式スクリュー型圧縮機は、圧力が変化すると、\nガス流量も変動する\n。",
-      "仕切弁(ゲート弁)は、\n開閉時のストロークが小さく、開閉時間が短い\n。",
-      "うず巻ポンプは、他の型式に比較して軽量、構造が簡単で取り扱いが容易であるため、ガス製造所では多く採用されている。",
-      "円筒形LPG貯槽は、加圧式貯蔵法に分類され、比較的小容量の貯槽として最も経済的であるため広く使用されている。",
-      "エアフィン式気化器は、運転費が低廉でベースロード用として使用されるが、長時間運転すると空気中の水分が伝熱管の表面に氷となって付着し、連続運転時間に制約が生ずる。"
-    ],
-    "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "explanationText": [
-      "間違い。回転式スクリュー型圧縮機は容積式圧縮機であり、圧力が変化してもガス流量は大きく変動しにくい。圧力変化に伴ってガス流量も変動するとしている点が誤りである。",
-      "間違い。仕切弁（ゲート弁）は全開又は全閉で用いられることが多く、流路を直線的にできるため全開時の圧力損失は小さいが、開閉時のストロークが大きく開閉時間は長い。ストロークが小さく開閉時間が短いとしている点が誤りである。",
-      "正しい。うず巻ポンプは遠心ポンプの一種で、構造が比較的簡単で軽量、取り扱いが容易であるため、ガス製造所の液体移送設備などで広く採用される。",
-      "正しい。円筒形LPG貯槽は加圧式貯蔵法に分類され、比較的小容量のLPG貯槽として経済性に優れるため広く使用されている。",
-      "正しい。エアフィン式気化器は周囲空気を熱源とするため運転費が低廉でベースロード用に使用されるが、長時間運転では空気中の水分が伝熱管表面に着氷し、連続運転時間に制約が生じる。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 851,
-    "publicQuestionId": "25907a4eeba420fd",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:25907a4eeba420fd",
-    "questionBodyText": "製造設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 8,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問2",
-    "questionNo": 2,
-    "questionSetId": "chiefgasengineerlicense-B-1750",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q2",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_2:25907a4eeba420fd",
-    "reviewNotes": "T613: 降順ブロック planSequence=851。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=25907a4eeba420fd。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 1 です。は組合せ選択肢上で誤っている記述イ・ロに対応し、statement-level correctChoiceText=[間違い, 間違い, 正しい, 正しい, 正しい] と一致。イは回転式スクリュー型圧縮機の流量が圧力変化で大きく変動するとしている点が誤り。ロは仕切弁の開閉ストロークが小さく開閉時間が短いとしている点が誤り。ハのうず巻ポンプ、ニの円筒形LPG貯槽、ホのエアフィン式気化器の記述は正しい。04は 2025乙種製造問2 の同系先例と category.json に合わせ、製造所の製造設備（乙種）を選択。",
-    "reviewQuestionId": "25907a4eeba420fd",
-    "reviewedAt": "2026-06-26T10:06:44+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "sourceFileIndex": 23,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 2,
-      "subject": "seizo",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:seizo:q02",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:seizo:q02:s01",
-      "gas-shunin:otsu:2024:seizo:q02:s02",
-      "gas-shunin:otsu:2024:seizo:q02:s03",
-      "gas-shunin:otsu:2024:seizo:q02:s04",
-      "gas-shunin:otsu:2024:seizo:q02:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#seizo-q2",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:seizo:q02:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "taskId": "T613",
-    "workerTaskId": "T613",
-    "questionSetName": "製造所の製造設備（乙種）",
-    "category": "製造所の製造設備（乙種）",
-    "sourceExplanationCommonPrefix": [
-      "製造 第2章「製造設備」が本問の関連論点。圧縮機、弁、ポンプ、LPG貯槽、気化器など、製造所設備の方式別特徴を区別する。",
-      "製造 第2章「圧縮機・弁類」が本問の関連論点。回転式スクリュー型圧縮機の容量特性と仕切弁の開閉特性を確認する。",
-      "製造 第2章「ポンプ・貯槽・気化器」が本問の関連論点。うず巻ポンプ、円筒形LPG貯槽、エアフィン式気化器の用途と運転上の特徴を確認する。"
-    ],
-    "sourceExplanationCommonSummary": [],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "回転式スクリュー型圧縮機は容積式で、圧力変化によるガス流量変動は大きくない。"
-      ],
-      [
-        "仕切弁は開閉時のストロークが大きく、開閉時間が長い。小さい・短いとしている点が誤り。"
-      ],
-      [
-        "うず巻ポンプは軽量で構造が簡単、取り扱いが容易なため製造所で多く採用される。"
-      ],
-      [
-        "円筒形LPG貯槽は加圧式貯蔵法で、比較的小容量の貯槽として経済的。"
-      ],
-      [
-        "エアフィン式気化器は運転費が低廉だが、伝熱管表面の着氷により連続運転時間に制約が生じる。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "suggestedQuestions": [
-      "回転式スクリュー型圧縮機は、圧力が変化すると、\nガス流量も変動する\n。",
-      "仕切弁(ゲート弁)は、\n開閉時のストロークが小さく、開閉時間が短い\n。",
-      "うず巻ポンプは、他の型式に比較して軽量、構造が簡単で取り扱いが容易であるため、ガス製造所では多く採用されている。",
-      "円筒形LPG貯槽は、加圧式貯蔵法に分類され、比較的小容量の貯槽として最も経済的であるため広く使用されている。",
-      "エアフィン式気化器は、運転費が低廉でベースロード用として使用されるが、長時間運転すると空気中の水分が伝熱管の表面に氷となって付着し、連続運転時間に制約が生ずる。"
-    ],
     "suggestedQuestionDetails": [
       {
-        "questionText": "回転式スクリュー型圧縮機は、圧力が変化すると、\nガス流量も変動する\n。",
+        "questionText": "メタンは常温では空気の約半分の重さであり拡散しやすいが、\n-82℃以下の低温では、空気より重いので\n注意を要する。",
         "correctChoiceText": "間違い",
-        "explanationText": "間違い。回転式スクリュー型圧縮機は容積式圧縮機であり、圧力が変化してもガス流量は大きく変動しにくい。圧力変化に伴ってガス流量も変動するとしている点が誤りである。"
+        "explanationText": "間違い。メタンは常温では空気の約半分の重さで拡散しやすいが、-82℃程度では空気より重くなるとはいえない。冷たいメタンガスが空気より重く滞留しやすくなるのはさらに低温の範囲であり、-82℃以下では空気より重いとしている点が誤りである。"
       },
       {
-        "questionText": "仕切弁(ゲート弁)は、\n開閉時のストロークが小さく、開閉時間が短い\n。",
+        "questionText": "濃縮とは、貯蔵中のLNGにおいて外部からの入熱により沸点の低いメタンを主成分とするボイルオフガス(BOG)が発生することにより生じる現象である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。LNG貯槽では外部からの入熱により、沸点の低いメタンを主成分とするボイルオフガス（BOG）が発生する。その結果、貯槽内のLNGでは高沸点成分の割合が相対的に高まり、濃縮が進む。"
+      },
+      {
+        "questionText": "LNGを取り扱う配管等をクールダウンする際には、配管の上部と下部の温度差が大きくなることによるボーイングが生じないよう、時間をかける必要がある。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。LNG配管などをクールダウンする際、急冷すると配管の上部と下部で温度差が大きくなり、熱収縮差によるボーイングを生じるおそれがあるため、時間をかけて行う必要がある。"
+      },
+      {
+        "questionText": "ガスが漏えいして発生した火災の場合は、ガスが漏えいした状態であっても\n早期に消火するほうが安全\nである。",
         "correctChoiceText": "間違い",
-        "explanationText": "間違い。仕切弁（ゲート弁）は全開又は全閉で用いられることが多く、流路を直線的にできるため全開時の圧力損失は小さいが、開閉時のストロークが大きく開閉時間は長い。ストロークが小さく開閉時間が短いとしている点が誤りである。"
+        "explanationText": "間違い。ガス漏えいに伴う火災では、漏えいを止めないまま消火すると未燃ガスが滞留して爆発性混合気を形成するおそれがある。原則として漏えいを遮断し、周囲への延焼防止などを行う必要があり、漏えいした状態でも早期消火するほうが安全としている点が誤りである。"
       },
       {
-        "questionText": "うず巻ポンプは、他の型式に比較して軽量、構造が簡単で取り扱いが容易であるため、ガス製造所では多く採用されている。",
+        "questionText": "LNGを取り扱う機器に対しては、低温靭性に優れた材料を用いる必要がある。",
         "correctChoiceText": "正しい",
-        "explanationText": "正しい。うず巻ポンプは遠心ポンプの一種で、構造が比較的簡単で軽量、取り扱いが容易であるため、ガス製造所の液体移送設備などで広く採用される。"
-      },
-      {
-        "questionText": "円筒形LPG貯槽は、加圧式貯蔵法に分類され、比較的小容量の貯槽として最も経済的であるため広く使用されている。",
-        "correctChoiceText": "正しい",
-        "explanationText": "正しい。円筒形LPG貯槽は加圧式貯蔵法に分類され、比較的小容量のLPG貯槽として経済性に優れるため広く使用されている。"
-      },
-      {
-        "questionText": "エアフィン式気化器は、運転費が低廉でベースロード用として使用されるが、長時間運転すると空気中の水分が伝熱管の表面に氷となって付着し、連続運転時間に制約が生ずる。",
-        "correctChoiceText": "正しい",
-        "explanationText": "正しい。エアフィン式気化器は周囲空気を熱源とするため運転費が低廉でベースロード用に使用されるが、長時間運転では空気中の水分が伝熱管表面に着氷し、連続運転時間に制約が生じる。"
+        "explanationText": "正しい。LNGを取り扱う機器は極低温にさらされるため、低温で脆化しにくく低温靭性に優れた材料を用いる必要がある。"
       }
-    ]
+    ],
+    "suggestedQuestions": [
+      "メタンは常温では空気の約半分の重さであり拡散しやすいが、\n-82℃以下の低温では、空気より重いので\n注意を要する。",
+      "濃縮とは、貯蔵中のLNGにおいて外部からの入熱により沸点の低いメタンを主成分とするボイルオフガス(BOG)が発生することにより生じる現象である。",
+      "LNGを取り扱う配管等をクールダウンする際には、配管の上部と下部の温度差が大きくなることによるボーイングが生じないよう、時間をかける必要がある。",
+      "ガスが漏えいして発生した火災の場合は、ガスが漏えいした状態であっても\n早期に消火するほうが安全\nである。",
+      "LNGを取り扱う機器に対しては、低温靭性に優れた材料を用いる必要がある。"
+    ],
+    "taskId": "T614",
+    "workerTaskId": "T614",
+    "reviewStatus": "ok"
   },
-  "nextPendingTaskId": "T614",
+  "nextPendingTaskId": "T615",
   "nextPendingQuestion": "問2",
   "nextPendingReviewId": "2024:question_2024_2:25907a4eeba420fd"
 }
