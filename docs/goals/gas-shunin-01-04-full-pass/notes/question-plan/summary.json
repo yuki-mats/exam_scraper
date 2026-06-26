@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T622",
-  "completed": 522,
-  "completed_questions": 522,
-  "done": 407,
+  "activeTaskId": "T623",
+  "completed": 523,
+  "completed_questions": 523,
+  "done": 408,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 407,
+    "done": 408,
     "hold": 115,
-    "pending": 412
+    "pending": 411
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-26T11:14:13+09:00",
+  "generatedAt": "2026-06-26T11:21:16+09:00",
   "held_questions": 115,
   "hold": 115,
   "hold_questions": 115,
@@ -20,17 +20,198 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
+    "answerResultText": "正解は 1 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "実在気体は、\n低温の条件では、理想気体に近い性質を示す\n。",
+      "相変化に伴い吸収又は放出される熱を、潜熱という。",
+      "臨界温度より高い温度では、圧力をどれほど高くしても気体を液化させることはできない。",
+      "気体の粘度は、温度の上昇とともに増加する。",
+      "気体の粘度は、圧力によってほとんど変わらない。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 835,
+    "publicQuestionId": "9eaf36eab3ab853b",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:9eaf36eab3ab853b",
+    "questionBodyText": "気体の性質に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 17,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問1",
+    "questionNo": 1,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q1",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:9eaf36eab3ab853b",
+    "reviewNotes": "",
+    "reviewQuestionId": "9eaf36eab3ab853b",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "基礎理論",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceFileIndex": 22,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 1,
+      "subject": "kiso",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q01",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:kiso:q01:s01",
+      "gas-shunin:otsu:2024:kiso:q01:s02",
+      "gas-shunin:otsu:2024:kiso:q01:s03",
+      "gas-shunin:otsu:2024:kiso:q01:s04",
+      "gas-shunin:otsu:2024:kiso:q01:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q1",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "taskId": "T623"
+  },
+  "nextPendingPlanSequence": 835,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:9eaf36eab3ab853b",
+  "otsuCompleted": 111,
+  "otsuDone": 98,
+  "otsuHeld": 13,
+  "otsuHold": 13,
+  "otsuPending": 411,
+  "pending": 411,
+  "pending_questions": 411,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
     "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": false,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_ideal_gas_mixing_pressure",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
+      "questionTypePresent": true,
+      "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
@@ -50,10 +231,22 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "executionStatus": "done",
+    "expectedCorrectChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "explanationText": [
+      "不正解。同温の理想気体では物質量は PV に比例する。接続後の圧力は (50kPa×400m³+20kPa×200m³)/(400m³+200m³)=40kPa であり、30kPaでは小さすぎる。",
+      "不正解。35kPaは各容器の圧力を単純平均した値に近いが、容積が異なるため体積で重み付けして計算する必要がある。",
+      "正解。同温の理想気体なので、接続後の全圧は P=(P_A V_A+P_B V_B)/(V_A+V_B) で求める。P=(50×400+20×200)/600=40kPa となる。",
+      "不正解。55kPaは接続前の高い方の圧力50kPaを上回っており、同温で低圧側と連結した後の全体圧力としては適切でない。",
+      "不正解。70kPaは接続前のどちらの容器の圧力よりも高く、同温で容積を増やして混合した本問の条件からは得られない。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -92,23 +285,23 @@
     "qualifiedReviewQuestionId": "gas-shunin-otsu:78d6173f45d28751",
     "questionBodyText": "温度27℃、圧力50kPaのメタンが入っている容積400m³の容器Aと温度27℃、圧力20kPaのプロパンが入っている容積200m³の容器Bを接続した場合の混合気体全体の圧力(kPa)として、最も近い値はどれか。ただし、いずれの気体も理想気体とし、容器AとBの接続後の混合気体の温度は27℃と一定で、接続管の容積は無視できるものとする。",
     "questionIndexInFile": 18,
-    "questionIntent": "",
+    "questionIntent": "select_correct",
     "questionLabel": "問2",
     "questionNo": 2,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-2090",
     "questionType": "group_choice",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q2",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_1:78d6173f45d28751",
-    "reviewNotes": "",
+    "reviewNotes": "T622: 降順ブロック planSequence=836。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=78d6173f45d28751。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 3 です。と correctChoiceText=[不正解, 不正解, 正解, 不正解, 不正解] が一致。同温の理想気体では物質量がPV/RTに比例し、接続後の圧力は (50kPa×400m³+20kPa×200m³)/(400m³+200m³)=40kPa となるため選択肢3を正解と確認。04は category.json と2025乙種の混合ガス圧力先例に合わせ、物性・基礎（乙種）を選択。",
     "reviewQuestionId": "78d6173f45d28751",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-26T11:21:16+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "基礎理論",
@@ -179,82 +372,137 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
+    ],
+    "taskId": "T622",
+    "workerTaskId": "T622",
+    "questionSetName": "物性・基礎（乙種）",
+    "category": "物性・基礎（乙種）",
+    "questionTypeReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-26T11:21:16+09:00",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-26T11:21:16+09:00",
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-26T11:21:16+09:00",
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-26T11:21:16+09:00",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-26T11:21:16+09:00",
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式と混合気体の圧力計算が本問の関連論点。",
+      "同温の理想気体では物質量が PV/RT に比例するため、接続後の圧力は各容器の PV の和を全体積で割って求める。",
+      "本問では (50kPa×400m³+20kPa×200m³)/(400m³+200m³)=40kPa となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "同温の理想気体では P=(P_A V_A+P_B V_B)/(V_A+V_B)。本問では(50×400+20×200)/600=40kPaなので、選択肢3が正解。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "30kPaは体積重み付き平均より小さい。"
+      ],
+      [
+        "35kPaは単純平均に近いが、容積差を反映していない。"
+      ],
+      [
+        "(50×400+20×200)/600=40kPa。"
+      ],
+      [
+        "55kPaは接続前の高圧側50kPaより高く不適切。"
+      ],
+      [
+        "70kPaは接続前圧力を超えており本問の条件から得られない。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "suggestedQuestions": [
+      "同温の理想気体を混合した後の圧力はどう求めるか？",
+      "本問で使う体積重み付きの式は？",
+      "なぜ単純平均の35kPaではないか？",
+      "接続後の全体容積はいくらか？",
+      "40kPaになる計算過程は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "同温の理想気体を混合した後の圧力はどう求めるか？",
+        "answer": "各容器の PV の和を全体積で割る。",
+        "explanation": "同温で理想気体なら物質量は PV/RT に比例し、接続後は同じ温度・全体積で一つの圧力になる。"
+      },
+      {
+        "question": "本問で使う体積重み付きの式は？",
+        "answer": "P=(P_A V_A+P_B V_B)/(V_A+V_B)。",
+        "explanation": "RT が共通なので、各気体の PV を足して全体積で割る。"
+      },
+      {
+        "question": "なぜ単純平均の35kPaではないか？",
+        "answer": "容器AとBの容積が異なるため。",
+        "explanation": "圧力50kPa側は400m³、20kPa側は200m³なので、単純平均ではなく体積で重み付けする。"
+      },
+      {
+        "question": "接続後の全体容積はいくらか？",
+        "answer": "600m³。",
+        "explanation": "容器A 400m³ と容器B 200m³ を接続し、接続管の容積は無視する。"
+      },
+      {
+        "question": "40kPaになる計算過程は？",
+        "answer": "(50×400+20×200)/600=40。",
+        "explanation": "50×400=20000、20×200=4000、合計24000を600で割る。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true
   },
-  "nextPendingPlanSequence": 836,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:78d6173f45d28751",
-  "otsuCompleted": 110,
-  "otsuDone": 97,
-  "otsuHeld": 13,
-  "otsuHold": 13,
-  "otsuPending": 412,
-  "pending": 412,
-  "pending_questions": 412,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
+  "nextPendingTaskId": "T623",
+  "nextPendingQuestion": {
     "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_and_constant_pressure_work",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
       "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true,
-      "sourceConflictStatus": "none"
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
     },
-    "category": "熱力学（乙種）",
-    "categoryPath": "output/gas-shunin-otsu/category/category.json",
     "choiceCount": 5,
     "choiceTextList": [
-      "100",
-      "200",
-      "300",
-      "400",
-      "500"
+      "実在気体は、\n低温の条件では、理想気体に近い性質を示す\n。",
+      "相変化に伴い吸収又は放出される熱を、潜熱という。",
+      "臨界温度より高い温度では、圧力をどれほど高くしても気体を液化させることはできない。",
+      "気体の粘度は、温度の上昇とともに増加する。",
+      "気体の粘度は、圧力によってほとんど変わらない。"
     ],
-    "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-26T11:14:13+09:00",
     "correctChoiceText": [
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
-    "examLabel": "2024年（令和６年）乙種 基礎理論",
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
+    "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
     ],
-    "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-26T11:14:13+09:00",
-    "explanationText": [
-      "正解。定圧膨張で気体がする仕事は W=PΔV で求める。圧力100kPa、体積変化は2m³-1m³=1m³なので、W=100kPa×1m³=100kJとなる。",
-      "不正解。200kJは体積変化を2m³として扱った場合などの値である。本問の仕事は初めから終わりまでの体積差1m³に圧力100kPaを掛けるので100kJである。",
-      "不正解。300kJとするには体積変化を3m³相当と見る必要があるが、本問の体積変化は1m³である。定圧仕事は100kPa×1m³=100kJである。",
-      "不正解。400kJは与えられた圧力と体積変化から得られる値より大きすぎる。1kPa・m³=1kJなので、100kPa×1m³=100kJである。",
-      "不正解。500kJは体積変化を5m³相当とした値であり、本問の条件とは合わない。定圧膨張の仕事は圧力に体積変化を掛けた100kJである。"
-    ],
-    "explanationTextCount": 5,
+    "explanationText": [],
+    "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
-    "globalQuestionIndex": 425,
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
-    "lawGroundedExplanationNotNeeded": true,
     "listGroupId": "2024",
     "mustPreserve": [
       "00_source_question_body_and_choices",
@@ -280,93 +528,43 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 837,
-    "prompt01Path": "prompt/01_prompt_fix_questionType.md",
-    "prompt02Path": "prompt/02_prompt_fix_questionIntent.md",
-    "prompt03Path": "prompt/03_prompt_add_explanationText.md",
-    "prompt04Path": "prompt/04_prompt_link_questionSetId.md",
-    "publicQuestionId": "7f60b01f36d95283",
+    "planSequence": 835,
+    "publicQuestionId": "9eaf36eab3ab853b",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:7f60b01f36d95283",
-    "questionBodyText": "温度300K、圧力100kPaの気体1m³を定圧膨張させて2m³にした。このとき、気体がした仕事(kJ)として、最も近い値はどれか。",
-    "questionIndexInFile": 19,
-    "questionIntent": "select_correct",
-    "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-26T11:14:13+09:00",
-    "questionLabel": "問3",
-    "questionNo": 3,
-    "questionSetId": "chiefgasengineerlicense-B-2100",
-    "questionSetName": "熱力学（乙種）",
-    "questionSetReviewStatus": "ok",
-    "questionSetReviewedAt": "2026-06-26T11:14:13+09:00",
-    "questionType": "group_choice",
-    "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-26T11:14:13+09:00",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q3",
-    "requiredManualChecks": [
-      "01: questionType が設問形式と選択肢構造に合っているか確認する",
-      "02a: questionIntent が『正しいもの/誤っているもの』の設問要求に合っているか確認する",
-      "02b: correctChoiceText が answer_result_text と選択肢位置に合っているか確認する",
-      "03: explanationText が各選択肢の正誤理由を誤学習なく説明しているか確認する",
-      "04: questionSetId が公式出題基準ベースの category.json に合っているか確認する"
-    ],
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_1:7f60b01f36d95283",
-    "reviewNotes": "T621: 降順ブロック planSequence=837。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=7f60b01f36d95283。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 1 です。と correctChoiceText=[正解, 不正解, 不正解, 不正解, 不正解] が一致。定圧膨張で気体がする仕事は W=PΔV、圧力100kPa、体積変化2m³-1m³=1m³より 100kPa・m³=100kJ となるため選択肢1を正解と確認。04は category.json と2025乙種熱力学の定積加熱・2024乙種問4/問5の熱力学先例に合わせ、熱力学（乙種）を選択。",
-    "reviewQuestionId": "7f60b01f36d95283",
-    "reviewedAt": "2026-06-26T11:14:13+09:00",
-    "reviewer": "Codex",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:9eaf36eab3ab853b",
+    "questionBodyText": "気体の性質に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 17,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問1",
+    "questionNo": 1,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q1",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:9eaf36eab3ab853b",
+    "reviewNotes": "",
+    "reviewQuestionId": "9eaf36eab3ab853b",
+    "reviewedAt": "",
+    "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "基礎理論",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
-    "sourceExplanationChoiceCorrectness": [
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "W=PΔV=100kPa×(2-1)m³=100kJである。"
-      ],
-      [
-        "200kJは体積変化を2m³と誤って扱った値である。"
-      ],
-      [
-        "300kJは本問の圧力と体積変化からは得られない。"
-      ],
-      [
-        "400kJは100kPa×1m³より大きすぎる。"
-      ],
-      [
-        "500kJは体積変化5m³相当であり条件に合わない。"
-      ]
-    ],
-    "sourceExplanationCommonPrefix": [
-      "基礎理論「熱力学（乙種）」の定圧膨張における仕事 W=PΔV が本問の関連論点。",
-      "圧力100kPaで体積が1m³から2m³へ増えるため、体積変化は1m³である。",
-      "1kPa・m³=1kJとして単位換算すると、仕事は100kJとなる。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "定圧膨張で気体がした仕事は W=PΔV。P=100kPa、ΔV=1m³より W=100kPa・m³=100kJ なので選択肢1が正解。"
-    ],
     "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
     "sourceFileIndex": 22,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 3,
+      "questionNo": 1,
       "subject": "kiso",
       "year": 2024
     },
@@ -375,51 +573,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q03",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:kiso:q01",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:kiso:q03:s01",
-      "gas-shunin:otsu:2024:kiso:q03:s02",
-      "gas-shunin:otsu:2024:kiso:q03:s03",
-      "gas-shunin:otsu:2024:kiso:q03:s04",
-      "gas-shunin:otsu:2024:kiso:q03:s05"
+      "gas-shunin:otsu:2024:kiso:q01:s01",
+      "gas-shunin:otsu:2024:kiso:q01:s02",
+      "gas-shunin:otsu:2024:kiso:q01:s03",
+      "gas-shunin:otsu:2024:kiso:q01:s04",
+      "gas-shunin:otsu:2024:kiso:q01:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q3",
-    "stagePatchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
-    },
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#kiso-q1",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q03:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q03:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q03:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q03:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q03:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2024:kiso:q01:s05",
         "statementNo": 5
       }
     ],
@@ -431,50 +623,12 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "suggestedQuestionDetails": [
-      {
-        "answer": "W=PΔVで求める。",
-        "explanation": "圧力が一定の場合、外部へした仕事は圧力と体積変化の積で表される。",
-        "question": "定圧膨張で気体がする仕事はどう求めるか？"
-      },
-      {
-        "answer": "1m³である。",
-        "explanation": "終状態2m³から初状態1m³を引くので、ΔV=1m³である。",
-        "question": "本問の体積変化はいくらか？"
-      },
-      {
-        "answer": "1kJに等しい。",
-        "explanation": "kPaはkN/m²なので、kPa・m³はkN・mとなり1kJに相当する。",
-        "question": "1kPa・m³は何kJに等しいか？"
-      },
-      {
-        "answer": "体積変化を2m³として計算しているため。",
-        "explanation": "仕事に使うのは最終体積ではなく体積変化であり、本問では1m³である。",
-        "question": "本問で200kJを選ばない理由は？"
-      },
-      {
-        "answer": "初期体積と最終体積の差を使う。",
-        "explanation": "定圧仕事はP×(V2-V1)であり、最終体積そのものではない。",
-        "question": "定圧仕事の計算で使う体積はどの値か？"
-      }
-    ],
-    "suggestedQuestions": [
-      "定圧膨張で気体がする仕事はどう求めるか？",
-      "本問の体積変化はいくらか？",
-      "1kPa・m³は何kJに等しいか？",
-      "本問で200kJを選ばない理由は？",
-      "定圧仕事の計算で使う体積はどの値か？"
-    ],
-    "taskId": "T621",
-    "workerTaskId": "T621",
-    "workflow": "01_questionType -> 02_questionIntent_correctChoiceText -> 03_explanationText -> 04_questionSetId"
+    "taskId": "T623"
   },
-  "nextPendingTaskId": "T622",
-  "nextPendingQuestion": "gas-shunin-otsu 2024 基礎理論 問2",
-  "nextPendingReviewId": "2024:question_2024_1:78d6173f45d28751",
+  "nextPendingReviewId": "2024:question_2024_1:9eaf36eab3ab853b",
   "reviewDecisionCounts": {
     "hold": 115,
-    "ok": 407,
-    "pending": 412
+    "ok": 408,
+    "pending": 411
   }
 }

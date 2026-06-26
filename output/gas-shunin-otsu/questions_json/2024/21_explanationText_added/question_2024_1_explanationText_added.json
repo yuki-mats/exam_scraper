@@ -644,10 +644,48 @@
       "70"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "不正解。同温の理想気体では物質量は PV に比例する。接続後の圧力は (50kPa×400m³+20kPa×200m³)/(400m³+200m³)=40kPa であり、30kPaでは小さすぎる。",
+      "不正解。35kPaは各容器の圧力を単純平均した値に近いが、容積が異なるため体積で重み付けして計算する必要がある。",
+      "正解。同温の理想気体なので、接続後の全圧は P=(P_A V_A+P_B V_B)/(V_A+V_B) で求める。P=(50×400+20×200)/600=40kPa となる。",
+      "不正解。55kPaは接続前の高い方の圧力50kPaを上回っており、同温で低圧側と連結した後の全体圧力としては適切でない。",
+      "不正解。70kPaは接続前のどちらの容器の圧力よりも高く、同温で容積を増やして混合した本問の条件からは得られない。"
+    ],
+    "suggestedQuestions": [
+      "同温の理想気体を混合した後の圧力はどう求めるか？",
+      "本問で使う体積重み付きの式は？",
+      "なぜ単純平均の35kPaではないか？",
+      "接続後の全体容積はいくらか？",
+      "40kPaになる計算過程は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "同温の理想気体を混合した後の圧力はどう求めるか？",
+        "answer": "各容器の PV の和を全体積で割る。",
+        "explanation": "同温で理想気体なら物質量は PV/RT に比例し、接続後は同じ温度・全体積で一つの圧力になる。"
+      },
+      {
+        "question": "本問で使う体積重み付きの式は？",
+        "answer": "P=(P_A V_A+P_B V_B)/(V_A+V_B)。",
+        "explanation": "RT が共通なので、各気体の PV を足して全体積で割る。"
+      },
+      {
+        "question": "なぜ単純平均の35kPaではないか？",
+        "answer": "容器AとBの容積が異なるため。",
+        "explanation": "圧力50kPa側は400m³、20kPa側は200m³なので、単純平均ではなく体積で重み付けする。"
+      },
+      {
+        "question": "接続後の全体容積はいくらか？",
+        "answer": "600m³。",
+        "explanation": "容器A 400m³ と容器B 200m³ を接続し、接続管の容積は無視する。"
+      },
+      {
+        "question": "40kPaになる計算過程は？",
+        "answer": "(50×400+20×200)/600=40。",
+        "explanation": "50×400=20000、20×200=4000、合計24000を600で割る。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -663,6 +701,67 @@
       "正解",
       "不正解",
       "不正解"
+    ],
+    "explanation_common_prefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式と混合気体の圧力計算が本問の関連論点。",
+      "同温の理想気体では物質量が PV/RT に比例するため、接続後の圧力は各容器の PV の和を全体積で割って求める。",
+      "本問では (50kPa×400m³+20kPa×200m³)/(400m³+200m³)=40kPa となる。"
+    ],
+    "explanation_common_summary": [
+      "同温の理想気体では P=(P_A V_A+P_B V_B)/(V_A+V_B)。本問では(50×400+20×200)/600=40kPaなので、選択肢3が正解。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "30kPaは体積重み付き平均より小さい。"
+      ],
+      [
+        "35kPaは単純平均に近いが、容積差を反映していない。"
+      ],
+      [
+        "(50×400+20×200)/600=40kPa。"
+      ],
+      [
+        "55kPaは接続前の高圧側50kPaより高く不適切。"
+      ],
+      [
+        "70kPaは接続前圧力を超えており本問の条件から得られない。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "expectedCorrectChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "explanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式と混合気体の圧力計算が本問の関連論点。",
+      "同温の理想気体では物質量が PV/RT に比例するため、接続後の圧力は各容器の PV の和を全体積で割って求める。",
+      "本問では (50kPa×400m³+20kPa×200m³)/(400m³+200m³)=40kPa となる。"
+    ],
+    "choiceExplanationSnippets": [
+      "30kPaは体積重み付き平均より小さい。",
+      "35kPaは単純平均に近いが、容積差を反映していない。",
+      "(50×400+20×200)/600=40kPa。",
+      "55kPaは接続前の高圧側50kPaより高く不適切。",
+      "70kPaは接続前圧力を超えており本問の条件から得られない。"
     ]
   },
   {
