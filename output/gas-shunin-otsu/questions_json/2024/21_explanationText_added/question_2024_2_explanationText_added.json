@@ -200,18 +200,71 @@
       "10"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。安全係数は基準強さを許容応力で割って求めるため、450MPa÷90MPa=5である。0.2は逆数に当たり、最も近い値ではない。",
+      "不正解。安全係数は450MPa÷90MPa=5であり、0.5ではない。許容応力を降伏点での引張応力の半分とみる計算ではない。",
+      "不正解。安全係数は材料の基準強さを許容応力で割るため、450MPa÷90MPa=5となる。2は計算結果と一致しない。",
+      "正解。安全係数は降伏点での引張応力450MPaを許容応力90MPaで割った値であり、450÷90=5である。したがって最も近い値は5である。",
+      "不正解。安全係数は450MPa÷90MPa=5であり、10ではない。10とするには許容応力が45MPa程度である必要がある。"
+    ],
+    "suggestedQuestions": [
+      "安全係数は基準強さと許容応力からどう求める？",
+      "この問題で基準強さとして使う値はどれ？",
+      "降伏点450MPa、許容応力90MPaのとき安全係数はいくら？",
+      "0.2が誤りになる理由は？",
+      "安全係数10となる許容応力はどの程度？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "安全係数は基準強さと許容応力からどう求める？",
+        "answer": "基準強さを許容応力で割って求める。",
+        "explanation": "正解。安全係数は降伏点での引張応力450MPaを許容応力90MPaで割った値であり、450÷90=5である。したがって最も近い値は5である。"
+      },
+      {
+        "question": "この問題で基準強さとして使う値はどれ？",
+        "answer": "降伏点での引張応力450MPaを使う。",
+        "explanation": "正解。安全係数は降伏点での引張応力450MPaを許容応力90MPaで割った値であり、450÷90=5である。したがって最も近い値は5である。"
+      },
+      {
+        "question": "降伏点450MPa、許容応力90MPaのとき安全係数はいくら？",
+        "answer": "450÷90=5。",
+        "explanation": "正解。安全係数は降伏点での引張応力450MPaを許容応力90MPaで割った値であり、450÷90=5である。したがって最も近い値は5である。"
+      },
+      {
+        "question": "0.2が誤りになる理由は？",
+        "answer": "0.2は90÷450の逆数であり、安全係数の式と逆になるため。",
+        "explanation": "不正解。安全係数は基準強さを許容応力で割って求めるため、450MPa÷90MPa=5である。0.2は逆数に当たり、最も近い値ではない。"
+      },
+      {
+        "question": "安全係数10となる許容応力はどの程度？",
+        "answer": "450÷10=45MPa程度。",
+        "explanation": "不正解。安全係数は450MPa÷90MPa=5であり、10ではない。10とするには許容応力が45MPa程度である必要がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学」が本問の関連論点。安全係数は、基準強さを許容応力で除して求める。",
+      "本問では降伏点での引張応力450MPaを基準強さ、許容応力90MPaを使用条件として扱う。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "安全係数=降伏点での引張応力450MPa÷許容応力90MPa=5。よって選択肢4が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "0.2は90MPa÷450MPaの逆数であり、安全係数の式と逆。"
+      ],
+      [
+        "0.5は450MPa÷90MPaの計算結果ではない。"
+      ],
+      [
+        "2は450MPa÷90MPaの計算結果ではない。"
+      ],
+      [
+        "450MPa÷90MPa=5で安全係数に一致する。"
+      ],
+      [
+        "10とするには許容応力が45MPa程度である必要がある。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
