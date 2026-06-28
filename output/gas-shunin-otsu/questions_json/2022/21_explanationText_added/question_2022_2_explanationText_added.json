@@ -89,18 +89,72 @@
       "20"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。平板の定常熱伝導では、熱流束q=kΔT/Lである。厚さL=2×(1300−900)/4000=0.2m=20cmとなるため、5cmではない。",
+      "不正解。熱流束4kW/m²は4000W/m²に直して計算する。L=2×400/4000=0.2m=20cmであり、10cmではない。",
+      "不正解。温度差は1300−900=400Kで、平均熱伝導率2W/(m·K)を用いると厚さは0.2m=20cmである。13cmではない。",
+      "不正解。計算値は20cmである。15cmは、熱流束や単位換算を誤った場合に近い値になり得るが、正しい値ではない。",
+      "正解。q=kΔT/Lより、L=kΔT/q=2×(1300−900)/4000=0.2m=20cmである。したがって最も近い値は20cm。"
+    ],
+    "suggestedQuestions": [
+      "耐火レンガの厚さは5cmか？",
+      "耐火レンガの厚さは10cmか？",
+      "耐火レンガの厚さは13cmか？",
+      "耐火レンガの厚さは15cmか？",
+      "耐火レンガの厚さは20cmか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "耐火レンガの厚さは5cmか？",
+        "answer": "いいえ。計算値は20cmであり、5cmではない。",
+        "explanation": "不正解。平板の定常熱伝導では、熱流束q=kΔT/Lである。厚さL=2×(1300−900)/4000=0.2m=20cmとなるため、5cmではない。"
+      },
+      {
+        "question": "耐火レンガの厚さは10cmか？",
+        "answer": "いいえ。計算値は20cmであり、10cmではない。",
+        "explanation": "不正解。熱流束4kW/m²は4000W/m²に直して計算する。L=2×400/4000=0.2m=20cmであり、10cmではない。"
+      },
+      {
+        "question": "耐火レンガの厚さは13cmか？",
+        "answer": "いいえ。計算値は20cmであり、13cmではない。",
+        "explanation": "不正解。温度差は1300−900=400Kで、平均熱伝導率2W/(m·K)を用いると厚さは0.2m=20cmである。13cmではない。"
+      },
+      {
+        "question": "耐火レンガの厚さは15cmか？",
+        "answer": "いいえ。計算値は20cmであり、15cmではない。",
+        "explanation": "不正解。計算値は20cmである。15cmは、熱流束や単位換算を誤った場合に近い値になり得るが、正しい値ではない。"
+      },
+      {
+        "question": "耐火レンガの厚さは20cmか？",
+        "answer": "はい。計算値は20cmである。",
+        "explanation": "正解。q=kΔT/Lより、L=kΔT/q=2×(1300−900)/4000=0.2m=20cmである。したがって最も近い値は20cm。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」の平板における定常熱伝導計算が本問の関連論点。",
+      "平板の熱流束は q=kΔT/L で表されるため、厚さは L=kΔT/q で求める。",
+      "熱流束4kW/m²を4000W/m²に直すと、L=2×(1300−900)/4000=0.2m=20cmとなる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "温度差400K、平均熱伝導率2W/(m·K)、熱流束4000W/m²より、厚さは0.2m=20cm。したがって選択肢5が正解で、他の選択肢は計算値と一致しない。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "L=2×400/4000=0.2m=20cmで、5cmではない。"
+      ],
+      [
+        "熱流束4kW/m²は4000W/m²として計算する。"
+      ],
+      [
+        "温度差400K、熱伝導率2W/(m·K)から厚さは20cm。"
+      ],
+      [
+        "計算値20cmであり、15cmではない。"
+      ],
+      [
+        "q=kΔT/Lより、L=0.2m=20cm。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
