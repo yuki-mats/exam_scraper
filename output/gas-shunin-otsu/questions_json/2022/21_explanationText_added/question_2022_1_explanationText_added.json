@@ -755,26 +755,97 @@
       "定圧モル熱容量と定積モル熱容量の比を比熱比という。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。モル熱容量は、物質1molの温度を1K上昇させるために必要な熱量を表す。したがって、この記述は正しい。",
+      "間違い。理想気体を定圧条件で加熱して温度を上昇させると、エントロピーは増加する。定圧加熱では ΔS=nCp ln(T2/T1) となり、T2>T1なら正であるため、「減少する」としている点が誤りである。",
+      "正しい。エントロピーは状態量であり、エントロピー変化は変化前後の状態で決まる。途中の経路そのものには依存しないため、この記述は正しい。",
+      "正しい。ジュール・トムソン膨張は絞り膨張であり、断熱で外部仕事を伴わないため、系のエンタルピーは一定に保たれる。したがって、この記述は正しい。",
+      "正しい。比熱比は定圧モル熱容量Cpと定積モル熱容量Cvの比 Cp/Cv で定義される。したがって、この記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "モル熱容量とは何か？",
+      "理想気体を定圧で加熱するとエントロピーはどうなるか？",
+      "エントロピーは状態量か？",
+      "ジュール・トムソン膨張で一定に保たれる量は何か？",
+      "比熱比は何の比か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "モル熱容量とは何か？",
+        "answer": "物質1molの温度を1K上昇させるのに必要な熱量。",
+        "explanation": "熱容量を1molあたりで表した量がモル熱容量である。"
+      },
+      {
+        "question": "理想気体を定圧で加熱するとエントロピーはどうなるか？",
+        "answer": "増加する。",
+        "explanation": "定圧加熱では ΔS=nCp ln(T2/T1) となり、温度が上がればエントロピー変化は正になる。"
+      },
+      {
+        "question": "エントロピーは状態量か？",
+        "answer": "状態量である。",
+        "explanation": "エントロピー変化は変化前後の状態により決まり、経路そのものには依存しない。"
+      },
+      {
+        "question": "ジュール・トムソン膨張で一定に保たれる量は何か？",
+        "answer": "エンタルピー。",
+        "explanation": "ジュール・トムソン膨張は等エンタルピー過程として扱う。"
+      },
+      {
+        "question": "比熱比は何の比か？",
+        "answer": "定圧モル熱容量と定積モル熱容量の比。",
+        "explanation": "比熱比は Cp/Cv で表される。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」のモル熱容量、エントロピー、ジュール・トムソン膨張、比熱比が本問の関連論点。",
+      "本問は「誤っているもの」を選ぶ形式であり、理想気体を定圧で加熱するとエントロピーは増加する点を確認する。",
+      "定圧加熱では ΔS=nCp ln(T2/T1) となり、温度上昇時は正の値となるため、選択肢2の「エントロピーは減少する」が誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "理想気体では、定圧条件で温度を上昇させるとエントロピーは増加する。したがって、減少するとする選択肢2が誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "モル熱容量は1molを1K上昇させるのに必要な熱量である。"
+      ],
+      [
+        "定圧加熱で温度が上がるとエントロピーは増加し、減少しない。"
+      ],
+      [
+        "エントロピーは状態量であり、変化前後の状態で決まる。"
+      ],
+      [
+        "ジュール・トムソン膨張は等エンタルピー過程である。"
+      ],
+      [
+        "比熱比は Cp/Cv である。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）"
   },
   {
     "original_question_id": "38af652add416075",
