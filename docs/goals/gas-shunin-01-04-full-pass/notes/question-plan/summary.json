@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T649",
-  "completed": 549,
-  "completed_questions": 549,
-  "done": 426,
+  "activeTaskId": "T650",
+  "completed": 550,
+  "completed_questions": 550,
+  "done": 427,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 426,
+    "done": 427,
     "hold": 123,
-    "pending": 385
+    "pending": 384
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T14:06:52+09:00",
+  "generatedAt": "2026-06-28T14:13:25+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,291 +20,16 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 1 です。 matches choice 1 being incorrect for select_incorrect.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "熱効率は、下記の式で求められる。\n熱効率 (%) = (\n加熱された物質の質量 × 加熱された物質の温度変化\n/ 消費された熱量) × 100",
-      "ガスの燃焼は、酸化反応で発生した熱量より放散する熱量の方が小さい場合に継続する。",
-      "触媒燃焼式には、触媒マットを用いて全二次空気燃焼により無炎燃焼し、赤外線暖房機器に用いられるものがある。",
-      "赤火燃焼式は、「逆火することがまったくない」、「ガス圧の低い所でも使用できる」、「赤黄色の長炎が得られる」等の特徴がある。",
-      "濃淡燃焼バーナーでは、保炎性の低い予混合希薄火炎をブンゼン火炎にて保炎し、低NOx化と保炎性を両立している。"
-    ],
-    "correctChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "explanationText": [
-      "間違い。熱効率は、加熱された物質が受け取った有効熱量を消費された熱量で割って求める。有効熱量には通常、質量、比熱、温度変化を用いるため、式に比熱が含まれていない点が誤り。",
-      "正しい。燃焼は発熱を伴う酸化反応であり、反応で発生する熱量が周囲へ放散する熱量を上回る状態では、温度が維持されて燃焼が継続しやすい。",
-      "正しい。触媒燃焼式には、触媒マットを用い、全二次空気燃焼により低温の無炎燃焼を行い、赤外線暖房機器に用いられるものがある。",
-      "正しい。赤火燃焼式は拡散燃焼で、予混合気がバーナー内に形成されないため逆火しにくく、低いガス圧でも使用しやすく、赤黄色の長い炎が得られる特徴がある。",
-      "正しい。濃淡燃焼バーナーは、保炎性の低い希薄予混合火炎を安定させるために保炎用の火炎を組み合わせ、低NOx化と保炎性の両立を図る方式である。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 810,
-    "publicQuestionId": "b2a0a0ac00eb4af5",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:b2a0a0ac00eb4af5",
-    "questionBodyText": "ガスの性質及び燃焼に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 25,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問19",
-    "questionNo": 19,
-    "questionSetId": "chiefgasengineerlicense-B-1950",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q19",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:b2a0a0ac00eb4af5",
-    "reviewNotes": "T648: 降順ブロック planSequence=810。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=b2a0a0ac00eb4af5。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 1 です。は選択肢1のみ誤りで選択肢2,3,4,5が正しいことに対応し、correctChoiceText=[間違い, 正しい, 正しい, 正しい, 正しい] と一致。選択肢1は熱効率の式に比熱を欠く点が誤り。選択肢2は発生熱量が放散熱量を上回る燃焼継続条件、選択肢3は触媒マットによる全二次空気燃焼の無炎燃焼、選択肢4は赤火燃焼式の特徴、選択肢5は濃淡燃焼バーナーの低NOx化と保炎性として、乙種2024/2025のガス燃焼・燃焼方式precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1950（ガスの燃焼（乙種））はcategory.jsonのactive category、および乙種2024/2025同系precedentに基づく。",
-    "reviewQuestionId": "b2a0a0ac00eb4af5",
-    "reviewedAt": "2026-06-28T14:04:19+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 19,
-      "subject": "shohi",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q19",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:shohi:q19:s01",
-      "gas-shunin:otsu:2023:shohi:q19:s02",
-      "gas-shunin:otsu:2023:shohi:q19:s03",
-      "gas-shunin:otsu:2023:shohi:q19:s04",
-      "gas-shunin:otsu:2023:shohi:q19:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q19",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "explanation_common_prefix": [
-      "消費機器「ガスの燃焼（乙種）」の熱効率、燃焼継続条件、触媒燃焼式、赤火燃焼式、濃淡燃焼バーナーが本問の関連論点。",
-      "試験ポイント: 熱効率式の有効熱量、発生熱量と放散熱量、燃焼方式ごとの特徴を区別する。"
-    ],
-    "explanation_common_summary": [
-      "誤っているものは選択肢1のみ。選択肢1は熱効率式に比熱が含まれていない点が誤りで、選択肢2,3,4,5は燃焼継続条件と燃焼方式の特徴として正しい。"
-    ],
-    "explanation_choice_snippets": [
-      [
-        "熱効率の有効熱量は、質量、比熱、温度変化を用いて求める。"
-      ],
-      [
-        "発生熱量が放散熱量より大きい状態では燃焼が継続しやすい。"
-      ],
-      [
-        "触媒燃焼式には、触媒マットによる無炎燃焼を赤外線暖房機器に用いるものがある。"
-      ],
-      [
-        "赤火燃焼式は逆火しにくく、低いガス圧でも使用しやすく、赤黄色の長炎が得られる。"
-      ],
-      [
-        "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化の両立を図る。"
-      ]
-    ],
-    "explanation_choice_correctness": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "category": "ガスの燃焼（乙種）",
-    "questionSetName": "ガスの燃焼（乙種）",
-    "reviewStatus": "ok",
-    "workerTaskId": "T648",
-    "suggestedQuestions": [
-      "熱効率の式で有効熱量を求めるとき、比熱を含めず質量と温度変化だけでよいか？",
-      "発生熱量が放散熱量を上回ると燃焼は継続しやすいか？",
-      "触媒燃焼式には触媒マットを用いて無炎燃焼し赤外線暖房機器に用いられるものがあるか？",
-      "赤火燃焼式には逆火しにくく低いガス圧でも使いやすい特徴があるか？",
-      "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化を両立させる方式か？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "熱効率の式で有効熱量を求めるとき、比熱を含めず質量と温度変化だけでよいか？",
-        "answer": "よくない。",
-        "explanation": "有効熱量は質量、比熱、温度変化で表すため、比熱を欠く式は不完全である。"
-      },
-      {
-        "question": "発生熱量が放散熱量を上回ると燃焼は継続しやすいか？",
-        "answer": "継続しやすい。",
-        "explanation": "発生熱量が放散熱量より大きいと燃焼温度が維持され、反応が続く。"
-      },
-      {
-        "question": "触媒燃焼式には触媒マットを用いて無炎燃焼し赤外線暖房機器に用いられるものがあるか？",
-        "answer": "ある。",
-        "explanation": "触媒マットを用いた全二次空気燃焼の無炎燃焼は、赤外線暖房機器に用いられるものがある。"
-      },
-      {
-        "question": "赤火燃焼式には逆火しにくく低いガス圧でも使いやすい特徴があるか？",
-        "answer": "ある。",
-        "explanation": "赤火燃焼式は拡散燃焼で逆火しにくく、低圧でも使いやすく、赤黄色の長炎を得やすい。"
-      },
-      {
-        "question": "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化を両立させる方式か？",
-        "answer": "そうである。",
-        "explanation": "濃淡燃焼は希薄火炎を安定させ、低NOx化と保炎性の両立を狙う方式である。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceExplanationCommonPrefix": [
-      "消費機器「ガスの燃焼（乙種）」の熱効率、燃焼継続条件、触媒燃焼式、赤火燃焼式、濃淡燃焼バーナーが本問の関連論点。",
-      "試験ポイント: 熱効率式の有効熱量、発生熱量と放散熱量、燃焼方式ごとの特徴を区別する。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "誤っているものは選択肢1のみ。選択肢1は熱効率式に比熱が含まれていない点が誤りで、選択肢2,3,4,5は燃焼継続条件と燃焼方式の特徴として正しい。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "熱効率の有効熱量は、質量、比熱、温度変化を用いて求める。"
-      ],
-      [
-        "発生熱量が放散熱量より大きい状態では燃焼が継続しやすい。"
-      ],
-      [
-        "触媒燃焼式には、触媒マットによる無炎燃焼を赤外線暖房機器に用いるものがある。"
-      ],
-      [
-        "赤火燃焼式は逆火しにくく、低いガス圧でも使用しやすく、赤黄色の長炎が得られる。"
-      ],
-      [
-        "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化の両立を図る。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
-    ]
-  },
-  "nextPending": {
     "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
+      "correctChoiceReason": "answer_result_text=正解は 4 です。 matches choice 4 being incorrect for select_incorrect.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
       "questionIntentPresent": true,
-      "questionSetIdPresent": false,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -325,7 +50,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
@@ -333,8 +58,14 @@
       "間違い",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。マイコンメーターには、ガスメーター設置場所で250ガルを超える地震動を継続的に検知した場合にガスを遮断する感震遮断機能がある。",
+      "正しい。中低圧導管の耐震性は、配管系の地盤変位吸収能力と設計地盤変位を比較し、地盤変位吸収能力が設計地盤変位を上回る場合に耐震性を有すると評価する。",
+      "正しい。第1次緊急停止判断の供給停止判断基準値は、供給継続地区の想定被害基数が緊急時対応能力の範囲内に収まるよう、あらかじめ設定される。",
+      "間違い。供給停止した地域内で復旧作業を効率的に行うため、供給停止ブロックをさらに分割して得られるブロックは復旧ブロックである。単位ブロックとしている点が誤り。",
+      "正しい。SI値は地震による一般的な建物の揺れの大きさを評価する指標であり、ガス導管、特にねじ接合鋼管の被害との相関が高いため、供給停止判断基準値として用いられる。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -376,20 +107,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問18",
     "questionNo": 18,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-2070",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q18",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_2:31aa71a0e3b44918",
-    "reviewNotes": "",
+    "reviewNotes": "T649: 降順ブロック planSequence=809。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=31aa71a0e3b44918。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は選択肢4のみ誤りで選択肢1,2,3,5が正しいことに対応し、correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい] と一致。選択肢4は、供給停止した地域内の復旧作業を効率的に行うため、供給停止ブロックをさらに分割して得られるブロックを単位ブロックとしている点が誤りで、この説明は復旧ブロックに該当する。選択肢1は250ガル超の地震動継続検知時のマイコンメーター遮断、選択肢2は中低圧導管の地盤変位吸収能力と設計地盤変位の比較、選択肢3は第1次緊急停止判断の供給停止判断基準値、選択肢5はSI値とねじ接合鋼管被害の相関・供給停止判断基準値として妥当。questionSetId=chiefgasengineerlicense-B-2070（地震対策（乙種））はcategory.jsonのactive category、および乙種2024/2025同系問18 precedentに基づく。",
     "reviewQuestionId": "31aa71a0e3b44918",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T14:13:25+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "供給",
@@ -460,19 +191,288 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "explanation_common_prefix": [
+      "供給「地震対策（乙種）」のマイコンメーター感震遮断、中低圧導管の耐震性評価、第1次緊急停止判断、復旧ブロック、SI値が本問の関連論点。",
+      "試験ポイント: 単位ブロックと復旧ブロックの区別、第1次緊急停止判断の事前基準、SI値の用途を押さえる。"
+    ],
+    "explanation_common_summary": [
+      "誤っているものは選択肢4のみ。選択肢4は供給停止ブロックを復旧作業のために分割したブロックを単位ブロックとしている点が誤りで、これは復旧ブロックの説明である。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "マイコンメーターは250ガル超の地震動を継続的に検知した場合に遮断する機能を持つ。"
+      ],
+      [
+        "中低圧導管は、地盤変位吸収能力が設計地盤変位を上回る場合に耐震性を有すると評価する。"
+      ],
+      [
+        "第1次緊急停止判断の基準値は、想定被害基数が緊急時対応能力内に収まるよう事前設定する。"
+      ],
+      [
+        "供給停止ブロックを復旧作業のためにさらに分割したものは復旧ブロックであり、単位ブロックではない。"
+      ],
+      [
+        "SI値はガス導管被害との相関が高く、供給停止判断基準値として用いられる。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "suggestedQuestions": [
+      "マイコンメーターは250ガル超の地震動を継続検知した場合に遮断する機能があるか？",
+      "中低圧導管は地盤変位吸収能力が設計地盤変位を上回ると耐震性を有すると評価できるか？",
+      "第1次緊急停止判断の基準値は想定被害基数が緊急時対応能力内に収まるよう設定するか？",
+      "供給停止ブロックを復旧作業のためにさらに分割したものを単位ブロックというか？",
+      "SI値は地震による導管被害と相関が高く供給停止判断基準値に用いられるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "マイコンメーターは250ガル超の地震動を継続検知した場合に遮断する機能があるか？",
+        "answer": "ある。",
+        "explanation": "250ガルを超える地震動を継続的に検知した場合に遮断する感震遮断機能がある。"
+      },
+      {
+        "question": "中低圧導管は地盤変位吸収能力が設計地盤変位を上回ると耐震性を有すると評価できるか？",
+        "answer": "評価できる。",
+        "explanation": "地盤変位吸収能力が設計地盤変位を上回れば、要求される地盤変位に追従できると評価する。"
+      },
+      {
+        "question": "第1次緊急停止判断の基準値は想定被害基数が緊急時対応能力内に収まるよう設定するか？",
+        "answer": "設定する。",
+        "explanation": "供給継続地区の想定被害基数を緊急時対応能力内に抑えるための基準値として事前設定する。"
+      },
+      {
+        "question": "供給停止ブロックを復旧作業のためにさらに分割したものを単位ブロックというか？",
+        "answer": "いわない。",
+        "explanation": "この説明は復旧ブロックであり、単位ブロックではない。"
+      },
+      {
+        "question": "SI値は地震による導管被害と相関が高く供給停止判断基準値に用いられるか？",
+        "answer": "用いられる。",
+        "explanation": "SI値は揺れの大きさを示し、ガス導管被害との相関が高いため供給停止判断に使われる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「地震対策（乙種）」のマイコンメーター感震遮断、中低圧導管の耐震性評価、第1次緊急停止判断、復旧ブロック、SI値が本問の関連論点。",
+      "試験ポイント: 単位ブロックと復旧ブロックの区別、第1次緊急停止判断の事前基準、SI値の用途を押さえる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っているものは選択肢4のみ。選択肢4は供給停止ブロックを復旧作業のために分割したブロックを単位ブロックとしている点が誤りで、これは復旧ブロックの説明である。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "マイコンメーターは250ガル超の地震動を継続的に検知した場合に遮断する機能を持つ。"
+      ],
+      [
+        "中低圧導管は、地盤変位吸収能力が設計地盤変位を上回る場合に耐震性を有すると評価する。"
+      ],
+      [
+        "第1次緊急停止判断の基準値は、想定被害基数が緊急時対応能力内に収まるよう事前設定する。"
+      ],
+      [
+        "供給停止ブロックを復旧作業のためにさらに分割したものは復旧ブロックであり、単位ブロックではない。"
+      ],
+      [
+        "SI値はガス導管被害との相関が高く、供給停止判断基準値として用いられる。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "category": "地震対策（乙種）",
+    "questionSetName": "地震対策（乙種）",
+    "reviewStatus": "ok",
+    "workerTaskId": "T649"
+  },
+  "nextPending": {
+    "answerResultText": "正解は 3 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "地中探査レーダーは、地中に向けて電磁波を射して\n埋設管の周囲にできる磁束\nを測定することにより、埋設管の位置、深さを推定する方法である。",
+      "接触燃焼式ガス検知器は、ガス中の可燃性ガスを検知することができ、メタンの識別も可能である。",
+      "金属テープによる外面シールは、低圧導管の\n継手\nの腐食や損傷による貫通孔に対する漏えい修理方法である。",
+      "他工事管理における巡回とは\n、他工事事業者との協議により定めた時期に、本支管等の位置及び保安措置の実施状況等の必要な事項について、他工事事業者と相互に確認することをいう。",
+      "内面樹脂ライニング工法は、高濃空気をによってエポキシ樹脂を内壁に沿って搬送し、管内壁にライニング膜を形成して漏えい箇所を修理する工法である。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 808,
+    "publicQuestionId": "57ca9e4aa50688e0",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:57ca9e4aa50688e0",
+    "questionBodyText": "導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 23,
+    "questionIntent": "select_correct",
+    "questionLabel": "問17",
+    "questionNo": 17,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q17",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:57ca9e4aa50688e0",
+    "reviewNotes": "",
+    "reviewQuestionId": "57ca9e4aa50688e0",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "供給",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 17,
+      "subject": "kyokyu",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q17",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:kyokyu:q17:s01",
+      "gas-shunin:otsu:2023:kyokyu:q17:s02",
+      "gas-shunin:otsu:2023:kyokyu:q17:s03",
+      "gas-shunin:otsu:2023:kyokyu:q17:s04",
+      "gas-shunin:otsu:2023:kyokyu:q17:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q17",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q17:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q17:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q17:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q17:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q17:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 809,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:31aa71a0e3b44918",
-  "nextPendingReviewId": "2023:question_2023_2:31aa71a0e3b44918",
-  "nextPendingTaskId": "T649",
-  "otsuCompleted": 137,
-  "otsuDone": 116,
+  "nextPendingPlanSequence": 808,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:57ca9e4aa50688e0",
+  "nextPendingReviewId": "2023:question_2023_2:57ca9e4aa50688e0",
+  "nextPendingTaskId": "T650",
+  "otsuCompleted": 138,
+  "otsuDone": 117,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 385,
-  "pending": 385,
-  "pending_questions": 385,
+  "otsuPending": 384,
+  "pending": 384,
+  "pending_questions": 384,
   "total": 934,
   "total_questions": 934
 }
