@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T648",
-  "completed": 548,
-  "completed_questions": 548,
-  "done": 425,
+  "activeTaskId": "T649",
+  "completed": 549,
+  "completed_questions": 549,
+  "done": 426,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 425,
+    "done": 426,
     "hold": 123,
-    "pending": 386
+    "pending": 385
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T13:58:00+09:00",
+  "generatedAt": "2026-06-28T14:06:52+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -19,17 +19,17 @@
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
-  "nextPending": {
+  "lastCompletedQuestion": {
     "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
+      "correctChoiceReason": "answer_result_text=正解は 1 です。 matches choice 1 being incorrect for select_incorrect.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
       "questionIntentPresent": true,
-      "questionSetIdPresent": false,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -50,7 +50,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "間違い",
       "正しい",
@@ -58,8 +58,14 @@
       "正しい",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。熱効率は、加熱された物質が受け取った有効熱量を消費された熱量で割って求める。有効熱量には通常、質量、比熱、温度変化を用いるため、式に比熱が含まれていない点が誤り。",
+      "正しい。燃焼は発熱を伴う酸化反応であり、反応で発生する熱量が周囲へ放散する熱量を上回る状態では、温度が維持されて燃焼が継続しやすい。",
+      "正しい。触媒燃焼式には、触媒マットを用い、全二次空気燃焼により低温の無炎燃焼を行い、赤外線暖房機器に用いられるものがある。",
+      "正しい。赤火燃焼式は拡散燃焼で、予混合気がバーナー内に形成されないため逆火しにくく、低いガス圧でも使用しやすく、赤黄色の長い炎が得られる特徴がある。",
+      "正しい。濃淡燃焼バーナーは、保炎性の低い希薄予混合火炎を安定させるために保炎用の火炎を組み合わせ、低NOx化と保炎性の両立を図る方式である。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,20 +107,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問19",
     "questionNo": 19,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1950",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q19",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_2:b2a0a0ac00eb4af5",
-    "reviewNotes": "",
+    "reviewNotes": "T648: 降順ブロック planSequence=810。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=b2a0a0ac00eb4af5。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 1 です。は選択肢1のみ誤りで選択肢2,3,4,5が正しいことに対応し、correctChoiceText=[間違い, 正しい, 正しい, 正しい, 正しい] と一致。選択肢1は熱効率の式に比熱を欠く点が誤り。選択肢2は発生熱量が放散熱量を上回る燃焼継続条件、選択肢3は触媒マットによる全二次空気燃焼の無炎燃焼、選択肢4は赤火燃焼式の特徴、選択肢5は濃淡燃焼バーナーの低NOx化と保炎性として、乙種2024/2025のガス燃焼・燃焼方式precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1950（ガスの燃焼（乙種））はcategory.jsonのactive category、および乙種2024/2025同系precedentに基づく。",
     "reviewQuestionId": "b2a0a0ac00eb4af5",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T14:04:19+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "消費機器",
@@ -185,39 +191,129 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "explanation_common_prefix": [
+      "消費機器「ガスの燃焼（乙種）」の熱効率、燃焼継続条件、触媒燃焼式、赤火燃焼式、濃淡燃焼バーナーが本問の関連論点。",
+      "試験ポイント: 熱効率式の有効熱量、発生熱量と放散熱量、燃焼方式ごとの特徴を区別する。"
+    ],
+    "explanation_common_summary": [
+      "誤っているものは選択肢1のみ。選択肢1は熱効率式に比熱が含まれていない点が誤りで、選択肢2,3,4,5は燃焼継続条件と燃焼方式の特徴として正しい。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "熱効率の有効熱量は、質量、比熱、温度変化を用いて求める。"
+      ],
+      [
+        "発生熱量が放散熱量より大きい状態では燃焼が継続しやすい。"
+      ],
+      [
+        "触媒燃焼式には、触媒マットによる無炎燃焼を赤外線暖房機器に用いるものがある。"
+      ],
+      [
+        "赤火燃焼式は逆火しにくく、低いガス圧でも使用しやすく、赤黄色の長炎が得られる。"
+      ],
+      [
+        "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化の両立を図る。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "category": "ガスの燃焼（乙種）",
+    "questionSetName": "ガスの燃焼（乙種）",
+    "reviewStatus": "ok",
+    "workerTaskId": "T648",
+    "suggestedQuestions": [
+      "熱効率の式で有効熱量を求めるとき、比熱を含めず質量と温度変化だけでよいか？",
+      "発生熱量が放散熱量を上回ると燃焼は継続しやすいか？",
+      "触媒燃焼式には触媒マットを用いて無炎燃焼し赤外線暖房機器に用いられるものがあるか？",
+      "赤火燃焼式には逆火しにくく低いガス圧でも使いやすい特徴があるか？",
+      "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化を両立させる方式か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "熱効率の式で有効熱量を求めるとき、比熱を含めず質量と温度変化だけでよいか？",
+        "answer": "よくない。",
+        "explanation": "有効熱量は質量、比熱、温度変化で表すため、比熱を欠く式は不完全である。"
+      },
+      {
+        "question": "発生熱量が放散熱量を上回ると燃焼は継続しやすいか？",
+        "answer": "継続しやすい。",
+        "explanation": "発生熱量が放散熱量より大きいと燃焼温度が維持され、反応が続く。"
+      },
+      {
+        "question": "触媒燃焼式には触媒マットを用いて無炎燃焼し赤外線暖房機器に用いられるものがあるか？",
+        "answer": "ある。",
+        "explanation": "触媒マットを用いた全二次空気燃焼の無炎燃焼は、赤外線暖房機器に用いられるものがある。"
+      },
+      {
+        "question": "赤火燃焼式には逆火しにくく低いガス圧でも使いやすい特徴があるか？",
+        "answer": "ある。",
+        "explanation": "赤火燃焼式は拡散燃焼で逆火しにくく、低圧でも使いやすく、赤黄色の長炎を得やすい。"
+      },
+      {
+        "question": "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化を両立させる方式か？",
+        "answer": "そうである。",
+        "explanation": "濃淡燃焼は希薄火炎を安定させ、低NOx化と保炎性の両立を狙う方式である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "消費機器「ガスの燃焼（乙種）」の熱効率、燃焼継続条件、触媒燃焼式、赤火燃焼式、濃淡燃焼バーナーが本問の関連論点。",
+      "試験ポイント: 熱効率式の有効熱量、発生熱量と放散熱量、燃焼方式ごとの特徴を区別する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っているものは選択肢1のみ。選択肢1は熱効率式に比熱が含まれていない点が誤りで、選択肢2,3,4,5は燃焼継続条件と燃焼方式の特徴として正しい。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "熱効率の有効熱量は、質量、比熱、温度変化を用いて求める。"
+      ],
+      [
+        "発生熱量が放散熱量より大きい状態では燃焼が継続しやすい。"
+      ],
+      [
+        "触媒燃焼式には、触媒マットによる無炎燃焼を赤外線暖房機器に用いるものがある。"
+      ],
+      [
+        "赤火燃焼式は逆火しにくく、低いガス圧でも使用しやすく、赤黄色の長炎が得られる。"
+      ],
+      [
+        "濃淡燃焼バーナーは希薄火炎の保炎と低NOx化の両立を図る。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
     ]
   },
-  "nextPendingPlanSequence": 810,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:b2a0a0ac00eb4af5",
-  "otsuCompleted": 136,
-  "otsuDone": 115,
-  "otsuHeld": 21,
-  "otsuHold": 21,
-  "otsuPending": 386,
-  "pending": 386,
-  "pending_questions": 386,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
+  "nextPending": {
     "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 4 です。 matches choice 4 being incorrect for select_incorrect.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
       "questionIntentPresent": true,
-      "questionSetIdPresent": true,
+      "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ブンゼンバーナーの燃焼は、良好な状態からガス量を増加させると、不完全燃焼に至る場合がある。",
-      "フラッシュバックは、バーナー部分が高温になり、そこを通るガスの温度が上昇すると発生する場合がある。",
-      "リフティングは、混合気体の燃焼速度に比べ、噴出速度が速くなると発生する場合がある。",
-      "ガスグループの分類における13Aと12Aは、熱量は異なるが、ウォッベ指数(WI)と燃焼速度指数(MCP)の\n領域は同じ\nである。",
-      "ガス機器に与えられるインプットは、ガス圧力が一定ならばWIに比例する。"
+      "マイコンメーターには、ガスメーターの設置場所において250ガルを超える地震動を継続的に検知した場合に、遮断する機能がある。",
+      "中低圧導管では、配管系の地盤変位吸収能力が設計地盤変位を上回ると、耐震性を有すると評価する。",
+      "第1次緊急停止判断の供給停止判断基準値は、供給継続地区の想定被害基数が緊急時対応能力の範囲内に収まるよう、あらかじめ設定する。",
+      "単位ブロックとは、供給停止した地域内のガスの復旧作業を効率的に実施するため\n、供給停止ブロックを更に分割して得られるブロックをいう。",
+      "SI値は、地震によるねじ接合鋼管の被害と相関が高く、供給停止判断基準値として用いられる。"
     ],
     "correctChoiceText": [
       "正しい",
@@ -229,7 +325,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
+    "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
@@ -237,14 +333,8 @@
       "間違い",
       "正しい"
     ],
-    "explanationText": [
-      "正しい。ブンゼンバーナーで良好燃焼している状態からガス量を増加させると、空気量が相対的に不足し、炎が不安定になって不完全燃焼に至る場合がある。",
-      "正しい。フラッシュバックは、混合ガスの燃焼速度が噴出速度を上回ると炎がバーナー内部へ戻る現象であり、バーナー部が高温になって通過する混合ガスの温度が上がると発生しやすくなる。",
-      "正しい。リフティングは、混合気体の燃焼速度に比べて噴出速度が速くなり、炎が炎口から浮き上がる現象である。",
-      "間違い。13Aと12Aはガスグループの分類上、熱量だけでなくウォッベ指数（WI）などの範囲も異なる。WIと燃焼速度指数（MCP）の領域が同じであるとしている点が誤り。",
-      "正しい。ガス機器に与えられるインプットは、ノズル条件とガス圧力が一定であれば、ウォッベ指数（WI）に比例する。"
-    ],
-    "explanationTextCount": 5,
+    "explanationText": [],
+    "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -263,10 +353,10 @@
     ],
     "originalQuestionId": "",
     "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
     },
     "perQuestionSteps": [
       "01_confirm_questionType_against_source_shape",
@@ -276,44 +366,44 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 811,
-    "publicQuestionId": "9cab22f519fd56d8",
+    "planSequence": 809,
+    "publicQuestionId": "31aa71a0e3b44918",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:9cab22f519fd56d8",
-    "questionBodyText": "燃焼時の諸現象及びガスグループに関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 1,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:31aa71a0e3b44918",
+    "questionBodyText": "地震対策に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 24,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問20",
-    "questionNo": 20,
-    "questionSetId": "chiefgasengineerlicense-B-1950",
+    "questionLabel": "問18",
+    "questionNo": 18,
+    "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q20",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_3:9cab22f519fd56d8",
-    "reviewNotes": "T647: 降順ブロック planSequence=811。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=9cab22f519fd56d8。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は選択肢4のみ誤りで選択肢1,2,3,5が正しいことに対応し、correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい] と一致。選択肢4は13Aと12AのWI・MCP領域が同じとしている点が誤りで、13Aと12Aはガスグループとして異なる。選択肢1はブンゼンバーナーのガス量増加時の不完全燃焼、選択肢2は高温化によるフラッシュバック、選択肢3は噴出速度過大によるリフティング、選択肢5はガス圧力一定時のインプットとWIの比例関係として、乙種2024/2025および甲種2024/2025のガス燃焼precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1950（ガスの燃焼（乙種））はcategory.jsonのactive category、および乙種2024/2025同系precedentに基づく。",
-    "reviewQuestionId": "9cab22f519fd56d8",
-    "reviewedAt": "2026-06-28T13:58:00+09:00",
-    "reviewer": "Codex",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q18",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:31aa71a0e3b44918",
+    "reviewNotes": "",
+    "reviewQuestionId": "31aa71a0e3b44918",
+    "reviewedAt": "",
+    "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
+    "sourceCategory": "供給",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
-    "sourceFileIndex": 21,
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 20,
-      "subject": "shohi",
+      "questionNo": 18,
+      "subject": "kyokyu",
       "year": 2023
     },
     "sourceNaturalQuestionKey": null,
@@ -321,45 +411,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q20",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q18",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:shohi:q20:s01",
-      "gas-shunin:otsu:2023:shohi:q20:s02",
-      "gas-shunin:otsu:2023:shohi:q20:s03",
-      "gas-shunin:otsu:2023:shohi:q20:s04",
-      "gas-shunin:otsu:2023:shohi:q20:s05"
+      "gas-shunin:otsu:2023:kyokyu:q18:s01",
+      "gas-shunin:otsu:2023:kyokyu:q18:s02",
+      "gas-shunin:otsu:2023:kyokyu:q18:s03",
+      "gas-shunin:otsu:2023:kyokyu:q18:s04",
+      "gas-shunin:otsu:2023:kyokyu:q18:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q20",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q18",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q20:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q20:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q20:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q20:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q20:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s05",
         "statementNo": 5
       }
     ],
@@ -370,109 +460,19 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "suggestedQuestions": [
-      "ブンゼンバーナーでガス量を増加させると不完全燃焼に至る場合があるか？",
-      "バーナー部の高温化はフラッシュバックの原因になり得るか？",
-      "リフティングは噴出速度が燃焼速度より速くなると起こるか？",
-      "13Aと12AはWIとMCPの分類領域が同じか？",
-      "ガス圧力一定ならガス機器のインプットはWIに比例するか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ブンゼンバーナーでガス量を増加させると不完全燃焼に至る場合があるか？",
-        "answer": "ある。",
-        "explanation": "ガス量が増えると空気不足になり、不完全燃焼に至る場合がある。"
-      },
-      {
-        "question": "バーナー部の高温化はフラッシュバックの原因になり得るか？",
-        "answer": "なり得る。",
-        "explanation": "混合ガス温度が上昇すると燃焼速度が速くなり、炎が戻りやすくなる。"
-      },
-      {
-        "question": "リフティングは噴出速度が燃焼速度より速くなると起こるか？",
-        "answer": "起こる。",
-        "explanation": "噴出速度が燃焼速度を上回ると、炎が炎口から浮き上がる。"
-      },
-      {
-        "question": "13Aと12AはWIとMCPの分類領域が同じか？",
-        "answer": "同じではない。",
-        "explanation": "13Aと12Aはガスグループとして異なり、WIなどの分類範囲も異なる。"
-      },
-      {
-        "question": "ガス圧力一定ならガス機器のインプットはWIに比例するか？",
-        "answer": "比例する。",
-        "explanation": "ノズル条件とガス圧力が一定なら、機器への熱入力はWIに比例する。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceExplanationCommonPrefix": [
-      "消費機器「ガスの燃焼（乙種）」のブンゼンバーナー、不完全燃焼、フラッシュバック、リフティング、ガスグループ、ウォッベ指数（WI）が本問の関連論点。",
-      "試験ポイント: 燃焼速度と噴出速度の大小関係、ガスグループ13A/12Aの分類、WIとインプットの関係を区別する。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "誤っているものは選択肢4のみ。13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。選択肢1、2、3、5はブンゼンバーナーの燃焼現象とWIに関する記述として正しい。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "ブンゼンバーナーでガス量を増加させると、空気不足により不完全燃焼に至る場合がある。"
-      ],
-      [
-        "バーナー部が高温となり混合ガス温度が上がると、フラッシュバックが発生しやすくなる。"
-      ],
-      [
-        "リフティングは、噴出速度が燃焼速度より速くなると炎が浮き上がる現象である。"
-      ],
-      [
-        "13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。"
-      ],
-      [
-        "ガス圧力が一定なら、ガス機器へのインプットはWIに比例する。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "explanation_common_prefix": [
-      "消費機器「ガスの燃焼（乙種）」のブンゼンバーナー、不完全燃焼、フラッシュバック、リフティング、ガスグループ、ウォッベ指数（WI）が本問の関連論点。",
-      "試験ポイント: 燃焼速度と噴出速度の大小関係、ガスグループ13A/12Aの分類、WIとインプットの関係を区別する。"
-    ],
-    "explanation_common_summary": [
-      "誤っているものは選択肢4のみ。13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。選択肢1、2、3、5はブンゼンバーナーの燃焼現象とWIに関する記述として正しい。"
-    ],
-    "explanation_choice_snippets": [
-      [
-        "ブンゼンバーナーでガス量を増加させると、空気不足により不完全燃焼に至る場合がある。"
-      ],
-      [
-        "バーナー部が高温となり混合ガス温度が上がると、フラッシュバックが発生しやすくなる。"
-      ],
-      [
-        "リフティングは、噴出速度が燃焼速度より速くなると炎が浮き上がる現象である。"
-      ],
-      [
-        "13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。"
-      ],
-      [
-        "ガス圧力が一定なら、ガス機器へのインプットはWIに比例する。"
-      ]
-    ],
-    "explanation_choice_correctness": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "category": "ガスの燃焼（乙種）",
-    "questionSetName": "ガスの燃焼（乙種）",
-    "reviewStatus": "ok",
-    "workerTaskId": "T647"
+    ]
   },
-  "nextPendingTaskId": "T648",
-  "nextPendingReviewId": "2023:question_2023_2:b2a0a0ac00eb4af5"
+  "nextPendingPlanSequence": 809,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:31aa71a0e3b44918",
+  "nextPendingReviewId": "2023:question_2023_2:31aa71a0e3b44918",
+  "nextPendingTaskId": "T649",
+  "otsuCompleted": 137,
+  "otsuDone": 116,
+  "otsuHeld": 21,
+  "otsuHold": 21,
+  "otsuPending": 385,
+  "pending": 385,
+  "pending_questions": 385,
+  "total": 934,
+  "total_questions": 934
 }
