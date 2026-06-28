@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T677",
-  "completed": 577,
-  "completedQuestions": 577,
-  "completed_questions": 577,
-  "done": 454,
+  "activeTaskId": "T678",
+  "completed": 578,
+  "completedQuestions": 578,
+  "completed_questions": 578,
+  "done": 455,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 454,
+    "done": 455,
     "hold": 123,
-    "pending": 357
+    "pending": 356
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T17:28:00+09:00",
+  "generatedAt": "2026-06-28T17:23:53+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_and_rate_constant_temperature_dependence",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_constant_volume_heat_calculation",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,38 +35,43 @@
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
     },
+    "category": "熱力学（乙種）",
     "choiceCount": 5,
     "choiceTextList": [
-      "一定温度条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。",
-      "物質から水素を取りさる反応は、酸化反応である。",
-      "化学反応は、分子・原子の衝突や光の吸収によって起こる。",
-      "触媒は、平衡定数に影響を与えない。",
-      "速度定数は、\n反応温度によらず一定である\n。"
+      "18",
+      "28",
+      "35",
+      "70",
+      "105"
     ],
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-28T17:22:24+09:00",
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-28T17:22:24+09:00",
     "explanationText": [
-      "正しい。一定の温度条件で化学反応に伴って発生または吸収される熱は反応熱と呼ばれる。発熱反応では熱を発生し、吸熱反応では熱を吸収する。",
-      "正しい。物質が水素を失う反応は、古典的な酸化・還元の定義では酸化反応に当たる。逆に水素を得る反応は還元反応である。",
-      "正しい。化学反応は、反応物の分子や原子が有効に衝突すること、または光を吸収して反応に必要なエネルギーを得ることなどによって進行する。",
-      "正しい。触媒は反応経路を変えて反応速度を変化させるが、平衡定数そのものは反応温度などで決まり、触媒によって変化しない。",
-      "間違い。速度定数は反応温度に依存する。一般に温度が高くなると速度定数は大きくなり、アレニウスの式でも温度依存性が表されるため、「反応温度によらず一定」は誤りである。"
+      "不正解。容積一定で空気を加熱する場合、必要熱量は Q=mCvΔT で求める。m=2kg、Cv=0.7kJ/(kg K)、ΔT=50K なので Q=70kJ となり、18kJではない。",
+      "不正解。温度上昇は350-300=50Kであり、Q=2×0.7×50=70kJである。28kJはこの計算結果より小さい。",
+      "不正解。35kJは、質量2kgを考慮しない場合に近い値である。本問では質量2kgなので、0.7×50にさらに2を掛けて70kJとなる。",
+      "正解。容積一定の加熱では定積比熱容量を用い、Q=mCvΔT=2×0.7×(350-300)=70kJとなる。したがって最も近い値は70kJである。",
+      "不正解。105kJは計算値70kJより大きい。定積比熱容量0.7kJ/(kg K)、質量2kg、温度差50Kから必要熱量は70kJである。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -75,6 +80,7 @@
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
+    "lawGroundedExplanationNotNeeded": true,
     "listGroupId": "2023",
     "mustPreserve": [
       "00_source_question_body_and_choices",
@@ -100,29 +106,36 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 782,
-    "publicQuestionId": "196aceddad6dbb43",
+    "planSequence": 781,
+    "publicQuestionId": "1e61aec7c290f5fe",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
-    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 22,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問6",
-    "questionNo": 6,
-    "questionSetId": "chiefgasengineerlicense-B-2110",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
+    "questionBodyText": "容積一定の断熱容器に入れた温度300K、質量2kgの空気を加熱して350Kにするために必要な熱量(kJ)として、最も近い値はどれか。ただし、空気の定積比熱容量Cv = 0.7 kJ/(kg·K)とする。",
+    "questionIndexInFile": 21,
+    "questionIntent": "select_correct",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-28T17:22:24+09:00",
+    "questionLabel": "問5",
+    "questionNo": 5,
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-28T17:22:24+09:00",
+    "questionType": "group_choice",
+    "questionTypeReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T17:22:24+09:00",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:196aceddad6dbb43",
-    "reviewNotes": "T676: 降順ブロック planSequence=782。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=196aceddad6dbb43。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 5 です。と correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] が一致。選択肢1は反応熱、選択肢2は脱水素による酸化、選択肢3は分子・原子衝突や光吸収による反応、選択肢4は触媒が平衡定数に影響しない点として正しい。選択肢5は速度定数を反応温度によらず一定としているが、速度定数は温度依存しアレニウス式で表されるため誤り。04は category.json の active category と2024/2025乙種の化学反応先例に合わせ、chiefgasengineerlicense-B-2110（化学反応・平衡・反応熱・速度論（乙種））を選択。",
-    "reviewQuestionId": "196aceddad6dbb43",
-    "reviewedAt": "2026-06-28T17:28:00+09:00",
+    "reviewId": "2023:question_2023_1:1e61aec7c290f5fe",
+    "reviewNotes": "T677: 降順ブロック planSequence=781。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=1e61aec7c290f5fe。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 4 です。と correctChoiceText=[不正解, 不正解, 不正解, 正解, 不正解] が一致。容積一定の加熱では Q=mCvΔT を用い、m=2kg、Cv=0.7kJ/(kg K)、ΔT=350-300=50K より Q=2×0.7×50=70kJ。選択肢4を正解と確認。04は category.json の active category と2025乙種の同種定積比熱計算先例に合わせ、chiefgasengineerlicense-B-2100（熱力学（乙種））を選択。",
+    "reviewQuestionId": "1e61aec7c290f5fe",
+    "reviewedAt": "2026-06-28T17:22:24+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -130,13 +143,45 @@
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
+    "sourceExplanationChoiceCorrectness": [
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "18kJはQ=mCvΔT=70kJと合わない。"
+      ],
+      [
+        "28kJは質量・温度差・定積比熱をすべて掛けた値ではない。"
+      ],
+      [
+        "35kJは1kg分の熱量であり、2kgの条件を反映していない。"
+      ],
+      [
+        "2×0.7×50=70kJで、選択肢4が最も近い。"
+      ],
+      [
+        "105kJは計算値70kJを上回る。"
+      ]
+    ],
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の定積加熱、定積比熱容量、内部エネルギー変化が本問の関連論点。",
+      "容積一定の加熱では、仕事を伴わないため加えた熱量は主に内部エネルギー増加に対応し、Q=mCvΔT で求める。",
+      "温度差はKでも℃差でも同じ大きさになり、本問では350K-300K=50Kである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "容積一定の加熱なので Q=mCvΔT。2kg×0.7kJ/(kg K)×50K=70kJ。"
+    ],
     "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
     "sourceFileIndex": 19,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 6,
+      "questionNo": 5,
       "subject": "kiso",
       "year": 2023
     },
@@ -145,45 +190,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q06",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q06:s01",
-      "gas-shunin:otsu:2023:kiso:q06:s02",
-      "gas-shunin:otsu:2023:kiso:q06:s03",
-      "gas-shunin:otsu:2023:kiso:q06:s04",
-      "gas-shunin:otsu:2023:kiso:q06:s05"
+      "gas-shunin:otsu:2023:kiso:q05:s01",
+      "gas-shunin:otsu:2023:kiso:q05:s02",
+      "gas-shunin:otsu:2023:kiso:q05:s03",
+      "gas-shunin:otsu:2023:kiso:q05:s04",
+      "gas-shunin:otsu:2023:kiso:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s05",
         "statementNo": 5
       }
     ],
@@ -195,90 +240,45 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "category": "化学反応・平衡・反応熱・速度論（乙種）",
-    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
-    "questionTypeReviewStatus": "ok",
-    "questionIntentReviewStatus": "ok",
-    "correctChoiceReviewStatus": "ok",
-    "explanationReviewStatus": "ok",
-    "questionSetReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T17:28:00+09:00",
-    "questionIntentReviewedAt": "2026-06-28T17:28:00+09:00",
-    "correctChoiceReviewedAt": "2026-06-28T17:28:00+09:00",
-    "explanationReviewedAt": "2026-06-28T17:28:00+09:00",
-    "questionSetReviewedAt": "2026-06-28T17:28:00+09:00",
-    "workerTaskId": "T676",
-    "sourceExplanationCommonPrefix": [
-      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の反応熱、酸化還元、反応機構、触媒、速度定数が本問の関連論点。",
-      "触媒は反応速度を変えるが、平衡定数は変えない。",
-      "速度定数は温度に依存し、アレニウスの式によりその温度依存性を表すことができる。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "反応熱、脱水素による酸化、分子・原子衝突や光吸収による反応、触媒が平衡定数を変えない点はいずれも正しい。速度定数は温度に依存するため、選択肢5が誤り。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "反応熱は化学反応に伴い発生または吸収される熱である。"
-      ],
-      [
-        "物質から水素を取り去る反応は酸化反応である。"
-      ],
-      [
-        "分子・原子の有効衝突や光吸収によって化学反応が起こる。"
-      ],
-      [
-        "触媒は反応速度を変えるが、平衡定数には影響しない。"
-      ],
-      [
-        "速度定数は温度に依存し、反応温度によらず一定ではない。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "suggestedQuestions": [
-      "反応熱とは何か？",
-      "水素を失う反応は酸化か還元か？",
-      "化学反応はどのように起こるか？",
-      "触媒は平衡定数を変えるか？",
-      "速度定数は温度に依存するか？"
-    ],
     "suggestedQuestionDetails": [
       {
-        "question": "反応熱とは何か？",
-        "answer": "化学反応に伴って発生または吸収される熱である。",
-        "explanation": "発熱反応では熱が発生し、吸熱反応では熱が吸収される。"
+        "answer": "定積比熱容量Cvを用いる。",
+        "explanation": "容積一定なので定圧比熱ではなく、問題文で与えられたCvを使う。",
+        "question": "容積一定の加熱で用いる比熱は？"
       },
       {
-        "question": "水素を失う反応は酸化か還元か？",
-        "answer": "酸化反応である。",
-        "explanation": "水素を取り去ることは酸化、逆に水素を付加することは還元として扱われる。"
+        "answer": "50K。",
+        "explanation": "350K-300K=50Kである。",
+        "question": "本問の温度差はいくらか？"
       },
       {
-        "question": "化学反応はどのように起こるか？",
-        "answer": "分子・原子の有効衝突や光の吸収などで起こる。",
-        "explanation": "反応には結合の組み替えに必要なエネルギーや適切な衝突が関係する。"
+        "answer": "Q=mCvΔT。",
+        "explanation": "容積一定での加熱では、質量、定積比熱容量、温度差を掛ける。",
+        "question": "必要熱量の計算式は？"
       },
       {
-        "question": "触媒は平衡定数を変えるか？",
-        "answer": "変えない。",
-        "explanation": "触媒は反応速度を変えるが、平衡状態や平衡定数そのものを変えるものではない。"
+        "answer": "70kJ。",
+        "explanation": "2×0.7×50=70kJ。",
+        "question": "本問の必要熱量はいくらか？"
       },
       {
-        "question": "速度定数は温度に依存するか？",
-        "answer": "依存する。",
-        "explanation": "速度定数の温度依存性はアレニウスの式で表され、温度によらず一定ではない。"
+        "answer": "質量2kgを反映していないため。",
+        "explanation": "0.7×50=35kJは1kg分であり、2kgなら70kJになる。",
+        "question": "35kJが不正解になる理由は？"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "suggestedQuestions": [
+      "容積一定の加熱で用いる比熱は？",
+      "本問の温度差はいくらか？",
+      "必要熱量の計算式は？",
+      "本問の必要熱量はいくらか？",
+      "35kJが不正解になる理由は？"
+    ],
+    "workerTaskId": "T677"
   },
-  "lastCompletedReviewQuestionId": "196aceddad6dbb43",
-  "lastCompletedTaskId": "T676",
-  "nextActiveTaskId": "T677",
+  "lastCompletedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
+  "lastCompletedTaskId": "T677",
+  "nextActiveTaskId": "T678",
   "nextPending": {
     "answerResultText": "正解は 4 です。",
     "autoAudit": {
@@ -294,11 +294,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "18",
-      "28",
-      "35",
+      "10",
+      "30",
+      "50",
       "70",
-      "105"
+      "90"
     ],
     "correctChoiceText": [
       "不正解",
@@ -345,28 +345,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 781,
-    "publicQuestionId": "1e61aec7c290f5fe",
+    "planSequence": 780,
+    "publicQuestionId": "6ab574a1b1cc1bbc",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
-    "questionBodyText": "容積一定の断熱容器に入れた温度300K、質量2kgの空気を加熱して350Kにするために必要な熱量(kJ)として、最も近い値はどれか。ただし、空気の定積比熱容量Cv = 0.7 kJ/(kg·K)とする。",
-    "questionIndexInFile": 21,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
+    "questionBodyText": "カルノーサイクルにおいて、高温熱源から700Jの熱を受け取り、低温熱源に200Jの熱を放出して仕事を取り出した。このときの熱効率(%)として、最も近い値はどれか。",
+    "questionIndexInFile": 20,
     "questionIntent": "",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "questionLabel": "問4",
+    "questionNo": 4,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:1e61aec7c290f5fe",
+    "reviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
     "reviewNotes": "",
-    "reviewQuestionId": "1e61aec7c290f5fe",
+    "reviewQuestionId": "6ab574a1b1cc1bbc",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -381,7 +381,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 4,
       "subject": "kiso",
       "year": 2023
     },
@@ -390,45 +390,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q05",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q04",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q05:s01",
-      "gas-shunin:otsu:2023:kiso:q05:s02",
-      "gas-shunin:otsu:2023:kiso:q05:s03",
-      "gas-shunin:otsu:2023:kiso:q05:s04",
-      "gas-shunin:otsu:2023:kiso:q05:s05"
+      "gas-shunin:otsu:2023:kiso:q04:s01",
+      "gas-shunin:otsu:2023:kiso:q04:s02",
+      "gas-shunin:otsu:2023:kiso:q04:s03",
+      "gas-shunin:otsu:2023:kiso:q04:s04",
+      "gas-shunin:otsu:2023:kiso:q04:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s05",
         "statementNo": 5
       }
     ],
@@ -441,9 +441,9 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 781,
-  "nextPendingPublicQuestionId": "1e61aec7c290f5fe",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
+  "nextPendingPlanSequence": 780,
+  "nextPendingPublicQuestionId": "6ab574a1b1cc1bbc",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
   "nextPendingQuestion": {
     "answerResultText": "正解は 4 です。",
     "autoAudit": {
@@ -459,11 +459,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "18",
-      "28",
-      "35",
+      "10",
+      "30",
+      "50",
       "70",
-      "105"
+      "90"
     ],
     "correctChoiceText": [
       "不正解",
@@ -510,28 +510,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 781,
-    "publicQuestionId": "1e61aec7c290f5fe",
+    "planSequence": 780,
+    "publicQuestionId": "6ab574a1b1cc1bbc",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
-    "questionBodyText": "容積一定の断熱容器に入れた温度300K、質量2kgの空気を加熱して350Kにするために必要な熱量(kJ)として、最も近い値はどれか。ただし、空気の定積比熱容量Cv = 0.7 kJ/(kg·K)とする。",
-    "questionIndexInFile": 21,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
+    "questionBodyText": "カルノーサイクルにおいて、高温熱源から700Jの熱を受け取り、低温熱源に200Jの熱を放出して仕事を取り出した。このときの熱効率(%)として、最も近い値はどれか。",
+    "questionIndexInFile": 20,
     "questionIntent": "",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "questionLabel": "問4",
+    "questionNo": 4,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:1e61aec7c290f5fe",
+    "reviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
     "reviewNotes": "",
-    "reviewQuestionId": "1e61aec7c290f5fe",
+    "reviewQuestionId": "6ab574a1b1cc1bbc",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -546,7 +546,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 4,
       "subject": "kiso",
       "year": 2023
     },
@@ -555,45 +555,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q05",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q04",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q05:s01",
-      "gas-shunin:otsu:2023:kiso:q05:s02",
-      "gas-shunin:otsu:2023:kiso:q05:s03",
-      "gas-shunin:otsu:2023:kiso:q05:s04",
-      "gas-shunin:otsu:2023:kiso:q05:s05"
+      "gas-shunin:otsu:2023:kiso:q04:s01",
+      "gas-shunin:otsu:2023:kiso:q04:s02",
+      "gas-shunin:otsu:2023:kiso:q04:s03",
+      "gas-shunin:otsu:2023:kiso:q04:s04",
+      "gas-shunin:otsu:2023:kiso:q04:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s05",
         "statementNo": 5
       }
     ],
@@ -606,16 +606,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:1e61aec7c290f5fe",
-  "nextPendingTaskId": "T677",
-  "otsuCompleted": 165,
-  "otsuDone": 144,
+  "nextPendingReviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
+  "nextPendingTaskId": "T678",
+  "otsuCompleted": 166,
+  "otsuDone": 145,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 357,
-  "pending": 357,
-  "pendingQuestions": 357,
-  "pending_questions": 357,
+  "otsuPending": 356,
+  "pending": 356,
+  "pendingQuestions": 356,
+  "pending_questions": 356,
   "total": 934,
   "total_questions": 934
 }

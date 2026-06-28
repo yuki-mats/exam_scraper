@@ -755,18 +755,72 @@
       "105"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。容積一定で空気を加熱する場合、必要熱量は Q=mCvΔT で求める。m=2kg、Cv=0.7kJ/(kg K)、ΔT=50K なので Q=70kJ となり、18kJではない。",
+      "不正解。温度上昇は350-300=50Kであり、Q=2×0.7×50=70kJである。28kJはこの計算結果より小さい。",
+      "不正解。35kJは、質量2kgを考慮しない場合に近い値である。本問では質量2kgなので、0.7×50にさらに2を掛けて70kJとなる。",
+      "正解。容積一定の加熱では定積比熱容量を用い、Q=mCvΔT=2×0.7×(350-300)=70kJとなる。したがって最も近い値は70kJである。",
+      "不正解。105kJは計算値70kJより大きい。定積比熱容量0.7kJ/(kg K)、質量2kg、温度差50Kから必要熱量は70kJである。"
+    ],
+    "suggestedQuestions": [
+      "容積一定の加熱で用いる比熱は？",
+      "本問の温度差はいくらか？",
+      "必要熱量の計算式は？",
+      "本問の必要熱量はいくらか？",
+      "35kJが不正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "容積一定の加熱で用いる比熱は？",
+        "answer": "定積比熱容量Cvを用いる。",
+        "explanation": "容積一定なので定圧比熱ではなく、問題文で与えられたCvを使う。"
+      },
+      {
+        "question": "本問の温度差はいくらか？",
+        "answer": "50K。",
+        "explanation": "350K-300K=50Kである。"
+      },
+      {
+        "question": "必要熱量の計算式は？",
+        "answer": "Q=mCvΔT。",
+        "explanation": "容積一定での加熱では、質量、定積比熱容量、温度差を掛ける。"
+      },
+      {
+        "question": "本問の必要熱量はいくらか？",
+        "answer": "70kJ。",
+        "explanation": "2×0.7×50=70kJ。"
+      },
+      {
+        "question": "35kJが不正解になる理由は？",
+        "answer": "質量2kgを反映していないため。",
+        "explanation": "0.7×50=35kJは1kg分であり、2kgなら70kJになる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の定積加熱、定積比熱容量、内部エネルギー変化が本問の関連論点。",
+      "容積一定の加熱では、仕事を伴わないため加えた熱量は主に内部エネルギー増加に対応し、Q=mCvΔT で求める。",
+      "温度差はKでも℃差でも同じ大きさになり、本問では350K-300K=50Kである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "容積一定の加熱なので Q=mCvΔT。2kg×0.7kJ/(kg K)×50K=70kJ。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "18kJはQ=mCvΔT=70kJと合わない。"
+      ],
+      [
+        "28kJは質量・温度差・定積比熱をすべて掛けた値ではない。"
+      ],
+      [
+        "35kJは1kg分の熱量であり、2kgの条件を反映していない。"
+      ],
+      [
+        "2×0.7×50=70kJで、選択肢4が最も近い。"
+      ],
+      [
+        "105kJは計算値70kJを上回る。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -774,7 +828,10 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）",
+    "workerTaskId": "T677"
   },
   {
     "original_question_id": "196aceddad6dbb43",
