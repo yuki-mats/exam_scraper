@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T658",
-  "completed": 558,
-  "completed_questions": 558,
-  "done": 435,
+  "activeTaskId": "T659",
+  "completed": 559,
+  "completed_questions": 559,
+  "done": 436,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 435,
+    "done": 436,
     "hold": 123,
-    "pending": 376
+    "pending": 375
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T14:59:46+09:00",
+  "generatedAt": "2026-06-28T15:08:19+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,295 +20,18 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 5 です。 matches choice 5=2.3kPa.",
+      "correctChoiceReason": "answer_result_text=正解は 2 です。 is the combination-choice number; statement-level correctChoiceText marks statements 1 and 4 as incorrect.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
       "questionSetIdPresent": true,
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "1.9",
-      "2.0",
-      "2.1",
-      "2.2",
-      "2.3"
-    ],
-    "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解"
-    ],
-    "explanationText": [
-      "不正解。低圧導管では同一口径・同一延長・同一ガス条件なら、圧力損失は流量の2乗に比例する。流量が150m³/hから300m³/hへ2倍になるため、圧力損失は0.2kPaの4倍で0.8kPaとなり、必要A点圧力は2.3kPaである。1.9kPaでは不足する。",
-      "不正解。増量後もB点圧力を1.5kPaに維持するには、A点からB点までの圧力差を0.8kPa確保する必要がある。A点圧力は1.5+0.8=2.3kPaであり、2.0kPaでは足りない。",
-      "不正解。初期の圧力差は1.7-1.5=0.2kPaである。流量2倍では圧力差は単純に2倍ではなく4倍となるため、0.4kPaではなく0.8kPaが必要で、A点圧力は2.3kPaとなる。",
-      "不正解。A点圧力2.2kPaでは圧力差が0.7kPaにとどまる。必要な圧力差は0.2×(300/150)^2=0.8kPaなので、最も近い値は2.3kPaである。",
-      "正解。初期圧力差は0.2kPa。流量が2倍になると圧力損失は4倍となり0.8kPaとなる。B点圧力1.5kPaを維持するため、A点圧力は1.5+0.8=2.3kPaである。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 801,
-    "publicQuestionId": "7c7c29695e3a59a2",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:7c7c29695e3a59a2",
-    "questionBodyText": "A点からB点に低圧のガス150m³/hを供給する導管AB（口径15cm、延長600m）がある。このとき、A点の圧力1.7kPa、B点の圧力1.5kPaであった（図1）。\n今、B点の圧力1.5kPaを維持したままガスを300m³/hに増量して供給するとき（図2）、必要となるA点の圧力(kPa)として最も近い値はどれか。なお、AB間の高低差は考慮しないものとする。",
-    "questionIndexInFile": 16,
-    "questionIntent": "select_correct",
-    "questionLabel": "問10",
-    "questionNo": 10,
-    "questionSetId": "chiefgasengineerlicense-B-2040",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q10",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:7c7c29695e3a59a2",
-    "reviewNotes": "T657: 降順ブロック planSequence=801。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=7c7c29695e3a59a2。00_source body/choices preserved。questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 5 です。はchoice5=2.3に対応し、correctChoiceText=[不正解, 不正解, 不正解, 不正解, 正解] と一致。初期圧力差0.2kPa、流量2倍で圧力損失4倍=0.8kPa、B点1.5kPa維持なのでA点=2.3kPa。2022/2023甲種の低圧導管計算先例で導管の工事カテゴリを確認。04は category.json のactive categoryに合わせ、questionSetId=chiefgasengineerlicense-B-2040（導管の工事（乙種））を選択。",
-    "reviewQuestionId": "7c7c29695e3a59a2",
-    "reviewedAt": "2026-06-28T15:05:28+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "供給",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 10,
-      "subject": "kyokyu",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q10",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kyokyu:q10:s01",
-      "gas-shunin:otsu:2023:kyokyu:q10:s02",
-      "gas-shunin:otsu:2023:kyokyu:q10:s03",
-      "gas-shunin:otsu:2023:kyokyu:q10:s04",
-      "gas-shunin:otsu:2023:kyokyu:q10:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q10",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q10:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q10:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q10:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q10:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q10:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "category": "導管の工事（乙種）",
-    "questionSetName": "導管の工事（乙種）",
-    "reviewStatus": "ok",
-    "workerTaskId": "T657",
-    "explanation_common_prefix": [
-      "供給「導管の工事（乙種）」の低圧導管における流量と圧力損失の関係が本問の関連論点。",
-      "試験ポイント: 同一導管条件では、低圧導管の流量は圧力差の平方根に比例するため、圧力損失は流量の2乗に比例する。"
-    ],
-    "explanation_common_summary": [
-      "初期の圧力差はA点1.7kPa-B点1.5kPa=0.2kPa。流量を150m³/hから300m³/hに2倍にすると圧力損失は4倍の0.8kPaとなる。B点1.5kPaを維持するので、A点圧力は1.5+0.8=2.3kPa。"
-    ],
-    "explanation_choice_snippets": [
-      [
-        "1.9kPaでは圧力差0.4kPaにとどまり、必要な0.8kPaに不足する。"
-      ],
-      [
-        "2.0kPaでは圧力差0.5kPaにとどまる。"
-      ],
-      [
-        "流量2倍では圧力差は0.4kPaではなく0.8kPaになる。"
-      ],
-      [
-        "2.2kPaでは圧力差0.7kPaで、必要な0.8kPaより小さい。"
-      ],
-      [
-        "1.5+0.2×(300/150)^2=2.3kPa。"
-      ]
-    ],
-    "explanation_choice_correctness": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解"
-    ],
-    "sourceExplanationCommonPrefix": [
-      "供給「導管の工事（乙種）」の低圧導管における流量と圧力損失の関係が本問の関連論点。",
-      "試験ポイント: 同一導管条件では、低圧導管の流量は圧力差の平方根に比例するため、圧力損失は流量の2乗に比例する。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "初期の圧力差はA点1.7kPa-B点1.5kPa=0.2kPa。流量を150m³/hから300m³/hに2倍にすると圧力損失は4倍の0.8kPaとなる。B点1.5kPaを維持するので、A点圧力は1.5+0.8=2.3kPa。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "1.9kPaでは圧力差0.4kPaにとどまり、必要な0.8kPaに不足する。"
-      ],
-      [
-        "2.0kPaでは圧力差0.5kPaにとどまる。"
-      ],
-      [
-        "流量2倍では圧力差は0.4kPaではなく0.8kPaになる。"
-      ],
-      [
-        "2.2kPaでは圧力差0.7kPaで、必要な0.8kPaより小さい。"
-      ],
-      [
-        "1.5+0.2×(300/150)^2=2.3kPa。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解"
-    ],
-    "suggestedQuestions": [
-      "初期のA点とB点の圧力差はいくつか？",
-      "同一導管条件で流量を2倍にすると圧力損失は何倍になるか？",
-      "増量後に必要なA-B間の圧力差はいくつか？",
-      "B点圧力1.5kPaを維持するために必要なA点圧力はいくつか？",
-      "低圧導管で流量は圧力差に対してどのように関係するか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "初期のA点とB点の圧力差はいくつか？",
-        "answer": "0.2kPa。",
-        "explanation": "初期はA点1.7kPa、B点1.5kPaなので、差は0.2kPaである。"
-      },
-      {
-        "question": "同一導管条件で流量を2倍にすると圧力損失は何倍になるか？",
-        "answer": "4倍。",
-        "explanation": "圧力損失は流量の2乗に比例するため、2倍の流量では2²=4倍となる。"
-      },
-      {
-        "question": "増量後に必要なA-B間の圧力差はいくつか？",
-        "answer": "0.8kPa。",
-        "explanation": "初期圧力差0.2kPaの4倍なので0.8kPaとなる。"
-      },
-      {
-        "question": "B点圧力1.5kPaを維持するために必要なA点圧力はいくつか？",
-        "answer": "2.3kPa。",
-        "explanation": "B点1.5kPaに必要圧力差0.8kPaを加え、1.5+0.8=2.3kPaとなる。"
-      },
-      {
-        "question": "低圧導管で流量は圧力差に対してどのように関係するか？",
-        "answer": "流量は圧力差の平方根に比例する。",
-        "explanation": "したがって圧力損失は流量の2乗に比例して増減する。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true
-  },
-  "lastCompletedReviewQuestionId": "7c7c29695e3a59a2",
-  "lastCompletedTaskId": "T657",
-  "nextPending": {
-    "answerResultText": "正解は 2 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
@@ -328,16 +51,22 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "正しい",
       "間違い",
       "正しい",
       "正しい",
+      "間違い",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。生物化学的酸素要求量（BOD）は、水中の有機物が微生物によって分解されるときに消費される溶存酸素量をいう。酸化剤で分解するときに消費される酸化剤量を酸素量に換算する説明は、化学的酸素要求量（COD）に近い。",
+      "正しい。化石燃料由来の温室効果ガス排出量は、燃焼時だけでなく、採掘、加工、輸送など各段階を含めたライフサイクルで評価することが重要である。",
+      "正しい。2021年に日本政府は、2030年度の温室効果ガス排出量について、2013年度比46%削減を目指すことを表明している。",
+      "間違い。ポンプ流量を回転数で制御する場合は、一般にインバータなどの可変電圧可変周波数制御を用いる。定電圧定周波数装置（CVCF）で回転数を制御するとしている点が誤り。",
+      "正しい。電力力率改善装置には、進相コンデンサーや同期モーターなどがあり、無効電力を低減して力率を改善する目的で用いられる。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -379,20 +108,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問9",
     "questionNo": 9,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1780",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q9",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_2:7675a0f68c44e9b6",
-    "reviewNotes": "",
+    "reviewNotes": "T658: 降順ブロック planSequence=800。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=7675a0f68c44e9b6。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は「いずれも誤っているものの組合せ」の組合せ選択肢番号で、statement-levelではイ・ニが誤り。correctChoiceText=[間違い, 正しい, 正しい, 間違い, 正しい] と一致。選択肢1はBODをCODに近い説明としている点、選択肢4はポンプ回転数制御をCVCFとしている点が誤り。選択肢2,3,5はライフサイクル評価、2030年度46%削減目標、力率改善装置として正しい。04はcategory.jsonのactive category、および乙種2024/2025同種環境対策先例に合わせ、questionSetId=chiefgasengineerlicense-B-1780（環境対策及び省エネルギー（乙種））を選択。",
     "reviewQuestionId": "7675a0f68c44e9b6",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T15:08:19+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "製造",
@@ -463,20 +192,291 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "category": "環境対策及び省エネルギー（乙種）",
+    "questionSetName": "環境対策及び省エネルギー（乙種）",
+    "reviewStatus": "ok",
+    "workerTaskId": "T658",
+    "suggestedQuestions": [
+      "BODは酸化剤で分解するときの酸化剤量を示す指標か？",
+      "化石燃料の温室効果ガス排出量はライフサイクルで評価するか？",
+      "日本の2030年度温室効果ガス削減目標は2013年度比46%削減か？",
+      "ポンプ流量の回転数制御にCVCFを用いるという記述は正しいか？",
+      "力率改善装置には進相コンデンサーや同期モーターが含まれるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "BODは酸化剤で分解するときの酸化剤量を示す指標か？",
+        "answer": "示さない。",
+        "explanation": "BODは微生物分解で消費される溶存酸素量であり、酸化剤消費量の説明はCODに近い。"
+      },
+      {
+        "question": "化石燃料の温室効果ガス排出量はライフサイクルで評価するか？",
+        "answer": "評価する。",
+        "explanation": "燃焼時だけでなく採掘、加工、輸送などの排出も含めて評価することが重要である。"
+      },
+      {
+        "question": "日本の2030年度温室効果ガス削減目標は2013年度比46%削減か？",
+        "answer": "46%削減。",
+        "explanation": "2021年に、2030年度に2013年度比46%削減を目指すことが表明された。"
+      },
+      {
+        "question": "ポンプ流量の回転数制御にCVCFを用いるという記述は正しいか？",
+        "answer": "正しくない。",
+        "explanation": "回転数制御には可変電圧可変周波数制御やインバータ制御を用いる。CVCFは定電圧定周波数であり、回転数制御の説明として不適切である。"
+      },
+      {
+        "question": "力率改善装置には進相コンデンサーや同期モーターが含まれるか？",
+        "answer": "含まれる。",
+        "explanation": "進相コンデンサーや同期モーターは、無効電力を補償して力率を改善する装置として用いられる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "explanation_common_prefix": [
+      "製造「環境対策及び省エネルギー（乙種）」の水質指標、ライフサイクル排出評価、温室効果ガス削減目標、ポンプの省エネルギー制御、力率改善が本問の関連論点。",
+      "試験ポイント: BODとCOD、CVCFと可変周波数制御、力率改善装置を区別する。"
+    ],
+    "explanation_common_summary": [
+      "誤っている記述は1と4。1はBODをCODに近い説明としており、4はポンプ回転数制御をCVCFとしている点が誤り。2、3、5はライフサイクル評価、2030年度46%削減目標、力率改善装置として正しい。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "BODは微生物分解で消費される溶存酸素量であり、酸化剤量ではない。"
+      ],
+      [
+        "温室効果ガス排出量は採掘から輸送まで含めたライフサイクル評価が重要。"
+      ],
+      [
+        "2030年度に2013年度比46%削減を目指す目標として正しい。"
+      ],
+      [
+        "回転数制御はCVCFではなく、可変周波数制御やインバータ制御で行う。"
+      ],
+      [
+        "進相コンデンサーや同期モーターは力率改善装置に含まれる。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "sourceExplanationCommonPrefix": [
+      "製造「環境対策及び省エネルギー（乙種）」の水質指標、ライフサイクル排出評価、温室効果ガス削減目標、ポンプの省エネルギー制御、力率改善が本問の関連論点。",
+      "試験ポイント: BODとCOD、CVCFと可変周波数制御、力率改善装置を区別する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は1と4。1はBODをCODに近い説明としており、4はポンプ回転数制御をCVCFとしている点が誤り。2、3、5はライフサイクル評価、2030年度46%削減目標、力率改善装置として正しい。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "BODは微生物分解で消費される溶存酸素量であり、酸化剤量ではない。"
+      ],
+      [
+        "温室効果ガス排出量は採掘から輸送まで含めたライフサイクル評価が重要。"
+      ],
+      [
+        "2030年度に2013年度比46%削減を目指す目標として正しい。"
+      ],
+      [
+        "回転数制御はCVCFではなく、可変周波数制御やインバータ制御で行う。"
+      ],
+      [
+        "進相コンデンサーや同期モーターは力率改善装置に含まれる。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
     ]
   },
-  "nextPendingPlanSequence": 800,
-  "nextPendingPublicQuestionId": "7675a0f68c44e9b6",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:7675a0f68c44e9b6",
-  "nextPendingReviewId": "2023:question_2023_2:7675a0f68c44e9b6",
-  "nextPendingTaskId": "T658",
-  "otsuCompleted": 146,
-  "otsuDone": 125,
+  "lastCompletedReviewQuestionId": "7675a0f68c44e9b6",
+  "lastCompletedTaskId": "T658",
+  "nextPending": {
+    "answerResultText": "正解は 1 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "磁粉探傷試験(MT)は、オーステナイト系ステンレス鋼に\n使用できる検査方法\nである。",
+      "自然電位の異なる2種の金属を水等のイオン導電性のある腐食環境中で接触させると、自然電位が低い方の金属の腐食が促進される。これを\n粒界腐食\nという。",
+      "応力腐食割れとは、残留応力を含む引張応力発生下にある金属に腐食作用が働いて、破断応力以下であるにもかかわらず割れが生ずる現象である。",
+      "状態監視保全(CBM)は、設備の状態に応じて行う保全であり、故障が予知可能な診断技術が確立されている場合に適用できる。",
+      "突発的な設備不良による生産影響を回避するには、設備状態をリアルタイムで監視し、異常を検知する設備診断が有効である。そのために用いられる技術の一例として、音響や振動を測定するものがある。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 799,
+    "publicQuestionId": "82dea004f363a524",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:82dea004f363a524",
+    "questionBodyText": "製造設備の保全に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 14,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問8",
+    "questionNo": 8,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q8",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:82dea004f363a524",
+    "reviewNotes": "",
+    "reviewQuestionId": "82dea004f363a524",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 8,
+      "subject": "seizo",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q08",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:seizo:q08:s01",
+      "gas-shunin:otsu:2023:seizo:q08:s02",
+      "gas-shunin:otsu:2023:seizo:q08:s03",
+      "gas-shunin:otsu:2023:seizo:q08:s04",
+      "gas-shunin:otsu:2023:seizo:q08:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q8",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q08:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q08:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q08:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q08:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q08:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 799,
+  "nextPendingPublicQuestionId": "82dea004f363a524",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:82dea004f363a524",
+  "nextPendingReviewId": "2023:question_2023_2:82dea004f363a524",
+  "nextPendingTaskId": "T659",
+  "otsuCompleted": 147,
+  "otsuDone": 126,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 376,
-  "pending": 376,
-  "pending_questions": 376,
+  "otsuPending": 375,
+  "pending": 375,
+  "pending_questions": 375,
   "total": 934,
   "total_questions": 934
 }
