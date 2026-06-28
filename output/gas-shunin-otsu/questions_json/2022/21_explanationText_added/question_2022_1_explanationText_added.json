@@ -829,18 +829,72 @@
       "5"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。一次反応では半減期が濃度によらず一定であり、初期濃度の50%になるまでの時間は1回の半減期である。12.5%=1/8=(1/2)^3なので3回の半減期を要し、1倍ではない。",
+      "不正解。2回の半減期では濃度は初期濃度の25%までしか下がらない。12.5%はさらにもう1回半減した1/8であるため、50%になるまでの時間の3倍が必要である。",
+      "正解。初期濃度の50%は1回の半減期に対応する。12.5%=1/8=(1/2)^3 なので、12.5%になるまでには3回の半減期を要する。したがって50%になるまでの時間の3倍である。",
+      "不正解。4回の半減期では濃度は初期濃度の1/16=6.25%になる。12.5%は3回の半減期で到達するため、4倍ではない。",
+      "不正解。5回の半減期では濃度は初期濃度の1/32=3.125%になる。12.5%に達するには3回の半減期で足りるため、5倍ではない。"
+    ],
+    "suggestedQuestions": [
+      "一次反応の半減期は濃度によって変わるか？",
+      "初期濃度の50%は半減期何回分か？",
+      "12.5%は分数でどう表せるか？",
+      "12.5%になるには半減期何回分が必要か？",
+      "本問の時間比は何倍か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "一次反応の半減期は濃度によって変わるか？",
+        "answer": "変わらず一定である。",
+        "explanation": "一次反応では濃度が半分になるまでの時間は各段階で同じである。"
+      },
+      {
+        "question": "初期濃度の50%は半減期何回分か？",
+        "answer": "1回分。",
+        "explanation": "初期濃度の50%は1/2であり、1回の半減期に対応する。"
+      },
+      {
+        "question": "12.5%は分数でどう表せるか？",
+        "answer": "1/8。",
+        "explanation": "12.5%=0.125=1/8=(1/2)^3である。"
+      },
+      {
+        "question": "12.5%になるには半減期何回分が必要か？",
+        "answer": "3回分。",
+        "explanation": "1/8=(1/2)^3なので、半減期を3回経る必要がある。"
+      },
+      {
+        "question": "本問の時間比は何倍か？",
+        "answer": "3倍。",
+        "explanation": "50%までが1半減期、12.5%までが3半減期なので、時間比は3である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の一次反応と半減期が本問の関連論点。",
+      "一次反応では半減期が濃度によらず一定であり、半減期ごとに濃度は1/2倍になる。",
+      "初期濃度の50%は1回の半減期、12.5%=1/8=(1/2)^3は3回の半減期に対応する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "50%になるまでの時間は1半減期、12.5%になるまでの時間は3半減期である。したがって、求める比は3倍で、選択肢3が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1倍では50%までで、12.5%には達しない。"
+      ],
+      [
+        "2倍では25%までで、12.5%には達しない。"
+      ],
+      [
+        "12.5%=1/8=(1/2)^3なので3倍が正解。"
+      ],
+      [
+        "4倍では1/16=6.25%まで進みすぎる。"
+      ],
+      [
+        "5倍では1/32=3.125%まで進みすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -848,7 +902,24 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "expectedCorrectChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）"
   },
   {
     "original_question_id": "f736123106dab303",
