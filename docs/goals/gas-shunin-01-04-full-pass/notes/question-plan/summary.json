@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T704",
-  "completed": 604,
-  "completedQuestions": 604,
-  "completed_questions": 604,
-  "done": 470,
+  "activeTaskId": "T705",
+  "completed": 605,
+  "completedQuestions": 605,
+  "completed_questions": 605,
+  "done": 471,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 470,
+    "done": 471,
     "hold": 134,
-    "pending": 330
+    "pending": 329
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T21:01:45+09:00",
+  "generatedAt": "2026-06-28T21:45:33+09:00",
   "heldQuestions": 134,
   "held_questions": 134,
   "hold": 134,
@@ -22,54 +22,48 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T21:01:45+09:00",
-    "publicQuestionId": "e313c4ce6dc6fafd",
-    "reviewQuestionId": "e313c4ce6dc6fafd",
-    "taskId": "T703",
-    "workerTaskId": "T703"
+    "completedAt": "2026-06-28T21:45:33+09:00",
+    "publicQuestionId": "5a3b87a2d19bd625",
+    "reviewQuestionId": "5a3b87a2d19bd625",
+    "taskId": "T704",
+    "workerTaskId": "T704"
   },
-  "lastCompletedReviewQuestionId": "e313c4ce6dc6fafd",
-  "lastCompletedTaskId": "T703",
-  "nextActiveTaskId": "T704",
+  "lastCompletedReviewQuestionId": "5a3b87a2d19bd625",
+  "lastCompletedTaskId": "T704",
+  "nextActiveTaskId": "T705",
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガスこんろの熱効率は、省エネ法に基づくトップランナー基準の導入以降、炎の広がりを抑える、鍋底との距離を近づける等の改良により向上した。",
-      "ガスオーブンは、熱風をファンによって強制的に撹拌しているため、調理時間が早く、一度に多量の調理ができる。",
-      "FF暖房機には、立ち消え安全装置、点火時安全装置、\n転倒時安全装置\n等の安全装置が搭載されている。",
-      "ファンヒーターでは、設定温度とセンサーで検知した室温との温度差分を電気量に変換することで比例弁を駆動させ、ガス量に比例して対流ファン風量を制御する。",
-      "回転ドラム式衣類乾燥機には、接触した衣類の抵抗値を測定して、湿り具合を判断する乾燥センサーが搭載されている。"
+      "(イ)赤 (ロ)長い (ハ)約1300",
+      "(イ)赤 (ロ)短い (ハ)約1300",
+      "(イ)赤黄 (ロ)長い (ハ)約1300",
+      "(イ)赤黄 (ロ)短い (ハ)約900",
+      "(イ)赤黄 (ロ)長い (ハ)約900"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2022,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -103,28 +97,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 754,
-    "publicQuestionId": "5a3b87a2d19bd625",
+    "planSequence": 753,
+    "publicQuestionId": "8a222b34c430cbf7",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:5a3b87a2d19bd625",
-    "questionBodyText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 2,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問21",
-    "questionNo": 21,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:8a222b34c430cbf7",
+    "questionBodyText": "赤火燃焼式に関する次のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。\n赤火燃焼式\n空気混合\n一次空気 0%\n二次空気 100%\n炎の色",
+    "questionIndexInFile": 1,
+    "questionIntent": "",
+    "questionLabel": "問20",
+    "questionNo": 20,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q20",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:5a3b87a2d19bd625",
+    "reviewId": "2022:question_2022_3:8a222b34c430cbf7",
     "reviewNotes": "",
-    "reviewQuestionId": "5a3b87a2d19bd625",
+    "reviewQuestionId": "8a222b34c430cbf7",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -139,7 +133,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 21,
+      "questionNo": 20,
       "subject": "shohi",
       "year": 2022
     },
@@ -148,45 +142,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q21",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q20",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q21:s01",
-      "gas-shunin:otsu:2022:shohi:q21:s02",
-      "gas-shunin:otsu:2022:shohi:q21:s03",
-      "gas-shunin:otsu:2022:shohi:q21:s04",
-      "gas-shunin:otsu:2022:shohi:q21:s05"
+      "gas-shunin:otsu:2022:shohi:q20:s01",
+      "gas-shunin:otsu:2022:shohi:q20:s02",
+      "gas-shunin:otsu:2022:shohi:q20:s03",
+      "gas-shunin:otsu:2022:shohi:q20:s04",
+      "gas-shunin:otsu:2022:shohi:q20:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q20",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s05",
         "statementNo": 5
       }
     ],
@@ -199,48 +193,42 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 754,
-  "nextPendingPublicQuestionId": "5a3b87a2d19bd625",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:5a3b87a2d19bd625",
+  "nextPendingPlanSequence": 753,
+  "nextPendingPublicQuestionId": "8a222b34c430cbf7",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:8a222b34c430cbf7",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガスこんろの熱効率は、省エネ法に基づくトップランナー基準の導入以降、炎の広がりを抑える、鍋底との距離を近づける等の改良により向上した。",
-      "ガスオーブンは、熱風をファンによって強制的に撹拌しているため、調理時間が早く、一度に多量の調理ができる。",
-      "FF暖房機には、立ち消え安全装置、点火時安全装置、\n転倒時安全装置\n等の安全装置が搭載されている。",
-      "ファンヒーターでは、設定温度とセンサーで検知した室温との温度差分を電気量に変換することで比例弁を駆動させ、ガス量に比例して対流ファン風量を制御する。",
-      "回転ドラム式衣類乾燥機には、接触した衣類の抵抗値を測定して、湿り具合を判断する乾燥センサーが搭載されている。"
+      "(イ)赤 (ロ)長い (ハ)約1300",
+      "(イ)赤 (ロ)短い (ハ)約1300",
+      "(イ)赤黄 (ロ)長い (ハ)約1300",
+      "(イ)赤黄 (ロ)短い (ハ)約900",
+      "(イ)赤黄 (ロ)長い (ハ)約900"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2022,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -274,28 +262,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 754,
-    "publicQuestionId": "5a3b87a2d19bd625",
+    "planSequence": 753,
+    "publicQuestionId": "8a222b34c430cbf7",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:5a3b87a2d19bd625",
-    "questionBodyText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 2,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問21",
-    "questionNo": 21,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:8a222b34c430cbf7",
+    "questionBodyText": "赤火燃焼式に関する次のうち、（イ）～（ハ）にあてはまる語句の組合せとして最も適切なものはどれか。\n赤火燃焼式\n空気混合\n一次空気 0%\n二次空気 100%\n炎の色",
+    "questionIndexInFile": 1,
+    "questionIntent": "",
+    "questionLabel": "問20",
+    "questionNo": 20,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q20",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:5a3b87a2d19bd625",
+    "reviewId": "2022:question_2022_3:8a222b34c430cbf7",
     "reviewNotes": "",
-    "reviewQuestionId": "5a3b87a2d19bd625",
+    "reviewQuestionId": "8a222b34c430cbf7",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -310,7 +298,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 21,
+      "questionNo": 20,
       "subject": "shohi",
       "year": 2022
     },
@@ -319,45 +307,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q21",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q20",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q21:s01",
-      "gas-shunin:otsu:2022:shohi:q21:s02",
-      "gas-shunin:otsu:2022:shohi:q21:s03",
-      "gas-shunin:otsu:2022:shohi:q21:s04",
-      "gas-shunin:otsu:2022:shohi:q21:s05"
+      "gas-shunin:otsu:2022:shohi:q20:s01",
+      "gas-shunin:otsu:2022:shohi:q20:s02",
+      "gas-shunin:otsu:2022:shohi:q20:s03",
+      "gas-shunin:otsu:2022:shohi:q20:s04",
+      "gas-shunin:otsu:2022:shohi:q20:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q20",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q20:s05",
         "statementNo": 5
       }
     ],
@@ -370,35 +358,35 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_3:5a3b87a2d19bd625",
-  "nextPendingTaskId": "T704",
-  "otsuCompleted": 192,
-  "otsuDone": 160,
+  "nextPendingReviewId": "2022:question_2022_3:8a222b34c430cbf7",
+  "nextPendingTaskId": "T705",
+  "otsuCompleted": 193,
+  "otsuDone": 161,
   "otsuHeld": 32,
   "otsuHold": 32,
-  "otsuPending": 330,
-  "pending": 330,
-  "pendingQuestions": 330,
-  "pending_questions": 330,
+  "otsuPending": 329,
+  "pending": 329,
+  "pendingQuestions": 329,
+  "pending_questions": 329,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
       "hold": 102
     },
     "gas-shunin-otsu": {
-      "done": 160,
+      "done": 161,
       "hold": 32,
-      "pending": 330
+      "pending": 329
     }
   },
   "reviewDecisionCounts": {
-    "ok": 470,
+    "ok": 471,
     "hold": 134,
-    "pending": 330
+    "pending": 329
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T21:00:10+09:00",
-  "lastUpdatedAt": "2026-06-28T21:01:45+09:00"
+  "updatedAt": "2026-06-28T21:43:15+09:00",
+  "lastUpdatedAt": "2026-06-28T21:45:33+09:00"
 }
