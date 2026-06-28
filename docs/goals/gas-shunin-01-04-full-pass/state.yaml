@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 592
-  pending_questions: 342
+  completed_questions: 593
+  pending_questions: 341
   held_questions: 130
   next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
-active_task: T692
+active_task: T693
 tasks:
   - id: T001
     type: pm
@@ -37986,9 +37986,76 @@ tasks:
   - id: T692
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "降順方針で最大pendingブロックの次問 planSequence=766（gas-shunin-otsu 2023 法令 問6）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_1_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_1_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      task_id: T692
+      board_path: "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json"
+        - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_1_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_1_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+        - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2023 output/gas-shunin-otsu/review/01_04_manual_review"
+          status: pass
+      summary: "T692 planSequence=766（gas-shunin-otsu 2023 法令 問6）は01〜04を目視確認で完了。正しい記述の個数を問う設問で、answer_result_text=正解は1は選択肢番号ではなく正しい記述数1を示し、correctChoiceText=[間違い, 間違い, 正しい, 間違い, 間違い] と確認。questionSetId=chiefgasengineerlicense-B-1170（工事計画及び検査（乙種））。00_source は未変更。completed=593、pending=341、held=130。"
+      evidence:
+        - "00_source body/choices unchanged"
+        - "questionType=true_false / questionIntent=select_correct"
+        - "answer_result_text=正解は 1 です。は正しい記述数1を示し、statement 3 only 正しい"
+        - "e-Gov ガス事業法 第68条第3項・第4項・第5項、第69条第1項・第3項、第71条 and ガス事業法施行規則 第104条第1項第6号で確認"
+        - "category.json chiefgasengineerlicense-B-1170 工事計画及び検査（乙種） and same-topic KOU 2023 precedent matched"
+      completed_at: "2026-06-28T19:20:43+09:00"
+      remaining_questions: 341
+      next_active_task: T693
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+
+  - id: T693
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロックの次問 planSequence=765（gas-shunin-otsu 2023 法令 問5）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
       - "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
       - "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json"
