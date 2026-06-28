@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T664",
-  "completed": 564,
-  "completed_questions": 564,
-  "done": 441,
+  "activeTaskId": "T665",
+  "completed": 565,
+  "completed_questions": 565,
+  "done": 442,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 441,
+    "done": 442,
     "hold": 123,
-    "pending": 370
+    "pending": 369
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T15:44:21+09:00",
+  "generatedAt": "2026-06-28T15:51:01+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,12 +20,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 4 です。 is the combination-choice number; statement-level correctChoiceText marks statements 3 and 4 as correct.",
+      "correctChoiceReason": "answer_result_text=正解は 1 です。 is the combination-choice number; statement-level correctChoiceText marks statements 1 and 2 as incorrect.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,18 +35,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "発熱量には、燃料の燃焼によって生じた水蒸気の全量が燃焼排ガス中で凝縮して水になる場合と、水蒸気の全量が凝縮せずに燃焼排ガス中に水蒸気として含まれる場合の2通りがある。\n前者を真発熱量、後者を総発熱量という\n。",
-      "ガスクロマトグラフ法では、記録されたクロマトグラムのそれぞれのピークの面積を、同一条件下で得られた\nキャリアガスのピーク面積\nと比較することで、各成分を定量することができる。",
-      "増熱を行う場合、導管中でガス温度が露点域になるとLPG等の液化によるガス発熱量の低下、導管の閉そく等が発生するため露点の管理が重要である。",
-      "ガス比重とは、同一温度及び同一圧力における等しい体積のガスと乾燥空気の質量の比と定義されている。",
-      "空気によりガスの希釈を行う場合、高圧供給では、混合ガスの酸素濃度が\n4%以下\nとならないように空気混合量を管理する必要がある。"
+      "測温抵抗体温度計は、金属の電気抵抗値が温度によって変化することを利用したものであるが、熱電対温度計と比較して\n常温での精度は良くない\n。",
+      "電波式レベル計は、マイクロ波を用いた非接触型計測器である。高温、高圧等の周囲環境が厳しいところでは\nその影響を受けやすい\n。",
+      "耐圧防爆構造とは、可燃性のガス等が容器の内部に侵入して爆発を生じた場合に、その容器が爆発圧力に耐え、かつ爆発による火炎が外部の可燃性のガス等に点火しないようにしたものである。",
+      "計装空気は、調節弁及び緊急遮断弁の操作源等に使用される。計装空気圧縮機は無給油式のものが採用され、水分除去のための除湿器が設置される。",
+      "オンオフ制御を弁に採用する際、頻繁に開閉することを防ぐため、動作すきま（ヒステリシス）を持たせることが多い。"
     ],
     "correctChoiceText": [
       "間違い",
       "間違い",
       "正しい",
       "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
@@ -57,14 +57,14 @@
       "間違い",
       "正しい",
       "正しい",
-      "間違い"
+      "正しい"
     ],
     "explanationText": [
-      "間違い。燃焼排ガス中の水蒸気を凝縮させて水にする場合は凝縮潜熱を含む総発熱量、凝縮させず水蒸気のままとする場合は真発熱量である。前者を真発熱量、後者を総発熱量としている点が逆で誤りである。",
-      "間違い。ガスクロマトグラフ法では、各成分のピーク面積を同一条件下で得た混合標準ガス又は純ガスのピーク面積と比較して定量する。キャリアガスのピーク面積と比較するとしている点が誤りである。",
-      "正しい。増熱時に導管中のガス温度が露点域になると、LPG等が液化してガス発熱量の低下や導管の閉そくを招くおそれがあるため、露点の管理が重要である。",
-      "正しい。ガス比重は、同一温度・同一圧力における等しい体積のガスと乾燥空気の質量の比として定義される。",
-      "間違い。空気でガスを希釈する場合、高圧供給では混合ガス中の酸素濃度が4%を超えないように空気混合量を管理する必要がある。4%以下とならないようにするとしている点が誤りである。"
+      "間違い。測温抵抗体温度計は、金属の電気抵抗値が温度によって変化する性質を利用する温度計であり、一般に熱電対温度計より常温付近で高い精度が得られる。常温での精度は良くないとしている点が誤りである。",
+      "間違い。電波式レベル計はマイクロ波を用いる非接触型のレベル計であり、高温・高圧など測定対象や周囲環境が厳しい場所でも影響を受けにくい特徴がある。その影響を受けやすいとしている点が誤りである。",
+      "正しい。耐圧防爆構造は、容器内部で可燃性ガス等による爆発が生じても容器が爆発圧力に耐え、外部の可燃性ガス等に火炎が伝わって点火しないようにした構造である。",
+      "正しい。計装空気は調節弁や緊急遮断弁などの操作源に用いられ、空気圧縮機は油分混入を避けるため無給油式が採用され、水分除去のため除湿器が設置される。",
+      "正しい。オンオフ制御では、弁などが小さな変動で頻繁に開閉することを避けるため、動作すきま、すなわちヒステリシスを持たせることが多い。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -98,29 +98,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 795,
-    "publicQuestionId": "91036a566182b533",
+    "planSequence": 794,
+    "publicQuestionId": "91ab2f6db1d7946f",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:91036a566182b533",
-    "questionBodyText": "都市ガスの品質に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 10,
-    "questionIntent": "select_correct",
-    "questionLabel": "問4",
-    "questionNo": 4,
-    "questionSetId": "chiefgasengineerlicense-B-1810",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
+    "questionBodyText": "製造設備の計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 9,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問3",
+    "questionNo": 3,
+    "questionSetId": "chiefgasengineerlicense-B-1830",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q4",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:91036a566182b533",
-    "reviewNotes": "T663: 降順ブロック planSequence=795。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=91036a566182b533。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 4 です。は「いずれも正しいものの組合せ」の組合せ選択肢番号で、statement-levelではハ・ニが正しい。correctChoiceText=[間違い, 間違い, 正しい, 正しい, 間違い] と一致。選択肢1は総発熱量/真発熱量の名称が逆、選択肢2はガスクロマトグラフ法の比較対象をキャリアガスとしている点、選択肢5は高圧供給時の酸素濃度4%管理を逆にしている点が誤り。選択肢3,4は露点管理とガス比重定義として正しい。04はcategory.jsonでガスの熱量・比重の測定（乙種）がdeletedのため使用せず、乙種2024/2025同種先例に合わせ、activeなquestionSetId=chiefgasengineerlicense-B-1810（都市ガスの熱量調整及び燃焼性管理（乙種））を選択。",
-    "reviewQuestionId": "91036a566182b533",
-    "reviewedAt": "2026-06-28T15:44:21+09:00",
+    "reviewId": "2023:question_2023_2:91ab2f6db1d7946f",
+    "reviewNotes": "T664: 降順ブロック planSequence=794。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=91ab2f6db1d7946f。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 1 です。は「いずれも誤っているものの組合せ」の組合せ選択肢番号で、statement-levelではイ・ロが誤り。correctChoiceText=[間違い, 間違い, 正しい, 正しい, 正しい] と一致。選択肢1は測温抵抗体温度計の常温精度、選択肢2は電波式レベル計の厳しい環境への適用性を逆にしている点が誤り。選択肢3,4,5は耐圧防爆構造、計装空気、オンオフ制御のヒステリシスとして正しい。04はcategory.jsonで旧「計装設備及び電気設備（乙種）」がdeletedのため使用せず、乙種2024/2025同種先例に合わせ、activeなquestionSetId=chiefgasengineerlicense-B-1830（電気設備及び計装設備（乙種））を選択。",
+    "reviewQuestionId": "91ab2f6db1d7946f",
+    "reviewedAt": "2026-06-28T15:51:01+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -134,257 +134,6 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 4,
-      "subject": "seizo",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q04",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q04:s01",
-      "gas-shunin:otsu:2023:seizo:q04:s02",
-      "gas-shunin:otsu:2023:seizo:q04:s03",
-      "gas-shunin:otsu:2023:seizo:q04:s04",
-      "gas-shunin:otsu:2023:seizo:q04:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q4",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "category": "都市ガスの熱量調整及び燃焼性管理（乙種）",
-    "questionSetName": "都市ガスの熱量調整及び燃焼性管理（乙種）",
-    "sourceExplanationCommonPrefix": [
-      "製造 第4章「熱量と燃焼性（ウォッベ指数・MCP）」が本問の関連論点。総発熱量・真発熱量、ガス比重、熱量調整時の露点管理、空気希釈時の燃焼性管理を確認する。",
-      "製造 第4章「ガスの熱量調整（増熱・希釈・3方式）」が本問の関連論点。LPG増熱時の液化リスクと、高圧供給での酸素濃度管理を区別する。",
-      "製造 第4章「熱量・比重の測定と特殊成分分析」が本問の関連論点。ガスクロマトグラフ法の定量方法とガス比重の定義を確認する。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "正しい記述は3と4。1は総発熱量と真発熱量を逆にしており、2はガスクロマトグラフ法の比較対象をキャリアガスとしている点、5は高圧供給時の酸素濃度管理を逆にしている点が誤りである。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "水蒸気を凝縮させる場合は総発熱量、凝縮させない場合は真発熱量。記述は名称が逆。"
-      ],
-      [
-        "ガスクロマトグラフ法の定量は標準ガス又は純ガスのピーク面積との比較で行う。"
-      ],
-      [
-        "露点域ではLPG等の液化により発熱量低下や導管閉そくが生じ得るため、露点管理が重要。"
-      ],
-      [
-        "ガス比重は同一温度・同一圧力で等しい体積のガスと乾燥空気の質量比。"
-      ],
-      [
-        "高圧供給の空気希釈では、混合ガス中の酸素濃度が4%を超えないよう管理する。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "suggestedQuestions": [
-      "水蒸気を凝縮させる場合の発熱量は総発熱量か真発熱量か？",
-      "ガスクロマトグラフ法で各成分を定量するとき、ピーク面積は何と比較するか？",
-      "増熱時に導管内のガス温度が露点域になると、どのような問題が生じるか？",
-      "ガス比重は何と何の質量比で定義されるか？",
-      "高圧供給で空気希釈を行う場合、混合ガス中の酸素濃度はどのように管理するか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "水蒸気を凝縮させる場合の発熱量は総発熱量か真発熱量か？",
-        "answer": "総発熱量。",
-        "explanation": "燃焼で生じた水蒸気を凝縮させる場合は凝縮潜熱を含むため総発熱量、凝縮させない場合は真発熱量である。"
-      },
-      {
-        "question": "ガスクロマトグラフ法で各成分を定量するとき、ピーク面積は何と比較するか？",
-        "answer": "混合標準ガス又は純ガスのピーク面積。",
-        "explanation": "キャリアガスではなく、同一条件下で得られる標準ガス又は純ガスのピーク面積と比較して各成分を定量する。"
-      },
-      {
-        "question": "増熱時に導管内のガス温度が露点域になると、どのような問題が生じるか？",
-        "answer": "LPG等の液化による発熱量低下や導管の閉そく。",
-        "explanation": "導管中のガス温度が露点域に入ると、増熱に用いたLPG等が液化し、発熱量低下や閉そくの原因になる。"
-      },
-      {
-        "question": "ガス比重は何と何の質量比で定義されるか？",
-        "answer": "同一温度・同一圧力における等しい体積のガスと乾燥空気の質量比。",
-        "explanation": "比重は基準となる乾燥空気との質量比で定義され、湿り空気ではない。"
-      },
-      {
-        "question": "高圧供給で空気希釈を行う場合、混合ガス中の酸素濃度はどのように管理するか？",
-        "answer": "酸素濃度が4%を超えないように管理する。",
-        "explanation": "高圧供給で空気を混合する場合は、混合ガス中の酸素濃度が4%を超えないよう空気混合量を管理する。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "questionTypeReviewStatus": "ok",
-    "questionIntentReviewStatus": "ok",
-    "correctChoiceReviewStatus": "ok",
-    "explanationReviewStatus": "ok",
-    "questionSetReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T15:44:21+09:00",
-    "questionIntentReviewedAt": "2026-06-28T15:44:21+09:00",
-    "correctChoiceReviewedAt": "2026-06-28T15:44:21+09:00",
-    "explanationReviewedAt": "2026-06-28T15:44:21+09:00",
-    "questionSetReviewedAt": "2026-06-28T15:44:21+09:00",
-    "reviewStatus": "ok",
-    "workerTaskId": "T663"
-  },
-  "lastCompletedReviewQuestionId": "91036a566182b533",
-  "lastCompletedTaskId": "T663",
-  "nextPending": {
-    "answerResultText": "正解は 1 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "測温抵抗体温度計は、金属の電気抵抗値が温度によって変化することを利用したものであるが、熱電対温度計と比較して\n常温での精度は良くない\n。",
-      "電波式レベル計は、マイクロ波を用いた非接触型計測器である。高温、高圧等の周囲環境が厳しいところでは\nその影響を受けやすい\n。",
-      "耐圧防爆構造とは、可燃性のガス等が容器の内部に侵入して爆発を生じた場合に、その容器が爆発圧力に耐え、かつ爆発による火炎が外部の可燃性のガス等に点火しないようにしたものである。",
-      "計装空気は、調節弁及び緊急遮断弁の操作源等に使用される。計装空気圧縮機は無給油式のものが採用され、水分除去のための除湿器が設置される。",
-      "オンオフ制御を弁に採用する際、頻繁に開閉することを防ぐため、動作すきま（ヒステリシス）を持たせることが多い。"
-    ],
-    "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "explanationText": [],
-    "explanationTextCount": 0,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 794,
-    "publicQuestionId": "91ab2f6db1d7946f",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
-    "questionBodyText": "製造設備の計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 9,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問3",
-    "questionNo": 3,
-    "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:91ab2f6db1d7946f",
-    "reviewNotes": "",
-    "reviewQuestionId": "91ab2f6db1d7946f",
-    "reviewedAt": "",
-    "reviewer": "",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
       "questionNo": 3,
       "subject": "seizo",
       "year": 2023
@@ -433,6 +182,254 @@
         "firestoreRegistered": false,
         "siteOnly": true,
         "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "category": "製造",
+    "questionSetName": "電気設備及び計装設備（乙種）",
+    "sourceExplanationCommonPrefix": [
+      "製造 第3章「主要な計装機器」が本問の関連論点。測温抵抗体温度計と電波式レベル計の特徴を、精度や厳しい環境への適用性で確認する。",
+      "製造 第3章「電気設備及び計装設備」が本問の関連論点。耐圧防爆構造、計装空気、オンオフ制御のヒステリシスを確認する。"
+    ],
+    "sourceExplanationCommonSummary": [],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "測温抵抗体温度計は常温付近で高精度が得られ、熱電対温度計より精度面で有利な用途がある。"
+      ],
+      [
+        "電波式レベル計はマイクロ波を用いる非接触型で、高温・高圧など厳しい環境の影響を受けにくい。"
+      ],
+      [
+        "耐圧防爆構造は内部爆発に耐え、外部の可燃性ガス等への火炎伝播を防ぐ。"
+      ],
+      [
+        "計装空気は調節弁・緊急遮断弁の操作源に用いられ、無給油式圧縮機と除湿器で油分・水分を管理する。"
+      ],
+      [
+        "オンオフ制御では頻繁な開閉を避けるため、動作すきま（ヒステリシス）を持たせることが多い。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "suggestedQuestions": [
+      "測温抵抗体温度計は常温付近で熱電対温度計より精度が低いか？",
+      "電波式レベル計は高温・高圧など厳しい環境の影響を受けやすいか？",
+      "耐圧防爆構造は内部爆発時に外部へ火炎を伝えない構造か？",
+      "計装空気は調節弁や緊急遮断弁の操作源に用いられるか？",
+      "オンオフ制御では頻繁な開閉を防ぐためヒステリシスを持たせることがあるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "測温抵抗体温度計は常温付近で熱電対温度計より精度が低いか？",
+        "answer": "いいえ。",
+        "explanation": "測温抵抗体温度計は常温付近で高精度が得られ、熱電対温度計より精度がよい用途に使われる。"
+      },
+      {
+        "question": "電波式レベル計は高温・高圧など厳しい環境の影響を受けやすいか？",
+        "answer": "いいえ。",
+        "explanation": "電波式レベル計は非接触で測定でき、高温・高圧など厳しい条件の影響を受けにくい。"
+      },
+      {
+        "question": "耐圧防爆構造は内部爆発時に外部へ火炎を伝えない構造か？",
+        "answer": "はい。",
+        "explanation": "容器が爆発圧力に耐え、外部の可燃性ガス等への点火を防ぐ構造である。"
+      },
+      {
+        "question": "計装空気は調節弁や緊急遮断弁の操作源に用いられるか？",
+        "answer": "はい。",
+        "explanation": "計装空気は空気作動式の調節弁や緊急遮断弁の操作源として使用される。"
+      },
+      {
+        "question": "オンオフ制御では頻繁な開閉を防ぐためヒステリシスを持たせることがあるか？",
+        "answer": "はい。",
+        "explanation": "動作すきまを設けることで、制御対象の微小変動による頻繁な開閉を防ぐ。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T15:51:01+09:00",
+    "questionIntentReviewedAt": "2026-06-28T15:51:01+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T15:51:01+09:00",
+    "explanationReviewedAt": "2026-06-28T15:51:01+09:00",
+    "questionSetReviewedAt": "2026-06-28T15:51:01+09:00",
+    "reviewStatus": "ok",
+    "workerTaskId": "T664"
+  },
+  "lastCompletedReviewQuestionId": "91ab2f6db1d7946f",
+  "lastCompletedTaskId": "T664",
+  "nextPending": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "フレキシブルホースは、その長さ、可とう性を利用し、位置の調整及び熱収縮を吸収できるため、サテライト基地のLNG受入設備として用いられる。",
+      "リターンガスブロアは、LNG船タンクからのLNGの払い出しによりその気相部が増大し、LNG船タンクの圧力の\n上昇\nを防止する設備である。",
+      "LNGポンプのケーブル貫通部は、LNGポンプ側からケーブル端子側へガスが漏えいしない構造となっている。",
+      "パス式\nLNG気化器では、気化器まわりの空気が冷却され、空気中の湿分が霧状となった冷気が漂うため、敷地境界までの距離を十分にとるか、冷気を拡散するためファンを設けるか、冷気の流れをとめるために塀を設置する等の対策を講ずる場合がある。",
+      "LNGラインに使用される仕切弁では、ボンネット内に液が封入され、圧力の異常上昇を防止するため、一般に弁体の片側に\nダイヤフラム\nを設ける。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 793,
+    "publicQuestionId": "bdc74e94312f9741",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bdc74e94312f9741",
+    "questionBodyText": "製造設備の構成設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 8,
+    "questionIntent": "select_correct",
+    "questionLabel": "問2",
+    "questionNo": 2,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:bdc74e94312f9741",
+    "reviewNotes": "",
+    "reviewQuestionId": "bdc74e94312f9741",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 2,
+      "subject": "seizo",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q02",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:seizo:q02:s01",
+      "gas-shunin:otsu:2023:seizo:q02:s02",
+      "gas-shunin:otsu:2023:seizo:q02:s03",
+      "gas-shunin:otsu:2023:seizo:q02:s04",
+      "gas-shunin:otsu:2023:seizo:q02:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s05",
         "statementNo": 5
       }
     ],
@@ -445,26 +442,26 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 794,
-  "nextPendingPublicQuestionId": "91ab2f6db1d7946f",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
-  "nextPendingReviewId": "2023:question_2023_2:91ab2f6db1d7946f",
-  "nextPendingTaskId": "T664",
-  "otsuCompleted": 152,
-  "otsuDone": 131,
+  "nextPendingPlanSequence": 793,
+  "nextPendingPublicQuestionId": "bdc74e94312f9741",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:bdc74e94312f9741",
+  "nextPendingReviewId": "2023:question_2023_2:bdc74e94312f9741",
+  "nextPendingTaskId": "T665",
+  "otsuCompleted": 153,
+  "otsuDone": 132,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 370,
-  "pending": 370,
-  "pending_questions": 370,
+  "otsuPending": 369,
+  "pending": 369,
+  "pending_questions": 369,
   "total": 934,
   "total_questions": 934,
-  "completedQuestions": 564,
-  "pendingQuestions": 370,
+  "completedQuestions": 565,
+  "pendingQuestions": 369,
   "heldQuestions": 123,
-  "nextActiveTaskId": "T664",
+  "nextActiveTaskId": "T665",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -478,18 +475,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "測温抵抗体温度計は、金属の電気抵抗値が温度によって変化することを利用したものであるが、熱電対温度計と比較して\n常温での精度は良くない\n。",
-      "電波式レベル計は、マイクロ波を用いた非接触型計測器である。高温、高圧等の周囲環境が厳しいところでは\nその影響を受けやすい\n。",
-      "耐圧防爆構造とは、可燃性のガス等が容器の内部に侵入して爆発を生じた場合に、その容器が爆発圧力に耐え、かつ爆発による火炎が外部の可燃性のガス等に点火しないようにしたものである。",
-      "計装空気は、調節弁及び緊急遮断弁の操作源等に使用される。計装空気圧縮機は無給油式のものが採用され、水分除去のための除湿器が設置される。",
-      "オンオフ制御を弁に採用する際、頻繁に開閉することを防ぐため、動作すきま（ヒステリシス）を持たせることが多い。"
+      "フレキシブルホースは、その長さ、可とう性を利用し、位置の調整及び熱収縮を吸収できるため、サテライト基地のLNG受入設備として用いられる。",
+      "リターンガスブロアは、LNG船タンクからのLNGの払い出しによりその気相部が増大し、LNG船タンクの圧力の\n上昇\nを防止する設備である。",
+      "LNGポンプのケーブル貫通部は、LNGポンプ側からケーブル端子側へガスが漏えいしない構造となっている。",
+      "パス式\nLNG気化器では、気化器まわりの空気が冷却され、空気中の湿分が霧状となった冷気が漂うため、敷地境界までの距離を十分にとるか、冷気を拡散するためファンを設けるか、冷気の流れをとめるために塀を設置する等の対策を講ずる場合がある。",
+      "LNGラインに使用される仕切弁では、ボンネット内に液が封入され、圧力の異常上昇を防止するため、一般に弁体の片側に\nダイヤフラム\nを設ける。"
     ],
     "correctChoiceText": [
-      "間違い",
+      "正しい",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
@@ -498,9 +495,9 @@
     "expectedCorrectChoiceText": [
       "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -535,28 +532,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 794,
-    "publicQuestionId": "91ab2f6db1d7946f",
+    "planSequence": 793,
+    "publicQuestionId": "bdc74e94312f9741",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
-    "questionBodyText": "製造設備の計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 9,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問3",
-    "questionNo": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bdc74e94312f9741",
+    "questionBodyText": "製造設備の構成設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 8,
+    "questionIntent": "select_correct",
+    "questionLabel": "問2",
+    "questionNo": 2,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:91ab2f6db1d7946f",
+    "reviewId": "2023:question_2023_2:bdc74e94312f9741",
     "reviewNotes": "",
-    "reviewQuestionId": "91ab2f6db1d7946f",
+    "reviewQuestionId": "bdc74e94312f9741",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -571,7 +568,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 3,
+      "questionNo": 2,
       "subject": "seizo",
       "year": 2023
     },
@@ -580,45 +577,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q03",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q02",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q03:s01",
-      "gas-shunin:otsu:2023:seizo:q03:s02",
-      "gas-shunin:otsu:2023:seizo:q03:s03",
-      "gas-shunin:otsu:2023:seizo:q03:s04",
-      "gas-shunin:otsu:2023:seizo:q03:s05"
+      "gas-shunin:otsu:2023:seizo:q02:s01",
+      "gas-shunin:otsu:2023:seizo:q02:s02",
+      "gas-shunin:otsu:2023:seizo:q02:s03",
+      "gas-shunin:otsu:2023:seizo:q02:s04",
+      "gas-shunin:otsu:2023:seizo:q02:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s05",
         "statementNo": 5
       }
     ],
