@@ -607,26 +607,98 @@
       "臨界温度より高い温度の気体であっても、\n圧力を上げれば液化することができる\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。臨界温度と臨界圧力をともに超えた温度・圧力の状態は超臨界状態であり、この状態のガスを超臨界ガスと呼ぶ。",
+      "正しい。一定温度で気体を圧縮して液化が始まり、気体と液体が共存しているときの圧力が、その温度における飽和蒸気圧である。",
+      "正しい。メタンの臨界温度は約-83℃であり、これより高い温度では圧力を上げるだけでは液化できない。液化には臨界温度以下への冷却が必要である。",
+      "正しい。二酸化炭素の臨界温度は常温付近より高めであるため、常温では臨界温度以下となり、圧力を加えるだけで液化させることができる。",
+      "間違い。臨界温度より高い温度では、圧力をどれだけ上げても気体と液体が共存する液化状態にはならない。液化には臨界温度以下にする必要がある。"
+    ],
+    "suggestedQuestions": [
+      "超臨界ガスとはどのような状態か？",
+      "飽和蒸気圧とは何か？",
+      "メタンを液化するにはどの温度条件が必要か？",
+      "二酸化炭素が常温で加圧液化できる理由は何か？",
+      "臨界温度より高い温度で加圧だけにより液化できるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "超臨界ガスとはどのような状態か？",
+        "answer": "臨界温度と臨界圧力をともに超えた状態。",
+        "explanation": "臨界点を超えると気体と液体の区別がなくなる超臨界状態になる。"
+      },
+      {
+        "question": "飽和蒸気圧とは何か？",
+        "answer": "気液が共存する平衡圧力。",
+        "explanation": "一定温度で液化が始まり、気体と液体が共存しているときの圧力である。"
+      },
+      {
+        "question": "メタンを液化するにはどの温度条件が必要か？",
+        "answer": "約-83℃以下への冷却が必要。",
+        "explanation": "メタンの臨界温度は約-83℃であり、それより高い温度では加圧だけで液化できない。"
+      },
+      {
+        "question": "二酸化炭素が常温で加圧液化できる理由は何か？",
+        "answer": "臨界温度が比較的高いから。",
+        "explanation": "二酸化炭素の臨界温度は常温付近より高めで、常温では加圧によって液化し得る。"
+      },
+      {
+        "question": "臨界温度より高い温度で加圧だけにより液化できるか？",
+        "answer": "できない。",
+        "explanation": "臨界温度を超えると、圧力を上げても気液共存状態を作れず液化しない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の実在気体、臨界温度、臨界圧力、飽和蒸気圧、超臨界状態が本問の関連論点。",
+      "気体を加圧だけで液化できるかどうかは、その温度が臨界温度以下かどうかで決まる。",
+      "臨界温度より高い温度では、圧力を上げても気液共存状態を作れず液化できない。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢5は、臨界温度より高い温度でも加圧すれば液化できるとしている点が誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "臨界温度・臨界圧力を超えた状態は超臨界状態である。"
+      ],
+      [
+        "飽和蒸気圧は、一定温度で気液が共存する平衡圧力である。"
+      ],
+      [
+        "メタンは臨界温度約-83℃以下でなければ加圧だけでは液化できない。"
+      ],
+      [
+        "二酸化炭素は臨界温度が比較的高く、常温で加圧液化し得る。"
+      ],
+      [
+        "臨界温度より高い温度では、圧力を上げても液化できない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "category": "物性・基礎（乙種）",
+    "questionSetName": "物性・基礎（乙種）",
+    "explanationTextCount": 5,
+    "correctChoiceTextCount": 5,
+    "reviewStatus": "ok",
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-29T08:15:13+09:00",
+    "questionIntentReviewedAt": "2026-06-29T08:15:13+09:00",
+    "correctChoiceReviewedAt": "2026-06-29T08:15:13+09:00",
+    "explanationReviewedAt": "2026-06-29T08:15:13+09:00",
+    "questionSetReviewedAt": "2026-06-29T08:15:13+09:00",
+    "workerTaskId": "T797",
+    "taskId": "T797"
   },
   {
     "original_question_id": "9b4f83c2b3c9e99a",
