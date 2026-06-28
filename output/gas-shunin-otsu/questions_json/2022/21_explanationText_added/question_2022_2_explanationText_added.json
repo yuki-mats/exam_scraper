@@ -271,20 +271,47 @@
       "エアフィン式気化器は、気化器出口のガス温度が外気温以下となることがあり、寒冷地等では冬期の気化器出口ガス温度低下対策として、気化器の後流にNG加温器を設置する等の措置が必要となる場合もある。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。ミキシングホルダーは、製造ガスを混合して供給ガスの成分、熱量、燃焼性を均一化するための設備である。",
+      "正しい。エアフィン式気化器では、周囲空気から熱を受けて気化するため出口ガス温度が外気温以下になることがあり、寒冷地などでは後流にNG加温器を設置するなどの低温対策が必要となる場合がある。"
+    ],
+    "suggestedQuestions": [
+      "ミキシングホルダーの主な機能は何か？",
+      "エアフィン式気化器で出口ガス温度が外気温以下になることはあるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ミキシングホルダーの主な機能は何か？",
+        "answer": "製造ガスを混合し、供給ガスの成分・熱量・燃焼性を均一化すること。",
+        "explanation": "正しい。ミキシングホルダーは、製造ガスを混合して供給ガスの成分、熱量、燃焼性を均一化するための設備である。"
+      },
+      {
+        "question": "エアフィン式気化器で出口ガス温度が外気温以下になることはあるか？",
+        "answer": true,
+        "explanation": "正しい。エアフィン式気化器では、周囲空気から熱を受けて気化するため出口ガス温度が外気温以下になることがあり、寒冷地などでは後流にNG加温器を設置するなどの低温対策が必要となる場合がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造 第2章「製造所の製造設備（乙種）」のミキシングホルダー、エアフィン式気化器、気化器出口ガス温度低下対策が本問の関連論点。",
+      "本問は「いずれも正しいものの組合せ」を問う組合せ問題で、site sourceには組合せ4に対応するハ・ニの2文が抽出されている。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "ミキシングホルダーはガス成分・熱量・燃焼性の均一化に用いられ、エアフィン式気化器は出口ガス温度低下対策が必要になる場合があるため、抽出された2文はいずれも正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      []
+      [
+        "ミキシングホルダーは、製造ガスを混合して供給ガスの成分・熱量・燃焼性を均一化する。"
+      ],
+      [
+        "エアフィン式気化器は出口ガス温度が外気温以下になることがあり、寒冷地ではNG加温器などの低温対策が必要になる場合がある。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null
-    ]
+      "正しい",
+      "正しい"
+    ],
+    "explanationTextCount": 2
   },
   {
     "original_question_id": "7de93f61e5847f73",
