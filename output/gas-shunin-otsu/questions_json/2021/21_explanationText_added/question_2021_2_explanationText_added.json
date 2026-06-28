@@ -533,26 +533,50 @@
       "COD（化学的酸素要求量）とは、水中の有機物を酸化剤で分解する際に消費される酸化剤の量を酸素量に換算したものである。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。LNGやLPGは硫黄分や窒素分などの不純物が少ないため、都市ガスの製造段階でSOxや燃料由来NOxの発生を大きく抑えられる。製造段階の大気環境負荷が小さいという記述は妥当である。",
+      "正しい。LNGは低温で受け入れられ、気化・送出の過程で冷熱や圧力エネルギーを有効利用できる。送出圧力エネルギーとして利用される分のほか、未利用冷熱の活用が工夫されているという記述は妥当である。",
+      "間違い。調節弁による流量制御方式は設備構成が比較的安価な一方、流量を絞ると調節弁で圧力を失わせるため、動力損失は小さくなるのではなく大きくなる。",
+      "間違い。メタンを主成分とする天然ガスは、石炭や石油に比べて水素に対する炭素の割合が小さいため、同じ熱量を得る際の二酸化炭素排出量が少ない。炭素原子の割合が大きいとしている点が誤りである。",
+      "正しい。CODは化学的酸素要求量であり、水中の有機物などを酸化剤で酸化分解する際に消費される酸化剤の量を酸素量に換算した指標である。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonPrefix": [
+      "製造「環境対策及び省エネルギー（乙種）」の環境負荷、冷熱利用、省エネルギー、CODに関する複合問題。",
+      "設問は「いずれも誤っているものの組合せ」を問うため、answer_result_textの番号は組合せ番号として扱い、各記述の正誤をstatement-levelで確認する。",
+      "誤りは、調節弁での動力損失を小さくなるとした記述と、天然ガスの炭素原子割合を大きいとした記述である。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "LNG・LPGは硫黄分や窒素分が少なく、製造段階のSOx等の負荷が小さい。"
+      ],
+      [
+        "LNG冷熱・送出圧力エネルギーの利用と未利用冷熱の活用に関する記述。"
+      ],
+      [
+        "調節弁で絞る方式では圧力損失が生じるため、動力損失は小さくならない。"
+      ],
+      [
+        "天然ガスは炭素割合が小さいためCO2排出量が少ない。炭素割合が大きいという記述が誤り。"
+      ],
+      [
+        "CODは酸化剤消費量を酸素量に換算する水質指標。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "workerTaskId": "T774",
+    "questionSetId": "chiefgasengineerlicense-B-1780",
+    "questionSetName": "環境対策及び省エネルギー（乙種）",
+    "category": "環境対策及び省エネルギー（乙種）"
   },
   {
     "original_question_id": "fdd4c8497660630e",
