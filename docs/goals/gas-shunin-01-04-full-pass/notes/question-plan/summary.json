@@ -1,14 +1,14 @@
 {
-  "activeTaskId": "T686",
-  "completed": 586,
-  "completedQuestions": 586,
-  "completed_questions": 586,
-  "done": 461,
+  "activeTaskId": "T687",
+  "completed": 587,
+  "completedQuestions": 587,
+  "completed_questions": 587,
+  "done": 462,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 461,
+    "done": 462,
     "hold": 125,
-    "pending": 348
+    "pending": 347
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-28T18:31:00+09:00",
@@ -22,7 +22,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,47 +31,47 @@
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
-      "questionSetIdPresent": false,
+      "questionSetIdPresent": true,
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "導管の露出している部分の両端は、地くずれのおそれがない地中に支持されていなければならない。",
-      "導管(最高使用圧力が低圧の導管であって、内径が100mm未満のものを除く。)であって、露出している部分の長さが100m以上であり、かつ、当該部分がガスの供給の用に供されているものについては、危急の場合に当該部分に流入するガスを速やかに遮断することができる適切な措置を講じなければならない。",
-      "最高使用圧力が高圧の整圧器には、ガスの漏えいによる火災等の発生を防止するための適切な措置を講じなければならない。",
-      "一の使用者にガスを供給するための整圧器には、ガスの圧力が異常に上昇することを防止する装置を設けなければならない。\nただし、その使用者の承諾を得ることができた場合にあっては、この限りでない\n。",
-      "浸水のおそれのある地下に設置する整圧器には、\n浸水を検知した場合にガスを遮断する装置\nを設けなければならない。"
+      "道路に埋設されている導管で、最高使用圧力が高圧のものは、埋設の日以後1年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
+      "道路に埋設されている導管からガス栓までに設置されている導管(埋設されている部分に限る。)で、絶縁措置が講じられており当該絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分は、埋設の日以後6年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
+      "道路に埋設されている導管、及び道路に埋設されている導管からガス栓までに設置されている導管は適切な方法により検査を行い、漏えいが認められなかったものでなければならない。 ただし、ポリエチレン管を使用している場合、当該使用している部分に限り、この限りでない。",
+      "最高使用圧力が中圧の導管\nは、建物の内部又は基礎面下(当該建物がガスの供給に係るものを除く。)に設置してはならない。",
+      "特定地下街等にガスを供給する導管は、適切な方法により設置された適切なガス漏れ警報設備の検知区域において、当該特定地下街等の外壁を貫通するように設置しなければならない。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
       "正しい",
       "間違い",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "hold",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
       "正しい",
       "間違い",
-      "間違い"
+      "正しい"
     ],
     "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、ガス事業者の掘削により周囲が露出することとなった導管について、露出している部分の両端が地くずれのおそれがない地中に支持されていることを求めている。",
-      "正しい。同省令第54条第5号は、低圧で内径100mm未満のものを除く導管で、露出部分の長さが100m以上かつガス供給の用に供されているものについて、危急の場合に流入ガスを速やかに遮断できる適切な措置を求めている。",
-      "正しい。同省令第56条は、最高使用圧力が高圧の整圧器に、ガスの漏えいによる火災等の発生を防止するための適切な措置を講じなければならないと定めている。",
-      "間違い。同省令第57条第3号は、一の使用者にガスを供給するための整圧器にはガス圧力の異常上昇防止装置を設けることを求めており、使用者の承諾による除外はない。承諾で不要になるとしている点が誤り。",
-      "間違い。同省令第58条第1項は、浸水のおそれのある地下に設置する整圧器には浸水を防止するための措置を講じることを求めている。浸水検知時にガスを遮断する装置としている点が誤り。"
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第1項の表は、道路に埋設されている導管で最高使用圧力が高圧のものについて、埋設の日以後1年に1回以上、適切な方法で漏えい検査を行うことを定めている。",
+      "正しい。同省令第51条第2項の表は、本支管からガス栓までの間に絶縁措置が講じられており、その絶縁措置部分からガス栓までの間でプラスチックにて被覆された部分について、埋設の日以後6年に1回以上の漏えい検査を定めている。",
+      "正しい。同省令第51条第1項は、道路に埋設されている導管について漏えい検査を求め、同項ただし書第2号及び第2項ただし書第3号は、ポリエチレン管を使用している場合は当該使用部分に限りこの限りでないと定めている。",
+      "間違い。同省令第52条第1項で建物の内部又は基礎面下への設置が禁止されるのは、最高使用圧力が高圧の導管である。最高使用圧力が中圧の導管としている点が誤りで、本問の正解肢である。",
+      "正しい。同省令第52条第2項は、特定地下街等又は特定地下室等にガスを供給する導管を、適切なガス漏れ警報設備の検知区域において外壁を貫通するように設置しなければならないと定めている。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
-    "fixInstructions": "04: statement-level questionSetIdが技省令_導管と技省令_整圧器で混在するため、per-statement questionSetId方針確定後に解除する。",
+    "fixInstructions": "",
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
@@ -100,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 773,
-    "publicQuestionId": "1996daf5edb2f9a2",
+    "planSequence": 772,
+    "publicQuestionId": "ffc2d1a181ce96fd",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1996daf5edb2f9a2",
-    "questionBodyText": "技術基準で規定されているガス事業者の掘削により周囲が露出することとなった導管及び整圧器に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 13,
-    "questionIntent": "select_correct",
-    "questionLabel": "問13",
-    "questionNo": 13,
-    "questionSetId": "",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:ffc2d1a181ce96fd",
+    "questionBodyText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはどれか。 ただし、(1)、(2)及び(3)の導管は、特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
+    "questionIndexInFile": 12,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問12",
+    "questionNo": 12,
+    "questionSetId": "chiefgasengineerlicense-B-1620",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q13",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q12",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
-    "review04QuestionSetId": "hold",
-    "reviewDecision": "hold",
-    "reviewId": "2023:question_2023_1:1996daf5edb2f9a2",
-    "reviewNotes": "T685: 降順ブロック planSequence=773。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=1996daf5edb2f9a2。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 3 です。は正しい記述数に対応し、correctChoiceText=[正しい, 正しい, 正しい, 間違い, 間違い] と確認。e-Gov LawId 412M50000400111（ガス工作物の技術上の基準を定める省令54条1号・5号、56条、57条3号、58条1項）を確認。古い expectedCorrectChoiceText=[間違い, 間違い, 正しい, 間違い, 間違い] は補正。01-03は完了。04はstatement-levelカテゴリが choices1-2=技省令_導管（乙種）、choices3-5=技省令_整圧器（乙種）にまたがるため、単一problem-level questionSetIdで上書きせずhold。",
-    "reviewQuestionId": "1996daf5edb2f9a2",
-    "reviewedAt": "2026-06-28T18:58:00+09:00",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
+    "reviewId": "2023:question_2023_1:ffc2d1a181ce96fd",
+    "reviewNotes": "T686: 降順ブロック planSequence=772。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=ffc2d1a181ce96fd。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は誤り肢4に対応し、correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい] と確認。e-Gov LawId 412M50000400111（ガス工作物の技術上の基準を定める省令51条1項・2項、52条1項・2項）を確認。04は漏えい検査（乙種）がdeletedで、問題全体が導管の技術基準に属するため、上位の有効カテゴリ chiefgasengineerlicense-B-1620（技省令_導管（乙種））へリンク。",
+    "reviewQuestionId": "ffc2d1a181ce96fd",
+    "reviewedAt": "2026-06-28T19:18:00+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -136,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 12,
       "subject": "law",
       "year": 2023
     },
@@ -145,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q13",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q13:s01",
-      "gas-shunin:otsu:2023:law:q13:s02",
-      "gas-shunin:otsu:2023:law:q13:s03",
-      "gas-shunin:otsu:2023:law:q13:s04",
-      "gas-shunin:otsu:2023:law:q13:s05"
+      "gas-shunin:otsu:2023:law:q12:s01",
+      "gas-shunin:otsu:2023:law:q12:s02",
+      "gas-shunin:otsu:2023:law:q12:s03",
+      "gas-shunin:otsu:2023:law:q12:s04",
+      "gas-shunin:otsu:2023:law:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q13",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q13:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q13:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q13:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q13:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q13:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s05",
         "statementNo": 5
       }
     ],
@@ -195,85 +195,87 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
+    "questionSetName": "技省令_導管（乙種）",
+    "category": "技省令_導管（乙種）",
     "sourceExplanationChoiceCorrectness": [
       "正しい",
       "正しい",
       "正しい",
       "間違い",
-      "間違い"
+      "正しい"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "露出導管の両端は地くずれのおそれがない地中に支持する。"
+        "高圧の道路埋設導管は埋設の日以後1年に1回以上検査する。"
       ],
       [
-        "100m以上で供給中の露出導管には流入ガス遮断措置が必要。"
+        "絶縁措置部分からガス栓までのプラスチック被覆部分は6年に1回以上検査する。"
       ],
       [
-        "高圧整圧器には漏えい火災等を防止する措置が必要。"
+        "ポリエチレン管を使用している部分は漏えい検査義務の例外。"
       ],
       [
-        "一使用者用整圧器の異常圧力上昇防止装置に使用者承諾例外はない。"
+        "建物内部又は基礎面下への設置禁止は高圧導管が対象。"
       ],
       [
-        "地下整圧器は浸水検知遮断ではなく浸水防止措置が必要。"
+        "特定地下街等への導管はガス漏れ警報設備の検知区域で外壁を貫通する。"
       ]
     ],
     "sourceExplanationCommonPrefix": [
-      "技術基準「技省令_導管（乙種）」と「技省令_整圧器（乙種）」の露出導管防護、整圧器の火災防止・遮断装置等・浸水防止が本問の関連論点。",
-      "設問は正しい記述の個数を問う形式で、answer_result_text の「正解は3」は選択肢1・2・3が正しいことに対応する。",
-      "選択肢4は使用者承諾による除外を付けた点、選択肢5は浸水防止措置を浸水検知遮断装置に置き換えた点が誤り。"
+      "技術基準「技省令_導管（乙種）」の漏えい検査と導管の設置場所が本問の関連論点。",
+      "設問は誤っているものを1つ選ぶ形式で、answer_result_text の「正解は4」は中圧導管を建物内部又は基礎面下設置禁止の対象とした選択肢4に対応する。",
+      "建物内部又は基礎面下への設置が禁止されるのは高圧導管であり、中圧導管ではない。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢1は第54条第1号、選択肢2は第54条第5号、選択肢3は第56条に合う。選択肢4は第57条第3号にない承諾例外を加え、選択肢5は第58条第1項の浸水防止措置を誤る。"
+      "選択肢1は高圧道路埋設導管の年1回漏えい検査、選択肢2は絶縁措置後のプラスチック被覆部分の6年検査、選択肢3はポリエチレン管使用部分の例外、選択肢5は特定地下街等への導管設置場所として正しい。選択肢4だけが高圧を中圧に置き換えているため誤り。"
     ],
     "suggestedQuestions": [
-      "露出導管の両端はどこに支持する？",
-      "露出導管が100m以上の場合の遮断措置は？",
-      "高圧整圧器に必要な火災防止措置は？",
-      "一使用者用整圧器の異常圧力上昇防止装置に承諾例外はある？",
-      "地下整圧器の浸水対策は何か？"
+      "高圧の道路埋設導管の漏えい検査頻度は？",
+      "絶縁措置後からガス栓までのプラスチック被覆部分の検査頻度は？",
+      "ポリエチレン管部分は漏えい検査でどう扱う？",
+      "建物内部又は基礎面下に設置できない導管は？",
+      "特定地下街等への導管はどこを貫通する？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "露出導管の両端はどこに支持する？",
-        "answer": "地くずれのおそれがない地中。",
-        "explanation": "技省令第54条第1号は、ガス事業者の掘削で露出した導管の両端支持を定めている。"
+        "question": "高圧の道路埋設導管の漏えい検査頻度は？",
+        "answer": "埋設の日以後1年に1回以上。",
+        "explanation": "技省令第51条第1項の表は、高圧の道路埋設導管について年1回以上の漏えい検査を定めている。"
       },
       {
-        "question": "露出導管が100m以上の場合の遮断措置は？",
-        "answer": "流入ガスを速やかに遮断できる措置。",
-        "explanation": "第54条第5号は、低圧小口径を除き、露出100m以上かつ供給中の導管に遮断措置を求めている。"
+        "question": "絶縁措置後からガス栓までのプラスチック被覆部分の検査頻度は？",
+        "answer": "埋設の日以後6年に1回以上。",
+        "explanation": "第51条第2項の表は、絶縁措置部分からガス栓までのプラスチック被覆部分について6年に1回以上と定めている。"
       },
       {
-        "question": "高圧整圧器に必要な火災防止措置は？",
-        "answer": "漏えいによる火災等の発生防止措置。",
-        "explanation": "第56条は、最高使用圧力が高圧の整圧器に火災等防止の適切な措置を求めている。"
+        "question": "ポリエチレン管部分は漏えい検査でどう扱う？",
+        "answer": "当該使用部分に限り検査義務の例外。",
+        "explanation": "第51条第1項・第2項のただし書は、ポリエチレン管を使用している部分を漏えい検査義務の例外としている。"
       },
       {
-        "question": "一使用者用整圧器の異常圧力上昇防止装置に承諾例外はある？",
-        "answer": "ない。",
-        "explanation": "第57条第3号は、一使用者用整圧器の異常圧力上昇防止装置を定めており、使用者承諾による除外はない。"
+        "question": "建物内部又は基礎面下に設置できない導管は？",
+        "answer": "最高使用圧力が高圧の導管。",
+        "explanation": "第52条第1項は高圧導管の建物内部又は基礎面下への設置を禁止しており、中圧導管ではない。"
       },
       {
-        "question": "地下整圧器の浸水対策は何か？",
-        "answer": "浸水を防止する措置。",
-        "explanation": "第58条第1項は、浸水のおそれのある地下整圧器には浸水防止措置を求め、浸水検知遮断装置とはしていない。"
+        "question": "特定地下街等への導管はどこを貫通する？",
+        "answer": "ガス漏れ警報設備の検知区域で外壁を貫通する。",
+        "explanation": "第52条第2項は、特定地下街等又は特定地下室等に供給する導管の設置場所を定めている。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
-    "taskId": "T685",
-    "workerTaskId": "T685"
+    "taskId": "T686",
+    "workerTaskId": "T686"
   },
-  "lastCompletedReviewQuestionId": "gas-shunin-otsu:1996daf5edb2f9a2",
-  "lastCompletedTaskId": "T685",
-  "nextActiveTaskId": "T686",
+  "lastCompletedReviewQuestionId": "gas-shunin-otsu:ffc2d1a181ce96fd",
+  "lastCompletedTaskId": "T686",
+  "nextActiveTaskId": "T687",
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -283,29 +285,29 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "道路に埋設されている導管で、最高使用圧力が高圧のものは、埋設の日以後1年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
-      "道路に埋設されている導管からガス栓までに設置されている導管(埋設されている部分に限る。)で、絶縁措置が講じられており当該絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分は、埋設の日以後6年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
-      "道路に埋設されている導管、及び道路に埋設されている導管からガス栓までに設置されている導管は適切な方法により検査を行い、漏えいが認められなかったものでなければならない。 ただし、ポリエチレン管を使用している場合、当該使用している部分に限り、この限りでない。",
-      "最高使用圧力が中圧の導管\nは、建物の内部又は基礎面下(当該建物がガスの供給に係るものを除く。)に設置してはならない。",
-      "特定地下街等にガスを供給する導管は、適切な方法により設置された適切なガス漏れ警報設備の検知区域において、当該特定地下街等の外壁を貫通するように設置しなければならない。"
+      "水のたまるおそれのある導管には、適切な水取り器を設けなければならない。",
+      "告示で定める着脱が容易なガス栓は、内部に\n圧力上昇防止機構\nを有するものでなければならない。",
+      "道路以外の地盤面下に埋設される最高使用圧力が中圧以上の本支管には、掘削等による損傷を防止するための適切な措置を講じなければならない。ただし、他工事による損傷のおそれがないものにあっては、この限りでない。",
+      "ガスの使用場所である地下室等にガスを供給する導管には、\nその地下室等から十分離れた適切な場所\nに、危急の場合に当該地下室等へのガスの供給を地上から速やかに遮断することができる適切な装置を設けなければならない。",
+      "ガス事業者が、ガスの使用者との取引のために使用するガスメーター(使用最大流量が毎時16m³以下、使用最大圧力が4kPa以下及び口径250mm以下のものに限る。)は、ガスが流入している状態において、\n異常なガス圧力の上昇を検知した場合\nに、ガスを速やかに遮断する機能を有するものでなければならない。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -340,28 +342,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 772,
-    "publicQuestionId": "ffc2d1a181ce96fd",
+    "planSequence": 771,
+    "publicQuestionId": "4d7a52b1ab649e7d",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:ffc2d1a181ce96fd",
-    "questionBodyText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはどれか。 ただし、(1)、(2)及び(3)の導管は、特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
-    "questionIndexInFile": 12,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:4d7a52b1ab649e7d",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 11,
+    "questionIntent": "select_correct",
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q12",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:ffc2d1a181ce96fd",
+    "reviewId": "2023:question_2023_1:4d7a52b1ab649e7d",
     "reviewNotes": "",
-    "reviewQuestionId": "ffc2d1a181ce96fd",
+    "reviewQuestionId": "4d7a52b1ab649e7d",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -376,7 +378,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 11,
       "subject": "law",
       "year": 2023
     },
@@ -385,45 +387,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q12:s01",
-      "gas-shunin:otsu:2023:law:q12:s02",
-      "gas-shunin:otsu:2023:law:q12:s03",
-      "gas-shunin:otsu:2023:law:q12:s04",
-      "gas-shunin:otsu:2023:law:q12:s05"
+      "gas-shunin:otsu:2023:law:q11:s01",
+      "gas-shunin:otsu:2023:law:q11:s02",
+      "gas-shunin:otsu:2023:law:q11:s03",
+      "gas-shunin:otsu:2023:law:q11:s04",
+      "gas-shunin:otsu:2023:law:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s05",
         "statementNo": 5
       }
     ],
@@ -436,15 +438,15 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 772,
-  "nextPendingPublicQuestionId": "ffc2d1a181ce96fd",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:ffc2d1a181ce96fd",
+  "nextPendingPlanSequence": 771,
+  "nextPendingPublicQuestionId": "4d7a52b1ab649e7d",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:4d7a52b1ab649e7d",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
+      "correctChoiceMatchesExpected": false,
       "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
@@ -454,29 +456,29 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "道路に埋設されている導管で、最高使用圧力が高圧のものは、埋設の日以後1年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
-      "道路に埋設されている導管からガス栓までに設置されている導管(埋設されている部分に限る。)で、絶縁措置が講じられており当該絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分は、埋設の日以後6年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
-      "道路に埋設されている導管、及び道路に埋設されている導管からガス栓までに設置されている導管は適切な方法により検査を行い、漏えいが認められなかったものでなければならない。 ただし、ポリエチレン管を使用している場合、当該使用している部分に限り、この限りでない。",
-      "最高使用圧力が中圧の導管\nは、建物の内部又は基礎面下(当該建物がガスの供給に係るものを除く。)に設置してはならない。",
-      "特定地下街等にガスを供給する導管は、適切な方法により設置された適切なガス漏れ警報設備の検知区域において、当該特定地下街等の外壁を貫通するように設置しなければならない。"
+      "水のたまるおそれのある導管には、適切な水取り器を設けなければならない。",
+      "告示で定める着脱が容易なガス栓は、内部に\n圧力上昇防止機構\nを有するものでなければならない。",
+      "道路以外の地盤面下に埋設される最高使用圧力が中圧以上の本支管には、掘削等による損傷を防止するための適切な措置を講じなければならない。ただし、他工事による損傷のおそれがないものにあっては、この限りでない。",
+      "ガスの使用場所である地下室等にガスを供給する導管には、\nその地下室等から十分離れた適切な場所\nに、危急の場合に当該地下室等へのガスの供給を地上から速やかに遮断することができる適切な装置を設けなければならない。",
+      "ガス事業者が、ガスの使用者との取引のために使用するガスメーター(使用最大流量が毎時16m³以下、使用最大圧力が4kPa以下及び口径250mm以下のものに限る。)は、ガスが流入している状態において、\n異常なガス圧力の上昇を検知した場合\nに、ガスを速やかに遮断する機能を有するものでなければならない。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -511,28 +513,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 772,
-    "publicQuestionId": "ffc2d1a181ce96fd",
+    "planSequence": 771,
+    "publicQuestionId": "4d7a52b1ab649e7d",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:ffc2d1a181ce96fd",
-    "questionBodyText": "技術基準で規定されている導管に関する次の記述のうち、誤っているものはどれか。 ただし、(1)、(2)及び(3)の導管は、特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
-    "questionIndexInFile": 12,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問12",
-    "questionNo": 12,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:4d7a52b1ab649e7d",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 11,
+    "questionIntent": "select_correct",
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q12",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:ffc2d1a181ce96fd",
+    "reviewId": "2023:question_2023_1:4d7a52b1ab649e7d",
     "reviewNotes": "",
-    "reviewQuestionId": "ffc2d1a181ce96fd",
+    "reviewQuestionId": "4d7a52b1ab649e7d",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -547,7 +549,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 11,
       "subject": "law",
       "year": 2023
     },
@@ -556,45 +558,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q12:s01",
-      "gas-shunin:otsu:2023:law:q12:s02",
-      "gas-shunin:otsu:2023:law:q12:s03",
-      "gas-shunin:otsu:2023:law:q12:s04",
-      "gas-shunin:otsu:2023:law:q12:s05"
+      "gas-shunin:otsu:2023:law:q11:s01",
+      "gas-shunin:otsu:2023:law:q11:s02",
+      "gas-shunin:otsu:2023:law:q11:s03",
+      "gas-shunin:otsu:2023:law:q11:s04",
+      "gas-shunin:otsu:2023:law:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q11:s05",
         "statementNo": 5
       }
     ],
@@ -607,16 +609,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:ffc2d1a181ce96fd",
-  "nextPendingTaskId": "T686",
-  "otsuCompleted": 174,
-  "otsuDone": 151,
+  "nextPendingReviewId": "2023:question_2023_1:4d7a52b1ab649e7d",
+  "nextPendingTaskId": "T687",
+  "otsuCompleted": 175,
+  "otsuDone": 152,
   "otsuHeld": 23,
   "otsuHold": 23,
-  "otsuPending": 348,
-  "pending": 348,
-  "pendingQuestions": 348,
-  "pending_questions": 348,
+  "otsuPending": 347,
+  "pending": 347,
+  "pendingQuestions": 347,
+  "pending_questions": 347,
   "total": 934,
   "total_questions": 934
 }
