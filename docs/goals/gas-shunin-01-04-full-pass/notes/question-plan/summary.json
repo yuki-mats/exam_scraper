@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T703",
-  "completed": 603,
-  "completedQuestions": 603,
-  "completed_questions": 603,
-  "done": 469,
+  "activeTaskId": "T704",
+  "completed": 604,
+  "completedQuestions": 604,
+  "completed_questions": 604,
+  "done": 470,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 469,
+    "done": 470,
     "hold": 134,
-    "pending": 331
+    "pending": 330
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T20:49:13+09:00",
+  "generatedAt": "2026-06-28T21:01:45+09:00",
   "heldQuestions": 134,
   "held_questions": 134,
   "hold": 134,
@@ -22,17 +22,17 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T20:51:50+09:00",
-    "publicQuestionId": "61ab4624931c95d5",
-    "reviewQuestionId": "61ab4624931c95d5",
-    "taskId": "T702",
-    "workerTaskId": "T702"
+    "completedAt": "2026-06-28T21:01:45+09:00",
+    "publicQuestionId": "e313c4ce6dc6fafd",
+    "reviewQuestionId": "e313c4ce6dc6fafd",
+    "taskId": "T703",
+    "workerTaskId": "T703"
   },
-  "lastCompletedReviewQuestionId": "61ab4624931c95d5",
-  "lastCompletedTaskId": "T702",
-  "nextActiveTaskId": "T703",
+  "lastCompletedReviewQuestionId": "e313c4ce6dc6fafd",
+  "lastCompletedTaskId": "T703",
+  "nextActiveTaskId": "T704",
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -46,16 +46,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "10号の瞬間湯沸器は、水温20℃の水を45℃へ上昇させたお湯を毎分10L出せる能力を有している。",
-      "自己診断機能には、\n給気ファンの回転数と電圧値\nを計測し、給排気通路の閉そく状態を診断する方法がある。",
-      "給湯負荷に応じて最適な燃焼になるように、ガス量と空気量を制御することを空燃比制御という。",
-      "浴室暖房乾燥機の主要4機能とは、暖房、乾燥、涼風及び換気である。",
-      "ふろ給湯器の設置方式には、設置フリー形があり、ポンプの揚程により設置位置を選択できる。"
+      "ガスこんろの熱効率は、省エネ法に基づくトップランナー基準の導入以降、炎の広がりを抑える、鍋底との距離を近づける等の改良により向上した。",
+      "ガスオーブンは、熱風をファンによって強制的に撹拌しているため、調理時間が早く、一度に多量の調理ができる。",
+      "FF暖房機には、立ち消え安全装置、点火時安全装置、\n転倒時安全装置\n等の安全装置が搭載されている。",
+      "ファンヒーターでは、設定温度とセンサーで検知した室温との温度差分を電気量に変換することで比例弁を駆動させ、ガス量に比例して対流ファン風量を制御する。",
+      "回転ドラム式衣類乾燥機には、接触した衣類の抵抗値を測定して、湿り具合を判断する乾燥センサーが搭載されている。"
     ],
     "correctChoiceText": [
       "正しい",
-      "間違い",
       "正しい",
+      "間違い",
       "正しい",
       "正しい"
     ],
@@ -65,8 +65,8 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "間違い",
       "正しい",
+      "間違い",
       "正しい",
       "正しい"
     ],
@@ -103,28 +103,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 755,
-    "publicQuestionId": "e313c4ce6dc6fafd",
+    "planSequence": 754,
+    "publicQuestionId": "5a3b87a2d19bd625",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:e313c4ce6dc6fafd",
-    "questionBodyText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:5a3b87a2d19bd625",
+    "questionBodyText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 2,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問22",
-    "questionNo": 22,
+    "questionLabel": "問21",
+    "questionNo": 21,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q22",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:e313c4ce6dc6fafd",
+    "reviewId": "2022:question_2022_3:5a3b87a2d19bd625",
     "reviewNotes": "",
-    "reviewQuestionId": "e313c4ce6dc6fafd",
+    "reviewQuestionId": "5a3b87a2d19bd625",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -139,7 +139,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 22,
+      "questionNo": 21,
       "subject": "shohi",
       "year": 2022
     },
@@ -148,45 +148,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q22",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q21",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q22:s01",
-      "gas-shunin:otsu:2022:shohi:q22:s02",
-      "gas-shunin:otsu:2022:shohi:q22:s03",
-      "gas-shunin:otsu:2022:shohi:q22:s04",
-      "gas-shunin:otsu:2022:shohi:q22:s05"
+      "gas-shunin:otsu:2022:shohi:q21:s01",
+      "gas-shunin:otsu:2022:shohi:q21:s02",
+      "gas-shunin:otsu:2022:shohi:q21:s03",
+      "gas-shunin:otsu:2022:shohi:q21:s04",
+      "gas-shunin:otsu:2022:shohi:q21:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q22",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s05",
         "statementNo": 5
       }
     ],
@@ -199,11 +199,11 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 755,
-  "nextPendingPublicQuestionId": "e313c4ce6dc6fafd",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:e313c4ce6dc6fafd",
+  "nextPendingPlanSequence": 754,
+  "nextPendingPublicQuestionId": "5a3b87a2d19bd625",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:5a3b87a2d19bd625",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -217,16 +217,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "10号の瞬間湯沸器は、水温20℃の水を45℃へ上昇させたお湯を毎分10L出せる能力を有している。",
-      "自己診断機能には、\n給気ファンの回転数と電圧値\nを計測し、給排気通路の閉そく状態を診断する方法がある。",
-      "給湯負荷に応じて最適な燃焼になるように、ガス量と空気量を制御することを空燃比制御という。",
-      "浴室暖房乾燥機の主要4機能とは、暖房、乾燥、涼風及び換気である。",
-      "ふろ給湯器の設置方式には、設置フリー形があり、ポンプの揚程により設置位置を選択できる。"
+      "ガスこんろの熱効率は、省エネ法に基づくトップランナー基準の導入以降、炎の広がりを抑える、鍋底との距離を近づける等の改良により向上した。",
+      "ガスオーブンは、熱風をファンによって強制的に撹拌しているため、調理時間が早く、一度に多量の調理ができる。",
+      "FF暖房機には、立ち消え安全装置、点火時安全装置、\n転倒時安全装置\n等の安全装置が搭載されている。",
+      "ファンヒーターでは、設定温度とセンサーで検知した室温との温度差分を電気量に変換することで比例弁を駆動させ、ガス量に比例して対流ファン風量を制御する。",
+      "回転ドラム式衣類乾燥機には、接触した衣類の抵抗値を測定して、湿り具合を判断する乾燥センサーが搭載されている。"
     ],
     "correctChoiceText": [
       "正しい",
-      "間違い",
       "正しい",
+      "間違い",
       "正しい",
       "正しい"
     ],
@@ -236,8 +236,8 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "間違い",
       "正しい",
+      "間違い",
       "正しい",
       "正しい"
     ],
@@ -274,28 +274,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 755,
-    "publicQuestionId": "e313c4ce6dc6fafd",
+    "planSequence": 754,
+    "publicQuestionId": "5a3b87a2d19bd625",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:e313c4ce6dc6fafd",
-    "questionBodyText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:5a3b87a2d19bd625",
+    "questionBodyText": "家庭用ガス機器に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 2,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問22",
-    "questionNo": 22,
+    "questionLabel": "問21",
+    "questionNo": 21,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q22",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:e313c4ce6dc6fafd",
+    "reviewId": "2022:question_2022_3:5a3b87a2d19bd625",
     "reviewNotes": "",
-    "reviewQuestionId": "e313c4ce6dc6fafd",
+    "reviewQuestionId": "5a3b87a2d19bd625",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -310,7 +310,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 22,
+      "questionNo": 21,
       "subject": "shohi",
       "year": 2022
     },
@@ -319,45 +319,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q22",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q21",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q22:s01",
-      "gas-shunin:otsu:2022:shohi:q22:s02",
-      "gas-shunin:otsu:2022:shohi:q22:s03",
-      "gas-shunin:otsu:2022:shohi:q22:s04",
-      "gas-shunin:otsu:2022:shohi:q22:s05"
+      "gas-shunin:otsu:2022:shohi:q21:s01",
+      "gas-shunin:otsu:2022:shohi:q21:s02",
+      "gas-shunin:otsu:2022:shohi:q21:s03",
+      "gas-shunin:otsu:2022:shohi:q21:s04",
+      "gas-shunin:otsu:2022:shohi:q21:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q22",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q21",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q22:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q21:s05",
         "statementNo": 5
       }
     ],
@@ -370,34 +370,35 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_3:e313c4ce6dc6fafd",
-  "nextPendingTaskId": "T703",
-  "otsuCompleted": 191,
-  "otsuDone": 159,
+  "nextPendingReviewId": "2022:question_2022_3:5a3b87a2d19bd625",
+  "nextPendingTaskId": "T704",
+  "otsuCompleted": 192,
+  "otsuDone": 160,
   "otsuHeld": 32,
   "otsuHold": 32,
-  "otsuPending": 331,
-  "pending": 331,
-  "pendingQuestions": 331,
-  "pending_questions": 331,
+  "otsuPending": 330,
+  "pending": 330,
+  "pendingQuestions": 330,
+  "pending_questions": 330,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
       "hold": 102
     },
     "gas-shunin-otsu": {
-      "done": 159,
+      "done": 160,
       "hold": 32,
-      "pending": 331
+      "pending": 330
     }
   },
   "reviewDecisionCounts": {
-    "ok": 469,
+    "ok": 470,
     "hold": 134,
-    "pending": 331
+    "pending": 330
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T20:51:50+09:00"
+  "updatedAt": "2026-06-28T21:00:10+09:00",
+  "lastUpdatedAt": "2026-06-28T21:01:45+09:00"
 }

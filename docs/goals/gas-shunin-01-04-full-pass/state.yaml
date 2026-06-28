@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 603
-  pending_questions: 331
+  completed_questions: 604
+  pending_questions: 330
   held_questions: 134
   next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
-active_task: T703
+active_task: T704
 tasks:
   - id: T001
     type: pm
@@ -38717,9 +38717,69 @@ tasks:
   - id: T703
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "降順方針で最大pendingブロックの次問 planSequence=755（gas-shunin-otsu 2022 消費機器 問22）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    receipt:
+      result: done
+      summary: "T703 planSequence=755（gas-shunin-otsu 2022 消費機器 問22）は01〜04を完了。site answer_result_text=正解は2です。と correctChoiceText=[正しい, 間違い, 正しい, 正しい, 正しい] が一致。自己診断機能は燃焼状態・給気ファン風量低下・ファンモーター電流値低下を利用する説明と照合し、選択肢2の回転数と電圧値を誤りと確認。questionSetId=chiefgasengineerlicense-B-1880（家庭用ガス機器（乙種））。00_source は未変更。completed=604、pending=330、held=134。"
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json"
+        - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "00_source body/choices unchanged"
+        - "questionType=true_false / questionIntent=select_incorrect"
+        - "site answer_result_text=正解は 2 です。 marks choice2 incorrect"
+        - "existing merge mapping confirms self-diagnosis uses combustion state / fan air-volume decrease / fan-motor current decrease, not fan speed and voltage"
+        - "questionSetId=chiefgasengineerlicense-B-1880 selected from category.json and same-shape 2023-2025 review precedent"
+      completed_at: "2026-06-28T21:01:45+09:00"
+      remaining_questions: 330
+      held_questions: 134
+      next_active_task: T704
+      remaining_blockers:
+        - "T700 choice1 correctness requires official problem PDF/scoring confirmation"
+        - "T698 choice5 source text anomaly: 銅線 vs 鋼線"
+      verification_attempts: 1
+
+  - id: T704
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロックの次問 planSequence=754（gas-shunin-otsu 2022 消費機器 問21）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
       - "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
       - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json"
