@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T655",
-  "completed": 555,
-  "completed_questions": 555,
-  "done": 432,
+  "activeTaskId": "T656",
+  "completed": 556,
+  "completed_questions": 556,
+  "done": 433,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 432,
+    "done": 433,
     "hold": 123,
-    "pending": 379
+    "pending": 378
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T14:44:29+09:00",
+  "generatedAt": "2026-06-28T14:52:29+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,12 +20,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 3 です。 matches choice 3=120 and thermal stress calculation EαΔT=120.",
+      "correctChoiceReason": "answer_result_text=正解は 2 です。 is the combination-choice number; statement-level correctChoiceText marks choices 1 and 3 as 正しい.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,36 +35,36 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "3",
-      "80",
-      "120",
-      "480",
-      "1600"
+      "部品の摩耗等により、計量法で規定された使用公差を外れる場合の故障は器差不良である。",
+      "計量膜の破損やバルブの脱落等により、メーター指針が動かない故障は\n不通\nである。",
+      "メーター内部の漏れ等により、定められた小流量のガスを計量できない故障は感度不良である。",
+      "クランク軸のさび付き等により、ガスがメーターを通過できない故障は\n不動\nである。",
+      "メーター出口側の圧力変動が著しくなり、ガスの燃焼状態が不安定になる故障は\n通り抜け\nである。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ],
     "explanationText": [
-      "不正解。両端を堅固に固定した鋼管の熱応力は σ=EαΔT で求める。温度差は-10℃から50℃までの60℃なので、3N/mm²は小さすぎる。",
-      "不正解。Eα=2×10⁵×1×10⁻⁵=2であり、これに温度差60℃を掛ける。80N/mm²は温度差を40℃として扱った場合に近く、本問の条件では不足する。",
-      "正解。設置時-10℃から夏期50℃まで温度が60℃上昇するため、σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²となる。",
-      "不正解。熱応力は、自由膨張できない温度ひずみαΔTにヤング率Eを掛けて求める。計算結果は120N/mm²であり、480N/mm²は過大である。",
-      "不正解。内圧や自重を考慮しない条件なので、温度変化による熱応力だけを計算する。σ=2×10⁵×1×10⁻⁵×60=120N/mm²で、1600N/mm²ではない。"
+      "正しい。部品の摩耗などで器差が変化し、計量法で規定された使用公差を外れる故障は器差不良である。",
+      "間違い。計量膜の破損やバルブの脱落などにより、メーター指針が動かない故障は不動である。不通はガスがメーターを通過できない故障をいう。",
+      "正しい。メーター内部の漏れなどにより、定められた小流量のガスを計量できない故障は感度不良である。",
+      "間違い。クランク軸のさび付きなどにより、ガスがメーターを通過できない故障は不通である。不動としている点が誤り。",
+      "間違い。メーター出口側の圧力変動が著しくなり、ガスの燃焼状態が不安定になる故障はあおりである。通り抜けではない。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -98,29 +98,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 804,
-    "publicQuestionId": "7ab86a74e70b7453",
+    "planSequence": 803,
+    "publicQuestionId": "06734bbc02c55a65",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:7ab86a74e70b7453",
-    "questionBodyText": "口径300㎜の鋼管を用い、長さ40mで両端を堅固に固定した架管が冬期（設置時管体温度は-10℃）に設置された。この架管が夏期に直射日光を受け、管全体の温度が50℃になった場合に生じる応力(N/mm²)として最も近い値はどれか。ただし、鋼管の線膨張係数は1×10⁻⁵(1/℃)、ヤング率2×10⁵(N/mm²)とし、内圧や自重は考慮しないものとする。",
-    "questionIndexInFile": 19,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:06734bbc02c55a65",
+    "questionBodyText": "膜式ガスメーターの故障に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 18,
     "questionIntent": "select_correct",
-    "questionLabel": "問13",
-    "questionNo": 13,
-    "questionSetId": "chiefgasengineerlicense-B-2040",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q13",
+    "questionLabel": "問12",
+    "questionNo": 12,
+    "questionSetId": "chiefgasengineerlicense-B-2000",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q12",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:7ab86a74e70b7453",
-    "reviewNotes": "T654: 降順ブロック planSequence=804。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=7ab86a74e70b7453。00_source body/choices preserved。questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 3 です。はchoice3=120に対応し、correctChoiceText=[不正解, 不正解, 正解, 不正解, 不正解] と一致。両端固定架管の熱応力は σ=EαΔT。温度差は50-(-10)=60℃、Eα=2×10^5×1×10^-5=2、よってσ=120N/mm²。04は category.json のactive categoryと甲種2019同系熱応力問題の導管工事先例に合わせ、questionSetId=chiefgasengineerlicense-B-2040（導管の工事（乙種））を選択。",
-    "reviewQuestionId": "7ab86a74e70b7453",
-    "reviewedAt": "2026-06-28T14:44:29+09:00",
+    "reviewId": "2023:question_2023_2:06734bbc02c55a65",
+    "reviewNotes": "T655: 降順ブロック planSequence=803。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=06734bbc02c55a65。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。00_source correctChoiceText=[正しい, 間違い, 正しい, 間違い, 間違い] を目視確認。answer_result_text=正解は 2 です。は「いずれも正しいものの組合せ」の組合せ選択肢番号で、statement-levelでは1・3が正しい。選択肢2は不通ではなく不動、選択肢4は不動ではなく不通、選択肢5は通り抜けではなくあおりで誤り。04はcategory.jsonのactive category、および乙種2024/2025ガスメーター先例に合わせ、questionSetId=chiefgasengineerlicense-B-2000（ガスメーター（乙種））を選択。",
+    "reviewQuestionId": "06734bbc02c55a65",
+    "reviewedAt": "2026-06-28T14:52:29+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -134,7 +134,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 12,
       "subject": "kyokyu",
       "year": 2023
     },
@@ -143,45 +143,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q13",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kyokyu:q13:s01",
-      "gas-shunin:otsu:2023:kyokyu:q13:s02",
-      "gas-shunin:otsu:2023:kyokyu:q13:s03",
-      "gas-shunin:otsu:2023:kyokyu:q13:s04",
-      "gas-shunin:otsu:2023:kyokyu:q13:s05"
+      "gas-shunin:otsu:2023:kyokyu:q12:s01",
+      "gas-shunin:otsu:2023:kyokyu:q12:s02",
+      "gas-shunin:otsu:2023:kyokyu:q12:s03",
+      "gas-shunin:otsu:2023:kyokyu:q12:s04",
+      "gas-shunin:otsu:2023:kyokyu:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q13",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q12:s05",
         "statementNo": 5
       }
     ],
@@ -193,143 +193,149 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "category": "導管の工事（乙種）",
-    "questionSetName": "導管の工事（乙種）",
+    "category": "ガスメーター（乙種）",
+    "questionSetName": "ガスメーター（乙種）",
     "reviewStatus": "ok",
-    "workerTaskId": "T654",
+    "workerTaskId": "T655",
     "explanation_common_prefix": [
-      "供給「導管の工事（乙種）」の両端固定架管の熱応力計算が本問の関連論点。",
-      "試験ポイント: 両端固定で自由膨張できない場合は、熱応力 σ=EαΔT を使い、口径や長さではなく温度差・線膨張係数・ヤング率で求める。"
+      "供給「ガスメーター（乙種）」の膜式ガスメーターの故障名称が本問の関連論点。",
+      "試験ポイント: 器差不良、不動、感度不良、不通、あおりを故障現象と対応させる。"
     ],
     "explanation_common_summary": [
-      "温度差は-10℃から50℃までの60℃。Eα=2×10⁵×1×10⁻⁵=2なので、σ=2×60=120N/mm²となり、選択肢3が最も近い。"
+      "正しい記述は1と3。2は不通ではなく不動、4は不動ではなく不通、5は通り抜けではなくあおりである。answer_result_text=正解は2は組合せ選択肢番号で、statement-levelでは1・3が正しい。"
     ],
     "explanation_choice_snippets": [
       [
-        "3N/mm²は計算値120N/mm²より小さすぎる。"
+        "使用公差を外れる故障は器差不良である。"
       ],
       [
-        "80N/mm²は温度差を40℃とした場合に近く、本問の60℃を反映していない。"
+        "指針が動かない故障は不動であり、不通ではない。"
       ],
       [
-        "σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²。"
+        "定められた小流量を計量できない故障は感度不良である。"
       ],
       [
-        "480N/mm²は熱応力の計算値より過大。"
+        "ガスがメーターを通過できない故障は不通である。"
       ],
       [
-        "1600N/mm²は熱応力の計算値より大きすぎる。"
+        "出口側圧力変動で燃焼状態が不安定になる故障はあおりである。"
       ]
     ],
     "explanation_choice_correctness": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ],
     "suggestedQuestions": [
-      "両端固定架管の熱応力はどの式で求めるか？",
-      "本問の温度差ΔTはいくつか？",
-      "Eαの値はいくつか？",
-      "本問の熱応力はいくつになるか？",
-      "熱応力計算で口径や長さを直接掛けるか？"
+      "使用公差を外れる膜式ガスメーターの故障名は何か？",
+      "計量膜の破損などでメーター指針が動かない故障名は何か？",
+      "定められた小流量を計量できない故障名は何か？",
+      "クランク軸のさび付きなどでガスが通過できない故障名は何か？",
+      "出口側圧力変動で燃焼状態が不安定になる故障名は何か？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "両端固定架管の熱応力はどの式で求めるか？",
-        "answer": "σ=EαΔTで求める。",
-        "explanation": "両端固定で自由膨張が拘束されるため、温度ひずみαΔTにヤング率Eを掛ける。"
+        "question": "使用公差を外れる膜式ガスメーターの故障名は何か？",
+        "answer": "器差不良。",
+        "explanation": "部品摩耗などで器差が変化し、使用公差を外れる故障を器差不良という。"
       },
       {
-        "question": "本問の温度差ΔTはいくつか？",
-        "answer": "60℃。",
-        "explanation": "設置時-10℃から夏期50℃まで上昇するため、ΔT=50-(-10)=60℃である。"
+        "question": "計量膜の破損などでメーター指針が動かない故障名は何か？",
+        "answer": "不動。",
+        "explanation": "ガスが通過しても計量膜や機構の不具合で指針が動かない故障は不動である。"
       },
       {
-        "question": "Eαの値はいくつか？",
-        "answer": "2。",
-        "explanation": "Eα=2×10⁵×1×10⁻⁵=2となる。"
+        "question": "定められた小流量を計量できない故障名は何か？",
+        "answer": "感度不良。",
+        "explanation": "メーター内部の漏れなどにより、定められた小流量を計量できない故障を感度不良という。"
       },
       {
-        "question": "本問の熱応力はいくつになるか？",
-        "answer": "120N/mm²。",
-        "explanation": "σ=2×60=120N/mm²で、選択肢3が最も近い。"
+        "question": "クランク軸のさび付きなどでガスが通過できない故障名は何か？",
+        "answer": "不通。",
+        "explanation": "クランク軸のさび付きなどでガスがメーターを通過できない故障は不通である。"
       },
       {
-        "question": "熱応力計算で口径や長さを直接掛けるか？",
-        "answer": "直接掛けない。",
-        "explanation": "この条件の熱応力は、口径や長さではなくE、α、ΔTで決まる。"
+        "question": "出口側圧力変動で燃焼状態が不安定になる故障名は何か？",
+        "answer": "あおり。",
+        "explanation": "メーター出口側の圧力変動が大きく、燃焼状態が不安定になる故障はあおりである。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-      "供給「導管の工事（乙種）」の両端固定架管の熱応力計算が本問の関連論点。",
-      "試験ポイント: 両端固定で自由膨張できない場合は、熱応力 σ=EαΔT を使い、口径や長さではなく温度差・線膨張係数・ヤング率で求める。"
+      "供給「ガスメーター（乙種）」の膜式ガスメーターの故障名称が本問の関連論点。",
+      "試験ポイント: 器差不良、不動、感度不良、不通、あおりを故障現象と対応させる。"
     ],
     "sourceExplanationCommonSummary": [
-      "温度差は-10℃から50℃までの60℃。Eα=2×10⁵×1×10⁻⁵=2なので、σ=2×60=120N/mm²となり、選択肢3が最も近い。"
+      "正しい記述は1と3。2は不通ではなく不動、4は不動ではなく不通、5は通り抜けではなくあおりである。answer_result_text=正解は2は組合せ選択肢番号で、statement-levelでは1・3が正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "3N/mm²は計算値120N/mm²より小さすぎる。"
+        "使用公差を外れる故障は器差不良である。"
       ],
       [
-        "80N/mm²は温度差を40℃とした場合に近く、本問の60℃を反映していない。"
+        "指針が動かない故障は不動であり、不通ではない。"
       ],
       [
-        "σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²。"
+        "定められた小流量を計量できない故障は感度不良である。"
       ],
       [
-        "480N/mm²は熱応力の計算値より過大。"
+        "ガスがメーターを通過できない故障は不通である。"
       ],
       [
-        "1600N/mm²は熱応力の計算値より大きすぎる。"
+        "出口側圧力変動で燃焼状態が不安定になる故障はあおりである。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ]
   },
-  "lastCompletedReviewQuestionId": "7ab86a74e70b7453",
-  "lastCompletedTaskId": "T654",
+  "lastCompletedReviewQuestionId": "06734bbc02c55a65",
+  "lastCompletedTaskId": "T655",
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "3",
-      "80",
-      "120",
-      "480",
-      "1600"
+      "直動式整圧器は、二次圧力を駆動力としているため、作動最小差圧を考慮する必要はない。",
+      "パイロット式整圧器は、大容量、かつ要求流量制御範囲が大きい場合に適している。",
+      "アキシャルフロー式（軸流式）整圧器の二次圧力の設定は、パイロットスプリングで調整する。",
+      "整圧器能力は、使用条件にもよるが、一般に最低一次圧力時の整圧器最大能力に対して60～80%程度の負荷となるように選定する。",
+      "整圧器を大規模地区で使用する場合には、できるだけオフセット及びロックアップが小さいといった\n動特性\nの優れた整圧器を選定する。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -363,28 +369,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 804,
-    "publicQuestionId": "7ab86a74e70b7453",
+    "planSequence": 802,
+    "publicQuestionId": "13c656ad70e84459",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:7ab86a74e70b7453",
-    "questionBodyText": "口径300㎜の鋼管を用い、長さ40mで両端を堅固に固定した架管が冬期（設置時管体温度は-10℃）に設置された。この架管が夏期に直射日光を受け、管全体の温度が50℃になった場合に生じる応力(N/mm²)として最も近い値はどれか。ただし、鋼管の線膨張係数は1×10⁻⁵(1/℃)、ヤング率2×10⁵(N/mm²)とし、内圧や自重は考慮しないものとする。",
-    "questionIndexInFile": 19,
-    "questionIntent": "",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:13c656ad70e84459",
+    "questionBodyText": "整圧器に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 17,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問11",
+    "questionNo": 11,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q13",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q11",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:7ab86a74e70b7453",
+    "reviewId": "2023:question_2023_2:13c656ad70e84459",
     "reviewNotes": "",
-    "reviewQuestionId": "7ab86a74e70b7453",
+    "reviewQuestionId": "13c656ad70e84459",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -399,7 +405,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 11,
       "subject": "kyokyu",
       "year": 2023
     },
@@ -408,45 +414,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q13",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kyokyu:q13:s01",
-      "gas-shunin:otsu:2023:kyokyu:q13:s02",
-      "gas-shunin:otsu:2023:kyokyu:q13:s03",
-      "gas-shunin:otsu:2023:kyokyu:q13:s04",
-      "gas-shunin:otsu:2023:kyokyu:q13:s05"
+      "gas-shunin:otsu:2023:kyokyu:q11:s01",
+      "gas-shunin:otsu:2023:kyokyu:q11:s02",
+      "gas-shunin:otsu:2023:kyokyu:q11:s03",
+      "gas-shunin:otsu:2023:kyokyu:q11:s04",
+      "gas-shunin:otsu:2023:kyokyu:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q13",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q11:s05",
         "statementNo": 5
       }
     ],
@@ -459,18 +465,18 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 803,
-  "nextPendingPublicQuestionId": "06734bbc02c55a65",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:06734bbc02c55a65",
-  "nextPendingReviewId": "2023:question_2023_2:06734bbc02c55a65",
-  "nextPendingTaskId": "T655",
-  "otsuCompleted": 143,
-  "otsuDone": 122,
+  "nextPendingPlanSequence": 802,
+  "nextPendingPublicQuestionId": "13c656ad70e84459",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:13c656ad70e84459",
+  "nextPendingReviewId": "2023:question_2023_2:13c656ad70e84459",
+  "nextPendingTaskId": "T656",
+  "otsuCompleted": 144,
+  "otsuDone": 123,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 379,
-  "pending": 379,
-  "pending_questions": 379,
+  "otsuPending": 378,
+  "pending": 378,
+  "pending_questions": 378,
   "total": 934,
   "total_questions": 934
 }
