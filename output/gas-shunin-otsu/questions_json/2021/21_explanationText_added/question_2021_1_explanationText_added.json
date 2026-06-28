@@ -829,18 +829,71 @@
       "165"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。標準反応熱は生成物の標準生成熱の和から反応物の標準生成熱の和を引いて求める。生成物は CH4+2H2O なので -75+2×(-242)=-559、反応物は CO2+4H2 なので -394+4×0=-394。差は -559-(-394)=-165kJ/mol である。",
+      "不正解。-77kJ/mol は生成物側と反応物側の差を正しく取れていない。標準反応熱は Σ生成物-Σ反応物 であり、本問では -165kJ/mol となる。",
+      "不正解。2kJ/mol はほぼ熱の出入りがない値だが、標準生成熱を用いると生成物側が反応物側より165kJ/mol低いため、標準反応熱は -165kJ/mol である。",
+      "不正解。77kJ/mol は符号も大きさも本問の計算結果と合わない。生成物側の合計 -559 から反応物側の合計 -394 を引くと -165kJ/mol である。",
+      "不正解。165kJ/mol は大きさだけを見ると近いが、符号が逆である。生成物側の標準生成熱の合計が反応物側より低いため、標準反応熱は +165 ではなく -165kJ/mol となる。"
+    ],
+    "suggestedQuestions": [
+      "標準反応熱はどの式で求める？",
+      "本問の生成物側の標準生成熱の和はいくら？",
+      "本問の反応物側の標準生成熱の和はいくら？",
+      "本問の標準反応熱はいくら？",
+      "選択肢5の165が不正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "標準反応熱はどの式で求める？",
+        "answer": "Σ生成物の標準生成熱 - Σ反応物の標準生成熱。",
+        "explanation": "正解。反応式の係数を掛けた標準生成熱の和で計算する。"
+      },
+      {
+        "question": "本問の生成物側の標準生成熱の和はいくら？",
+        "answer": "-559kJ/mol。",
+        "explanation": "CH4 が -75、H2O が2mol分で 2×(-242)=-484、合計 -559 である。"
+      },
+      {
+        "question": "本問の反応物側の標準生成熱の和はいくら？",
+        "answer": "-394kJ/mol。",
+        "explanation": "CO2 が -394、H2 は単体なので標準生成熱0で、4mol分でも0である。"
+      },
+      {
+        "question": "本問の標準反応熱はいくら？",
+        "answer": "-165kJ/mol。",
+        "explanation": "-559-(-394)=-165kJ/mol となる。"
+      },
+      {
+        "question": "選択肢5の165が不正解になる理由は？",
+        "answer": "符号が逆だから。",
+        "explanation": "大きさは165だが、生成物側の生成熱合計が低いため標準反応熱は負の値になる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の標準反応熱計算が本問の関連論点。",
+      "標準反応熱は、反応式の係数を掛けた標準生成熱について、Σ生成物-Σ反応物で求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "生成物側は CH4+2H2O で -75+2×(-242)=-559kJ/mol、反応物側は CO2+4H2 で -394+0=-394kJ/mol。差は -165kJ/mol なので選択肢1が正解である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "Σ生成物-Σ反応物=-559-(-394)=-165kJ/mol。"
+      ],
+      [
+        "-77kJ/mol は生成物側と反応物側の差の取り方が合わない。"
+      ],
+      [
+        "2kJ/mol ではなく、反応熱は -165kJ/mol と大きく負になる。"
+      ],
+      [
+        "77kJ/mol は計算結果の符号・大きさと合わない。"
+      ],
+      [
+        "165kJ/mol は大きさだけで、正しい符号は負である。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -848,7 +901,9 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）"
   },
   {
     "original_question_id": "33c7b415088b7c1f",
