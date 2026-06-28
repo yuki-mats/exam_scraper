@@ -570,26 +570,83 @@
       "屋内に設置する密閉燃焼式のガスふろがまにおける給排気部の先端は、障害物又は\n大気圧の変動\nによって給排気が妨げられない位置にあること。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。ガス事業法施行規則第202条では、同条第1号により排気筒を設ける燃焼器は、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置することとされている。",
+      "間違い。特定地下街等又は特定地下室等に設置する燃焼器には、同条第8号でガス漏れ警報設備を設けることが定められている。一方、自動ガス遮断装置等の規定は同条第10号の超高層建物、特定大規模建物、中圧以上供給の燃焼器等に係るものであり、本記述は基準の内容を取り違えている。",
+      "正しい。ガス消費量12kW以下のガス瞬間湯沸器は、同条第5号で換気扇又は有効な給排気のための開口部を設けた室に設置する対象である。排気筒設置義務は同条第1号で12kWを超えるものに係るため、この条件なら排気筒を設けない扱いでよい。",
+      "正しい。同条第3号ハでは、燃焼器の排気筒に接続する排気扇には、排気扇が停止した場合に当該燃焼器へのガスの供給を自動的に遮断する装置を設けることとされている。",
+      "間違い。屋内に設置する密閉燃焼式のガスふろがまの給排気部先端は、障害物又は外気の流れにより給排気が妨げられない位置にあり、異物の侵入や風雨等の圧力で給排気が妨げられるおそれのない構造であることが基準である。「大気圧の変動」とする点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "排気筒を設ける燃焼器の設置室には何が必要？",
+      "特定地下街等の燃焼器に必要な設備は？",
+      "12kW以下のガス瞬間湯沸器は排気筒が必要か？",
+      "排気扇停止時には何を自動遮断する？",
+      "密閉燃焼式ふろがまの給排気部先端で誤りやすい表現は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "排気筒を設ける燃焼器の設置室には何が必要？",
+        "answer": "排気筒以上の有効断面積を持つ給気口等。",
+        "explanation": "排気筒を設ける燃焼器は、給気上有効な開口部を設けた室に設置する必要がある。"
+      },
+      {
+        "question": "特定地下街等の燃焼器に必要な設備は？",
+        "answer": "ガス漏れ警報設備。",
+        "explanation": "特定地下街等又は特定地下室等の燃焼器については、ガス漏れ警報設備の設置が定められている。"
+      },
+      {
+        "question": "12kW以下のガス瞬間湯沸器は排気筒が必要か？",
+        "answer": "条件を満たす室なら排気筒を設けなくてよい。",
+        "explanation": "12kW以下のガス瞬間湯沸器は換気扇又は有効な給排気開口部を設けた室に設置する対象で、排気筒設置義務は12kW超に係る。"
+      },
+      {
+        "question": "排気扇停止時には何を自動遮断する？",
+        "answer": "燃焼器へのガス供給。",
+        "explanation": "排気筒に接続する排気扇には、停止時にガス供給を自動遮断する装置が必要である。"
+      },
+      {
+        "question": "密閉燃焼式ふろがまの給排気部先端で誤りやすい表現は？",
+        "answer": "「大気圧の変動」ではなく、外気の流れや風雨等の圧力。",
+        "explanation": "給排気部先端は障害物又は外気の流れで妨げられない位置にあり、異物侵入や風雨等の圧力で妨げられない構造が必要である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceExplanationCommonPrefix": [
+      "法令「消費機器の技術上の基準（乙種）」のうち、ガス事業法施行規則第202条に定める排気筒、給気口、排気扇、特定地下街等、密閉燃焼式ふろがまの給排気部が本問の関連論点。",
+      "設問は誤っている記述の組合せを問う形式で、answer_result_textの「正解は3」は組合せ選択肢番号を示す。statement-levelではロとホ、つまり選択肢2と5が誤りである。",
+      "同条では、12kW以下のガス瞬間湯沸器、排気扇停止時の自動遮断、給排気部先端の位置・構造などを個別に定めている。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢2は特定地下街等に関する設備を自動ガス遮断装置としている点が誤り、選択肢5は給排気阻害要因を大気圧の変動としている点が誤り。選択肢1・3・4は第202条の基準に合う。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "排気筒を設ける燃焼器は、排気筒以上の有効断面積を持つ給気口等を設けた室に設置する。"
+      ],
+      [
+        "特定地下街等又は特定地下室等の燃焼器にはガス漏れ警報設備を設ける基準であり、自動ガス遮断装置とは異なる。"
+      ],
+      [
+        "12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気開口部を設けた室に設置する対象である。"
+      ],
+      [
+        "排気筒に接続する排気扇には、停止時に燃焼器へのガス供給を自動遮断する装置が必要。"
+      ],
+      [
+        "給排気部先端は障害物又は外気の流れ、異物侵入、風雨等の圧力で給排気が妨げられないことが基準。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-1190",
+    "questionSetName": "消費機器の技術上の基準（乙種）",
+    "workerTaskId": "T682"
   },
   {
     "original_question_id": "3e8425dd996d85f6",
@@ -607,18 +664,72 @@
       "88"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。理想気体の状態方程式 PV=nRT から、n=100000×33/(8.3×300)≈1325mol=1.325kmolである。プロパンの分子量44より質量は約58.3kgとなるため、22kgは小さすぎる。",
+      "不正解。温度27℃を300Kとして PV=nRT を用いると、物質量は約1.325kmolである。これにプロパンの分子量44kg/kmolを掛けると約58.3kgなので、30kgではない。",
+      "不正解。44kgはプロパン1kmolの質量に相当する値である。本問の物質量は約1.325kmolなので、質量は44kgではなく約58.3kgである。",
+      "正解。27℃=300K、100kPa=100000Paとして、n=PV/RT=100000×33/(8.3×300)≈1325mol=1.325kmol。プロパンの分子量44kg/kmolより、質量は1.325×44≈58.3kgとなり、58kgが最も近い。",
+      "不正解。88kgは計算値約58.3kgより大きすぎる。圧力、体積、温度から求めた物質量は約1.325kmolであり、プロパン質量は約58kgである。"
+    ],
+    "suggestedQuestions": [
+      "理想気体の状態方程式で物質量をどう求める？",
+      "27℃は何Kとして計算する？",
+      "プロパンの分子量は質量計算でどう使う？",
+      "本問のプロパンの物質量はいくらか？",
+      "プロパンの質量は何kgに近いか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "理想気体の状態方程式で物質量をどう求める？",
+        "answer": "n=PV/RTで求める。",
+        "explanation": "圧力、体積、温度、気体定数が与えられているので、PV=nRTをnについて解く。"
+      },
+      {
+        "question": "27℃は何Kとして計算する？",
+        "answer": "300K。",
+        "explanation": "摂氏温度に273を加えて絶対温度に換算するため、27℃は約300Kである。"
+      },
+      {
+        "question": "プロパンの分子量は質量計算でどう使う？",
+        "answer": "kmol数に44kg/kmolを掛ける。",
+        "explanation": "プロパンC3H8の分子量は44なので、1kmolの質量は44kgである。"
+      },
+      {
+        "question": "本問のプロパンの物質量はいくらか？",
+        "answer": "約1.325kmol。",
+        "explanation": "n=100000×33/(8.3×300)≈1325mol=1.325kmolである。"
+      },
+      {
+        "question": "プロパンの質量は何kgに近いか？",
+        "answer": "約58kg。",
+        "explanation": "1.325kmol×44kg/kmol≈58.3kgなので、選択肢では58kgが最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式、温度換算、物質量と質量の換算が本問の関連論点。",
+      "理想気体では PV=nRT を用いて物質量を求め、気体の分子量を掛けて質量へ換算する。",
+      "本問では27℃=約300K、100kPa=100000Pa、V=33m³として n≈1.325kmol、プロパン分子量44より質量は約58.3kgとなる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "PV=nRTより n≈1.325kmol。プロパンの分子量44kg/kmolを掛けると質量は約58.3kgで、選択肢4の58kgが最も近い。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "22kgはPV=nRTとプロパン分子量から得られる約58.3kgより小さすぎる。"
+      ],
+      [
+        "30kgは計算値約58.3kgより小さい。"
+      ],
+      [
+        "44kgは1kmol分のプロパン質量に相当し、本問の物質量約1.325kmolと合わない。"
+      ],
+      [
+        "n=100000×33/(8.3×300)≈1.325kmol、質量は1.325×44≈58.3kg。"
+      ],
+      [
+        "88kgは計算値約58.3kgより大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -626,7 +737,10 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "workerTaskId": "T681"
   },
   {
     "original_question_id": "541e84af270d3acf",

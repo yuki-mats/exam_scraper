@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T681",
-  "completed": 581,
-  "completedQuestions": 581,
-  "completed_questions": 581,
-  "done": 458,
+  "activeTaskId": "T683",
+  "completed": 583,
+  "completedQuestions": 583,
+  "completed_questions": 583,
+  "done": 460,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 458,
+    "done": 460,
     "hold": 123,
-    "pending": 353
+    "pending": 351
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T17:43:01+09:00",
+  "generatedAt": "2026-06-28T17:58:30+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_gas_property_statements_and_site_answer_result",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_egov_gas_business_act_enforcement_regulation_article_202",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,38 +35,43 @@
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
     },
+    "category": "消費機器の技術上の基準（乙種）",
     "choiceCount": 5,
     "choiceTextList": [
-      "常圧での気体の粘度は、液体の粘度に比べて小さく、\n温度の上昇とともに減少する\n。",
-      "ヘンリーの法則によれば、溶解度が小さい場合、一定温度で一定質量の液体に溶解する気体の質量は、気体の圧力に比例する。",
-      "相変化を伴わない物質の温度変化により吸収又は放出される熱を顕熱、相変化に伴い吸収又は放出される熱を潜熱という。",
-      "沸騰が続いている間に液体が吸収する熱量を蒸発熱という。",
-      "実在気体は、高温あるいは低圧の条件では、理想気体に近い性状を示す。"
+      "自然排気式の燃焼器であって、技術上の基準により排気筒を設けるものは、当該排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置すること。",
+      "燃焼器であって、建物区分のうち特定地下街等に設置するものには、告示で定める規格に適合する\n自動ガス遮断装置\nを告示で定める方法により設けること。",
+      "ガスの消費量が12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気のための開口部が設けられている室に設置されている場合は、当該機器に接続して排気筒を設けなくてもよい。",
+      "燃焼器の排気筒に接続する排気扇には、これが停止した場合に当該燃焼器へのガスの供給を自動的に遮断する装置を設けること。",
+      "屋内に設置する密閉燃焼式のガスふろがまにおける給排気部の先端は、障害物又は\n大気圧の変動\nによって給排気が妨げられない位置にあること。"
     ],
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-28T08:53:58Z",
     "correctChoiceText": [
+      "正しい",
       "間違い",
       "正しい",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
+      "正しい",
       "間違い",
       "正しい",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い"
     ],
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-28T08:53:58Z",
     "explanationText": [
-      "間違い。気体の粘度は液体の粘度に比べて小さいが、一般に温度が上昇すると増加する。温度の上昇とともに減少するとしている点が誤りである。",
-      "正しい。ヘンリーの法則では、溶解度が小さい気体について、一定温度で一定質量の液体に溶解する気体の質量はその気体の圧力に比例する。",
-      "正しい。相変化を伴わない温度変化で出入りする熱を顕熱、蒸発や凝縮などの相変化に伴って出入りする熱を潜熱という。",
-      "正しい。沸騰中に液体が吸収する熱は、液体を気体へ変えるための潜熱であり、蒸発熱と呼ばれる。",
-      "正しい。実在気体は分子間力や分子体積の影響が小さくなる高温又は低圧の条件で、理想気体に近い性状を示す。"
+      "正しい。ガス事業法施行規則第202条では、同条第1号により排気筒を設ける燃焼器は、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置することとされている。",
+      "間違い。特定地下街等又は特定地下室等に設置する燃焼器には、同条第8号でガス漏れ警報設備を設けることが定められている。一方、自動ガス遮断装置等の規定は同条第10号の超高層建物、特定大規模建物、中圧以上供給の燃焼器等に係るものであり、本記述は基準の内容を取り違えている。",
+      "正しい。ガス消費量12kW以下のガス瞬間湯沸器は、同条第5号で換気扇又は有効な給排気のための開口部を設けた室に設置する対象である。排気筒設置義務は同条第1号で12kWを超えるものに係るため、この条件なら排気筒を設けない扱いでよい。",
+      "正しい。同条第3号ハでは、燃焼器の排気筒に接続する排気扇には、排気扇が停止した場合に当該燃焼器へのガスの供給を自動的に遮断する装置を設けることとされている。",
+      "間違い。屋内に設置する密閉燃焼式のガスふろがまの給排気部先端は、障害物又は外気の流れにより給排気が妨げられない位置にあり、異物の侵入や風雨等の圧力で給排気が妨げられるおそれのない構造であることが基準である。「大気圧の変動」とする点が誤り。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -75,6 +80,7 @@
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
+    "lawGroundedExplanationNotNeeded": false,
     "listGroupId": "2023",
     "mustPreserve": [
       "00_source_question_body_and_choices",
@@ -100,67 +106,74 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 778,
-    "publicQuestionId": "541e84af270d3acf",
+    "planSequence": 776,
+    "publicQuestionId": "93304ffff33c15a3",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:541e84af270d3acf",
-    "questionBodyText": "気体の諸性質及び気体の状態変化に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 18,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:93304ffff33c15a3",
+    "questionBodyText": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 16,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問2",
-    "questionNo": 2,
-    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-28T08:53:58Z",
+    "questionLabel": "問16",
+    "questionNo": 16,
+    "questionSetId": "chiefgasengineerlicense-B-1190",
+    "questionSetName": "消費機器の技術上の基準（乙種）",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-28T08:53:58Z",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q2",
+    "questionTypeReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T08:53:58Z",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q16",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:541e84af270d3acf",
-    "reviewNotes": "T680: 降順ブロック planSequence=778。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=541e84af270d3acf。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 1 です。と correctChoiceText=[間違い, 正しい, 正しい, 正しい, 正しい] が一致。選択肢1は気体の粘度が温度上昇で減少するとするが、気体粘度は一般に温度上昇で増加するため誤り。選択肢2のヘンリーの法則、選択肢3の顕熱/潜熱、選択肢4の蒸発熱、選択肢5の実在気体が高温又は低圧で理想気体に近づく性質はいずれも正しい。04は category.json と2024/2025乙種の気体物性先例に合わせ、物性・基礎（乙種）を選択。",
-    "reviewQuestionId": "541e84af270d3acf",
-    "reviewedAt": "2026-06-28T17:43:01+09:00",
+    "reviewId": "2023:question_2023_1:93304ffff33c15a3",
+    "reviewNotes": "T682: 降順ブロック planSequence=776。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=93304ffff33c15a3。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 3 です。は組合せ選択肢番号で、statement-level correctChoiceText=[正しい, 間違い, 正しい, 正しい, 間違い] と確認。e-Gov ガス事業法施行規則（LawId 345M50000400097）第202条を確認し、選択肢2は特定地下街等の燃焼器に関する設備を自動ガス遮断装置としている点が誤り、選択肢5は給排気部先端の阻害要因を大気圧の変動としている点が誤り。選択肢1,3,4は同条の基準に合う。04は category.json と2024/2025乙種の同型先例に合わせ、chiefgasengineerlicense-B-1190（消費機器の技術上の基準（乙種））を選択。",
+    "reviewQuestionId": "93304ffff33c15a3",
+    "reviewedAt": "2026-06-28T17:53:58+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "基礎理論",
+    "sourceCategory": "法令",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
     "sourceExplanationChoiceCorrectness": [
+      "正しい",
       "間違い",
       "正しい",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "気体の粘度は温度上昇で一般に増加するため、減少するとする記述は誤り。"
+        "排気筒を設ける燃焼器は、排気筒以上の有効断面積を持つ給気口等を設けた室に設置する。"
       ],
       [
-        "ヘンリーの法則では、一定温度で溶解する気体の質量は気体の圧力に比例する。"
+        "特定地下街等又は特定地下室等の燃焼器にはガス漏れ警報設備を設ける基準であり、自動ガス遮断装置とは異なる。"
       ],
       [
-        "顕熱は温度変化の熱、潜熱は相変化に伴う熱。"
+        "12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気開口部を設けた室に設置する対象である。"
       ],
       [
-        "沸騰中に液体が吸収する熱は蒸発熱。"
+        "排気筒に接続する排気扇には、停止時に燃焼器へのガス供給を自動遮断する装置が必要。"
       ],
       [
-        "実在気体は高温又は低圧で理想気体に近い性状を示す。"
+        "給排気部先端は障害物又は外気の流れ、異物侵入、風雨等の圧力で給排気が妨げられないことが基準。"
       ]
     ],
     "sourceExplanationCommonPrefix": [
-      "基礎理論「物性・基礎（乙種）」の気体粘度、ヘンリーの法則、顕熱・潜熱、蒸発熱、実在気体の理想気体近似が本問の関連論点。",
-      "気体の粘度は液体より小さいが、温度上昇で一般に増加する。液体の粘度が温度上昇で低下する傾向と混同しない。",
-      "実在気体は高温又は低圧で理想気体に近づき、相変化に伴う熱は潜熱として扱う。"
+      "法令「消費機器の技術上の基準（乙種）」のうち、ガス事業法施行規則第202条に定める排気筒、給気口、排気扇、特定地下街等、密閉燃焼式ふろがまの給排気部が本問の関連論点。",
+      "設問は誤っている記述の組合せを問う形式で、answer_result_textの「正解は3」は組合せ選択肢番号を示す。statement-levelではロとホ、つまり選択肢2と5が誤りである。",
+      "同条では、12kW以下のガス瞬間湯沸器、排気扇停止時の自動遮断、給排気部先端の位置・構造などを個別に定めている。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢1は気体粘度が温度上昇で減少するとしているが、気体粘度は一般に温度上昇で増加するため誤り。選択肢2〜5は正しい。"
+      "選択肢2は特定地下街等に関する設備を自動ガス遮断装置としている点が誤り、選択肢5は給排気阻害要因を大気圧の変動としている点が誤り。選択肢1・3・4は第202条の基準に合う。"
     ],
     "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
     "sourceFileIndex": 19,
@@ -168,8 +181,8 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 2,
-      "subject": "kiso",
+      "questionNo": 16,
+      "subject": "law",
       "year": 2023
     },
     "sourceNaturalQuestionKey": null,
@@ -177,45 +190,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q02",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q16",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q02:s01",
-      "gas-shunin:otsu:2023:kiso:q02:s02",
-      "gas-shunin:otsu:2023:kiso:q02:s03",
-      "gas-shunin:otsu:2023:kiso:q02:s04",
-      "gas-shunin:otsu:2023:kiso:q02:s05"
+      "gas-shunin:otsu:2023:law:q16:s01",
+      "gas-shunin:otsu:2023:law:q16:s02",
+      "gas-shunin:otsu:2023:law:q16:s03",
+      "gas-shunin:otsu:2023:law:q16:s04",
+      "gas-shunin:otsu:2023:law:q16:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q2",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q16",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q16:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q16:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q16:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q16:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q16:s05",
         "statementNo": 5
       }
     ],
@@ -229,76 +242,82 @@
     ],
     "suggestedQuestionDetails": [
       {
-        "answer": "一般に増加する。",
-        "explanation": "間違い。気体の粘度は液体の粘度に比べて小さいが、一般に温度が上昇すると増加する。温度の上昇とともに減少するとしている点が誤りである。",
-        "question": "気体の粘度は温度上昇でどう変化する？"
+        "answer": "排気筒以上の有効断面積を持つ給気口等。",
+        "explanation": "排気筒を設ける燃焼器は、給気上有効な開口部を設けた室に設置する必要がある。",
+        "question": "排気筒を設ける燃焼器の設置室には何が必要？"
       },
       {
-        "answer": "温度一定では溶解する気体の質量が気体の圧力に比例する。",
-        "explanation": "正しい。ヘンリーの法則では、溶解度が小さい気体について、一定温度で一定質量の液体に溶解する気体の質量はその気体の圧力に比例する。",
-        "question": "ヘンリーの法則は気体の溶解量と圧力をどう関係づける？"
+        "answer": "ガス漏れ警報設備。",
+        "explanation": "特定地下街等又は特定地下室等の燃焼器については、ガス漏れ警報設備の設置が定められている。",
+        "question": "特定地下街等の燃焼器に必要な設備は？"
       },
       {
-        "answer": "温度変化に伴う熱が顕熱、相変化に伴う熱が潜熱である。",
-        "explanation": "正しい。相変化を伴わない温度変化で出入りする熱を顕熱、蒸発や凝縮などの相変化に伴って出入りする熱を潜熱という。",
-        "question": "顕熱と潜熱はどう区別する？"
+        "answer": "条件を満たす室なら排気筒を設けなくてよい。",
+        "explanation": "12kW以下のガス瞬間湯沸器は換気扇又は有効な給排気開口部を設けた室に設置する対象で、排気筒設置義務は12kW超に係る。",
+        "question": "12kW以下のガス瞬間湯沸器は排気筒が必要か？"
       },
       {
-        "answer": "沸騰中に液体が吸収して気体になるための潜熱である。",
-        "explanation": "正しい。沸騰中に液体が吸収する熱は、液体を気体へ変えるための潜熱であり、蒸発熱と呼ばれる。",
-        "question": "蒸発熱とはどのような熱か？"
+        "answer": "燃焼器へのガス供給。",
+        "explanation": "排気筒に接続する排気扇には、停止時にガス供給を自動遮断する装置が必要である。",
+        "question": "排気扇停止時には何を自動遮断する？"
       },
       {
-        "answer": "高温又は低圧の条件で理想気体に近づく。",
-        "explanation": "正しい。実在気体は分子間力や分子体積の影響が小さくなる高温又は低圧の条件で、理想気体に近い性状を示す。",
-        "question": "実在気体はどの条件で理想気体に近づく？"
+        "answer": "「大気圧の変動」ではなく、外気の流れや風雨等の圧力。",
+        "explanation": "給排気部先端は障害物又は外気の流れで妨げられない位置にあり、異物侵入や風雨等の圧力で妨げられない構造が必要である。",
+        "question": "密閉燃焼式ふろがまの給排気部先端で誤りやすい表現は？"
       }
     ],
     "suggestedQuestions": [
-      "気体の粘度は温度上昇でどう変化する？",
-      "ヘンリーの法則は気体の溶解量と圧力をどう関係づける？",
-      "顕熱と潜熱はどう区別する？",
-      "蒸発熱とはどのような熱か？",
-      "実在気体はどの条件で理想気体に近づく？"
+      "排気筒を設ける燃焼器の設置室には何が必要？",
+      "特定地下街等の燃焼器に必要な設備は？",
+      "12kW以下のガス瞬間湯沸器は排気筒が必要か？",
+      "排気扇停止時には何を自動遮断する？",
+      "密閉燃焼式ふろがまの給排気部先端で誤りやすい表現は？"
     ],
-    "workerTaskId": "T680"
+    "workerTaskId": "T682"
   },
-  "lastCompletedReviewQuestionId": "gas-shunin-otsu:541e84af270d3acf",
-  "lastCompletedTaskId": "T680",
-  "nextActiveTaskId": "T681",
+  "lastCompletedReviewQuestionId": "gas-shunin-otsu:93304ffff33c15a3",
+  "lastCompletedTaskId": "T682",
+  "nextActiveTaskId": "T683",
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "22",
-      "30",
-      "44",
-      "58",
-      "88"
+      "ガス小売事業者は、経済産業省令で定めるところにより、\n消費機器の所有者又は占有者に対し\n、当該ガス小売事業者が供給するガスの使用に伴う危険の発生の防止に関し必要な事項を周知させなければならない。",
+      "ガス小売事業者は、消費機器に関する調査の結果、消費機器が経済産業省令で定める技術上の基準に適合していないと認めるときは、遅滞なく、その技術上の基準に適合するためにとるべき措置及びその措置をとらなかった場合に生ずべき結果をその所有者又は占有者に通知しなければならない。",
+      "ガス小売事業者は、経済産業省令で定めるところにより、保安業務規程を定め、その事業の開始前に、経済産業大臣に届け出なければならない。",
+      "保安業務規程には、「保安業務を管理する事業場ごとの\nガス主任技術者の選任\nに関すること。」を定めなければならない。",
+      "経済産業大臣は、消費機器が経済産業省令で定める技術上の基準に適合していないと認めるときは、その所有者又は占有者に対し、\nその使用を一時停止すべきこと\nを命ずることができる。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -332,33 +351,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 777,
-    "publicQuestionId": "3e8425dd996d85f6",
+    "planSequence": 775,
+    "publicQuestionId": "287e82a1a00cbf85",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:3e8425dd996d85f6",
-    "questionBodyText": "温度27℃、圧力100kPa、体積33m³のプロパンの質量(kg)として、最も近い値はどれか。ただし、プロパンは理想気体とし、気体定数R = 8.3 J/(mol·K)とする。",
-    "questionIndexInFile": 17,
-    "questionIntent": "",
-    "questionLabel": "問1",
-    "questionNo": 1,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:287e82a1a00cbf85",
+    "questionBodyText": "法令で規定されている消費機器に関する周知及び調査、保安業務規程に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 15,
+    "questionIntent": "select_correct",
+    "questionLabel": "問15",
+    "questionNo": 15,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q1",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q15",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:3e8425dd996d85f6",
+    "reviewId": "2023:question_2023_1:287e82a1a00cbf85",
     "reviewNotes": "",
-    "reviewQuestionId": "3e8425dd996d85f6",
+    "reviewQuestionId": "287e82a1a00cbf85",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "基礎理論",
+    "sourceCategory": "法令",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -368,8 +387,8 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 1,
-      "subject": "kiso",
+      "questionNo": 15,
+      "subject": "law",
       "year": 2023
     },
     "sourceNaturalQuestionKey": null,
@@ -377,45 +396,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q01",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q15",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q01:s01",
-      "gas-shunin:otsu:2023:kiso:q01:s02",
-      "gas-shunin:otsu:2023:kiso:q01:s03",
-      "gas-shunin:otsu:2023:kiso:q01:s04",
-      "gas-shunin:otsu:2023:kiso:q01:s05"
+      "gas-shunin:otsu:2023:law:q15:s01",
+      "gas-shunin:otsu:2023:law:q15:s02",
+      "gas-shunin:otsu:2023:law:q15:s03",
+      "gas-shunin:otsu:2023:law:q15:s04",
+      "gas-shunin:otsu:2023:law:q15:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q1",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q15",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s05",
         "statementNo": 5
       }
     ],
@@ -428,42 +447,48 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 777,
-  "nextPendingPublicQuestionId": "3e8425dd996d85f6",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:3e8425dd996d85f6",
+  "nextPendingPlanSequence": 775,
+  "nextPendingPublicQuestionId": "287e82a1a00cbf85",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:287e82a1a00cbf85",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "22",
-      "30",
-      "44",
-      "58",
-      "88"
+      "ガス小売事業者は、経済産業省令で定めるところにより、\n消費機器の所有者又は占有者に対し\n、当該ガス小売事業者が供給するガスの使用に伴う危険の発生の防止に関し必要な事項を周知させなければならない。",
+      "ガス小売事業者は、消費機器に関する調査の結果、消費機器が経済産業省令で定める技術上の基準に適合していないと認めるときは、遅滞なく、その技術上の基準に適合するためにとるべき措置及びその措置をとらなかった場合に生ずべき結果をその所有者又は占有者に通知しなければならない。",
+      "ガス小売事業者は、経済産業省令で定めるところにより、保安業務規程を定め、その事業の開始前に、経済産業大臣に届け出なければならない。",
+      "保安業務規程には、「保安業務を管理する事業場ごとの\nガス主任技術者の選任\nに関すること。」を定めなければならない。",
+      "経済産業大臣は、消費機器が経済産業省令で定める技術上の基準に適合していないと認めるときは、その所有者又は占有者に対し、\nその使用を一時停止すべきこと\nを命ずることができる。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -497,33 +522,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 777,
-    "publicQuestionId": "3e8425dd996d85f6",
+    "planSequence": 775,
+    "publicQuestionId": "287e82a1a00cbf85",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:3e8425dd996d85f6",
-    "questionBodyText": "温度27℃、圧力100kPa、体積33m³のプロパンの質量(kg)として、最も近い値はどれか。ただし、プロパンは理想気体とし、気体定数R = 8.3 J/(mol·K)とする。",
-    "questionIndexInFile": 17,
-    "questionIntent": "",
-    "questionLabel": "問1",
-    "questionNo": 1,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:287e82a1a00cbf85",
+    "questionBodyText": "法令で規定されている消費機器に関する周知及び調査、保安業務規程に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 15,
+    "questionIntent": "select_correct",
+    "questionLabel": "問15",
+    "questionNo": 15,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q1",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q15",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:3e8425dd996d85f6",
+    "reviewId": "2023:question_2023_1:287e82a1a00cbf85",
     "reviewNotes": "",
-    "reviewQuestionId": "3e8425dd996d85f6",
+    "reviewQuestionId": "287e82a1a00cbf85",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "基礎理論",
+    "sourceCategory": "法令",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -533,8 +558,8 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 1,
-      "subject": "kiso",
+      "questionNo": 15,
+      "subject": "law",
       "year": 2023
     },
     "sourceNaturalQuestionKey": null,
@@ -542,45 +567,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q01",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q15",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q01:s01",
-      "gas-shunin:otsu:2023:kiso:q01:s02",
-      "gas-shunin:otsu:2023:kiso:q01:s03",
-      "gas-shunin:otsu:2023:kiso:q01:s04",
-      "gas-shunin:otsu:2023:kiso:q01:s05"
+      "gas-shunin:otsu:2023:law:q15:s01",
+      "gas-shunin:otsu:2023:law:q15:s02",
+      "gas-shunin:otsu:2023:law:q15:s03",
+      "gas-shunin:otsu:2023:law:q15:s04",
+      "gas-shunin:otsu:2023:law:q15:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q1",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q15",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q01:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q15:s05",
         "statementNo": 5
       }
     ],
@@ -593,16 +618,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:3e8425dd996d85f6",
-  "nextPendingTaskId": "T681",
-  "otsuCompleted": 169,
-  "otsuDone": 148,
+  "nextPendingReviewId": "2023:question_2023_1:287e82a1a00cbf85",
+  "nextPendingTaskId": "T683",
+  "otsuCompleted": 171,
+  "otsuDone": 150,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 353,
-  "pending": 353,
-  "pendingQuestions": 353,
-  "pending_questions": 353,
+  "otsuPending": 351,
+  "pending": 351,
+  "pendingQuestions": 351,
+  "pending_questions": 351,
   "total": 934,
   "total_questions": 934
 }
