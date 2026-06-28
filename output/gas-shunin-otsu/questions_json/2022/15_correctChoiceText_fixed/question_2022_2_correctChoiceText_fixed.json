@@ -595,7 +595,7 @@
       "閉栓→E→G→F→A→C\n→E→B→D→開栓"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "questionIntent": null,
+    "questionIntent": "select_correct",
     "correctChoiceText": [
       "間違い",
       "正しい",
@@ -603,7 +603,15 @@
       "間違い",
       "間違い"
     ],
-    "answer_result_text": "正解は 2 です。"
+    "answer_result_text": "正解は 2 です。",
+    "workerTaskId": "T707",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ]
   },
   {
     "original_question_id": "4c02724cceef7fcb",

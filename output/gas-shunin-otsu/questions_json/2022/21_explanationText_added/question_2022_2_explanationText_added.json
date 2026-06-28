@@ -839,7 +839,13 @@
       "閉栓→E→G→F→A→C\n→E→B→D→開栓"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "間違い。復旧作業はまず閉栓して供給停止状態を確認してから進めるため、開栓から始めるこの順序は不適切である。",
+      "正しい。低圧導管の復旧作業は、閉栓後に復旧ブロック化、供給管切断、差水箇所修理・採水、テスト昇圧、漏えい調査・修理、再度のテスト昇圧、エアパージ、灯内内管の漏えい検査・修理、開栓の順で進める。",
+      "間違い。差水箇所修理・採水の後に、テスト昇圧と漏えい調査・修理を行う前にエアパージを入れているため、復旧作業の基本フローとして不適切である。",
+      "間違い。閉栓直後にエアパージを行っており、復旧ブロック化、供給管切断、差水箇所修理・採水、テスト昇圧などの前後関係が基本フローと合わない。",
+      "間違い。復旧ブロック化や供給管切断の前にテスト昇圧、漏えい調査・修理、差水箇所修理・採水を行う順序になっており、基本フローと合わない。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -853,12 +859,16 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "workerTaskId": "T707",
+    "questionSetId": "chiefgasengineerlicense-B-2070",
+    "questionSetName": "地震対策（乙種）",
+    "category": "地震対策（乙種）"
   },
   {
     "original_question_id": "4c02724cceef7fcb",
