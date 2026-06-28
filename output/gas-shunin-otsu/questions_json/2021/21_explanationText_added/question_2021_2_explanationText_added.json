@@ -866,10 +866,43 @@
       "移動式ガス発生設備のうち、\n空気吸入式（PA式）\nは、ボンベに圧縮・充てんされた熱量調整・付臭済みの天然ガスを供給するものである。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。中・低圧導管の耐震性は、配管系が地盤変位を吸収できる能力と、想定する設計地盤変位を比較して評価する。",
+      "正しい。マイコンメーターには、設置場所で250ガルを超える地震動を継続して検知した場合にガスを遮断する感震遮断機能がある。",
+      "正しい。SI値は地震による一般的な建物の揺れの大きさを評価する指標で、速度の単位であるカイン（cm/s）で表される。",
+      "正しい。地震対策は、被害を受けにくくする設備対策、地震発生時の二次災害を防ぐ緊急対策、早期供給再開を図る復旧対策の三つで構成される。",
+      "間違い。ボンベに圧縮・充てんされた熱量調整・付臭済みの天然ガスを供給する方式は、圧縮ガス式（CNG式）である。空気吸入式（PA式）としている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位を比較して評価する？",
+      "マイコンメーターは250ガルを超える地震動を継続検知した場合に遮断する？",
+      "SI値は建物の揺れの大きさを評価する速度指標でカイン（cm/s）で表される？",
+      "地震対策は設備対策、緊急対策、復旧対策で構成される？",
+      "PA式は圧縮・充てん済みの天然ガスをボンベから供給する方式である？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "中・低圧導管の耐震性は地盤変位吸収能力と設計地盤変位を比較して評価する？",
+        "answer": "正しい。地盤変位吸収能力と設計地盤変位の比較で中・低圧導管の耐震性を評価する。"
+      },
+      {
+        "question": "マイコンメーターは250ガルを超える地震動を継続検知した場合に遮断する？",
+        "answer": "正しい。250ガル超の地震動を継続検知した場合などに感震遮断する機能がある。"
+      },
+      {
+        "question": "SI値は建物の揺れの大きさを評価する速度指標でカイン（cm/s）で表される？",
+        "answer": "正しい。SI値は揺れの大きさを評価する速度指標で、カイン（cm/s）で表される。"
+      },
+      {
+        "question": "地震対策は設備対策、緊急対策、復旧対策で構成される？",
+        "answer": "正しい。地震対策は設備対策、緊急対策、復旧対策の三つを基本とする。"
+      },
+      {
+        "question": "PA式は圧縮・充てん済みの天然ガスをボンベから供給する方式である？",
+        "answer": "誤り。圧縮・充てん済み天然ガスを供給する方式はCNG式であり、PA式ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -880,11 +913,11 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
