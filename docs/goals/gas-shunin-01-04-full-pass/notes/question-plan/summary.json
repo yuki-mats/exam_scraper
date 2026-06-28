@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T641",
-  "completed": 541,
-  "completed_questions": 541,
-  "done": 418,
+  "activeTaskId": "T642",
+  "completed": 542,
+  "completed_questions": 542,
+  "done": 419,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 418,
+    "done": 419,
     "hold": 123,
-    "pending": 393
+    "pending": 392
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T13:16:19+09:00",
+  "generatedAt": "2026-06-28T13:24:37+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -30,6 +30,185 @@
       "explanationTextPresent": false,
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "燃焼排ガスの排出が自然排気、強制排気にによらず、機器本体を屋外に設置し、屋外で給排気するように設計された機器をRF式機器という。",
+      "RF式機器には、浴室の壁貫通部に設置するタイプの機器がある。",
+      "共用給排気ダクト方式のダクトは、\n調理機器の排気ダクトとは共用してもよい\nが、浴室、トイレ等の換気ダクトとは別系統にしなければならない。",
+      "CF式機器の逆風止めは、排気筒から屋外の風が逆流入してきたときに、炎が吹き消されないようにすることである。",
+      "ガス消費量が12kWを超えるガス瞬間湯沸器を屋内に設置する工事は、「特定ガス消費機器の設置工事の監督に関する法律」によらなければならない。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 816,
+    "publicQuestionId": "d7ee8ce3f382aa2a",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:d7ee8ce3f382aa2a",
+    "questionBodyText": "ガス機器の給排気に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 6,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問25",
+    "questionNo": 25,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q25",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_3:d7ee8ce3f382aa2a",
+    "reviewNotes": "",
+    "reviewQuestionId": "d7ee8ce3f382aa2a",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "消費機器",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
+    "sourceFileIndex": 21,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 25,
+      "subject": "shohi",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q25",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:shohi:q25:s01",
+      "gas-shunin:otsu:2023:shohi:q25:s02",
+      "gas-shunin:otsu:2023:shohi:q25:s03",
+      "gas-shunin:otsu:2023:shohi:q25:s04",
+      "gas-shunin:otsu:2023:shohi:q25:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q25",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q25:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q25:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q25:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q25:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q25:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 816,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:d7ee8ce3f382aa2a",
+  "otsuCompleted": 130,
+  "otsuDone": 109,
+  "otsuHeld": 21,
+  "otsuHold": 21,
+  "otsuPending": 392,
+  "pending": 392,
+  "pending_questions": 392,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "answer_result_text=正解は 2 です。 matches choice 2 being incorrect for select_incorrect.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -50,7 +229,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "間違い",
@@ -58,8 +237,14 @@
       "正しい",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。こんろの調理油過熱防止装置は鍋底温度を検知し、油の過熱による発火を防ぐため、約250℃に達するとガスを遮断する。",
+      "間違い。開放式ガス瞬間湯沸器の不完全燃焼防止装置は、燃焼状態の異常を検知して一酸化炭素が発生する前にガスを遮断する安全装置である。排ガス中のCO濃度が0.3%を超えないように制御する装置としている点が誤り。",
+      "正しい。現在販売されているBF式ふろがまには冠水検知装置が搭載され、冠水状態を検知する方式として電極式やフロート式等が用いられる。",
+      "正しい。バイメタル式の空だき安全装置は、空だきなどによる異常温度を検知してガスを遮断し、機器の損傷や事故を防ぐ。",
+      "正しい。フレームロッド式の立ち消え安全装置は、炎の導電性・整流性を利用して炎を検知する方式で、熱電対式に比べ応答が速い。点火時、消火時とも短時間で応答する。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,20 +286,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問26",
     "questionNo": 26,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1930",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q26",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_3:f55a3384d71fcd9b",
-    "reviewNotes": "",
+    "reviewNotes": "T641: 降順ブロック planSequence=817。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=f55a3384d71fcd9b。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は選択肢2のみ誤りで選択肢1,3,4,5が正しいことに対応し、correctChoiceText=[正しい, 間違い, 正しい, 正しい, 正しい] と一致。選択肢2は開放式ガス瞬間湯沸器の不完全燃焼防止装置を排ガス中CO濃度0.3%以下に制御する装置としている点が誤りで、既存の2023甲種同系sourceでは熱電対等により一次空気不足や二次空気不足でCOが発生する前に遮断する趣旨と整理済み。選択肢3はBF式ふろがまの冠水検知装置に電極式・フロート式等が用いられるため正しい。選択肢1,4,5は安全装置の既存precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1930（ガス機器の安全装置及び制御装置（乙種））はcategory.jsonのactive category、および乙種2024/2025同系問26 precedentに基づく。",
     "reviewQuestionId": "f55a3384d71fcd9b",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T13:24:37+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "消費機器",
@@ -185,294 +370,109 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingPlanSequence": 817,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:f55a3384d71fcd9b",
-  "otsuCompleted": 129,
-  "otsuDone": 108,
-  "otsuHeld": 21,
-  "otsuHold": 21,
-  "otsuPending": 393,
-  "pending": 393,
-  "pending_questions": 393,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 3 です。 matches choice 3 being incorrect for select_incorrect.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "オンオフヒューズガス栓は、つまみの開閉位置に関わらず内部のオンオフ弁が常に「全開」又は「全閉」のいずれかの状態に維持する機構を有する。",
-      "金属可とう管は、ビルトインコンロ等の常設型ガス機器の接続に用いられる。",
-      "現在販売されている開放式小型湯沸器は、\nガスコードで接続してもよい\n。",
-      "ガス警報器は、ガスの濃度が爆発下限界の1/4以上のときに確実に作動しなければならない。",
-      "家庭用のガス警報器に使用されているガスの検出方式は、半導体式、接触燃焼式又は熱線型半導体式に大別される。"
     ],
-    "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
-    "explanationText": [
-      "正しい。オンオフヒューズガス栓は、つまみの開閉位置に関わらず内部のオンオフ弁が全開又は全閉のいずれかに保持される機構を備え、半開状態を避ける構造である。",
-      "正しい。金属可とう管は、ビルトインコンロなどの常設型ガス機器とガス栓の接続に用いられる接続具である。",
-      "間違い。現在販売されている開放式小型湯沸器の接続には、機器の接続仕様に合う強化ガスホース等を用いる。ガスコードで接続してもよいとしている点が誤り。",
-      "正しい。ガス警報器は、警報設定濃度に達したときに確実に作動する必要があり、可燃性ガス用では爆発下限界の1/4以上で確実に作動することが求められる。",
-      "正しい。家庭用ガス警報器のガス検出方式は、半導体式、接触燃焼式、熱線型半導体式などに大別される。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 818,
-    "publicQuestionId": "47f733ca36117816",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:47f733ca36117816",
-    "questionBodyText": "ガス栓、接続具及び警報器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 8,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問27",
-    "questionNo": 27,
-    "questionSetId": "chiefgasengineerlicense-B-1980",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q27",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_3:47f733ca36117816",
-    "reviewNotes": "T640: 降順ブロック planSequence=818。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=47f733ca36117816。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 3 です。は選択肢3のみ誤りで選択肢1,2,4,5が正しいことに対応し、correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい] と一致。選択肢3は開放式小型湯沸器の接続具としてガスコードを可としている点が誤りで、既存の2024同系review precedentではガス小型湯沸器は強化ガスホースで可とう管ガス栓と接続できると整理済み。選択肢1,2,4,5はガス栓・接続具・警報器の基礎記述として、2024/2025同系review precedentおよびサイト判定と矛盾しない。questionSetId=chiefgasengineerlicense-B-1980（ガス栓、接続具及び警報器（乙種））はcategory.jsonのactive category、および乙種2024/2025同系review precedentに基づく。",
-    "reviewQuestionId": "47f733ca36117816",
-    "reviewedAt": "2026-06-28T13:16:19+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
-    "sourceFileIndex": 21,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 27,
-      "subject": "shohi",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q27",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:shohi:q27:s01",
-      "gas-shunin:otsu:2023:shohi:q27:s02",
-      "gas-shunin:otsu:2023:shohi:q27:s03",
-      "gas-shunin:otsu:2023:shohi:q27:s04",
-      "gas-shunin:otsu:2023:shohi:q27:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q27",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "questionSetName": "ガス栓、接続具及び警報器（乙種）",
-    "category": "ガス栓、接続具及び警報器（乙種）",
+    "questionSetName": "ガス機器の安全装置及び制御装置（乙種）",
+    "category": "ガス機器の安全装置及び制御装置（乙種）",
     "reviewStatus": "ok",
-    "workerTaskId": "T640",
+    "workerTaskId": "T641",
     "suggestedQuestions": [
-      "オンオフヒューズガス栓は半開状態を避ける機構を有するか？",
-      "金属可とう管は常設型ガス機器の接続に用いられるか？",
-      "開放式小型湯沸器はガスコードで接続してもよいか？",
-      "ガス警報器は爆発下限界の1/4以上で確実に作動する必要があるか？",
-      "家庭用ガス警報器の検出方式には半導体式、接触燃焼式、熱線型半導体式があるか？"
+      "こんろの調理油過熱防止装置は約250℃でガスを遮断するか？",
+      "開放式ガス瞬間湯沸器の不完全燃焼防止装置は排ガス中CO濃度0.3%以下に制御する装置か？",
+      "BF式ふろがまの冠水検知装置には電極式やフロート式等が用いられるか？",
+      "バイメタル式の空だき安全装置は異常温度を検知してガスを遮断するか？",
+      "フレームロッド式の立ち消え安全装置は熱電対式より応答が早いか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "オンオフヒューズガス栓は半開状態を避ける機構を有するか？",
-        "answer": "有する。",
-        "explanation": "オンオフヒューズガス栓は、内部のオンオフ弁を全開又は全閉に保持して半開状態を避ける構造である。"
+        "question": "こんろの調理油過熱防止装置は約250℃でガスを遮断するか？",
+        "answer": "遮断する。",
+        "explanation": "調理油過熱防止装置は鍋底温度を検知し、約250℃に達するとガスを遮断する。"
       },
       {
-        "question": "金属可とう管は常設型ガス機器の接続に用いられるか？",
+        "question": "開放式ガス瞬間湯沸器の不完全燃焼防止装置は排ガス中CO濃度0.3%以下に制御する装置か？",
+        "answer": "そのようなCO濃度制御装置ではない。",
+        "explanation": "不完全燃焼防止装置は燃焼異常を検知してCOが発生する前にガスを遮断する。CO濃度0.3%以下に制御するとしている点が誤り。"
+      },
+      {
+        "question": "BF式ふろがまの冠水検知装置には電極式やフロート式等が用いられるか？",
         "answer": "用いられる。",
-        "explanation": "ビルトインコンロなどの常設型ガス機器の接続には、金属可とう管が用いられる。"
+        "explanation": "BF式ふろがまの冠水検知装置には、電極式やフロート式等が用いられる。"
       },
       {
-        "question": "開放式小型湯沸器はガスコードで接続してもよいか？",
-        "answer": "接続してもよいとはいえない。",
-        "explanation": "開放式小型湯沸器は、機器の接続仕様に合う強化ガスホース等を用いる。ガスコード可としている点が誤り。"
+        "question": "バイメタル式の空だき安全装置は異常温度を検知してガスを遮断するか？",
+        "answer": "遮断する。",
+        "explanation": "バイメタル式の空だき安全装置は異常温度を検知し、ガスを遮断する。"
       },
       {
-        "question": "ガス警報器は爆発下限界の1/4以上で確実に作動する必要があるか？",
-        "answer": "必要がある。",
-        "explanation": "可燃性ガス用の警報器は、設定濃度に達したときに確実に作動することが求められる。"
-      },
-      {
-        "question": "家庭用ガス警報器の検出方式には半導体式、接触燃焼式、熱線型半導体式があるか？",
-        "answer": "ある。",
-        "explanation": "家庭用ガス警報器の検出方式は、半導体式、接触燃焼式、熱線型半導体式などに分類される。"
+        "question": "フレームロッド式の立ち消え安全装置は熱電対式より応答が早いか？",
+        "answer": "早い。",
+        "explanation": "フレームロッド式は炎の電気的性質を利用して検知するため、熱電対式より応答が速い。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-      "消費機器「ガス栓、接続具及び警報器（乙種）」のガス栓機構、ガス機器接続具、警報器作動・検出方式が本問の関連論点。",
-      "試験ポイント: 小型湯沸器の接続具はガスコード可否を接続仕様で区別し、ガス警報器は作動濃度と検出方式を押さえる。"
+      "消費機器「ガス機器の安全装置及び制御装置（乙種）」の調理油過熱防止装置、不完全燃焼防止装置、冠水検知装置、空だき安全装置、立ち消え安全装置が本問の関連論点。",
+      "試験ポイント: 安全装置が何を検知して何を遮断するかを区別し、CO濃度制御のような誤った説明に注意する。"
     ],
     "sourceExplanationCommonSummary": [
-      "誤っているものは選択肢3のみ。選択肢3は開放式小型湯沸器をガスコードで接続可としている点が誤りで、選択肢1・2・4・5はガス栓、接続具、警報器の記述として正しい。"
+      "誤っているものは選択肢2のみ。選択肢2は不完全燃焼防止装置を排ガス中CO濃度0.3%以下に制御する装置としている点が誤りで、選択肢1・3・4・5は安全装置に関する記述として正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "オンオフヒューズガス栓は、内部弁を全開又は全閉に保持する機構を備える。"
+        "調理油過熱防止装置は、鍋底温度が約250℃に達するとガスを遮断する。"
       ],
       [
-        "金属可とう管は、ビルトインコンロなどの常設型ガス機器の接続に用いられる。"
+        "開放式ガス瞬間湯沸器の不完全燃焼防止装置は、燃焼異常を検知してCOが発生する前にガスを遮断する。"
       ],
       [
-        "開放式小型湯沸器は、ガスコードではなく接続仕様に合う強化ガスホース等で接続する。"
+        "BF式ふろがまの冠水検知装置には、電極式やフロート式等が用いられる。"
       ],
       [
-        "可燃性ガス用のガス警報器は、爆発下限界に対する所定濃度で確実に作動する必要がある。"
+        "バイメタル式の空だき安全装置は、異常温度を検知してガスを遮断する。"
       ],
       [
-        "家庭用ガス警報器の検出方式には、半導体式、接触燃焼式、熱線型半導体式などがある。"
+        "フレームロッド式立ち消え安全装置は、炎の導電性・整流性を利用して炎を検知し、熱電対式より応答が速い。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正しい",
-      "正しい",
       "間違い",
+      "正しい",
       "正しい",
       "正しい"
     ],
     "explanation_common_prefix": [
-      "消費機器「ガス栓、接続具及び警報器（乙種）」のガス栓機構、ガス機器接続具、警報器作動・検出方式が本問の関連論点。",
-      "試験ポイント: 小型湯沸器の接続具はガスコード可否を接続仕様で区別し、ガス警報器は作動濃度と検出方式を押さえる。"
+      "消費機器「ガス機器の安全装置及び制御装置（乙種）」の調理油過熱防止装置、不完全燃焼防止装置、冠水検知装置、空だき安全装置、立ち消え安全装置が本問の関連論点。",
+      "試験ポイント: 安全装置が何を検知して何を遮断するかを区別し、CO濃度制御のような誤った説明に注意する。"
     ],
     "explanation_common_summary": [
-      "誤っているものは選択肢3のみ。選択肢3は開放式小型湯沸器をガスコードで接続可としている点が誤りで、選択肢1・2・4・5はガス栓、接続具、警報器の記述として正しい。"
+      "誤っているものは選択肢2のみ。選択肢2は不完全燃焼防止装置を排ガス中CO濃度0.3%以下に制御する装置としている点が誤りで、選択肢1・3・4・5は安全装置に関する記述として正しい。"
     ],
     "explanation_choice_snippets": [
       [
-        "オンオフヒューズガス栓は、内部弁を全開又は全閉に保持する機構を備える。"
+        "調理油過熱防止装置は、鍋底温度が約250℃に達するとガスを遮断する。"
       ],
       [
-        "金属可とう管は、ビルトインコンロなどの常設型ガス機器の接続に用いられる。"
+        "開放式ガス瞬間湯沸器の不完全燃焼防止装置は、燃焼異常を検知してCOが発生する前にガスを遮断する。"
       ],
       [
-        "開放式小型湯沸器は、ガスコードではなく接続仕様に合う強化ガスホース等で接続する。"
+        "BF式ふろがまの冠水検知装置には、電極式やフロート式等が用いられる。"
       ],
       [
-        "可燃性ガス用のガス警報器は、爆発下限界に対する所定濃度で確実に作動する必要がある。"
+        "バイメタル式の空だき安全装置は、異常温度を検知してガスを遮断する。"
       ],
       [
-        "家庭用ガス警報器の検出方式には、半導体式、接触燃焼式、熱線型半導体式などがある。"
+        "フレームロッド式立ち消え安全装置は、炎の導電性・整流性を利用して炎を検知し、熱電対式より応答が速い。"
       ]
     ],
     "explanation_choice_correctness": [
       "正しい",
-      "正しい",
       "間違い",
+      "正しい",
       "正しい",
       "正しい"
     ]
   },
-  "nextPendingTaskId": "T641",
-  "nextPendingReviewId": "2023:question_2023_3:f55a3384d71fcd9b"
+  "nextPendingTaskId": "T642",
+  "nextPendingReviewId": "2023:question_2023_3:d7ee8ce3f382aa2a"
 }
