@@ -607,25 +607,79 @@
       "酸素"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。標準状態では理想気体1kmolの体積は約22.4m³である。使用量は6.72m³/h×0.5h=3.36m³なので物質量は3.36/22.4=0.15kmol。質量2.4kgから分子量は2.4/0.15=16kg/kmolとなり、水素の2kg/kmolではない。",
+      "正解。使用した気体体積は6.72m³/h×30分=3.36m³。標準状態で1kmol=約22.4m³より物質量は0.15kmolである。質量減少2.4kgを0.15kmolで割ると分子量は16kg/kmolとなり、メタンに一致する。",
+      "不正解。エタンの分子量は約30kg/kmolである。本問で求めた分子量は16kg/kmolなので、エタンではない。",
+      "不正解。プロパンの分子量は約44kg/kmolである。本問の分子量16kg/kmolより大きく、質量2.4kg・体積3.36m³の条件に合わない。",
+      "不正解。酸素の分子量は約32kg/kmolである。本問で求めた分子量16kg/kmolとは一致しない。"
+    ],
+    "suggestedQuestions": [
+      "30分間の使用体積は何m³か？",
+      "標準状態で3.36m³は何kmolか？",
+      "質量2.4kg、物質量0.15kmolから分子量はいくつか？",
+      "分子量16kg/kmolの気体は何か？",
+      "水素・エタン・プロパン・酸素が不適切な理由は何か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "30分間の使用体積は何m³か？",
+        "answer": "3.36m³。",
+        "explanation": "流量6.72m³/hで30分=0.5h使用するため、6.72×0.5=3.36m³である。"
+      },
+      {
+        "question": "標準状態で3.36m³は何kmolか？",
+        "answer": "0.15kmol。",
+        "explanation": "標準状態で1kmolの体積を約22.4m³とすると、3.36/22.4=0.15kmolである。"
+      },
+      {
+        "question": "質量2.4kg、物質量0.15kmolから分子量はいくつか？",
+        "answer": "16kg/kmol。",
+        "explanation": "分子量に相当する値は質量/物質量=2.4kg/0.15kmol=16kg/kmolである。"
+      },
+      {
+        "question": "分子量16kg/kmolの気体は何か？",
+        "answer": "メタン。",
+        "explanation": "メタンCH4の分子量は16であり、求めた値16kg/kmolに一致する。"
+      },
+      {
+        "question": "水素・エタン・プロパン・酸素が不適切な理由は何か？",
+        "answer": "分子量が16kg/kmolと一致しないため。",
+        "explanation": "水素は約2、エタンは約30、プロパンは約44、酸素は約32kg/kmolであり、いずれも16kg/kmolではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の標準状態、理想気体のモル体積、分子量判定が本問の関連論点。",
+      "標準状態では理想気体1kmolの体積を約22.4m³として、使用体積から物質量を求める。",
+      "本問では使用体積3.36m³、物質量0.15kmol、質量2.4kgより分子量16kg/kmolとなる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "使用体積は3.36m³、標準状態で0.15kmol。2.4kg/0.15kmol=16kg/kmolとなり、分子量16のメタンが該当する。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "水素の分子量2kg/kmolは計算値16kg/kmolと合わない。"
+      ],
+      [
+        "メタンの分子量16kg/kmolが計算値と一致する。"
+      ],
+      [
+        "エタンの分子量30kg/kmolは計算値より大きい。"
+      ],
+      [
+        "プロパンの分子量44kg/kmolは計算値より大きい。"
+      ],
+      [
+        "酸素の分子量32kg/kmolは計算値と合わない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ]
   },
   {
