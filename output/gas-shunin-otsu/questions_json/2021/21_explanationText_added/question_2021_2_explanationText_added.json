@@ -200,18 +200,71 @@
       "2×10⁻³"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。引張応力は σ=F/A であり、原断面積は A=F/σ で求める。200MPa=2.0×10^8N/m²なので、A=40000÷(2.0×10^8)=2.0×10^-4m²となり、2×10^-5m²では一桁小さい。",
+      "正解。σ=F/A より A=F/σ。引張力40000N、引張応力200MPa=2.0×10^8N/m²だから、A=40000÷(2.0×10^8)=2.0×10^-4m²となる。",
+      "不正解。4×10^-4m²は正しい計算値2×10^-4m²の2倍である。200MPaをN/m²に換算して A=F/σ を用いると、最も近い値は2×10^-4m²である。",
+      "不正解。8×10^-4m²は正しい計算値2×10^-4m²の4倍であり、与えられた引張力40000Nと引張応力200MPaの関係に合わない。",
+      "不正解。2×10^-3m²は正しい計算値2×10^-4m²の10倍である。200MPa=2.0×10^8N/m²として計算すると、原断面積は2×10^-4m²である。"
+    ],
+    "suggestedQuestions": [
+      "引張応力、引張力、原断面積の関係式は？",
+      "200MPaは何N/m²に換算できる？",
+      "40000N、200MPaのとき原断面積はいくら？",
+      "2×10^-5m²が誤りになる理由は？",
+      "2×10^-3m²が誤りになる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "引張応力、引張力、原断面積の関係式は？",
+        "answer": "σ=F/A、したがって A=F/σ。",
+        "explanation": "正解。引張応力は引張力を原断面積で割った値なので、原断面積は引張力を引張応力で割って求める。"
+      },
+      {
+        "question": "200MPaは何N/m²に換算できる？",
+        "answer": "2.0×10^8N/m²。",
+        "explanation": "1MPa=10^6N/m²なので、200MPa=200×10^6=2.0×10^8N/m²である。"
+      },
+      {
+        "question": "40000N、200MPaのとき原断面積はいくら？",
+        "answer": "2.0×10^-4m²。",
+        "explanation": "A=F/σ=40000÷(2.0×10^8)=2.0×10^-4m²である。"
+      },
+      {
+        "question": "2×10^-5m²が誤りになる理由は？",
+        "answer": "正しい値2×10^-4m²の一桁下だから。",
+        "explanation": "200MPaをN/m²に換算して A=F/σ を用いると2×10^-4m²であり、2×10^-5m²では小さすぎる。"
+      },
+      {
+        "question": "2×10^-3m²が誤りになる理由は？",
+        "answer": "正しい値2×10^-4m²の10倍だから。",
+        "explanation": "与えられた引張力と引張応力から求まる原断面積は2×10^-4m²であり、2×10^-3m²では大きすぎる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学」が本問の関連論点。引張応力は力を原断面積で割った値であり、σ=F/A で表す。",
+      "原断面積を求める場合は A=F/σ を用いる。200MPa=2.0×10^8N/m²に単位換算してから計算する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "A=40000N÷(2.0×10^8N/m²)=2.0×10^-4m²。最も近い値は選択肢2である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "2×10^-5m²は計算値2×10^-4m²の一桁下である。"
+      ],
+      [
+        "A=F/σ=40000÷(2.0×10^8)=2.0×10^-4m²。"
+      ],
+      [
+        "4×10^-4m²は正しい原断面積の2倍である。"
+      ],
+      [
+        "8×10^-4m²は正しい原断面積の4倍である。"
+      ],
+      [
+        "2×10^-3m²は正しい原断面積の10倍である。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
