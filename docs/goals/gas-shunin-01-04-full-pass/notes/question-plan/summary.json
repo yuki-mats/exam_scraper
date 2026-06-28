@@ -1,26 +1,26 @@
 {
-  "activeTaskId": "T631",
-  "completed": 531,
-  "completed_questions": 531,
-  "done": 531,
+  "activeTaskId": "T632",
+  "completed": 532,
+  "completed_questions": 532,
+  "done": 532,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 412,
-    "hold": 119,
-    "pending": 403
+    "hold": 120,
+    "pending": 402
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T12:15:00+09:00",
-  "held_questions": 119,
-  "hold": 119,
-  "hold_questions": 119,
+  "generatedAt": "2026-06-28T12:00:20+09:00",
+  "held_questions": 120,
+  "hold": 120,
+  "hold_questions": 120,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,6 +31,186 @@
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "ガス栓の主要材料は、最高使用温度及び最低使用温度において材料に及ぼす化学的及び物理的影響に対し、設備の種類、規模に応じて安全な機械的性質を有するものでなければならない。",
+      "附帯設備であって製造設備に属する容器及び管のうち、液化ガスを通ずるものであって内面に0Paを超える圧力を受ける部分の構造は、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対し、設備の種類、規模に応じて適切な構造でなければならない。",
+      "整圧器及び特定ガス発生設備に属する調整装置の耐圧部分は、適切な方法により\n耐圧試験を行ったときにこれに耐えるものでなければならない\n。",
+      "ガス工作物のガス又は液化ガスを通ずる部分であって、内面に0Paを超える圧力を受ける部分の溶接された部分は、溶込みが十分で、溶接による割れ等で有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならない。",
+      "最高使用圧力が0.3MPa以上で、内径が150mm以上の中圧の導管であって、ガスによる圧力を受ける部分を溶接する場合は、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならない。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 826,
+    "publicQuestionId": "d7367850b0588b72",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:d7367850b0588b72",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 8,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問8",
+    "questionNo": 8,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q8",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:d7367850b0588b72",
+    "reviewNotes": "",
+    "reviewQuestionId": "d7367850b0588b72",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "法令",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceFileIndex": 22,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 8,
+      "subject": "law",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q08",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:law:q08:s01",
+      "gas-shunin:otsu:2024:law:q08:s02",
+      "gas-shunin:otsu:2024:law:q08:s03",
+      "gas-shunin:otsu:2024:law:q08:s04",
+      "gas-shunin:otsu:2024:law:q08:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q8",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q08:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q08:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q08:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q08:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q08:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 826,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:d7367850b0588b72",
+  "otsuCompleted": 120,
+  "otsuDone": 102,
+  "otsuHeld": 18,
+  "otsuHold": 18,
+  "otsuPending": 402,
+  "pending": 402,
+  "pending_questions": 402,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 4 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "manual_reviewed_against_official_egov_technical_standards_and_answer_combination",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true,
+      "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
@@ -50,19 +230,25 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "hold",
     "expectedCorrectChoiceText": [
       "間違い",
       "間違い",
-      "間違い",
       "正しい",
-      "間違い"
+      "間違い",
+      "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。ガス工作物の技術上の基準を定める省令第17条は、液化ガスを通ずるもののうち過圧が生ずるおそれのあるものには、その圧力を逃すために適切な安全弁を設けることを求めている。インターロック機構としている点が誤り。",
+      "間違い。同省令第21条は、製造設備を安全に停止させるのに必要な装置その他の保安上重要な設備について、停電等により機能が失われないよう適切な措置を講じることを求めている。運転を継続させるのに必要な装置としている点が誤り。",
+      "正しい。同省令第32条第1項は、凝縮液により機能の低下又は損傷のおそれがあるガスホルダーには、ガスホルダーの凝縮液を抜く装置を設けなければならないと定めている。",
+      "間違い。同省令第34条は、液化ガス用貯槽及びガスホルダー又はこれらの付近には、外部から見やすいように液化ガス用貯槽又はガスホルダーである旨を表示することを求めている。ガス小売事業者の名称及び連絡先の表示としている点が誤り。",
+      "正しい。同省令第38条第2項は、液化ガス用貯槽の防液堤の外面から防災作業のために必要な距離の内側には、液化ガスの漏えい又は火災等の拡大防止に支障のない設備以外の設備を設置してはならないと定めている。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
-    "fixInstructions": "",
+    "fixInstructions": "04: statement-level questionSetIdが技省令_安全弁、技省令_保安電力等、技省令_ガスホルダー及び液化ガス用貯槽で混在するため、T900のper-statement questionSetId方針確定後に解除する。",
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
@@ -104,17 +290,17 @@
     "questionSetId": "",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q9",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "hold",
+    "reviewDecision": "hold",
     "reviewId": "2024:question_2024_1:fd9364f45fe29acc",
-    "reviewNotes": "",
+    "reviewNotes": "T631: 降順ブロック planSequence=827。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=fd9364f45fe29acc。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 4 です。はハ・ホの組合せに対応し、correctChoiceText=[間違い, 間違い, 正しい, 間違い, 正しい] と一致。expectedCorrectChoiceText は stale な選択肢番号ベースから statement-level 正誤へ補正。e-Gov LawId 412M50000400111（ガス工作物の技術上の基準を定める省令17条、21条、32条1項、34条、38条2項）を確認。選択肢1は安全弁ではなくインターロック機構としているため誤り。選択肢2は安全停止ではなく運転継続としているため誤り。選択肢3は凝縮液抜き装置として正しい。選択肢4は貯槽等である旨ではなくガス小売事業者の名称等としているため誤り。選択肢5は防液堤周辺の設備制限として正しい。04はstatement-levelカテゴリが技省令_安全弁、技省令_保安電力等、技省令_ガスホルダー及び液化ガス用貯槽にまたがるため、単一problem-level questionSetIdで上書きせずhold。",
     "reviewQuestionId": "fd9364f45fe29acc",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T12:00:20+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "法令",
@@ -185,253 +371,67 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingPlanSequence": 827,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:fd9364f45fe29acc",
-  "otsuCompleted": 119,
-  "otsuDone": 102,
-  "otsuHeld": 17,
-  "otsuHold": 17,
-  "otsuPending": 403,
-  "pending": 403,
-  "pending_questions": 403,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_official_egov_technical_standards_and_single_correct_choice",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true,
-      "sourceConflictStatus": "none"
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "製造設備(ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。)には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合にガス又は液化ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。",
-      "移動式ガス発生設備には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合に迅速かつ安全に\nガスの発生を停止し、又は迅速かつ安全にガスを処理することができる装置\nを設けなければならない。",
-      "移動式ガス発生設備は、ガス又は液化ガス(不活性のものを除く。)が漏えいした場合の火災等の発生を防止するため、適切な場所に設置し、\n容易に腐食又は転倒しないように\n適切な措置が講じられていなければならない。",
-      "移動式ガス発生設備の容器又は容器の設置場所には、容器内の圧力が\n異常に低下しないよう\n適切な温度に維持できる適切な措置を講じなければならない。",
-      "容器に附属する気化装置内においてガスを発生させる特定ガス発生設備であって当該気化装置を電源によって操作するものは、自家発電機その他の操作用電源が停止した際に\nガスの供給を遮断するための装置\nを設けなければならない。"
     ],
-    "correctChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "hold",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い",
-      "間違い"
-    ],
-    "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第26条は、製造設備（ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。）について、使用中に生じた異常による災害の発生を防止するため、異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所に設けることを求めている。",
-      "間違い。同省令第27条第2項は、移動式ガス発生設備について、異常発生時に迅速かつ安全にガスの発生を停止できる装置を設けることを求めている。迅速かつ安全にガスを処理することができる装置まで含めている点が誤り。",
-      "間違い。同省令第28条第1項は、移動式ガス発生設備について、ガス又は液化ガスが漏えいした場合の火災等を防止するため、適切な場所に設置し、容易に移動又は転倒しないよう適切な措置を講じることを求めている。容易に腐食又は転倒しないようにとしている点が誤り。",
-      "間違い。同省令第28条第3項は、容器又は容器の設置場所について、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を求めている。異常に低下しないようにとしている点が誤り。",
-      "間違い。同省令第42条は、容器に附属する気化装置内でガスを発生させる特定ガス発生設備で、その気化装置を電源によって操作するものについて、操作用電源が停止した際にガスの供給を維持するための装置を設けることを求めている。ガスの供給を遮断するための装置としている点が誤り。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "04: statement-level questionSetIdが技省令_遮断装置、技省令_緊急停止装置、技省令_移動式ガス発生設備の設置等、技省令_操作用電源停止時の措置で混在するため、T900のper-statement questionSetId方針確定後に解除する。",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 828,
-    "publicQuestionId": "db637cee87824d57",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:db637cee87824d57",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。",
-    "questionIndexInFile": 10,
-    "questionIntent": "select_correct",
-    "questionLabel": "問10",
-    "questionNo": 10,
-    "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q10",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "hold",
-    "reviewDecision": "hold",
-    "reviewId": "2024:question_2024_1:db637cee87824d57",
-    "reviewNotes": "T630: 降順ブロック planSequence=828。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=db637cee87824d57。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 1 です。は唯一の正しい選択肢1に対応し、correctChoiceText=[正しい, 間違い, 間違い, 間違い, 間違い] と一致。e-Gov LawId 412M50000400111（ガス工作物の技術上の基準を定める省令26条、27条2項、28条1項・3項、42条）を確認。選択肢1は製造設備の遮断装置として正しい。選択肢2は移動式ガス発生設備の装置にガス処理まで含めているため誤り。選択肢3は移動又は転倒ではなく腐食又は転倒としているため誤り。選択肢4は圧力上昇ではなく低下としているため誤り。選択肢5は操作用電源停止時に供給維持ではなく供給遮断としているため誤り。04はstatement-levelカテゴリが技省令_遮断装置、技省令_緊急停止装置、技省令_移動式ガス発生設備の設置等、技省令_操作用電源停止時の措置にまたがるため、単一problem-level questionSetIdで上書きせずhold。",
-    "reviewQuestionId": "db637cee87824d57",
-    "reviewedAt": "2026-06-28T11:53:18+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "法令",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "sourceFileIndex": 22,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 10,
-      "subject": "law",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q10",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:law:q10:s01",
-      "gas-shunin:otsu:2024:law:q10:s02",
-      "gas-shunin:otsu:2024:law:q10:s03",
-      "gas-shunin:otsu:2024:law:q10:s04",
-      "gas-shunin:otsu:2024:law:q10:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q10",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "taskId": "T630",
-    "workerTaskId": "T630",
+    "taskId": "T631",
+    "workerTaskId": "T631",
     "sourceExplanationCommonPrefix": [
-      "技術基準「遮断装置」「緊急停止装置」「移動式ガス発生設備の設置等」「操作用電源停止時の措置」が本問の関連論点。",
-      "本問は各記述の正誤を判定し、正しいものを1つ選ぶ形式である。",
-      "正しい記述は1のみであり、answer_result_text の「正解は 1」はその選択肢に対応する。"
+      "技術基準「安全弁」「保安電力等」「ガスホルダー及び液化ガス用貯槽」が本問の関連論点。",
+      "本問はイ〜ホの各記述の正誤を判定し、正しいものの組合せを選ぶ形式である。",
+      "正しい記述は3と5であり、answer_result_text の「正解は 4」はその組合せに対応する。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢1は製造設備の遮断装置として正しい。選択肢2は移動式ガス発生設備の緊急停止装置にガス処理まで含めている点、選択肢3は移動又は転倒ではなく腐食又は転倒としている点、選択肢4は圧力上昇ではなく圧力低下としている点、選択肢5は操作用電源停止時に供給維持ではなく供給遮断としている点が誤り。"
+      "選択肢1は安全弁ではなくインターロック機構としている点、選択肢2は安全停止ではなく運転継続としている点、選択肢4は貯槽等である旨ではなくガス小売事業者の名称等としている点が誤り。選択肢3の凝縮液抜き装置、選択肢5の防液堤周辺の設備制限は正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "製造設備には異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置が必要。"
+        "過圧が生ずるおそれのある液化ガスを通ずる設備には安全弁が必要であり、インターロック機構ではない。"
       ],
       [
-        "移動式ガス発生設備ではガスの発生を停止できる装置が必要で、ガスを処理する装置まで含める記述は誤り。"
+        "保安上重要な設備は製造設備を安全に停止させるのに必要な装置等であり、運転継続ではない。"
       ],
       [
-        "移動式ガス発生設備は容易に移動又は転倒しないように措置する必要があり、腐食ではない。"
+        "凝縮液により機能低下又は損傷のおそれがあるガスホルダーには凝縮液を抜く装置が必要。"
       ],
       [
-        "容器内の圧力が異常に上昇しないよう温度維持措置を講じる必要があり、低下ではない。"
+        "液化ガス用貯槽又はガスホルダーである旨を表示する必要があり、ガス小売事業者の名称等ではない。"
       ],
       [
-        "操作用電源停止時にはガスの供給を維持するための装置が必要であり、遮断するための装置ではない。"
+        "防液堤外面から防災作業に必要な距離内には、拡大防止に支障のない設備以外を設置してはならない。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
       "正しい",
       "間違い",
-      "間違い",
-      "間違い",
-      "間違い"
+      "正しい"
     ],
     "suggestedQuestions": [
-      "製造設備には異常時にガス又は液化ガスの流出及び流入を遮断できる装置が必要か？",
-      "移動式ガス発生設備には異常時にガスの発生停止又はガス処理を行える装置が必要か？",
-      "移動式ガス発生設備は容易に腐食又は転倒しないよう措置すればよいか？",
-      "移動式ガス発生設備の容器は圧力が異常に低下しないよう温度維持措置を講じるのか？",
-      "電源操作の気化装置を伴う特定ガス発生設備は、操作用電源停止時に供給を遮断する装置が必要か？"
+      "過圧のおそれがある液化ガスを通ずる設備にはインターロック機構を設ければよいか？",
+      "保安上重要な設備は製造設備の運転を継続させるのに必要な装置を指すか？",
+      "凝縮液により機能低下又は損傷のおそれがあるガスホルダーには凝縮液を抜く装置が必要か？",
+      "液化ガス用貯槽等にはガス小売事業者の名称及び連絡先を表示する必要があるか？",
+      "防液堤の外面から防災作業に必要な距離内には、拡大防止に支障のない設備以外を設置してはならないか？"
     ],
     "suggestedQuestionDetails": [
-      "必要である。製造設備には異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置を適切な箇所に設ける。",
-      "ガスの発生を停止できる装置が必要であり、移動式ガス発生設備についてガス処理まで含める記述は誤り。",
-      "腐食ではなく、容易に移動又は転倒しないように適切な措置を講じる必要がある。",
-      "低下ではなく、容器内の圧力が異常に上昇しないよう温度維持措置を講じる必要がある。",
-      "遮断ではなく、操作用電源が停止した際にガスの供給を維持するための装置を設ける必要がある。"
+      "インターロック機構ではなく、圧力を逃すための適切な安全弁を設ける必要がある。",
+      "運転継続ではなく、製造設備を安全に停止させるのに必要な装置等が対象である。",
+      "必要である。凝縮液を抜く装置を設けなければならない。",
+      "ガス小売事業者の名称及び連絡先ではなく、液化ガス用貯槽又はガスホルダーである旨を表示する。",
+      "そのとおり。液化ガスの漏えい又は火災等の拡大防止に支障のない設備以外は設置できない。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T11:53:18+09:00",
+    "questionTypeReviewedAt": "2026-06-28T12:00:20+09:00",
     "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-28T11:53:18+09:00",
+    "questionIntentReviewedAt": "2026-06-28T12:00:20+09:00",
     "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-28T11:53:18+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T12:00:20+09:00",
     "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-28T11:53:18+09:00",
+    "explanationReviewedAt": "2026-06-28T12:00:20+09:00",
     "questionSetReviewStatus": "hold",
-    "questionSetReviewedAt": "2026-06-28T11:53:18+09:00"
+    "questionSetReviewedAt": "2026-06-28T12:00:20+09:00"
   },
-  "nextPendingTaskId": "T631",
-  "nextPendingReviewId": "2024:question_2024_1:fd9364f45fe29acc"
+  "nextPendingTaskId": "T632",
+  "nextPendingReviewId": "2024:question_2024_1:d7367850b0588b72"
 }
