@@ -1,34 +1,214 @@
 {
-  "activeTaskId": "T637",
-  "completed": 537,
-  "completed_questions": 537,
-  "done": 537,
+  "activeTaskId": "T638",
+  "completed": 538,
+  "completed_questions": 538,
+  "done": 538,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 415,
-    "hold": 122,
-    "pending": 397
+    "hold": 123,
+    "pending": 396
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T13:10:00+09:00",
-  "held_questions": 122,
-  "hold": 122,
-  "hold_questions": 122,
+  "generatedAt": "2026-06-28T12:46:06+09:00",
+  "held_questions": 123,
+  "hold": 123,
+  "hold_questions": 123,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
+    "answerResultText": "正解は 3 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "ガス小売事業者は、正当な理由がある場合を除き、その小売供給の相手方の当該小売供給に係るガスの需要に応ずるために必要な供給能力を確保しなければならない。",
+      "ガス小売事業者は、小売供給を受けようとする者と小売供給契約の締結をしようとするときは、経済産業省令で定めるところにより、当該小売供給に係る料金その他の供給条件について、\n経済産業大臣に届け出なければならない\n。",
+      "一般ガス導管事業者は、その供給区域における託送供給に係る料金その他の供給条件について、経済産業省令で定めるところにより、託送供給約款を定め、\n経済産業大臣に届け出なければならない\n。",
+      "一般ガス導管事業者は、最終保障供給に係る料金その他の供給条件について約款を定め、経済産業省令で定めるところにより、経済産業大臣に届け出なければならない。",
+      "一般ガス導管事業者は、経済産業省令で定めるところにより、毎年度、当該年度以降経済産業省令で定める期間における供給計画を作成し、当該年度の開始前に(一般ガス導管事業者となった日を含む年度にあっては、一般ガス導管事業者となった後遅滞なく)、\n経済産業大臣の認可を受けなければならない\n。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 820,
+    "publicQuestionId": "677edcd7d7120dcd",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:677edcd7d7120dcd",
+    "questionBodyText": "法令で規定されているガス小売事業者及び一般ガス導管事業者の業務に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 2,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問2",
+    "questionNo": 2,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q2",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:677edcd7d7120dcd",
+    "reviewNotes": "",
+    "reviewQuestionId": "677edcd7d7120dcd",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "法令",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceFileIndex": 22,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 2,
+      "subject": "law",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q02",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:law:q02:s01",
+      "gas-shunin:otsu:2024:law:q02:s02",
+      "gas-shunin:otsu:2024:law:q02:s03",
+      "gas-shunin:otsu:2024:law:q02:s04",
+      "gas-shunin:otsu:2024:law:q02:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q2",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 820,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:677edcd7d7120dcd",
+  "otsuCompleted": 126,
+  "otsuDone": 105,
+  "otsuHeld": 21,
+  "otsuHold": 21,
+  "otsuPending": 396,
+  "pending": 396,
+  "pending_questions": 396,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
     "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
+      "correctChoiceReason": "answer_result_text=正解は 5 です。 matches only choice5 being correct.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
       "questionIntentPresent": true,
+      "questionSetIdHoldReason": "mixed gas-work maintenance/technical-standard and security-regulation categories; problem-level questionSetId intentionally blank",
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
@@ -50,7 +230,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "hold",
     "expectedCorrectChoiceText": [
       "間違い",
       "間違い",
@@ -58,11 +238,17 @@
       "間違い",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。ガス事業法第61条第2項は、一般ガス導管事業の用に供するガス工作物が技術上の基準に適合していないと認めるとき、経済産業大臣が一般ガス導管事業者に対して修理、改造、移転、使用停止又は使用制限を命ずることができると定めている。命令の相手方をガス主任技術者としている点が誤り。",
+      "間違い。同法第64条第1項は、一般ガス導管事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。遅滞なく届け出るとしている点が誤り。",
+      "間違い。同法第64条第3項は、経済産業大臣が一般ガス導管事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するため必要があると認めるときに、保安規程の変更命令ができると定めている。公共の利益の増進を理由としている点が誤り。",
+      "間違い。保安規程はガス工作物の保安に関する組織、教育、巡視・点検、工事・運用等を定めるものであり、消費機器に関する周知及び調査の方法は保安規程の記載事項ではない。消費機器の周知・調査は保安業務側の論点である。",
+      "正しい。同法第62条第1項は、一般ガス導管事業者が、一般ガス導管事業者以外の者が所有又は占有する一般ガス導管事業用のガス工作物について維持のため必要な措置を講じようとするとき、その所有者又は占有者は措置の実施に協力するよう努めなければならないと定めている。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
-    "fixInstructions": "",
+    "fixInstructions": "T900でper-statement questionSetId policyを決めるまでproblem-level questionSetIdは空欄維持",
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
@@ -104,17 +290,17 @@
     "questionSetId": "",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q3",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "hold",
+    "reviewDecision": "hold",
     "reviewId": "2024:question_2024_1:c8af1e8b0c970ab1",
-    "reviewNotes": "",
+    "reviewNotes": "T637: 降順ブロック planSequence=821。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=c8af1e8b0c970ab1。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 5 です。はchoice5のみ正しいことに対応し、correctChoiceText=[間違い, 間違い, 間違い, 間違い, 正しい] と一致。e-Gov ガス事業法（LawId 329AC0000000051）第61条2項、第62条1項、第64条1項・3項、ガス事業法施行規則（LawId 345M50000400097）の保安規程記載事項を確認。選択肢1は命令先を一般ガス導管事業者ではなくガス主任技術者としているため誤り。選択肢2は保安規程の届出時期を事業開始前ではなく遅滞なくとしているため誤り。選択肢3は保安規程変更命令の理由を保安確保ではなく公共の利益の増進としているため誤り。選択肢4は消費機器の周知・調査方法を保安規程事項としているため誤り。選択肢5は所有者又は占有者の協力努力義務として正しい。01-03は完了。04はガス工作物の維持等/技術基準適合と保安規定が混在し、甲種同一publicQuestionId precedentもsingle problem-level questionSetIdをholdしているため、questionSetIdは空欄維持。",
     "reviewQuestionId": "c8af1e8b0c970ab1",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T12:46:06+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "法令",
@@ -185,296 +371,77 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingPlanSequence": 821,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:c8af1e8b0c970ab1",
-  "otsuCompleted": 125,
-  "otsuDone": 105,
-  "otsuHeld": 20,
-  "otsuHold": 20,
-  "otsuPending": 397,
-  "pending": 397,
-  "pending_questions": 397,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 3 です。 maps to ロ・ホ; law review confirms choices 2 and 5 are not gas accident速報 targets.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "ガス工作物(ガス栓を除く。)を操作することにより人が\n酸素欠乏症となった事故",
-      "ガスの供給に支障を及ぼした事故であって、供給支障戸数が20のもの",
-      "ガスの製造に支障を及ぼした事故であって、製造支障時間が10時間のもの",
-      "ガス工作物(ガス栓を除く。)からのガスの漏えいによる火災事故",
-      "消費機器から漏えいしたガスに引火することにより、発生した消費機器が損傷した物損事故\nであって、人が死亡せず、又は負傷しないもの"
-    ],
-    "correctChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "explanationText": [
-      "正しい。ガス関係報告規則第4条第1項の表第5号は、ガス工作物（ガス栓を除く。）を操作することにより人が負傷し、中毒し又は酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の報告対象としている。",
-      "間違い。供給支障事故でガス事故速報の報告対象となるのは、供給支障戸数が100以上のものなどである。供給支障戸数が20のものは、ガス事故速報を報告することが法令で規定されていない。",
-      "正しい。同表第8号は、製造支障事故であって製造支障時間が10時間以上24時間未満のものを、ガス事故速報及びガス事故詳報の報告対象としている。製造支障時間が10時間のものは速報対象である。",
-      "正しい。同表第12号は、ガス工作物からのガスの漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の報告対象としている。",
-      "間違い。同表第18号は、消費機器から漏えいしたガスに引火して発生した死傷なしの消費機器損傷物損事故を、ガス事故詳報のみの報告対象としている。ガス事故速報の報告は規定されていない。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 822,
-    "publicQuestionId": "b312de5198cdf4bf",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:b312de5198cdf4bf",
-    "questionBodyText": "次のガス事故のうち、ガス事故速報を報告することが法令で規定されていないものの組合せはどれか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。",
-    "questionIndexInFile": 4,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問4",
-    "questionNo": 4,
-    "questionSetId": "chiefgasengineerlicense-B-1150",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q4",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_1:b312de5198cdf4bf",
-    "reviewNotes": "T636: 降順ブロック planSequence=822。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=b312de5198cdf4bf。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。問題はガス事故速報を報告することが規定されていない事故の組合せを問う。answer_result_text=正解は 3 です。はロ・ホの組合せに対応し、correctChoiceText/expectedCorrectChoiceText=[正しい, 間違い, 正しい, 正しい, 間違い]（速報対象かどうかのstatement-level判定）と整合。e-Gov ガス関係報告規則（LawId 429M60000400016）第4条第1項の表を確認。選択肢1は第5号で速報及び詳報対象、選択肢2は供給支障戸数20で100戸以上の速報対象に達しないため速報対象外、選択肢3は第8号の製造支障時間10時間以上24時間未満で速報及び詳報対象、選択肢4は第12号で速報及び詳報対象、選択肢5は第18号で詳報のみのため速報対象外。04はcategory.jsonのactive categoryに合わせ、questionSetId=chiefgasengineerlicense-B-1150（ガス事故の報告（乙種））を選択。",
-    "reviewQuestionId": "b312de5198cdf4bf",
-    "reviewedAt": "2026-06-28T13:10:00+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "法令",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "sourceFileIndex": 22,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 4,
-      "subject": "law",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q04",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:law:q04:s01",
-      "gas-shunin:otsu:2024:law:q04:s02",
-      "gas-shunin:otsu:2024:law:q04:s03",
-      "gas-shunin:otsu:2024:law:q04:s04",
-      "gas-shunin:otsu:2024:law:q04:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q4",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q04:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q04:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q04:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q04:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q04:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "workerTaskId": "T636",
-    "suggestedQuestions": [
-      "ガス工作物を操作して人が酸素欠乏症となった事故は速報対象か？",
-      "供給支障戸数20の供給支障事故は速報対象か？",
-      "製造支障時間10時間の製造支障事故は速報対象か？",
-      "ガス工作物からの漏えいによる火災事故は速報対象か？",
-      "死傷なしの消費機器損傷物損事故は速報対象か？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ガス工作物を操作して人が酸素欠乏症となった事故は速報対象か？",
-        "answer": "速報及び詳報の対象である。",
-        "explanation": "ガス工作物の操作により人が負傷・中毒・酸素欠乏症となった事故は報告対象に含まれる。"
-      },
-      {
-        "question": "供給支障戸数20の供給支障事故は速報対象か？",
-        "answer": "速報対象ではない。",
-        "explanation": "供給支障事故の速報・詳報対象は、原則として供給支障戸数100以上などであり、20戸は閾値に達しない。"
-      },
-      {
-        "question": "製造支障時間10時間の製造支障事故は速報対象か？",
-        "answer": "速報及び詳報の対象である。",
-        "explanation": "製造支障時間が10時間以上24時間未満の製造支障事故は、速報及び詳報の対象である。"
-      },
-      {
-        "question": "ガス工作物からの漏えいによる火災事故は速報対象か？",
-        "answer": "速報及び詳報の対象である。",
-        "explanation": "ガス工作物からのガス漏えいによる爆発又は火災事故は、速報及び詳報の対象である。"
-      },
-      {
-        "question": "死傷なしの消費機器損傷物損事故は速報対象か？",
-        "answer": "速報対象ではなく詳報対象である。",
-        "explanation": "消費機器だけが損傷し死傷がない物損事故は、速報ではなく詳報の対象として規定されている。"
-      }
     ],
     "lawGroundedExplanationNotNeeded": false,
+    "reviewStatus": "hold",
     "sourceExplanationCommonPrefix": [
-      "法令「ガス事故の報告（乙種）」のガス関係報告規則におけるガス事故速報・詳報の対象が本問の関連論点。",
-      "供給支障事故は供給支障戸数、製造支障事故は製造支障時間、消費機器物損事故は速報対象か詳報のみかを区別する。",
-      "本問はガス事故速報を報告することが規定されていないものの組合せを選ぶ形式で、該当する事故は選択肢2と5である。"
+      "法令「ガス工作物及び保安規程（乙種）」のうち、ガス事業法第61条、第62条、第64条及び保安規程記載事項が本問の関連論点。",
+      "技術基準不適合時の命令先、保安規程の届出時期、保安規程変更命令の理由、保安規程と保安業務の区別を確認する。",
+      "本問は正しいものを選ぶ形式で、正しい記述は選択肢5のみである。"
     ],
     "sourceExplanationCommonSummary": [
-      "ガス工作物の操作による酸素欠乏症事故、製造支障時間10時間の製造支障事故、ガス工作物からの漏えいによる火災事故は速報対象である。供給支障戸数20の供給支障事故と、死傷なしの消費機器損傷物損事故は速報対象ではないため、組合せは選択肢2と5となる。"
+      "技術基準不適合のガス工作物に対する命令先は一般ガス導管事業者であり、保安規程は事業開始前に届け出る。保安規程変更命令は保安確保のため必要があるときであり、消費機器の周知・調査方法は保安規程ではなく保安業務側の論点である。他者所有又は占有の一般ガス導管事業用ガス工作物については、所有者又は占有者に維持措置への協力努力義務がある。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "ガス工作物の操作により人が酸素欠乏症となった事故は速報及び詳報の対象である。"
+        "命令先はガス主任技術者ではなく一般ガス導管事業者である。"
       ],
       [
-        "供給支障戸数20の供給支障事故は、速報・詳報対象の戸数閾値に達しない。"
+        "保安規程は遅滞なくではなく、事業開始前に届け出る。"
       ],
       [
-        "製造支障時間10時間の製造支障事故は速報及び詳報の対象である。"
+        "保安規程変更命令は公共の利益の増進ではなく、保安確保のため必要があるときにできる。"
       ],
       [
-        "ガス工作物からのガス漏えいによる火災事故は速報及び詳報の対象である。"
+        "消費機器の周知及び調査の方法は保安規程の記載事項ではなく、保安業務側の論点である。"
       ],
       [
-        "死傷なしの消費機器損傷物損事故は詳報対象であり、速報対象ではない。"
+        "他者所有又は占有の一般ガス導管事業用ガス工作物について、所有者又は占有者は維持措置に協力するよう努める。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "間違い",
-      "正しい",
       "間違い",
-      "間違い",
-      "正しい"
-    ],
-    "explanation_common_prefix": [
-      "法令「ガス事故の報告（乙種）」のガス関係報告規則におけるガス事故速報・詳報の対象が本問の関連論点。",
-      "供給支障事故は供給支障戸数、製造支障事故は製造支障時間、消費機器物損事故は速報対象か詳報のみかを区別する。",
-      "本問はガス事故速報を報告することが規定されていないものの組合せを選ぶ形式で、該当する事故は選択肢2と5である。"
-    ],
-    "explanation_common_summary": [
-      "ガス工作物の操作による酸素欠乏症事故、製造支障時間10時間の製造支障事故、ガス工作物からの漏えいによる火災事故は速報対象である。供給支障戸数20の供給支障事故と、死傷なしの消費機器損傷物損事故は速報対象ではないため、組合せは選択肢2と5となる。"
-    ],
-    "explanation_choice_snippets": [
-      [
-        "ガス工作物の操作により人が酸素欠乏症となった事故は速報及び詳報の対象である。"
-      ],
-      [
-        "供給支障戸数20の供給支障事故は、速報・詳報対象の戸数閾値に達しない。"
-      ],
-      [
-        "製造支障時間10時間の製造支障事故は速報及び詳報の対象である。"
-      ],
-      [
-        "ガス工作物からのガス漏えいによる火災事故は速報及び詳報の対象である。"
-      ],
-      [
-        "死傷なしの消費機器損傷物損事故は詳報対象であり、速報対象ではない。"
-      ]
-    ],
-    "explanation_choice_correctness": [
-      "間違い",
-      "正しい",
       "間違い",
       "間違い",
       "正しい"
     ],
-    "questionSetName": "ガス事故の報告（乙種）",
-    "reviewStatus": "ok",
-    "category": "ガス事故の報告（乙種）"
+    "suggestedQuestions": [
+      "技術基準不適合のガス工作物に対する修理等の命令先はガス主任技術者か？",
+      "一般ガス導管事業者の保安規程は遅滞なく届け出ればよいか？",
+      "保安規程変更命令の理由は公共の利益の増進か？",
+      "消費機器に関する周知及び調査の方法は保安規程に定める事項か？",
+      "他者所有又は占有の一般ガス導管事業用ガス工作物について、所有者等には維持措置への協力努力義務があるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "技術基準不適合のガス工作物に対する修理等の命令先はガス主任技術者か？",
+        "answer": "ガス主任技術者ではなく一般ガス導管事業者である。",
+        "explanation": "ガス事業法第61条第2項は、命令先を一般ガス導管事業者としている。"
+      },
+      {
+        "question": "一般ガス導管事業者の保安規程は遅滞なく届け出ればよいか？",
+        "answer": "事業の開始前に届け出る。",
+        "explanation": "同法第64条第1項は、保安規程を定め、事業開始前に届け出ることを求めている。"
+      },
+      {
+        "question": "保安規程変更命令の理由は公共の利益の増進か？",
+        "answer": "公共の利益の増進ではなく、保安確保のため必要があるときである。",
+        "explanation": "同法第64条第3項は、一般ガス導管事業用ガス工作物の工事、維持及び運用に関する保安確保を理由としている。"
+      },
+      {
+        "question": "消費機器に関する周知及び調査の方法は保安規程に定める事項か？",
+        "answer": "保安規程の記載事項ではない。",
+        "explanation": "消費機器に関する周知及び調査は保安業務側の論点で、保安規程はガス工作物の保安に関する事項を定める。"
+      },
+      {
+        "question": "他者所有又は占有の一般ガス導管事業用ガス工作物について、所有者等には維持措置への協力努力義務があるか？",
+        "answer": "ある。",
+        "explanation": "同法第62条第1項は、所有者又は占有者が維持措置の実施に協力するよう努める義務を定めている。"
+      }
+    ],
+    "workerTaskId": "T637"
   },
-  "nextPendingTaskId": "T637",
+  "nextPendingTaskId": "T638",
   "nextPendingReviewId": "2024:question_2024_1:b312de5198cdf4bf"
 }
