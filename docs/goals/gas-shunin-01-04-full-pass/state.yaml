@@ -28041,7 +28041,6 @@ tasks:
         - "output/gas-shunin-otsu/questions_json/2017/22_questionSetId_linked/question_2017_1_questionSetId_linked.json"
         - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
         - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
-        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
         - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
         - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
       commands:
@@ -36154,7 +36153,7 @@ tasks:
         - "04 linked to chiefgasengineerlicense-B-2040 導管の工事（乙種） with kou 2019 heat-stress precedent"
       completed_at: "2026-06-28T14:44:29+09:00"
       remaining_questions: 379
-      next_active_task: T656
+      next_active_task: T657
       remaining_blockers: []
       verification_attempts: 1
       stopped_because: null
@@ -36269,14 +36268,14 @@ tasks:
           status: pass
         - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
           status: pass
-      summary: "T656 planSequence=802（gas-shunin-otsu 2023 供給 問11）を01〜04目視確認でok化。answer_result_text=正解は5でchoice5の誤りに対応。大規模地区整圧器の小さいオフセット・ロックアップは静特性で、動特性としている点が誤り。questionSetId=chiefgasengineerlicense-B-2020（整圧器（乙種））。00_source は未変更。completed=557、pending=377、held=123。"
+      summary: "T656 planSequence=802（gas-shunin-otsu 2023 供給 問11）を01〜04目視確認でok化。answer_result_text=正解は5とcorrectChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い]が一致。questionSetId=chiefgasengineerlicense-B-2020（整圧器（乙種））。00_source は未変更。completed=557、pending=377、held=123。"
       evidence:
         - "00_source body/choices unchanged"
         - "questionType=true_false / questionIntent=select_incorrect"
-        - "answer_result_text=正解は 5 です。 matches incorrect choice 5"
-        - "2024乙種供給問11 and 2025整圧器 precedents confirm 静特性/動特性 distinction"
-        - "04 linked to chiefgasengineerlicense-B-2020 整圧器（乙種）"
-      completed_at: "2026-06-28T15:00:06+09:00"
+        - "answer_result_text=正解は 5 です。 matches choice 5 only being incorrect"
+        - "choice 5 should be 静特性, not 動特性, for large-district regulators"
+        - "04 linked to chiefgasengineerlicense-B-2020 整圧器（乙種） with otsu 2024/2025 regulator precedents"
+      completed_at: "2026-06-28T14:59:46+09:00"
       remaining_questions: 377
       next_active_task: T657
       remaining_blockers: []
