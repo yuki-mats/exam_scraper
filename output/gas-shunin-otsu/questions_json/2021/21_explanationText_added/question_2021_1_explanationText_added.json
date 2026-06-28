@@ -533,26 +533,98 @@
       "ガス小売事業者は、保安業務規程に保安業務に従事する者に対する保安に係る教育及び訓練に関することを定めなければならない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。ガス小売事業者は、消費機器を使用する者に対し、その供給するガスの使用に伴う危険の発生防止に必要な事項を周知させなければならない。",
+      "正しい。ガス小売事業者は、供給するガスに係る消費機器が技術上の基準に適合しているかを調査しなければならない。ただし、設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないときは例外となる。",
+      "間違い。経済産業大臣が命ずることができるのは、消費機器の所有者又は占有者に対し、技術上の基準に適合するように消費機器を修理し、改造し、又は移転すべきことである。使用を一時停止すべきことを命ずるとしている点が誤り。",
+      "正しい。ガス小売事業者の保安業務規程には、保安業務を管理する事業場ごとの保安業務監督者の選任に関することを定めなければならない。",
+      "正しい。ガス小売事業者の保安業務規程には、保安業務に従事する者に対する保安に係る教育及び訓練に関することを定めなければならない。"
+    ],
+    "suggestedQuestions": [
+      "ガス小売事業者は誰に危険防止事項を周知させる必要があるか。",
+      "消費機器の技術基準適合性についてガス小売事業者にどのような義務があるか。",
+      "技術基準に適合しない消費機器への基準適合命令はどのような内容か。",
+      "保安業務規程には保安業務監督者について何を定める必要があるか。",
+      "保安業務規程には従事者教育について何を定める必要があるか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ガス小売事業者は誰に危険防止事項を周知させる必要があるか。",
+        "answer": "消費機器を使用する者。",
+        "explanation": "ガス小売事業者は、供給ガスの使用に伴う危険防止に必要な事項を、消費機器を使用する者に周知させる必要がある。"
+      },
+      {
+        "question": "消費機器の技術基準適合性についてガス小売事業者にどのような義務があるか。",
+        "answer": "技術上の基準に適合しているかを調査する義務。",
+        "explanation": "供給するガスに係る消費機器について、技術基準適合性を調査する必要がある。立入り承諾を得られない場合は例外である。"
+      },
+      {
+        "question": "技術基準に適合しない消費機器への基準適合命令はどのような内容か。",
+        "answer": "修理、改造又は移転すべきことを命ずる。",
+        "explanation": "使用の一時停止を命ずるのではなく、所有者又は占有者に対して基準適合のための修理・改造・移転を命ずる。"
+      },
+      {
+        "question": "保安業務規程には保安業務監督者について何を定める必要があるか。",
+        "answer": "事業場ごとの保安業務監督者の選任。",
+        "explanation": "保安業務を管理する事業場ごとに保安業務監督者の選任に関する事項を定める。"
+      },
+      {
+        "question": "保安業務規程には従事者教育について何を定める必要があるか。",
+        "answer": "保安に係る教育及び訓練。",
+        "explanation": "保安業務に従事する者への保安教育・訓練に関する事項を定める必要がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceExplanationCommonPrefix": [
+      "法令「消費機器の周知及び調査（乙種）」及び保安業務規程に関する問題。",
+      "ガス事業法第159条は消費機器の周知・調査、第160条及びガス事業法施行規則第207条は保安業務規程、第161条は消費機器の基準適合命令を定めている。",
+      "本問は誤っているものを選ぶ形式で、誤りは選択肢3である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢1、2は周知・調査、選択肢4、5は保安業務規程の事項として正しい。選択肢3は、基準適合命令の内容を「使用の一時停止」としている点が誤りである。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "消費機器を使用する者へ、ガス使用に伴う危険防止事項を周知させる。"
+      ],
+      [
+        "消費機器の技術基準適合性を調査し、立入り承諾を得られない場合は例外。"
+      ],
+      [
+        "基準適合命令は修理、改造又は移転すべきことを命ずるもので、使用一時停止命令ではない。"
+      ],
+      [
+        "保安業務規程には事業場ごとの保安業務監督者の選任を定める。"
+      ],
+      [
+        "保安業務規程には保安業務従事者への保安教育及び訓練を定める。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-1200",
+    "category": "消費機器の周知及び調査（乙種）",
+    "questionSetName": "消費機器の周知及び調査（乙種）",
+    "explanationTextCount": 5,
+    "correctChoiceTextCount": 5,
+    "reviewStatus": "ok",
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-29T08:27:14+09:00",
+    "questionIntentReviewedAt": "2026-06-29T08:27:14+09:00",
+    "correctChoiceReviewedAt": "2026-06-29T08:27:14+09:00",
+    "explanationReviewedAt": "2026-06-29T08:27:14+09:00",
+    "questionSetReviewedAt": "2026-06-29T08:27:14+09:00",
+    "workerTaskId": "T799",
+    "taskId": "T799"
   },
   {
     "original_question_id": "b7db75cab073fa14",
