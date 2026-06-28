@@ -126,18 +126,71 @@
       "799"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。平板の定常熱伝導では熱流束 q=λ(T高-T低)/L である。温度差は qL/λ=6000×0.2/2=600Kなので、低温側表面温度は800-600=200℃であり、40℃ではない。",
+      "不正解。熱流束6kW/m²=6000W/m²、厚さ0.20m、平均熱伝導率2W/(m·K)より温度差は600Kとなる。低温側は800-600=200℃で、100℃ではない。",
+      "正解。q=λ(T高-T低)/L より T高-T低=qL/λ。q=6000W/m²、L=0.20m、λ=2W/(m·K)なので温度差は600K、低温側表面温度は800-600=200℃となる。",
+      "不正解。650℃は高温側800℃との差が150Kにすぎず、与えられた熱流束6kW/m²を生じる温度差600Kと合わない。",
+      "不正解。799℃は高温側800℃との差がほぼなく、熱流束6kW/m²を説明できない。平板の定常熱伝導式から低温側表面温度は200℃である。"
+    ],
+    "suggestedQuestions": [
+      "平板の定常熱伝導における熱流束の式は？",
+      "6kW/m²は何W/m²に換算できる？",
+      "厚さ20cmは何mに換算できる？",
+      "本問の高温側と低温側の温度差はいくら？",
+      "低温側表面温度は何℃か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "平板の定常熱伝導における熱流束の式は？",
+        "answer": "q=λΔT/L。",
+        "explanation": "正解。平板の定常熱伝導では、熱流束は熱伝導率と温度差に比例し、厚さに反比例する。"
+      },
+      {
+        "question": "6kW/m²は何W/m²に換算できる？",
+        "answer": "6000W/m²。",
+        "explanation": "1kW=1000Wなので、6kW/m²=6000W/m²である。"
+      },
+      {
+        "question": "厚さ20cmは何mに換算できる？",
+        "answer": "0.20m。",
+        "explanation": "20cm=0.20mであり、熱伝導式では厚さをm単位で用いる。"
+      },
+      {
+        "question": "本問の高温側と低温側の温度差はいくら？",
+        "answer": "600K。",
+        "explanation": "ΔT=qL/λ=6000×0.20/2=600Kである。"
+      },
+      {
+        "question": "低温側表面温度は何℃か？",
+        "answer": "200℃。",
+        "explanation": "高温側表面温度800℃から温度差600Kを引くと、低温側表面温度は200℃である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱」が本問の関連論点。平板の定常熱伝導では、熱流束 q と温度差 ΔT の関係は q=λΔT/L で表す。",
+      "本問では q=6kW/m²=6000W/m²、L=20cm=0.20m、λ=2W/(m·K) である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "ΔT=qL/λ=6000×0.20/2=600K。高温側表面温度800℃から600K下がるため、低温側表面温度は200℃である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "40℃では温度差760Kとなり、与えられた熱流束条件に合わない。"
+      ],
+      [
+        "100℃では温度差700Kとなり、計算される温度差600Kより大きい。"
+      ],
+      [
+        "q=λΔT/L から ΔT=600K、800-600=200℃。"
+      ],
+      [
+        "650℃では温度差150Kで、熱流束6kW/m²には不足する。"
+      ],
+      [
+        "799℃では温度差がほぼなく、6kW/m²の熱流束にならない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
