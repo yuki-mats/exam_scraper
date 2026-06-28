@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T671",
-  "completed": 571,
-  "completedQuestions": 571,
-  "completed_questions": 571,
-  "done": 448,
+  "activeTaskId": "T672",
+  "completed": 572,
+  "completedQuestions": 572,
+  "completed_questions": 572,
+  "done": 449,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 448,
+    "done": 449,
     "hold": 123,
-    "pending": 363
+    "pending": 362
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T16:26:28+09:00",
+  "generatedAt": "2026-06-28T16:43:00+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -22,30 +22,31 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 3 です。 matches select_correct and q=0.1*(20-(-40))/0.3=20W/m².",
+      "correctChoiceReason": "answer_result_text=正解は 2 です。 matches select_correct and m=ρAv, D=√(4×0.785/3.14)=1.0m.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
       "questionSetIdPresent": true,
-      "questionTypePresent": true
+      "questionTypePresent": true,
+      "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "2",
-      "10",
-      "20",
-      "50",
-      "100"
+      "0.50",
+      "1.0",
+      "1.5",
+      "2.0",
+      "2.5"
     ],
     "correctChoiceText": [
       "不正解",
-      "不正解",
       "正解",
+      "不正解",
       "不正解",
       "不正解"
     ],
@@ -55,17 +56,17 @@
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "不正解",
-      "不正解",
       "正解",
+      "不正解",
       "不正解",
       "不正解"
     ],
     "explanationText": [
-      "不正解。平板の定常熱伝導では、熱流束qは q=λΔT/L で求める。λ=0.1W/(m·K)、ΔT=20-(-40)=60K、L=0.3mなので q=0.1×60/0.3=20W/m²であり、2W/m²ではない。",
-      "不正解。10W/m²は計算結果20W/m²の半分である。温度差60Kと厚さ0.3mを用いると、熱流束は20W/m²となる。",
-      "正解。平板の定常熱伝導の熱流束は q=λΔT/L。平均熱伝導率0.1W/(m·K)、温度差60K、厚さ0.3mより q=0.1×60/0.3=20W/m²となる。",
-      "不正解。50W/m²は、与えられた熱伝導率、温度差、厚さから求める熱流束より大きい。正しくは20W/m²である。",
-      "不正解。100W/m²は過大である。平板壁を通過する熱流束は q=0.1×60/0.3=20W/m²である。"
+      "不正解。質量流量は m=ρAv、直円管の断面積は A=πD²/4 である。m=3.14kg/s、ρ=1kg/m³、v=4m/sより A=m/(ρv)=3.14/4=0.785m²。D=√(4A/π)=1.0mとなるため、0.50mではない。",
+      "正解。質量流量 m=ρAv より、断面積 A=m/(ρv)=3.14/(1×4)=0.785m²。A=πD²/4 なので D=√(4A/π)=√(4×0.785/3.14)=1.0mとなる。",
+      "不正解。1.5mでは断面積がπ×1.5²/4≈1.77m²となり、質量流量は1×1.77×4≈7.1kg/sで、与えられた3.14kg/sより大きい。",
+      "不正解。2.0mでは断面積がπm²となり、質量流量は1×π×4≈12.6kg/sで過大である。正しい内径は1.0mである。",
+      "不正解。2.5mでは断面積がさらに大きく、同じ密度・平均流速では質量流量が3.14kg/sを大きく上回る。計算上の内径は1.0mである。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -99,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 788,
-    "publicQuestionId": "333129a507ae6232",
+    "planSequence": 787,
+    "publicQuestionId": "73375cddf1f49eca",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:333129a507ae6232",
-    "questionBodyText": "平均熱伝導率0.1W/(m·K)で厚さ0.3mの平板壁の低温側表面温度が-40℃、高温側表面温度が20℃であった。このとき平板壁を通過する熱流束(W/m²)として、最も近い値はどれか。",
-    "questionIndexInFile": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:73375cddf1f49eca",
+    "questionBodyText": "ある流体が直円管内を平均流速4m/sで流れている。流体の質量流量が3.14kg/sのとき、直円管の内径(m)として、最も近い値はどれか。ただし、流体の密度は1kg/m³とする。",
+    "questionIndexInFile": 2,
     "questionIntent": "select_correct",
-    "questionLabel": "問12",
-    "questionNo": 12,
-    "questionSetId": "chiefgasengineerlicense-B-2150",
+    "questionLabel": "問11",
+    "questionNo": 11,
+    "questionSetId": "chiefgasengineerlicense-B-2140",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q12",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:333129a507ae6232",
-    "reviewNotes": "T670: 降順ブロック planSequence=788。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=333129a507ae6232。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 3 です。と correctChoiceText=[不正解, 不正解, 正解, 不正解, 不正解] が一致。平板の定常熱伝導の熱流束 q=λΔT/L、平均熱伝導率0.1W/(m·K)、温度差20-(-40)=60K、厚さ0.3mより q=0.1×60/0.3=20W/m²。04は category.json の active category と2025乙種伝熱の平板熱伝導先例に合わせ、chiefgasengineerlicense-B-2150（伝熱（乙種））を選択。",
-    "reviewQuestionId": "333129a507ae6232",
-    "reviewedAt": "2026-06-28T16:26:28+09:00",
+    "reviewId": "2023:question_2023_2:73375cddf1f49eca",
+    "reviewNotes": "T671: 降順ブロック planSequence=787。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=73375cddf1f49eca。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 2 です。と correctChoiceText=[不正解, 正解, 不正解, 不正解, 不正解] が一致。質量流量 m=ρAv、A=3.14/(1×4)=0.785m²、A=πD²/4 より D=√(4×0.785/3.14)=1.0m で選択肢2を正解と確認。04は category.json の active category と2025乙種の同種質量流量計算先例に合わせ、chiefgasengineerlicense-B-2140（流体力学（乙種））を選択。",
+    "reviewQuestionId": "73375cddf1f49eca",
+    "reviewedAt": "2026-06-28T16:43:00+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -135,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 12,
+      "questionNo": 11,
       "subject": "kiso",
       "year": 2023
     },
@@ -144,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q12",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q11",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q12:s01",
-      "gas-shunin:otsu:2023:kiso:q12:s02",
-      "gas-shunin:otsu:2023:kiso:q12:s03",
-      "gas-shunin:otsu:2023:kiso:q12:s04",
-      "gas-shunin:otsu:2023:kiso:q12:s05"
+      "gas-shunin:otsu:2023:kiso:q11:s01",
+      "gas-shunin:otsu:2023:kiso:q11:s02",
+      "gas-shunin:otsu:2023:kiso:q11:s03",
+      "gas-shunin:otsu:2023:kiso:q11:s04",
+      "gas-shunin:otsu:2023:kiso:q11:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q12",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q12:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q12:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q12:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q12:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q12:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s05",
         "statementNo": 5
       }
     ],
@@ -194,113 +195,120 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "questionSetName": "伝熱（乙種）",
-    "category": "伝熱（乙種）",
-    "workerTaskId": "T670",
-    "taskId": "T670",
+    "questionSetName": "流体力学（乙種）",
+    "category": "流体力学（乙種）",
+    "workerTaskId": "T671",
+    "taskId": "T671",
     "sourceExplanationCommonPrefix": [
-      "基礎理論「伝熱（乙種）」の平板の定常熱伝導が本問の関連論点。熱流束は q=λΔT/L で求める。",
-      "温度差は高温側20℃と低温側-40℃の差で60K、厚さは0.3m、平均熱伝導率は0.1W/(m·K)である。"
+      "基礎理論「流体力学（乙種）」の管内流れと連続の式が本問の関連論点。",
+      "質量流量は m=ρAv、直円管の断面積は A=πD²/4 で表される。",
+      "本問では A=3.14/(1×4)=0.785m²、D=√(4A/π)=√(4×0.785/3.14)=1.0mとなる。"
     ],
     "sourceExplanationCommonSummary": [
-      "q=λΔT/L=0.1×60/0.3=20W/m²。よって選択肢3が正解。"
+      "m=ρAv と A=πD²/4 より D=1.0m。よって選択肢2が正解。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "2W/m²は q=0.1×60/0.3 の計算結果と一致しない。"
+        "0.50mでは断面積が小さく、m=ρAv が3.14kg/sに届かない。"
       ],
       [
-        "10W/m²は20W/m²の半分であり、温度差と厚さの適用が合わない。"
+        "A=3.14/(1×4)=0.785m²、D=√(4A/π)=1.0m。"
       ],
       [
-        "0.1×60/0.3=20W/m²。"
+        "1.5mでは質量流量が約7.1kg/sとなり大きすぎる。"
       ],
       [
-        "50W/m²は与条件から求める熱流束より大きい。"
+        "2.0mでは質量流量が約12.6kg/sとなり大きすぎる。"
       ],
       [
-        "100W/m²は過大で、正しい熱流束は20W/m²。"
+        "2.5mでは断面積が過大で、計算結果1.0mと一致しない。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
-      "不正解",
       "正解",
+      "不正解",
       "不正解",
       "不正解"
     ],
     "suggestedQuestions": [
-      "平板の定常熱伝導で熱流束を求める式は？",
-      "この問題の温度差ΔTはいくつか？",
-      "q=λΔT/Lに数値を代入するといくつか？",
-      "厚さ0.3mは式の分子と分母のどちらに入るか？",
-      "20W/m²以外の選択肢が不適切な理由は？"
+      "質量流量・密度・断面積・平均流速の関係式は？",
+      "本問の断面積Aはいくらか？",
+      "直円管の断面積Aから内径Dをどう求める？",
+      "本問の内径Dはいくらか？",
+      "1.5m以上の選択肢が不正解になる理由は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "平板の定常熱伝導で熱流束を求める式は？",
-        "answer": "q=λΔT/L。",
-        "explanation": "平板の定常熱伝導では、熱流束は熱伝導率と温度差に比例し、厚さに反比例する。"
+        "question": "質量流量・密度・断面積・平均流速の関係式は？",
+        "answer": "m=ρAv を用いる。",
+        "explanation": "密度ρ、断面積A、平均流速vの積が質量流量になる。"
       },
       {
-        "question": "この問題の温度差ΔTはいくつか？",
-        "answer": "60K。",
-        "explanation": "高温側20℃、低温側-40℃なので、温度差は20-(-40)=60Kである。"
+        "question": "本問の断面積Aはいくらか？",
+        "answer": "A=3.14/(1×4)=0.785m²。",
+        "explanation": "m=ρAv を A=m/(ρv) に変形して代入する。"
       },
       {
-        "question": "q=λΔT/Lに数値を代入するといくつか？",
-        "answer": "20W/m²。",
-        "explanation": "正解。平板の定常熱伝導の熱流束は q=λΔT/L。平均熱伝導率0.1W/(m·K)、温度差60K、厚さ0.3mより q=0.1×60/0.3=20W/m²となる。"
+        "question": "直円管の断面積Aから内径Dをどう求める？",
+        "answer": "A=πD²/4 より D=√(4A/π)。",
+        "explanation": "円管の断面積式を内径Dについて解く。"
       },
       {
-        "question": "厚さ0.3mは式の分子と分母のどちらに入るか？",
-        "answer": "分母に入る。",
-        "explanation": "熱流束は厚さに反比例するため、L=0.3mは分母に入る。"
+        "question": "本問の内径Dはいくらか？",
+        "answer": "D=1.0m。",
+        "explanation": "D=√(4×0.785/3.14)=√1=1.0mとなる。"
       },
       {
-        "question": "20W/m²以外の選択肢が不適切な理由は？",
-        "answer": "式から得られる20W/m²と一致しないため。",
-        "explanation": "与えられた条件では q=0.1×60/0.3=20W/m²であり、他の選択肢は計算結果に合わない。"
+        "question": "1.5m以上の選択肢が不正解になる理由は？",
+        "answer": "同じ密度・平均流速では質量流量が3.14kg/sを超えるため。",
+        "explanation": "内径が大きいほど断面積が大きくなり、m=ρAvも大きくなる。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true
   },
-  "lastCompletedReviewQuestionId": "333129a507ae6232",
-  "lastCompletedTaskId": "T670",
-  "nextActiveTaskId": "T671",
+  "lastCompletedReviewQuestionId": "73375cddf1f49eca",
+  "lastCompletedTaskId": "T671",
+  "nextActiveTaskId": "T672",
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.50",
-      "1.0",
-      "1.5",
-      "2.0",
-      "2.5"
+      "直円管内の完全に発達した層流における管内の圧力損失は、流量、平均流速に比例する。",
+      "直円管内の流れでは、レイノルズ数がある値以上となると層流から乱流に遷移する。",
+      "粘度を密度で割った値を動粘度といい、\n単位はm/sを用いる\n。",
+      "管路内で、急激に流れの方向を変化させる部分をエルボといい、ゆるやかに流れが曲がる部分をベンドという。",
+      "非圧縮性、非粘性流体の定常流では、流線上でベルヌーイの式が成立する。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -334,28 +342,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 787,
-    "publicQuestionId": "73375cddf1f49eca",
+    "planSequence": 786,
+    "publicQuestionId": "10647bc6f41cae95",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:73375cddf1f49eca",
-    "questionBodyText": "ある流体が直円管内を平均流速4m/sで流れている。流体の質量流量が3.14kg/sのとき、直円管の内径(m)として、最も近い値はどれか。ただし、流体の密度は1kg/m³とする。",
-    "questionIndexInFile": 2,
-    "questionIntent": "",
-    "questionLabel": "問11",
-    "questionNo": 11,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:10647bc6f41cae95",
+    "questionBodyText": "流体に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 1,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問10",
+    "questionNo": 10,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:73375cddf1f49eca",
+    "reviewId": "2023:question_2023_2:10647bc6f41cae95",
     "reviewNotes": "",
-    "reviewQuestionId": "73375cddf1f49eca",
+    "reviewQuestionId": "10647bc6f41cae95",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -370,7 +378,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 11,
+      "questionNo": 10,
       "subject": "kiso",
       "year": 2023
     },
@@ -379,45 +387,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q11",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q10",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q11:s01",
-      "gas-shunin:otsu:2023:kiso:q11:s02",
-      "gas-shunin:otsu:2023:kiso:q11:s03",
-      "gas-shunin:otsu:2023:kiso:q11:s04",
-      "gas-shunin:otsu:2023:kiso:q11:s05"
+      "gas-shunin:otsu:2023:kiso:q10:s01",
+      "gas-shunin:otsu:2023:kiso:q10:s02",
+      "gas-shunin:otsu:2023:kiso:q10:s03",
+      "gas-shunin:otsu:2023:kiso:q10:s04",
+      "gas-shunin:otsu:2023:kiso:q10:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s05",
         "statementNo": 5
       }
     ],
@@ -430,42 +438,48 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 787,
-  "nextPendingPublicQuestionId": "73375cddf1f49eca",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:73375cddf1f49eca",
+  "nextPendingPlanSequence": 786,
+  "nextPendingPublicQuestionId": "10647bc6f41cae95",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:10647bc6f41cae95",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.50",
-      "1.0",
-      "1.5",
-      "2.0",
-      "2.5"
+      "直円管内の完全に発達した層流における管内の圧力損失は、流量、平均流速に比例する。",
+      "直円管内の流れでは、レイノルズ数がある値以上となると層流から乱流に遷移する。",
+      "粘度を密度で割った値を動粘度といい、\n単位はm/sを用いる\n。",
+      "管路内で、急激に流れの方向を変化させる部分をエルボといい、ゆるやかに流れが曲がる部分をベンドという。",
+      "非圧縮性、非粘性流体の定常流では、流線上でベルヌーイの式が成立する。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -499,28 +513,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 787,
-    "publicQuestionId": "73375cddf1f49eca",
+    "planSequence": 786,
+    "publicQuestionId": "10647bc6f41cae95",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:73375cddf1f49eca",
-    "questionBodyText": "ある流体が直円管内を平均流速4m/sで流れている。流体の質量流量が3.14kg/sのとき、直円管の内径(m)として、最も近い値はどれか。ただし、流体の密度は1kg/m³とする。",
-    "questionIndexInFile": 2,
-    "questionIntent": "",
-    "questionLabel": "問11",
-    "questionNo": 11,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:10647bc6f41cae95",
+    "questionBodyText": "流体に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 1,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問10",
+    "questionNo": 10,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:73375cddf1f49eca",
+    "reviewId": "2023:question_2023_2:10647bc6f41cae95",
     "reviewNotes": "",
-    "reviewQuestionId": "73375cddf1f49eca",
+    "reviewQuestionId": "10647bc6f41cae95",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -535,7 +549,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 11,
+      "questionNo": 10,
       "subject": "kiso",
       "year": 2023
     },
@@ -544,45 +558,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q11",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q10",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q11:s01",
-      "gas-shunin:otsu:2023:kiso:q11:s02",
-      "gas-shunin:otsu:2023:kiso:q11:s03",
-      "gas-shunin:otsu:2023:kiso:q11:s04",
-      "gas-shunin:otsu:2023:kiso:q11:s05"
+      "gas-shunin:otsu:2023:kiso:q10:s01",
+      "gas-shunin:otsu:2023:kiso:q10:s02",
+      "gas-shunin:otsu:2023:kiso:q10:s03",
+      "gas-shunin:otsu:2023:kiso:q10:s04",
+      "gas-shunin:otsu:2023:kiso:q10:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s05",
         "statementNo": 5
       }
     ],
@@ -595,16 +609,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_2:73375cddf1f49eca",
-  "nextPendingTaskId": "T671",
-  "otsuCompleted": 159,
-  "otsuDone": 138,
+  "nextPendingReviewId": "2023:question_2023_2:10647bc6f41cae95",
+  "nextPendingTaskId": "T672",
+  "otsuCompleted": 160,
+  "otsuDone": 139,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 363,
-  "pending": 363,
-  "pendingQuestions": 363,
-  "pending_questions": 363,
+  "otsuPending": 362,
+  "pending": 362,
+  "pendingQuestions": 362,
+  "pending_questions": 362,
   "total": 934,
   "total_questions": 934
 }

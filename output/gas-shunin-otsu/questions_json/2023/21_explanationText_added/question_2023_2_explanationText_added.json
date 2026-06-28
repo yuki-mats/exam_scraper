@@ -52,18 +52,72 @@
       "2.5"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。質量流量は m=ρAv、直円管の断面積は A=πD²/4 である。m=3.14kg/s、ρ=1kg/m³、v=4m/sより A=m/(ρv)=3.14/4=0.785m²。D=√(4A/π)=1.0mとなるため、0.50mではない。",
+      "正解。質量流量 m=ρAv より、断面積 A=m/(ρv)=3.14/(1×4)=0.785m²。A=πD²/4 なので D=√(4A/π)=√(4×0.785/3.14)=1.0mとなる。",
+      "不正解。1.5mでは断面積がπ×1.5²/4≈1.77m²となり、質量流量は1×1.77×4≈7.1kg/sで、与えられた3.14kg/sより大きい。",
+      "不正解。2.0mでは断面積がπm²となり、質量流量は1×π×4≈12.6kg/sで過大である。正しい内径は1.0mである。",
+      "不正解。2.5mでは断面積がさらに大きく、同じ密度・平均流速では質量流量が3.14kg/sを大きく上回る。計算上の内径は1.0mである。"
+    ],
+    "suggestedQuestions": [
+      "質量流量・密度・断面積・平均流速の関係式は？",
+      "本問の断面積Aはいくらか？",
+      "直円管の断面積Aから内径Dをどう求める？",
+      "本問の内径Dはいくらか？",
+      "1.5m以上の選択肢が不正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "質量流量・密度・断面積・平均流速の関係式は？",
+        "answer": "m=ρAv を用いる。",
+        "explanation": "密度ρ、断面積A、平均流速vの積が質量流量になる。"
+      },
+      {
+        "question": "本問の断面積Aはいくらか？",
+        "answer": "A=3.14/(1×4)=0.785m²。",
+        "explanation": "m=ρAv を A=m/(ρv) に変形して代入する。"
+      },
+      {
+        "question": "直円管の断面積Aから内径Dをどう求める？",
+        "answer": "A=πD²/4 より D=√(4A/π)。",
+        "explanation": "円管の断面積式を内径Dについて解く。"
+      },
+      {
+        "question": "本問の内径Dはいくらか？",
+        "answer": "D=1.0m。",
+        "explanation": "D=√(4×0.785/3.14)=√1=1.0mとなる。"
+      },
+      {
+        "question": "1.5m以上の選択肢が不正解になる理由は？",
+        "answer": "同じ密度・平均流速では質量流量が3.14kg/sを超えるため。",
+        "explanation": "内径が大きいほど断面積が大きくなり、m=ρAvも大きくなる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の管内流れと連続の式が本問の関連論点。",
+      "質量流量は m=ρAv、直円管の断面積は A=πD²/4 で表される。",
+      "本問では A=3.14/(1×4)=0.785m²、D=√(4A/π)=√(4×0.785/3.14)=1.0mとなる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "m=ρAv と A=πD²/4 より D=1.0m。よって選択肢2が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "0.50mでは断面積が小さく、m=ρAv が3.14kg/sに届かない。"
+      ],
+      [
+        "A=3.14/(1×4)=0.785m²、D=√(4A/π)=1.0m。"
+      ],
+      [
+        "1.5mでは質量流量が約7.1kg/sとなり大きすぎる。"
+      ],
+      [
+        "2.0mでは質量流量が約12.6kg/sとなり大きすぎる。"
+      ],
+      [
+        "2.5mでは断面積が過大で、計算結果1.0mと一致しない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
