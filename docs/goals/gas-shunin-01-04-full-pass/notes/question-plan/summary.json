@@ -1,26 +1,26 @@
 {
-  "activeTaskId": "T629",
-  "completed": 529,
-  "completed_questions": 529,
-  "done": 529,
+  "activeTaskId": "T630",
+  "completed": 530,
+  "completed_questions": 530,
+  "done": 530,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 412,
-    "hold": 117,
-    "pending": 405
+    "hold": 118,
+    "pending": 404
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T11:36:20+09:00",
-  "held_questions": 117,
-  "hold": 117,
-  "hold_questions": 117,
+  "generatedAt": "2026-06-28T11:58:30+09:00",
+  "held_questions": 118,
+  "hold": 118,
+  "hold_questions": 118,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -31,6 +31,186 @@
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "製造設備(ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。)には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合にガス又は液化ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。",
+      "移動式ガス発生設備には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合に迅速かつ安全に\nガスの発生を停止し、又は迅速かつ安全にガスを処理することができる装置\nを設けなければならない。",
+      "移動式ガス発生設備は、ガス又は液化ガス(不活性のものを除く。)が漏えいした場合の火災等の発生を防止するため、適切な場所に設置し、\n容易に腐食又は転倒しないように\n適切な措置が講じられていなければならない。",
+      "移動式ガス発生設備の容器又は容器の設置場所には、容器内の圧力が\n異常に低下しないよう\n適切な温度に維持できる適切な措置を講じなければならない。",
+      "容器に附属する気化装置内においてガスを発生させる特定ガス発生設備であって当該気化装置を電源によって操作するものは、自家発電機その他の操作用電源が停止した際に\nガスの供給を遮断するための装置\nを設けなければならない。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2024,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2024",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 828,
+    "publicQuestionId": "db637cee87824d57",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:db637cee87824d57",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。",
+    "questionIndexInFile": 10,
+    "questionIntent": "select_correct",
+    "questionLabel": "問10",
+    "questionNo": 10,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q10",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2024:question_2024_1:db637cee87824d57",
+    "reviewNotes": "",
+    "reviewQuestionId": "db637cee87824d57",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "法令",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceFileIndex": 22,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 10,
+      "subject": "law",
+      "year": 2024
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q10",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2024:law:q10:s01",
+      "gas-shunin:otsu:2024:law:q10:s02",
+      "gas-shunin:otsu:2024:law:q10:s03",
+      "gas-shunin:otsu:2024:law:q10:s04",
+      "gas-shunin:otsu:2024:law:q10:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q10",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q10:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 828,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:db637cee87824d57",
+  "otsuCompleted": 118,
+  "otsuDone": 102,
+  "otsuHeld": 16,
+  "otsuHold": 16,
+  "otsuPending": 404,
+  "pending": 404,
+  "pending_questions": 404,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 5 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "manual_reviewed_against_official_egov_technical_standards_and_single_correct_choice",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true,
+      "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
@@ -50,7 +230,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "hold",
     "expectedCorrectChoiceText": [
       "間違い",
       "間違い",
@@ -58,11 +238,17 @@
       "間違い",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管には、適切な水取り器を設けなければならないと定めている。適切な勾配を設けるとしている点が誤り。",
+      "間違い。同省令第48条第2項は、道路に埋設される本支管のうち、最高使用圧力が5kPa以上のポリエチレン管に、掘削等による損傷防止措置を求めている。10kPa以上に限るとしている点が誤り。",
+      "間違い。同省令第49条第4項は、地下室等にガスを供給する導管には、その地下室等の付近の適切な場所に、地上から速やかに遮断できる装置を設けることを求めている。地下室等から十分離れた場所としている点が誤り。",
+      "間違い。同省令第50条第1項は、対象となるガスメーターについて、地震動、過大なガス流量又は異常なガス圧力の低下を検知した場合に遮断する機能を求めている。異常なガス圧力の上昇を検知した場合としている点が誤り。",
+      "正しい。同省令第50条第1項は、対象となるガスメーターが災害発生のおそれのある大きさの地震動を検知した場合にガスを速やかに遮断する機能を有することを求めている。同条第2項は、供給地点数300未満の団地で特定製造所に250ガル超の地震動を継続検知したときに団地への供給を遮断する設備を設けた場合、地震動検知に係る部分を適用しないと定めている。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
-    "fixInstructions": "",
+    "fixInstructions": "04: statement-level questionSetIdが技省令_水取り器、技省令_導管、技省令_遮断装置、ガスメーターで混在するため、T900のper-statement questionSetId方針確定後に解除する。",
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
@@ -104,17 +290,17 @@
     "questionSetId": "",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q11",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "hold",
+    "reviewDecision": "hold",
     "reviewId": "2024:question_2024_1:2401c6d4fa7111a5",
-    "reviewNotes": "",
+    "reviewNotes": "T629: 降順ブロック planSequence=829。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=2401c6d4fa7111a5。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 5 です。は唯一の正しい選択肢5に対応し、correctChoiceText=[間違い, 間違い, 間違い, 間違い, 正しい] と一致。e-Gov LawId 412M50000400111（ガス工作物の技術上の基準を定める省令46条、48条2項、49条4項、50条1項・2項）を確認。選択肢1は水取り器ではなく勾配としているため誤り。選択肢2は5kPa以上ではなく10kPa以上としているため誤り。選択肢3は地下室等の付近ではなく十分離れた場所としているため誤り。選択肢4は異常なガス圧力の低下ではなく上昇としているため誤り。選択肢5は地震動検知時の遮断機能と300未満団地の例外として正しい。04はstatement-levelカテゴリが技省令_水取り器、技省令_導管、技省令_遮断装置、ガスメーターにまたがるため、単一problem-level questionSetIdで上書きせずhold。",
     "reviewQuestionId": "2401c6d4fa7111a5",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T11:47:10+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "法令",
@@ -185,255 +371,67 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingPlanSequence": 829,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:2401c6d4fa7111a5",
-  "otsuCompleted": 117,
-  "otsuDone": 102,
-  "otsuHeld": 15,
-  "otsuHold": 15,
-  "otsuPending": 405,
-  "pending": 405,
-  "pending_questions": 405,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 4 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_official_egov_technical_standards_and_answer_combination",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true,
-      "sourceConflictStatus": "none"
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "道路に埋設されている導管(ポリエチレン管を使用している部分を除く。)で最高使用圧力が低圧のものは、\n埋設の日以後6年に1回以上\n、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
-      "道路に埋設されている導管からガス栓までに設置されている導管は、\n屋外において、埋設されていない部分にあっては\n、設置の日以後4年に1回以上、適切な方法により検査を行い、漏えいが認められなかったものでなければならない。",
-      "導管の漏えい検査を、前回の検査の日から省令で定める期間を経過した日(以下、基準日という。)前4月以内の期間に行った場合にあっては、基準日において当該検査を行ったものとみなす。",
-      "最高使用圧力が中圧の導管であって、\n工場に設置される建物にガスを供給するものは\n、適切な自動ガス遮断装置又は適切なガス漏れ警報器の検知区域において、当該建物の外壁を貫通するように設置しなければならない。",
-      "導管を共同溝に設置する場合は、ガス漏れにより当該共同溝及び当該共同溝に設置された他の物件の構造又は管理に支障を及ぼすことがないよう導管に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置しなければならない。"
     ],
-    "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "explanationText": [
-      "間違い。ガス工作物の技術上の基準を定める省令第51条第1項の表では、道路に埋設されている導管で高圧又は特定管理管等に該当しないものの漏えい検査頻度は、埋設の日以後4年に1回以上である。低圧のものを6年に1回以上としている点が誤り。",
-      "間違い。同省令第51条第2項第4号は、道路に埋設されている導管からガス栓までの間で、屋外において埋設されていない部分がある場合、その非埋設部分を漏えい検査の対象から除く。屋外の非埋設部分について4年に1回以上検査するとしている点が誤り。",
-      "正しい。同省令第51条第4項は、同条第1項から第3項までの漏えい検査を、前回検査の日から省令で定める期間を経過した日である基準日前4月以内に行った場合、基準日に検査を行ったものとみなすと定めている。",
-      "間違い。同省令第52条第3項は、最高使用圧力が中圧の導管で建物にガスを供給するものについて、自動ガス遮断装置又はガス漏れ警報器の検知区域で外壁を貫通するよう求めているが、工場、廃棄物処理場、浄水場、下水処理場その他これらに類する場所に設置されるものは除外している。工場に設置される建物を対象としている点が誤り。",
-      "正しい。同省令第53条は、導管を共同溝に設置する場合、ガス漏れにより共同溝及び共同溝内の他の物件の構造又は管理に支障を及ぼさないよう導管に適切な措置を講じ、かつ適切な措置が講じられた共同溝内に設置しなければならないと定めている。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 830,
-    "publicQuestionId": "5ab400b643bac920",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:5ab400b643bac920",
-    "questionBodyText": "技術基準で規定されている漏えい検査及び導管の設置場所に関する次の記述のうち、いずれも正しいものの組合せはどれか。ただし、イ、ロ及びハについては、この導管は特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検査を行う区間に漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
-    "questionIndexInFile": 12,
-    "questionIntent": "select_correct",
-    "questionLabel": "問12",
-    "questionNo": 12,
-    "questionSetId": "chiefgasengineerlicense-B-1620",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q12",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_1:5ab400b643bac920",
-    "reviewNotes": "T628: 降順ブロック planSequence=830。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=5ab400b643bac920。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 4 です。はハ・ホの組合せに対応し、correctChoiceText=[間違い, 間違い, 正しい, 間違い, 正しい] と一致。e-Gov LawId 412M50000400111（ガス工作物の技術上の基準を定める省令51条1項・2項4号・4項、52条3項1号、53条）を確認。選択肢1は低圧の道路埋設導管の頻度が4年に1回以上であるため誤り。選択肢2は屋外非埋設部分が検査対象外のため誤り。選択肢3は基準日前4月以内検査のみなしとして正しい。選択肢4は工場等が除外対象のため誤り。選択肢5は共同溝内設置措置として正しい。04は漏えい検査（乙種）がdeletedで、問題全体が導管の技術基準に属するため、上位の有効カテゴリ chiefgasengineerlicense-B-1620（技省令_導管（乙種））へリンク。",
-    "reviewQuestionId": "5ab400b643bac920",
-    "reviewedAt": "2026-06-28T11:36:20+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "法令",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "sourceFileIndex": 22,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 12,
-      "subject": "law",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q12",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:law:q12:s01",
-      "gas-shunin:otsu:2024:law:q12:s02",
-      "gas-shunin:otsu:2024:law:q12:s03",
-      "gas-shunin:otsu:2024:law:q12:s04",
-      "gas-shunin:otsu:2024:law:q12:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q12",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q12:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "questionSetName": "技省令_導管（乙種）",
-    "category": "技省令_導管（乙種）",
-    "taskId": "T628",
-    "workerTaskId": "T628",
+    "taskId": "T629",
+    "workerTaskId": "T629",
     "sourceExplanationCommonPrefix": [
-      "技術基準「漏えい検査」及び「導管の設置場所」の検査頻度、検査時期のみなし、建物貫通部、共同溝内設置が本問の関連論点。",
-      "本問はイ〜ホの各記述の正誤を判定し、正しいものの組合せを選ぶ形式である。",
-      "正しい記述は3と5であり、answer_result_text の「正解は 4」はその組合せに対応する。"
+      "技術基準「水取り器」「防護措置」「ガス遮断装置等」「ガス遮断機能を有するガスメーター」が本問の関連論点。",
+      "本問は各記述の正誤を判定し、正しいものを1つ選ぶ形式である。",
+      "正しい記述は5のみであり、answer_result_text の「正解は 5」はその選択肢に対応する。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢1は低圧の道路埋設導管の頻度を6年としている点、選択肢2は屋外非埋設部分を検査対象としている点、選択肢4は工場等が中圧導管の建物貫通部規制から除外される点を誤る。選択肢3の基準日前4月以内検査のみなしと、選択肢5の共同溝内設置措置は正しい。"
+      "選択肢1は水取り器ではなく勾配としている点、選択肢2はポリエチレン管の対象圧力を5kPa以上ではなく10kPa以上としている点、選択肢3は地下室等の付近ではなく十分離れた場所としている点、選択肢4は異常なガス圧力の低下ではなく上昇としている点が誤り。選択肢5の地震動検知時の遮断機能と300未満団地の例外は正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "道路埋設導管で高圧等以外のものは4年に1回以上であり、低圧を6年とするのは誤り。"
+        "水のたまるおそれのある導管には適切な水取り器を設ける必要があり、勾配ではない。"
       ],
       [
-        "屋外の非埋設部分は漏えい検査の対象から除かれる。"
+        "道路埋設本支管のポリエチレン管は最高使用圧力5kPa以上が対象であり、10kPa以上ではない。"
       ],
       [
-        "基準日前4月以内の漏えい検査は基準日に行ったものとみなされる。"
+        "地下室等に供給する導管の遮断装置は、その地下室等の付近の適切な場所に設ける。"
       ],
       [
-        "工場等に設置されるものは中圧導管の検知区域貫通規制から除外される。"
+        "対象ガスメーターは異常なガス圧力の低下を検知した場合に遮断する機能が必要であり、上昇ではない。"
       ],
       [
-        "共同溝内の導管はガス漏れによる支障を防ぐ措置を講じて設置する。"
+        "対象ガスメーターは地震動検知時の遮断機能を有する必要があり、300未満団地で特定製造所側に遮断設備を置いた場合の例外も規定されている。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "間違い",
       "間違い",
-      "正しい",
+      "間違い",
       "間違い",
       "正しい"
     ],
     "suggestedQuestions": [
-      "道路に埋設されている低圧導管の漏えい検査頻度は6年に1回以上か？",
-      "道路埋設導管からガス栓までの屋外非埋設部分は漏えい検査対象か？",
-      "基準日前4月以内に漏えい検査を行った場合、いつ検査したものとみなされるか？",
-      "工場に設置される建物へ供給する中圧導管は、検知区域で外壁を貫通する規制の対象か？",
-      "導管を共同溝に設置する場合、ガス漏れによる支障を防ぐ措置が必要か？"
+      "水のたまるおそれのある導管には勾配を設ければよいか？",
+      "道路埋設本支管のポリエチレン管で掘削等による損傷防止措置の対象は最高使用圧力10kPa以上に限られるか？",
+      "地下室等にガスを供給する導管の遮断装置は、地下室等から十分離れた場所に設けるか？",
+      "対象ガスメーターは異常なガス圧力の上昇を検知した場合に遮断する機能を要するか？",
+      "対象ガスメーターは地震動を検知した場合に遮断する機能を有する必要があるか？"
     ],
     "suggestedQuestionDetails": [
-      "6年ではない。高圧等に該当しない道路埋設導管は、埋設の日以後4年に1回以上の漏えい検査が基準である。",
-      "対象外である。屋外において埋設されていない部分がある場合、その非埋設部分は検査対象から除かれる。",
-      "基準日に検査を行ったものとみなされる。",
-      "対象外である。工場、廃棄物処理場、浄水場、下水処理場その他これらに類する場所に設置されるものは除外される。",
-      "必要である。共同溝及び共同溝内の他の物件の構造又は管理に支障を及ぼさないよう、適切な措置を講じて設置する。"
+      "勾配ではなく、適切な水取り器を設ける必要がある。",
+      "10kPa以上ではなく、最高使用圧力5kPa以上のポリエチレン管が対象である。",
+      "十分離れた場所ではなく、その地下室等の付近の適切な場所に設ける必要がある。",
+      "上昇ではなく、異常なガス圧力の低下を検知した場合に遮断する機能が求められる。",
+      "必要である。ただし、供給地点数300未満の団地で特定製造所側に所定の地震動検知・遮断設備を設けた場合は、地震動検知に係る部分は適用されない。"
     ],
     "lawGroundedExplanationNotNeeded": false,
     "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T11:36:20+09:00",
+    "questionTypeReviewedAt": "2026-06-28T11:47:10+09:00",
     "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-28T11:36:20+09:00",
+    "questionIntentReviewedAt": "2026-06-28T11:47:10+09:00",
     "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-28T11:36:20+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T11:47:10+09:00",
     "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-28T11:36:20+09:00",
-    "questionSetReviewStatus": "ok",
-    "questionSetReviewedAt": "2026-06-28T11:36:20+09:00"
+    "explanationReviewedAt": "2026-06-28T11:47:10+09:00",
+    "questionSetReviewStatus": "hold",
+    "questionSetReviewedAt": "2026-06-28T11:47:10+09:00"
   },
-  "nextPendingTaskId": "T629",
-  "nextPendingReviewId": "2024:question_2024_1:2401c6d4fa7111a5"
+  "nextPendingTaskId": "T630",
+  "nextPendingReviewId": "2024:question_2024_1:db637cee87824d57"
 }
