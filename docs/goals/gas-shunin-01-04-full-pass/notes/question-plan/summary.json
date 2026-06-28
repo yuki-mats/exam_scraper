@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T661",
-  "completed": 561,
-  "completed_questions": 561,
-  "done": 438,
+  "activeTaskId": "T662",
+  "completed": 562,
+  "completed_questions": 562,
+  "done": 439,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 438,
+    "done": 439,
     "hold": 123,
-    "pending": 373
+    "pending": 372
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T15:08:19+09:00",
+  "generatedAt": "2026-06-28T15:25:37+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,273 +20,18 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 3 です。 is the combination-choice number; statement-level correctChoiceText marks statements 2 and 4 as correct.",
+      "correctChoiceReason": "answer_result_text=正解は 5 です。 is the combination-choice number; statement-level correctChoiceText marks statements 3 and 5 as incorrect.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
       "questionSetIdPresent": true,
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
-    },
-    "category": "製造設備の建設及び操業（乙種）",
-    "choiceCount": 5,
-    "choiceTextList": [
-      "ガス事業法で定める\n離隔距離\nとは、可燃性のガス又は液化ガスを通ずるガス工作物とボイラー等の火気を取り扱う設備との距離のことである。",
-      "構造物に生ずる水平及び鉛直方向の地震加速度は一般に増幅され、地表面の地震加速度よりも大きくなっている。",
-      "ガス主任技術者は、耐圧試験、気密試験及び運転性能の記録によりガス事業法の技術基準に適合していることを確認するため、\n溶接に関する管理や確認を行う必要はない\n。",
-      "熱量調整設備や付臭設備の定期修理計画は、ガス製造能力に影響を与えることから、ガス発生設備等とタイミングを合わせる等の工夫を施すことが重要である。",
-      "巡視又は点検において、設備に異常を発見した場合は、異常の程度の軽重に関わらず\n速やかに設備を停止しなければならない\n。"
-    ],
-    "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-28T15:18:55+09:00",
-    "correctChoiceText": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い"
-    ],
-    "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-28T15:18:55+09:00",
-    "explanationText": [
-      "間違い。ガス事業法令上の離隔距離は、特定のガス工作物相互や周辺設備等との保安上必要な距離として扱われるものである。火気を取り扱う設備との距離だけを指すものとしている点が不適切である。",
-      "正しい。構造物や設備に作用する地震加速度は、地盤・構造物の応答により水平・鉛直方向とも増幅され、地表面の地震加速度より大きくなることがある。",
-      "間違い。ガス主任技術者は、ガス工作物が技術基準に適合していることを確認するうえで、耐圧試験、気密試験、運転性能だけでなく、溶接に関する管理や確認も重要である。溶接に関する確認が不要としている点が誤りである。",
-      "正しい。熱量調整設備や付臭設備の停止・修理はガス製造能力や供給運用に影響するため、ガス発生設備等の定期修理と時期を合わせるなど、全体の製造能力を考慮した計画が重要である。",
-      "間違い。巡視又は点検で異常を発見した場合は、異常の内容や程度に応じて必要な措置をとるべきであり、軽重に関わらず必ず速やかに設備を停止しなければならないとは限らない。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 798,
-    "publicQuestionId": "1681bfa8e2d38c9c",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1681bfa8e2d38c9c",
-    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 13,
-    "questionIntent": "select_correct",
-    "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-28T15:18:55+09:00",
-    "questionLabel": "問7",
-    "questionNo": 7,
-    "questionSetId": "chiefgasengineerlicense-B-1850",
-    "questionSetName": "製造設備の建設及び操業（乙種）",
-    "questionSetReviewStatus": "ok",
-    "questionSetReviewedAt": "2026-06-28T15:18:55+09:00",
-    "questionType": "true_false",
-    "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T15:18:55+09:00",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q7",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:1681bfa8e2d38c9c",
-    "reviewNotes": "T660: 降順ブロック planSequence=798。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=1681bfa8e2d38c9c。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 3 です。は「いずれも正しいものの組合せ」の組合せ選択肢番号で、statement-levelではロ・ニが正しい。correctChoiceText=[間違い, 正しい, 間違い, 正しい, 間違い] と一致。選択肢1は離隔距離を火気設備との距離だけに限定している点、選択肢3は溶接に関する管理や確認を不要としている点、選択肢5は異常の軽重に関わらず一律に設備停止としている点が誤り。選択肢2,4は構造物の地震加速度増幅、熱量調整設備・付臭設備の定期修理計画として正しい。04はcategory.jsonのactive category、および乙種2024/2025同種建設及び操業問題先例に合わせ、questionSetId=chiefgasengineerlicense-B-1850（製造設備の建設及び操業（乙種））を選択。",
-    "reviewQuestionId": "1681bfa8e2d38c9c",
-    "reviewStatus": "ok",
-    "reviewedAt": "2026-06-28T15:18:55+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "離隔距離を火気設備との距離だけとする説明は狭すぎ、保安上必要な距離として扱うべきである。"
-      ],
-      [
-        "構造物の応答により、水平・鉛直方向の地震加速度は地表面より大きくなることがある。"
-      ],
-      [
-        "技術基準適合確認では溶接部の管理や確認も重要であり、不要とはいえない。"
-      ],
-      [
-        "熱量調整設備や付臭設備の修理時期はガス製造能力に影響するため、他設備との調整が重要である。"
-      ],
-      [
-        "異常時は程度・内容に応じて措置するもので、すべて一律に即停止とは限らない。"
-      ]
-    ],
-    "sourceExplanationCommonPrefix": [
-      "製造「製造設備の建設及び操業（乙種）」の離隔距離、耐震設計、溶接管理、定期修理計画、巡視点検時の措置が本問の関連論点。",
-      "組合せ問題では、各記述の正誤をstatement-levelで確認し、answer_result_textの番号は組合せ選択肢番号として扱う。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "正しい記述は、構造物の地震加速度が増幅され得ること、熱量調整設備や付臭設備の定期修理を製造能力に配慮して計画することの2つである。離隔距離の説明、溶接確認不要、異常時の一律停止はいずれも不適切である。"
-    ],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 7,
-      "subject": "seizo",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q07",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q07:s01",
-      "gas-shunin:otsu:2023:seizo:q07:s02",
-      "gas-shunin:otsu:2023:seizo:q07:s03",
-      "gas-shunin:otsu:2023:seizo:q07:s04",
-      "gas-shunin:otsu:2023:seizo:q07:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q7",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "answer": "火気設備との距離だけを指すものではない。",
-        "explanation": "離隔距離は保安上必要な距離として規定されるもので、記述のように火気設備との距離だけへ限定するのは不適切である。",
-        "question": "離隔距離は火気設備との距離だけを指すものか？"
-      },
-      {
-        "answer": "ある。",
-        "explanation": "構造物や設備の応答により、水平・鉛直方向の地震加速度は地表面より増幅されることがある。",
-        "question": "構造物に作用する地震加速度は地表面の地震加速度より大きくなることがあるか？"
-      },
-      {
-        "answer": "不要ではない。",
-        "explanation": "溶接部はガス工作物の安全性に関わるため、技術基準適合確認では溶接に関する管理や確認も重要である。",
-        "question": "技術基準適合確認で溶接に関する管理や確認は不要か？"
-      },
-      {
-        "answer": "ガス製造能力への影響と他設備の修理時期との調整。",
-        "explanation": "熱量調整設備や付臭設備の停止は製造・供給運用へ影響するため、ガス発生設備等とタイミングを合わせる工夫が必要になる。",
-        "question": "熱量調整設備や付臭設備の定期修理計画で考慮すべきことは何か？"
-      },
-      {
-        "answer": "一律に即停止とは限らない。",
-        "explanation": "異常の内容や程度に応じ、停止を含む必要な措置を判断する。軽重に関わらず必ず停止とするのは過度な記述である。",
-        "question": "巡視点検で異常を発見した場合、必ず設備を即停止する必要があるか？"
-      }
-    ],
-    "suggestedQuestions": [
-      "離隔距離は火気設備との距離だけを指すものか？",
-      "構造物に作用する地震加速度は地表面の地震加速度より大きくなることがあるか？",
-      "技術基準適合確認で溶接に関する管理や確認は不要か？",
-      "熱量調整設備や付臭設備の定期修理計画で考慮すべきことは何か？",
-      "巡視点検で異常を発見した場合、必ず設備を即停止する必要があるか？"
-    ],
-    "workerTaskId": "T660"
-  },
-  "lastCompletedReviewQuestionId": "1681bfa8e2d38c9c",
-  "lastCompletedTaskId": "T660",
-  "nextPending": {
-    "answerResultText": "正解は 5 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
@@ -306,16 +51,22 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。製造所では緊急時に迅速な通信を確保するため、加入電話、専用電話、無線電話などの通信設備を整備することが必要であり、回線混雑時に備えた衛星携帯電話や災害時優先電話の設置も有効である。",
+      "正しい。自己可とう管や配管ループは、地盤沈下や地震による変位、圧力・温度変化による伸縮を吸収し、配管等に過大な応力が発生しないようにする装置の例である。",
+      "間違い。LNG気化器は極低温のLNGを扱うため、外気温低下時には周辺設備や水配管の凍結だけでなく、気化能力や着氷状態などにも注意が必要である。特段の注意は必要ないとしている点が誤りである。",
+      "正しい。液化ガスの流動では静電気が発生し得るため、金属部分を電気的に接続して電位差をなくし、接地することで静電気の滞留や放電を防止する必要がある。",
+      "間違い。液化ガス用貯槽相互間、ガスホルダー相互間及び相互の距離は、保安上必要な距離として貯槽形式や直径などを考慮して定められる。貯槽形式や直径によらないとしている点が誤りである。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -357,20 +108,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問6",
     "questionNo": 6,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1760",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q6",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_2:fb1ed9a13678ed37",
-    "reviewNotes": "",
+    "reviewNotes": "T661: 降順ブロック planSequence=797。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=fb1ed9a13678ed37。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 5 です。は「いずれも誤っているものの組合せ」の組合せ選択肢番号で、statement-levelではハ・ホが誤り。correctChoiceText=[正しい, 正しい, 間違い, 正しい, 間違い] と一致。選択肢3はLNG気化器に特段の注意不要としている点、選択肢5は貯槽・ガスホルダー相互間距離が貯槽形式や直径によらないとしている点が誤り。選択肢1,2,4は緊急時通信設備、自己可とう管・配管ループ、静電気対策として正しい。04はcategory.jsonのactive category、および乙種2023問8/2025・甲種2024同種保安防災先例に合わせ、questionSetId=chiefgasengineerlicense-B-1760（製造設備の保安及び防災（乙種））を選択。",
     "reviewQuestionId": "fb1ed9a13678ed37",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T15:25:37+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "製造",
@@ -441,20 +192,270 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "category": "製造設備の保安及び防災（乙種）",
+    "questionSetName": "製造設備の保安及び防災（乙種）",
+    "sourceExplanationCommonPrefix": [
+      "製造「製造設備の保安及び防災（乙種）」の保安通信、変位吸収、LNG気化器の運転管理、静電気対策、貯槽・ガスホルダー相互間距離が本問の関連論点。",
+      "設問は誤っている記述の組合せを問う形式で、選択肢3と5が誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は3と5。外気温低下時のLNG気化器に特段の注意が不要という記述、貯槽形式や直径によらず距離が定まるという記述が誤り。1、2、4は緊急時通信設備、変位吸収装置、静電気対策として正しい。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "緊急時通信確保のため、通常通信に加えて災害時・回線混雑時の通信手段も有効である。"
+      ],
+      [
+        "自己可とう管や配管ループは地盤沈下・地震変位等による過大応力を防ぐ。"
+      ],
+      [
+        "LNG気化器は極低温設備であり、外気温低下時も着氷や気化能力などの注意が必要。"
+      ],
+      [
+        "液化ガス流動時の静電気対策では、金属部を電気的に接続し接地する。"
+      ],
+      [
+        "貯槽・ガスホルダー相互間距離は貯槽形式や直径等を考慮する。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "suggestedQuestions": [
+      "製造所の緊急時通信設備としてどのようなものが有効か？",
+      "自己可とう管や配管ループは何のために設置するか？",
+      "外気温低下時にLNG気化器や水配管で注意すべきことは何か？",
+      "液化ガス流動時の静電気対策として何を行うか？",
+      "液化ガス用貯槽やガスホルダー相互間の距離は何によって決まるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "製造所の緊急時通信設備としてどのようなものが有効か？",
+        "answer": "加入電話、専用電話、無線電話、衛星携帯電話、災害時優先電話など。",
+        "explanation": "緊急時に迅速な通信を確保するため、通常回線に加えて回線混雑や災害時を想定した通信手段を確保することが有効である。"
+      },
+      {
+        "question": "自己可とう管や配管ループは何のために設置するか？",
+        "answer": "変位や伸縮を吸収し、過大な応力を防ぐため。",
+        "explanation": "地盤沈下、地震、圧力・温度変化などによる配管等の変位を吸収し、設備損傷を防ぐ役割がある。"
+      },
+      {
+        "question": "外気温低下時にLNG気化器や水配管で注意すべきことは何か？",
+        "answer": "凍結、着氷、気化能力などに注意する。",
+        "explanation": "LNG気化器は極低温のLNGを扱うため、外気温低下時には水配管の凍結や気化器の着氷状態など運転管理上の注意が必要である。"
+      },
+      {
+        "question": "液化ガス流動時の静電気対策として何を行うか？",
+        "answer": "金属部分の電気的接続と接地を行う。",
+        "explanation": "電位差をなくして接地することで、静電気の滞留や放電による着火リスクを抑える。"
+      },
+      {
+        "question": "液化ガス用貯槽やガスホルダー相互間の距離は何によって決まるか？",
+        "answer": "貯槽形式、直径、設備の種類などを考慮して定められる。",
+        "explanation": "保安上必要な距離は一律ではなく、貯槽形式や直径など設備条件に応じて扱われる。"
+      }
+    ],
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T15:24:46+09:00",
+    "questionIntentReviewedAt": "2026-06-28T15:24:46+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T15:24:46+09:00",
+    "explanationReviewedAt": "2026-06-28T15:24:46+09:00",
+    "questionSetReviewedAt": "2026-06-28T15:24:46+09:00",
+    "reviewStatus": "ok",
+    "workerTaskId": "T661",
+    "lawGroundedExplanationNotNeeded": true
+  },
+  "lastCompletedReviewQuestionId": "fb1ed9a13678ed37",
+  "lastCompletedTaskId": "T661",
+  "nextPending": {
+    "answerResultText": "正解は 4 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "検知管法で測定できる付臭剤成分は、テトラヒドロチオフェン(THT)、ターシャリーブチルメルカプタン(TBM)である。",
+      "付臭剤を取り扱う設備は密閉した付臭室内に設置することが望ましい。付臭室は\nやや正圧\nにし、換気のために吸引した空気は活性炭で脱臭し排出する。",
+      "蒸発方式においては、混合付臭剤を使用した場合、各成分の蒸気圧が異なり均一な付臭が難しいため、単一成分の付臭剤が適している。",
+      "パネル法による臭気濃度の測定において、4人のパネルの感知希釈倍数がそれぞれ6000倍、3000倍、1500倍、1500倍であったとき、このガスの臭気濃度は3000倍である。",
+      "付臭剤は、人間に対して害がなく毒性もないこと、\n土壌透過性が低い\nこと等が要求される。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 796,
+    "publicQuestionId": "159613099266de75",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:159613099266de75",
+    "questionBodyText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 11,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問5",
+    "questionNo": 5,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q5",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:159613099266de75",
+    "reviewNotes": "",
+    "reviewQuestionId": "159613099266de75",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 5,
+      "subject": "seizo",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q05",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:seizo:q05:s01",
+      "gas-shunin:otsu:2023:seizo:q05:s02",
+      "gas-shunin:otsu:2023:seizo:q05:s03",
+      "gas-shunin:otsu:2023:seizo:q05:s04",
+      "gas-shunin:otsu:2023:seizo:q05:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q5",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 797,
-  "nextPendingPublicQuestionId": "fb1ed9a13678ed37",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:fb1ed9a13678ed37",
-  "nextPendingReviewId": "2023:question_2023_2:fb1ed9a13678ed37",
-  "nextPendingTaskId": "T661",
-  "otsuCompleted": 149,
-  "otsuDone": 128,
+  "nextPendingPlanSequence": 796,
+  "nextPendingPublicQuestionId": "159613099266de75",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:159613099266de75",
+  "nextPendingReviewId": "2023:question_2023_2:159613099266de75",
+  "nextPendingTaskId": "T662",
+  "otsuCompleted": 150,
+  "otsuDone": 129,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 373,
-  "pending": 373,
-  "pending_questions": 373,
+  "otsuPending": 372,
+  "pending": 372,
+  "pending_questions": 372,
   "total": 934,
   "total_questions": 934
 }
