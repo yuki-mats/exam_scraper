@@ -718,10 +718,16 @@
       "建物に引き込まれた配管は、マクロセル腐食の原因となるコンクリートに接触する機会が多いため、一般に埋設配管部近くの架空配管部に絶縁継手を設置する。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。鋳鉄管と銅管が電気的に接続されると、異種金属接触によるマクロセルが形成され、自然電位がマイナス側の銅管がアノードとなって腐食しやすい。",
+      "正しい。ミクロセル腐食は、同一金属表面上でアノード部とカソード部が局部的に変化しながら進行する腐食で、一般に全面腐食として現れる。",
+      "正しい。導管の電気防食では、安全側を見込んで管対地電位を飽和硫酸銅電極基準で-1000mV程度とする設計が用いられる。",
+      "間違い。流電陽極法では、導管より自然電位がマイナス側の金属を接続し、その金属をアノードとして消耗させることで導管へ防食電流を流入させる。プラス側の金属としている点が誤り。",
+      "正しい。建物引込部の配管はコンクリート接触などによりマクロセル腐食を受けやすいため、一般に埋設配管部近くの架空配管部に絶縁継手を設置して電気的に絶縁する。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
