@@ -166,38 +166,32 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 751,
-  "nextPendingPublicQuestionId": "da3050a1bed2ae44",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:da3050a1bed2ae44",
+  "nextPendingPlanSequence": 750,
+  "nextPendingPublicQuestionId": "4785db6652a796e0",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:4785db6652a796e0",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
-      "choiceCount": 5,
+      "choiceCount": 2,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "answer_number_out_of_range",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
-    "choiceCount": 5,
+    "choiceCount": 2,
     "choiceTextList": [
-      "開栓→E→A→B→C→D\n→E→F→G→開栓",
-      "閉栓→A→C→F→E→G→E→B→D→開栓",
-      "閉栓→A→C→F→B→E\n→G→E→D→開栓",
-      "閉栓→B→A→C→F→E\n→G→E→D→開栓",
-      "閉栓→E→G→F→A→C\n→E→B→D→開栓"
+      "水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H2、CO等は検出できない。",
+      "マッピングシステムは、地図情報、本支管等の設備位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分化したシステムであり、様々な業務に活用できる。"
     ],
     "correctChoiceText": [
-      "間違い",
       "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
+      "正しい"
     ],
-    "correctChoiceTextCount": 5,
+    "correctChoiceTextCount": 2,
     "examYear": 2022,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
@@ -235,28 +229,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 751,
-    "publicQuestionId": "da3050a1bed2ae44",
+    "planSequence": 750,
+    "publicQuestionId": "4785db6652a796e0",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:da3050a1bed2ae44",
-    "questionBodyText": "地震により低圧導管の供給を停止した地域の復旧作業の基本フローとして最も適切なものはどれか。\nA: 復旧ブロック化\nB: 本支管灯外内管のエアパージ\nC: 供給管切断\nD: 灯内内管の漏えい検査・修理\nE: 本支管灯外内管のテスト昇圧\nF: 本支管灯外内管の差水箇所修理・採水\nG: 本支管灯外内管の漏えい調査・漏えい修理",
-    "questionIndexInFile": 24,
-    "questionIntent": "",
-    "questionLabel": "問18",
-    "questionNo": 18,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:4785db6652a796e0",
+    "questionBodyText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 23,
+    "questionIntent": "select_correct",
+    "questionLabel": "問17",
+    "questionNo": 17,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q18",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q17",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:da3050a1bed2ae44",
+    "reviewId": "2022:question_2022_2:4785db6652a796e0",
     "reviewNotes": "",
-    "reviewQuestionId": "da3050a1bed2ae44",
+    "reviewQuestionId": "4785db6652a796e0",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -271,7 +265,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 18,
+      "questionNo": 17,
       "subject": "kyokyu",
       "year": 2022
     },
@@ -280,46 +274,25 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q18",
-    "sourceStatementCount": 5,
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q17",
+    "sourceStatementCount": 2,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:kyokyu:q18:s01",
-      "gas-shunin:otsu:2022:kyokyu:q18:s02",
-      "gas-shunin:otsu:2022:kyokyu:q18:s03",
-      "gas-shunin:otsu:2022:kyokyu:q18:s04",
-      "gas-shunin:otsu:2022:kyokyu:q18:s05"
+      "gas-shunin:otsu:2022:kyokyu:q17:s01",
+      "gas-shunin:otsu:2022:kyokyu:q17:s02"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q18",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q17",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q17:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q17:s02",
         "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s05",
-        "statementNo": 5
       }
     ],
     "stopIf": [
@@ -331,8 +304,8 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_2:da3050a1bed2ae44",
-  "nextPendingTaskId": "T707",
+  "nextPendingReviewId": "2022:question_2022_2:4785db6652a796e0",
+  "nextPendingTaskId": "T708",
   "otsuCompleted": 196,
   "otsuDone": 163,
   "otsuHeld": 33,
@@ -347,19 +320,19 @@
       "hold": 102
     },
     "gas-shunin-otsu": {
-      "done": 162,
+      "done": 163,
       "hold": 33,
-      "pending": 327
+      "pending": 326
     }
   },
   "reviewDecisionCounts": {
-    "ok": 472,
+    "ok": 473,
     "hold": 135,
-    "pending": 327
+    "pending": 326
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T22:01:37+09:00",
-  "lastUpdatedAt": "2026-06-28T22:01:37+09:00"
+  "updatedAt": "2026-06-28T22:13:09+09:00",
+  "lastUpdatedAt": "2026-06-28T22:13:09+09:00"
 }
