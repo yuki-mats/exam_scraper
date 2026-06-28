@@ -15,18 +15,71 @@
       "50"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。断面積10cm²は0.001m²であり、体積流量は0.001×2.1=0.0021m³/s、質量流量は420×0.0021=0.882kg/sとなる。0.5kg/sではない。",
+      "正解。質量流量は密度×断面積×平均流速で求める。10cm²=0.001m²なので、420×0.001×2.1=0.882kg/sとなり、最も近い値は0.9kg/sである。",
+      "不正解。計算値は0.882kg/sであり、5kg/sは大きすぎる。cm²をm²に換算してから計算する必要がある。",
+      "不正解。10cm²を0.001m²に換算すると質量流量は約0.9kg/sであり、9kg/sではない。",
+      "不正解。質量流量は420×0.001×2.1=0.882kg/sであり、50kg/sではない。単位換算を誤ると桁違いになる。"
+    ],
+    "suggestedQuestions": [
+      "10cm²は何m²か？",
+      "本問の体積流量は何m³/sか？",
+      "質量流量はどの式で求めるか？",
+      "本問の質量流量は何kg/sか？",
+      "0.882kg/sに最も近い選択肢はどれか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "10cm²は何m²か？",
+        "answer": "0.001m²。",
+        "explanation": "不正解。断面積10cm²は0.001m²であり、体積流量は0.001×2.1=0.0021m³/s、質量流量は420×0.0021=0.882kg/sとなる。0.5kg/sではない。"
+      },
+      {
+        "question": "本問の体積流量は何m³/sか？",
+        "answer": "0.001×2.1=0.0021m³/s。",
+        "explanation": "正解。質量流量は密度×断面積×平均流速で求める。10cm²=0.001m²なので、420×0.001×2.1=0.882kg/sとなり、最も近い値は0.9kg/sである。"
+      },
+      {
+        "question": "質量流量はどの式で求めるか？",
+        "answer": "質量流量=密度×断面積×平均流速。",
+        "explanation": "不正解。計算値は0.882kg/sであり、5kg/sは大きすぎる。cm²をm²に換算してから計算する必要がある。"
+      },
+      {
+        "question": "本問の質量流量は何kg/sか？",
+        "answer": "420×0.001×2.1=0.882kg/s。",
+        "explanation": "不正解。10cm²を0.001m²に換算すると質量流量は約0.9kg/sであり、9kg/sではない。"
+      },
+      {
+        "question": "0.882kg/sに最も近い選択肢はどれか？",
+        "answer": "0.9。",
+        "explanation": "不正解。質量流量は420×0.001×2.1=0.882kg/sであり、50kg/sではない。単位換算を誤ると桁違いになる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」が本問の関連論点。直円管内の質量流量は、密度、断面積、平均流速の積で求める。",
+      "面積の単位換算では、1cm²=1.0×10^-4m²なので、10cm²=0.001m²となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "質量流量=420kg/m³×0.001m²×2.1m/s=0.882kg/sであり、最も近い値は0.9kg/s。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値は0.882kg/sであり、0.5kg/sではない。"
+      ],
+      [
+        "420×0.001×2.1=0.882kg/sなので、0.9kg/sが最も近い。"
+      ],
+      [
+        "5kg/sは計算値0.882kg/sより大きすぎる。"
+      ],
+      [
+        "9kg/sではなく約0.9kg/sである。"
+      ],
+      [
+        "50kg/sは単位換算を誤った桁違いの値。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
