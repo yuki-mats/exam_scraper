@@ -13,7 +13,7 @@
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-28T19:26:00+09:00",
   "heldQuestions": 130,
-  "held_questions": 130,
+  "held_questions": 131,
   "hold": 130,
   "hold_questions": 130,
   "kouCompleted": 412,
@@ -35,6 +35,7 @@
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
     },
+    "category": "ガス主任技術者（乙種）",
     "choiceCount": 5,
     "choiceTextList": [
       "ガス小売事業者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者、又は経済産業省令で定める実務の経験を有するものの\nいずれかのうちから\n、ガス主任技術者を選任し、ガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安の監督をさせなければならない。",
@@ -43,6 +44,7 @@
       "経済産業大臣は、一般ガス導管事業者に対しガス主任技術者の解任を、ガス主任技術者免状の交付を受けている者に対しそのガス主任技術者免状の返納を命ずることができる。",
       "経済産業大臣は、この法律の施行に必要な限度において、\n登録ガス工作物検査機関\nの職員に、ガス事業者の営業所、事務所その他の事業場に立ち入り、帳簿、書類その他の物件を検査させることができる。"
     ],
+    "completedAt": "2026-06-28T19:27:01+09:00",
     "correctChoiceText": [
       "間違い",
       "正しい",
@@ -75,6 +77,7 @@
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
+    "lawGroundedExplanationNotNeeded": false,
     "listGroupId": "2023",
     "mustPreserve": [
       "00_source_question_body_and_choices",
@@ -130,6 +133,38 @@
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "ガス事業法第25条第1項: 免状の交付を受けている者であって実務経験を有するものから選任する。"
+      ],
+      [
+        "ガス事業法施行規則第30条: 乙種免状の監督範囲に中圧・低圧のガス工作物と高圧の移動式ガス発生設備が含まれる。"
+      ],
+      [
+        "ガス事業法第65条第2項: 選任・解任したときは遅滞なく届け出る。"
+      ],
+      [
+        "ガス事業法第67条: 解任命令。第27条: 免状返納命令。"
+      ],
+      [
+        "ガス事業法第172条第1項: 経済産業大臣がその職員に立入検査をさせる。"
+      ]
+    ],
+    "sourceExplanationCommonPrefix": [
+      "ガス主任技術者の選任・免状・監督範囲・解任命令と、ガス事業法上の立入検査が本問の関連論点。",
+      "設問は誤っている記述の組合せを問う形式で、archived marked text と answer_result_text の「正解は 2」はイ・ホが誤りである組合せに対応する。",
+      "e-Gov条文では、ガス事業法第25条第1項、第65条第2項、第67条、第27条、第172条第1項、ガス事業法施行規則第30条を確認した。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "イは免状保持者又は実務経験者のいずれかとしている点が誤り。ロは乙種免状の監督範囲に高圧の移動式ガス発生設備が含まれるため正しい。ハは選任・解任時の遅滞ない届出として正しい。ニは解任命令と免状返納命令の組合せとして正しい。ホは立入検査の主体を登録ガス工作物検査機関の職員としている点が誤り。"
+    ],
     "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
     "sourceFileIndex": 19,
     "sourceKeyConflict": null,
@@ -195,38 +230,32 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "category": "ガス主任技術者（乙種）",
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "ガス事業法第25条第1項: 免状の交付を受けている者であって実務経験を有するものから選任する。"
-      ],
-      [
-        "ガス事業法施行規則第30条: 乙種免状の監督範囲に中圧・低圧のガス工作物と高圧の移動式ガス発生設備が含まれる。"
-      ],
-      [
-        "ガス事業法第65条第2項: 選任・解任したときは遅滞なく届け出る。"
-      ],
-      [
-        "ガス事業法第67条: 解任命令。第27条: 免状返納命令。"
-      ],
-      [
-        "ガス事業法第172条第1項: 経済産業大臣がその職員に立入検査をさせる。"
-      ]
-    ],
-    "sourceExplanationCommonPrefix": [
-      "ガス主任技術者の選任・免状・監督範囲・解任命令と、ガス事業法上の立入検査が本問の関連論点。",
-      "設問は誤っている記述の組合せを問う形式で、archived marked text と answer_result_text の「正解は 2」はイ・ホが誤りである組合せに対応する。",
-      "e-Gov条文では、ガス事業法第25条第1項、第65条第2項、第67条、第27条、第172条第1項、ガス事業法施行規則第30条を確認した。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "イは免状保持者又は実務経験者のいずれかとしている点が誤り。ロは乙種免状の監督範囲に高圧の移動式ガス発生設備が含まれるため正しい。ハは選任・解任時の遅滞ない届出として正しい。ニは解任命令と免状返納命令の組合せとして正しい。ホは立入検査の主体を登録ガス工作物検査機関の職員としている点が誤り。"
+    "suggestedQuestionDetails": [
+      {
+        "answer": "足りない。免状の交付を受けている者で、必要な実務経験を有するものから選任する。",
+        "explanation": "第25条第1項は「免状保持者又は実務経験者」ではなく、免状保持を前提に実務経験要件を課す形で規定している。",
+        "question": "ガス主任技術者の選任は免状保持者又は実務経験者のどちらかで足りるか？"
+      },
+      {
+        "answer": "できる。",
+        "explanation": "施行規則第30条の乙種欄には、最高使用圧力が高圧の移動式ガス発生設備が含まれる。",
+        "question": "乙種免状で高圧の移動式ガス発生設備を監督できるか？"
+      },
+      {
+        "answer": "選任又は解任したときは遅滞なく届け出る。",
+        "explanation": "第65条第2項が一般ガス導管事業者の選任・解任届出を定めている。",
+        "question": "一般ガス導管事業者はガス主任技術者の選任・解任をいつ届け出るか？"
+      },
+      {
+        "answer": "出せる。",
+        "explanation": "第67条がガス主任技術者の解任命令、第27条がガス主任技術者免状の返納命令を定めている。",
+        "question": "経済産業大臣は解任命令と免状返納命令を出せるか？"
+      },
+      {
+        "answer": "経済産業大臣の職員。",
+        "explanation": "第172条第1項は経済産業大臣がその職員に立入検査をさせると定めており、登録ガス工作物検査機関の職員ではない。",
+        "question": "ガス事業法の立入検査を行う主体は誰か？"
+      }
     ],
     "suggestedQuestions": [
       "ガス主任技術者の選任は免状保持者又は実務経験者のどちらかで足りるか？",
@@ -235,37 +264,8 @@
       "経済産業大臣は解任命令と免状返納命令を出せるか？",
       "ガス事業法の立入検査を行う主体は誰か？"
     ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ガス主任技術者の選任は免状保持者又は実務経験者のどちらかで足りるか？",
-        "answer": "足りない。免状の交付を受けている者で、必要な実務経験を有するものから選任する。",
-        "explanation": "第25条第1項は「免状保持者又は実務経験者」ではなく、免状保持を前提に実務経験要件を課す形で規定している。"
-      },
-      {
-        "question": "乙種免状で高圧の移動式ガス発生設備を監督できるか？",
-        "answer": "できる。",
-        "explanation": "施行規則第30条の乙種欄には、最高使用圧力が高圧の移動式ガス発生設備が含まれる。"
-      },
-      {
-        "question": "一般ガス導管事業者はガス主任技術者の選任・解任をいつ届け出るか？",
-        "answer": "選任又は解任したときは遅滞なく届け出る。",
-        "explanation": "第65条第2項が一般ガス導管事業者の選任・解任届出を定めている。"
-      },
-      {
-        "question": "経済産業大臣は解任命令と免状返納命令を出せるか？",
-        "answer": "出せる。",
-        "explanation": "第67条がガス主任技術者の解任命令、第27条がガス主任技術者免状の返納命令を定めている。"
-      },
-      {
-        "question": "ガス事業法の立入検査を行う主体は誰か？",
-        "answer": "経済産業大臣の職員。",
-        "explanation": "第172条第1項は経済産業大臣がその職員に立入検査をさせると定めており、登録ガス工作物検査機関の職員ではない。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": false,
     "taskId": "T693",
-    "workerTaskId": "T693",
-    "completedAt": "2026-06-28T19:27:01+09:00"
+    "workerTaskId": "T693"
   },
   "lastCompletedReviewQuestionId": "1c3669ce585cfe99",
   "lastCompletedTaskId": "T693",
@@ -607,15 +607,6 @@
   "pending": 340,
   "pendingQuestions": 340,
   "pending_questions": 340,
-  "total": 934,
-  "total_questions": 934,
-  "updatedAt": "2026-06-28T19:27:01+09:00",
-  "totalQuestions": 934,
-  "reviewDecisionCounts": {
-    "ok": 463,
-    "hold": 131,
-    "pending": 340
-  },
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
@@ -626,5 +617,14 @@
       "hold": 29,
       "pending": 340
     }
-  }
+  },
+  "reviewDecisionCounts": {
+    "hold": 131,
+    "ok": 463,
+    "pending": 340
+  },
+  "total": 934,
+  "totalQuestions": 934,
+  "total_questions": 934,
+  "updatedAt": "2026-06-28T19:27:01+09:00"
 }

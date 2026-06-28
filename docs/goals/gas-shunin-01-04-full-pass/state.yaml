@@ -77,7 +77,7 @@ execution_plan:
   total_questions: 934
   completed_questions: 594
   pending_questions: 340
-  held_questions: 130
+  held_questions: 131
   next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
 active_task: T694
@@ -38103,15 +38103,16 @@ tasks:
           status: pass
         - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2023 output/gas-shunin-otsu/review/01_04_manual_review"
           status: pass
-      summary: "T693 planSequence=765（gas-shunin-otsu 2023 法令 問5）は01〜04を目視確認で完了。answer_result_text=正解は2は誤りの組合せ（1,5）に対応し、correctChoiceText=[間違い, 正しい, 正しい, 正しい, 間違い] と確認。questionSetId=chiefgasengineerlicense-B-1160（ガス主任技術者（乙種））。00_source は未変更。completed=594、pending=340、held=130。"
+      summary: "T693 planSequence=765（gas-shunin-otsu 2023 法令 問5）は01〜03を目視確認で完了し、04は混在カテゴリのためhold。answer_result_text=正解は2は誤りの組合せ（1,5）に対応し、correctChoiceText=[間違い, 正しい, 正しい, 正しい, 間違い] と確認。questionSetIdは空欄維持。00_source は未変更。completed=594、pending=340、held=131。"
       evidence:
         - "00_source body/choices unchanged"
         - "questionType=true_false / questionIntent=select_incorrect"
         - "answer_result_text=正解は 2 です。は誤りの組合せ1・5に対応"
-        - "e-Gov ガス事業法 第25条第1項、第27条、第65条第2項、第67条、第172条第1項 and ガス事業法施行規則 第30条で確認"
-        - "questionSetId=chiefgasengineerlicense-B-1160（ガス主任技術者（乙種））"
+        - "e-Gov ガス事業法 第25条第1項、第27条、第65条第2項、第67条、第172条第1項 and 乙種免状の監督範囲に関するガス事業法施行規則の表で確認"
+        - "04 held: choices1-4=ガス主任技術者（乙種）, choice5=立入検査, and 立入検査（乙種） category isDeleted=true"
       completed_at: "2026-06-28T19:26:00+09:00"
       remaining_questions: 340
+      held_questions: 131
       next_active_task: T694
       remaining_blockers: []
       verification_attempts: 1
