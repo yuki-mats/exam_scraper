@@ -672,7 +672,13 @@
       "126"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "不正解。伸縮継手で対処する設計変位量は、温度変化による伸び量 δ=αΔT l で求める。ΔT=40-(-10)=50℃、l=50m=50000mmなので、δ=1.2×10⁻⁵×50×50000=30mmとなり、9mmではない。",
+      "不正解。設計変位量は δ=αΔT l で計算する。温度差50℃、長さ50000mmより、δ=1.2×10⁻⁵×50×50000=30mmであり、24mmではない。",
+      "正解。温度差は40-(-10)=50℃、管長は50m=50000mmである。δ=αΔT l=1.2×10⁻⁵×50×50000=30mmとなるため、30mmが最も近い。",
+      "不正解。内圧やヤング率は熱応力の計算条件であり、伸縮継手で吸収する設計変位量は自由伸び量 δ=αΔT l で求める。計算結果は30mmなので、40mmではない。",
+      "不正解。設計変位量は温度変化による伸び量であり、δ=1.2×10⁻⁵×50×50000=30mmとなる。126mmは設計変位量として大きすぎる。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -691,7 +697,11 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "workerTaskId": "T712",
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "questionSetName": "導管の工事（乙種）",
+    "category": "導管の工事（乙種）"
   },
   {
     "original_question_id": "bf13e41e3adba0f8",

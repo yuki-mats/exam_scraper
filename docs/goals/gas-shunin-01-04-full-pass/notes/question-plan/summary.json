@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T712",
-  "completed": 612,
-  "completedQuestions": 612,
-  "completed_questions": 612,
-  "done": 477,
+  "activeTaskId": "T713",
+  "completed": 613,
+  "completedQuestions": 613,
+  "completed_questions": 613,
+  "done": 478,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 477,
+    "done": 478,
     "hold": 135,
-    "pending": 322
+    "pending": 321
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T23:00:00+09:00",
+  "generatedAt": "2026-06-28T23:15:00+09:00",
   "heldQuestions": 135,
   "held_questions": 135,
   "hold": 135,
@@ -22,48 +22,54 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T23:00:00+09:00",
-    "publicQuestionId": "bf13e41e3adba0f8",
-    "reviewQuestionId": "bf13e41e3adba0f8",
-    "taskId": "T711",
-    "workerTaskId": "T711"
+    "completedAt": "2026-06-28T23:15:00+09:00",
+    "publicQuestionId": "d5077816bc56e7f6",
+    "reviewQuestionId": "d5077816bc56e7f6",
+    "taskId": "T712",
+    "workerTaskId": "T712"
   },
-  "lastCompletedReviewQuestionId": "bf13e41e3adba0f8",
-  "lastCompletedTaskId": "T711",
-  "nextActiveTaskId": "T712",
+  "lastCompletedReviewQuestionId": "d5077816bc56e7f6",
+  "lastCompletedTaskId": "T712",
+  "nextActiveTaskId": "T713",
   "nextPending": {
     "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "9",
-      "24",
-      "30",
-      "40",
-      "126"
+      "マイコンメーターはメーターに流れるガスの流量を監視し、あらかじめ設定した条件によって異常と判定した場合、自動的にガスを遮断する機能を備えている。",
+      "使用最大流量が16m3/hのガスメーターの検定有効期間は、検定を受けた翌月1日から起算して10年である。",
+      "ガスメーターが計量法の規定による検定を受ける際の検定公差は、\n流量によらず±1.5%\nである。",
+      "ガスメーターとしての必要条件の一つに、小型で容量が大きいことがある。",
+      "ガスメーターの種類のうち超音波式は、流量を推測計量するものである。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2022,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -97,28 +103,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 746,
-    "publicQuestionId": "d5077816bc56e7f6",
+    "planSequence": 745,
+    "publicQuestionId": "494a8e58834dcfe4",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:d5077816bc56e7f6",
-    "questionBodyText": "口径400mmの鋼管を用い、長さ50mで両端固定された架管を冬期（管体温度は-10℃）に設置することになった。夏期に管全体の温度が40℃になるときに生じる応力を、架管途中に設けた伸縮継手で対処する場合、設計変位量（mm）として最も近い値はどれか。ただし、導管の線膨張係数は1.2×10⁻⁵(1/℃)、内圧は0.3 (MPa)、ヤング率は2.1×10⁵(N/mm2)とす る。",
-    "questionIndexInFile": 19,
-    "questionIntent": "",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:494a8e58834dcfe4",
+    "questionBodyText": "ガスメーターに関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 18,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問12",
+    "questionNo": 12,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q13",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q12",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:d5077816bc56e7f6",
+    "reviewId": "2022:question_2022_2:494a8e58834dcfe4",
     "reviewNotes": "",
-    "reviewQuestionId": "d5077816bc56e7f6",
+    "reviewQuestionId": "494a8e58834dcfe4",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -133,7 +139,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 12,
       "subject": "kyokyu",
       "year": 2022
     },
@@ -142,45 +148,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q13",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:kyokyu:q13:s01",
-      "gas-shunin:otsu:2022:kyokyu:q13:s02",
-      "gas-shunin:otsu:2022:kyokyu:q13:s03",
-      "gas-shunin:otsu:2022:kyokyu:q13:s04",
-      "gas-shunin:otsu:2022:kyokyu:q13:s05"
+      "gas-shunin:otsu:2022:kyokyu:q12:s01",
+      "gas-shunin:otsu:2022:kyokyu:q12:s02",
+      "gas-shunin:otsu:2022:kyokyu:q12:s03",
+      "gas-shunin:otsu:2022:kyokyu:q12:s04",
+      "gas-shunin:otsu:2022:kyokyu:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q13",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s05",
         "statementNo": 5
       }
     ],
@@ -193,42 +199,48 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 746,
-  "nextPendingPublicQuestionId": "d5077816bc56e7f6",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:d5077816bc56e7f6",
+  "nextPendingPlanSequence": 745,
+  "nextPendingPublicQuestionId": "494a8e58834dcfe4",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:494a8e58834dcfe4",
   "nextPendingQuestion": {
     "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "9",
-      "24",
-      "30",
-      "40",
-      "126"
+      "マイコンメーターはメーターに流れるガスの流量を監視し、あらかじめ設定した条件によって異常と判定した場合、自動的にガスを遮断する機能を備えている。",
+      "使用最大流量が16m3/hのガスメーターの検定有効期間は、検定を受けた翌月1日から起算して10年である。",
+      "ガスメーターが計量法の規定による検定を受ける際の検定公差は、\n流量によらず±1.5%\nである。",
+      "ガスメーターとしての必要条件の一つに、小型で容量が大きいことがある。",
+      "ガスメーターの種類のうち超音波式は、流量を推測計量するものである。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2022,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -262,28 +274,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 746,
-    "publicQuestionId": "d5077816bc56e7f6",
+    "planSequence": 745,
+    "publicQuestionId": "494a8e58834dcfe4",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:d5077816bc56e7f6",
-    "questionBodyText": "口径400mmの鋼管を用い、長さ50mで両端固定された架管を冬期（管体温度は-10℃）に設置することになった。夏期に管全体の温度が40℃になるときに生じる応力を、架管途中に設けた伸縮継手で対処する場合、設計変位量（mm）として最も近い値はどれか。ただし、導管の線膨張係数は1.2×10⁻⁵(1/℃)、内圧は0.3 (MPa)、ヤング率は2.1×10⁵(N/mm2)とす る。",
-    "questionIndexInFile": 19,
-    "questionIntent": "",
-    "questionLabel": "問13",
-    "questionNo": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:494a8e58834dcfe4",
+    "questionBodyText": "ガスメーターに関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 18,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問12",
+    "questionNo": 12,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q13",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q12",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:d5077816bc56e7f6",
+    "reviewId": "2022:question_2022_2:494a8e58834dcfe4",
     "reviewNotes": "",
-    "reviewQuestionId": "d5077816bc56e7f6",
+    "reviewQuestionId": "494a8e58834dcfe4",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -298,7 +310,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 13,
+      "questionNo": 12,
       "subject": "kyokyu",
       "year": 2022
     },
@@ -307,45 +319,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q13",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q12",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:kyokyu:q13:s01",
-      "gas-shunin:otsu:2022:kyokyu:q13:s02",
-      "gas-shunin:otsu:2022:kyokyu:q13:s03",
-      "gas-shunin:otsu:2022:kyokyu:q13:s04",
-      "gas-shunin:otsu:2022:kyokyu:q13:s05"
+      "gas-shunin:otsu:2022:kyokyu:q12:s01",
+      "gas-shunin:otsu:2022:kyokyu:q12:s02",
+      "gas-shunin:otsu:2022:kyokyu:q12:s03",
+      "gas-shunin:otsu:2022:kyokyu:q12:s04",
+      "gas-shunin:otsu:2022:kyokyu:q12:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q13",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q12",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q13:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q12:s05",
         "statementNo": 5
       }
     ],
@@ -358,16 +370,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_2:d5077816bc56e7f6",
-  "nextPendingTaskId": "T712",
-  "otsuCompleted": 200,
-  "otsuDone": 167,
+  "nextPendingReviewId": "2022:question_2022_2:494a8e58834dcfe4",
+  "nextPendingTaskId": "T713",
+  "otsuCompleted": 201,
+  "otsuDone": 168,
   "otsuHeld": 33,
   "otsuHold": 33,
-  "otsuPending": 322,
-  "pending": 322,
-  "pendingQuestions": 322,
-  "pending_questions": 322,
+  "otsuPending": 321,
+  "pending": 321,
+  "pendingQuestions": 321,
+  "pending_questions": 321,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
@@ -375,21 +387,21 @@
       "pending": 0
     },
     "gas-shunin-otsu": {
-      "done": 167,
+      "done": 168,
       "hold": 33,
-      "pending": 322
+      "pending": 321
     }
   },
   "reviewDecisionCounts": {
-    "ok": 477,
+    "ok": 478,
     "hold": 135,
-    "pending": 322
+    "pending": 321
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T23:00:00+09:00",
-  "lastUpdatedAt": "2026-06-28T23:00:00+09:00",
+  "updatedAt": "2026-06-28T23:15:00+09:00",
+  "lastUpdatedAt": "2026-06-28T23:15:00+09:00",
   "qualificationExecutionStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
@@ -397,9 +409,9 @@
       "pending": 0
     },
     "gas-shunin-otsu": {
-      "done": 167,
+      "done": 168,
       "hold": 33,
-      "pending": 322
+      "pending": 321
     }
   }
 }
