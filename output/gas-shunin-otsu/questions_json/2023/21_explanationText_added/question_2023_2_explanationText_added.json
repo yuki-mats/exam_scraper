@@ -570,18 +570,71 @@
       "2.3"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。低圧導管では同一口径・同一延長・同一ガス条件なら、圧力損失は流量の2乗に比例する。流量が150m³/hから300m³/hへ2倍になるため、圧力損失は0.2kPaの4倍で0.8kPaとなり、必要A点圧力は2.3kPaである。1.9kPaでは不足する。",
+      "不正解。増量後もB点圧力を1.5kPaに維持するには、A点からB点までの圧力差を0.8kPa確保する必要がある。A点圧力は1.5+0.8=2.3kPaであり、2.0kPaでは足りない。",
+      "不正解。初期の圧力差は1.7-1.5=0.2kPaである。流量2倍では圧力差は単純に2倍ではなく4倍となるため、0.4kPaではなく0.8kPaが必要で、A点圧力は2.3kPaとなる。",
+      "不正解。A点圧力2.2kPaでは圧力差が0.7kPaにとどまる。必要な圧力差は0.2×(300/150)^2=0.8kPaなので、最も近い値は2.3kPaである。",
+      "正解。初期圧力差は0.2kPa。流量が2倍になると圧力損失は4倍となり0.8kPaとなる。B点圧力1.5kPaを維持するため、A点圧力は1.5+0.8=2.3kPaである。"
+    ],
+    "suggestedQuestions": [
+      "初期のA点とB点の圧力差はいくつか？",
+      "同一導管条件で流量を2倍にすると圧力損失は何倍になるか？",
+      "増量後に必要なA-B間の圧力差はいくつか？",
+      "B点圧力1.5kPaを維持するために必要なA点圧力はいくつか？",
+      "低圧導管で流量は圧力差に対してどのように関係するか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "初期のA点とB点の圧力差はいくつか？",
+        "answer": "0.2kPa。",
+        "explanation": "初期はA点1.7kPa、B点1.5kPaなので、差は0.2kPaである。"
+      },
+      {
+        "question": "同一導管条件で流量を2倍にすると圧力損失は何倍になるか？",
+        "answer": "4倍。",
+        "explanation": "圧力損失は流量の2乗に比例するため、2倍の流量では2²=4倍となる。"
+      },
+      {
+        "question": "増量後に必要なA-B間の圧力差はいくつか？",
+        "answer": "0.8kPa。",
+        "explanation": "初期圧力差0.2kPaの4倍なので0.8kPaとなる。"
+      },
+      {
+        "question": "B点圧力1.5kPaを維持するために必要なA点圧力はいくつか？",
+        "answer": "2.3kPa。",
+        "explanation": "B点1.5kPaに必要圧力差0.8kPaを加え、1.5+0.8=2.3kPaとなる。"
+      },
+      {
+        "question": "低圧導管で流量は圧力差に対してどのように関係するか？",
+        "answer": "流量は圧力差の平方根に比例する。",
+        "explanation": "したがって圧力損失は流量の2乗に比例して増減する。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の低圧導管における流量と圧力損失の関係が本問の関連論点。",
+      "試験ポイント: 同一導管条件では、低圧導管の流量は圧力差の平方根に比例するため、圧力損失は流量の2乗に比例する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "初期の圧力差はA点1.7kPa-B点1.5kPa=0.2kPa。流量を150m³/hから300m³/hに2倍にすると圧力損失は4倍の0.8kPaとなる。B点1.5kPaを維持するので、A点圧力は1.5+0.8=2.3kPa。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1.9kPaでは圧力差0.4kPaにとどまり、必要な0.8kPaに不足する。"
+      ],
+      [
+        "2.0kPaでは圧力差0.5kPaにとどまる。"
+      ],
+      [
+        "流量2倍では圧力差は0.4kPaではなく0.8kPaになる。"
+      ],
+      [
+        "2.2kPaでは圧力差0.7kPaで、必要な0.8kPaより小さい。"
+      ],
+      [
+        "1.5+0.2×(300/150)^2=2.3kPa。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
