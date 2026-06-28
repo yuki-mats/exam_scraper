@@ -607,10 +607,43 @@
       "特定の流量時における二次圧力を基準状態としたとき、流量が増大するに従い二次圧力は基準状態の圧力より低下する。このずれのことを\nシフト\nという。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。パイロット式整圧器は作動のために一次圧力と二次圧力の差圧を必要とするため、差圧が作動に必要な値を下回ると作動できなくなる。",
+      "正しい。負荷変動が大きい場所では、流量変化に対する応答の速さや安定性が求められるため、整圧器の動特性が重要となる。",
+      "正しい。流量特性線図は、流量とメインバルブ開度（ストローク）の関係を表す線図である。",
+      "正しい。圧力上昇防止装置は、整圧器の故障などにより二次側圧力が異常に上昇することを防止するために用いられる。",
+      "間違い。特定流量時の二次圧力を基準とし、流量増大に伴って二次圧力が基準圧力より低下するずれはオフセットであり、シフトではない。"
+    ],
+    "suggestedQuestions": [
+      "パイロット式整圧器は作動最小差圧を必要とするか。",
+      "負荷変動の大きい場所で整圧器の動特性は重要か。",
+      "流量特性線図は何の関係を表すか。",
+      "圧力上昇防止装置は何を防止する装置か。",
+      "流量増大で二次圧力が基準圧力より低下するずれはシフトか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "パイロット式整圧器は作動最小差圧を必要とするか。",
+        "answer": "はい。一次圧力と二次圧力の差圧が不足すると作動できなくなる。"
+      },
+      {
+        "question": "負荷変動の大きい場所で整圧器の動特性は重要か。",
+        "answer": "はい。流量変化に対する応答性と安定性が重要になる。"
+      },
+      {
+        "question": "流量特性線図は何の関係を表すか。",
+        "answer": "流量とメインバルブ開度（ストローク）の関係を表す。"
+      },
+      {
+        "question": "圧力上昇防止装置は何を防止する装置か。",
+        "answer": "整圧器故障などによる二次側圧力の異常上昇を防止する。"
+      },
+      {
+        "question": "流量増大で二次圧力が基準圧力より低下するずれはシフトか。",
+        "answer": "いいえ。これはオフセットであり、シフトではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
