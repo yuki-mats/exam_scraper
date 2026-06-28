@@ -126,25 +126,92 @@
       "ガスエンジンヒートポンプ（GHP）の冷房と暖房の切り替えは、室外機内の四方（切替）弁で冷媒の流れを変えることによって行う。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。固体酸化物形燃料電池（SOFC）は高温作動型の燃料電池であり、固体高分子形燃料電池（PEFC）より作動温度が高い。",
+      "正しい。家庭用燃料電池システム（エネファーム）には、停電時に発電を継続する機能や、IoT技術を活用した遠隔監視機能を搭載したものがある。",
+      "正しい。コージェネレーションシステムの運転方式は、電力需要を主に追う電主熱従運転と、熱需要を主に追う熱主電従運転に分類され、電主熱従運転にはピークカット運転やベースロード運転がある。",
+      "間違い。吸収冷凍機の二重効用吸収冷凍サイクルでは、高温発生器と低温発生器の二つの発生器を用いて熱利用効率を高める。二つの蒸発器が用いられているとしている点が誤り。",
+      "正しい。ガスエンジンヒートポンプ（GHP）の冷房・暖房の切り替えは、室外機内の四方（切替）弁で冷媒の流れを切り替えることにより行う。"
+    ],
+    "suggestedQuestions": [
+      "SOFCとPEFCの作動温度の違いを確認する。",
+      "エネファームに搭載される停電時発電継続機能や遠隔監視機能を確認する。",
+      "コージェネレーションシステムの電主熱従運転と熱主電従運転を確認する。",
+      "二重効用吸収冷凍サイクルで用いられる発生器を確認する。",
+      "GHPの冷暖房切替が四方弁による冷媒流路切替で行われることを確認する。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "correctness": "正しい",
+        "focus": "SOFCとPEFC",
+        "explanation": "正しい。固体酸化物形燃料電池（SOFC）は高温作動型の燃料電池であり、固体高分子形燃料電池（PEFC）より作動温度が高い。"
+      },
+      {
+        "choiceIndex": 2,
+        "correctness": "正しい",
+        "focus": "エネファームの機能",
+        "explanation": "正しい。家庭用燃料電池システム（エネファーム）には、停電時に発電を継続する機能や、IoT技術を活用した遠隔監視機能を搭載したものがある。"
+      },
+      {
+        "choiceIndex": 3,
+        "correctness": "正しい",
+        "focus": "CGSの運転方式",
+        "explanation": "正しい。コージェネレーションシステムの運転方式は、電力需要を主に追う電主熱従運転と、熱需要を主に追う熱主電従運転に分類され、電主熱従運転にはピークカット運転やベースロード運転がある。"
+      },
+      {
+        "choiceIndex": 4,
+        "correctness": "間違い",
+        "focus": "二重効用吸収冷凍サイクル",
+        "explanation": "間違い。吸収冷凍機の二重効用吸収冷凍サイクルでは、高温発生器と低温発生器の二つの発生器を用いて熱利用効率を高める。二つの蒸発器が用いられているとしている点が誤り。"
+      },
+      {
+        "choiceIndex": 5,
+        "correctness": "正しい",
+        "focus": "GHPの冷暖房切替",
+        "explanation": "正しい。ガスエンジンヒートポンプ（GHP）の冷房・暖房の切り替えは、室外機内の四方（切替）弁で冷媒の流れを切り替えることにより行う。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "コージェネレーションシステム、燃料電池、吸収冷凍機、GHPについて、各機器・方式の特徴を区別する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "二重効用吸収冷凍サイクルは二つの発生器を用いる方式であり、二つの蒸発器としている選択肢4が誤り。他の選択肢は燃料電池、CGS、GHPの特徴として正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "SOFC",
+        "PEFC",
+        "作動温度"
+      ],
+      [
+        "エネファーム",
+        "停電時発電継続機能",
+        "遠隔監視機能"
+      ],
+      [
+        "コージェネレーションシステム",
+        "電主熱従運転",
+        "熱主電従運転"
+      ],
+      [
+        "吸収冷凍機",
+        "二重効用吸収冷凍サイクル",
+        "二つの蒸発器"
+      ],
+      [
+        "GHP",
+        "四方（切替）弁",
+        "冷媒の流れ"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
     ]
   },
   {
