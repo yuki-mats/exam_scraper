@@ -38361,17 +38361,17 @@ tasks:
         - docs/goals/gas-shunin-01-04-full-pass/state.yaml
       commands:
         - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
-          status: pending
+          status: pass
         - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
-          status: pending
+          status: pass
         - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json --require-full"
-          status: pending
+          status: pass
         - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json --patch output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_1_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
-          status: pending
+          status: pass
         - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
-          status: pending
+          status: pass
         - cmd: "git diff --check -- docs/goals/gas-shunin-01-04-full-pass output/gas-shunin-otsu/questions_json/2023 output/gas-shunin-otsu/review/01_04_manual_review"
-          status: pending
+          status: pass
       summary: "T697 planSequence=761（gas-shunin-otsu 2023 法令 問1）は01〜04を目視確認で完了。answer_result_text=正解は1です。は誤っている選択肢1に対応し、correctChoiceText=[間違い, 正しい, 正しい, 正しい, 正しい] と確認。questionSetId=chiefgasengineerlicense-B-1270（目的及び用語の定義（乙種））。00_source は未変更。completed=598、pending=336、held=132。"
       evidence:
         - "00_source body/choices unchanged"
