@@ -561,18 +561,38 @@
       "2.1"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "不正解。既設ABの圧力損失は2.3−2.1=0.2kPaである。低圧導管の圧力損失はQ²L/D⁵に比例するため、ACの損失も0.2kPaとなり、C点圧力は2.1kPaである。1.7kPaでは低すぎる。",
+      "不正解。流量は100m³/hから400m³/hで4倍、延長は200mから400mで2倍、口径は10cmから20cmで2倍である。圧力損失比は4²×2/(2⁵)=1となるため、損失は0.2kPaのままであり、1.8kPaではない。",
+      "不正解。ACの圧力損失はABと同じ0.2kPaである。A点圧力2.3kPaから0.2kPaを差し引くとC点圧力は2.1kPaとなるため、1.9kPaは小さすぎる。",
+      "不正解。口径を2倍にするとD⁵の効果で圧力損失は1/32になり、流量4倍と延長2倍による増加分32倍と相殺される。したがって損失は0.2kPaで、C点圧力は2.0kPaではなく2.1kPaである。",
+      "正解。ABでは100m³/h、200m、口径10cmで圧力損失0.2kPaである。ACでは400m³/h、400m、口径20cmなので、損失比は(400/100)²×(400/200)×(10/20)⁵=1となり、圧力損失は0.2kPa。よってC点圧力は2.3−0.2=2.1kPaである。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の低圧導管における圧力損失計算が本問の関連論点。",
+      "低圧導管では、高低差を無視すると圧力損失は流量の2乗、延長に比例し、口径の5乗に反比例する関係で比較できる。",
+      "既設ABの圧力損失は2.3−2.1=0.2kPaで、ACとの損失比は(400/100)^2×(400/200)×(10/20)^5=1である。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1.7kPaは圧力損失を0.6kPaと見る値で、計算値0.2kPaより大きすぎる。"
+      ],
+      [
+        "損失比4^2×2×(1/2)^5=1なので、損失は0.2kPaのまま。"
+      ],
+      [
+        "C点圧力は2.3−0.2=2.1kPaで、1.9kPaではない。"
+      ],
+      [
+        "口径2倍のD^5効果が流量・延長増加を相殺する。"
+      ],
+      [
+        "C点圧力は2.1kPaで選択肢5が最も近い。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -580,7 +600,11 @@
       "不正解",
       "不正解",
       "正解"
-    ]
+    ],
+    "workerTaskId": "T715",
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "questionSetName": "導管の工事（乙種）",
+    "category": "導管の工事（乙種）"
   },
   {
     "original_question_id": "6ae9e839bb58b1a3",
