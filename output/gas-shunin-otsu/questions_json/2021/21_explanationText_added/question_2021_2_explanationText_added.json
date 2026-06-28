@@ -570,18 +570,38 @@
       "1.9"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "不正解。既設ABの圧力損失は2.3−2.1=0.2kPaである。新条件ではAC間は延長が半分、流量が2倍なので損失は0.2×(100/200)×(400/200)^2=0.4kPa、CB間は延長が半分で流量が同じなので0.1kPaとなる。B点圧力は1.8kPaであり、1.5kPaでは低すぎる。",
+      "不正解。低圧導管の圧力損失は同一口径ならおおむね延長と流量の2乗に比例する。AC間0.4kPaとCB間0.1kPaの合計損失は0.5kPaで、B点圧力は2.3−0.5=1.8kPaとなるため、1.6kPaではない。",
+      "不正解。中間点Cにも200m³/hを供給するため、A-C間にはB点分とC点分を合わせた400m³/hが流れる。A-C間の損失0.4kPaにC-B間の損失0.1kPaを加える必要があり、B点圧力は1.7kPaではなく1.8kPaである。",
+      "正解。基準のABでは200m、200m³/hで圧力損失0.2kPaである。変更後はA-C間が100m、400m³/hなので損失0.4kPa、C-B間が100m、200m³/hなので損失0.1kPa。合計損失は0.5kPaとなり、B点圧力は2.3−0.5=1.8kPaである。",
+      "不正解。C点の追加需要によりA-C間の流量は400m³/hとなり、A-C間だけで0.4kPa低下する。さらにC-B間で0.1kPa低下するため、B点圧力は1.8kPaであり、1.9kPaでは高すぎる。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の低圧導管における圧力損失計算が本問の関連論点。",
+      "同一口径で高低差を考慮しない低圧導管では、圧力損失は延長と流量の2乗に比例する関係で比較できる。",
+      "既設ABの圧力損失は0.2kPaで、変更後はA-C間0.4kPa、C-B間0.1kPaの合計0.5kPaとなる。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1.5kPaは合計損失を0.8kPaと見る値で、計算値0.5kPaより大きすぎる。"
+      ],
+      [
+        "損失合計は0.5kPaなので、B点圧力は1.6kPaではない。"
+      ],
+      [
+        "C-B間の損失だけでなくA-C間の流量増加分を加えると1.8kPaになる。"
+      ],
+      [
+        "A-C間0.4kPaとC-B間0.1kPaを合計し、2.3−0.5=1.8kPa。"
+      ],
+      [
+        "1.9kPaは損失を0.4kPa程度に見た値で、C-B間の0.1kPaが不足している。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -589,7 +609,11 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "workerTaskId": "T773",
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "questionSetName": "導管の工事（乙種）",
+    "category": "導管の工事（乙種）"
   },
   {
     "original_question_id": "6e14962c3ffd1481",
