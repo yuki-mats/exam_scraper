@@ -644,18 +644,72 @@
       "6.4"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。240kPa=240000Pa、415L=0.415m³、27℃=約300Kとして、理想気体の状態方程式 PV=nRT から n=240000×0.415/(8.3×300)=40molである。メタンの分子量16g/molより質量は0.64kgなので、0.064kgでは小さすぎる。",
+      "不正解。求めた物質量は40molであり、メタン質量は40×16g=640g=0.64kgである。0.32kgは計算値の半分で、最も近い値ではない。",
+      "正解。27℃を300K、415Lを0.415m³、240kPaを240000Paに換算する。n=PV/RT=240000×0.415/(8.3×300)=40molとなり、メタンの分子量16g/molを掛けると640g=0.64kgである。",
+      "不正解。3.2kgは0.64kgの5倍であり、PV=nRTから求めた物質量40molにメタン分子量16g/molを掛けた値と合わない。",
+      "不正解。6.4kgは計算値0.64kgの10倍である。単位換算で415L=0.415m³、240kPa=240000Paとして計算すると0.64kgになる。"
+    ],
+    "suggestedQuestions": [
+      "415Lは何m³か？",
+      "27℃は何Kとして計算するか？",
+      "理想気体の状態方程式から物質量は何molか？",
+      "メタン40molの質量は何kgか？",
+      "最も近い選択肢はどれか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "415Lは何m³か？",
+        "answer": "0.415m³。",
+        "explanation": "1m³=1000Lなので、415Lは0.415m³である。"
+      },
+      {
+        "question": "27℃は何Kとして計算するか？",
+        "answer": "約300K。",
+        "explanation": "摂氏温度に273を加えるため、27℃は約300Kとして扱う。"
+      },
+      {
+        "question": "理想気体の状態方程式から物質量は何molか？",
+        "answer": "40mol。",
+        "explanation": "n=PV/RT=240000×0.415/(8.3×300)=40molとなる。"
+      },
+      {
+        "question": "メタン40molの質量は何kgか？",
+        "answer": "0.64kg。",
+        "explanation": "メタンの分子量16g/molより、40mol×16g/mol=640g=0.64kgである。"
+      },
+      {
+        "question": "最も近い選択肢はどれか？",
+        "answer": "選択肢3の0.64kg。",
+        "explanation": "計算値0.64kgと一致する選択肢である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式、単位換算、物質量と質量の換算が本問の関連論点。",
+      "理想気体では PV=nRT を用いて物質量を求め、分子量を掛けて質量へ換算する。",
+      "本問では240kPa=240000Pa、415L=0.415m³、27℃=約300Kとして n=40mol、メタン質量は0.64kgとなる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "PV=nRTより n=40mol。メタンの分子量16g/molを掛けると640g=0.64kgで、選択肢3が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "0.064kgは計算値0.64kgより小さすぎる。"
+      ],
+      [
+        "0.32kgは計算値0.64kgの半分である。"
+      ],
+      [
+        "n=40mol、質量=40×16g=640g=0.64kg。"
+      ],
+      [
+        "3.2kgは計算値0.64kgより大きすぎる。"
+      ],
+      [
+        "6.4kgは計算値0.64kgの10倍である。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
