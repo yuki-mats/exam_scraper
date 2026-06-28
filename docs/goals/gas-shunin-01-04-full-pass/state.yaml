@@ -28041,6 +28041,7 @@ tasks:
         - "output/gas-shunin-otsu/questions_json/2017/22_questionSetId_linked/question_2017_1_questionSetId_linked.json"
         - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
         - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
         - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
         - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
       commands:
@@ -38081,7 +38082,6 @@ tasks:
       task_id: T685
       board_path: "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
       changed_files:
-        - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json"
         - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
         - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
         - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
@@ -38305,7 +38305,7 @@ tasks:
         - "answer_result_text=正解は 2 です。は誤り肢1・5の組合せ、statement-level correctChoiceText=[間違い, 正しい, 正しい, 正しい, 間違い]"
         - "e-Gov ガス工作物の技術上の基準を定める省令 第26条、第27条第1項、第28条第3項、第31条第2項、第41条第2項で確認"
         - "04 held because statement-level categories are mixed: shutoff device, emergency stop, mobile gas generation equipment, vaporizer structure, and specified gas generation equipment."
-      completed_at: "2026-06-28T19:49:00+09:00"
+      completed_at: "2026-06-28T18:42:49+09:00"
       remaining_questions: 345
       next_active_task: T689
       remaining_blockers:

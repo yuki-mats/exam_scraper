@@ -7,11 +7,11 @@
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 462,
-    "hold": 126,
-    "pending": 346
+    "hold": 127,
+    "pending": 345
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T19:49:00+09:00",
+  "generatedAt": "2026-06-28T18:42:49+09:00",
   "heldQuestions": 127,
   "held_questions": 127,
   "hold": 127,
@@ -122,7 +122,7 @@
     "reviewId": "2023:question_2023_1:6aad0e31a6045ace",
     "reviewNotes": "T688: 降順ブロック planSequence=770。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=6aad0e31a6045ace。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は誤っている肢1・5の組合せに対応し、correctChoiceText=[間違い, 正しい, 正しい, 正しい, 間違い] と確認。e-Gov LawId 412M50000400111（ガス工作物の技術上の基準を定める省令26条、27条1項、28条3項、31条2項、41条2項）を確認。古い expectedCorrectChoiceText=[正しい, 間違い, 正しい, 正しい, 正しい] は補正。01-03は完了。04はstatement-levelカテゴリが遮断装置、緊急停止装置、移動式ガス発生設備、気化装置、特定ガス発生設備で混在するため、単一problem-level questionSetIdで上書きせずhold。",
     "reviewQuestionId": "6aad0e31a6045ace",
-    "reviewedAt": "2026-06-28T19:49:00+09:00",
+    "reviewedAt": "2026-06-28T18:42:49+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -198,13 +198,18 @@
     "category": "法令",
     "taskId": "T688",
     "workerTaskId": "T688",
-    "completedAt": "2026-06-28T19:49:00+09:00"
+    "completedAt": "2026-06-28T18:42:49+09:00",
+    "questionTypeReviewedAt": "2026-06-28T09:42:49Z",
+    "questionIntentReviewedAt": "2026-06-28T09:42:49Z",
+    "correctChoiceReviewedAt": "2026-06-28T09:42:49Z",
+    "explanationReviewedAt": "2026-06-28T09:42:49Z",
+    "questionSetReviewedAt": "2026-06-28T09:42:49Z"
   },
-  "lastCompletedReviewQuestionId": "2023:question_2023_1:4d7a52b1ab649e7d",
+  "lastCompletedReviewQuestionId": "2023:question_2023_1:6aad0e31a6045ace",
   "lastCompletedTaskId": "T688",
-  "nextActiveTaskId": "T688",
+  "nextActiveTaskId": "T689",
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -218,18 +223,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "製造設備(ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。)には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合にガス又は液化ガスの流出及び流入を\n速やかに遮断し、そのガス又は液化ガスを回収することができる\n適切な装置を適切な箇所に設けなければならない。",
-      "ガス(不活性のガスを除く。)を発生させる設備(特定ガス発生設備及び移動式ガス発生設備を除く。)は、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理することができるものでなければならない。",
-      "移動式ガス発生設備の容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる適切な措置を講じなければならない。",
-      "温水で加熱する構造の気化装置であって、加熱部の温水が凍結するおそれのあるものには、これを防止する措置を講じなければならない。",
-      "容器に附属する気化装置内においてガスを発生させる特定ガス発生設備の容器の部分には、当該容器内の\n液化ガスの温度を確認することができる\n装置を設けなければならない。"
+      "最高使用圧力が高圧のガス発生設備であって、過圧が生ずるおそれのあるものには、その圧力を逃がすために適切な\nインターロック機構\nを設けなければならない。",
+      "移動式ガス発生設備には、設備の損傷を防止するため\n使用の状態を記録し、これを保存できる適切な措置\nが講じられていなければならない。",
+      "中圧のガス圧力により行う大口供給の用に供するガスは、容易に臭気によるガスの感知ができるように、\n付臭されていなければならない\n。",
+      "液化ガス用貯槽又はこの付近には、その外部から見やすいように\nガス主任技術者の氏名及び連絡先\nの表示をしなければならない。",
+      "液化ガス用貯槽(不活性の液化ガス用のものを除く。)の埋設された部分には、設置された状況により腐食を生ずるおそれがある場合には、当該設備の腐食を防止するための適切な措置を講じなければならない。"
     ],
     "correctChoiceText": [
       "間違い",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
@@ -237,9 +242,9 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
+      "正しい",
+      "正しい",
       "間違い",
-      "正しい",
-      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -275,28 +280,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 770,
-    "publicQuestionId": "6aad0e31a6045ace",
+    "planSequence": 769,
+    "publicQuestionId": "718d13890847209e",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6aad0e31a6045ace",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:718d13890847209e",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
+    "questionIndexInFile": 9,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問10",
-    "questionNo": 10,
+    "questionLabel": "問9",
+    "questionNo": 9,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q10",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q9",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:6aad0e31a6045ace",
+    "reviewId": "2023:question_2023_1:718d13890847209e",
     "reviewNotes": "",
-    "reviewQuestionId": "6aad0e31a6045ace",
+    "reviewQuestionId": "718d13890847209e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -311,7 +316,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 10,
+      "questionNo": 9,
       "subject": "law",
       "year": 2023
     },
@@ -320,45 +325,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q10",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q09",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q10:s01",
-      "gas-shunin:otsu:2023:law:q10:s02",
-      "gas-shunin:otsu:2023:law:q10:s03",
-      "gas-shunin:otsu:2023:law:q10:s04",
-      "gas-shunin:otsu:2023:law:q10:s05"
+      "gas-shunin:otsu:2023:law:q09:s01",
+      "gas-shunin:otsu:2023:law:q09:s02",
+      "gas-shunin:otsu:2023:law:q09:s03",
+      "gas-shunin:otsu:2023:law:q09:s04",
+      "gas-shunin:otsu:2023:law:q09:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q10",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q9",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q10:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q09:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q10:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q09:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q10:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q09:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q10:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q09:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q10:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q09:s05",
         "statementNo": 5
       }
     ],
@@ -544,9 +549,9 @@
   },
   "nextPendingReviewId": "2023:question_2023_1:718d13890847209e",
   "nextPendingTaskId": "T689",
-  "otsuCompleted": 176,
+  "otsuCompleted": 177,
   "otsuDone": 152,
-  "otsuHeld": 24,
+  "otsuHeld": 25,
   "otsuHold": 25,
   "otsuPending": 345,
   "pending": 345,
@@ -554,6 +559,6 @@
   "pending_questions": 345,
   "total": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T19:49:00+09:00",
+  "updatedAt": "2026-06-28T18:42:49+09:00",
   "totalQuestions": 934
 }
