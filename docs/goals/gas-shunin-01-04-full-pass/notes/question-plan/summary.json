@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T645",
-  "completed": 545,
-  "completed_questions": 545,
-  "done": 421,
+  "activeTaskId": "T646",
+  "completed": 546,
+  "completed_questions": 546,
+  "done": 423,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 422,
+    "done": 423,
     "hold": 123,
-    "pending": 389
+    "pending": 388
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T13:41:44+09:00",
+  "generatedAt": "2026-06-28T13:46:04+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -30,6 +30,185 @@
       "explanationTextPresent": false,
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "給湯器の自己診断機能では、給排気通路の閉そく状態によって、燃焼改善、能力制限又は運転停止の安全動作を行う。",
+      "多段式バーナーでは、燃焼本数が少ないほど、熱効率が低くなる傾向がある。",
+      "現在販売されている2缶3水式の給湯暖房用熱源機のふろの追いだきは、間接加熱方式で行われる。",
+      "瞬間湯沸器には元止め式と先止め式の二種類があり、小型湯沸器は\nすべて元止め式\nである。",
+      "BF式ふろがまでは、給排気バランスが崩れると不完全燃焼や立ち消えが発生するおそれがあるため、給排気筒トップの周囲に障害物があってはならない。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 812,
+    "publicQuestionId": "c27463fb8f453f0a",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:c27463fb8f453f0a",
+    "questionBodyText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 2,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問21",
+    "questionNo": 21,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q21",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_3:c27463fb8f453f0a",
+    "reviewNotes": "",
+    "reviewQuestionId": "c27463fb8f453f0a",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "消費機器",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
+    "sourceFileIndex": 21,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 21,
+      "subject": "shohi",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q21",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:shohi:q21:s01",
+      "gas-shunin:otsu:2023:shohi:q21:s02",
+      "gas-shunin:otsu:2023:shohi:q21:s03",
+      "gas-shunin:otsu:2023:shohi:q21:s04",
+      "gas-shunin:otsu:2023:shohi:q21:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q21",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 812,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:c27463fb8f453f0a",
+  "otsuCompleted": 134,
+  "otsuDone": 113,
+  "otsuHeld": 21,
+  "otsuHold": 21,
+  "otsuPending": 388,
+  "pending": 388,
+  "pending_questions": 388,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "answer_result_text=正解は 2 です。 matches choice 2 being incorrect for select_incorrect.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -50,7 +229,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "間違い",
@@ -58,8 +237,14 @@
       "正しい",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。現在、ガス用品に指定されている品目には、ガス瞬間湯沸器、ガスストーブ、ガスバーナー付ふろがま、ガスふろバーナー、ガスこんろがあり、それぞれ対象となるガス消費量の範囲が定められている。",
+      "間違い。ファンヒーターは室内の空気を取り入れて燃焼し、温風を室内に強制対流させる開放式の暖房機器である。FF暖房機は屋外から給気し屋外へ排気する密閉式の暖房機器であり、燃焼ファンなどを備える。ファンヒーターとFF暖房機を同じ構成としている点が誤り。",
+      "正しい。ファンヒーターには過熱検知用のサーミスターが装備され、フィルター詰まりなどで機体が過熱状態になるとフィルターサインを点滅させて掃除等を促す。",
+      "正しい。現在販売されているこんろのグリル部には、グリル火災低減のため、消し忘れ消火機能に加え、過熱防止機能又は炎あふれ防止機能のいずれか一つ以上が搭載されている。",
+      "正しい。ガス衣類乾燥機には、乾燥運転終了後に衣類の温度を下げる冷却運転を行い、油の付着したタオルや衣類の自然発火を防ぐ機能が搭載されている。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,20 +286,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問22",
     "questionNo": 22,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1880",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q22",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_3:1772c8b908134fd6",
-    "reviewNotes": "",
+    "reviewNotes": "T645: 降順ブロック planSequence=813。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=1772c8b908134fd6。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は選択肢2のみ誤りで選択肢1,3,4,5が正しいことに対応し、correctChoiceText=[正しい, 間違い, 正しい, 正しい, 正しい] と一致。選択肢2はファンヒーターとFF暖房機を同じ給排気・燃焼ファン構成のように述べている点が誤りで、ファンヒーターは開放式、FF暖房機は屋外給排気の密閉式として区別する。選択肢1はガス用品指定品目、選択肢3はファンヒーターの過熱検知・フィルターサイン、選択肢4はこんろグリル部の火災低減機能、選択肢5はガス衣類乾燥機の冷却運転として、乙種2024/2025および甲種2025の家庭用ガス機器precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1880（家庭用ガス機器（乙種））はcategory.jsonのactive category、および乙種2024/2025同系問22 precedentに基づく。",
     "reviewQuestionId": "1772c8b908134fd6",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T13:46:04+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "消費機器",
@@ -185,294 +370,109 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingPlanSequence": 813,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:1772c8b908134fd6",
-  "otsuCompleted": 133,
-  "otsuDone": 112,
-  "otsuHeld": 21,
-  "otsuHold": 21,
-  "otsuPending": 389,
-  "pending": 389,
-  "pending_questions": 389,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 5 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 5 です。 matches choice 5 being incorrect for select_incorrect.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "燃料電池CGSには、都市ガスの付臭剤として添加されている硫黄分を取り除く脱硫装置が搭載されている。",
-      "ガスエンジンヒートポンプ(GHP)の暖房能力は、電気ヒートポンプ(EHP)と比較して外気温低下による能力の低下があまりないという特長がある。",
-      "浸管式フライヤーは、油槽内の熱交換器の伝熱面積を比較的大きくとれるため、昇温が速い特長があるが、浸管内でパルス燃焼を採用しているタイプは、さらに昇温性能が向上している。",
-      "排気ダクト接続型給湯器では、排気温度センサーの搭載や潜熱回収技術の採用により、ダクト火災防止を図っている。",
-      "簡易貫流ボイラーでは、複数台連結することにより大量の蒸気を発生させるシステムを構成した場合、\n取扱資格が必要となる\n。"
-    ],
-    "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "explanationText": [
-      "正しい。燃料電池CGSでは、都市ガス中の付臭剤に含まれる硫黄分が改質触媒や燃料電池に悪影響を与えるため、燃料処理系に脱硫装置を備える。",
-      "正しい。GHPはガスエンジンの排熱も暖房に利用できるため、EHPに比べて外気温低下時の暖房能力低下が小さいという特長がある。",
-      "正しい。浸管式フライヤーは油槽内の浸管・熱交換部で油を加熱し、伝熱面積を比較的大きく取れるため昇温が速い。パルス燃焼式では熱交換効率が高まり、さらに昇温性能が向上する。",
-      "正しい。排気ダクト接続型給湯器では、排気温度センサーによる監視や潜熱回収による排気温度低減により、排気ダクトの過熱・火災防止を図っている。",
-      "間違い。簡易貫流ボイラーは簡易ボイラーの区分であり、取扱いに特別な資格は規定されていない。複数台を連結して大量の蒸気を発生させるシステムを構成しただけで取扱資格が必要となるとしている点が誤り。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 814,
-    "publicQuestionId": "ca9cfa987610a65c",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:ca9cfa987610a65c",
-    "questionBodyText": "業務用コージェネレーションシステム(CGS)、ガス冷暖房及び業務用ガス機器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 4,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問23",
-    "questionNo": 23,
-    "questionSetId": "chiefgasengineerlicense-B-1890",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q23",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_3:ca9cfa987610a65c",
-    "reviewNotes": "T644: 降順ブロック planSequence=814。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=ca9cfa987610a65c。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 5 です。は選択肢5のみ誤りで選択肢1,2,3,4が正しいことに対応し、correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] と一致。選択肢5は簡易貫流ボイラーを複数台連結して大量蒸気を発生させるシステムを構成すると取扱資格が必要になるとしている点が誤りで、簡易ボイラーは取扱資格が特に規定されていない。選択肢1は燃料電池CGSの脱硫装置、選択肢2はGHPの暖房能力特性、選択肢3は浸管式・パルス燃焼式フライヤー、選択肢4は排気ダクト接続型給湯器のダクト火災防止として、乙種2024/2025および甲種同系precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1890（コージェネレーションシステム等（乙種））はcategory.jsonのactive category、および乙種2024/2025同系問23 precedentに基づく。",
-    "reviewQuestionId": "ca9cfa987610a65c",
-    "reviewedAt": "2026-06-28T13:41:44+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
-    "sourceFileIndex": 21,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 23,
-      "subject": "shohi",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q23",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:shohi:q23:s01",
-      "gas-shunin:otsu:2023:shohi:q23:s02",
-      "gas-shunin:otsu:2023:shohi:q23:s03",
-      "gas-shunin:otsu:2023:shohi:q23:s04",
-      "gas-shunin:otsu:2023:shohi:q23:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q23",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q23:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q23:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q23:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q23:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q23:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
     "suggestedQuestions": [
-      "燃料電池CGSには都市ガス中の硫黄分を取り除く脱硫装置が搭載されるか？",
-      "GHPの暖房能力はEHPより外気温低下の影響を受けにくいか？",
-      "浸管式フライヤーは伝熱面積を大きく取れて昇温が速いか？",
-      "排気ダクト接続型給湯器は排気温度センサー等でダクト火災防止を図るか？",
-      "簡易貫流ボイラーを複数台連結すると取扱資格が必要になるか？"
+      "ガス用品に指定されている家庭用ガス機器の品目には何があるか？",
+      "ファンヒーターとFF暖房機は同じ給排気構成の機器か？",
+      "ファンヒーターはフィルター詰まり等による過熱時にフィルターサインを出すか？",
+      "こんろのグリル部にはグリル火災低減機能が搭載されているか？",
+      "ガス衣類乾燥機には乾燥後に衣類温度を下げる機能があるか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "燃料電池CGSには都市ガス中の硫黄分を取り除く脱硫装置が搭載されるか？",
-        "answer": "搭載される。",
-        "explanation": "付臭剤由来の硫黄分は燃料電池や触媒に悪影響を与えるため、脱硫装置で取り除く。"
+        "question": "ガス用品に指定されている家庭用ガス機器の品目には何があるか？",
+        "answer": "ガス瞬間湯沸器、ガスストーブ、ガスバーナー付ふろがま、ガスふろバーナー、ガスこんろである。",
+        "explanation": "ガス用品の指定品目は品目ごとに対象となるガス消費量の範囲が定められている。"
       },
       {
-        "question": "GHPの暖房能力はEHPより外気温低下の影響を受けにくいか？",
-        "answer": "受けにくい。",
-        "explanation": "GHPはガスエンジン排熱を暖房に利用でき、外気温低下時の能力低下がEHPより小さい。"
+        "question": "ファンヒーターとFF暖房機は同じ給排気構成の機器か？",
+        "answer": "同じではない。",
+        "explanation": "ファンヒーターは開放式の暖房機器であり、FF暖房機は屋外給排気の密閉式機器である。"
       },
       {
-        "question": "浸管式フライヤーは伝熱面積を大きく取れて昇温が速いか？",
-        "answer": "速い。",
-        "explanation": "浸管式は油槽内の熱交換面積を大きく取れ、パルス燃焼式では熱交換効率がさらに高まる。"
+        "question": "ファンヒーターはフィルター詰まり等による過熱時にフィルターサインを出すか？",
+        "answer": "出す。",
+        "explanation": "フィルター詰まりなどで機体が過熱状態になると、過熱検知用サーミスターによりフィルターサインを点滅させる。"
       },
       {
-        "question": "排気ダクト接続型給湯器は排気温度センサー等でダクト火災防止を図るか？",
-        "answer": "図る。",
-        "explanation": "排気温度センサーや潜熱回収による排気温度低減で、ダクトの過熱・火災防止を図る。"
+        "question": "こんろのグリル部にはグリル火災低減機能が搭載されているか？",
+        "answer": "搭載されている。",
+        "explanation": "消し忘れ消火機能に加え、過熱防止機能又は炎あふれ防止機能のいずれか一つ以上が搭載されている。"
       },
       {
-        "question": "簡易貫流ボイラーを複数台連結すると取扱資格が必要になるか？",
-        "answer": "必要になるとは限らない。",
-        "explanation": "簡易ボイラーは取扱資格が特に規定されておらず、複数台連結だけで取扱資格が必要になるわけではない。"
+        "question": "ガス衣類乾燥機には乾燥後に衣類温度を下げる機能があるか？",
+        "answer": "ある。",
+        "explanation": "乾燥運転終了後に衣類温度を下げる冷却運転により、油の付着した衣類等の自然発火を防ぐ。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-      "消費機器「コージェネレーションシステム等（乙種）」の燃料電池CGS、GHP、業務用ガス機器、簡易貫流ボイラーが本問の関連論点。",
-      "試験ポイント: 業務用機器の安全装置・高効率化技術と、ボイラー区分ごとの取扱資格の有無を区別する。"
+      "消費機器「家庭用ガス機器（乙種）」のガス用品指定品目、暖房機器、ファンヒーター安全機能、こんろグリル火災低減機能、ガス衣類乾燥機の冷却運転が本問の関連論点。",
+      "試験ポイント: ファンヒーターは開放式、FF暖房機は密閉式という給排気方式の違いと、家庭用ガス機器の安全・点検機能を区別する。"
     ],
     "sourceExplanationCommonSummary": [
-      "誤っているものは選択肢5のみ。選択肢5は簡易貫流ボイラーを複数台連結すると取扱資格が必要になるとしている点が誤りで、選択肢1〜4はCGS、GHP、フライヤー、排気ダクト接続型給湯器に関する記述として正しい。"
+      "誤っているものは選択肢2のみ。ファンヒーターは開放式暖房機器であり、FF暖房機は屋外給排気の密閉式機器であるため、両者を同じ構成としている点が誤り。選択肢1、3、4、5は家庭用ガス機器に関する記述として正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "燃料電池CGSでは、都市ガス中の硫黄分を脱硫装置で取り除く。"
+        "ガス用品にはガス瞬間湯沸器、ガスストーブ、ガスバーナー付ふろがま、ガスふろバーナー、ガスこんろが指定されている。"
       ],
       [
-        "GHPはガスエンジン排熱を利用でき、外気温低下時の暖房能力低下が比較的小さい。"
+        "ファンヒーターは開放式、FF暖房機は屋外給排気の密閉式であり、同じ給排気構成ではない。"
       ],
       [
-        "浸管式フライヤーは伝熱面積を大きく取れ、パルス燃焼式では昇温性能がさらに向上する。"
+        "ファンヒーターは過熱検知用サーミスターにより、フィルター詰まり時などにフィルターサインを点滅させる。"
       ],
       [
-        "排気ダクト接続型給湯器は排気温度センサーや潜熱回収でダクト火災防止を図る。"
+        "こんろのグリル部には、消し忘れ消火機能に加えて過熱防止機能又は炎あふれ防止機能が搭載されている。"
       ],
       [
-        "簡易ボイラーは取扱資格が特に規定されておらず、複数台連結だけで取扱資格が必要になるわけではない。"
+        "ガス衣類乾燥機は乾燥後に衣類温度を下げ、油分付着衣類等の自然発火を防ぐ。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正しい",
+      "間違い",
       "正しい",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "explanation_common_prefix": [
-      "消費機器「コージェネレーションシステム等（乙種）」の燃料電池CGS、GHP、業務用ガス機器、簡易貫流ボイラーが本問の関連論点。",
-      "試験ポイント: 業務用機器の安全装置・高効率化技術と、ボイラー区分ごとの取扱資格の有無を区別する。"
+      "消費機器「家庭用ガス機器（乙種）」のガス用品指定品目、暖房機器、ファンヒーター安全機能、こんろグリル火災低減機能、ガス衣類乾燥機の冷却運転が本問の関連論点。",
+      "試験ポイント: ファンヒーターは開放式、FF暖房機は密閉式という給排気方式の違いと、家庭用ガス機器の安全・点検機能を区別する。"
     ],
     "explanation_common_summary": [
-      "誤っているものは選択肢5のみ。選択肢5は簡易貫流ボイラーを複数台連結すると取扱資格が必要になるとしている点が誤りで、選択肢1〜4はCGS、GHP、フライヤー、排気ダクト接続型給湯器に関する記述として正しい。"
+      "誤っているものは選択肢2のみ。ファンヒーターは開放式暖房機器であり、FF暖房機は屋外給排気の密閉式機器であるため、両者を同じ構成としている点が誤り。選択肢1、3、4、5は家庭用ガス機器に関する記述として正しい。"
     ],
     "explanation_choice_snippets": [
       [
-        "燃料電池CGSでは、都市ガス中の硫黄分を脱硫装置で取り除く。"
+        "ガス用品にはガス瞬間湯沸器、ガスストーブ、ガスバーナー付ふろがま、ガスふろバーナー、ガスこんろが指定されている。"
       ],
       [
-        "GHPはガスエンジン排熱を利用でき、外気温低下時の暖房能力低下が比較的小さい。"
+        "ファンヒーターは開放式、FF暖房機は屋外給排気の密閉式であり、同じ給排気構成ではない。"
       ],
       [
-        "浸管式フライヤーは伝熱面積を大きく取れ、パルス燃焼式では昇温性能がさらに向上する。"
+        "ファンヒーターは過熱検知用サーミスターにより、フィルター詰まり時などにフィルターサインを点滅させる。"
       ],
       [
-        "排気ダクト接続型給湯器は排気温度センサーや潜熱回収でダクト火災防止を図る。"
+        "こんろのグリル部には、消し忘れ消火機能に加えて過熱防止機能又は炎あふれ防止機能が搭載されている。"
       ],
       [
-        "簡易ボイラーは取扱資格が特に規定されておらず、複数台連結だけで取扱資格が必要になるわけではない。"
+        "ガス衣類乾燥機は乾燥後に衣類温度を下げ、油分付着衣類等の自然発火を防ぐ。"
       ]
     ],
     "explanation_choice_correctness": [
       "正しい",
+      "間違い",
       "正しい",
       "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
-    "questionSetName": "コージェネレーションシステム等（乙種）",
-    "category": "コージェネレーションシステム等（乙種）",
+    "questionSetName": "家庭用ガス機器（乙種）",
+    "category": "家庭用ガス機器（乙種）",
     "reviewStatus": "ok",
-    "workerTaskId": "T644"
+    "workerTaskId": "T645"
   },
-  "nextPendingTaskId": "T645",
-  "nextPendingReviewId": "2023:question_2023_3:1772c8b908134fd6"
+  "nextPendingTaskId": "T646",
+  "nextPendingReviewId": "2023:question_2023_3:c27463fb8f453f0a"
 }
