@@ -598,26 +598,50 @@
       "直動式整圧器におけるメインバルブへのダスト類のかみ込みによる\n締め切り不良\nにより、二次圧力が異常低下した。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。圧力上昇防止装置は、整圧器の故障などで二次側圧力が異常に上昇することを防ぐために用いられる。",
+      "正しい。直動式整圧器でメインバルブシートに不具合があると、締切性が損なわれ、二次側へガスが流入して二次圧力が異常上昇する原因となる。",
+      "正しい。整圧器の能力が不足すると、需要流量に対して十分に圧力を維持できず、二次圧力が異常低下する原因となる。",
+      "正しい。フィルターにダスト類が詰まると通過抵抗が増え、整圧器へ十分なガスが供給されにくくなるため、二次圧力が異常低下する原因となる。",
+      "間違い。直動式整圧器のメインバルブにダスト類がかみ込んで締め切り不良になると、閉止時にも二次側へガスが流入しやすくなり、二次圧力は異常上昇する。異常低下としている点が誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonPrefix": [
+      "供給「整圧器（乙種）」の整圧器故障・能力不足・付属機器詰まりによる二次圧力異常が本問の関連論点。",
+      "二次圧力の異常上昇は締切不良やバルブシート不具合で起こり、異常低下は能力不足やフィルター詰まりで起こる。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "圧力上昇防止装置は二次側圧力の異常上昇防止に用いる。"
+      ],
+      [
+        "メインバルブシート不具合は締切性を損ない、二次圧力異常上昇につながる。"
+      ],
+      [
+        "整圧器能力不足は需要時の二次圧力異常低下につながる。"
+      ],
+      [
+        "フィルター詰まりは通過抵抗増加により二次圧力異常低下につながる。"
+      ],
+      [
+        "メインバルブへのダストかみ込みによる締切不良は二次圧力異常上昇側の原因。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "workerTaskId": "T714",
+    "questionSetId": "chiefgasengineerlicense-B-2020",
+    "questionSetName": "整圧器（乙種）",
+    "category": "整圧器（乙種）",
+    "fixInstructions": ""
   },
   {
     "original_question_id": "494a8e58834dcfe4",
