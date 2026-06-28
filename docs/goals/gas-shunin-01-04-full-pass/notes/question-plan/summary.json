@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T650",
-  "completed": 550,
-  "completed_questions": 550,
-  "done": 427,
+  "activeTaskId": "T651",
+  "completed": 551,
+  "completed_questions": 551,
+  "done": 428,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 427,
+    "done": 428,
     "hold": 123,
-    "pending": 384
+    "pending": 383
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T14:13:25+09:00",
+  "generatedAt": "2026-06-28T14:16:21+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,291 +20,16 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 4 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 4 です。 matches choice 4 being incorrect for select_incorrect.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "マイコンメーターには、ガスメーターの設置場所において250ガルを超える地震動を継続的に検知した場合に、遮断する機能がある。",
-      "中低圧導管では、配管系の地盤変位吸収能力が設計地盤変位を上回ると、耐震性を有すると評価する。",
-      "第1次緊急停止判断の供給停止判断基準値は、供給継続地区の想定被害基数が緊急時対応能力の範囲内に収まるよう、あらかじめ設定する。",
-      "単位ブロックとは、供給停止した地域内のガスの復旧作業を効率的に実施するため\n、供給停止ブロックを更に分割して得られるブロックをいう。",
-      "SI値は、地震によるねじ接合鋼管の被害と相関が高く、供給停止判断基準値として用いられる。"
-    ],
-    "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "explanationText": [
-      "正しい。マイコンメーターには、ガスメーター設置場所で250ガルを超える地震動を継続的に検知した場合にガスを遮断する感震遮断機能がある。",
-      "正しい。中低圧導管の耐震性は、配管系の地盤変位吸収能力と設計地盤変位を比較し、地盤変位吸収能力が設計地盤変位を上回る場合に耐震性を有すると評価する。",
-      "正しい。第1次緊急停止判断の供給停止判断基準値は、供給継続地区の想定被害基数が緊急時対応能力の範囲内に収まるよう、あらかじめ設定される。",
-      "間違い。供給停止した地域内で復旧作業を効率的に行うため、供給停止ブロックをさらに分割して得られるブロックは復旧ブロックである。単位ブロックとしている点が誤り。",
-      "正しい。SI値は地震による一般的な建物の揺れの大きさを評価する指標であり、ガス導管、特にねじ接合鋼管の被害との相関が高いため、供給停止判断基準値として用いられる。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 809,
-    "publicQuestionId": "31aa71a0e3b44918",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:31aa71a0e3b44918",
-    "questionBodyText": "地震対策に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 24,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問18",
-    "questionNo": 18,
-    "questionSetId": "chiefgasengineerlicense-B-2070",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q18",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:31aa71a0e3b44918",
-    "reviewNotes": "T649: 降順ブロック planSequence=809。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=31aa71a0e3b44918。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は選択肢4のみ誤りで選択肢1,2,3,5が正しいことに対応し、correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい] と一致。選択肢4は、供給停止した地域内の復旧作業を効率的に行うため、供給停止ブロックをさらに分割して得られるブロックを単位ブロックとしている点が誤りで、この説明は復旧ブロックに該当する。選択肢1は250ガル超の地震動継続検知時のマイコンメーター遮断、選択肢2は中低圧導管の地盤変位吸収能力と設計地盤変位の比較、選択肢3は第1次緊急停止判断の供給停止判断基準値、選択肢5はSI値とねじ接合鋼管被害の相関・供給停止判断基準値として妥当。questionSetId=chiefgasengineerlicense-B-2070（地震対策（乙種））はcategory.jsonのactive category、および乙種2024/2025同系問18 precedentに基づく。",
-    "reviewQuestionId": "31aa71a0e3b44918",
-    "reviewedAt": "2026-06-28T14:13:25+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "供給",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 18,
-      "subject": "kyokyu",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q18",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kyokyu:q18:s01",
-      "gas-shunin:otsu:2023:kyokyu:q18:s02",
-      "gas-shunin:otsu:2023:kyokyu:q18:s03",
-      "gas-shunin:otsu:2023:kyokyu:q18:s04",
-      "gas-shunin:otsu:2023:kyokyu:q18:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q18",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q18:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "explanation_common_prefix": [
-      "供給「地震対策（乙種）」のマイコンメーター感震遮断、中低圧導管の耐震性評価、第1次緊急停止判断、復旧ブロック、SI値が本問の関連論点。",
-      "試験ポイント: 単位ブロックと復旧ブロックの区別、第1次緊急停止判断の事前基準、SI値の用途を押さえる。"
-    ],
-    "explanation_common_summary": [
-      "誤っているものは選択肢4のみ。選択肢4は供給停止ブロックを復旧作業のために分割したブロックを単位ブロックとしている点が誤りで、これは復旧ブロックの説明である。"
-    ],
-    "explanation_choice_snippets": [
-      [
-        "マイコンメーターは250ガル超の地震動を継続的に検知した場合に遮断する機能を持つ。"
-      ],
-      [
-        "中低圧導管は、地盤変位吸収能力が設計地盤変位を上回る場合に耐震性を有すると評価する。"
-      ],
-      [
-        "第1次緊急停止判断の基準値は、想定被害基数が緊急時対応能力内に収まるよう事前設定する。"
-      ],
-      [
-        "供給停止ブロックを復旧作業のためにさらに分割したものは復旧ブロックであり、単位ブロックではない。"
-      ],
-      [
-        "SI値はガス導管被害との相関が高く、供給停止判断基準値として用いられる。"
-      ]
-    ],
-    "explanation_choice_correctness": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "suggestedQuestions": [
-      "マイコンメーターは250ガル超の地震動を継続検知した場合に遮断する機能があるか？",
-      "中低圧導管は地盤変位吸収能力が設計地盤変位を上回ると耐震性を有すると評価できるか？",
-      "第1次緊急停止判断の基準値は想定被害基数が緊急時対応能力内に収まるよう設定するか？",
-      "供給停止ブロックを復旧作業のためにさらに分割したものを単位ブロックというか？",
-      "SI値は地震による導管被害と相関が高く供給停止判断基準値に用いられるか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "マイコンメーターは250ガル超の地震動を継続検知した場合に遮断する機能があるか？",
-        "answer": "ある。",
-        "explanation": "250ガルを超える地震動を継続的に検知した場合に遮断する感震遮断機能がある。"
-      },
-      {
-        "question": "中低圧導管は地盤変位吸収能力が設計地盤変位を上回ると耐震性を有すると評価できるか？",
-        "answer": "評価できる。",
-        "explanation": "地盤変位吸収能力が設計地盤変位を上回れば、要求される地盤変位に追従できると評価する。"
-      },
-      {
-        "question": "第1次緊急停止判断の基準値は想定被害基数が緊急時対応能力内に収まるよう設定するか？",
-        "answer": "設定する。",
-        "explanation": "供給継続地区の想定被害基数を緊急時対応能力内に抑えるための基準値として事前設定する。"
-      },
-      {
-        "question": "供給停止ブロックを復旧作業のためにさらに分割したものを単位ブロックというか？",
-        "answer": "いわない。",
-        "explanation": "この説明は復旧ブロックであり、単位ブロックではない。"
-      },
-      {
-        "question": "SI値は地震による導管被害と相関が高く供給停止判断基準値に用いられるか？",
-        "answer": "用いられる。",
-        "explanation": "SI値は揺れの大きさを示し、ガス導管被害との相関が高いため供給停止判断に使われる。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "sourceExplanationCommonPrefix": [
-      "供給「地震対策（乙種）」のマイコンメーター感震遮断、中低圧導管の耐震性評価、第1次緊急停止判断、復旧ブロック、SI値が本問の関連論点。",
-      "試験ポイント: 単位ブロックと復旧ブロックの区別、第1次緊急停止判断の事前基準、SI値の用途を押さえる。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "誤っているものは選択肢4のみ。選択肢4は供給停止ブロックを復旧作業のために分割したブロックを単位ブロックとしている点が誤りで、これは復旧ブロックの説明である。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "マイコンメーターは250ガル超の地震動を継続的に検知した場合に遮断する機能を持つ。"
-      ],
-      [
-        "中低圧導管は、地盤変位吸収能力が設計地盤変位を上回る場合に耐震性を有すると評価する。"
-      ],
-      [
-        "第1次緊急停止判断の基準値は、想定被害基数が緊急時対応能力内に収まるよう事前設定する。"
-      ],
-      [
-        "供給停止ブロックを復旧作業のためにさらに分割したものは復旧ブロックであり、単位ブロックではない。"
-      ],
-      [
-        "SI値はガス導管被害との相関が高く、供給停止判断基準値として用いられる。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "category": "地震対策（乙種）",
-    "questionSetName": "地震対策（乙種）",
-    "reviewStatus": "ok",
-    "workerTaskId": "T649"
-  },
-  "nextPending": {
     "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
+      "correctChoiceReason": "answer_result_text=正解は 3 です。 corresponds to the combination of statements 2 and 5 being correct for select_correct.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
       "questionIntentPresent": true,
-      "questionSetIdPresent": false,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -325,7 +50,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "間違い",
       "間違い",
@@ -333,8 +58,14 @@
       "間違い",
       "間違い"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。地中探査レーダーは、地中に向けて電磁波を入射し、埋設管などからの反射波を測定して位置や深さを推定する方法である。埋設管の周囲にできる磁束を測定するとしている点が誤り。",
+      "正しい。接触燃焼式ガス検知器は、ガス中の可燃性ガスを検知でき、識別型のものではメタンの識別も可能である。",
+      "間違い。金属テープによる外面シールは、低圧導管の管体の腐食や損傷による貫通孔に対する漏えい修理方法である。継手の腐食や損傷に対する方法としている点が誤り。",
+      "間違い。他工事事業者と協議して定めた時期に、本支管等の位置や保安措置の実施状況を相互確認するものは立会である。巡回としている点が誤り。",
+      "正しい。内面樹脂ライニング工法は、エポキシ樹脂を管内壁に沿って搬送し、管内壁にライニング膜を形成して漏えい箇所を修理する工法である。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -376,20 +107,20 @@
     "questionIntent": "select_correct",
     "questionLabel": "問17",
     "questionNo": 17,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-2060",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q17",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_2:57ca9e4aa50688e0",
-    "reviewNotes": "",
+    "reviewNotes": "T650: 降順ブロック planSequence=808。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=57ca9e4aa50688e0。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 3 です。は正しい記述が選択肢2・5である組合せに対応し、correctChoiceText=[間違い, 正しい, 間違い, 間違い, 正しい] と一致。選択肢1は地中探査レーダーを磁束測定としている点、選択肢3は金属テープ外面シールの対象を継手としている点、選択肢4は他工事管理の立会を巡回としている点が誤り。選択肢2は接触燃焼式ガス検知器、選択肢5は内面樹脂ライニング工法として、乙種2025および甲種2021/2022/2023の導管維持管理precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-2060（導管の維持管理（乙種））はcategory.jsonのactive category、および乙種2025同系precedentに基づく。",
     "reviewQuestionId": "57ca9e4aa50688e0",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T14:16:21+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "供給",
@@ -460,19 +191,288 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "explanation_common_prefix": [
+      "供給「導管の維持管理（乙種）」の埋設管探査、ガス検知器、漏えい修理、他工事管理、内面樹脂ライニング工法が本問の関連論点。",
+      "試験ポイント: 地中探査レーダーの原理、外面シールの適用対象、他工事管理の巡回と立会の違いを区別する。"
+    ],
+    "explanation_common_summary": [
+      "正しい記述は選択肢2と5で、その組合せが正解3に対応する。選択肢1は磁束ではなく電磁波の反射、選択肢3は継手ではなく低圧導管の管体貫通孔、選択肢4は巡回ではなく立会である点が誤り。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "地中探査レーダーは、地中へ入射した電磁波の反射を測定して埋設位置を探査する。"
+      ],
+      [
+        "接触燃焼式ガス検知器は可燃性ガスを検知でき、識別型ではメタンの識別も可能である。"
+      ],
+      [
+        "金属テープによる外面シールは、低圧導管の管体貫通孔に対する漏えい修理方法である。"
+      ],
+      [
+        "他工事事業者と保安措置などを相互確認するものは立会である。"
+      ],
+      [
+        "内面樹脂ライニング工法は管内壁にライニング膜を形成して漏えい箇所を修理する。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "suggestedQuestions": [
+      "地中探査レーダーは磁束を測定して埋設管位置を推定するか？",
+      "接触燃焼式ガス検知器は可燃性ガス検知とメタン識別が可能か？",
+      "金属テープによる外面シールは低圧導管の継手腐食・損傷の貫通孔修理方法か？",
+      "他工事管理で相互確認する行為は巡回か？",
+      "内面樹脂ライニング工法は管内壁にライニング膜を形成して漏えい箇所を修理するか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "地中探査レーダーは磁束を測定して埋設管位置を推定するか？",
+        "answer": "推定しない。",
+        "explanation": "地中探査レーダーは電磁波の反射を測定する方法であり、磁束を測定するものではない。"
+      },
+      {
+        "question": "接触燃焼式ガス検知器は可燃性ガス検知とメタン識別が可能か？",
+        "answer": "可能である。",
+        "explanation": "接触燃焼式ガス検知器は可燃性ガスを検知し、識別型ではメタンの識別もできる。"
+      },
+      {
+        "question": "金属テープによる外面シールは低圧導管の継手腐食・損傷の貫通孔修理方法か？",
+        "answer": "違う。",
+        "explanation": "金属テープによる外面シールは低圧導管の管体貫通孔に対する方法であり、継手としている点が誤り。"
+      },
+      {
+        "question": "他工事管理で相互確認する行為は巡回か？",
+        "answer": "巡回ではない。",
+        "explanation": "相互確認する行為は立会であり、巡回としている点が誤り。"
+      },
+      {
+        "question": "内面樹脂ライニング工法は管内壁にライニング膜を形成して漏えい箇所を修理するか？",
+        "answer": "修理する。",
+        "explanation": "樹脂を管内壁に搬送してライニング膜を形成する更生修理工法である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の維持管理（乙種）」の埋設管探査、ガス検知器、漏えい修理、他工事管理、内面樹脂ライニング工法が本問の関連論点。",
+      "試験ポイント: 地中探査レーダーの原理、外面シールの適用対象、他工事管理の巡回と立会の違いを区別する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正しい記述は選択肢2と5で、その組合せが正解3に対応する。選択肢1は磁束ではなく電磁波の反射、選択肢3は継手ではなく低圧導管の管体貫通孔、選択肢4は巡回ではなく立会である点が誤り。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "地中探査レーダーは、地中へ入射した電磁波の反射を測定して埋設位置を探査する。"
+      ],
+      [
+        "接触燃焼式ガス検知器は可燃性ガスを検知でき、識別型ではメタンの識別も可能である。"
+      ],
+      [
+        "金属テープによる外面シールは、低圧導管の管体貫通孔に対する漏えい修理方法である。"
+      ],
+      [
+        "他工事事業者と保安措置などを相互確認するものは立会である。"
+      ],
+      [
+        "内面樹脂ライニング工法は管内壁にライニング膜を形成して漏えい箇所を修理する。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "category": "導管の維持管理（乙種）",
+    "questionSetName": "導管の維持管理（乙種）",
+    "reviewStatus": "ok",
+    "workerTaskId": "T650"
+  },
+  "nextPending": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "溶接部の名称で\n熱影響部\nとは、溶接中に溶融固着した金属のことで、溶加材及び母材が溶け合ったものである。",
+      "被覆アーク溶接棒の被覆剤は、溶接金属の凝固速度を緩やかにし、上向きその他種々の位置の溶接を容易にする。",
+      "ティグ溶接は、溶融池の熱のみでワイヤを溶融させるため、\n溶接速度が速い\n。",
+      "浸透探傷試験は、金属、非金属の幅広い材料の\n内部きず\nを調べることができる。",
+      "磁粉探傷試験は、放射線透過試験や超音波探傷試験に比して、非常に簡便であるが、\n表面きずは検知できない\n。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 807,
+    "publicQuestionId": "28aee6c5fa69ffbe",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:28aee6c5fa69ffbe",
+    "questionBodyText": "溶接と非破壊検査に関する次の記述のうち、正しいものはどれか。",
+    "questionIndexInFile": 22,
+    "questionIntent": "select_correct",
+    "questionLabel": "問16",
+    "questionNo": 16,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q16",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:28aee6c5fa69ffbe",
+    "reviewNotes": "",
+    "reviewQuestionId": "28aee6c5fa69ffbe",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "供給",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 16,
+      "subject": "kyokyu",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q16",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:kyokyu:q16:s01",
+      "gas-shunin:otsu:2023:kyokyu:q16:s02",
+      "gas-shunin:otsu:2023:kyokyu:q16:s03",
+      "gas-shunin:otsu:2023:kyokyu:q16:s04",
+      "gas-shunin:otsu:2023:kyokyu:q16:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q16",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 808,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:57ca9e4aa50688e0",
-  "nextPendingReviewId": "2023:question_2023_2:57ca9e4aa50688e0",
-  "nextPendingTaskId": "T650",
-  "otsuCompleted": 138,
-  "otsuDone": 117,
+  "nextPendingPlanSequence": 807,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:28aee6c5fa69ffbe",
+  "nextPendingReviewId": "2023:question_2023_2:28aee6c5fa69ffbe",
+  "nextPendingTaskId": "T651",
+  "otsuCompleted": 139,
+  "otsuDone": 118,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 384,
-  "pending": 384,
-  "pending_questions": 384,
+  "otsuPending": 383,
+  "pending": 383,
+  "pending_questions": 383,
   "total": 934,
   "total_questions": 934
 }
