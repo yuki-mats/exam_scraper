@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T679",
-  "completed": 579,
-  "completedQuestions": 579,
-  "completed_questions": 579,
-  "done": 456,
+  "activeTaskId": "T680",
+  "completed": 580,
+  "completedQuestions": 580,
+  "completed_questions": 580,
+  "done": 457,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 456,
+    "done": 457,
     "hold": 123,
-    "pending": 355
+    "pending": 354
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T17:29:36+09:00",
+  "generatedAt": "2026-06-28T17:35:48+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_and_carnot_cycle_efficiency",
+      "correctChoiceReason": "manual_reviewed_against_site_answer_result_and_dalton_partial_pressure_calculation",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -37,17 +37,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "10",
-      "30",
+      "20",
       "50",
-      "70",
-      "90"
+      "100",
+      "150",
+      "180"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
       "正解",
+      "不正解",
+      "不正解",
+      "不正解",
       "不正解"
     ],
     "correctChoiceTextCount": 5,
@@ -55,18 +55,18 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
       "正解",
+      "不正解",
+      "不正解",
+      "不正解",
       "不正解"
     ],
     "explanationText": [
-      "不正解。カルノーサイクルの熱効率は、受け取った熱量に対する取り出した仕事の割合である。仕事は700J-200J=500Jなので、熱効率は500/700×100≒71%となり、10%ではない。",
-      "不正解。低温熱源へ放出した200Jだけを基準にするのではなく、高温熱源から受け取った700Jを基準にする。熱効率は500/700×100≒71%であり、30%ではない。",
-      "不正解。仕事は700J-200J=500Jだが、熱効率は仕事500Jを受熱量700Jで割って求めるため、500/700×100≒71%となる。50%はこの比と合わない。",
-      "正解。高温熱源から受け取った熱量700Jのうち、低温熱源へ200Jを放出するので、取り出した仕事は500Jである。熱効率は500/700×100≒71%となり、最も近い値は70%である。",
-      "不正解。90%となるには、受熱量700Jに対して630J程度の仕事を取り出す必要がある。本問の仕事は500Jなので、熱効率は約71%である。"
+      "正解。分圧は全圧にモル分率を掛けて求める。質量基準でメタンと水素が同量なので、メタンの物質量はm/16、水素はm/2=8m/16、合計は9m/16である。メタンのモル分率は1/9となり、分圧は200×1/9≈22.2kPaで、最も近い20kPaが正解である。",
+      "不正解。50kPaは、質量比50%をそのまま分圧比に近い値として扱うような見積りであり、本問では使えない。分圧は質量分率ではなくモル分率で決まり、メタンの分圧は約22.2kPaである。",
+      "不正解。100kPaは全圧200kPaの半分だが、質量比が50%でもモル分率が50%になるわけではない。水素は分子量が小さいため物質量が多く、メタンのモル分率は1/9にとどまる。",
+      "不正解。150kPaはメタンのモル分率を大きく見積もりすぎている。メタンと水素が同質量なら、分子量の小さい水素のモル数が多いため、メタンの分圧は約22.2kPaである。",
+      "不正解。180kPaは全圧200kPaの大部分をメタンが占める場合の値に近い。本問ではメタンのモル分率は1/9なので、分圧は約22.2kPaであり、180kPaではない。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -100,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 780,
-    "publicQuestionId": "6ab574a1b1cc1bbc",
+    "planSequence": 779,
+    "publicQuestionId": "392f19d3a43ca556",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
-    "questionBodyText": "カルノーサイクルにおいて、高温熱源から700Jの熱を受け取り、低温熱源に200Jの熱を放出して仕事を取り出した。このときの熱効率(%)として、最も近い値はどれか。",
-    "questionIndexInFile": 20,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
+    "questionBodyText": "質量基準でメタン50%と水素50%の混合ガスの全圧が200kPaであるときのメタンの分圧(kPa)として、最も近い値はどれか。",
+    "questionIndexInFile": 19,
     "questionIntent": "select_correct",
-    "questionLabel": "問4",
-    "questionNo": 4,
-    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionLabel": "問3",
+    "questionNo": 3,
+    "questionSetId": "chiefgasengineerlicense-B-2090",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
-    "reviewNotes": "T678: 降順ブロック planSequence=780。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=6ab574a1b1cc1bbc。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 4 です。と correctChoiceText=[不正解, 不正解, 不正解, 正解, 不正解] が一致。カルノーサイクルの熱効率は η=(Q1-Q2)/Q1=(700-200)/700=500/700≒0.714、約71%であり、最も近い選択肢4の70%を正解と確認。04は category.json の active category と乙種熱力学先例に合わせ、chiefgasengineerlicense-B-2100（熱力学（乙種））を選択。",
-    "reviewQuestionId": "6ab574a1b1cc1bbc",
-    "reviewedAt": "2026-06-28T17:30:36+09:00",
+    "reviewId": "2023:question_2023_1:392f19d3a43ca556",
+    "reviewNotes": "T679: 降順ブロック planSequence=779。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=392f19d3a43ca556。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct、answer_result_text=正解は 1 です。と correctChoiceText=[正解, 不正解, 不正解, 不正解, 不正解] が一致。ダルトンの分圧法則より分圧は全圧×モル分率で求める。質量基準でメタンと水素が同量なら n_CH4=m/16、n_H2=m/2 で、メタンのモル分率は1/9。したがってメタン分圧は200×1/9≈22.2kPaとなり、選択肢1の20kPaを正解と確認。04は category.json の active category と2024/2025乙種の物性・混合気体先例に合わせ、chiefgasengineerlicense-B-2090（物性・基礎（乙種））を選択。",
+    "reviewQuestionId": "392f19d3a43ca556",
+    "reviewedAt": "2026-06-28T17:35:48+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -136,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 3,
       "subject": "kiso",
       "year": 2023
     },
@@ -145,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q04",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q03",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q04:s01",
-      "gas-shunin:otsu:2023:kiso:q04:s02",
-      "gas-shunin:otsu:2023:kiso:q04:s03",
-      "gas-shunin:otsu:2023:kiso:q04:s04",
-      "gas-shunin:otsu:2023:kiso:q04:s05"
+      "gas-shunin:otsu:2023:kiso:q03:s01",
+      "gas-shunin:otsu:2023:kiso:q03:s02",
+      "gas-shunin:otsu:2023:kiso:q03:s03",
+      "gas-shunin:otsu:2023:kiso:q03:s04",
+      "gas-shunin:otsu:2023:kiso:q03:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s05",
         "statementNo": 5
       }
     ],
@@ -195,123 +195,129 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "sourceExplanationChoiceCorrectness": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+    "category": "物性・基礎（乙種）",
+    "questionSetName": "物性・基礎（乙種）",
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T08:35:48Z",
+    "questionIntentReviewedAt": "2026-06-28T08:35:48Z",
+    "correctChoiceReviewedAt": "2026-06-28T08:35:48Z",
+    "explanationReviewedAt": "2026-06-28T08:35:48Z",
+    "questionSetReviewedAt": "2026-06-28T08:35:48Z",
+    "workerTaskId": "T679",
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の混合気体、モル分率、ダルトンの分圧法則が本問の関連論点。",
+      "混合気体の分圧は、全圧にその成分のモル分率を掛けて求める。質量分率をそのまま分圧比にしてはならない。",
+      "本問では同質量のメタンと水素について、メタンのモル分率は (m/16)/(m/16+m/2)=1/9 となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "メタンのモル分率は1/9なので、分圧は200×1/9≈22.2kPa。最も近い20kPaが正解。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "10%は500/700×100≒71%と合わない。"
+        "20kPaは計算値200×1/9≈22.2kPaに最も近い。"
       ],
       [
-        "30%は受熱量700Jを基準にした熱効率ではない。"
+        "50kPaは質量分率を分圧比に近く扱った値で、本問のモル分率計算と合わない。"
       ],
       [
-        "50%は仕事500Jを受熱量700Jで割った値ではない。"
+        "100kPaは全圧の半分だが、メタンのモル分率は1/2ではない。"
       ],
       [
-        "(700-200)/700×100≒71%で、70%が最も近い。"
+        "150kPaはメタンのモル分率を過大に見積もっている。"
       ],
       [
-        "90%は本問の仕事500Jからは過大である。"
+        "180kPaは計算値約22.2kPaより大きすぎる。"
       ]
     ],
-    "sourceExplanationCommonPrefix": [
-      "基礎理論「熱力学（乙種）」のカルノーサイクル、熱効率、熱量収支が本問の関連論点。",
-      "熱機関の熱効率は、取り出した仕事を高温熱源から受け取った熱量で割って求める。",
-      "本問では仕事 W=Q1-Q2=700J-200J=500J であり、η=W/Q1=500/700≒0.714 となる。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "カルノーサイクルの熱効率は η=(Q1-Q2)/Q1。700J受熱し200J放熱するので、η=500/700≒71%で、70%が最も近い。"
+    "sourceExplanationChoiceCorrectness": [
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "suggestedQuestions": [
-      "熱効率は何を何で割るか？",
-      "本問で取り出した仕事はいくらか？",
-      "本問の熱効率は何%か？",
-      "70%が正解になる計算は？",
-      "90%を選ばない理由は？"
+      "混合気体の分圧はどう求める？",
+      "同質量のメタンと水素でメタンのモル分率はいくつか？",
+      "本問のメタン分圧は何kPaか？",
+      "20kPaが正解になる理由は？",
+      "質量分率をそのまま分圧比に使えるか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "熱効率は何を何で割るか？",
-        "answer": "取り出した仕事を高温熱源から受け取った熱量で割る。",
-        "explanation": "熱機関の熱効率は η=W/Q1 で表される。"
+        "question": "混合気体の分圧はどう求める？",
+        "answer": "全圧にその成分のモル分率を掛ける。",
+        "explanation": "ダルトンの分圧法則では、成分分圧は全圧とモル分率の積で求める。"
       },
       {
-        "question": "本問で取り出した仕事はいくらか？",
-        "answer": "500J。",
-        "explanation": "高温熱源から700Jを受け取り、低温熱源へ200Jを放出するので、差し引き500Jが仕事になる。"
+        "question": "同質量のメタンと水素でメタンのモル分率はいくつか？",
+        "answer": "1/9。",
+        "explanation": "メタンの物質量はm/16、水素はm/2=8m/16なので、メタンは全体9m/16のうちm/16である。"
       },
       {
-        "question": "本問の熱効率は何%か？",
-        "answer": "約71%。",
-        "explanation": "η=(700-200)/700=500/700≒0.714である。"
+        "question": "本問のメタン分圧は何kPaか？",
+        "answer": "約22.2kPa。",
+        "explanation": "全圧200kPaにメタンのモル分率1/9を掛ける。"
       },
       {
-        "question": "70%が正解になる計算は？",
-        "answer": "500/700×100≒71%。",
-        "explanation": "選択肢では71%に最も近い70%を選ぶ。"
+        "question": "20kPaが正解になる理由は？",
+        "answer": "計算値約22.2kPaに最も近いため。",
+        "explanation": "選択肢では20kPaが22.2kPaに最も近い。"
       },
       {
-        "question": "90%を選ばない理由は？",
-        "answer": "本問の仕事500Jでは熱効率は約71%にしかならないため。",
-        "explanation": "90%なら700Jの受熱に対して約630Jの仕事が必要であり、条件と合わない。"
+        "question": "質量分率をそのまま分圧比に使えるか？",
+        "answer": "使えない。",
+        "explanation": "分圧は質量分率ではなくモル分率に比例するため、分子量を使って物質量に換算する必要がある。"
       }
     ],
-    "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T17:30:36+09:00",
-    "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-28T17:30:36+09:00",
-    "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-28T17:30:36+09:00",
-    "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-28T17:30:36+09:00",
-    "questionSetReviewStatus": "ok",
-    "questionSetReviewedAt": "2026-06-28T17:30:36+09:00",
-    "workerTaskId": "T678",
-    "category": "熱力学（乙種）",
-    "questionSetName": "熱力学（乙種）",
     "lawGroundedExplanationNotNeeded": true
   },
-  "lastCompletedReviewQuestionId": "6ab574a1b1cc1bbc",
-  "lastCompletedTaskId": "T678",
-  "nextActiveTaskId": "T679",
+  "lastCompletedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
+  "lastCompletedTaskId": "T679",
+  "nextActiveTaskId": "T680",
   "nextPending": {
     "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "20",
-      "50",
-      "100",
-      "150",
-      "180"
+      "常圧での気体の粘度は、液体の粘度に比べて小さく、\n温度の上昇とともに減少する\n。",
+      "ヘンリーの法則によれば、溶解度が小さい場合、一定温度で一定質量の液体に溶解する気体の質量は、気体の圧力に比例する。",
+      "相変化を伴わない物質の温度変化により吸収又は放出される熱を顕熱、相変化に伴い吸収又は放出される熱を潜熱という。",
+      "沸騰が続いている間に液体が吸収する熱量を蒸発熱という。",
+      "実在気体は、高温あるいは低圧の条件では、理想気体に近い性状を示す。"
     ],
     "correctChoiceText": [
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -345,28 +351,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 779,
-    "publicQuestionId": "392f19d3a43ca556",
+    "planSequence": 778,
+    "publicQuestionId": "541e84af270d3acf",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
-    "questionBodyText": "質量基準でメタン50%と水素50%の混合ガスの全圧が200kPaであるときのメタンの分圧(kPa)として、最も近い値はどれか。",
-    "questionIndexInFile": 19,
-    "questionIntent": "",
-    "questionLabel": "問3",
-    "questionNo": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:541e84af270d3acf",
+    "questionBodyText": "気体の諸性質及び気体の状態変化に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 18,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問2",
+    "questionNo": 2,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q2",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:392f19d3a43ca556",
+    "reviewId": "2023:question_2023_1:541e84af270d3acf",
     "reviewNotes": "",
-    "reviewQuestionId": "392f19d3a43ca556",
+    "reviewQuestionId": "541e84af270d3acf",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -381,7 +387,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 3,
+      "questionNo": 2,
       "subject": "kiso",
       "year": 2023
     },
@@ -390,45 +396,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q03",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q02",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q03:s01",
-      "gas-shunin:otsu:2023:kiso:q03:s02",
-      "gas-shunin:otsu:2023:kiso:q03:s03",
-      "gas-shunin:otsu:2023:kiso:q03:s04",
-      "gas-shunin:otsu:2023:kiso:q03:s05"
+      "gas-shunin:otsu:2023:kiso:q02:s01",
+      "gas-shunin:otsu:2023:kiso:q02:s02",
+      "gas-shunin:otsu:2023:kiso:q02:s03",
+      "gas-shunin:otsu:2023:kiso:q02:s04",
+      "gas-shunin:otsu:2023:kiso:q02:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q2",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s05",
         "statementNo": 5
       }
     ],
@@ -441,42 +447,48 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 779,
-  "nextPendingPublicQuestionId": "392f19d3a43ca556",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
+  "nextPendingPlanSequence": 778,
+  "nextPendingPublicQuestionId": "541e84af270d3acf",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:541e84af270d3acf",
   "nextPendingQuestion": {
     "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "20",
-      "50",
-      "100",
-      "150",
-      "180"
+      "常圧での気体の粘度は、液体の粘度に比べて小さく、\n温度の上昇とともに減少する\n。",
+      "ヘンリーの法則によれば、溶解度が小さい場合、一定温度で一定質量の液体に溶解する気体の質量は、気体の圧力に比例する。",
+      "相変化を伴わない物質の温度変化により吸収又は放出される熱を顕熱、相変化に伴い吸収又は放出される熱を潜熱という。",
+      "沸騰が続いている間に液体が吸収する熱量を蒸発熱という。",
+      "実在気体は、高温あるいは低圧の条件では、理想気体に近い性状を示す。"
     ],
     "correctChoiceText": [
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -510,28 +522,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 779,
-    "publicQuestionId": "392f19d3a43ca556",
+    "planSequence": 778,
+    "publicQuestionId": "541e84af270d3acf",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
-    "questionBodyText": "質量基準でメタン50%と水素50%の混合ガスの全圧が200kPaであるときのメタンの分圧(kPa)として、最も近い値はどれか。",
-    "questionIndexInFile": 19,
-    "questionIntent": "",
-    "questionLabel": "問3",
-    "questionNo": 3,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:541e84af270d3acf",
+    "questionBodyText": "気体の諸性質及び気体の状態変化に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 18,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問2",
+    "questionNo": 2,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q2",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:392f19d3a43ca556",
+    "reviewId": "2023:question_2023_1:541e84af270d3acf",
     "reviewNotes": "",
-    "reviewQuestionId": "392f19d3a43ca556",
+    "reviewQuestionId": "541e84af270d3acf",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -546,7 +558,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 3,
+      "questionNo": 2,
       "subject": "kiso",
       "year": 2023
     },
@@ -555,45 +567,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q03",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q02",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q03:s01",
-      "gas-shunin:otsu:2023:kiso:q03:s02",
-      "gas-shunin:otsu:2023:kiso:q03:s03",
-      "gas-shunin:otsu:2023:kiso:q03:s04",
-      "gas-shunin:otsu:2023:kiso:q03:s05"
+      "gas-shunin:otsu:2023:kiso:q02:s01",
+      "gas-shunin:otsu:2023:kiso:q02:s02",
+      "gas-shunin:otsu:2023:kiso:q02:s03",
+      "gas-shunin:otsu:2023:kiso:q02:s04",
+      "gas-shunin:otsu:2023:kiso:q02:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q2",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q02:s05",
         "statementNo": 5
       }
     ],
@@ -606,16 +618,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:392f19d3a43ca556",
-  "nextPendingTaskId": "T679",
-  "otsuCompleted": 167,
-  "otsuDone": 146,
+  "nextPendingReviewId": "2023:question_2023_1:541e84af270d3acf",
+  "nextPendingTaskId": "T680",
+  "otsuCompleted": 168,
+  "otsuDone": 147,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 355,
-  "pending": 355,
-  "pendingQuestions": 355,
-  "pending_questions": 355,
+  "otsuPending": 354,
+  "pending": 354,
+  "pendingQuestions": 354,
+  "pending_questions": 354,
   "total": 934,
   "total_questions": 934
 }

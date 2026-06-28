@@ -681,18 +681,72 @@
       "180"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。分圧は全圧にモル分率を掛けて求める。質量基準でメタンと水素が同量なので、メタンの物質量はm/16、水素はm/2=8m/16、合計は9m/16である。メタンのモル分率は1/9となり、分圧は200×1/9≈22.2kPaで、最も近い20kPaが正解である。",
+      "不正解。50kPaは、質量比50%をそのまま分圧比に近い値として扱うような見積りであり、本問では使えない。分圧は質量分率ではなくモル分率で決まり、メタンの分圧は約22.2kPaである。",
+      "不正解。100kPaは全圧200kPaの半分だが、質量比が50%でもモル分率が50%になるわけではない。水素は分子量が小さいため物質量が多く、メタンのモル分率は1/9にとどまる。",
+      "不正解。150kPaはメタンのモル分率を大きく見積もりすぎている。メタンと水素が同質量なら、分子量の小さい水素のモル数が多いため、メタンの分圧は約22.2kPaである。",
+      "不正解。180kPaは全圧200kPaの大部分をメタンが占める場合の値に近い。本問ではメタンのモル分率は1/9なので、分圧は約22.2kPaであり、180kPaではない。"
+    ],
+    "suggestedQuestions": [
+      "混合気体の分圧はどう求める？",
+      "同質量のメタンと水素でメタンのモル分率はいくつか？",
+      "本問のメタン分圧は何kPaか？",
+      "20kPaが正解になる理由は？",
+      "質量分率をそのまま分圧比に使えるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "混合気体の分圧はどう求める？",
+        "answer": "全圧にその成分のモル分率を掛ける。",
+        "explanation": "ダルトンの分圧法則では、成分分圧は全圧とモル分率の積で求める。"
+      },
+      {
+        "question": "同質量のメタンと水素でメタンのモル分率はいくつか？",
+        "answer": "1/9。",
+        "explanation": "メタンの物質量はm/16、水素はm/2=8m/16なので、メタンは全体9m/16のうちm/16である。"
+      },
+      {
+        "question": "本問のメタン分圧は何kPaか？",
+        "answer": "約22.2kPa。",
+        "explanation": "全圧200kPaにメタンのモル分率1/9を掛ける。"
+      },
+      {
+        "question": "20kPaが正解になる理由は？",
+        "answer": "計算値約22.2kPaに最も近いため。",
+        "explanation": "選択肢では20kPaが22.2kPaに最も近い。"
+      },
+      {
+        "question": "質量分率をそのまま分圧比に使えるか？",
+        "answer": "使えない。",
+        "explanation": "分圧は質量分率ではなくモル分率に比例するため、分子量を使って物質量に換算する必要がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の混合気体、モル分率、ダルトンの分圧法則が本問の関連論点。",
+      "混合気体の分圧は、全圧にその成分のモル分率を掛けて求める。質量分率をそのまま分圧比にしてはならない。",
+      "本問では同質量のメタンと水素について、メタンのモル分率は (m/16)/(m/16+m/2)=1/9 となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "メタンのモル分率は1/9なので、分圧は200×1/9≈22.2kPa。最も近い20kPaが正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "20kPaは計算値200×1/9≈22.2kPaに最も近い。"
+      ],
+      [
+        "50kPaは質量分率を分圧比に近く扱った値で、本問のモル分率計算と合わない。"
+      ],
+      [
+        "100kPaは全圧の半分だが、メタンのモル分率は1/2ではない。"
+      ],
+      [
+        "150kPaはメタンのモル分率を過大に見積もっている。"
+      ],
+      [
+        "180kPaは計算値約22.2kPaより大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -700,7 +754,10 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "workerTaskId": "T679"
   },
   {
     "original_question_id": "6ab574a1b1cc1bbc",
