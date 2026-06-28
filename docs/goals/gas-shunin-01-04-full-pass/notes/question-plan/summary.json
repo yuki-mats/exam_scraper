@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T678",
-  "completed": 578,
-  "completedQuestions": 578,
-  "completed_questions": 578,
-  "done": 455,
+  "activeTaskId": "T679",
+  "completed": 579,
+  "completedQuestions": 579,
+  "completed_questions": 579,
+  "done": 456,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 455,
+    "done": 456,
     "hold": 123,
-    "pending": 356
+    "pending": 355
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T17:23:53+09:00",
+  "generatedAt": "2026-06-28T17:29:36+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -27,7 +27,7 @@
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_and_constant_volume_heat_calculation",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_carnot_cycle_efficiency",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,17 +35,14 @@
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
     },
-    "category": "熱力学（乙種）",
     "choiceCount": 5,
     "choiceTextList": [
-      "18",
-      "28",
-      "35",
+      "10",
+      "30",
+      "50",
       "70",
-      "105"
+      "90"
     ],
-    "correctChoiceReviewStatus": "ok",
-    "correctChoiceReviewedAt": "2026-06-28T17:22:24+09:00",
     "correctChoiceText": [
       "不正解",
       "不正解",
@@ -64,14 +61,12 @@
       "正解",
       "不正解"
     ],
-    "explanationReviewStatus": "ok",
-    "explanationReviewedAt": "2026-06-28T17:22:24+09:00",
     "explanationText": [
-      "不正解。容積一定で空気を加熱する場合、必要熱量は Q=mCvΔT で求める。m=2kg、Cv=0.7kJ/(kg K)、ΔT=50K なので Q=70kJ となり、18kJではない。",
-      "不正解。温度上昇は350-300=50Kであり、Q=2×0.7×50=70kJである。28kJはこの計算結果より小さい。",
-      "不正解。35kJは、質量2kgを考慮しない場合に近い値である。本問では質量2kgなので、0.7×50にさらに2を掛けて70kJとなる。",
-      "正解。容積一定の加熱では定積比熱容量を用い、Q=mCvΔT=2×0.7×(350-300)=70kJとなる。したがって最も近い値は70kJである。",
-      "不正解。105kJは計算値70kJより大きい。定積比熱容量0.7kJ/(kg K)、質量2kg、温度差50Kから必要熱量は70kJである。"
+      "不正解。カルノーサイクルの熱効率は、受け取った熱量に対する取り出した仕事の割合である。仕事は700J-200J=500Jなので、熱効率は500/700×100≒71%となり、10%ではない。",
+      "不正解。低温熱源へ放出した200Jだけを基準にするのではなく、高温熱源から受け取った700Jを基準にする。熱効率は500/700×100≒71%であり、30%ではない。",
+      "不正解。仕事は700J-200J=500Jだが、熱効率は仕事500Jを受熱量700Jで割って求めるため、500/700×100≒71%となる。50%はこの比と合わない。",
+      "正解。高温熱源から受け取った熱量700Jのうち、低温熱源へ200Jを放出するので、取り出した仕事は500Jである。熱効率は500/700×100≒71%となり、最も近い値は70%である。",
+      "不正解。90%となるには、受熱量700Jに対して630J程度の仕事を取り出す必要がある。本問の仕事は500Jなので、熱効率は約71%である。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -80,7 +75,6 @@
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
-    "lawGroundedExplanationNotNeeded": true,
     "listGroupId": "2023",
     "mustPreserve": [
       "00_source_question_body_and_choices",
@@ -106,36 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 781,
-    "publicQuestionId": "1e61aec7c290f5fe",
+    "planSequence": 780,
+    "publicQuestionId": "6ab574a1b1cc1bbc",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
-    "questionBodyText": "容積一定の断熱容器に入れた温度300K、質量2kgの空気を加熱して350Kにするために必要な熱量(kJ)として、最も近い値はどれか。ただし、空気の定積比熱容量Cv = 0.7 kJ/(kg·K)とする。",
-    "questionIndexInFile": 21,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
+    "questionBodyText": "カルノーサイクルにおいて、高温熱源から700Jの熱を受け取り、低温熱源に200Jの熱を放出して仕事を取り出した。このときの熱効率(%)として、最も近い値はどれか。",
+    "questionIndexInFile": 20,
     "questionIntent": "select_correct",
-    "questionIntentReviewStatus": "ok",
-    "questionIntentReviewedAt": "2026-06-28T17:22:24+09:00",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "questionLabel": "問4",
+    "questionNo": 4,
     "questionSetId": "chiefgasengineerlicense-B-2100",
-    "questionSetName": "熱力学（乙種）",
-    "questionSetReviewStatus": "ok",
-    "questionSetReviewedAt": "2026-06-28T17:22:24+09:00",
     "questionType": "group_choice",
-    "questionTypeReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T17:22:24+09:00",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:1e61aec7c290f5fe",
-    "reviewNotes": "T677: 降順ブロック planSequence=781。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=1e61aec7c290f5fe。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 4 です。と correctChoiceText=[不正解, 不正解, 不正解, 正解, 不正解] が一致。容積一定の加熱では Q=mCvΔT を用い、m=2kg、Cv=0.7kJ/(kg K)、ΔT=350-300=50K より Q=2×0.7×50=70kJ。選択肢4を正解と確認。04は category.json の active category と2025乙種の同種定積比熱計算先例に合わせ、chiefgasengineerlicense-B-2100（熱力学（乙種））を選択。",
-    "reviewQuestionId": "1e61aec7c290f5fe",
-    "reviewedAt": "2026-06-28T17:22:24+09:00",
+    "reviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
+    "reviewNotes": "T678: 降順ブロック planSequence=780。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=6ab574a1b1cc1bbc。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 4 です。と correctChoiceText=[不正解, 不正解, 不正解, 正解, 不正解] が一致。カルノーサイクルの熱効率は η=(Q1-Q2)/Q1=(700-200)/700=500/700≒0.714、約71%であり、最も近い選択肢4の70%を正解と確認。04は category.json の active category と乙種熱力学先例に合わせ、chiefgasengineerlicense-B-2100（熱力学（乙種））を選択。",
+    "reviewQuestionId": "6ab574a1b1cc1bbc",
+    "reviewedAt": "2026-06-28T17:30:36+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -143,6 +130,71 @@
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceFileIndex": 19,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 4,
+      "subject": "kiso",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q04",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:kiso:q04:s01",
+      "gas-shunin:otsu:2023:kiso:q04:s02",
+      "gas-shunin:otsu:2023:kiso:q04:s03",
+      "gas-shunin:otsu:2023:kiso:q04:s04",
+      "gas-shunin:otsu:2023:kiso:q04:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
       "不正解",
@@ -152,135 +204,83 @@
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "18kJはQ=mCvΔT=70kJと合わない。"
+        "10%は500/700×100≒71%と合わない。"
       ],
       [
-        "28kJは質量・温度差・定積比熱をすべて掛けた値ではない。"
+        "30%は受熱量700Jを基準にした熱効率ではない。"
       ],
       [
-        "35kJは1kg分の熱量であり、2kgの条件を反映していない。"
+        "50%は仕事500Jを受熱量700Jで割った値ではない。"
       ],
       [
-        "2×0.7×50=70kJで、選択肢4が最も近い。"
+        "(700-200)/700×100≒71%で、70%が最も近い。"
       ],
       [
-        "105kJは計算値70kJを上回る。"
+        "90%は本問の仕事500Jからは過大である。"
       ]
     ],
     "sourceExplanationCommonPrefix": [
-      "基礎理論「熱力学（乙種）」の定積加熱、定積比熱容量、内部エネルギー変化が本問の関連論点。",
-      "容積一定の加熱では、仕事を伴わないため加えた熱量は主に内部エネルギー増加に対応し、Q=mCvΔT で求める。",
-      "温度差はKでも℃差でも同じ大きさになり、本問では350K-300K=50Kである。"
+      "基礎理論「熱力学（乙種）」のカルノーサイクル、熱効率、熱量収支が本問の関連論点。",
+      "熱機関の熱効率は、取り出した仕事を高温熱源から受け取った熱量で割って求める。",
+      "本問では仕事 W=Q1-Q2=700J-200J=500J であり、η=W/Q1=500/700≒0.714 となる。"
     ],
     "sourceExplanationCommonSummary": [
-      "容積一定の加熱なので Q=mCvΔT。2kg×0.7kJ/(kg K)×50K=70kJ。"
+      "カルノーサイクルの熱効率は η=(Q1-Q2)/Q1。700J受熱し200J放熱するので、η=500/700≒71%で、70%が最も近い。"
     ],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "sourceFileIndex": 19,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 5,
-      "subject": "kiso",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q05",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q05:s01",
-      "gas-shunin:otsu:2023:kiso:q05:s02",
-      "gas-shunin:otsu:2023:kiso:q05:s03",
-      "gas-shunin:otsu:2023:kiso:q05:s04",
-      "gas-shunin:otsu:2023:kiso:q05:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    "suggestedQuestions": [
+      "熱効率は何を何で割るか？",
+      "本問で取り出した仕事はいくらか？",
+      "本問の熱効率は何%か？",
+      "70%が正解になる計算は？",
+      "90%を選ばない理由は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "answer": "定積比熱容量Cvを用いる。",
-        "explanation": "容積一定なので定圧比熱ではなく、問題文で与えられたCvを使う。",
-        "question": "容積一定の加熱で用いる比熱は？"
+        "question": "熱効率は何を何で割るか？",
+        "answer": "取り出した仕事を高温熱源から受け取った熱量で割る。",
+        "explanation": "熱機関の熱効率は η=W/Q1 で表される。"
       },
       {
-        "answer": "50K。",
-        "explanation": "350K-300K=50Kである。",
-        "question": "本問の温度差はいくらか？"
+        "question": "本問で取り出した仕事はいくらか？",
+        "answer": "500J。",
+        "explanation": "高温熱源から700Jを受け取り、低温熱源へ200Jを放出するので、差し引き500Jが仕事になる。"
       },
       {
-        "answer": "Q=mCvΔT。",
-        "explanation": "容積一定での加熱では、質量、定積比熱容量、温度差を掛ける。",
-        "question": "必要熱量の計算式は？"
+        "question": "本問の熱効率は何%か？",
+        "answer": "約71%。",
+        "explanation": "η=(700-200)/700=500/700≒0.714である。"
       },
       {
-        "answer": "70kJ。",
-        "explanation": "2×0.7×50=70kJ。",
-        "question": "本問の必要熱量はいくらか？"
+        "question": "70%が正解になる計算は？",
+        "answer": "500/700×100≒71%。",
+        "explanation": "選択肢では71%に最も近い70%を選ぶ。"
       },
       {
-        "answer": "質量2kgを反映していないため。",
-        "explanation": "0.7×50=35kJは1kg分であり、2kgなら70kJになる。",
-        "question": "35kJが不正解になる理由は？"
+        "question": "90%を選ばない理由は？",
+        "answer": "本問の仕事500Jでは熱効率は約71%にしかならないため。",
+        "explanation": "90%なら700Jの受熱に対して約630Jの仕事が必要であり、条件と合わない。"
       }
     ],
-    "suggestedQuestions": [
-      "容積一定の加熱で用いる比熱は？",
-      "本問の温度差はいくらか？",
-      "必要熱量の計算式は？",
-      "本問の必要熱量はいくらか？",
-      "35kJが不正解になる理由は？"
-    ],
-    "workerTaskId": "T677"
+    "questionTypeReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T17:30:36+09:00",
+    "correctChoiceReviewStatus": "ok",
+    "correctChoiceReviewedAt": "2026-06-28T17:30:36+09:00",
+    "questionIntentReviewStatus": "ok",
+    "questionIntentReviewedAt": "2026-06-28T17:30:36+09:00",
+    "explanationReviewStatus": "ok",
+    "explanationReviewedAt": "2026-06-28T17:30:36+09:00",
+    "questionSetReviewStatus": "ok",
+    "questionSetReviewedAt": "2026-06-28T17:30:36+09:00",
+    "workerTaskId": "T678",
+    "category": "熱力学（乙種）",
+    "questionSetName": "熱力学（乙種）",
+    "lawGroundedExplanationNotNeeded": true
   },
-  "lastCompletedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
-  "lastCompletedTaskId": "T677",
-  "nextActiveTaskId": "T678",
+  "lastCompletedReviewQuestionId": "6ab574a1b1cc1bbc",
+  "lastCompletedTaskId": "T678",
+  "nextActiveTaskId": "T679",
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -294,17 +294,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "10",
-      "30",
+      "20",
       "50",
-      "70",
-      "90"
+      "100",
+      "150",
+      "180"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
       "正解",
+      "不正解",
+      "不正解",
+      "不正解",
       "不正解"
     ],
     "correctChoiceTextCount": 5,
@@ -345,28 +345,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 780,
-    "publicQuestionId": "6ab574a1b1cc1bbc",
+    "planSequence": 779,
+    "publicQuestionId": "392f19d3a43ca556",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
-    "questionBodyText": "カルノーサイクルにおいて、高温熱源から700Jの熱を受け取り、低温熱源に200Jの熱を放出して仕事を取り出した。このときの熱効率(%)として、最も近い値はどれか。",
-    "questionIndexInFile": 20,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
+    "questionBodyText": "質量基準でメタン50%と水素50%の混合ガスの全圧が200kPaであるときのメタンの分圧(kPa)として、最も近い値はどれか。",
+    "questionIndexInFile": 19,
     "questionIntent": "",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "questionLabel": "問3",
+    "questionNo": 3,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
+    "reviewId": "2023:question_2023_1:392f19d3a43ca556",
     "reviewNotes": "",
-    "reviewQuestionId": "6ab574a1b1cc1bbc",
+    "reviewQuestionId": "392f19d3a43ca556",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -381,7 +381,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 3,
       "subject": "kiso",
       "year": 2023
     },
@@ -390,45 +390,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q04",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q03",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q04:s01",
-      "gas-shunin:otsu:2023:kiso:q04:s02",
-      "gas-shunin:otsu:2023:kiso:q04:s03",
-      "gas-shunin:otsu:2023:kiso:q04:s04",
-      "gas-shunin:otsu:2023:kiso:q04:s05"
+      "gas-shunin:otsu:2023:kiso:q03:s01",
+      "gas-shunin:otsu:2023:kiso:q03:s02",
+      "gas-shunin:otsu:2023:kiso:q03:s03",
+      "gas-shunin:otsu:2023:kiso:q03:s04",
+      "gas-shunin:otsu:2023:kiso:q03:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s05",
         "statementNo": 5
       }
     ],
@@ -441,11 +441,11 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 780,
-  "nextPendingPublicQuestionId": "6ab574a1b1cc1bbc",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
+  "nextPendingPlanSequence": 779,
+  "nextPendingPublicQuestionId": "392f19d3a43ca556",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -459,17 +459,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "10",
-      "30",
+      "20",
       "50",
-      "70",
-      "90"
+      "100",
+      "150",
+      "180"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
       "正解",
+      "不正解",
+      "不正解",
+      "不正解",
       "不正解"
     ],
     "correctChoiceTextCount": 5,
@@ -510,28 +510,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 780,
-    "publicQuestionId": "6ab574a1b1cc1bbc",
+    "planSequence": 779,
+    "publicQuestionId": "392f19d3a43ca556",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ab574a1b1cc1bbc",
-    "questionBodyText": "カルノーサイクルにおいて、高温熱源から700Jの熱を受け取り、低温熱源に200Jの熱を放出して仕事を取り出した。このときの熱効率(%)として、最も近い値はどれか。",
-    "questionIndexInFile": 20,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:392f19d3a43ca556",
+    "questionBodyText": "質量基準でメタン50%と水素50%の混合ガスの全圧が200kPaであるときのメタンの分圧(kPa)として、最も近い値はどれか。",
+    "questionIndexInFile": 19,
     "questionIntent": "",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "questionLabel": "問3",
+    "questionNo": 3,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
+    "reviewId": "2023:question_2023_1:392f19d3a43ca556",
     "reviewNotes": "",
-    "reviewQuestionId": "6ab574a1b1cc1bbc",
+    "reviewQuestionId": "392f19d3a43ca556",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -546,7 +546,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 3,
       "subject": "kiso",
       "year": 2023
     },
@@ -555,45 +555,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q04",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q03",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q04:s01",
-      "gas-shunin:otsu:2023:kiso:q04:s02",
-      "gas-shunin:otsu:2023:kiso:q04:s03",
-      "gas-shunin:otsu:2023:kiso:q04:s04",
-      "gas-shunin:otsu:2023:kiso:q04:s05"
+      "gas-shunin:otsu:2023:kiso:q03:s01",
+      "gas-shunin:otsu:2023:kiso:q03:s02",
+      "gas-shunin:otsu:2023:kiso:q03:s03",
+      "gas-shunin:otsu:2023:kiso:q03:s04",
+      "gas-shunin:otsu:2023:kiso:q03:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q4",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q3",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q04:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q03:s05",
         "statementNo": 5
       }
     ],
@@ -606,16 +606,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:6ab574a1b1cc1bbc",
-  "nextPendingTaskId": "T678",
-  "otsuCompleted": 166,
-  "otsuDone": 145,
+  "nextPendingReviewId": "2023:question_2023_1:392f19d3a43ca556",
+  "nextPendingTaskId": "T679",
+  "otsuCompleted": 167,
+  "otsuDone": 146,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 356,
-  "pending": 356,
-  "pendingQuestions": 356,
-  "pending_questions": 356,
+  "otsuPending": 355,
+  "pending": 355,
+  "pendingQuestions": 355,
+  "pending_questions": 355,
   "total": 934,
   "total_questions": 934
 }

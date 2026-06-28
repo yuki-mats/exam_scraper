@@ -718,18 +718,72 @@
       "90"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。カルノーサイクルの熱効率は、受け取った熱量に対する取り出した仕事の割合である。仕事は700J-200J=500Jなので、熱効率は500/700×100≒71%となり、10%ではない。",
+      "不正解。低温熱源へ放出した200Jだけを基準にするのではなく、高温熱源から受け取った700Jを基準にする。熱効率は500/700×100≒71%であり、30%ではない。",
+      "不正解。仕事は700J-200J=500Jだが、熱効率は仕事500Jを受熱量700Jで割って求めるため、500/700×100≒71%となる。50%はこの比と合わない。",
+      "正解。高温熱源から受け取った熱量700Jのうち、低温熱源へ200Jを放出するので、取り出した仕事は500Jである。熱効率は500/700×100≒71%となり、最も近い値は70%である。",
+      "不正解。90%となるには、受熱量700Jに対して630J程度の仕事を取り出す必要がある。本問の仕事は500Jなので、熱効率は約71%である。"
+    ],
+    "suggestedQuestions": [
+      "熱効率は何を何で割るか？",
+      "本問で取り出した仕事はいくらか？",
+      "本問の熱効率は何%か？",
+      "70%が正解になる計算は？",
+      "90%を選ばない理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "熱効率は何を何で割るか？",
+        "answer": "取り出した仕事を高温熱源から受け取った熱量で割る。",
+        "explanation": "熱機関の熱効率は η=W/Q1 で表される。"
+      },
+      {
+        "question": "本問で取り出した仕事はいくらか？",
+        "answer": "500J。",
+        "explanation": "高温熱源から700Jを受け取り、低温熱源へ200Jを放出するので、差し引き500Jが仕事になる。"
+      },
+      {
+        "question": "本問の熱効率は何%か？",
+        "answer": "約71%。",
+        "explanation": "η=(700-200)/700=500/700≒0.714である。"
+      },
+      {
+        "question": "70%が正解になる計算は？",
+        "answer": "500/700×100≒71%。",
+        "explanation": "選択肢では71%に最も近い70%を選ぶ。"
+      },
+      {
+        "question": "90%を選ばない理由は？",
+        "answer": "本問の仕事500Jでは熱効率は約71%にしかならないため。",
+        "explanation": "90%なら700Jの受熱に対して約630Jの仕事が必要であり、条件と合わない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」のカルノーサイクル、熱効率、熱量収支が本問の関連論点。",
+      "熱機関の熱効率は、取り出した仕事を高温熱源から受け取った熱量で割って求める。",
+      "本問では仕事 W=Q1-Q2=700J-200J=500J であり、η=W/Q1=500/700≒0.714 となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "カルノーサイクルの熱効率は η=(Q1-Q2)/Q1。700J受熱し200J放熱するので、η=500/700≒71%で、70%が最も近い。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "10%は500/700×100≒71%と合わない。"
+      ],
+      [
+        "30%は受熱量700Jを基準にした熱効率ではない。"
+      ],
+      [
+        "50%は仕事500Jを受熱量700Jで割った値ではない。"
+      ],
+      [
+        "(700-200)/700×100≒71%で、70%が最も近い。"
+      ],
+      [
+        "90%は本問の仕事500Jからは過大である。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -737,7 +791,10 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）",
+    "workerTaskId": "T678"
   },
   {
     "original_question_id": "1e61aec7c290f5fe",
