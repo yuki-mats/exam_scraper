@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T693",
-  "completed": 593,
-  "completedQuestions": 593,
-  "completed_questions": 593,
-  "done": 463,
+  "activeTaskId": "T694",
+  "completed": 594,
+  "completedQuestions": 594,
+  "completed_questions": 594,
+  "done": 464,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 463,
+    "done": 464,
     "hold": 130,
-    "pending": 341
+    "pending": 340
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T19:20:43+09:00",
+  "generatedAt": "2026-06-28T19:26:00+09:00",
   "heldQuestions": 130,
   "held_questions": 130,
   "hold": 130,
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_text_and_official_egov_gas_business_act",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_text_archived_marked_text_and_official_egov_laws",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -37,17 +37,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "工事の計画の届出をした一般ガス導管事業者は、その届出が受理された日から30日を経過した後でなければ、その届出に係る工事を開始してはならない。\nただし、その工事が経済産業省令で定める軽微なものであるときは、この限りでない\n。",
-      "経済産業大臣は、工事の計画が経済産業省令で定める技術上の基準に適合していないと認めるときは、一般ガス導管事業者に対し、\nその届出が提出された日から30日以内\nに限り、その工事の計画を変更し、又は廃止すべきことを命ずることができる。",
-      "一般ガス導管事業者は、経済産業省令で定めるものの工事について自主検査を行い、その結果について登録ガス工作物検査機関が行う検査を受け、これに合格した後でなければ、これを使用してはならない。ただし、経済産業省令で定める場合は、この限りでない。",
-      "使用前自主検査の記録には、自主検査の結果に基づいて補修等の措置を講じたときは、その内容を記載しなければならない。\nただし、その補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない\n。",
-      "一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物であって経済産業省令で定めるものについては、経済産業省令で定めるところにより、定期に、自主検査を行い、その検査記録を作成し、\n経済産業大臣に届け出なければならない\n。"
+      "ガス小売事業者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者、又は経済産業省令で定める実務の経験を有するものの\nいずれかのうちから\n、ガス主任技術者を選任し、ガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安の監督をさせなければならない。",
+      "乙種ガス主任技術者免状の交付を受けている者は、最高使用圧力が中圧及び低圧のガス工作物及び高圧の移動式ガス発生設備の保安について監督をすることができる。",
+      "一般ガス導管事業者は、ガス主任技術者を選任したときは、遅滞なく、その旨を経済産業大臣に届け出なければならない。これを解任したときも、同様とする。",
+      "経済産業大臣は、一般ガス導管事業者に対しガス主任技術者の解任を、ガス主任技術者免状の交付を受けている者に対しそのガス主任技術者免状の返納を命ずることができる。",
+      "経済産業大臣は、この法律の施行に必要な限度において、\n登録ガス工作物検査機関\nの職員に、ガス事業者の営業所、事務所その他の事業場に立ち入り、帳簿、書類その他の物件を検査させることができる。"
     ],
     "correctChoiceText": [
       "間違い",
-      "間違い",
       "正しい",
-      "間違い",
+      "正しい",
+      "正しい",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -56,17 +56,17 @@
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "間違い",
-      "間違い",
       "正しい",
-      "間違い",
+      "正しい",
+      "正しい",
       "間違い"
     ],
     "explanationText": [
-      "間違い。ガス事業法第68条第3項は、工事計画の届出をした者はその届出が受理された日から30日を経過した後でなければ工事を開始できないと定めているが、同項に軽微な工事を例外とするただし書はない。軽微な変更に関する例外は同条第2項ただし書の論点である。",
-      "間違い。ガス事業法第68条第5項は、経済産業大臣が工事計画の変更又は廃止を命ずることができる期間を「その届出を受理した日から30日以内」と定めている。提出された日からではない。",
-      "正しい。ガス事業法第69条第1項は、一般ガス導管事業者が経済産業省令で定める工事について自主検査を行い、登録を受けた者が行う検査を受け、これに合格した後でなければ使用できないと定めている。",
-      "間違い。ガス事業法施行規則第104条第1項第6号は、使用前自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録事項とすると定めているが、軽微な補修等を除外するただし書はない。",
-      "間違い。ガス事業法第71条は、一般ガス導管事業者が定期に自主検査を行い、その検査記録を作成し、これを保存しなければならないと定めている。経済産業大臣への届出ではない。"
+      "間違い。ガス事業法第25条第1項は、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務経験を有するもののうちからガス主任技術者を選任すると定めている。免状保持者又は実務経験者のいずれかでよい、という記述ではない。",
+      "正しい。ガス事業法施行規則第30条の表は、乙種ガス主任技術者免状で監督できる範囲に、最高使用圧力が中圧及び低圧のガス工作物と、最高使用圧力が高圧の移動式ガス発生設備を含めている。",
+      "正しい。ガス事業法第65条第2項は、一般ガス導管事業者がガス主任技術者を選任又は解任したときは、遅滞なく経済産業大臣に届け出なければならないと定めている。",
+      "正しい。ガス事業法第67条は、経済産業大臣が一般ガス導管事業者に対しガス主任技術者の解任を命ずることができると定め、第27条はガス主任技術者免状の返納を命ずることができると定めている。",
+      "間違い。ガス事業法第172条第1項は、経済産業大臣がその職員にガス事業者の営業所等へ立ち入らせ、帳簿・書類その他の物件を検査させることができると定めている。登録ガス工作物検査機関の職員がガス事業者の事業場に立ち入るわけではない。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -100,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 766,
-    "publicQuestionId": "974d4a9453af90a2",
+    "planSequence": 765,
+    "publicQuestionId": "1c3669ce585cfe99",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:974d4a9453af90a2",
-    "questionBodyText": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
-    "questionIndexInFile": 6,
-    "questionIntent": "select_correct",
-    "questionLabel": "問6",
-    "questionNo": 6,
-    "questionSetId": "chiefgasengineerlicense-B-1170",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:1c3669ce585cfe99",
+    "questionBodyText": "法令で規定されているガス主任技術者と立入検査に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 5,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問5",
+    "questionNo": 5,
+    "questionSetId": "chiefgasengineerlicense-B-1160",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q6",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q5",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:974d4a9453af90a2",
-    "reviewNotes": "T692: gassyunin site sourceConflictStatus=none; site-only publicQuestionId=974d4a9453af90a2; 00_source body/choices preserved. questionType=true_false and questionIntent=select_correct verified against the prompt asking how many statements are correct. answer_result_text=正解は 1 です。 means exactly one statement is correct and matches correctChoiceText=[間違い, 間違い, 正しい, 間違い, 間違い]. 03 explanationText completed per choice from e-Gov ガス事業法 第68条第3項・第5項、第69条第1項、第71条 and ガス事業法施行規則 第104条第1項第6号. 04 questionSetId=chiefgasengineerlicense-B-1170（工事計画及び検査（乙種）） selected from category.json because all statements concern construction plans, pre-use inspection, or periodic self-inspection.",
-    "reviewQuestionId": "974d4a9453af90a2",
-    "reviewedAt": "2026-06-28T19:19:46+09:00",
+    "reviewId": "2023:question_2023_1:1c3669ce585cfe99",
+    "reviewNotes": "T693: gassyunin site sourceConflictStatus=none; site-only publicQuestionId=1c3669ce585cfe99; 00_source body/choices preserved. questionType=true_false because each statement is judged correct/incorrect; questionIntent=select_incorrect because the prompt asks for the combination of incorrect statements. answer_result_text=正解は 2 です。 plus archived marked text confirms false statements are イ and ホ, matching correctChoiceText=[間違い, 正しい, 正しい, 正しい, 間違い]. 03 explanationText completed per choice from e-Gov ガス事業法 第25条第1項、第65条第2項、第67条、第27条、第172条第1項 and ガス事業法施行規則 第30条. 04 questionSetId=chiefgasengineerlicense-B-1160（ガス主任技術者（乙種）） selected from active category.json and same-topic 2025 otsu precedent; the single立入検査 statement is ancillary to the ガス主任技術者-focused problem.",
+    "reviewQuestionId": "1c3669ce585cfe99",
+    "reviewedAt": "2026-06-28T19:27:01+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -136,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 6,
+      "questionNo": 5,
       "subject": "law",
       "year": 2023
     },
@@ -145,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q06",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q06:s01",
-      "gas-shunin:otsu:2023:law:q06:s02",
-      "gas-shunin:otsu:2023:law:q06:s03",
-      "gas-shunin:otsu:2023:law:q06:s04",
-      "gas-shunin:otsu:2023:law:q06:s05"
+      "gas-shunin:otsu:2023:law:q05:s01",
+      "gas-shunin:otsu:2023:law:q05:s02",
+      "gas-shunin:otsu:2023:law:q05:s03",
+      "gas-shunin:otsu:2023:law:q05:s04",
+      "gas-shunin:otsu:2023:law:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q6",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s05",
         "statementNo": 5
       }
     ],
@@ -195,120 +195,114 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "category": "工事計画及び検査（乙種）",
+    "category": "ガス主任技術者（乙種）",
     "sourceExplanationChoiceCorrectness": [
       "間違い",
-      "間違い",
       "正しい",
-      "間違い",
+      "正しい",
+      "正しい",
       "間違い"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "ガス事業法第68条第3項: 届出が受理された日から30日経過後でなければ工事を開始できない。"
+        "ガス事業法第25条第1項: 免状の交付を受けている者であって実務経験を有するものから選任する。"
       ],
       [
-        "ガス事業法第68条第5項: 変更又は廃止命令は届出を受理した日から30日以内。"
+        "ガス事業法施行規則第30条: 乙種免状の監督範囲に中圧・低圧のガス工作物と高圧の移動式ガス発生設備が含まれる。"
       ],
       [
-        "ガス事業法第69条第1項: 自主検査を行い、登録を受けた者が行う検査に合格した後でなければ使用できない。"
+        "ガス事業法第65条第2項: 選任・解任したときは遅滞なく届け出る。"
       ],
       [
-        "ガス事業法施行規則第104条第1項第6号: 補修等の措置を講じたときはその内容を記録する。"
+        "ガス事業法第67条: 解任命令。第27条: 免状返納命令。"
       ],
       [
-        "ガス事業法第71条: 定期自主検査の検査記録を作成し保存する。"
+        "ガス事業法第172条第1項: 経済産業大臣がその職員に立入検査をさせる。"
       ]
     ],
     "sourceExplanationCommonPrefix": [
-      "ガス事業法の工事計画、使用前検査、定期自主検査が本問の関連論点。",
-      "設問は正しい記述の数を問う形式で、answer_result_text の「正解は 1」は正しい記述が1つであることに対応する。",
-      "第68条第3項・第5項、第69条第1項、第71条、ガス事業法施行規則第104条第1項第6号を確認した。"
+      "ガス主任技術者の選任・免状・監督範囲・解任命令と、ガス事業法上の立入検査が本問の関連論点。",
+      "設問は誤っている記述の組合せを問う形式で、archived marked text と answer_result_text の「正解は 2」はイ・ホが誤りである組合せに対応する。",
+      "e-Gov条文では、ガス事業法第25条第1項、第65条第2項、第67条、第27条、第172条第1項、ガス事業法施行規則第30条を確認した。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢3のみが正しい。選択肢1は着工制限に軽微工事例外を付けている点、選択肢2は受理日を提出日にしている点、選択肢4は補修等記録に軽微例外を付けている点、選択肢5は検査記録の保存を経済産業大臣への届出にしている点が誤り。"
+      "イは免状保持者又は実務経験者のいずれかとしている点が誤り。ロは乙種免状の監督範囲に高圧の移動式ガス発生設備が含まれるため正しい。ハは選任・解任時の遅滞ない届出として正しい。ニは解任命令と免状返納命令の組合せとして正しい。ホは立入検査の主体を登録ガス工作物検査機関の職員としている点が誤り。"
     ],
     "suggestedQuestions": [
-      "工事計画届出後の着工制限に軽微工事の例外はあるか？",
-      "工事計画変更命令の30日以内は提出日か受理日か？",
-      "使用前検査で必要な自主検査と登録機関検査は？",
-      "使用前自主検査記録で補修等の内容に軽微例外はあるか？",
-      "定期自主検査の検査記録は届出か保存か？"
+      "ガス主任技術者の選任は免状保持者又は実務経験者のどちらかで足りるか？",
+      "乙種免状で高圧の移動式ガス発生設備を監督できるか？",
+      "一般ガス導管事業者はガス主任技術者の選任・解任をいつ届け出るか？",
+      "経済産業大臣は解任命令と免状返納命令を出せるか？",
+      "ガス事業法の立入検査を行う主体は誰か？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "工事計画届出後の着工制限に軽微工事の例外はあるか？",
-        "answer": "ガス事業法第68条第3項には軽微工事の例外はない。",
-        "explanation": "同項は受理日から30日経過後の着工制限を定める。軽微な変更の例外は第68条第2項ただし書であり、着工制限そのものの例外ではない。"
+        "question": "ガス主任技術者の選任は免状保持者又は実務経験者のどちらかで足りるか？",
+        "answer": "足りない。免状の交付を受けている者で、必要な実務経験を有するものから選任する。",
+        "explanation": "第25条第1項は「免状保持者又は実務経験者」ではなく、免状保持を前提に実務経験要件を課す形で規定している。"
       },
       {
-        "question": "工事計画変更命令の30日以内は提出日か受理日か？",
-        "answer": "受理した日から30日以内。",
-        "explanation": "第68条第5項は「その届出を受理した日から三十日以内」と定めている。"
+        "question": "乙種免状で高圧の移動式ガス発生設備を監督できるか？",
+        "answer": "できる。",
+        "explanation": "施行規則第30条の乙種欄には、最高使用圧力が高圧の移動式ガス発生設備が含まれる。"
       },
       {
-        "question": "使用前検査で必要な自主検査と登録機関検査は？",
-        "answer": "自主検査を行い、登録を受けた者が行う検査に合格してから使用する。",
-        "explanation": "第69条第1項は使用前検査の基本要件を定めている。"
+        "question": "一般ガス導管事業者はガス主任技術者の選任・解任をいつ届け出るか？",
+        "answer": "選任又は解任したときは遅滞なく届け出る。",
+        "explanation": "第65条第2項が一般ガス導管事業者の選任・解任届出を定めている。"
       },
       {
-        "question": "使用前自主検査記録で補修等の内容に軽微例外はあるか？",
-        "answer": "軽微例外はない。補修等の措置を講じたときはその内容を記録する。",
-        "explanation": "施行規則第104条第1項第6号は補修等の内容を記録事項とするが、軽微なものを除くとは定めていない。"
+        "question": "経済産業大臣は解任命令と免状返納命令を出せるか？",
+        "answer": "出せる。",
+        "explanation": "第67条がガス主任技術者の解任命令、第27条がガス主任技術者免状の返納命令を定めている。"
       },
       {
-        "question": "定期自主検査の検査記録は届出か保存か？",
-        "answer": "保存。",
-        "explanation": "第71条は検査記録を作成し、これを保存しなければならないと定める。"
+        "question": "ガス事業法の立入検査を行う主体は誰か？",
+        "answer": "経済産業大臣の職員。",
+        "explanation": "第172条第1項は経済産業大臣がその職員に立入検査をさせると定めており、登録ガス工作物検査機関の職員ではない。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
-    "taskId": "T692",
-    "workerTaskId": "T692",
-    "completedAt": "2026-06-28T19:19:46+09:00"
+    "taskId": "T693",
+    "workerTaskId": "T693",
+    "completedAt": "2026-06-28T19:27:01+09:00"
   },
-  "lastCompletedReviewQuestionId": "974d4a9453af90a2",
-  "lastCompletedTaskId": "T692",
-  "nextActiveTaskId": "T693",
+  "lastCompletedReviewQuestionId": "1c3669ce585cfe99",
+  "lastCompletedTaskId": "T693",
+  "nextActiveTaskId": "T694",
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガス小売事業者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者、又は経済産業省令で定める実務の経験を有するものの\nいずれかのうちから\n、ガス主任技術者を選任し、ガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安の監督をさせなければならない。",
-      "乙種ガス主任技術者免状の交付を受けている者は、最高使用圧力が中圧及び低圧のガス工作物及び高圧の移動式ガス発生設備の保安について監督をすることができる。",
-      "一般ガス導管事業者は、ガス主任技術者を選任したときは、遅滞なく、その旨を経済産業大臣に届け出なければならない。これを解任したときも、同様とする。",
-      "経済産業大臣は、一般ガス導管事業者に対しガス主任技術者の解任を、ガス主任技術者免状の交付を受けている者に対しそのガス主任技術者免状の返納を命ずることができる。",
-      "経済産業大臣は、この法律の施行に必要な限度において、\n登録ガス工作物検査機関\nの職員に、ガス事業者の営業所、事務所その他の事業場に立ち入り、帳簿、書類その他の物件を検査させることができる。"
+      "ガスの供給に支障を及ぼした事故であって、供給支障戸数が500以上のもの",
+      "工事中のガス工作物(ガス栓を除く。)の損壊により人が負傷した事故",
+      "製造支障時間が5時間以上\nの製造支障事故",
+      "ガス栓の損壊によりガス栓から漏えいしたガスに引火することにより、発生した負傷事故",
+      "消費機器から漏えいしたガスに引火することにより、発生した負傷事故"
     ],
     "correctChoiceText": [
+      "正しい",
+      "正しい",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -342,28 +336,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 765,
-    "publicQuestionId": "1c3669ce585cfe99",
+    "planSequence": 764,
+    "publicQuestionId": "4e2e4af72d3c96aa",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1c3669ce585cfe99",
-    "questionBodyText": "法令で規定されているガス主任技術者と立入検査に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 5,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:4e2e4af72d3c96aa",
+    "questionBodyText": "次のガス事故のうち、ガス事故速報及びガス事故詳報を報告することが法令で規定されていないものはどれか。 ただし、台風、高潮、洪水、津波、地すべりその他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。",
+    "questionIndexInFile": 4,
+    "questionIntent": "",
+    "questionLabel": "問4",
+    "questionNo": 4,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q5",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q4",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:1c3669ce585cfe99",
+    "reviewId": "2023:question_2023_1:4e2e4af72d3c96aa",
     "reviewNotes": "",
-    "reviewQuestionId": "1c3669ce585cfe99",
+    "reviewQuestionId": "4e2e4af72d3c96aa",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -378,7 +372,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 4,
       "subject": "law",
       "year": 2023
     },
@@ -387,45 +381,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q04",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q05:s01",
-      "gas-shunin:otsu:2023:law:q05:s02",
-      "gas-shunin:otsu:2023:law:q05:s03",
-      "gas-shunin:otsu:2023:law:q05:s04",
-      "gas-shunin:otsu:2023:law:q05:s05"
+      "gas-shunin:otsu:2023:law:q04:s01",
+      "gas-shunin:otsu:2023:law:q04:s02",
+      "gas-shunin:otsu:2023:law:q04:s03",
+      "gas-shunin:otsu:2023:law:q04:s04",
+      "gas-shunin:otsu:2023:law:q04:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q5",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q4",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s05",
         "statementNo": 5
       }
     ],
@@ -438,48 +432,42 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 765,
-  "nextPendingPublicQuestionId": "1c3669ce585cfe99",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:1c3669ce585cfe99",
+  "nextPendingPlanSequence": 764,
+  "nextPendingPublicQuestionId": "4e2e4af72d3c96aa",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:4e2e4af72d3c96aa",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガス小売事業者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者、又は経済産業省令で定める実務の経験を有するものの\nいずれかのうちから\n、ガス主任技術者を選任し、ガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安の監督をさせなければならない。",
-      "乙種ガス主任技術者免状の交付を受けている者は、最高使用圧力が中圧及び低圧のガス工作物及び高圧の移動式ガス発生設備の保安について監督をすることができる。",
-      "一般ガス導管事業者は、ガス主任技術者を選任したときは、遅滞なく、その旨を経済産業大臣に届け出なければならない。これを解任したときも、同様とする。",
-      "経済産業大臣は、一般ガス導管事業者に対しガス主任技術者の解任を、ガス主任技術者免状の交付を受けている者に対しそのガス主任技術者免状の返納を命ずることができる。",
-      "経済産業大臣は、この法律の施行に必要な限度において、\n登録ガス工作物検査機関\nの職員に、ガス事業者の営業所、事務所その他の事業場に立ち入り、帳簿、書類その他の物件を検査させることができる。"
+      "ガスの供給に支障を及ぼした事故であって、供給支障戸数が500以上のもの",
+      "工事中のガス工作物(ガス栓を除く。)の損壊により人が負傷した事故",
+      "製造支障時間が5時間以上\nの製造支障事故",
+      "ガス栓の損壊によりガス栓から漏えいしたガスに引火することにより、発生した負傷事故",
+      "消費機器から漏えいしたガスに引火することにより、発生した負傷事故"
     ],
     "correctChoiceText": [
+      "正しい",
+      "正しい",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -513,28 +501,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 765,
-    "publicQuestionId": "1c3669ce585cfe99",
+    "planSequence": 764,
+    "publicQuestionId": "4e2e4af72d3c96aa",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:1c3669ce585cfe99",
-    "questionBodyText": "法令で規定されているガス主任技術者と立入検査に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 5,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問5",
-    "questionNo": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:4e2e4af72d3c96aa",
+    "questionBodyText": "次のガス事故のうち、ガス事故速報及びガス事故詳報を報告することが法令で規定されていないものはどれか。 ただし、台風、高潮、洪水、津波、地すべりその他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。",
+    "questionIndexInFile": 4,
+    "questionIntent": "",
+    "questionLabel": "問4",
+    "questionNo": 4,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q5",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q4",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:1c3669ce585cfe99",
+    "reviewId": "2023:question_2023_1:4e2e4af72d3c96aa",
     "reviewNotes": "",
-    "reviewQuestionId": "1c3669ce585cfe99",
+    "reviewQuestionId": "4e2e4af72d3c96aa",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -549,7 +537,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
+      "questionNo": 4,
       "subject": "law",
       "year": 2023
     },
@@ -558,45 +546,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q05",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q04",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q05:s01",
-      "gas-shunin:otsu:2023:law:q05:s02",
-      "gas-shunin:otsu:2023:law:q05:s03",
-      "gas-shunin:otsu:2023:law:q05:s04",
-      "gas-shunin:otsu:2023:law:q05:s05"
+      "gas-shunin:otsu:2023:law:q04:s01",
+      "gas-shunin:otsu:2023:law:q04:s02",
+      "gas-shunin:otsu:2023:law:q04:s03",
+      "gas-shunin:otsu:2023:law:q04:s04",
+      "gas-shunin:otsu:2023:law:q04:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q5",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q4",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q05:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q04:s05",
         "statementNo": 5
       }
     ],
@@ -609,24 +597,24 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:1c3669ce585cfe99",
-  "nextPendingTaskId": "T693",
-  "otsuCompleted": 181,
-  "otsuDone": 153,
+  "nextPendingReviewId": "2023:question_2023_1:4e2e4af72d3c96aa",
+  "nextPendingTaskId": "T694",
+  "otsuCompleted": 182,
+  "otsuDone": 154,
   "otsuHeld": 28,
   "otsuHold": 28,
-  "otsuPending": 341,
-  "pending": 341,
-  "pendingQuestions": 341,
-  "pending_questions": 341,
+  "otsuPending": 340,
+  "pending": 340,
+  "pendingQuestions": 340,
+  "pending_questions": 340,
   "total": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T19:19:46+09:00",
+  "updatedAt": "2026-06-28T19:27:01+09:00",
   "totalQuestions": 934,
   "reviewDecisionCounts": {
     "ok": 463,
-    "hold": 130,
-    "pending": 341
+    "hold": 131,
+    "pending": 340
   },
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
@@ -635,8 +623,8 @@
     },
     "gas-shunin-otsu": {
       "done": 153,
-      "hold": 28,
-      "pending": 341
+      "hold": 29,
+      "pending": 340
     }
   }
 }
