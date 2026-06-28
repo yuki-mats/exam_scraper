@@ -681,10 +681,16 @@
       "19.0"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "不正解。外径200mm、管厚5mmなので内径Dは200-2×5=190mmである。円周方向応力はσ=PD/(2t)で、0.5×190/(2×5)=9.5N/mm²となるため、4.5N/mm²では小さすぎる。",
+      "不正解。5.0N/mm²は円周方向応力ではなく、軸方向応力PD/(4t)に近い値である。設問は円周方向応力を問うため、PD/(2t)を用いる。",
+      "正解。円周方向応力はσ=PD/(2t)。内径D=190mm、内圧P=0.5N/mm²、管厚t=5mmより、σ=0.5×190/(2×5)=9.5N/mm²である。",
+      "不正解。10.0N/mm²は外径200mmをそのままDとして計算した0.5×200/(2×5)に相当する。管の内径190mmを用いるため、最も近い値は9.5N/mm²である。",
+      "不正解。19.0N/mm²は内圧1MPaで円周方向応力を計算した場合に相当する値である。本問の内圧は0.5MPaなので、応力はその半分の9.5N/mm²となる。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
