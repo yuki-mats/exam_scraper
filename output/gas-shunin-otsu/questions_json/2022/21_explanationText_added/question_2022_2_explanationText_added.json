@@ -635,7 +635,13 @@
       "ガスメーターの種類のうち超音波式は、流量を推測計量するものである。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。マイコンメーターはガスの流量を監視し、長時間使用、過大流量、地震動など、あらかじめ設定された条件で異常と判定した場合に自動的にガスを遮断する機能を備えている。",
+      "正しい。使用最大流量が16m3/hのガスメーターの検定有効期間は、検定を受けた翌月1日から起算して10年である。",
+      "間違い。ガスメーターの検定公差は流量範囲に応じて定められており、流量によらず一律に±1.5%となるわけではない。使用最大流量の0.1倍の流量から使用最大流量までの場合に±1.5%とされる。",
+      "正しい。ガスメーターには、設置や取扱いがしやすい小型性と、必要な流量を計量できる大きな容量が求められる。",
+      "正しい。超音波式ガスメーターは、超音波の伝搬時間差などから流量を求める推測計量方式のガスメーターである。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
@@ -649,12 +655,16 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "workerTaskId": "T713",
+    "questionSetId": "chiefgasengineerlicense-B-2000",
+    "questionSetName": "ガスメーター（乙種）",
+    "category": "ガスメーター（乙種）"
   },
   {
     "original_question_id": "d5077816bc56e7f6",
