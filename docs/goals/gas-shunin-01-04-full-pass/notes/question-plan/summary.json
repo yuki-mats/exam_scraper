@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T639",
-  "completed": 539,
-  "completed_questions": 539,
-  "done": 416,
+  "activeTaskId": "T640",
+  "completed": 540,
+  "completed_questions": 540,
+  "done": 417,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 416,
+    "done": 417,
     "hold": 123,
-    "pending": 395
+    "pending": 394
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T12:56:42+09:00",
+  "generatedAt": "2026-06-28T13:05:58+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -30,6 +30,185 @@
       "explanationTextPresent": false,
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "オンオフヒューズガス栓は、つまみの開閉位置に関わらず内部のオンオフ弁が常に「全開」又は「全閉」のいずれかの状態に維持する機構を有する。",
+      "金属可とう管は、ビルトインコンロ等の常設型ガス機器の接続に用いられる。",
+      "現在販売されている開放式小型湯沸器は、\nガスコードで接続してもよい\n。",
+      "ガス警報器は、ガスの濃度が爆発下限界の1/4以上のときに確実に作動しなければならない。",
+      "家庭用のガス警報器に使用されているガスの検出方式は、半導体式、接触燃焼式又は熱線型半導体式に大別される。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 818,
+    "publicQuestionId": "47f733ca36117816",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:47f733ca36117816",
+    "questionBodyText": "ガス栓、接続具及び警報器に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 8,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問27",
+    "questionNo": 27,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q27",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_3:47f733ca36117816",
+    "reviewNotes": "",
+    "reviewQuestionId": "47f733ca36117816",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "消費機器",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
+    "sourceFileIndex": 21,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 27,
+      "subject": "shohi",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q27",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:shohi:q27:s01",
+      "gas-shunin:otsu:2023:shohi:q27:s02",
+      "gas-shunin:otsu:2023:shohi:q27:s03",
+      "gas-shunin:otsu:2023:shohi:q27:s04",
+      "gas-shunin:otsu:2023:shohi:q27:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q27",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q27:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 818,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:47f733ca36117816",
+  "otsuCompleted": 128,
+  "otsuDone": 107,
+  "otsuHeld": 21,
+  "otsuHold": 21,
+  "otsuPending": 394,
+  "pending": 394,
+  "pending_questions": 394,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 2 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "answer_result_text=正解は 2 です。 matches only choice2 being incorrect for select_incorrect.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -50,7 +229,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2024,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "間違い",
@@ -58,8 +237,14 @@
       "正しい",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。ガス事業法第2条第11項は、「ガス事業」とはガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいうと定めている。",
+      "間違い。同法第3条は、ガス小売事業を営もうとする者は経済産業大臣の登録を受けなければならないと定めている。許可を受けなければならないとしている点が誤り。",
+      "正しい。同法第2条第1項は、「小売供給」とは一般の需要に応じ導管によりガスを供給することをいい、特定ガス発生設備による供給では一の団地内の供給地点数が70以上のものに限ると定めている。",
+      "正しい。ガス事業法第2条第5項は一般ガス導管事業について、経済産業省令で定める要件に該当する導管により供給するものを除くと定めている。ガス事業法施行規則第3条は、12A及び13A以外のガスグループのガスを供給する導管をその要件に掲げている。",
+      "正しい。同法第2条第9項は、「ガス製造事業」とは、自らが維持し、及び運用する液化ガス貯蔵設備等を用いてガスを製造する事業で、その液化ガス貯蔵設備が経済産業省令で定める要件に該当するものをいうと定めている。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,20 +286,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問1",
     "questionNo": 1,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1270",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q1",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2024:question_2024_1:f72eb811cf645592",
-    "reviewNotes": "",
+    "reviewNotes": "T639: 降順ブロック planSequence=819。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=f72eb811cf645592。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は選択肢2のみ誤りで選択肢1,3,4,5が正しいことに対応し、correctChoiceText=[正しい, 間違い, 正しい, 正しい, 正しい] と一致。e-Gov ガス事業法（LawId 329AC0000000051）第2条1項・5項・9項・11項、第3条、ガス事業法施行規則（LawId 345M50000400097）第3条1号を確認。選択肢1はガス事業の定義として正しい。選択肢2はガス小売事業に必要な手続を登録ではなく許可としているため誤り。選択肢3は小売供給の定義として正しい。選択肢4は12A及び13A以外のガスグループ導管を一般ガス導管事業から除く要件として正しい。選択肢5はガス製造事業の定義として正しい。questionSetId=chiefgasengineerlicense-B-1270（目的及び用語の定義（乙種））はcategory.jsonのactive category、および甲種同一publicQuestionId precedent chiefgasengineerlicense-A-10-160に基づく。 選択肢4はガス事業法施行規則第3条で、12A及び13A以外のガスグループのガスを供給する導管が一般ガス導管事業に該当しない導管要件に掲げられているため正しい。",
     "reviewQuestionId": "f72eb811cf645592",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T13:05:58+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "法令",
@@ -185,296 +370,109 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingPlanSequence": 819,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:f72eb811cf645592",
-  "otsuCompleted": 127,
-  "otsuDone": 106,
-  "otsuHeld": 21,
-  "otsuHold": 21,
-  "otsuPending": 395,
-  "pending": 395,
-  "pending_questions": 395,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 3 です。 matches choices 2,3,5 being incorrect for select_incorrect.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "ガス小売事業者は、正当な理由がある場合を除き、その小売供給の相手方の当該小売供給に係るガスの需要に応ずるために必要な供給能力を確保しなければならない。",
-      "ガス小売事業者は、小売供給を受けようとする者と小売供給契約の締結をしようとするときは、経済産業省令で定めるところにより、当該小売供給に係る料金その他の供給条件について、\n経済産業大臣に届け出なければならない\n。",
-      "一般ガス導管事業者は、その供給区域における託送供給に係る料金その他の供給条件について、経済産業省令で定めるところにより、託送供給約款を定め、\n経済産業大臣に届け出なければならない\n。",
-      "一般ガス導管事業者は、最終保障供給に係る料金その他の供給条件について約款を定め、経済産業省令で定めるところにより、経済産業大臣に届け出なければならない。",
-      "一般ガス導管事業者は、経済産業省令で定めるところにより、毎年度、当該年度以降経済産業省令で定める期間における供給計画を作成し、当該年度の開始前に(一般ガス導管事業者となった日を含む年度にあっては、一般ガス導管事業者となった後遅滞なく)、\n経済産業大臣の認可を受けなければならない\n。"
     ],
-    "correctChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "正しい",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2024,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "間違い",
-      "正しい",
-      "間違い"
-    ],
-    "explanationText": [
-      "正しい。ガス事業法第13条第1項は、ガス小売事業者が正当な理由がある場合を除き、小売供給の相手方の需要に応ずるために必要な供給能力を確保しなければならないと定めている。",
-      "間違い。同法第14条第1項は、小売供給契約を締結しようとするとき、料金その他の供給条件について小売供給を受けようとする者に説明しなければならないと定めている。経済産業大臣に届け出るとしている点が誤り。",
-      "間違い。同法第48条第1項は、一般ガス導管事業者の託送供給約款について経済産業大臣の認可を受けなければならないと定めている。届け出なければならないとしている点が誤り。",
-      "正しい。同法第51条第1項は、一般ガス導管事業者が最終保障供給に係る料金その他の供給条件について約款を定め、経済産業大臣に届け出なければならないと定めている。",
-      "間違い。同法第56条第1項は、一般ガス導管事業者の供給計画について経済産業大臣に届け出なければならないと定めている。経済産業大臣の認可を受けるとしている点が誤り。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2024",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_1_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 820,
-    "publicQuestionId": "677edcd7d7120dcd",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:677edcd7d7120dcd",
-    "questionBodyText": "法令で規定されているガス小売事業者及び一般ガス導管事業者の業務に関する次の記述のうち、誤っているものはいくつあるか。",
-    "questionIndexInFile": 2,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問2",
-    "questionNo": 2,
-    "questionSetId": "chiefgasengineerlicense-B-1140",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q2",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2024:question_2024_1:677edcd7d7120dcd",
-    "reviewNotes": "T638: 降順ブロック planSequence=820。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=677edcd7d7120dcd。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 3 です。は選択肢2,3,5が誤りで選択肢1,4が正しいことに対応し、correctChoiceText=[正しい, 間違い, 間違い, 正しい, 間違い] と一致。e-Gov ガス事業法（LawId 329AC0000000051）第13条1項、第14条1項、第48条1項、第51条1項、第56条1項を確認。選択肢1は供給能力確保義務として正しい。選択肢2は供給条件を経済産業大臣へ届け出るのではなく相手方に説明するため誤り。選択肢3は託送供給約款が届出ではなく認可対象のため誤り。選択肢4は最終保障供給約款の届出として正しい。選択肢5は供給計画が認可ではなく届出対象のため誤り。questionSetId=chiefgasengineerlicense-B-1140（ガス事業の業務（乙種））はcategory.jsonのactive category、および甲種同一publicQuestionId precedent chiefgasengineerlicense-A-10-030、乙種2025同系review precedentに基づく。",
-    "reviewQuestionId": "677edcd7d7120dcd",
-    "reviewedAt": "2026-06-28T12:56:42+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "法令",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
-    "sourceFileIndex": 22,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 2,
-      "subject": "law",
-      "year": 2024
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2024:law:q02",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2024:law:q02:s01",
-      "gas-shunin:otsu:2024:law:q02:s02",
-      "gas-shunin:otsu:2024:law:q02:s03",
-      "gas-shunin:otsu:2024:law:q02:s04",
-      "gas-shunin:otsu:2024:law:q02:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2024/#law-q2",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2024:law:q02:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "workerTaskId": "T638",
+    "questionSetName": "目的及び用語の定義（乙種）",
+    "category": "目的及び用語の定義（乙種）",
+    "reviewStatus": "ok",
+    "workerTaskId": "T639",
     "suggestedQuestions": [
-      "ガス小売事業者は需要に応ずるための供給能力を確保しなければならないか？",
-      "小売供給契約締結前の供給条件は経済産業大臣へ届け出るものか？",
-      "一般ガス導管事業者の託送供給約款は届出で足りるか？",
-      "一般ガス導管事業者の最終保障供給約款は経済産業大臣への届出対象か？",
-      "一般ガス導管事業者の供給計画は経済産業大臣の認可対象か？"
+      "ガス事業法上の「ガス事業」にはどの事業が含まれるか？",
+      "ガス小売事業を営もうとする者に必要なのは許可か登録か？",
+      "「小売供給」とはどのような供給をいうか？",
+      "12A及び13A以外のガスグループの導管による託送供給事業は一般ガス導管事業に該当するか？",
+      "ガス製造事業はどのような設備を用いる事業か？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "ガス小売事業者は需要に応ずるための供給能力を確保しなければならないか？",
-        "answer": "確保しなければならない。",
-        "explanation": "ガス小売事業者には、小売供給の相手方の需要に応ずるために必要な供給能力の確保義務がある。"
+        "question": "ガス事業法上の「ガス事業」にはどの事業が含まれるか？",
+        "answer": "ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業が含まれる。",
+        "explanation": "ガス事業法は、これら4つの事業を「ガス事業」と定義している。"
       },
       {
-        "question": "小売供給契約締結前の供給条件は経済産業大臣へ届け出るものか？",
-        "answer": "届出ではなく相手方への説明である。",
-        "explanation": "小売供給契約締結前には、料金その他の供給条件を小売供給を受けようとする者へ説明する。"
+        "question": "ガス小売事業を営もうとする者に必要なのは許可か登録か？",
+        "answer": "登録が必要であり、許可ではない。",
+        "explanation": "ガス小売事業を営もうとする者は、経済産業大臣の登録を受けなければならない。"
       },
       {
-        "question": "一般ガス導管事業者の託送供給約款は届出で足りるか？",
-        "answer": "届出では足りず認可が必要である。",
-        "explanation": "一般ガス導管事業者の託送供給約款は、経済産業大臣の認可を受ける対象である。"
+        "question": "「小売供給」とはどのような供給をいうか？",
+        "answer": "一般の需要に応じ導管によりガスを供給することをいう。",
+        "explanation": "特定ガス発生設備による供給では、一の団地内の供給地点数が70以上のものに限られる。"
       },
       {
-        "question": "一般ガス導管事業者の最終保障供給約款は経済産業大臣への届出対象か？",
-        "answer": "届出対象である。",
-        "explanation": "最終保障供給約款は、約款を定めて経済産業大臣に届け出る。"
+        "question": "12A及び13A以外のガスグループの導管による託送供給事業は一般ガス導管事業に該当するか？",
+        "answer": "該当しない。",
+        "explanation": "一般ガス導管事業の定義では、経済産業省令で定める要件に該当する導管により供給するものが除かれる。"
       },
       {
-        "question": "一般ガス導管事業者の供給計画は経済産業大臣の認可対象か？",
-        "answer": "認可ではなく届出対象である。",
-        "explanation": "一般ガス導管事業者の供給計画は毎年度作成し、経済産業大臣に届け出る。"
+        "question": "ガス製造事業はどのような設備を用いる事業か？",
+        "answer": "液化ガス貯蔵設備等を用いてガスを製造する事業である。",
+        "explanation": "その事業の用に供する液化ガス貯蔵設備が経済産業省令で定める要件に該当するものがガス製造事業に当たる。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
-      "法令「ガス事業の業務（乙種）」のガス小売事業者・一般ガス導管事業者の業務手続が本問の関連論点。",
-      "小売供給能力、契約前説明、託送供給約款、最終保障供給約款、供給計画について、説明・届出・認可の違いを区別する。",
-      "本問は誤っているものの数を問う形式で、誤りは選択肢2、3、5の3つである。"
+      "法令「目的及び用語の定義（乙種）」のガス事業・小売供給・一般ガス導管事業・ガス製造事業の定義、およびガス小売事業の登録制が本問の関連論点。",
+      "試験ポイント: ガス小売事業は「許可」ではなく「登録」。用語定義では、ガス事業に含まれる事業区分と供給形態の除外条件を正確に区別する。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢1の供給能力確保義務と選択肢4の最終保障供給約款の届出は正しい。選択肢2は契約前説明を届出としている点、選択肢3は託送供給約款を認可ではなく届出としている点、選択肢5は供給計画を届出ではなく認可としている点が誤り。"
+      "誤っているものは選択肢2のみ。選択肢1・3・4・5はガス事業法上の用語定義又は事業区分に関する記述として正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "ガス小売事業者は、小売供給の相手方の需要に応ずるために必要な供給能力を確保する。"
+        "「ガス事業」は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。"
       ],
       [
-        "小売供給契約締結前の供給条件は、経済産業大臣への届出ではなく、相手方への説明対象である。"
+        "ガス小売事業を営もうとする者に必要なのは経済産業大臣の登録であり、許可ではない。"
       ],
       [
-        "一般ガス導管事業者の託送供給約款は、経済産業大臣の認可を受ける。"
+        "「小売供給」は一般の需要に応じ導管でガスを供給することをいう。特定ガス発生設備による供給は、一の団地内の供給地点数が70以上のものに限られる。"
       ],
       [
-        "一般ガス導管事業者は、最終保障供給約款を定めて経済産業大臣に届け出る。"
+        "12A及び13A以外のガスグループのガスを供給する導管は、ガス事業法施行規則上、一般ガス導管事業に該当しない導管要件に掲げられている。"
       ],
       [
-        "一般ガス導管事業者の供給計画は、経済産業大臣への届出対象であり、認可対象ではない。"
+        "「ガス製造事業」は、液化ガス貯蔵設備等を用いてガスを製造し、その設備が省令要件に該当する事業をいう。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正しい",
       "間違い",
-      "間違い",
       "正しい",
-      "間違い"
+      "正しい",
+      "正しい"
     ],
     "explanation_common_prefix": [
-      "法令「ガス事業の業務（乙種）」のガス小売事業者・一般ガス導管事業者の業務手続が本問の関連論点。",
-      "小売供給能力、契約前説明、託送供給約款、最終保障供給約款、供給計画について、説明・届出・認可の違いを区別する。",
-      "本問は誤っているものの数を問う形式で、誤りは選択肢2、3、5の3つである。"
+      "法令「目的及び用語の定義（乙種）」のガス事業・小売供給・一般ガス導管事業・ガス製造事業の定義、およびガス小売事業の登録制が本問の関連論点。",
+      "試験ポイント: ガス小売事業は「許可」ではなく「登録」。用語定義では、ガス事業に含まれる事業区分と供給形態の除外条件を正確に区別する。"
     ],
     "explanation_common_summary": [
-      "選択肢1の供給能力確保義務と選択肢4の最終保障供給約款の届出は正しい。選択肢2は契約前説明を届出としている点、選択肢3は託送供給約款を認可ではなく届出としている点、選択肢5は供給計画を届出ではなく認可としている点が誤り。"
+      "誤っているものは選択肢2のみ。選択肢1・3・4・5はガス事業法上の用語定義又は事業区分に関する記述として正しい。"
     ],
     "explanation_choice_snippets": [
       [
-        "ガス小売事業者は、小売供給の相手方の需要に応ずるために必要な供給能力を確保する。"
+        "「ガス事業」は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。"
       ],
       [
-        "小売供給契約締結前の供給条件は、経済産業大臣への届出ではなく、相手方への説明対象である。"
+        "ガス小売事業を営もうとする者に必要なのは経済産業大臣の登録であり、許可ではない。"
       ],
       [
-        "一般ガス導管事業者の託送供給約款は、経済産業大臣の認可を受ける。"
+        "「小売供給」は一般の需要に応じ導管でガスを供給することをいう。特定ガス発生設備による供給は、一の団地内の供給地点数が70以上のものに限られる。"
       ],
       [
-        "一般ガス導管事業者は、最終保障供給約款を定めて経済産業大臣に届け出る。"
+        "12A及び13A以外のガスグループのガスを供給する導管は、ガス事業法施行規則上、一般ガス導管事業に該当しない導管要件に掲げられている。"
       ],
       [
-        "一般ガス導管事業者の供給計画は、経済産業大臣への届出対象であり、認可対象ではない。"
+        "「ガス製造事業」は、液化ガス貯蔵設備等を用いてガスを製造し、その設備が省令要件に該当する事業をいう。"
       ]
     ],
     "explanation_choice_correctness": [
       "正しい",
       "間違い",
-      "間違い",
       "正しい",
-      "間違い"
-    ],
-    "questionSetName": "ガス事業の業務（乙種）",
-    "category": "ガス事業の業務（乙種）",
-    "reviewStatus": "ok"
+      "正しい",
+      "正しい"
+    ]
   },
-  "nextPendingTaskId": "T639",
-  "nextPendingReviewId": "2024:question_2024_1:f72eb811cf645592"
+  "nextPendingTaskId": "T640",
+  "nextPendingReviewId": "2023:question_2023_3:47f733ca36117816"
 }
