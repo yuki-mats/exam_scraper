@@ -200,26 +200,95 @@
       "ガス量を制御する方式には、段階的にガス量を制御する多段式と、連続的にガス量を制御する比例制御式がある。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "保留。site/00_sourceのanswer_result_textは選択肢1を誤りとしているが、METIのLPガス器具等の区分補足資料では空だき防止装置の機構例にサーミスタ式・バイメタル式が示され、日本ガス協会の正誤表にも同趣旨の訂正がある。公式問題PDF又は採点根拠で確認するまで断定しない。",
+      "正しい。温度制御に用いられるサーミスタは、金属酸化物を2種類以上混合して焼結した半導体抵抗体で、一般に負の温度特性を持ち、温度に対して抵抗値が大きく変化する。",
+      "正しい。立ち消え安全装置には、熱電対の熱起電力で炎を検知する熱電対式と、炎の導電性・整流性を利用するフレームロッド式がある。",
+      "正しい。過熱防止装置に用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると溶断して回路を遮断する。作動後に再起動するには交換が必要である。",
+      "正しい。ガス量の制御方式には、ガス量を段階的に切り替える多段式と、弁開度などを連続的に調整する比例制御式がある。"
+    ],
+    "suggestedQuestions": [
+      "温水機器の空だき防止装置にはバイメタル式とサーミスタ式があるか？",
+      "温度制御に用いられるサーミスタは負の温度特性を持つか？",
+      "立ち消え安全装置には熱電対式とフレームロッド式があるか？",
+      "温度ヒューズ式の過熱防止装置は作動後に交換が必要か？",
+      "ガス量を制御する方式には多段式と比例制御式があるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "温水機器の空だき防止装置にはバイメタル式とサーミスタ式があるか？",
+        "answer": "保留。",
+        "explanation": "保留。site/00_sourceのanswer_result_textは選択肢1を誤りとしているが、METIのLPガス器具等の区分補足資料では空だき防止装置の機構例にサーミスタ式・バイメタル式が示され、日本ガス協会の正誤表にも同趣旨の訂正がある。公式問題PDF又は採点根拠で確認するまで断定しない。"
+      },
+      {
+        "question": "温度制御に用いられるサーミスタは負の温度特性を持つか？",
+        "answer": "持つ。",
+        "explanation": "正しい。温度制御に用いられるサーミスタは、金属酸化物を2種類以上混合して焼結した半導体抵抗体で、一般に負の温度特性を持ち、温度に対して抵抗値が大きく変化する。"
+      },
+      {
+        "question": "立ち消え安全装置には熱電対式とフレームロッド式があるか？",
+        "answer": "ある。",
+        "explanation": "正しい。立ち消え安全装置には、熱電対の熱起電力で炎を検知する熱電対式と、炎の導電性・整流性を利用するフレームロッド式がある。"
+      },
+      {
+        "question": "温度ヒューズ式の過熱防止装置は作動後に交換が必要か？",
+        "answer": "必要である。",
+        "explanation": "正しい。過熱防止装置に用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると溶断して回路を遮断する。作動後に再起動するには交換が必要である。"
+      },
+      {
+        "question": "ガス量を制御する方式には多段式と比例制御式があるか？",
+        "answer": "ある。",
+        "explanation": "正しい。ガス量の制御方式には、ガス量を段階的に切り替える多段式と、弁開度などを連続的に調整する比例制御式がある。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "消費機器「ガス機器の安全装置及び制御装置（乙種）」の空だき防止、温度制御、立ち消え安全装置、過熱防止装置、ガス量制御が本問の関連論点。",
+      "試験ポイント: 本問はsite判定と外部公式資料の用語運用が衝突するため、選択肢1の正誤は公式問題PDF又は採点根拠で確認するまで保留する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢2・3・4・5は正しいと確認できる。選択肢1はsite/00_sourceでは誤り扱いだが、METI補足資料と日本ガス協会正誤表が空だき防止装置にサーミスタ式・バイメタル式を含める根拠を示すため、02/03はholdとする。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "site/00_sourceは選択肢1を誤りとしているが、METI補足資料と日本ガス協会正誤表に空だき防止装置とサーミスタ式・バイメタル式の根拠がある。"
+      ],
+      [
+        "サーミスタは金属酸化物を焼結した半導体抵抗体で、一般に負の温度特性を持つ。"
+      ],
+      [
+        "立ち消え安全装置には、熱電対式とフレームロッド式がある。"
+      ],
+      [
+        "温度ヒューズは異常高温時に回路を遮断し、作動後は交換を要する。"
+      ],
+      [
+        "ガス量制御には、段階的に制御する多段式と連続的に制御する比例制御式がある。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "保留",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-1930",
+    "category": "ガス機器の安全装置及び制御装置（乙種）",
+    "questionSetName": "ガス機器の安全装置及び制御装置（乙種）",
+    "workerTaskId": "T700",
+    "reviewStatus": "hold",
+    "holdReason": "choice1 correctness cannot be finalized without official PDF/scoring confirmation.",
+    "reviewHoldReason": "external_reference_conflict_choice1: site answer marks choice1 incorrect, but METI kubun_kaisyaku_sanko_lpg.pdf and Japan Gas Association notice20120813.pdf support サーミスタ式/バイメタル式 wording for 空だき防止装置; require official problem PDF/scoring confirmation before ok.",
+    "sourceTextAnomaly": {
+      "choiceNumber": 1,
+      "status": "needs_official_problem_pdf_or_scoring_confirmation",
+      "siteAnswerResultText": "正解は 1 です。",
+      "externalReferences": [
+        "https://www.meti.go.jp/policy/consumer/seian/ekiseki/contents/kubun_kaisyaku_sanko_lpg.pdf",
+        "https://www.gas.or.jp/pdf/books/notice20120813.pdf"
+      ]
+    }
   },
   {
     "original_question_id": "894083ea86be4744",
