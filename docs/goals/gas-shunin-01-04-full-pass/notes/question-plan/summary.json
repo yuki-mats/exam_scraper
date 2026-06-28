@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T663",
-  "completed": 563,
-  "completed_questions": 563,
-  "done": 440,
+  "activeTaskId": "T664",
+  "completed": 564,
+  "completed_questions": 564,
+  "done": 441,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 440,
+    "done": 441,
     "hold": 123,
-    "pending": 371
+    "pending": 370
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T15:35:40+09:00",
+  "generatedAt": "2026-06-28T15:44:21+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -25,7 +25,7 @@
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 4 です。 is the combination-choice number; statement-level correctChoiceText marks statements 2 and 5 as incorrect.",
+      "correctChoiceReason": "answer_result_text=正解は 4 です。 is the combination-choice number; statement-level correctChoiceText marks statements 3 and 4 as correct.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,14 +35,14 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "検知管法で測定できる付臭剤成分は、テトラヒドロチオフェン(THT)、ターシャリーブチルメルカプタン(TBM)である。",
-      "付臭剤を取り扱う設備は密閉した付臭室内に設置することが望ましい。付臭室は\nやや正圧\nにし、換気のために吸引した空気は活性炭で脱臭し排出する。",
-      "蒸発方式においては、混合付臭剤を使用した場合、各成分の蒸気圧が異なり均一な付臭が難しいため、単一成分の付臭剤が適している。",
-      "パネル法による臭気濃度の測定において、4人のパネルの感知希釈倍数がそれぞれ6000倍、3000倍、1500倍、1500倍であったとき、このガスの臭気濃度は3000倍である。",
-      "付臭剤は、人間に対して害がなく毒性もないこと、\n土壌透過性が低い\nこと等が要求される。"
+      "発熱量には、燃料の燃焼によって生じた水蒸気の全量が燃焼排ガス中で凝縮して水になる場合と、水蒸気の全量が凝縮せずに燃焼排ガス中に水蒸気として含まれる場合の2通りがある。\n前者を真発熱量、後者を総発熱量という\n。",
+      "ガスクロマトグラフ法では、記録されたクロマトグラムのそれぞれのピークの面積を、同一条件下で得られた\nキャリアガスのピーク面積\nと比較することで、各成分を定量することができる。",
+      "増熱を行う場合、導管中でガス温度が露点域になるとLPG等の液化によるガス発熱量の低下、導管の閉そく等が発生するため露点の管理が重要である。",
+      "ガス比重とは、同一温度及び同一圧力における等しい体積のガスと乾燥空気の質量の比と定義されている。",
+      "空気によりガスの希釈を行う場合、高圧供給では、混合ガスの酸素濃度が\n4%以下\nとならないように空気混合量を管理する必要がある。"
     ],
     "correctChoiceText": [
-      "正しい",
+      "間違い",
       "間違い",
       "正しい",
       "正しい",
@@ -53,18 +53,18 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "正しい",
+      "間違い",
       "間違い",
       "正しい",
       "正しい",
       "間違い"
     ],
     "explanationText": [
-      "正しい。検知管法は検知剤を充てんした検知管に試験ガスを通し、変色長さから付臭剤成分濃度を求める方法であり、THT及びTBMを測定対象にできる。",
-      "間違い。付臭剤を取り扱う設備を密閉した付臭室内に設置することは望ましいが、臭気の漏えいを防ぐため付臭室はやや負圧にし、吸引した空気を活性炭等で脱臭して排出する。やや正圧としている点が誤りである。",
-      "正しい。蒸発方式では、混合付臭剤を用いると成分ごとの蒸気圧差により蒸発比率が変わりやすく、均一な付臭が難しくなるため、単一成分の付臭剤が適している。",
-      "正しい。パネル法では、異常データを除外した後の各パネルの感知希釈倍数の相加平均値を用いる。6000倍、3000倍、1500倍、1500倍の平均は3000倍であり、この記述は正しい。",
-      "間違い。付臭剤は、ガス漏えい時に地中を透過した後でも臭気を検知しやすいことが求められるため、土壌透過性は高いことが要件となる。土壌透過性が低いとしている点が誤りである。"
+      "間違い。燃焼排ガス中の水蒸気を凝縮させて水にする場合は凝縮潜熱を含む総発熱量、凝縮させず水蒸気のままとする場合は真発熱量である。前者を真発熱量、後者を総発熱量としている点が逆で誤りである。",
+      "間違い。ガスクロマトグラフ法では、各成分のピーク面積を同一条件下で得た混合標準ガス又は純ガスのピーク面積と比較して定量する。キャリアガスのピーク面積と比較するとしている点が誤りである。",
+      "正しい。増熱時に導管中のガス温度が露点域になると、LPG等が液化してガス発熱量の低下や導管の閉そくを招くおそれがあるため、露点の管理が重要である。",
+      "正しい。ガス比重は、同一温度・同一圧力における等しい体積のガスと乾燥空気の質量の比として定義される。",
+      "間違い。空気でガスを希釈する場合、高圧供給では混合ガス中の酸素濃度が4%を超えないように空気混合量を管理する必要がある。4%以下とならないようにするとしている点が誤りである。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -98,29 +98,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 796,
-    "publicQuestionId": "159613099266de75",
+    "planSequence": 795,
+    "publicQuestionId": "91036a566182b533",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:159613099266de75",
-    "questionBodyText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 11,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問5",
-    "questionNo": 5,
-    "questionSetId": "chiefgasengineerlicense-B-1840",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:91036a566182b533",
+    "questionBodyText": "都市ガスの品質に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 10,
+    "questionIntent": "select_correct",
+    "questionLabel": "問4",
+    "questionNo": 4,
+    "questionSetId": "chiefgasengineerlicense-B-1810",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q5",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q4",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:159613099266de75",
-    "reviewNotes": "T662: 降順ブロック planSequence=796。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=159613099266de75。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は「いずれも誤っているものの組合せ」の組合せ選択肢番号で、statement-levelではロ・ホが誤り。correctChoiceText=[正しい, 間違い, 正しい, 正しい, 間違い] と一致。選択肢2は付臭室をやや正圧としている点、選択肢5は付臭剤の土壌透過性を低いとしている点が誤り。選択肢1,3,4は検知管法、蒸発方式、パネル法による臭気濃度算定として正しい。04はcategory.jsonのactive category、および乙種2024/2025同種付臭先例に合わせ、questionSetId=chiefgasengineerlicense-B-1840（都市ガスの付臭（乙種））を選択。",
-    "reviewQuestionId": "159613099266de75",
-    "reviewedAt": "2026-06-28T15:35:13+09:00",
+    "reviewId": "2023:question_2023_2:91036a566182b533",
+    "reviewNotes": "T663: 降順ブロック planSequence=795。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=91036a566182b533。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 4 です。は「いずれも正しいものの組合せ」の組合せ選択肢番号で、statement-levelではハ・ニが正しい。correctChoiceText=[間違い, 間違い, 正しい, 正しい, 間違い] と一致。選択肢1は総発熱量/真発熱量の名称が逆、選択肢2はガスクロマトグラフ法の比較対象をキャリアガスとしている点、選択肢5は高圧供給時の酸素濃度4%管理を逆にしている点が誤り。選択肢3,4は露点管理とガス比重定義として正しい。04はcategory.jsonでガスの熱量・比重の測定（乙種）がdeletedのため使用せず、乙種2024/2025同種先例に合わせ、activeなquestionSetId=chiefgasengineerlicense-B-1810（都市ガスの熱量調整及び燃焼性管理（乙種））を選択。",
+    "reviewQuestionId": "91036a566182b533",
+    "reviewedAt": "2026-06-28T15:44:21+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -134,256 +134,6 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 5,
-      "subject": "seizo",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q05",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q05:s01",
-      "gas-shunin:otsu:2023:seizo:q05:s02",
-      "gas-shunin:otsu:2023:seizo:q05:s03",
-      "gas-shunin:otsu:2023:seizo:q05:s04",
-      "gas-shunin:otsu:2023:seizo:q05:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q5",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q05:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "category": "都市ガスの付臭（乙種）",
-    "questionSetName": "都市ガスの付臭（乙種）",
-    "sourceExplanationCommonPrefix": [
-      "製造「都市ガスの付臭（乙種）」の付臭剤成分測定、付臭設備の換気、蒸発方式、パネル法、付臭剤の要件が本問の関連論点。",
-      "設問は誤っている記述の組合せを問う形式で、選択肢2と5が誤りである。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "誤っている記述は2と5。付臭室は臭気漏えい防止のためやや負圧にする点、付臭剤は土壌透過性が高いことが求められる点を確認する。1、3、4は検知管法、蒸発方式、パネル法の説明として正しい。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "検知管法はTHT及びTBMなどの付臭剤成分濃度測定に用いられる。"
-      ],
-      [
-        "付臭室は臭気漏えい防止のためやや負圧にし、排気を脱臭して排出する。"
-      ],
-      [
-        "蒸発方式では成分ごとの蒸気圧差により混合付臭剤の均一付臭が難しい。"
-      ],
-      [
-        "パネル法の臭気濃度は各パネルの感知希釈倍数の相加平均で求める。"
-      ],
-      [
-        "付臭剤には土壌透過性が高く、地中透過後も検知しやすいことが求められる。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "suggestedQuestions": [
-      "検知管法で測定できる代表的な付臭剤成分は何か？",
-      "付臭剤を取り扱う付臭室はどのような圧力状態にするのが望ましいか？",
-      "蒸発方式で混合付臭剤の均一な付臭が難しい理由は何か？",
-      "パネル法で複数パネルの感知希釈倍数から臭気濃度を求めるとき、どの値を用いるか？",
-      "付臭剤に求められる土壌透過性は高いか低いか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "検知管法で測定できる代表的な付臭剤成分は何か？",
-        "answer": "THT及びTBM。",
-        "explanation": "検知管法は、検知管内の検知剤の変色長さから付臭剤成分濃度を求める方法で、THT及びTBMを測定対象にできる。"
-      },
-      {
-        "question": "付臭剤を取り扱う付臭室はどのような圧力状態にするのが望ましいか？",
-        "answer": "やや負圧。",
-        "explanation": "付臭室内の臭気が外部に漏れにくいよう、室内をやや負圧にし、吸引した空気を活性炭等で脱臭して排出する。"
-      },
-      {
-        "question": "蒸発方式で混合付臭剤の均一な付臭が難しい理由は何か？",
-        "answer": "成分ごとの蒸気圧が異なり、蒸発比率が一定になりにくいから。",
-        "explanation": "混合付臭剤を蒸発方式で扱うと、蒸気圧差により各成分の蒸発量がずれやすく、均一な付臭が難しくなる。"
-      },
-      {
-        "question": "パネル法で複数パネルの感知希釈倍数から臭気濃度を求めるとき、どの値を用いるか？",
-        "answer": "各パネルの感知希釈倍数の相加平均値。",
-        "explanation": "本問の値では、6000、3000、1500、1500の相加平均が3000となる。"
-      },
-      {
-        "question": "付臭剤に求められる土壌透過性は高いか低いか？",
-        "answer": "高いこと。",
-        "explanation": "漏えいガスが土壌を透過しても臭気を検知できるよう、付臭剤には土壌透過性が高いことが求められる。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "questionTypeReviewStatus": "ok",
-    "questionIntentReviewStatus": "ok",
-    "correctChoiceReviewStatus": "ok",
-    "explanationReviewStatus": "ok",
-    "questionSetReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T15:35:13+09:00",
-    "questionIntentReviewedAt": "2026-06-28T15:35:13+09:00",
-    "correctChoiceReviewedAt": "2026-06-28T15:35:13+09:00",
-    "explanationReviewedAt": "2026-06-28T15:35:13+09:00",
-    "questionSetReviewedAt": "2026-06-28T15:35:13+09:00",
-    "reviewStatus": "ok",
-    "workerTaskId": "T662"
-  },
-  "lastCompletedReviewQuestionId": "159613099266de75",
-  "lastCompletedTaskId": "T662",
-  "nextPending": {
-    "answerResultText": "正解は 4 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "発熱量には、燃料の燃焼によって生じた水蒸気の全量が燃焼排ガス中で凝縮して水になる場合と、水蒸気の全量が凝縮せずに燃焼排ガス中に水蒸気として含まれる場合の2通りがある。\n前者を真発熱量、後者を総発熱量という\n。",
-      "ガスクロマトグラフ法では、記録されたクロマトグラムのそれぞれのピークの面積を、同一条件下で得られた\nキャリアガスのピーク面積\nと比較することで、各成分を定量することができる。",
-      "増熱を行う場合、導管中でガス温度が露点域になるとLPG等の液化によるガス発熱量の低下、導管の閉そく等が発生するため露点の管理が重要である。",
-      "ガス比重とは、同一温度及び同一圧力における等しい体積のガスと乾燥空気の質量の比と定義されている。",
-      "空気によりガスの希釈を行う場合、高圧供給では、混合ガスの酸素濃度が\n4%以下\nとならないように空気混合量を管理する必要がある。"
-    ],
-    "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "間違い",
-      "間違い",
-      "正しい",
-      "間違い"
-    ],
-    "explanationText": [],
-    "explanationTextCount": 0,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 795,
-    "publicQuestionId": "91036a566182b533",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:91036a566182b533",
-    "questionBodyText": "都市ガスの品質に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 10,
-    "questionIntent": "select_correct",
-    "questionLabel": "問4",
-    "questionNo": 4,
-    "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q4",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:91036a566182b533",
-    "reviewNotes": "",
-    "reviewQuestionId": "91036a566182b533",
-    "reviewedAt": "",
-    "reviewer": "",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
       "questionNo": 4,
       "subject": "seizo",
       "year": 2023
@@ -432,6 +182,257 @@
         "firestoreRegistered": false,
         "siteOnly": true,
         "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "category": "都市ガスの熱量調整及び燃焼性管理（乙種）",
+    "questionSetName": "都市ガスの熱量調整及び燃焼性管理（乙種）",
+    "sourceExplanationCommonPrefix": [
+      "製造 第4章「熱量と燃焼性（ウォッベ指数・MCP）」が本問の関連論点。総発熱量・真発熱量、ガス比重、熱量調整時の露点管理、空気希釈時の燃焼性管理を確認する。",
+      "製造 第4章「ガスの熱量調整（増熱・希釈・3方式）」が本問の関連論点。LPG増熱時の液化リスクと、高圧供給での酸素濃度管理を区別する。",
+      "製造 第4章「熱量・比重の測定と特殊成分分析」が本問の関連論点。ガスクロマトグラフ法の定量方法とガス比重の定義を確認する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正しい記述は3と4。1は総発熱量と真発熱量を逆にしており、2はガスクロマトグラフ法の比較対象をキャリアガスとしている点、5は高圧供給時の酸素濃度管理を逆にしている点が誤りである。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "水蒸気を凝縮させる場合は総発熱量、凝縮させない場合は真発熱量。記述は名称が逆。"
+      ],
+      [
+        "ガスクロマトグラフ法の定量は標準ガス又は純ガスのピーク面積との比較で行う。"
+      ],
+      [
+        "露点域ではLPG等の液化により発熱量低下や導管閉そくが生じ得るため、露点管理が重要。"
+      ],
+      [
+        "ガス比重は同一温度・同一圧力で等しい体積のガスと乾燥空気の質量比。"
+      ],
+      [
+        "高圧供給の空気希釈では、混合ガス中の酸素濃度が4%を超えないよう管理する。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "suggestedQuestions": [
+      "水蒸気を凝縮させる場合の発熱量は総発熱量か真発熱量か？",
+      "ガスクロマトグラフ法で各成分を定量するとき、ピーク面積は何と比較するか？",
+      "増熱時に導管内のガス温度が露点域になると、どのような問題が生じるか？",
+      "ガス比重は何と何の質量比で定義されるか？",
+      "高圧供給で空気希釈を行う場合、混合ガス中の酸素濃度はどのように管理するか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "水蒸気を凝縮させる場合の発熱量は総発熱量か真発熱量か？",
+        "answer": "総発熱量。",
+        "explanation": "燃焼で生じた水蒸気を凝縮させる場合は凝縮潜熱を含むため総発熱量、凝縮させない場合は真発熱量である。"
+      },
+      {
+        "question": "ガスクロマトグラフ法で各成分を定量するとき、ピーク面積は何と比較するか？",
+        "answer": "混合標準ガス又は純ガスのピーク面積。",
+        "explanation": "キャリアガスではなく、同一条件下で得られる標準ガス又は純ガスのピーク面積と比較して各成分を定量する。"
+      },
+      {
+        "question": "増熱時に導管内のガス温度が露点域になると、どのような問題が生じるか？",
+        "answer": "LPG等の液化による発熱量低下や導管の閉そく。",
+        "explanation": "導管中のガス温度が露点域に入ると、増熱に用いたLPG等が液化し、発熱量低下や閉そくの原因になる。"
+      },
+      {
+        "question": "ガス比重は何と何の質量比で定義されるか？",
+        "answer": "同一温度・同一圧力における等しい体積のガスと乾燥空気の質量比。",
+        "explanation": "比重は基準となる乾燥空気との質量比で定義され、湿り空気ではない。"
+      },
+      {
+        "question": "高圧供給で空気希釈を行う場合、混合ガス中の酸素濃度はどのように管理するか？",
+        "answer": "酸素濃度が4%を超えないように管理する。",
+        "explanation": "高圧供給で空気を混合する場合は、混合ガス中の酸素濃度が4%を超えないよう空気混合量を管理する。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T15:44:21+09:00",
+    "questionIntentReviewedAt": "2026-06-28T15:44:21+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T15:44:21+09:00",
+    "explanationReviewedAt": "2026-06-28T15:44:21+09:00",
+    "questionSetReviewedAt": "2026-06-28T15:44:21+09:00",
+    "reviewStatus": "ok",
+    "workerTaskId": "T663"
+  },
+  "lastCompletedReviewQuestionId": "91036a566182b533",
+  "lastCompletedTaskId": "T663",
+  "nextPending": {
+    "answerResultText": "正解は 1 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "測温抵抗体温度計は、金属の電気抵抗値が温度によって変化することを利用したものであるが、熱電対温度計と比較して\n常温での精度は良くない\n。",
+      "電波式レベル計は、マイクロ波を用いた非接触型計測器である。高温、高圧等の周囲環境が厳しいところでは\nその影響を受けやすい\n。",
+      "耐圧防爆構造とは、可燃性のガス等が容器の内部に侵入して爆発を生じた場合に、その容器が爆発圧力に耐え、かつ爆発による火炎が外部の可燃性のガス等に点火しないようにしたものである。",
+      "計装空気は、調節弁及び緊急遮断弁の操作源等に使用される。計装空気圧縮機は無給油式のものが採用され、水分除去のための除湿器が設置される。",
+      "オンオフ制御を弁に採用する際、頻繁に開閉することを防ぐため、動作すきま（ヒステリシス）を持たせることが多い。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 794,
+    "publicQuestionId": "91ab2f6db1d7946f",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
+    "questionBodyText": "製造設備の計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 9,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問3",
+    "questionNo": 3,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:91ab2f6db1d7946f",
+    "reviewNotes": "",
+    "reviewQuestionId": "91ab2f6db1d7946f",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 3,
+      "subject": "seizo",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q03",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:seizo:q03:s01",
+      "gas-shunin:otsu:2023:seizo:q03:s02",
+      "gas-shunin:otsu:2023:seizo:q03:s03",
+      "gas-shunin:otsu:2023:seizo:q03:s04",
+      "gas-shunin:otsu:2023:seizo:q03:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s05",
         "statementNo": 5
       }
     ],
@@ -444,26 +445,26 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 795,
-  "nextPendingPublicQuestionId": "91036a566182b533",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:91036a566182b533",
-  "nextPendingReviewId": "2023:question_2023_2:91036a566182b533",
-  "nextPendingTaskId": "T663",
-  "otsuCompleted": 151,
-  "otsuDone": 130,
+  "nextPendingPlanSequence": 794,
+  "nextPendingPublicQuestionId": "91ab2f6db1d7946f",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
+  "nextPendingReviewId": "2023:question_2023_2:91ab2f6db1d7946f",
+  "nextPendingTaskId": "T664",
+  "otsuCompleted": 152,
+  "otsuDone": 131,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 371,
-  "pending": 371,
-  "pending_questions": 371,
+  "otsuPending": 370,
+  "pending": 370,
+  "pending_questions": 370,
   "total": 934,
   "total_questions": 934,
-  "completedQuestions": 563,
-  "pendingQuestions": 371,
+  "completedQuestions": 564,
+  "pendingQuestions": 370,
   "heldQuestions": 123,
-  "nextActiveTaskId": "T663",
+  "nextActiveTaskId": "T664",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -477,18 +478,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "発熱量には、燃料の燃焼によって生じた水蒸気の全量が燃焼排ガス中で凝縮して水になる場合と、水蒸気の全量が凝縮せずに燃焼排ガス中に水蒸気として含まれる場合の2通りがある。\n前者を真発熱量、後者を総発熱量という\n。",
-      "ガスクロマトグラフ法では、記録されたクロマトグラムのそれぞれのピークの面積を、同一条件下で得られた\nキャリアガスのピーク面積\nと比較することで、各成分を定量することができる。",
-      "増熱を行う場合、導管中でガス温度が露点域になるとLPG等の液化によるガス発熱量の低下、導管の閉そく等が発生するため露点の管理が重要である。",
-      "ガス比重とは、同一温度及び同一圧力における等しい体積のガスと乾燥空気の質量の比と定義されている。",
-      "空気によりガスの希釈を行う場合、高圧供給では、混合ガスの酸素濃度が\n4%以下\nとならないように空気混合量を管理する必要がある。"
+      "測温抵抗体温度計は、金属の電気抵抗値が温度によって変化することを利用したものであるが、熱電対温度計と比較して\n常温での精度は良くない\n。",
+      "電波式レベル計は、マイクロ波を用いた非接触型計測器である。高温、高圧等の周囲環境が厳しいところでは\nその影響を受けやすい\n。",
+      "耐圧防爆構造とは、可燃性のガス等が容器の内部に侵入して爆発を生じた場合に、その容器が爆発圧力に耐え、かつ爆発による火炎が外部の可燃性のガス等に点火しないようにしたものである。",
+      "計装空気は、調節弁及び緊急遮断弁の操作源等に使用される。計装空気圧縮機は無給油式のものが採用され、水分除去のための除湿器が設置される。",
+      "オンオフ制御を弁に採用する際、頻繁に開閉することを防ぐため、動作すきま（ヒステリシス）を持たせることが多い。"
     ],
     "correctChoiceText": [
       "間違い",
       "間違い",
       "正しい",
       "正しい",
-      "間違い"
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
@@ -496,10 +497,10 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "間違い",
-      "間違い",
-      "間違い",
       "正しい",
-      "間違い"
+      "正しい",
+      "正しい",
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -534,28 +535,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 795,
-    "publicQuestionId": "91036a566182b533",
+    "planSequence": 794,
+    "publicQuestionId": "91ab2f6db1d7946f",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:91036a566182b533",
-    "questionBodyText": "都市ガスの品質に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 10,
-    "questionIntent": "select_correct",
-    "questionLabel": "問4",
-    "questionNo": 4,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
+    "questionBodyText": "製造設備の計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 9,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問3",
+    "questionNo": 3,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q4",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:91036a566182b533",
+    "reviewId": "2023:question_2023_2:91ab2f6db1d7946f",
     "reviewNotes": "",
-    "reviewQuestionId": "91036a566182b533",
+    "reviewQuestionId": "91ab2f6db1d7946f",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -570,7 +571,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 4,
+      "questionNo": 3,
       "subject": "seizo",
       "year": 2023
     },
@@ -579,45 +580,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q04",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q03",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q04:s01",
-      "gas-shunin:otsu:2023:seizo:q04:s02",
-      "gas-shunin:otsu:2023:seizo:q04:s03",
-      "gas-shunin:otsu:2023:seizo:q04:s04",
-      "gas-shunin:otsu:2023:seizo:q04:s05"
+      "gas-shunin:otsu:2023:seizo:q03:s01",
+      "gas-shunin:otsu:2023:seizo:q03:s02",
+      "gas-shunin:otsu:2023:seizo:q03:s03",
+      "gas-shunin:otsu:2023:seizo:q03:s04",
+      "gas-shunin:otsu:2023:seizo:q03:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q4",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q04:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s05",
         "statementNo": 5
       }
     ],
