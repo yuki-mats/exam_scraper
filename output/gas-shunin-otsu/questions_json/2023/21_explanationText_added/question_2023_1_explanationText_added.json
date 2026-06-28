@@ -644,26 +644,83 @@
       "実在気体は、高温あるいは低圧の条件では、理想気体に近い性状を示す。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "間違い。常圧での気体の粘度は液体より小さいが、気体の粘度は一般に温度の上昇とともに増加する。温度上昇で減少するとする点が誤りであり、本問の正解である。",
+      "正しい。ヘンリーの法則では、溶解度が小さい気体について、温度一定で一定質量の液体に溶解する気体の質量は、その気体の圧力に比例する。",
+      "正しい。相変化を伴わず温度変化に対応して出入りする熱を顕熱、融解・蒸発などの相変化に伴って出入りする熱を潜熱という。",
+      "正しい。沸騰中は温度がほぼ一定のまま液体が気体へ相変化し、その間に吸収される熱は蒸発熱である。蒸発熱は潜熱の一種である。",
+      "正しい。実在気体は分子間力や分子体積の影響が小さい高温又は低圧の条件で、理想気体に近い性状を示す。"
+    ],
+    "suggestedQuestions": [
+      "気体の粘度は温度上昇でどう変化するか？",
+      "ヘンリーの法則で溶解する気体量は何に比例するか？",
+      "顕熱と潜熱の違いは？",
+      "蒸発熱とは何か？",
+      "実在気体が理想気体に近づく条件は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "気体の粘度は温度上昇でどう変化するか？",
+        "answer": "一般に増加する。",
+        "explanation": "気体の粘度は液体より小さいが、温度上昇に伴って増加する傾向がある。"
+      },
+      {
+        "question": "ヘンリーの法則で溶解する気体量は何に比例するか？",
+        "answer": "気体の圧力に比例する。",
+        "explanation": "温度一定で溶解度が小さい場合、一定質量の液体に溶ける気体の質量は圧力に比例する。"
+      },
+      {
+        "question": "顕熱と潜熱の違いは？",
+        "answer": "温度変化の熱が顕熱、相変化の熱が潜熱。",
+        "explanation": "相変化を伴わない熱の出入りと、融解・蒸発などに伴う熱の出入りを区別する。"
+      },
+      {
+        "question": "蒸発熱とは何か？",
+        "answer": "液体が蒸発するときに吸収する熱。",
+        "explanation": "沸騰中に液体が気体へ変わるために必要な熱で、潜熱の一種である。"
+      },
+      {
+        "question": "実在気体が理想気体に近づく条件は？",
+        "answer": "高温又は低圧。",
+        "explanation": "高温・低圧では分子間力などの影響が相対的に小さくなり、理想気体に近づく。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の気体粘度、ヘンリーの法則、顕熱・潜熱、実在気体の基本性質が本問の関連論点。",
+      "気体の粘度は液体に比べて小さいが、一般に温度の上昇とともに増加する。液体粘度の温度依存性と混同しない。",
+      "ヘンリーの法則、顕熱・潜熱、蒸発熱、実在気体が高温又は低圧で理想気体に近づく性質はいずれも基礎物性の基本事項である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "気体粘度は温度上昇とともに一般に増加するため、減少するとした選択肢1が誤り。ほかの記述はヘンリーの法則、顕熱・潜熱、蒸発熱、実在気体の基本性質として正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "気体の粘度は一般に温度上昇とともに増加する。"
+      ],
+      [
+        "ヘンリーの法則では溶解気体量が気体の圧力に比例する。"
+      ],
+      [
+        "温度変化に伴う熱が顕熱、相変化に伴う熱が潜熱である。"
+      ],
+      [
+        "沸騰中の蒸発に使われる熱は蒸発熱である。"
+      ],
+      [
+        "実在気体は高温又は低圧で理想気体に近づく。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "workerTaskId": "T680"
   },
   {
     "original_question_id": "392f19d3a43ca556",
