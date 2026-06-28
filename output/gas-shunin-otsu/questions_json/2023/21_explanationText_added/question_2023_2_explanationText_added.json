@@ -681,20 +681,104 @@
       "1600"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。両端を堅固に固定した鋼管の熱応力は σ=EαΔT で求める。温度差は-10℃から50℃までの60℃なので、3N/mm²は小さすぎる。",
+      "不正解。Eα=2×10⁵×1×10⁻⁵=2であり、これに温度差60℃を掛ける。80N/mm²は温度差を40℃として扱った場合に近く、本問の条件では不足する。",
+      "正解。設置時-10℃から夏期50℃まで温度が60℃上昇するため、σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²となる。",
+      "不正解。熱応力は、自由膨張できない温度ひずみαΔTにヤング率Eを掛けて求める。計算結果は120N/mm²であり、480N/mm²は過大である。",
+      "不正解。内圧や自重を考慮しない条件なので、温度変化による熱応力だけを計算する。σ=2×10⁵×1×10⁻⁵×60=120N/mm²で、1600N/mm²ではない。"
+    ],
+    "suggestedQuestions": [
+      "両端固定架管の熱応力はどの式で求めるか？",
+      "本問の温度差ΔTはいくつか？",
+      "Eαの値はいくつか？",
+      "本問の熱応力はいくつになるか？",
+      "熱応力計算で口径や長さを直接掛けるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "両端固定架管の熱応力はどの式で求めるか？",
+        "answer": "σ=EαΔTで求める。",
+        "explanation": "両端固定で自由膨張が拘束されるため、温度ひずみαΔTにヤング率Eを掛ける。"
+      },
+      {
+        "question": "本問の温度差ΔTはいくつか？",
+        "answer": "60℃。",
+        "explanation": "設置時-10℃から夏期50℃まで上昇するため、ΔT=50-(-10)=60℃である。"
+      },
+      {
+        "question": "Eαの値はいくつか？",
+        "answer": "2。",
+        "explanation": "Eα=2×10⁵×1×10⁻⁵=2となる。"
+      },
+      {
+        "question": "本問の熱応力はいくつになるか？",
+        "answer": "120N/mm²。",
+        "explanation": "σ=2×60=120N/mm²で、選択肢3が最も近い。"
+      },
+      {
+        "question": "熱応力計算で口径や長さを直接掛けるか？",
+        "answer": "直接掛けない。",
+        "explanation": "この条件の熱応力は、口径や長さではなくE、α、ΔTで決まる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の両端固定架管の熱応力計算が本問の関連論点。",
+      "試験ポイント: 両端固定で自由膨張できない場合は、熱応力 σ=EαΔT を使い、口径や長さではなく温度差・線膨張係数・ヤング率で求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "温度差は-10℃から50℃までの60℃。Eα=2×10⁵×1×10⁻⁵=2なので、σ=2×60=120N/mm²となり、選択肢3が最も近い。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "3N/mm²は計算値120N/mm²より小さすぎる。"
+      ],
+      [
+        "80N/mm²は温度差を40℃とした場合に近く、本問の60℃を反映していない。"
+      ],
+      [
+        "σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²。"
+      ],
+      [
+        "480N/mm²は熱応力の計算値より過大。"
+      ],
+      [
+        "1600N/mm²は熱応力の計算値より大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "explanation_common_prefix": [
+      "供給「導管の工事（乙種）」の両端固定架管の熱応力計算が本問の関連論点。",
+      "試験ポイント: 両端固定で自由膨張できない場合は、熱応力 σ=EαΔT を使い、口径や長さではなく温度差・線膨張係数・ヤング率で求める。"
+    ],
+    "explanation_common_summary": [
+      "温度差は-10℃から50℃までの60℃。Eα=2×10⁵×1×10⁻⁵=2なので、σ=2×60=120N/mm²となり、選択肢3が最も近い。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "3N/mm²は計算値120N/mm²より小さすぎる。"
+      ],
+      [
+        "80N/mm²は温度差を40℃とした場合に近く、本問の60℃を反映していない。"
+      ],
+      [
+        "σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²。"
+      ],
+      [
+        "480N/mm²は熱応力の計算値より過大。"
+      ],
+      [
+        "1600N/mm²は熱応力の計算値より大きすぎる。"
+      ]
+    ],
+    "explanation_choice_correctness": [
       "不正解",
       "不正解",
       "正解",

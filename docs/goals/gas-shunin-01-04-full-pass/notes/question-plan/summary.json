@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T654",
-  "completed": 554,
-  "completed_questions": 554,
-  "done": 431,
+  "activeTaskId": "T655",
+  "completed": 555,
+  "completed_questions": 555,
+  "done": 432,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 431,
+    "done": 432,
     "hold": 123,
-    "pending": 380
+    "pending": 379
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T14:38:35+09:00",
+  "generatedAt": "2026-06-28T14:44:29+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,12 +20,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 1 です。 is the combination choice number; statement-level correctChoiceText marks statements 1 and 3 as 正しい.",
+      "correctChoiceReason": "answer_result_text=正解は 3 です。 matches choice 3=120 and thermal stress calculation EαΔT=120.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,36 +35,36 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "電解質中の鉄とマグネシウムを接続すると、自然電位がプラス側の鉄がカソードとなり、マグネシウムがアノードとなる。",
-      "マクロセル腐食\nとは、金属表面においてアノードとカソードの部位が刻々と変化するタイプの腐食で、全面腐食となる。",
-      "電食には、電気防食されている他埋設物からの干渉による腐食等がある。",
-      "導管における設計上の防食電位は、安全を考慮して、対地電位を\n-850mV\n（飽和硫酸銅電極基準）程度とすることが望ましい。",
-      "建物に引き込まれた配管は、\nミクロセル腐食\nの原因となるコンクリートに接触する機会が多いため、一般に埋設配管部に絶縁継手を設置する。"
+      "3",
+      "80",
+      "120",
+      "480",
+      "1600"
     ],
     "correctChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い"
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い"
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
     ],
     "explanationText": [
-      "正しい。電解質中で鉄とマグネシウムを接続すると、自然電位がプラス側の鉄がカソード、マグネシウムがアノードとなる。マグネシウム側が犠牲陽極として腐食しやすい。",
-      "間違い。金属表面でアノード部とカソード部が刻々と変化し、全面腐食となるタイプはミクロセル腐食である。マクロセル腐食としている点が誤り。",
-      "正しい。電食には、電気防食されている他埋設物からの干渉など、迷走電流や防食電流の影響によって生じる腐食が含まれる。",
-      "間違い。設計上の防食電位として安全を考慮する場合、管対地電位は-1000mV程度を目安とする。-850mVは防食状態の基準側の値であり、設計上の防食電位としている点が誤り。",
-      "間違い。建物に引き込まれた配管でコンクリート接触が原因となりやすいのはマクロセル腐食である。ミクロセル腐食としている点が誤り。"
+      "不正解。両端を堅固に固定した鋼管の熱応力は σ=EαΔT で求める。温度差は-10℃から50℃までの60℃なので、3N/mm²は小さすぎる。",
+      "不正解。Eα=2×10⁵×1×10⁻⁵=2であり、これに温度差60℃を掛ける。80N/mm²は温度差を40℃として扱った場合に近く、本問の条件では不足する。",
+      "正解。設置時-10℃から夏期50℃まで温度が60℃上昇するため、σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²となる。",
+      "不正解。熱応力は、自由膨張できない温度ひずみαΔTにヤング率Eを掛けて求める。計算結果は120N/mm²であり、480N/mm²は過大である。",
+      "不正解。内圧や自重を考慮しない条件なので、温度変化による熱応力だけを計算する。σ=2×10⁵×1×10⁻⁵×60=120N/mm²で、1600N/mm²ではない。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -98,29 +98,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 805,
-    "publicQuestionId": "4a1a5da4a8a83ab4",
+    "planSequence": 804,
+    "publicQuestionId": "7ab86a74e70b7453",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:4a1a5da4a8a83ab4",
-    "questionBodyText": "腐食と防食に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 20,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:7ab86a74e70b7453",
+    "questionBodyText": "口径300㎜の鋼管を用い、長さ40mで両端を堅固に固定した架管が冬期（設置時管体温度は-10℃）に設置された。この架管が夏期に直射日光を受け、管全体の温度が50℃になった場合に生じる応力(N/mm²)として最も近い値はどれか。ただし、鋼管の線膨張係数は1×10⁻⁵(1/℃)、ヤング率2×10⁵(N/mm²)とし、内圧や自重は考慮しないものとする。",
+    "questionIndexInFile": 19,
     "questionIntent": "select_correct",
-    "questionLabel": "問14",
-    "questionNo": 14,
-    "questionSetId": "chiefgasengineerlicense-B-2030",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q14",
+    "questionLabel": "問13",
+    "questionNo": 13,
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q13",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:4a1a5da4a8a83ab4",
-    "reviewNotes": "T653: 降順ブロック planSequence=805。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=4a1a5da4a8a83ab4。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。00_source の judgeChoiceMarkers=イ〜ホ、correctChoiceText=[正しい, 間違い, 正しい, 間違い, 間違い] を目視確認。answer_result_text=正解は 1 です。は「いずれも正しいものの組合せ」の選択肢番号で、statement-level 正誤は1・3が正しい。選択肢2はミクロセル腐食をマクロセル腐食としており、選択肢4は設計上の防食電位、選択肢5はコンクリート接触による腐食種別を誤っている。04はcategory.jsonのactive category、および甲種2022/乙種2021-2022/甲種2025の腐食と防食先例に合わせ、questionSetId=chiefgasengineerlicense-B-2030（腐食と防食（乙種））を選択。",
-    "reviewQuestionId": "4a1a5da4a8a83ab4",
-    "reviewedAt": "2026-06-28T14:38:35+09:00",
+    "reviewId": "2023:question_2023_2:7ab86a74e70b7453",
+    "reviewNotes": "T654: 降順ブロック planSequence=804。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=7ab86a74e70b7453。00_source body/choices preserved。questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 3 です。はchoice3=120に対応し、correctChoiceText=[不正解, 不正解, 正解, 不正解, 不正解] と一致。両端固定架管の熱応力は σ=EαΔT。温度差は50-(-10)=60℃、Eα=2×10^5×1×10^-5=2、よってσ=120N/mm²。04は category.json のactive categoryと甲種2019同系熱応力問題の導管工事先例に合わせ、questionSetId=chiefgasengineerlicense-B-2040（導管の工事（乙種））を選択。",
+    "reviewQuestionId": "7ab86a74e70b7453",
+    "reviewedAt": "2026-06-28T14:44:29+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -134,7 +134,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 14,
+      "questionNo": 13,
       "subject": "kyokyu",
       "year": 2023
     },
@@ -143,45 +143,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q14",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q13",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kyokyu:q14:s01",
-      "gas-shunin:otsu:2023:kyokyu:q14:s02",
-      "gas-shunin:otsu:2023:kyokyu:q14:s03",
-      "gas-shunin:otsu:2023:kyokyu:q14:s04",
-      "gas-shunin:otsu:2023:kyokyu:q14:s05"
+      "gas-shunin:otsu:2023:kyokyu:q13:s01",
+      "gas-shunin:otsu:2023:kyokyu:q13:s02",
+      "gas-shunin:otsu:2023:kyokyu:q13:s03",
+      "gas-shunin:otsu:2023:kyokyu:q13:s04",
+      "gas-shunin:otsu:2023:kyokyu:q13:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q14",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q13",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q14:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q14:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q14:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q14:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q14:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q13:s05",
         "statementNo": 5
       }
     ],
@@ -193,110 +193,110 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "questionSetName": "腐食と防食（乙種）",
-    "category": "腐食と防食（乙種）",
+    "category": "導管の工事（乙種）",
+    "questionSetName": "導管の工事（乙種）",
     "reviewStatus": "ok",
+    "workerTaskId": "T654",
     "explanation_common_prefix": [
-      "供給「腐食と防食（乙種）」の異種金属接触、ミクロセル腐食・マクロセル腐食、電食、防食電位、絶縁継手が本問の関連論点。",
-      "試験ポイント: 自然電位の高低とアノード・カソード、ミクロセル腐食とマクロセル腐食、-850mVと設計上の防食電位の使い分けを確認する。"
+      "供給「導管の工事（乙種）」の両端固定架管の熱応力計算が本問の関連論点。",
+      "試験ポイント: 両端固定で自由膨張できない場合は、熱応力 σ=EαΔT を使い、口径や長さではなく温度差・線膨張係数・ヤング率で求める。"
     ],
     "explanation_common_summary": [
-      "正しい記述は1と3。2はミクロセル腐食をマクロセル腐食としており、4は設計上の防食電位、5はコンクリート接触による腐食種別を誤っている。"
+      "温度差は-10℃から50℃までの60℃。Eα=2×10⁵×1×10⁻⁵=2なので、σ=2×60=120N/mm²となり、選択肢3が最も近い。"
     ],
     "explanation_choice_snippets": [
       [
-        "鉄はカソード、マグネシウムはアノードとなる。"
+        "3N/mm²は計算値120N/mm²より小さすぎる。"
       ],
       [
-        "金属表面でアノード・カソード部位が刻々と変化する全面腐食はミクロセル腐食である。"
+        "80N/mm²は温度差を40℃とした場合に近く、本問の60℃を反映していない。"
       ],
       [
-        "電食には、他埋設物の電気防食からの干渉による腐食が含まれる。"
+        "σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²。"
       ],
       [
-        "設計上の防食電位は安全を考慮して-1000mV程度を目安とする。"
+        "480N/mm²は熱応力の計算値より過大。"
       ],
       [
-        "コンクリート接触に起因しやすいのはマクロセル腐食である。"
+        "1600N/mm²は熱応力の計算値より大きすぎる。"
       ]
     ],
     "explanation_choice_correctness": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い"
-    ],
-    "sourceExplanationCommonPrefix": [
-      "供給「腐食と防食（乙種）」の異種金属接触、ミクロセル腐食・マクロセル腐食、電食、防食電位、絶縁継手が本問の関連論点。",
-      "試験ポイント: 自然電位の高低とアノード・カソード、ミクロセル腐食とマクロセル腐食、-850mVと設計上の防食電位の使い分けを確認する。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "正しい記述は1と3。2はミクロセル腐食をマクロセル腐食としており、4は設計上の防食電位、5はコンクリート接触による腐食種別を誤っている。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "鉄はカソード、マグネシウムはアノードとなる。"
-      ],
-      [
-        "金属表面でアノード・カソード部位が刻々と変化する全面腐食はミクロセル腐食である。"
-      ],
-      [
-        "電食には、他埋設物の電気防食からの干渉による腐食が含まれる。"
-      ],
-      [
-        "設計上の防食電位は安全を考慮して-1000mV程度を目安とする。"
-      ],
-      [
-        "コンクリート接触に起因しやすいのはマクロセル腐食である。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い"
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
     ],
     "suggestedQuestions": [
-      "鉄とマグネシウムを電解質中で接続すると、どちらがアノードになるか？",
-      "金属表面でアノードとカソードが刻々と変化する全面腐食は何か？",
-      "他埋設物の電気防食からの干渉による腐食は電食に含まれるか？",
-      "設計上の防食電位として-850mV程度とする記述は正しいか？",
-      "建物引込配管のコンクリート接触で問題となる腐食はミクロセル腐食か？"
+      "両端固定架管の熱応力はどの式で求めるか？",
+      "本問の温度差ΔTはいくつか？",
+      "Eαの値はいくつか？",
+      "本問の熱応力はいくつになるか？",
+      "熱応力計算で口径や長さを直接掛けるか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "鉄とマグネシウムを電解質中で接続すると、どちらがアノードになるか？",
-        "answer": "マグネシウムがアノードになる。",
-        "explanation": "自然電位がプラス側の鉄がカソードとなり、マグネシウムがアノードとして腐食しやすい。"
+        "question": "両端固定架管の熱応力はどの式で求めるか？",
+        "answer": "σ=EαΔTで求める。",
+        "explanation": "両端固定で自由膨張が拘束されるため、温度ひずみαΔTにヤング率Eを掛ける。"
       },
       {
-        "question": "金属表面でアノードとカソードが刻々と変化する全面腐食は何か？",
-        "answer": "ミクロセル腐食。",
-        "explanation": "マクロセル腐食ではなく、金属表面の微小部位でアノードとカソードが変化する腐食はミクロセル腐食である。"
+        "question": "本問の温度差ΔTはいくつか？",
+        "answer": "60℃。",
+        "explanation": "設置時-10℃から夏期50℃まで上昇するため、ΔT=50-(-10)=60℃である。"
       },
       {
-        "question": "他埋設物の電気防食からの干渉による腐食は電食に含まれるか？",
-        "answer": "含まれる。",
-        "explanation": "電気防食されている他埋設物からの干渉による腐食は電食の一例である。"
+        "question": "Eαの値はいくつか？",
+        "answer": "2。",
+        "explanation": "Eα=2×10⁵×1×10⁻⁵=2となる。"
       },
       {
-        "question": "設計上の防食電位として-850mV程度とする記述は正しいか？",
-        "answer": "正しくない。",
-        "explanation": "安全を考慮した設計上の防食電位は-1000mV程度を目安とするため、-850mV程度としている点が誤り。"
+        "question": "本問の熱応力はいくつになるか？",
+        "answer": "120N/mm²。",
+        "explanation": "σ=2×60=120N/mm²で、選択肢3が最も近い。"
       },
       {
-        "question": "建物引込配管のコンクリート接触で問題となる腐食はミクロセル腐食か？",
-        "answer": "違う。",
-        "explanation": "コンクリート接触など異なる環境間の電位差で問題となるのはマクロセル腐食である。"
+        "question": "熱応力計算で口径や長さを直接掛けるか？",
+        "answer": "直接掛けない。",
+        "explanation": "この条件の熱応力は、口径や長さではなくE、α、ΔTで決まる。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
-    "workerTaskId": "T653"
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の両端固定架管の熱応力計算が本問の関連論点。",
+      "試験ポイント: 両端固定で自由膨張できない場合は、熱応力 σ=EαΔT を使い、口径や長さではなく温度差・線膨張係数・ヤング率で求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "温度差は-10℃から50℃までの60℃。Eα=2×10⁵×1×10⁻⁵=2なので、σ=2×60=120N/mm²となり、選択肢3が最も近い。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "3N/mm²は計算値120N/mm²より小さすぎる。"
+      ],
+      [
+        "80N/mm²は温度差を40℃とした場合に近く、本問の60℃を反映していない。"
+      ],
+      [
+        "σ=EαΔT=2×10⁵×1×10⁻⁵×60=120N/mm²。"
+      ],
+      [
+        "480N/mm²は熱応力の計算値より過大。"
+      ],
+      [
+        "1600N/mm²は熱応力の計算値より大きすぎる。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ]
   },
-  "lastCompletedReviewQuestionId": "4a1a5da4a8a83ab4",
-  "lastCompletedTaskId": "T653",
+  "lastCompletedReviewQuestionId": "7ab86a74e70b7453",
+  "lastCompletedTaskId": "T654",
   "nextPending": {
     "answerResultText": "正解は 3 です。",
     "autoAudit": {
@@ -459,18 +459,18 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 804,
-  "nextPendingPublicQuestionId": "7ab86a74e70b7453",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:7ab86a74e70b7453",
-  "nextPendingReviewId": "2023:question_2023_2:7ab86a74e70b7453",
-  "nextPendingTaskId": "T654",
-  "otsuCompleted": 142,
-  "otsuDone": 121,
+  "nextPendingPlanSequence": 803,
+  "nextPendingPublicQuestionId": "06734bbc02c55a65",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:06734bbc02c55a65",
+  "nextPendingReviewId": "2023:question_2023_2:06734bbc02c55a65",
+  "nextPendingTaskId": "T655",
+  "otsuCompleted": 143,
+  "otsuDone": 122,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 380,
-  "pending": 380,
-  "pending_questions": 380,
+  "otsuPending": 379,
+  "pending": 379,
+  "pending_questions": 379,
   "total": 934,
   "total_questions": 934
 }

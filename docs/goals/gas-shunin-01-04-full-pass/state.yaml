@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 554
-  pending_questions: 380
+  completed_questions: 555
+  pending_questions: 379
   held_questions: 123
   next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
-active_task: T654
+active_task: T655
 tasks:
   - id: T001
     type: pm
@@ -36099,9 +36099,72 @@ tasks:
   - id: T654
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "降順方針で最大pendingブロックの次問 planSequence=804（gas-shunin-otsu 2023 供給 問13）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json --patch output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json --patch output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json --patch output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json --patch output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json --patch output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json --patch output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      summary: "T654 planSequence=804（gas-shunin-otsu 2023 供給 問13）を01〜04目視確認でok化。熱応力はσ=EαΔT=2×10^5×1×10^-5×60=120N/mm²で、answer_result_text=正解は3と一致。questionSetId=chiefgasengineerlicense-B-2040（導管の工事（乙種））。00_source は未変更。completed=555、pending=379、held=123。"
+      evidence:
+        - "00_source body/choices unchanged"
+        - "questionType=group_choice / questionIntent=select_correct"
+        - "answer_result_text=正解は 3 です。 matches choice 3=120"
+        - "thermal stress calculation σ=EαΔT=120N/mm²"
+        - "04 linked to chiefgasengineerlicense-B-2040 導管の工事（乙種） with kou 2019 heat-stress precedent"
+      completed_at: "2026-06-28T14:44:29+09:00"
+      remaining_questions: 379
+      next_active_task: T655
+      remaining_blockers: []
+      verification_attempts: 1
+      stopped_because: null
+
+  - id: T655
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロックの次問 planSequence=803（gas-shunin-otsu 2023 供給 問12）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
       - "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
       - "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json"
