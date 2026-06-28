@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 629
-  pending_questions: 305
+  completed_questions: 630
+  pending_questions: 304
   held_questions: 136
   next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
-active_task: T729
+active_task: T730
 tasks:
   - id: T001
     type: pm
@@ -40462,12 +40462,81 @@ tasks:
         - "T698 choice5 source text anomaly: 銅線 vs 鋼線"
       verification_attempts: 1
 
+
   - id: T729
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロックの次問 planSequence=729（gas-shunin-otsu 2022 基礎理論 問11）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_2_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_2_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json --patch output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json --patch output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json --patch output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_2_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      review_result: ok
+      summary: "T729 planSequence=729 gas-shunin-otsu 2022 基礎理論 問11 は01〜04をok化。直円管内の層流・乱流の基本性質を確認し、乱流の速度分布を放物線とする選択肢5を誤りと確認。questionSetId=chiefgasengineerlicense-B-2140（流体力学（乙種））。00_source未変更。completed=630 pending=304 held=136。"
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json"
+        - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_2_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_2_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json --patch output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json --patch output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json --patch output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_2_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "00_source body/choices unchanged"
+        - "questionType=true_false / questionIntent=select_incorrect"
+        - "answer_result_text=正解は 5 です。 matches correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い]"
+        - "laminar velocity profile is parabolic; turbulent velocity profile is not parabolic"
+        - "active category questionSetId=chiefgasengineerlicense-B-2140=流体力学（乙種）"
+      completed_at: "2026-06-29T00:41:00+09:00"
+      remaining_questions: 304
+      held_questions: 136
+      next_active_task: T730
+      remaining_blockers:
+        - "T726 source body missing use-case labels for (イ)〜(ハ); official problem PDF/source repair needed before explanationText can be finalized"
+        - "T706 choice4 source/scoring conflict requires official problem PDF/scoring confirmation"
+        - "T700 choice1 correctness requires official problem PDF/scoring confirmation"
+        - "T698 choice5 source text anomaly: 銅線 vs 鋼線"
+      verification_attempts: 1
+
+  - id: T730
     type: worker
     assignee: Worker
     status: active
     reasoning_hint: high
-    objective: "降順方針で最大pendingブロックの次問 planSequence=729（gas-shunin-otsu 2022 基礎理論 問11）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    objective: "降順方針で最大pendingブロックの次問 planSequence=728（gas-shunin-otsu 2022 基礎理論 問10）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
       - "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
       - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json"
