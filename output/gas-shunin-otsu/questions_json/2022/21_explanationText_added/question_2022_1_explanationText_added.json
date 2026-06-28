@@ -792,26 +792,97 @@
       "反応熱は、反応の始状態と終状態のみで決まり、反応の経路によらない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。触媒は反応の活性化エネルギーを下げて反応速度を大きくするが、反応の熱力学的な進行方向や平衡の位置を変えるものではない。したがって、この記述は正しい。",
+      "正しい。不均一触媒反応は反応物と触媒の相が異なる反応であり、固体触媒の表面で進む反応は接触反応と呼ばれる。したがって、この記述は正しい。",
+      "正しい。還元反応は対象物質が電子を受け取る反応であり、酸化反応は電子を失う反応である。したがって、この記述は正しい。",
+      "間違い。一次反応の反応速度は反応物質の濃度に比例する。反比例するとしている点が誤りであり、本問は誤っているものを選ぶため、この選択肢が正解である。",
+      "正しい。反応熱は状態量の差として扱われ、反応の始状態と終状態で決まり、途中の反応経路によらない。これはヘスの法則に対応する内容であり、この記述は正しい。"
+    ],
+    "suggestedQuestions": [
+      "触媒は反応の進行方向を変えるか？",
+      "固体触媒による不均一触媒反応を何というか？",
+      "還元反応では対象物質は電子を受け取るか？",
+      "一次反応の反応速度は濃度に比例するか反比例するか？",
+      "反応熱は反応経路によって変わるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "触媒は反応の進行方向を変えるか？",
+        "answer": "変えない。",
+        "explanation": "触媒は反応速度を大きくするが、反応の熱力学的な進行方向や平衡位置を変えない。"
+      },
+      {
+        "question": "固体触媒による不均一触媒反応を何というか？",
+        "answer": "接触反応。",
+        "explanation": "固体触媒の表面で進む不均一触媒反応は接触反応と呼ばれる。"
+      },
+      {
+        "question": "還元反応では対象物質は電子を受け取るか？",
+        "answer": "受け取る。",
+        "explanation": "還元は電子を受け取る反応、酸化は電子を失う反応である。"
+      },
+      {
+        "question": "一次反応の反応速度は濃度に比例するか反比例するか？",
+        "answer": "濃度に比例する。",
+        "explanation": "一次反応の速度式は反応物質濃度に比例する形であり、反比例ではない。"
+      },
+      {
+        "question": "反応熱は反応経路によって変わるか？",
+        "answer": "変わらない。",
+        "explanation": "反応熱は始状態と終状態で決まり、経路によらない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の触媒、酸化還元、一次反応、反応熱が本問の関連論点。",
+      "本問は「誤っているもの」を選ぶ形式であり、選択肢4の一次反応の速度が濃度に反比例するという記述が誤りである。",
+      "一次反応の反応速度は反応物質濃度に比例する。触媒、接触反応、還元反応、反応熱の経路非依存性に関する他の記述は正しい。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "一次反応の反応速度は反応物質の濃度に比例し、反比例ではない。したがって、誤っているものは選択肢4である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "触媒は反応速度を大きくするが、反応の進行方向を変えない。"
+      ],
+      [
+        "固体触媒による不均一触媒反応は接触反応である。"
+      ],
+      [
+        "還元反応は電子を受け取る反応である。"
+      ],
+      [
+        "一次反応の反応速度は濃度に比例し、反比例ではない。"
+      ],
+      [
+        "反応熱は始状態と終状態で決まり、反応経路によらない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）"
   },
   {
     "original_question_id": "75fff811ce14d0f2",
