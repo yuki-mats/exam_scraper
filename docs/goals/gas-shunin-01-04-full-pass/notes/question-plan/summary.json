@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T701",
-  "completed": 601,
-  "completedQuestions": 601,
-  "completed_questions": 601,
-  "done": 467,
+  "activeTaskId": "T702",
+  "completed": 602,
+  "completedQuestions": 602,
+  "completed_questions": 602,
+  "done": 468,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 467,
+    "done": 468,
     "hold": 134,
-    "pending": 333
+    "pending": 332
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T20:29:34+09:00",
+  "generatedAt": "2026-06-28T20:37:29+09:00",
   "heldQuestions": 134,
   "held_questions": 134,
   "hold": 134,
@@ -22,17 +22,17 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T20:29:34+09:00",
-    "publicQuestionId": "e7990ec6baa35f4e",
-    "reviewQuestionId": "e7990ec6baa35f4e",
-    "taskId": "T700",
-    "workerTaskId": "T700"
+    "completedAt": "2026-06-28T20:44:37+09:00",
+    "publicQuestionId": "f2e6316d00032685",
+    "reviewQuestionId": "f2e6316d00032685",
+    "taskId": "T701",
+    "workerTaskId": "T701"
   },
-  "lastCompletedReviewQuestionId": "e7990ec6baa35f4e",
-  "lastCompletedTaskId": "T700",
-  "nextActiveTaskId": "T701",
+  "lastCompletedReviewQuestionId": "f2e6316d00032685",
+  "lastCompletedTaskId": "T701",
+  "nextActiveTaskId": "T702",
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -46,17 +46,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "機械換気の方法には、換気扇等のファンを、給気口に設置する第2種換気や、排気口に設置する第3種換気がある。",
-      "建築基準法により、火気を使用する台所等には、必ず法令で定められた換気設備を設けなければならない。",
-      "集合住宅において、パイプシャフトの扉部にはRF式機器が、パイプシャフト内部（壁面）にはFF式機器が設置される。",
-      "CF式機器の一次排気筒は、\n設置環境に応じて長さを調整する必要がある\n。",
-      "RF式機器の設置工事は、ガス消費機器設置工事監督者の監督下で施工する必要はない。"
+      "麺ゆで器の丸釜式には、ダウンドラフト方式により、省エネルギー性を高めたタイプがある。",
+      "ガスチームコンベクションオーブンのバーナーは、ブンゼン燃焼方式と\nパルス燃焼方式\nのものがあり、蒸気発生部にはボイラー方式とインジェクション方式がある。",
+      "吸収冷凍機の吸収冷凍サイクルは、蒸発、吸収、再生及び凝縮の各工程からなり、蒸発工程で作られる冷水を用いて冷房する。",
+      "コージェネレーションシステムの電主熱従運転は、電力の負荷に合わせて発電し、廃熱はできるだけ利用し、もし余れば放熱する方法である。",
+      "家庭用固体酸化物形燃料電池（SOFC）の発電効率は、家庭用ガスエンジンコージェネレーションシステムの発電効率より高い。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "correctChoiceTextCount": 5,
@@ -65,9 +65,9 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -103,28 +103,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 757,
-    "publicQuestionId": "f2e6316d00032685",
+    "planSequence": 756,
+    "publicQuestionId": "61ab4624931c95d5",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:f2e6316d00032685",
-    "questionBodyText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:61ab4624931c95d5",
+    "questionBodyText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステムに関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 4,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問24",
-    "questionNo": 24,
+    "questionLabel": "問23",
+    "questionNo": 23,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q24",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q23",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:f2e6316d00032685",
+    "reviewId": "2022:question_2022_3:61ab4624931c95d5",
     "reviewNotes": "",
-    "reviewQuestionId": "f2e6316d00032685",
+    "reviewQuestionId": "61ab4624931c95d5",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -139,7 +139,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 24,
+      "questionNo": 23,
       "subject": "shohi",
       "year": 2022
     },
@@ -148,45 +148,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q24",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q23",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q24:s01",
-      "gas-shunin:otsu:2022:shohi:q24:s02",
-      "gas-shunin:otsu:2022:shohi:q24:s03",
-      "gas-shunin:otsu:2022:shohi:q24:s04",
-      "gas-shunin:otsu:2022:shohi:q24:s05"
+      "gas-shunin:otsu:2022:shohi:q23:s01",
+      "gas-shunin:otsu:2022:shohi:q23:s02",
+      "gas-shunin:otsu:2022:shohi:q23:s03",
+      "gas-shunin:otsu:2022:shohi:q23:s04",
+      "gas-shunin:otsu:2022:shohi:q23:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q24",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q23",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s05",
         "statementNo": 5
       }
     ],
@@ -199,11 +199,11 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 757,
-  "nextPendingPublicQuestionId": "f2e6316d00032685",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:f2e6316d00032685",
+  "nextPendingPlanSequence": 756,
+  "nextPendingPublicQuestionId": "61ab4624931c95d5",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:61ab4624931c95d5",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -217,17 +217,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "機械換気の方法には、換気扇等のファンを、給気口に設置する第2種換気や、排気口に設置する第3種換気がある。",
-      "建築基準法により、火気を使用する台所等には、必ず法令で定められた換気設備を設けなければならない。",
-      "集合住宅において、パイプシャフトの扉部にはRF式機器が、パイプシャフト内部（壁面）にはFF式機器が設置される。",
-      "CF式機器の一次排気筒は、\n設置環境に応じて長さを調整する必要がある\n。",
-      "RF式機器の設置工事は、ガス消費機器設置工事監督者の監督下で施工する必要はない。"
+      "麺ゆで器の丸釜式には、ダウンドラフト方式により、省エネルギー性を高めたタイプがある。",
+      "ガスチームコンベクションオーブンのバーナーは、ブンゼン燃焼方式と\nパルス燃焼方式\nのものがあり、蒸気発生部にはボイラー方式とインジェクション方式がある。",
+      "吸収冷凍機の吸収冷凍サイクルは、蒸発、吸収、再生及び凝縮の各工程からなり、蒸発工程で作られる冷水を用いて冷房する。",
+      "コージェネレーションシステムの電主熱従運転は、電力の負荷に合わせて発電し、廃熱はできるだけ利用し、もし余れば放熱する方法である。",
+      "家庭用固体酸化物形燃料電池（SOFC）の発電効率は、家庭用ガスエンジンコージェネレーションシステムの発電効率より高い。"
     ],
     "correctChoiceText": [
       "正しい",
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "correctChoiceTextCount": 5,
@@ -236,9 +236,9 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "正しい",
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい"
     ],
     "explanationText": [],
@@ -274,28 +274,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 757,
-    "publicQuestionId": "f2e6316d00032685",
+    "planSequence": 756,
+    "publicQuestionId": "61ab4624931c95d5",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:f2e6316d00032685",
-    "questionBodyText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 5,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:61ab4624931c95d5",
+    "questionBodyText": "業務用ガス機器、ガス冷暖房及びコージェネレーションシステムに関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 4,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問24",
-    "questionNo": 24,
+    "questionLabel": "問23",
+    "questionNo": 23,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q24",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q23",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:f2e6316d00032685",
+    "reviewId": "2022:question_2022_3:61ab4624931c95d5",
     "reviewNotes": "",
-    "reviewQuestionId": "f2e6316d00032685",
+    "reviewQuestionId": "61ab4624931c95d5",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -310,7 +310,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 24,
+      "questionNo": 23,
       "subject": "shohi",
       "year": 2022
     },
@@ -319,45 +319,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q24",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q23",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q24:s01",
-      "gas-shunin:otsu:2022:shohi:q24:s02",
-      "gas-shunin:otsu:2022:shohi:q24:s03",
-      "gas-shunin:otsu:2022:shohi:q24:s04",
-      "gas-shunin:otsu:2022:shohi:q24:s05"
+      "gas-shunin:otsu:2022:shohi:q23:s01",
+      "gas-shunin:otsu:2022:shohi:q23:s02",
+      "gas-shunin:otsu:2022:shohi:q23:s03",
+      "gas-shunin:otsu:2022:shohi:q23:s04",
+      "gas-shunin:otsu:2022:shohi:q23:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q24",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q23",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q24:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q23:s05",
         "statementNo": 5
       }
     ],
@@ -370,34 +370,34 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_3:f2e6316d00032685",
-  "nextPendingTaskId": "T701",
-  "otsuCompleted": 189,
-  "otsuDone": 157,
+  "nextPendingReviewId": "2022:question_2022_3:61ab4624931c95d5",
+  "nextPendingTaskId": "T702",
+  "otsuCompleted": 190,
+  "otsuDone": 158,
   "otsuHeld": 32,
   "otsuHold": 32,
-  "otsuPending": 333,
-  "pending": 333,
-  "pendingQuestions": 333,
-  "pending_questions": 333,
+  "otsuPending": 332,
+  "pending": 332,
+  "pendingQuestions": 332,
+  "pending_questions": 332,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
       "hold": 102
     },
     "gas-shunin-otsu": {
-      "done": 157,
+      "done": 158,
       "hold": 32,
-      "pending": 333
+      "pending": 332
     }
   },
   "reviewDecisionCounts": {
-    "ok": 467,
+    "ok": 468,
     "hold": 134,
-    "pending": 333
+    "pending": 332
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T20:29:34+09:00"
+  "updatedAt": "2026-06-28T20:44:37+09:00"
 }
