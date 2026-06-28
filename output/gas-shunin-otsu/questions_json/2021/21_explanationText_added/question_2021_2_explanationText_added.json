@@ -792,10 +792,16 @@
       "ティグ溶接は、\nスラグでアーク及び溶融池を完全にシールドしている\nため、不純物が混入せず、高品質な溶接が得られる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。被覆アーク溶接棒の被覆剤（フラックス）は、溶融金属を保護し、溶接金属の凝固・冷却を緩やかにして、上向きなど各種姿勢の溶接を容易にする働きがある。",
+      "正しい。放射線透過試験は、内部きずなどをフィルム上の像として確認できるため形状を直観的に把握しやすい一方、現像などの工程があり結果確認まで時間を要する。",
+      "正しい。溶接の形状不良には、ビード形状の不良、オーバーラップ、クレーターなど、外観や形状に関する欠陥が含まれる。",
+      "間違い。V形やU形は主に突合せ溶接などで用いられる開先形状であり、すみ肉溶接部の開先形状として用いられるものではない。",
+      "間違い。ティグ溶接はアルゴンなどの不活性ガスでアーク及び溶融池をシールドする方式で、スラグでシールドするものではない。スラグでシールドしているとしている点が誤り。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -806,11 +812,11 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い"
     ]
   },
   {
