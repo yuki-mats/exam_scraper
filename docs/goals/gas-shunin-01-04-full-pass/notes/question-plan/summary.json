@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T675",
-  "completed": 575,
-  "completedQuestions": 575,
-  "completed_questions": 575,
-  "done": 452,
+  "activeTaskId": "T676",
+  "completed": 576,
+  "completedQuestions": 576,
+  "completed_questions": 576,
+  "done": 453,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 452,
+    "done": 453,
     "hold": 123,
-    "pending": 359
+    "pending": 358
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T17:05:00+09:00",
+  "generatedAt": "2026-06-28T17:07:05+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_and_combustion_range_principles",
+      "correctChoiceReason": "answer_result_text=正解は 5 です。 matches select_incorrect; site explanation says fuel cells require anode, cathode, and electrolyte, so choice 5 is incorrect.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -37,18 +37,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "水素の層流燃焼速度はメタンと比べて大きく、空気比0.5付近が最大となる。",
-      "メタンの燃焼上限界(vol%)は、水素の燃焼上限界(vol%)より低い。",
-      "燃焼範囲は、\n温度の影響を受けない\n。",
-      "燃焼範囲は、圧力の影響を受ける。",
-      "可燃性ガスと空気からなる爆発性混合ガスに、不活性ガスを混合すると、燃焼上限界は低下する。"
+      "固体高分子形、リン酸形、固体酸化物形などの種類がある。",
+      "水素と酸素を電気化学的に反応させて発電できる。",
+      "理論起電力は、熱力学的に求めることができる。",
+      "電流を増加させたときの電圧を低下させる要因のひとつに電池内部の内部抵抗がある。",
+      "アノードとカソードのみで構成される\n。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
@@ -57,16 +57,16 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "explanationText": [
-      "正しい。水素はメタンより層流燃焼速度が大きい代表的な可燃性ガスであり、燃焼速度は混合比に左右される。水素の燃焼速度は理論混合気より燃料過濃側、空気比0.5付近で大きくなるため、記述は正しい。",
-      "正しい。メタンの燃焼上限界は約15vol%であるのに対し、水素の燃焼上限界は約75vol%と広い。したがって、メタンの燃焼上限界は水素より低い。",
-      "間違い。燃焼範囲は温度の影響を受ける。一般に温度が高くなると燃焼反応が継続しやすくなり、燃焼範囲は広くなるため、「温度の影響を受けない」とする記述は誤りである。",
-      "正しい。燃焼範囲は圧力の影響を受ける。圧力条件が変わると可燃性混合ガスの燃焼下限界や上限界が変化するため、記述は正しい。",
-      "正しい。不活性ガスを混合すると可燃性混合ガスが希釈され、燃焼反応を維持しにくくなる。一般に燃焼範囲は狭くなり、燃焼上限界は低下するため、記述は正しい。"
+      "正しい。燃料電池は電解質の種類などによって分類され、固体高分子形、リン酸形、固体酸化物形などの種類がある。記述は燃料電池の代表的な分類として妥当である。",
+      "正しい。燃料電池は、水素などの燃料と酸素を電気化学的に反応させ、その化学エネルギーを直接電気エネルギーに変換して発電する装置である。",
+      "正しい。燃料電池の理論起電力は、反応に伴うギブズ自由エネルギー変化などの熱力学的関係から求めることができる。",
+      "正しい。電流を増加させると、電池内部の抵抗による電圧降下などが大きくなり、端子電圧が低下する要因となる。内部抵抗は電圧低下要因のひとつである。",
+      "間違い。燃料電池はアノードとカソードだけでなく、両電極の間でイオンを移動させる電解質などを含んで構成される。したがって、アノードとカソードのみで構成されるという記述は誤りである。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -100,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 784,
-    "publicQuestionId": "86191a5d7998b8f2",
+    "planSequence": 783,
+    "publicQuestionId": "aec30dc15aef706b",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:86191a5d7998b8f2",
-    "questionBodyText": "可燃性ガスの燃焼に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 24,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
+    "questionBodyText": "燃料電池に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 23,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問8",
-    "questionNo": 8,
-    "questionSetId": "chiefgasengineerlicense-B-2130",
+    "questionLabel": "問7",
+    "questionNo": 7,
+    "questionSetId": "chiefgasengineerlicense-B-2120",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:86191a5d7998b8f2",
-    "reviewNotes": "T674: 降順ブロック planSequence=784。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=86191a5d7998b8f2。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 3 です。と correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい] が一致。選択肢3は燃焼範囲が温度の影響を受けないとしているが、一般に温度上昇で燃焼範囲は広がるため誤り。選択肢1,2,4,5は水素/メタンの燃焼速度・燃焼上限界、燃焼範囲の圧力影響、不活性ガス混合による燃焼上限界低下として正しい。04は category.json の active category と2025乙種基礎問9などの燃焼範囲先例に合わせ、chiefgasengineerlicense-B-2130（燃焼・燃料（乙種））を選択。",
-    "reviewQuestionId": "86191a5d7998b8f2",
-    "reviewedAt": "2026-06-28T17:05:00+09:00",
+    "reviewId": "2023:question_2023_1:aec30dc15aef706b",
+    "reviewNotes": "T675: 降順ブロック planSequence=783。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=aec30dc15aef706b。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 5 です。と correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] が一致。サイト解説でも選択肢5は「アノードとカソード、電解質で構成される」が正しく、アノードとカソードのみで構成されるとしている点が誤り。選択肢1〜4は燃料電池の種類、電気化学反応による発電、理論起電力、内部抵抗による電圧低下として正しい。04は category.json の active official category から chiefgasengineerlicense-B-2120（エネルギー変換・燃料電池（乙種））を選択。",
+    "reviewQuestionId": "aec30dc15aef706b",
+    "reviewedAt": "2026-06-28T17:07:05+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -136,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 8,
+      "questionNo": 7,
       "subject": "kiso",
       "year": 2023
     },
@@ -145,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q08",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q07",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q08:s01",
-      "gas-shunin:otsu:2023:kiso:q08:s02",
-      "gas-shunin:otsu:2023:kiso:q08:s03",
-      "gas-shunin:otsu:2023:kiso:q08:s04",
-      "gas-shunin:otsu:2023:kiso:q08:s05"
+      "gas-shunin:otsu:2023:kiso:q07:s01",
+      "gas-shunin:otsu:2023:kiso:q07:s02",
+      "gas-shunin:otsu:2023:kiso:q07:s03",
+      "gas-shunin:otsu:2023:kiso:q07:s04",
+      "gas-shunin:otsu:2023:kiso:q07:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s05",
         "statementNo": 5
       }
     ],
@@ -195,90 +195,91 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "category": "燃焼・燃料（乙種）",
-    "questionSetName": "燃焼・燃料（乙種）",
+    "category": "エネルギー変換・燃料電池（乙種）",
+    "questionSetName": "エネルギー変換・燃料電池（乙種）",
     "questionTypeReviewStatus": "ok",
     "questionIntentReviewStatus": "ok",
     "correctChoiceReviewStatus": "ok",
     "explanationReviewStatus": "ok",
     "questionSetReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T17:05:00+09:00",
-    "questionIntentReviewedAt": "2026-06-28T17:05:00+09:00",
-    "correctChoiceReviewedAt": "2026-06-28T17:05:00+09:00",
-    "explanationReviewedAt": "2026-06-28T17:05:00+09:00",
-    "questionSetReviewedAt": "2026-06-28T17:05:00+09:00",
-    "workerTaskId": "T674",
+    "questionTypeReviewedAt": "2026-06-28T17:15:00+09:00",
+    "questionIntentReviewedAt": "2026-06-28T17:15:00+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T17:15:00+09:00",
+    "explanationReviewedAt": "2026-06-28T17:15:00+09:00",
+    "questionSetReviewedAt": "2026-06-28T17:15:00+09:00",
+    "workerTaskId": "T675",
     "sourceExplanationCommonPrefix": [
-      "基礎理論「燃焼・燃料（乙種）」の燃焼速度、燃焼範囲、温度・圧力・不活性ガスの影響が本問の関連論点。",
-      "可燃性ガスの燃焼範囲は一定ではなく、温度、圧力、不活性ガス希釈などの条件で変化する。",
-      "温度が高いと燃焼範囲は一般に広くなり、不活性ガスを混合すると燃焼範囲は狭くなる。"
+      "基礎理論「エネルギー変換・燃料電池（乙種）」の燃料電池の種類、発電原理、理論起電力、電圧低下、基本構成が本問の関連論点。",
+      "燃料電池は水素と酸素の電気化学反応により発電し、基本構成にはアノード、カソード、電解質が含まれる。",
+      "本問は「誤っているもの」を選ぶ問題で、燃料電池をアノードとカソードのみで構成されるとしている選択肢5が誤りである。"
     ],
     "sourceExplanationCommonSummary": [
-      "燃焼範囲は温度の影響を受けるため、選択肢3の「温度の影響を受けない」が誤り。ほかは水素・メタンの燃焼速度/燃焼上限界、圧力影響、不活性ガス希釈の説明として正しい。"
+      "燃料電池はアノード、カソード、電解質などで構成されるため、選択肢5の「アノードとカソードのみ」は誤り。よって選択肢5が正解。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "水素はメタンより層流燃焼速度が大きく、混合比によって燃焼速度が変わる。"
+        "固体高分子形、リン酸形、固体酸化物形は燃料電池の代表的な種類である。"
       ],
       [
-        "メタンの燃焼上限界は水素より低い。"
+        "燃料電池は水素と酸素の電気化学反応で発電する。"
       ],
       [
-        "温度が高いほど燃焼範囲は一般に広くなるため、「温度の影響を受けない」は誤り。"
+        "理論起電力はギブズ自由エネルギー変化などの熱力学から求められる。"
       ],
       [
-        "燃焼範囲は圧力条件によって変化する。"
+        "内部抵抗は電流増加時の電圧低下要因のひとつである。"
       ],
       [
-        "不活性ガス希釈により燃焼範囲は狭くなり、燃焼上限界は低下する。"
+        "燃料電池はアノード、カソード、電解質などで構成され、2電極のみではない。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "suggestedQuestions": [
-      "水素とメタンの層流燃焼速度の関係は？",
-      "メタンと水素の燃焼上限界はどちらが高い？",
-      "燃焼範囲は温度の影響を受けるか？",
-      "燃焼範囲は圧力の影響を受けるか？",
-      "不活性ガスを混合すると燃焼上限界はどうなる？"
+      "燃料電池はどのような種類に分類される？",
+      "燃料電池は何を反応させて発電する？",
+      "燃料電池の理論起電力は何から求められる？",
+      "燃料電池で電流増加時に電圧が低下する要因のひとつは？",
+      "燃料電池の基本構成要素は何か？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "水素とメタンの層流燃焼速度の関係は？",
-        "answer": "水素の方がメタンより大きい。",
-        "explanation": "水素は燃焼速度が大きいガスで、混合比により燃焼速度が変化する。"
+        "question": "燃料電池はどのような種類に分類される？",
+        "answer": "固体高分子形、リン酸形、固体酸化物形など。",
+        "explanation": "燃料電池は主に電解質の種類により分類される。"
       },
       {
-        "question": "メタンと水素の燃焼上限界はどちらが高い？",
-        "answer": "水素の方が高い。",
-        "explanation": "水素は広い濃度範囲で燃焼可能で、メタンの燃焼上限界は水素より低い。"
+        "question": "燃料電池は何を反応させて発電する？",
+        "answer": "水素などの燃料と酸素。",
+        "explanation": "電気化学反応により化学エネルギーを直接電気エネルギーに変換する。"
       },
       {
-        "question": "燃焼範囲は温度の影響を受けるか？",
-        "answer": "受ける。",
-        "explanation": "一般に温度が高くなると燃焼範囲は広くなるため、影響を受けないという記述は誤り。"
+        "question": "燃料電池の理論起電力は何から求められる？",
+        "answer": "熱力学的関係。",
+        "explanation": "反応のギブズ自由エネルギー変化などから理論起電力を求められる。"
       },
       {
-        "question": "燃焼範囲は圧力の影響を受けるか？",
-        "answer": "受ける。",
-        "explanation": "圧力条件により燃焼下限界や上限界が変化する。"
+        "question": "燃料電池で電流増加時に電圧が低下する要因のひとつは？",
+        "answer": "電池内部の内部抵抗。",
+        "explanation": "内部抵抗による電圧降下が端子電圧低下の要因となる。"
       },
       {
-        "question": "不活性ガスを混合すると燃焼上限界はどうなる？",
-        "answer": "低下する。",
-        "explanation": "不活性ガスが混合気を希釈し、燃焼を維持しにくくするため燃焼範囲は狭くなる。"
+        "question": "燃料電池の基本構成要素は何か？",
+        "answer": "アノード、カソード、電解質など。",
+        "explanation": "アノードとカソードのみではなく、イオンを移動させる電解質が必要である。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "taskId": "T675"
   },
-  "lastCompletedReviewQuestionId": "86191a5d7998b8f2",
-  "lastCompletedTaskId": "T674",
-  "nextActiveTaskId": "T675",
+  "lastCompletedReviewQuestionId": "aec30dc15aef706b",
+  "lastCompletedTaskId": "T675",
+  "nextActiveTaskId": "T676",
   "nextPending": {
     "answerResultText": "正解は 5 です。",
     "autoAudit": {
@@ -294,11 +295,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "固体高分子形、リン酸形、固体酸化物形などの種類がある。",
-      "水素と酸素を電気化学的に反応させて発電できる。",
-      "理論起電力は、熱力学的に求めることができる。",
-      "電流を増加させたときの電圧を低下させる要因のひとつに電池内部の内部抵抗がある。",
-      "アノードとカソードのみで構成される\n。"
+      "一定温度条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。",
+      "物質から水素を取りさる反応は、酸化反応である。",
+      "化学反応は、分子・原子の衝突や光の吸収によって起こる。",
+      "触媒は、平衡定数に影響を与えない。",
+      "速度定数は、\n反応温度によらず一定である\n。"
     ],
     "correctChoiceText": [
       "正しい",
@@ -351,28 +352,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 783,
-    "publicQuestionId": "aec30dc15aef706b",
+    "planSequence": 782,
+    "publicQuestionId": "196aceddad6dbb43",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
-    "questionBodyText": "燃料電池に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 23,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
+    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 22,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:aec30dc15aef706b",
+    "reviewId": "2023:question_2023_1:196aceddad6dbb43",
     "reviewNotes": "",
-    "reviewQuestionId": "aec30dc15aef706b",
+    "reviewQuestionId": "196aceddad6dbb43",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -387,7 +388,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "kiso",
       "year": 2023
     },
@@ -396,45 +397,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q07:s01",
-      "gas-shunin:otsu:2023:kiso:q07:s02",
-      "gas-shunin:otsu:2023:kiso:q07:s03",
-      "gas-shunin:otsu:2023:kiso:q07:s04",
-      "gas-shunin:otsu:2023:kiso:q07:s05"
+      "gas-shunin:otsu:2023:kiso:q06:s01",
+      "gas-shunin:otsu:2023:kiso:q06:s02",
+      "gas-shunin:otsu:2023:kiso:q06:s03",
+      "gas-shunin:otsu:2023:kiso:q06:s04",
+      "gas-shunin:otsu:2023:kiso:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s05",
         "statementNo": 5
       }
     ],
@@ -447,9 +448,9 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 783,
-  "nextPendingPublicQuestionId": "aec30dc15aef706b",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
+  "nextPendingPlanSequence": 782,
+  "nextPendingPublicQuestionId": "196aceddad6dbb43",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
   "nextPendingQuestion": {
     "answerResultText": "正解は 5 です。",
     "autoAudit": {
@@ -465,11 +466,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "固体高分子形、リン酸形、固体酸化物形などの種類がある。",
-      "水素と酸素を電気化学的に反応させて発電できる。",
-      "理論起電力は、熱力学的に求めることができる。",
-      "電流を増加させたときの電圧を低下させる要因のひとつに電池内部の内部抵抗がある。",
-      "アノードとカソードのみで構成される\n。"
+      "一定温度条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。",
+      "物質から水素を取りさる反応は、酸化反応である。",
+      "化学反応は、分子・原子の衝突や光の吸収によって起こる。",
+      "触媒は、平衡定数に影響を与えない。",
+      "速度定数は、\n反応温度によらず一定である\n。"
     ],
     "correctChoiceText": [
       "正しい",
@@ -522,28 +523,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 783,
-    "publicQuestionId": "aec30dc15aef706b",
+    "planSequence": 782,
+    "publicQuestionId": "196aceddad6dbb43",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
-    "questionBodyText": "燃料電池に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 23,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
+    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 22,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:aec30dc15aef706b",
+    "reviewId": "2023:question_2023_1:196aceddad6dbb43",
     "reviewNotes": "",
-    "reviewQuestionId": "aec30dc15aef706b",
+    "reviewQuestionId": "196aceddad6dbb43",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -558,7 +559,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "kiso",
       "year": 2023
     },
@@ -567,45 +568,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q07:s01",
-      "gas-shunin:otsu:2023:kiso:q07:s02",
-      "gas-shunin:otsu:2023:kiso:q07:s03",
-      "gas-shunin:otsu:2023:kiso:q07:s04",
-      "gas-shunin:otsu:2023:kiso:q07:s05"
+      "gas-shunin:otsu:2023:kiso:q06:s01",
+      "gas-shunin:otsu:2023:kiso:q06:s02",
+      "gas-shunin:otsu:2023:kiso:q06:s03",
+      "gas-shunin:otsu:2023:kiso:q06:s04",
+      "gas-shunin:otsu:2023:kiso:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s05",
         "statementNo": 5
       }
     ],
@@ -618,16 +619,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:aec30dc15aef706b",
-  "nextPendingTaskId": "T675",
-  "otsuCompleted": 163,
-  "otsuDone": 142,
+  "nextPendingReviewId": "2023:question_2023_1:196aceddad6dbb43",
+  "nextPendingTaskId": "T676",
+  "otsuCompleted": 164,
+  "otsuDone": 143,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 359,
-  "pending": 359,
-  "pendingQuestions": 359,
-  "pending_questions": 359,
+  "otsuPending": 358,
+  "pending": 358,
+  "pendingQuestions": 358,
+  "pending_questions": 358,
   "total": 934,
   "total_questions": 934
 }
