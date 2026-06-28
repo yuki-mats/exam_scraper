@@ -197,7 +197,7 @@
       "導管であって、最高使用圧力が高圧のガスを通ずるもの"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
-    "questionIntent": null,
+    "questionIntent": "select_correct",
     "correctChoiceText": [
       "正しい",
       "正しい",
@@ -205,7 +205,14 @@
       "正しい",
       "正しい"
     ],
-    "answer_result_text": "正解は 4 です。"
+    "answer_result_text": "正解は 4 です。",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ]
   },
   {
     "original_question_id": "311acf0e1b310e09",
