@@ -126,10 +126,16 @@
       "消費機器から漏えいしたガスに引火することにより、発生した負傷事故"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障事故で供給支障戸数が500以上のものを、ガス事故速報及びガス事故詳報の報告対象としている。",
+      "正しい。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物（ガス栓を除く。）の損壊などにより人が負傷した事故を、速報及び詳報の報告対象としている。",
+      "間違い。製造支障事故で速報及び詳報の報告対象となるのは、製造支障時間が10時間以上のものなどである。製造支障時間が5時間以上というだけでは、法令上の速報及び詳報の報告対象に該当しない。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の損壊によりガス栓から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。",
+      "正しい。ガス関係報告規則第4条第1項の表第19号は、消費機器から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。"
+    ],
+    "suggestedQuestions": [],
+    "suggestedQuestionDetails": [],
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -140,12 +146,17 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "questionSetId": "chiefgasengineerlicense-B-1150",
+    "category": "ガス事故の報告（乙種）",
+    "questionSetName": "ガス事故の報告（乙種）",
+    "workerTaskId": "T694"
   },
   {
     "original_question_id": "1c3669ce585cfe99",

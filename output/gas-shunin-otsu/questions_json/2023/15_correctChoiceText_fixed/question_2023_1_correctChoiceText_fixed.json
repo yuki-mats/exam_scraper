@@ -93,7 +93,7 @@
       "消費機器から漏えいしたガスに引火することにより、発生した負傷事故"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "questionIntent": null,
+    "questionIntent": "select_incorrect",
     "correctChoiceText": [
       "正しい",
       "正しい",
@@ -101,7 +101,14 @@
       "正しい",
       "正しい"
     ],
-    "answer_result_text": "正解は 3 です。"
+    "answer_result_text": "正解は 3 です。",
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ]
   },
   {
     "original_question_id": "1c3669ce585cfe99",
