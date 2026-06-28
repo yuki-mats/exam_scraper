@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T699",
-  "completed": 599,
-  "completedQuestions": 599,
-  "completed_questions": 599,
-  "done": 466,
+  "activeTaskId": "T700",
+  "completed": 600,
+  "completedQuestions": 600,
+  "completed_questions": 600,
+  "done": 467,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 466,
+    "done": 467,
     "hold": 133,
-    "pending": 335
+    "pending": 334
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T20:09:34+09:00",
+  "generatedAt": "2026-06-28T20:18:12+09:00",
   "heldQuestions": 133,
   "held_questions": 133,
   "hold": 133,
@@ -22,17 +22,17 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T20:09:34+09:00",
-    "publicQuestionId": "056afe33878bb43b",
-    "reviewQuestionId": "056afe33878bb43b",
-    "taskId": "T698",
-    "workerTaskId": "T698"
+    "completedAt": "2026-06-28T20:18:12+09:00",
+    "publicQuestionId": "894083ea86be4744",
+    "reviewQuestionId": "894083ea86be4744",
+    "taskId": "T699",
+    "workerTaskId": "T699"
   },
-  "lastCompletedReviewQuestionId": "056afe33878bb43b",
-  "lastCompletedTaskId": "T698",
-  "nextActiveTaskId": "T699",
+  "lastCompletedReviewQuestionId": "894083ea86be4744",
+  "lastCompletedTaskId": "T699",
+  "nextActiveTaskId": "T700",
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -46,16 +46,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガス警報器は、メタン濃度が0.2～0.5%程度で鳴り始めるよう調整されているものが多い。",
-      "電池式ガス警報器には、火災警報機能や不完全燃焼警報機能を搭載したものがある。",
-      "半導体式ガス警報器は、センサーに可燃性ガスが触れるとその表面に化学吸着して、半導体の\n電気伝導度が低下\nする性質を利用してガスを検知する。",
-      "業務用換気警報器に用いられる電気化学式センサーの構造及び原理は、ほぼ燃料電池と同様である。",
-      "業務用ガス警報器は、ガス機器から水平距離は50cm以上8m以内で、ガス機器が設置してある部屋と同一の室内に設置しなければならない。"
+      "温水機器の空だき防止装置には、\nバイメタル式とサーミスタ式\nがある。",
+      "温度制御に用いられるサーミスタは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+      "立ち消え安全装置には、熱起電力を利用して炎の検知を行う熱電対式と、炎の導電性と整流性を利用して炎の検知を行うフレームロッド式がある。",
+      "過熱防止装置として利用される温度ヒューズは、取り付け部分の雰囲気温度が異常に高くなった場合に回路を遮断し、再起動するには交換しなければならない。",
+      "ガス量を制御する方式には、段階的にガス量を制御する多段式と、連続的にガス量を制御する比例制御式がある。"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -64,9 +64,9 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -103,28 +103,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 759,
-    "publicQuestionId": "894083ea86be4744",
+    "planSequence": 758,
+    "publicQuestionId": "e7990ec6baa35f4e",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:894083ea86be4744",
-    "questionBodyText": "警報器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 7,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:e7990ec6baa35f4e",
+    "questionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 6,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問26",
-    "questionNo": 26,
+    "questionLabel": "問25",
+    "questionNo": 25,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q26",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q25",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:894083ea86be4744",
+    "reviewId": "2022:question_2022_3:e7990ec6baa35f4e",
     "reviewNotes": "",
-    "reviewQuestionId": "894083ea86be4744",
+    "reviewQuestionId": "e7990ec6baa35f4e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -139,7 +139,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 26,
+      "questionNo": 25,
       "subject": "shohi",
       "year": 2022
     },
@@ -148,45 +148,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q26",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q25",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q26:s01",
-      "gas-shunin:otsu:2022:shohi:q26:s02",
-      "gas-shunin:otsu:2022:shohi:q26:s03",
-      "gas-shunin:otsu:2022:shohi:q26:s04",
-      "gas-shunin:otsu:2022:shohi:q26:s05"
+      "gas-shunin:otsu:2022:shohi:q25:s01",
+      "gas-shunin:otsu:2022:shohi:q25:s02",
+      "gas-shunin:otsu:2022:shohi:q25:s03",
+      "gas-shunin:otsu:2022:shohi:q25:s04",
+      "gas-shunin:otsu:2022:shohi:q25:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q26",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q25",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s05",
         "statementNo": 5
       }
     ],
@@ -199,11 +199,11 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 759,
-  "nextPendingPublicQuestionId": "894083ea86be4744",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:894083ea86be4744",
+  "nextPendingPlanSequence": 758,
+  "nextPendingPublicQuestionId": "e7990ec6baa35f4e",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:e7990ec6baa35f4e",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -217,16 +217,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "ガス警報器は、メタン濃度が0.2～0.5%程度で鳴り始めるよう調整されているものが多い。",
-      "電池式ガス警報器には、火災警報機能や不完全燃焼警報機能を搭載したものがある。",
-      "半導体式ガス警報器は、センサーに可燃性ガスが触れるとその表面に化学吸着して、半導体の\n電気伝導度が低下\nする性質を利用してガスを検知する。",
-      "業務用換気警報器に用いられる電気化学式センサーの構造及び原理は、ほぼ燃料電池と同様である。",
-      "業務用ガス警報器は、ガス機器から水平距離は50cm以上8m以内で、ガス機器が設置してある部屋と同一の室内に設置しなければならない。"
+      "温水機器の空だき防止装置には、\nバイメタル式とサーミスタ式\nがある。",
+      "温度制御に用いられるサーミスタは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+      "立ち消え安全装置には、熱起電力を利用して炎の検知を行う熱電対式と、炎の導電性と整流性を利用して炎の検知を行うフレームロッド式がある。",
+      "過熱防止装置として利用される温度ヒューズは、取り付け部分の雰囲気温度が異常に高くなった場合に回路を遮断し、再起動するには交換しなければならない。",
+      "ガス量を制御する方式には、段階的にガス量を制御する多段式と、連続的にガス量を制御する比例制御式がある。"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -235,9 +235,9 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
       "間違い",
+      "正しい",
+      "正しい",
       "正しい",
       "正しい"
     ],
@@ -274,28 +274,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 759,
-    "publicQuestionId": "894083ea86be4744",
+    "planSequence": 758,
+    "publicQuestionId": "e7990ec6baa35f4e",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:894083ea86be4744",
-    "questionBodyText": "警報器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 7,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:e7990ec6baa35f4e",
+    "questionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 6,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問26",
-    "questionNo": 26,
+    "questionLabel": "問25",
+    "questionNo": 25,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q26",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q25",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_3:894083ea86be4744",
+    "reviewId": "2022:question_2022_3:e7990ec6baa35f4e",
     "reviewNotes": "",
-    "reviewQuestionId": "894083ea86be4744",
+    "reviewQuestionId": "e7990ec6baa35f4e",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -310,7 +310,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 26,
+      "questionNo": 25,
       "subject": "shohi",
       "year": 2022
     },
@@ -319,45 +319,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q26",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q25",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q26:s01",
-      "gas-shunin:otsu:2022:shohi:q26:s02",
-      "gas-shunin:otsu:2022:shohi:q26:s03",
-      "gas-shunin:otsu:2022:shohi:q26:s04",
-      "gas-shunin:otsu:2022:shohi:q26:s05"
+      "gas-shunin:otsu:2022:shohi:q25:s01",
+      "gas-shunin:otsu:2022:shohi:q25:s02",
+      "gas-shunin:otsu:2022:shohi:q25:s03",
+      "gas-shunin:otsu:2022:shohi:q25:s04",
+      "gas-shunin:otsu:2022:shohi:q25:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q26",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q25",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q26:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s05",
         "statementNo": 5
       }
     ],
@@ -370,34 +370,34 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_3:894083ea86be4744",
-  "nextPendingTaskId": "T699",
-  "otsuCompleted": 187,
-  "otsuDone": 156,
+  "nextPendingReviewId": "2022:question_2022_3:e7990ec6baa35f4e",
+  "nextPendingTaskId": "T700",
+  "otsuCompleted": 188,
+  "otsuDone": 157,
   "otsuHeld": 31,
   "otsuHold": 31,
-  "otsuPending": 335,
-  "pending": 335,
-  "pendingQuestions": 335,
-  "pending_questions": 335,
+  "otsuPending": 334,
+  "pending": 334,
+  "pendingQuestions": 334,
+  "pending_questions": 334,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
       "hold": 102
     },
     "gas-shunin-otsu": {
-      "done": 155,
-      "hold": 29,
-      "pending": 338
+      "done": 157,
+      "hold": 31,
+      "pending": 334
     }
   },
   "reviewDecisionCounts": {
+    "ok": 467,
     "hold": 133,
-    "ok": 466,
-    "pending": 335
+    "pending": 334
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T20:08:18+09:00"
+  "updatedAt": "2026-06-28T20:18:12+09:00"
 }

@@ -75,12 +75,12 @@ execution_plan:
   tsv: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
   summary: "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
   total_questions: 934
-  completed_questions: 599
-  pending_questions: 335
+  completed_questions: 600
+  pending_questions: 334
   held_questions: 133
   next_pending_policy: "highest planSequence with executionStatus=pending; reserve a source-file block and review questions in descending planSequence order"
 
-active_task: T699
+active_task: T700
 tasks:
   - id: T001
     type: pm
@@ -38457,9 +38457,73 @@ tasks:
   - id: T699
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "降順方針で最大pendingブロックの次問 planSequence=759（gas-shunin-otsu 2022 消費機器 問26）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
+    allowed_files:
+      - "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json"
+      - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json"
+      - "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json"
+      - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+      - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+      - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+    verify:
+      - ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+      - ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+      - ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json --require-full"
+      - ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+      - ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+    stop_if:
+      - "00_source の本文・選択肢を変える必要が出た。"
+      - "answer_result_text と correctChoiceText の対応を目視確認できない。"
+      - "questionSetId の分類根拠が category.json / 過去同種問題から確定できない。"
+      - "1問を超えてまとめて編集しそうになった。"
+    receipt:
+      result: done
+      summary: "T699 planSequence=759（gas-shunin-otsu 2022 消費機器 問26）は01〜04完了。answer_result_text=正解は3です。と correctChoiceText=[正しい,正しい,間違い,正しい,正しい] が一致。半導体式ガス警報器は可燃性ガスによる電気伝導度の変化/増加を利用するため、選択肢3の『低下』を誤りとして確認。questionSetId=chiefgasengineerlicense-B-1970（警報器（乙種））。00_source は未変更。completed=600、pending=334、held=133。"
+      changed_files:
+        - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json"
+        - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json"
+        - "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json"
+        - "output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.tsv"
+        - "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/summary.json"
+        - "docs/goals/gas-shunin-01-04-full-pass/state.yaml"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/prepare_qualification_01_04_manual_review.py check output/gas-shunin-otsu/review/01_04_manual_review/gas-shunin-otsu_01_04_manual_review.jsonl --expected-total 522 --require-stage-files --category output/gas-shunin-otsu/category/category.json --allow-pending"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_questiontype_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json --require-full"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_question_set_patch_coverage.py --source output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json --patch output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json --category output/gas-shunin-otsu/category/category.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py --report output/gas-shunin-00-source-contract-final.json --max-issues 200"
+          status: pass
+      evidence:
+        - "00_source body/choices unchanged"
+        - "questionType=true_false / questionIntent=select_incorrect"
+        - "answer_result_text=正解は 3 です。 and correctChoiceText mark only choice3 incorrect"
+        - "question body and all choices are alarm-only, so category.json active questionSetId=chiefgasengineerlicense-B-1970（警報器（乙種）） selected"
+      completed_at: "2026-06-28T20:18:12+09:00"
+      remaining_questions: 334
+      held_questions: 133
+      next_active_task: T700
+      remaining_blockers:
+        - "T698 choice5 source text anomaly: 銅線 vs 鋼線"
+      verification_attempts: 1
+      stopped_because: null
+
+  - id: T700
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "降順方針で最大pendingブロックの次問 planSequence=758（gas-shunin-otsu 2022 消費機器 問25）を1問だけ処理し、01〜04を完了または理由付きholdにする。"
     allowed_files:
       - "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
       - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json"
