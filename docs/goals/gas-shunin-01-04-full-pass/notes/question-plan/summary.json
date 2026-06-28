@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T652",
-  "completed": 552,
-  "completed_questions": 552,
-  "done": 429,
+  "activeTaskId": "T653",
+  "completed": 553,
+  "completed_questions": 553,
+  "done": 430,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 429,
+    "done": 430,
     "hold": 123,
-    "pending": 382
+    "pending": 381
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T14:21:07+09:00",
+  "generatedAt": "2026-06-28T14:29:46+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,50 +20,51 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 2 です。 matches choice 2 only being correct for select_correct.",
+      "correctChoiceReason": "answer_result_text=正解は 5 です。 matches the correct group-choice combination choice 5.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
       "questionSetIdPresent": true,
-      "questionTypePresent": true
+      "questionTypePresent": true,
+      "sourceConflictStatus": "none"
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "溶接部の名称で\n熱影響部\nとは、溶接中に溶融固着した金属のことで、溶加材及び母材が溶け合ったものである。",
-      "被覆アーク溶接棒の被覆剤は、溶接金属の凝固速度を緩やかにし、上向きその他種々の位置の溶接を容易にする。",
-      "ティグ溶接は、溶融池の熱のみでワイヤを溶融させるため、\n溶接速度が速い\n。",
-      "浸透探傷試験は、金属、非金属の幅広い材料の\n内部きず\nを調べることができる。",
-      "磁粉探傷試験は、放射線透過試験や超音波探傷試験に比して、非常に簡便であるが、\n表面きずは検知できない\n。"
+      "(イ)エアパージ (ロ)連絡工事 (ハ)配管工事、埋め戻し工事 (ニ)耐圧・気密試験",
+      "(イ)エアパージ (ロ)配管工事、埋め戻し工事 (ハ)耐圧・気密試験 (ニ)連絡工事",
+      "(イ)連絡工事 (ロ)配管工事、埋め戻し工事 (ハ)耐圧・気密試験 (ニ)エアパージ",
+      "(イ)配管工事、埋め戻し工事 (ロ)エアパージ (ハ)連絡工事 (ニ)耐圧・気密試験",
+      "(イ)配管工事、埋め戻し工事 (ロ)耐圧・気密試験 (ハ)連絡工事 (ニ)エアパージ"
     ],
     "correctChoiceText": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解"
     ],
     "explanationText": [
-      "間違い。熱影響部は、溶接熱の影響で組織や性質が変化した母材部分であり、溶融固着した金属ではない。溶加材と母材が溶け合って固まった部分は溶接金属である。",
-      "正しい。被覆アーク溶接棒の被覆剤は、溶接金属の凝固・冷却を緩やかにし、スラグやガスによる保護などにより、上向きなど各種姿勢の溶接を容易にする。",
-      "間違い。ティグ溶接は高品質な溶接に適するが、一般に溶接速度が速い方式ではない。溶接速度が速いとしている点が誤り。",
-      "間違い。浸透探傷試験は、表面に開口したきずを検出する非破壊試験であり、内部きずを調べる方法ではない。",
-      "間違い。磁粉探傷試験は強磁性体の表面及び表面近傍のきずを検出する方法であり、表面きずは検知できないとしている点が誤り。"
+      "不正解。エアパージと連絡工事が早すぎる。導管を埋設する一般的な工事では、掘削後に配管工事・埋め戻し工事を行い、耐圧・気密試験、連絡工事、エアパージの順に進む。",
+      "不正解。エアパージは管内の空気又は不活性ガスを供給ガスに置換する作業であり、配管工事や耐圧・気密試験、連絡工事より前には置かない。",
+      "不正解。連絡工事を掘削直後に置いている点が誤り。連絡工事は配管工事・埋め戻し工事と耐圧・気密試験の後、エアパージの前に行う。",
+      "不正解。(イ)の配管工事・埋め戻し工事はよいが、(ロ)のエアパージが早すぎる。耐圧・気密試験と連絡工事を終えてからエアパージを行う。",
+      "正解。掘削工事後は、配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順に進み、その後にガス開通、復旧工事、工事竣工図の作成へ進む。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -97,29 +98,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 807,
-    "publicQuestionId": "28aee6c5fa69ffbe",
+    "planSequence": 806,
+    "publicQuestionId": "77cab6125409ca95",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:28aee6c5fa69ffbe",
-    "questionBodyText": "溶接と非破壊検査に関する次の記述のうち、正しいものはどれか。",
-    "questionIndexInFile": 22,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:77cab6125409ca95",
+    "questionBodyText": "地中に導管を埋設する工事の一般的な流れについて、[ ]の中の（イ）～（ニ）にあてはまる語句の組合せとして最も適切なものはどれか。\n工事計画→着工準備→掘削工事→[ (イ) ]→[ (ロ) ]→[ (ハ) ]→[ (ニ) ]→ガス開通→復旧工事→工事竣工図の作成",
+    "questionIndexInFile": 21,
     "questionIntent": "select_correct",
-    "questionLabel": "問16",
-    "questionNo": 16,
-    "questionSetId": "chiefgasengineerlicense-B-2050",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q16",
+    "questionLabel": "問15",
+    "questionNo": 15,
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q15",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:28aee6c5fa69ffbe",
-    "reviewNotes": "T651: 降順ブロック planSequence=807。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=28aee6c5fa69ffbe。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 2 です。は選択肢2のみ正しいことに対応し、correctChoiceText=[間違い, 正しい, 間違い, 間違い, 間違い] と一致。選択肢1は熱影響部を溶接金属と混同、選択肢3はティグ溶接の速度、選択肢4は浸透探傷試験の内部きず、選択肢5は磁粉探傷試験で表面きずを検知できないとしている点が誤り。questionSetId=chiefgasengineerlicense-B-2050（溶接と非破壊試験（乙種））はcategory.jsonのactive category、および甲種2020/2022と乙種2022同系precedentに基づく。",
-    "reviewQuestionId": "28aee6c5fa69ffbe",
-    "reviewedAt": "2026-06-28T14:21:07+09:00",
+    "reviewId": "2023:question_2023_2:77cab6125409ca95",
+    "reviewNotes": "T652: 降順ブロック planSequence=806。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=77cab6125409ca95。00_source body/choices preserved。questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 5 です。はchoice5の語句組合せに対応し、correctChoiceText=[不正解, 不正解, 不正解, 不正解, 正解] と一致。正しい順序は、掘削工事後に配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージ、ガス開通へ進む流れ。04はcategory.jsonのactive categoryに合わせ、questionSetId=chiefgasengineerlicense-B-2040（導管の工事（乙種））を選択。",
+    "reviewQuestionId": "77cab6125409ca95",
+    "reviewedAt": "2026-06-28T14:29:46+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -133,7 +134,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 16,
+      "questionNo": 15,
       "subject": "kyokyu",
       "year": 2023
     },
@@ -142,45 +143,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q16",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kyokyu:q15",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kyokyu:q16:s01",
-      "gas-shunin:otsu:2023:kyokyu:q16:s02",
-      "gas-shunin:otsu:2023:kyokyu:q16:s03",
-      "gas-shunin:otsu:2023:kyokyu:q16:s04",
-      "gas-shunin:otsu:2023:kyokyu:q16:s05"
+      "gas-shunin:otsu:2023:kyokyu:q15:s01",
+      "gas-shunin:otsu:2023:kyokyu:q15:s02",
+      "gas-shunin:otsu:2023:kyokyu:q15:s03",
+      "gas-shunin:otsu:2023:kyokyu:q15:s04",
+      "gas-shunin:otsu:2023:kyokyu:q15:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q16",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kyokyu-q15",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q15:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q15:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q15:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q15:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q16:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kyokyu:q15:s05",
         "statementNo": 5
       }
     ],
@@ -192,107 +193,107 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
+    "suggestedQuestions": [
+      "導管埋設工事で掘削後すぐにエアパージを行うか？",
+      "エアパージは耐圧・気密試験や連絡工事より前に行うか？",
+      "連絡工事は配管工事・埋め戻し工事より前に行うか？",
+      "配管工事・埋め戻し工事の直後にエアパージを行うか？",
+      "導管埋設工事の一般的な順序はどれか？"
+    ],
+    "category": "導管の工事（乙種）",
+    "questionSetName": "導管の工事（乙種）",
+    "reviewStatus": "ok",
+    "workerTaskId": "T652",
     "explanation_common_prefix": [
-      "供給「溶接と非破壊試験（乙種）」の溶接部名称、被覆アーク溶接、ティグ溶接、浸透探傷試験、磁粉探傷試験が本問の関連論点。",
-      "試験ポイント: 熱影響部と溶接金属、浸透探傷試験と磁粉探傷試験の検出対象を区別する。"
+      "供給「導管の工事（乙種）」の導管埋設工事の流れが本問の関連論点。",
+      "試験ポイント: 掘削後の配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順序を区別する。"
     ],
     "explanation_common_summary": [
-      "正しいものは選択肢2のみ。選択肢1は熱影響部を溶接金属と混同し、選択肢3はティグ溶接の速度、選択肢4は浸透探傷試験の対象、選択肢5は磁粉探傷試験の表面きず検出について誤っている。"
+      "正しい組合せは選択肢5のみ。導管埋設工事では、掘削後に配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順で進める。"
     ],
     "explanation_choice_snippets": [
       [
-        "熱影響部は、溶接熱の影響で組織や性質が変化した母材部分である。"
+        "エアパージと連絡工事を掘削直後に置いているため順序が誤り。"
       ],
       [
-        "被覆アーク溶接棒の被覆剤は、溶接金属の凝固・冷却を緩やかにし、各種姿勢の溶接を容易にする。"
+        "エアパージを最初に置き、連絡工事を最後に置いているため順序が誤り。"
       ],
       [
-        "ティグ溶接は高品質だが、一般に溶接速度が速い方式ではない。"
+        "連絡工事は配管工事・埋め戻し工事及び耐圧・気密試験の後に行う。"
       ],
       [
-        "浸透探傷試験は、表面に開口したきずを検出する試験である。"
+        "配管工事・埋め戻し工事の後は、エアパージではなく耐圧・気密試験に進む。"
       ],
       [
-        "磁粉探傷試験は、表面及び表面近傍のきずを検出できる。"
+        "配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順が正しい。"
       ]
     ],
     "explanation_choice_correctness": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
-    ],
-    "suggestedQuestions": [
-      "熱影響部は溶融固着した金属のことか？",
-      "被覆アーク溶接棒の被覆剤は各種姿勢の溶接を容易にするか？",
-      "ティグ溶接は一般に溶接速度が速いか？",
-      "浸透探傷試験は内部きずを調べる試験か？",
-      "磁粉探傷試験は表面きずを検知できないか？"
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "熱影響部は溶融固着した金属のことか？",
-        "answer": "違う。",
-        "explanation": "熱影響部は溶接熱で性質が変わった母材部分で、溶融固着した金属は溶接金属である。"
+        "question": "導管埋設工事で掘削後すぐにエアパージを行うか？",
+        "answer": "行わない。",
+        "explanation": "掘削後はまず配管工事・埋め戻し工事へ進み、試験や連絡工事を経てからエアパージを行う。"
       },
       {
-        "question": "被覆アーク溶接棒の被覆剤は各種姿勢の溶接を容易にするか？",
-        "answer": "容易にする。",
-        "explanation": "被覆剤は溶接金属を保護し、凝固・冷却を緩やかにして各種姿勢の溶接に役立つ。"
+        "question": "エアパージは耐圧・気密試験や連絡工事より前に行うか？",
+        "answer": "前には行わない。",
+        "explanation": "エアパージは連絡工事後、ガス開通前に行う作業である。"
       },
       {
-        "question": "ティグ溶接は一般に溶接速度が速いか？",
-        "answer": "速いとはいえない。",
-        "explanation": "ティグ溶接は高品質だが、一般に溶接速度は速くない。"
+        "question": "連絡工事は配管工事・埋め戻し工事より前に行うか？",
+        "answer": "前には行わない。",
+        "explanation": "連絡工事は、配管工事・埋め戻し工事と耐圧・気密試験の後に置く。"
       },
       {
-        "question": "浸透探傷試験は内部きずを調べる試験か？",
-        "answer": "違う。",
-        "explanation": "浸透探傷試験は表面に開口したきずを検出する試験である。"
+        "question": "配管工事・埋め戻し工事の直後にエアパージを行うか？",
+        "answer": "行わない。",
+        "explanation": "配管工事・埋め戻し工事の後は、まず耐圧・気密試験を行う。"
       },
       {
-        "question": "磁粉探傷試験は表面きずを検知できないか？",
-        "answer": "検知できる。",
-        "explanation": "磁粉探傷試験は表面及び表面近傍のきずの検出に用いられる。"
+        "question": "導管埋設工事の一般的な順序はどれか？",
+        "answer": "配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順。",
+        "explanation": "この順序で進んだ後、ガス開通、復旧工事、工事竣工図の作成へ進む。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-      "供給「溶接と非破壊試験（乙種）」の溶接部名称、被覆アーク溶接、ティグ溶接、浸透探傷試験、磁粉探傷試験が本問の関連論点。",
-      "試験ポイント: 熱影響部と溶接金属、浸透探傷試験と磁粉探傷試験の検出対象を区別する。"
+      "供給「導管の工事（乙種）」の導管埋設工事の流れが本問の関連論点。",
+      "試験ポイント: 掘削後の配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順序を区別する。"
     ],
     "sourceExplanationCommonSummary": [
-      "正しいものは選択肢2のみ。選択肢1は熱影響部を溶接金属と混同し、選択肢3はティグ溶接の速度、選択肢4は浸透探傷試験の対象、選択肢5は磁粉探傷試験の表面きず検出について誤っている。"
+      "正しい組合せは選択肢5のみ。導管埋設工事では、掘削後に配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順で進める。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "熱影響部は、溶接熱の影響で組織や性質が変化した母材部分である。"
+        "エアパージと連絡工事を掘削直後に置いているため順序が誤り。"
       ],
       [
-        "被覆アーク溶接棒の被覆剤は、溶接金属の凝固・冷却を緩やかにし、各種姿勢の溶接を容易にする。"
+        "エアパージを最初に置き、連絡工事を最後に置いているため順序が誤り。"
       ],
       [
-        "ティグ溶接は高品質だが、一般に溶接速度が速い方式ではない。"
+        "連絡工事は配管工事・埋め戻し工事及び耐圧・気密試験の後に行う。"
       ],
       [
-        "浸透探傷試験は、表面に開口したきずを検出する試験である。"
+        "配管工事・埋め戻し工事の後は、エアパージではなく耐圧・気密試験に進む。"
       ],
       [
-        "磁粉探傷試験は、表面及び表面近傍のきずを検出できる。"
+        "配管工事・埋め戻し工事、耐圧・気密試験、連絡工事、エアパージの順が正しい。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
-    ],
-    "category": "溶接と非破壊試験（乙種）",
-    "questionSetName": "溶接と非破壊試験（乙種）",
-    "reviewStatus": "ok",
-    "workerTaskId": "T651"
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解"
+    ]
   },
   "nextPending": {
     "answerResultText": "正解は 5 です。",
@@ -456,17 +457,20 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 806,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:77cab6125409ca95",
-  "nextPendingReviewId": "2023:question_2023_2:77cab6125409ca95",
-  "nextPendingTaskId": "T652",
-  "otsuCompleted": 140,
-  "otsuDone": 119,
+  "nextPendingPlanSequence": 805,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:4a1a5da4a8a83ab4",
+  "nextPendingReviewId": "2023:question_2023_2:4a1a5da4a8a83ab4",
+  "nextPendingTaskId": "T653",
+  "otsuCompleted": 141,
+  "otsuDone": 120,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 382,
-  "pending": 382,
-  "pending_questions": 382,
+  "otsuPending": 381,
+  "pending": 381,
+  "pending_questions": 381,
   "total": 934,
-  "total_questions": 934
+  "total_questions": 934,
+  "lastCompletedReviewQuestionId": "77cab6125409ca95",
+  "lastCompletedTaskId": "T652",
+  "nextPendingPublicQuestionId": "4a1a5da4a8a83ab4"
 }
