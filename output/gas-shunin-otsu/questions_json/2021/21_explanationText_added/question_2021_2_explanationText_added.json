@@ -89,25 +89,78 @@
       "平板を通過する熱流束は、平板の熱伝導率に比例する。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。伝熱量は、熱として移動するエネルギー量を単位時間あたりで表した量であり、平板を通過する熱の移動量として扱う。",
+      "正しい。熱流束は単位面積あたりの伝熱量であり、W/m²などの単位で表す。平板を通過する総伝熱量を面積で割った量である。",
+      "正しい。熱伝導率が一定で定常な平板熱伝導では q=λΔT/L となるため、熱流束は両面の温度差ΔTに比例する。",
+      "間違い。平板の定常熱伝導では q=λΔT/L であり、熱流束は平板の厚みLに反比例する。厚みに比例するとしている点が誤りである。",
+      "正しい。q=λΔT/L より、温度差と厚みが同じなら熱流束は熱伝導率λに比例する。熱伝導率が大きいほど熱は通りやすい。"
+    ],
+    "suggestedQuestions": [
+      "平板の定常熱伝導における熱流束の式は？",
+      "熱流束は温度差にどう依存する？",
+      "熱流束は平板の厚みにどう依存する？",
+      "熱流束は熱伝導率にどう依存する？",
+      "選択肢4が誤りになる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "平板の定常熱伝導における熱流束の式は？",
+        "answer": "q=λΔT/L。",
+        "explanation": "正解。熱伝導率が一定で定常な平板では、熱流束は熱伝導率と温度差に比例し、厚みに反比例する。"
+      },
+      {
+        "question": "熱流束は温度差にどう依存する？",
+        "answer": "温度差に比例する。",
+        "explanation": "q=λΔT/L なので、λとLが一定なら熱流束は両面の温度差ΔTに比例する。"
+      },
+      {
+        "question": "熱流束は平板の厚みにどう依存する？",
+        "answer": "厚みに反比例する。",
+        "explanation": "q=λΔT/L なので、厚みLが大きくなるほど熱流束は小さくなる。"
+      },
+      {
+        "question": "熱流束は熱伝導率にどう依存する？",
+        "answer": "熱伝導率に比例する。",
+        "explanation": "q=λΔT/L なので、温度差と厚みが同じなら熱伝導率λが大きいほど熱流束も大きい。"
+      },
+      {
+        "question": "選択肢4が誤りになる理由は？",
+        "answer": "熱流束は厚みに比例せず、厚みに反比例するため。",
+        "explanation": "選択肢4は「厚みに比例」とするが、定常平板熱伝導の式 q=λΔT/L では厚みLは分母に入る。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱」が本問の関連論点。熱伝導率が一定で定常な平板熱伝導では、熱流束 q は q=λΔT/L で表される。",
+      "この式から、熱流束は熱伝導率λと温度差ΔTに比例し、平板の厚みLに反比例する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢4は熱流束が平板の厚みに比例するとしているが、正しくは厚みに反比例するため誤りである。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "伝熱量は単位時間あたりに移動する熱エネルギー量である。"
+      ],
+      [
+        "熱流束は単位面積あたりの伝熱量である。"
+      ],
+      [
+        "q=λΔT/L なので、熱流束は温度差に比例する。"
+      ],
+      [
+        "q=λΔT/L なので、熱流束は厚みLに反比例し、厚みに比例しない。"
+      ],
+      [
+        "q=λΔT/L なので、熱流束は熱伝導率λに比例する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
     ]
   },
   {
