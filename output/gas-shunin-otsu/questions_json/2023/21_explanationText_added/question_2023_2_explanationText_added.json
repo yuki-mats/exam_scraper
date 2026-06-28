@@ -89,18 +89,71 @@
       "100"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。平板の定常熱伝導では、熱流束qは q=λΔT/L で求める。λ=0.1W/(m·K)、ΔT=20-(-40)=60K、L=0.3mなので q=0.1×60/0.3=20W/m²であり、2W/m²ではない。",
+      "不正解。10W/m²は計算結果20W/m²の半分である。温度差60Kと厚さ0.3mを用いると、熱流束は20W/m²となる。",
+      "正解。平板の定常熱伝導の熱流束は q=λΔT/L。平均熱伝導率0.1W/(m·K)、温度差60K、厚さ0.3mより q=0.1×60/0.3=20W/m²となる。",
+      "不正解。50W/m²は、与えられた熱伝導率、温度差、厚さから求める熱流束より大きい。正しくは20W/m²である。",
+      "不正解。100W/m²は過大である。平板壁を通過する熱流束は q=0.1×60/0.3=20W/m²である。"
+    ],
+    "suggestedQuestions": [
+      "平板の定常熱伝導で熱流束を求める式は？",
+      "この問題の温度差ΔTはいくつか？",
+      "q=λΔT/Lに数値を代入するといくつか？",
+      "厚さ0.3mは式の分子と分母のどちらに入るか？",
+      "20W/m²以外の選択肢が不適切な理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "平板の定常熱伝導で熱流束を求める式は？",
+        "answer": "q=λΔT/L。",
+        "explanation": "平板の定常熱伝導では、熱流束は熱伝導率と温度差に比例し、厚さに反比例する。"
+      },
+      {
+        "question": "この問題の温度差ΔTはいくつか？",
+        "answer": "60K。",
+        "explanation": "高温側20℃、低温側-40℃なので、温度差は20-(-40)=60Kである。"
+      },
+      {
+        "question": "q=λΔT/Lに数値を代入するといくつか？",
+        "answer": "20W/m²。",
+        "explanation": "正解。平板の定常熱伝導の熱流束は q=λΔT/L。平均熱伝導率0.1W/(m·K)、温度差60K、厚さ0.3mより q=0.1×60/0.3=20W/m²となる。"
+      },
+      {
+        "question": "厚さ0.3mは式の分子と分母のどちらに入るか？",
+        "answer": "分母に入る。",
+        "explanation": "熱流束は厚さに反比例するため、L=0.3mは分母に入る。"
+      },
+      {
+        "question": "20W/m²以外の選択肢が不適切な理由は？",
+        "answer": "式から得られる20W/m²と一致しないため。",
+        "explanation": "与えられた条件では q=0.1×60/0.3=20W/m²であり、他の選択肢は計算結果に合わない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」の平板の定常熱伝導が本問の関連論点。熱流束は q=λΔT/L で求める。",
+      "温度差は高温側20℃と低温側-40℃の差で60K、厚さは0.3m、平均熱伝導率は0.1W/(m·K)である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "q=λΔT/L=0.1×60/0.3=20W/m²。よって選択肢3が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "2W/m²は q=0.1×60/0.3 の計算結果と一致しない。"
+      ],
+      [
+        "10W/m²は20W/m²の半分であり、温度差と厚さの適用が合わない。"
+      ],
+      [
+        "0.1×60/0.3=20W/m²。"
+      ],
+      [
+        "50W/m²は与条件から求める熱流束より大きい。"
+      ],
+      [
+        "100W/m²は過大で、正しい熱流束は20W/m²。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
