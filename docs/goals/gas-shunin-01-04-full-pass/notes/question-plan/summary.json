@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T708",
-  "completed": 608,
-  "completedQuestions": 608,
-  "completed_questions": 608,
-  "done": 473,
+  "activeTaskId": "T709",
+  "completed": 609,
+  "completedQuestions": 609,
+  "completed_questions": 609,
+  "done": 474,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 473,
+    "done": 474,
     "hold": 135,
-    "pending": 326
+    "pending": 325
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T22:13:09+09:00",
+  "generatedAt": "2026-06-28T22:18:48+09:00",
   "heldQuestions": 135,
   "held_questions": 135,
   "hold": 135,
@@ -22,17 +22,17 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T22:13:09+09:00",
-    "publicQuestionId": "da3050a1bed2ae44",
-    "reviewQuestionId": "da3050a1bed2ae44",
-    "taskId": "T707",
-    "workerTaskId": "T707"
+    "completedAt": "2026-06-28T22:18:48+09:00",
+    "publicQuestionId": "4785db6652a796e0",
+    "reviewQuestionId": "4785db6652a796e0",
+    "taskId": "T708",
+    "workerTaskId": "T708"
   },
-  "lastCompletedReviewQuestionId": "da3050a1bed2ae44",
-  "lastCompletedTaskId": "T707",
-  "nextActiveTaskId": "T708",
+  "lastCompletedReviewQuestionId": "4785db6652a796e0",
+  "lastCompletedTaskId": "T708",
+  "nextActiveTaskId": "T709",
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 2,
@@ -46,8 +46,8 @@
     },
     "choiceCount": 2,
     "choiceTextList": [
-      "水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H2、CO等は検出できない。",
-      "マッピングシステムは、地図情報、本支管等の設備位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分化したシステムであり、様々な業務に活用できる。"
+      "溶接施工法は、溶接事業所又は工場ごとに確認を受けなければならない。",
+      "開先不良は、溶込み不良や割れ等の原因となる。"
     ],
     "correctChoiceText": [
       "正しい",
@@ -91,28 +91,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 750,
-    "publicQuestionId": "4785db6652a796e0",
+    "planSequence": 749,
+    "publicQuestionId": "6aaa6948a383bdc9",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:4785db6652a796e0",
-    "questionBodyText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 23,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6aaa6948a383bdc9",
+    "questionBodyText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 22,
     "questionIntent": "select_correct",
-    "questionLabel": "問17",
-    "questionNo": 17,
+    "questionLabel": "問16",
+    "questionNo": 16,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q17",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q16",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:4785db6652a796e0",
+    "reviewId": "2022:question_2022_2:6aaa6948a383bdc9",
     "reviewNotes": "",
-    "reviewQuestionId": "4785db6652a796e0",
+    "reviewQuestionId": "6aaa6948a383bdc9",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -127,7 +127,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 17,
+      "questionNo": 16,
       "subject": "kyokyu",
       "year": 2022
     },
@@ -136,24 +136,24 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q17",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q16",
     "sourceStatementCount": 2,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:kyokyu:q17:s01",
-      "gas-shunin:otsu:2022:kyokyu:q17:s02"
+      "gas-shunin:otsu:2022:kyokyu:q16:s01",
+      "gas-shunin:otsu:2022:kyokyu:q16:s02"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q17",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q16",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q17:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q16:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q17:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q16:s02",
         "statementNo": 2
       }
     ],
@@ -166,11 +166,11 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 750,
-  "nextPendingPublicQuestionId": "4785db6652a796e0",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:4785db6652a796e0",
+  "nextPendingPlanSequence": 749,
+  "nextPendingPublicQuestionId": "6aaa6948a383bdc9",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:6aaa6948a383bdc9",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 2,
@@ -184,8 +184,8 @@
     },
     "choiceCount": 2,
     "choiceTextList": [
-      "水素炎イオン化式ガス検知器は、水素炎の中に炭化水素が入ると、炎の電気伝導度が増大する現象を利用したもので、H2、CO等は検出できない。",
-      "マッピングシステムは、地図情報、本支管等の設備位置や管理情報（口径、管種等）、地域管理情報をレイヤーに区分化したシステムであり、様々な業務に活用できる。"
+      "溶接施工法は、溶接事業所又は工場ごとに確認を受けなければならない。",
+      "開先不良は、溶込み不良や割れ等の原因となる。"
     ],
     "correctChoiceText": [
       "正しい",
@@ -229,28 +229,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 750,
-    "publicQuestionId": "4785db6652a796e0",
+    "planSequence": 749,
+    "publicQuestionId": "6aaa6948a383bdc9",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:4785db6652a796e0",
-    "questionBodyText": "ガス導管の維持管理に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 23,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:6aaa6948a383bdc9",
+    "questionBodyText": "溶接と非破壊試験に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 22,
     "questionIntent": "select_correct",
-    "questionLabel": "問17",
-    "questionNo": 17,
+    "questionLabel": "問16",
+    "questionNo": 16,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q17",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q16",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:4785db6652a796e0",
+    "reviewId": "2022:question_2022_2:6aaa6948a383bdc9",
     "reviewNotes": "",
-    "reviewQuestionId": "4785db6652a796e0",
+    "reviewQuestionId": "6aaa6948a383bdc9",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -265,7 +265,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 17,
+      "questionNo": 16,
       "subject": "kyokyu",
       "year": 2022
     },
@@ -274,24 +274,24 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q17",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q16",
     "sourceStatementCount": 2,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:kyokyu:q17:s01",
-      "gas-shunin:otsu:2022:kyokyu:q17:s02"
+      "gas-shunin:otsu:2022:kyokyu:q16:s01",
+      "gas-shunin:otsu:2022:kyokyu:q16:s02"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q17",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q16",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q17:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q16:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q17:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q16:s02",
         "statementNo": 2
       }
     ],
@@ -304,35 +304,35 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_2:4785db6652a796e0",
-  "nextPendingTaskId": "T708",
-  "otsuCompleted": 196,
-  "otsuDone": 163,
+  "nextPendingReviewId": "2022:question_2022_2:6aaa6948a383bdc9",
+  "nextPendingTaskId": "T709",
+  "otsuCompleted": 197,
+  "otsuDone": 164,
   "otsuHeld": 33,
   "otsuHold": 33,
-  "otsuPending": 326,
-  "pending": 326,
-  "pendingQuestions": 326,
-  "pending_questions": 326,
+  "otsuPending": 325,
+  "pending": 325,
+  "pendingQuestions": 325,
+  "pending_questions": 325,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
       "hold": 102
     },
     "gas-shunin-otsu": {
-      "done": 163,
+      "done": 164,
       "hold": 33,
-      "pending": 326
+      "pending": 325
     }
   },
   "reviewDecisionCounts": {
-    "ok": 473,
+    "ok": 474,
     "hold": 135,
-    "pending": 326
+    "pending": 325
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T22:13:09+09:00",
-  "lastUpdatedAt": "2026-06-28T22:13:09+09:00"
+  "updatedAt": "2026-06-28T22:18:48+09:00",
+  "lastUpdatedAt": "2026-06-28T22:18:48+09:00"
 }
