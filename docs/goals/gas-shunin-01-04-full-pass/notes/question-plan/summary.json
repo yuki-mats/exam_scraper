@@ -1,33 +1,33 @@
 {
-  "activeTaskId": "T691",
-  "completed": 591,
-  "completedQuestions": 591,
-  "completed_questions": 591,
+  "activeTaskId": "T692",
+  "completed": 592,
+  "completedQuestions": 592,
+  "completed_questions": 592,
   "done": 462,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 462,
-    "hold": 129,
-    "pending": 343
+    "hold": 130,
+    "pending": 342
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-28T19:03:54+09:00",
-  "heldQuestions": 129,
-  "held_questions": 129,
-  "hold": 129,
-  "hold_questions": 129,
+  "heldQuestions": 130,
+  "held_questions": 130,
+  "hold": 130,
+  "hold_questions": 130,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "manual_reviewed_against_answer_result_text_archived_choice_text_and_official_egov_technical_standards",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_text_and_official_egov_technical_standards",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -36,16 +36,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "イ",
-      "ロ",
-      "ハ",
-      "ニ",
-      "ホ"
+      "(イ)に届け出た (ロ)種類 (ハ)滞留 (ニ)排出 (ホ)耐食",
+      "(イ)に届け出た (ロ)規模 (ハ)滞留 (ニ)警報 (ホ)防爆",
+      "(イ)の認可を受けた (ロ)規模 (ハ)滞留 (ニ)警報 (ホ)防爆",
+      "(イ)の認可を受けた (ロ)種類 (ハ)拡散 (ニ)排出 (ホ)耐食",
+      "(イ)に届け出た (ロ)規模 (ハ)拡散 (ニ)警報 (ホ)防爆"
     ],
     "correctChoiceText": [
+      "不正解",
+      "不正解",
       "正解",
-      "不正解",
-      "不正解",
       "不正解",
       "不正解"
     ],
@@ -54,23 +54,23 @@
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "hold",
     "expectedCorrectChoiceText": [
+      "不正解",
+      "不正解",
       "正解",
-      "不正解",
-      "不正解",
       "不正解",
       "不正解"
     ],
     "explanationText": [
-      "正解。ガス工作物の技術上の基準を定める省令第14条は、導管及びガス栓を含む主要材料について、最高使用温度及び最低使用温度で材料に及ぼす化学的及び物理的影響に対し、安全な機械的性質を有することを求めている。",
-      "不正解。同省令第15条第1項は、構造が供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切であることを求めている。衝撃、供給圧力としている点が条文と異なる。",
-      "不正解。同省令第15条第1項の圧力条件は、最高使用温度及び最低使用温度における最高使用圧力である。供用中の荷重は合っているが、供給圧力としている点が誤りである。",
-      "不正解。同省令第16条第1項は、溶接部分について溶込みが十分であることを求めている。肉厚が十分としている点が誤りである。",
-      "不正解。同省令第16条第1項は、溶接部分が設計上要求される強度以上の強度であることを求めている。運用時に問題を生じない強度としている点が誤りである。"
+      "不正解。ガス工作物の技術上の基準を定める省令第6条第4項は、ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合に、前各項の規定によらないでガス工作物を施設できると定めている。届出ではない。",
+      "不正解。同省令第8条は、製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、その規模に応じて適切な防消火設備を設けることを求めている。種類ではない。",
+      "正解。同省令第6条第4項、第8条、第9条第2項、第10条に照らすと、空欄は順に「の認可を受けた」「規模」「滞留」「警報」「防爆」となるため、この組合せが最も適切である。",
+      "不正解。同省令第9条第2項は、漏えいしたガスが滞留するおそれのある場所に、漏えいを検知し警報する設備を設けることを求めている。拡散・排出ではなく、滞留・警報である。",
+      "不正解。同省令第10条は、ガス工作物等の付近に設置する電気設備について、設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能を求めている。耐食性能ではない。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
-    "fixInstructions": "04 hold: statement-levelカテゴリ（技省令_材料、技省令_構造等、技省令_溶接部分）が混在するため、per-statement questionSetId方針確定後に解除する。",
+    "fixInstructions": "04 hold: statement-levelカテゴリ（技省令_離隔距離、技省令_防消火設備、漏えい検知警報、技省令_電気設備の防爆構造）が混在するため、per-statement questionSetId方針確定後に解除する。",
     "grade": "乙種",
     "hasAnswerResultText": true,
     "isSiteSourced": true,
@@ -99,29 +99,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 768,
-    "publicQuestionId": "6ef7a08857fedb18",
+    "planSequence": 767,
+    "publicQuestionId": "606300689177531c",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:6ef7a08857fedb18",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述について、[ ]の中の(イ)～(ホ)のうち、正しいものはどれか。\n導管及びガス栓の主要材料は、最高使用温度及び最低使用温度において材料に及ぼす化学的及び物理的影響に対し、設備の種類、規模に応じて安全な[(イ)機械的性質]を有するものでなければならない。\n導管及びガス栓の構造は、供用中の[(ロ)荷重]並びに最高使用温度及び最低使用温度における[(ハ)最高使用圧力]に対し、設備の種類、規模に応じて適切な構造でなければならない。\nガス工作物のガス又は液化ガスを通ずる部分であって、内面に零Paを超える圧力を受ける部分の溶接された部分は、[(ニ)溶込み]が十分で、溶接による割れ等で有害な欠陥がなく、かつ、[(ホ)設計上要求される強度以上の]強度でなければならない。",
-    "questionIndexInFile": 8,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:606300689177531c",
+    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述について、[ ]の中の(イ)～(ホ)にあてはまる語句の組合せとして最も適切なものはどれか。\nガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣[(イ)]場合は、告示で定める離隔距離を有しないでガス工作物を施設することができる。\n製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、その[(ロ)]に応じて、適切な防消火設備を適切な箇所に設けなければならない。\n製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが[(ハ)]するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、[(ニ)]する設備を設けなければならない。\n製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物の付近に設置する電気設備は、その設置場所の状況及び当該ガス又は液化ガスの種類に応じた[(ホ)]性能を有するものでなければならない。",
+    "questionIndexInFile": 7,
     "questionIntent": "select_correct",
-    "questionLabel": "問8",
-    "questionNo": 8,
+    "questionLabel": "問7",
+    "questionNo": 7,
     "questionSetId": "",
     "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q8",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q7",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "hold",
     "reviewDecision": "hold",
-    "reviewId": "2023:question_2023_1:6ef7a08857fedb18",
-    "reviewNotes": "T690: gassyunin site sourceConflictStatus=none; site-only publicQuestionId=6ef7a08857fedb18; 00_source body/choices preserved. questionType=group_choice and questionIntent=select_correct verified against the prompt. answer_result_text=正解は 1 です。 matches correctChoiceText=[正解, 不正解, 不正解, 不正解, 不正解]. The 00_source choiceTextList is label-only [イ, ロ, ハ, ニ, ホ], so the archived/intermediate site choice text in output/gas-shunin-otsu/questions_json/2023/20_merged_1_law_only/question_2023_1_merged_law_only.json was used only as review evidence; 00_source was not edited. 03 explanationText completed per choice from e-Gov ガス工作物の技術上の基準を定める省令 第14条、第15条第1項、第16条第1項. 04 held because the problem spans multiple official technical-standard categories: choice1=chiefgasengineerlicense-B-1510 技省令_材料, choices2-3=chiefgasengineerlicense-B-1500 技省令_構造等, choices4-5=chiefgasengineerlicense-B-1710 技省令_溶接部分; single problem-level questionSetId would be misleading, so questionSetId remains blank until per-statement category policy is resolved.",
-    "reviewQuestionId": "6ef7a08857fedb18",
-    "reviewedAt": "2026-06-28T19:05:46+09:00",
+    "reviewId": "2023:question_2023_1:606300689177531c",
+    "reviewNotes": "T691: gassyunin site sourceConflictStatus=none; site-only publicQuestionId=606300689177531c; 00_source body/choices preserved. questionType=group_choice and questionIntent=select_correct verified against the prompt asking for the most appropriate word combination. answer_result_text=正解は 3 です。 matches correctChoiceText=[不正解, 不正解, 正解, 不正解, 不正解]. 03 explanationText completed per choice from e-Gov ガス工作物の技術上の基準を定める省令 第6条第4項、第8条、第9条第2項、第10条. 04 held because the problem spans multiple official technical-standard categories: choice1 includes chiefgasengineerlicense-B-1720 技省令_離隔距離, choice2 includes chiefgasengineerlicense-B-1700 技省令_防消火設備, choice3 spans the same combined topics, choice4 includes gas leakage detection/alarm under technical standards, choice5 includes chiefgasengineerlicense-B-1610 技省令_電気設備の防爆構造; single problem-level questionSetId would be misleading, so questionSetId remains blank until per-statement category policy is resolved.",
+    "reviewQuestionId": "606300689177531c",
+    "reviewedAt": "2026-06-28T19:12:13+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -135,7 +135,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 8,
+      "questionNo": 7,
       "subject": "law",
       "year": 2023
     },
@@ -144,45 +144,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q08",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q08:s01",
-      "gas-shunin:otsu:2023:law:q08:s02",
-      "gas-shunin:otsu:2023:law:q08:s03",
-      "gas-shunin:otsu:2023:law:q08:s04",
-      "gas-shunin:otsu:2023:law:q08:s05"
+      "gas-shunin:otsu:2023:law:q07:s01",
+      "gas-shunin:otsu:2023:law:q07:s02",
+      "gas-shunin:otsu:2023:law:q07:s03",
+      "gas-shunin:otsu:2023:law:q07:s04",
+      "gas-shunin:otsu:2023:law:q07:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q8",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q7",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q08:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q08:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q08:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q08:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q08:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s05",
         "statementNo": 5
       }
     ],
@@ -193,119 +193,50 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "category": "法令",
-    "taskId": "T690",
-    "workerTaskId": "T690",
-    "completedAt": "2026-06-28T19:03:54+09:00",
-    "questionTypeReviewedAt": "2026-06-28T10:03:54Z",
-    "questionIntentReviewedAt": "2026-06-28T10:03:54Z",
-    "correctChoiceReviewedAt": "2026-06-28T10:03:54Z",
-    "explanationReviewedAt": "2026-06-28T10:03:54Z",
-    "questionSetReviewedAt": "2026-06-28T10:03:54Z",
-    "sourceExplanationCommonPrefix": [
-      "技省令第14条第6号の材料、第15条第1項第6号の導管及びガス栓の構造、第16条第1項の溶接部分が本問の関連論点。",
-      "設問は正しいものを1つ選ぶ形式で、answer_result_text の「正解は 1」はイのみが正しいことに対応する。",
-      "現行00_sourceのchoiceTextListはラベルのみだが、既存mergedに残る全文選択肢でロ=衝撃/供給圧力、ハ=供給圧力、ニ=肉厚、ホ=運用時に問題を生じない強度を確認した。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "イは技省令第14条第6号どおり。ロは荷重・最高使用圧力を衝撃・供給圧力に、ハは最高使用圧力を供給圧力に、ニは溶込みを肉厚に、ホは設計上要求される強度以上を運用時に問題を生じない強度に置き換えているため不正解。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "第14条第6号: 導管及びガス栓の主要材料は安全な機械的性質を有する。"
-      ],
-      [
-        "第15条第1項第6号: 導管及びガス栓の構造は供用中の荷重と最高使用圧力に対して適切。"
-      ],
-      [
-        "第15条第1項第6号: 基準となる圧力は供給圧力ではなく最高使用圧力。"
-      ],
-      [
-        "第16条第1項: 溶接部分は溶込みが十分であることが必要。"
-      ],
-      [
-        "第16条第1項: 溶接部分は設計上要求される強度以上の強度が必要。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解",
-      "不正解"
-    ],
-    "suggestedQuestions": [
-      "導管及びガス栓の主要材料に求められる性質は何か。",
-      "導管及びガス栓の構造は供用中の何とどの圧力に対して適切でなければならないか。",
-      "導管及びガス栓の構造で、最高使用温度・最低使用温度において基準となる圧力は何か。",
-      "溶接部分について十分でなければならないものは何か。",
-      "溶接部分に求められる強度はどのような強度か。"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "導管及びガス栓の主要材料に求められる性質は何か。",
-        "answer": "安全な機械的性質。",
-        "explanation": "技省令第14条第6号は、導管及びガス栓の主要材料に安全な機械的性質を求めている。"
-      },
-      {
-        "question": "導管及びガス栓の構造は供用中の何とどの圧力に対して適切でなければならないか。",
-        "answer": "供用中の荷重と、最高使用温度・最低使用温度における最高使用圧力。",
-        "explanation": "技省令第15条第1項第6号は、衝撃や供給圧力ではなく、荷重と最高使用圧力を基準にしている。"
-      },
-      {
-        "question": "導管及びガス栓の構造で、最高使用温度・最低使用温度において基準となる圧力は何か。",
-        "answer": "最高使用圧力。",
-        "explanation": "供給圧力ではなく、最高使用圧力に対して適切な構造であることが求められる。"
-      },
-      {
-        "question": "溶接部分について十分でなければならないものは何か。",
-        "answer": "溶込み。",
-        "explanation": "技省令第16条第1項は、溶接部分の溶込みが十分であることを求めている。"
-      },
-      {
-        "question": "溶接部分に求められる強度はどのような強度か。",
-        "answer": "設計上要求される強度以上の強度。",
-        "explanation": "運用時に問題を生じない強度ではなく、設計上要求される強度以上であることが条文上の要件である。"
-      }
     ]
   },
-  "lastCompletedReviewQuestionId": "6ef7a08857fedb18",
-  "lastCompletedTaskId": "T690",
-  "nextActiveTaskId": "T691",
+  "lastCompletedReviewQuestionId": "606300689177531c",
+  "lastCompletedTaskId": "T691",
+  "nextActiveTaskId": "T692",
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "(イ)に届け出た (ロ)種類 (ハ)滞留 (ニ)排出 (ホ)耐食",
-      "(イ)に届け出た (ロ)規模 (ハ)滞留 (ニ)警報 (ホ)防爆",
-      "(イ)の認可を受けた (ロ)規模 (ハ)滞留 (ニ)警報 (ホ)防爆",
-      "(イ)の認可を受けた (ロ)種類 (ハ)拡散 (ニ)排出 (ホ)耐食",
-      "(イ)に届け出た (ロ)規模 (ハ)拡散 (ニ)警報 (ホ)防爆"
+      "工事の計画の届出をした一般ガス導管事業者は、その届出が受理された日から30日を経過した後でなければ、その届出に係る工事を開始してはならない。\nただし、その工事が経済産業省令で定める軽微なものであるときは、この限りでない\n。",
+      "経済産業大臣は、工事の計画が経済産業省令で定める技術上の基準に適合していないと認めるときは、一般ガス導管事業者に対し、\nその届出が提出された日から30日以内\nに限り、その工事の計画を変更し、又は廃止すべきことを命ずることができる。",
+      "一般ガス導管事業者は、経済産業省令で定めるものの工事について自主検査を行い、その結果について登録ガス工作物検査機関が行う検査を受け、これに合格した後でなければ、これを使用してはならない。ただし、経済産業省令で定める場合は、この限りでない。",
+      "使用前自主検査の記録には、自主検査の結果に基づいて補修等の措置を講じたときは、その内容を記載しなければならない。\nただし、その補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない\n。",
+      "一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物であって経済産業省令で定めるものについては、経済産業省令で定めるところにより、定期に、自主検査を行い、その検査記録を作成し、\n経済産業大臣に届け出なければならない\n。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -339,28 +270,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 767,
-    "publicQuestionId": "606300689177531c",
+    "planSequence": 766,
+    "publicQuestionId": "974d4a9453af90a2",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:606300689177531c",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述について、[ ]の中の(イ)～(ホ)にあてはまる語句の組合せとして最も適切なものはどれか。\nガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣[(イ)]場合は、告示で定める離隔距離を有しないでガス工作物を施設することができる。\n製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、その[(ロ)]に応じて、適切な防消火設備を適切な箇所に設けなければならない。\n製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが[(ハ)]するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、[(ニ)]する設備を設けなければならない。\n製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物の付近に設置する電気設備は、その設置場所の状況及び当該ガス又は液化ガスの種類に応じた[(ホ)]性能を有するものでなければならない。",
-    "questionIndexInFile": 7,
-    "questionIntent": "",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:974d4a9453af90a2",
+    "questionBodyText": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 6,
+    "questionIntent": "select_correct",
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q7",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:606300689177531c",
+    "reviewId": "2023:question_2023_1:974d4a9453af90a2",
     "reviewNotes": "",
-    "reviewQuestionId": "606300689177531c",
+    "reviewQuestionId": "974d4a9453af90a2",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -375,7 +306,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "law",
       "year": 2023
     },
@@ -384,45 +315,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q07:s01",
-      "gas-shunin:otsu:2023:law:q07:s02",
-      "gas-shunin:otsu:2023:law:q07:s03",
-      "gas-shunin:otsu:2023:law:q07:s04",
-      "gas-shunin:otsu:2023:law:q07:s05"
+      "gas-shunin:otsu:2023:law:q06:s01",
+      "gas-shunin:otsu:2023:law:q06:s02",
+      "gas-shunin:otsu:2023:law:q06:s03",
+      "gas-shunin:otsu:2023:law:q06:s04",
+      "gas-shunin:otsu:2023:law:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s05",
         "statementNo": 5
       }
     ],
@@ -435,42 +366,48 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 767,
-  "nextPendingPublicQuestionId": "606300689177531c",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:606300689177531c",
+  "nextPendingPlanSequence": 766,
+  "nextPendingPublicQuestionId": "974d4a9453af90a2",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:974d4a9453af90a2",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "(イ)に届け出た (ロ)種類 (ハ)滞留 (ニ)排出 (ホ)耐食",
-      "(イ)に届け出た (ロ)規模 (ハ)滞留 (ニ)警報 (ホ)防爆",
-      "(イ)の認可を受けた (ロ)規模 (ハ)滞留 (ニ)警報 (ホ)防爆",
-      "(イ)の認可を受けた (ロ)種類 (ハ)拡散 (ニ)排出 (ホ)耐食",
-      "(イ)に届け出た (ロ)規模 (ハ)拡散 (ニ)警報 (ホ)防爆"
+      "工事の計画の届出をした一般ガス導管事業者は、その届出が受理された日から30日を経過した後でなければ、その届出に係る工事を開始してはならない。\nただし、その工事が経済産業省令で定める軽微なものであるときは、この限りでない\n。",
+      "経済産業大臣は、工事の計画が経済産業省令で定める技術上の基準に適合していないと認めるときは、一般ガス導管事業者に対し、\nその届出が提出された日から30日以内\nに限り、その工事の計画を変更し、又は廃止すべきことを命ずることができる。",
+      "一般ガス導管事業者は、経済産業省令で定めるものの工事について自主検査を行い、その結果について登録ガス工作物検査機関が行う検査を受け、これに合格した後でなければ、これを使用してはならない。ただし、経済産業省令で定める場合は、この限りでない。",
+      "使用前自主検査の記録には、自主検査の結果に基づいて補修等の措置を講じたときは、その内容を記載しなければならない。\nただし、その補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない\n。",
+      "一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物であって経済産業省令で定めるものについては、経済産業省令で定めるところにより、定期に、自主検査を行い、その検査記録を作成し、\n経済産業大臣に届け出なければならない\n。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解"
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -504,28 +441,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 767,
-    "publicQuestionId": "606300689177531c",
+    "planSequence": 766,
+    "publicQuestionId": "974d4a9453af90a2",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:606300689177531c",
-    "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述について、[ ]の中の(イ)～(ホ)にあてはまる語句の組合せとして最も適切なものはどれか。\nガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣[(イ)]場合は、告示で定める離隔距離を有しないでガス工作物を施設することができる。\n製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、その[(ロ)]に応じて、適切な防消火設備を適切な箇所に設けなければならない。\n製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが[(ハ)]するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、[(ニ)]する設備を設けなければならない。\n製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物の付近に設置する電気設備は、その設置場所の状況及び当該ガス又は液化ガスの種類に応じた[(ホ)]性能を有するものでなければならない。",
-    "questionIndexInFile": 7,
-    "questionIntent": "",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:974d4a9453af90a2",
+    "questionBodyText": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
+    "questionIndexInFile": 6,
+    "questionIntent": "select_correct",
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q7",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:606300689177531c",
+    "reviewId": "2023:question_2023_1:974d4a9453af90a2",
     "reviewNotes": "",
-    "reviewQuestionId": "606300689177531c",
+    "reviewQuestionId": "974d4a9453af90a2",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -540,7 +477,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "law",
       "year": 2023
     },
@@ -549,45 +486,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:law:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:law:q07:s01",
-      "gas-shunin:otsu:2023:law:q07:s02",
-      "gas-shunin:otsu:2023:law:q07:s03",
-      "gas-shunin:otsu:2023:law:q07:s04",
-      "gas-shunin:otsu:2023:law:q07:s05"
+      "gas-shunin:otsu:2023:law:q06:s01",
+      "gas-shunin:otsu:2023:law:q06:s02",
+      "gas-shunin:otsu:2023:law:q06:s03",
+      "gas-shunin:otsu:2023:law:q06:s04",
+      "gas-shunin:otsu:2023:law:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#law-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:law:q06:s05",
         "statementNo": 5
       }
     ],
@@ -600,18 +537,18 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:606300689177531c",
-  "nextPendingTaskId": "T691",
-  "otsuCompleted": 179,
+  "nextPendingReviewId": "2023:question_2023_1:974d4a9453af90a2",
+  "nextPendingTaskId": "T692",
+  "otsuCompleted": 180,
   "otsuDone": 152,
-  "otsuHeld": 27,
-  "otsuHold": 27,
-  "otsuPending": 343,
-  "pending": 343,
-  "pendingQuestions": 343,
-  "pending_questions": 343,
+  "otsuHeld": 28,
+  "otsuHold": 28,
+  "otsuPending": 342,
+  "pending": 342,
+  "pendingQuestions": 342,
+  "pending_questions": 342,
   "total": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T19:05:46+09:00",
+  "updatedAt": "2026-06-28T19:12:13+09:00",
   "totalQuestions": 934
 }
