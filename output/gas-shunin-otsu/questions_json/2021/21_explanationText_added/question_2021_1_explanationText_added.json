@@ -718,18 +718,71 @@
       "高温熱源: 1400K, 低温熱源: 500K"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。カルノーサイクルの熱効率は 1-Tc/Th で表される。高温熱源1000K、低温熱源400Kでは 1-400/1000=0.60 であり、本問の最大ではない。",
+      "不正解。高温熱源1000K、低温熱源500Kでは、熱効率は 1-500/1000=0.50 となる。選択肢3の0.75より小さい。",
+      "正解。高温熱源1200K、低温熱源300Kでは、熱効率は 1-300/1200=0.75 となる。各選択肢の中で最も大きいため、熱効率が最大になる。",
+      "不正解。高温熱源1200K、低温熱源500Kでは、熱効率は 1-500/1200≒0.58 である。選択肢3の0.75より小さい。",
+      "不正解。高温熱源1400K、低温熱源500Kでは、熱効率は 1-500/1400≒0.64 である。選択肢3の0.75より小さい。"
+    ],
+    "suggestedQuestions": [
+      "カルノーサイクルの熱効率はどの式で求める？",
+      "選択肢1の熱効率はいくら？",
+      "選択肢3の熱効率はいくら？",
+      "熱効率を大きくする温度条件は？",
+      "選択肢5が最大にならない理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "カルノーサイクルの熱効率はどの式で求める？",
+        "answer": "1-Tc/Th。",
+        "explanation": "Thは高温熱源の絶対温度、Tcは低温熱源の絶対温度である。"
+      },
+      {
+        "question": "選択肢1の熱効率はいくら？",
+        "answer": "0.60。",
+        "explanation": "1-400/1000=0.60 となる。"
+      },
+      {
+        "question": "選択肢3の熱効率はいくら？",
+        "answer": "0.75。",
+        "explanation": "1-300/1200=0.75 で、選択肢中最大である。"
+      },
+      {
+        "question": "熱効率を大きくする温度条件は？",
+        "answer": "高温熱源温度が高く、低温熱源温度が低い条件。",
+        "explanation": "1-Tc/Th なので、Tc/Th が小さいほど熱効率は大きくなる。"
+      },
+      {
+        "question": "選択肢5が最大にならない理由は？",
+        "answer": "低温熱源温度が500Kで、Tc/Thが選択肢3より大きいから。",
+        "explanation": "選択肢5は 1-500/1400≒0.64 であり、選択肢3の0.75に届かない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」のカルノーサイクルと熱効率が本問の関連論点。",
+      "カルノーサイクルの熱効率は、高温熱源の絶対温度をTh、低温熱源の絶対温度をTcとして 1-Tc/Th で求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "各選択肢の熱効率を計算すると、選択肢1は0.60、選択肢2は0.50、選択肢3は0.75、選択肢4は約0.58、選択肢5は約0.64である。最大は選択肢3。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1-400/1000=0.60。"
+      ],
+      [
+        "1-500/1000=0.50。"
+      ],
+      [
+        "1-300/1200=0.75 で最大。"
+      ],
+      [
+        "1-500/1200≒0.58。"
+      ],
+      [
+        "1-500/1400≒0.64。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -737,7 +790,25 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "category": "熱力学（乙種）",
+    "questionSetName": "熱力学（乙種）",
+    "explanationTextCount": 5,
+    "correctChoiceTextCount": 5,
+    "reviewStatus": "ok",
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-29T07:54:55+09:00",
+    "questionIntentReviewedAt": "2026-06-29T07:54:55+09:00",
+    "correctChoiceReviewedAt": "2026-06-29T07:54:55+09:00",
+    "explanationReviewedAt": "2026-06-29T07:54:55+09:00",
+    "questionSetReviewedAt": "2026-06-29T07:54:55+09:00",
+    "workerTaskId": "T794",
+    "taskId": "T794"
   },
   {
     "original_question_id": "37ec735461e2c657",
