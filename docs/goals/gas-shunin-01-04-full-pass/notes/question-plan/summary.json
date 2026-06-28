@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T676",
-  "completed": 576,
-  "completedQuestions": 576,
-  "completed_questions": 576,
-  "done": 453,
+  "activeTaskId": "T677",
+  "completed": 577,
+  "completedQuestions": 577,
+  "completed_questions": 577,
+  "done": 454,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 453,
+    "done": 454,
     "hold": 123,
-    "pending": 358
+    "pending": 357
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T17:07:05+09:00",
+  "generatedAt": "2026-06-28T17:28:00+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -27,7 +27,7 @@
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 5 です。 matches select_incorrect; site explanation says fuel cells require anode, cathode, and electrolyte, so choice 5 is incorrect.",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_rate_constant_temperature_dependence",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -37,11 +37,11 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "固体高分子形、リン酸形、固体酸化物形などの種類がある。",
-      "水素と酸素を電気化学的に反応させて発電できる。",
-      "理論起電力は、熱力学的に求めることができる。",
-      "電流を増加させたときの電圧を低下させる要因のひとつに電池内部の内部抵抗がある。",
-      "アノードとカソードのみで構成される\n。"
+      "一定温度条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。",
+      "物質から水素を取りさる反応は、酸化反応である。",
+      "化学反応は、分子・原子の衝突や光の吸収によって起こる。",
+      "触媒は、平衡定数に影響を与えない。",
+      "速度定数は、\n反応温度によらず一定である\n。"
     ],
     "correctChoiceText": [
       "正しい",
@@ -62,11 +62,11 @@
       "間違い"
     ],
     "explanationText": [
-      "正しい。燃料電池は電解質の種類などによって分類され、固体高分子形、リン酸形、固体酸化物形などの種類がある。記述は燃料電池の代表的な分類として妥当である。",
-      "正しい。燃料電池は、水素などの燃料と酸素を電気化学的に反応させ、その化学エネルギーを直接電気エネルギーに変換して発電する装置である。",
-      "正しい。燃料電池の理論起電力は、反応に伴うギブズ自由エネルギー変化などの熱力学的関係から求めることができる。",
-      "正しい。電流を増加させると、電池内部の抵抗による電圧降下などが大きくなり、端子電圧が低下する要因となる。内部抵抗は電圧低下要因のひとつである。",
-      "間違い。燃料電池はアノードとカソードだけでなく、両電極の間でイオンを移動させる電解質などを含んで構成される。したがって、アノードとカソードのみで構成されるという記述は誤りである。"
+      "正しい。一定の温度条件で化学反応に伴って発生または吸収される熱は反応熱と呼ばれる。発熱反応では熱を発生し、吸熱反応では熱を吸収する。",
+      "正しい。物質が水素を失う反応は、古典的な酸化・還元の定義では酸化反応に当たる。逆に水素を得る反応は還元反応である。",
+      "正しい。化学反応は、反応物の分子や原子が有効に衝突すること、または光を吸収して反応に必要なエネルギーを得ることなどによって進行する。",
+      "正しい。触媒は反応経路を変えて反応速度を変化させるが、平衡定数そのものは反応温度などで決まり、触媒によって変化しない。",
+      "間違い。速度定数は反応温度に依存する。一般に温度が高くなると速度定数は大きくなり、アレニウスの式でも温度依存性が表されるため、「反応温度によらず一定」は誤りである。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -100,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 783,
-    "publicQuestionId": "aec30dc15aef706b",
+    "planSequence": 782,
+    "publicQuestionId": "196aceddad6dbb43",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
-    "questionBodyText": "燃料電池に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 23,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
+    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 22,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
-    "questionSetId": "chiefgasengineerlicense-B-2120",
+    "questionLabel": "問6",
+    "questionNo": 6,
+    "questionSetId": "chiefgasengineerlicense-B-2110",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:aec30dc15aef706b",
-    "reviewNotes": "T675: 降順ブロック planSequence=783。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=aec30dc15aef706b。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 5 です。と correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] が一致。サイト解説でも選択肢5は「アノードとカソード、電解質で構成される」が正しく、アノードとカソードのみで構成されるとしている点が誤り。選択肢1〜4は燃料電池の種類、電気化学反応による発電、理論起電力、内部抵抗による電圧低下として正しい。04は category.json の active official category から chiefgasengineerlicense-B-2120（エネルギー変換・燃料電池（乙種））を選択。",
-    "reviewQuestionId": "aec30dc15aef706b",
-    "reviewedAt": "2026-06-28T17:07:05+09:00",
+    "reviewId": "2023:question_2023_1:196aceddad6dbb43",
+    "reviewNotes": "T676: 降順ブロック planSequence=782。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=196aceddad6dbb43。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 5 です。と correctChoiceText=[正しい, 正しい, 正しい, 正しい, 間違い] が一致。選択肢1は反応熱、選択肢2は脱水素による酸化、選択肢3は分子・原子衝突や光吸収による反応、選択肢4は触媒が平衡定数に影響しない点として正しい。選択肢5は速度定数を反応温度によらず一定としているが、速度定数は温度依存しアレニウス式で表されるため誤り。04は category.json の active category と2024/2025乙種の化学反応先例に合わせ、chiefgasengineerlicense-B-2110（化学反応・平衡・反応熱・速度論（乙種））を選択。",
+    "reviewQuestionId": "196aceddad6dbb43",
+    "reviewedAt": "2026-06-28T17:28:00+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -136,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "kiso",
       "year": 2023
     },
@@ -145,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q07:s01",
-      "gas-shunin:otsu:2023:kiso:q07:s02",
-      "gas-shunin:otsu:2023:kiso:q07:s03",
-      "gas-shunin:otsu:2023:kiso:q07:s04",
-      "gas-shunin:otsu:2023:kiso:q07:s05"
+      "gas-shunin:otsu:2023:kiso:q06:s01",
+      "gas-shunin:otsu:2023:kiso:q06:s02",
+      "gas-shunin:otsu:2023:kiso:q06:s03",
+      "gas-shunin:otsu:2023:kiso:q06:s04",
+      "gas-shunin:otsu:2023:kiso:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s05",
         "statementNo": 5
       }
     ],
@@ -195,42 +195,42 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "category": "エネルギー変換・燃料電池（乙種）",
-    "questionSetName": "エネルギー変換・燃料電池（乙種）",
+    "category": "化学反応・平衡・反応熱・速度論（乙種）",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
     "questionTypeReviewStatus": "ok",
     "questionIntentReviewStatus": "ok",
     "correctChoiceReviewStatus": "ok",
     "explanationReviewStatus": "ok",
     "questionSetReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T17:15:00+09:00",
-    "questionIntentReviewedAt": "2026-06-28T17:15:00+09:00",
-    "correctChoiceReviewedAt": "2026-06-28T17:15:00+09:00",
-    "explanationReviewedAt": "2026-06-28T17:15:00+09:00",
-    "questionSetReviewedAt": "2026-06-28T17:15:00+09:00",
-    "workerTaskId": "T675",
+    "questionTypeReviewedAt": "2026-06-28T17:28:00+09:00",
+    "questionIntentReviewedAt": "2026-06-28T17:28:00+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T17:28:00+09:00",
+    "explanationReviewedAt": "2026-06-28T17:28:00+09:00",
+    "questionSetReviewedAt": "2026-06-28T17:28:00+09:00",
+    "workerTaskId": "T676",
     "sourceExplanationCommonPrefix": [
-      "基礎理論「エネルギー変換・燃料電池（乙種）」の燃料電池の種類、発電原理、理論起電力、電圧低下、基本構成が本問の関連論点。",
-      "燃料電池は水素と酸素の電気化学反応により発電し、基本構成にはアノード、カソード、電解質が含まれる。",
-      "本問は「誤っているもの」を選ぶ問題で、燃料電池をアノードとカソードのみで構成されるとしている選択肢5が誤りである。"
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の反応熱、酸化還元、反応機構、触媒、速度定数が本問の関連論点。",
+      "触媒は反応速度を変えるが、平衡定数は変えない。",
+      "速度定数は温度に依存し、アレニウスの式によりその温度依存性を表すことができる。"
     ],
     "sourceExplanationCommonSummary": [
-      "燃料電池はアノード、カソード、電解質などで構成されるため、選択肢5の「アノードとカソードのみ」は誤り。よって選択肢5が正解。"
+      "反応熱、脱水素による酸化、分子・原子衝突や光吸収による反応、触媒が平衡定数を変えない点はいずれも正しい。速度定数は温度に依存するため、選択肢5が誤り。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "固体高分子形、リン酸形、固体酸化物形は燃料電池の代表的な種類である。"
+        "反応熱は化学反応に伴い発生または吸収される熱である。"
       ],
       [
-        "燃料電池は水素と酸素の電気化学反応で発電する。"
+        "物質から水素を取り去る反応は酸化反応である。"
       ],
       [
-        "理論起電力はギブズ自由エネルギー変化などの熱力学から求められる。"
+        "分子・原子の有効衝突や光吸収によって化学反応が起こる。"
       ],
       [
-        "内部抵抗は電流増加時の電圧低下要因のひとつである。"
+        "触媒は反応速度を変えるが、平衡定数には影響しない。"
       ],
       [
-        "燃料電池はアノード、カソード、電解質などで構成され、2電極のみではない。"
+        "速度定数は温度に依存し、反応温度によらず一定ではない。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
@@ -241,84 +241,77 @@
       "間違い"
     ],
     "suggestedQuestions": [
-      "燃料電池はどのような種類に分類される？",
-      "燃料電池は何を反応させて発電する？",
-      "燃料電池の理論起電力は何から求められる？",
-      "燃料電池で電流増加時に電圧が低下する要因のひとつは？",
-      "燃料電池の基本構成要素は何か？"
+      "反応熱とは何か？",
+      "水素を失う反応は酸化か還元か？",
+      "化学反応はどのように起こるか？",
+      "触媒は平衡定数を変えるか？",
+      "速度定数は温度に依存するか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "燃料電池はどのような種類に分類される？",
-        "answer": "固体高分子形、リン酸形、固体酸化物形など。",
-        "explanation": "燃料電池は主に電解質の種類により分類される。"
+        "question": "反応熱とは何か？",
+        "answer": "化学反応に伴って発生または吸収される熱である。",
+        "explanation": "発熱反応では熱が発生し、吸熱反応では熱が吸収される。"
       },
       {
-        "question": "燃料電池は何を反応させて発電する？",
-        "answer": "水素などの燃料と酸素。",
-        "explanation": "電気化学反応により化学エネルギーを直接電気エネルギーに変換する。"
+        "question": "水素を失う反応は酸化か還元か？",
+        "answer": "酸化反応である。",
+        "explanation": "水素を取り去ることは酸化、逆に水素を付加することは還元として扱われる。"
       },
       {
-        "question": "燃料電池の理論起電力は何から求められる？",
-        "answer": "熱力学的関係。",
-        "explanation": "反応のギブズ自由エネルギー変化などから理論起電力を求められる。"
+        "question": "化学反応はどのように起こるか？",
+        "answer": "分子・原子の有効衝突や光の吸収などで起こる。",
+        "explanation": "反応には結合の組み替えに必要なエネルギーや適切な衝突が関係する。"
       },
       {
-        "question": "燃料電池で電流増加時に電圧が低下する要因のひとつは？",
-        "answer": "電池内部の内部抵抗。",
-        "explanation": "内部抵抗による電圧降下が端子電圧低下の要因となる。"
+        "question": "触媒は平衡定数を変えるか？",
+        "answer": "変えない。",
+        "explanation": "触媒は反応速度を変えるが、平衡状態や平衡定数そのものを変えるものではない。"
       },
       {
-        "question": "燃料電池の基本構成要素は何か？",
-        "answer": "アノード、カソード、電解質など。",
-        "explanation": "アノードとカソードのみではなく、イオンを移動させる電解質が必要である。"
+        "question": "速度定数は温度に依存するか？",
+        "answer": "依存する。",
+        "explanation": "速度定数の温度依存性はアレニウスの式で表され、温度によらず一定ではない。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "taskId": "T675"
+    "lawGroundedExplanationNotNeeded": true
   },
-  "lastCompletedReviewQuestionId": "aec30dc15aef706b",
-  "lastCompletedTaskId": "T675",
-  "nextActiveTaskId": "T676",
+  "lastCompletedReviewQuestionId": "196aceddad6dbb43",
+  "lastCompletedTaskId": "T676",
+  "nextActiveTaskId": "T677",
   "nextPending": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "一定温度条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。",
-      "物質から水素を取りさる反応は、酸化反応である。",
-      "化学反応は、分子・原子の衝突や光の吸収によって起こる。",
-      "触媒は、平衡定数に影響を与えない。",
-      "速度定数は、\n反応温度によらず一定である\n。"
+      "18",
+      "28",
+      "35",
+      "70",
+      "105"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -352,28 +345,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 782,
-    "publicQuestionId": "196aceddad6dbb43",
+    "planSequence": 781,
+    "publicQuestionId": "1e61aec7c290f5fe",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
-    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 22,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問6",
-    "questionNo": 6,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
+    "questionBodyText": "容積一定の断熱容器に入れた温度300K、質量2kgの空気を加熱して350Kにするために必要な熱量(kJ)として、最も近い値はどれか。ただし、空気の定積比熱容量Cv = 0.7 kJ/(kg·K)とする。",
+    "questionIndexInFile": 21,
+    "questionIntent": "",
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:196aceddad6dbb43",
+    "reviewId": "2023:question_2023_1:1e61aec7c290f5fe",
     "reviewNotes": "",
-    "reviewQuestionId": "196aceddad6dbb43",
+    "reviewQuestionId": "1e61aec7c290f5fe",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -388,7 +381,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 6,
+      "questionNo": 5,
       "subject": "kiso",
       "year": 2023
     },
@@ -397,45 +390,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q06",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q06:s01",
-      "gas-shunin:otsu:2023:kiso:q06:s02",
-      "gas-shunin:otsu:2023:kiso:q06:s03",
-      "gas-shunin:otsu:2023:kiso:q06:s04",
-      "gas-shunin:otsu:2023:kiso:q06:s05"
+      "gas-shunin:otsu:2023:kiso:q05:s01",
+      "gas-shunin:otsu:2023:kiso:q05:s02",
+      "gas-shunin:otsu:2023:kiso:q05:s03",
+      "gas-shunin:otsu:2023:kiso:q05:s04",
+      "gas-shunin:otsu:2023:kiso:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s05",
         "statementNo": 5
       }
     ],
@@ -448,48 +441,42 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 782,
-  "nextPendingPublicQuestionId": "196aceddad6dbb43",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
+  "nextPendingPlanSequence": 781,
+  "nextPendingPublicQuestionId": "1e61aec7c290f5fe",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "一定温度条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。",
-      "物質から水素を取りさる反応は、酸化反応である。",
-      "化学反応は、分子・原子の衝突や光の吸収によって起こる。",
-      "触媒は、平衡定数に影響を与えない。",
-      "速度定数は、\n反応温度によらず一定である\n。"
+      "18",
+      "28",
+      "35",
+      "70",
+      "105"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -523,28 +510,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 782,
-    "publicQuestionId": "196aceddad6dbb43",
+    "planSequence": 781,
+    "publicQuestionId": "1e61aec7c290f5fe",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:196aceddad6dbb43",
-    "questionBodyText": "化学反応に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 22,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問6",
-    "questionNo": 6,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:1e61aec7c290f5fe",
+    "questionBodyText": "容積一定の断熱容器に入れた温度300K、質量2kgの空気を加熱して350Kにするために必要な熱量(kJ)として、最も近い値はどれか。ただし、空気の定積比熱容量Cv = 0.7 kJ/(kg·K)とする。",
+    "questionIndexInFile": 21,
+    "questionIntent": "",
+    "questionLabel": "問5",
+    "questionNo": 5,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:196aceddad6dbb43",
+    "reviewId": "2023:question_2023_1:1e61aec7c290f5fe",
     "reviewNotes": "",
-    "reviewQuestionId": "196aceddad6dbb43",
+    "reviewQuestionId": "1e61aec7c290f5fe",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -559,7 +546,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 6,
+      "questionNo": 5,
       "subject": "kiso",
       "year": 2023
     },
@@ -568,45 +555,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q06",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q05",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q06:s01",
-      "gas-shunin:otsu:2023:kiso:q06:s02",
-      "gas-shunin:otsu:2023:kiso:q06:s03",
-      "gas-shunin:otsu:2023:kiso:q06:s04",
-      "gas-shunin:otsu:2023:kiso:q06:s05"
+      "gas-shunin:otsu:2023:kiso:q05:s01",
+      "gas-shunin:otsu:2023:kiso:q05:s02",
+      "gas-shunin:otsu:2023:kiso:q05:s03",
+      "gas-shunin:otsu:2023:kiso:q05:s04",
+      "gas-shunin:otsu:2023:kiso:q05:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q6",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q5",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q06:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q05:s05",
         "statementNo": 5
       }
     ],
@@ -619,16 +606,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:196aceddad6dbb43",
-  "nextPendingTaskId": "T676",
-  "otsuCompleted": 164,
-  "otsuDone": 143,
+  "nextPendingReviewId": "2023:question_2023_1:1e61aec7c290f5fe",
+  "nextPendingTaskId": "T677",
+  "otsuCompleted": 165,
+  "otsuDone": 144,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 358,
-  "pending": 358,
-  "pendingQuestions": 358,
-  "pending_questions": 358,
+  "otsuPending": 357,
+  "pending": 357,
+  "pendingQuestions": 357,
+  "pending_questions": 357,
   "total": 934,
   "total_questions": 934
 }

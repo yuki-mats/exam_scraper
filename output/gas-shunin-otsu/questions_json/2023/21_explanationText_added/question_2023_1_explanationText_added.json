@@ -792,26 +792,83 @@
       "速度定数は、\n反応温度によらず一定である\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。反応熱は一定温度条件で化学反応に伴って発生または吸収される熱をいう。発熱反応・吸熱反応の熱量を扱う基本概念である。",
+      "正しい。酸化は酸素との化合だけでなく、水素を失う反応や電子を失う反応としても捉えられる。物質から水素を取り去る反応は酸化反応である。",
+      "正しい。化学反応は、反応物の分子・原子が有効に衝突したり、光を吸収して反応に必要なエネルギーを得たりすることで進行する。",
+      "正しい。触媒は正反応・逆反応の速度をともに変化させて平衡到達を速めるが、平衡定数や平衡組成そのものは変えない。",
+      "間違い。速度定数は反応温度に依存し、一般にアレニウス式で表されるように温度が変わると変化する。反応温度によらず一定であるという記述は誤りである。"
+    ],
+    "suggestedQuestions": [
+      "反応熱とは何か？",
+      "物質から水素を取り去る反応は何反応か？",
+      "化学反応はどのような過程で起こる？",
+      "触媒は平衡定数を変えるか？",
+      "速度定数は反応温度に依存するか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "反応熱とは何か？",
+        "answer": "化学反応に伴い発生または吸収される熱。",
+        "explanation": "反応熱は発熱反応・吸熱反応の熱量を扱う基本概念で、一定温度条件での熱の出入りをいう。"
+      },
+      {
+        "question": "物質から水素を取り去る反応は何反応か？",
+        "answer": "酸化反応。",
+        "explanation": "酸化は酸素との化合だけでなく、水素を失う反応としても定義される。"
+      },
+      {
+        "question": "化学反応はどのような過程で起こる？",
+        "answer": "分子・原子の有効衝突や光吸収など。",
+        "explanation": "反応物が反応に必要なエネルギーを得ることで化学反応が進行する。"
+      },
+      {
+        "question": "触媒は平衡定数を変えるか？",
+        "answer": "変えない。",
+        "explanation": "触媒は反応速度を変えて平衡到達を速めるが、平衡定数そのものは変えない。"
+      },
+      {
+        "question": "速度定数は反応温度に依存するか？",
+        "answer": "依存する。",
+        "explanation": "速度定数は温度が変わると変化するため、反応温度によらず一定とはいえない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の反応熱、酸化、反応の起こり方、触媒、速度定数が本問の関連論点。",
+      "触媒は平衡定数を変えず、反応速度に影響して平衡到達を速める。",
+      "速度定数は温度に依存するため、反応温度によらず一定とする選択肢5が誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "速度定数は反応温度に依存する。したがって「反応温度によらず一定」とする選択肢5が誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "反応熱は化学反応に伴い発生または吸収される熱である。"
+      ],
+      [
+        "水素を失う反応は酸化反応に含まれる。"
+      ],
+      [
+        "化学反応は分子・原子の有効衝突や光吸収などで進行する。"
+      ],
+      [
+        "触媒は平衡定数を変えず、平衡到達を速める。"
+      ],
+      [
+        "速度定数は温度に依存し、反応温度によらず一定ではない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
+    "workerTaskId": "T676"
   },
   {
     "original_question_id": "aec30dc15aef706b",
