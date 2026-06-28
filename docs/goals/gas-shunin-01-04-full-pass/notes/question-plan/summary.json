@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T718",
-  "completed": 618,
-  "completedQuestions": 618,
-  "completed_questions": 618,
-  "done": 483,
+  "activeTaskId": "T719",
+  "completed": 619,
+  "completedQuestions": 619,
+  "completed_questions": 619,
+  "done": 484,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 483,
+    "done": 484,
     "hold": 135,
-    "pending": 316
+    "pending": 315
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T23:34:00+09:00",
+  "generatedAt": "2026-06-28T23:35:00+09:00",
   "heldQuestions": 135,
   "held_questions": 135,
   "hold": 135,
@@ -22,19 +22,19 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T23:34:00+09:00",
-    "publicQuestionId": "89a10a1e99dc8a71",
-    "reviewQuestionId": "89a10a1e99dc8a71",
-    "taskId": "T717",
-    "workerTaskId": "T717",
-    "planSequence": 934,
+    "completedAt": "2026-06-28T23:35:00+09:00",
+    "publicQuestionId": "478a753a8f5e9017",
+    "reviewQuestionId": "478a753a8f5e9017",
+    "taskId": "T718",
+    "workerTaskId": "T718",
+    "planSequence": 740,
     "qualification": "gas-shunin-otsu",
-    "questionLabel": "問27",
-    "reviewId": "2025:question_2025_3:03f7edabcc660a32"
+    "questionLabel": "問7",
+    "reviewId": "2022:question_2022_2:478a753a8f5e9017"
   },
-  "lastCompletedReviewQuestionId": "89a10a1e99dc8a71",
-  "lastCompletedTaskId": "T717",
-  "nextActiveTaskId": "T718",
+  "lastCompletedReviewQuestionId": "478a753a8f5e9017",
+  "lastCompletedTaskId": "T718",
+  "nextActiveTaskId": "T719",
   "nextPending": {
     "answerResultText": "正解は 4 です。",
     "autoAudit": {
@@ -50,16 +50,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "レベル2地震動に対する耐震設計の考え方は、「構造物に変形は生じるが、倒壊、漏えいは生じず、人身事故を防止」することである。",
-      "稼働調整方式である流量制御方式は、設備負荷を一定に保つことができ、\nかつ急激な需要変動に追従できる制御方式である\n。",
-      "ガス主任技術者は、保安上重要なガス工作物を溶接する場合、溶接施工記録に問題がないことを確認しなければならない。",
-      "製造設備に係る巡視・点検は、保安規程に定める内容と製造所の操業実態にあわせて実施するが、\nその巡視・点検結果を記録する必要はない\n。",
-      "製造設備を安全かつ円滑に運転するため、あらかじめ運転管理基準、運転操作要領等を作成し、それに従って関係者の教育・訓練を実施する。"
+      "ガス事業における地震対策は、①設備対策、②緊急対策、③復旧対策で構成される。",
+      "設備対策は、設備の重要度に応じた耐震設計を行い、耐震性能の維持を図るための定期的な維持管理を行うことが基本である。",
+      "緊急対策は、\n地震発生時の設備の緊急停止を防止し、ガス送出を継続すること\nが基本である。",
+      "地震発生直後の設備点検では、\nまずは、個別の機器ごとに詳細な点検を実施する\n。",
+      "復旧対策において、原料・燃料や水等のユーティリティーは平常時より備蓄を確保するとともに、その調達ルートをあらかじめ確立しておくことが望ましい。"
     ],
     "correctChoiceText": [
       "正しい",
-      "間違い",
       "正しい",
+      "間違い",
       "間違い",
       "正しい"
     ],
@@ -107,28 +107,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 740,
-    "publicQuestionId": "478a753a8f5e9017",
+    "planSequence": 739,
+    "publicQuestionId": "bafde25c56a1bb71",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:478a753a8f5e9017",
-    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bafde25c56a1bb71",
+    "questionBodyText": "製造所の地震対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 12,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q7",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:478a753a8f5e9017",
+    "reviewId": "2022:question_2022_2:bafde25c56a1bb71",
     "reviewNotes": "",
-    "reviewQuestionId": "478a753a8f5e9017",
+    "reviewQuestionId": "bafde25c56a1bb71",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -143,7 +143,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "seizo",
       "year": 2022
     },
@@ -152,45 +152,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:seizo:q07:s01",
-      "gas-shunin:otsu:2022:seizo:q07:s02",
-      "gas-shunin:otsu:2022:seizo:q07:s03",
-      "gas-shunin:otsu:2022:seizo:q07:s04",
-      "gas-shunin:otsu:2022:seizo:q07:s05"
+      "gas-shunin:otsu:2022:seizo:q06:s01",
+      "gas-shunin:otsu:2022:seizo:q06:s02",
+      "gas-shunin:otsu:2022:seizo:q06:s03",
+      "gas-shunin:otsu:2022:seizo:q06:s04",
+      "gas-shunin:otsu:2022:seizo:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s05",
         "statementNo": 5
       }
     ],
@@ -203,9 +203,9 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 740,
-  "nextPendingPublicQuestionId": "478a753a8f5e9017",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:478a753a8f5e9017",
+  "nextPendingPlanSequence": 739,
+  "nextPendingPublicQuestionId": "bafde25c56a1bb71",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:bafde25c56a1bb71",
   "nextPendingQuestion": {
     "answerResultText": "正解は 4 です。",
     "autoAudit": {
@@ -221,16 +221,16 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "レベル2地震動に対する耐震設計の考え方は、「構造物に変形は生じるが、倒壊、漏えいは生じず、人身事故を防止」することである。",
-      "稼働調整方式である流量制御方式は、設備負荷を一定に保つことができ、\nかつ急激な需要変動に追従できる制御方式である\n。",
-      "ガス主任技術者は、保安上重要なガス工作物を溶接する場合、溶接施工記録に問題がないことを確認しなければならない。",
-      "製造設備に係る巡視・点検は、保安規程に定める内容と製造所の操業実態にあわせて実施するが、\nその巡視・点検結果を記録する必要はない\n。",
-      "製造設備を安全かつ円滑に運転するため、あらかじめ運転管理基準、運転操作要領等を作成し、それに従って関係者の教育・訓練を実施する。"
+      "ガス事業における地震対策は、①設備対策、②緊急対策、③復旧対策で構成される。",
+      "設備対策は、設備の重要度に応じた耐震設計を行い、耐震性能の維持を図るための定期的な維持管理を行うことが基本である。",
+      "緊急対策は、\n地震発生時の設備の緊急停止を防止し、ガス送出を継続すること\nが基本である。",
+      "地震発生直後の設備点検では、\nまずは、個別の機器ごとに詳細な点検を実施する\n。",
+      "復旧対策において、原料・燃料や水等のユーティリティーは平常時より備蓄を確保するとともに、その調達ルートをあらかじめ確立しておくことが望ましい。"
     ],
     "correctChoiceText": [
       "正しい",
-      "間違い",
       "正しい",
+      "間違い",
       "間違い",
       "正しい"
     ],
@@ -278,28 +278,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 740,
-    "publicQuestionId": "478a753a8f5e9017",
+    "planSequence": 739,
+    "publicQuestionId": "bafde25c56a1bb71",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:478a753a8f5e9017",
-    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 13,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bafde25c56a1bb71",
+    "questionBodyText": "製造所の地震対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+    "questionIndexInFile": 12,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問7",
-    "questionNo": 7,
+    "questionLabel": "問6",
+    "questionNo": 6,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q7",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q6",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:478a753a8f5e9017",
+    "reviewId": "2022:question_2022_2:bafde25c56a1bb71",
     "reviewNotes": "",
-    "reviewQuestionId": "478a753a8f5e9017",
+    "reviewQuestionId": "bafde25c56a1bb71",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -314,7 +314,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 7,
+      "questionNo": 6,
       "subject": "seizo",
       "year": 2022
     },
@@ -323,45 +323,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q07",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:seizo:q06",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:seizo:q07:s01",
-      "gas-shunin:otsu:2022:seizo:q07:s02",
-      "gas-shunin:otsu:2022:seizo:q07:s03",
-      "gas-shunin:otsu:2022:seizo:q07:s04",
-      "gas-shunin:otsu:2022:seizo:q07:s05"
+      "gas-shunin:otsu:2022:seizo:q06:s01",
+      "gas-shunin:otsu:2022:seizo:q06:s02",
+      "gas-shunin:otsu:2022:seizo:q06:s03",
+      "gas-shunin:otsu:2022:seizo:q06:s04",
+      "gas-shunin:otsu:2022:seizo:q06:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q7",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#seizo-q6",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q07:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:seizo:q06:s05",
         "statementNo": 5
       }
     ],
@@ -374,16 +374,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_2:478a753a8f5e9017",
-  "nextPendingTaskId": "T718",
-  "otsuCompleted": 206,
-  "otsuDone": 173,
+  "nextPendingReviewId": "2022:question_2022_2:bafde25c56a1bb71",
+  "nextPendingTaskId": "T719",
+  "otsuCompleted": 207,
+  "otsuDone": 174,
   "otsuHeld": 33,
   "otsuHold": 33,
-  "otsuPending": 316,
-  "pending": 316,
-  "pendingQuestions": 316,
-  "pending_questions": 316,
+  "otsuPending": 315,
+  "pending": 315,
+  "pendingQuestions": 315,
+  "pending_questions": 315,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
@@ -391,21 +391,21 @@
       "pending": 0
     },
     "gas-shunin-otsu": {
-      "done": 173,
+      "done": 174,
       "hold": 33,
-      "pending": 316
+      "pending": 315
     }
   },
   "reviewDecisionCounts": {
-    "ok": 483,
+    "ok": 484,
     "hold": 135,
-    "pending": 316
+    "pending": 315
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T23:34:00+09:00",
-  "lastUpdatedAt": "2026-06-28T23:34:00+09:00",
+  "updatedAt": "2026-06-28T23:35:00+09:00",
+  "lastUpdatedAt": "2026-06-28T23:35:00+09:00",
   "qualificationExecutionStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
@@ -413,9 +413,9 @@
       "pending": 0
     },
     "gas-shunin-otsu": {
-      "done": 173,
+      "done": 174,
       "hold": 33,
-      "pending": 316
+      "pending": 315
     }
   }
 }
