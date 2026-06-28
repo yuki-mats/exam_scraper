@@ -15,18 +15,71 @@
       "100"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。質量流量は m=ρAv で求める。内径0.1mの断面積は A=π×0.1²/4≈0.00785m²、密度1000kg/m³、平均流速1m/sより m≈1000×0.00785×1=7.85kg/s となり、最も近い値は8である。",
+      "不正解。計算値は約7.85kg/sであり、10kg/sより8kg/sに近い。断面積を円管の面積 A=πD²/4 で求める必要がある。",
+      "不正解。16kg/sは計算値約7.85kg/sの約2倍で大きすぎる。内径0.1mの断面積を用いると質量流量は約8kg/sである。",
+      "不正解。31kg/sは内径ではなく半径や直径の扱いを誤った場合に近い過大な値であり、m=ρAv の計算値約7.85kg/sとは合わない。",
+      "不正解。100kg/sは断面積や単位を誤った過大な値である。正しくは A=π×0.1²/4≈0.00785m² を用いて約7.85kg/sとなる。"
+    ],
+    "suggestedQuestions": [
+      "質量流量・密度・断面積・平均流速の関係式は？",
+      "内径0.1mの直円管の断面積は？",
+      "本問の質量流量は何kg/sか？",
+      "7.85kg/sに最も近い選択肢はどれか？",
+      "16kg/sや31kg/sが不正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "質量流量・密度・断面積・平均流速の関係式は？",
+        "answer": "m=ρAv。",
+        "explanation": "正解。質量流量は m=ρAv で求める。内径0.1mの断面積は A=π×0.1²/4≈0.00785m²、密度1000kg/m³、平均流速1m/sより m≈1000×0.00785×1=7.85kg/s となり、最も近い値は8である。"
+      },
+      {
+        "question": "内径0.1mの直円管の断面積は？",
+        "answer": "π×0.1²/4≈0.00785m²。",
+        "explanation": "不正解。計算値は約7.85kg/sであり、10kg/sより8kg/sに近い。断面積を円管の面積 A=πD²/4 で求める必要がある。"
+      },
+      {
+        "question": "本問の質量流量は何kg/sか？",
+        "answer": "約7.85kg/s。",
+        "explanation": "不正解。16kg/sは計算値約7.85kg/sの約2倍で大きすぎる。内径0.1mの断面積を用いると質量流量は約8kg/sである。"
+      },
+      {
+        "question": "7.85kg/sに最も近い選択肢はどれか？",
+        "answer": "8。",
+        "explanation": "不正解。31kg/sは内径ではなく半径や直径の扱いを誤った場合に近い過大な値であり、m=ρAv の計算値約7.85kg/sとは合わない。"
+      },
+      {
+        "question": "16kg/sや31kg/sが不正解になる理由は？",
+        "answer": "計算値約7.85kg/sより大きすぎるため。",
+        "explanation": "不正解。100kg/sは断面積や単位を誤った過大な値である。正しくは A=π×0.1²/4≈0.00785m² を用いて約7.85kg/sとなる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の管内流れと質量流量が本問の関連論点。",
+      "質量流量は m=ρAv、直円管の断面積は A=πD²/4 で表される。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "D=0.1m、A=π×0.1²/4≈0.00785m²、ρ=1000kg/m³、v=1m/sより、m≈7.85kg/sで最も近い値は8。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1000×π×0.1²/4×1≈7.85kg/sなので8が最も近い。"
+      ],
+      [
+        "10kg/sより8kg/sの方が計算値7.85kg/sに近い。"
+      ],
+      [
+        "16kg/sは計算値の約2倍で大きすぎる。"
+      ],
+      [
+        "31kg/sは断面積計算の誤りによる過大な値に近い。"
+      ],
+      [
+        "100kg/sは計算値約7.85kg/sから大きく外れる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
