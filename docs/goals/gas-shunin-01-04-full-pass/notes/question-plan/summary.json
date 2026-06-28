@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T674",
-  "completed": 574,
-  "completedQuestions": 574,
-  "completed_questions": 574,
-  "done": 451,
+  "activeTaskId": "T675",
+  "completed": 575,
+  "completedQuestions": 575,
+  "completed_questions": 575,
+  "done": 452,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 451,
+    "done": 452,
     "hold": 123,
-    "pending": 360
+    "pending": 359
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T16:56:20+09:00",
+  "generatedAt": "2026-06-28T17:05:00+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 4 です。 matches select_correct; CH4 complete combustion needs theoretical air 30m³, so air ratio 40/30≈1.33 and choice 4 (1.3) is nearest.",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_combustion_range_principles",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -37,36 +37,36 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.75",
-      "0.92",
-      "1.2",
-      "1.3",
-      "1.4"
+      "水素の層流燃焼速度はメタンと比べて大きく、空気比0.5付近が最大となる。",
+      "メタンの燃焼上限界(vol%)は、水素の燃焼上限界(vol%)より低い。",
+      "燃焼範囲は、\n温度の影響を受けない\n。",
+      "燃焼範囲は、圧力の影響を受ける。",
+      "可燃性ガスと空気からなる爆発性混合ガスに、不活性ガスを混合すると、燃焼上限界は低下する。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "explanationText": [
-      "不正解。メタン1m³の完全燃焼には酸素2m³が必要で、空気中の酸素は体積比で1/5である。メタン3m³の理論空気量は3×2×5=30m³となり、実際の空気40m³との比は約1.33であるため、0.75ではない。",
-      "不正解。理論空気量は30m³、実際の空気量は40m³なので、空気比は40/30=1.33である。0.92はこの計算結果から外れる。",
-      "不正解。空気比は実際空気量を理論空気量で割って求める。メタン3m³に対する理論空気量30m³に対し、実際空気量40m³であるため、40/30=1.33となり、1.2より大きい。",
-      "正解。メタンの完全燃焼は CH4+2O2→CO2+2H2O で、メタン3m³には酸素6m³が必要である。空気中の酸素は1/5なので理論空気量は30m³、空気比は40/30=1.33となり、最も近い1.3が正解である。",
-      "不正解。計算上の空気比は40/30=1.33であり、選択肢の中では1.3が最も近い。1.4は1.33より離れている。"
+      "正しい。水素はメタンより層流燃焼速度が大きい代表的な可燃性ガスであり、燃焼速度は混合比に左右される。水素の燃焼速度は理論混合気より燃料過濃側、空気比0.5付近で大きくなるため、記述は正しい。",
+      "正しい。メタンの燃焼上限界は約15vol%であるのに対し、水素の燃焼上限界は約75vol%と広い。したがって、メタンの燃焼上限界は水素より低い。",
+      "間違い。燃焼範囲は温度の影響を受ける。一般に温度が高くなると燃焼反応が継続しやすくなり、燃焼範囲は広くなるため、「温度の影響を受けない」とする記述は誤りである。",
+      "正しい。燃焼範囲は圧力の影響を受ける。圧力条件が変わると可燃性混合ガスの燃焼下限界や上限界が変化するため、記述は正しい。",
+      "正しい。不活性ガスを混合すると可燃性混合ガスが希釈され、燃焼反応を維持しにくくなる。一般に燃焼範囲は狭くなり、燃焼上限界は低下するため、記述は正しい。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -100,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 785,
-    "publicQuestionId": "eeebb77c0715702b",
+    "planSequence": 784,
+    "publicQuestionId": "86191a5d7998b8f2",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:eeebb77c0715702b",
-    "questionBodyText": "メタン3m³を空気40m³で完全燃焼させた。空気比として、最も近い値はどれか。ただし、メタン及び空気は標準状態(0℃、101325kPa)とし、空気中の窒素と酸素の体積比は4:1とする。",
-    "questionIndexInFile": 25,
-    "questionIntent": "select_correct",
-    "questionLabel": "問9",
-    "questionNo": 9,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:86191a5d7998b8f2",
+    "questionBodyText": "可燃性ガスの燃焼に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 24,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問8",
+    "questionNo": 8,
     "questionSetId": "chiefgasengineerlicense-B-2130",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q9",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_1:eeebb77c0715702b",
-    "reviewNotes": "T673: 降順ブロック planSequence=785。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=eeebb77c0715702b。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 4 です。と correctChoiceText=[不正解, 不正解, 不正解, 正解, 不正解] が一致。メタン完全燃焼式 CH4+2O2→CO2+2H2O より、メタン3m³に必要な酸素は6m³。空気中の酸素割合は1/5なので理論空気量30m³、実空気量40m³から空気比は40/30≒1.33。選択肢4の1.3が最も近い。04は category.json の active official category から chiefgasengineerlicense-B-2130（燃焼・燃料（乙種））を選択。",
-    "reviewQuestionId": "eeebb77c0715702b",
-    "reviewedAt": "2026-06-28T16:56:20+09:00",
+    "reviewId": "2023:question_2023_1:86191a5d7998b8f2",
+    "reviewNotes": "T674: 降順ブロック planSequence=784。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=86191a5d7998b8f2。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 3 です。と correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい] が一致。選択肢3は燃焼範囲が温度の影響を受けないとしているが、一般に温度上昇で燃焼範囲は広がるため誤り。選択肢1,2,4,5は水素/メタンの燃焼速度・燃焼上限界、燃焼範囲の圧力影響、不活性ガス混合による燃焼上限界低下として正しい。04は category.json の active category と2025乙種基礎問9などの燃焼範囲先例に合わせ、chiefgasengineerlicense-B-2130（燃焼・燃料（乙種））を選択。",
+    "reviewQuestionId": "86191a5d7998b8f2",
+    "reviewedAt": "2026-06-28T17:05:00+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -136,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 9,
+      "questionNo": 8,
       "subject": "kiso",
       "year": 2023
     },
@@ -145,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q09",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q08",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q09:s01",
-      "gas-shunin:otsu:2023:kiso:q09:s02",
-      "gas-shunin:otsu:2023:kiso:q09:s03",
-      "gas-shunin:otsu:2023:kiso:q09:s04",
-      "gas-shunin:otsu:2023:kiso:q09:s05"
+      "gas-shunin:otsu:2023:kiso:q08:s01",
+      "gas-shunin:otsu:2023:kiso:q08:s02",
+      "gas-shunin:otsu:2023:kiso:q08:s03",
+      "gas-shunin:otsu:2023:kiso:q08:s04",
+      "gas-shunin:otsu:2023:kiso:q08:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q9",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s05",
         "statementNo": 5
       }
     ],
@@ -202,86 +202,85 @@
     "correctChoiceReviewStatus": "ok",
     "explanationReviewStatus": "ok",
     "questionSetReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T16:52:00+09:00",
-    "questionIntentReviewedAt": "2026-06-28T16:52:00+09:00",
-    "correctChoiceReviewedAt": "2026-06-28T16:52:00+09:00",
-    "explanationReviewedAt": "2026-06-28T16:52:00+09:00",
-    "questionSetReviewedAt": "2026-06-28T16:52:00+09:00",
-    "workerTaskId": "T673",
+    "questionTypeReviewedAt": "2026-06-28T17:05:00+09:00",
+    "questionIntentReviewedAt": "2026-06-28T17:05:00+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T17:05:00+09:00",
+    "explanationReviewedAt": "2026-06-28T17:05:00+09:00",
+    "questionSetReviewedAt": "2026-06-28T17:05:00+09:00",
+    "workerTaskId": "T674",
     "sourceExplanationCommonPrefix": [
-      "基礎理論「燃焼・燃料（乙種）」の理論空気量と空気比計算が本問の関連論点。",
-      "メタンの完全燃焼式は CH4+2O2→CO2+2H2O で、メタン1体積に対して酸素2体積が必要である。",
-      "空気中の窒素と酸素の体積比が4:1なので、空気中の酸素割合は1/5。メタン3m³の理論空気量は3×2×5=30m³である。"
+      "基礎理論「燃焼・燃料（乙種）」の燃焼速度、燃焼範囲、温度・圧力・不活性ガスの影響が本問の関連論点。",
+      "可燃性ガスの燃焼範囲は一定ではなく、温度、圧力、不活性ガス希釈などの条件で変化する。",
+      "温度が高いと燃焼範囲は一般に広くなり、不活性ガスを混合すると燃焼範囲は狭くなる。"
     ],
     "sourceExplanationCommonSummary": [
-      "理論空気量は30m³、実際空気量は40m³なので、空気比は40/30≒1.33。最も近い選択肢4の1.3が正解。"
+      "燃焼範囲は温度の影響を受けるため、選択肢3の「温度の影響を受けない」が誤り。ほかは水素・メタンの燃焼速度/燃焼上限界、圧力影響、不活性ガス希釈の説明として正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "空気比は40/30≒1.33であり、0.75ではない。"
+        "水素はメタンより層流燃焼速度が大きく、混合比によって燃焼速度が変わる。"
       ],
       [
-        "空気比は40/30≒1.33であり、0.92ではない。"
+        "メタンの燃焼上限界は水素より低い。"
       ],
       [
-        "空気比は40/30≒1.33であり、1.2より大きい。"
+        "温度が高いほど燃焼範囲は一般に広くなるため、「温度の影響を受けない」は誤り。"
       ],
       [
-        "メタン3m³の理論空気量30m³に対し、実際空気量40m³なので空気比は約1.3。"
+        "燃焼範囲は圧力条件によって変化する。"
       ],
       [
-        "空気比は約1.33で、選択肢中では1.3のほうが1.4より近い。"
+        "不活性ガス希釈により燃焼範囲は狭くなり、燃焼上限界は低下する。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      "不正解",
-      "不正解",
-      "不正解",
-      "正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "suggestedQuestions": [
-      "メタン1m³の完全燃焼に必要な酸素量は？",
-      "空気中の窒素と酸素の体積比が4:1のとき、酸素の体積割合は？",
-      "メタン3m³の完全燃焼に必要な理論空気量は？",
-      "空気比はどの式で求める？",
-      "本問の空気比に最も近い選択肢は？"
+      "水素とメタンの層流燃焼速度の関係は？",
+      "メタンと水素の燃焼上限界はどちらが高い？",
+      "燃焼範囲は温度の影響を受けるか？",
+      "燃焼範囲は圧力の影響を受けるか？",
+      "不活性ガスを混合すると燃焼上限界はどうなる？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "メタン1m³の完全燃焼に必要な酸素量は？",
-        "answer": "2m³。",
-        "explanation": "完全燃焼式 CH4+2O2→CO2+2H2O より、メタン1体積に酸素2体積が必要である。"
+        "question": "水素とメタンの層流燃焼速度の関係は？",
+        "answer": "水素の方がメタンより大きい。",
+        "explanation": "水素は燃焼速度が大きいガスで、混合比により燃焼速度が変化する。"
       },
       {
-        "question": "空気中の窒素と酸素の体積比が4:1のとき、酸素の体積割合は？",
-        "answer": "1/5。",
-        "explanation": "窒素4体積と酸素1体積の合計5体積中、酸素は1体積である。"
+        "question": "メタンと水素の燃焼上限界はどちらが高い？",
+        "answer": "水素の方が高い。",
+        "explanation": "水素は広い濃度範囲で燃焼可能で、メタンの燃焼上限界は水素より低い。"
       },
       {
-        "question": "メタン3m³の完全燃焼に必要な理論空気量は？",
-        "answer": "30m³。",
-        "explanation": "必要酸素量は3×2=6m³で、酸素が空気の1/5なので空気量は6×5=30m³である。"
+        "question": "燃焼範囲は温度の影響を受けるか？",
+        "answer": "受ける。",
+        "explanation": "一般に温度が高くなると燃焼範囲は広くなるため、影響を受けないという記述は誤り。"
       },
       {
-        "question": "空気比はどの式で求める？",
-        "answer": "実際空気量÷理論空気量。",
-        "explanation": "燃焼に供給した空気量が理論空気量の何倍かを表す値である。"
+        "question": "燃焼範囲は圧力の影響を受けるか？",
+        "answer": "受ける。",
+        "explanation": "圧力条件により燃焼下限界や上限界が変化する。"
       },
       {
-        "question": "本問の空気比に最も近い選択肢は？",
-        "answer": "1.3。",
-        "explanation": "実際空気量40m³を理論空気量30m³で割ると約1.33となり、1.3が最も近い。"
+        "question": "不活性ガスを混合すると燃焼上限界はどうなる？",
+        "answer": "低下する。",
+        "explanation": "不活性ガスが混合気を希釈し、燃焼を維持しにくくするため燃焼範囲は狭くなる。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
-    "taskId": "T673"
+    "lawGroundedExplanationNotNeeded": true
   },
-  "lastCompletedReviewQuestionId": "eeebb77c0715702b",
-  "lastCompletedTaskId": "T673",
-  "nextActiveTaskId": "T674",
+  "lastCompletedReviewQuestionId": "86191a5d7998b8f2",
+  "lastCompletedTaskId": "T674",
+  "nextActiveTaskId": "T675",
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -295,18 +294,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "水素の層流燃焼速度はメタンと比べて大きく、空気比0.5付近が最大となる。",
-      "メタンの燃焼上限界(vol%)は、水素の燃焼上限界(vol%)より低い。",
-      "燃焼範囲は、\n温度の影響を受けない\n。",
-      "燃焼範囲は、圧力の影響を受ける。",
-      "可燃性ガスと空気からなる爆発性混合ガスに、不活性ガスを混合すると、燃焼上限界は低下する。"
+      "固体高分子形、リン酸形、固体酸化物形などの種類がある。",
+      "水素と酸素を電気化学的に反応させて発電できる。",
+      "理論起電力は、熱力学的に求めることができる。",
+      "電流を増加させたときの電圧を低下させる要因のひとつに電池内部の内部抵抗がある。",
+      "アノードとカソードのみで構成される\n。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
@@ -315,9 +314,9 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -352,28 +351,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 784,
-    "publicQuestionId": "86191a5d7998b8f2",
+    "planSequence": 783,
+    "publicQuestionId": "aec30dc15aef706b",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:86191a5d7998b8f2",
-    "questionBodyText": "可燃性ガスの燃焼に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 24,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
+    "questionBodyText": "燃料電池に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 23,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問8",
-    "questionNo": 8,
+    "questionLabel": "問7",
+    "questionNo": 7,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:86191a5d7998b8f2",
+    "reviewId": "2023:question_2023_1:aec30dc15aef706b",
     "reviewNotes": "",
-    "reviewQuestionId": "86191a5d7998b8f2",
+    "reviewQuestionId": "aec30dc15aef706b",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -388,7 +387,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 8,
+      "questionNo": 7,
       "subject": "kiso",
       "year": 2023
     },
@@ -397,45 +396,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q08",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q07",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q08:s01",
-      "gas-shunin:otsu:2023:kiso:q08:s02",
-      "gas-shunin:otsu:2023:kiso:q08:s03",
-      "gas-shunin:otsu:2023:kiso:q08:s04",
-      "gas-shunin:otsu:2023:kiso:q08:s05"
+      "gas-shunin:otsu:2023:kiso:q07:s01",
+      "gas-shunin:otsu:2023:kiso:q07:s02",
+      "gas-shunin:otsu:2023:kiso:q07:s03",
+      "gas-shunin:otsu:2023:kiso:q07:s04",
+      "gas-shunin:otsu:2023:kiso:q07:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s05",
         "statementNo": 5
       }
     ],
@@ -448,11 +447,11 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 784,
-  "nextPendingPublicQuestionId": "86191a5d7998b8f2",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:86191a5d7998b8f2",
+  "nextPendingPlanSequence": 783,
+  "nextPendingPublicQuestionId": "aec30dc15aef706b",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -466,18 +465,18 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "水素の層流燃焼速度はメタンと比べて大きく、空気比0.5付近が最大となる。",
-      "メタンの燃焼上限界(vol%)は、水素の燃焼上限界(vol%)より低い。",
-      "燃焼範囲は、\n温度の影響を受けない\n。",
-      "燃焼範囲は、圧力の影響を受ける。",
-      "可燃性ガスと空気からなる爆発性混合ガスに、不活性ガスを混合すると、燃焼上限界は低下する。"
+      "固体高分子形、リン酸形、固体酸化物形などの種類がある。",
+      "水素と酸素を電気化学的に反応させて発電できる。",
+      "理論起電力は、熱力学的に求めることができる。",
+      "電流を増加させたときの電圧を低下させる要因のひとつに電池内部の内部抵抗がある。",
+      "アノードとカソードのみで構成される\n。"
     ],
     "correctChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
@@ -486,9 +485,9 @@
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
-      "間違い",
       "正しい",
-      "正しい"
+      "正しい",
+      "間違い"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -523,28 +522,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 784,
-    "publicQuestionId": "86191a5d7998b8f2",
+    "planSequence": 783,
+    "publicQuestionId": "aec30dc15aef706b",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:86191a5d7998b8f2",
-    "questionBodyText": "可燃性ガスの燃焼に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 24,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:aec30dc15aef706b",
+    "questionBodyText": "燃料電池に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 23,
     "questionIntent": "select_incorrect",
-    "questionLabel": "問8",
-    "questionNo": 8,
+    "questionLabel": "問7",
+    "questionNo": 7,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_1:86191a5d7998b8f2",
+    "reviewId": "2023:question_2023_1:aec30dc15aef706b",
     "reviewNotes": "",
-    "reviewQuestionId": "86191a5d7998b8f2",
+    "reviewQuestionId": "aec30dc15aef706b",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -559,7 +558,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 8,
+      "questionNo": 7,
       "subject": "kiso",
       "year": 2023
     },
@@ -568,45 +567,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q08",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q07",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q08:s01",
-      "gas-shunin:otsu:2023:kiso:q08:s02",
-      "gas-shunin:otsu:2023:kiso:q08:s03",
-      "gas-shunin:otsu:2023:kiso:q08:s04",
-      "gas-shunin:otsu:2023:kiso:q08:s05"
+      "gas-shunin:otsu:2023:kiso:q07:s01",
+      "gas-shunin:otsu:2023:kiso:q07:s02",
+      "gas-shunin:otsu:2023:kiso:q07:s03",
+      "gas-shunin:otsu:2023:kiso:q07:s04",
+      "gas-shunin:otsu:2023:kiso:q07:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q8",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q7",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q08:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q07:s05",
         "statementNo": 5
       }
     ],
@@ -619,16 +618,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_1:86191a5d7998b8f2",
-  "nextPendingTaskId": "T674",
-  "otsuCompleted": 162,
-  "otsuDone": 141,
+  "nextPendingReviewId": "2023:question_2023_1:aec30dc15aef706b",
+  "nextPendingTaskId": "T675",
+  "otsuCompleted": 163,
+  "otsuDone": 142,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 360,
-  "pending": 360,
-  "pendingQuestions": 360,
-  "pending_questions": 360,
+  "otsuPending": 359,
+  "pending": 359,
+  "pendingQuestions": 359,
+  "pending_questions": 359,
   "total": 934,
   "total_questions": 934
 }
