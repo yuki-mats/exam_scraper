@@ -1,16 +1,16 @@
 {
-  "activeTaskId": "T647",
-  "completed": 547,
-  "completed_questions": 547,
-  "done": 424,
+  "activeTaskId": "T648",
+  "completed": 548,
+  "completed_questions": 548,
+  "done": 425,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 424,
+    "done": 425,
     "hold": 123,
-    "pending": 387
+    "pending": 386
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T13:56:04+09:00",
+  "generatedAt": "2026-06-28T13:58:00+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
@@ -20,7 +20,7 @@
   "kouHold": 102,
   "kouPending": 0,
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -30,6 +30,185 @@
       "explanationTextPresent": false,
       "questionIntentPresent": true,
       "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "熱効率は、下記の式で求められる。\n熱効率 (%) = (\n加熱された物質の質量 × 加熱された物質の温度変化\n/ 消費された熱量) × 100",
+      "ガスの燃焼は、酸化反応で発生した熱量より放散する熱量の方が小さい場合に継続する。",
+      "触媒燃焼式には、触媒マットを用いて全二次空気燃焼により無炎燃焼し、赤外線暖房機器に用いられるものがある。",
+      "赤火燃焼式は、「逆火することがまったくない」、「ガス圧の低い所でも使用できる」、「赤黄色の長炎が得られる」等の特徴がある。",
+      "濃淡燃焼バーナーでは、保炎性の低い予混合希薄火炎をブンゼン火炎にて保炎し、低NOx化と保炎性を両立している。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 810,
+    "publicQuestionId": "b2a0a0ac00eb4af5",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:b2a0a0ac00eb4af5",
+    "questionBodyText": "ガスの性質及び燃焼に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 25,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問19",
+    "questionNo": 19,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q19",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:b2a0a0ac00eb4af5",
+    "reviewNotes": "",
+    "reviewQuestionId": "b2a0a0ac00eb4af5",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "消費機器",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 19,
+      "subject": "shohi",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q19",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:shohi:q19:s01",
+      "gas-shunin:otsu:2023:shohi:q19:s02",
+      "gas-shunin:otsu:2023:shohi:q19:s03",
+      "gas-shunin:otsu:2023:shohi:q19:s04",
+      "gas-shunin:otsu:2023:shohi:q19:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q19",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q19:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ]
+  },
+  "nextPendingPlanSequence": 810,
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:b2a0a0ac00eb4af5",
+  "otsuCompleted": 136,
+  "otsuDone": 115,
+  "otsuHeld": 21,
+  "otsuHold": 21,
+  "otsuPending": 386,
+  "pending": 386,
+  "pending_questions": 386,
+  "total": 934,
+  "total_questions": 934,
+  "lastCompletedQuestion": {
+    "answerResultText": "正解は 4 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "answer_result_text=正解は 4 です。 matches choice 4 being incorrect for select_incorrect.",
+      "explanationLengthMatchesChoices": true,
+      "explanationTextPresent": true,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": true,
       "questionTypePresent": true
     },
     "choiceCount": 5,
@@ -50,7 +229,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "正しい",
       "正しい",
@@ -58,8 +237,14 @@
       "間違い",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "正しい。ブンゼンバーナーで良好燃焼している状態からガス量を増加させると、空気量が相対的に不足し、炎が不安定になって不完全燃焼に至る場合がある。",
+      "正しい。フラッシュバックは、混合ガスの燃焼速度が噴出速度を上回ると炎がバーナー内部へ戻る現象であり、バーナー部が高温になって通過する混合ガスの温度が上がると発生しやすくなる。",
+      "正しい。リフティングは、混合気体の燃焼速度に比べて噴出速度が速くなり、炎が炎口から浮き上がる現象である。",
+      "間違い。13Aと12Aはガスグループの分類上、熱量だけでなくウォッベ指数（WI）などの範囲も異なる。WIと燃焼速度指数（MCP）の領域が同じであるとしている点が誤り。",
+      "正しい。ガス機器に与えられるインプットは、ノズル条件とガス圧力が一定であれば、ウォッベ指数（WI）に比例する。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -101,20 +286,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問20",
     "questionNo": 20,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1950",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q20",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_3:9cab22f519fd56d8",
-    "reviewNotes": "",
+    "reviewNotes": "T647: 降順ブロック planSequence=811。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=9cab22f519fd56d8。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は選択肢4のみ誤りで選択肢1,2,3,5が正しいことに対応し、correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい] と一致。選択肢4は13Aと12AのWI・MCP領域が同じとしている点が誤りで、13Aと12Aはガスグループとして異なる。選択肢1はブンゼンバーナーのガス量増加時の不完全燃焼、選択肢2は高温化によるフラッシュバック、選択肢3は噴出速度過大によるリフティング、選択肢5はガス圧力一定時のインプットとWIの比例関係として、乙種2024/2025および甲種2024/2025のガス燃焼precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1950（ガスの燃焼（乙種））はcategory.jsonのactive category、および乙種2024/2025同系precedentに基づく。",
     "reviewQuestionId": "9cab22f519fd56d8",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T13:58:00+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "消費機器",
@@ -185,249 +370,64 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ]
-  },
-  "nextPendingPlanSequence": 811,
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:9cab22f519fd56d8",
-  "otsuCompleted": 135,
-  "otsuDone": 114,
-  "otsuHeld": 21,
-  "otsuHold": 21,
-  "otsuPending": 387,
-  "pending": 387,
-  "pending_questions": 387,
-  "total": 934,
-  "total_questions": 934,
-  "lastCompletedQuestion": {
-    "answerResultText": "正解は 4 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 4 です。 matches choice 4 being incorrect for select_incorrect.",
-      "explanationLengthMatchesChoices": true,
-      "explanationTextPresent": true,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": true,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "給湯器の自己診断機能では、給排気通路の閉そく状態によって、燃焼改善、能力制限又は運転停止の安全動作を行う。",
-      "多段式バーナーでは、燃焼本数が少ないほど、熱効率が低くなる傾向がある。",
-      "現在販売されている2缶3水式の給湯暖房用熱源機のふろの追いだきは、間接加熱方式で行われる。",
-      "瞬間湯沸器には元止め式と先止め式の二種類があり、小型湯沸器は\nすべて元止め式\nである。",
-      "BF式ふろがまでは、給排気バランスが崩れると不完全燃焼や立ち消えが発生するおそれがあるため、給排気筒トップの周囲に障害物があってはならない。"
-    ],
-    "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "explanationText": [
-      "正しい。給湯器の自己診断機能では、給排気通路の閉そく状態を検知し、状態に応じて燃焼状態の改善、能力制限、運転停止などの安全動作を行う。",
-      "正しい。多段式バーナーでは、燃焼しているバーナー本数が少ない低負荷運転時には、熱交換器の利用状態などの影響で熱効率が低くなる傾向がある。",
-      "正しい。現在販売されている2缶3水式の給湯暖房用熱源機では、ふろの追いだきは暖房循環水との熱交換による間接加熱方式で行われる。",
-      "間違い。瞬間湯沸器には元止め式と先止め式があり、小型湯沸器にも出湯管から直接湯を使う元止め式だけでなく、給湯配管して使う先止め式がある。小型湯沸器はすべて元止め式としている点が誤り。",
-      "正しい。BF式ふろがまは給気と排気のバランスで燃焼を保つため、給排気筒トップ周囲に障害物があると給排気バランスが崩れ、不完全燃焼や立ち消えのおそれがある。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 812,
-    "publicQuestionId": "c27463fb8f453f0a",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:c27463fb8f453f0a",
-    "questionBodyText": "家庭用ガス温水機器に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 2,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問21",
-    "questionNo": 21,
-    "questionSetId": "chiefgasengineerlicense-B-1880",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q21",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_3:c27463fb8f453f0a",
-    "reviewNotes": "T646: 降順ブロック planSequence=812。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=c27463fb8f453f0a。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 4 です。は選択肢4のみ誤りで選択肢1,2,3,5が正しいことに対応し、correctChoiceText=[正しい, 正しい, 正しい, 間違い, 正しい] と一致。選択肢4は瞬間湯沸器を元止め式と先止め式に分けたうえで小型湯沸器はすべて元止め式としている点が誤りで、小型湯沸器にも先止め式がある。選択肢1は給湯器の自己診断機能の安全動作、選択肢2は多段式バーナーの低負荷時熱効率、選択肢3は2缶3水式給湯暖房用熱源機の追いだきが間接加熱方式であること、選択肢5はBF式ふろがまの給排気筒トップ周囲障害物回避として、乙種2024/2025および甲種2019/2021/2023/2024/2025の家庭用ガス温水機器precedentと矛盾しない。questionSetId=chiefgasengineerlicense-B-1880（家庭用ガス機器（乙種））はcategory.jsonのactive category、および乙種2024/2025同系問21 precedentに基づく。",
-    "reviewQuestionId": "c27463fb8f453f0a",
-    "reviewedAt": "2026-06-28T13:56:04+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
-    "sourceFileIndex": 21,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 21,
-      "subject": "shohi",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:shohi:q21",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:shohi:q21:s01",
-      "gas-shunin:otsu:2023:shohi:q21:s02",
-      "gas-shunin:otsu:2023:shohi:q21:s03",
-      "gas-shunin:otsu:2023:shohi:q21:s04",
-      "gas-shunin:otsu:2023:shohi:q21:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#shohi-q21",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:shohi:q21:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
     "suggestedQuestions": [
-      "給湯器の自己診断機能は給排気通路の閉そく状態に応じて安全動作を行うか？",
-      "多段式バーナーは燃焼本数が少ないほど熱効率が低くなる傾向があるか？",
-      "2缶3水式の給湯暖房用熱源機のふろ追いだきは間接加熱方式か？",
-      "小型湯沸器はすべて元止め式か？",
-      "BF式ふろがまでは給排気筒トップ周囲の障害物を避ける必要があるか？"
+      "ブンゼンバーナーでガス量を増加させると不完全燃焼に至る場合があるか？",
+      "バーナー部の高温化はフラッシュバックの原因になり得るか？",
+      "リフティングは噴出速度が燃焼速度より速くなると起こるか？",
+      "13Aと12AはWIとMCPの分類領域が同じか？",
+      "ガス圧力一定ならガス機器のインプットはWIに比例するか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "給湯器の自己診断機能は給排気通路の閉そく状態に応じて安全動作を行うか？",
-        "answer": "行う。",
-        "explanation": "閉そく状態を検知し、燃焼改善、能力制限、運転停止などで安全側に制御する。"
-      },
-      {
-        "question": "多段式バーナーは燃焼本数が少ないほど熱効率が低くなる傾向があるか？",
+        "question": "ブンゼンバーナーでガス量を増加させると不完全燃焼に至る場合があるか？",
         "answer": "ある。",
-        "explanation": "多段式バーナーは低負荷で燃焼本数が少ないと熱効率が低下しやすい。"
+        "explanation": "ガス量が増えると空気不足になり、不完全燃焼に至る場合がある。"
       },
       {
-        "question": "2缶3水式の給湯暖房用熱源機のふろ追いだきは間接加熱方式か？",
-        "answer": "間接加熱方式である。",
-        "explanation": "2缶3水式では、ふろ追いだきは暖房循環水との熱交換で行う。"
+        "question": "バーナー部の高温化はフラッシュバックの原因になり得るか？",
+        "answer": "なり得る。",
+        "explanation": "混合ガス温度が上昇すると燃焼速度が速くなり、炎が戻りやすくなる。"
       },
       {
-        "question": "小型湯沸器はすべて元止め式か？",
-        "answer": "すべてではない。",
-        "explanation": "小型湯沸器にも元止め式と先止め式があり、すべて元止め式とはいえない。"
+        "question": "リフティングは噴出速度が燃焼速度より速くなると起こるか？",
+        "answer": "起こる。",
+        "explanation": "噴出速度が燃焼速度を上回ると、炎が炎口から浮き上がる。"
       },
       {
-        "question": "BF式ふろがまでは給排気筒トップ周囲の障害物を避ける必要があるか？",
-        "answer": "必要がある。",
-        "explanation": "給排気筒トップ周囲の障害物は給排気バランスを崩し、不完全燃焼や立ち消えの原因になり得る。"
+        "question": "13Aと12AはWIとMCPの分類領域が同じか？",
+        "answer": "同じではない。",
+        "explanation": "13Aと12Aはガスグループとして異なり、WIなどの分類範囲も異なる。"
+      },
+      {
+        "question": "ガス圧力一定ならガス機器のインプットはWIに比例するか？",
+        "answer": "比例する。",
+        "explanation": "ノズル条件とガス圧力が一定なら、機器への熱入力はWIに比例する。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-      "消費機器「家庭用ガス機器（乙種）」の家庭用ガス温水機器、給湯器の自己診断、多段式バーナー、2缶3水式給湯暖房用熱源機、瞬間湯沸器、BF式ふろがまが本問の関連論点。",
-      "試験ポイント: 温水機器の安全制御、熱効率、追いだき方式、元止め式・先止め式の違い、BF式ふろがまの給排気条件を区別する。"
+      "消費機器「ガスの燃焼（乙種）」のブンゼンバーナー、不完全燃焼、フラッシュバック、リフティング、ガスグループ、ウォッベ指数（WI）が本問の関連論点。",
+      "試験ポイント: 燃焼速度と噴出速度の大小関係、ガスグループ13A/12Aの分類、WIとインプットの関係を区別する。"
     ],
     "sourceExplanationCommonSummary": [
-      "誤っているものは選択肢4のみ。選択肢4は小型湯沸器がすべて元止め式であるとしている点が誤りで、選択肢1,2,3,5は家庭用ガス温水機器の自己診断、バーナー効率、追いだき方式、BF式ふろがまの給排気に関する記述として正しい。"
+      "誤っているものは選択肢4のみ。13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。選択肢1、2、3、5はブンゼンバーナーの燃焼現象とWIに関する記述として正しい。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "給湯器の自己診断機能は、給排気通路の閉そく状態に応じて燃焼改善、能力制限、運転停止などを行う。"
+        "ブンゼンバーナーでガス量を増加させると、空気不足により不完全燃焼に至る場合がある。"
       ],
       [
-        "多段式バーナーは、燃焼本数が少ない低負荷運転時に熱効率が低くなる傾向がある。"
+        "バーナー部が高温となり混合ガス温度が上がると、フラッシュバックが発生しやすくなる。"
       ],
       [
-        "2缶3水式の給湯暖房用熱源機のふろ追いだきは、暖房循環水との熱交換による間接加熱方式である。"
+        "リフティングは、噴出速度が燃焼速度より速くなると炎が浮き上がる現象である。"
       ],
       [
-        "瞬間湯沸器には元止め式と先止め式があり、小型湯沸器がすべて元止め式とはいえない。"
+        "13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。"
       ],
       [
-        "BF式ふろがまは給排気バランスが重要で、給排気筒トップ周囲の障害物を避ける必要がある。"
+        "ガス圧力が一定なら、ガス機器へのインプットはWIに比例する。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
@@ -438,27 +438,27 @@
       "正しい"
     ],
     "explanation_common_prefix": [
-      "消費機器「家庭用ガス機器（乙種）」の家庭用ガス温水機器、給湯器の自己診断、多段式バーナー、2缶3水式給湯暖房用熱源機、瞬間湯沸器、BF式ふろがまが本問の関連論点。",
-      "試験ポイント: 温水機器の安全制御、熱効率、追いだき方式、元止め式・先止め式の違い、BF式ふろがまの給排気条件を区別する。"
+      "消費機器「ガスの燃焼（乙種）」のブンゼンバーナー、不完全燃焼、フラッシュバック、リフティング、ガスグループ、ウォッベ指数（WI）が本問の関連論点。",
+      "試験ポイント: 燃焼速度と噴出速度の大小関係、ガスグループ13A/12Aの分類、WIとインプットの関係を区別する。"
     ],
     "explanation_common_summary": [
-      "誤っているものは選択肢4のみ。選択肢4は小型湯沸器がすべて元止め式であるとしている点が誤りで、選択肢1,2,3,5は家庭用ガス温水機器の自己診断、バーナー効率、追いだき方式、BF式ふろがまの給排気に関する記述として正しい。"
+      "誤っているものは選択肢4のみ。13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。選択肢1、2、3、5はブンゼンバーナーの燃焼現象とWIに関する記述として正しい。"
     ],
     "explanation_choice_snippets": [
       [
-        "給湯器の自己診断機能は、給排気通路の閉そく状態に応じて燃焼改善、能力制限、運転停止などを行う。"
+        "ブンゼンバーナーでガス量を増加させると、空気不足により不完全燃焼に至る場合がある。"
       ],
       [
-        "多段式バーナーは、燃焼本数が少ない低負荷運転時に熱効率が低くなる傾向がある。"
+        "バーナー部が高温となり混合ガス温度が上がると、フラッシュバックが発生しやすくなる。"
       ],
       [
-        "2缶3水式の給湯暖房用熱源機のふろ追いだきは、暖房循環水との熱交換による間接加熱方式である。"
+        "リフティングは、噴出速度が燃焼速度より速くなると炎が浮き上がる現象である。"
       ],
       [
-        "瞬間湯沸器には元止め式と先止め式があり、小型湯沸器がすべて元止め式とはいえない。"
+        "13Aと12Aはガスグループとして異なり、WIとMCPの領域が同じではない。"
       ],
       [
-        "BF式ふろがまは給排気バランスが重要で、給排気筒トップ周囲の障害物を避ける必要がある。"
+        "ガス圧力が一定なら、ガス機器へのインプットはWIに比例する。"
       ]
     ],
     "explanation_choice_correctness": [
@@ -468,11 +468,11 @@
       "間違い",
       "正しい"
     ],
-    "category": "家庭用ガス機器（乙種）",
-    "questionSetName": "家庭用ガス機器（乙種）",
+    "category": "ガスの燃焼（乙種）",
+    "questionSetName": "ガスの燃焼（乙種）",
     "reviewStatus": "ok",
-    "workerTaskId": "T646"
+    "workerTaskId": "T647"
   },
-  "nextPendingTaskId": "T647",
-  "nextPendingReviewId": "2023:question_2023_3:9cab22f519fd56d8"
+  "nextPendingTaskId": "T648",
+  "nextPendingReviewId": "2023:question_2023_2:b2a0a0ac00eb4af5"
 }
