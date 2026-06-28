@@ -21,6 +21,7 @@
   - `fix/README.md` に使用可否と注意点を明記する。
 - `upload/`
   - Storage / Firestore への upload と dry-run を行う。
+  - `upload_questions_to_firestore.py` は questions upload 成功時に `qualificationId` ごとの `examYear` を集計し、Repaso 公開 config の `official_exam_years_by_qualification` へ追記する。アプリ側の年度チップ候補はこの manifest を優先し、問題 document の `examYear` は従来通り正本として保持する。
 - `old/`
   - Git 管理外の legacy local scripts 置き場。日常運用の正本にはしない。
 

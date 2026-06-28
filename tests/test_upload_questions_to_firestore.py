@@ -182,6 +182,41 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
         self.assertTrue(doc_data["createdById"])
         self.assertTrue(doc_data["updatedById"])
 
+    def test_collect_exam_years_by_qualification_normalizes_and_sorts(self) -> None:
+        years = module.collect_exam_years_by_qualification(
+            [
+                {"qualificationId": "qual-a", "examYear": "2025"},
+                {"qualificationId": "qual-a", "examYear": 2026},
+                {"qualificationId": "qual-a", "examYear": 2025},
+                {"qualificationId": "qual-b", "examYear": 2024.0},
+                {"qualificationId": "qual-b", "examYear": "invalid"},
+                {"qualificationId": "", "examYear": 2023},
+            ]
+        )
+
+        self.assertEqual(years, {"qual-a": [2026, 2025], "qual-b": [2024]})
+
+    def test_merge_official_exam_years_map_preserves_existing_years(self) -> None:
+        merged = module.merge_official_exam_years_map(
+            {
+                "qual-a": [2024, "2023", "invalid"],
+                "qual-c": [2022],
+            },
+            {
+                "qual-a": [2026, 2025],
+                "qual-b": [2024],
+            },
+        )
+
+        self.assertEqual(
+            merged,
+            {
+                "qual-a": [2026, 2025, 2024, 2023],
+                "qual-b": [2024],
+                "qual-c": [2022],
+            },
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

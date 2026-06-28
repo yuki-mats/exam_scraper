@@ -20,6 +20,8 @@ PROJECT_ID = DEFAULT_PROJECT_ID
 UPDATED_BY_ID = "aMpBCmAEGSQPbhUMzbHvFiM1cYK2"
 CREATED_BY_ID = UPDATED_BY_ID
 BATCH_SIZE = 500  # Firestoreバッチ書き込みの上限
+CONFIG_DOC_ID = "08zYvCuKUcvGTNYqehrm"
+OFFICIAL_EXAM_YEARS_FIELD = "official_exam_years_by_qualification"
 
 
 def init_firestore(credentials_json: Path | None = None):
@@ -203,6 +205,101 @@ def build_doc_data(question: dict, now: datetime) -> dict:
     return doc_data
 
 
+def normalize_exam_year(value: object) -> int | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        year = value
+    elif isinstance(value, float):
+        year = int(value)
+    elif isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return None
+        try:
+            year = int(text)
+        except ValueError:
+            return None
+    else:
+        return None
+    if 1900 <= year <= 2100:
+        return year
+    return None
+
+
+def collect_exam_years_by_qualification(questions: list[dict]) -> dict[str, list[int]]:
+    years_by_qualification: dict[str, set[int]] = {}
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+        qualification_id = str(question.get("qualificationId") or "").strip()
+        if not qualification_id:
+            continue
+        year = normalize_exam_year(question.get("examYear"))
+        if year is None:
+            continue
+        years_by_qualification.setdefault(qualification_id, set()).add(year)
+    return {
+        qualification_id: sorted(years, reverse=True)
+        for qualification_id, years in sorted(years_by_qualification.items())
+    }
+
+
+def merge_official_exam_years_map(
+    current: object,
+    additions: dict[str, list[int]],
+) -> dict[str, list[int]]:
+    merged: dict[str, list[int]] = {}
+    if isinstance(current, dict):
+        for qualification_id, raw_years in current.items():
+            if not isinstance(qualification_id, str) or not qualification_id.strip():
+                continue
+            years: set[int] = set()
+            if isinstance(raw_years, list):
+                for raw_year in raw_years:
+                    year = normalize_exam_year(raw_year)
+                    if year is not None:
+                        years.add(year)
+            if years:
+                merged[qualification_id.strip()] = sorted(years, reverse=True)
+
+    for qualification_id, years in additions.items():
+        existing = set(merged.get(qualification_id, []))
+        existing.update(years)
+        if existing:
+            merged[qualification_id] = sorted(existing, reverse=True)
+    return dict(sorted(merged.items()))
+
+
+def upsert_official_exam_years_manifest(db, additions: dict[str, list[int]]) -> None:
+    if not additions:
+        print("[SKIP] official exam years manifest: examYear が見つかりません")
+        return
+    doc_ref = db.collection("config").document(CONFIG_DOC_ID)
+    existing_data: dict = {}
+    try:
+        snapshot = doc_ref.get()
+        if getattr(snapshot, "exists", False):
+            existing_data = snapshot.to_dict() or {}
+    except Exception as exc:
+        raise RuntimeError(f"config/{CONFIG_DOC_ID} の取得に失敗しました: {exc}") from exc
+
+    current = existing_data.get(OFFICIAL_EXAM_YEARS_FIELD)
+    merged = merge_official_exam_years_map(current, additions)
+    if current == merged:
+        print("[SKIP] official exam years manifest: 差分なし")
+        return
+
+    doc_ref.set({OFFICIAL_EXAM_YEARS_FIELD: merged}, merge=True)
+    print(
+        "[CONFIG] official exam years manifest updated: "
+        + ", ".join(
+            f"{qualification_id}={years}"
+            for qualification_id, years in additions.items()
+        )
+    )
+
+
 def upload_questions(
     json_file_path: str,
     dry_run: bool = False,
@@ -228,11 +325,20 @@ def upload_questions(
                 q["questionTags"] = []
 
     validate_required_question_fields(questions, str(json_file_path))
+    exam_years_by_qualification = collect_exam_years_by_qualification(questions)
 
     print(f"合計 {len(questions)} 件の質問をアップロードします...")
 
     if dry_run:
         print("[DRY RUN] 実際のアップロードは行いません。")
+        if exam_years_by_qualification:
+            print(
+                "[DRY RUN] official exam years manifest: "
+                + ", ".join(
+                    f"{qualification_id}={years}"
+                    for qualification_id, years in exam_years_by_qualification.items()
+                )
+            )
         now = datetime.now()
         for q in questions:
             if not isinstance(q, dict):
@@ -336,6 +442,11 @@ def upload_questions(
         except Exception as e:
             print(f"Error: バッチ {batch_num + 1} のコミット失敗: {e}")
             error_count += chunk_valid
+
+    if error_count == 0:
+        upsert_official_exam_years_manifest(db, exam_years_by_qualification)
+    else:
+        print("[SKIP] official exam years manifest: question upload error があるため更新しません")
 
     print(f"\n完了: 更新 {success_count} 件, スキップ {skipped_count} 件, エラー {error_count} 件")
 
