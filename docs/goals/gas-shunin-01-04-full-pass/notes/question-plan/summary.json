@@ -1,75 +1,69 @@
 {
-  "activeTaskId": "T706",
-  "completed": 606,
-  "completedQuestions": 606,
-  "completed_questions": 606,
+  "activeTaskId": "T707",
+  "completed": 607,
+  "completedQuestions": 607,
+  "completed_questions": 607,
   "done": 472,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
     "done": 472,
-    "hold": 134,
-    "pending": 328
+    "hold": 135,
+    "pending": 327
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T21:53:30+09:00",
-  "heldQuestions": 134,
-  "held_questions": 134,
-  "hold": 134,
-  "hold_questions": 134,
+  "generatedAt": "2026-06-28T22:05:30+09:00",
+  "heldQuestions": 135,
+  "held_questions": 135,
+  "hold": 135,
+  "hold_questions": 135,
   "kouCompleted": 412,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "completedAt": "2026-06-28T21:53:30+09:00",
-    "publicQuestionId": "8a222b34c430cbf7",
-    "reviewQuestionId": "8a222b34c430cbf7",
-    "taskId": "T705",
-    "workerTaskId": "T705"
+    "completedAt": "2026-06-28T22:05:30+09:00",
+    "publicQuestionId": "4c02724cceef7fcb",
+    "reviewQuestionId": "4c02724cceef7fcb",
+    "taskId": "T706",
+    "workerTaskId": "T706"
   },
-  "lastCompletedReviewQuestionId": "8a222b34c430cbf7",
-  "lastCompletedTaskId": "T705",
-  "nextActiveTaskId": "T706",
+  "lastCompletedReviewQuestionId": "4c02724cceef7fcb",
+  "lastCompletedTaskId": "T706",
+  "nextActiveTaskId": "T707",
   "nextPending": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。",
-      "サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。",
-      "不完全燃焼の原因には、空気との接触や混合が不十分、排気の排出不良等がある。",
-      "ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の適正値は、燃焼速度の速いガスでは\n大きく、遅いガスで\nは小さくなる。",
-      "ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換領域を外れた場合、リフティングが発生する。"
+      "開栓→E→A→B→C→D\n→E→F→G→開栓",
+      "閉栓→A→C→F→E→G→E→B→D→開栓",
+      "閉栓→A→C→F→B→E\n→G→E→D→開栓",
+      "閉栓→B→A→C→F→E\n→G→E→D→開栓",
+      "閉栓→E→G→F→A→C\n→E→B→D→開栓"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2022,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -103,33 +97,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 752,
-    "publicQuestionId": "4c02724cceef7fcb",
+    "planSequence": 751,
+    "publicQuestionId": "da3050a1bed2ae44",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:4c02724cceef7fcb",
-    "questionBodyText": "燃焼時の諸現象及びガスと機器の適応に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 25,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問19",
-    "questionNo": 19,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:da3050a1bed2ae44",
+    "questionBodyText": "地震により低圧導管の供給を停止した地域の復旧作業の基本フローとして最も適切なものはどれか。\nA: 復旧ブロック化\nB: 本支管灯外内管のエアパージ\nC: 供給管切断\nD: 灯内内管の漏えい検査・修理\nE: 本支管灯外内管のテスト昇圧\nF: 本支管灯外内管の差水箇所修理・採水\nG: 本支管灯外内管の漏えい調査・漏えい修理",
+    "questionIndexInFile": 24,
+    "questionIntent": "",
+    "questionLabel": "問18",
+    "questionNo": 18,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q19",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q18",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:4c02724cceef7fcb",
+    "reviewId": "2022:question_2022_2:da3050a1bed2ae44",
     "reviewNotes": "",
-    "reviewQuestionId": "4c02724cceef7fcb",
+    "reviewQuestionId": "da3050a1bed2ae44",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
+    "sourceCategory": "供給",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -139,8 +133,8 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 19,
-      "subject": "shohi",
+      "questionNo": 18,
+      "subject": "kyokyu",
       "year": 2022
     },
     "sourceNaturalQuestionKey": null,
@@ -148,45 +142,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q19",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q18",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q19:s01",
-      "gas-shunin:otsu:2022:shohi:q19:s02",
-      "gas-shunin:otsu:2022:shohi:q19:s03",
-      "gas-shunin:otsu:2022:shohi:q19:s04",
-      "gas-shunin:otsu:2022:shohi:q19:s05"
+      "gas-shunin:otsu:2022:kyokyu:q18:s01",
+      "gas-shunin:otsu:2022:kyokyu:q18:s02",
+      "gas-shunin:otsu:2022:kyokyu:q18:s03",
+      "gas-shunin:otsu:2022:kyokyu:q18:s04",
+      "gas-shunin:otsu:2022:kyokyu:q18:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q19",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q18",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s05",
         "statementNo": 5
       }
     ],
@@ -199,48 +193,42 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 752,
-  "nextPendingPublicQuestionId": "4c02724cceef7fcb",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:4c02724cceef7fcb",
+  "nextPendingPlanSequence": 751,
+  "nextPendingPublicQuestionId": "da3050a1bed2ae44",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:da3050a1bed2ae44",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 4 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。",
-      "サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。",
-      "不完全燃焼の原因には、空気との接触や混合が不十分、排気の排出不良等がある。",
-      "ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の適正値は、燃焼速度の速いガスでは\n大きく、遅いガスで\nは小さくなる。",
-      "ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換領域を外れた場合、リフティングが発生する。"
+      "開栓→E→A→B→C→D\n→E→F→G→開栓",
+      "閉栓→A→C→F→E→G→E→B→D→開栓",
+      "閉栓→A→C→F→B→E\n→G→E→D→開栓",
+      "閉栓→B→A→C→F→E\n→G→E→D→開栓",
+      "閉栓→E→G→F→A→C\n→E→B→D→開栓"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
+      "間違い",
       "正しい",
       "間違い",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2022,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -274,33 +262,33 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 752,
-    "publicQuestionId": "4c02724cceef7fcb",
+    "planSequence": 751,
+    "publicQuestionId": "da3050a1bed2ae44",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:4c02724cceef7fcb",
-    "questionBodyText": "燃焼時の諸現象及びガスと機器の適応に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 25,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問19",
-    "questionNo": 19,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:da3050a1bed2ae44",
+    "questionBodyText": "地震により低圧導管の供給を停止した地域の復旧作業の基本フローとして最も適切なものはどれか。\nA: 復旧ブロック化\nB: 本支管灯外内管のエアパージ\nC: 供給管切断\nD: 灯内内管の漏えい検査・修理\nE: 本支管灯外内管のテスト昇圧\nF: 本支管灯外内管の差水箇所修理・採水\nG: 本支管灯外内管の漏えい調査・漏えい修理",
+    "questionIndexInFile": 24,
+    "questionIntent": "",
+    "questionLabel": "問18",
+    "questionNo": 18,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q19",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q18",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2022:question_2022_2:4c02724cceef7fcb",
+    "reviewId": "2022:question_2022_2:da3050a1bed2ae44",
     "reviewNotes": "",
-    "reviewQuestionId": "4c02724cceef7fcb",
+    "reviewQuestionId": "da3050a1bed2ae44",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "消費機器",
+    "sourceCategory": "供給",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
@@ -310,8 +298,8 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 19,
-      "subject": "shohi",
+      "questionNo": 18,
+      "subject": "kyokyu",
       "year": 2022
     },
     "sourceNaturalQuestionKey": null,
@@ -319,45 +307,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q19",
+    "sourceQuestionKey": "gas-shunin:otsu:2022:kyokyu:q18",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2022:shohi:q19:s01",
-      "gas-shunin:otsu:2022:shohi:q19:s02",
-      "gas-shunin:otsu:2022:shohi:q19:s03",
-      "gas-shunin:otsu:2022:shohi:q19:s04",
-      "gas-shunin:otsu:2022:shohi:q19:s05"
+      "gas-shunin:otsu:2022:kyokyu:q18:s01",
+      "gas-shunin:otsu:2022:kyokyu:q18:s02",
+      "gas-shunin:otsu:2022:kyokyu:q18:s03",
+      "gas-shunin:otsu:2022:kyokyu:q18:s04",
+      "gas-shunin:otsu:2022:kyokyu:q18:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q19",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2022/#kyokyu-q18",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q19:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2022:kyokyu:q18:s05",
         "statementNo": 5
       }
     ],
@@ -370,16 +358,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2022:question_2022_2:4c02724cceef7fcb",
-  "nextPendingTaskId": "T706",
-  "otsuCompleted": 194,
+  "nextPendingReviewId": "2022:question_2022_2:da3050a1bed2ae44",
+  "nextPendingTaskId": "T707",
+  "otsuCompleted": 195,
   "otsuDone": 162,
-  "otsuHeld": 32,
-  "otsuHold": 32,
-  "otsuPending": 328,
-  "pending": 328,
-  "pendingQuestions": 328,
-  "pending_questions": 328,
+  "otsuHeld": 33,
+  "otsuHold": 33,
+  "otsuPending": 327,
+  "pending": 327,
+  "pendingQuestions": 327,
+  "pending_questions": 327,
   "qualificationStatusCounts": {
     "gas-shunin-kou": {
       "done": 310,
@@ -387,18 +375,18 @@
     },
     "gas-shunin-otsu": {
       "done": 162,
-      "hold": 32,
-      "pending": 328
+      "hold": 33,
+      "pending": 327
     }
   },
   "reviewDecisionCounts": {
-    "ok": 471,
-    "hold": 134,
-    "pending": 329
+    "ok": 472,
+    "hold": 135,
+    "pending": 327
   },
   "total": 934,
   "totalQuestions": 934,
   "total_questions": 934,
-  "updatedAt": "2026-06-28T21:43:15+09:00",
-  "lastUpdatedAt": "2026-06-28T21:53:30+09:00"
+  "updatedAt": "2026-06-28T22:01:37+09:00",
+  "lastUpdatedAt": "2026-06-28T22:01:37+09:00"
 }
