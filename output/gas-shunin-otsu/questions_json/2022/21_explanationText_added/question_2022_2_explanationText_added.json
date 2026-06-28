@@ -167,8 +167,13 @@
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonPrefix": [
+      "hold: 00_source本文に(イ)〜(ハ)の使用状況が欠落しているため、03 explanationTextは確定しない。",
+      "20_mergedでは(イ)=繰り返し応力、(ロ)=延性材料が常温で静荷重、(ハ)=高温で静荷重であり、選択肢4が対応する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "00_sourceの設問本文に、解答根拠となる(イ)繰り返し応力を受けるとき、(ロ)延性材料が常温で静荷重を受けるとき、(ハ)高温で静荷重を受けるとき、の使用状況が欠落している。20_mergedには当該条件が残っており、answer_result_text=正解は4およびFirestore snapshot exact同一問題のquestionSetId=chiefgasengineerlicense-B-2160は確認できるが、00_source本文修正または公式問題PDF確認なしに03 explanationを確定すると誤学習リスクがある。"
+    ],
     "sourceExplanationChoiceSnippets": [
       [],
       [],
@@ -182,7 +187,8 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "explanationTextCount": 0
   },
   {
     "original_question_id": "d281a1bfaca91985",
