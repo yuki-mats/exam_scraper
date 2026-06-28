@@ -1,14 +1,14 @@
 {
-  "activeTaskId": "T667",
-  "completed": 567,
-  "completedQuestions": 567,
-  "completed_questions": 567,
-  "done": 444,
+  "activeTaskId": "T668",
+  "completed": 568,
+  "completedQuestions": 568,
+  "completed_questions": 568,
+  "done": 445,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 444,
+    "done": 445,
     "hold": 123,
-    "pending": 367
+    "pending": 366
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-28T15:57:30+09:00",
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 5 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 5 です。 is the combination-choice number; statement-level correctChoiceText marks statements 3 and 4 as correct.",
+      "correctChoiceReason": "manual_reviewed_against_answer_result_and_stress_unit_conversion",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -36,36 +36,36 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "LNGにおいて、局部的な低圧部が生ずると、液体が気化して蒸気の細かい気泡が発生することがある。一般にこの現象を\nサージング\nという。",
-      "LNGの場合では、液封が起こると、外気熱による気化に伴い、著しい膨張が発生して内部の圧力が上昇し、フランジ等の弱い部分が破壊されるおそれがあるため注意が必要であるが、LPGでは液封への考慮は不要\nである。",
-      "LPGが地表面や水面に流出し気化したガスは、空気の1.5～2倍と重く、着火源の多い地表面に滞留するため、取り扱いには十分注意しなければならない。",
-      "貯蔵中のLNGからは、外部からの入熱により沸点の低いメタンを主成分としたボイルオフガス(BOG)が発生する。",
-      "LNGローリーの運行には、\nガス事業法\n及び道路法等が適用される。"
+      "0.02",
+      "2",
+      "200",
+      "20000",
+      "2000000"
     ],
     "correctChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い"
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
     ],
     "explanationText": [
-      "間違い。LNGなどの液体で局部的な低圧部が生じ、液体が気化して細かな気泡が発生する現象はキャビテーションである。サージングとしている点が誤りである。",
-      "間違い。液封が起こると外部からの入熱で液体が膨張し、内部圧力が上昇して弱い部分を破壊するおそれがある。LPGでも液封への考慮は必要であり、不要としている点が誤りである。",
-      "正しい。LPGが流出して気化したガスは空気より重く、空気の約1.5から2倍の重さとなり、地表面や低所に滞留しやすいため、着火源への注意が必要である。",
-      "正しい。貯蔵中のLNGには外部からの入熱があり、沸点の低いメタンを主成分とするボイルオフガス、すなわちBOGが発生する。",
-      "間違い。LNGローリーの運行には、高圧ガス保安法や道路法などが適用される。ガス事業法及び道路法等としている点が誤りである。"
+      "不正解。引張応力σは力Pを原断面積Aで割った値なので、P=σAで求める。200kPa=200,000N/m²、100cm²=0.01m²より、P=200,000×0.01=2,000N=2kNであり、0.02kNではない。",
+      "正解。引張応力σ=P/Aより、力P=σAである。200kPa=200,000N/m²、100cm²=0.01m²なので、P=200,000×0.01=2,000N=2kNとなる。",
+      "不正解。200kNは2kNの100倍であり、面積100cm²を0.01m²に換算していない計算に相当する過大な値である。",
+      "不正解。20,000kNは、単位換算を大きく誤った過大な値である。200kPaと100cm²から得られる力は2kNである。",
+      "不正解。2,000,000kNは、200kPaと100cm²から求める力として桁違いに大きい。正しくは2kNである。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -99,206 +99,214 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 792,
-    "publicQuestionId": "92e13673ae650747",
+    "planSequence": 791,
+    "publicQuestionId": "b0c1ef91e63cedb4",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:92e13673ae650747",
-    "questionBodyText": "都市ガスの原料に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 7,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:b0c1ef91e63cedb4",
+    "questionBodyText": "ある金属材料に図のように一定の力を加えた。引張応力が200kPa、原断面積Aが100cm²のとき、力(kN)として最も近い値はどれか。",
+    "questionIndexInFile": 6,
     "questionIntent": "select_correct",
-    "questionLabel": "問1",
-    "questionNo": 1,
-    "questionSetId": "chiefgasengineerlicense-B-1790",
-    "questionSetName": "都市ガスの原料（乙種）",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q1",
+    "questionLabel": "問15",
+    "questionNo": 15,
+    "questionSetId": "chiefgasengineerlicense-B-2170",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q15",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:92e13673ae650747",
-    "reviewNotes": "T666: 降順ブロック planSequence=792。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=92e13673ae650747。00_source body/choices preserved. questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 5 です。は組合せ選択肢番号で、正しい記述ハ・ニに対応し、statement-level correctChoiceText=[間違い, 間違い, 正しい, 正しい, 間違い] と一致。イは局部低圧で気泡が発生する現象をキャビテーションでなくサージングとしている点、ロはLPGの液封考慮不要としている点、ホはLNGローリー運行の適用法を高圧ガス保安法等でなくガス事業法としている点が誤り。04は category.json と 2025乙種製造問1の同系先例に合わせ、都市ガスの原料（乙種）を選択。",
-    "reviewQuestionId": "92e13673ae650747",
-    "reviewedAt": "2026-06-28T16:01:22+09:00",
+    "reviewId": "2023:question_2023_2:b0c1ef91e63cedb4",
+    "reviewNotes": "T667: 降順ブロック planSequence=791。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=b0c1ef91e63cedb4。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 2 です。と correctChoiceText=[不正解, 正解, 不正解, 不正解, 不正解] が一致。引張応力σ=P/AよりP=σA、200kPa=200,000N/m²、100cm²=0.01m²なので、P=2,000N=2kN。04は category.json と2024/2025乙種基礎問15の材料力学先例に合わせ、材料力学（乙種）を選択。",
+    "reviewQuestionId": "b0c1ef91e63cedb4",
+    "reviewedAt": "2026-06-28T16:07:57+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
+    "sourceCategory": "基礎理論",
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 15,
+      "subject": "kiso",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q15",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:kiso:q15:s01",
+      "gas-shunin:otsu:2023:kiso:q15:s02",
+      "gas-shunin:otsu:2023:kiso:q15:s03",
+      "gas-shunin:otsu:2023:kiso:q15:s04",
+      "gas-shunin:otsu:2023:kiso:q15:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q15",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "questionSetName": "材料力学（乙種）",
     "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "間違い",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "P=σA=200,000N/m²×0.01m²=2,000N=2kN。0.02kNではない。"
+      ],
+      [
+        "引張応力σ=P/AよりP=σA。200kPaと100cm²から2kNとなる。"
+      ],
+      [
+        "200kNは2kNの100倍で過大。"
+      ],
+      [
+        "20,000kNは単位換算を誤った過大な値。"
+      ],
+      [
+        "2,000,000kNは桁違いに大きく、正しい力は2kN。"
+      ]
+    ],
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学」が本問の関連論点。引張応力は力を原断面積で割った値で、σ=P/A を用いる。",
+      "単位換算では、200kPa=200,000N/m²、100cm²=0.01m²、1kN=1,000Nである。",
+      "本問では P=σA=200,000×0.01=2,000N=2kN となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "引張応力σ=P/AからP=σA。200kPa=200,000N/m²、100cm²=0.01m²なので、P=2,000N=2kN。よって選択肢2が正解。"
+    ],
+    "suggestedQuestions": [
+      "0.02",
+      "2",
+      "200",
+      "20000",
+      "2000000"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "questionText": "0.02",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。引張応力σは力Pを原断面積Aで割った値なので、P=σAで求める。200kPa=200,000N/m²、100cm²=0.01m²より、P=200,000×0.01=2,000N=2kNであり、0.02kNではない。"
+      },
+      {
+        "questionText": "2",
+        "correctChoiceText": "正解",
+        "explanationText": "正解。引張応力σ=P/Aより、力P=σAである。200kPa=200,000N/m²、100cm²=0.01m²なので、P=200,000×0.01=2,000N=2kNとなる。"
+      },
+      {
+        "questionText": "200",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。200kNは2kNの100倍であり、面積100cm²を0.01m²に換算していない計算に相当する過大な値である。"
+      },
+      {
+        "questionText": "20000",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。20,000kNは、単位換算を大きく誤った過大な値である。200kPaと100cm²から得られる力は2kNである。"
+      },
+      {
+        "questionText": "2000000",
+        "correctChoiceText": "不正解",
+        "explanationText": "不正解。2,000,000kNは、200kPaと100cm²から求める力として桁違いに大きい。正しくは2kNである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "taskId": "T667",
+    "workerTaskId": "T667"
+  },
+  "lastCompletedReviewQuestionId": "b0c1ef91e63cedb4",
+  "lastCompletedTaskId": "T667",
+  "nextActiveTaskId": "T668",
+  "nextPending": {
+    "answerResultText": "正解は 5 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "応力にともなって生ずる変形量の変形前長さに対する割合をひずみという。",
+      "塑性変形では、外力を取り去っても材料が元の形に戻らない。",
+      "薄肉円筒の内圧(円筒外部との圧力差)による円周応力は、内圧と内径に比例する。",
+      "薄肉円筒の内圧(円筒外部との圧力差)による軸応力は、内圧と内径に比例する。",
+      "許容応力は、\n基準強さ(破損限度)と安全係数(安全率)の積\nで求められる。"
+    ],
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
       "正しい",
       "正しい",
       "間違い"
     ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "局部的な低圧部で液体が気化して気泡が発生する現象はキャビテーション。サージングではない。"
-      ],
-      [
-        "LPGでも液封時の入熱・液膨張による圧力上昇に注意が必要。液封考慮不要が誤り。"
-      ],
-      [
-        "LPGの気化ガスは空気の約1.5から2倍と重く、地表面に滞留しやすい。"
-      ],
-      [
-        "LNGは貯蔵中の外部入熱により、メタン主体のBOGが発生する。"
-      ],
-      [
-        "LNGローリーの運行は高圧ガス保安法や道路法などの対象。ガス事業法としている点が誤り。"
-      ]
-    ],
-    "sourceExplanationCommonPrefix": [
-      "製造 第1章「都市ガスの原料」が本問の関連論点。LNG・LPGの性状、液封、BOG、輸送時の法規制を区別する。",
-      "試験ポイント: answer_result_text=正解は5は組合せ選択肢番号であり、statement-levelでは3・4が正しく、1・2・5が誤りである。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "正しい記述は3と4。1はキャビテーションをサージングとしている点、2はLPGの液封考慮不要、5はLNGローリー運行の適用法が誤りである。"
-    ],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 1,
-      "subject": "seizo",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q01",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q01:s01",
-      "gas-shunin:otsu:2023:seizo:q01:s02",
-      "gas-shunin:otsu:2023:seizo:q01:s03",
-      "gas-shunin:otsu:2023:seizo:q01:s04",
-      "gas-shunin:otsu:2023:seizo:q01:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q1",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "answer": "サージングではなくキャビテーションである。",
-        "explanation": "間違い。LNGなどの液体で局部的な低圧部が生じ、液体が気化して細かな気泡が発生する現象はキャビテーションである。サージングとしている点が誤りである。",
-        "question": "LNGで局部的な低圧部により気泡が発生する現象はサージングか？"
-      },
-      {
-        "answer": "不要ではない。",
-        "explanation": "間違い。液封が起こると外部からの入熱で液体が膨張し、内部圧力が上昇して弱い部分を破壊するおそれがある。LPGでも液封への考慮は必要であり、不要としている点が誤りである。",
-        "question": "LPGでは液封への考慮は不要か？"
-      },
-      {
-        "answer": "滞留しやすい。",
-        "explanation": "正しい。LPGが流出して気化したガスは空気より重く、空気の約1.5から2倍の重さとなり、地表面や低所に滞留しやすいため、着火源への注意が必要である。",
-        "question": "LPGの気化ガスは空気より重く、地表面に滞留しやすいか？"
-      },
-      {
-        "answer": "発生する。",
-        "explanation": "正しい。貯蔵中のLNGには外部からの入熱があり、沸点の低いメタンを主成分とするボイルオフガス、すなわちBOGが発生する。",
-        "question": "貯蔵中のLNGからは外部入熱によりメタン主体のBOGが発生するか？"
-      },
-      {
-        "answer": "ガス事業法ではなく高圧ガス保安法や道路法などが適用される。",
-        "explanation": "間違い。LNGローリーの運行には、高圧ガス保安法や道路法などが適用される。ガス事業法及び道路法等としている点が誤りである。",
-        "question": "LNGローリーの運行にはガス事業法が適用されるか？"
-      }
-    ],
-    "suggestedQuestions": [
-      "LNGで局部的な低圧部により気泡が発生する現象はサージングか？",
-      "LPGでは液封への考慮は不要か？",
-      "LPGの気化ガスは空気より重く、地表面に滞留しやすいか？",
-      "貯蔵中のLNGからは外部入熱によりメタン主体のBOGが発生するか？",
-      "LNGローリーの運行にはガス事業法が適用されるか？"
-    ],
-    "taskId": "T666",
-    "workerTaskId": "T666"
-  },
-  "lastCompletedReviewQuestionId": "92e13673ae650747",
-  "lastCompletedTaskId": "T666",
-  "nextActiveTaskId": "T667",
-  "nextPending": {
-    "answerResultText": "正解は 2 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": false,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "0.02",
-      "2",
-      "200",
-      "20000",
-      "2000000"
-    ],
-    "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
-    ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -332,28 +340,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 791,
-    "publicQuestionId": "b0c1ef91e63cedb4",
+    "planSequence": 790,
+    "publicQuestionId": "040de90cde0bda42",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:b0c1ef91e63cedb4",
-    "questionBodyText": "ある金属材料に図のように一定の力を加えた。引張応力が200kPa、原断面積Aが100cm²のとき、力(kN)として最も近い値はどれか。",
-    "questionIndexInFile": 6,
-    "questionIntent": "",
-    "questionLabel": "問15",
-    "questionNo": 15,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:040de90cde0bda42",
+    "questionBodyText": "材料に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 5,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問14",
+    "questionNo": 14,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q15",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q14",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:b0c1ef91e63cedb4",
+    "reviewId": "2023:question_2023_2:040de90cde0bda42",
     "reviewNotes": "",
-    "reviewQuestionId": "b0c1ef91e63cedb4",
+    "reviewQuestionId": "040de90cde0bda42",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -368,7 +376,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 15,
+      "questionNo": 14,
       "subject": "kiso",
       "year": 2023
     },
@@ -377,45 +385,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q15",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q14",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q15:s01",
-      "gas-shunin:otsu:2023:kiso:q15:s02",
-      "gas-shunin:otsu:2023:kiso:q15:s03",
-      "gas-shunin:otsu:2023:kiso:q15:s04",
-      "gas-shunin:otsu:2023:kiso:q15:s05"
+      "gas-shunin:otsu:2023:kiso:q14:s01",
+      "gas-shunin:otsu:2023:kiso:q14:s02",
+      "gas-shunin:otsu:2023:kiso:q14:s03",
+      "gas-shunin:otsu:2023:kiso:q14:s04",
+      "gas-shunin:otsu:2023:kiso:q14:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q15",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q14",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s05",
         "statementNo": 5
       }
     ],
@@ -428,42 +436,48 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 791,
-  "nextPendingPublicQuestionId": "b0c1ef91e63cedb4",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:b0c1ef91e63cedb4",
+  "nextPendingPlanSequence": 790,
+  "nextPendingPublicQuestionId": "040de90cde0bda42",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:040de90cde0bda42",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "question_intent_required",
+      "correctChoiceMatchesExpected": true,
+      "correctChoiceReason": "",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": false,
+      "questionIntentPresent": true,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.02",
-      "2",
-      "200",
-      "20000",
-      "2000000"
+      "応力にともなって生ずる変形量の変形前長さに対する割合をひずみという。",
+      "塑性変形では、外力を取り去っても材料が元の形に戻らない。",
+      "薄肉円筒の内圧(円筒外部との圧力差)による円周応力は、内圧と内径に比例する。",
+      "薄肉円筒の内圧(円筒外部との圧力差)による軸応力は、内圧と内径に比例する。",
+      "許容応力は、\n基準強さ(破損限度)と安全係数(安全率)の積\nで求められる。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [],
+    "expectedCorrectChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -497,28 +511,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 791,
-    "publicQuestionId": "b0c1ef91e63cedb4",
+    "planSequence": 790,
+    "publicQuestionId": "040de90cde0bda42",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:b0c1ef91e63cedb4",
-    "questionBodyText": "ある金属材料に図のように一定の力を加えた。引張応力が200kPa、原断面積Aが100cm²のとき、力(kN)として最も近い値はどれか。",
-    "questionIndexInFile": 6,
-    "questionIntent": "",
-    "questionLabel": "問15",
-    "questionNo": 15,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:040de90cde0bda42",
+    "questionBodyText": "材料に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 5,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問14",
+    "questionNo": 14,
     "questionSetId": "",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q15",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q14",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:b0c1ef91e63cedb4",
+    "reviewId": "2023:question_2023_2:040de90cde0bda42",
     "reviewNotes": "",
-    "reviewQuestionId": "b0c1ef91e63cedb4",
+    "reviewQuestionId": "040de90cde0bda42",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -533,7 +547,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 15,
+      "questionNo": 14,
       "subject": "kiso",
       "year": 2023
     },
@@ -542,45 +556,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q15",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q14",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q15:s01",
-      "gas-shunin:otsu:2023:kiso:q15:s02",
-      "gas-shunin:otsu:2023:kiso:q15:s03",
-      "gas-shunin:otsu:2023:kiso:q15:s04",
-      "gas-shunin:otsu:2023:kiso:q15:s05"
+      "gas-shunin:otsu:2023:kiso:q14:s01",
+      "gas-shunin:otsu:2023:kiso:q14:s02",
+      "gas-shunin:otsu:2023:kiso:q14:s03",
+      "gas-shunin:otsu:2023:kiso:q14:s04",
+      "gas-shunin:otsu:2023:kiso:q14:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q15",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q14",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q15:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q14:s05",
         "statementNo": 5
       }
     ],
@@ -593,16 +607,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_2:b0c1ef91e63cedb4",
-  "nextPendingTaskId": "T667",
-  "otsuCompleted": 155,
-  "otsuDone": 134,
+  "nextPendingReviewId": "2023:question_2023_2:040de90cde0bda42",
+  "nextPendingTaskId": "T668",
+  "otsuCompleted": 156,
+  "otsuDone": 135,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 367,
-  "pending": 367,
-  "pendingQuestions": 367,
-  "pending_questions": 367,
+  "otsuPending": 366,
+  "pending": 366,
+  "pendingQuestions": 366,
+  "pending_questions": 366,
   "total": 934,
   "total_questions": 934
 }

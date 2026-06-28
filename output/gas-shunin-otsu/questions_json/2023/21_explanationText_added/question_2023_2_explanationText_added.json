@@ -200,18 +200,71 @@
       "2000000"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。引張応力は力を断面積で割った値であるため、力は引張応力に原断面積を掛けて求める。200kPa=200000N/m²、100cm²=0.01m²なので、力は2000N=2kNであり、0.02kNではない。",
+      "正解。引張応力σ=F/Aより、F=σAである。200kPa=200000N/m²、100cm²=0.01m²なので、F=200000×0.01=2000N=2kNとなる。",
+      "不正解。200はNからkNへの換算を誤った値である。計算結果は2000Nであり、1kN=1000Nだから2kNとなる。",
+      "不正解。20000kNは面積換算又はNからkNへの換算を大きく誤った値である。100cm²は0.01m²であり、力は2000N=2kNである。",
+      "不正解。2000000kNは単位換算を誤った値である。200kPaをN/m²に、100cm²をm²に直して掛けると、2000N=2kNとなる。"
+    ],
+    "suggestedQuestions": [
+      "引張応力、断面積、力の関係式は？",
+      "200kPaは何N/m²に換算できる？",
+      "100cm²は何m²に換算できる？",
+      "200kPa、100cm²のとき力は何Nか？",
+      "2000Nは何kNか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "引張応力、断面積、力の関係式は？",
+        "answer": "σ=F/A、したがってF=σA。",
+        "explanation": "正解。引張応力は力を断面積で割った値なので、力は引張応力に断面積を掛けて求める。"
+      },
+      {
+        "question": "200kPaは何N/m²に換算できる？",
+        "answer": "200000N/m²。",
+        "explanation": "1kPa=1000N/m²なので、200kPa=200000N/m²である。"
+      },
+      {
+        "question": "100cm²は何m²に換算できる？",
+        "answer": "0.01m²。",
+        "explanation": "1m²=10000cm²なので、100cm²=0.01m²である。"
+      },
+      {
+        "question": "200kPa、100cm²のとき力は何Nか？",
+        "answer": "2000N。",
+        "explanation": "F=σA=200000N/m²×0.01m²=2000Nである。"
+      },
+      {
+        "question": "2000Nは何kNか？",
+        "answer": "2kN。",
+        "explanation": "1kN=1000Nなので、2000N=2kNである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学」が本問の関連論点。引張応力は力を原断面積で割った値であり、力は F=σA で求める。",
+      "本問では 200kPa=200000N/m²、100cm²=0.01m² に単位換算してから計算する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "F=σA=200000N/m²×0.01m²=2000N=2kN。最も近い値は選択肢2である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "0.02kNは、2000N=2kNへの換算と一致しない。"
+      ],
+      [
+        "200kPa=200000N/m²、100cm²=0.01m²より、F=2000N=2kN。"
+      ],
+      [
+        "2000NをkNへ換算すると2kNであり、200kNではない。"
+      ],
+      [
+        "100cm²=0.01m²を用いるため、20000kNにはならない。"
+      ],
+      [
+        "2000000kNは単位換算の桁が合わず、正しい値は2kN。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
