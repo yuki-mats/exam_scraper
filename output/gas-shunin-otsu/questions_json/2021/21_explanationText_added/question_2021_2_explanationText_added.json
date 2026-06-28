@@ -52,18 +52,71 @@
       "8.0"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。密度一定で一定流量なので連続の式 A1v1=A2v2 を用いる。内径が200mmから100mmに半減すると断面積は1/4になり、流速は4倍になるため0.25m/sではない。",
+      "不正解。内径100mm側の断面積は内径200mm側の1/4である。流量を一定に保つには流速は4倍となるので、0.5m/sでは小さすぎる。",
+      "不正解。直径が1/2になると断面積は直径の2乗に比例して1/4になる。流速は断面積に反比例するため2.0m/sではなく4.0m/sとなる。",
+      "正解。連続の式 A1v1=A2v2 より、v2=v1×(D1/D2)^2=1.0×(200/100)^2=4.0m/s となる。",
+      "不正解。内径比は2倍なので流速比は断面積比の逆数で4倍である。8.0m/sは直径比を過大に扱った値で、最も近い値ではない。"
+    ],
+    "suggestedQuestions": [
+      "一定流量で使う連続の式は何か？",
+      "直径が半分になると断面積は何倍になるか？",
+      "流速は断面積とどのような関係か？",
+      "内径200mmから100mmへ絞ると流速は何倍になるか？",
+      "平均流速1.0m/sの4倍はいくらか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "一定流量で使う連続の式は何か？",
+        "answer": "A1v1=A2v2。",
+        "explanation": "不正解。密度一定で一定流量なので連続の式 A1v1=A2v2 を用いる。内径が200mmから100mmに半減すると断面積は1/4になり、流速は4倍になるため0.25m/sではない。"
+      },
+      {
+        "question": "直径が半分になると断面積は何倍になるか？",
+        "answer": "1/4倍。",
+        "explanation": "不正解。内径100mm側の断面積は内径200mm側の1/4である。流量を一定に保つには流速は4倍となるので、0.5m/sでは小さすぎる。"
+      },
+      {
+        "question": "流速は断面積とどのような関係か？",
+        "answer": "流量一定では流速は断面積に反比例する。",
+        "explanation": "不正解。直径が1/2になると断面積は直径の2乗に比例して1/4になる。流速は断面積に反比例するため2.0m/sではなく4.0m/sとなる。"
+      },
+      {
+        "question": "内径200mmから100mmへ絞ると流速は何倍になるか？",
+        "answer": "4倍。",
+        "explanation": "正解。連続の式 A1v1=A2v2 より、v2=v1×(D1/D2)^2=1.0×(200/100)^2=4.0m/s となる。"
+      },
+      {
+        "question": "平均流速1.0m/sの4倍はいくらか？",
+        "answer": "4.0m/s。",
+        "explanation": "不正解。内径比は2倍なので流速比は断面積比の逆数で4倍である。8.0m/sは直径比を過大に扱った値で、最も近い値ではない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」が本問の関連論点。密度一定で一定流量の管内流れでは、連続の式 A1v1=A2v2 を用いる。",
+      "円管の断面積は内径の2乗に比例するため、内径200mmから100mmへ半減すると断面積は1/4になる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "内径100mm側の流速は 1.0×(200/100)^2=4.0m/s であり、最も近い値は4.0。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値は4.0m/sであり、0.25m/sではない。"
+      ],
+      [
+        "流速は4倍になるため、0.5m/sでは小さすぎる。"
+      ],
+      [
+        "2.0m/sではなく、断面積比の逆数により4.0m/sとなる。"
+      ],
+      [
+        "1.0×(200/100)^2=4.0m/sなので正解。"
+      ],
+      [
+        "8.0m/sは過大で、連続の式による値ではない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
