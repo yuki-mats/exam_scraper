@@ -1,13 +1,13 @@
 {
-  "activeTaskId": "T659",
-  "completed": 559,
-  "completed_questions": 559,
-  "done": 436,
+  "activeTaskId": "T660",
+  "completed": 560,
+  "completed_questions": 560,
+  "done": 437,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 436,
+    "done": 437,
     "hold": 123,
-    "pending": 375
+    "pending": 374
   },
   "firestoreSourceQuestionCount": 294,
   "generatedAt": "2026-06-28T15:08:19+09:00",
@@ -20,295 +20,18 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 1 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 2 です。 is the combination-choice number; statement-level correctChoiceText marks statements 1 and 4 as incorrect.",
+      "correctChoiceReason": "answer_result_text=正解は 1 です。 is the combination-choice number; statement-level correctChoiceText marks statements 1 and 2 as incorrect.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
       "questionSetIdPresent": true,
       "questionTypePresent": true,
       "sourceConflictStatus": "none"
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "生物化学的酸素要求量(BOD)\nとは、水中の有機物を酸化剤で分解するときに消費される酸化剤の量を酸素量に換算したものである。",
-      "化石燃料からの温室効果ガス排出量については、燃焼時だけでなく、採掘から加工、輸送等の各段階の排出量を含めたライフサイクルでの評価が重要である。",
-      "2021年に日本政府は、2030年度において、温室効果ガスを2013年度比で46%削減を目指すことを表明した。",
-      "ポンプの流量を回転数により制御する方式では、駆動電動機の回転数を\n定電圧定周波数装置(CVCF)\nで制御する。",
-      "電力力率改善装置には、進相コンデンサーや同期モーター等がある。"
-    ],
-    "correctChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "done",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "explanationText": [
-      "間違い。生物化学的酸素要求量（BOD）は、水中の有機物が微生物によって分解されるときに消費される溶存酸素量をいう。酸化剤で分解するときに消費される酸化剤量を酸素量に換算する説明は、化学的酸素要求量（COD）に近い。",
-      "正しい。化石燃料由来の温室効果ガス排出量は、燃焼時だけでなく、採掘、加工、輸送など各段階を含めたライフサイクルで評価することが重要である。",
-      "正しい。2021年に日本政府は、2030年度の温室効果ガス排出量について、2013年度比46%削減を目指すことを表明している。",
-      "間違い。ポンプ流量を回転数で制御する場合は、一般にインバータなどの可変電圧可変周波数制御を用いる。定電圧定周波数装置（CVCF）で回転数を制御するとしている点が誤り。",
-      "正しい。電力力率改善装置には、進相コンデンサーや同期モーターなどがあり、無効電力を低減して力率を改善する目的で用いられる。"
-    ],
-    "explanationTextCount": 5,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 800,
-    "publicQuestionId": "7675a0f68c44e9b6",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:7675a0f68c44e9b6",
-    "questionBodyText": "環境対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 15,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問9",
-    "questionNo": 9,
-    "questionSetId": "chiefgasengineerlicense-B-1780",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q9",
-    "review01QuestionType": "ok",
-    "review02CorrectChoiceText": "ok",
-    "review02QuestionIntent": "ok",
-    "review03ExplanationText": "ok",
-    "review04QuestionSetId": "ok",
-    "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:7675a0f68c44e9b6",
-    "reviewNotes": "T658: 降順ブロック planSequence=800。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=7675a0f68c44e9b6。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 2 です。は「いずれも誤っているものの組合せ」の組合せ選択肢番号で、statement-levelではイ・ニが誤り。correctChoiceText=[間違い, 正しい, 正しい, 間違い, 正しい] と一致。選択肢1はBODをCODに近い説明としている点、選択肢4はポンプ回転数制御をCVCFとしている点が誤り。選択肢2,3,5はライフサイクル評価、2030年度46%削減目標、力率改善装置として正しい。04はcategory.jsonのactive category、および乙種2024/2025同種環境対策先例に合わせ、questionSetId=chiefgasengineerlicense-B-1780（環境対策及び省エネルギー（乙種））を選択。",
-    "reviewQuestionId": "7675a0f68c44e9b6",
-    "reviewedAt": "2026-06-28T15:08:19+09:00",
-    "reviewer": "Codex",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
-      "questionNo": 9,
-      "subject": "seizo",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q09",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q09:s01",
-      "gas-shunin:otsu:2023:seizo:q09:s02",
-      "gas-shunin:otsu:2023:seizo:q09:s03",
-      "gas-shunin:otsu:2023:seizo:q09:s04",
-      "gas-shunin:otsu:2023:seizo:q09:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q9",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q09:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q09:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q09:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q09:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q09:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "category": "環境対策及び省エネルギー（乙種）",
-    "questionSetName": "環境対策及び省エネルギー（乙種）",
-    "reviewStatus": "ok",
-    "workerTaskId": "T658",
-    "suggestedQuestions": [
-      "BODは酸化剤で分解するときの酸化剤量を示す指標か？",
-      "化石燃料の温室効果ガス排出量はライフサイクルで評価するか？",
-      "日本の2030年度温室効果ガス削減目標は2013年度比46%削減か？",
-      "ポンプ流量の回転数制御にCVCFを用いるという記述は正しいか？",
-      "力率改善装置には進相コンデンサーや同期モーターが含まれるか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BODは酸化剤で分解するときの酸化剤量を示す指標か？",
-        "answer": "示さない。",
-        "explanation": "BODは微生物分解で消費される溶存酸素量であり、酸化剤消費量の説明はCODに近い。"
-      },
-      {
-        "question": "化石燃料の温室効果ガス排出量はライフサイクルで評価するか？",
-        "answer": "評価する。",
-        "explanation": "燃焼時だけでなく採掘、加工、輸送などの排出も含めて評価することが重要である。"
-      },
-      {
-        "question": "日本の2030年度温室効果ガス削減目標は2013年度比46%削減か？",
-        "answer": "46%削減。",
-        "explanation": "2021年に、2030年度に2013年度比46%削減を目指すことが表明された。"
-      },
-      {
-        "question": "ポンプ流量の回転数制御にCVCFを用いるという記述は正しいか？",
-        "answer": "正しくない。",
-        "explanation": "回転数制御には可変電圧可変周波数制御やインバータ制御を用いる。CVCFは定電圧定周波数であり、回転数制御の説明として不適切である。"
-      },
-      {
-        "question": "力率改善装置には進相コンデンサーや同期モーターが含まれるか？",
-        "answer": "含まれる。",
-        "explanation": "進相コンデンサーや同期モーターは、無効電力を補償して力率を改善する装置として用いられる。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "explanation_common_prefix": [
-      "製造「環境対策及び省エネルギー（乙種）」の水質指標、ライフサイクル排出評価、温室効果ガス削減目標、ポンプの省エネルギー制御、力率改善が本問の関連論点。",
-      "試験ポイント: BODとCOD、CVCFと可変周波数制御、力率改善装置を区別する。"
-    ],
-    "explanation_common_summary": [
-      "誤っている記述は1と4。1はBODをCODに近い説明としており、4はポンプ回転数制御をCVCFとしている点が誤り。2、3、5はライフサイクル評価、2030年度46%削減目標、力率改善装置として正しい。"
-    ],
-    "explanation_choice_snippets": [
-      [
-        "BODは微生物分解で消費される溶存酸素量であり、酸化剤量ではない。"
-      ],
-      [
-        "温室効果ガス排出量は採掘から輸送まで含めたライフサイクル評価が重要。"
-      ],
-      [
-        "2030年度に2013年度比46%削減を目指す目標として正しい。"
-      ],
-      [
-        "回転数制御はCVCFではなく、可変周波数制御やインバータ制御で行う。"
-      ],
-      [
-        "進相コンデンサーや同期モーターは力率改善装置に含まれる。"
-      ]
-    ],
-    "explanation_choice_correctness": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ],
-    "sourceExplanationCommonPrefix": [
-      "製造「環境対策及び省エネルギー（乙種）」の水質指標、ライフサイクル排出評価、温室効果ガス削減目標、ポンプの省エネルギー制御、力率改善が本問の関連論点。",
-      "試験ポイント: BODとCOD、CVCFと可変周波数制御、力率改善装置を区別する。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "誤っている記述は1と4。1はBODをCODに近い説明としており、4はポンプ回転数制御をCVCFとしている点が誤り。2、3、5はライフサイクル評価、2030年度46%削減目標、力率改善装置として正しい。"
-    ],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "BODは微生物分解で消費される溶存酸素量であり、酸化剤量ではない。"
-      ],
-      [
-        "温室効果ガス排出量は採掘から輸送まで含めたライフサイクル評価が重要。"
-      ],
-      [
-        "2030年度に2013年度比46%削減を目指す目標として正しい。"
-      ],
-      [
-        "回転数制御はCVCFではなく、可変周波数制御やインバータ制御で行う。"
-      ],
-      [
-        "進相コンデンサーや同期モーターは力率改善装置に含まれる。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい"
-    ]
-  },
-  "lastCompletedReviewQuestionId": "7675a0f68c44e9b6",
-  "lastCompletedTaskId": "T658",
-  "nextPending": {
-    "answerResultText": "正解は 1 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
@@ -328,7 +51,7 @@
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
+    "executionStatus": "done",
     "expectedCorrectChoiceText": [
       "間違い",
       "正しい",
@@ -336,8 +59,14 @@
       "正しい",
       "正しい"
     ],
-    "explanationText": [],
-    "explanationTextCount": 0,
+    "explanationText": [
+      "間違い。磁粉探傷試験（MT）は強磁性体の表面や表面近傍のきずを検出する方法である。オーステナイト系ステンレス鋼は一般に非磁性であり、磁粉探傷試験の適用対象として適切ではない。",
+      "間違い。自然電位の異なる金属を導電性のある腐食環境中で接触させ、自然電位の低い金属の腐食が促進される現象は異種金属接触腐食（ガルバニック腐食）である。粒界腐食としている点が誤りである。",
+      "正しい。応力腐食割れは、引張応力が作用している金属に腐食環境が重なることで、破断応力以下でも割れを生じる現象である。残留応力も原因になり得る。",
+      "正しい。状態監視保全（CBM）は、設備の状態を監視し、その状態に応じて実施する保全である。故障予兆を診断できる技術がある場合に適用しやすい。",
+      "正しい。設備状態をリアルタイムで監視して異常を検知する設備診断は、突発的な設備不良による生産影響の回避に有効である。音響や振動の測定はその代表的な診断技術である。"
+    ],
+    "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
     "firestoreQuestionIds": [],
     "fixInstructions": "",
@@ -379,20 +108,20 @@
     "questionIntent": "select_incorrect",
     "questionLabel": "問8",
     "questionNo": 8,
-    "questionSetId": "",
+    "questionSetId": "chiefgasengineerlicense-B-1760",
     "questionType": "true_false",
     "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q8",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
+    "review01QuestionType": "ok",
+    "review02CorrectChoiceText": "ok",
+    "review02QuestionIntent": "ok",
+    "review03ExplanationText": "ok",
+    "review04QuestionSetId": "ok",
+    "reviewDecision": "ok",
     "reviewId": "2023:question_2023_2:82dea004f363a524",
-    "reviewNotes": "",
+    "reviewNotes": "T659: 降順ブロック planSequence=799。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=82dea004f363a524。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 1 です。は「いずれも誤っているものの組合せ」の組合せ選択肢番号で、statement-levelではイ・ロが誤り。correctChoiceText=[間違い, 間違い, 正しい, 正しい, 正しい] と一致。選択肢1はMTをオーステナイト系ステンレス鋼に適用できるとしている点、選択肢2は異種金属接触腐食を粒界腐食としている点が誤り。選択肢3,4,5は応力腐食割れ、CBM、音響・振動測定による設備診断として正しい。04はcategory.jsonのactive category、および乙種2024/2025同種保全問題先例に合わせ、questionSetId=chiefgasengineerlicense-B-1760（製造設備の保安及び防災（乙種））を選択。",
     "reviewQuestionId": "82dea004f363a524",
-    "reviewedAt": "",
-    "reviewer": "",
+    "reviewedAt": "2026-06-28T15:11:56+09:00",
+    "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
     "sourceCategory": "製造",
@@ -463,20 +192,269 @@
       "questionSetId_category_is_uncertain",
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "category": "製造設備の保安及び防災（乙種）",
+    "questionSetName": "製造設備の保安及び防災（乙種）",
+    "sourceExplanationCommonPrefix": [
+      "製造「製造設備の保安及び防災（乙種）」の製造設備の保全、非破壊検査、腐食、状態監視保全が本問の関連論点。",
+      "磁粉探傷試験は強磁性体向け、異種金属接触腐食は自然電位差による腐食促進、CBMは設備状態に応じた保全である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っているのは、オーステナイト系ステンレス鋼に磁粉探傷試験を使用できるとする記述と、異種金属接触腐食を粒界腐食とする記述である。応力腐食割れ、CBM、音響・振動測定による設備診断の記述は正しい。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "MTは強磁性体の表面・表面近傍きずの検査に用いるため、一般に非磁性のオーステナイト系ステンレス鋼には適さない。"
+      ],
+      [
+        "自然電位差により低電位側の金属腐食が促進されるのは異種金属接触腐食であり、粒界腐食ではない。"
+      ],
+      [
+        "引張応力と腐食環境が重なると、破断応力以下でも応力腐食割れが生じ得る。"
+      ],
+      [
+        "CBMは設備状態に応じた保全で、故障予兆を診断できる場合に適用しやすい。"
+      ],
+      [
+        "音響・振動測定は設備診断で使われ、リアルタイム監視による異常検知に役立つ。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "suggestedQuestions": [
+      "磁粉探傷試験（MT）はどのような材料の検査に適するか？",
+      "自然電位差により低電位側の金属腐食が促進される現象は何か？",
+      "応力腐食割れはどのような条件で生じるか？",
+      "状態監視保全（CBM）はどのような保全方式か？",
+      "設備診断で音響や振動を測定する目的は何か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "磁粉探傷試験（MT）はどのような材料の検査に適するか？",
+        "answer": "強磁性体の表面・表面近傍のきず検査に適する。",
+        "explanation": "磁粉探傷試験は磁化できる材料で磁粉を用いてきずを検出するため、一般に非磁性のオーステナイト系ステンレス鋼には適しにくい。"
+      },
+      {
+        "question": "自然電位差により低電位側の金属腐食が促進される現象は何か？",
+        "answer": "異種金属接触腐食（ガルバニック腐食）。",
+        "explanation": "導電性環境で異なる自然電位の金属が接触すると、低電位側の金属が陽極となって腐食しやすい。"
+      },
+      {
+        "question": "応力腐食割れはどのような条件で生じるか？",
+        "answer": "引張応力と腐食環境が同時に作用する条件。",
+        "explanation": "残留応力を含む引張応力下で腐食作用が働くと、破断応力以下でも割れが発生することがある。"
+      },
+      {
+        "question": "状態監視保全（CBM）はどのような保全方式か？",
+        "answer": "設備状態に応じて実施する保全方式。",
+        "explanation": "状態監視や診断により故障予兆を把握できる場合、必要なタイミングで保全を行う。"
+      },
+      {
+        "question": "設備診断で音響や振動を測定する目的は何か？",
+        "answer": "設備異常の早期検知。",
+        "explanation": "音響や振動の変化を監視することで、突発的な設備不良の兆候を把握しやすくなる。"
+      }
+    ],
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T15:11:56+09:00",
+    "questionIntentReviewedAt": "2026-06-28T15:11:56+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T15:11:56+09:00",
+    "explanationReviewedAt": "2026-06-28T15:11:56+09:00",
+    "questionSetReviewedAt": "2026-06-28T15:11:56+09:00",
+    "reviewStatus": "ok",
+    "workerTaskId": "T659"
+  },
+  "lastCompletedReviewQuestionId": "82dea004f363a524",
+  "lastCompletedTaskId": "T659",
+  "nextPending": {
+    "answerResultText": "正解は 3 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "ガス事業法で定める\n離隔距離\nとは、可燃性のガス又は液化ガスを通ずるガス工作物とボイラー等の火気を取り扱う設備との距離のことである。",
+      "構造物に生ずる水平及び鉛直方向の地震加速度は一般に増幅され、地表面の地震加速度よりも大きくなっている。",
+      "ガス主任技術者は、耐圧試験、気密試験及び運転性能の記録によりガス事業法の技術基準に適合していることを確認するため、\n溶接に関する管理や確認を行う必要はない\n。",
+      "熱量調整設備や付臭設備の定期修理計画は、ガス製造能力に影響を与えることから、ガス発生設備等とタイミングを合わせる等の工夫を施すことが重要である。",
+      "巡視又は点検において、設備に異常を発見した場合は、異常の程度の軽重に関わらず\n速やかに設備を停止しなければならない\n。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 798,
+    "publicQuestionId": "1681bfa8e2d38c9c",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:1681bfa8e2d38c9c",
+    "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 13,
+    "questionIntent": "select_correct",
+    "questionLabel": "問7",
+    "questionNo": 7,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q7",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:1681bfa8e2d38c9c",
+    "reviewNotes": "",
+    "reviewQuestionId": "1681bfa8e2d38c9c",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 7,
+      "subject": "seizo",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q07",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:seizo:q07:s01",
+      "gas-shunin:otsu:2023:seizo:q07:s02",
+      "gas-shunin:otsu:2023:seizo:q07:s03",
+      "gas-shunin:otsu:2023:seizo:q07:s04",
+      "gas-shunin:otsu:2023:seizo:q07:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q7",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q07:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 799,
-  "nextPendingPublicQuestionId": "82dea004f363a524",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:82dea004f363a524",
-  "nextPendingReviewId": "2023:question_2023_2:82dea004f363a524",
-  "nextPendingTaskId": "T659",
-  "otsuCompleted": 147,
-  "otsuDone": 126,
+  "nextPendingPlanSequence": 798,
+  "nextPendingPublicQuestionId": "1681bfa8e2d38c9c",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:1681bfa8e2d38c9c",
+  "nextPendingReviewId": "2023:question_2023_2:1681bfa8e2d38c9c",
+  "nextPendingTaskId": "T660",
+  "otsuCompleted": 148,
+  "otsuDone": 127,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 375,
-  "pending": 375,
-  "pending_questions": 375,
+  "otsuPending": 374,
+  "pending": 374,
+  "pending_questions": 374,
   "total": 934,
   "total_questions": 934
 }
