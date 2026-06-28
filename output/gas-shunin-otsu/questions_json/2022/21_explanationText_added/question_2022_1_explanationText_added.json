@@ -718,18 +718,72 @@
       "3200"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。窒素1.0kmolの質量は約28kgで、温度差は120℃−20℃=100Kである。容積一定なので Q=mCvΔT=28×0.75×100=2100kJ となり、500kJではない。",
+      "不正解。容積一定で加えた熱量は Q=mCvΔT で求める。窒素の質量28kg、定積比熱容量0.75kJ/(kg K)、温度差100Kより2100kJであり、1100kJではない。",
+      "正解。窒素1.0kmolは約28kgであり、温度差は100Kである。Q=mCvΔT=28×0.75×100=2100kJとなるため、選択肢3が最も近い。",
+      "不正解。2500kJは計算値2100kJより大きい。窒素1.0kmolを質量28kgに換算し、定積比熱容量と温度差100Kを掛けると2100kJである。",
+      "不正解。3200kJは計算値2100kJより大きすぎる。容積一定の加熱では定積比熱容量を用い、Q=28×0.75×100=2100kJと計算する。"
+    ],
+    "suggestedQuestions": [
+      "窒素1.0kmolの質量は何kgか？",
+      "本問の温度差は何Kか？",
+      "容積一定の加熱で用いる比熱容量は何か？",
+      "本問の熱量計算式は何か？",
+      "計算される熱量は何kJか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "窒素1.0kmolの質量は何kgか？",
+        "answer": "約28kg。",
+        "explanation": "窒素N2の分子量は約28なので、1.0kmolの質量は28kgである。"
+      },
+      {
+        "question": "本問の温度差は何Kか？",
+        "answer": "100K。",
+        "explanation": "120℃−20℃=100℃で、温度差としては100Kである。"
+      },
+      {
+        "question": "容積一定の加熱で用いる比熱容量は何か？",
+        "answer": "定積比熱容量Cv。",
+        "explanation": "容積一定では体積変化による仕事がないため、温度上昇に定積比熱容量を用いる。"
+      },
+      {
+        "question": "本問の熱量計算式は何か？",
+        "answer": "Q=mCvΔT。",
+        "explanation": "質量、定積比熱容量、温度差を掛けて加熱量を求める。"
+      },
+      {
+        "question": "計算される熱量は何kJか？",
+        "answer": "2100kJ。",
+        "explanation": "Q=28×0.75×100=2100kJである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の定積加熱、定積比熱容量、熱量と温度上昇の関係が本問の関連論点。",
+      "容積一定の加熱では、加えた熱量は Q=mCvΔT で求める。",
+      "窒素1.0kmolは約28kg、温度差は100Kであるため、Q=28×0.75×100=2100kJとなる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "窒素1.0kmol=約28kg、温度差100K、Cv=0.75kJ/(kg K)より、Q=mCvΔT=2100kJ。したがって選択肢3が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "500kJは計算値2100kJより小さい。"
+      ],
+      [
+        "1100kJは計算値2100kJより小さい。"
+      ],
+      [
+        "Q=28×0.75×100=2100kJで正解。"
+      ],
+      [
+        "2500kJは計算値2100kJより大きい。"
+      ],
+      [
+        "3200kJは計算値2100kJより大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -737,7 +791,24 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "expectedCorrectChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）"
   },
   {
     "original_question_id": "321401935b2c0752",
