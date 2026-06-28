@@ -339,18 +339,71 @@
       "917"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。天然ガス量をx、LPG量をyとすると、x+y=1000、40x+100y=45×1000である。これを解くとx≒916.7m³Nとなるため、714m³Nは小さすぎる。",
+      "不正解。熱量収支は40x+100(1000−x)=45000であり、天然ガス量xは約916.7m³Nである。800m³Nでは供給ガスの熱量が45MJ/m³Nにならない。",
+      "不正解。天然ガス量は約916.7m³Nで、817m³Nは計算値より小さい。選択肢3は最も近い値ではない。",
+      "不正解。900m³Nは計算値に近いが、40×900+100×100=46000MJとなり、平均熱量は46MJ/m³Nになるため、45MJ/m³Nの条件に合わない。",
+      "正解。x+y=1000、40x+100y=45000を解くと、60y=5000よりy≒83.3m³N、x≒916.7m³Nとなる。したがって天然ガスの使用量として最も近い値は917m³Nである。"
+    ],
+    "suggestedQuestions": [
+      "天然ガス量x、LPG量yの体積関係はどう表せるか？",
+      "供給ガス1000m³N、45MJ/m³Nの総発熱量はいくらか？",
+      "天然ガス量を求める熱量収支式はどうなるか？",
+      "LPGの使用量はおよそいくらか？",
+      "天然ガスの使用量として最も近い値はいくらか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "天然ガス量x、LPG量yの体積関係はどう表せるか？",
+        "answer": "x+y=1000。",
+        "explanation": "供給ガス1000m³Nは、天然ガス量xとLPG量yの和で表す。"
+      },
+      {
+        "question": "供給ガス1000m³N、45MJ/m³Nの総発熱量はいくらか？",
+        "answer": "45000MJ。",
+        "explanation": "45MJ/m³Nのガスを1000m³N製造するため、必要な総発熱量は45×1000=45000MJである。"
+      },
+      {
+        "question": "天然ガス量を求める熱量収支式はどうなるか？",
+        "answer": "40x+100(1000−x)=45000。",
+        "explanation": "天然ガスの発熱量40MJ/m³N、LPGの発熱量100MJ/m³Nを用いて熱量収支を立てる。"
+      },
+      {
+        "question": "LPGの使用量はおよそいくらか？",
+        "answer": "約83.3m³N。",
+        "explanation": "天然ガス40、LPG100、目標45なので、60y=5000からy=83.3m³Nとなる。"
+      },
+      {
+        "question": "天然ガスの使用量として最も近い値はいくらか？",
+        "answer": "917m³N。",
+        "explanation": "天然ガス量は1000−83.3=916.7m³Nで、選択肢では917m³Nが最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造「都市ガスの熱量調整及び燃焼性管理（乙種）」のLNG気化ガスとLPG増熱による熱量調整が本問の関連論点。",
+      "天然ガス量をx、LPG量をyとして、体積収支 x+y=1000 と熱量収支 40x+100y=45×1000 を用いる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "熱量収支からLPG量は約83.3m³N、天然ガス量は約916.7m³Nとなるため、最も近い値は917m³Nである。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "天然ガス量x、LPG量yとして x+y=1000、40x+100y=45000 を用いる。"
+      ],
+      [
+        "LPGで増熱する混合ガスの熱量収支から天然ガス量は約916.7m³N。"
+      ],
+      [
+        "817m³Nは熱量収支で求まる天然ガス量約916.7m³Nより小さい。"
+      ],
+      [
+        "900m³NではLPG100m³Nとなり平均熱量は46MJ/m³Nで条件より高い。"
+      ],
+      [
+        "天然ガス約916.7m³N、LPG約83.3m³Nで45MJ/m³Nの1000m³Nになる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
