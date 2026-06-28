@@ -1,31 +1,31 @@
 {
-  "activeTaskId": "T665",
-  "completed": 565,
-  "completed_questions": 565,
-  "done": 442,
+  "activeTaskId": "T666",
+  "completed": 566,
+  "completed_questions": 566,
+  "done": 443,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 442,
+    "done": 443,
     "hold": 123,
-    "pending": 369
+    "pending": 368
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T15:51:01+09:00",
+  "generatedAt": "2026-06-28T15:57:30+09:00",
   "held_questions": 123,
   "hold": 123,
   "hold_questions": 123,
-  "kouCompleted": 412,
+  "kouCompleted": 310,
   "kouDone": 310,
   "kouHeld": 102,
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 1 です。",
+    "answerResultText": "正解は 2 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 1 です。 is the combination-choice number; statement-level correctChoiceText marks statements 1 and 2 as incorrect.",
+      "correctChoiceReason": "answer_result_text=正解は 2 です。 is the combination-choice number; statement-level correctChoiceText marks statements 1 and 3 as correct.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -35,36 +35,36 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "測温抵抗体温度計は、金属の電気抵抗値が温度によって変化することを利用したものであるが、熱電対温度計と比較して\n常温での精度は良くない\n。",
-      "電波式レベル計は、マイクロ波を用いた非接触型計測器である。高温、高圧等の周囲環境が厳しいところでは\nその影響を受けやすい\n。",
-      "耐圧防爆構造とは、可燃性のガス等が容器の内部に侵入して爆発を生じた場合に、その容器が爆発圧力に耐え、かつ爆発による火炎が外部の可燃性のガス等に点火しないようにしたものである。",
-      "計装空気は、調節弁及び緊急遮断弁の操作源等に使用される。計装空気圧縮機は無給油式のものが採用され、水分除去のための除湿器が設置される。",
-      "オンオフ制御を弁に採用する際、頻繁に開閉することを防ぐため、動作すきま（ヒステリシス）を持たせることが多い。"
+      "フレキシブルホースは、その長さ、可とう性を利用し、位置の調整及び熱収縮を吸収できるため、サテライト基地のLNG受入設備として用いられる。",
+      "リターンガスブロアは、LNG船タンクからのLNGの払い出しによりその気相部が増大し、LNG船タンクの圧力の\n上昇\nを防止する設備である。",
+      "LNGポンプのケーブル貫通部は、LNGポンプ側からケーブル端子側へガスが漏えいしない構造となっている。",
+      "パス式\nLNG気化器では、気化器まわりの空気が冷却され、空気中の湿分が霧状となった冷気が漂うため、敷地境界までの距離を十分にとるか、冷気を拡散するためファンを設けるか、冷気の流れをとめるために塀を設置する等の対策を講ずる場合がある。",
+      "LNGラインに使用される仕切弁では、ボンネット内に液が封入され、圧力の異常上昇を防止するため、一般に弁体の片側に\nダイヤフラム\nを設ける。"
     ],
     "correctChoiceText": [
-      "間違い",
+      "正しい",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "間違い",
+      "正しい",
       "間違い",
       "正しい",
-      "正しい",
-      "正しい"
+      "間違い",
+      "間違い"
     ],
     "explanationText": [
-      "間違い。測温抵抗体温度計は、金属の電気抵抗値が温度によって変化する性質を利用する温度計であり、一般に熱電対温度計より常温付近で高い精度が得られる。常温での精度は良くないとしている点が誤りである。",
-      "間違い。電波式レベル計はマイクロ波を用いる非接触型のレベル計であり、高温・高圧など測定対象や周囲環境が厳しい場所でも影響を受けにくい特徴がある。その影響を受けやすいとしている点が誤りである。",
-      "正しい。耐圧防爆構造は、容器内部で可燃性ガス等による爆発が生じても容器が爆発圧力に耐え、外部の可燃性ガス等に火炎が伝わって点火しないようにした構造である。",
-      "正しい。計装空気は調節弁や緊急遮断弁などの操作源に用いられ、空気圧縮機は油分混入を避けるため無給油式が採用され、水分除去のため除湿器が設置される。",
-      "正しい。オンオフ制御では、弁などが小さな変動で頻繁に開閉することを避けるため、動作すきま、すなわちヒステリシスを持たせることが多い。"
+      "正しい。フレキシブルホースは、長さと可とう性を利用して位置の調整や熱収縮を吸収できるため、LNGサテライト基地のLNG受入設備として用いられる。",
+      "間違い。リターンガスブロアは、LNG船タンクからLNGを払い出して気相部が増大したときに、LNG船タンクの圧力低下を防止するための設備である。圧力の上昇を防止するとしている点が誤りである。",
+      "正しい。LNGポンプのケーブル貫通部は、ポンプ側からケーブル端子側へガスが漏えいしないような構造とする必要がある。",
+      "間違い。記述のような気化器周囲の空気冷却、白霧状の冷気、敷地境界距離やファン・塀による対策は、空気を熱源とするエアフィン式等のLNG気化器で問題となる事項である。パス式LNG気化器としている点が不適切である。",
+      "間違い。LNGラインに使用される仕切弁でボンネット内に液が封入される形式では、圧力の異常上昇を防止するため、一般に弁体の片側にディスクホールを設ける。ダイヤフラムを設けるとしている点が誤りである。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -98,29 +98,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 794,
-    "publicQuestionId": "91ab2f6db1d7946f",
+    "planSequence": 793,
+    "publicQuestionId": "bdc74e94312f9741",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:91ab2f6db1d7946f",
-    "questionBodyText": "製造設備の計装設備に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
-    "questionIndexInFile": 9,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問3",
-    "questionNo": 3,
-    "questionSetId": "chiefgasengineerlicense-B-1830",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:bdc74e94312f9741",
+    "questionBodyText": "製造設備の構成設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 8,
+    "questionIntent": "select_correct",
+    "questionLabel": "問2",
+    "questionNo": 2,
+    "questionSetId": "chiefgasengineerlicense-B-1750",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:91ab2f6db1d7946f",
-    "reviewNotes": "T664: 降順ブロック planSequence=794。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=91ab2f6db1d7946f。00_source body/choices preserved。questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 1 です。は「いずれも誤っているものの組合せ」の組合せ選択肢番号で、statement-levelではイ・ロが誤り。correctChoiceText=[間違い, 間違い, 正しい, 正しい, 正しい] と一致。選択肢1は測温抵抗体温度計の常温精度、選択肢2は電波式レベル計の厳しい環境への適用性を逆にしている点が誤り。選択肢3,4,5は耐圧防爆構造、計装空気、オンオフ制御のヒステリシスとして正しい。04はcategory.jsonで旧「計装設備及び電気設備（乙種）」がdeletedのため使用せず、乙種2024/2025同種先例に合わせ、activeなquestionSetId=chiefgasengineerlicense-B-1830（電気設備及び計装設備（乙種））を選択。",
-    "reviewQuestionId": "91ab2f6db1d7946f",
-    "reviewedAt": "2026-06-28T15:51:01+09:00",
+    "reviewId": "2023:question_2023_2:bdc74e94312f9741",
+    "reviewNotes": "T665: 降順ブロック planSequence=793。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=bdc74e94312f9741。00_source body/choices preserved。questionType=true_false、questionIntent=select_correct。answer_result_text=正解は 2 です。は「いずれも正しいものの組合せ」の組合せ選択肢番号で、statement-levelではイ・ハが正しい。correctChoiceText=[正しい, 間違い, 正しい, 間違い, 間違い] と一致。選択肢2はリターンガスブロアを圧力上昇防止としている点、選択肢4は気化器方式と冷気対策の対応、選択肢5は低温用仕切弁の液封圧力対策をダイヤフラムとしている点が誤り。選択肢1,3はフレキシブルホースとLNGポンプのケーブル貫通部として正しい。04はcategory.jsonのactive category、および乙種2024/2025製造問2・甲種2019製造問2の同種先例に合わせ、questionSetId=chiefgasengineerlicense-B-1750（製造所の製造設備（乙種））を選択。",
+    "reviewQuestionId": "bdc74e94312f9741",
+    "reviewedAt": "2026-06-28T15:57:30+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -134,254 +134,6 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 3,
-      "subject": "seizo",
-      "year": 2023
-    },
-    "sourceNaturalQuestionKey": null,
-    "sourceNaturalUniqueKeys": [],
-    "sourceOrigin": "gassyunin_site",
-    "sourcePriority": 2,
-    "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q03",
-    "sourceStatementCount": 5,
-    "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q03:s01",
-      "gas-shunin:otsu:2023:seizo:q03:s02",
-      "gas-shunin:otsu:2023:seizo:q03:s03",
-      "gas-shunin:otsu:2023:seizo:q03:s04",
-      "gas-shunin:otsu:2023:seizo:q03:s05"
-    ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q3",
-    "statementSourceStatuses": [
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s01",
-        "statementNo": 1
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s02",
-        "statementNo": 2
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s03",
-        "statementNo": 3
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s04",
-        "statementNo": 4
-      },
-      {
-        "firestoreRegistered": false,
-        "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q03:s05",
-        "statementNo": 5
-      }
-    ],
-    "stopIf": [
-      "source_body_or_choice_text_would_need_edit",
-      "firestore_id_mapping_is_ambiguous",
-      "correctChoiceText_cannot_be_verified",
-      "questionSetId_category_is_uncertain",
-      "explanation_would_require_unverified_fact",
-      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
-    ],
-    "category": "製造",
-    "questionSetName": "電気設備及び計装設備（乙種）",
-    "sourceExplanationCommonPrefix": [
-      "製造 第3章「主要な計装機器」が本問の関連論点。測温抵抗体温度計と電波式レベル計の特徴を、精度や厳しい環境への適用性で確認する。",
-      "製造 第3章「電気設備及び計装設備」が本問の関連論点。耐圧防爆構造、計装空気、オンオフ制御のヒステリシスを確認する。"
-    ],
-    "sourceExplanationCommonSummary": [],
-    "sourceExplanationChoiceSnippets": [
-      [
-        "測温抵抗体温度計は常温付近で高精度が得られ、熱電対温度計より精度面で有利な用途がある。"
-      ],
-      [
-        "電波式レベル計はマイクロ波を用いる非接触型で、高温・高圧など厳しい環境の影響を受けにくい。"
-      ],
-      [
-        "耐圧防爆構造は内部爆発に耐え、外部の可燃性ガス等への火炎伝播を防ぐ。"
-      ],
-      [
-        "計装空気は調節弁・緊急遮断弁の操作源に用いられ、無給油式圧縮機と除湿器で油分・水分を管理する。"
-      ],
-      [
-        "オンオフ制御では頻繁な開閉を避けるため、動作すきま（ヒステリシス）を持たせることが多い。"
-      ]
-    ],
-    "sourceExplanationChoiceCorrectness": [
-      "間違い",
-      "間違い",
-      "正しい",
-      "正しい",
-      "正しい"
-    ],
-    "suggestedQuestions": [
-      "測温抵抗体温度計は常温付近で熱電対温度計より精度が低いか？",
-      "電波式レベル計は高温・高圧など厳しい環境の影響を受けやすいか？",
-      "耐圧防爆構造は内部爆発時に外部へ火炎を伝えない構造か？",
-      "計装空気は調節弁や緊急遮断弁の操作源に用いられるか？",
-      "オンオフ制御では頻繁な開閉を防ぐためヒステリシスを持たせることがあるか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "測温抵抗体温度計は常温付近で熱電対温度計より精度が低いか？",
-        "answer": "いいえ。",
-        "explanation": "測温抵抗体温度計は常温付近で高精度が得られ、熱電対温度計より精度がよい用途に使われる。"
-      },
-      {
-        "question": "電波式レベル計は高温・高圧など厳しい環境の影響を受けやすいか？",
-        "answer": "いいえ。",
-        "explanation": "電波式レベル計は非接触で測定でき、高温・高圧など厳しい条件の影響を受けにくい。"
-      },
-      {
-        "question": "耐圧防爆構造は内部爆発時に外部へ火炎を伝えない構造か？",
-        "answer": "はい。",
-        "explanation": "容器が爆発圧力に耐え、外部の可燃性ガス等への点火を防ぐ構造である。"
-      },
-      {
-        "question": "計装空気は調節弁や緊急遮断弁の操作源に用いられるか？",
-        "answer": "はい。",
-        "explanation": "計装空気は空気作動式の調節弁や緊急遮断弁の操作源として使用される。"
-      },
-      {
-        "question": "オンオフ制御では頻繁な開閉を防ぐためヒステリシスを持たせることがあるか？",
-        "answer": "はい。",
-        "explanation": "動作すきまを設けることで、制御対象の微小変動による頻繁な開閉を防ぐ。"
-      }
-    ],
-    "lawGroundedExplanationNotNeeded": true,
-    "questionTypeReviewStatus": "ok",
-    "questionIntentReviewStatus": "ok",
-    "correctChoiceReviewStatus": "ok",
-    "explanationReviewStatus": "ok",
-    "questionSetReviewStatus": "ok",
-    "questionTypeReviewedAt": "2026-06-28T15:51:01+09:00",
-    "questionIntentReviewedAt": "2026-06-28T15:51:01+09:00",
-    "correctChoiceReviewedAt": "2026-06-28T15:51:01+09:00",
-    "explanationReviewedAt": "2026-06-28T15:51:01+09:00",
-    "questionSetReviewedAt": "2026-06-28T15:51:01+09:00",
-    "reviewStatus": "ok",
-    "workerTaskId": "T664"
-  },
-  "lastCompletedReviewQuestionId": "91ab2f6db1d7946f",
-  "lastCompletedTaskId": "T664",
-  "nextPending": {
-    "answerResultText": "正解は 2 です。",
-    "autoAudit": {
-      "answerResultTextPresent": true,
-      "choiceCount": 5,
-      "correctChoiceMatchesExpected": false,
-      "correctChoiceReason": "",
-      "explanationLengthMatchesChoices": false,
-      "explanationTextPresent": false,
-      "questionIntentPresent": true,
-      "questionSetIdPresent": false,
-      "questionTypePresent": true
-    },
-    "choiceCount": 5,
-    "choiceTextList": [
-      "フレキシブルホースは、その長さ、可とう性を利用し、位置の調整及び熱収縮を吸収できるため、サテライト基地のLNG受入設備として用いられる。",
-      "リターンガスブロアは、LNG船タンクからのLNGの払い出しによりその気相部が増大し、LNG船タンクの圧力の\n上昇\nを防止する設備である。",
-      "LNGポンプのケーブル貫通部は、LNGポンプ側からケーブル端子側へガスが漏えいしない構造となっている。",
-      "パス式\nLNG気化器では、気化器まわりの空気が冷却され、空気中の湿分が霧状となった冷気が漂うため、敷地境界までの距離を十分にとるか、冷気を拡散するためファンを設けるか、冷気の流れをとめるために塀を設置する等の対策を講ずる場合がある。",
-      "LNGラインに使用される仕切弁では、ボンネット内に液が封入され、圧力の異常上昇を防止するため、一般に弁体の片側に\nダイヤフラム\nを設ける。"
-    ],
-    "correctChoiceText": [
-      "正しい",
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い"
-    ],
-    "correctChoiceTextCount": 5,
-    "examYear": 2023,
-    "executionPhase": "phase_3_otsu_all_sources",
-    "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "間違い",
-      "正しい",
-      "間違い",
-      "間違い",
-      "間違い"
-    ],
-    "explanationText": [],
-    "explanationTextCount": 0,
-    "firestoreQuestionIdCount": 0,
-    "firestoreQuestionIds": [],
-    "fixInstructions": "",
-    "grade": "乙種",
-    "hasAnswerResultText": true,
-    "isSiteSourced": true,
-    "listGroupId": "2023",
-    "mustPreserve": [
-      "00_source_question_body_and_choices",
-      "originalQuestionBodyText",
-      "originalQuestionChoiceText",
-      "existing_firestore_questionId_document_ids",
-      "existing_originalQuestionId",
-      "sourceQuestionKey_and_sourceUniqueKeys",
-      "questionImageStorageUrls_and_source_urls"
-    ],
-    "originalQuestionId": "",
-    "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
-    },
-    "perQuestionSteps": [
-      "01_confirm_questionType_against_source_shape",
-      "02_confirm_questionIntent_and_correctChoiceText",
-      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
-      "04_link_questionSetId_from_category_json",
-      "verify_target_and_file_coverage",
-      "mark_review_ledger_row_ok_or_hold_with_reason"
-    ],
-    "planSequence": 793,
-    "publicQuestionId": "bdc74e94312f9741",
-    "qualification": "gas-shunin-otsu",
-    "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:bdc74e94312f9741",
-    "questionBodyText": "製造設備の構成設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 8,
-    "questionIntent": "select_correct",
-    "questionLabel": "問2",
-    "questionNo": 2,
-    "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
-    "review01QuestionType": "pending",
-    "review02CorrectChoiceText": "pending",
-    "review02QuestionIntent": "pending",
-    "review03ExplanationText": "pending",
-    "review04QuestionSetId": "pending",
-    "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:bdc74e94312f9741",
-    "reviewNotes": "",
-    "reviewQuestionId": "bdc74e94312f9741",
-    "reviewedAt": "",
-    "reviewer": "",
-    "schemaVersion": "gas-shunin-question-execution-plan/v2",
-    "sourceAcquisitionMethod": "site_html",
-    "sourceCategory": "製造",
-    "sourceConflictStatus": "none",
-    "sourceContentConflictCount": 0,
-    "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
-    "sourceKeyConflict": null,
-    "sourceKeyParts": {
-      "grade": "otsu",
-      "qualification": "gas-shunin",
       "questionNo": 2,
       "subject": "seizo",
       "year": 2023
@@ -430,6 +182,257 @@
         "firestoreRegistered": false,
         "siteOnly": true,
         "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s05",
+        "statementNo": 5
+      }
+    ],
+    "stopIf": [
+      "source_body_or_choice_text_would_need_edit",
+      "firestore_id_mapping_is_ambiguous",
+      "correctChoiceText_cannot_be_verified",
+      "questionSetId_category_is_uncertain",
+      "explanation_would_require_unverified_fact",
+      "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
+    ],
+    "questionSetName": "製造所の製造設備（乙種）",
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "フレキシブルホースは可とう性により位置調整や熱収縮を吸収し、LNGサテライト基地の受入設備に用いられる。"
+      ],
+      [
+        "リターンガスブロアはLNG船タンクの圧力低下を防止する設備。上昇防止ではない。"
+      ],
+      [
+        "LNGポンプのケーブル貫通部は、ポンプ側から端子側へのガス漏えいを防ぐ構造にする。"
+      ],
+      [
+        "空気を熱源とするLNG気化器では、周囲空気の冷却や白霧状冷気への対策が必要になる。"
+      ],
+      [
+        "液封による圧力異常上昇防止には、弁体片側のディスクホールを用いる。ダイヤフラムではない。"
+      ]
+    ],
+    "sourceExplanationCommonPrefix": [
+      "製造 第2章「製造設備」が本問の関連論点。LNG受入設備、リターンガスブロア、LNGポンプ、LNG気化器、低温弁の機能を区別する。",
+      "製造 第2章「LNG設備」が本問の関連論点。LNGの低温・気化・液封に伴う圧力変化と漏えい防止、冷気対策を確認する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正しい記述は1と3。リターンガスブロアは圧力低下防止、低温弁はディスクホールによる液封圧力対策、気化器周囲の冷気対策は空気熱源式で問題になる点を確認する。"
+    ],
+    "suggestedQuestions": [
+      "LNGサテライト基地の受入設備でフレキシブルホースは何を吸収できるか？",
+      "リターンガスブロアはLNG船タンクの圧力上昇と圧力低下のどちらを防止する設備か？",
+      "LNGポンプのケーブル貫通部にはどのような漏えい防止構造が求められるか？",
+      "気化器周囲の空気冷却や白霧状の冷気への対策はどの方式のLNG気化器で問題になりやすいか？",
+      "低温用仕切弁のボンネット内液封による圧力異常上昇を防ぐため、弁体の片側に何を設けるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "LNGサテライト基地の受入設備でフレキシブルホースは何を吸収できるか？",
+        "answer": "位置の調整や熱収縮。",
+        "explanation": "フレキシブルホースは可とう性があり、接続位置のずれや低温による収縮を吸収できる。"
+      },
+      {
+        "question": "リターンガスブロアはLNG船タンクの圧力上昇と圧力低下のどちらを防止する設備か？",
+        "answer": "圧力低下を防止する設備。",
+        "explanation": "LNG払い出しで船タンクの気相部が増えると内圧が下がるため、返送ガスで圧力低下を防ぐ。"
+      },
+      {
+        "question": "LNGポンプのケーブル貫通部にはどのような漏えい防止構造が求められるか？",
+        "answer": "ポンプ側からケーブル端子側へガスが漏えいしない構造。",
+        "explanation": "低温液化ガス設備では、ケーブル貫通部から端子側へガスが漏れないようシール性を確保する。"
+      },
+      {
+        "question": "気化器周囲の空気冷却や白霧状の冷気への対策はどの方式のLNG気化器で問題になりやすいか？",
+        "answer": "空気を熱源とするエアフィン式等のLNG気化器。",
+        "explanation": "空気熱源の気化器では周囲空気が冷却され、白霧や冷気の滞留への対策が必要になる。"
+      },
+      {
+        "question": "低温用仕切弁のボンネット内液封による圧力異常上昇を防ぐため、弁体の片側に何を設けるか？",
+        "answer": "ディスクホール。",
+        "explanation": "液封された低温液体の膨張による圧力異常上昇を逃がすため、弁体の片側にディスクホールを設ける。"
+      }
+    ],
+    "taskId": "T665",
+    "workerTaskId": "T665",
+    "category": "製造所の製造設備（乙種）",
+    "lawGroundedExplanationNotNeeded": true,
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "reviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-28T15:57:30+09:00",
+    "questionIntentReviewedAt": "2026-06-28T15:57:30+09:00",
+    "correctChoiceReviewedAt": "2026-06-28T15:57:30+09:00",
+    "explanationReviewedAt": "2026-06-28T15:57:30+09:00",
+    "questionSetReviewedAt": "2026-06-28T15:57:30+09:00"
+  },
+  "lastCompletedReviewQuestionId": "bdc74e94312f9741",
+  "lastCompletedTaskId": "T665",
+  "nextPending": {
+    "answerResultText": "正解は 5 です。",
+    "autoAudit": {
+      "answerResultTextPresent": true,
+      "choiceCount": 5,
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "",
+      "explanationLengthMatchesChoices": false,
+      "explanationTextPresent": false,
+      "questionIntentPresent": true,
+      "questionSetIdPresent": false,
+      "questionTypePresent": true
+    },
+    "choiceCount": 5,
+    "choiceTextList": [
+      "LNGにおいて、局部的な低圧部が生ずると、液体が気化して蒸気の細かい気泡が発生することがある。一般にこの現象を\nサージング\nという。",
+      "LNGの場合では、液封が起こると、外気熱による気化に伴い、著しい膨張が発生して内部の圧力が上昇し、フランジ等の弱い部分が破壊されるおそれがあるため注意が必要であるが、LPGでは液封への考慮は不要\nである。",
+      "LPGが地表面や水面に流出し気化したガスは、空気の1.5～2倍と重く、着火源の多い地表面に滞留するため、取り扱いには十分注意しなければならない。",
+      "貯蔵中のLNGからは、外部からの入熱により沸点の低いメタンを主成分としたボイルオフガス(BOG)が発生する。",
+      "LNGローリーの運行には、\nガス事業法\n及び道路法等が適用される。"
+    ],
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "correctChoiceTextCount": 5,
+    "examYear": 2023,
+    "executionPhase": "phase_3_otsu_all_sources",
+    "executionStatus": "pending",
+    "expectedCorrectChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "explanationText": [],
+    "explanationTextCount": 0,
+    "firestoreQuestionIdCount": 0,
+    "firestoreQuestionIds": [],
+    "fixInstructions": "",
+    "grade": "乙種",
+    "hasAnswerResultText": true,
+    "isSiteSourced": true,
+    "listGroupId": "2023",
+    "mustPreserve": [
+      "00_source_question_body_and_choices",
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText",
+      "existing_firestore_questionId_document_ids",
+      "existing_originalQuestionId",
+      "sourceQuestionKey_and_sourceUniqueKeys",
+      "questionImageStorageUrls_and_source_urls"
+    ],
+    "originalQuestionId": "",
+    "patchFiles": {
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+    },
+    "perQuestionSteps": [
+      "01_confirm_questionType_against_source_shape",
+      "02_confirm_questionIntent_and_correctChoiceText",
+      "03_complete_explanationText_and_suggested_fields_per_choice_without_editing_source_text",
+      "04_link_questionSetId_from_category_json",
+      "verify_target_and_file_coverage",
+      "mark_review_ledger_row_ok_or_hold_with_reason"
+    ],
+    "planSequence": 792,
+    "publicQuestionId": "92e13673ae650747",
+    "qualification": "gas-shunin-otsu",
+    "qualificationName": "ガス主任技術者乙種",
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:92e13673ae650747",
+    "questionBodyText": "都市ガスの原料に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 7,
+    "questionIntent": "select_correct",
+    "questionLabel": "問1",
+    "questionNo": 1,
+    "questionSetId": "",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q1",
+    "review01QuestionType": "pending",
+    "review02CorrectChoiceText": "pending",
+    "review02QuestionIntent": "pending",
+    "review03ExplanationText": "pending",
+    "review04QuestionSetId": "pending",
+    "reviewDecision": "pending",
+    "reviewId": "2023:question_2023_2:92e13673ae650747",
+    "reviewNotes": "",
+    "reviewQuestionId": "92e13673ae650747",
+    "reviewedAt": "",
+    "reviewer": "",
+    "schemaVersion": "gas-shunin-question-execution-plan/v2",
+    "sourceAcquisitionMethod": "site_html",
+    "sourceCategory": "製造",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+    "sourceFileIndex": 20,
+    "sourceKeyConflict": null,
+    "sourceKeyParts": {
+      "grade": "otsu",
+      "qualification": "gas-shunin",
+      "questionNo": 1,
+      "subject": "seizo",
+      "year": 2023
+    },
+    "sourceNaturalQuestionKey": null,
+    "sourceNaturalUniqueKeys": [],
+    "sourceOrigin": "gassyunin_site",
+    "sourcePriority": 2,
+    "sourceProvider": "gassyunin.com",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q01",
+    "sourceStatementCount": 5,
+    "sourceUniqueKeys": [
+      "gas-shunin:otsu:2023:seizo:q01:s01",
+      "gas-shunin:otsu:2023:seizo:q01:s02",
+      "gas-shunin:otsu:2023:seizo:q01:s03",
+      "gas-shunin:otsu:2023:seizo:q01:s04",
+      "gas-shunin:otsu:2023:seizo:q01:s05"
+    ],
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q1",
+    "statementSourceStatuses": [
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s01",
+        "statementNo": 1
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s02",
+        "statementNo": 2
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s03",
+        "statementNo": 3
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s04",
+        "statementNo": 4
+      },
+      {
+        "firestoreRegistered": false,
+        "siteOnly": true,
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s05",
         "statementNo": 5
       }
     ],
@@ -442,26 +445,26 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 793,
-  "nextPendingPublicQuestionId": "bdc74e94312f9741",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:bdc74e94312f9741",
-  "nextPendingReviewId": "2023:question_2023_2:bdc74e94312f9741",
-  "nextPendingTaskId": "T665",
-  "otsuCompleted": 153,
-  "otsuDone": 132,
+  "nextPendingPlanSequence": 792,
+  "nextPendingPublicQuestionId": "92e13673ae650747",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:92e13673ae650747",
+  "nextPendingReviewId": "2023:question_2023_2:92e13673ae650747",
+  "nextPendingTaskId": "T666",
+  "otsuCompleted": 154,
+  "otsuDone": 133,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 369,
-  "pending": 369,
-  "pending_questions": 369,
+  "otsuPending": 368,
+  "pending": 368,
+  "pending_questions": 368,
   "total": 934,
   "total_questions": 934,
-  "completedQuestions": 565,
-  "pendingQuestions": 369,
+  "completedQuestions": 566,
+  "pendingQuestions": 368,
   "heldQuestions": 123,
-  "nextActiveTaskId": "T665",
+  "nextActiveTaskId": "T666",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 5 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
@@ -475,17 +478,17 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "フレキシブルホースは、その長さ、可とう性を利用し、位置の調整及び熱収縮を吸収できるため、サテライト基地のLNG受入設備として用いられる。",
-      "リターンガスブロアは、LNG船タンクからのLNGの払い出しによりその気相部が増大し、LNG船タンクの圧力の\n上昇\nを防止する設備である。",
-      "LNGポンプのケーブル貫通部は、LNGポンプ側からケーブル端子側へガスが漏えいしない構造となっている。",
-      "パス式\nLNG気化器では、気化器まわりの空気が冷却され、空気中の湿分が霧状となった冷気が漂うため、敷地境界までの距離を十分にとるか、冷気を拡散するためファンを設けるか、冷気の流れをとめるために塀を設置する等の対策を講ずる場合がある。",
-      "LNGラインに使用される仕切弁では、ボンネット内に液が封入され、圧力の異常上昇を防止するため、一般に弁体の片側に\nダイヤフラム\nを設ける。"
+      "LNGにおいて、局部的な低圧部が生ずると、液体が気化して蒸気の細かい気泡が発生することがある。一般にこの現象を\nサージング\nという。",
+      "LNGの場合では、液封が起こると、外気熱による気化に伴い、著しい膨張が発生して内部の圧力が上昇し、フランジ等の弱い部分が破壊されるおそれがあるため注意が必要であるが、LPGでは液封への考慮は不要\nである。",
+      "LPGが地表面や水面に流出し気化したガスは、空気の1.5～2倍と重く、着火源の多い地表面に滞留するため、取り扱いには十分注意しなければならない。",
+      "貯蔵中のLNGからは、外部からの入熱により沸点の低いメタンを主成分としたボイルオフガス(BOG)が発生する。",
+      "LNGローリーの運行には、\nガス事業法\n及び道路法等が適用される。"
     ],
     "correctChoiceText": [
-      "正しい",
+      "間違い",
       "間違い",
       "正しい",
-      "間違い",
+      "正しい",
       "間違い"
     ],
     "correctChoiceTextCount": 5,
@@ -494,10 +497,10 @@
     "executionStatus": "pending",
     "expectedCorrectChoiceText": [
       "間違い",
-      "正しい",
       "間違い",
       "間違い",
-      "間違い"
+      "間違い",
+      "正しい"
     ],
     "explanationText": [],
     "explanationTextCount": 0,
@@ -532,28 +535,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 793,
-    "publicQuestionId": "bdc74e94312f9741",
+    "planSequence": 792,
+    "publicQuestionId": "92e13673ae650747",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:bdc74e94312f9741",
-    "questionBodyText": "製造設備の構成設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
-    "questionIndexInFile": 8,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:92e13673ae650747",
+    "questionBodyText": "都市ガスの原料に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+    "questionIndexInFile": 7,
     "questionIntent": "select_correct",
-    "questionLabel": "問2",
-    "questionNo": 2,
+    "questionLabel": "問1",
+    "questionNo": 1,
     "questionSetId": "",
     "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q1",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:bdc74e94312f9741",
+    "reviewId": "2023:question_2023_2:92e13673ae650747",
     "reviewNotes": "",
-    "reviewQuestionId": "bdc74e94312f9741",
+    "reviewQuestionId": "92e13673ae650747",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -568,7 +571,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 2,
+      "questionNo": 1,
       "subject": "seizo",
       "year": 2023
     },
@@ -577,45 +580,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q02",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:seizo:q01",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:seizo:q02:s01",
-      "gas-shunin:otsu:2023:seizo:q02:s02",
-      "gas-shunin:otsu:2023:seizo:q02:s03",
-      "gas-shunin:otsu:2023:seizo:q02:s04",
-      "gas-shunin:otsu:2023:seizo:q02:s05"
+      "gas-shunin:otsu:2023:seizo:q01:s01",
+      "gas-shunin:otsu:2023:seizo:q01:s02",
+      "gas-shunin:otsu:2023:seizo:q01:s03",
+      "gas-shunin:otsu:2023:seizo:q01:s04",
+      "gas-shunin:otsu:2023:seizo:q01:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q2",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#seizo-q1",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q02:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:seizo:q01:s05",
         "statementNo": 5
       }
     ],
