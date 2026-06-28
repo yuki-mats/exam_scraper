@@ -496,26 +496,50 @@
       "ステンレス鋼のすきま腐食の原因として、すきま内に塩化物イオンが蓄積するとともに、pHが低下して\n不動態が形成され\n、すきまの外の部分との間に腐食電池を形成することがあげられる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。異種金属接触腐食では、電位の異なる金属が電解質を介して接触すると腐食電池が形成される。電位が卑な金属がアノードとなって溶解し、貴な金属側はカソードとなるため、卑な金属側の腐食が進行する。",
+      "間違い。形状の不連続や切り欠きがあると応力集中が大きくなり、繰返し荷重に対する余裕は小さくなる。応力集中が高くなるほど疲労強度は増加するのではなく低下する。",
+      "正しい。ポンプのインペラなどで、流動する液体中の気泡が発生・崩壊を繰り返し、材料表面を局部的に損傷して孔食状の腐食を生じる現象はキャビテーションエロージョンと呼ばれる。",
+      "正しい。浸透探傷試験（PT）は、表面に開口した欠陥に浸透液を入り込ませて検出する方法であり、金属材料だけでなく非金属材料にも適用できる表面欠陥検査である。",
+      "間違い。ステンレス鋼のすきま腐食では、すきま内に塩化物イオンが蓄積し、pH低下などによって不動態皮膜が破壊される。不動態が形成されるとしている点が誤りである。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "sourceExplanationCommonPrefix": [
+      "製造「製造設備の保安及び防災（乙種）」の保全、腐食、疲労、非破壊検査に関する複合問題。",
+      "設問は「いずれも誤っているものの組合せ」を問うため、answer_result_textの番号は組合せ番号として扱い、各記述の正誤をstatement-levelで確認する。",
+      "誤りは、応力集中で疲労強度が増加するとした記述と、すきま腐食で不動態が形成されるとした記述である。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "卑な金属がアノード、貴な金属がカソードとなり、卑な金属側が腐食する。"
+      ],
+      [
+        "応力集中が大きいほど疲労強度は低下する。増加するとした点が誤り。"
+      ],
+      [
+        "気泡の発生・崩壊による局部損傷はキャビテーションエロージョン。"
+      ],
+      [
+        "PTは表面開口欠陥を検出する表面検査で、金属・非金属材料に適用できる。"
+      ],
+      [
+        "すきま腐食では不動態皮膜が破壊される。不動態が形成されるという記述が誤り。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "workerTaskId": "T775",
+    "questionSetId": "chiefgasengineerlicense-B-1760",
+    "questionSetName": "製造設備の保安及び防災（乙種）",
+    "category": "製造設備の保安及び防災（乙種）"
   },
   {
     "original_question_id": "84c8666599d8edf9",
