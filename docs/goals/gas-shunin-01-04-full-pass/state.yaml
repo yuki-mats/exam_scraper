@@ -40287,7 +40287,7 @@ tasks:
     receipt:
       result: done
       review_result: hold
-      summary: "T726 planSequence=732 gas-shunin-otsu 2022 基礎理論 問14 は01/02/04を確認し、03を理由付きhold。answer_result_text=正解は4で、questionSetId=chiefgasengineerlicense-B-2160（材料力学・材料（乙種））はFirestore snapshot exact同一問題とcategory.jsonで確認。00_source本文に(イ)〜(ハ)の使用状況が欠落しているため、explanationText確定は保留。completed=627 pending=307 held=136。"
+      summary: "T726 planSequence=732 gas-shunin-otsu 2022 基礎理論 問14 は01/02/04を確認し、03を理由付きhold。answer_result_text=正解は4で、questionSetId=chiefgasengineerlicense-B-2160（材料力学・材料（乙種））は20_merged_1に残る同一問題の条件メモとcategory.jsonで確認。00_source本文に(イ)〜(ハ)の使用状況が欠落しているため、explanationText確定は保留。completed=627 pending=307 held=136。"
       changed_files:
         - "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json"
         - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_2_explanationText_added.json"
@@ -40311,7 +40311,7 @@ tasks:
         - "questionType=group_choice / questionIntent=select_correct"
         - "answer_result_text=正解は 4 です。 matches correctChoiceText=[不正解, 不正解, 不正解, 正解, 不正解]"
         - "choice4 maps (イ)=疲労限度, (ロ)=降伏点又は耐力, (ハ)=クリープ限度又はクリープ破壊応力"
-        - "Firestore snapshot exact same 2022 q14 choice and category.json confirm questionSetId=chiefgasengineerlicense-B-2160=材料力学・材料（乙種）"
+        - "20_merged_1 retains the omitted use-case labels and category.json confirms questionSetId=chiefgasengineerlicense-B-2160=材料力学・材料（乙種）"
         - "hold reason: 00_source omits required use-case labels for (イ)〜(ハ); 20_merged has them, but final explanation requires source repair or official PDF confirmation"
       completed_at: "2026-06-29T00:40:00+09:00"
       remaining_questions: 307
