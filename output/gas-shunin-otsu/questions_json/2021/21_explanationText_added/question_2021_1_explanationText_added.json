@@ -644,18 +644,72 @@
       "34"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。プロパンの分子量を44g/molとすると、22kgは22000g/44g/mol=500molである。理想気体の状態方程式PV=nRTより、V=500×8.3×300/100000=12.45m³となるため、10m³では小さい。",
+      "正解。プロパン22kgは500molで、27℃は約300K、圧力100kPaは100000Paである。PV=nRTよりV=500×8.3×300/100000≈12.45m³となり、最も近い値は12m³である。",
+      "不正解。計算値は約12.45m³であり、16m³より12m³のほうが近い。16m³は必要な物質量、温度、圧力から得られる体積より大きい。",
+      "不正解。理想気体として計算すると体積は約12.45m³である。20m³は計算値から大きく離れており、最も近い値ではない。",
+      "不正解。34m³は約12.45m³より大幅に大きい。プロパン22kgを500molとしてPV=nRTに代入すると、この値にはならない。"
+    ],
+    "suggestedQuestions": [
+      "プロパン22kgは何molか？",
+      "27℃は絶対温度で何Kか？",
+      "理想気体の状態方程式は？",
+      "本問の体積はいくらか？",
+      "選択肢2が正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "プロパン22kgは何molか？",
+        "answer": "500mol。",
+        "explanation": "プロパンの分子量44g/molを用い、22000g/44g/mol=500mol。"
+      },
+      {
+        "question": "27℃は絶対温度で何Kか？",
+        "answer": "約300K。",
+        "explanation": "絶対温度は摂氏温度に273を加えるので、27℃は約300Kである。"
+      },
+      {
+        "question": "理想気体の状態方程式は？",
+        "answer": "PV=nRT。",
+        "explanation": "圧力P、体積V、物質量n、気体定数R、絶対温度Tの関係式である。"
+      },
+      {
+        "question": "本問の体積はいくらか？",
+        "answer": "約12.45m³。",
+        "explanation": "V=nRT/P=500×8.3×300/100000≈12.45m³。"
+      },
+      {
+        "question": "選択肢2が正解になる理由は？",
+        "answer": "計算値約12.45m³に最も近いから。",
+        "explanation": "選択肢の中では12m³が12.45m³に最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式、分子量、モル数、体積計算が本問の関連論点。",
+      "プロパンの分子量は44g/molなので、22kgは22000g/44g/mol=500molである。",
+      "理想気体の状態方程式 PV=nRT に、n=500mol、R=8.3J/(mol・K)、T=300K、P=100000Paを代入する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "V=nRT/P=500×8.3×300/100000=12.45m³となるため、最も近い選択肢は12m³。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値約12.45m³より小さく、10m³ではない。"
+      ],
+      [
+        "V=500×8.3×300/100000≈12.45m³で、12m³が最も近い。"
+      ],
+      [
+        "16m³は計算値約12.45m³より大きく、12m³のほうが近い。"
+      ],
+      [
+        "20m³は計算値から大きく離れる。"
+      ],
+      [
+        "34m³は計算値より大幅に大きい。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -663,7 +717,25 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "category": "物性・基礎（乙種）",
+    "questionSetName": "物性・基礎（乙種）",
+    "explanationTextCount": 5,
+    "correctChoiceTextCount": 5,
+    "reviewStatus": "ok",
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-29T08:08:43+09:00",
+    "questionIntentReviewedAt": "2026-06-29T08:08:43+09:00",
+    "correctChoiceReviewedAt": "2026-06-29T08:08:43+09:00",
+    "explanationReviewedAt": "2026-06-29T08:08:43+09:00",
+    "questionSetReviewedAt": "2026-06-29T08:08:43+09:00",
+    "workerTaskId": "T796",
+    "taskId": "T796"
   },
   {
     "original_question_id": "bebc9a420b15ee51",
