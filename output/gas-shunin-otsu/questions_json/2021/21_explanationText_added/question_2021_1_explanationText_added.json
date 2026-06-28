@@ -681,18 +681,71 @@
       "82:18"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。空気の平均分子量は、窒素と酸素の体積比4:1より 28×0.8+32×0.2=28.8 である。メタン:プロパン=50:50では平均分子量が 16×0.50+44×0.50=30 となり、空気と同じ密度にはならない。",
+      "正解。同一温度・同一圧力の理想気体では密度は平均分子量に比例する。メタン:プロパン=54:46では平均分子量が 16×0.54+44×0.46=28.88 となり、空気の平均分子量28.8に最も近い。",
+      "不正解。メタン:プロパン=60:40では平均分子量が 16×0.60+44×0.40=27.2 となり、空気の28.8より小さい。したがって同じ密度にはならない。",
+      "不正解。メタン:プロパン=70:30では平均分子量が 16×0.70+44×0.30=24.4 で、空気の平均分子量28.8よりかなり小さい。",
+      "不正解。メタン:プロパン=82:18では平均分子量が 16×0.82+44×0.18=21.04 となり、空気の平均分子量28.8から大きく外れる。"
+    ],
+    "suggestedQuestions": [
+      "空気の平均分子量はいくら？",
+      "同一温度・同一圧力の理想気体で密度は何に比例する？",
+      "メタン:プロパン=54:46の平均分子量はいくら？",
+      "メタン:プロパン=60:40が不正解になる理由は？",
+      "本問で選択肢2が最も近い理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "空気の平均分子量はいくら？",
+        "answer": "28.8。",
+        "explanation": "空気は窒素:酸素=4:1なので、平均分子量は 28×4/5+32×1/5=28.8 である。"
+      },
+      {
+        "question": "同一温度・同一圧力の理想気体で密度は何に比例する？",
+        "answer": "平均分子量。",
+        "explanation": "理想気体では同じ温度・圧力ならモル体積が等しいため、密度は平均分子量に比例する。"
+      },
+      {
+        "question": "メタン:プロパン=54:46の平均分子量はいくら？",
+        "answer": "約28.9。",
+        "explanation": "16×0.54+44×0.46=28.88 となり、空気の28.8に近い。"
+      },
+      {
+        "question": "メタン:プロパン=60:40が不正解になる理由は？",
+        "answer": "平均分子量が27.2で空気より小さいため。",
+        "explanation": "16×0.60+44×0.40=27.2 なので、空気の平均分子量28.8とは一致しない。"
+      },
+      {
+        "question": "本問で選択肢2が最も近い理由は？",
+        "answer": "平均分子量が空気の28.8に最も近いから。",
+        "explanation": "選択肢2は28.88で、他の選択肢より空気の平均分子量に近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体、平均分子量、混合気体密度が本問の関連論点。",
+      "同一温度・同一圧力の理想気体ではモル体積が等しいため、密度は平均分子量に比例する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "空気の平均分子量は窒素:酸素=4:1より28.8。メタンとプロパンの平均分子量を選択肢ごとに比べると、54:46の28.88が最も近いため選択肢2が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "50:50 の平均分子量は30で、空気28.8より大きい。"
+      ],
+      [
+        "54:46 の平均分子量は28.88で、空気28.8に最も近い。"
+      ],
+      [
+        "60:40 の平均分子量は27.2で、空気28.8より小さい。"
+      ],
+      [
+        "70:30 の平均分子量は24.4で、空気28.8より小さい。"
+      ],
+      [
+        "82:18 の平均分子量は21.04で、空気28.8から大きく外れる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -700,7 +753,25 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "category": "物性・基礎（乙種）",
+    "questionSetName": "物性・基礎（乙種）",
+    "explanationTextCount": 5,
+    "correctChoiceTextCount": 5,
+    "reviewStatus": "ok",
+    "questionTypeReviewStatus": "ok",
+    "questionIntentReviewStatus": "ok",
+    "correctChoiceReviewStatus": "ok",
+    "explanationReviewStatus": "ok",
+    "questionSetReviewStatus": "ok",
+    "questionTypeReviewedAt": "2026-06-29T08:01:03+09:00",
+    "questionIntentReviewedAt": "2026-06-29T08:01:03+09:00",
+    "correctChoiceReviewedAt": "2026-06-29T08:01:03+09:00",
+    "explanationReviewedAt": "2026-06-29T08:01:03+09:00",
+    "questionSetReviewedAt": "2026-06-29T08:01:03+09:00",
+    "workerTaskId": "T795",
+    "taskId": "T795"
   },
   {
     "original_question_id": "8cb4d34bc483f3af",
