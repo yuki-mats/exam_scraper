@@ -1,17 +1,17 @@
 {
-  "activeTaskId": "T672",
-  "completed": 572,
-  "completedQuestions": 572,
-  "completed_questions": 572,
-  "done": 449,
+  "activeTaskId": "T673",
+  "completed": 573,
+  "completedQuestions": 573,
+  "completed_questions": 573,
+  "done": 450,
   "duplicateQualifiedReviewQuestionIdCount": 0,
   "executionStatusCounts": {
-    "done": 449,
+    "done": 450,
     "hold": 123,
-    "pending": 362
+    "pending": 361
   },
   "firestoreSourceQuestionCount": 294,
-  "generatedAt": "2026-06-28T16:43:00+09:00",
+  "generatedAt": "2026-06-28T16:45:09+09:00",
   "heldQuestions": 123,
   "held_questions": 123,
   "hold": 123,
@@ -22,12 +22,12 @@
   "kouHold": 102,
   "kouPending": 0,
   "lastCompletedQuestion": {
-    "answerResultText": "正解は 2 です。",
+    "answerResultText": "正解は 3 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
       "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "answer_result_text=正解は 2 です。 matches select_correct and m=ρAv, D=√(4×0.785/3.14)=1.0m.",
+      "correctChoiceReason": "answer_result_text=正解は 3 です。 matches select_incorrect; choice 3 incorrectly gives kinematic viscosity unit as m/s instead of m²/s.",
       "explanationLengthMatchesChoices": true,
       "explanationTextPresent": true,
       "questionIntentPresent": true,
@@ -37,36 +37,36 @@
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "0.50",
-      "1.0",
-      "1.5",
-      "2.0",
-      "2.5"
+      "直円管内の完全に発達した層流における管内の圧力損失は、流量、平均流速に比例する。",
+      "直円管内の流れでは、レイノルズ数がある値以上となると層流から乱流に遷移する。",
+      "粘度を密度で割った値を動粘度といい、\n単位はm/sを用いる\n。",
+      "管路内で、急激に流れの方向を変化させる部分をエルボといい、ゆるやかに流れが曲がる部分をベンドという。",
+      "非圧縮性、非粘性流体の定常流では、流線上でベルヌーイの式が成立する。"
     ],
     "correctChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "done",
     "expectedCorrectChoiceText": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "explanationText": [
-      "不正解。質量流量は m=ρAv、直円管の断面積は A=πD²/4 である。m=3.14kg/s、ρ=1kg/m³、v=4m/sより A=m/(ρv)=3.14/4=0.785m²。D=√(4A/π)=1.0mとなるため、0.50mではない。",
-      "正解。質量流量 m=ρAv より、断面積 A=m/(ρv)=3.14/(1×4)=0.785m²。A=πD²/4 なので D=√(4A/π)=√(4×0.785/3.14)=1.0mとなる。",
-      "不正解。1.5mでは断面積がπ×1.5²/4≈1.77m²となり、質量流量は1×1.77×4≈7.1kg/sで、与えられた3.14kg/sより大きい。",
-      "不正解。2.0mでは断面積がπm²となり、質量流量は1×π×4≈12.6kg/sで過大である。正しい内径は1.0mである。",
-      "不正解。2.5mでは断面積がさらに大きく、同じ密度・平均流速では質量流量が3.14kg/sを大きく上回る。計算上の内径は1.0mである。"
+      "正しい。完全に発達した層流の直円管内流れでは、ハーゲン・ポアズイユの関係により圧力損失は流量に比例する。同じ管では流量は平均流速に比例するため、圧力損失は平均流速にも比例する。",
+      "正しい。直円管内の流れは、レイノルズ数が臨界値を上回ると層流から乱流へ遷移しやすくなる。レイノルズ数は管内流れの流動状態を判定する代表的な無次元数である。",
+      "間違い。動粘度は粘度を密度で割った値である点は正しいが、単位はm²/sであり、m/sではない。したがって本肢が誤っている。",
+      "正しい。管路で流れの方向を急に変える曲がり部分をエルボ、緩やかに曲がる部分をベンドという。いずれも管路の曲がり部を表す用語である。",
+      "正しい。非圧縮性・非粘性流体の定常流では、同一流線上で圧力、速度、高さに関するベルヌーイの式が成立する。"
     ],
     "explanationTextCount": 5,
     "firestoreQuestionIdCount": 0,
@@ -100,29 +100,29 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 787,
-    "publicQuestionId": "73375cddf1f49eca",
+    "planSequence": 786,
+    "publicQuestionId": "10647bc6f41cae95",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:73375cddf1f49eca",
-    "questionBodyText": "ある流体が直円管内を平均流速4m/sで流れている。流体の質量流量が3.14kg/sのとき、直円管の内径(m)として、最も近い値はどれか。ただし、流体の密度は1kg/m³とする。",
-    "questionIndexInFile": 2,
-    "questionIntent": "select_correct",
-    "questionLabel": "問11",
-    "questionNo": 11,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:10647bc6f41cae95",
+    "questionBodyText": "流体に関する次の記述のうち、誤っているものはどれか。",
+    "questionIndexInFile": 1,
+    "questionIntent": "select_incorrect",
+    "questionLabel": "問10",
+    "questionNo": 10,
     "questionSetId": "chiefgasengineerlicense-B-2140",
-    "questionType": "group_choice",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
+    "questionType": "true_false",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
     "review01QuestionType": "ok",
     "review02CorrectChoiceText": "ok",
     "review02QuestionIntent": "ok",
     "review03ExplanationText": "ok",
     "review04QuestionSetId": "ok",
     "reviewDecision": "ok",
-    "reviewId": "2023:question_2023_2:73375cddf1f49eca",
-    "reviewNotes": "T671: 降順ブロック planSequence=787。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=73375cddf1f49eca。00_source body/choices preserved. questionType=group_choice、questionIntent=select_correct。answer_result_text=正解は 2 です。と correctChoiceText=[不正解, 正解, 不正解, 不正解, 不正解] が一致。質量流量 m=ρAv、A=3.14/(1×4)=0.785m²、A=πD²/4 より D=√(4×0.785/3.14)=1.0m で選択肢2を正解と確認。04は category.json の active category と2025乙種の同種質量流量計算先例に合わせ、chiefgasengineerlicense-B-2140（流体力学（乙種））を選択。",
-    "reviewQuestionId": "73375cddf1f49eca",
-    "reviewedAt": "2026-06-28T16:43:00+09:00",
+    "reviewId": "2023:question_2023_2:10647bc6f41cae95",
+    "reviewNotes": "T672: 降順ブロック planSequence=786。gassyunin.com site sourceConflictStatus=none; site-only publicQuestionId=10647bc6f41cae95。00_source body/choices preserved. questionType=true_false、questionIntent=select_incorrect。answer_result_text=正解は 3 です。と correctChoiceText=[正しい, 正しい, 間違い, 正しい, 正しい] が一致。選択肢3は動粘度 ν=μ/ρ の単位を m/s としているが、正しくは m²/s なので誤り。他の肢は層流の管内圧力損失、レイノルズ数による遷移、エルボ/ベンド、ベルヌーイの式として妥当。04は category.json の active category と2025乙種流体力学先例に合わせ、chiefgasengineerlicense-B-2140（流体力学（乙種））を選択。",
+    "reviewQuestionId": "10647bc6f41cae95",
+    "reviewedAt": "2026-06-28T16:41:41+09:00",
     "reviewer": "Codex",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
     "sourceAcquisitionMethod": "site_html",
@@ -136,7 +136,7 @@
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 11,
+      "questionNo": 10,
       "subject": "kiso",
       "year": 2023
     },
@@ -145,45 +145,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q11",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q10",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q11:s01",
-      "gas-shunin:otsu:2023:kiso:q11:s02",
-      "gas-shunin:otsu:2023:kiso:q11:s03",
-      "gas-shunin:otsu:2023:kiso:q11:s04",
-      "gas-shunin:otsu:2023:kiso:q11:s05"
+      "gas-shunin:otsu:2023:kiso:q10:s01",
+      "gas-shunin:otsu:2023:kiso:q10:s02",
+      "gas-shunin:otsu:2023:kiso:q10:s03",
+      "gas-shunin:otsu:2023:kiso:q10:s04",
+      "gas-shunin:otsu:2023:kiso:q10:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q11",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q11:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s05",
         "statementNo": 5
       }
     ],
@@ -195,120 +195,114 @@
       "explanation_would_require_unverified_fact",
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ],
-    "questionSetName": "流体力学（乙種）",
-    "category": "流体力学（乙種）",
-    "workerTaskId": "T671",
-    "taskId": "T671",
-    "sourceExplanationCommonPrefix": [
-      "基礎理論「流体力学（乙種）」の管内流れと連続の式が本問の関連論点。",
-      "質量流量は m=ρAv、直円管の断面積は A=πD²/4 で表される。",
-      "本問では A=3.14/(1×4)=0.785m²、D=√(4A/π)=√(4×0.785/3.14)=1.0mとなる。"
-    ],
-    "sourceExplanationCommonSummary": [
-      "m=ρAv と A=πD²/4 より D=1.0m。よって選択肢2が正解。"
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "0.50mでは断面積が小さく、m=ρAv が3.14kg/sに届かない。"
+        "層流の直円管内圧力損失は流量・平均流速に比例する。"
       ],
       [
-        "A=3.14/(1×4)=0.785m²、D=√(4A/π)=1.0m。"
+        "レイノルズ数が大きくなると層流から乱流へ遷移しやすい。"
       ],
       [
-        "1.5mでは質量流量が約7.1kg/sとなり大きすぎる。"
+        "動粘度ν=μ/ρの単位はm²/sであり、m/sではない。"
       ],
       [
-        "2.0mでは質量流量が約12.6kg/sとなり大きすぎる。"
+        "急な曲がりをエルボ、緩やかな曲がりをベンドという。"
       ],
       [
-        "2.5mでは断面積が過大で、計算結果1.0mと一致しない。"
+        "非圧縮性・非粘性の定常流では流線上でベルヌーイの式が成立する。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": [
-      "不正解",
-      "正解",
-      "不正解",
-      "不正解",
-      "不正解"
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の管内流れ、動粘度、ベルヌーイの式が本問の関連論点。",
+      "動粘度νは粘度μを密度ρで割った値 ν=μ/ρ であり、単位はm²/sである。",
+      "本問は「誤っているもの」を選ぶ問題で、単位をm/sとしている選択肢3が誤りである。"
     ],
-    "suggestedQuestions": [
-      "質量流量・密度・断面積・平均流速の関係式は？",
-      "本問の断面積Aはいくらか？",
-      "直円管の断面積Aから内径Dをどう求める？",
-      "本問の内径Dはいくらか？",
-      "1.5m以上の選択肢が不正解になる理由は？"
+    "sourceExplanationCommonSummary": [
+      "選択肢3は動粘度の単位をm/sとしているが、正しくはm²/s。よって選択肢3が正解。"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "質量流量・密度・断面積・平均流速の関係式は？",
-        "answer": "m=ρAv を用いる。",
-        "explanation": "密度ρ、断面積A、平均流速vの積が質量流量になる。"
+        "question": "動粘度はどのように定義される？",
+        "answer": "ν=μ/ρ。",
+        "explanation": "動粘度は粘度μを密度ρで割った値である。"
       },
       {
-        "question": "本問の断面積Aはいくらか？",
-        "answer": "A=3.14/(1×4)=0.785m²。",
-        "explanation": "m=ρAv を A=m/(ρv) に変形して代入する。"
+        "question": "動粘度の単位は何か？",
+        "answer": "m²/s。",
+        "explanation": "粘度Pa·sを密度kg/m³で割るとm²/sになるため、m/sではない。"
       },
       {
-        "question": "直円管の断面積Aから内径Dをどう求める？",
-        "answer": "A=πD²/4 より D=√(4A/π)。",
-        "explanation": "円管の断面積式を内径Dについて解く。"
+        "question": "直円管内の流れで層流から乱流への遷移を判定する無次元数は？",
+        "answer": "レイノルズ数。",
+        "explanation": "管内流れの層流・乱流の判定に用いられる代表的な無次元数である。"
       },
       {
-        "question": "本問の内径Dはいくらか？",
-        "answer": "D=1.0m。",
-        "explanation": "D=√(4×0.785/3.14)=√1=1.0mとなる。"
+        "question": "エルボとベンドはどう違う？",
+        "answer": "急な曲がりがエルボ、緩やかな曲がりがベンド。",
+        "explanation": "どちらも管路の曲がり部だが、曲がり方の急緩で呼び分ける。"
       },
       {
-        "question": "1.5m以上の選択肢が不正解になる理由は？",
-        "answer": "同じ密度・平均流速では質量流量が3.14kg/sを超えるため。",
-        "explanation": "内径が大きいほど断面積が大きくなり、m=ρAvも大きくなる。"
+        "question": "ベルヌーイの式が成り立つ代表的な条件は？",
+        "answer": "非圧縮性、非粘性、定常流で同一流線上。",
+        "explanation": "この条件のもとで圧力、速度、高さのエネルギー関係としてベルヌーイの式を用いる。"
       }
     ],
+    "suggestedQuestions": [
+      "動粘度はどのように定義される？",
+      "動粘度の単位は何か？",
+      "直円管内の流れで層流から乱流への遷移を判定する無次元数は？",
+      "エルボとベンドはどう違う？",
+      "ベルヌーイの式が成り立つ代表的な条件は？"
+    ],
+    "workerTaskId": "T672",
+    "taskId": "T672",
+    "questionSetName": "流体力学（乙種）",
+    "category": "流体力学（乙種）",
     "lawGroundedExplanationNotNeeded": true
   },
-  "lastCompletedReviewQuestionId": "73375cddf1f49eca",
-  "lastCompletedTaskId": "T671",
-  "nextActiveTaskId": "T672",
+  "lastCompletedReviewQuestionId": "10647bc6f41cae95",
+  "lastCompletedTaskId": "T672",
+  "nextActiveTaskId": "T673",
   "nextPending": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "直円管内の完全に発達した層流における管内の圧力損失は、流量、平均流速に比例する。",
-      "直円管内の流れでは、レイノルズ数がある値以上となると層流から乱流に遷移する。",
-      "粘度を密度で割った値を動粘度といい、\n単位はm/sを用いる\n。",
-      "管路内で、急激に流れの方向を変化させる部分をエルボといい、ゆるやかに流れが曲がる部分をベンドという。",
-      "非圧縮性、非粘性流体の定常流では、流線上でベルヌーイの式が成立する。"
+      "0.75",
+      "0.92",
+      "1.2",
+      "1.3",
+      "1.4"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -329,10 +323,10 @@
     ],
     "originalQuestionId": "",
     "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
     },
     "perQuestionSteps": [
       "01_confirm_questionType_against_source_shape",
@@ -342,28 +336,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 786,
-    "publicQuestionId": "10647bc6f41cae95",
+    "planSequence": 785,
+    "publicQuestionId": "eeebb77c0715702b",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:10647bc6f41cae95",
-    "questionBodyText": "流体に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 1,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問10",
-    "questionNo": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:eeebb77c0715702b",
+    "questionBodyText": "メタン3m³を空気40m³で完全燃焼させた。空気比として、最も近い値はどれか。ただし、メタン及び空気は標準状態(0℃、101325kPa)とし、空気中の窒素と酸素の体積比は4:1とする。",
+    "questionIndexInFile": 25,
+    "questionIntent": "",
+    "questionLabel": "問9",
+    "questionNo": 9,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q9",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:10647bc6f41cae95",
+    "reviewId": "2023:question_2023_1:eeebb77c0715702b",
     "reviewNotes": "",
-    "reviewQuestionId": "10647bc6f41cae95",
+    "reviewQuestionId": "eeebb77c0715702b",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -372,13 +366,13 @@
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceFileIndex": 19,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 10,
+      "questionNo": 9,
       "subject": "kiso",
       "year": 2023
     },
@@ -387,45 +381,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q10",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q09",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q10:s01",
-      "gas-shunin:otsu:2023:kiso:q10:s02",
-      "gas-shunin:otsu:2023:kiso:q10:s03",
-      "gas-shunin:otsu:2023:kiso:q10:s04",
-      "gas-shunin:otsu:2023:kiso:q10:s05"
+      "gas-shunin:otsu:2023:kiso:q09:s01",
+      "gas-shunin:otsu:2023:kiso:q09:s02",
+      "gas-shunin:otsu:2023:kiso:q09:s03",
+      "gas-shunin:otsu:2023:kiso:q09:s04",
+      "gas-shunin:otsu:2023:kiso:q09:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q9",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s05",
         "statementNo": 5
       }
     ],
@@ -438,48 +432,42 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingPlanSequence": 786,
-  "nextPendingPublicQuestionId": "10647bc6f41cae95",
-  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:10647bc6f41cae95",
+  "nextPendingPlanSequence": 785,
+  "nextPendingPublicQuestionId": "eeebb77c0715702b",
+  "nextPendingQualifiedReviewQuestionId": "gas-shunin-otsu:eeebb77c0715702b",
   "nextPendingQuestion": {
-    "answerResultText": "正解は 3 です。",
+    "answerResultText": "正解は 4 です。",
     "autoAudit": {
       "answerResultTextPresent": true,
       "choiceCount": 5,
-      "correctChoiceMatchesExpected": true,
-      "correctChoiceReason": "",
+      "correctChoiceMatchesExpected": false,
+      "correctChoiceReason": "question_intent_required",
       "explanationLengthMatchesChoices": false,
       "explanationTextPresent": false,
-      "questionIntentPresent": true,
+      "questionIntentPresent": false,
       "questionSetIdPresent": false,
       "questionTypePresent": true
     },
     "choiceCount": 5,
     "choiceTextList": [
-      "直円管内の完全に発達した層流における管内の圧力損失は、流量、平均流速に比例する。",
-      "直円管内の流れでは、レイノルズ数がある値以上となると層流から乱流に遷移する。",
-      "粘度を密度で割った値を動粘度といい、\n単位はm/sを用いる\n。",
-      "管路内で、急激に流れの方向を変化させる部分をエルボといい、ゆるやかに流れが曲がる部分をベンドという。",
-      "非圧縮性、非粘性流体の定常流では、流線上でベルヌーイの式が成立する。"
+      "0.75",
+      "0.92",
+      "1.2",
+      "1.3",
+      "1.4"
     ],
     "correctChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
     ],
     "correctChoiceTextCount": 5,
     "examYear": 2023,
     "executionPhase": "phase_3_otsu_all_sources",
     "executionStatus": "pending",
-    "expectedCorrectChoiceText": [
-      "正しい",
-      "正しい",
-      "間違い",
-      "正しい",
-      "正しい"
-    ],
+    "expectedCorrectChoiceText": [],
     "explanationText": [],
     "explanationTextCount": 0,
     "firestoreQuestionIdCount": 0,
@@ -500,10 +488,10 @@
     ],
     "originalQuestionId": "",
     "patchFiles": {
-      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
-      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
-      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
-      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+      "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_correctChoiceText_fixed.json",
+      "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+      "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_1_questionSetId_linked.json",
+      "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
     },
     "perQuestionSteps": [
       "01_confirm_questionType_against_source_shape",
@@ -513,28 +501,28 @@
       "verify_target_and_file_coverage",
       "mark_review_ledger_row_ok_or_hold_with_reason"
     ],
-    "planSequence": 786,
-    "publicQuestionId": "10647bc6f41cae95",
+    "planSequence": 785,
+    "publicQuestionId": "eeebb77c0715702b",
     "qualification": "gas-shunin-otsu",
     "qualificationName": "ガス主任技術者乙種",
-    "qualifiedReviewQuestionId": "gas-shunin-otsu:10647bc6f41cae95",
-    "questionBodyText": "流体に関する次の記述のうち、誤っているものはどれか。",
-    "questionIndexInFile": 1,
-    "questionIntent": "select_incorrect",
-    "questionLabel": "問10",
-    "questionNo": 10,
+    "qualifiedReviewQuestionId": "gas-shunin-otsu:eeebb77c0715702b",
+    "questionBodyText": "メタン3m³を空気40m³で完全燃焼させた。空気比として、最も近い値はどれか。ただし、メタン及び空気は標準状態(0℃、101325kPa)とし、空気中の窒素と酸素の体積比は4:1とする。",
+    "questionIndexInFile": 25,
+    "questionIntent": "",
+    "questionLabel": "問9",
+    "questionNo": 9,
     "questionSetId": "",
-    "questionType": "true_false",
-    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
+    "questionType": "group_choice",
+    "questionUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q9",
     "review01QuestionType": "pending",
     "review02CorrectChoiceText": "pending",
     "review02QuestionIntent": "pending",
     "review03ExplanationText": "pending",
     "review04QuestionSetId": "pending",
     "reviewDecision": "pending",
-    "reviewId": "2023:question_2023_2:10647bc6f41cae95",
+    "reviewId": "2023:question_2023_1:eeebb77c0715702b",
     "reviewNotes": "",
-    "reviewQuestionId": "10647bc6f41cae95",
+    "reviewQuestionId": "eeebb77c0715702b",
     "reviewedAt": "",
     "reviewer": "",
     "schemaVersion": "gas-shunin-question-execution-plan/v2",
@@ -543,13 +531,13 @@
     "sourceConflictStatus": "none",
     "sourceContentConflictCount": 0,
     "sourceContentConflictFields": [],
-    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
-    "sourceFileIndex": 20,
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceFileIndex": 19,
     "sourceKeyConflict": null,
     "sourceKeyParts": {
       "grade": "otsu",
       "qualification": "gas-shunin",
-      "questionNo": 10,
+      "questionNo": 9,
       "subject": "kiso",
       "year": 2023
     },
@@ -558,45 +546,45 @@
     "sourceOrigin": "gassyunin_site",
     "sourcePriority": 2,
     "sourceProvider": "gassyunin.com",
-    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q10",
+    "sourceQuestionKey": "gas-shunin:otsu:2023:kiso:q09",
     "sourceStatementCount": 5,
     "sourceUniqueKeys": [
-      "gas-shunin:otsu:2023:kiso:q10:s01",
-      "gas-shunin:otsu:2023:kiso:q10:s02",
-      "gas-shunin:otsu:2023:kiso:q10:s03",
-      "gas-shunin:otsu:2023:kiso:q10:s04",
-      "gas-shunin:otsu:2023:kiso:q10:s05"
+      "gas-shunin:otsu:2023:kiso:q09:s01",
+      "gas-shunin:otsu:2023:kiso:q09:s02",
+      "gas-shunin:otsu:2023:kiso:q09:s03",
+      "gas-shunin:otsu:2023:kiso:q09:s04",
+      "gas-shunin:otsu:2023:kiso:q09:s05"
     ],
-    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q10",
+    "sourceUrl": "https://gassyunin.com/exam/otsu/otsu_2023/#kiso-q9",
     "statementSourceStatuses": [
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s01",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s01",
         "statementNo": 1
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s02",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s02",
         "statementNo": 2
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s03",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s03",
         "statementNo": 3
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s04",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s04",
         "statementNo": 4
       },
       {
         "firestoreRegistered": false,
         "siteOnly": true,
-        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q10:s05",
+        "sourceUniqueKey": "gas-shunin:otsu:2023:kiso:q09:s05",
         "statementNo": 5
       }
     ],
@@ -609,16 +597,16 @@
       "suggestedQuestions_would_be_problem_level_instead_of_choice_level"
     ]
   },
-  "nextPendingReviewId": "2023:question_2023_2:10647bc6f41cae95",
-  "nextPendingTaskId": "T672",
-  "otsuCompleted": 160,
-  "otsuDone": 139,
+  "nextPendingReviewId": "2023:question_2023_1:eeebb77c0715702b",
+  "nextPendingTaskId": "T673",
+  "otsuCompleted": 161,
+  "otsuDone": 140,
   "otsuHeld": 21,
   "otsuHold": 21,
-  "otsuPending": 362,
-  "pending": 362,
-  "pendingQuestions": 362,
-  "pending_questions": 362,
+  "otsuPending": 361,
+  "pending": 361,
+  "pendingQuestions": 361,
+  "pending_questions": 361,
   "total": 934,
   "total_questions": 934
 }
