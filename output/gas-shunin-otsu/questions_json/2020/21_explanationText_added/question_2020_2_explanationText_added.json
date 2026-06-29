@@ -678,18 +678,70 @@
       "40"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。温度差は40℃-(-10℃)=50℃で、自由伸び量はΔL=αLΔT=1×10⁻⁵×40000mm×50=20mmである。5mmは小さすぎる。",
+      "不正解。線膨張係数1×10⁻⁵、長さ40m、温度上昇50℃を用いると、伸び量は20mmとなる。10mmは半分の値であり最も近い値ではない。",
+      "正解。架管全体の温度上昇は50℃であり、自由伸び量はΔL=αLΔT=1×10⁻⁵×40000mm×50=20mmとなる。伸縮継手でこの伸縮を吸収するため、設計変位量として最も近い値は20mmである。",
+      "不正解。計算上の伸び量は20mmである。30mmは温度上昇や管長を過大に見込んだ値で、設計変位量として最も近い値ではない。",
+      "不正解。ΔL=αLΔTで求めると20mmであり、40mmは過大である。ヤング率や内圧は本問の伸縮継手の設計変位量計算には直接用いない。"
+    ],
+    "suggestedQuestions": [
+      "線膨張による伸び量はどの式で求めるか。",
+      "本問の温度上昇は何℃か。",
+      "長さ40m、線膨張係数1×10⁻⁵、温度上昇50℃の伸び量は何mmか。",
+      "伸縮継手の設計変位量は何を基準に選ぶか。",
+      "本問でヤング率や内圧は伸縮量計算に直接用いるか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "線膨張による伸び量はどの式で求めるか。",
+        "answer": "ΔL=αLΔTで求める。",
+        "explanation": "線膨張係数、管長、温度変化を掛け合わせて自由伸び量を計算する。"
+      },
+      {
+        "question": "本問の温度上昇は何℃か。",
+        "answer": "50℃である。",
+        "explanation": "冬の管体温度-10℃から夏期40℃まで上昇するため、温度差は50℃である。"
+      },
+      {
+        "question": "長さ40m、線膨張係数1×10⁻⁵、温度上昇50℃の伸び量は何mmか。",
+        "answer": "20mmである。",
+        "explanation": "40mを40000mmに換算し、1×10⁻⁵×40000×50=20mmとなる。"
+      },
+      {
+        "question": "伸縮継手の設計変位量は何を基準に選ぶか。",
+        "answer": "温度変化による管の伸縮量を基準に選ぶ。",
+        "explanation": "伸縮継手は温度変化による管の伸縮を吸収するため、自由伸び量に近い変位量を見込む。"
+      },
+      {
+        "question": "本問でヤング率や内圧は伸縮量計算に直接用いるか。",
+        "answer": "直接は用いない。",
+        "explanation": "本問で問われている設計変位量は線膨張による伸び量であり、ヤング率や内圧は熱応力等の検討で用いる条件である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の導管伸縮、線膨張係数、伸縮継手の設計変位量に関する計算問題。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正解は選択肢3の20mm。温度上昇は50℃、管長40m=40000mmなので、ΔL=αLΔT=1×10⁻⁵×40000×50=20mmとなる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "不正解。温度差は40℃-(-10℃)=50℃で、自由伸び量はΔL=αLΔT=1×10⁻⁵×40000mm×50=20mmである。5mmは小さすぎる。"
+      ],
+      [
+        "不正解。線膨張係数1×10⁻⁵、長さ40m、温度上昇50℃を用いると、伸び量は20mmとなる。10mmは半分の値であり最も近い値ではない。"
+      ],
+      [
+        "正解。架管全体の温度上昇は50℃であり、自由伸び量はΔL=αLΔT=1×10⁻⁵×40000mm×50=20mmとなる。伸縮継手でこの伸縮を吸収するため、設計変位量として最も近い値は20mmである。"
+      ],
+      [
+        "不正解。計算上の伸び量は20mmである。30mmは温度上昇や管長を過大に見込んだ値で、設計変位量として最も近い値ではない。"
+      ],
+      [
+        "不正解。ΔL=αLΔTで求めると20mmであり、40mmは過大である。ヤング率や内圧は本問の伸縮継手の設計変位量計算には直接用いない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -697,7 +749,10 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "questionSetName": "導管の工事（乙種）",
+    "category": "導管の工事（乙種）"
   },
   {
     "original_question_id": "a8191c723c640cbd",
