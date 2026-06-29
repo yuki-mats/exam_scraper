@@ -311,26 +311,86 @@
       "空気により低圧の供給ガスを希釈する場合、供給ガスが燃焼範囲に入らないよう空気の混合量を管理する。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。液-ガス熱量調整方式は、LNGを気化させた天然ガス中にLPGをスプレーして直接混合気化させ、熱量を調整する方式である。",
+      "正しい。液-液熱量調整方式では、極低温のLNGにLPGを液体のまま混合するため、LNG以外の成分が凍結して閉そくしないよう対策が必要となる。",
+      "間違い。高発熱量のガスを空気で希釈すると燃焼速度指数（MCP）は低下し、発熱量や比重の変化によりウォッベ指数も変化する。ウォッベ指数は変化しないとしている点が誤り。",
+      "正しい。ガス-ガス熱量調整方式では、LNGをLPGで熱量調整する場合にLPGをあらかじめ気化させる設備や熱源が必要となり、ランニングコストが高くなる。",
+      "正しい。低圧の供給ガスを空気で希釈する場合は、混合ガスが燃焼範囲に入らないよう、空気の混合量を適切に管理する必要がある。"
+    ],
+    "suggestedQuestions": [
+      "液-ガス熱量調整方式はどのようにLPGを混合する方式か。",
+      "液-液熱量調整方式で閉そく対策が必要となる理由は何か。",
+      "高発熱量ガスを空気で希釈するとMCPとウォッベ指数はどうなるか。",
+      "ガス-ガス熱量調整方式でランニングコストが高くなる理由は何か。",
+      "低圧供給ガスを空気で希釈する際に管理すべきことは何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "液-ガス熱量調整方式はどのようにLPGを混合する方式か。",
+        "answer": "LNGを気化させた天然ガス中にLPGをスプレーし、直接混合気化させる。",
+        "explanation": "液-ガス方式では、気化後の天然ガスに液体LPGを混合して熱量を調整する。"
+      },
+      {
+        "question": "液-液熱量調整方式で閉そく対策が必要となる理由は何か。",
+        "answer": "極低温のLNGに混合するため、LNG以外の成分が凍結して閉そくするおそれがあるため。",
+        "explanation": "LPG成分や不純物が低温で固化しないよう設備上の対策が必要となる。"
+      },
+      {
+        "question": "高発熱量ガスを空気で希釈するとMCPとウォッベ指数はどうなるか。",
+        "answer": "MCPは低下し、ウォッベ指数も変化する。",
+        "explanation": "空気希釈では発熱量や比重が変わるため、ウォッベ指数が不変とはいえない。"
+      },
+      {
+        "question": "ガス-ガス熱量調整方式でランニングコストが高くなる理由は何か。",
+        "answer": "LPGを気化させる設備と熱源が必要になるため。",
+        "explanation": "気化設備・熱源の運転が必要となるので、運転費が高くなりやすい。"
+      },
+      {
+        "question": "低圧供給ガスを空気で希釈する際に管理すべきことは何か。",
+        "answer": "供給ガスが燃焼範囲に入らないよう空気混合量を管理すること。",
+        "explanation": "低圧ガスに空気を混合すると可燃範囲に入るリスクがあるため、混合比管理が重要である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造「都市ガスの熱量調整及び燃焼性管理（乙種）」のLNG/LPG熱量調整方式、燃焼速度指数、ウォッベ指数、空気希釈に関する正誤問題。",
+      "answer_result_text=正解は 3 です。は誤っている記述の選択肢番号であり、選択肢3のみが空気希釈時のウォッベ指数を不変としている。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は選択肢3。高発熱量ガスを空気で希釈するとMCPは低下し、発熱量や比重の変化によりウォッベ指数も変化する。選択肢1・2・4・5は、液-ガス方式、液-液方式、ガス-ガス方式、低圧ガスの空気希釈管理として正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "液-ガス方式は気化後の天然ガスにLPGをスプレーして直接混合気化させる。"
+      ],
+      [
+        "液-液方式では極低温LNG中でLNG以外の成分が凍結・閉そくしないよう対策する。"
+      ],
+      [
+        "空気希釈ではMCPが低下し、ウォッベ指数も発熱量や比重の変化により変化する。"
+      ],
+      [
+        "ガス-ガス方式ではLPG気化設備と熱源が必要でランニングコストが高い。"
+      ],
+      [
+        "低圧供給ガスを空気希釈する場合は燃焼範囲に入らないよう空気混合量を管理する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-1810",
+    "questionSetName": "都市ガスの熱量調整及び燃焼性管理（乙種）",
+    "category": "都市ガスの熱量調整及び燃焼性管理（乙種）",
+    "questionIntent": "select_incorrect",
+    "taskId": "T955",
+    "workerTaskId": "T955",
+    "remainingAfterTask": 79
   },
   {
     "original_question_id": "a38b9fc9893f9e03",
