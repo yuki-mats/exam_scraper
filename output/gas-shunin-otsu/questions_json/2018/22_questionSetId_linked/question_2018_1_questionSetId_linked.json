@@ -92,7 +92,20 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
     "questionSetId": "",
-    "category": "法令"
+    "category": "法令",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "answer_result_text": "正解は 1 です。",
+    "questionSetName": "",
+    "categoryName": "法令",
+    "questionSetHoldReason": "保安通信設備（削除済み chiefgasengineerlicense-B-1670）、ガスの滞留防止（削除済み chiefgasengineerlicense-B-1330）、ガスの置換等（削除済み chiefgasengineerlicense-B-1340）に加え、静電気除去と立ち入りの防止等/整圧器論点にまたがるため、単一problem-level questionSetIdを設定せず04をhold。",
+    "questionSetSource": "hold_deleted_mixed_problem_level_categories"
   },
   {
     "original_question_id": "94fcef9beae91b22",
@@ -123,7 +136,7 @@
     "answer_result_text": "正解は 3 です。",
     "questionSetName": "",
     "categoryName": "法令",
-    "questionSetHoldReason": "構造等（削除済み chiefgasengineerlicense-B-1500）、計測装置等（削除済み chiefgasengineerlicense-B-1460）、警報装置（削除済み chiefgasengineerlicense-B-1470）、保安電力等（削除済み chiefgasengineerlicense-B-1680）に加え、溶接部分（chiefgasengineerlicense-B-1710）にまたがるため、単一problem-level questionSetIdを設定せず04をhold。",
+    "questionSetHoldReason": "構造等（削除済み chiefgasengineerlicense-B-1500）、計測装置等（削除済み chiefgasengineerlicense-B-1460）、警報装置（削除済み chiefgasengineerlicense-B-1470）、操作用電源停止時の措置（削除済み chiefgasengineerlicense-B-1560）及び溶接部分にまたがり、単一problem-level questionSetIdを設定すると一部論点に寄りすぎるため04をhold。",
     "questionSetSource": "hold_deleted_mixed_problem_level_categories"
   },
   {
