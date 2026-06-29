@@ -126,26 +126,95 @@
       "全放射率は、\n物体表面の性状に依存しない\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。熱放射は電磁波によって熱エネルギーが空間を伝わる伝熱形態であり、物質の接触や流体の移動を介さない。",
+      "正しい。黒体の全放射能はステファン・ボルツマンの法則により、絶対温度の4乗に比例する。",
+      "正しい。同じ温度では黒体が最大の全放射能をもつため、実在物体の全放射能は黒体の場合より小さくなる。",
+      "正しい。全放射率は、実在物体の全放射能と同温度の黒体の全放射能との比で表される。",
+      "間違い。全放射率は物体表面の材質、粗さ、酸化状態などの表面性状に依存するため、「依存しない」とする記述は誤りである。"
+    ],
+    "suggestedQuestions": [
+      "熱放射では何を介して熱エネルギーが移動するか。",
+      "黒体の全放射能は絶対温度の何乗に比例するか。",
+      "実在物体の全放射能は同温度の黒体に比べてどうか。",
+      "全放射率はどの二つの全放射能の比か。",
+      "全放射率は物体表面の性状に依存するか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "熱放射では何を介して熱エネルギーが移動するか。",
+        "answer": "電磁波を介して移動する。",
+        "explanation": "正しい。熱放射は電磁波によって熱エネルギーが空間を伝わる伝熱形態であり、物質の接触や流体の移動を介さない。"
+      },
+      {
+        "question": "黒体の全放射能は絶対温度の何乗に比例するか。",
+        "answer": "絶対温度の4乗に比例する。",
+        "explanation": "正しい。黒体の全放射能はステファン・ボルツマンの法則により、絶対温度の4乗に比例する。"
+      },
+      {
+        "question": "実在物体の全放射能は同温度の黒体に比べてどうか。",
+        "answer": "黒体より小さくなる。",
+        "explanation": "正しい。同じ温度では黒体が最大の全放射能をもつため、実在物体の全放射能は黒体の場合より小さくなる。"
+      },
+      {
+        "question": "全放射率はどの二つの全放射能の比か。",
+        "answer": "実在物体の全放射能と同温度の黒体の全放射能の比である。",
+        "explanation": "正しい。全放射率は、実在物体の全放射能と同温度の黒体の全放射能との比で表される。"
+      },
+      {
+        "question": "全放射率は物体表面の性状に依存するか。",
+        "answer": "依存する。表面の材質、粗さ、酸化状態などで変わる。",
+        "explanation": "間違い。全放射率は物体表面の材質、粗さ、酸化状態などの表面性状に依存するため、「依存しない」とする記述は誤りである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」の熱放射、黒体、全放射率を問う正誤問題。",
+      "熱放射は電磁波による伝熱であり、黒体は同温度で最大の全放射能をもつ。全放射率は実在物体と黒体の全放射能の比で、表面性状に依存する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は5。全放射率は物体表面の材質、粗さ、酸化状態などに依存するため、表面性状に依存しないとはいえない。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "電磁波を介して熱エネルギーが移動する。"
+      ],
+      [
+        "黒体の全放射能は絶対温度の4乗に比例する。"
+      ],
+      [
+        "実在物体の全放射能は同温度の黒体より小さい。"
+      ],
+      [
+        "全放射率は実在物体と黒体の全放射能の比である。"
+      ],
+      [
+        "全放射率は表面性状に依存するため「依存しない」は誤り。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "answer_result_text": "正解は 5 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2150",
+    "category": "伝熱（乙種）",
+    "questionSetName": "伝熱（乙種）",
+    "categoryName": "伝熱（乙種）",
+    "taskId": "T960",
+    "workerTaskId": "T960",
+    "remainingAfterTask": 74
   },
   {
     "original_question_id": "6269f0295431fb81",
