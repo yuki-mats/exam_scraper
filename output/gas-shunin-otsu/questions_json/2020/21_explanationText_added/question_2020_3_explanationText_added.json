@@ -160,26 +160,88 @@
       "COは、ヘモグロビンに対する結合力が酸素の200～300倍強く、吸入により酸素欠乏症状をひきおこしやすい。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。自然換気で空気の流れを起こす力には、風圧によるものと、室内外の温度差で生じる浮力によるものがある。",
+      "正しい。必要換気量は、室内の酸素濃度を所定の限界以上に保つために必要な最小の換気量である。",
+      "正しい。建築基準法関係法令では、一人の成人男性が安静に座っている状態での必要換気量は20m³/hとされる。",
+      "間違い。一般にターボファンはシロッコファンより効率が高い。シロッコファンの方がターボファンより効率が高いとしている点が誤り。",
+      "正しい。COはヘモグロビンに対する結合力が酸素より非常に強く、酸素の運搬を阻害するため、吸入により酸素欠乏症状を起こしやすい。"
+    ],
+    "suggestedQuestions": [
+      "自然換気の駆動力には風圧と温度差による浮力があるか。",
+      "必要換気量は室内の酸素濃度を限界以上に保つための最小換気量か。",
+      "成人男性1人が安静に座っている状態の必要換気量は20m³/hとされるか。",
+      "シロッコファンはターボファンより効率が高いか。",
+      "COはヘモグロビンに強く結合し酸素欠乏症状を起こしやすいか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "questionText": "自然換気の駆動力には風圧と温度差による浮力があるか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。自然換気で空気の流れを起こす力には、風圧によるものと、室内外の温度差で生じる浮力によるものがある。",
+        "answerText": "はい。風圧と温度差による浮力が自然換気の主な駆動力である。"
+      },
+      {
+        "questionText": "必要換気量は室内の酸素濃度を限界以上に保つための最小換気量か。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。必要換気量は、室内の酸素濃度を所定の限界以上に保つために必要な最小の換気量である。",
+        "answerText": "はい。酸素濃度を所定の限界以上に保つための最小換気量である。"
+      },
+      {
+        "questionText": "成人男性1人が安静に座っている状態の必要換気量は20m³/hとされるか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。建築基準法関係法令では、一人の成人男性が安静に座っている状態での必要換気量は20m³/hとされる。",
+        "answerText": "はい。建築基準法関係法令では20m³/hとされる。"
+      },
+      {
+        "questionText": "シロッコファンはターボファンより効率が高いか。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。一般にターボファンはシロッコファンより効率が高い。シロッコファンの方がターボファンより効率が高いとしている点が誤り。",
+        "answerText": "いいえ。一般にターボファンの方がシロッコファンより効率が高い。"
+      },
+      {
+        "questionText": "COはヘモグロビンに強く結合し酸素欠乏症状を起こしやすいか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。COはヘモグロビンに対する結合力が酸素より非常に強く、酸素の運搬を阻害するため、吸入により酸素欠乏症状を起こしやすい。",
+        "answerText": "はい。COはヘモグロビンに強く結合して酸素運搬を妨げる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "消費機器「換気と一酸化炭素（CO）中毒（乙種）」の自然換気、必要換気量、換気扇ファン、CO中毒が本問の関連論点。",
+      "本問は誤っているものを問う形式で、source順では選択肢4のみが誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢1は自然換気の駆動力、選択肢2は必要換気量、選択肢3は成人男性1人の必要換気量、選択肢5はCO中毒の機序として正しい。選択肢4はシロッコファンがターボファンより効率が高いとしている点が誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "自然換気の駆動力には、風圧と室内外温度差による浮力がある。"
+      ],
+      [
+        "必要換気量は室内の酸素濃度を限界以上に保つための最小換気量である。"
+      ],
+      [
+        "成人男性1人が安静に座っている状態の必要換気量は20m³/hとされる。"
+      ],
+      [
+        "ターボファンはシロッコファンより効率が高く、選択肢4は逆に述べている。"
+      ],
+      [
+        "COはヘモグロビンに強く結合し、酸素の運搬を阻害する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "explanationTextCount": 5,
+    "questionSetId": "chiefgasengineerlicense-B-1920",
+    "questionSetName": "換気と一酸化炭素（CO）中毒（乙種）",
+    "category": "換気と一酸化炭素（CO）中毒（乙種）"
   },
   {
     "original_question_id": "2259492ba8e1ffca",
