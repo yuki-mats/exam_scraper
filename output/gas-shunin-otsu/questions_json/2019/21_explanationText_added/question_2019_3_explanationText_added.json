@@ -200,25 +200,45 @@
       "RF式瞬間湯沸器は給排気を屋外で行うため、\n屋外であれば制約なく設置できる\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。第2種換気は機械給気・自然排気により室内が正圧になりやすく、第3種換気は自然給気・機械排気により室内が負圧になりやすい。",
+      "正しい。レンジフードによる換気は、調理による燃焼排ガスや臭気等の発生源付近を直接換気する局所換気方式の一つである。",
+      "正しい。CF式ふろがまの排気筒を横引きする場合、排気や凝縮水の扱い上、屋外に向かって先下がり勾配としない。",
+      "正しい。FE式瞬間湯沸器は送風機で燃焼排ガスを強制的に屋外へ排出する方式であり、排気筒トップを風圧帯内に設置することができる。",
+      "間違い。RF式瞬間湯沸器は屋外で給排気を行う方式であるが、給排気に支障がない位置などの設置基準があり、屋外であれば制約なく設置できるわけではない。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonPrefix": [
+      "換気及びガス機器の給排気方式に関する各記述の正誤判定。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っているのは選択肢5のみ。RF式瞬間湯沸器は屋外式でも設置基準があり、制約なく設置できるわけではない。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "第2種換気は正圧、第3種換気は負圧になりやすい。"
+      ],
+      [
+        "レンジフードは局所換気方式の一つ。"
+      ],
+      [
+        "CF式ふろがまの排気筒横引きは屋外に向かって先下がり勾配としない。"
+      ],
+      [
+        "FE式瞬間湯沸器の排気筒トップは風圧帯内に設置できる。"
+      ],
+      [
+        "RF式瞬間湯沸器にも給排気の確保等の設置基準がある。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
