@@ -866,18 +866,71 @@
       "4.4"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。混合ガスの燃焼下限界はル・シャトリエの式 1/L=Σ(y_i/L_i) で求める。1/L=0.79/5.0+0.21/2.1=0.258 より L≈3.88vol%となり、2.1vol%ではない。",
+      "不正解。計算値は約3.88vol%であり、2.9vol%より3.9vol%に近い。",
+      "不正解。3.5vol%は計算値約3.88vol%より小さい。ル・シャトリエの式で求めると最も近い値は3.9vol%である。",
+      "正解。1/L=0.79/5.0+0.21/2.1=0.258 なので、L=1/0.258≈3.88vol%となり、最も近い値は3.9vol%である。",
+      "不正解。4.4vol%は計算値約3.88vol%より大きい。混合比と各単体ガスの燃焼下限界から求めると3.9vol%が最も近い。"
+    ],
+    "suggestedQuestions": [
+      "混合ガスの燃焼下限界はどの式で求めるか。",
+      "メタン79vol%の項はいくらか。",
+      "プロパン21vol%の項はいくらか。",
+      "本問の混合ガスの燃焼下限界は何vol%か。",
+      "最も近い選択肢はどれか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "混合ガスの燃焼下限界はどの式で求めるか。",
+        "answer": "ル・シャトリエの式 1/L=Σ(y_i/L_i) で求める。",
+        "explanation": "各可燃性ガスの体積分率 y_i と単体の燃焼下限界 L_i を用いる。"
+      },
+      {
+        "question": "メタン79vol%の項はいくらか。",
+        "answer": "0.79/5.0=0.158。",
+        "explanation": "メタンの体積分率0.79を燃焼下限界5.0vol%で割る。"
+      },
+      {
+        "question": "プロパン21vol%の項はいくらか。",
+        "answer": "0.21/2.1=0.100。",
+        "explanation": "プロパンの体積分率0.21を燃焼下限界2.1vol%で割る。"
+      },
+      {
+        "question": "本問の混合ガスの燃焼下限界は何vol%か。",
+        "answer": "約3.88vol%。",
+        "explanation": "1/L=0.158+0.100=0.258 より L≈3.88vol%。"
+      },
+      {
+        "question": "最も近い選択肢はどれか。",
+        "answer": "3.9vol%。",
+        "explanation": "計算値約3.88vol%に最も近い選択肢は3.9vol%。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「燃焼・燃料（乙種）」の混合ガスの燃焼下限界が本問の関連論点。",
+      "2種類以上の可燃性ガスの混合ガスの燃焼下限界は、各成分の体積分率と単体ガスの燃焼下限界からル・シャトリエの式で概算できる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "1/L=0.79/5.0+0.21/2.1=0.258 より、混合ガスの燃焼下限界は L≈3.88vol%であり、最も近い値は3.9vol%。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値は約3.88vol%なので2.1vol%ではない。"
+      ],
+      [
+        "計算値は約3.88vol%なので2.9vol%ではない。"
+      ],
+      [
+        "3.5vol%は計算値約3.88vol%より小さい。"
+      ],
+      [
+        "L=1/(0.79/5.0+0.21/2.1)≈3.88vol%。"
+      ],
+      [
+        "4.4vol%は計算値約3.88vol%より大きい。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -885,7 +938,10 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2130",
+    "questionSetName": "燃焼・燃料（乙種）",
+    "category": "基礎理論"
   },
   {
     "original_question_id": "b330662f871ad96a",
