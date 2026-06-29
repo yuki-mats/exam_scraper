@@ -718,18 +718,71 @@
       "6.0"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。容積一定で加えた熱は温度上昇に用いられるので、Q=mCvΔT を用いる。ΔT=330-300=30K、m=10.5/(0.7×30)=0.5kgである。",
+      "不正解。2.0kgであれば必要熱量は2.0×0.7×30=42kJとなり、問題の10.5kJと一致しない。",
+      "不正解。2.5kgであれば必要熱量は2.5×0.7×30=52.5kJとなり、10.5kJより大きい。",
+      "不正解。4.5kgであれば必要熱量は4.5×0.7×30=94.5kJとなり、10.5kJと一致しない。",
+      "不正解。6.0kgであれば必要熱量は6.0×0.7×30=126kJとなる。したがって求める質量は6.0kgではなく0.5kgである。"
+    ],
+    "suggestedQuestions": [
+      "この問題で用いる定積加熱の熱量式は何か。",
+      "温度上昇ΔTはいくらか。",
+      "分母 CvΔT はいくらか。",
+      "空気の質量mはいくらか。",
+      "最も近い選択肢はどれか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "この問題で用いる定積加熱の熱量式は何か。",
+        "answer": "Q=mCvΔT。",
+        "explanation": "容積一定で定積比熱容量が与えられているため、定積加熱の式を使う。"
+      },
+      {
+        "question": "温度上昇ΔTはいくらか。",
+        "answer": "30K。",
+        "explanation": "330K-300K=30Kである。"
+      },
+      {
+        "question": "分母 CvΔT はいくらか。",
+        "answer": "21kJ/kg。",
+        "explanation": "0.7kJ/(kg·K)×30K=21kJ/kg。"
+      },
+      {
+        "question": "空気の質量mはいくらか。",
+        "answer": "0.5kg。",
+        "explanation": "m=10.5kJ/21kJ/kg=0.5kg。"
+      },
+      {
+        "question": "最も近い選択肢はどれか。",
+        "answer": "0.5。",
+        "explanation": "計算値0.5kgに一致する選択肢1が最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の定積加熱と定積比熱容量が本問の関連論点。",
+      "容積一定で気体の温度を上げる場合、加えた熱量は Q=mCvΔT で表される。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "ΔT=330-300=30K、CvΔT=0.7×30=21kJ/kg。Q=10.5kJなので、m=10.5/21=0.5kgとなる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "Q=mCvΔTより m=10.5/(0.7×30)=0.5kg。"
+      ],
+      [
+        "2.0kgでは必要熱量が42kJとなり大きすぎる。"
+      ],
+      [
+        "2.5kgでは必要熱量が52.5kJとなり大きすぎる。"
+      ],
+      [
+        "4.5kgでは必要熱量が94.5kJとなり大きすぎる。"
+      ],
+      [
+        "6.0kgでは必要熱量が126kJとなり大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -737,7 +790,10 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）",
+    "category": "基礎理論"
   },
   {
     "original_question_id": "da18acfb40810c8f",
