@@ -89,18 +89,71 @@
       "600"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。平板の定常熱伝導では熱流束 q=λΔT/L で求める。λ=0.2W/(m·K)、ΔT=300−50=250K、L=0.1mより q=0.2×250/0.1=500W/m² であり、125W/m²ではない。",
+      "不正解。平板壁を通過する熱流束は q=λΔT/L=0.2×250/0.1=500W/m² であり、150W/m²ではない。",
+      "不正解。熱流束は温度差に比例し厚さに反比例するため、0.2×250/0.1=500W/m²となる。250W/m²ではない。",
+      "正解。平板壁を通過する熱流束は q=λΔT/L=0.2×(300−50)/0.1=500W/m² となる。",
+      "不正解。600W/m²は計算値500W/m²より大きい。与えられた熱伝導率、温度差、厚さから求める熱流束は500W/m²である。"
+    ],
+    "suggestedQuestions": [
+      "平板壁を通過する熱流束は125W/m²か。",
+      "平板壁を通過する熱流束は150W/m²か。",
+      "平板壁を通過する熱流束は250W/m²か。",
+      "平板壁を通過する熱流束は500W/m²か。",
+      "平板壁を通過する熱流束は600W/m²か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "平板壁を通過する熱流束は125W/m²か。",
+        "answer": "125W/m²ではない。",
+        "explanation": "平板の定常熱伝導式 q=λΔT/L に代入すると500W/m²となる。"
+      },
+      {
+        "question": "平板壁を通過する熱流束は150W/m²か。",
+        "answer": "150W/m²ではない。",
+        "explanation": "温度差250K、熱伝導率0.2W/(m·K)、厚さ0.1mより500W/m²となる。"
+      },
+      {
+        "question": "平板壁を通過する熱流束は250W/m²か。",
+        "answer": "250W/m²ではない。",
+        "explanation": "熱流束は厚さ0.1mで割るため、0.2×250/0.1=500W/m²となる。"
+      },
+      {
+        "question": "平板壁を通過する熱流束は500W/m²か。",
+        "answer": "500W/m²である。",
+        "explanation": "q=0.2×(300−50)/0.1=500W/m²で、選択肢4が正解。"
+      },
+      {
+        "question": "平板壁を通過する熱流束は600W/m²か。",
+        "answer": "600W/m²ではない。",
+        "explanation": "計算値は500W/m²であり、600W/m²より小さい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」の平板の定常熱伝導が本問の関連論点。",
+      "平板壁を通過する熱流束は q=λΔT/L で求め、熱伝導率と温度差に比例し、厚さに反比例する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "平均熱伝導率0.2W/(m·K)、温度差250K、厚さ0.1mより、熱流束は0.2×250/0.1=500W/m²であり、選択肢4が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値は500W/m²なので125W/m²ではない。"
+      ],
+      [
+        "計算値は500W/m²なので150W/m²ではない。"
+      ],
+      [
+        "計算値は500W/m²なので250W/m²ではない。"
+      ],
+      [
+        "q=0.2×(300−50)/0.1=500W/m²。"
+      ],
+      [
+        "計算値は500W/m²なので600W/m²ではない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -108,7 +161,10 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2150",
+    "questionSetName": "伝熱（乙種）",
+    "category": "伝熱（乙種）"
   },
   {
     "original_question_id": "fec78e35bfd7d87c",
