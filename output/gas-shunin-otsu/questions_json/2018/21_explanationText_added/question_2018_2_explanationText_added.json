@@ -237,26 +237,87 @@
       "LNG配管においてボーイングが起こると、\n外部からの入熱による温度の上昇により内部の圧力が上昇し、フランジ等の弱い部分が破壊されるおそれがある\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。LNGは貯蔵中の入熱により、沸点の低いメタンを主成分とするBOGが先に発生するため、液中ではメタン以外の成分の濃度が高まる。",
+      "正しい。LPGの気化ガスは空気より重く、漏えいすると低所や地表面に滞留しやすいため、着火源への接触に十分注意する必要がある。",
+      "間違い。LNG貯槽で層状化が発生した場合は、ロールオーバー防止のために他貯槽への移送、貯槽内循環、撹拌などを行うことがある。これらを行ってはならないとする記述が誤りである。",
+      "正しい。バイオマスは生物が光合成により大気中の二酸化炭素を取り込んで生成した有機物であり、燃焼時の二酸化炭素はライフサイクル上では大気中の二酸化炭素を増加させないものとして扱われる。",
+      "間違い。LNG配管のボーイングは、配管の冷却時などに温度差や熱収縮差で配管が曲がる現象を指す。外部入熱で閉じ込められたLNGが膨張して圧力上昇し弱部を破壊する説明は液封に関するものであり、ボーイングの説明としては誤りである。"
+    ],
+    "suggestedQuestions": [
+      "LNG貯蔵中にBOGが発生すると液中成分濃度はどう変化するか。",
+      "LPG漏えい時に気化ガスが危険になりやすい理由は何か。",
+      "LNG貯槽で層状化が発生した場合に行うことがある対策は何か。",
+      "バイオマス燃焼による二酸化炭素はライフサイクル上どう扱われるか。",
+      "LNG配管のボーイングと液封による圧力上昇はどう違うか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "LNG貯蔵中にBOGが発生すると液中成分濃度はどう変化するか。",
+        "answer": "メタンを主とするBOGが発生し、液中ではメタン以外の成分濃度が高まる。",
+        "explanation": "メタンは沸点が低く先に気化しやすいため、残液側では重質成分が相対的に濃縮される。"
+      },
+      {
+        "question": "LPG漏えい時に気化ガスが危険になりやすい理由は何か。",
+        "answer": "空気より重く、低所や地表面に滞留しやすいから。",
+        "explanation": "LPG気化ガスは空気の約1.5〜2倍の重さがあり、着火源のある場所に滞留すると危険である。"
+      },
+      {
+        "question": "LNG貯槽で層状化が発生した場合に行うことがある対策は何か。",
+        "answer": "他貯槽への移送、貯槽内循環、撹拌など。",
+        "explanation": "層状化を解消し、ロールオーバーを防止するために液の移送・循環・撹拌を行うことがある。"
+      },
+      {
+        "question": "バイオマス燃焼による二酸化炭素はライフサイクル上どう扱われるか。",
+        "answer": "大気中の二酸化炭素を増加させないものとして扱われる。",
+        "explanation": "成長過程で吸収した二酸化炭素を燃焼時に放出するため、カーボンニュートラルの考え方で扱われる。"
+      },
+      {
+        "question": "LNG配管のボーイングと液封による圧力上昇はどう違うか。",
+        "answer": "ボーイングは配管の曲がり、液封は閉じ込め液の膨張による圧力上昇。",
+        "explanation": "選択肢5は液封の説明をボーイングとして述べているため誤りである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造「都市ガスの原料（乙種）」のLNG/LPG、BOG、層状化、バイオマス、LNG配管現象に関する組合せ正誤問題。",
+      "answer_result_text=正解は 4 です。は組合せ選択肢番号であり、statement-levelでは選択肢3と5が誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤りは選択肢3と5。LNG貯槽で層状化が発生した場合は移送・循環・撹拌などを行うことがあり、これらを禁止する記述は誤り。LNG配管のボーイングは温度差や熱収縮差による曲がりであり、外部入熱による閉じ込め液の圧力上昇は液封の説明である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "LNG貯蔵中はBOG発生によりメタン以外の成分が相対的に濃縮される。"
+      ],
+      [
+        "LPG気化ガスは空気より重く地表面に滞留しやすい。"
+      ],
+      [
+        "層状化時にはロールオーバー防止のため移送・循環・撹拌などを行うことがある。"
+      ],
+      [
+        "バイオマスはライフサイクル上、大気中の二酸化炭素を増加させないものとして扱われる。"
+      ],
+      [
+        "ボーイングは配管の曲がりであり、選択肢の圧力上昇・弱部破壊は液封の説明である。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "taskId": "T957",
+    "workerTaskId": "T957",
+    "remainingAfterTask": 77,
+    "questionSetId": "chiefgasengineerlicense-B-1790",
+    "questionSetName": "都市ガスの原料（乙種）",
+    "category": "都市ガスの原料（乙種）",
+    "categoryName": "都市ガスの原料（乙種）",
+    "questionIntent": "select_incorrect"
   },
   {
     "original_question_id": "3230f28efe5bf123",
