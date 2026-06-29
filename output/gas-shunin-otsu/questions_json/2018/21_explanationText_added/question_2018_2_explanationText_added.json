@@ -200,26 +200,86 @@
       "アルミニウム及びアルミニウム合金は、低温用材料として使用できる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。炭素鋼は一般に炭素量が増加するにつれて硬さや引張強さが増す。ただし、伸びやじん性は低下しやすい。",
+      "正しい。炭素鋼にNi、Cr、Mn、Moなどの合金元素を添加し、強さ、伸び、耐食性、耐熱性などの性質を改善した鋼を特殊鋼という。",
+      "正しい。オーステナイト系ステンレス鋼は面心立方格子を基本とするため、一般にフェライト鋼のような低温ぜい化は認められにくい。",
+      "間違い。オーステナイト系ステンレス鋼は耐食性に優れるが、引張応力と塩化物などの腐食環境が重なると応力腐食割れを起こすことがある。応力腐食割れは認められないとしている点が誤り。",
+      "正しい。アルミニウム及びアルミニウム合金は低温でぜい化しにくく、低温用材料として使用できる。"
+    ],
+    "suggestedQuestions": [
+      "炭素鋼は炭素量が増えると引張強さはどうなるか。",
+      "特殊鋼とはどのような鋼か。",
+      "オーステナイト系ステンレス鋼では低温ぜい化が問題になりやすいか。",
+      "オーステナイト系ステンレス鋼では応力腐食割れが起こり得るか。",
+      "アルミニウム及びアルミニウム合金は低温用材料として使えるか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "炭素鋼は炭素量が増えると引張強さはどうなるか。",
+        "answer": "一般に増す。",
+        "explanation": "炭素量が増えると炭素鋼の硬さや引張強さは増すが、伸びやじん性は低下しやすい。"
+      },
+      {
+        "question": "特殊鋼とはどのような鋼か。",
+        "answer": "合金元素を添加して性質を改善した鋼。",
+        "explanation": "Ni、Cr、Mn、Moなどを添加し、強さ、伸び、耐食性、耐熱性などを改善する。"
+      },
+      {
+        "question": "オーステナイト系ステンレス鋼では低温ぜい化が問題になりやすいか。",
+        "answer": "問題になりにくい。",
+        "explanation": "オーステナイト系ステンレス鋼は面心立方格子を基本とし、一般に低温ぜい化は認められにくい。"
+      },
+      {
+        "question": "オーステナイト系ステンレス鋼では応力腐食割れが起こり得るか。",
+        "answer": "起こり得る。",
+        "explanation": "引張応力と腐食環境が重なると、オーステナイト系ステンレス鋼でも応力腐食割れを起こすことがある。"
+      },
+      {
+        "question": "アルミニウム及びアルミニウム合金は低温用材料として使えるか。",
+        "answer": "使える。",
+        "explanation": "アルミニウム及びアルミニウム合金は低温でぜい化しにくいため、低温用材料として使用できる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学・材料（乙種）」の炭素鋼、特殊鋼、オーステナイト系ステンレス鋼、応力腐食割れ、低温用材料に関する正誤問題。",
+      "設問は誤っているものを選ぶ形式で、answer_result_text=正解は 4 です。は選択肢4のみが誤りであることに対応する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "オーステナイト系ステンレス鋼は低温ぜい化しにくい一方、引張応力と腐食環境が重なると応力腐食割れを起こすことがある。したがって選択肢4が誤りで、炭素鋼の炭素量と引張強さ、特殊鋼、低温用アルミニウム材料の説明は妥当である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "炭素鋼は一般に炭素量が増えると引張強さが増す。"
+      ],
+      [
+        "Ni、Cr、Mn、Moなどを添加して性質を改善した鋼を特殊鋼という。"
+      ],
+      [
+        "オーステナイト系ステンレス鋼は一般に低温ぜい化しにくい。"
+      ],
+      [
+        "オーステナイト系ステンレス鋼でも応力腐食割れは起こり得る。"
+      ],
+      [
+        "アルミニウム及びアルミニウム合金は低温用材料として使用できる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "taskId": "T958",
+    "workerTaskId": "T958",
+    "remainingAfterTask": 76,
+    "questionSetId": "chiefgasengineerlicense-B-2160",
+    "questionSetName": "材料力学・材料（乙種）",
+    "category": "材料力学・材料（乙種）",
+    "categoryName": "材料力学・材料（乙種）"
   },
   {
     "original_question_id": "33397c2e759d9a01",
