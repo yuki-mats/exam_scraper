@@ -792,26 +792,86 @@
       "触媒は、反応速度を変えることができるが、平衡状態を変えることはない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。化学平衡は、可逆反応で順方向の反応速度と逆方向の反応速度が等しくなり、見かけ上は組成が変化しなくなった状態である。",
+      "間違い。等温定圧下の化学反応は、ギブズ自由エネルギーが極小となる点で平衡状態になる。自由エネルギーが極大となる点としているため誤りである。",
+      "正しい。標準自由エネルギー変化は平衡定数と関係しており、反応条件と合わせれば平衡組成の計算に用いることができる。",
+      "正しい。発熱反応では温度を下げると、熱を発生する方向が有利になり、反応がさらに進行して新たな平衡状態に達する。",
+      "正しい。触媒は正反応と逆反応の速度をともに変化させ、平衡に達するまでの速さを変えるが、平衡定数や平衡組成そのものは変えない。"
+    ],
+    "suggestedQuestions": [
+      "化学平衡とはどのような状態か？",
+      "等温定圧下の平衡は自由エネルギーが極大の点か？",
+      "標準自由エネルギー変化から平衡組成を求められるか？",
+      "発熱反応では温度を下げると平衡はどちらへ移動するか？",
+      "触媒は平衡状態を変えるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "化学平衡とはどのような状態か？",
+        "answer": "順方向と逆方向の反応速度が等しい状態。",
+        "explanation": "可逆反応では、両方向の反応が同じ速さになると各成分の濃度が一定に見える動的平衡になる。"
+      },
+      {
+        "question": "等温定圧下の平衡は自由エネルギーが極大の点か？",
+        "answer": "極大ではなく極小の点である。",
+        "explanation": "等温定圧下ではギブズ自由エネルギーが減少する方向に反応が進み、極小で平衡に達する。"
+      },
+      {
+        "question": "標準自由エネルギー変化から平衡組成を求められるか？",
+        "answer": "求めることができる。",
+        "explanation": "標準自由エネルギー変化は平衡定数と結び付くため、条件を与えれば平衡組成計算に利用できる。"
+      },
+      {
+        "question": "発熱反応では温度を下げると平衡はどちらへ移動するか？",
+        "answer": "発熱方向へ移動する。",
+        "explanation": "ル・シャトリエの原理により、温度低下を打ち消す方向、つまり熱を発生する方向が有利になる。"
+      },
+      {
+        "question": "触媒は平衡状態を変えるか？",
+        "answer": "変えない。",
+        "explanation": "触媒は平衡到達を速めるが、正逆両方向に作用するため平衡定数や平衡組成は変化させない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の化学平衡、ギブズ自由エネルギー、ル・シャトリエの原理、触媒に関する正誤問題。",
+      "等温定圧下ではギブズ自由エネルギーが極小となる点で平衡になる。発熱反応では温度を下げると発熱方向が有利になり、触媒は平衡の位置を変えない。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は選択肢2。等温定圧下の平衡は自由エネルギーが極小となる点であり、極大ではない。選択肢1、3、4、5は化学平衡と反応速度の基本事項として正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "化学平衡では順方向と逆方向の反応速度が等しい。"
+      ],
+      [
+        "等温定圧下の平衡は自由エネルギー極小の点である。"
+      ],
+      [
+        "標準自由エネルギー変化は平衡定数や平衡組成計算に関係する。"
+      ],
+      [
+        "発熱反応は温度低下で発熱方向へ進みやすい。"
+      ],
+      [
+        "触媒は反応速度を変えるが平衡状態は変えない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
+    "category": "化学反応・平衡・反応熱・速度論（乙種）",
+    "taskId": "T909",
+    "workerTaskId": "T909",
+    "remainingAfterTask": 125
   },
   {
     "original_question_id": "2978f232147672d7",
