@@ -533,10 +533,28 @@
       "電気エネルギーの管理では、\n力率を0に近づけると\n省エネルギー効果を上げることができる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。都市ガスは一般に液体・固体燃料に比べてばいじんを生じにくく、空気比や燃焼状態を適切に管理することで不完全燃焼を抑え、ばいじんの発生を大きく抑制できる。",
+      "間違い。アンモニアや尿素は脱硝で用いられる還元剤であり、NOxを選択的に還元して窒素にする。酸化剤として用い、NOxを窒素に酸化するという説明は不適切である。",
+      "正しい。水域の環境管理では水素イオン濃度指数（pH）が重要な項目であり、多くの水中生物や農作物にとって望ましい水のpH範囲として5.8〜8.6程度が用いられる。",
+      "正しい。BODが高い排水は生物分解されやすい有機物を多く含むため、バクテリアなどの微生物の働きを利用する活性汚泥法などの生物処理が適用される。",
+      "間違い。電気エネルギーの管理では、力率を0に近づけるのではなく1に近づけることで無効電力や電流を抑え、配電損失の低減などの省エネルギー効果を高める。"
+    ],
+    "suggestedQuestions": [
+      "都市ガス燃焼でばいじん発生を抑える要点は何か。",
+      "アンモニアや尿素を用いる脱硝法ではNOxをどのように処理するか。",
+      "水域管理でpHが重要とされる理由は何か。",
+      "BODの高い排水に生物処理が使われる理由は何か。",
+      "省エネルギーのための力率改善では力率をどちらへ近づけるか。"
+    ],
+    "suggestedQuestionDetails": [
+      "都市ガスはばいじんを生じにくい燃料であり、燃焼管理によって不完全燃焼を避けることが重要である。",
+      "アンモニアや尿素は還元剤として働き、NOxを窒素へ還元する。酸化剤として窒素に酸化するわけではない。",
+      "pHは水中生物や農作物への影響が大きく、適切な範囲を保つことが水質管理上重要である。",
+      "BODは微生物が分解する有機物による酸素要求量を示すため、微生物を利用する生物処理と関係が深い。",
+      "力率は1に近いほど無効電力が小さく、電流や損失の低減につながる。0に近づけるのは逆効果である。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -547,11 +565,11 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
     ]
   },
   {
