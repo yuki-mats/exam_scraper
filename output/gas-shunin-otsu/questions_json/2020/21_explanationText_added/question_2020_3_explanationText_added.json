@@ -197,26 +197,88 @@
       "FE式温水器では、排気筒の横引き長さと高さとの関係には特に規定がない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。CF式ふろがまの排気筒トップには、不燃性、耐熱性及び耐食性を備えた材料を用いる必要がある。",
+      "正しい。BF式ふろがまは燃焼用空気を屋外から取り入れ燃焼排ガスも屋外へ排出する自然給排気式であり、設置室に専用の給気口や換気口を設ける必要はない。",
+      "間違い。BF式ふろがまには、既存の排気筒貫通部を利用するBF-DP式など、浴室内の壁貫通部に設置できる方式がある。新規に浴室内に設置できないとしている点が誤り。",
+      "正しい。CF式ふろがまの逆風止めは、屋外からの風が排気筒へ逆流したときに炎が吹き消されることなどを防ぐため、機器と同一室内に設置する。",
+      "正しい。FE式温水器は送風機で燃焼排ガスを強制的に屋外へ排出する方式であり、自然通気力に依存する排気筒の横引き長さと高さの関係については特に規定がない。"
+    ],
+    "suggestedQuestions": [
+      "CF式ふろがまの排気筒トップには不燃性・耐熱性・耐食性の材料が必要か。",
+      "BF式ふろがまを屋内に設置する場合、設置室に専用の給気口や換気口は不要か。",
+      "BF式ふろがまは新規に浴室内へ設置できないか。",
+      "CF式ふろがまの逆風止めは機器と同一室内に設置する必要があるか。",
+      "FE式温水器では排気筒の横引き長さと高さとの関係に特に規定がないか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "questionText": "CF式ふろがまの排気筒トップには不燃性・耐熱性・耐食性の材料が必要か。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。CF式ふろがまの排気筒トップには、不燃性、耐熱性及び耐食性を備えた材料を用いる必要がある。",
+        "answerText": "はい。不燃性、耐熱性及び耐食性のある材料を用いる。"
+      },
+      {
+        "questionText": "BF式ふろがまを屋内に設置する場合、設置室に専用の給気口や換気口は不要か。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。BF式ふろがまは燃焼用空気を屋外から取り入れ燃焼排ガスも屋外へ排出する自然給排気式であり、設置室に専用の給気口や換気口を設ける必要はない。",
+        "answerText": "はい。BF式は屋外と給排気する密閉式なので、設置室専用の給気口・換気口は不要である。"
+      },
+      {
+        "questionText": "BF式ふろがまは新規に浴室内へ設置できないか。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。BF式ふろがまには、既存の排気筒貫通部を利用するBF-DP式など、浴室内の壁貫通部に設置できる方式がある。新規に浴室内に設置できないとしている点が誤り。",
+        "answerText": "いいえ。BF-DP式など浴室内の壁貫通部に設置できる方式がある。"
+      },
+      {
+        "questionText": "CF式ふろがまの逆風止めは機器と同一室内に設置する必要があるか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。CF式ふろがまの逆風止めは、屋外からの風が排気筒へ逆流したときに炎が吹き消されることなどを防ぐため、機器と同一室内に設置する。",
+        "answerText": "はい。逆風止めは機器と同一室内に設置する。"
+      },
+      {
+        "questionText": "FE式温水器では排気筒の横引き長さと高さとの関係に特に規定がないか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。FE式温水器は送風機で燃焼排ガスを強制的に屋外へ排出する方式であり、自然通気力に依存する排気筒の横引き長さと高さの関係については特に規定がない。",
+        "answerText": "はい。FE式は強制排気のため、自然排気のような横引き長さと高さの関係の規定は特にない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "消費機器「ガス機器の給排気（乙種）」のCF式ふろがま、BF式ふろがま、逆風止め、FE式温水器が本問の関連論点。",
+      "本問は誤っているものを問う形式で、source順では選択肢3のみが誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢1はCF式ふろがま排気筒トップの材料、選択肢2はBF式ふろがまの設置室の給気口・換気口、選択肢4はCF式ふろがまの逆風止め、選択肢5はFE式温水器の排気筒条件として正しい。選択肢3はBF式ふろがまを浴室内に新規設置できないとしているが、浴室内の壁貫通部に設置できるBF-DP式等があるため誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "CF式ふろがまの排気筒トップ及び排気筒材料は不燃性、耐熱性、耐食性を備える。"
+      ],
+      [
+        "BF式ふろがまは屋外から給気し屋外へ排気するため、設置室専用の給気口・換気口を要しない。"
+      ],
+      [
+        "BF-DP式ふろがまなど、浴室内の壁貫通部に設置できるBF式の方式がある。"
+      ],
+      [
+        "CF式機器の逆風止めは排気筒への逆風時に炎が吹き消されることを防ぐ。"
+      ],
+      [
+        "FE式温水器は送風機で強制排気する方式で、自然排気式のような横引き長さと高さの関係規定に依存しない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanationTextCount": 5,
+    "questionSetId": "chiefgasengineerlicense-B-1900",
+    "questionSetName": "ガス機器の給排気（乙種）",
+    "category": "ガス機器の給排気（乙種）"
   },
   {
     "original_question_id": "3dc78c871bcc2abf",
