@@ -718,18 +718,72 @@
       "50"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。一定容積で加熱される空気の温度上昇は Q=mCvΔT で求める。21=3×0.7×ΔT より ΔT=10K なので、加熱後温度は25+10=35℃であり、30℃ではない。",
+      "正解。Q=mCvΔT に Q=21kJ、m=3kg、Cv=0.7kJ/(kg·K) を代入すると ΔT=21/(3×0.7)=10K。初期温度25℃に10Kを加えて35℃となる。",
+      "不正解。40℃は温度上昇15Kに相当し、必要熱量は3×0.7×15=31.5kJとなるため、与えられた21kJとは合わない。",
+      "不正解。45℃は温度上昇20Kに相当し、必要熱量は3×0.7×20=42kJとなるため、過大である。",
+      "不正解。50℃は温度上昇25Kに相当し、必要熱量は3×0.7×25=52.5kJとなるため、与えられた熱量では到達しない。"
+    ],
+    "suggestedQuestions": [
+      "一定容積で加えた熱と温度上昇の関係式は何か。",
+      "本問の温度上昇ΔTはいくらか。",
+      "加熱後の空気温度は何℃か。",
+      "40℃になるには何kJの熱が必要か。",
+      "選択肢2が正解となる理由は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "一定容積で加えた熱と温度上昇の関係式は何か。",
+        "answer": "Q=mCvΔT。",
+        "explanation": "一定容積では定積比熱Cvを用いて、質量、比熱、温度上昇の積で熱量を表す。"
+      },
+      {
+        "question": "本問の温度上昇ΔTはいくらか。",
+        "answer": "10K。",
+        "explanation": "ΔT=21/(3×0.7)=10K と計算できる。"
+      },
+      {
+        "question": "加熱後の空気温度は何℃か。",
+        "answer": "35℃。",
+        "explanation": "初期温度25℃に温度上昇10Kを加えるため35℃となる。"
+      },
+      {
+        "question": "40℃になるには何kJの熱が必要か。",
+        "answer": "31.5kJ。",
+        "explanation": "40℃は25℃から15K上昇なので、Q=3×0.7×15=31.5kJである。"
+      },
+      {
+        "question": "選択肢2が正解となる理由は何か。",
+        "answer": "21kJで10K上昇し、25℃から35℃になるため。",
+        "explanation": "他の選択肢は必要熱量が21kJと一致しない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の一定容積における定積比熱と温度上昇を問う計算問題。",
+      "一定容積で加えた熱がすべて温度上昇に用いられる場合、Q=mCvΔT を用いる。",
+      "温度差はKと℃で同じ大きさとして扱える。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "Q=21kJ、m=3kg、Cv=0.7kJ/(kg·K) なので、ΔT=21/(3×0.7)=10K。初期温度25℃から35℃となるため、選択肢2が正解である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "30℃は温度上昇5Kで、必要熱量10.5kJに相当する。"
+      ],
+      [
+        "21=3×0.7×ΔT より ΔT=10K、25+10=35℃。"
+      ],
+      [
+        "40℃は温度上昇15Kで、必要熱量31.5kJに相当する。"
+      ],
+      [
+        "45℃は温度上昇20Kで、必要熱量42kJに相当する。"
+      ],
+      [
+        "50℃は温度上昇25Kで、必要熱量52.5kJに相当する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -737,7 +791,19 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "taskId": "T969",
+    "workerTaskId": "T969",
+    "remainingAfterTask": 65
   },
   {
     "original_question_id": "196c286b166e5462",
