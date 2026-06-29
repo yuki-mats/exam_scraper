@@ -237,25 +237,78 @@
       "昇圧供給装置"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "正しい。液化ガス用ポンプは、耐圧試験を行ったときにこれに耐えるものでなければならないガス工作物の対象から除かれるため、耐圧試験が不要である。",
+      "間違い。溶接により接合された海底に設置される導管について、非破壊試験に合格したことを理由に耐圧試験を不要とする規定はない。",
+      "正しい。整圧器は、耐圧試験を行ったときにこれに耐えるものでなければならないガス工作物の対象から除かれるため、耐圧試験が不要である。",
+      "間違い。最高使用圧力が中圧の導管の継手部については、同一材料等の試験管による機械試験ではなく、最高使用圧力の1.5倍以上の圧力で試験を行ったときにこれに耐えることが必要である。",
+      "正しい。昇圧供給装置は、耐圧試験を行ったときにこれに耐えるものでなければならないガス工作物の対象から除かれるため、耐圧試験が不要である。"
+    ],
+    "suggestedQuestions": [
+      "液化ガス用ポンプは耐圧試験が不要か。",
+      "非破壊試験に合格した海底導管は耐圧試験が不要か。",
+      "整圧器は耐圧試験が不要か。",
+      "中圧導管の継手部は機械試験だけで耐圧試験が不要になるか。",
+      "昇圧供給装置は耐圧試験が不要か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "液化ガス用ポンプは耐圧試験が不要か。",
+        "answer": "不要である。",
+        "explanation": "液化ガス用ポンプは耐圧試験規定の適用除外に含まれる。"
+      },
+      {
+        "question": "非破壊試験に合格した海底導管は耐圧試験が不要か。",
+        "answer": "不要ではない。",
+        "explanation": "海底導管について非破壊試験合格を理由に耐圧試験を不要とする規定はない。"
+      },
+      {
+        "question": "整圧器は耐圧試験が不要か。",
+        "answer": "不要である。",
+        "explanation": "整圧器は耐圧試験規定の適用除外に含まれる。"
+      },
+      {
+        "question": "中圧導管の継手部は機械試験だけで耐圧試験が不要になるか。",
+        "answer": "ならない。",
+        "explanation": "中圧導管継手部は、最高使用圧力の1.5倍以上の圧力試験に耐えることが必要である。"
+      },
+      {
+        "question": "昇圧供給装置は耐圧試験が不要か。",
+        "answer": "不要である。",
+        "explanation": "昇圧供給装置は耐圧試験規定の適用除外に含まれる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceExplanationCommonPrefix": [
+      "技術基準の耐圧試験規定が本問の関連論点。",
+      "設問は耐圧試験が不要なものの個数を問う形式で、answer_result_text=正解は 3 です。は不要なものが3個であることを示す。",
+      "gassyunin現ページではイ・ハ・ロが耐圧試験不要、ニ・ホは不要ではない。ローカルsource順では選択肢1・3・5が正しい。",
+      "04は該当する技省令_耐圧試験（乙種）=chiefgasengineerlicense-B-1580 がcategory.json上で削除済みのため、questionSetIdは空欄のままholdとする。"
+    ],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "液化ガス用ポンプは耐圧試験規定の適用除外に含まれる。"
+      ],
+      [
+        "海底導管の非破壊試験合格による耐圧試験除外規定はない。"
+      ],
+      [
+        "整圧器は耐圧試験規定の適用除外に含まれる。"
+      ],
+      [
+        "中圧導管継手部は、最高使用圧力の1.5倍以上の圧力試験に耐える必要がある。"
+      ],
+      [
+        "昇圧供給装置は耐圧試験規定の適用除外に含まれる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい"
     ]
   },
   {
