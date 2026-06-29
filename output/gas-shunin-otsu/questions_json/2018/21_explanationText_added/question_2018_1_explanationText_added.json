@@ -385,26 +385,100 @@
       "道路に埋設される\n最高使用圧力が3kPaのポリエチレン管の本支管には、掘削等による損傷を防止するための適切な措置を講じなければならない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。告示で定める着脱が容易なガス栓は、内部に過流出安全機構を有する必要がある。ガス出口側の形状が迅速継手であるガス栓はこの趣旨に合う。",
+      "正しい。水のたまるおそれのある導管には、適切な水取り器を設けなければならない。",
+      "正しい。導管には、設置された状況により腐食を生ずるおそれがある場合、腐食を防止するための適切な措置を講じなければならない。",
+      "間違い。道路以外の地盤面下に埋設される本支管で掘削等による損傷防止措置が必要なのは、低圧のもの等を除いた範囲である。低圧でポリエチレン管以外の本支管にも一律に措置が必要としている点が誤り。",
+      "間違い。道路に埋設される本支管のうち、ポリエチレン管に掘削等による損傷防止措置が求められるのは最高使用圧力が5kPa以上の場合である。最高使用圧力3kPaのポリエチレン管としている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "着脱が容易なガス栓にはどのような安全機構が必要か。",
+      "水のたまるおそれのある導管には何を設ける必要があるか。",
+      "腐食のおそれがある導管にはどのような措置が必要か。",
+      "道路以外の地盤面下に埋設される本支管で、掘削等による損傷防止措置の対象外となるものは何か。",
+      "道路に埋設されるポリエチレン管の本支管で、掘削等による損傷防止措置が必要となる圧力条件は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "着脱が容易なガス栓にはどのような安全機構が必要か。",
+        "answer": "内部に過流出安全機構を有すること。",
+        "explanation": "技術基準省令第45条第2号は、告示で定める着脱が容易なガス栓に過流出安全機構を求めている。"
+      },
+      {
+        "question": "水のたまるおそれのある導管には何を設ける必要があるか。",
+        "answer": "適切な水取り器。",
+        "explanation": "技術基準省令第46条は、水のたまるおそれのある導管に適切な水取り器を設けることを定めている。"
+      },
+      {
+        "question": "腐食のおそれがある導管にはどのような措置が必要か。",
+        "answer": "腐食を防止するための適切な措置。",
+        "explanation": "技術基準省令第47条は、設置状況により腐食のおそれがある導管の防食措置を求めている。"
+      },
+      {
+        "question": "道路以外の地盤面下に埋設される本支管で、掘削等による損傷防止措置の対象外となるものは何か。",
+        "answer": "最高使用圧力が低圧の本支管など。",
+        "explanation": "技術基準省令第49条第3項は、道路以外の地盤面下の本支管について、最高使用圧力が低圧のものや他工事による損傷のおそれのないもの等を除いている。"
+      },
+      {
+        "question": "道路に埋設されるポリエチレン管の本支管で、掘削等による損傷防止措置が必要となる圧力条件は何か。",
+        "answer": "最高使用圧力が5kPa以上であること。",
+        "explanation": "技術基準省令第49条第2項は、道路に埋設される本支管のうち、最高使用圧力が5kPa以上のポリエチレン管に損傷防止措置を求めている。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceExplanationCommonPrefix": [
+      "ガス工作物の技術上の基準を定める省令のガス栓、水取り器、導管の防食及び導管の防護措置に関する問題。",
+      "設問は正しいものの数を問う形式で、answer_result_text=正解は 3 です。は選択肢1・2・3が正しいことに対応する。",
+      "同省令第45条第2号、第46条、第47条、第49条第2項及び第3項を根拠に確認した。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正しい記述は1・2・3。選択肢4は道路以外の地盤面下に埋設される本支管の損傷防止措置で低圧本支管等が除外される点を落としている。選択肢5は道路埋設ポリエチレン管の対象が最高使用圧力5kPa以上であり、3kPaではない点が誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "着脱が容易なガス栓は、内部に過流出安全機構を有する。"
+      ],
+      [
+        "水のたまるおそれのある導管には、適切な水取り器を設ける。"
+      ],
+      [
+        "腐食のおそれがある導管には、腐食防止措置を講じる。"
+      ],
+      [
+        "道路以外の地盤面下に埋設される本支管の防護措置では、最高使用圧力が低圧のもの等が除かれる。"
+      ],
+      [
+        "道路に埋設されるポリエチレン管の本支管で防護措置が必要なのは、最高使用圧力5kPa以上に限られる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "questionSetId": "",
+    "questionSetName": "",
+    "category": "法令",
+    "categoryName": "法令",
+    "reviewStatus": "hold",
+    "questionSetHoldReason": "ガス栓の過流出安全機構、技省令_水取り器（chiefgasengineerlicense-B-1540）、技省令_導管（chiefgasengineerlicense-B-1620）、導管防護措置（削除済みカテゴリ chiefgasengineerlicense-B-1690）にまたがるため、単一problem-level questionSetIdを設定せず04をhold。",
+    "questionSetSource": "hold_mixed_problem_level_categories",
+    "taskId": "T978",
+    "workerTaskId": "T978",
+    "remainingAfterTask": 56,
+    "status": "hold"
   },
   {
     "original_question_id": "4c72f6f9fe2e9128",
