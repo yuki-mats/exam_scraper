@@ -15,18 +15,70 @@
       "50000"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。レイノルズ数は Re=vD/ν で求める。平均流速3.4m/s、内径0.25m、動粘度1.7×10⁻⁵m²/sより Re=3.4×0.25/(1.7×10⁻⁵)=50000 となるため、10000では小さい。",
+      "不正解。Re=3.4×0.25/(1.7×10⁻⁵)=50000 であり、20000では計算値より小さい。",
+      "不正解。分子の vD は 3.4×0.25=0.85 で、0.85を1.7×10⁻⁵で割ると50000となる。30000は最も近い値ではない。",
+      "不正解。計算値は50000であり、40000より大きい。与えられた平均流速、内径、動粘度からは40000にはならない。",
+      "正解。レイノルズ数は Re=vD/ν。3.4×0.25=0.85、0.85/(1.7×10⁻⁵)=50000 なので、最も近い値は50000である。"
+    ],
+    "suggestedQuestions": [
+      "レイノルズ数はどの式で求めるか？",
+      "本問の vD はいくらか？",
+      "動粘度1.7×10⁻⁵m²/sで割るとレイノルズ数はいくらか？",
+      "レイノルズ数は無次元数か？",
+      "この問題で50000が正解になる理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "レイノルズ数はどの式で求めるか？",
+        "answer": "Re=vD/ν で求める。",
+        "explanation": "管内流れでは平均流速v、代表長さとして管内径D、動粘度νを用いる。"
+      },
+      {
+        "question": "本問の vD はいくらか？",
+        "answer": "0.85。",
+        "explanation": "平均流速3.4m/sと内径0.25mを掛け、3.4×0.25=0.85となる。"
+      },
+      {
+        "question": "動粘度1.7×10⁻⁵m²/sで割るとレイノルズ数はいくらか？",
+        "answer": "50000。",
+        "explanation": "0.85÷(1.7×10⁻⁵)=50000である。"
+      },
+      {
+        "question": "レイノルズ数は無次元数か？",
+        "answer": "無次元数である。",
+        "explanation": "vDとνはいずれもm²/sの次元を持つため、比を取ると無次元になる。"
+      },
+      {
+        "question": "この問題で50000が正解になる理由は？",
+        "answer": "Re=vD/ν の計算値が50000だから。",
+        "explanation": "与えられた平均流速、内径、動粘度をそのまま代入すると選択肢5の50000に一致する。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の管内流れにおけるレイノルズ数計算に関する選択問題。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正解は選択肢5。レイノルズ数は Re=vD/ν で、平均流速3.4m/s、内径0.25m、動粘度1.7×10⁻⁵m²/sを代入すると Re=3.4×0.25/(1.7×10⁻⁵)=50000 となる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "10000は計算値50000より小さい。"
+      ],
+      [
+        "20000は計算値50000より小さい。"
+      ],
+      [
+        "30000は50000に最も近い値ではない。"
+      ],
+      [
+        "40000は計算値50000より小さい。"
+      ],
+      [
+        "Re=3.4×0.25/(1.7×10⁻⁵)=50000。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -34,7 +86,14 @@
       "不正解",
       "不正解",
       "正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "questionSetId": "chiefgasengineerlicense-B-2140",
+    "questionSetName": "流体力学（乙種）",
+    "category": "流体力学（乙種）",
+    "taskId": "T905",
+    "workerTaskId": "T905",
+    "remainingAfterTask": 129
   },
   {
     "original_question_id": "a92ec9120dd6eddc",
