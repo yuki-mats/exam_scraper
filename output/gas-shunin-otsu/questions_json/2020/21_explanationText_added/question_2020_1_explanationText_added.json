@@ -607,18 +607,71 @@
       "187"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。理想気体の状態方程式 PV=nRT を用いる。27℃=300K、n=100kPa×25m³/(8.3×300)≒1.004kmolで、メタンの質量は約16kgとなるため、1kgでは小さすぎる。",
+      "不正解。計算される物質量は約1.004kmolであり、メタンのモル質量16kg/kmolを掛けると約16kgとなる。11kgでは不足する。",
+      "正解。PV=nRTより n=100×25/(8.3×300)≒1.004kmol。メタンのモル質量は16kg/kmolなので、質量は1.004×16≒16kgとなる。",
+      "不正解。176kgは計算値約16kgより大きすぎる。kPa・m³とJの換算、またはkg/kmolへの換算を誤った値と考えられる。",
+      "不正解。187kgは理想気体の状態方程式から得られる約16kgと大きく異なる。与えられた圧力・体積・温度ではこの質量にはならない。"
+    ],
+    "suggestedQuestions": [
+      "この問題で使う理想気体の状態方程式は何か。",
+      "27℃は絶対温度で何Kか。",
+      "メタンの物質量nはいくらか。",
+      "メタンの質量はいくらか。",
+      "最も近い選択肢はどれか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "この問題で使う理想気体の状態方程式は何か。",
+        "answer": "PV=nRT。",
+        "explanation": "圧力、体積、温度、気体定数が与えられているため、理想気体の状態方程式を用いる。"
+      },
+      {
+        "question": "27℃は絶対温度で何Kか。",
+        "answer": "300K。",
+        "explanation": "絶対温度は摂氏温度に273を加え、27℃は約300Kとして扱う。"
+      },
+      {
+        "question": "メタンの物質量nはいくらか。",
+        "answer": "約1.004kmol。",
+        "explanation": "n=PV/RT=100kPa×25m³/(8.3×300)≒1.004kmolである。"
+      },
+      {
+        "question": "メタンの質量はいくらか。",
+        "answer": "約16kg。",
+        "explanation": "メタンのモル質量16kg/kmolを用い、1.004kmol×16kg/kmol≒16kgとなる。"
+      },
+      {
+        "question": "最も近い選択肢はどれか。",
+        "answer": "16。",
+        "explanation": "計算値約16kgに一致する選択肢3が最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式と気体の質量計算が本問の関連論点。",
+      "理想気体では PV=nRT を用いて物質量を求め、モル質量を掛けて質量へ換算する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "27℃=300K、PV=nRTより n=100×25/(8.3×300)≒1.004kmol。メタンのモル質量16kg/kmolを掛けると、質量は約16kgとなる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "約16kgとなるため、1kgでは小さすぎる。"
+      ],
+      [
+        "11kgは計算値約16kgより小さい。"
+      ],
+      [
+        "n≒1.004kmol、m≒1.004×16=16kgである。"
+      ],
+      [
+        "176kgは計算値より一桁以上大きい。"
+      ],
+      [
+        "187kgはPV=nRTから得られる質量と合わない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -626,7 +679,10 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "category": "基礎理論"
   },
   {
     "original_question_id": "e1a94d1b143f4e7b",
