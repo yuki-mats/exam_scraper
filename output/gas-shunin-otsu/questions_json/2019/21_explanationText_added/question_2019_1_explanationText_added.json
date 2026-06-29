@@ -718,26 +718,87 @@
       "理想気体を定圧条件のもとで温度を上昇させると、\nエントロピーは減少\nする。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。窒素のジュール・トムソン係数は常温常圧付近で正であり、絞り膨張などのジュール・トムソン膨張では温度が低下する。",
+      "正しい。ヒートポンプは外部から仕事を加えることで、自然には移りにくい低温側から高温側への熱移動を行う装置である。",
+      "正しい。エクセルギーは、系が外界と平衡に達するまでに理論上取り出せる有効仕事の最大値を表す。",
+      "正しい。比熱比 Cp/Cv は、単原子気体では約5/3=1.67、窒素や酸素のような二原子気体では常温常圧付近で約1.40である。",
+      "間違い。理想気体を定圧で加熱すると温度と体積が増加し、エントロピーは増加する。エントロピーが減少するとしているため誤りである。"
+    ],
+    "suggestedQuestions": [
+      "窒素のジュール・トムソン係数は常温常圧付近で正か？",
+      "ヒートポンプは熱をどちらからどちらへ移す装置か？",
+      "エクセルギーはどのような仕事を表すか？",
+      "単原子気体と二原子気体の比熱比はおよそいくらか？",
+      "理想気体を定圧で加熱するとエントロピーはどうなるか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "窒素のジュール・トムソン係数は常温常圧付近で正か？",
+        "answer": "正である。",
+        "explanation": "常温常圧付近の窒素はジュール・トムソン膨張により温度が低下する。"
+      },
+      {
+        "question": "ヒートポンプは熱をどちらからどちらへ移す装置か？",
+        "answer": "低温物体から高温物体へ移す。",
+        "explanation": "そのためには外部から仕事を加える必要がある。"
+      },
+      {
+        "question": "エクセルギーはどのような仕事を表すか？",
+        "answer": "取り出すことのできる有効仕事の最大値。",
+        "explanation": "系が外界と平衡に達するまでに得られる最大の仕事を表す。"
+      },
+      {
+        "question": "単原子気体と二原子気体の比熱比はおよそいくらか？",
+        "answer": "単原子気体は約1.67、二原子気体は約1.40。",
+        "explanation": "単原子気体は5/3、二原子気体は常温付近で7/5に近い。"
+      },
+      {
+        "question": "理想気体を定圧で加熱するとエントロピーはどうなるか？",
+        "answer": "増加する。",
+        "explanation": "定圧加熱では温度が上昇し、理想気体のエントロピー変化は正になる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」のジュール・トムソン効果、ヒートポンプ、エクセルギー、比熱比、エントロピーが本問の関連論点。",
+      "ヒートポンプは仕事を用いて低温側から高温側へ熱を移し、エクセルギーは外界との平衡に達するまでに取り出せる有効仕事の最大値をいう。",
+      "理想気体を定圧で加熱するとエントロピーは増加するため、減少するとする記述は誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は選択肢5。理想気体を定圧条件で加熱するとエントロピーは増加し、減少しない。選択肢1〜4はジュール・トムソン効果、ヒートポンプ、エクセルギー、比熱比の説明として正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "窒素は常温常圧付近でジュール・トムソン係数が正で、膨張により冷却される。"
+      ],
+      [
+        "ヒートポンプは仕事を用いて低温側から高温側へ熱を移す。"
+      ],
+      [
+        "エクセルギーは外界と平衡に達するまでに取り出せる有効仕事の最大値。"
+      ],
+      [
+        "Cp/Cv は単原子気体で約1.67、二原子気体で約1.40。"
+      ],
+      [
+        "理想気体の定圧加熱ではエントロピーは増加する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "questionIntent": "select_incorrect",
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "questionSetName": "熱力学（乙種）",
+    "category": "熱力学（乙種）",
+    "taskId": "T911",
+    "workerTaskId": "T911",
+    "remainingAfterTask": 123
   },
   {
     "original_question_id": "6cdbb5aa31b59e03",
