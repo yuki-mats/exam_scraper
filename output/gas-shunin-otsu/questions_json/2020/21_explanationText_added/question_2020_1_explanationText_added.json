@@ -644,18 +644,71 @@
       "250"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。プロパン44gはモル質量44g/molより1mol、窒素28gはモル質量28g/molより1molである。プロパンのモル分率は1/2なので、分圧は300kPa×1/2=150kPaであり、50kPaではない。",
+      "不正解。100kPaはプロパンのモル分率を1/3として扱った場合などの値である。本問ではプロパンと窒素が各1molなので、プロパン分圧は全圧の1/2である。",
+      "正解。理想気体混合物では分圧は全圧にモル分率を掛けて求める。プロパン44g=1mol、窒素28g=1molより、プロパンのモル分率は1/(1+1)=1/2。したがって分圧は300×1/2=150kPaである。",
+      "不正解。200kPaはプロパンのモル分率を2/3として扱う値だが、プロパンと窒素はいずれも1molで、プロパンのモル分率は1/2である。",
+      "不正解。250kPaはプロパンの割合を過大に見積もった値である。プロパンと窒素の物質量は等しいため、プロパン分圧は全圧300kPaの半分、150kPaとなる。"
+    ],
+    "suggestedQuestions": [
+      "プロパン44gは何molか。",
+      "窒素28gは何molか。",
+      "プロパンのモル分率はいくらか。",
+      "プロパンの分圧はいくらか。",
+      "最も近い選択肢はどれか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "プロパン44gは何molか。",
+        "answer": "1mol。",
+        "explanation": "プロパンC3H8のモル質量は44g/molなので、44gは1molである。"
+      },
+      {
+        "question": "窒素28gは何molか。",
+        "answer": "1mol。",
+        "explanation": "窒素N2のモル質量は28g/molなので、28gは1molである。"
+      },
+      {
+        "question": "プロパンのモル分率はいくらか。",
+        "answer": "1/2。",
+        "explanation": "全物質量は1+1=2molで、プロパンは1molである。"
+      },
+      {
+        "question": "プロパンの分圧はいくらか。",
+        "answer": "150kPa。",
+        "explanation": "分圧は全圧300kPaにモル分率1/2を掛けて求める。"
+      },
+      {
+        "question": "最も近い選択肢はどれか。",
+        "answer": "150。",
+        "explanation": "計算値150kPaに一致する選択肢3が最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体混合物と分圧が本問の関連論点。",
+      "理想気体混合物では、各成分の分圧は全圧にその成分のモル分率を掛けて求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "プロパン44gは1mol、窒素28gも1mol。プロパンのモル分率は1/(1+1)=1/2なので、分圧は300kPa×1/2=150kPaとなる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "プロパン分圧は150kPaであり、50kPaでは小さすぎる。"
+      ],
+      [
+        "100kPaはモル分率を1/3とした値で、本問の物質量比と合わない。"
+      ],
+      [
+        "プロパン44g=1mol、窒素28g=1molより、300×1/2=150kPa。"
+      ],
+      [
+        "200kPaはプロパンの割合を2/3と見た値で、物質量比1:1と合わない。"
+      ],
+      [
+        "250kPaはプロパンのモル分率を過大に見積もっている。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -663,7 +716,10 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "category": "基礎理論"
   },
   {
     "original_question_id": "0db5e5d770be25cc",
