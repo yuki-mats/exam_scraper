@@ -607,26 +607,87 @@
       "密閉容器内の液化ガスにおいて、気相と液相が平衡状態で共存するとき、気相の圧力を蒸気圧という。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。ボイル・シャルルの法則では、一定質量の気体の体積は絶対温度に比例し、圧力に反比例する。",
+      "間違い。ドルトンの分圧の法則で各成分の分圧は全圧に各成分のモル分率を掛けた値であり、質量比率を掛けたものではない。",
+      "正しい。ファン・デル・ワールスの式は、分子間引力と気体分子自身の体積を考慮して理想気体の状態方程式を補正する。",
+      "正しい。相変化を伴わず温度変化に対応して出入りする熱は顕熱、相変化に伴って出入りする熱は潜熱である。",
+      "正しい。密閉容器内で液相と気相が平衡にあるとき、気相が示す圧力をその温度での蒸気圧という。"
+    ],
+    "suggestedQuestions": [
+      "ボイル・シャルルの法則で気体の体積は圧力・絶対温度とどう関係する？",
+      "ドルトンの分圧の法則で分圧は質量比率で決まる？",
+      "ファン・デル・ワールスの式は理想気体の状態方程式に何を補正する？",
+      "顕熱と潜熱は何で区別する？",
+      "液相と気相が平衡にある密閉容器内の気相圧力を何という？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ボイル・シャルルの法則で気体の体積は圧力・絶対温度とどう関係する？",
+        "answer": "体積は絶対温度に比例し、圧力に反比例する。",
+        "explanation": "一定質量の気体では PV/T が一定となるため、選択肢1は正しい。"
+      },
+      {
+        "question": "ドルトンの分圧の法則で分圧は質量比率で決まる？",
+        "answer": "質量比率ではなくモル分率で決まる。",
+        "explanation": "分圧は全圧に各成分のモル分率を掛けて求めるため、選択肢2は誤り。"
+      },
+      {
+        "question": "ファン・デル・ワールスの式は理想気体の状態方程式に何を補正する？",
+        "answer": "分子間引力と気体分子自身の体積を補正する。",
+        "explanation": "実在気体を扱うための補正式であり、選択肢3は正しい。"
+      },
+      {
+        "question": "顕熱と潜熱は何で区別する？",
+        "answer": "温度変化に伴う熱が顕熱、相変化に伴う熱が潜熱。",
+        "explanation": "相変化の有無で区別するため、選択肢4は正しい。"
+      },
+      {
+        "question": "液相と気相が平衡にある密閉容器内の気相圧力を何という？",
+        "answer": "蒸気圧。",
+        "explanation": "液相と気相が平衡にあるときの気相圧力を蒸気圧というため、選択肢5は正しい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の気体の状態、分圧、実在気体、熱、蒸気圧に関する基本知識を問う問題。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "ドルトンの分圧の法則では分圧はモル分率で表すため、「質量比率」とする選択肢2が誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "ボイル・シャルルの法則では、一定質量の気体について体積は絶対温度に比例し圧力に反比例する。"
+      ],
+      [
+        "ドルトンの分圧の法則では、各成分の分圧は全圧にモル分率を掛けて求める。質量比率ではない。"
+      ],
+      [
+        "ファン・デル・ワールスの式は、分子間引力と分子体積を考慮して理想気体の式を補正する。"
+      ],
+      [
+        "温度変化に伴う熱が顕熱、相変化に伴う熱が潜熱である。"
+      ],
+      [
+        "液相と気相が平衡にある密閉容器内の気相圧力を蒸気圧という。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "answer_result_text": "正解は 2 です。"
   },
   {
     "original_question_id": "eb3108d57d62efa6",
