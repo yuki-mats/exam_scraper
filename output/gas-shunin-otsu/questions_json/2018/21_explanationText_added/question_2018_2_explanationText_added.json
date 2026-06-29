@@ -15,26 +15,95 @@
       "乱流における管摩擦係数は、\n管壁面の粗さに依存しない\n。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。定常流では連続の式により、断面積が変化しても各断面を単位時間に通過する流体の質量流量は一定である。",
+      "正しい。完全に発達した層流の管内流れでは、ハーゲン・ポアズイユの関係により圧力損失は平均流速に比例する。",
+      "正しい。管内流れでは流速を上げてレイノルズ数が大きくなると、層流から乱流へ遷移する。",
+      "正しい。完全に発達した円管内の層流では速度分布は放物線状となり、管中心で最大速度になる。",
+      "間違い。乱流における管摩擦係数は、レイノルズ数だけでなく管壁面の相対粗さにも影響される。管壁面の粗さに依存しないとしている点が誤りである。"
+    ],
+    "suggestedQuestions": [
+      "断面積が変化する直円管の定常流で質量流量はどうなるか。",
+      "層流における管内圧力損失は平均流速にどう依存するか。",
+      "流速を上げると層流はどのような流れへ遷移するか。",
+      "完全に発達した円管内層流の速度分布はどのような形か。",
+      "乱流の管摩擦係数は管壁面の粗さに依存するか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "断面積が変化する直円管の定常流で質量流量はどうなるか。",
+        "answer": "変わらない。",
+        "explanation": "定常流では連続の式により、各断面を通る質量流量は一定である。"
+      },
+      {
+        "question": "層流における管内圧力損失は平均流速にどう依存するか。",
+        "answer": "比例する。",
+        "explanation": "完全に発達した層流では、圧力損失は平均流速に比例する。"
+      },
+      {
+        "question": "流速を上げると層流はどのような流れへ遷移するか。",
+        "answer": "乱流へ遷移する。",
+        "explanation": "流速上昇によりレイノルズ数が増加し、臨界域を超えると乱流へ遷移する。"
+      },
+      {
+        "question": "完全に発達した円管内層流の速度分布はどのような形か。",
+        "answer": "放物線状で、管中心が最大速度。",
+        "explanation": "円管内の完全発達層流では、壁面で速度が0、中心で最大となる放物線速度分布になる。"
+      },
+      {
+        "question": "乱流の管摩擦係数は管壁面の粗さに依存するか。",
+        "answer": "依存する。",
+        "explanation": "乱流の管摩擦係数はレイノルズ数と管壁面の相対粗さの影響を受ける。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の直円管内の完全に発達した流れに関する正誤問題。",
+      "設問は誤っているものを選ぶ形式で、answer_result_text=正解は 5 です。は選択肢5のみが誤りであることに対応する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "定常流の質量流量一定、層流の圧力損失と平均流速の比例、層流から乱流への遷移、層流の放物線速度分布はいずれも正しい。乱流の管摩擦係数は管壁面の粗さに依存するため、依存しないとする選択肢5が誤りである。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "定常流では各断面の質量流量は一定である。"
+      ],
+      [
+        "層流の管内圧力損失は平均流速に比例する。"
+      ],
+      [
+        "流速上昇によりレイノルズ数が増え、層流から乱流へ遷移する。"
+      ],
+      [
+        "完全発達円管内層流の速度分布は放物線状で中心最大である。"
+      ],
+      [
+        "乱流の管摩擦係数は管壁面の粗さに依存する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "answer_result_text": "正解は 5 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2140",
+    "category": "流体力学（乙種）",
+    "questionSetName": "流体力学（乙種）",
+    "categoryName": "流体力学（乙種）",
+    "taskId": "T963",
+    "workerTaskId": "T963",
+    "remainingAfterTask": 71
   },
   {
     "original_question_id": "0bee31cd9a598aff",
