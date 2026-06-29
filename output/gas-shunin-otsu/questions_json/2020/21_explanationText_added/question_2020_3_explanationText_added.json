@@ -123,26 +123,90 @@
       "遠赤外線ヒーターでは、セラミック特殊塗料で仕上げられた放射管等の表面から多量の遠赤外線が放射される。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "間違い。固体酸化物形燃料電池（SOFC）は高温で作動し、COを燃料として利用できるため、CO変成器を搭載するという説明は適切ではない。CO変成器は主に低温作動型の燃料電池でCOを低減するための装置として扱われる。",
+      "正しい。吸収冷温水機は水を冷媒として用い、臭化リチウム水溶液などを吸収液として利用するノンフロン空調機である。",
+      "正しい。浸管式フライヤーには、油槽内の浸管でガスを燃焼させて加熱する方式や、燃焼排ガスを浸管内に通して油を加熱する方式がある。",
+      "正しい。中華レンジでは強い火力を得るため、送風機で燃焼用空気を供給するブラストバーナーを用いたものがある。",
+      "正しい。遠赤外線ヒーターでは、セラミック特殊塗料で仕上げた放射管などの表面から遠赤外線を多く放射させて加熱に利用する。"
+    ],
+    "suggestedQuestions": [
+      "固体酸化物形燃料電池にはCO変成器が搭載されているか。",
+      "吸収冷温水機は水を冷媒に用いるノンフロン空調機か。",
+      "浸管式フライヤーには浸管内燃焼方式と燃焼排ガス通過方式があるか。",
+      "中華レンジには火力を強くするためブラストバーナーを用いたものがあるか。",
+      "遠赤外線ヒーターではセラミック特殊塗料仕上げの放射管などから遠赤外線が放射されるか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "questionText": "固体酸化物形燃料電池にはCO変成器が搭載されているか。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。固体酸化物形燃料電池（SOFC）は高温で作動し、COを燃料として利用できるため、CO変成器を搭載するという説明は適切ではない。CO変成器は主に低温作動型の燃料電池でCOを低減するための装置として扱われる。",
+        "answerText": "いいえ。SOFCは高温作動型であり、CO変成器を搭載するという説明は適切ではない。"
+      },
+      {
+        "questionText": "吸収冷温水機は水を冷媒に用いるノンフロン空調機か。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。吸収冷温水機は水を冷媒として用い、臭化リチウム水溶液などを吸収液として利用するノンフロン空調機である。",
+        "answerText": "はい。水を冷媒として用いるノンフロン空調機である。"
+      },
+      {
+        "questionText": "浸管式フライヤーには浸管内燃焼方式と燃焼排ガス通過方式があるか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。浸管式フライヤーには、油槽内の浸管でガスを燃焼させて加熱する方式や、燃焼排ガスを浸管内に通して油を加熱する方式がある。",
+        "answerText": "はい。浸管内で燃焼させる方式と、燃焼排ガスを通して加熱する方式がある。"
+      },
+      {
+        "questionText": "中華レンジには火力を強くするためブラストバーナーを用いたものがあるか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。中華レンジでは強い火力を得るため、送風機で燃焼用空気を供給するブラストバーナーを用いたものがある。",
+        "answerText": "はい。強い火力を得るためブラストバーナーを用いたものがある。"
+      },
+      {
+        "questionText": "遠赤外線ヒーターではセラミック特殊塗料仕上げの放射管などから遠赤外線が放射されるか。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。遠赤外線ヒーターでは、セラミック特殊塗料で仕上げた放射管などの表面から遠赤外線を多く放射させて加熱に利用する。",
+        "answerText": "はい。放射管などの表面から遠赤外線を多く放射させる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "消費機器「コージェネレーションシステム等（乙種）」の燃料電池、吸収冷温水機、業務用ガス機器、遠赤外線ヒーターが本問の関連論点。",
+      "本問は誤っているものを問う形式で、source順では選択肢1のみが誤りである。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "選択肢1は固体酸化物形燃料電池にCO変成器が搭載されているとしている点が誤り。選択肢2は吸収冷温水機、選択肢3は浸管式フライヤー、選択肢4は中華レンジ、選択肢5は遠赤外線ヒーターの説明として正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "SOFCは高温作動型で、CO変成器を搭載するという説明は適切ではない。"
+      ],
+      [
+        "吸収冷温水機は水を冷媒に用いるノンフロン空調機である。"
+      ],
+      [
+        "浸管式フライヤーには浸管内で燃焼させる方式と燃焼排ガスを通す方式がある。"
+      ],
+      [
+        "中華レンジには強火力のためブラストバーナーを用いるものがある。"
+      ],
+      [
+        "遠赤外線ヒーターはセラミック特殊塗料で仕上げた放射管などから遠赤外線を放射する。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-1890",
+    "questionSetName": "コージェネレーションシステム等（乙種）",
+    "category": "コージェネレーションシステム等（乙種）",
+    "explanationTextCount": 5,
+    "taskId": "T818",
+    "workerTaskId": "T818"
   },
   {
     "original_question_id": "d51f3a79ea8c01cc",
