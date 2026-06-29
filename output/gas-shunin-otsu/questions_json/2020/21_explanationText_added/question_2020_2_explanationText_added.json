@@ -200,12 +200,32 @@
       "応力ひずみ線図では、軟鋼のような明瞭な降伏点が見られない場合がある。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。高分子材料は紫外線を吸収すると分子鎖の切断や酸化などにより分解・劣化することがある。",
+      "間違い。高分子材料は粘弾性を示し、一定荷重が長時間作用すると常温でもクリープ変形を生じることがある。常温では発生しないとしている点が誤りである。",
+      "正しい。高分子材料は一般に金属材料に比べて比重が小さく、軽量である。",
+      "正しい。高分子材料は一般に金属材料に比べて熱伝導率が小さく、熱を伝えにくい。",
+      "正しい。高分子材料は粘弾性などの影響により、応力ひずみ線図で軟鋼のような明瞭な降伏点が現れない場合がある。"
+    ],
+    "suggestedQuestions": [
+      "高分子材料は紫外線を吸収するとどうなることがあるか。",
+      "高分子材料のクリープは常温でも発生するか。",
+      "高分子材料の比重は金属材料と比べてどうか。",
+      "高分子材料の熱伝導率は金属材料と比べてどうか。",
+      "高分子材料の応力ひずみ線図では明瞭な降伏点が見られるか。"
+    ],
+    "suggestedQuestionDetails": [
+      "紫外線により分子鎖切断や酸化が起こり、分解・劣化することがある。",
+      "粘弾性を示すため、常温でも長時間荷重でクリープ変形が生じることがある。",
+      "一般に金属材料より比重が小さく軽量である。",
+      "一般に金属材料より熱伝導率が小さい。",
+      "軟鋼のような明瞭な降伏点が現れない場合がある。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+      "高分子材料の一般的な性質として、紫外線劣化、粘弾性による常温クリープ、比重・熱伝導率、応力ひずみ線図の特徴を確認する問題。"
+    ],
     "sourceExplanationChoiceSnippets": [
       [],
       [],
@@ -214,12 +234,14 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2180",
+    "questionSetName": "高分子材料（乙種）"
   },
   {
     "original_question_id": "ce32a6ec4315e19d",
