@@ -237,11 +237,29 @@
       "LNGが漏えいし、大気中に気化、拡散したとき、燃焼範囲内の濃度にある混合気が、火気に接すると着火する。拡散ガスに着火すると、火炎が伝播し液表面での燃焼となる。これをプール燃焼という。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
+    "explanationText": [
+      "正しい。LNGは貯蔵中に外部からの入熱を受けると、沸点の低いメタンを主成分とするBOGが発生し、残液中ではメタン以外の成分濃度が高まる。この現象は濃縮と呼ばれる。",
+      "間違い。LNG受入配管などで、入熱により過熱状態となったLNGの一部が圧力低下で急激に気化し、鉛直配管部で液相と気相の相転移により振動を生じる現象は、一般にガイザリングとして扱われる。ウォーターハンマーとしている点が誤りである。",
+      "正しい。シェールガスは、従来型ガス田の砂岩層などではなく、泥岩である頁岩層に含まれる非在来型天然ガスの一種である。",
+      "間違い。LPG中にはH2Sなどの硫黄化合物が含まれていないことが求められるが、これは高張力鋼などで硫化物応力割れ等を生じるおそれがあるためである。粒界腐食が発生する可能性としている点が誤りである。",
+      "正しい。LNGが漏えいして大気中で気化・拡散し、燃焼範囲内の混合気に火気が接すると着火する。拡散ガスに着火すると火炎が伝播し、液表面での燃焼であるプール燃焼となることがある。"
+    ],
+    "suggestedQuestions": [
+      "LNG貯蔵中の濃縮とは何か。",
+      "LNG受入配管で液相と気相の相転移により振動を生じる現象は何と呼ばれるか。",
+      "シェールガスはどのような天然ガスか。",
+      "LPG中のH2Sなどの硫黄化合物が問題となる理由は何か。",
+      "LNG漏えい時のプール燃焼とはどのような現象か。"
+    ],
+    "suggestedQuestionDetails": [
+      "外部入熱でメタン主体のBOGが発生し、残液中のメタン以外の成分濃度が高まる現象である。",
+      "過熱状態のLNGが急激に気化し、鉛直配管部で振動を生じる現象はガイザリングであり、ウォーターハンマーとは区別される。",
+      "頁岩層に含まれる非在来型天然ガスである。",
+      "H2Sなどは高張力鋼等で硫化物応力割れなどを生じるおそれがある。粒界腐食という説明は不適切である。",
+      "漏えいLNGが気化・拡散して着火し、火炎が液表面に伝播して燃焼する現象である。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": null,
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [],
