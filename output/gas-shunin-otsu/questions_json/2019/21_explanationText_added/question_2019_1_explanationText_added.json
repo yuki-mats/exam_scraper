@@ -866,18 +866,70 @@
       "4.7"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。混合可燃性ガスの燃焼下限界は、ル・シャトリエの式より L=100/(40/5.0+60/2.1) で求める。計算すると約2.73vol%となるため、2.7が最も近い。",
+      "不正解。3.2vol%は、メタン40vol%とプロパン60vol%の各下限界をル・シャトリエの式で合成した約2.73vol%より大きい。",
+      "不正解。3.7vol%は、計算値 L=100/(8+28.57)=約2.73vol%から離れている。燃焼下限界を単純平均して求めるものではない。",
+      "不正解。4.2vol%は、メタン5.0vol%とプロパン2.1vol%を混合比で合成した下限界としては高すぎる。混合気体では各成分の割合を下限界で割って足し合わせる。",
+      "不正解。4.7vol%は、メタン単独の5.0vol%に近い値だが、プロパン60vol%を含むため混合気体の燃焼下限界は約2.73vol%まで低くなる。"
+    ],
+    "suggestedQuestions": [
+      "混合可燃性ガスの燃焼下限界はどの式で求めるか？",
+      "メタン40vol%の寄与は式中でどう表すか？",
+      "プロパン60vol%の寄与は式中でどう表すか？",
+      "この混合気体の燃焼下限界はいくらか？",
+      "選択肢2.7vol%が最も近い理由は何か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "混合可燃性ガスの燃焼下限界はどの式で求めるか？",
+        "answer": "ル・シャトリエの式で求める。",
+        "explanation": "各成分の体積割合を、その成分の燃焼下限界で割った値を合計し、その逆数から混合気体の下限界を求める。"
+      },
+      {
+        "question": "メタン40vol%の寄与は式中でどう表すか？",
+        "answer": "40/5.0 と表す。",
+        "explanation": "メタンの混合割合40vol%を、メタン単独の燃焼下限界5.0vol%で割る。"
+      },
+      {
+        "question": "プロパン60vol%の寄与は式中でどう表すか？",
+        "answer": "60/2.1 と表す。",
+        "explanation": "プロパンの混合割合60vol%を、プロパン単独の燃焼下限界2.1vol%で割る。"
+      },
+      {
+        "question": "この混合気体の燃焼下限界はいくらか？",
+        "answer": "約2.73vol%。",
+        "explanation": "L=100/(40/5.0+60/2.1)=100/(8+28.57)=約2.73vol%となる。"
+      },
+      {
+        "question": "選択肢2.7vol%が最も近い理由は何か？",
+        "answer": "計算値約2.73vol%に最も近いから。",
+        "explanation": "選択肢の中では2.7vol%が計算値に最も近く、他の値は大きく離れている。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「燃焼・燃料（乙種）」の混合可燃性ガスの燃焼下限界計算に関する選択問題。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正解は選択肢1。ル・シャトリエの式により L=100/(40/5.0+60/2.1)=約2.73vol%となるため、2.7vol%が最も近い。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "ル・シャトリエの式で約2.73vol%となる。"
+      ],
+      [
+        "3.2vol%は計算値より大きい。"
+      ],
+      [
+        "3.7vol%は計算値から離れている。"
+      ],
+      [
+        "4.2vol%は混合燃料の下限界として高すぎる。"
+      ],
+      [
+        "4.7vol%はメタン単独の下限界に近く、プロパン混合の影響を反映していない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -885,7 +937,14 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "questionSetId": "chiefgasengineerlicense-B-2130",
+    "questionSetName": "燃焼・燃料（乙種）",
+    "category": "燃焼・燃料（乙種）",
+    "taskId": "T907",
+    "workerTaskId": "T907",
+    "remainingAfterTask": 127
   },
   {
     "original_question_id": "96f9fdfe452e6334",
