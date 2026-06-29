@@ -755,18 +755,72 @@
       "30"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。一次反応では半減期が一定であり、50%反応するまでの10分は1回の半減期に相当する。10分後は未反応分が50%残っている段階で、75%反応、すなわち未反応分25%には達していない。",
+      "不正解。15分は1.5回分の半減期に相当するが、一次反応で未反応分が25%になるには半減を2回繰り返す必要がある。したがって75%反応までの時間としては不足する。",
+      "正解。一次反応では半減期が濃度によらず一定である。50%反応に10分かかるので、75%反応時の未反応分25%は半減を2回繰り返した状態であり、10分×2=20分となる。",
+      "不正解。25分は2回分の半減期である20分を超えている。一次反応で75%反応、すなわち未反応分25%になる時点は2回目の半減期終了時なので20分である。",
+      "不正解。30分は3回分の半減期に相当し、未反応分は12.5%、反応率は87.5%になる。75%反応に必要なのは2回分の半減期であるため、30分では長すぎる。"
+    ],
+    "suggestedQuestions": [
+      "一次反応の半減期は濃度によって変わるか？",
+      "75%反応したときの未反応分は何%か？",
+      "未反応分25%は半減期何回分か？",
+      "半減期10分で2回分の時間はいくらか？",
+      "30分後の反応率は75%か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "一次反応の半減期は濃度によって変わるか？",
+        "answer": "変わらず一定である。",
+        "explanation": "一次反応では反応物濃度が半分になるまでの時間が各段階で同じになる。"
+      },
+      {
+        "question": "75%反応したときの未反応分は何%か？",
+        "answer": "25%である。",
+        "explanation": "75%が反応済みなら、未反応分は100%-75%=25%である。"
+      },
+      {
+        "question": "未反応分25%は半減期何回分か？",
+        "answer": "2回分である。",
+        "explanation": "100%から50%、さらに25%へ減るので、半減を2回繰り返した状態である。"
+      },
+      {
+        "question": "半減期10分で2回分の時間はいくらか？",
+        "answer": "20分である。",
+        "explanation": "半減期10分を2回分とるため、10分×2=20分となる。"
+      },
+      {
+        "question": "30分後の反応率は75%か？",
+        "answer": "75%ではなく87.5%である。",
+        "explanation": "30分は3回分の半減期で、未反応分は12.5%、反応済みは87.5%になる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の一次反応と半減期が本問の関連論点。",
+      "一次反応では半減期が一定で、反応物が50%反応するまでの時間は未反応分が半分になる1回分の半減期を表す。",
+      "75%反応とは未反応分が25%残る状態であり、100%→50%→25%の2回の半減に相当する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "50%反応に10分を要するので半減期は10分。75%反応は未反応分25%であり、半減期2回分に相当するため20分が最も近い。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "10分は1回の半減期で、未反応分は50%。"
+      ],
+      [
+        "15分は2回分の半減期には達しない。"
+      ],
+      [
+        "20分は2回の半減期で、未反応分は25%、反応率は75%。"
+      ],
+      [
+        "25分は75%反応に必要な20分を超える。"
+      ],
+      [
+        "30分は3回の半減期で、反応率は87.5%。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -774,7 +828,14 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
+    "category": "化学反応・平衡・反応熱・速度論（乙種）",
+    "taskId": "T910",
+    "workerTaskId": "T910",
+    "remainingAfterTask": 124
   },
   {
     "original_question_id": "0f3f2879c3b8c5b4",
