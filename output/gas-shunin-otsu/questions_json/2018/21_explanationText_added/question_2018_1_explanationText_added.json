@@ -792,26 +792,97 @@
       "触媒は、平衡定数に影響を与えない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。一次反応では反応速度は反応物質の濃度に比例し、速度式は一般に r=kC の形で表される。",
+      "正しい。一次反応の半減期は濃度に依存せず、反応のどの時点から測っても同じ時間となる。",
+      "間違い。速度定数は反応温度に依存し、一般にアレニウスの式で表されるように温度が高くなると変化する。反応温度に依存しないとする記述は誤りである。",
+      "正しい。アレニウスの式は速度定数と温度の関係を表し、複数温度での速度定数から活性化エネルギーを求めることができる。",
+      "正しい。触媒は正反応と逆反応の速度を変えて平衡到達を速めるが、平衡定数そのものには影響を与えない。"
+    ],
+    "suggestedQuestions": [
+      "一次反応の反応速度は何に比例するか。",
+      "一次反応の半減期は反応途中で変わるか。",
+      "速度定数は反応温度に依存するか。",
+      "アレニウスの式から何を求められるか。",
+      "触媒は平衡定数を変えるか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "一次反応の反応速度は何に比例するか。",
+        "answer": "反応物質の濃度に比例する。",
+        "explanation": "一次反応では反応速度が濃度の1乗に比例する。"
+      },
+      {
+        "question": "一次反応の半減期は反応途中で変わるか。",
+        "answer": "変わらない。",
+        "explanation": "一次反応の半減期は濃度に依存しないため、どの時点から測っても同じである。"
+      },
+      {
+        "question": "速度定数は反応温度に依存するか。",
+        "answer": "依存する。",
+        "explanation": "速度定数は温度で変化し、アレニウス式でその関係を表す。"
+      },
+      {
+        "question": "アレニウスの式から何を求められるか。",
+        "answer": "活性化エネルギーを求められる。",
+        "explanation": "速度定数の温度依存性を用いて活性化エネルギーを算出できる。"
+      },
+      {
+        "question": "触媒は平衡定数を変えるか。",
+        "answer": "変えない。",
+        "explanation": "触媒は反応速度を変えて平衡到達を速めるが、平衡定数や平衡組成は変えない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の一次反応、速度定数、アレニウス式、触媒と平衡定数を問う正誤問題。",
+      "設問は誤っているものを選ぶ形式で、answer_result_text=正解は 3 です。は選択肢3のみが誤りであることに対応する。",
+      "速度定数は反応温度に依存し、アレニウス式により温度との関係を扱う。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は3。速度定数は反応温度に依存するため、反応温度に依存しないとはいえない。一次反応の速度と半減期、アレニウス式、触媒と平衡定数に関する他の記述は正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "一次反応の反応速度は反応物濃度に比例する。"
+      ],
+      [
+        "一次反応の半減期は濃度によらず一定である。"
+      ],
+      [
+        "速度定数は反応温度に依存する。"
+      ],
+      [
+        "アレニウス式から活性化エネルギーを求められる。"
+      ],
+      [
+        "触媒は平衡定数を変えず、平衡到達を速める。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "category": "化学反応・平衡・反応熱・速度論（乙種）",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
+    "categoryName": "化学反応・平衡・反応熱・速度論（乙種）",
+    "reviewStatus": "ok",
+    "taskId": "T967",
+    "workerTaskId": "T967",
+    "remainingAfterTask": 67
   },
   {
     "original_question_id": "01129ed59692798a",
