@@ -644,18 +644,72 @@
       "3.3"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。プロパンの分子量を44、ブタンの分子量を58とすると、物質量基準95%/5%の平均分子量は0.95×44+0.05×58=44.7g/molである。4470gは100molとなり、理想気体の状態方程式より V=nRT/P=100×8.3×300/100000=2.49m³なので、2.5m³が最も近い。",
+      "不正解。平均分子量44.7g/molから物質量は100molであり、理想気体として計算した体積は約2.49m³である。2.7m³は計算値より大きい。",
+      "不正解。混合比は物質量基準なので、平均分子量を用いて総物質量を求める。4470g÷44.7g/mol=100mol、Vは約2.49m³であり、2.9m³では大きすぎる。",
+      "不正解。P=100kPa=100000Pa、T=300K、n=100molとして V=nRT/P を用いると約2.49m³である。3.1m³はこの値から離れている。",
+      "不正解。3.3m³は、理想気体の状態方程式で求めた約2.49m³よりかなり大きい。選択肢の中では2.5m³が最も近い。"
+    ],
+    "suggestedQuestions": [
+      "プロパンとブタンの分子量はそれぞれいくらか？",
+      "この混合ガスの平均分子量はいくらか？",
+      "4470gの混合ガスは何molか？",
+      "理想気体の状態方程式で体積はどう求めるか？",
+      "本問の体積は何m³に最も近いか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "プロパンとブタンの分子量はそれぞれいくらか？",
+        "answer": "プロパンは44、ブタンは58。",
+        "explanation": "C3H8は12×3+1×8=44、C4H10は12×4+1×10=58である。"
+      },
+      {
+        "question": "この混合ガスの平均分子量はいくらか？",
+        "answer": "44.7g/mol。",
+        "explanation": "物質量基準なので0.95×44+0.05×58=44.7g/molとなる。"
+      },
+      {
+        "question": "4470gの混合ガスは何molか？",
+        "answer": "100mol。",
+        "explanation": "4470g÷44.7g/mol=100molである。"
+      },
+      {
+        "question": "理想気体の状態方程式で体積はどう求めるか？",
+        "answer": "V=nRT/Pで求める。",
+        "explanation": "圧力は100kPa=100000PaとしてSI単位にそろえる。"
+      },
+      {
+        "question": "本問の体積は何m³に最も近いか？",
+        "answer": "2.5m³。",
+        "explanation": "100×8.3×300/100000=2.49m³で、2.5m³が最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の混合ガスの平均分子量、物質量、理想気体の状態方程式が本問の関連論点。",
+      "物質量基準の混合比では、各成分の分子量をモル分率で重み付けして平均分子量を求める。",
+      "理想気体の体積は V=nRT/P で求め、100kPaは100000Paとして計算する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "平均分子量は0.95×44+0.05×58=44.7g/mol、4470gは100mol。V=100×8.3×300/100000=2.49m³なので、2.5m³が最も近い。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "2.5m³は計算値2.49m³に最も近い。"
+      ],
+      [
+        "2.7m³は計算値より大きい。"
+      ],
+      [
+        "2.9m³は理想気体計算値から離れている。"
+      ],
+      [
+        "3.1m³は過大である。"
+      ],
+      [
+        "3.3m³は選択肢中でも大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -663,7 +717,11 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "category": "物性・基礎（乙種）",
+    "questionSetName": "物性・基礎（乙種）"
   },
   {
     "original_question_id": "6921929469b74e18",
