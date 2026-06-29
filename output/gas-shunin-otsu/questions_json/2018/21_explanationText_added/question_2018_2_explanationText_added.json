@@ -89,18 +89,72 @@
       "2.0"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。平板の定常熱伝導では熱流束 q=λΔT/L で表される。λ=0.02W/(m·K)、ΔT=25-(-175)=200K、q=10W/m²より、厚さ L=λΔT/q=0.02×200/10=0.4m であり、0.1mではない。",
+      "不正解。0.2mとすると q=0.02×200/0.2=20W/m²となり、問題の熱流束10W/m²と一致しない。計算される厚さは0.4mである。",
+      "正解。温度差は25-(-175)=200K。q=λΔT/L を L=λΔT/q に変形すると、L=0.02×200/10=0.4m となる。",
+      "不正解。1.0mとすると q=0.02×200/1.0=4W/m²で、問題の10W/m²より小さい。必要な厚さは0.4mである。",
+      "不正解。2.0mとすると q=0.02×200/2.0=2W/m²で、問題の10W/m²より小さすぎる。計算値は0.4mである。"
+    ],
+    "suggestedQuestions": [
+      "平板の定常熱伝導における熱流束の式は何か。",
+      "本問の温度差は何Kか。",
+      "本問の断熱材の厚さはどのように求めるか。",
+      "0.2mでは熱流束はいくらになるか。",
+      "1.0mや2.0mが不正解になる理由は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "平板の定常熱伝導における熱流束の式は何か。",
+        "answer": "q=λΔT/L。",
+        "explanation": "平板を通る定常熱伝導では、熱流束は熱伝導率と温度差に比例し、厚さに反比例する。"
+      },
+      {
+        "question": "本問の温度差は何Kか。",
+        "answer": "200K。",
+        "explanation": "両面温度は-175℃と25℃なので、温度差は25-(-175)=200℃、温度差としては200Kである。"
+      },
+      {
+        "question": "本問の断熱材の厚さはどのように求めるか。",
+        "answer": "L=λΔT/q=0.02×200/10=0.4m。",
+        "explanation": "熱流束式 q=λΔT/L を厚さ L について解き、与えられた値を代入する。"
+      },
+      {
+        "question": "0.2mでは熱流束はいくらになるか。",
+        "answer": "20W/m²。",
+        "explanation": "L=0.2mとすると q=0.02×200/0.2=20W/m²となり、問題の10W/m²と一致しない。"
+      },
+      {
+        "question": "1.0mや2.0mが不正解になる理由は何か。",
+        "answer": "熱流束が小さくなりすぎるため。",
+        "explanation": "L=1.0mなら4W/m²、L=2.0mなら2W/m²となり、どちらも問題の10W/m²より小さい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」の平板定常熱伝導に関する計算問題。",
+      "平板の熱流束は q=λΔT/L で表されるため、厚さは L=λΔT/q で求める。",
+      "本問では ΔT=25-(-175)=200K、λ=0.02W/(m·K)、q=10W/m²より、L=0.02×200/10=0.4m となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "厚さは L=λΔT/q=0.02×200/10=0.4m。したがって選択肢3の0.4が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値は0.4mであり、0.1mではない。"
+      ],
+      [
+        "0.2mなら熱流束は20W/m²となり大きすぎる。"
+      ],
+      [
+        "L=0.02×200/10=0.4m。"
+      ],
+      [
+        "1.0mなら熱流束は4W/m²となり小さすぎる。"
+      ],
+      [
+        "2.0mなら熱流束は2W/m²となり小さすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -108,7 +162,23 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2150",
+    "category": "伝熱（乙種）",
+    "questionSetName": "伝熱（乙種）",
+    "categoryName": "伝熱（乙種）",
+    "taskId": "T961",
+    "workerTaskId": "T961",
+    "remainingAfterTask": 73
   },
   {
     "original_question_id": "1af2bf855f746e51",
