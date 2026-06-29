@@ -681,18 +681,71 @@
       "20"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。軸方向応力は σ=pD/(4t) で求める。内径D=150-2×5=140mm、p=1N/mm²、t=5mmより σ=1×140/(4×5)=7N/mm²となるため、5N/mm²では小さい。",
+      "正解。内圧を受ける閉じた薄肉円筒の軸方向応力は σ=pD/(4t)。内径D=140mm、内圧p=1MPa=1N/mm²、管厚t=5mmなので、σ=1×140/(4×5)=7N/mm²である。",
+      "不正解。10N/mm²は軸方向応力の式で内径140mmを用いた計算値7N/mm²より大きく、最も近い値ではない。",
+      "不正解。14N/mm²は内径140mmを用いた円周方向応力 σ=pD/(2t)=1×140/(2×5) に相当する。設問は軸方向応力を問うため、その半分の7N/mm²である。",
+      "不正解。20N/mm²は外径150mmを用いた円周方向応力15N/mm²よりもさらに大きく、軸方向応力の計算値7N/mm²とは合わない。"
+    ],
+    "suggestedQuestions": [
+      "内圧を受ける閉じた薄肉円筒の軸方向応力の式は？",
+      "外径150mm、管厚5mmの鋼管の内径はいくら？",
+      "内圧1MPa、内径140mm、管厚5mmの軸方向応力はいくら？",
+      "14N/mm²が誤りになる理由は？",
+      "本問で外径ではなく内径を使う理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "内圧を受ける閉じた薄肉円筒の軸方向応力の式は？",
+        "answer": "σ=pD/(4t)。",
+        "explanation": "閉じた薄肉円筒では、軸方向応力は内圧p、内径Dに比例し、管厚tの4倍で割って求める。"
+      },
+      {
+        "question": "外径150mm、管厚5mmの鋼管の内径はいくら？",
+        "answer": "140mm。",
+        "explanation": "内径Dは外径から管厚2枚分を差し引くので、150-2×5=140mmである。"
+      },
+      {
+        "question": "内圧1MPa、内径140mm、管厚5mmの軸方向応力はいくら？",
+        "answer": "7N/mm²。",
+        "explanation": "1MPa=1N/mm²として、σ=1×140/(4×5)=7N/mm²となる。"
+      },
+      {
+        "question": "14N/mm²が誤りになる理由は？",
+        "answer": "円周方向応力に相当する値だから。",
+        "explanation": "14N/mm²はpD/(2t)で求める円周方向応力であり、問われている軸方向応力pD/(4t)ではない。"
+      },
+      {
+        "question": "本問で外径ではなく内径を使う理由は？",
+        "answer": "管に生じる応力計算では圧力を受ける有効径として内径を用いるため。",
+        "explanation": "同型先例でも外径から管厚2枚分を差し引いた内径Dを用いて計算している。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「材料力学（乙種）」の内圧を受ける鋼管の軸方向応力計算問題。",
+      "閉じた薄肉円筒の軸方向応力は σ=pD/(4t) で求め、Dには管厚を差し引いた内径を用いる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "内径D=150-2×5=140mm、p=1N/mm²、t=5mmより、σ=1×140/(4×5)=7N/mm²。最も近い値は選択肢2である。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "軸方向応力は7N/mm²であり、5N/mm²では小さい。"
+      ],
+      [
+        "σ=pD/(4t)=1×140/(4×5)=7N/mm²。"
+      ],
+      [
+        "10N/mm²は計算値7N/mm²より大きい。"
+      ],
+      [
+        "14N/mm²は円周方向応力pD/(2t)に相当し、軸方向応力ではない。"
+      ],
+      [
+        "20N/mm²は軸方向応力の計算値7N/mm²と合わない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
