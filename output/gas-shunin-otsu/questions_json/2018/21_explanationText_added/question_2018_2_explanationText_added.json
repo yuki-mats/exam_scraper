@@ -570,18 +570,71 @@
       "1.6"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。初期状態では起点圧力2.1kPa、末端圧力2.0kPaなので圧力損失は0.1kPaである。流量を2倍にすると同一導管条件での圧力損失は4倍の0.4kPaとなり、末端圧力は1.7kPaとなるため、2.0kPaでは高すぎる。",
+      "不正解。低圧導管の圧力損失は、同一導管で高低差を考慮しない場合、流量の2乗に比例する。初期損失0.1kPaに対し、流量2倍時の損失は0.4kPaとなるため、末端圧力は2.1−0.4=1.7kPaであり、1.9kPaではない。",
+      "不正解。流量2倍時の圧力損失は0.1×2²=0.4kPaである。起点圧力を2.1kPaのままとすると末端圧力は1.7kPaとなるため、1.8kPaは圧力損失を小さく見積もっている。",
+      "正解。同じ低圧導管で高低差を考慮しない場合、圧力損失は流量の2乗に比例する。初期圧力損失0.1kPaを基準に、流量を2倍にすると損失は0.1×2²=0.4kPaとなり、末端圧力は2.1−0.4=1.7kPaである。",
+      "不正解。末端圧力1.6kPaは圧力損失を0.5kPaと見込む計算になる。流量2倍による圧力損失は初期0.1kPaの4倍、すなわち0.4kPaであるため、正しい末端圧力は1.7kPaである。"
+    ],
+    "suggestedQuestions": [
+      "この導管の初期圧力損失はいくらか。",
+      "同一導管で流量を2倍にすると、低圧導管の圧力損失は何倍になるか。",
+      "流量2倍時の圧力損失はいくらか。",
+      "起点圧力2.1kPaのまま流量を2倍にしたとき、末端圧力はいくらか。",
+      "末端圧力1.6kPaという選択肢は、圧力損失をどの程度に見込んだ値か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "この導管の初期圧力損失はいくらか。",
+        "answer": "0.1kPa。",
+        "explanation": "起点圧力2.1kPaから末端圧力2.0kPaを差し引くと、初期圧力損失は0.1kPaである。"
+      },
+      {
+        "question": "同一導管で流量を2倍にすると、低圧導管の圧力損失は何倍になるか。",
+        "answer": "4倍。",
+        "explanation": "低圧導管の圧力損失は同一条件では流量の2乗に比例するため、流量2倍では2²=4倍となる。"
+      },
+      {
+        "question": "流量2倍時の圧力損失はいくらか。",
+        "answer": "0.4kPa。",
+        "explanation": "初期損失0.1kPaを4倍すると0.4kPaである。"
+      },
+      {
+        "question": "起点圧力2.1kPaのまま流量を2倍にしたとき、末端圧力はいくらか。",
+        "answer": "1.7kPa。",
+        "explanation": "起点圧力2.1kPaから流量2倍時の圧力損失0.4kPaを差し引く。"
+      },
+      {
+        "question": "末端圧力1.6kPaという選択肢は、圧力損失をどの程度に見込んだ値か。",
+        "answer": "0.5kPa。",
+        "explanation": "2.1kPaから1.6kPaを差し引くと0.5kPaで、正しい損失0.4kPaより大きい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の低圧導管における圧力損失計算を問う問題。",
+      "設問は最も近い数値を選ぶ形式で、answer_result_text=正解は4です。は末端圧力1.7kPaに対応する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "低圧導管の圧力損失計算問題。同一導管で高低差を考慮しない場合、圧力損失は流量の2乗に比例する。初期損失は2.1−2.0=0.1kPaで、流量2倍時は0.1×2²=0.4kPaとなるため、末端圧力は2.1−0.4=1.7kPa。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "初期損失0.1kPa、流量2倍時の損失0.4kPaなので2.0kPaでは高い。"
+      ],
+      [
+        "流量2倍時の末端圧力は1.7kPaであり、1.9kPaではない。"
+      ],
+      [
+        "1.8kPaは圧力損失を0.3kPaと見込むため高い。"
+      ],
+      [
+        "0.1×2²=0.4kPaの損失となり、2.1−0.4=1.7kPa。"
+      ],
+      [
+        "1.6kPaは圧力損失を0.5kPaと見込むため低い。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -589,7 +642,14 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "questionSetName": "導管の工事（乙種）",
+    "category": "導管の工事（乙種）",
+    "questionIntent": "select_correct",
+    "taskId": "T948",
+    "workerTaskId": "T948",
+    "remainingAfterTask": 86
   },
   {
     "original_question_id": "0f231aa84f04c2d7",
