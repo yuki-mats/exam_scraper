@@ -755,26 +755,98 @@
       "高温熱源: 1500K, 低温熱源: 900K"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。カルノーサイクルの熱効率は η=1−T低/T高 で表される。高温熱源1000K、低温熱源300Kでは η=1−300/1000=0.70 となり、各選択肢の中で最大である。",
+      "不正解。高温熱源1000K、低温熱源400Kでは η=1−400/1000=0.60 であり、選択肢1の0.70より小さい。",
+      "不正解。高温熱源1200K、低温熱源600Kでは η=1−600/1200=0.50 であり、最大ではない。",
+      "不正解。高温熱源1400K、低温熱源700Kでは η=1−700/1400=0.50 であり、選択肢1の0.70より小さい。",
+      "不正解。高温熱源1500K、低温熱源900Kでは η=1−900/1500=0.40 であり、各選択肢の中で最も大きい値ではない。"
+    ],
+    "suggestedQuestions": [
+      "カルノーサイクルの熱効率はどの式で表されるか。",
+      "高温熱源1000K、低温熱源300Kの熱効率はいくらか。",
+      "熱効率を最大にする温度条件は何を小さくする条件か。",
+      "高温熱源1200K、低温熱源600Kの熱効率はいくらか。",
+      "本問で選択肢1が正解となる理由は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "カルノーサイクルの熱効率はどの式で表されるか。",
+        "answer": "η=1−T低/T高。",
+        "explanation": "T高は高温熱源の絶対温度、T低は低温熱源の絶対温度である。"
+      },
+      {
+        "question": "高温熱源1000K、低温熱源300Kの熱効率はいくらか。",
+        "answer": "0.70、すなわち70%。",
+        "explanation": "1−300/1000=0.70 と計算する。"
+      },
+      {
+        "question": "熱効率を最大にする温度条件は何を小さくする条件か。",
+        "answer": "T低/T高を小さくする条件。",
+        "explanation": "η=1−T低/T高 なので、T低/T高が小さいほど熱効率は大きくなる。"
+      },
+      {
+        "question": "高温熱源1200K、低温熱源600Kの熱効率はいくらか。",
+        "answer": "0.50、すなわち50%。",
+        "explanation": "1−600/1200=0.50 と計算する。"
+      },
+      {
+        "question": "本問で選択肢1が正解となる理由は何か。",
+        "answer": "T低/T高が0.30で最も小さく、熱効率が0.70で最大となるため。",
+        "explanation": "他の選択肢の熱効率は0.60、0.50、0.50、0.40であり、選択肢1より小さい。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」のカルノーサイクルと熱効率を問う計算問題。",
+      "カルノーサイクルの熱効率は、高温熱源温度をT高、低温熱源温度をT低とすると η=1−T低/T高 で表される。",
+      "熱効率を最大にするには、T低/T高が最も小さい温度条件を選ぶ。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "各選択肢の熱効率は、1:0.70、2:0.60、3:0.50、4:0.50、5:0.40である。最大は選択肢1の高温熱源1000K・低温熱源300K。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "η=1−300/1000=0.70で最大。"
+      ],
+      [
+        "η=1−400/1000=0.60で、0.70より小さい。"
+      ],
+      [
+        "η=1−600/1200=0.50で、最大ではない。"
+      ],
+      [
+        "η=1−700/1400=0.50で、最大ではない。"
+      ],
+      [
+        "η=1−900/1500=0.40で、最大ではない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "questionType": "group_choice",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 1 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "category": "熱力学（乙種）",
+    "questionSetName": "熱力学（乙種）",
+    "categoryName": "熱力学（乙種）",
+    "reviewStatus": "ok",
+    "taskId": "T968",
+    "workerTaskId": "T968",
+    "remainingAfterTask": 66
   },
   {
     "original_question_id": "44aa2d6c8832d5ec",
