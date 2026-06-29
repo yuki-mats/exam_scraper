@@ -130,7 +130,20 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
     "questionSetId": "",
-    "category": "法令"
+    "category": "法令",
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "answer_result_text": "正解は 5 です。",
+    "questionSetName": "",
+    "categoryName": "法令",
+    "questionSetHoldReason": "移動式ガス発生設備の遮断装置・緊急停止装置・設置等とガスの逆流防止にまたがり、技省令_ガスの逆流防止（chiefgasengineerlicense-B-1320）及び技省令_移動式ガス発生設備の設置等（chiefgasengineerlicense-B-1410）が削除済みで、単一problem-level questionSetIdを設定するとB-1390/B-1520のいずれにも寄りすぎるため04をhold。",
+    "questionSetSource": "hold_deleted_mixed_problem_level_categories"
   },
   {
     "original_question_id": "ac37550121e0b2b2",
