@@ -715,10 +715,43 @@
       "外部電源法は、導管の被覆の抵抗が低い場合や防食区間が長い場合に適している。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "正しい。導管の腐食を防ぐ方法には、塗装・塗覆装によって外部環境を遮断する措置、電気防食による措置、絶縁による措置などがある。記述は防食方法の例として適切である。",
+      "間違い。鋳鉄管と鋼管が電気的に接続されている場合、自然電位がよりマイナス側の鋼管がアノードとなり腐食する傾向がある。鋳鉄管がアノードになるとしている点が誤りである。",
+      "正しい。管対地電位は、土壌やコンクリートなどの電解質中に設置した照合電極を基準として測定する導管の電位をいう。記述は定義に合っている。",
+      "正しい。防食設備の点検は、防食状態が悪くなりやすい雨季などの土壌湿潤期や、電気鉄道の運行時など迷走電流の影響を受けやすい時間帯を選ぶのが望ましい。",
+      "正しい。外部電源法は、外部電源から防食電流を供給できるため、被覆抵抗が低く所要電流が大きい場合や、防食区間が長い場合に適している。"
+    ],
+    "suggestedQuestions": [
+      "導管の防食方法には塗装・塗覆装、電気防食、絶縁などがある？",
+      "鋳鉄管と鋼管が電気的に接続されると鋳鉄管がアノードになりやすい？",
+      "管対地電位は照合電極に対する導管の電位である？",
+      "防食設備の点検は土壌湿潤期や電気鉄道運行時など防食状況の悪い時に行うのが望ましい？",
+      "外部電源法は被覆抵抗が低い場合や防食区間が長い場合に適している？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "導管の防食方法には塗装・塗覆装、電気防食、絶縁などがある？",
+        "answer": "正しい。導管の防食には塗装・塗覆装、電気防食、絶縁などの措置がある。"
+      },
+      {
+        "question": "鋳鉄管と鋼管が電気的に接続されると鋳鉄管がアノードになりやすい？",
+        "answer": "誤り。鋳鉄管と鋼管では、鋼管がアノードとなって腐食する傾向がある。"
+      },
+      {
+        "question": "管対地電位は照合電極に対する導管の電位である？",
+        "answer": "正しい。管対地電位は、土壌等に設置した照合電極に対する導管の電位である。"
+      },
+      {
+        "question": "防食設備の点検は土壌湿潤期や電気鉄道運行時など防食状況の悪い時に行うのが望ましい？",
+        "answer": "正しい。防食状況が悪くなりやすい時期や時間帯を選んで点検するのが望ましい。"
+      },
+      {
+        "question": "外部電源法は被覆抵抗が低い場合や防食区間が長い場合に適している？",
+        "answer": "正しい。外部電源法は大きな防食電流を調整して供給でき、被覆抵抗が低い場合や長い区間に適している。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -729,12 +762,15 @@
       []
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2030",
+    "questionSetName": "腐食と防食（乙種）",
+    "category": "腐食と防食（乙種）"
   },
   {
     "original_question_id": "649806e87fd4f9b6",
