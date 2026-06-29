@@ -163,26 +163,81 @@
       "外力を取り去ると\n元に戻る変形を塑性変形\nという。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。ひずみは、応力に伴って生じる変形量を基準となる長さで割った割合であり、材料の変形の大きさを表す無次元量である。",
+      "正しい。比例限度以下では応力とひずみが比例し、フックの法則が成り立つ。",
+      "正しい。内圧を受ける薄肉円筒では、円周応力は軸応力の2倍となる。",
+      "正しい。安全係数が大きいほど、基準強さに対して許容応力を小さく見込むため、安全に対する余裕が大きい設計となる。",
+      "間違い。外力を取り去ると元に戻る変形は弾性変形である。塑性変形は、外力を取り去っても材料が元の形に戻らない変形である。"
+    ],
+    "suggestedQuestions": [
+      "ひずみはどのように定義されるか？",
+      "比例限度以下では応力とひずみはどのような関係にあるか？",
+      "薄肉円筒の円周応力は軸応力と比べてどうか？",
+      "安全係数が大きいと設計上の余裕はどうなるか？",
+      "外力を取り去ると元に戻る変形は何というか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ひずみはどのように定義されるか？",
+        "answer": "変形量を基準となる長さで割った割合である。",
+        "explanation": "正しい。ひずみは、応力に伴って生じる変形量を基準となる長さで割った割合であり、材料の変形の大きさを表す無次元量である。"
+      },
+      {
+        "question": "比例限度以下では応力とひずみはどのような関係にあるか？",
+        "answer": "応力とひずみは比例する。",
+        "explanation": "正しい。比例限度以下では応力とひずみが比例し、フックの法則が成り立つ。"
+      },
+      {
+        "question": "薄肉円筒の円周応力は軸応力と比べてどうか？",
+        "answer": "円周応力は軸応力の2倍である。",
+        "explanation": "正しい。内圧を受ける薄肉円筒では、円周応力は軸応力の2倍となる。"
+      },
+      {
+        "question": "安全係数が大きいと設計上の余裕はどうなるか？",
+        "answer": "安全に対する余裕が大きくなる。",
+        "explanation": "正しい。安全係数が大きいほど、基準強さに対して許容応力を小さく見込むため、安全に対する余裕が大きい設計となる。"
+      },
+      {
+        "question": "外力を取り去ると元に戻る変形は何というか？",
+        "answer": "弾性変形である。",
+        "explanation": "間違い。外力を取り去ると元に戻る変形は弾性変形である。塑性変形は、外力を取り去っても材料が元の形に戻らない変形である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学・材料」が本問の関連論点。ひずみ、比例限度、薄肉円筒の応力、安全係数、弾性変形と塑性変形を区別する。",
+      "内圧を受ける薄肉円筒では、円周応力は軸応力の2倍となる。外力を取り去って元に戻る変形は弾性変形である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は5。外力を取り去ると元に戻る変形は弾性変形であり、塑性変形ではない。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "ひずみは変形量を基準長さで割った割合。"
+      ],
+      [
+        "比例限度以下では応力とひずみは比例する。"
+      ],
+      [
+        "薄肉円筒の円周応力は軸応力の2倍。"
+      ],
+      [
+        "安全係数が大きいほど安全余裕は大きい。"
+      ],
+      [
+        "外力を取り去って元に戻る変形は弾性変形。塑性変形ではない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2160",
+    "questionSetName": "材料力学・材料（乙種）"
   },
   {
     "original_question_id": "4b8d96a25b2535e3",
