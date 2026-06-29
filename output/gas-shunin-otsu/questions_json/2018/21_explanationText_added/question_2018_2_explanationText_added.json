@@ -348,26 +348,86 @@
       "TBMの特徴は、認知閾値が低く、においのインパクトが強いことがあげられる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。FPD付ガスクロマトグラフ法は硫黄化合物の検出に用いられ、THT、TBM、DMSなどの有機硫黄化合物である付臭剤成分を測定できる。",
+      "正しい。パネル法は、適正に選定された臭気判定者4名以上により、試料ガスを希釈しながらにおいの有無を判定して臭気濃度を求める方法である。",
+      "正しい。滴下注入方式ではニードル弁などで注入量を調整するが、手動式は精度が低いため、流量変動の少ない小規模の付臭設備に用いられる。",
+      "間違い。蒸発式付臭設備のバイパス蒸発方式では、混合付臭剤を用いると各成分の蒸気圧の違いにより蒸発後の混合比率を一定に保ちにくい。そのため一般には単一成分の付臭剤が適しており、混合付臭剤が一般に使用されるとはいえない。",
+      "正しい。TBMは認知閾値が低く、少量でもにおいを認識しやすい。また、においのインパクトが強い付臭剤として用いられる。"
+    ],
+    "suggestedQuestions": [
+      "FPD付ガスクロマトグラフ法で測定できる代表的な付臭剤成分は何か。",
+      "パネル法では何名以上の判定者で臭気濃度を求めるか。",
+      "手動式の滴下注入方式はどのような付臭設備に用いられるか。",
+      "蒸発方式で混合付臭剤が適しにくい理由は何か。",
+      "TBMの付臭剤としての特徴は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "FPD付ガスクロマトグラフ法で測定できる代表的な付臭剤成分は何か。",
+        "answer": "THT、TBM、DMSなどの有機硫黄化合物。",
+        "explanation": "FPDは硫黄化合物の検出に適しており、都市ガス付臭剤の成分分析に用いられる。"
+      },
+      {
+        "question": "パネル法では何名以上の判定者で臭気濃度を求めるか。",
+        "answer": "4名以上。",
+        "explanation": "パネル法では適正に選定された4名以上の判定者がにおいの有無を判定する。"
+      },
+      {
+        "question": "手動式の滴下注入方式はどのような付臭設備に用いられるか。",
+        "answer": "流量変動の少ない小規模の付臭設備。",
+        "explanation": "手動式は注入量の調整精度が低いため、大きな流量変動がある設備には向きにくい。"
+      },
+      {
+        "question": "蒸発方式で混合付臭剤が適しにくい理由は何か。",
+        "answer": "成分ごとの蒸気圧が異なり、蒸発後の混合比率を一定に保ちにくいため。",
+        "explanation": "蒸発方式では単一成分の付臭剤が適し、混合付臭剤が一般に使用されるとはいえない。"
+      },
+      {
+        "question": "TBMの付臭剤としての特徴は何か。",
+        "answer": "認知閾値が低く、においのインパクトが強い。",
+        "explanation": "TBMは低濃度でも認識されやすい代表的な付臭剤である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造「都市ガスの付臭（乙種）」の付臭剤成分、臭気濃度測定、付臭方式、TBMの特徴に関する正誤問題。",
+      "answer_result_text=正解は 4 です。は誤っている記述の選択肢番号であり、選択肢4のみが蒸発方式と混合付臭剤の扱いを誤っている。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は選択肢4。蒸発式のバイパス蒸発方式では、混合付臭剤を用いると各成分の蒸気圧差により蒸発後の混合比率を一定に保ちにくく、一般には単一成分の付臭剤が適する。選択肢1・2・3・5はFPD付ガスクロマトグラフ法、パネル法、滴下注入方式、TBMの特徴として正しい。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "FPD付ガスクロマトグラフ法はTHT、TBM、DMSなどの有機硫黄化合物を検出できる。"
+      ],
+      [
+        "パネル法は適正に選定された4名以上の判定者により臭気濃度を求める。"
+      ],
+      [
+        "手動式の滴下注入方式は精度が低いため、流量変動の少ない小規模設備に用いられる。"
+      ],
+      [
+        "蒸発方式では混合付臭剤の各成分の蒸気圧差により混合比率を一定に保ちにくい。"
+      ],
+      [
+        "TBMは認知閾値が低く、においのインパクトが強い。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-1840",
+    "questionSetName": "都市ガスの付臭（乙種）",
+    "category": "都市ガスの付臭（乙種）",
+    "questionIntent": "select_incorrect",
+    "taskId": "T954",
+    "workerTaskId": "T954",
+    "remainingAfterTask": 80
   },
   {
     "original_question_id": "8e30472ec04b7830",
