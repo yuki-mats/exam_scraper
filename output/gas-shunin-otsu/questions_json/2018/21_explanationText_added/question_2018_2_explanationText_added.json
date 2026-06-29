@@ -52,18 +52,72 @@
       "3×10⁶"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。レイノルズ数は Re=ρvD/μ で求める。内径3cm=0.03m、平均流速100cm/s=1.0m/sなので、Re=1000×1.0×0.03/(1.0×10⁻³)=30000=3×10⁴であり、3×10²ではない。",
+      "不正解。3×10³は計算値3×10⁴より1桁小さい。cmをmに直し、粘度1.0×10⁻³で割ると30000になる。",
+      "正解。D=0.03m、v=1.0m/s、ρ=1000kg/m³、μ=1.0×10⁻³Pa·sより、Re=ρvD/μ=1000×1.0×0.03/0.001=30000=3×10⁴である。",
+      "不正解。3×10⁵は計算値3×10⁴より1桁大きい。ρvD=30であり、30を0.001で割ると30000となる。",
+      "不正解。3×10⁶は計算値3×10⁴より大きすぎる。与えられた密度、流速、内径、粘度からは30000となる。"
+    ],
+    "suggestedQuestions": [
+      "レイノルズ数の式は何か。",
+      "内径3cmと平均流速100cm/sはSI単位でいくらか。",
+      "本問のρvDはいくらか。",
+      "本問のレイノルズ数はいくらか。",
+      "3×10⁵や3×10⁶が不正解になる理由は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "レイノルズ数の式は何か。",
+        "answer": "Re=ρvD/μ。",
+        "explanation": "円管内流れでは、密度ρ、平均流速v、管内径D、粘度μから無次元数のレイノルズ数を求める。"
+      },
+      {
+        "question": "内径3cmと平均流速100cm/sはSI単位でいくらか。",
+        "answer": "D=0.03m、v=1.0m/s。",
+        "explanation": "3cmは0.03m、100cm/sは1.0m/sとして代入する。"
+      },
+      {
+        "question": "本問のρvDはいくらか。",
+        "answer": "30。",
+        "explanation": "ρvD=1000×1.0×0.03=30である。"
+      },
+      {
+        "question": "本問のレイノルズ数はいくらか。",
+        "answer": "30000、すなわち3×10⁴。",
+        "explanation": "Re=30/(1.0×10⁻³)=30000となる。"
+      },
+      {
+        "question": "3×10⁵や3×10⁶が不正解になる理由は何か。",
+        "answer": "計算値3×10⁴より大きすぎるため。",
+        "explanation": "粘度0.001で割ると30000であり、3×10⁵や3×10⁶にはならない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の円管内流れにおけるレイノルズ数の計算問題。",
+      "レイノルズ数は Re=ρvD/μ であり、内径3cmは0.03m、平均流速100cm/sは1.0m/sとして代入する。",
+      "本問では ρvD=1000×1.0×0.03=30、μ=1.0×10⁻³Pa·s なので、Re=30/0.001=30000=3×10⁴となる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "レイノルズ数は Re=ρvD/μ=1000×1.0×0.03/(1.0×10⁻³)=30000=3×10⁴。したがって選択肢3が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "3×10²は計算値3×10⁴より小さすぎる。"
+      ],
+      [
+        "3×10³は計算値3×10⁴より1桁小さい。"
+      ],
+      [
+        "Re=1000×1.0×0.03/0.001=30000=3×10⁴。"
+      ],
+      [
+        "3×10⁵は計算値3×10⁴より1桁大きい。"
+      ],
+      [
+        "3×10⁶は計算値3×10⁴より大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -71,7 +125,23 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2140",
+    "category": "流体力学（乙種）",
+    "questionSetName": "流体力学（乙種）",
+    "categoryName": "流体力学（乙種）",
+    "taskId": "T962",
+    "workerTaskId": "T962",
+    "remainingAfterTask": 72
   },
   {
     "original_question_id": "bc64855ba7afa895",
