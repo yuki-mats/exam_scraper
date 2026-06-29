@@ -644,18 +644,72 @@
       "0.2"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。ヘンリーの法則で、気体の分圧 p と液中のモル分率 x の関係を p=Hx とすると、x=p/H=40/4000=0.01 となる。",
+      "不正解。0.02の場合、p=Hx=4000×0.02=80MPaに相当する。問題の圧力40MPaに対応するモル分率は0.01である。",
+      "不正解。0.05の場合、p=4000×0.05=200MPaに相当し、40MPaより大きすぎる。",
+      "不正解。0.1の場合、p=4000×0.1=400MPaに相当するため、問題の圧力40MPaには対応しない。",
+      "不正解。0.2の場合、p=4000×0.2=800MPaに相当し、ヘンリーの法則から求める値0.01とは一致しない。"
+    ],
+    "suggestedQuestions": [
+      "ヘンリーの法則で分圧p、ヘンリー定数H、モル分率xの関係はどう表せるか。",
+      "本問のモル分率xはいくらか。",
+      "選択肢2の0.02はどの圧力に相当するか。",
+      "ヘンリー定数4000MPaでモル分率0.05なら圧力はいくらか。",
+      "本問で選択肢1が正解となる理由は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ヘンリーの法則で分圧p、ヘンリー定数H、モル分率xの関係はどう表せるか。",
+        "answer": "p=Hx、したがって x=p/H。",
+        "explanation": "Hはヘンリー定数、xは溶質気体のモル分率である。"
+      },
+      {
+        "question": "本問のモル分率xはいくらか。",
+        "answer": "0.01。",
+        "explanation": "x=40/4000=0.01 と計算する。"
+      },
+      {
+        "question": "選択肢2の0.02はどの圧力に相当するか。",
+        "answer": "80MPa。",
+        "explanation": "p=4000×0.02=80MPa であり、問題の40MPaではない。"
+      },
+      {
+        "question": "ヘンリー定数4000MPaでモル分率0.05なら圧力はいくらか。",
+        "answer": "200MPa。",
+        "explanation": "p=4000×0.05=200MPa と計算する。"
+      },
+      {
+        "question": "本問で選択肢1が正解となる理由は何か。",
+        "answer": "40MPaを4000MPaで割ると0.01になるため。",
+        "explanation": "ヘンリーの法則が成り立つので、モル分率は圧力に比例し、Hで割って求める。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」のヘンリーの法則と気体溶解度を問う計算問題。",
+      "ヘンリーの法則で p=Hx と表すと、気体のモル分率は x=p/H で求められる。",
+      "本問では p=40MPa、H=4000MPa なので、x=40/4000=0.01 である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "ヘンリーの法則 p=Hx より、x=p/H=40/4000=0.01。したがって選択肢1が正解で、他の選択肢は対応する圧力が80MPa以上となり大きすぎる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "x=40/4000=0.01で正しい。"
+      ],
+      [
+        "0.02は80MPaに相当し、40MPaではない。"
+      ],
+      [
+        "0.05は200MPaに相当し、大きすぎる。"
+      ],
+      [
+        "0.1は400MPaに相当し、大きすぎる。"
+      ],
+      [
+        "0.2は800MPaに相当し、大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -663,7 +717,24 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionType": "group_choice",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 1 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "category": "物性・基礎（乙種）",
+    "categoryName": "物性・基礎（乙種）",
+    "taskId": "T971",
+    "workerTaskId": "T971",
+    "remainingAfterTask": 63
   },
   {
     "original_question_id": "41946e72d174a60d",
