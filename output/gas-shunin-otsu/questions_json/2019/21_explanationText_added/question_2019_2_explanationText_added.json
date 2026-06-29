@@ -126,18 +126,70 @@
       "3180"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。引張応力は引張力を断面積で割って求める。直径10mmの円柱の断面積はπ×5²≈78.5mm²であり、25000N÷78.5mm²≈318MPaとなるため、31.8MPaではない。",
+      "不正解。105MPaは断面積を用いた計算結果318MPaより小さい。直径10mmでは半径5mmを用いて断面積πr²を計算する必要がある。",
+      "正解。直径10mmなので半径は5mm、断面積はπ×5²≈78.5mm²である。引張応力は25000N÷78.5mm²≈318N/mm²=318MPaとなる。",
+      "不正解。1050MPaは25000Nを円柱断面積約78.5mm²で割った値より大きすぎる。引張応力は約318MPaである。",
+      "不正解。3180MPaは桁が大きすぎる。N/mm²はMPaに等しいため、25000N÷78.5mm²の結果は約318MPaであり、3180MPaではない。"
+    ],
+    "suggestedQuestions": [
+      "引張応力は力と断面積からどう求めるか？",
+      "直径10mmの円柱断面積はどう求めるか？",
+      "25000Nを断面積約78.5mm²で割ると何MPaになるか？",
+      "N/mm²とMPaはどのような関係か？",
+      "この問題で選択肢318が最も近い理由は何か？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "引張応力は力と断面積からどう求めるか？",
+        "answer": "引張力を原断面積で割って求める。",
+        "explanation": "応力σは力Fを断面積Aで割るため、σ=F/Aを用いる。"
+      },
+      {
+        "question": "直径10mmの円柱断面積はどう求めるか？",
+        "answer": "半径5mmとして、A=π×5²≈78.5mm²で求める。",
+        "explanation": "直径ではなく半径を二乗して円断面積を計算する。"
+      },
+      {
+        "question": "25000Nを断面積約78.5mm²で割ると何MPaになるか？",
+        "answer": "約318MPa。",
+        "explanation": "25000÷78.5≈318で、1N/mm²=1MPaである。"
+      },
+      {
+        "question": "N/mm²とMPaはどのような関係か？",
+        "answer": "1N/mm²=1MPaである。",
+        "explanation": "1MPaは1N/mm²に等しいため、N/mm²で計算した値をそのままMPaとして読める。"
+      },
+      {
+        "question": "この問題で選択肢318が最も近い理由は何か？",
+        "answer": "計算値が約318MPaだから。",
+        "explanation": "断面積π×5²mm²で25000Nを割ると約318MPaになり、選択肢3が最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学（乙種）」の円柱試験片の引張応力計算に関する選択問題。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "正解は選択肢3。直径10mmの円柱試験片の半径は5mmなので、断面積はπ×5²≈78.5mm²。引張応力は引張力25000Nを断面積で割り、25000÷78.5≈318N/mm²=318MPaとなる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "31.8MPaは計算値318MPaより一桁小さい。"
+      ],
+      [
+        "105MPaは断面積π×5²mm²を用いた計算値に合わない。"
+      ],
+      [
+        "25000N÷(π×5²mm²)≈318MPa。"
+      ],
+      [
+        "1050MPaは計算値318MPaより大きすぎる。"
+      ],
+      [
+        "3180MPaは桁が大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
