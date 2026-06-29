@@ -681,18 +681,72 @@
       "120"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。自由に伸びる溶接管の温度伸び量は ΔL=αLΔT で求める。1.0×10^-5×25m×40=0.01m=10mmであるため、1mmでは小さすぎる。",
+      "正解。両端や周囲が拘束されていないため熱応力ではなく自由膨張量を求める。ΔL=1.0×10^-5×25m×40=0.01m=10mmとなる。",
+      "不正解。計算値は0.01m=10mmである。12mmは近いが、線膨張係数、長さ25m、温度上昇40℃をそのまま掛けた値からは外れる。",
+      "不正解。ΔL=αLΔT のLは25mなので、伸び量は0.01m=10mmである。100mmは10倍大きい。",
+      "不正解。温度上昇40℃、線膨張係数1.0×10^-5、長さ25mから求まる自由膨張量は10mmであり、120mmは大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "拘束されていない管の温度伸び量はどの式で求めるか？",
+      "長さ25m、線膨張係数1.0×10^-5、温度上昇40℃の伸び量は何mか？",
+      "0.01mは何mmか？",
+      "この問題で口径300mmは伸び量計算に直接使うか？",
+      "本問で最も近い選択肢はどれか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "拘束されていない管の温度伸び量はどの式で求めるか？",
+        "answer": "ΔL=αLΔTで求める。",
+        "explanation": "拘束がない場合は、線膨張係数、長さ、温度変化を掛けて自由膨張量を求める。"
+      },
+      {
+        "question": "長さ25m、線膨張係数1.0×10^-5、温度上昇40℃の伸び量は何mか？",
+        "answer": "0.01m。",
+        "explanation": "1.0×10^-5×25×40=0.01mである。"
+      },
+      {
+        "question": "0.01mは何mmか？",
+        "answer": "10mm。",
+        "explanation": "1m=1000mmなので、0.01mは10mmである。"
+      },
+      {
+        "question": "この問題で口径300mmは伸び量計算に直接使うか？",
+        "answer": false,
+        "explanation": "自由膨張量は長さと温度変化、線膨張係数で決まり、口径はこの計算では直接使わない。"
+      },
+      {
+        "question": "本問で最も近い選択肢はどれか？",
+        "answer": "選択肢2の10mm。",
+        "explanation": "計算値10mmと一致するため、選択肢2が正解である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」の管材料・施工に関連する、鋼管の温度変化による伸縮計算が本問の論点。",
+      "拘束されていない管では熱応力ではなく自由膨張量を求め、ΔL=αLΔT を用いる。",
+      "長さは25m、温度上昇は40℃、線膨張係数は1.0×10^-5(1/℃)として計算する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "ΔL=1.0×10^-5×25m×40=0.01m=10mmであり、選択肢2が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1mmは計算値10mmより小さい。"
+      ],
+      [
+        "10mmは ΔL=αLΔT の計算値と一致する。"
+      ],
+      [
+        "12mmは計算値10mmから外れる。"
+      ],
+      [
+        "100mmは計算値の10倍である。"
+      ],
+      [
+        "120mmは計算値より大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -700,7 +754,14 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "taskId": "T945",
+    "workerTaskId": "T945",
+    "remainingAfterTask": 89,
+    "questionSetId": "chiefgasengineerlicense-B-2040",
+    "category": "導管の工事（乙種）",
+    "questionSetName": "導管の工事（乙種）"
   },
   {
     "original_question_id": "503fc41d35ee0f5b",
