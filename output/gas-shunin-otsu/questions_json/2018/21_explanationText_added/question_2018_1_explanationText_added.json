@@ -607,18 +607,72 @@
       "144"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。ボイル・シャルルの法則より P1V1/T1=P2V2/T2。T1=27+273=300K、T2=-23+273=250Kなので、P2=100×3.0×250/(300×2.5)=100kPaであり、50kPaではない。",
+      "不正解。計算式は P2=P1V1T2/(T1V2) であり、100×3.0×250/(300×2.5)=100kPaとなる。83kPaは最も近い値ではない。",
+      "正解。温度27℃は300K、-23℃は250Kである。P2=100×3.0×250/(300×2.5)=100kPaとなり、選択肢3が正しい。",
+      "不正解。120kPaとするには温度・体積比の扱いが過大である。本問では体積が3.0Lから2.5Lへ小さくなる一方、絶対温度も300Kから250Kへ下がるため、圧力は100kPaのままとなる。",
+      "不正解。144kPaは、温度を絶対温度で扱わない、又は体積比と温度比を取り違えた場合に近い値である。正しくは100kPaである。"
+    ],
+    "suggestedQuestions": [
+      "ボイル・シャルルの法則はどの形で使うか。",
+      "27℃と-23℃はそれぞれ何Kか。",
+      "本問の変化後の圧力はいくらか。",
+      "体積が小さくなる効果と温度が下がる効果は本問でどう働くか。",
+      "温度を計算するときに℃のまま扱ってよいか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "ボイル・シャルルの法則はどの形で使うか。",
+        "answer": "P1V1/T1=P2V2/T2。",
+        "explanation": "一定量の理想気体では、PV/Tが一定である。"
+      },
+      {
+        "question": "27℃と-23℃はそれぞれ何Kか。",
+        "answer": "27℃は300K、-23℃は250K。",
+        "explanation": "絶対温度は摂氏温度に273を加えて扱う。"
+      },
+      {
+        "question": "本問の変化後の圧力はいくらか。",
+        "answer": "100kPa。",
+        "explanation": "P2=100×3.0×250/(300×2.5)=100kPa。"
+      },
+      {
+        "question": "体積が小さくなる効果と温度が下がる効果は本問でどう働くか。",
+        "answer": "体積減少は圧力を上げ、温度低下は圧力を下げ、両者が相殺する。",
+        "explanation": "V1/V2=3.0/2.5=1.2、T2/T1=250/300=5/6で、積は1.0となる。"
+      },
+      {
+        "question": "温度を計算するときに℃のまま扱ってよいか。",
+        "answer": "よくない。絶対温度Kで扱う。",
+        "explanation": "気体の状態方程式やボイル・シャルルの法則では絶対温度を用いる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体とボイル・シャルルの法則を問う計算問題。",
+      "一定量の理想気体では PV/T が一定であり、温度は絶対温度Kで扱う。",
+      "本問では T1=300K、T2=250K、P2=100×3.0×250/(300×2.5)=100kPa である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "ボイル・シャルルの法則 P1V1/T1=P2V2/T2 より、変化後の圧力は100kPa。体積減少による圧力上昇分と温度低下による圧力低下分が相殺され、選択肢3が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "正しく計算すると100kPaで、50kPaではない。"
+      ],
+      [
+        "83kPaは最も近い値ではない。"
+      ],
+      [
+        "P2=100×3.0×250/(300×2.5)=100kPa。"
+      ],
+      [
+        "体積比と温度比を合わせると圧力は100kPaのまま。"
+      ],
+      [
+        "温度を絶対温度で扱うと144kPaにはならない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -626,7 +680,24 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionType": "group_choice",
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "questionSetName": "物性・基礎（乙種）",
+    "category": "物性・基礎（乙種）",
+    "categoryName": "物性・基礎（乙種）",
+    "taskId": "T972",
+    "workerTaskId": "T972",
+    "remainingAfterTask": 62
   },
   {
     "original_question_id": "304ae8647a2482e7",
