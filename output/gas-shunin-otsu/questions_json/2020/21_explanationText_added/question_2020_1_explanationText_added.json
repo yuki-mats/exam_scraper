@@ -792,26 +792,82 @@
       "この反応において、触媒は化学平衡状態に影響を与えない。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。CO₂は右辺の生成物であるため、CO₂の分圧を増加させると、加えられたCO₂を減らす向き、すなわち左方向へ平衡が移動する。",
+      "間違い。反応式の気体成分数は左辺がCOとH₂Oで2、右辺がCO₂とH₂で2と同じである。圧力を上げても気体分子数の少ない側へ移動する効果はなく、左方向へ進むとはいえない。",
+      "正しい。右方向の反応は発熱反応として示されているため、温度を下げると発熱方向である右方向へ平衡が移動する。",
+      "正しい。H₂Oは左辺の反応物であるため、水蒸気を増加させると、加えられたH₂Oを消費する右方向へ反応が進む。",
+      "正しい。触媒は正反応・逆反応の速度をともに変えて平衡到達を速めるが、平衡定数や平衡組成そのものは変えない。"
+    ],
+    "suggestedQuestions": [
+      "CO₂の分圧を増加させると平衡はどちらへ移動するか。",
+      "この反応で圧力を上げると平衡は左方向へ移動するか。",
+      "温度を下げると平衡はどちらへ移動するか。",
+      "H₂Oを増加させると平衡はどちらへ移動するか。",
+      "触媒は化学平衡状態そのものを変えるか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "CO₂の分圧を増加させると平衡はどちらへ移動するか。",
+        "answer": "左方向へ移動する。",
+        "explanation": "CO₂は生成物なので、増加したCO₂を減らす向きに平衡が移動する。"
+      },
+      {
+        "question": "この反応で圧力を上げると平衡は左方向へ移動するか。",
+        "answer": "移動しない。",
+        "explanation": "左辺・右辺の気体モル数がどちらも2であり、圧力変化による平衡移動は生じない。"
+      },
+      {
+        "question": "温度を下げると平衡はどちらへ移動するか。",
+        "answer": "右方向へ移動する。",
+        "explanation": "右方向は発熱方向なので、温度低下では熱を発生する向きが有利になる。"
+      },
+      {
+        "question": "H₂Oを増加させると平衡はどちらへ移動するか。",
+        "answer": "右方向へ移動する。",
+        "explanation": "H₂Oは反応物なので、増加したH₂Oを消費する向きに平衡が移動する。"
+      },
+      {
+        "question": "触媒は化学平衡状態そのものを変えるか。",
+        "answer": "変えない。",
+        "explanation": "触媒は平衡到達の速さを変えるが、平衡定数や平衡組成を変えない。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の化学平衡とル・シャトリエの原理が本問の関連論点。",
+      "平衡状態にある反応では、濃度・圧力・温度の変化に対して、その変化を打ち消す方向へ平衡が移動する。ただし、気体モル数が左右で同じ反応では、圧力変化だけでは平衡は移動しない。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "CO₂増加は左方向、H₂O増加は右方向、発熱方向である右方向は温度低下で有利になる。一方、この反応は左右の気体モル数が同じなので、圧力を上げても左方向へ進むとはいえない。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "CO₂は生成物なので、増加させると左方向へ移動する。"
+      ],
+      [
+        "左右の気体モル数が同じため、圧力上昇で左方向へ進むとはいえない。"
+      ],
+      [
+        "右方向は発熱方向なので、温度低下で右方向へ移動する。"
+      ],
+      [
+        "H₂Oは反応物なので、増加させると右方向へ移動する。"
+      ],
+      [
+        "触媒は平衡到達を速めるが、平衡状態を変えない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "questionSetName": "化学反応・平衡・反応熱・速度論（乙種）",
+    "category": "基礎理論"
   },
   {
     "original_question_id": "d8cacffa8ea806f3",
