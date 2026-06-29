@@ -163,18 +163,71 @@
       "1000"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。せん断応力100kPaは100,000N/m²であり、原断面積0.1m²を掛けると力は10,000N=10kNとなる。0.001kNではない。",
+      "不正解。力は応力×面積で求める。100,000N/m²×0.1m²=10,000N=10kNであり、0.1kNではない。",
+      "不正解。計算結果は10,000N=10kNである。1kNは1,000Nに相当し、本問の値より小さい。",
+      "正解。せん断応力100kPa=100,000N/m²、原断面積0.1m²なので、力は100,000×0.1=10,000N=10kNである。",
+      "不正解。1000kNは1,000,000Nであり、100kPaの応力を0.1m²に作用させた力10,000Nより大きすぎる。"
+    ],
+    "suggestedQuestions": [
+      "100kPaは何N/m²か。",
+      "せん断応力と断面積から力を求める式は何か。",
+      "本問の力は何Nか。",
+      "10,000Nは何kNか。",
+      "本問で最も近い選択肢はどれか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "100kPaは何N/m²か。",
+        "answer": "100,000N/m²。",
+        "explanation": "1Pa=1N/m²、1kPa=1000Paなので、100kPa=100,000N/m²である。"
+      },
+      {
+        "question": "せん断応力と断面積から力を求める式は何か。",
+        "answer": "力=せん断応力×原断面積。",
+        "explanation": "応力は単位面積あたりの力なので、力は応力に面積を掛けて求める。"
+      },
+      {
+        "question": "本問の力は何Nか。",
+        "answer": "10,000N。",
+        "explanation": "100,000N/m²×0.1m²=10,000Nである。"
+      },
+      {
+        "question": "10,000Nは何kNか。",
+        "answer": "10kN。",
+        "explanation": "1kN=1000Nなので、10,000Nは10kNである。"
+      },
+      {
+        "question": "本問で最も近い選択肢はどれか。",
+        "answer": "10。",
+        "explanation": "計算結果が10kNであるため、選択肢4の10が正解である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「材料力学（乙種）」の応力、断面積、力の単位換算を問う計算問題。",
+      "せん断応力は単位面積あたりの力であり、力は応力に原断面積を掛けて求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "100kPa=100,000N/m²、原断面積0.1m²より、力は100,000×0.1=10,000N=10kN。したがって選択肢4の10が正解。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値は10kNであり、0.001kNではない。"
+      ],
+      [
+        "計算値は10kNであり、0.1kNではない。"
+      ],
+      [
+        "計算値は10kNであり、1kNではない。"
+      ],
+      [
+        "100,000N/m²×0.1m²=10,000N=10kN。"
+      ],
+      [
+        "1000kNは計算値10kNより大きすぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -182,7 +235,23 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "taskId": "T959",
+    "workerTaskId": "T959",
+    "remainingAfterTask": 75,
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2170",
+    "questionSetName": "材料力学（乙種）",
+    "category": "材料力学（乙種）",
+    "categoryName": "材料力学（乙種）"
   },
   {
     "original_question_id": "ebce48af09a1a041",
