@@ -163,25 +163,45 @@
       "家庭用燃料電池コージェネレーションシステムには、発電運転中に停電が発生したときでも運転を継続し、家庭に電力を供給できるものがある。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_3.json",
-    "explanationText": null,
+    "explanationText": [
+      "正しい。ガスタービン式のコージェネレーションシステムは空冷式であり、冷却水を必要としない方式として扱われる。",
+      "間違い。熱主従運転は熱の負荷に合わせて発電し、発生した電力を利用する運転である。電力の負荷に合わせて発電するのは電主熱従運転の説明である。",
+      "正しい。コージェネレーションシステムを系統連系した場合、一定の条件を満たせば発電した余剰電力を電力系統へ逆潮流できる。",
+      "正しい。家庭用コージェネレーションシステムでは、一般に燃料電池式の発電効率はガスエンジン式より高い。",
+      "正しい。家庭用燃料電池コージェネレーションシステムには、発電運転中の停電時に自立運転へ移行し、家庭へ電力を供給できるものがある。"
+    ],
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonPrefix": [
+      "コージェネレーションシステムに関する各記述の正誤判定。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っているのは選択肢2のみ。熱主従運転は電力負荷ではなく熱負荷に合わせて発電する。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "ガスタービン式CGSは空冷式で冷却水が不要。"
+      ],
+      [
+        "熱主従運転は熱負荷に合わせて発電する。電力負荷に合わせる説明は誤り。"
+      ],
+      [
+        "一定条件を満たす系統連系では余剰電力の逆潮流が可能。"
+      ],
+      [
+        "家庭用CGSの発電効率は燃料電池式がガスエンジン式より高い。"
+      ],
+      [
+        "家庭用燃料電池CGSには停電時に自立運転で電力供給できるものがある。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
     ]
   },
   {
