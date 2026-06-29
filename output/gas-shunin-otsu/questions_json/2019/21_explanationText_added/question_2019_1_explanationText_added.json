@@ -829,26 +829,86 @@
       "2C₂H₂ + 5O₂\n→ 4CO₂ + 2H₂O"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。CH4+2O2→CO2+2H2O なので、メタン1m3を完全燃焼するのに必要な酸素量は2m3である。これは提示された反応式の中で最も少ない。",
+      "間違い。2C2H6+7O2→4CO2+6H2O では、エタン1m3あたりの必要酸素量は7/2=3.5m3である。最も多い5m3でも最も少ない2m3でもない。",
+      "正しい。C3H8+5O2→3CO2+4H2O なので、プロパン1m3を完全燃焼するのに必要な酸素量は5m3である。これは提示された反応式の中で最も多い。",
+      "間違い。C2H4+3O2→2CO2+2H2O なので、エチレン1m3あたりの必要酸素量は3m3である。最も多い値でも最も少ない値でもない。",
+      "間違い。2C2H2+5O2→4CO2+2H2O では、アセチレン1m3あたりの必要酸素量は5/2=2.5m3である。メタンの2m3より多く、最少ではない。"
+    ],
+    "suggestedQuestions": [
+      "メタン1m3の完全燃焼に必要な酸素量は？",
+      "エタン1m3の完全燃焼に必要な酸素量は？",
+      "プロパン1m3の完全燃焼に必要な酸素量は？",
+      "エチレン1m3の完全燃焼に必要な酸素量は？",
+      "アセチレン1m3の完全燃焼に必要な酸素量は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "メタン1m3の完全燃焼に必要な酸素量は？",
+        "answer": "2m3。",
+        "explanation": "CH4+2O2→CO2+2H2O より、メタン1体積に対して酸素2体積が必要である。"
+      },
+      {
+        "question": "エタン1m3の完全燃焼に必要な酸素量は？",
+        "answer": "3.5m3。",
+        "explanation": "2C2H6+7O2→4CO2+6H2O より、エタン2体積に酸素7体積なので、1体積あたり3.5体積である。"
+      },
+      {
+        "question": "プロパン1m3の完全燃焼に必要な酸素量は？",
+        "answer": "5m3。",
+        "explanation": "C3H8+5O2→3CO2+4H2O より、プロパン1体積に対して酸素5体積が必要である。"
+      },
+      {
+        "question": "エチレン1m3の完全燃焼に必要な酸素量は？",
+        "answer": "3m3。",
+        "explanation": "C2H4+3O2→2CO2+2H2O より、エチレン1体積に対して酸素3体積が必要である。"
+      },
+      {
+        "question": "アセチレン1m3の完全燃焼に必要な酸素量は？",
+        "answer": "2.5m3。",
+        "explanation": "2C2H2+5O2→4CO2+2H2O より、アセチレン2体積に酸素5体積なので、1体積あたり2.5体積である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「燃焼・燃料（乙種）」の完全燃焼反応式と理論酸素量に関する組合せ問題。",
+      "気体反応では、同温同圧で体積比が反応式の係数比に対応するため、可燃性ガス1m3あたりの必要酸素量は反応式の酸素係数を燃料係数で割って求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "各燃料1m3あたりの必要酸素量は、CH4=2、C2H6=3.5、C3H8=5、C2H4=3、C2H2=2.5m3である。最も多いのはC3H8、最も少ないのはCH4であり、該当する反応式はハとイである。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "CH4は1m3あたり酸素2m3で、提示式中の最少。"
+      ],
+      [
+        "C2H6は1m3あたり酸素3.5m3で、最多でも最少でもない。"
+      ],
+      [
+        "C3H8は1m3あたり酸素5m3で、提示式中の最多。"
+      ],
+      [
+        "C2H4は1m3あたり酸素3m3で、最多でも最少でもない。"
+      ],
+      [
+        "C2H2は1m3あたり酸素2.5m3で、最少ではない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "questionIntent": "select_correct",
+    "questionSetId": "chiefgasengineerlicense-B-2130",
+    "questionSetName": "燃焼・燃料（乙種）",
+    "category": "燃焼・燃料（乙種）",
+    "taskId": "T908",
+    "workerTaskId": "T908",
+    "remainingAfterTask": 126
   },
   {
     "original_question_id": "5fe6aec5d068e301",
