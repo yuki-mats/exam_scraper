@@ -829,18 +829,71 @@
       "50"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正解。メタン1m³の完全燃焼には2m³の酸素、水素2m³の完全燃焼には1m³の酸素が必要で、酸素は合計3m³となる。空気中の酸素は体積比で1/5なので、必要空気量は3×5=15m³である。",
+      "不正解。必要な酸素量は合計3m³であり、空気量に換算すると15m³となるため、20m³ではない。",
+      "不正解。空気中の窒素と酸素の体積比4:1から、空気量は酸素量の5倍で求める。3m³×5=15m³であり、25m³ではない。",
+      "不正解。30m³は必要酸素量3m³を空気量に換算した15m³の2倍である。",
+      "不正解。メタン1m³と水素2m³の完全燃焼に必要な酸素量は3m³で、必要空気量は15m³であるため、50m³ではない。"
+    ],
+    "suggestedQuestions": [
+      "メタン1m³の完全燃焼に必要な酸素量は何m³か。",
+      "水素2m³の完全燃焼に必要な酸素量は何m³か。",
+      "混合ガス全体の完全燃焼に必要な酸素量は何m³か。",
+      "空気中の酸素の体積割合はいくらか。",
+      "必要な最低空気量は何m³か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "メタン1m³の完全燃焼に必要な酸素量は何m³か。",
+        "answer": "2m³。",
+        "explanation": "CH4+2O2→CO2+2H2O より、メタン1m³には酸素2m³が必要である。"
+      },
+      {
+        "question": "水素2m³の完全燃焼に必要な酸素量は何m³か。",
+        "answer": "1m³。",
+        "explanation": "2H2+O2→2H2O より、水素2m³には酸素1m³が必要である。"
+      },
+      {
+        "question": "混合ガス全体の完全燃焼に必要な酸素量は何m³か。",
+        "answer": "3m³。",
+        "explanation": "メタン分2m³と水素分1m³を合計する。"
+      },
+      {
+        "question": "空気中の酸素の体積割合はいくらか。",
+        "answer": "1/5。",
+        "explanation": "窒素と酸素の体積比が4:1なので、空気5体積中に酸素1体積が含まれる。"
+      },
+      {
+        "question": "必要な最低空気量は何m³か。",
+        "answer": "15m³。",
+        "explanation": "酸素3m³を得るには、その5倍の空気3×5=15m³が必要である。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「燃焼・燃料（乙種）」の完全燃焼に必要な理論空気量が本問の関連論点。",
+      "気体の体積は同一温度・同一圧力では物質量に比例するため、燃焼反応式の係数比から必要酸素量を求め、空気中の酸素割合で空気量に換算する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "CH4 1m³にはO2 2m³、H2 2m³にはO2 1m³が必要なので合計O2は3m³。空気中のO2は1/5であるため、最低空気量は3×5=15m³。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "O2合計3m³を空気量に換算すると15m³。"
+      ],
+      [
+        "計算値は15m³なので20m³ではない。"
+      ],
+      [
+        "空気量は酸素量3m³の5倍で15m³。"
+      ],
+      [
+        "30m³は計算値15m³より大きい。"
+      ],
+      [
+        "50m³は計算値15m³より大きい。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -848,7 +901,10 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2130",
+    "questionSetName": "燃焼・燃料（乙種）",
+    "category": "基礎理論"
   },
   {
     "original_question_id": "b1293928b2528721",
