@@ -15,18 +15,71 @@
       "2.0"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。内径100mm=0.10m、断面積 A=πD²/4=π×0.10²/4≈0.00785m²。平均流速は v=m/(ρA)=6/(400×0.00785)≈1.91m/s であり、0.2m/sではない。",
+      "不正解。質量流量 m=ρAv より、v=6/(400×π×0.10²/4)≈1.91m/s となる。0.5m/sでは小さすぎる。",
+      "不正解。1.0m/sでは質量流量が 400×0.00785×1.0≈3.14kg/s となり、問題の6kg/sに足りない。",
+      "不正解。1.5m/sでは質量流量が 400×0.00785×1.5≈4.7kg/s となり、問題の6kg/sより小さい。計算値は約1.91m/sである。",
+      "正解。内径100mm=0.10m、A=πD²/4≈0.00785m²。v=m/(ρA)=6/(400×0.00785)≈1.91m/s なので、最も近い値は2.0m/sである。"
+    ],
+    "suggestedQuestions": [
+      "内径100mmは何mとして計算するか。",
+      "直円管の断面積はどの式で求めるか。",
+      "質量流量・密度・断面積・平均流速の関係式は何か。",
+      "本問の平均流速は何m/sか。",
+      "本問で最も近い選択肢はどれか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "内径100mmは何mとして計算するか。",
+        "answer": "0.10mとして計算する。",
+        "explanation": "100mmは0.10mに換算して断面積を求める。"
+      },
+      {
+        "question": "直円管の断面積はどの式で求めるか。",
+        "answer": "A=πD²/4で求める。",
+        "explanation": "直円管の断面は円であり、内径Dを用いて断面積を計算する。"
+      },
+      {
+        "question": "質量流量・密度・断面積・平均流速の関係式は何か。",
+        "answer": "m=ρAvである。",
+        "explanation": "質量流量は密度、断面積、平均流速の積で表される。"
+      },
+      {
+        "question": "本問の平均流速は何m/sか。",
+        "answer": "約1.91m/sである。",
+        "explanation": "v=6/(400×π×0.10²/4)≈1.91m/sとなる。"
+      },
+      {
+        "question": "本問で最も近い選択肢はどれか。",
+        "answer": "2.0m/sである。",
+        "explanation": "計算値約1.91m/sに最も近い選択肢は2.0m/sである。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「流体力学（乙種）」の管内流れと質量流量が本問の関連論点。",
+      "質量流量は m=ρAv、直円管の断面積は A=πD²/4 で表されるため、平均流速は v=m/(ρA) で求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "内径100mm=0.10m、A=π×0.10²/4≈0.00785m²。m=6kg/s、ρ=400kg/m³より v=6/(400×0.00785)≈1.91m/sで、最も近い値は2.0m/s。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "計算値は約1.91m/sであり、0.2m/sではない。"
+      ],
+      [
+        "0.5m/sは計算値約1.91m/sより小さすぎる。"
+      ],
+      [
+        "1.0m/sでは質量流量が約3.14kg/sとなり不足する。"
+      ],
+      [
+        "1.5m/sでは質量流量が約4.7kg/sとなり不足する。"
+      ],
+      [
+        "v=6/(400×π×0.10²/4)≈1.91m/sなので2.0m/sが最も近い。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -34,7 +87,10 @@
       "不正解",
       "不正解",
       "正解"
-    ]
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-2140",
+    "questionSetName": "流体力学（乙種）",
+    "category": "流体力学（乙種）"
   },
   {
     "original_question_id": "1420f9544230be33",
