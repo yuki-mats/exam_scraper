@@ -533,26 +533,86 @@
       "電気エネルギーの管理では、\n力率を0に近づけると省エネルギー効果\nを上げることができる。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。LNG、LPGは硫黄分や窒素分などをほとんど含まないため、都市ガスの製造段階で硫黄酸化物（SOx）や燃料由来の窒素酸化物（NOx）の発生はほとんどない。",
+      "正しい。排ガス再循環方式は、燃焼排ガスの一部を燃焼用空気に混入して炉内へ戻し、燃焼温度を下げることでNOxの発生量を減少させる方式である。",
+      "間違い。水素イオン濃度指数（pH）は純水で7付近であり、pHが7より小さければ酸性、7より大きければアルカリ性である。記述は酸性とアルカリ性を逆にしている。",
+      "正しい。燃焼温度や空気比を適正に管理し、燃焼状態を良好に保つことは、すすなどのばいじん発生量の低減につながる。",
+      "間違い。電気エネルギーの管理では、力率を1に近づけて無効電力や損失を減らすことで省エネルギー効果を高める。力率を0に近づけるとしている点が誤り。"
+    ],
+    "suggestedQuestions": [
+      "LNG、LPGは都市ガス製造段階でSOxや燃料由来NOxを多く発生させるか。",
+      "排ガス再循環方式は何の発生量を減少させる方式か。",
+      "pHが7より小さい場合と大きい場合は、それぞれ酸性・アルカリ性のどちらか。",
+      "燃焼温度や空気比の適正管理は、ばいじん発生量の低減に有効か。",
+      "省エネルギーのための力率管理では、力率を0と1のどちらに近づけるか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "LNG、LPGは都市ガス製造段階でSOxや燃料由来NOxを多く発生させるか。",
+        "answer": "多く発生させない。",
+        "explanation": "正しい。LNG、LPGは硫黄分や窒素分などをほとんど含まないため、都市ガスの製造段階で硫黄酸化物（SOx）や燃料由来の窒素酸化物（NOx）の発生はほとんどない。"
+      },
+      {
+        "question": "排ガス再循環方式は何の発生量を減少させる方式か。",
+        "answer": "NOxの発生量を減少させる。",
+        "explanation": "正しい。排ガス再循環方式は、燃焼排ガスの一部を燃焼用空気に混入して炉内へ戻し、燃焼温度を下げることでNOxの発生量を減少させる方式である。"
+      },
+      {
+        "question": "pHが7より小さい場合と大きい場合は、それぞれ酸性・アルカリ性のどちらか。",
+        "answer": "7未満が酸性、7超がアルカリ性。",
+        "explanation": "間違い。水素イオン濃度指数（pH）は純水で7付近であり、pHが7より小さければ酸性、7より大きければアルカリ性である。記述は酸性とアルカリ性を逆にしている。"
+      },
+      {
+        "question": "燃焼温度や空気比の適正管理は、ばいじん発生量の低減に有効か。",
+        "answer": "有効である。",
+        "explanation": "正しい。燃焼温度や空気比を適正に管理し、燃焼状態を良好に保つことは、すすなどのばいじん発生量の低減につながる。"
+      },
+      {
+        "question": "省エネルギーのための力率管理では、力率を0と1のどちらに近づけるか。",
+        "answer": "1に近づける。",
+        "explanation": "間違い。電気エネルギーの管理では、力率を1に近づけて無効電力や損失を減らすことで省エネルギー効果を高める。力率を0に近づけるとしている点が誤り。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "製造「環境対策及び省エネルギー（乙種）」の環境対策、排ガス対策、水質指標、燃焼管理、力率改善を問う問題。",
+      "設問は誤っているものの組合せを選ぶ形式で、answer_result_text=正解は5です。はハ・ホが誤りであることに対応する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "環境対策及び省エネルギーの問題。LNG/LPGの低硫黄・低窒素性、排ガス再循環によるNOx低減、燃焼管理によるばいじん低減は正しい。pHは7未満が酸性・7超がアルカリ性であり、力率は0ではなく1に近づけるため、ハとホが誤り。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "LNG、LPGは硫黄分や窒素分が少なく、SOxや燃料由来NOxの発生が少ない。"
+      ],
+      [
+        "排ガス再循環は燃焼温度を下げ、NOx発生量を減らす方式である。"
+      ],
+      [
+        "pHは7未満が酸性、7超がアルカリ性であり、記述は逆。"
+      ],
+      [
+        "燃焼温度や空気比の適正管理は、ばいじん発生量の低減に有効。"
+      ],
+      [
+        "力率は0ではなく1に近づけることで省エネルギー効果を高める。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "questionSetId": "chiefgasengineerlicense-B-1780",
+    "questionSetName": "環境対策及び省エネルギー（乙種）",
+    "category": "環境対策及び省エネルギー（乙種）",
+    "questionIntent": "select_incorrect",
+    "taskId": "T949",
+    "workerTaskId": "T949",
+    "remainingAfterTask": 85
   },
   {
     "original_question_id": "9aa07580fbbdfa8c",
