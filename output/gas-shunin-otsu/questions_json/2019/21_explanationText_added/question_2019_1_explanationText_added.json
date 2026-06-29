@@ -681,18 +681,72 @@
       "57"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。断熱圧縮では圧力は上昇し、P1V1^γ=P2V2^γ が成り立つ。P2=50/(0.95^1.40)≒53.8kPaとなるため、47kPaは低すぎる。",
+      "不正解。体積を1m³から0.95m³へ圧縮しているので、断熱変化では圧力は50kPaより大きくなる。近似計算では約53.8kPaであり、49kPaは適切でない。",
+      "不正解。P2=50/(0.95^1.40)で、0.95^1.40=(1-0.05)^1.40≒1-1.40×0.05=0.93と近似できる。よってP2≒50/0.93=53.8kPaであり、52kPaより54kPaの方が近い。",
+      "正解。断熱圧縮では P1V1^γ=P2V2^γ なので、P2=50×(1/0.95)^1.40=50/(0.95^1.40)。近似式より0.95^1.40≒0.93、P2≒53.8kPaとなり、最も近い値は54kPaである。",
+      "不正解。57kPaは、断熱圧縮による圧力上昇を過大に見積もっている。近似式を用いるとP2≒50/0.93=53.8kPaであり、57kPaでは高すぎる。"
+    ],
+    "suggestedQuestions": [
+      "断熱圧縮の圧力と体積の関係式は？",
+      "体積を0.95倍にしたとき圧力は上がるか？",
+      "0.95^1.40は近似式でいくらになるか？",
+      "P2=50/(0.95^1.40)はおよそ何kPaか？",
+      "選択肢54kPaが最も近い理由は？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "断熱圧縮の圧力と体積の関係式は？",
+        "answer": "P1V1^γ=P2V2^γ。",
+        "explanation": "可逆断熱変化では圧力と体積が比熱比γを指数として結び付く。"
+      },
+      {
+        "question": "体積を0.95倍にしたとき圧力は上がるか？",
+        "answer": "上がる。",
+        "explanation": "圧縮により体積が小さくなるため、断熱変化では圧力は初期圧力より大きくなる。"
+      },
+      {
+        "question": "0.95^1.40は近似式でいくらになるか？",
+        "answer": "約0.93。",
+        "explanation": "0.95^1.40=(1-0.05)^1.40≒1-1.40×0.05=0.93。"
+      },
+      {
+        "question": "P2=50/(0.95^1.40)はおよそ何kPaか？",
+        "answer": "約53.8kPa。",
+        "explanation": "50/0.93≒53.8となる。"
+      },
+      {
+        "question": "選択肢54kPaが最も近い理由は？",
+        "answer": "計算値約53.8kPaに最も近いから。",
+        "explanation": "選択肢の中では54kPaが近似計算結果に最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の可逆断熱変化、比熱比、圧力と体積の関係が本問の関連論点。",
+      "断熱圧縮では P1V1^γ=P2V2^γ が成り立ち、体積が小さくなると圧力は上昇する。",
+      "本問では P2=50/(0.95^1.40) とし、(1-0.05)^1.40≒1-1.40×0.05=0.93 を用いる。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "P2=50/(0.95^1.40)≒50/0.93=53.8kPaであるため、選択肢4の54kPaが最も近い。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "47kPaは圧縮後の圧力として低すぎる。"
+      ],
+      [
+        "49kPaは初期50kPaよりも低く、断熱圧縮の圧力上昇と合わない。"
+      ],
+      [
+        "52kPaは計算値約53.8kPaより離れている。"
+      ],
+      [
+        "54kPaはP2≒53.8kPaに最も近い。"
+      ],
+      [
+        "57kPaは計算値より高すぎる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -700,7 +754,11 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "questionIntent": "select_correct",
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "category": "熱力学（乙種）",
+    "questionSetName": "熱力学（乙種）"
   },
   {
     "original_question_id": "c98effdc1239a2b0",
