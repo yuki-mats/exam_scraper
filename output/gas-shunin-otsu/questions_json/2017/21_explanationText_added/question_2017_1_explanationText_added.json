@@ -1091,18 +1091,46 @@
       "2.5"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "不正解。水素の完全燃焼は H2+1/2O2→H2O であり、水素1m³に必要な酸素は0.5m³である。空気中の酸素は体積比で1/5なので、理論空気量は0.5×5=2.5m³となり、0.5m³ではない。",
+      "不正解。1.0m³の空気に含まれる酸素は、酸素:窒素=1:4より0.2m³である。水素1m³の完全燃焼に必要な酸素0.5m³に不足する。",
+      "不正解。1.5m³の空気に含まれる酸素は0.3m³であり、水素1m³の完全燃焼に必要な酸素0.5m³に足りない。",
+      "不正解。2.0m³の空気に含まれる酸素は0.4m³であり、必要酸素量0.5m³より少ない。理論空気量は2.5m³である。",
+      "正解。水素1m³を完全燃焼させるには酸素0.5m³が必要である。空気は酸素1に対して窒素4の体積比なので、酸素0.5m³を含む空気量は0.5×(1+4)=2.5m³である。"
+    ],
+    "suggestedQuestions": [
+      "水素の完全燃焼式は何か。",
+      "水素1m³の完全燃焼に必要な酸素量は何m³か。",
+      "空気中の酸素体積割合はいくらか。",
+      "理論空気量はどのように計算するか。",
+      "2.5m³が正解になる理由は何か。"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「燃焼・燃料（乙種）」の水素の完全燃焼式と理論空気量が本問の関連論点。",
+      "標準状態の気体では、反応式の係数比を体積比として扱える。",
+      "空気中の窒素と酸素の体積比が4:1なので、空気中の酸素は全体の1/5である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "水素の完全燃焼式 H2+1/2O2→H2O より、水素1m³に必要な酸素は0.5m³。空気中の酸素は1/5なので、理論空気量は0.5×5=2.5m³となる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "0.5m³は必要酸素量であり、理論空気量ではない。"
+      ],
+      [
+        "1.0m³の空気中酸素は0.2m³で不足する。"
+      ],
+      [
+        "1.5m³の空気中酸素は0.3m³で不足する。"
+      ],
+      [
+        "2.0m³の空気中酸素は0.4m³で不足する。"
+      ],
+      [
+        "酸素0.5m³を含む空気量は0.5×5=2.5m³。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
