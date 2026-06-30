@@ -357,8 +357,77 @@
       "80"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
-    "questionSetId": "",
-    "category": "基礎理論"
+    "questionSetId": "chiefgasengineerlicense-B-2100",
+    "category": "熱力学（乙種）",
+    "explanationText": [
+      "不正解。定積加熱では Q=m c_v ΔT なので、温度上昇は 42/(1×0.7)=60K となる。初期温度20℃に60Kを加えるため、40℃では低すぎる。",
+      "不正解。温度上昇は60Kであり、加熱後温度は20℃+60℃=80℃となる。50℃は必要な温度上昇より小さい。",
+      "不正解。60は温度上昇量ΔTの値であって、加熱後の温度ではない。初期温度20℃を加える必要がある。",
+      "不正解。70℃は温度上昇50Kに相当するが、42kJの熱量と定積比熱0.7kJ/(kg・K)から求まる温度上昇は60Kである。",
+      "正解。Q=m c_v ΔT より ΔT=42/(1×0.7)=60K。温度差はKでも℃でも大きさが同じなので、20℃+60℃=80℃となる。"
+    ],
+    "suggestedQuestions": [
+      "定積加熱で熱量、質量、定積比熱、温度上昇はどう関係するか。",
+      "Q=42kJ、m=1kg、c_v=0.7kJ/(kg・K)のとき温度上昇は何Kか。",
+      "温度上昇60Kは加熱後温度そのものか。",
+      "70℃が不正解になる理由は何か。",
+      "加熱後温度が80℃になる計算過程は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "定積加熱で熱量、質量、定積比熱、温度上昇はどう関係するか。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "Q=42kJ、m=1kg、c_v=0.7kJ/(kg・K)のとき温度上昇は何Kか。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "温度上昇60Kは加熱後温度そのものか。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "70℃が不正解になる理由は何か。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "加熱後温度が80℃になる計算過程は何か。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「熱力学（乙種）」の定積過程、定積比熱容量、熱量と温度上昇の関係が本問の関連論点。",
+      "一定容積で空気を加熱する場合、熱量は Q=m c_v ΔT で表せる。",
+      "温度差はKでも℃でも大きさが同じなので、求めた温度上昇を初期温度に加える。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "Q=m c_v ΔT より ΔT=42/(1×0.7)=60K。初期温度20℃に60℃を加え、加熱後温度は80℃となるため、選択肢5が正解。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "Q=m c_v ΔT より温度上昇は60Kで、40℃では低すぎる。"
+      ],
+      [
+        "50℃は温度上昇30Kに相当し、必要な60Kに達しない。"
+      ],
+      [
+        "60は温度上昇量であり、初期温度20℃を加える必要がある。"
+      ],
+      [
+        "70℃は温度上昇50Kであり、42kJから求まる60Kと一致しない。"
+      ],
+      [
+        "20℃+60℃=80℃となる。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解"
+    ]
   },
   {
     "original_question_id": "eda5aa4833ee9f56",
