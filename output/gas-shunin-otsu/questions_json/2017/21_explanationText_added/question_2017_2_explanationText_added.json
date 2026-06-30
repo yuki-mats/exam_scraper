@@ -19,14 +19,28 @@
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonPrefix": [
+
+    ],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -56,14 +70,28 @@
     "suggestedQuestions": null,
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonPrefix": [
+
+    ],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ],
+      [
+
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "正解",
@@ -89,18 +117,46 @@
       "熱流束は、高温側から低温側の方向を正として伝熱方向を示す。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "正しい。熱伝導率は、単位長さ当たり・単位温度差当たりにどれだけ熱を伝えるかを表す物性値であり、W/(m・K)を単位として表すことができる。",
+      "正しい。熱伝導率が大きい物質ほど、同じ温度差と厚さで大きな熱流束が生じるため、熱が伝わりやすい。",
+      "正しい。平板の定常熱伝導では、熱流束は熱伝導率と両面の温度差に比例し、厚さに反比例する。したがって、両面の温度差に比例する。",
+      "間違い。平板の定常熱伝導では、熱流束は厚みに比例するのではなく、厚みに反比例する。厚いほど同じ温度差で通過する熱流束は小さくなる。",
+      "正しい。熱流束は単位面積を通過する熱量の流れを表し、通常は高温側から低温側へ向かう方向を正として扱う。"
+    ],
+    "suggestedQuestions": [
+      "熱伝導率はどのような単位で表せるか。",
+      "熱伝導率が大きい物質では熱は伝わりやすいか。",
+      "平板の定常熱伝導で熱流束は両面の温度差にどう関係するか。",
+      "平板の定常熱伝導で熱流束は平板の厚みにどう関係するか。",
+      "熱流束はどの向きを正として扱うか。"
+    ],
     "suggestedQuestionDetails": null,
     "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」に関連する平板の定常熱伝導、熱伝導率、熱流束に関する問題。",
+      "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 4 です。に対応して選択肢4のみが誤り。",
+      "平板の定常熱伝導では熱流束が温度差に比例し、厚みに反比例する点を中心に確認した。"
+    ],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "熱伝導率の単位はW/(m・K)で表せる。"
+      ],
+      [
+        "熱伝導率が大きい物質ほど熱が伝わりやすい。"
+      ],
+      [
+        "熱流束は両面の温度差に比例する。"
+      ],
+      [
+        "熱流束は平板の厚みに反比例する。"
+      ],
+      [
+        "熱流束は高温側から低温側への方向を正として扱う。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       null,
@@ -147,7 +203,9 @@
       "設問は説明にあてはまる名称を1つ選ぶ形式で、answer_result_text=正解は 3 です。に対応して選択肢3のみが正解。",
       "凹凸型にプレスされた伝熱板をガスケットを挟んで重ねる構造がプレート形熱交換器である点を確認した。"
     ],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
       [
         "二重管式は内管・外管の二重管構造。"
@@ -210,7 +268,9 @@
       "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 1 です。に対応して選択肢1のみが誤り。",
       "安全係数は一般に大きいほど安全側の余裕が大きい点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
       [
         "安全係数は大きいほど安全側の余裕が大きい。"
@@ -273,7 +333,9 @@
       "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 3 です。に対応して選択肢3のみが誤り。",
       "高分子材料は金属材料に比べて一般に引張強さが小さい点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
       [
         "高分子材料は金属材料に比べて比重が小さいものが多い。"
@@ -336,7 +398,9 @@
       "設問は誤っているものの組合せを選ぶ形式で、answer_result_text=正解は 4 です。は選択肢3・4の組合せ番号を指し、statement-levelでは選択肢3と4が誤り。",
       "天然ガス液化の温度低下の説明と、LNG漏えい時の白い霧を危険域の目安にならないとしている点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
       [
         "LNGは約-160℃の極低温液体で、低温靭性に優れた材料が必要。"
@@ -399,7 +463,9 @@
       "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 5 です。に対応して選択肢5のみが誤り。",
       "真空断熱式円筒形LNG貯槽とPC式平底円筒形LNG貯槽をほぼ同じ構造としている点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+
+    ],
     "sourceExplanationChoiceSnippets": [
       [
         "エアフィン式気化器では着氷や冷気拡散への配慮が必要。"
