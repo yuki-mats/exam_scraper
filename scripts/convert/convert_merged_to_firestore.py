@@ -463,6 +463,37 @@ def single_firestore_question_id(question_body: dict) -> str | None:
     return None
 
 
+def source_unique_key_for_choice(question_body: dict, choice_index: int) -> str | None:
+    """Return the deterministic source key for a split choice, when available."""
+    source_unique_keys = question_body.get("sourceUniqueKeys")
+    if not isinstance(source_unique_keys, list):
+        return None
+    if choice_index < 0 or choice_index >= len(source_unique_keys):
+        return None
+    value = source_unique_keys[choice_index]
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
+def question_id_from_source_unique_key(source_unique_key: str) -> str:
+    """Build a Firestore-safe deterministic new document id from sourceUniqueKey."""
+    return re.sub(r"[^A-Za-z0-9_-]+", "-", source_unique_key.strip()).strip("-")
+
+
+def new_question_id_for_choice(
+    question_body: dict,
+    choice_index: int,
+    fallback_question_id: str,
+) -> str:
+    """Return the new-document id for a non-Firestore-derived choice."""
+    source_unique_key = source_unique_key_for_choice(question_body, choice_index)
+    if source_unique_key:
+        return question_id_from_source_unique_key(source_unique_key)
+    return fallback_question_id
+
+
 def is_groupable_question(question: dict) -> bool:
     """複数選択肢モードの候補かどうか判定"""
     if question.get("isChoiceOnly"):
@@ -588,7 +619,11 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
         # 既存Firestore由来データでは document ID を維持する。
         question_id = (
             firestore_question_id_for_choice(question_body, i)
-            or (f"{original_question_id}_{i + 1}" if original_question_id else "")
+            or new_question_id_for_choice(
+                question_body,
+                i,
+                f"{original_question_id}_{i + 1}" if original_question_id else "",
+            )
         )
 
         # questionText: questionBodyText（改行除去） + 該当の選択肢1つ（改行除去）を[quote][/quote]で囲む
@@ -691,7 +726,8 @@ def convert_group_select_to_firestore(
             # 正解の選択肢: 既存Firestore IDがあれば維持し、なければ従来IDを使う。
             correct_found = True
             firestore_question = create_firestore_question_base(
-                question_id=firestore_question_id_for_choice(question_body, i) or original_question_id,
+                question_id=firestore_question_id_for_choice(question_body, i)
+                or new_question_id_for_choice(question_body, i, original_question_id),
                 original_question_id=original_question_id,
                 question_body=question_body,
                 question_type=question_type,
@@ -711,7 +747,11 @@ def convert_group_select_to_firestore(
             # 誤答の選択肢: 既存Firestore IDがあれば維持し、なければ従来IDを使う。
             question_id = (
                 firestore_question_id_for_choice(question_body, i)
-                or (f"{original_question_id}_w{wrong_index}" if original_question_id else "")
+                or new_question_id_for_choice(
+                    question_body,
+                    i,
+                    f"{original_question_id}_w{wrong_index}" if original_question_id else "",
+                )
             )
             wrong_index += 1
             firestore_question = create_firestore_question_base(
@@ -736,7 +776,8 @@ def convert_group_select_to_firestore(
     # フォールバック: 正解が見つからない場合は最初の選択肢を正解として使用
     if not correct_found and split_count > 0:
         firestore_question = create_firestore_question_base(
-            question_id=firestore_question_id_for_choice(question_body, 0) or original_question_id,
+            question_id=firestore_question_id_for_choice(question_body, 0)
+            or new_question_id_for_choice(question_body, 0, original_question_id),
             original_question_id=original_question_id,
             question_body=question_body,
             question_type=question_type,
@@ -808,7 +849,8 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         
         original_question_body_text = get_original_question_body_text(question_body)
         firestore_question = {
-            "questionId": single_firestore_question_id(question_body) or original_question_id,
+            "questionId": single_firestore_question_id(question_body)
+            or new_question_id_for_choice(question_body, 0, original_question_id),
             "questionSetId": question_body.get("questionSetId", ""),
             "originalQuestionId": original_question_id,
             "originalQuestionBodyText": original_question_body_text,

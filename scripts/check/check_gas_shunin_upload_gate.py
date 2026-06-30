@@ -11,6 +11,10 @@ from typing import Any
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from scripts.convert.convert_merged_to_firestore import question_id_from_source_unique_key  # noqa: E402
 
 
 def utc_now() -> str:
@@ -55,8 +59,10 @@ def iter_source_paths(qualifications: list[str]) -> list[Path]:
     return paths
 
 
-def firestore_id_index(qualifications: list[str]) -> dict[str, set[str]]:
+def source_id_indexes(qualifications: list[str]) -> tuple[dict[str, set[str]], dict[str, set[str]], set[str]]:
     by_original: dict[str, set[str]] = defaultdict(set)
+    new_by_original: dict[str, set[str]] = defaultdict(set)
+    all_existing_ids: set[str] = set()
     for path in iter_source_paths(qualifications):
         payload = load_json(path)
         bodies = payload.get("question_bodies") if isinstance(payload, dict) else None
@@ -67,13 +73,24 @@ def firestore_id_index(qualifications: list[str]) -> dict[str, set[str]]:
                 continue
             original_id = str(question.get("originalQuestionId") or question.get("original_question_id") or "").strip()
             ids = question.get("firestoreQuestionIds")
-            if not original_id or not isinstance(ids, list):
+            if not original_id:
                 continue
-            for question_id in ids:
-                text = str(question_id or "").strip()
+            if isinstance(ids, list):
+                for question_id in ids:
+                    text = str(question_id or "").strip()
+                    if text:
+                        by_original[original_id].add(text)
+                        all_existing_ids.add(text)
+                continue
+
+            source_unique_keys = question.get("sourceUniqueKeys")
+            if not isinstance(source_unique_keys, list):
+                continue
+            for source_unique_key in source_unique_keys:
+                text = str(source_unique_key or "").strip()
                 if text:
-                    by_original[original_id].add(text)
-    return by_original
+                    new_by_original[original_id].add(question_id_from_source_unique_key(text))
+    return by_original, new_by_original, all_existing_ids
 
 
 def upload_questions(path: Path) -> list[dict[str, Any]]:
@@ -119,17 +136,23 @@ def check_plan(
 def check_upload_json(
     upload_paths: list[Path],
     by_original_id: dict[str, set[str]],
+    new_ids_by_original_id: dict[str, set[str]],
+    all_existing_firestore_ids: set[str],
     max_samples: int,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], Counter[str]]:
     issues: list[dict[str, Any]] = []
     issue_counts: Counter[str] = Counter()
     checked = 0
     existing_origin_count = 0
+    new_origin_count = 0
+    question_id_counter: Counter[str] = Counter()
     for path in upload_paths:
         for question in upload_questions(path):
             checked += 1
             original_id = str(question.get("originalQuestionId") or "").strip()
             question_id = str(question.get("questionId") or "").strip()
+            if question_id:
+                question_id_counter[question_id] += 1
             if original_id in by_original_id:
                 existing_origin_count += 1
                 allowed = by_original_id[original_id]
@@ -145,10 +168,50 @@ def check_upload_json(
                                 "allowedFirestoreQuestionIds": sorted(allowed),
                             }
                         )
+            else:
+                new_origin_count += 1
+                allowed_new_ids = new_ids_by_original_id.get(original_id, set())
+                if allowed_new_ids and question_id not in allowed_new_ids:
+                    issue_counts["new_question_id_not_source_unique_key_derived"] += 1
+                    if len(issues) < max_samples:
+                        issues.append(
+                            {
+                                "code": "new_question_id_not_source_unique_key_derived",
+                                "uploadFile": rel(path),
+                                "originalQuestionId": original_id,
+                                "questionId": question_id,
+                                "allowedSourceUniqueKeyDerivedIds": sorted(allowed_new_ids),
+                            }
+                        )
+                if question_id in all_existing_firestore_ids:
+                    issue_counts["new_question_id_collides_with_existing_firestore_id"] += 1
+                    if len(issues) < max_samples:
+                        issues.append(
+                            {
+                                "code": "new_question_id_collides_with_existing_firestore_id",
+                                "uploadFile": rel(path),
+                                "originalQuestionId": original_id,
+                                "questionId": question_id,
+                            }
+                        )
+
+    for question_id, count in question_id_counter.items():
+        if count <= 1:
+            continue
+        issue_counts["duplicate_upload_question_id"] += 1
+        if len(issues) < max_samples:
+            issues.append(
+                {
+                    "code": "duplicate_upload_question_id",
+                    "questionId": question_id,
+                    "count": count,
+                }
+            )
     return issues, {
         "uploadFileCount": len(upload_paths),
         "uploadQuestionCount": checked,
         "existingFirestoreOriginalQuestionCount": existing_origin_count,
+        "newOriginalQuestionCount": new_origin_count,
     }, issue_counts
 
 
@@ -163,12 +226,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "uploadFileCount": 0,
         "uploadQuestionCount": 0,
         "existingFirestoreOriginalQuestionCount": 0,
+        "newOriginalQuestionCount": 0,
     }
     if args.upload_json:
-        by_original = firestore_id_index(args.qualifications)
+        by_original, new_by_original, all_existing_ids = source_id_indexes(args.qualifications)
         upload_issues, upload_summary, upload_issue_counts = check_upload_json(
             args.upload_json,
             by_original,
+            new_by_original,
+            all_existing_ids,
             args.max_samples,
         )
         issue_samples.extend(upload_issues)
@@ -190,6 +256,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "policy": {
             "sourceConflictStatus": "needs_source_review fails unless --allow-source-conflicts is set",
             "questionId": "existing Firestore-derived originalQuestionId must upload to one of its existing firestoreQuestionIds",
+            "newQuestionId": "new source-derived questions must use sourceUniqueKey-derived deterministic document IDs and not collide with local existing Firestore IDs",
         },
     }
 
