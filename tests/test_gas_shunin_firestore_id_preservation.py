@@ -5,6 +5,7 @@ import unittest
 from scripts.convert.convert_merged_to_firestore import (
     convert_flash_card_to_firestore,
     convert_true_false_to_firestore,
+    get_exam_name,
 )
 
 
@@ -54,6 +55,53 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
         self.assertEqual(
             [item["questionSetId"] for item in converted],
             ["qset-statement-1", "qset-statement-2"],
+        )
+
+    def test_true_false_uses_explicit_choice_question_set_ids_for_new_site_docs(self) -> None:
+        question_body = {
+            "original_question_id": None,
+            "public_question_id": "site-public-1",
+            "sourceUniqueKeys": [
+                "gas-shunin:kou:2024:law:q03:s01",
+                "gas-shunin:kou:2024:law:q03:s02",
+            ],
+            "choiceQuestionSetIds": ["qset-choice-1", "qset-choice-2"],
+            "questionBodyText": "誤っているものはいくつあるか。",
+            "choiceTextList": ["記述1", "記述2"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "explanationText": ["説明1", "説明2"],
+            "questionType": "true_false",
+            "questionSetId": "",
+            "examYear": 2024,
+            "questionLabel": "問3",
+        }
+
+        converted = convert_true_false_to_firestore(question_body)
+
+        self.assertEqual(
+            [item["questionId"] for item in converted],
+            [
+                "gas-shunin-kou-2024-law-q03-s01",
+                "gas-shunin-kou-2024-law-q03-s02",
+            ],
+        )
+        self.assertEqual(
+            [item["originalQuestionId"] for item in converted],
+            ["site-public-1", "site-public-1"],
+        )
+        self.assertEqual(
+            [item["questionSetId"] for item in converted],
+            ["qset-choice-1", "qset-choice-2"],
+        )
+
+    def test_exam_name_is_inferred_from_gas_shunin_source_key(self) -> None:
+        self.assertEqual(
+            get_exam_name({"sourceQuestionKey": "gas-shunin:kou:2024:law:q01"}),
+            "ガス主任技術者（甲種）",
+        )
+        self.assertEqual(
+            get_exam_name({"sourceUniqueKeys": ["gas-shunin:otsu:2025:kiso:q02:s01"]}),
+            "ガス主任技術者（乙種）",
         )
 
     def test_true_false_ignores_misaligned_statement_level_question_set_ids(self) -> None:

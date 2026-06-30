@@ -342,7 +342,12 @@ def ensure_answer_result_text_present(*, data: dict, source_path: Path) -> None:
         )
 
 
-def merge_all(list_group_id: str, base_dir: Path) -> None:
+def merge_all(
+    list_group_id: str,
+    base_dir: Path,
+    *,
+    require_answer_result_text: bool = True,
+) -> None:
     list_group_dir = base_dir / list_group_id
     source_dir = list_group_dir / SOURCE_SUBDIR
     merged_qtype_view_dir = list_group_dir / MERGED_QTYPE_VIEW_SUBDIR
@@ -417,7 +422,8 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
         true_false_correct_choice_updates += u_choice
         exam_year_backfills += backfill_exam_year(data)
         correct_choice_backfills += backfill_correct_choice_text_from_answer_result(data)
-        ensure_answer_result_text_present(data=data, source_path=base_path)
+        if require_answer_result_text:
+            ensure_answer_result_text_present(data=data, source_path=base_path)
 
         qtype_view_path = merged_qtype_view_dir / output_filename_for_base(base_path)
         save_json(data, qtype_view_path)
@@ -534,7 +540,8 @@ def merge_all(list_group_id: str, base_dir: Path) -> None:
         out_path = merged2_dir / output_filename_for_base(merged_path, force_new=True)
         valid_data, manual_data = maybe_split_for_manual_output(data, out_path)
         save_json(valid_data, out_path)
-        ensure_answer_result_text_present(data=valid_data, source_path=out_path)
+        if require_answer_result_text:
+            ensure_answer_result_text_present(data=valid_data, source_path=out_path)
         if manual_data:
             manual_path = build_manual_output_path(out_path)
             save_json(manual_data, manual_path)
@@ -567,11 +574,20 @@ def main() -> int:
         default=None,
         help="list_group_id を含む questions_json のルート (例: output/2nd-class-kenchikushi/questions_json)",
     )
+    parser.add_argument(
+        "--allow-missing-answer-result",
+        action="store_true",
+        help="Firestore snapshot 由来など、answer_result_text がない既存正誤保持データの merge を許可する",
+    )
     args = parser.parse_args()
 
     try:
         base_dir = resolve_base_dir(args.list_group_id, args.base_dir)
-        merge_all(args.list_group_id, base_dir)
+        merge_all(
+            args.list_group_id,
+            base_dir,
+            require_answer_result_text=not args.allow_missing_answer_result,
+        )
     except Exception as exc:  # noqa: BLE001
         print(f"[ERROR] {exc}", file=sys.stderr)
         return 1

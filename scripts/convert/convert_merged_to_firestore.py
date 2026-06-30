@@ -260,7 +260,34 @@ def get_exam_name(question_body: dict) -> str:
         v = question_body.get(key)
         if v:
             return v
+    inferred = infer_exam_name_from_question_body(question_body)
+    if inferred:
+        return inferred
     return EXAM_NAME_PSY
+
+
+def infer_exam_name_from_question_body(question_body: dict) -> str | None:
+    source_keys: list[str] = []
+    for key in ("sourceQuestionKey", "source_question_key", "sourceUniqueKey", "source_unique_key"):
+        value = question_body.get(key)
+        if isinstance(value, str) and value.strip():
+            source_keys.append(value.strip())
+    source_unique_keys = question_body.get("sourceUniqueKeys")
+    if isinstance(source_unique_keys, list):
+        source_keys.extend(str(value).strip() for value in source_unique_keys if str(value or "").strip())
+
+    joined_source_keys = "\n".join(source_keys)
+    if "gas-shunin:kou:" in joined_source_keys:
+        return "ガス主任技術者（甲種）"
+    if "gas-shunin:otsu:" in joined_source_keys:
+        return "ガス主任技術者（乙種）"
+
+    qualification_id = str(question_body.get("qualificationId") or "").strip()
+    if qualification_id == "gas-shunin-kou":
+        return "ガス主任技術者（甲種）"
+    if qualification_id == "gas-shunin-otsu":
+        return "ガス主任技術者（乙種）"
+    return None
 
 
 def get_exam_session(question_body: dict) -> str:
@@ -474,11 +501,38 @@ def firestore_source_question_for_choice(question_body: dict, choice_index: int)
 
 def question_set_id_for_choice(question_body: dict, choice_index: int) -> str | None:
     """Return an existing statement-level questionSetId without inventing new classification."""
+    for key in ("choiceQuestionSetIds", "questionSetIds"):
+        question_set_ids = question_body.get(key)
+        if not isinstance(question_set_ids, list):
+            continue
+        if choice_index < 0 or choice_index >= len(question_set_ids):
+            continue
+        question_set_id = str(question_set_ids[choice_index] or "").strip()
+        if question_set_id:
+            return question_set_id
+
     source_question = firestore_source_question_for_choice(question_body, choice_index)
     if not source_question:
         return None
     question_set_id = str(source_question.get("questionSetId") or "").strip()
     return question_set_id or None
+
+
+def original_question_id_for_upload(question_body: dict) -> str:
+    """Return the stable originalQuestionId, falling back to site public ids for new docs."""
+    for key in (
+        "original_question_id",
+        "originalQuestionId",
+        "public_question_id",
+        "publicQuestionId",
+    ):
+        value = question_body.get(key)
+        if value is None:
+            continue
+        text = str(value).strip()
+        if text:
+            return text
+    return ""
 
 
 def single_firestore_question_id(question_body: dict) -> str | None:
@@ -633,7 +687,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
     choice_image_urls_by_choice = normalize_choice_image_urls_by_choice(
         question_body.get("originalQuestionChoiceImageUrls", [])
     )
-    original_question_id = question_body.get("original_question_id", "")
+    original_question_id = original_question_id_for_upload(question_body)
     
     firestore_questions = []
     split_count = get_split_count(
@@ -722,7 +776,7 @@ def convert_group_select_to_firestore(
     choice_image_urls_by_choice = normalize_choice_image_urls_by_choice(
         question_body.get("originalQuestionChoiceImageUrls", [])
     )
-    original_question_id = question_body.get("original_question_id", "")
+    original_question_id = original_question_id_for_upload(question_body)
 
     # questionText: questionBodyTextのみ（改行除去）
     question_text = question_body.get("questionBodyText", "").replace('\n', '')
@@ -870,7 +924,7 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         choice_image_urls_by_choice = normalize_choice_image_urls_by_choice(
             question_body.get("originalQuestionChoiceImageUrls", [])
         )
-        original_question_id = question_body.get("original_question_id", "")
+        original_question_id = original_question_id_for_upload(question_body)
         
         # questionText: questionBodyTextのみ（改行除去）
         question_text = question_body.get("questionBodyText", "").replace('\n', '')
@@ -980,7 +1034,7 @@ def convert_merged_to_firestore(input_path: Path, output_path: Path = None) -> d
     firestore_questions = []
     for question_body in question_bodies:
         # questionSetIdが空なら補完（original_question_id完全一致）
-        pid = question_body.get("original_question_id")
+        pid = original_question_id_for_upload(question_body)
         if (not question_body.get("questionSetId")) and pid:
             if pid in original_id_to_setid:
                 question_body["questionSetId"] = original_id_to_setid[pid]
@@ -1081,6 +1135,11 @@ def main(argv: list[str] | None = None):
         default=str(DEFAULT_BASE_DIR),
         help="ベースディレクトリ"
     )
+    parser.add_argument(
+        "--skip-intent-correct-choice-check",
+        action="store_true",
+        help="既存Firestore由来など answer_result_text がない変換で questionIntent/correctChoiceText 分布チェックをスキップする",
+    )
     
     args = parser.parse_args(argv)
     
@@ -1102,9 +1161,10 @@ def main(argv: list[str] | None = None):
         for input_path in merged_files:
             with open(input_path, "r", encoding="utf-8") as f:
                 merged_data = json.load(f)
-            raise_on_question_intent_correct_choice_violations(payload=merged_data, source_path=input_path)
+            if not args.skip_intent_correct_choice_check:
+                raise_on_question_intent_correct_choice_violations(payload=merged_data, source_path=input_path)
             invalid_path = input_path.with_name(f"{input_path.stem}_invalid{input_path.suffix}")
-            if invalid_path.exists():
+            if invalid_path.exists() and not args.skip_intent_correct_choice_check:
                 with open(invalid_path, "r", encoding="utf-8") as f:
                     invalid_data = json.load(f)
                 raise_on_question_intent_correct_choice_violations(payload=invalid_data, source_path=invalid_path)

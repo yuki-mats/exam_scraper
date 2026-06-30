@@ -17,6 +17,9 @@ if str(ROOT_DIR) not in sys.path:
 from scripts.convert.convert_merged_to_firestore import question_id_from_source_unique_key  # noqa: E402
 
 
+CONTENT_REVIEW_BLOCKING_STATUSES = {"hold", "pending"}
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -75,13 +78,19 @@ def source_id_indexes(
             if not isinstance(question, dict):
                 continue
             original_id = str(question.get("originalQuestionId") or question.get("original_question_id") or "").strip()
+            if not original_id:
+                original_id = str(question.get("publicQuestionId") or question.get("public_question_id") or "").strip()
             ids = question.get("firestoreQuestionIds")
             if not original_id:
                 continue
-            if isinstance(ids, list):
+            firestore_id_values = (
+                [str(value).strip() for value in ids if str(value or "").strip()]
+                if isinstance(ids, list)
+                else []
+            )
+            if firestore_id_values:
                 source_questions = question.get("firestoreSourceQuestions")
-                for index, question_id in enumerate(ids):
-                    text = str(question_id or "").strip()
+                for index, text in enumerate(firestore_id_values):
                     if text:
                         by_original[original_id].add(text)
                         all_existing_ids.add(text)
@@ -114,16 +123,99 @@ def upload_questions(path: Path) -> list[dict[str, Any]]:
     raise ValueError(f"questions array not found: {path}")
 
 
+def upload_question_ids(upload_paths: list[Path]) -> set[str]:
+    question_ids: set[str] = set()
+    for path in upload_paths:
+        for question in upload_questions(path):
+            question_id = str(question.get("questionId") or "").strip()
+            if question_id:
+                question_ids.add(question_id)
+    return question_ids
+
+
+def planned_question_ids(row: dict[str, Any]) -> set[str]:
+    firestore_ids = row.get("firestoreQuestionIds")
+    if isinstance(firestore_ids, list):
+        ids = {str(value).strip() for value in firestore_ids if str(value or "").strip()}
+        if ids:
+            return ids
+
+    source_unique_keys = row.get("sourceUniqueKeys")
+    if isinstance(source_unique_keys, list):
+        return {
+            question_id_from_source_unique_key(str(value).strip())
+            for value in source_unique_keys
+            if str(value or "").strip()
+        }
+    return set()
+
+
+def content_review_ready(row: dict[str, Any]) -> bool:
+    for field in ("review02CorrectChoiceText", "review03ExplanationText"):
+        if str(row.get(field) or "") in CONTENT_REVIEW_BLOCKING_STATUSES:
+            return False
+    return True
+
+
+def question_set_ready_for_upload(row: dict[str, Any]) -> bool:
+    review04 = str(row.get("review04QuestionSetId") or "")
+    if review04 == "ok":
+        return True
+    if review04 == "hold" and row.get("sourceOrigin") == "firestore_snapshot":
+        return True
+    return False
+
+
+def source_conflict_ready_for_upload(row: dict[str, Any]) -> bool:
+    status = str(row.get("sourceConflictStatus") or "")
+    if status in {"none", "metadata_resolved"}:
+        return True
+    if status != "needs_source_review":
+        return False
+    if not content_review_ready(row) or not question_set_ready_for_upload(row):
+        return False
+
+    policy = str(row.get("sourceContentConflictPolicy") or "")
+    if row.get("sourceOrigin") == "firestore_snapshot" and "preserve_firestore" in policy:
+        return True
+
+    source_key_conflict = row.get("sourceKeyConflict")
+    source_unique_keys = row.get("sourceUniqueKeys")
+    if (
+        row.get("sourceOrigin") == "gassyunin_site"
+        and isinstance(source_key_conflict, dict)
+        and source_key_conflict.get("reason") == "site_record_overlaps_existing_firestore_statements"
+        and isinstance(source_unique_keys, list)
+        and source_unique_keys
+        and all(":site-shadow:" in str(value) for value in source_unique_keys)
+    ):
+        return True
+
+    return False
+
+
 def check_plan(
     plan_path: Path,
     allow_source_conflicts: bool,
     max_samples: int,
+    included_question_ids: set[str] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], Counter[str]]:
     rows = load_jsonl(plan_path)
     issues: list[dict[str, Any]] = []
     issue_counts: Counter[str] = Counter()
     status_counts = Counter(str(row.get("sourceConflictStatus") or "missing") for row in rows)
-    conflict_rows = [row for row in rows if row.get("sourceConflictStatus") == "needs_source_review"]
+    scoped_rows: list[dict[str, Any]] = []
+    for row in rows:
+        if included_question_ids is not None and not (planned_question_ids(row) & included_question_ids):
+            continue
+        scoped_rows.append(row)
+
+    conflict_rows = [
+        row
+        for row in scoped_rows
+        if row.get("sourceConflictStatus") == "needs_source_review"
+        and not source_conflict_ready_for_upload(row)
+    ]
     if conflict_rows and not allow_source_conflicts:
         issue_counts["unresolved_source_conflict"] = len(conflict_rows)
         for row in conflict_rows[:max_samples]:
@@ -138,10 +230,29 @@ def check_plan(
                     "ledger": row.get("sourceContentConflictLedgerPath"),
                 }
             )
+    blocked_choice_mismatch_rows = [
+        row for row in scoped_rows if row.get("sourceConflictStatus") == "source_choice_count_mismatch"
+    ]
+    if blocked_choice_mismatch_rows:
+        issue_counts["source_choice_count_mismatch"] = len(blocked_choice_mismatch_rows)
+        for row in blocked_choice_mismatch_rows[:max_samples]:
+            if len(issues) >= max_samples:
+                break
+            issues.append(
+                {
+                    "code": "source_choice_count_mismatch",
+                    "planSequence": row.get("planSequence"),
+                    "qualification": row.get("qualification"),
+                    "sourceQuestionKey": row.get("sourceQuestionKey"),
+                    "reviewQuestionId": row.get("reviewQuestionId"),
+                }
+            )
     return issues, {
         "planRowCount": len(rows),
+        "scopedPlanRowCount": len(scoped_rows),
         "sourceConflictStatusCounts": dict(sorted(status_counts.items())),
-        "needsSourceReviewRowCount": len(conflict_rows),
+        "needsSourceReviewRowCount": status_counts.get("needs_source_review", 0),
+        "scopedNeedsSourceReviewBlockerCount": len(conflict_rows),
     }, issue_counts
 
 
@@ -257,7 +368,13 @@ def check_upload_json(
 def run(args: argparse.Namespace) -> dict[str, Any]:
     issue_samples: list[dict[str, Any]] = []
     issue_counts: Counter[str] = Counter()
-    plan_issues, plan_summary, plan_issue_counts = check_plan(args.plan, args.allow_source_conflicts, args.max_samples)
+    included_question_ids = upload_question_ids(args.upload_json) if args.upload_json else None
+    plan_issues, plan_summary, plan_issue_counts = check_plan(
+        args.plan,
+        args.allow_source_conflicts,
+        args.max_samples,
+        included_question_ids=included_question_ids,
+    )
     issue_samples.extend(plan_issues)
     issue_counts.update(plan_issue_counts)
 
@@ -296,7 +413,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         "sampleIssueCount": min(len(issue_samples), args.max_samples),
         "issues": issue_samples[: args.max_samples],
         "policy": {
-            "sourceConflictStatus": "needs_source_review fails unless --allow-source-conflicts is set",
+            "sourceConflictStatus": "included needs_source_review rows fail unless upload policy preserves existing Firestore content/IDs or adds site-shadow docs without existing-ID collision",
+            "sourceChoiceCountMismatch": "included source_choice_count_mismatch rows fail",
             "questionSetId": "upload questions must have a non-empty questionSetId",
             "existingQuestionSetId": "existing Firestore document questionSetId must not change during upload",
             "questionId": "existing Firestore-derived originalQuestionId must upload to one of its existing firestoreQuestionIds",
