@@ -570,18 +570,72 @@
       "2.1"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "不正解。元のAB間では150m³/h、300mで圧力降下が1.6−1.5=0.1kPaである。延長後、BC間は同じ口径・延長・流量150m³/hなので0.1kPa低下し、B点圧力は1.6kPaとなる。AB間は流量が300m³/hに増えるため圧力降下は0.1×(300/150)²=0.4kPaとなり、A点圧力は2.0kPaである。1.7kPaでは低すぎる。",
+      "不正解。低圧導管の圧力降下は、同一口径・同一延長では流量の2乗に比例する。BC間0.1kPa、AB間0.4kPaの合計0.5kPaをC点圧力1.5kPaに加えるため、A点圧力は2.0kPaであり、1.8kPaではない。",
+      "不正解。延長後のAB間にはB点分とC点分を合わせて300m³/hが流れるので、元の150m³/h時の4倍、0.4kPaの圧力降下となる。さらにBC間の0.1kPaを加えると必要な上昇分は0.5kPaで、A点圧力は1.9kPaではなく2.0kPaである。",
+      "正解。元のAB間の圧力降下は0.1kPaである。延長後はBC間に150m³/hが流れて0.1kPa低下し、AB間には300m³/hが流れて0.1×2²=0.4kPa低下する。C点圧力1.5kPaに合計0.5kPaを加えると、A点圧力は2.0kPaとなる。",
+      "不正解。A点圧力2.1kPaなら全圧力降下は0.6kPaとなるが、本問の条件ではAB間0.4kPaとBC間0.1kPaの合計0.5kPaで足りる。したがって最も近い値は2.0kPaである。"
+    ],
+    "suggestedQuestions": [
+      "元のAB間の圧力降下は何kPaか。",
+      "同一口径・同一延長の低圧導管で流量が2倍になると圧力降下は何倍になるか。",
+      "延長後のAB間とBC間の圧力降下はそれぞれ何kPaか。",
+      "C点圧力1.5kPaを保つために必要なA点圧力は何kPaか。",
+      "A点圧力2.1kPaが過大となる理由は何か。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "元のAB間の圧力降下は何kPaか。",
+        "answer": "0.1kPa。",
+        "explanation": "A点1.6kPa、B点1.5kPaなので、元のAB間の圧力降下は0.1kPaである。"
+      },
+      {
+        "question": "同一口径・同一延長の低圧導管で流量が2倍になると圧力降下は何倍になるか。",
+        "answer": "4倍になる。",
+        "explanation": "低圧導管の圧力降下は同一条件では流量の2乗に比例するため、流量2倍なら2²=4倍となる。"
+      },
+      {
+        "question": "延長後のAB間とBC間の圧力降下はそれぞれ何kPaか。",
+        "answer": "AB間0.4kPa、BC間0.1kPa。",
+        "explanation": "AB間は流量が300m³/hで元の2倍、BC間は元と同じ150m³/h・300mである。"
+      },
+      {
+        "question": "C点圧力1.5kPaを保つために必要なA点圧力は何kPaか。",
+        "answer": "2.0kPa。",
+        "explanation": "C点からA点までの圧力降下はBC間0.1kPaとAB間0.4kPaの合計0.5kPaで、1.5+0.5=2.0kPaとなる。"
+      },
+      {
+        "question": "A点圧力2.1kPaが過大となる理由は何か。",
+        "answer": "必要な全圧力降下は0.5kPaであり、2.1kPaでは0.6kPaを見込むことになるため。",
+        "explanation": "本問の計算ではA点圧力は2.0kPaが最も近い。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "供給「導管の工事（乙種）」における低圧導管の圧力降下計算問題。",
+      "設問は最も近い数値を1つ選ぶ形式で、answer_result_text=正解は 4 です。に対応して選択肢4のみが正解。",
+      "同一口径・同一延長では低圧導管の圧力降下が流量の2乗に比例することを根拠に確認した。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "元のAB間は150m³/h、300mで0.1kPa低下。延長後はBC間が同条件で0.1kPa、AB間は流量が300m³/hとなるため0.1×2²=0.4kPa低下する。C点1.5kPaに合計0.5kPaを加え、A点圧力は2.0kPaとなる。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "1.7kPaでは必要な合計圧力降下0.5kPaを満たせない。"
+      ],
+      [
+        "1.8kPaでは合計圧力降下を0.3kPaと見込むことになり不足する。"
+      ],
+      [
+        "1.9kPaではAB間0.4kPaとBC間0.1kPaの合計を満たせない。"
+      ],
+      [
+        "AB間0.4kPaとBC間0.1kPaの合計0.5kPaをC点1.5kPaに加えると2.0kPaとなる。"
+      ],
+      [
+        "2.1kPaは圧力降下を0.6kPaと見込むため過大である。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
