@@ -26,6 +26,8 @@ REQUIRED_FIELDS = [
     "question_url",
 ]
 
+STATEMENT_QUESTION_SET_FIELDS = ("choiceQuestionSetIds", "questionSetIds")
+
 
 def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as f:
@@ -49,6 +51,42 @@ def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
 
 def get_question_identity(question: Dict[str, Any]) -> Any:
     return review_question_id(question)
+
+
+def choice_count_for_pair(src: Dict[str, Any], patch: Dict[str, Any]) -> int:
+    for value in (patch.get("choiceTextList"), src.get("choiceTextList")):
+        if isinstance(value, list):
+            return len(value)
+    return 0
+
+
+def validate_statement_question_set_ids(
+    *,
+    idx: int,
+    field: str,
+    values: Any,
+    choice_count: int,
+    category_ids: Set[str],
+) -> List[str]:
+    errors: List[str] = []
+    if not isinstance(values, list):
+        errors.append(f"index {idx}: {field} must be a list")
+        return errors
+
+    if choice_count and len(values) != choice_count:
+        errors.append(
+            f"index {idx}: {field} length mismatch (choiceCount={choice_count} values={len(values)})"
+        )
+
+    for value_index, value in enumerate(values, start=1):
+        qsid = str(value or "").strip()
+        if not qsid:
+            errors.append(f"index {idx}: {field}[{value_index}] must be a valid id")
+        elif qsid not in category_ids:
+            errors.append(
+                f"index {idx}: {field}[{value_index}] not in category: {qsid}"
+            )
+    return errors
 
 
 def compare_entries(
@@ -99,6 +137,20 @@ def compare_entries(
             errors.append(f"index {idx}: questionSetId must be '' or valid id")
         elif qsid != "" and str(qsid) not in category_ids:
             errors.append(f"index {idx}: questionSetId not in category: {qsid}")
+
+        choice_count = choice_count_for_pair(src, patch)
+        for field in STATEMENT_QUESTION_SET_FIELDS:
+            if field not in patch:
+                continue
+            errors.extend(
+                validate_statement_question_set_ids(
+                    idx=idx,
+                    field=field,
+                    values=patch.get(field),
+                    choice_count=choice_count,
+                    category_ids=category_ids,
+                )
+            )
 
     if len(set(patch_ids)) != len(patch_ids):
         warnings.append("duplicate original_question_id detected in patch")

@@ -482,7 +482,6 @@ def merge_all(
     )
     qset_map = build_patch_map_from_paths(
         qset_paths,
-        value_key="questionSetId",
         key_fields=("original_question_id",),
     )
     correct_map = build_patch_map_from_paths(

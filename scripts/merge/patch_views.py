@@ -54,6 +54,10 @@ NEGATIVE_PROMPT_PHRASES = (
     "誤りはどれか",
     "正しくないもの",
     "正しくないの",
+    "してはならない",
+    "してはいけない",
+    "行ってはならない",
+    "行ってはいけない",
     "考えられない",
     "考えにくい",
     "認められない",
@@ -128,14 +132,14 @@ def normalize_question_ids(data: dict) -> None:
             question["original_question_id"] = question["public_question_id"]
 
 
-def build_patch_map_from_paths(
-    patch_paths: Iterable[Path],
-    *,
-    value_key: str | None = None,
 def patch_target_id(question: Mapping[str, Any]) -> str:
     return review_question_id(question)
 
 
+def build_patch_map_from_paths(
+    patch_paths: Iterable[Path],
+    *,
+    value_key: str | None = None,
     key_fields: Iterable[str] = ("original_question_id",),
 ) -> Dict[str, Any]:
     mapping: Dict[str, Any] = {}
@@ -242,11 +246,29 @@ def apply_question_set(
         question_id = patch_target_id(question)
         if not question_id:
             continue
-        new_value = question_set_map.get(str(question_id))
-        if new_value is None:
+        patch_entry = question_set_map.get(str(question_id))
+        if patch_entry is None:
             continue
-        question["questionSetId"] = new_value
-        updated += 1
+        changed = False
+        if isinstance(patch_entry, Mapping):
+            if "questionSetId" in patch_entry and patch_entry.get("questionSetId") is not None:
+                new_value = patch_entry.get("questionSetId")
+                if question.get("questionSetId") != new_value:
+                    question["questionSetId"] = new_value
+                    changed = True
+            for field in ("choiceQuestionSetIds", "questionSetIds"):
+                if field not in patch_entry or patch_entry.get(field) is None:
+                    continue
+                new_value = patch_entry.get(field)
+                if question.get(field) != new_value:
+                    question[field] = new_value
+                    changed = True
+        else:
+            if question.get("questionSetId") != patch_entry:
+                question["questionSetId"] = patch_entry
+                changed = True
+        if changed:
+            updated += 1
     return updated
 
 
@@ -421,7 +443,8 @@ def normalize_true_false_intent_and_correct_choice(
             continue
 
         manual_intent_override = question.get("manualQuestionIntentOverride") is True
-        if manual_intent_override:
+        current_intent = question.get("questionIntent")
+        if manual_intent_override or current_intent in {"select_correct", "select_incorrect"}:
             inferred_intent = None
         else:
             inferred_intent = infer_question_intent_from_text(
@@ -437,6 +460,16 @@ def normalize_true_false_intent_and_correct_choice(
 
         answer_numbers = parse_answer_numbers(question.get("answer_result_text"))
         if not answer_numbers:
+            current_correct_choice = question.get("correctChoiceText")
+            if (
+                isinstance(current_correct_choice, list)
+                and current_correct_choice
+                and all(
+                    str(value).strip() in {"正しい", "間違い"}
+                    for value in current_correct_choice
+                )
+            ):
+                continue
             inferred_numbers = question.get("answer_result_inferred_correct_choice_numbers")
             if isinstance(inferred_numbers, list) and inferred_numbers:
                 answer_numbers = []
