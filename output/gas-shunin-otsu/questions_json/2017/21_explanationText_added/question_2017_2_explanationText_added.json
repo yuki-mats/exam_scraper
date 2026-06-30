@@ -15,31 +15,45 @@
       "40000"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "不正解。レイノルズ数は Re=vD/ν で表される。同じ直円管で同じ平均流速なら vD は同じなので、レイノルズ数は動粘度に反比例する。水の動粘度は空気の1/20であるため、100では小さすぎる。",
+      "不正解。空気のレイノルズ数2000に対し、水では動粘度が16mm²/sから0.8mm²/sへ小さくなるため、レイノルズ数は大きくなる。1600は空気の場合より小さく、条件に合わない。",
+      "不正解。動粘度比は16/0.8=20なので、水を流した場合のレイノルズ数は2000の20倍となる。4000は2倍にすぎず不足する。",
+      "不正解。20000は空気の場合の10倍であるが、動粘度比は20倍である。したがって水の場合のレイノルズ数は40000が最も近い。",
+      "正解。同じ直円管に同じ平均流速で流すので Re=vD/ν の vD は同じである。Re水=Re空気×ν空気/ν水=2000×16/0.8=40000 となる。"
+    ],
+    "suggestedQuestions": [
+      "レイノルズ数の式は何か。",
+      "同じ管・同じ平均流速ではレイノルズ数は何に反比例するか。",
+      "空気と水の動粘度比はいくらか。",
+      "水を流した場合のレイノルズ数はどう計算するか。",
+      "40000が正解になる理由は何か。"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-
+      "基礎理論「流体力学（乙種）」のレイノルズ数と動粘度が本問の関連論点。",
+      "レイノルズ数は Re=vD/ν で表され、同じ管・同じ平均流速では動粘度νに反比例する。",
+      "本問では ν空気=16mm²/s、ν水=0.8mm²/s なので、Re水=2000×16/0.8=40000 となる。"
     ],
     "sourceExplanationCommonSummary": [
-
+      "レイノルズ数は Re=vD/ν。同じ直円管・同じ平均流速では vD が一定なので、動粘度比16/0.8=20を空気のレイノルズ数2000に掛けて40000となる。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-
+        "100は2000×20=40000と比べて小さすぎる。"
       ],
       [
-
+        "1600は空気の場合より小さく、動粘度低下による増加と逆。"
       ],
       [
-
+        "4000は2倍にすぎず、動粘度比20倍を反映していない。"
       ],
       [
-
+        "20000は10倍であり、正しい20倍ではない。"
       ],
       [
-
+        "Re水=2000×16/0.8=40000。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
@@ -152,9 +166,7 @@
       "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 4 です。に対応して選択肢4のみが誤り。",
       "平板の定常熱伝導では熱流束が温度差に比例し、厚みに反比例する点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [
-
-    ],
+    "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
         "熱伝導率の単位はW/(m・K)で表せる。"
@@ -217,9 +229,7 @@
       "設問は説明にあてはまる名称を1つ選ぶ形式で、answer_result_text=正解は 3 です。に対応して選択肢3のみが正解。",
       "凹凸型にプレスされた伝熱板をガスケットを挟んで重ねる構造がプレート形熱交換器である点を確認した。"
     ],
-    "sourceExplanationCommonSummary": [
-
-    ],
+    "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
         "二重管式は内管・外管の二重管構造。"
@@ -282,9 +292,7 @@
       "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 1 です。に対応して選択肢1のみが誤り。",
       "安全係数は一般に大きいほど安全側の余裕が大きい点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [
-
-    ],
+    "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
         "安全係数は大きいほど安全側の余裕が大きい。"
@@ -347,9 +355,7 @@
       "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 3 です。に対応して選択肢3のみが誤り。",
       "高分子材料は金属材料に比べて一般に引張強さが小さい点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [
-
-    ],
+    "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
         "高分子材料は金属材料に比べて比重が小さいものが多い。"
@@ -412,9 +418,7 @@
       "設問は誤っているものの組合せを選ぶ形式で、answer_result_text=正解は 4 です。は選択肢3・4の組合せ番号を指し、statement-levelでは選択肢3と4が誤り。",
       "天然ガス液化の温度低下の説明と、LNG漏えい時の白い霧を危険域の目安にならないとしている点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [
-
-    ],
+    "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
         "LNGは約-160℃の極低温液体で、低温靭性に優れた材料が必要。"
@@ -477,9 +481,7 @@
       "設問は誤っているものを1つ選ぶ形式で、answer_result_text=正解は 5 です。に対応して選択肢5のみが誤り。",
       "真空断熱式円筒形LNG貯槽とPC式平底円筒形LNG貯槽をほぼ同じ構造としている点を中心に確認した。"
     ],
-    "sourceExplanationCommonSummary": [
-
-    ],
+    "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
         "エアフィン式気化器では着氷や冷気拡散への配慮が必要。"
