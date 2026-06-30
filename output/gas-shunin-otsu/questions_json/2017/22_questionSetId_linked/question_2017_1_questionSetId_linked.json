@@ -319,8 +319,77 @@
       "800"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
-    "questionSetId": "",
-    "category": "基礎理論"
+    "questionSetId": "chiefgasengineerlicense-B-2090",
+    "category": "物性・基礎（乙種）",
+    "explanationText": [
+      "正解。理想気体では P V / T が一定なので、P2=P1×(T2/T1)×(V1/V2)=300×(400/300)×(10/20)=200kPaとなる。",
+      "不正解。300kPaは初期圧力であり、温度上昇と体積増加を反映した後の圧力ではない。計算結果は200kPaである。",
+      "不正解。温度は300Kから400Kに上がるが、体積も10m³から20m³に増えるため、圧力は400kPaではなく200kPaとなる。",
+      "不正解。600kPaは温度上昇と体積変化の比を正しく反映していない。P2=300×(400/300)×(10/20)=200kPaである。",
+      "不正解。800kPaは過大である。理想気体の状態方程式から求めると、圧力は初期圧力より低い200kPaとなる。"
+    ],
+    "suggestedQuestions": [
+      "理想気体の状態変化でPV/Tはどう扱うか。",
+      "P1=300kPa、T1=300K、V1=10m³、T2=400K、V2=20m³のときP2はどう求めるか。",
+      "体積が2倍になることは圧力にどう影響するか。",
+      "温度が300Kから400Kになることは圧力にどう影響するか。",
+      "この条件で最も近い圧力は何kPaか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "理想気体の状態変化でPV/Tはどう扱うか。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "P1=300kPa、T1=300K、V1=10m³、T2=400K、V2=20m³のときP2はどう求めるか。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "体積が2倍になることは圧力にどう影響するか。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "温度が300Kから400Kになることは圧力にどう影響するか。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "この条件で最も近い圧力は何kPaか。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「物性・基礎（乙種）」の理想気体の状態方程式が本問の関連論点。",
+      "物質量が一定の理想気体では、PV/T が一定となる。",
+      "初期状態と最終状態の圧力、体積、温度を比で比較して最終圧力を求める。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "PV/T一定より P2=P1×(T2/T1)×(V1/V2)=300×(400/300)×(10/20)=200kPa。したがって選択肢1が正解。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "P2=300×(400/300)×(10/20)=200kPaである。"
+      ],
+      [
+        "300kPaは初期圧力であり、最終圧力ではない。"
+      ],
+      [
+        "温度上昇だけでなく体積増加も考慮する必要がある。"
+      ],
+      [
+        "600kPaは状態方程式の比と合わない。"
+      ],
+      [
+        "計算結果は200kPaで、800kPaではない。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "正解",
+      "不正解",
+      "不正解",
+      "不正解",
+      "不正解"
+    ]
   },
   {
     "original_question_id": "d40a482c81e6bed2",
