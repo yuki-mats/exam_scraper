@@ -282,25 +282,58 @@
       "熱放射では、真空中でも伝熱する。"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
-    "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "explanationText": [
+      "正しい。熱伝導は、物質を構成する粒子間の相互作用によって、物質内部を熱が移動する伝熱形態である。",
+      "間違い。沸騰や凝縮など相変化を伴う場合の熱伝達率は、一般に相変化を伴わない場合より大きい傾向がある。小さい傾向があるとしている点が誤り。",
+      "正しい。実在物体の全放射能は、同じ温度の黒体を基準とした放射率が1未満であるため、黒体に比べて小さい。",
+      "正しい。金属表面の放射率は、一般に滑らかな研磨面よりも酸化面や粗い面で大きくなる。",
+      "正しい。熱放射は電磁波による伝熱であり、物質媒体を必要としないため真空中でも伝熱する。"
+    ],
+    "suggestedQuestions": [
+      "熱伝導とはどのような伝熱形態か。",
+      "相変化を伴う熱伝達率は相変化を伴わない場合と比べてどうなるか。",
+      "実在物体の全放射能は黒体と比べてどうか。",
+      "金属表面の放射率は研磨面と酸化面でどちらが大きいか。",
+      "熱放射は真空中でも伝熱するか。"
+    ],
+    "suggestedQuestionDetails": [
+      "熱伝導とはどのような伝熱形態か。",
+      "相変化を伴う熱伝達率は相変化を伴わない場合と比べてどうなるか。",
+      "実在物体の全放射能は黒体と比べてどうか。",
+      "金属表面の放射率は研磨面と酸化面でどちらが大きいか。",
+      "熱放射は真空中でも伝熱するか。"
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「伝熱（乙種）」の熱伝導、相変化を伴う熱伝達、黒体と実在物体の放射、金属表面の放射率、熱放射が本問の関連論点。",
+      "設問は誤っているものを選ぶ形式で、answer_result_text=正解は2は選択肢2のみが誤りであることに対応する。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "誤っている記述は2。沸騰・凝縮など相変化を伴う熱伝達では、一般に熱伝達率が大きくなる傾向があるため、小さい傾向があるとはいえない。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "粒子間相互作用による熱移動は熱伝導である。"
+      ],
+      [
+        "相変化を伴う熱伝達率は一般に大きい傾向がある。"
+      ],
+      [
+        "実在物体の放射は黒体より小さい。"
+      ],
+      [
+        "金属表面の放射率は研磨面より酸化面で大きい。"
+      ],
+      [
+        "熱放射は電磁波によるため真空中でも伝わる。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
     ]
   },
   {
