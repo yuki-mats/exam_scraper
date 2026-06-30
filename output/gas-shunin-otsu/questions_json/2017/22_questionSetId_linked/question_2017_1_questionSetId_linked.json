@@ -395,8 +395,77 @@
       "-945"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
-    "questionSetId": "",
-    "category": "基礎理論"
+    "questionSetId": "chiefgasengineerlicense-B-2110",
+    "category": "化学反応・平衡・反応熱・速度論（乙種）",
+    "explanationText": [
+      "不正解。標準反応熱は生成物の標準生成熱の総和から反応物の標準生成熱の総和を差し引いて求める。本問では -795kJ/mol となるため、945kJ/molではない。",
+      "不正解。生成物側は CO₂が-390、2H₂Oが2×(-240)=-480で合計-870kJ/mol、反応物側はCH₄が-75、O₂が0で合計-75kJ/molである。差は-795kJ/molであり、正の795ではない。",
+      "不正解。計算式は (-390+2×-240)-(-75+2×0)=-795 である。-555kJ/molは生成物と反応物の標準生成熱の差として一致しない。",
+      "正解。ΔH°=ΣΔHf°(生成物)-ΣΔHf°(反応物)=(-390+2×-240)-(-75+2×0)=-870+75=-795kJ/mol となる。",
+      "不正解。-945kJ/molは、反応物側のCH₄の標準生成熱-75kJ/molを差し引く処理と合わない。本問の標準反応熱は-795kJ/molである。"
+    ],
+    "suggestedQuestions": [
+      "標準反応熱は標準生成熱からどう求めるか。",
+      "本問の生成物側の標準生成熱の合計はいくらか。",
+      "本問の反応物側の標準生成熱の合計はいくらか。",
+      "本問の標準反応熱はいくらか。",
+      "標準反応熱が負になることは何を意味するか。"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "choiceIndex": 1,
+        "suggestedQuestion": "標準反応熱は標準生成熱からどう求めるか。"
+      },
+      {
+        "choiceIndex": 2,
+        "suggestedQuestion": "本問の生成物側の標準生成熱の合計はいくらか。"
+      },
+      {
+        "choiceIndex": 3,
+        "suggestedQuestion": "本問の反応物側の標準生成熱の合計はいくらか。"
+      },
+      {
+        "choiceIndex": 4,
+        "suggestedQuestion": "本問の標準反応熱はいくらか。"
+      },
+      {
+        "choiceIndex": 5,
+        "suggestedQuestion": "標準反応熱が負になることは何を意味するか。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceExplanationCommonPrefix": [
+      "基礎理論「化学反応・平衡・反応熱・速度論（乙種）」の標準生成熱と標準反応熱が本問の関連論点。",
+      "標準反応熱は、生成物の標準生成熱の化学量論係数付き総和から、反応物の標準生成熱の化学量論係数付き総和を差し引いて求める。",
+      "本問では生成物側が -390+2×(-240)=-870、反応物側が -75+2×0=-75 である。"
+    ],
+    "sourceExplanationCommonSummary": [
+      "標準反応熱は (-390+2×-240)-(-75+2×0)=-795kJ/mol。したがって選択肢4が正解。"
+    ],
+    "sourceExplanationChoiceSnippets": [
+      [
+        "計算結果は負の値で、945kJ/molではない。"
+      ],
+      [
+        "大きさは795だが符号が負である。"
+      ],
+      [
+        "-555kJ/molは標準生成熱の差と一致しない。"
+      ],
+      [
+        "生成物側-870から反応物側-75を引き、-795kJ/mol。"
+      ],
+      [
+        "-945kJ/molではなく、CH₄の-75を差し引くと-795になる。"
+      ]
+    ],
+    "sourceExplanationChoiceCorrectness": [
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
+    ]
   },
   {
     "original_question_id": "e41cc56097fc2124",
