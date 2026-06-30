@@ -452,6 +452,35 @@ def firestore_question_id_for_choice(question_body: dict, choice_index: int) -> 
     return text or None
 
 
+def firestore_source_question_for_choice(question_body: dict, choice_index: int) -> dict | None:
+    """Return the original Firestore source question for a split choice, when aligned."""
+    source_questions = question_body.get("firestoreSourceQuestions")
+    if not isinstance(source_questions, list):
+        return None
+    if choice_index < 0 or choice_index >= len(source_questions):
+        return None
+    source_question = source_questions[choice_index]
+    if not isinstance(source_question, dict):
+        return None
+
+    existing_question_id = firestore_question_id_for_choice(question_body, choice_index)
+    if not existing_question_id:
+        return None
+    source_question_id = str(source_question.get("questionId") or "").strip()
+    if source_question_id and source_question_id != existing_question_id:
+        return None
+    return source_question
+
+
+def question_set_id_for_choice(question_body: dict, choice_index: int) -> str | None:
+    """Return an existing statement-level questionSetId without inventing new classification."""
+    source_question = firestore_source_question_for_choice(question_body, choice_index)
+    if not source_question:
+        return None
+    question_set_id = str(source_question.get("questionSetId") or "").strip()
+    return question_set_id or None
+
+
 def single_firestore_question_id(question_body: dict) -> str | None:
     """Return an existing Firestore document id for an unsplit question, when unambiguous."""
     firestore_ids = question_body.get("firestoreQuestionIds")
@@ -525,6 +554,7 @@ def create_firestore_question_base(
     exam_source: str,
     original_question_choice_text: str = None,
     original_question_choice_image_urls: list[str] | None = None,
+    question_set_id: str | None = None,
     **additional_fields
 ) -> dict:
     """
@@ -545,7 +575,11 @@ def create_firestore_question_base(
     # remaining common fields
     firestore_question.update({
         "questionBodyText": question_body.get('questionBodyText', '').replace('\n', ''),
-        "questionSetId": question_body.get("questionSetId", ""),
+        "questionSetId": (
+            question_set_id
+            if question_set_id is not None
+            else question_body.get("questionSetId", "")
+        ),
         "questionText": question_text,
         "questionType": question_type,
         "correctChoiceText": correct_choice_text,
@@ -662,6 +696,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             exam_source=exam_source,
             original_question_choice_text=choice_text,
             original_question_choice_image_urls=choice_images,
+            question_set_id=question_set_id_for_choice(question_body, i),
             lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, i
@@ -737,6 +772,7 @@ def convert_group_select_to_firestore(
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
+                question_set_id=question_set_id_for_choice(question_body, i),
                 lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                     question_body, i
@@ -765,6 +801,7 @@ def convert_group_select_to_firestore(
                 exam_source=exam_source,
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
+                question_set_id=question_set_id_for_choice(question_body, i),
                 isChoiceOnly=True,
                 lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
@@ -791,6 +828,7 @@ def convert_group_select_to_firestore(
                 if choice_image_urls_by_choice
                 else []
             ),
+            question_set_id=question_set_id_for_choice(question_body, 0),
             lawReferences=format_choice_law_references(question_body.get("lawReferences", []), 0),
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, 0
@@ -851,7 +889,8 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         firestore_question = {
             "questionId": single_firestore_question_id(question_body)
             or new_question_id_for_choice(question_body, 0, original_question_id),
-            "questionSetId": question_body.get("questionSetId", ""),
+            "questionSetId": question_set_id_for_choice(question_body, 0)
+            or question_body.get("questionSetId", ""),
             "originalQuestionId": original_question_id,
             "originalQuestionBodyText": original_question_body_text,
             "originalQuestionChoiceText": choice_list,
@@ -955,7 +994,9 @@ def convert_merged_to_firestore(input_path: Path, output_path: Path = None) -> d
         # true_falseの場合は分割後の各設問にも正しいquestionSetIdを付与
         if question_body.get("questionType") == "true_false" and question_body.get("questionSetId"):
             for q in converted_questions:
-                q["questionSetId"] = question_body["questionSetId"]
+                q.setdefault("questionSetId", question_body["questionSetId"])
+                if not q["questionSetId"]:
+                    q["questionSetId"] = question_body["questionSetId"]
         firestore_questions.extend(converted_questions)
 
     # 出力データ

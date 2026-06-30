@@ -31,6 +31,56 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
             ["gasushunin-koushu-hourei-2020-1", "gasushunin-koushu-hourei-2020-1"],
         )
 
+    def test_true_false_preserves_existing_statement_level_question_set_ids(self) -> None:
+        question_body = {
+            "original_question_id": "gasushunin-koushu-gizyutsu-2019-1",
+            "firestoreQuestionIds": ["doc-1", "doc-2"],
+            "firestoreSourceQuestions": [
+                {"questionId": "doc-1", "questionSetId": "qset-statement-1"},
+                {"questionId": "doc-2", "questionSetId": "qset-statement-2"},
+            ],
+            "questionBodyText": "誤っているものはいくつあるか。",
+            "choiceTextList": ["記述1", "記述2"],
+            "correctChoiceText": ["間違い", "正しい"],
+            "explanationText": ["説明1", "説明2"],
+            "questionType": "true_false",
+            "questionSetId": "",
+            "examYear": 2019,
+            "questionLabel": "問1",
+        }
+
+        converted = convert_true_false_to_firestore(question_body)
+
+        self.assertEqual(
+            [item["questionSetId"] for item in converted],
+            ["qset-statement-1", "qset-statement-2"],
+        )
+
+    def test_true_false_ignores_misaligned_statement_level_question_set_ids(self) -> None:
+        question_body = {
+            "original_question_id": "gasushunin-koushu-gizyutsu-2019-2",
+            "firestoreQuestionIds": ["doc-1", "doc-2"],
+            "firestoreSourceQuestions": [
+                {"questionId": "other-doc", "questionSetId": "qset-statement-1"},
+                {"questionId": "doc-2", "questionSetId": "qset-statement-2"},
+            ],
+            "questionBodyText": "正しいものはどれか。",
+            "choiceTextList": ["記述1", "記述2"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["説明1", "説明2"],
+            "questionType": "true_false",
+            "questionSetId": "qset-problem",
+            "examYear": 2019,
+            "questionLabel": "問2",
+        }
+
+        converted = convert_true_false_to_firestore(question_body)
+
+        self.assertEqual(
+            [item["questionSetId"] for item in converted],
+            ["qset-problem", "qset-statement-2"],
+        )
+
     def test_flash_card_uses_existing_firestore_ids_by_choice_order(self) -> None:
         question_body = {
             "original_question_id": "gasushunin-koushu-kiso-2020-14",
