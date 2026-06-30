@@ -66,31 +66,45 @@
       "1200"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
+    "explanationText": [
+      "正解。内径20cmは0.20mなので、管断面積は A=πD²/4=π×0.20²/4≈0.0314m²である。体積流量は Av≈0.0314×2.0=0.0628m³/s、質量流量は ρAv≈1000×0.0628=62.8kg/s となり、最も近い値は60である。",
+      "不正解。計算される質量流量は約62.8kg/sであり、80kg/sより60kg/sに近い。",
+      "不正解。断面積0.0314m²、平均流速2.0m/s、密度1000kg/m³から質量流量は約62.8kg/sであり、120kg/sではない。",
+      "不正解。質量流量は ρAv で求められ、約62.8kg/sである。250kg/sは大きすぎる。",
+      "不正解。内径0.20mの断面積と平均流速から得られる質量流量は約62.8kg/sであり、1200kg/sではない。"
+    ],
+    "suggestedQuestions": [
+      "内径20cmをmに換算するといくつか。",
+      "直円管の断面積はどの式で求めるか。",
+      "体積流量は断面積と平均流速からどう求めるか。",
+      "質量流量は密度と体積流量からどう求めるか。",
+      "計算値約62.8kg/sに最も近い選択肢はどれか。"
+    ],
     "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-
+      "基礎理論「流体力学（乙種）」に関連する管内流動の連続の式、断面積、体積流量、質量流量に関する問題。",
+      "設問は質量流量として最も近い値を1つ選ぶ形式で、answer_result_text=正解は 1 です。に対応して選択肢1のみが正解。",
+      "質量流量は ρAv で求め、内径20cm、平均流速2.0m/s、密度1000kg/m³から約62.8kg/sとなる点を確認した。"
     ],
     "sourceExplanationCommonSummary": [
-
+      "質量流量は m=ρAv。内径20cmの断面積 A≈0.0314m² に密度1000kg/m³、平均流速2.0m/sを掛けると約62.8kg/sとなり、60kg/sが最も近い。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-
+        "ρAv≈62.8kg/sなので60が最も近い。"
       ],
       [
-
+        "80kg/sは計算値約62.8kg/sより離れている。"
       ],
       [
-
+        "120kg/sは計算値約62.8kg/sより大きすぎる。"
       ],
       [
-
+        "250kg/sは計算値約62.8kg/sより大きすぎる。"
       ],
       [
-
+        "1200kg/sは計算値約62.8kg/sより大きすぎる。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
