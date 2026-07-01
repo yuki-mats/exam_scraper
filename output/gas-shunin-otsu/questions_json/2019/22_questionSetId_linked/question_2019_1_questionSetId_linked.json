@@ -187,7 +187,25 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "questionSetId": "",
-    "category": "法令"
+    "category": "法令",
+    "questionSetName": "",
+    "choiceQuestionSetIds": [
+      "chiefgasengineerlicense-B-1980",
+      "chiefgasengineerlicense-B-1540",
+      "chiefgasengineerlicense-B-1620",
+      "chiefgasengineerlicense-B-1520",
+      "chiefgasengineerlicense-B-2000"
+    ],
+    "choiceQuestionSetNames": [
+      "ガス栓、接続具及び警報器（乙種）",
+      "技省令_水取り器（乙種）",
+      "技省令_導管（乙種）",
+      "技省令_遮断装置（乙種）",
+      "ガスメーター（乙種）"
+    ],
+    "questionSetIdResolution": "choiceQuestionSetIds",
+    "questionSetReviewDecision": "statement_level_active_question_sets",
+    "questionSetReviewNotes": "ガス栓、水取り器、導管防護、遮断装置、ガスメーターにまたがるためproblem-levelは空欄維持し、選択肢単位のactiveカテゴリへ分解する。"
   },
   {
     "original_question_id": "b6721f13d1ac771d",
