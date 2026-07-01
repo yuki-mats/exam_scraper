@@ -517,6 +517,17 @@ def upload_choice_text_for_choice(question_body: dict, choice_index: int, fallba
     return fallback if isinstance(fallback, str) else str(fallback)
 
 
+def upload_question_body_text_for_choice(question_body: dict, choice_index: int) -> str:
+    """Return the body text that should be written to upload JSON."""
+    if should_preserve_firestore_source(question_body):
+        source_question = firestore_source_question_for_choice(question_body, choice_index)
+        if source_question:
+            text = str(source_question.get("originalQuestionBodyText") or "").strip()
+            if text:
+                return text
+    return get_original_question_body_text(question_body)
+
+
 def question_set_id_for_choice(question_body: dict, choice_index: int) -> str | None:
     """Return an existing statement-level questionSetId without inventing new classification."""
     for key in ("choiceQuestionSetIds", "questionSetIds"):
@@ -734,7 +745,8 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
         )
 
         # questionText: questionBodyText（改行除去） + 該当の選択肢1つ（改行除去）を[quote][/quote]で囲む
-        question_body_text = question_body.get('questionBodyText', '').replace('\n', '')
+        upload_question_body = upload_question_body_text_for_choice(question_body, i)
+        question_body_text = upload_question_body.replace('\n', '')
         choice_text = upload_choice.replace('\n', '')
         if choice_text:
             question_text = f"{question_body_text}[quote]{choice_text}[/quote]"
@@ -770,6 +782,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             original_question_choice_text=choice_text,
             original_question_choice_image_urls=choice_images,
             question_set_id=question_set_id_for_choice(question_body, i),
+            originalQuestionBodyText=upload_question_body,
             lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, i

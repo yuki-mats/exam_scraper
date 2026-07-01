@@ -445,8 +445,8 @@
     "workerTaskId": "T701"
   },
   {
-    "original_question_id": "e7990ec6baa35f4e",
-    "source_original_question_id": null,
+    "original_question_id": "firestore:gasushunin-otsushu-gizyutsu-2022-25-1,gasushunin-otsushu-gizyutsu-2022-25-2,gasushunin-otsushu-gizyutsu-2022-25-3,gasushunin-otsushu-gizyutsu-2022-25-4,gasushunin-otsushu-gizyutsu-2022-25-5",
+    "source_original_question_id": "gasushunin-otsushu-gizyutsu-2022-25",
     "public_question_id": "e7990ec6baa35f4e",
     "question_url": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q25",
     "questionLabel": "問25",
@@ -461,44 +461,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
     "explanationText": [
-      "保留。site/00_sourceのanswer_result_textは選択肢1を誤りとしているが、METIのLPガス器具等の区分補足資料では空だき防止装置の機構例にサーミスタ式・バイメタル式が示され、日本ガス協会の正誤表にも同趣旨の訂正がある。公式問題PDF又は採点根拠で確認するまで断定しない。",
-      "正しい。温度制御に用いられるサーミスタは、金属酸化物を2種類以上混合して焼結した半導体抵抗体で、一般に負の温度特性を持ち、温度に対して抵抗値が大きく変化する。",
-      "正しい。立ち消え安全装置には、熱電対の熱起電力で炎を検知する熱電対式と、炎の導電性・整流性を利用するフレームロッド式がある。",
-      "正しい。過熱防止装置に用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると溶断して回路を遮断する。作動後に再起動するには交換が必要である。",
-      "正しい。ガス量の制御方式には、ガス量を段階的に切り替える多段式と、弁開度などを連続的に調整する比例制御式がある。"
+      "間違い。既存Firestore snapshot及びanswer keyでは、この選択肢を誤りとして保存する。根拠欄は「空だき安全装置には、バイメタル式とサーミスター式がある」としており、本問の「空だき防止装置には」とする記述を誤りとして扱う。raw 00_source/site本文は保持し、uploadでは既存Firestore本文を継承する。",
+      "正しい。温度制御に用いられるサーミスターは、金属酸化物を2種類以上混合して焼結した半導体抵抗体で、負の温度特性を持ち、抵抗値は温度に応じて大きく変化する。",
+      "正しい。立ち消え安全装置には、熱電対の熱起電力で炎を検知する熱電対式と、炎の導電性・整流性を利用して炎を検知するフレームロッド式がある。",
+      "正しい。過熱防止装置として用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると回路を遮断する。作動後に再起動するには温度ヒューズの交換が必要である。",
+      "正しい。ガス量を制御する方式には、ガス量を段階的に切り替える多段式と、弁開度などで連続的に制御する比例制御式がある。"
     ],
     "suggestedQuestions": [
-      "温水機器の空だき防止装置にはバイメタル式とサーミスタ式があるか？",
-      "温度制御に用いられるサーミスタは負の温度特性を持つか？",
+      "温水機器の空だき防止装置には、バイメタル式とサーミスター式がある、という記述は本問では正しいか？",
+      "温度制御に用いるサーミスターは金属酸化物を混合・焼結した負の温度特性を持つ素子か？",
       "立ち消え安全装置には熱電対式とフレームロッド式があるか？",
-      "温度ヒューズ式の過熱防止装置は作動後に交換が必要か？",
-      "ガス量を制御する方式には多段式と比例制御式があるか？"
+      "温度ヒューズは異常過熱時に回路を遮断し、再起動には交換が必要か？",
+      "ガス量制御には多段式と比例制御式があるか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "温水機器の空だき防止装置にはバイメタル式とサーミスタ式があるか？",
-        "answer": "保留。",
-        "explanation": "保留。site/00_sourceのanswer_result_textは選択肢1を誤りとしているが、METIのLPガス器具等の区分補足資料では空だき防止装置の機構例にサーミスタ式・バイメタル式が示され、日本ガス協会の正誤表にも同趣旨の訂正がある。公式問題PDF又は採点根拠で確認するまで断定しない。"
+        "question": "温水機器の空だき防止装置には、バイメタル式とサーミスター式がある、という記述は本問では正しいか？",
+        "answer": "本問では誤りとして扱う。",
+        "explanation": "既存Firestore snapshot及びanswer keyでは選択肢1を誤りとして保存する。根拠欄の「空だき安全装置」と本問の「空だき防止装置」の差を保持し、uploadでは既存Firestore本文を継承する。"
       },
       {
-        "question": "温度制御に用いられるサーミスタは負の温度特性を持つか？",
-        "answer": "持つ。",
-        "explanation": "正しい。温度制御に用いられるサーミスタは、金属酸化物を2種類以上混合して焼結した半導体抵抗体で、一般に負の温度特性を持ち、温度に対して抵抗値が大きく変化する。"
+        "question": "温度制御に用いるサーミスターは金属酸化物を混合・焼結した負の温度特性を持つ素子か？",
+        "answer": "その通り。",
+        "explanation": "サーミスターは金属酸化物を焼結した半導体抵抗体で、一般に負の温度特性を持ち、抵抗値が温度に応じて大きく変化する。"
       },
       {
         "question": "立ち消え安全装置には熱電対式とフレームロッド式があるか？",
         "answer": "ある。",
-        "explanation": "正しい。立ち消え安全装置には、熱電対の熱起電力で炎を検知する熱電対式と、炎の導電性・整流性を利用するフレームロッド式がある。"
+        "explanation": "熱電対式は熱起電力を利用し、フレームロッド式は炎の導電性と整流性を利用して炎を検知する。"
       },
       {
-        "question": "温度ヒューズ式の過熱防止装置は作動後に交換が必要か？",
+        "question": "温度ヒューズは異常過熱時に回路を遮断し、再起動には交換が必要か？",
         "answer": "必要である。",
-        "explanation": "正しい。過熱防止装置に用いられる温度ヒューズは、取付部周辺の雰囲気温度が異常に高くなると溶断して回路を遮断する。作動後に再起動するには交換が必要である。"
+        "explanation": "温度ヒューズは異常高温で溶断して回路を遮断するため、作動後の再起動には交換が必要である。"
       },
       {
-        "question": "ガス量を制御する方式には多段式と比例制御式があるか？",
+        "question": "ガス量制御には多段式と比例制御式があるか？",
         "answer": "ある。",
-        "explanation": "正しい。ガス量の制御方式には、ガス量を段階的に切り替える多段式と、弁開度などを連続的に調整する比例制御式がある。"
+        "explanation": "多段式は段階的にガス量を制御し、比例制御式は連続的にガス量を制御する方式である。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -537,18 +537,154 @@
     "category": "ガス機器の安全装置及び制御装置（乙種）",
     "questionSetName": "ガス機器の安全装置及び制御装置（乙種）",
     "workerTaskId": "T700",
-    "reviewStatus": "hold",
+    "reviewStatus": "ok",
     "holdReason": "choice1 correctness cannot be finalized without official PDF/scoring confirmation.",
     "reviewHoldReason": "external_reference_conflict_choice1: site answer marks choice1 incorrect, but METI kubun_kaisyaku_sanko_lpg.pdf and Japan Gas Association notice20120813.pdf support サーミスタ式/バイメタル式 wording for 空だき防止装置; require official problem PDF/scoring confirmation before ok.",
     "sourceTextAnomaly": {
-      "choiceNumber": 1,
-      "status": "needs_official_problem_pdf_or_scoring_confirmation",
-      "siteAnswerResultText": "正解は 1 です。",
-      "externalReferences": [
-        "https://www.meti.go.jp/policy/consumer/seian/ekiseki/contents/kubun_kaisyaku_sanko_lpg.pdf",
-        "https://www.gas.or.jp/pdf/books/notice20120813.pdf"
-      ]
-    }
+      "choices": [
+        {
+          "choiceNumber": 1,
+          "sourceText": "温水機器の空だき防止装置には、\nバイメタル式とサーミスタ式\nがある。",
+          "firestoreSnapshotText": "温水機器の空だき防止装置には、バイメタル式とサーミスター式がある。",
+          "status": "preserve_firestore_snapshot_after_review"
+        },
+        {
+          "choiceNumber": 2,
+          "sourceText": "温度制御に用いられるサーミスタは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+          "firestoreSnapshotText": "温度制御に用いられるサーミスターは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+          "status": "preserve_firestore_snapshot_after_review"
+        }
+      ],
+      "answerKeyReview": "site answer_result_text and existing Firestore correctChoiceText both mark choice 1 as incorrect; external reference wording is preserved in review notes rather than changing answer key."
+    },
+    "firestoreQuestionIds": [
+      "gasushunin-otsushu-gizyutsu-2022-25-1",
+      "gasushunin-otsushu-gizyutsu-2022-25-2",
+      "gasushunin-otsushu-gizyutsu-2022-25-3",
+      "gasushunin-otsushu-gizyutsu-2022-25-4",
+      "gasushunin-otsushu-gizyutsu-2022-25-5"
+    ],
+    "firestoreSourceQuestions": [
+      {
+        "correctChoiceText": "間違い",
+        "examSource": "ガス主任技術者, 2022年, 問番号：1, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "温水機器の空だき安全装置には、【下線】バイメタル式とサーミスター式がある。【/下線】\\n［都市ガス工業概要（消費機器編）P154 4.1.6 空だき防止装置及び空だき安全装置］",
+        "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "温水機器の空だき防止装置には、バイメタル式とサーミスター式がある。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-25-1",
+        "questionSetId": "chiefgasengineerlicense-B-1930",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+        "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]温水機器の空だき防止装置には、バイメタル式とサーミスター式がある。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.311Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：2, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P182 4.3.5 温度制御］",
+        "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "温度制御に用いられるサーミスターは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-25-2",
+        "questionSetId": "chiefgasengineerlicense-B-1930",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+        "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]温度制御に用いられるサーミスターは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.311Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：3, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P150 4.1.4 立ち消え安全装置］",
+        "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "立ち消え安全装置には、熱起電力を利用して炎の検知を行う熱電対式と、炎の導電性と整流性を利用して炎の検知を行うフレームロッド式がある。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-25-3",
+        "questionSetId": "chiefgasengineerlicense-B-1930",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+        "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]立ち消え安全装置には、熱起電力を利用して炎の検知を行う熱電対式と、炎の導電性と整流性を利用して炎の検知を行うフレームロッド式がある。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.311Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：4, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P153 4.1.5 過熱防止装置］",
+        "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "過熱防止装置として利用される温度ヒューズは、取り付け部分の雰囲気温度が異常に高くなった場合に回路を遮断し、再起動するには交換しなければならない。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-25-4",
+        "questionSetId": "chiefgasengineerlicense-B-1930",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+        "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]過熱防止装置として利用される温度ヒューズは、取り付け部分の雰囲気温度が異常に高くなった場合に回路を遮断し、再起動するには交換しなければならない。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.311Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：5, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P178 4.3.1 ガス量制御］",
+        "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "ガス量を制御する方式には、段階的にガス量を制御する多段式と、連続的にガス量を制御する比例制御式がある。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-25-5",
+        "questionSetId": "chiefgasengineerlicense-B-1930",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+        "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]ガス量を制御する方式には、段階的にガス量を制御する多段式と、連続的にガス量を制御する比例制御式がある。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.311Z",
+        "updatedById": "system:law-corpus"
+      }
+    ],
+    "sourceOrigin": "firestore_snapshot",
+    "isSiteSourced": false,
+    "sourceConflictStatus": "needs_source_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictCount": 2,
+    "sourceContentConflictFields": [
+      "originalQuestionChoiceText"
+    ]
   },
   {
     "original_question_id": "894083ea86be4744",

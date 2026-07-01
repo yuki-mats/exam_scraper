@@ -756,7 +756,7 @@
       "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": 1,
       "explanation_common_summary": [],
-      "isSiteSourced": true,
+      "isSiteSourced": false,
       "judgeChoiceMarkers": [
         "1",
         "2",
@@ -800,7 +800,7 @@
         "subject": "shohi",
         "year": 2022
       },
-      "sourceOrigin": "gassyunin_site",
+      "sourceOrigin": "firestore_snapshot",
       "sourcePriority": 2,
       "sourceProvider": "gassyunin.com",
       "sourceQuestionKey": "gas-shunin:otsu:2022:shohi:q25",
@@ -817,36 +817,186 @@
       "source_question_id": "2022:shohi:問25",
       "statementSourceStatuses": [
         {
-          "firestoreRegistered": false,
-          "siteOnly": true,
+          "statementNo": 1,
           "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s01",
-          "statementNo": 1
+          "firestoreRegistered": true,
+          "siteOnly": false,
+          "firestoreQuestionId": "gasushunin-otsushu-gizyutsu-2022-25-1"
         },
         {
-          "firestoreRegistered": false,
-          "siteOnly": true,
+          "statementNo": 2,
           "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s02",
-          "statementNo": 2
+          "firestoreRegistered": true,
+          "siteOnly": false,
+          "firestoreQuestionId": "gasushunin-otsushu-gizyutsu-2022-25-2"
         },
         {
-          "firestoreRegistered": false,
-          "siteOnly": true,
+          "statementNo": 3,
           "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s03",
-          "statementNo": 3
+          "firestoreRegistered": true,
+          "siteOnly": false,
+          "firestoreQuestionId": "gasushunin-otsushu-gizyutsu-2022-25-3"
         },
         {
-          "firestoreRegistered": false,
-          "siteOnly": true,
+          "statementNo": 4,
           "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s04",
-          "statementNo": 4
+          "firestoreRegistered": true,
+          "siteOnly": false,
+          "firestoreQuestionId": "gasushunin-otsushu-gizyutsu-2022-25-4"
         },
         {
-          "firestoreRegistered": false,
-          "siteOnly": true,
+          "statementNo": 5,
           "sourceUniqueKey": "gas-shunin:otsu:2022:shohi:q25:s05",
-          "statementNo": 5
+          "firestoreRegistered": true,
+          "siteOnly": false,
+          "firestoreQuestionId": "gasushunin-otsushu-gizyutsu-2022-25-5"
         }
-      ]
+      ],
+      "original_question_id": "gasushunin-otsushu-gizyutsu-2022-25",
+      "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+      "firestoreQuestionIds": [
+        "gasushunin-otsushu-gizyutsu-2022-25-1",
+        "gasushunin-otsushu-gizyutsu-2022-25-2",
+        "gasushunin-otsushu-gizyutsu-2022-25-3",
+        "gasushunin-otsushu-gizyutsu-2022-25-4",
+        "gasushunin-otsushu-gizyutsu-2022-25-5"
+      ],
+      "firestoreSourceQuestions": [
+        {
+          "correctChoiceText": "間違い",
+          "examSource": "ガス主任技術者, 2022年, 問番号：1, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "examYear": 2022,
+          "explanationText": "",
+          "isChoiceOnly": false,
+          "isDeleted": false,
+          "isGroupable": true,
+          "isOfficial": true,
+          "knowledgeText": "温水機器の空だき安全装置には、【下線】バイメタル式とサーミスター式がある。【/下線】\\n［都市ガス工業概要（消費機器編）P154 4.1.6 空だき防止装置及び空だき安全装置］",
+          "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "originalQuestionChoiceText": "温水機器の空だき防止装置には、バイメタル式とサーミスター式がある。",
+          "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+          "qualificationId": "chiefgasengineerlicense",
+          "questionId": "gasushunin-otsushu-gizyutsu-2022-25-1",
+          "questionSetId": "chiefgasengineerlicense-B-1930",
+          "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+          "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]温水機器の空だき防止装置には、バイメタル式とサーミスター式がある。[/quote]",
+          "questionType": "true_false",
+          "updatedAt": "2026-06-07T08:34:09.311Z",
+          "updatedById": "system:law-corpus"
+        },
+        {
+          "correctChoiceText": "正しい",
+          "examSource": "ガス主任技術者, 2022年, 問番号：2, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "examYear": 2022,
+          "explanationText": "",
+          "isChoiceOnly": false,
+          "isDeleted": false,
+          "isGroupable": true,
+          "isOfficial": true,
+          "knowledgeText": "［都市ガス工業概要（消費機器編）P182 4.3.5 温度制御］",
+          "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "originalQuestionChoiceText": "温度制御に用いられるサーミスターは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+          "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+          "qualificationId": "chiefgasengineerlicense",
+          "questionId": "gasushunin-otsushu-gizyutsu-2022-25-2",
+          "questionSetId": "chiefgasengineerlicense-B-1930",
+          "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+          "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]温度制御に用いられるサーミスターは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。[/quote]",
+          "questionType": "true_false",
+          "updatedAt": "2026-06-07T08:34:09.311Z",
+          "updatedById": "system:law-corpus"
+        },
+        {
+          "correctChoiceText": "正しい",
+          "examSource": "ガス主任技術者, 2022年, 問番号：3, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "examYear": 2022,
+          "explanationText": "",
+          "isChoiceOnly": false,
+          "isDeleted": false,
+          "isGroupable": true,
+          "isOfficial": true,
+          "knowledgeText": "［都市ガス工業概要（消費機器編）P150 4.1.4 立ち消え安全装置］",
+          "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "originalQuestionChoiceText": "立ち消え安全装置には、熱起電力を利用して炎の検知を行う熱電対式と、炎の導電性と整流性を利用して炎の検知を行うフレームロッド式がある。",
+          "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+          "qualificationId": "chiefgasengineerlicense",
+          "questionId": "gasushunin-otsushu-gizyutsu-2022-25-3",
+          "questionSetId": "chiefgasengineerlicense-B-1930",
+          "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+          "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]立ち消え安全装置には、熱起電力を利用して炎の検知を行う熱電対式と、炎の導電性と整流性を利用して炎の検知を行うフレームロッド式がある。[/quote]",
+          "questionType": "true_false",
+          "updatedAt": "2026-06-07T08:34:09.311Z",
+          "updatedById": "system:law-corpus"
+        },
+        {
+          "correctChoiceText": "正しい",
+          "examSource": "ガス主任技術者, 2022年, 問番号：4, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "examYear": 2022,
+          "explanationText": "",
+          "isChoiceOnly": false,
+          "isDeleted": false,
+          "isGroupable": true,
+          "isOfficial": true,
+          "knowledgeText": "［都市ガス工業概要（消費機器編）P153 4.1.5 過熱防止装置］",
+          "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "originalQuestionChoiceText": "過熱防止装置として利用される温度ヒューズは、取り付け部分の雰囲気温度が異常に高くなった場合に回路を遮断し、再起動するには交換しなければならない。",
+          "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+          "qualificationId": "chiefgasengineerlicense",
+          "questionId": "gasushunin-otsushu-gizyutsu-2022-25-4",
+          "questionSetId": "chiefgasengineerlicense-B-1930",
+          "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+          "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]過熱防止装置として利用される温度ヒューズは、取り付け部分の雰囲気温度が異常に高くなった場合に回路を遮断し、再起動するには交換しなければならない。[/quote]",
+          "questionType": "true_false",
+          "updatedAt": "2026-06-07T08:34:09.311Z",
+          "updatedById": "system:law-corpus"
+        },
+        {
+          "correctChoiceText": "正しい",
+          "examSource": "ガス主任技術者, 2022年, 問番号：5, 設問番号：ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "examYear": 2022,
+          "explanationText": "",
+          "isChoiceOnly": false,
+          "isDeleted": false,
+          "isGroupable": true,
+          "isOfficial": true,
+          "knowledgeText": "［都市ガス工業概要（消費機器編）P178 4.3.1 ガス量制御］",
+          "originalQuestionBodyText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。",
+          "originalQuestionChoiceText": "ガス量を制御する方式には、段階的にガス量を制御する多段式と、連続的にガス量を制御する比例制御式がある。",
+          "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-25",
+          "qualificationId": "chiefgasengineerlicense",
+          "questionId": "gasushunin-otsushu-gizyutsu-2022-25-5",
+          "questionSetId": "chiefgasengineerlicense-B-1930",
+          "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1930",
+          "questionText": "ガス機器の制御装置及び安全装置に関する次の記述のうち、誤っているものはどれか。[quote]ガス量を制御する方式には、段階的にガス量を制御する多段式と、連続的にガス量を制御する比例制御式がある。[/quote]",
+          "questionType": "true_false",
+          "updatedAt": "2026-06-07T08:34:09.311Z",
+          "updatedById": "system:law-corpus"
+        }
+      ],
+      "sourceConflictStatus": "needs_source_review",
+      "sourceContentConflictCount": 2,
+      "sourceContentConflictFields": [
+        "originalQuestionChoiceText"
+      ],
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceTextAnomaly": {
+        "choices": [
+          {
+            "choiceNumber": 1,
+            "sourceText": "温水機器の空だき防止装置には、\nバイメタル式とサーミスタ式\nがある。",
+            "firestoreSnapshotText": "温水機器の空だき防止装置には、バイメタル式とサーミスター式がある。",
+            "status": "preserve_firestore_snapshot_after_review"
+          },
+          {
+            "choiceNumber": 2,
+            "sourceText": "温度制御に用いられるサーミスタは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+            "firestoreSnapshotText": "温度制御に用いられるサーミスターは、金属の酸化物を2種類以上混合、焼結したもので、負の温度特性を持ちその値は等比的に変化する。",
+            "status": "preserve_firestore_snapshot_after_review"
+          }
+        ],
+        "answerKeyReview": "site answer_result_text and existing Firestore correctChoiceText both mark choice 1 as incorrect; external reference wording is preserved in review notes rather than changing answer key."
+      }
     },
     {
       "answerResultNumbersRemapped": false,
