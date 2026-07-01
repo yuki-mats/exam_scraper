@@ -220,8 +220,16 @@
     "answer_result_text": "正解は 5 です。",
     "questionSetName": "",
     "categoryName": "法令",
-    "questionSetHoldReason": "移動式ガス発生設備の遮断装置・緊急停止装置・設置等とガスの逆流防止にまたがり、技省令_ガスの逆流防止（chiefgasengineerlicense-B-1320）及び技省令_移動式ガス発生設備の設置等（chiefgasengineerlicense-B-1410）が削除済みで、単一problem-level questionSetIdを設定するとB-1390/B-1520のいずれにも寄りすぎるため04をhold。",
-    "questionSetSource": "hold_deleted_mixed_problem_level_categories"
+    "questionSetHoldReason": "",
+    "questionSetSource": "statement_level_active_fallback_question_sets",
+    "choiceQuestionSetIds": [
+      "chiefgasengineerlicense-B-1520",
+      "chiefgasengineerlicense-B-1390",
+      "chiefgasengineerlicense-B-1390",
+      "chiefgasengineerlicense-B-1390",
+      "chiefgasengineerlicense-B-1760"
+    ],
+    "questionSetReviewDecision": "statement_level_active_fallback_question_sets"
   },
   {
     "original_question_id": "ac37550121e0b2b2",
