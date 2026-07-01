@@ -358,23 +358,72 @@
       "(イ)クリープ限度又はクリープ破壊応力, (ロ)降伏点又は耐力, (ハ)破壊強さ"
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
-    "explanationText": null,
-    "suggestedQuestions": null,
-    "suggestedQuestionDetails": null,
-    "lawGroundedExplanationNotNeeded": null,
+    "explanationText": [
+      "不正解。繰り返し応力を受ける場合の基準強さは疲労限度、延性材料が常温で静荷重を受ける場合は降伏点又は耐力、高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力を用いる。選択肢1は(イ)を破壊強さ、(ロ)を疲労限度、(ハ)を降伏点又は耐力としているため誤り。",
+      "不正解。(ロ)延性材料が常温で静荷重を受ける場合は降伏点又は耐力、(ハ)高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力で合っているが、(イ)繰り返し応力を受ける場合は疲労限度であり、破壊強さではない。",
+      "不正解。(イ)繰り返し応力を受ける場合は疲労限度で合っているが、(ロ)延性材料が常温で静荷重を受ける場合は降伏点又は耐力であり、破壊強さではない。また(ハ)高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力であり、降伏点又は耐力ではない。",
+      "正解。繰り返し応力を受ける場合は疲労限度、延性材料が常温で静荷重を受ける場合は降伏点又は耐力、高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力を基準強さとして選ぶ。したがって(イ)疲労限度、(ロ)降伏点又は耐力、(ハ)クリープ限度又はクリープ破壊応力の組合せが最も適切である。",
+      "不正解。(ロ)延性材料が常温で静荷重を受ける場合は降伏点又は耐力で合っているが、(イ)繰り返し応力を受ける場合は疲労限度であり、クリープ限度又はクリープ破壊応力ではない。(ハ)高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力であり、破壊強さではない。"
+    ],
+    "suggestedQuestions": [
+      "繰り返し応力を受ける場合の基準強さは破壊強さか？",
+      "延性材料が常温で静荷重を受ける場合の基準強さは降伏点又は耐力か？",
+      "高温で静荷重を受ける場合の基準強さは降伏点又は耐力でよいか？",
+      "(イ)疲労限度、(ロ)降伏点又は耐力、(ハ)クリープ限度又はクリープ破壊応力の組合せは適切か？",
+      "高温で静荷重を受ける場合の基準強さは破壊強さか？"
+    ],
+    "suggestedQuestionDetails": [
+      {
+        "question": "繰り返し応力を受ける場合の基準強さは破壊強さか？",
+        "answer": "違う。",
+        "explanation": "繰り返し応力を受ける場合は疲労破壊を考慮するため、基準強さには疲労限度を用いる。"
+      },
+      {
+        "question": "延性材料が常温で静荷重を受ける場合の基準強さは降伏点又は耐力か？",
+        "answer": "その通り。",
+        "explanation": "延性材料が常温で静荷重を受ける場合は、降伏による永久変形を避けるため、降伏点又は耐力を基準強さとする。"
+      },
+      {
+        "question": "高温で静荷重を受ける場合の基準強さは降伏点又は耐力でよいか？",
+        "answer": "違う。",
+        "explanation": "高温で静荷重を受ける場合はクリープを考慮するため、クリープ限度又はクリープ破壊応力を基準強さとする。"
+      },
+      {
+        "question": "(イ)疲労限度、(ロ)降伏点又は耐力、(ハ)クリープ限度又はクリープ破壊応力の組合せは適切か？",
+        "answer": "適切である。",
+        "explanation": "(イ)繰り返し応力、(ロ)常温静荷重を受ける延性材料、(ハ)高温静荷重という各使用状況に対応している。"
+      },
+      {
+        "question": "高温で静荷重を受ける場合の基準強さは破壊強さか？",
+        "answer": "違う。",
+        "explanation": "高温で静荷重を受ける場合は時間依存のクリープを考慮し、クリープ限度又はクリープ破壊応力を用いる。"
+      }
+    ],
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
-      "hold: 00_source本文に(イ)〜(ハ)の使用状況が欠落しているため、03 explanationTextは確定しない。",
-      "20_mergedでは(イ)=繰り返し応力、(ロ)=延性材料が常温で静荷重、(ハ)=高温で静荷重であり、選択肢4が対応する。"
+      "基礎理論「材料力学・材料（乙種）」の許容応力設計における基準強さの選択が本問の関連論点。",
+      "確認した使用状況は、(イ)繰り返し応力を受けるとき、(ロ)延性材料が常温で静荷重を受けるとき、(ハ)高温で静荷重を受けるとき。",
+      "試験ポイント: 繰り返し応力には疲労限度、常温静荷重を受ける延性材料には降伏点又は耐力、高温静荷重にはクリープ限度又はクリープ破壊応力を対応させる。"
     ],
     "sourceExplanationCommonSummary": [
-      "00_sourceの設問本文に、解答根拠となる(イ)繰り返し応力を受けるとき、(ロ)延性材料が常温で静荷重を受けるとき、(ハ)高温で静荷重を受けるとき、の使用状況が欠落している。20_mergedには当該条件が残っており、answer_result_text=正解は4およびFirestore snapshot exact同一問題のquestionSetId=chiefgasengineerlicense-B-2160は確認できるが、00_source本文修正または公式問題PDF確認なしに03 explanationを確定すると誤学習リスクがある。"
+      "正解は選択肢4。(イ)繰り返し応力には疲労限度、(ロ)延性材料が常温で静荷重を受ける場合には降伏点又は耐力、(ハ)高温で静荷重を受ける場合にはクリープ限度又はクリープ破壊応力を用いる。"
     ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "不正解。繰り返し応力を受ける場合の基準強さは疲労限度、延性材料が常温で静荷重を受ける場合は降伏点又は耐力、高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力を用いる。選択肢1は(イ)を破壊強さ、(ロ)を疲労限度、(ハ)を降伏点又は耐力としているため誤り。"
+      ],
+      [
+        "不正解。(ロ)延性材料が常温で静荷重を受ける場合は降伏点又は耐力、(ハ)高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力で合っているが、(イ)繰り返し応力を受ける場合は疲労限度であり、破壊強さではない。"
+      ],
+      [
+        "不正解。(イ)繰り返し応力を受ける場合は疲労限度で合っているが、(ロ)延性材料が常温で静荷重を受ける場合は降伏点又は耐力であり、破壊強さではない。また(ハ)高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力であり、降伏点又は耐力ではない。"
+      ],
+      [
+        "正解。繰り返し応力を受ける場合は疲労限度、延性材料が常温で静荷重を受ける場合は降伏点又は耐力、高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力を基準強さとして選ぶ。したがって(イ)疲労限度、(ロ)降伏点又は耐力、(ハ)クリープ限度又はクリープ破壊応力の組合せが最も適切である。"
+      ],
+      [
+        "不正解。(ロ)延性材料が常温で静荷重を受ける場合は降伏点又は耐力で合っているが、(イ)繰り返し応力を受ける場合は疲労限度であり、クリープ限度又はクリープ破壊応力ではない。(ハ)高温で静荷重を受ける場合はクリープ限度又はクリープ破壊応力であり、破壊強さではない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
       "不正解",
@@ -383,7 +432,28 @@
       "正解",
       "不正解"
     ],
-    "explanationTextCount": 0
+    "explanationTextCount": 0,
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "不正解",
+      "不正解",
+      "不正解",
+      "正解",
+      "不正解"
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "questionSetId": "chiefgasengineerlicense-B-2160",
+    "questionSetName": "材料力学・材料（乙種）",
+    "reviewStatus": "ok",
+    "reviewDecision": "ok",
+    "sourceConflictStatus": "none",
+    "sourceContentConflictCount": 0,
+    "sourceContentConflictFields": [],
+    "confirmedConditionTexts": [
+      "(イ) 繰り返し応力を受けるとき",
+      "(ロ) 延性材料が常温で静荷重を受けるとき",
+      "(ハ) 高温で静荷重を受けるとき"
+    ]
   },
   {
     "original_question_id": "d281a1bfaca91985",
@@ -1268,7 +1338,6 @@
         "answer": "正解。ABでは100m³/h、200m、口径10cmで圧力損失0.2kPaである。ACでは400m³/h、400m、口径20cmなので、損失比は(400/100)²×(400/200)×(10/20)⁵=1となり、圧力損失は0.2kPa。よってC点圧力は2.3−0.2=2.1kPaである。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [
       "供給「導管の工事（乙種）」の低圧導管における圧力損失計算が本問の関連論点。",
       "低圧導管では、高低差を無視すると圧力損失は流量の2乗、延長に比例し、口径の5乗に反比例する関係で比較できる。",
@@ -1356,7 +1425,6 @@
         "answer": "間違い。直動式整圧器のメインバルブにダスト類がかみ込んで締め切り不良になると、閉止時にも二次側へガスが流入しやすくなり、二次圧力は異常上昇する。異常低下としている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [
       "供給「整圧器（乙種）」の整圧器故障・能力不足・付属機器詰まりによる二次圧力異常が本問の関連論点。",
       "二次圧力の異常上昇は締切不良やバルブシート不具合で起こり、異常低下は能力不足やフィルター詰まりで起こる。"
@@ -1444,7 +1512,6 @@
         "answer": "正しい。超音波式ガスメーターは、超音波の伝搬時間差などから流量を求める推測計量方式のガスメーターである。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1518,7 +1585,6 @@
         "answer": "不正解。設計変位量は温度変化による伸び量であり、δ=1.2×10⁻⁵×50×50000=30mmとなる。126mmは設計変位量として大きすぎる。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1592,7 +1658,6 @@
         "answer": "正しい。選択排流法、強制排流法はいずれも、他の金属埋設物への干渉や過防食を考慮する必要がある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1667,7 +1732,6 @@
         "answer": "正しい。非開削工法は路上工事を縮減できるため、交通への影響を低減できることが特徴の一つである。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1720,7 +1784,6 @@
         "answer": "正しい。開先形状や開先加工が不適切であると、溶込み不良や割れなどの溶接欠陥の原因となる。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1767,7 +1830,6 @@
         "answer": "正しい。マッピングシステムは、地図情報、本支管等の設備位置や口径・管種などの管理情報、地域管理情報をレイヤーに区分して管理し、維持管理など各種業務に活用できる。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
