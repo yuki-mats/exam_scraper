@@ -494,11 +494,27 @@
     "category": "法令",
     "categoryName": "法令",
     "questionSetName": "",
-    "questionSetSource": "hold_mixed_problem_level_categories",
-    "questionSetHoldReason": "消費機器の技術上の基準、消費機器の周知及び調査、ガス事業者間の連携協力、保安業務規程にまたがるため、単一problem-level questionSetIdを設定せず04をhold。",
-    "workerTaskId": "T975",
-    "taskId": "T975",
-    "remainingAfterTask": 59
+    "questionSetSource": "statement_level_active_question_sets",
+    "workerTaskId": "T999",
+    "taskId": "T999",
+    "choiceQuestionSetIds": [
+      "chiefgasengineerlicense-B-1190",
+      "chiefgasengineerlicense-B-1190",
+      "chiefgasengineerlicense-B-1200",
+      "chiefgasengineerlicense-B-1200",
+      "chiefgasengineerlicense-B-1200"
+    ],
+    "choiceQuestionSetNames": [
+      "消費機器の技術上の基準（乙種）",
+      "消費機器の技術上の基準（乙種）",
+      "消費機器の周知及び調査（乙種）",
+      "消費機器の周知及び調査（乙種）",
+      "消費機器の周知及び調査（乙種）"
+    ],
+    "questionSetIdResolution": "choiceQuestionSetIds",
+    "questionSetReviewDecision": "statement_level_active_question_sets",
+    "reviewStatus": "ok",
+    "status": "ok"
   },
   {
     "original_question_id": "3c4240cdc39eea07",
