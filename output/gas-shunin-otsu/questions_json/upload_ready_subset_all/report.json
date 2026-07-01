@@ -1,0 +1,147 @@
+{
+  "decisionSummary": {
+    "planReasonCounts": {
+      "holdout:content_review_not_ready": 1,
+      "upload:preserve_firestore_source_conflict": 127,
+      "upload:review_ok": 807,
+      "upload:site_shadow_new_documents": 1
+    },
+    "planRowDecisionCounts": {
+      "holdout": 1,
+      "upload": 935
+    },
+    "plannedQuestionIdDecisionCounts": {
+      "holdout": 5,
+      "upload": 4645
+    }
+  },
+  "fileSummaries": [
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2017_firestore_20260701_103150.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2017_firestore_20260701_103150.json"
+    },
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2018_firestore_20260701_111432.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2018_firestore_20260701_111432.json"
+    },
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2019_firestore_20260701_163252.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2019_firestore_20260701_163252.json"
+    },
+    {
+      "excludedQuestionCount": 5,
+      "excludedSamples": [
+        {
+          "planSequence": 607,
+          "questionId": "gas-shunin-otsu-2020-kiso-q05-s01",
+          "reason": "content_review_not_ready",
+          "sourceQuestionKey": "gas-shunin:otsu:2020:kiso:q05"
+        },
+        {
+          "planSequence": 607,
+          "questionId": "gas-shunin-otsu-2020-kiso-q05-s02",
+          "reason": "content_review_not_ready",
+          "sourceQuestionKey": "gas-shunin:otsu:2020:kiso:q05"
+        },
+        {
+          "planSequence": 607,
+          "questionId": "gas-shunin-otsu-2020-kiso-q05-s03",
+          "reason": "content_review_not_ready",
+          "sourceQuestionKey": "gas-shunin:otsu:2020:kiso:q05"
+        },
+        {
+          "planSequence": 607,
+          "questionId": "gas-shunin-otsu-2020-kiso-q05-s04",
+          "reason": "content_review_not_ready",
+          "sourceQuestionKey": "gas-shunin:otsu:2020:kiso:q05"
+        },
+        {
+          "planSequence": 607,
+          "questionId": "gas-shunin-otsu-2020-kiso-q05-s05",
+          "reason": "content_review_not_ready",
+          "sourceQuestionKey": "gas-shunin:otsu:2020:kiso:q05"
+        }
+      ],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 285,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2020_firestore_20260701_164818.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2020_firestore_20260701_164818.json"
+    },
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2021_firestore_20260701_150521.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2021_firestore_20260701_150521.json"
+    },
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 281,
+      "keptQuestionCount": 281,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2022_firestore_20260701_143352.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2022_firestore_20260701_143352.json"
+    },
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2023_firestore_20260701_130739.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2023_firestore_20260701_130739.json"
+    },
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2024_firestore_20260701_170715.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2024_firestore_20260701_170715.json"
+    },
+    {
+      "excludedQuestionCount": 0,
+      "excludedSamples": [],
+      "inputQuestionCount": 290,
+      "keptQuestionCount": 290,
+      "missingPlanDecisionCount": 0,
+      "output": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2025_firestore_20260701_115523.json",
+      "source": "output/gas-shunin-otsu/questions_json/upload_to_firestore/2025_firestore_20260701_115523.json"
+    }
+  ],
+  "generatedAt": "2026-07-01T08:07:39Z",
+  "outputDir": "output/gas-shunin-otsu/questions_json/upload_ready_subset_all",
+  "outputFiles": [
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2017_firestore_20260701_103150.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2018_firestore_20260701_111432.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2019_firestore_20260701_163252.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2020_firestore_20260701_164818.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2021_firestore_20260701_150521.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2022_firestore_20260701_143352.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2023_firestore_20260701_130739.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2024_firestore_20260701_170715.json",
+    "output/gas-shunin-otsu/questions_json/upload_ready_subset_all/2025_firestore_20260701_115523.json"
+  ],
+  "plan": "docs/goals/gas-shunin-01-04-full-pass/notes/question-plan/all_questions_plan.jsonl",
+  "schemaVersion": "gas-shunin-upload-ready-subset/v1"
+}

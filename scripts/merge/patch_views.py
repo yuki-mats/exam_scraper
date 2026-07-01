@@ -188,6 +188,13 @@ def apply_question_type(
             if new_choices is not None and question.get("choiceTextList") != new_choices:
                 question["choiceTextList"] = new_choices
                 changed = True
+            new_source_unique_keys = patch_entry.get("sourceUniqueKeys")
+            if (
+                isinstance(new_source_unique_keys, list)
+                and question.get("sourceUniqueKeys") != new_source_unique_keys
+            ):
+                question["sourceUniqueKeys"] = new_source_unique_keys
+                changed = True
             if changed:
                 updated += 1
             continue

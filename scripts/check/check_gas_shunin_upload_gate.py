@@ -150,6 +150,28 @@ def planned_question_ids(row: dict[str, Any]) -> set[str]:
     return set()
 
 
+def planned_new_question_ids_by_original(plan_path: Path) -> dict[str, set[str]]:
+    ids_by_original: dict[str, set[str]] = defaultdict(set)
+    for row in load_jsonl(plan_path):
+        firestore_ids = row.get("firestoreQuestionIds")
+        if isinstance(firestore_ids, list) and any(str(value or "").strip() for value in firestore_ids):
+            continue
+        original_id = str(
+            row.get("originalQuestionId")
+            or row.get("publicQuestionId")
+            or row.get("reviewQuestionId")
+            or ""
+        ).strip()
+        source_unique_keys = row.get("sourceUniqueKeys")
+        if not original_id or not isinstance(source_unique_keys, list):
+            continue
+        for source_unique_key in source_unique_keys:
+            text = str(source_unique_key or "").strip()
+            if text:
+                ids_by_original[original_id].add(question_id_from_source_unique_key(text))
+    return ids_by_original
+
+
 def content_review_ready(row: dict[str, Any]) -> bool:
     for field in ("review02CorrectChoiceText", "review03ExplanationText"):
         if str(row.get(field) or "") in CONTENT_REVIEW_BLOCKING_STATUSES:
@@ -388,6 +410,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         by_original, new_by_original, all_existing_ids, existing_question_set_by_id = source_id_indexes(
             args.qualifications
         )
+        for original_id, plan_ids in planned_new_question_ids_by_original(args.plan).items():
+            new_by_original[original_id].update(plan_ids)
         upload_issues, upload_summary, upload_issue_counts = check_upload_json(
             args.upload_json,
             by_original,
