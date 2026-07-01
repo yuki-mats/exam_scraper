@@ -1874,8 +1874,8 @@
     "fixInstructions": ""
   },
   {
-    "original_question_id": "4c02724cceef7fcb",
-    "source_original_question_id": null,
+    "original_question_id": "firestore:gasushunin-otsushu-gizyutsu-2022-19-1,gasushunin-otsushu-gizyutsu-2022-19-2,gasushunin-otsushu-gizyutsu-2022-19-3,gasushunin-otsushu-gizyutsu-2022-19-4,gasushunin-otsushu-gizyutsu-2022-19-5",
+    "source_original_question_id": "gasushunin-otsushu-gizyutsu-2022-19",
     "public_question_id": "4c02724cceef7fcb",
     "question_url": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q19",
     "questionLabel": "問19",
@@ -1891,43 +1891,43 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
     "explanationText": [
       "正しい。可燃性混合ガスは、温度が一定であれば圧力の上昇に伴って燃焼範囲が広くなる。",
-      "正しい。サーマルNOxの生成量は燃焼ガス温度が高い空気比1付近で最大となり、滞留時間が長いほど多く生成する。",
-      "正しい。不完全燃焼の原因には、空気との接触や混合が不十分であること、排気の排出不良などがある。",
-      "保留。00_sourceとサイト本文は「燃焼速度の速いガスでは大きく、遅いガスでは小さくなる」となっており、既存の対応知識文とも一致する。一方でサイトのanswer_result_textは4を誤りとしており、既存Firestoreスナップショット側には「遅いガスでは大きく、速いガスでは小さくなる」という逆向きの文言が残るため、公式問題PDFまたは採点根拠の確認が必要。",
-      "正しい。ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換領域を外れると、炎が炎口から離れるリフティングが発生し得る。"
+      "正しい。サーマルNOxの生成量は、燃焼ガス温度が高い空気比1付近で最大となり、滞留時間が長いほど多く生成する。",
+      "正しい。不完全燃焼の原因には、燃焼用空気との接触や混合が不十分であること、排気の排出不良などがある。",
+      "間違い。既存Firestore snapshotの本文では、炎口負荷の適正値は「燃焼速度の遅いガスでは大きく、速いガスでは小さくなる」としており、これは逆である。燃焼速度の速いガスでは炎口負荷の適正値を大きくでき、遅いガスでは小さくなる。raw 00_source/site本文はsource conflictとして保持し、uploadでは既存Firestore本文を継承する。",
+      "正しい。ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換域を外れると、炎が炎口から離れるリフティングが発生し得る。"
     ],
     "suggestedQuestions": [
-      "圧力が上昇すると可燃性混合ガスの燃焼範囲は広くなるか？",
-      "サーマルNOxは空気比1付近かつ滞留時間が長いほど生成しやすいか？",
+      "温度一定で圧力が上昇すると可燃性混合ガスの燃焼範囲は広くなるか？",
+      "サーマルNOxは高温で空気比1付近、滞留時間が長い条件ほど生成しやすいか？",
       "空気との混合不足や排気不良は不完全燃焼の原因になるか？",
-      "燃焼速度の速いガスでは炎口負荷の適正値が大きく、遅いガスでは小さくなるという記述を誤りと断定できるか？",
-      "MCPが小さくなり互換域を外れるとリフティングが発生しやすいか？"
+      "炎口負荷の適正値は燃焼速度の遅いガスで大きく、速いガスで小さくなるか？",
+      "MCPが小さくなって互換域を外れるとリフティングが発生しやすいか？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "圧力が上昇すると可燃性混合ガスの燃焼範囲は広くなるか？",
+        "question": "温度一定で圧力が上昇すると可燃性混合ガスの燃焼範囲は広くなるか？",
         "answer": "広くなる。",
-        "explanation": "正しい。可燃性混合ガスの燃焼範囲は、一般に圧力が上昇すると広くなる。温度一定で圧力上昇により燃焼範囲が広がるという記述は正しい。"
+        "explanation": "正しい。可燃性混合ガスの燃焼範囲は、一般に圧力上昇に伴って広がる。"
       },
       {
-        "question": "サーマルNOxは空気比1付近かつ滞留時間が長いほど生成しやすいか？",
+        "question": "サーマルNOxは高温で空気比1付近、滞留時間が長い条件ほど生成しやすいか？",
         "answer": "生成しやすい。",
-        "explanation": "正しい。サーマルNOxは高温場で生成されやすく、燃焼ガス温度が高くなる空気比1付近で生成量が大きく、滞留時間が長いほど多く生成する。"
+        "explanation": "正しい。サーマルNOxは高温場で生成されやすく、空気比1付近で生成量が大きく、滞留時間が長いほど増える。"
       },
       {
         "question": "空気との混合不足や排気不良は不完全燃焼の原因になるか？",
         "answer": "原因になる。",
-        "explanation": "正しい。不完全燃焼は、燃焼用空気との接触・混合不足や排気の排出不良などで酸化反応が不十分になると発生しやすい。"
+        "explanation": "正しい。燃焼用空気との接触・混合不足や排気の排出不良は、不完全燃焼を起こす代表的な要因である。"
       },
       {
-        "question": "燃焼速度の速いガスでは炎口負荷の適正値が大きく、遅いガスでは小さくなるという記述を誤りと断定できるか？",
-        "answer": "保留。",
-        "explanation": "保留。site/00_sourceのanswer_result_textは選択肢4を誤りとしているが、炎口負荷はインプットを炎口面積で割る値であり、既存の炎口負荷・ユニバーサルバーナー先例と外部解説では、燃焼速度の速いガスほど適正な炎口負荷を大きくできる向きで説明されている。公式問題PDF又は採点根拠で確認するまで断定しない。"
+        "question": "炎口負荷の適正値は燃焼速度の遅いガスで大きく、速いガスで小さくなるか？",
+        "answer": "逆である。",
+        "explanation": "間違い。燃焼速度の速いガスでは炎口負荷の適正値を大きくでき、燃焼速度の遅いガスでは小さくなる。既存Firestore本文の逆向き記述を誤りとして扱う。"
       },
       {
-        "question": "MCPが小さくなり互換域を外れるとリフティングが発生しやすいか？",
+        "question": "MCPが小さくなって互換域を外れるとリフティングが発生しやすいか？",
         "answer": "発生しやすい。",
-        "explanation": "正しい。燃焼速度指数（MCP）が小さくなってガス機器の互換域を外れると、燃焼速度がガス噴出速度に対して不足し、炎が炎口から離れるリフティングが発生しやすい。"
+        "explanation": "正しい。燃焼速度指数が小さくなると、ガス噴出速度に対して燃焼速度が不足し、炎が炎口から離れるリフティングが生じやすい。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -1963,17 +1963,160 @@
       "正しい"
     ],
     "questionSetId": "chiefgasengineerlicense-B-1950",
-    "category": "消費機器",
+    "category": "ガスの燃焼（乙種）",
     "questionSetName": "ガスの燃焼（乙種）",
     "workerTaskId": "T706",
     "sourceTextAnomaly": {
-      "choiceNumber": 4,
-      "status": "needs_official_problem_pdf_or_scoring_confirmation",
-      "siteAnswerResultText": "正解は 4 です。",
-      "sourceText": "炎口負荷の適正値は、燃焼速度の速いガスでは大きく、遅いガスでは小さくなる。",
-      "firestoreSnapshotText": "炎口負荷の適正値は、燃焼速度の遅いガスでは大きく、速いガスでは小さくなる。",
-      "knowledgeText": "炎口負荷の適正値は、燃焼速度の速いガスでは大きく、遅いガスでは小さくなる。"
+      "questionBodyText": {
+        "sourceText": "燃焼時の諸現象及びガスと機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "firestoreSnapshotText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "status": "preserve_firestore_snapshot_after_review"
+      },
+      "choices": [
+        {
+          "choiceNumber": 4,
+          "sourceText": "ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の適正値は、燃焼速度の速いガスでは\n大きく、遅いガスで\nは小さくなる。",
+          "firestoreSnapshotText": "ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の適正値は、燃焼速度の遅いガスでは大きく、速いガスでは小さくなる。",
+          "status": "preserve_firestore_snapshot_after_review"
+        },
+        {
+          "choiceNumber": 5,
+          "sourceText": "ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換領域を外れた場合、リフティングが発生する。",
+          "firestoreSnapshotText": "ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換域を外れた場合、リフティングが発生する。",
+          "status": "preserve_firestore_snapshot_after_review"
+        }
+      ],
+      "answerKeyReview": "site answer_result_text and existing Firestore correctChoiceText both mark choice 4 as incorrect; upload preserves existing Firestore statement text/IDs while retaining raw site text in 00_source."
     },
-    "fixInstructions": "choice4は00_source/site本文・対応知識文とanswer_result_text/既存Firestore文言が矛盾するため、公式問題PDFまたは採点根拠で本文と正解番号を確認するまで02/03をholdする。"
+    "fixInstructions": "choice4は00_source/site本文・対応知識文とanswer_result_text/既存Firestore文言が矛盾するため、公式問題PDFまたは採点根拠で本文と正解番号を確認するまで02/03をholdする。",
+    "firestoreQuestionIds": [
+      "gasushunin-otsushu-gizyutsu-2022-19-1",
+      "gasushunin-otsushu-gizyutsu-2022-19-2",
+      "gasushunin-otsushu-gizyutsu-2022-19-3",
+      "gasushunin-otsushu-gizyutsu-2022-19-4",
+      "gasushunin-otsushu-gizyutsu-2022-19-5"
+    ],
+    "firestoreSourceQuestions": [
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：1, 設問番号：燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P10 1.10.2 燃焼範囲に対する圧力の影響］",
+        "originalQuestionBodyText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-19",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-19-1",
+        "questionSetId": "chiefgasengineerlicense-B-1950",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1950",
+        "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]可燃性混合ガスは、温度が一定であれば、圧力が上昇すると燃焼範囲は広くなる。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:11.081Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：2, 設問番号：燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P25 3.7 NOx］",
+        "originalQuestionBodyText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-19",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-19-2",
+        "questionSetId": "chiefgasengineerlicense-B-1950",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1950",
+        "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]サーマルNOxの生成量は、燃焼ガス温度の高い、空気比1付近で最大となり、滞留時間が長いほど多く生成する。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:11.081Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：3, 設問番号：燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P22 3.1 不完全燃焼］",
+        "originalQuestionBodyText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "不完全燃焼の原因には、空気との接触や混合が不十分、排気の排出不良等がある。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-19",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-19-3",
+        "questionSetId": "chiefgasengineerlicense-B-1950",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1950",
+        "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]不完全燃焼の原因には、空気との接触や混合が不十分、排気の排出不良等がある。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:11.081Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "間違い",
+        "examSource": "ガス主任技術者, 2022年, 問番号：4, 設問番号：燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の【下線】適正値【/下線】は、燃焼速度の速いガスでは大きく、遅いガスでは小さくなる。\\n［都市ガス工業概要（消費機器編）P206 7.4.2 バーナー炎口負荷の調整］",
+        "originalQuestionBodyText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の適正値は、燃焼速度の遅いガスでは大きく、速いガスでは小さくなる。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-19",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-19-4",
+        "questionSetId": "chiefgasengineerlicense-B-1950",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1950",
+        "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]ブンゼン燃焼の炎口負荷には、一定の許容幅があり、炎口負荷の適正値は、燃焼速度の遅いガスでは大きく、速いガスでは小さくなる。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:11.081Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者, 2022年, 問番号：5, 設問番号：燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "examYear": 2022,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "［都市ガス工業概要（消費機器編）P27 4.3 ウォッベ指数（WI）と燃焼速度指数（MCP）による互換域］",
+        "originalQuestionBodyText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換域を外れた場合、リフティングが発生する。",
+        "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-19",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionId": "gasushunin-otsushu-gizyutsu-2022-19-5",
+        "questionSetId": "chiefgasengineerlicense-B-1950",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-1950",
+        "questionText": "燃焼時の諸現象及びガスとガス機器の適応に関する次の記述のうち、誤っているものはどれか。[quote]ガスの燃焼速度指数（MCP）が小さくなり、ガス機器の互換域を外れた場合、リフティングが発生する。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:11.081Z",
+        "updatedById": "system:law-corpus"
+      }
+    ],
+    "sourceOrigin": "firestore_snapshot",
+    "isSiteSourced": false,
+    "sourceConflictStatus": "needs_source_review",
+    "sourceContentConflictCount": 3,
+    "sourceContentConflictFields": [
+      "originalQuestionBodyText",
+      "originalQuestionChoiceText"
+    ],
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review"
   }
 ]
