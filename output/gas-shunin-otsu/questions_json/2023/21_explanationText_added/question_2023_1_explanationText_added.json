@@ -256,9 +256,10 @@
     "questionIntent": "select_incorrect",
     "questionSetId": "",
     "category": "法令",
-    "questionSetName": "保安規定（乙種）",
-    "workerTaskId": "T695",
-    "sourceExplanationSummary": "誤っている記述は第3肢と第4肢。第3肢は保安規程を届出ではなく許可としている点、第4肢は保安規程事項にない経済産業省との連携協力を挙げている点が誤り。04はガス工作物と保安規程の混在カテゴリのためquestionSetIdを保留。"
+    "questionSetName": "",
+    "workerTaskId": "T999",
+    "sourceExplanationSummary": "誤っている記述は第3肢と第4肢。第3肢は保安規程を届出ではなく許可としている点、第4肢は保安規程事項にない経済産業省との連携協力を挙げている点が誤り。04はガス工作物と保安規程の混在カテゴリのためproblem-level questionSetIdを空欄とし、22でchoiceQuestionSetIdsへ連携する。",
+    "questionSetIdResolution": "choiceQuestionSetIds"
   },
   {
     "original_question_id": "4e2e4af72d3c96aa",
