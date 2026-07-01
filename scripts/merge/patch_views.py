@@ -24,6 +24,15 @@ EXPLANATION_FIELDS = [
     "explanation_choice_snippets",
     "explanation_choice_correctness",
 ]
+QUESTION_SOURCE_PRESERVATION_FIELDS = [
+    "originalQuestionId",
+    "original_question_id",
+    "uploadOriginalQuestionId",
+    "firestoreQuestionIds",
+    "firestoreSourceQuestions",
+    "sourceConflictReviewDecision",
+    "sourceContentConflictPolicy",
+]
 NEGATIVE_PROMPT_PHRASES = (
     "最も不適当なもの",
     "最も不適当",
@@ -195,6 +204,10 @@ def apply_question_type(
             ):
                 question["sourceUniqueKeys"] = new_source_unique_keys
                 changed = True
+            for field in QUESTION_SOURCE_PRESERVATION_FIELDS:
+                if field in patch_entry and patch_entry[field] is not None and question.get(field) != patch_entry[field]:
+                    question[field] = patch_entry[field]
+                    changed = True
             if changed:
                 updated += 1
             continue

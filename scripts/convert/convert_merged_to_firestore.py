@@ -550,6 +550,7 @@ def question_set_id_for_choice(question_body: dict, choice_index: int) -> str | 
 def original_question_id_for_upload(question_body: dict) -> str:
     """Return the stable originalQuestionId, falling back to site public ids for new docs."""
     for key in (
+        "uploadOriginalQuestionId",
         "original_question_id",
         "originalQuestionId",
         "public_question_id",

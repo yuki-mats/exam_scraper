@@ -1780,14 +1780,14 @@
       "正しい。反応熱は、一定温度条件で化学反応に伴って発生または吸収される熱量をいう。",
       "間違い。触媒は反応の活性化エネルギーを下げて反応速度を変えるが、反応物と生成物のエネルギー差で決まる反応熱を大きくするものではない。",
       "正しい。電気化学反応は、酸化還元反応のように電子の授受を伴う化学反応として扱われる。",
-      "間違い。燃料電池では電流を取り出すと活性化分極、抵抗分極、濃度分極などにより端子電圧は一般に低下する。取り出す電流を増加させる場合に電極間電位差が大きくなるという記述は、通常の電流-電圧特性と逆である。"
+      "正しい。既存Firestore正本では「燃料電池の電極間電位差は、取り出す電流を増加させる場合に小さくなる。」であり、燃料電池では電流を取り出すと分極や内部抵抗により端子電圧が一般に低下するため、この記述は正しい。gassyunin抽出の「大きくなる」は既存正本と衝突するためアップロード本文には用いない。"
     ],
     "suggestedQuestions": [
       "生成系の内部エネルギーが反応系より低い体積一定反応は発熱反応か。",
       "反応熱とは化学反応に伴って発生または吸収される熱のことか。",
       "触媒は反応熱を大きくするものか。",
       "電気化学反応は電子の授受を伴う反応か。",
-      "燃料電池では取り出す電流を増やすと端子電圧は一般に大きくなるか。"
+      "燃料電池では取り出す電流を増やすと端子電圧は一般に小さくなるか。"
     ],
     "suggestedQuestionDetails": [
       {
@@ -1811,18 +1811,18 @@
         "explanation": "正しい。電気化学反応は、酸化還元反応のように電子の授受を伴う化学反応として扱われる。"
       },
       {
-        "question": "燃料電池では取り出す電流を増やすと端子電圧は一般に大きくなるか。",
-        "answer": "いいえ。燃料電池の端子電圧は、電流増加に伴う分極や内部抵抗の影響で一般に低下する。",
-        "explanation": "間違い。燃料電池では電流を取り出すと活性化分極、抵抗分極、濃度分極などにより端子電圧は一般に低下する。取り出す電流を増加させる場合に電極間電位差が大きくなるという記述は、通常の電流-電圧特性と逆である。"
+        "question": "燃料電池では取り出す電流を増やすと端子電圧は一般に小さくなるか。",
+        "answer": "はい。燃料電池の端子電圧は、電流増加に伴う分極や内部抵抗の影響で一般に低下する。",
+        "explanation": "正しい。既存Firestore正本では「燃料電池の電極間電位差は、取り出す電流を増加させる場合に小さくなる。」であり、燃料電池では電流を取り出すと分極や内部抵抗により端子電圧が一般に低下するため、この記述は正しい。gassyunin抽出の「大きくなる」は既存正本と衝突するためアップロード本文には用いない。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
       "基礎理論の化学反応及び電気化学反応に関する正誤問題。反応熱、触媒、電子授受、燃料電池の電流-電圧特性を整理する。",
-      "gassyunin.com の answer_result_text は「正解は 3 です。」だが、選択肢5も燃料電池の一般的な電流-電圧特性と衝突するため、02 correctChoiceText は upload 可能な確定扱いにしない。"
+      "gassyunin.com の抽出では選択肢5が「大きくなる」だが、既存Firestore正本 chiefgasengineerlicense-C-10302 は「小さくなる」で正しい記述として登録済み。既存Firestore questionIdと本文を preserve_firestore として継承する。"
     ],
     "sourceExplanationCommonSummary": [
-      "選択肢3は触媒が反応熱を大きくするとしているため誤り。選択肢5は燃料電池で取り出す電流を増やすと電極間電位差が大きくなるとしているが、通常は分極や内部抵抗で端子電圧が低下するため誤り。選択肢1、2、4は正しい。"
+      "選択肢3は触媒が反応熱を大きくするとしているため誤り。選択肢5は既存Firestore正本の「小さくなる」を継承し、燃料電池の通常の電流-電圧特性と一致するため正しい。選択肢1、2、4も正しい。したがって誤っているものは選択肢3である。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
@@ -1838,7 +1838,7 @@
         "電気化学反応は電子授受を伴う化学反応である。"
       ],
       [
-        "燃料電池の電流-電圧特性では、電流増加に伴い端子電圧が一般に低下する。"
+        "既存Firestore正本は、燃料電池の電極間電位差は取り出す電流を増加させる場合に小さくなるとしており、これは一般的な電流-電圧特性と一致する。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
@@ -1846,8 +1846,174 @@
       "正しい",
       "間違い",
       "正しい",
-      "間違い"
-    ]
+      "正しい"
+    ],
+    "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+    "firestoreQuestionIds": [
+      "chiefgasengineerlicense-C-10298",
+      "chiefgasengineerlicense-C-10299",
+      "chiefgasengineerlicense-C-10300",
+      "chiefgasengineerlicense-C-10301",
+      "chiefgasengineerlicense-C-10302"
+    ],
+    "firestoreSourceQuestions": [
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者（乙種）, 2020年, 問番号：5, 設問番号：1",
+        "examYear": 2020,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "〔都市ガス工業概要（基礎理論編）P73 4.1.2 反応熱〕",
+        "originalQuestionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応になる。",
+        "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionBodyText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。",
+        "questionId": "chiefgasengineerlicense-C-10298",
+        "questionSetId": "chiefgasengineerlicense-B-2110",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-2110",
+        "questionText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。[quote]体積及び温度一定条件の下で化学反応が起こったとき、生成系の内部エネルギーのほうが反応系の内部エネルギーよりも低い場合、発熱反応になる。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.281Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者（乙種）, 2020年, 問番号：5, 設問番号：2",
+        "examYear": 2020,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "〔都市ガス工業概要（基礎理論編）P72 4.1.2 反応熱〕",
+        "originalQuestionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "温度一定条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。",
+        "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionBodyText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。",
+        "questionId": "chiefgasengineerlicense-C-10299",
+        "questionSetId": "chiefgasengineerlicense-B-2110",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-2110",
+        "questionText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。[quote]温度一定条件で、化学反応に伴い発生する、若しくは吸収される熱のことを反応熱という。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.281Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "間違い",
+        "examSource": "ガス主任技術者（乙種）, 2020年, 問番号：5, 設問番号：3",
+        "examYear": 2020,
+        "explanationText": "誤：反応熱を大きくする → 正：反応速度を増加させる。",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "反応速度を増加させる\\n〔都市ガス工業概要（基礎理論編）P93 4.3.5 触媒反応〕",
+        "originalQuestionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "化学反応における触媒の役割は、反応熱を大きくすることである。",
+        "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionBodyText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。",
+        "questionId": "chiefgasengineerlicense-C-10300",
+        "questionSetId": "chiefgasengineerlicense-B-2110",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-2110",
+        "questionText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。[quote]化学反応における触媒の役割は、反応熱を大きくすることである。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.281Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者（乙種）, 2020年, 問番号：5, 設問番号：4",
+        "examYear": 2020,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "〔都市ガス工業概要（基礎理論編）P96 4.4.1 化学反応と電気化学反応〕",
+        "originalQuestionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "電気化学反応の特徴は、化学反応を電子の授受を介して行わせることである。",
+        "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionBodyText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。",
+        "questionId": "chiefgasengineerlicense-C-10301",
+        "questionSetId": "chiefgasengineerlicense-B-2110",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-2110",
+        "questionText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。[quote]電気化学反応の特徴は、化学反応を電子の授受を介して行わせることである。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.281Z",
+        "updatedById": "system:law-corpus"
+      },
+      {
+        "correctChoiceText": "正しい",
+        "examSource": "ガス主任技術者（乙種）, 2020年, 問番号：5, 設問番号：5",
+        "examYear": 2020,
+        "explanationText": "",
+        "isChoiceOnly": false,
+        "isDeleted": false,
+        "isGroupable": true,
+        "isOfficial": true,
+        "knowledgeText": "〔都市ガス工業概要（基礎理論編）P104 4.4.8 燃料電池の電流－電圧特性〕",
+        "originalQuestionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+        "originalQuestionChoiceText": "燃料電池の電極間電位差は、取り出す電流を増加させる場合に小さくなる。",
+        "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+        "qualificationId": "chiefgasengineerlicense",
+        "questionBodyText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。",
+        "questionId": "chiefgasengineerlicense-C-10302",
+        "questionSetId": "chiefgasengineerlicense-B-2110",
+        "questionSetRef": "projects/undefined/databases/(default)/documents/questionSets/chiefgasengineerlicense-B-2110",
+        "questionText": "化学反応及び電気化学反応に関する次の記述について、下記の正誤を答えよ。[quote]燃料電池の電極間電位差は、取り出す電流を増加させる場合に小さくなる。[/quote]",
+        "questionType": "true_false",
+        "updatedAt": "2026-06-07T08:34:09.281Z",
+        "updatedById": "system:law-corpus"
+      }
+    ],
+    "sourceConflictReviewDecision": "preserve_firestore_existing_question_ids",
+    "sourceContentConflictPolicy": "preserve_firestore_existing_ids_and_text; gassyunin_choice5_text_conflicts_with_existing_firestore_source",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanation_common_prefix": [
+      "基礎理論の化学反応及び電気化学反応に関する正誤問題。反応熱、触媒、電子授受、燃料電池の電流-電圧特性を整理する。",
+      "gassyunin.com の抽出では選択肢5が「大きくなる」だが、既存Firestore正本 chiefgasengineerlicense-C-10302 は「小さくなる」で正しい記述として登録済み。既存Firestore questionIdと本文を preserve_firestore として継承する。"
+    ],
+    "explanation_common_summary": [
+      "選択肢3は触媒が反応熱を大きくするとしているため誤り。選択肢5は既存Firestore正本の「小さくなる」を継承し、燃料電池の通常の電流-電圧特性と一致するため正しい。選択肢1、2、4も正しい。したがって誤っているものは選択肢3である。"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "体積一定条件では内部エネルギー低下分が放出され、発熱反応として扱う。"
+      ],
+      [
+        "反応熱は化学反応に伴って発生または吸収される熱である。"
+      ],
+      [
+        "触媒は反応速度・活性化エネルギーに関わるが、反応熱を大きくしない。"
+      ],
+      [
+        "電気化学反応は電子授受を伴う化学反応である。"
+      ],
+      [
+        "既存Firestore正本は、燃料電池の電極間電位差は取り出す電流を増加させる場合に小さくなるとしており、これは一般的な電流-電圧特性と一致する。"
+      ]
+    ],
+    "explanation_choice_correctness": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "uploadOriginalQuestionId": "gasushunin-otsushu-kiso-2020-5"
   },
   {
     "original_question_id": "28829ff2a51c7fab",

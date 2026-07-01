@@ -5,6 +5,15 @@ from typing import Any, Mapping
 
 def review_question_id(question: Mapping[str, Any]) -> str:
     """Return the stable key used by 01-04 review patch files."""
+    preserve_decision = str(question.get("sourceConflictReviewDecision") or "")
+    preserve_policy = str(question.get("sourceContentConflictPolicy") or "")
+    public_question_id = question.get("public_question_id")
+    if (
+        public_question_id
+        and ("preserve_firestore" in preserve_decision or "preserve_firestore" in preserve_policy)
+    ):
+        return str(public_question_id)
+
     firestore_ids = question.get("firestoreQuestionIds")
     if isinstance(firestore_ids, list):
         values = [str(value) for value in firestore_ids if value]

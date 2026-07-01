@@ -200,6 +200,13 @@ def source_conflict_ready_for_upload(row: dict[str, Any]) -> bool:
     policy = str(row.get("sourceContentConflictPolicy") or "")
     if row.get("sourceOrigin") == "firestore_snapshot" and "preserve_firestore" in policy:
         return True
+    if (
+        row.get("sourceOrigin") == "gassyunin_site"
+        and "preserve_firestore" in policy
+        and isinstance(row.get("firestoreQuestionIds"), list)
+        and any(str(value or "").strip() for value in row.get("firestoreQuestionIds") or [])
+    ):
+        return True
 
     source_key_conflict = row.get("sourceKeyConflict")
     source_unique_keys = row.get("sourceUniqueKeys")
