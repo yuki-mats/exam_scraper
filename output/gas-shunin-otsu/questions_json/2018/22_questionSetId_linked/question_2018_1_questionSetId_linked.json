@@ -371,7 +371,6 @@
     "category": "法令",
     "questionSetName": "",
     "categoryName": "法令",
-    "questionSetHoldReason": "ガス栓の過流出安全機構、技省令_水取り器（chiefgasengineerlicense-B-1540）、技省令_導管（chiefgasengineerlicense-B-1620）、導管防護措置（削除済みカテゴリ chiefgasengineerlicense-B-1690）にまたがるため、単一problem-level questionSetIdを設定せず04をhold。",
     "questionIntent": "select_correct",
     "correctChoiceText": [
       "正しい",
@@ -381,12 +380,20 @@
       "間違い"
     ],
     "answer_result_text": "正解は 3 です。",
-    "reviewStatus": "hold",
-    "questionSetSource": "hold_mixed_problem_level_categories",
-    "taskId": "T978",
-    "workerTaskId": "T978",
-    "remainingAfterTask": 56,
-    "status": "hold"
+    "reviewStatus": "ok",
+    "questionSetSource": "statement_level_active_question_sets",
+    "taskId": "T999",
+    "workerTaskId": "T999",
+    "status": "ok",
+    "choiceQuestionSetIds": [
+      "chiefgasengineerlicense-B-1980",
+      "chiefgasengineerlicense-B-1540",
+      "chiefgasengineerlicense-B-2030",
+      "chiefgasengineerlicense-B-1620",
+      "chiefgasengineerlicense-B-1620"
+    ],
+    "questionSetReviewDecision": "statement_level_active_question_sets",
+    "questionSetIdResolution": "choiceQuestionSetIds"
   },
   {
     "original_question_id": "4c72f6f9fe2e9128",
