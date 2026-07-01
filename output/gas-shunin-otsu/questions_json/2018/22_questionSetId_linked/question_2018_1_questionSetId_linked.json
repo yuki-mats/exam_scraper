@@ -459,12 +459,20 @@
     "category": "法令",
     "questionSetName": "",
     "categoryName": "法令",
-    "questionSetHoldReason": "ガス用品・特定ガス用品の定義、販売及び表示の制限、特定ガス用品の適合性検査にまたがり、乙種の販売及び表示の制限カテゴリ（chiefgasengineerlicense-B-1220）が削除済みのため、単一problem-level questionSetIdを設定せず04をhold。",
-    "questionSetSource": "hold_mixed_problem_level_categories",
-    "taskId": "T976",
-    "workerTaskId": "T976",
-    "remainingAfterTask": 58,
-    "status": "hold"
+    "questionSetSource": "statement_level_active_fallback_question_sets",
+    "taskId": "T999",
+    "workerTaskId": "T999",
+    "status": "ok",
+    "choiceQuestionSetIds": [
+      "chiefgasengineerlicense-B-1180",
+      "chiefgasengineerlicense-B-1180",
+      "chiefgasengineerlicense-B-1180",
+      "chiefgasengineerlicense-B-1180",
+      "chiefgasengineerlicense-B-1180"
+    ],
+    "questionSetReviewDecision": "statement_level_active_fallback_question_sets",
+    "questionSetIdResolution": "choiceQuestionSetIds",
+    "reviewStatus": "ok"
   },
   {
     "original_question_id": "3509eff2f095d020",
