@@ -92,7 +92,25 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "questionSetId": "",
-    "category": "法令"
+    "category": "法令",
+    "questionSetName": "",
+    "choiceQuestionSetIds": [
+      "chiefgasengineerlicense-B-1730",
+      "chiefgasengineerlicense-B-1760",
+      "chiefgasengineerlicense-B-1760",
+      "chiefgasengineerlicense-B-1720",
+      "chiefgasengineerlicense-B-1720"
+    ],
+    "choiceQuestionSetNames": [
+      "技省令_立ち入りの防止等（乙種）",
+      "製造設備の保安及び防災（乙種）",
+      "製造設備の保安及び防災（乙種）",
+      "技省令_離隔距離（乙種）",
+      "技省令_離隔距離（乙種）"
+    ],
+    "questionSetIdResolution": "choiceQuestionSetIds",
+    "questionSetReviewDecision": "statement_level_active_fallback_question_sets",
+    "questionSetReviewNotes": "立入り防止、防爆構造、保安通信、離隔距離/保安物件の混在問題として、削除済みの防爆構造・保安通信設備へ戻さず選択肢単位でactiveカテゴリへ分解する。"
   },
   {
     "original_question_id": "1ef21b387df4db0f",
