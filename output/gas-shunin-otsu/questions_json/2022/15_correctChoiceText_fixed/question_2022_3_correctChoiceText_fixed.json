@@ -192,8 +192,8 @@
     "workerTaskId": "T699"
   },
   {
-    "original_question_id": "056afe33878bb43b",
-    "source_original_question_id": null,
+    "original_question_id": "firestore:gasushunin-otsushu-gizyutsu-2022-27-1,gasushunin-otsushu-gizyutsu-2022-27-2,gasushunin-otsushu-gizyutsu-2022-27-3,gasushunin-otsushu-gizyutsu-2022-27-4,gasushunin-otsushu-gizyutsu-2022-27-5",
+    "source_original_question_id": "gasushunin-otsushu-gizyutsu-2022-27",
     "public_question_id": "056afe33878bb43b",
     "question_url": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q27",
     "questionLabel": "問27",
@@ -223,7 +223,17 @@
       "正しい",
       "正しい"
     ],
-    "workerTaskId": "T698",
-    "sourceTextAnomaly": "choice5 00_source/site HTML says 銅線; existing Firestore snapshot says 鋼線, so review is held."
+    "workerTaskId": "T999",
+    "sourceTextAnomaly": "choice5 raw 00_source/site HTML says 銅線; existing Firestore snapshot says 鋼線. preserve_firestore_snapshot_after_review.",
+    "sourceConflictStatus": "needs_source_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "firestoreQuestionIds": [
+      "gasushunin-otsushu-gizyutsu-2022-27-1",
+      "gasushunin-otsushu-gizyutsu-2022-27-2",
+      "gasushunin-otsushu-gizyutsu-2022-27-3",
+      "gasushunin-otsushu-gizyutsu-2022-27-4",
+      "gasushunin-otsushu-gizyutsu-2022-27-5"
+    ]
   }
 ]

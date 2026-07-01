@@ -499,6 +499,24 @@ def firestore_source_question_for_choice(question_body: dict, choice_index: int)
     return source_question
 
 
+def should_preserve_firestore_source(question_body: dict) -> bool:
+    """Return true when a reviewed source conflict should keep existing Firestore text."""
+    review_decision = str(question_body.get("sourceConflictReviewDecision") or "")
+    conflict_policy = str(question_body.get("sourceContentConflictPolicy") or "")
+    return "preserve_firestore" in review_decision or "preserve_firestore" in conflict_policy
+
+
+def upload_choice_text_for_choice(question_body: dict, choice_index: int, fallback: Any) -> str:
+    """Return the choice text that should be written to upload JSON."""
+    if should_preserve_firestore_source(question_body):
+        source_question = firestore_source_question_for_choice(question_body, choice_index)
+        if source_question:
+            text = str(source_question.get("originalQuestionChoiceText") or "").strip()
+            if text:
+                return text
+    return fallback if isinstance(fallback, str) else str(fallback)
+
+
 def question_set_id_for_choice(question_body: dict, choice_index: int) -> str | None:
     """Return an existing statement-level questionSetId without inventing new classification."""
     for key in ("choiceQuestionSetIds", "questionSetIds"):
@@ -699,6 +717,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
 
     for i in range(split_count):
         choice = choice_list[i] if i < len(choice_list) else ""
+        upload_choice = upload_choice_text_for_choice(question_body, i, choice)
         choice_images = (
             choice_image_urls_by_choice[i]
             if i < len(choice_image_urls_by_choice)
@@ -716,7 +735,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
 
         # questionText: questionBodyText（改行除去） + 該当の選択肢1つ（改行除去）を[quote][/quote]で囲む
         question_body_text = question_body.get('questionBodyText', '').replace('\n', '')
-        choice_text = choice.replace('\n', '') if isinstance(choice, str) else str(choice)
+        choice_text = upload_choice.replace('\n', '')
         if choice_text:
             question_text = f"{question_body_text}[quote]{choice_text}[/quote]"
         else:

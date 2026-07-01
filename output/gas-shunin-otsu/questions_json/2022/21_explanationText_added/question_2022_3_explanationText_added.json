@@ -640,8 +640,8 @@
     "workerTaskId": "T699"
   },
   {
-    "original_question_id": "056afe33878bb43b",
-    "source_original_question_id": null,
+    "original_question_id": "firestore:gasushunin-otsushu-gizyutsu-2022-27-1,gasushunin-otsushu-gizyutsu-2022-27-2,gasushunin-otsushu-gizyutsu-2022-27-3,gasushunin-otsushu-gizyutsu-2022-27-4,gasushunin-otsushu-gizyutsu-2022-27-5",
+    "source_original_question_id": "gasushunin-otsushu-gizyutsu-2022-27",
     "public_question_id": "056afe33878bb43b",
     "question_url": "https://gassyunin.com/exam/otsu/otsu_2022/#shohi-q27",
     "questionLabel": "問27",
@@ -660,7 +660,7 @@
       "正しい。常設形業務用厨房機器とガス栓との接続には、金属可とう管が用いられる。",
       "正しい。ゴム管用ソケットは、ガスソフトコードに取り付けて使用し、コンセント口のガス栓又はガス栓用プラグと接続する迅速継手である。",
       "正しい。ガスコンセントは、迅速継手が不完全に接続された場合でもガスが流れず漏れない構造である。",
-      "保留。既存Firestore snapshotでは「鋼線で補強されたゴム製ホース」として正しい記述だが、現行00_source及びサイトHTMLは「銅線」表記であり、文字面どおりなら正誤判断が崩れる。00_sourceは変更せず、source text anomaly として保留する。"
+      "正しい。既存Firestore snapshotの「鋼線で補強されたゴム製ホース」の文として保存する。ガスコードは、鋼線で補強されたゴム製ホースの両端に迅速継手がついた定尺の接続具で、ガスコンセントとファンヒーター等との接続に用いられる。現行00_source/site HTMLの「銅線」表記はsource conflictとして保持し、uploadでは既存Firestore本文を継承する。"
     ],
     "suggestedQuestions": [
       "常設形ガス機器のガス栓には、ガスコンセントやオンオフヒューズガス栓を用いるか？",
@@ -670,11 +670,31 @@
       "ガスコードは鋼線で補強されたゴム製ホースの両端に迅速継手がついた定尺の接続具か？"
     ],
     "suggestedQuestionDetails": [
-      "常設形機器では固定接続用の可とう管接続ねじガス栓等を用いる。ガスコンセントやオンオフヒューズガス栓は移動設置形機器向けの接続である。",
-      "常設形業務用厨房機器では金属可とう管による接続が用いられる。",
-      "既存Firestore snapshotではコンセント口表記で、ゴム管用ソケットはガスソフトコード側に取り付ける迅速継手である。",
-      "不完全接続時にガスが流れない安全構造である。",
-      "既存Firestore snapshot及び同系precedentでは鋼線表記。現行00_source/site HTMLの銅線表記は要source review。"
+      {
+        "question": "常設形ガス機器のガス栓には、ガスコンセントやオンオフヒューズガス栓を用いるか？",
+        "answer": "用いない。",
+        "explanation": "常設形機器では固定接続用の可とう管接続ねじガス栓等を用いる。ガスコンセントやオンオフヒューズガス栓は移動設置形機器向けの接続である。"
+      },
+      {
+        "question": "常設形業務用厨房機器とガス栓との接続には金属可とう管が使用されるか？",
+        "answer": "使用される。",
+        "explanation": "常設形業務用厨房機器では、機器とガス栓との固定接続に金属可とう管が用いられる。"
+      },
+      {
+        "question": "ゴム管用ソケットはガスソフトコードに取り付け、コンセント口のガス栓又はガス栓用プラグと接続する迅速継手か？",
+        "answer": "そのとおり。",
+        "explanation": "既存Firestore snapshotではコンセント口表記で、ゴム管用ソケットはガスソフトコード側に取り付ける迅速継手である。"
+      },
+      {
+        "question": "ガスコンセントは迅速継手が不完全接続でもガスが流れず漏れない構造か？",
+        "answer": "そのとおり。",
+        "explanation": "ガスコンセントは、迅速継手が不完全に接続された場合でもガスが流れない安全構造である。"
+      },
+      {
+        "question": "ガスコードは鋼線で補強されたゴム製ホースの両端に迅速継手がついた定尺の接続具か？",
+        "answer": "そのとおり。",
+        "explanation": "既存Firestore snapshot及び同系precedentでは鋼線表記。raw 00_source/site HTMLの銅線表記はsource conflictとして保持し、uploadでは既存Firestore本文を継承する。"
+      }
     ],
     "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
@@ -682,7 +702,7 @@
       "誤りパターン: 常設形ガス機器にガスコンセントやオンオフヒューズガス栓を用いるとしている点。"
     ],
     "sourceExplanationCommonSummary": [
-      "誤っているのは選択肢1のみ。選択肢2-5は金属可とう管、ゴム管用ソケット、ガスコンセント、ガスコードに関する接続具・ガス栓の説明として正しい。"
+      "誤っているのは選択肢1のみ。選択肢5は既存Firestore snapshotの鋼線表記として正しい文を保存し、raw 00_source/site HTMLの銅線表記はsource conflictとして保持する。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
@@ -711,7 +731,17 @@
     "questionSetId": "chiefgasengineerlicense-B-1940",
     "category": "ガス機器とガス栓との接続（乙種）",
     "questionSetName": "ガス機器とガス栓との接続（乙種）",
-    "workerTaskId": "T698",
-    "sourceTextAnomaly": "choice5 00_source/site HTML says 銅線; existing Firestore snapshot says 鋼線, so 03 is held pending source review."
+    "workerTaskId": "T999",
+    "sourceTextAnomaly": "choice5 raw 00_source/site HTML says 銅線; existing Firestore snapshot says 鋼線. preserve_firestore_snapshot_after_review.",
+    "sourceConflictStatus": "needs_source_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "firestoreQuestionIds": [
+      "gasushunin-otsushu-gizyutsu-2022-27-1",
+      "gasushunin-otsushu-gizyutsu-2022-27-2",
+      "gasushunin-otsushu-gizyutsu-2022-27-3",
+      "gasushunin-otsushu-gizyutsu-2022-27-4",
+      "gasushunin-otsushu-gizyutsu-2022-27-5"
+    ]
   }
 ]
