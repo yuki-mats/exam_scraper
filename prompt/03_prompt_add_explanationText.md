@@ -25,6 +25,7 @@
 - `question_url` の再取得や、そのページ内容を説明根拠として採用することはしない。`question_url` は引き続き参照・転記用メタデータとして扱う。
 - `explanationText` 本文にはURLや出典リンクを埋め込まない（必要な場合は作業報告・タスクreceipt側に記録する）。
 - 信頼性の高い一次情報（例: e-Gov法令検索、官公庁、自治体の公式要綱、法令データ提供元、標準規格団体、大学・学会、原典に近い資料）を優先し、内容が揺れやすい二次まとめは鵜呑みにしない。
+- Lawzilla（https://lawzilla.jp/）などの法令データベースは、条文探索、関連条項の発見、改正前後のあたり付けに使ってよい。ただし、最終的に `verificationStatus="verified"` とする場合は、e-Gov、官公庁、法令データ提供元、または資格別に認めた一次情報相当の本文で、法令名・条・項・号を照合する。
 - 法令確認では、資格別の対象法令スコープを先に確認する。e-Gov の全法令から無差別に探してはいけない。
 - 対象法令スコープにない法令を使う必要が出た場合は、問題文・設問文・選択肢・解説候補にその法令が直接関係する根拠を確認し、資格別補助資料へ追記してから、必要な資格だけで `lawReferences` に使う。
 - 外部Webで裏取りしても、最終的な説明は「受験者が次に同論点を見たときに自力判定できる」形へ要点を再構成する（単なる言い換えにしない）。
@@ -115,7 +116,8 @@
 - `answer` は 2〜5 文程度を基本とし、長すぎる講義文にしない
 - `answer` は、`explanationText` をなぞるだけでなく、その質問に対する追加価値を出す
 - 法令問題では、必要に応じて法令名・条項を明記する
-- 現行法と出題当時法令が異なる場合は、まず現行法を説明し、そのあと必要な範囲で出題当時の差分を短く補足する
+- 現行法と出題当時法令が異なる場合は、過去問としての正誤と、現行法での扱いを分けて説明する
+- 法令改正の可能性がある問題では、`現行法ではどう考える？` のように、ユーザーが現在の条文確認へ進める質問を優先して入れる
 - 回答本文の中に URL を書かない
 - 回答本文を「AIが後で生成する前提」で空欄やプレースホルダーにしてはいけない
 
@@ -247,13 +249,42 @@
 
 法令問題か迷う場合は、`explanationText` に「○○法第○条」などの根拠条項を書く必要があるかで判断する。必要がなければ `lawReferences` は作らない。
 
-法令問題では、原則として現行法を学習の正本にする。過去問が出題当時の条文や改正前の制度に基づく場合でも、`explanationText` ではまず現行法でどう理解すべきかを説明し、そのうえで必要な場合だけ「出題当時はこの条文・表現だったため、過去問としてはこの判定になる」と補足する。
+### 法令問題の現行法監査と正誤更新
 
-現行法と出題当時法令が異なる場合は、違いを隠してはいけない。次を分けて書く。
+スクレイピング元の正答・解説は、原則として出題当時の公式正答または掲載元の正誤を反映しているものとして扱う。法令問題では、これを現行法の正誤と同一視してはいけない。
 
-- 現行法ではどの条文・定義・数値・主体・義務が正しいか
-- 出題当時法令ではどの記述だったか
+法令問題では、1問ずつ独自に現行法・出題当時法令を監査する。確認には、e-Gov 法令検索、官公庁資料、資格別に認めた公式資料、Lawzilla などの法令データベースを使ってよい。Lawzilla などは条文探索・関連条項の発見に有用だが、最終的な `verified` 判定では、法令名・条・項・号まで本文で照合する。
+
+現行法との照合で、出題当時の正誤と現行法での正誤が明らかに異なる場合は、現行法ベースの学習データへ更新してよい。この場合、`correctChoiceText` と `explanationText` は現行法の正誤に合わせる。ただし、更新した事実を隠してはいけない。解説本文、想定質問、`lawReferences`、review sidecar に、出題当時の正答から現行法ベースへ更新したことを残す。
+
+現行 schema でアップロードできる範囲では、次を必ず行う。
+
+- `explanationText` に「この解説は現行法に合わせて更新しています。出題当時の公式正答とは異なる可能性があります。」という趣旨の短い注記を入れる。
+- `suggestedQuestions` に `出題当時の正答と何が違う？` または `現行法ではどう考える？` を入れる。
+- `suggestedQuestionDetails` で、現行法ではなぜ正誤が変わるのか、出題当時は何を前提にしていたのかを短く説明する。
+- `lawReferences` には、現行法の根拠を `role="current_basis"` として入れる。
+- 出題当時法令も確認できた場合は、出題当時根拠を `role="exam_time_basis"` として入れ、`comparisonStatus="differs_from_current"` と `differenceNote` を付ける。
+- 5.5 high 再確認フラグ sidecar には、`reasonCategory` に `current_vs_historical_rule` を含め、`currentDecision` に「現行法に合わせて正誤更新した」こと、元の正誤、更新後の正誤、参照条項を残す。
+
+将来的に repaso 側の schema / Firestore rules / UI を更新する場合は、question 直下に次のような正式フラグを追加する。現時点の schema では未対応のため、これらを通常 upload 用 JSON に混入させてはいけない。
+
+- `lawAnswerBasis`: `exam_time_law` / `current_law`
+- `lawAnswerUpdatedFromExamTime`: boolean
+- `originalExamTimeCorrectChoiceText`: string
+- `lawAnswerUpdateNote`: string
+
+現行法と出題当時法令の判断が異なる、または異なる可能性がある場合は、次を必ず分ける。
+
+- 現行法では、どの選択肢が正しい/間違いになるか
+- 過去問としては、出題当時の法令・公式正答に基づいてどの選択肢が正しい/間違いだったか
+- 出題当時法令では、どの記述だったため過去問としてその判定になったか
 - その差分により、過去問の元正答と現在の学習上の理解がどう関係するか
+
+`explanationText` では、各選択肢の冒頭 `正しい。` / `間違い。` は更新後の `correctChoiceText` に合わせる。現行法に合わせて更新した問題では、本文中で短く「現行法に合わせて更新済み」であることを注記する。アプリ側に共通注釈 UI がある場合は、解説本文で過度に繰り返さず、正式フラグと `lawReferences` から注釈表示へつなげる。
+
+法令改正の影響がある問題では、`suggestedQuestions` に `現行法ではどう考える？` や `出題当時と現在で違いはある？` のような質問を優先的に入れる。その回答では、確認済みの `current_basis` を使って現行法の理解を説明し、必要に応じて `exam_time_basis` との差分を短く補足する。
+
+現行法監査で正誤差分が疑われるが確定できない場合は、推測で正誤を変えない。通常パッチは出題当時正答を前提に保守的に作り、5.5 high 再確認フラグ sidecar に `current_vs_historical_rule` / `law_reference_uncertain` として残す。
 
 問題データには、上記条件を満たす場合だけ `lawReferences` も作る。`lawReferences` は、アプリ内の関連法令表示と AI 補足回答の引用根拠として使う。
 
@@ -367,10 +398,10 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 
 `role` は次の2種類を使う。
 
-- `current_basis`: 現行法の学習・解説・AI引用の主根拠。
-- `exam_time_basis`: 出題当時法令の確認用。過去問の元正答や改正前後の差分を説明する補助根拠。
+- `current_basis`: 現行法に基づく正誤・解説・AI引用の主根拠。
+- `exam_time_basis`: 出題当時法令の確認用。過去問の元正答や改正前後の差分を説明する根拠。
 
-通常は、まず `current_basis` を作る。`exam_time_basis` は、出題当時法令を確認でき、かつ現行法との比較が解説上有用な場合だけ追加する。
+通常は、現行法監査の根拠として `current_basis` を作る。現行法で正誤を更新した場合も、更新後の正誤根拠は `current_basis` に置く。`exam_time_basis` は、出題当時法令を確認でき、かつ現行法との差分や元正答をユーザーへ説明する必要がある場合に追加する。
 
 `exam_time_basis` を追加する場合は、`comparisonStatus` と `differenceNote` もできるだけ入れる。
 
@@ -598,6 +629,7 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 - sidecar の各行は次のフィールドを持つ:
 ```json
 {"original_question_id":"xxxx","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["missing_choice_snippets","primary_source_uncertain"],"currentDecision":{"lawGroundedExplanationNotNeeded":false},"reviewQuestion":"選択肢3の誤り理由が現行制度と出題当時制度で変わらないかを再確認する。","evidenceChecked":["20_merged_1","00_source","官公庁一次資料"],"notes":"explanation_choice_snippets が空で、一次情報では現行制度のみ確認できた。"}
+{"original_question_id":"yyyy","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["current_vs_historical_rule"],"currentDecision":{"lawGroundedExplanationNotNeeded":false,"updatedToCurrentLaw":true,"originalExamTimeCorrectChoiceText":"正しい","updatedCorrectChoiceText":"間違い","currentBasis":"○○法第○条","examTimeBasis":"出題当時の○○法第○条"},"reviewQuestion":"現行法に合わせて正誤更新した判断と、出題当時正答との差分注記が妥当かを再確認する。","evidenceChecked":["20_merged_1","00_source","e-Gov","Lawzilla"],"notes":"現行法では対象範囲が変更され、元の正答と逆になるため更新した。"}
 ```
 - `reasonCategory` は、必要に応じて次から選ぶ:
   - `missing_common_summary`
@@ -692,6 +724,9 @@ python3 scripts/fix/archive_patch_outputs.py \
 - 間違いの選択肢で、誤っている語句・条件・数値・関係が明示されているか
 - 間違いの選択肢で、正しい内容が書かれているか
 - 法令が論点の設問で、資格別方針が条項明記を求めるなら、法令名と条（必要なら項・号）が `explanationText` に明記されているか（URLは書かない）。
+- 法令問題で現行法に合わせて正誤更新した場合、`explanationText` に更新済み注記があるか
+- 法令問題で現行法に合わせて正誤更新した場合、`suggestedQuestions` / `suggestedQuestionDetails` で出題当時正答との差分を確認できるか
+- 法令問題で現行法に合わせて正誤更新した場合、review sidecar に `updatedToCurrentLaw`、元の正誤、更新後の正誤、参照条項が残っているか
 - `lawReferences` を出す資格では、`verificationStatus="verified"` の `lawReferences` に `lawId` と `article` が非空で入っているか
 - `lawReferences` を出す資格では、`lawId` が法令名・略称・URL・`TODO`・`不明` ではなく、e-Gov の正式な法令IDになっているか
 - `lawReferences` を出す資格では、`lawReferences` が資格別の対象法令スコープ内の法令を優先しているか

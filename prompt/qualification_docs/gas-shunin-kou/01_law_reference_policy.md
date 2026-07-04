@@ -17,9 +17,11 @@
 
 ## 現行法と出題当時法令
 
-- 解説の主対象は現行法とする。
-- まず `current_basis` を作り、現行法でどう覚えるべきかを説明する。
-- `exam_time_basis` は、出題当時法令を確認でき、かつ現行法との差分が過去問の正誤理解に関係する場合だけ追加する。
+- ガス主任甲種の法令問題は、出題当時の正誤と現行法の正誤を分けて確認する。
+- 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
+- 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、review sidecar に残す。
+- まず `current_basis` を作り、現行法での更新後の正誤根拠を説明する。
+- `exam_time_basis` は、出題当時法令を確認でき、かつ現行法との差分が過去問の元正答理解に関係する場合だけ追加する。
 - 現行法と出題当時法令が同じ判断になる場合は、`exam_time_basis` を無理に増やさなくてよい。
 
 ## `explanation_choice_snippets` の扱い
@@ -36,6 +38,7 @@
 - `lawId` または `article` を確認できていない参照を `verificationStatus="verified"` とする
 - 条文本文を確認せず、条・項・号を補完する
 - 現行法で改正済みの可能性を確認せず、過去問当時の説明だけを書く
+- 現行法で正誤が変わることを確認したのに、更新済み注記や review sidecar を残さない
 
 ## 作らないケース
 

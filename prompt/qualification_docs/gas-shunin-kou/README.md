@@ -11,4 +11,4 @@
 
 - `03_prompt_add_explanationText.md` を正本とし、このディレクトリは資格固有の補助資料として読む。
 - `explanation_choice_snippets` の `📌 関連:` は条文候補であり、最終的な `lawReferences.verificationStatus="verified"` にする前に e-Gov XML または官公庁一次情報で照合する。
-- 甲種でも「過去問の元の正誤」より「現行法をどう学ぶか」を優先する。出題当時法令が必要な場合だけ `exam_time_basis` を補助的に追加する。
+- 甲種でも法令問題は現行法と出題当時法令を突き合わせる。現行法で正誤が明らかに変わる場合は現行法ベースへ更新し、更新済み注記、出題当時正答との差分、`current_basis` / `exam_time_basis`、review sidecar を残す。
