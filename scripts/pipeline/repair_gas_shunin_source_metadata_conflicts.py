@@ -17,6 +17,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 
+GAS_SHUNIN_REPORT_DIR = ROOT_DIR / "output" / "gas-shunin" / "reports"
 QUALIFICATIONS = ("gas-shunin-kou", "gas-shunin-otsu")
 VARIANT_SAFE_RE = re.compile(r"[^A-Za-z0-9_.-]+")
 SOURCE_KEY_RE = re.compile(r"^gas-shunin:(?P<grade>[^:]+):(?P<year>\d{4}):(?P<subject>[^:]+):q(?P<q>\d+)")
@@ -38,6 +39,7 @@ def load_json(path: Path) -> Any:
 
 
 def save_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
@@ -403,7 +405,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         choices=sorted(QUALIFICATIONS),
     )
     parser.add_argument("--write", action="store_true")
-    parser.add_argument("--report", type=Path, default=ROOT_DIR / "output" / "gas-shunin-source-metadata-repair.json")
+    parser.add_argument("--report", type=Path, default=GAS_SHUNIN_REPORT_DIR / "gas-shunin-source-metadata-repair.json")
     return parser.parse_args(argv)
 
 

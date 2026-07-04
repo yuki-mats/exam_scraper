@@ -16,6 +16,8 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+GAS_SHUNIN_REPORT_DIR = ROOT_DIR / "output" / "gas-shunin" / "reports"
+
 
 QUALIFICATION_GRADE = {
     "gas-shunin-kou": "kou",
@@ -774,7 +776,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--report",
         type=Path,
-        default=ROOT_DIR / "output" / "gas-shunin-source-consistency-final.json",
+        default=GAS_SHUNIN_REPORT_DIR / "gas-shunin-source-consistency-final.json",
     )
     parser.add_argument("--max-samples", type=int, default=50)
     parser.add_argument("--fail-on-issues", action="store_true")

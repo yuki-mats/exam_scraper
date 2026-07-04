@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -149,6 +150,42 @@ def run_command(cmd: list[str]) -> int:
     print("$ " + " ".join(cmd), flush=True)
     result = subprocess.run(cmd, cwd=REPO_ROOT)
     return result.returncode
+
+
+def organize_report_files(args: argparse.Namespace) -> int:
+    output_root = Path(args.output_root).expanduser().resolve() if args.output_root else REPO_ROOT / "output"
+    qualification = str(args.qualification).strip()
+    if not qualification:
+        print("[ERROR] --qualification is required")
+        return 2
+
+    files = sorted(output_root.glob(f"{qualification}-*.json"))
+    report_dir = output_root / qualification / "reports"
+    if not files:
+        print(f"[OK] no root-level reports found for {qualification} under {output_root}")
+        return 0
+
+    conflicts = [path for path in files if (report_dir / path.name).exists()]
+    if conflicts:
+        print(f"[ERROR] destination already exists under {report_dir}")
+        for path in conflicts[:50]:
+            print(f"- {path.name}")
+        if len(conflicts) > 50:
+            print(f"... and {len(conflicts) - 50} more")
+        return 1
+
+    for source_path in files:
+        dest_path = report_dir / source_path.name
+        if args.dry_run:
+            print(f"[DRY-RUN] {source_path.relative_to(REPO_ROOT)} -> {dest_path.relative_to(REPO_ROOT)}")
+            continue
+        report_dir.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(source_path), str(dest_path))
+        print(f"[MOVE] {source_path.relative_to(REPO_ROOT)} -> {dest_path.relative_to(REPO_ROOT)}")
+
+    action = "would move" if args.dry_run else "moved"
+    print(f"[OK] {action} {len(files)} report file(s) into {report_dir.relative_to(REPO_ROOT)}")
+    return 0
 
 
 def stage_files(group_dir: Path, stage: str) -> tuple[str, list[Path]]:
@@ -396,6 +433,19 @@ def add_materialize_patch_parser(
     parser.add_argument("--output", required=True, help="Output path for the formal patch JSON.")
 
 
+def add_organize_reports_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "organize-reports",
+        help="Move root-level generated report JSONs into output/<qualification>/reports/.",
+    )
+    parser.set_defaults(command="organize-reports")
+    parser.add_argument("--qualification", required=True, help="Report prefix and output qualification directory.")
+    parser.add_argument("--output-root", type=Path, default=REPO_ROOT / "output", help="Output root directory.")
+    parser.add_argument("--dry-run", action="store_true", help="Show moves without changing files.")
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -444,6 +494,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_explanation_patch_parser(subparsers)
     add_question_set_patch_parser(subparsers)
     add_materialize_patch_parser(subparsers)
+    add_organize_reports_parser(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
 
@@ -533,6 +584,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_question_set_patch_check(args)
     if args.command == "materialize-patch":
         return run_materialize_patch(args)
+    if args.command == "organize-reports":
+        return organize_report_files(args)
 
     base_dir = resolve_base_dir(args)
     if not base_dir.exists():

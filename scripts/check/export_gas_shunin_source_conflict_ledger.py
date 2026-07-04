@@ -11,6 +11,7 @@ from typing import Any
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
+GAS_SHUNIN_REPORT_DIR = ROOT_DIR / "output" / "gas-shunin" / "reports"
 
 
 def utc_now() -> str:
@@ -134,7 +135,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--report",
         type=Path,
-        default=ROOT_DIR / "output" / "gas-shunin-source-consistency-final.json",
+        default=GAS_SHUNIN_REPORT_DIR / "gas-shunin-source-consistency-final.json",
     )
     parser.add_argument(
         "--ledger",

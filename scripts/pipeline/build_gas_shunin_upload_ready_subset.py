@@ -28,6 +28,7 @@ DEFAULT_PLAN = (
     / "question-plan"
     / "all_questions_plan.jsonl"
 )
+GAS_SHUNIN_REPORT_DIR = ROOT_DIR / "output" / "gas-shunin" / "reports"
 CONTENT_BLOCKING_STATUSES = {"hold", "pending"}
 
 
@@ -323,7 +324,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--report",
         type=Path,
-        default=ROOT_DIR / "output" / "gas-shunin-upload-ready-subset-report.json",
+        default=GAS_SHUNIN_REPORT_DIR / "gas-shunin-upload-ready-subset-report.json",
     )
     return parser.parse_args(argv)
 

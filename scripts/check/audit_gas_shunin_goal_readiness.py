@@ -29,7 +29,8 @@ PLAN_PATH = (
 )
 SUMMARY_PATH = PLAN_PATH.with_name("summary.json")
 STATE_PATH = ROOT_DIR / "docs" / "goals" / "gas-shunin-01-04-full-pass" / "state.yaml"
-DEFAULT_REPORT_PATH = ROOT_DIR / "output" / "gas-shunin-goal-readiness-report.json"
+GAS_SHUNIN_REPORT_DIR = ROOT_DIR / "output" / "gas-shunin" / "reports"
+DEFAULT_REPORT_PATH = GAS_SHUNIN_REPORT_DIR / "gas-shunin-goal-readiness-report.json"
 
 QUALIFICATIONS = {
     "gas-shunin-kou": {

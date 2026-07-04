@@ -17,6 +17,7 @@ if str(ROOT_DIR) not in sys.path:
 from scripts.convert.convert_merged_to_firestore import question_id_from_source_unique_key  # noqa: E402
 
 
+GAS_SHUNIN_REPORT_DIR = ROOT_DIR / "output" / "gas-shunin" / "reports"
 CONTENT_REVIEW_BLOCKING_STATUSES = {"hold", "pending"}
 
 
@@ -469,7 +470,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         choices=["gas-shunin-kou", "gas-shunin-otsu"],
     )
     parser.add_argument("--allow-source-conflicts", action="store_true")
-    parser.add_argument("--report", type=Path, default=ROOT_DIR / "output" / "gas-shunin-upload-gate-report.json")
+    parser.add_argument("--report", type=Path, default=GAS_SHUNIN_REPORT_DIR / "gas-shunin-upload-gate-report.json")
     parser.add_argument("--max-samples", type=int, default=100)
     return parser.parse_args(argv)
 

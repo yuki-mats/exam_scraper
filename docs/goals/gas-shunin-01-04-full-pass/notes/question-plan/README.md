@@ -26,6 +26,24 @@
 Content conflicts are listed in `output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl`.
 The default upload gate fails while `needs_source_review` rows remain, unless the run explicitly passes `--allow-source-conflicts`.
 
+## Reports
+
+横断監査・修復・upload gate のJSONレポートは、問題データではなく作業ログです。
+root直下へ `output/gas-shunin-*.json` を増やさず、`output/gas-shunin/reports/` に保存します。
+root直下に残った既存レポートは、次で整理します。
+
+```bash
+python tools/question_bank/question_bank.py organize-reports --qualification gas-shunin
+```
+
+例:
+
+```bash
+.venv/bin/python scripts/check/check_gas_shunin_00_source_contract.py \
+  --report output/gas-shunin/reports/gas-shunin-00-source-contract-final.json \
+  --max-issues 200
+```
+
 ## Execution Phases
 
 - Phase 1: 甲種 Firestore既存IDあり: 294

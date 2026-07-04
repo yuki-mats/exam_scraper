@@ -52,6 +52,12 @@ python tools/question_bank/question_bank.py quality-gate \
   --require-law-grounded-flag
 ```
 
+root 直下に出てしまった資格別レポートは、資格フォルダ配下へ寄せます。
+
+```bash
+python tools/question_bank/question_bank.py organize-reports --qualification gas-shunin
+```
+
 ## 作業中の単体確認
 
 全体ゲート前に、raw JSON の正式 patch 化や作成中の patch だけ確認したい場合も、このCLIから実行します。
@@ -98,11 +104,12 @@ python tools/question_bank/question_bank.py check-question-set-patch \
 | `prompt/` | 01から04の目視 patch 作成プロンプト。品質判断の主役。 |
 | `tools/question_bank/` | 日常運用で直接叩く統一CLI。 |
 | `scripts/` | CLIから呼ばれる実装、互換入口、個別補助。通常は直接探さない。 |
-| `output/` | 資格ごとの生成物・作業中データ。Git管理の正本にしない。 |
+| `output/` | 資格ごとの生成物・作業中データ。Git管理の正本にしない。root直下に単発レポートを増やさず、`output/<qualification>/reports/` へ置く。 |
 
 ## Codex が改修するときのルール
 
 - 日常運用の入口を増やす場合は、まず `question_bank.py` のサブコマンドとして追加する。
 - 個別 checker / fixer を追加する場合も、ユーザー向けREADMEでは `tools/question_bank` からたどれるようにする。
+- 新しい監査・修復レポートの既定出力先は `output/<qualification>/reports/` にする。既存のroot直下レポートは `organize-reports` で移す。
 - `prompt/`、field contract、merge/convert/upload の仕様を変えたら、このREADMEと `quality-gate` の対象も同じ commit で見直す。
 - `scripts/` に新しい単発スクリプトを置く場合は、日常運用の正本にするのか、内部補助に留めるのかを `scripts/README.md` に明記する。
