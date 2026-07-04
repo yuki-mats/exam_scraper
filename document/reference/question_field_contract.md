@@ -51,8 +51,9 @@
 | `15_correctChoiceText_fixed` | patch | `questionIntent`, `answer_result_text`, `correctChoiceText` | `answer_result_text` と設問意図から正誤を機械的に整合する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]` | `questionType`, `answer_result_text`, `correctChoiceText`, `examYear`, `examLabel` | Firestore 変換前の最低限の品質を担保する。 |
 | `20_merged_1` / `30_merged_2` | `question_bodies[]`, `questionType=true_false` | `questionIntent` | 正しいものを選ぶ問題か、誤っているものを選ぶ問題かを明示する。 |
+| `18_law_context_prepared` | 法令コンテキスト patch | `isLawRelated`, `lawGroundedExplanationNotNeeded`, 条件付きで `lawReferences` | 03の解説文作成前に、法令・制度論点かどうかと現行法根拠候補を固定する。 |
 | `21_explanationText_added` | patch | `explanationText`, `suggestedQuestions`, `suggestedQuestionDetails`, `original_question_id`, `question_url` | 解説と想定質問を事前データとして持ち、画面表示時に AI を自動起動しない。 |
-| `21_explanationText_added` | 法令判定 patch | `isLawRelated`, `lawGroundedExplanationNotNeeded` | `isLawRelated` を法令・制度論点の正本フラグにする。`lawGroundedExplanationNotNeeded` は原則その逆で、条文解説ボタンを非表示にしてよいかだけを表す。 |
+| `21_explanationText_added` | 法令判定の最終反映 | `isLawRelated`, `lawGroundedExplanationNotNeeded` | 02bの判定を引き継ぎ、解説文作成中に矛盾を見つけた場合だけ修正する。 |
 | `22_questionSetId_linked` | patch | `questionSetId` | アプリ内カテゴリ/問題集へ紐付ける。 |
 | `40_convert` | `questions[]` | `questionId`, `questionSetId`, `questionText`, `questionType`, `qualificationId`, `questionTags`, `isOfficial`, `isDeleted`, `isChoiceOnly`, `isGroupable`, `originalQuestionBodyText`, `correctChoiceText`, `examYear`, `examSource` | upload 直前の Firestore 相当データ。 |
 | upload | Firestore doc | `createdById`, `updatedById`, `createdAt`, `updatedAt` | upload script が付与する監査フィールド。人手で中間 JSON に書かない。 |
@@ -95,9 +96,9 @@
 | 基本解説 | `explanationText` | string | 任意 | 必須相当 | 原則omit | string。 | `21_explanationText_added` | AI自動起動を避けるため事前データとして持つ。法令差分注記もここに含める。 |
 | 想定質問 | `suggestedQuestions` | array<string> | 任意 | 推奨 | 可 | list[str]。 | `21_explanationText_added` | 解説画面に即時表示する質問候補。 |
 | 想定質問回答 | `suggestedQuestionDetails` | array<object> | 任意 | 推奨 | 可 | 各要素は `{question, answer}` のみ。どちらも空文字不可。 | `21_explanationText_added` | `question` は `suggestedQuestions` と一致させる。 |
-| 条文参照 | `lawReferences` | array<object> | 任意 | 法令問題では推奨/条件付き必須 | 可 | 後述の `lawReferences` 契約に従う。 | `21_explanationText_added`, convert | 条文本文は question doc に持たない。参照と監査状態を残す。 |
-| 法令問題フラグ | `isLawRelated` | boolean | 任意 | 03以降は必須 | 可 | bool/null。 | `21_explanationText_added`, convert | 法令・政令・省令・告示・通達・制度上の義務/定義/手続/基準が、正誤判断または学習上の主要理解に関係する場合に true。年次03b監査の抽出軸。 |
-| 法令根拠不要フラグ | `lawGroundedExplanationNotNeeded` | boolean | 任意 | 03以降は必須 | 可 | bool/null。 | `21_explanationText_added`, convert | アプリの「根拠条文から解説」ボタンを非表示にしてよいか。原則 `!isLawRelated` にする。app 側では import/read 互換フィールド扱い。 |
+| 条文参照 | `lawReferences` | array<object> | 任意 | 法令問題では推奨/条件付き必須 | 可 | 後述の `lawReferences` 契約に従う。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 条文本文は question doc に持たない。参照と監査状態を残す。 |
+| 法令問題フラグ | `isLawRelated` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 法令・政令・省令・告示・通達・制度上の義務/定義/手続/基準が、正誤判断または学習上の主要理解に関係する場合に true。年次03b監査の抽出軸。 |
+| 法令根拠不要フラグ | `lawGroundedExplanationNotNeeded` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | アプリの「根拠条文から解説」ボタンを非表示にしてよいか。原則 `!isLawRelated` にする。app 側では import/read 互換フィールド扱い。 |
 | 解説画像URL | `explanationImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | Storage upload / app | 解説画像がある場合だけ。 |
 | 解説画像パス | `explanationImagePaths` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / migration | 同上。 |
 | ヒント本文 | `hintText` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 公式過去問では基本解説優先。 |
@@ -190,9 +191,11 @@
 ### 法令監査の記録ルール
 
 - 法令問題は、資格別の `prompt/qualification_docs/<qualification>/...law_reference...md` を先に確認する。
-- 03工程では全問題に `isLawRelated` を必ず付ける。`lawReferences` が非空なら `isLawRelated=true`、`isLawRelated=false` なら `lawReferences` は空または未定義にする。
+- 03の前に、原則として `prompt/02b_prompt_prepare_law_context.md` で `18_law_context_prepared/` を作る。merge 後の `20_merged_1/` に `isLawRelated`、`lawGroundedExplanationNotNeeded`、必要な `lawReferences` が入った状態を03の主入力にする。
+- 02b以降では全問題に `isLawRelated` を必ず付ける。`lawReferences` が非空なら `isLawRelated=true`、`isLawRelated=false` なら `lawReferences` は空または未定義にする。
 - `lawGroundedExplanationNotNeeded` は原則 `!isLawRelated` とする。`isLawRelated=true` の問題で条文解説ボタンを非表示にしてはいけない。
-- 通常の03作業で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その情報を既存の `correctChoiceText` / `explanationText` / `lawReferences` 成果物へマージする。
+- 03は02bの法令コンテキストを使って `explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` を作る。03中に02bの判定と解説内容が矛盾すると分かった場合は、03 patch 側で修正してよい。
+- 02bまたは03で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その情報を既存の `correctChoiceText` / `explanationText` / `lawReferences` 成果物へマージする。
 - 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。
 - 更新した場合は、ユーザーに分かるように次を残す。
@@ -237,6 +240,7 @@ AI解説を画面表示時に自動起動しない方針のため、想定質問
 | 解説方針、ひっかけ、学習者への補足観点 | `prompt/qualification_docs/<qualification>/02_explanation_strategy.md` | `explanationText` に反映するが、独自 field は作らない |
 | カテゴリ粒度、questionSetId の境界 | `prompt/qualification_docs/<qualification>/03_category_preparation.md`, `category.json` | `questionSetId` として反映 |
 | 法令スコープ、短縮表記、現行法監査方針 | `prompt/qualification_docs/<qualification>/*law_reference*.md` | `lawReferences` / `explanationText` / `suggestedQuestionDetails` に反映 |
+| 03前の法令作業メモ | `18_law_context_prepared[].lawContextForExplanation` | Firestore には入れない。03の文章化補助だけに使う |
 | 作業中の不確実性、AI再確認対象 | `99_model_review_flags/`, review sidecar, goal notes | 入れない |
 | 元サイト固有の一時キー | `00_source` または intermediate JSON | 入れない |
 
@@ -275,18 +279,20 @@ python tools/question_bank/question_bank.py quality-gate \
 | 必須項目 | `00_source`, merged, `40_convert` を `config/requirements/required_fields.toml` で検査。 |
 | patch coverage | `questionType`, `questionIntent`, `explanationText`, `questionSetId` の patch が source 全問を覆っているか検査。 |
 | 想定質問 | `suggestedQuestions` と `suggestedQuestionDetails` の件数・順序・必須値を検査。 |
+| 法令コンテキスト | `18_law_context_prepared` を使う場合、`isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences` の矛盾を検査。 |
 | 法令判定 | `isLawRelated` が全解説 patch にあり、`lawGroundedExplanationNotNeeded` と逆関係になっているか、`lawReferences` と矛盾していないか検査。 |
 | 法令参照 | `lawReferences` の role / scope / choiceIndex / verificationStatus / comparisonStatus / verified 時の `lawId` と `article` を検査。 |
 | Firestore schema | `upload_questions_to_firestore.py --dry-run` で `repaso_firestore_schema.py` の required / allowed / type contract を検査。 |
 
 段階別に確認したい場合は `--mode required`、`--mode patches`、`--mode firestore` を使います。
 
-03作業後は、全解説 patch に厳密な法令問題フラグ `isLawRelated` が入っているかも確認します。
+02bを標準工程として使う場合は `--require-law-context-stage` を付けます。03作業後は、全解説 patch に厳密な法令問題フラグ `isLawRelated` が入っているかも確認します。
 
 ```bash
 python tools/question_bank/question_bank.py quality-gate \
   --qualification <qualification> \
   --list-group-id <list_group_id> \
+  --require-law-context-stage \
   --require-is-law-related \
   --require-law-grounded-flag
 ```

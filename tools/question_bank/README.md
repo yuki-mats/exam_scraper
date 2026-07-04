@@ -6,6 +6,7 @@
 
 1. ルール: `document/reference/question_field_contract.md`
 2. 日々の目視作業: `prompt/README.md` と `prompt/01_prompt_*.md` から `prompt/04_prompt_*.md`
+   - 03の前に `prompt/02b_prompt_prepare_law_context.md` で `18_law_context_prepared/` を作り、法令フラグと現行法根拠候補を `20_merged_1/` に反映してから解説を書く
    - 法改正・現行法差分が疑われる場合、または年1回の法令関係問題の全問監査では `prompt/03b_prompt_audit_current_law_and_patch.md` で03bの監査パッチ/sidecarを作成・更新し、既存成果物へマージする
 3. 機械チェック: このディレクトリの `question_bank.py`
 4. 補助実装: 必要な場合だけ `scripts/` 配下を見る
@@ -32,6 +33,7 @@ python scripts/check/run_question_quality_gate.py \
 
 - `00_source`、merged、`40_convert` の必須フィールド
 - `questionType`、`questionIntent`、`explanationText`、`questionSetId` patch の全問 coverage
+- `18_law_context_prepared` を使う場合の法令コンテキスト coverage
 - `suggestedQuestions` / `suggestedQuestionDetails` の整合
 - `isLawRelated` の有無と `lawGroundedExplanationNotNeeded` との逆関係
 - `lawReferences` の基本構造
@@ -45,12 +47,13 @@ python tools/question_bank/question_bank.py quality-gate --qualification <qualif
 python tools/question_bank/question_bank.py quality-gate --qualification <qualification> --list-group-id <list_group_id> --mode firestore
 ```
 
-03工程後は、全解説 patch に厳密な `isLawRelated` と、条文解説ボタン制御用の `lawGroundedExplanationNotNeeded` を必ず残すため、次を追加します。
+02bを標準工程として必須にする場合は、`--require-law-context-stage` を追加します。03工程後は、全解説 patch に厳密な `isLawRelated` と、条文解説ボタン制御用の `lawGroundedExplanationNotNeeded` を必ず残すため、次を追加します。
 
 ```bash
 python tools/question_bank/question_bank.py quality-gate \
   --qualification <qualification> \
   --list-group-id <list_group_id> \
+  --require-law-context-stage \
   --require-is-law-related \
   --require-law-grounded-flag
 ```
@@ -86,6 +89,12 @@ python tools/question_bank/question_bank.py check-question-intent-patch \
 ```
 
 ```bash
+python tools/question_bank/question_bank.py check-law-context-patch \
+  --source /path/to/question_*_merged.json \
+  --patch /path/to/18_law_context_prepared/question_*_merged_lawContext_prepared.json
+```
+
+```bash
 python tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
   --patch /path/to/21_explanationText_added/question_*_explanationText_added.json \
@@ -106,7 +115,7 @@ python tools/question_bank/question_bank.py check-question-set-patch \
 | 場所 | 役割 |
 | --- | --- |
 | `document/reference/question_field_contract.md` | 共通フィールドの人間向け正本。 |
-| `prompt/` | 01から04の目視 patch 作成プロンプト。品質判断の主役。 |
+| `prompt/` | 01から04の目視 patch 作成プロンプト。02bで法令コンテキスト、03で解説本文を作る。 |
 | `tools/question_bank/` | 日常運用で直接叩く統一CLI。 |
 | `scripts/` | CLIから呼ばれる実装、互換入口、個別補助。通常は直接探さない。 |
 | `output/` | 資格ごとの生成物・作業中データ。Git管理の正本にしない。root直下に単発レポートを増やさず、`output/<qualification>/reports/` へ置く。 |

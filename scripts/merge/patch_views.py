@@ -25,6 +25,12 @@ EXPLANATION_FIELDS = [
     "explanation_choice_snippets",
     "explanation_choice_correctness",
 ]
+LAW_CONTEXT_FIELDS = [
+    "isLawRelated",
+    "lawGroundedExplanationNotNeeded",
+    "lawReferences",
+    "lawContextForExplanation",
+]
 QUESTION_SOURCE_PRESERVATION_FIELDS = [
     "originalQuestionId",
     "original_question_id",
@@ -246,6 +252,31 @@ def apply_explanation_fields(
         if not isinstance(entry, dict):
             continue
         for field in EXPLANATION_FIELDS:
+            if field in entry and entry[field] is not None:
+                question[field] = entry[field]
+                updated += 1
+    return updated
+
+
+def apply_law_context_fields(
+    data: dict,
+    law_context_map: Mapping[str, dict],
+) -> int:
+    normalize_question_ids(data)
+    updated = 0
+    questions = data.get("question_bodies")
+    if not isinstance(questions, list):
+        raise ValueError("question_bodies が見つかりません")
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+        question_id = patch_target_id(question)
+        if not question_id:
+            continue
+        entry = law_context_map.get(str(question_id))
+        if not isinstance(entry, dict):
+            continue
+        for field in LAW_CONTEXT_FIELDS:
             if field in entry and entry[field] is not None:
                 question[field] = entry[field]
                 updated += 1

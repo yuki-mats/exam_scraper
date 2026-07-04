@@ -2,16 +2,17 @@
 
 あなたの役割は、法令が関係する過去問について、出題当時の正答と現行法ベースの正誤・解説に差分がないかを監査し、必要な patch と監査 sidecar を作ることです。
 
-このプロンプトは `03_prompt_add_explanationText.md` の派生です。通常の基本解説作成中に法改正・現行法差分が疑われた場合、または年に1度の法令関係問題の全問監査で、03bの監査パッチ/sidecarを作成・更新し、その結果を既存成果物へマージするための工程定義です。
+このプロンプトは `02b_prompt_prepare_law_context.md` と `03_prompt_add_explanationText.md` の後続監査です。02bで現行法根拠候補を整理した時点、03で解説文へ落とし込んだ時点、または年に1度の法令関係問題の全問監査で、法改正・現行法差分が疑われた場合に03bの監査パッチ/sidecarを作成・更新し、その結果を既存成果物へマージするための工程定義です。
 
 ## 適用場面
 
-- `03_prompt_add_explanationText.md` の作業中に、現行法と出題当時法令の差分が正誤・解説に影響しそうな場合
+- `02b_prompt_prepare_law_context.md` の作業中に、現行法と出題当時法令の差分が正誤・解説に影響しそうな場合
+- `03_prompt_add_explanationText.md` の作業中に、02bの法令コンテキストを文章化する過程で差分疑いが強まった場合
 - 年に1度、法令が関係する問題を資格ごとに全問監査する場合
 - `lawReferences.comparisonStatus` が `not_checked` / `differs_from_current` / 未設定の問題を棚卸しする場合
 - ユーザーに「出題当時の正答」と「現行法ベースの学習上の扱い」の違いを明示すべき問題を特定する場合
 
-通常の03では、疑いを発見したら無理に深掘りせず、03bの監査パッチ/sidecarへ切り出します。その後、03bで確定した差分だけを既存の正誤・解説・法令参照 patch へマージします。
+通常の02b/03では、疑いを発見したら無理に深掘りせず、03bの監査パッチ/sidecarへ切り出します。その後、03bで確定した差分だけを既存の正誤・解説・法令参照 patch へマージします。
 
 ## 最重要ルール
 
@@ -26,12 +27,13 @@
 ## 入力の参照順
 
 1. 対象資格の `prompt/qualification_docs/<qualification>/`、特に `*law_reference*.md`
-2. `20_merged_1/` または `30_merged_2/` の対象問題
-3. 既存の `21_explanationText_added/` patch
-4. 正誤を更新する必要がある場合は、既存の `15_correctChoiceText_fixed/` または後続補正用の `23_correctChoiceText_fixed/`
-5. 必要時のみ `00_source/`
-6. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
-7. Lawzilla などの法令DB。条文探索や改正前後のあたり付けに使ってよいが、最終 `verified` は一次情報相当で照合する
+2. 既存の `18_law_context_prepared/` patch
+3. `20_merged_1/` または `30_merged_2/` の対象問題
+4. 既存の `21_explanationText_added/` patch
+5. 正誤を更新する必要がある場合は、既存の `15_correctChoiceText_fixed/` または後続補正用の `23_correctChoiceText_fixed/`
+6. 必要時のみ `00_source/`
+7. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
+8. Lawzilla などの法令DB。条文探索や改正前後のあたり付けに使ってよいが、最終 `verified` は一次情報相当で照合する
 
 ## 出力とマージ
 
@@ -73,7 +75,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - `same_as_current`: 出題当時の正答と現行法ベースの正誤が同じ
 - `updated_to_current_law`: 現行法に合わせて `correctChoiceText` / `explanationText` を更新した
 - `hold`: 差分が疑われるが、条文・施行日・出題当時法令を確認しきれない
-- `not_law_related`: 法令問題に見えたが、正誤判断は法令差分に依存しない。この場合は `isLawRelated=false` として03成果物にも反映する
+- `not_law_related`: 法令問題に見えたが、正誤判断は法令差分に依存しない。この場合は `isLawRelated=false` として02b/03成果物にも反映する
 
 ### 2. 正誤更新 patch へのマージ
 
@@ -99,7 +101,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - `lawGroundedExplanationNotNeeded`: `false`
 - `lawReferences`: 現行法根拠は `role="current_basis"`、出題当時法令を確認できた場合は `role="exam_time_basis"`
 
-03b sidecar の判断結果を、既存の `21_explanationText_added/` patch に反映します。既存の通常03成果物と競合する場合は、03bの監査根拠・基準日・差分注記を優先し、通常03の薄い説明だけで上書きしてはいけません。
+03b sidecar の判断結果を、既存の `18_law_context_prepared/` と `21_explanationText_added/` patch に反映します。既存の02b/通常03成果物と競合する場合は、03bの監査根拠・基準日・差分注記を優先し、通常03の薄い説明だけで上書きしてはいけません。
 
 ## ユーザー向け注記の方針
 

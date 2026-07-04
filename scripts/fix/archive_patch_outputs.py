@@ -21,6 +21,10 @@ TASK_CONFIG = {
         "subdir": "15_correctChoiceText_fixed",
         "tag": "correctChoiceText_fixed",
     },
+    "law_context": {
+        "subdir": "18_law_context_prepared",
+        "tag": "lawContext_prepared",
+    },
     "explanation": {
         "subdir": "21_explanationText_added",
         "tag": "explanationText_added",

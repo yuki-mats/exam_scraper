@@ -29,6 +29,7 @@ if __package__ in {None, ""}:
         apply_answer_result_overrides,
         apply_correct_choice,
         apply_explanation_fields,
+        apply_law_context_fields,
         apply_question_intent,
         apply_question_set,
         apply_question_type,
@@ -47,6 +48,7 @@ else:
         apply_answer_result_overrides,
         apply_correct_choice,
         apply_explanation_fields,
+        apply_law_context_fields,
         apply_question_intent,
         apply_question_set,
         apply_question_type,
@@ -61,6 +63,7 @@ MERGED1_SUBDIR = "20_merged_1"
 MERGED2_SUBDIR = "30_merged_2"
 
 PATCH_DIR_QTYPE = "10_questionType_fixed"
+PATCH_DIR_LAW_CONTEXT = "18_law_context_prepared"
 PATCH_DIR_EXPLANATION = "21_explanationText_added"
 PATCH_DIR_QSET = "22_questionSetId_linked"
 PATCH_DIR_CORRECT = "23_correctChoiceText_fixed"
@@ -68,6 +71,7 @@ PATCH_DIR_INTENT_AND_CORRECT_FALLBACK = "15_correctChoiceText_fixed"
 
 PATCH_TAGS = {
     "question_type": "questionType_fixed",
+    "law_context": "lawContext_prepared",
     "explanation": "explanationText_added",
     "question_set": "questionSetId_linked",
     "correct_choice": "correctChoiceText_fixed",
@@ -390,6 +394,20 @@ def merge_all(
         key_fields=("original_question_id",),
     )
 
+    patch_law_context_dir = list_group_dir / PATCH_DIR_LAW_CONTEXT
+    law_context_paths = (
+        select_latest_patch_files(
+            sorted(patch_law_context_dir.glob("*.json")),
+            PATCH_TAGS["law_context"],
+        )
+        if patch_law_context_dir.exists()
+        else []
+    )
+    law_context_map = build_patch_map_from_paths(
+        law_context_paths,
+        key_fields=("original_question_id",),
+    )
+
     base_files = iter_base_files(source_dir)
     if not base_files:
         raise FileNotFoundError(f"入力ファイルが見つかりません: {source_dir}")
@@ -412,11 +430,13 @@ def merge_all(
     exam_year_backfills = 0
     correct_choice_backfills = 0
     answer_result_override_updates = 0
+    law_context_updates = 0
     for base_path in base_files:
         data = load_json(base_path)
         qtype_updates += apply_question_type(data, qtype_map_by_id)
         answer_result_override_updates += apply_answer_result_overrides(data, intent_entry_map)
         intent_updates += apply_question_intent(data, intent_map)
+        law_context_updates += apply_law_context_fields(data, law_context_map)
         u_intent, u_choice = normalize_true_false_intent_and_correct_choice(data)
         true_false_intent_updates += u_intent
         true_false_correct_choice_updates += u_choice
@@ -437,6 +457,8 @@ def merge_all(
     print(f"[INFO] true_false correctChoiceText 正規化件数: {true_false_correct_choice_updates}")
     if answer_result_override_updates:
         print(f"[INFO] answer_result override 更新件数: {answer_result_override_updates}")
+    if law_context_updates:
+        print(f"[INFO] law context 更新件数: {law_context_updates}")
     if exam_year_backfills:
         print(f"[INFO] examYear 推定補完件数: {exam_year_backfills}")
     if correct_choice_backfills:

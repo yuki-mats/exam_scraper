@@ -12,6 +12,7 @@ TASK_CHOICES = (
     "question_type",
     "question_intent",
     "correct_choice",
+    "law_context",
     "explanation",
     "question_set",
 )
@@ -187,6 +188,27 @@ def materialize_question_intent(
     }
 
 
+def materialize_law_context(
+    source_question: dict[str, Any],
+    raw_entry: dict[str, Any],
+) -> dict[str, Any]:
+    materialized = {
+        "isLawRelated": raw_entry.get("isLawRelated"),
+        "lawGroundedExplanationNotNeeded": raw_entry.get(
+            "lawGroundedExplanationNotNeeded"
+        ),
+        "original_question_id": resolve_original_id(source_question),
+        "question_url": source_question.get("question_url", ""),
+    }
+    if "lawReferences" in raw_entry:
+        materialized["lawReferences"] = raw_entry.get("lawReferences")
+    if "lawContextForExplanation" in raw_entry:
+        materialized["lawContextForExplanation"] = raw_entry.get(
+            "lawContextForExplanation"
+        )
+    return materialized
+
+
 def materialize_explanation(
     source_question: dict[str, Any],
     raw_entry: dict[str, Any],
@@ -231,6 +253,7 @@ def materialize_entries(
         "question_type": materialize_question_type,
         "question_intent": materialize_question_intent,
         "correct_choice": materialize_correct_choice,
+        "law_context": materialize_law_context,
         "explanation": materialize_explanation,
         "question_set": materialize_question_set,
     }

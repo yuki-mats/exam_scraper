@@ -1,6 +1,6 @@
 # 二級土木施工管理技士試験 法令参照方針
 
-この文書は、二級土木施工管理技士試験の `03_prompt_add_explanationText.md` で、法令・政令・省令・公的基準をどこまで解説根拠に使うかを定める簡易方針である。
+この文書は、二級土木施工管理技士試験の `02b_prompt_prepare_law_context.md` で法令コンテキストを整理し、`03_prompt_add_explanationText.md` で解説根拠として使う範囲を定める簡易方針である。
 
 ## 基本方針
 - 法令問題では、まず `questionSetId` と設問本文から対象法令を確定する。

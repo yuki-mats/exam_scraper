@@ -1,6 +1,6 @@
 # <資格名> `lawReferences` 方針
 
-この文書は、`prompt/03_prompt_add_explanationText.md` で `lawReferences` を作る前に読む資格別の法令スコープである。
+この文書は、`prompt/02b_prompt_prepare_law_context.md` で `isLawRelated` / `lawReferences` を整理し、`prompt/03_prompt_add_explanationText.md` で解説文章へ反映する前に読む資格別の法令スコープである。
 
 目的は、作業者が e-Gov の全法令から無差別に探さず、この試験で通常参照する法令範囲から正しい `lawId` と条項を確認できるようにすること。
 
@@ -25,7 +25,7 @@
 
 ## 現行法と出題当時法令
 
-- 法令・制度論点では、03成果物の `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` とする。
+- 法令・制度論点では、02b/03成果物の `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` とする。
 - 法令・制度論点ではない問題では、原則 `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` とする。
 - 法令問題は、出題当時の正誤と現行法の正誤を分けて確認する。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新する。

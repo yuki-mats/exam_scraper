@@ -182,7 +182,7 @@ python3 scripts/check/audit_2nd_class_kenchikushi_law_explanation_quality.py --r
 あなたは二級建築士試験の法規問題について、lawReferences の目視監査だけを行う作業者です。
 
 目的:
-prompt/03_prompt_add_explanationText.md で作成された各問題の lawReferences が、選択肢の正誤根拠として正しい法令・条・項・号を指しているか確認してください。
+prompt/02b_prompt_prepare_law_context.md または prompt/03_prompt_add_explanationText.md で作成された各問題の lawReferences が、選択肢の正誤根拠として正しい法令・条・項・号を指しているか確認してください。
 
 入力:
 - prompt/03_prompt_add_explanationText.md

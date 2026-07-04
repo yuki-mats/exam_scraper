@@ -1,6 +1,6 @@
 # 柔道整復師 法令参照方針
 
-この文書は、`03_prompt_add_explanationText.md` で法令・制度問題を扱う際の参照範囲を定めるための補助資料である。柔道整復師では `lawReferences` を最終成果物に出さないが、法規系の `explanationText` を安定させるために、一次情報の当たり先を固定しておく。
+この文書は、`02b_prompt_prepare_law_context.md` で法令・制度問題の事前判定を行い、`03_prompt_add_explanationText.md` で解説文章へ反映する際の参照範囲を定めるための補助資料である。柔道整復師では `lawReferences` を最終成果物に出さないが、法規系の `explanationText` を安定させるために、一次情報の当たり先を固定しておく。
 
 ## 基本方針
 

@@ -1,11 +1,11 @@
 # [システムプロンプト] explanationText / suggestedQuestions / suggestedQuestionDetails 手作業追加用
 （`question_*_merged.json` 専用）
 
-あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を学習効果が高い日本語で手作業記述し、あわせて法令・制度論点かどうかを `isLawRelated` で厳密に判定し、「根拠条文から解説」機能を事前に非表示にしてよいかを `lawGroundedExplanationNotNeeded` で判定することです。
+あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を学習効果が高い日本語で手作業記述することです。法令・制度論点については、原則として03前の `02b_prompt_prepare_law_context.md` で作った `isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences` を使い、解説文章に反映します。
 
 目的は、受験者が「正誤」と「その理由」を短時間で理解できる説明と、解説ページで次に押したくなる補足質問候補、およびその質問を押したときに即表示できる保存済み回答を残すことです。元ファイルの本文や順序は変更せず、差分 JSON だけを作成してください。
 
-法改正・現行法差分が疑われる場合は、この通常03の中で無理に完結させず、`03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その結果を `correctChoiceText` / `explanationText` / `lawReferences` の既存成果物へマージしてください。年に1度の法令関係問題の全問監査も03bの責務です。
+法令フラグや現行法根拠が `20_merged_1` に入っていない場合は、先に02bを実行して `18_law_context_prepared/` を作り、mergeで `20_merged_1` に反映してください。03中に02bの判定と解説内容の矛盾を見つけた場合は、03 patch 側で修正してよいですが、法改正・現行法差分が疑われる場合は、この通常03の中で無理に完結させず、`03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その結果を `correctChoiceText` / `explanationText` / `lawReferences` の既存成果物へマージしてください。年に1度の法令関係問題の全問監査も03bの責務です。
 
 判断水準は、単なる一般読者の目視ではなく、対象資格の専門家・問題作成者・参考書著者が解答解説として公開できる水準とします。正答を説明するだけでなく、受験者が誤学習しない根拠、誤り箇所、正しい内容、類似論点との境界まで確認してください。
 
@@ -34,11 +34,12 @@
 
 ## 参照優先順位
 
-1. `20_merged_1/question_*_merged.json`
-2. 必要時のみ同一 `list_group_id` の `23_correctChoiceText_fixed/`
-3. 必要時のみ `00_source/`
-4. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令判定方針・必要なら対象法令スコープ
-5. 受験者が納得できる説明に必要な根拠・定義・条文確認のための、信頼できる外部Web一次情報
+1. `20_merged_1/question_*_merged.json`。02bを実行済みなら、ここに `isLawRelated`、`lawGroundedExplanationNotNeeded`、`lawReferences`、必要に応じて `lawContextForExplanation` が反映されている。
+2. 必要時のみ同一 `list_group_id` の `18_law_context_prepared/`
+3. 必要時のみ同一 `list_group_id` の `23_correctChoiceText_fixed/`
+4. 必要時のみ `00_source/`
+5. 対象資格に `prompt/qualification_docs/<qualification>/` がある場合は、その試験プロフィール・解説方針・法令判定方針・必要なら対象法令スコープ
+6. 受験者が納得できる説明に必要な根拠・定義・条文確認のための、信頼できる外部Web一次情報
 
 `20_merged_1` にある以下の値を主に使うこと。
 
@@ -55,6 +56,10 @@
 - `original_question_id`
 - `question_url`
 - `source_question_id`
+- `isLawRelated`
+- `lawGroundedExplanationNotNeeded`
+- `lawReferences`
+- `lawContextForExplanation`
 
 ### `explanation_*` が不足している場合の一次情報調査
 
@@ -143,7 +148,7 @@
 - `suggestedQuestions` は必ず文字列配列にし、3 件を基本とする
 - `suggestedQuestionDetails` は必ず object 配列にし、`suggestedQuestions` と同じ長さ・同じ順序にする
 - `suggestedQuestionDetails` の各要素は `question` と `answer` を必須にする
-- 新規に作る各要素には `isLawRelated` と `lawGroundedExplanationNotNeeded` を boolean で入れる。`isLawRelated` は法令・制度論点かどうかの正本フラグであり、`lawGroundedExplanationNotNeeded` は原則その逆にする
+- 新規に作る各要素には `isLawRelated` と `lawGroundedExplanationNotNeeded` を boolean で入れる。原則として02bの値を引き継ぐ。解説作成中に誤判定が明らかになった場合だけ、理由を確認したうえで修正する
 - 資格別方針で `lawReferences` を出す場合は、選択肢ごとの配列にし、外側配列の長さを `choiceTextList` と一致させる。各要素は、その選択肢に紐づく法令参照オブジェクト配列にする
 - 資格別方針で `lawReferences` を出す場合でも、法令問題でない場合、または法令条項を正誤判断の根拠にしない問題では `lawReferences` を作らず、省略する
 - 資格別方針で `lawReferences` を出す場合でも、特定の選択肢に紐づく検証済み条文がない場合、その選択肢の `lawReferences` は空配列 `[]` にする
@@ -161,7 +166,7 @@
 
 ## `isLawRelated` / `lawGroundedExplanationNotNeeded` の判定方針
 
-`isLawRelated` は、法令・政令・省令・告示・通達・条例・制度上の義務/定義/手続/数値基準が、正誤判断または学習上の主要理解に関係するかを表す正本フラグである。年次03b監査では、まず `isLawRelated=true` の問題を対象候補にする。
+`isLawRelated` は、法令・政令・省令・告示・通達・条例・制度上の義務/定義/手続/数値基準が、正誤判断または学習上の主要理解に関係するかを表す正本フラグである。原則として02bで事前に判定し、03はその判定と `lawReferences` を解説文章へ落とし込む。年次03b監査では、まず `isLawRelated=true` の問題を対象候補にする。
 
 `lawGroundedExplanationNotNeeded` は、アプリ側の「根拠条文から解説」ボタンを問題データの時点で非表示にし、ボタン押下時の Gemini 判定コストを減らすための従属フラグである。
 
@@ -275,7 +280,7 @@
 - 出題当時法令も確認できた場合は、出題当時根拠を `role="exam_time_basis"` として入れ、`comparisonStatus="differs_from_current"` と `differenceNote` を付ける。
 - 5.5 high 再確認フラグ sidecar には、`reasonCategory` に `current_vs_historical_rule` を含め、`currentDecision` に「現行法に合わせて正誤更新した」こと、元の正誤、更新後の正誤、参照条項を残す。
 
-`isLawRelated` は03以降の正式フラグとして通常 upload 用 JSON に残してよい。将来的に repaso 側の schema / Firestore rules / UI をさらに更新する場合は、question 直下に次のような現行法更新専用フラグを追加する。現時点ではこれらは未対応のため、通常 upload 用 JSON に混入させてはいけない。
+`isLawRelated` は02b以降の正式フラグとして通常 upload 用 JSON に残してよい。将来的に repaso 側の schema / Firestore rules / UI をさらに更新する場合は、question 直下に次のような現行法更新専用フラグを追加する。現時点ではこれらは未対応のため、通常 upload 用 JSON に混入させてはいけない。
 
 - `lawAnswerBasis`: `exam_time_law` / `current_law`
 - `lawAnswerUpdatedFromExamTime`: boolean
@@ -318,13 +323,14 @@
 
 1. この `03_prompt_add_explanationText.md` と資格別補助資料を読む。
 2. 法令問題を扱う資格では、資格別方針を確認する。`lawReferences` を出す資格は対象法令スコープを確認し、未整備なら簡易スコープを作ってから進める。
-3. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / `isLawRelated` / `lawGroundedExplanationNotNeeded` を作る。資格別方針で必要な場合だけ `lawReferences` も作る。
-4. `lawReferences` を出す資格では、問題文・設問文・選択肢・解説文・法令文書本文を照合して作る。`lawId` が入っているだけでは合格にしない。
-5. `isLawRelated` / `lawGroundedExplanationNotNeeded` の判定や、`lawReferences` を出す資格での条文紐付けは、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・必要なら法令本文を目視で照合して判断する。
-6. Python スクリプトを使う場合は、台帳生成、JSON 構造チェック、必須フィールドの有無確認など、作業補助に限定する。Python の結果だけで `ok` / `needs_fix` / `verified` / `true` / `false` を決めてはいけない。
-7. 資格別の manual review sheet がある場合は生成し、1問ずつ `isLawRelated` / `lawGroundedExplanationNotNeeded` が妥当か、また `lawReferences` を出す資格では選択肢の正誤根拠と一致するか目視確認する。
-8. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、問題文・設問・選択肢・解説文・必要なら法令本文のどの照合で不一致が出たかを明記して修正する。
-9. manual review で全件 `ok` になったものだけを upload 対象にする。
+3. `20_merged_1/question_*_merged.json` を起点に、02bで反映済みの `isLawRelated` / `lawGroundedExplanationNotNeeded` / `lawReferences` / `lawContextForExplanation` を確認する。未反映なら先に02bを実行する。
+4. 02bの法令コンテキストを使って、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` を作る。資格別方針で必要な場合だけ、03で `lawReferences` を補正してよい。
+5. `lawReferences` を出す資格では、問題文・設問文・選択肢・解説文・法令文書本文を照合して使う。`lawId` が入っているだけでは合格にしない。
+6. `isLawRelated` / `lawGroundedExplanationNotNeeded` の修正や、`lawReferences` を出す資格での条文紐付けは、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・必要なら法令本文を目視で照合して判断する。
+7. Python スクリプトを使う場合は、台帳生成、JSON 構造チェック、必須フィールドの有無確認など、作業補助に限定する。Python の結果だけで `ok` / `needs_fix` / `verified` / `true` / `false` を決めてはいけない。
+8. 資格別の manual review sheet がある場合は生成し、1問ずつ `isLawRelated` / `lawGroundedExplanationNotNeeded` が妥当か、また `lawReferences` を出す資格では選択肢の正誤根拠と一致するか目視確認する。
+9. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、問題文・設問・選択肢・解説文・必要なら法令本文のどの照合で不一致が出たかを明記して修正する。
+10. manual review で全件 `ok` になったものだけを upload 対象にする。
 
 ここでいう「1問ずつ確認する」とは、次を目視で照合することを指す。
 

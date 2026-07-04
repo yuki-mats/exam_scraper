@@ -40,6 +40,7 @@ class PatchStage:
     tag: str
     checker: str
     extra_args: tuple[str, ...] = ()
+    required_by_default: bool = True
 
 
 PATCH_STAGES = (
@@ -54,6 +55,13 @@ PATCH_STAGES = (
         subdir="15_correctChoiceText_fixed",
         tag="correctChoiceText_fixed",
         checker="tools/question_bank/checks/check_question_intent_patch_coverage.py",
+    ),
+    PatchStage(
+        label="lawContext",
+        subdir="18_law_context_prepared",
+        tag="lawContext_prepared",
+        checker="scripts/check/check_law_context_patch_coverage.py",
+        required_by_default=False,
     ),
     PatchStage(
         label="explanationText",
@@ -82,7 +90,10 @@ def source_stem_from_patch_filename(filename: str, patch_tag: str) -> str | None
     suffix = f"_{patch_tag}"
     if not stem.endswith(suffix):
         return None
-    return stem[: -len(suffix)]
+    source_stem = stem[: -len(suffix)]
+    if source_stem.endswith("_merged"):
+        source_stem = source_stem[: -len("_merged")]
+    return source_stem
 
 
 def timestamp_sort_key(path: Path) -> tuple[int, str, str]:
@@ -267,6 +278,7 @@ def run_patch_checks(
     category_path: Path | None,
     require_law_grounded_flag: bool,
     require_is_law_related: bool,
+    require_law_context_stage: bool,
     questionset_only: bool,
 ) -> int:
     print_heading("patch coverage")
@@ -286,6 +298,8 @@ def run_patch_checks(
 
             patch_dir = group_dir / stage.subdir
             if not patch_dir.exists():
+                if not stage.required_by_default and not require_law_context_stage:
+                    continue
                 print(f"[ERROR] {group_dir.name}: patch directory not found: {patch_dir}")
                 failed += 1
                 continue
@@ -295,6 +309,8 @@ def run_patch_checks(
             for source_path in source_files:
                 patch_path = patch_map.get(source_path.stem)
                 if patch_path is None:
+                    if not stage.required_by_default and not require_law_context_stage:
+                        continue
                     print(f"[ERROR] {group_dir.name}: {stage.label}: patch not found for {source_path.name}")
                     failed += 1
                     continue
@@ -380,6 +396,18 @@ def add_explanation_patch_parser(
     )
 
 
+def add_law_context_patch_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "check-law-context-patch",
+        help="Validate one pre-explanation law context patch file.",
+    )
+    parser.set_defaults(command="check-law-context-patch")
+    parser.add_argument("--source", required=True, help="Path to source question_*.json.")
+    parser.add_argument("--patch", required=True, help="Path to law context patch JSON.")
+
+
 def add_question_set_patch_parser(
     subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
 ) -> None:
@@ -433,7 +461,14 @@ def add_materialize_patch_parser(
     parser.add_argument(
         "--task",
         required=True,
-        choices=("question_type", "question_intent", "correct_choice", "explanation", "question_set"),
+        choices=(
+            "question_type",
+            "question_intent",
+            "correct_choice",
+            "law_context",
+            "explanation",
+            "question_set",
+        ),
         help="Patch task to materialize.",
     )
     parser.add_argument("--source", required=True, help="Path to source question_*.json.")
@@ -487,6 +522,11 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
         help="Require isLawRelated on every explanation patch entry.",
     )
     parser.add_argument(
+        "--require-law-context-stage",
+        action="store_true",
+        help="Require 18_law_context_prepared patches in quality-gate.",
+    )
+    parser.add_argument(
         "--questionset-only",
         action="store_true",
         help="Pass --questionset-only to questionSetId coverage checks.",
@@ -504,6 +544,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_quality_gate_parser(subparsers)
     add_question_type_patch_parser(subparsers)
     add_question_intent_patch_parser(subparsers)
+    add_law_context_patch_parser(subparsers)
     add_explanation_patch_parser(subparsers)
     add_question_set_patch_parser(subparsers)
     add_materialize_patch_parser(subparsers)
@@ -530,6 +571,19 @@ def run_question_intent_patch_check(args: argparse.Namespace) -> int:
         [
             sys.executable,
             "tools/question_bank/checks/check_question_intent_patch_coverage.py",
+            "--source",
+            args.source,
+            "--patch",
+            args.patch,
+        ]
+    )
+
+
+def run_law_context_patch_check(args: argparse.Namespace) -> int:
+    return run_command(
+        [
+            sys.executable,
+            "scripts/check/check_law_context_patch_coverage.py",
             "--source",
             args.source,
             "--patch",
@@ -593,6 +647,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_question_type_patch_check(args)
     if args.command == "check-question-intent-patch":
         return run_question_intent_patch_check(args)
+    if args.command == "check-law-context-patch":
+        return run_law_context_patch_check(args)
     if args.command == "check-explanation-patch":
         return run_explanation_patch_check(args)
     if args.command == "check-question-set-patch":
@@ -636,6 +692,7 @@ def main(argv: list[str] | None = None) -> int:
             category_path=category_path,
             require_law_grounded_flag=args.require_law_grounded_flag,
             require_is_law_related=args.require_is_law_related,
+            require_law_context_stage=args.require_law_context_stage,
             questionset_only=args.questionset_only,
         )
 

@@ -10,7 +10,7 @@
   - `config/scrape_presets.json` の資格プリセットを使って、サイト別スクレイパを実行する。
   - 出力は `output/<qualification>/questions_json/<list_group_id>/00_source/` と `question_images/<list_group_id>/`。
 - `merge/`
-  - `10_questionType_fixed/`、`15_correctChoiceText_fixed/`、`21_explanationText_added/`、`22_questionSetId_linked/`、`23_correctChoiceText_fixed/` を統合する。
+  - `10_questionType_fixed/`、`15_correctChoiceText_fixed/`、`18_law_context_prepared/`、`21_explanationText_added/`、`22_questionSetId_linked/`、`23_correctChoiceText_fixed/` を統合する。
   - 主な生成先は `12_merged_questionType/`、`20_merged_1/`、`30_merged_2/`。
 - `convert/`
   - merged JSON を Firestore schema 向け JSON へ変換する。
