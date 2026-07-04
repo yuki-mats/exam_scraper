@@ -1,5 +1,9 @@
 # データモデル
 
+過去問整備で人間が最初に参照する field 契約は
+[`question_field_contract.md`](/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md)
+を正本とする。この文書は Firestore 全体の構造メモとして残す。
+
 =========================================
 【重要】Firestore スキーマ設計思想（Architecture Decision Record）
 =========================================

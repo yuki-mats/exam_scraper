@@ -36,6 +36,8 @@
   `/Users/yuki/development/exam_scraper/scripts/scrape/common.py`
 - Firestore 前処理:
   `/Users/yuki/development/exam_scraper/scripts/pipeline/prepare_firestore_upload.py`
+- 過去問 field 契約:
+  `/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md`
 - merge:
   `/Users/yuki/development/exam_scraper/scripts/merge/00_merge_all.py`
 - upload:

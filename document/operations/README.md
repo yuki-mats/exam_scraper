@@ -15,6 +15,9 @@
   - prompt の入力正本や出力先を変更した場合はここも直す。
 - [google_drive_stream_migration.md](google_drive_stream_migration.md)
   - Google Drive stream 配下へ段階移行するときの検証手順とロールバック手順。
+- [../reference/question_field_contract.md](/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md)
+  - 過去問データの共通フィールド契約。Firestore キー、型、DB 必須/整備必須、nullable、enum、資格固有ルールとの境界を確認する入口。
+  - `questionType`、`correctChoiceText`、`lawReferences`、`suggestedQuestions` など、資格ごとに意味が揺れると困る field はここを正本として見る。
 
 ## goal テンプレート
 
@@ -28,3 +31,4 @@
 - `document/notes/` は調査メモ・履歴メモとして扱い、日常運用の正本にはしない。
 - 新しい運用ルールを追加するときは、まず全体フロー、次に goal 運用、最後に prompt テンプレートの順で整合させる。
 - prompt や scripts の責務を変えた場合は、関連する README も同時に更新する。
+- 共通 field の追加・削除・意味変更をする場合は、必ず `document/reference/question_field_contract.md` も更新する。

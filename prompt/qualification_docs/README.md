@@ -4,6 +4,8 @@
 
 各資格に共通する `category.json` の分類・命名・Firestore 取り込み方針は、まず [category_taxonomy_policy.md](/Users/yuki/development/exam_scraper/prompt/qualification_docs/category_taxonomy_policy.md) を正本として参照する。
 
+過去問データの共通 field、Firestore 上のキー名、型、必須/任意、nullable、`questionType` enum、`lawReferences` の形は、資格別資料ではなく [question_field_contract.md](/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md) を正本として参照する。資格別資料では、共通 field の意味を上書きせず、法令スコープ、カテゴリ粒度、出題傾向、解説方針だけを書く。
+
 ## 役割の優先順位
 - 主用途は `03_prompt_add_explanationText.md`
   - 資格ごとの傾向に合わせて、解説文をより学習効果の高い内容にするために使う
