@@ -189,6 +189,8 @@
 ### 法令監査の記録ルール
 
 - 法令問題は、資格別の `prompt/qualification_docs/<qualification>/...law_reference...md` を先に確認する。
+- 通常の03作業で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に切り出す。
+- 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。
 - 更新した場合は、ユーザーに分かるように次を残す。
   - `explanationText`: 出題当時の正答と、現行法ベースに更新した注記。
@@ -197,6 +199,17 @@
   - `lawReferences`: `current_basis` と必要に応じて `exam_time_basis`。
   - review sidecar: 参照元、判断者、未確認点。
 - 根拠条文が不要な問題では `lawGroundedExplanationNotNeeded=true` を使える。ただし、条文に基づく正誤問題でこのフラグを使ってはいけない。
+
+### アプリ表示への接続メモ
+
+現行法ベースへ更新した問題では、アプリ上でもユーザーが「出題当時の正答」と「現行法ベースの学習上の扱い」を区別できる必要があります。現行 schema では専用 field を増やさず、まず次の既存データから実装へつなげます。
+
+- `explanationText` に「現行法に合わせて更新済み」「出題当時の公式正答とは異なる場合がある」という趣旨の短い注記を入れる。
+- `suggestedQuestions` / `suggestedQuestionDetails` に、出題当時と現行法の違いを確認できる質問と回答を入れる。
+- `lawReferences` は `role="current_basis"` と `role="exam_time_basis"` を分け、差分がある場合は `comparisonStatus="differs_from_current"` と `differenceNote` を残す。
+- 年次監査 sidecar では `userVisibleNoticeRequired=true` を残し、将来のUI実装・監査対象抽出に使えるようにする。
+
+repaso 側で UI を実装する場合は、解説画面に小さな注記またはバッジとして「現行法に合わせて更新済み」「出題当時法令と現行法に差分あり」を表示し、タップ時に `suggestedQuestionDetails` 相当の短い説明と `lawReferences` の根拠へ進める体験を基本にします。専用 field を追加する場合は、`lawAnswerBasis`、`lawAnswerUpdatedFromExamTime`、`originalExamTimeCorrectChoiceText`、`lawAnswerUpdateNote` などを候補にし、Firestore rules / typed model / schema validation / app UI を同時に更新します。
 
 ## `suggestedQuestions` / `suggestedQuestionDetails` 契約
 
