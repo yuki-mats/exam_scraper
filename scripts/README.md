@@ -1,6 +1,8 @@
 # scripts
 
-`exam_scraper` の運用スクリプト置き場です。日常運用の全体手順は [document/operations/exam_pipeline_manual_and_automation.md](/Users/yuki/development/exam_scraper/document/operations/exam_pipeline_manual_and_automation.md) を正本にします。
+`exam_scraper` の内部実装・互換入口・個別補助スクリプト置き場です。
+
+日常運用で直接使う入口は [tools/question_bank](/Users/yuki/development/exam_scraper/tools/question_bank/README.md) です。全体手順は [document/operations/exam_pipeline_manual_and_automation.md](/Users/yuki/development/exam_scraper/document/operations/exam_pipeline_manual_and_automation.md) を正本にします。
 
 ## ディレクトリ
 
@@ -15,7 +17,8 @@
 - `pipeline/`
   - merge、convert、category count 更新、upload dry-run などをまとめて実行する。
 - `check/`
-  - patch coverage、required fields、questionSetId、Firestore schema などを検証する。
+  - patch coverage、required fields、questionSetId、Firestore schema などの実装を置く。
+  - 日常チェックは `python tools/question_bank/question_bank.py quality-gate ...` を使う。
 - `fix/`
   - patch 作業の退避、最小 JSON の正式化、画像 URL 正規化などの補助処理を置く。
   - `fix/README.md` に使用可否と注意点を明記する。
@@ -30,4 +33,5 @@
 - `output/`、`tmp_ai_raw/`、`archive/`、`scratch/` は生成物または一時作業用であり、Git 管理しない。
 - patch 本文を量産する目的で Python を使わない。厳密レビューでは Codex/Worker が対象資格の専門家・問題作成者・参考書著者の観点で一問ずつ本文を判断する。
 - スクリプトで許容するのは、退避、最小 JSON の補完、merge、convert、検証、upload dry-run、本番 upload。
+- ユーザー向けの新しい日常コマンドを増やす場合は、まず `tools/question_bank/question_bank.py` のサブコマンドとして追加する。
 - 本番 upload は dry-run と schema validation を通した後に実行する。

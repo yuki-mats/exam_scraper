@@ -45,7 +45,7 @@
 ```
 
 - `question_url` はAIが出力しない。
-- `question_url` は後段の `materialize_minimal_patch.py` で補完する。
+- `question_url` は後段の `tools/question_bank/question_bank.py materialize-patch` で補完する。
 - `questionSetName`、`questionBodyText`、`update_reason` はJSONに含めない。
 
 ## 推奨作業順
@@ -55,9 +55,9 @@
 4. まず `questionBodyText` だけで仮分類する。
 5. 類似カテゴリが複数あり得る設問だけ `choiceTextList` まで読む。
 6. `original_question_id + questionSetId` の最小raw JSONを作る。
-7. `materialize_minimal_patch.py --task question_set` で正式パッチに変換する。
-8. `check_question_set_patch_coverage.py` で件数・順序・ID妥当性を確認する。
-9. `check_questionSetId.py` で `category.json` との整合を確認する。
+7. `tools/question_bank/question_bank.py materialize-patch --task question_set` で正式パッチに変換する。
+8. `tools/question_bank/question_bank.py check-question-set-patch` で件数・順序・ID妥当性を確認する。
+9. 最終的には `tools/question_bank/question_bank.py quality-gate` を通す。
 10. 判定がぶれる設問が複数出たら、`prompt/04_prompt_link_questionSetId.md` または `category.json` の説明を改善してから再実行する。
 
 ## 5.5 high 再確認フラグ sidecar
@@ -244,7 +244,7 @@ python3 scripts/fix/archive_patch_outputs.py \
 
 ### 2. AI生出力を正式パッチJSONへ補完
 ```bash
-python3 scripts/fix/materialize_minimal_patch.py \
+python3 tools/question_bank/question_bank.py materialize-patch \
   --task question_set \
   --source /absolute/path/to/question_*_merged.json \
   --raw /absolute/path/to/raw_questionSetId.json \
@@ -253,7 +253,7 @@ python3 scripts/fix/materialize_minimal_patch.py \
 
 ### 3. カバレッジ検証
 ```bash
-python3 scripts/check/check_question_set_patch_coverage.py \
+python3 tools/question_bank/question_bank.py check-question-set-patch \
   --source /absolute/path/to/question_*_merged.json \
   --patch /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked.json \
   --category /absolute/path/to/category.json \
@@ -262,12 +262,9 @@ python3 scripts/check/check_question_set_patch_coverage.py \
 
 ### 4. 最終検証
 ```bash
-python3 scripts/check/check_questionSetId.py \
-  --category /absolute/path/to/category.json \
-  --original /absolute/path/to/question_*_merged.json \
-  --fixed /absolute/path/to/22_questionSetId_linked/question_*_questionSetId_linked.json \
-  --compare-count \
-  --questionset-only
+python3 tools/question_bank/question_bank.py quality-gate \
+  --qualification <qualification> \
+  --list-group-id <list_group_id>
 ```
 
 ## 成功条件
@@ -275,4 +272,4 @@ python3 scripts/check/check_questionSetId.py \
 - 出力ファイル名は `{元ファイル名}_questionSetId_linked.json`
 - すべての出力で、元ファイルとの件数・順序・`original_question_id` が一致している
 - `questionSetId` は `""` または `category.json` 内の有効IDのみ
-- `check_question_set_patch_coverage.py` と `check_questionSetId.py` の終了コードがどちらも `0`
+- `check-question-set-patch` と `quality-gate` の終了コードがどちらも `0`

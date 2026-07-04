@@ -128,9 +128,8 @@ merge が生成する主な出力:
 
 - `scripts/merge/00_merge_all.py`
 - `scripts/pipeline/prepare_firestore_upload.py`
-- `scripts/check/check_required_fields.py`
-- `scripts/check/check_explanation_patch_coverage.py`
-- `scripts/check/check_question_set_patch_coverage.py`
+- `tools/question_bank/question_bank.py quality-gate`
+  - 内部で required fields、explanation patch coverage、questionSetId patch coverage、Firestore dry-run をまとめて確認する。
 
 この層はかなり自動化されており、goal に載せやすい。
 

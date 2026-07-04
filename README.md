@@ -6,6 +6,7 @@
 
 スクレイピングから Firestore upload までの正本フローは次を参照してください。
 
+- [過去問整備の統一CLI](/Users/yuki/development/exam_scraper/tools/question_bank/README.md)
 - [運用ドキュメント一覧](/Users/yuki/development/exam_scraper/document/operations/README.md)
 - [全体フロー](/Users/yuki/development/exam_scraper/document/operations/exam_pipeline_manual_and_automation.md)
 - [goal 駆動の日次更新フロー](/Users/yuki/development/exam_scraper/document/operations/goal_driven_update_workflow.md)
@@ -14,7 +15,8 @@
 ## 管理対象
 
 - `code.py`: 問題ページの取得処理
-- `scripts/`: 変換、検証、マージ、Firestore/Storage アップロード用スクリプト
+- `tools/`: 日常運用で直接使う統一CLI
+- `scripts/`: 変換、検証、マージ、Firestore/Storage アップロード用の内部実装・互換入口
 - `tests/`: 変換・検証処理のテスト
 - `config/`: 資格ごとの設定
 - `document/`: 運用メモとデータモデル
@@ -30,6 +32,14 @@
 - 品質更新: `10_questionType_fixed/`、`15_correctChoiceText_fixed/`、`23_correctChoiceText_fixed/`、`21_explanationText_added/` などの patch を、対象資格の専門家・問題作成者・参考書著者の観点で一問ずつ見直す
 - 公開準備: `00_merge_all.py` と `prepare_firestore_upload.py` で `30_merged_2/`、`40_convert/`、`upload_to_firestore/` を更新する
 - 公開: Storage 画像、category、questions の順に dry-run してから upload する
+
+各工程の機械チェックは、個別 script を探さず次を入口にします。
+
+```bash
+python3 tools/question_bank/question_bank.py quality-gate \
+  --qualification <qualification_code> \
+  --list-group-id <list_group_id>
+```
 
 厳密な正答精度を狙う品質更新では、`docs/goals/templates/manual-patch-quality/` をコピーし、`1 Worker = 1問` で進めます。
 

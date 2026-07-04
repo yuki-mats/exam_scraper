@@ -683,7 +683,7 @@ AI が最初に作る JSON は、原則として次の最小形式でよい。
 その後、必要に応じて次で `question_url` を補完する。
 
 ```bash
-python3 scripts/fix/materialize_minimal_patch.py \
+python3 tools/question_bank/question_bank.py materialize-patch \
   --task explanation \
   --source /path/to/question_*_merged.json \
   --raw /path/to/raw.json \
@@ -752,7 +752,7 @@ python3 scripts/fix/archive_patch_outputs.py \
 検証コマンド:
 
 ```bash
-python3 scripts/check/check_explanation_patch_coverage.py \
+python3 tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
   --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json
 ```
@@ -760,7 +760,7 @@ python3 scripts/check/check_explanation_patch_coverage.py \
 `lawGroundedExplanationNotNeeded` を全件必須にする資格では、次のオプションも付ける。
 
 ```bash
-python3 scripts/check/check_explanation_patch_coverage.py \
+python3 tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
   --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json \
   --require-law-grounded-flag

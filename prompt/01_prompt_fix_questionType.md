@@ -28,8 +28,8 @@
 
 【省トークン運用（推奨）】
 - 生成AIが直接出力する JSON は、**`original_question_id` と `questionType` の 2フィールドだけ**を持つ最小形式にすること。
-- `questionBodyText`、`choiceTextList`、`question_url` は AI が再出力せず、ローカル補完スクリプト  
-  `python3 scripts/fix/materialize_minimal_patch.py --task question_type ...`  
+- `questionBodyText`、`choiceTextList`、`question_url` は AI が再出力せず、ローカル補完スクリプト
+  `python3 tools/question_bank/question_bank.py materialize-patch --task question_type ...`
   で `00_source` から付与すること。
 - 以降の「パッチJSON」は、特記がない限り **AI生出力（最小JSON）** ではなく、上記スクリプトで補完した **正式パッチJSON** を指す。
 
@@ -45,7 +45,7 @@
 
 [書き込み（生成）してよいファイル]
 - まず AI 生出力として、各 `question_*_*.json` から導出した **`original_question_id` と `questionType` だけ**を持つ最小JSONを作成してよい。
-- その後、`scripts/fix/materialize_minimal_patch.py` で正式パッチJSONを生成すること。
+- その後、`tools/question_bank/question_bank.py materialize-patch` で正式パッチJSONを生成すること。
 - **必ず `list_group_id` のディレクトリ配下に `10_questionType_fixed/` フォルダを作成（存在しなければ作成）し、その中に保存すること。**
 - **出力は固定ファイル名にし、既存の同名パッチがある場合は上書きすること。** 作業のたびにタイムスタンプ付きファイルを増やさない。
   - 例: 元ファイルが  
@@ -71,7 +71,7 @@
 - JSON はプレーンな JSON とし、`//` や `/* */` などのコメントを一切入れない。
 
 [正式パッチJSONの構造]
-- `scripts/fix/materialize_minimal_patch.py` 実行後の正式パッチJSONは、以下の **5フィールドのみ** をこの順序で持つ：
+- `tools/question_bank/question_bank.py materialize-patch` 実行後の正式パッチJSONは、以下の **5フィールドのみ** をこの順序で持つ：
   - `questionBodyText`
   - `choiceTextList`
   - `questionType`
@@ -111,7 +111,7 @@ PY
 ```
 - 次に、AI生出力を正式パッチJSONへ補完すること。
 ```bash
-python3 scripts/fix/materialize_minimal_patch.py \
+python3 tools/question_bank/question_bank.py materialize-patch \
   --task question_type \
   --source /path/to/00_source/question_*.json \
   --raw /path/to/raw.json \
@@ -119,7 +119,7 @@ python3 scripts/fix/materialize_minimal_patch.py \
 ```
 - 出力後に必ず以下を実行し、通過するまで出力を修正すること。
 ```bash
-python scripts/check/check_questiontype_patch_coverage.py \
+python tools/question_bank/question_bank.py check-question-type-patch \
   --source /path/to/question_*.json \
   --patch /path/to/10_questionType_fixed/question_*_questionType_fixed.json
 ```
@@ -465,7 +465,7 @@ python scripts/check/check_questiontype_patch_coverage.py \
    - 選択肢が完結した記述文か。  
    - 選択肢が記号ラベル（`A/B/C...`、`ア/イ/...`）や数値候補のみなら、`flash_card` にすべきでないか。
 3. `true_false` の中に、図中ラベル選択・大小関係・計算結果候補の問題が残っていた場合は、必ず修正して再出力する。
-4. 各ファイルで `check_questiontype_patch_coverage.py --source ... --patch ...` を再実行し、全件 `[OK]` を確認する。
+4. 各ファイルで `tools/question_bank/question_bank.py check-question-type-patch --source ... --patch ...` を再実行し、全件 `[OK]` を確認する。
 5. 上記 1〜4 が完了してはじめて「作業完了」とする。
 
 

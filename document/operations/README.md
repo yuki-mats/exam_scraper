@@ -7,6 +7,9 @@
 - [exam_pipeline_manual_and_automation.md](/Users/yuki/development/exam_scraper/document/operations/exam_pipeline_manual_and_automation.md)
   - スクレイピング、patch、merge、convert、Storage / Firestore upload までの全体フロー。
   - フォルダ構成、主要コマンド、出力先、注意点を更新する場合はここを最初に直す。
+- [../../tools/question_bank/README.md](/Users/yuki/development/exam_scraper/tools/question_bank/README.md)
+  - 日常運用で直接叩く統一CLI。
+  - 個別 script を増やす前に、ここから辿れるサブコマンドにできないか確認する。
 - [goal_driven_update_workflow.md](/Users/yuki/development/exam_scraper/document/operations/goal_driven_update_workflow.md)
   - `qualification_code` / `list_group_id` / `question` 単位で goal に載せるための運用設計。
   - 日次更新や厳密レビューの粒度を変更する場合はここを直す。
@@ -18,7 +21,7 @@
 - [../reference/question_field_contract.md](/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md)
   - 過去問データの共通フィールド契約。Firestore キー、型、DB 必須/整備必須、nullable、enum、資格固有ルールとの境界を確認する入口。
   - `questionType`、`correctChoiceText`、`lawReferences`、`suggestedQuestions` など、資格ごとに意味が揺れると困る field はここを正本として見る。
-  - 毎回の機械チェックは `python scripts/check/run_question_quality_gate.py --qualification <qualification> --list-group-id <list_group_id>` を入口にする。
+  - 毎回の機械チェックは `python tools/question_bank/question_bank.py quality-gate --qualification <qualification> --list-group-id <list_group_id>` を入口にする。
 
 ## goal テンプレート
 
@@ -32,4 +35,5 @@
 - `document/notes/` は調査メモ・履歴メモとして扱い、日常運用の正本にはしない。
 - 新しい運用ルールを追加するときは、まず全体フロー、次に goal 運用、最後に prompt テンプレートの順で整合させる。
 - prompt や scripts の責務を変えた場合は、関連する README も同時に更新する。
+- 日常的に使う新しい検証・補助コマンドは、分散させず `tools/question_bank` から辿れるようにする。
 - 共通 field の追加・削除・意味変更をする場合は、必ず `document/reference/question_field_contract.md` も更新する。

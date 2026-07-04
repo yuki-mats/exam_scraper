@@ -36,6 +36,8 @@
   `/Users/yuki/development/exam_scraper/scripts/scrape/common.py`
 - Firestore 前処理:
   `/Users/yuki/development/exam_scraper/scripts/pipeline/prepare_firestore_upload.py`
+- 日常整備の統一CLI:
+  `/Users/yuki/development/exam_scraper/tools/question_bank/question_bank.py`
 - 過去問 field 契約:
   `/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md`
 - merge:
@@ -159,11 +161,10 @@ python3 code.py 85010
    - 既定は `python3 -m unittest discover -s tests -p 'test_*.py'`
    - ライブ依存テストは `RUN_LIVE_TESTS=1` の時だけ走るようにする（サイト改修で壊れやすいため）
 5) 最小の手動検証
-   - スクレイピング直後（カテゴリ/questionSetId 連携前）:
-     - `python3 scripts/check/check_required_fields.py --base-dir output/<qualification>/questions_json --stage source`
-   - `question_set` patch（`22_questionSetId_linked/`）を作成し、merge 反映後:
-     - `python3 scripts/check/check_required_fields.py --base-dir output/<qualification>/questions_json --stage firestore`
-     - `python3 scripts/pipeline/prepare_firestore_upload.py <list_group_id> -b output/<qualification>/questions_json --dry-run`
+   - スクレイピング直後（カテゴリ/questionSetId 連携前）は source 必須項目だけを見る:
+     - `python3 tools/question_bank/question_bank.py quality-gate --qualification <qualification> --list-group-id <list_group_id> --mode required`
+   - `question_set` patch（`22_questionSetId_linked/`）を作成し、merge 反映後は標準ゲートを通す:
+     - `python3 tools/question_bank/question_bank.py quality-gate --qualification <qualification> --list-group-id <list_group_id>`
 
 注意:
 - `questionSetId` はカテゴリ作成/リンク工程の責務で、スクレイピング直後の convert 出力では空になり得る。
@@ -225,9 +226,14 @@ patch 作成後は、必要な check を通したうえで merge に進む。`ex
 品質判断そのものを Python で量産しない。Python を使ってよい範囲は、退避、最小 JSON の正式化、merge、convert、下書き補完、coverage check、schema validation、upload dry-run / upload です。
 
 - `scripts/fix/archive_patch_outputs.py`: 既存 patch の退避
-- `scripts/fix/materialize_minimal_patch.py`: AI 最小 JSON から正式 patch JSON への補完
+- `tools/question_bank/question_bank.py materialize-patch`: AI 最小 JSON から正式 patch JSON への補完
 - `scripts/fix/auto_assign_correct_choice_text.py`: `correctChoiceText` の下書き補完
-- `scripts/check/*`: coverage / required fields / schema 検証
+
+日常運用の検証入口は次に統一する。
+
+- `tools/question_bank/question_bank.py quality-gate`: coverage / required fields / schema 検証の標準入口
+
+`scripts/check/*` は上記CLIから呼ばれる内部実装または互換入口として扱う。
 
 `scripts/fix/README.md` に legacy / 注意対象の補助スクリプトを明記している。日常運用では README の分類を確認してから使う。
 
