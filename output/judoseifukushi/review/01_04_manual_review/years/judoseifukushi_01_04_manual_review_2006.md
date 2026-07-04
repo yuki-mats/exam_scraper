@@ -960,7 +960,7 @@
 - question: 問226 / https://kurohon.jp/gakusei/exams_js/js_14/#q226
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_06`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -998,7 +998,7 @@
 - question: 問227 / https://kurohon.jp/gakusei/exams_js/js_14/#q227
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_12`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1036,7 +1036,7 @@
 - question: 問228 / https://kurohon.jp/gakusei/exams_js/js_14/#q228
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs11_20`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1074,7 +1074,7 @@
 - question: 問229 / https://kurohon.jp/gakusei/exams_js/js_14/#q229
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_12`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -1112,7 +1112,7 @@
 - question: 問230 / https://kurohon.jp/gakusei/exams_js/js_14/#q230
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_24`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -4950,8 +4950,8 @@
 - question: 問126 / https://kurohon.jp/gakusei/exams_js/js_14/#q126
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs12_01`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -4988,8 +4988,8 @@
 - question: 問127 / https://kurohon.jp/gakusei/exams_js/js_14/#q127
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs01_05`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5026,8 +5026,8 @@
 - question: 問128 / https://kurohon.jp/gakusei/exams_js/js_14/#q128
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs12_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5064,8 +5064,8 @@
 - question: 問129 / https://kurohon.jp/gakusei/exams_js/js_14/#q129
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs12_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5102,8 +5102,8 @@
 - question: 問130 / https://kurohon.jp/gakusei/exams_js/js_14/#q130
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs10_05`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5140,8 +5140,8 @@
 - question: 問131 / https://kurohon.jp/gakusei/exams_js/js_14/#q131
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs10_01`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5178,8 +5178,8 @@
 - question: 問132 / https://kurohon.jp/gakusei/exams_js/js_14/#q132
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs10_06`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5216,8 +5216,8 @@
 - question: 問133 / https://kurohon.jp/gakusei/exams_js/js_14/#q133
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs10_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5254,8 +5254,8 @@
 - question: 問134 / https://kurohon.jp/gakusei/exams_js/js_14/#q134
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs10_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5292,8 +5292,8 @@
 - question: 問135 / https://kurohon.jp/gakusei/exams_js/js_14/#q135
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs10_05`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5330,8 +5330,8 @@
 - question: 問136 / https://kurohon.jp/gakusei/exams_js/js_14/#q136
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs10_05`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5368,8 +5368,8 @@
 - question: 問137 / https://kurohon.jp/gakusei/exams_js/js_14/#q137
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs10_05`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5406,8 +5406,8 @@
 - question: 問138 / https://kurohon.jp/gakusei/exams_js/js_14/#q138
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs10_07`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5444,8 +5444,8 @@
 - question: 問139 / https://kurohon.jp/gakusei/exams_js/js_14/#q139
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs10_07`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5482,8 +5482,8 @@
 - question: 問140 / https://kurohon.jp/gakusei/exams_js/js_14/#q140
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs10_07`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5520,8 +5520,8 @@
 - question: 問141 / https://kurohon.jp/gakusei/exams_js/js_14/#q141
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs10_07`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5558,8 +5558,8 @@
 - question: 問142 / https://kurohon.jp/gakusei/exams_js/js_14/#q142
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5596,8 +5596,8 @@
 - question: 問143 / https://kurohon.jp/gakusei/exams_js/js_14/#q143
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5634,8 +5634,8 @@
 - question: 問144 / https://kurohon.jp/gakusei/exams_js/js_14/#q144
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5672,8 +5672,8 @@
 - question: 問145 / https://kurohon.jp/gakusei/exams_js/js_14/#q145
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_14`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5710,8 +5710,8 @@
 - question: 問146 / https://kurohon.jp/gakusei/exams_js/js_14/#q146
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5748,8 +5748,8 @@
 - question: 問147 / https://kurohon.jp/gakusei/exams_js/js_14/#q147
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5786,8 +5786,8 @@
 - question: 問148 / https://kurohon.jp/gakusei/exams_js/js_14/#q148
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5824,8 +5824,8 @@
 - question: 問149 / https://kurohon.jp/gakusei/exams_js/js_14/#q149
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5862,8 +5862,8 @@
 - question: 問150 / https://kurohon.jp/gakusei/exams_js/js_14/#q150
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5900,8 +5900,8 @@
 - question: 問151 / https://kurohon.jp/gakusei/exams_js/js_14/#q151
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5938,8 +5938,8 @@
 - question: 問152 / https://kurohon.jp/gakusei/exams_js/js_14/#q152
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -5976,8 +5976,8 @@
 - question: 問153 / https://kurohon.jp/gakusei/exams_js/js_14/#q153
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6014,8 +6014,8 @@
 - question: 問154 / https://kurohon.jp/gakusei/exams_js/js_14/#q154
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6052,8 +6052,8 @@
 - question: 問155 / https://kurohon.jp/gakusei/exams_js/js_14/#q155
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs03_02`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6090,8 +6090,8 @@
 - question: 問156 / https://kurohon.jp/gakusei/exams_js/js_14/#q156
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs03_09`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6128,8 +6128,8 @@
 - question: 問157 / https://kurohon.jp/gakusei/exams_js/js_14/#q157
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs03_09`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6166,8 +6166,8 @@
 - question: 問158 / https://kurohon.jp/gakusei/exams_js/js_14/#q158
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6204,8 +6204,8 @@
 - question: 問159 / https://kurohon.jp/gakusei/exams_js/js_14/#q159
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_11`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6242,8 +6242,8 @@
 - question: 問160 / https://kurohon.jp/gakusei/exams_js/js_14/#q160
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6280,8 +6280,8 @@
 - question: 問161 / https://kurohon.jp/gakusei/exams_js/js_14/#q161
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs07_04`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6318,8 +6318,8 @@
 - question: 問162 / https://kurohon.jp/gakusei/exams_js/js_14/#q162
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_14`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6356,8 +6356,8 @@
 - question: 問163 / https://kurohon.jp/gakusei/exams_js/js_14/#q163
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_14`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6394,8 +6394,8 @@
 - question: 問164 / https://kurohon.jp/gakusei/exams_js/js_14/#q164
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs08_01`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6432,8 +6432,8 @@
 - question: 問165 / https://kurohon.jp/gakusei/exams_js/js_14/#q165
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs05_07`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6470,8 +6470,8 @@
 - question: 問166 / https://kurohon.jp/gakusei/exams_js/js_14/#q166
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs05_09`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6508,8 +6508,8 @@
 - question: 問167 / https://kurohon.jp/gakusei/exams_js/js_14/#q167
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs08_14`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6546,8 +6546,8 @@
 - question: 問168 / https://kurohon.jp/gakusei/exams_js/js_14/#q168
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs05_05`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6584,8 +6584,8 @@
 - question: 問169 / https://kurohon.jp/gakusei/exams_js/js_14/#q169
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs08_18`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6622,8 +6622,8 @@
 - question: 問170 / https://kurohon.jp/gakusei/exams_js/js_14/#q170
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs08_10`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6660,8 +6660,8 @@
 - question: 問171 / https://kurohon.jp/gakusei/exams_js/js_14/#q171
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs08_01`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6698,8 +6698,8 @@
 - question: 問172 / https://kurohon.jp/gakusei/exams_js/js_14/#q172
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs08_13`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6736,8 +6736,8 @@
 - question: 問173 / https://kurohon.jp/gakusei/exams_js/js_14/#q173
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs08_14`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6774,8 +6774,8 @@
 - question: 問174 / https://kurohon.jp/gakusei/exams_js/js_14/#q174
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs08_18`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6812,8 +6812,8 @@
 - question: 問175 / https://kurohon.jp/gakusei/exams_js/js_14/#q175
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_13`
-- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": true, "explanationTextPresent": true, "questionIntentPresent": true, "questionSetIdPresent": true, "questionTypePresent": true}`
+- questionSetId: `pending`
+- autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
 
@@ -6850,7 +6850,7 @@
 - question: 問176 / https://kurohon.jp/gakusei/exams_js/js_14/#q176
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_10`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -6888,7 +6888,7 @@
 - question: 問177 / https://kurohon.jp/gakusei/exams_js/js_14/#q177
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_12`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -6926,7 +6926,7 @@
 - question: 問178 / https://kurohon.jp/gakusei/exams_js/js_14/#q178
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_09`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -6964,7 +6964,7 @@
 - question: 問179 / https://kurohon.jp/gakusei/exams_js/js_14/#q179
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs03_09`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7002,7 +7002,7 @@
 - question: 問180 / https://kurohon.jp/gakusei/exams_js/js_14/#q180
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_06`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7040,7 +7040,7 @@
 - question: 問181 / https://kurohon.jp/gakusei/exams_js/js_14/#q181
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_10`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7078,7 +7078,7 @@
 - question: 問182 / https://kurohon.jp/gakusei/exams_js/js_14/#q182
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_10`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7116,7 +7116,7 @@
 - question: 問183 / https://kurohon.jp/gakusei/exams_js/js_14/#q183
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_14`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7154,7 +7154,7 @@
 - question: 問184 / https://kurohon.jp/gakusei/exams_js/js_14/#q184
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_13`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7192,7 +7192,7 @@
 - question: 問185 / https://kurohon.jp/gakusei/exams_js/js_14/#q185
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_04`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7230,7 +7230,7 @@
 - question: 問186 / https://kurohon.jp/gakusei/exams_js/js_14/#q186
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_05`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7268,7 +7268,7 @@
 - question: 問187 / https://kurohon.jp/gakusei/exams_js/js_14/#q187
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs11_06`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7306,7 +7306,7 @@
 - question: 問188 / https://kurohon.jp/gakusei/exams_js/js_14/#q188
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_07`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7344,7 +7344,7 @@
 - question: 問189 / https://kurohon.jp/gakusei/exams_js/js_14/#q189
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs11_07`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7382,7 +7382,7 @@
 - question: 問190 / https://kurohon.jp/gakusei/exams_js/js_14/#q190
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs01_25`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7420,7 +7420,7 @@
 - question: 問191 / https://kurohon.jp/gakusei/exams_js/js_14/#q191
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs08_13`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7458,7 +7458,7 @@
 - question: 問192 / https://kurohon.jp/gakusei/exams_js/js_14/#q192
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs11_18`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7496,7 +7496,7 @@
 - question: 問193 / https://kurohon.jp/gakusei/exams_js/js_14/#q193
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_15`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7534,7 +7534,7 @@
 - question: 問194 / https://kurohon.jp/gakusei/exams_js/js_14/#q194
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs01_07`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7572,7 +7572,7 @@
 - question: 問195 / https://kurohon.jp/gakusei/exams_js/js_14/#q195
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_16`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7610,7 +7610,7 @@
 - question: 問196 / https://kurohon.jp/gakusei/exams_js/js_14/#q196
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_16`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7648,7 +7648,7 @@
 - question: 問197 / https://kurohon.jp/gakusei/exams_js/js_14/#q197
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_16`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7686,7 +7686,7 @@
 - question: 問198 / https://kurohon.jp/gakusei/exams_js/js_14/#q198
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_16`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7724,7 +7724,7 @@
 - question: 問199 / https://kurohon.jp/gakusei/exams_js/js_14/#q199
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_16`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7762,7 +7762,7 @@
 - question: 問200 / https://kurohon.jp/gakusei/exams_js/js_14/#q200
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs11_16`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7800,7 +7800,7 @@
 - question: 問201 / https://kurohon.jp/gakusei/exams_js/js_14/#q201
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_18`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7838,7 +7838,7 @@
 - question: 問202 / https://kurohon.jp/gakusei/exams_js/js_14/#q202
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_19`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7876,7 +7876,7 @@
 - question: 問203 / https://kurohon.jp/gakusei/exams_js/js_14/#q203
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_19`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7914,7 +7914,7 @@
 - question: 問204 / https://kurohon.jp/gakusei/exams_js/js_14/#q204
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_20`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7952,7 +7952,7 @@
 - question: 問205 / https://kurohon.jp/gakusei/exams_js/js_14/#q205
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs11_16`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -7990,7 +7990,7 @@
 - question: 問206 / https://kurohon.jp/gakusei/exams_js/js_14/#q206
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_20`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8028,7 +8028,7 @@
 - question: 問207 / https://kurohon.jp/gakusei/exams_js/js_14/#q207
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_21`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8066,7 +8066,7 @@
 - question: 問208 / https://kurohon.jp/gakusei/exams_js/js_14/#q208
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_21`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8104,7 +8104,7 @@
 - question: 問209 / https://kurohon.jp/gakusei/exams_js/js_14/#q209
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_22`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8142,7 +8142,7 @@
 - question: 問210 / https://kurohon.jp/gakusei/exams_js/js_14/#q210
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_23`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8180,7 +8180,7 @@
 - question: 問211 / https://kurohon.jp/gakusei/exams_js/js_14/#q211
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_23`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8218,7 +8218,7 @@
 - question: 問212 / https://kurohon.jp/gakusei/exams_js/js_14/#q212
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_24`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8256,7 +8256,7 @@
 - question: 問213 / https://kurohon.jp/gakusei/exams_js/js_14/#q213
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_23`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8294,7 +8294,7 @@
 - question: 問214 / https://kurohon.jp/gakusei/exams_js/js_14/#q214
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_23`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8332,7 +8332,7 @@
 - question: 問215 / https://kurohon.jp/gakusei/exams_js/js_14/#q215
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_10`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8370,7 +8370,7 @@
 - question: 問216 / https://kurohon.jp/gakusei/exams_js/js_14/#q216
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_17`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8408,7 +8408,7 @@
 - question: 問217 / https://kurohon.jp/gakusei/exams_js/js_14/#q217
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_17`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8446,7 +8446,7 @@
 - question: 問218 / https://kurohon.jp/gakusei/exams_js/js_14/#q218
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_14`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8484,7 +8484,7 @@
 - question: 問219 / https://kurohon.jp/gakusei/exams_js/js_14/#q219
 - questionType: `true_false`
 - questionIntent: `select_incorrect`
-- questionSetId: `judoseifukushi_qs09_20`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8522,7 +8522,7 @@
 - question: 問220 / https://kurohon.jp/gakusei/exams_js/js_14/#q220
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_22`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8560,7 +8560,7 @@
 - question: 問221 / https://kurohon.jp/gakusei/exams_js/js_14/#q221
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_18`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8598,7 +8598,7 @@
 - question: 問222 / https://kurohon.jp/gakusei/exams_js/js_14/#q222
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_19`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8636,7 +8636,7 @@
 - question: 問223 / https://kurohon.jp/gakusei/exams_js/js_14/#q223
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_14`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8674,7 +8674,7 @@
 - question: 問224 / https://kurohon.jp/gakusei/exams_js/js_14/#q224
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_14`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
@@ -8712,7 +8712,7 @@
 - question: 問225 / https://kurohon.jp/gakusei/exams_js/js_14/#q225
 - questionType: `true_false`
 - questionIntent: `select_correct`
-- questionSetId: `judoseifukushi_qs09_20`
+- questionSetId: `pending`
 - autoAudit: `{"answerResultTextPresent": true, "choiceCount": 4, "correctChoiceMatchesExpected": true, "correctChoiceReason": "", "explanationLengthMatchesChoices": false, "explanationTextPresent": false, "questionIntentPresent": true, "questionSetIdPresent": false, "questionTypePresent": true}`
 
 ### 問題文
