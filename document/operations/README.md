@@ -18,6 +18,7 @@
 - [../reference/question_field_contract.md](/Users/yuki/development/exam_scraper/document/reference/question_field_contract.md)
   - 過去問データの共通フィールド契約。Firestore キー、型、DB 必須/整備必須、nullable、enum、資格固有ルールとの境界を確認する入口。
   - `questionType`、`correctChoiceText`、`lawReferences`、`suggestedQuestions` など、資格ごとに意味が揺れると困る field はここを正本として見る。
+  - 毎回の機械チェックは `python scripts/check/run_question_quality_gate.py --qualification <qualification> --list-group-id <list_group_id>` を入口にする。
 
 ## goal テンプレート
 
