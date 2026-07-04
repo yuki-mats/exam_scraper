@@ -42,7 +42,7 @@
 - 条文丸写しにしない
 - まず受験者が現場で何を判断すべきかを平易に説明する
 - そのうえで、必要な法令名・条項を選択肢ごとの説明へ落とす
-- このタイプだけ `lawGroundedExplanationNotNeeded: false` を基本にする
+- このタイプだけ `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` を基本にする
 
 ## よくある誤答パターン
 

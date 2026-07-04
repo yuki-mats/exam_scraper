@@ -5,7 +5,7 @@
 ## 基本方針
 
 - 関係法規、医療概論、衛生学・公衆衛生学の一部では、法令・制度上の根拠確認が必要になる。
-- 法令条文が正誤判断に直接関わる場合は、`lawGroundedExplanationNotNeeded` を `false` にする。
+- 法令条文が正誤判断に直接関わる場合は、`isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にする。
 - 医学知識や東洋医学知識だけで判断できる問題では、無理に法令参照を作らない。
 - 現行法と出題当時法令を突き合わせ、現行法で正誤が明らかに変わる場合は現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
 - 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、review sidecar に残す。
@@ -43,6 +43,6 @@
 
 ## 迷った場合
 
-- `lawGroundedExplanationNotNeeded` は `false` に倒す。
+- `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` に倒す。
 - `lawReferences` は推測で入れず、条文を一次情報で確認できた場合だけ作る。
 - スコープ外の法令が必要になった場合は、問題文または選択肢上の根拠を確認し、この文書へ追記してから使う。

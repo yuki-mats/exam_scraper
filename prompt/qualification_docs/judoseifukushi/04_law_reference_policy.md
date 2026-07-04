@@ -5,8 +5,8 @@
 ## 基本方針
 
 - 関係法規、医療概論の制度論、衛生学・公衆衛生学の制度論では、法令や制度の原文確認が必要になる。
-- 法令名、制度名、届出先、免許主体、広告可否、罰則、業務範囲の境界が正誤判断に直結するなら、`lawGroundedExplanationNotNeeded` は `false` にする。
-- 純粋な解剖、生理、病理、整形外科、リハビリテーションの問題は、原則 `true` に倒してよい。
+- 法令名、制度名、届出先、免許主体、広告可否、罰則、業務範囲の境界が正誤判断に直結するなら、`isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にする。
+- 純粋な解剖、生理、病理、整形外科、リハビリテーションの問題は、原則 `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` に倒してよい。
 - 現行法と出題当時法令を突き合わせ、現行法で正誤が明らかに変わる場合は現行法ベースへ `correctChoiceText` / `explanationText` を更新する。
 - 更新した場合は、更新済みであること、出題当時の正答、現行法の根拠制度・条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、review sidecar に残す。
 - `question_url` や民間解説サイトは、法令根拠の代替にしない。
@@ -43,10 +43,10 @@
 - 法規問題では、主体、要件、例外、期限、届出先、罰則の有無を短く明示する。
 - 施設名、制度名、法律名の使い分けを混同させない。
 - 出題当時法と現行法で違いがある場合は、現行法での正誤、出題当時の正答、更新有無を分けて書く。
-- 迷う場合は `false` に倒し、必要なら外部 Web の一次情報で裏取りする。
+- 迷う場合は `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` に倒し、必要なら外部 Web の一次情報で裏取りする。
 
 ## 迷った場合
 
-- `lawGroundedExplanationNotNeeded` は `false` に倒す。
+- `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` に倒す。
 - 条文番号や制度名を確認できない推測は書かない。
 - スコープ外法令を使う必要が出たら、先にこの文書へ追記する。

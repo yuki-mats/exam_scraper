@@ -1,7 +1,7 @@
 # [システムプロンプト] explanationText / suggestedQuestions / suggestedQuestionDetails 手作業追加用
 （`question_*_merged.json` 専用）
 
-あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を学習効果が高い日本語で手作業記述し、あわせて「根拠条文から解説」機能を事前に非表示にしてよいかを `lawGroundedExplanationNotNeeded` で判定することです。
+あなたの役割は、リポジトリ内のローカル JSON を読み取り、各設問の `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` を学習効果が高い日本語で手作業記述し、あわせて法令・制度論点かどうかを `isLawRelated` で厳密に判定し、「根拠条文から解説」機能を事前に非表示にしてよいかを `lawGroundedExplanationNotNeeded` で判定することです。
 
 目的は、受験者が「正誤」と「その理由」を短時間で理解できる説明と、解説ページで次に押したくなる補足質問候補、およびその質問を押したときに即表示できる保存済み回答を残すことです。元ファイルの本文や順序は変更せず、差分 JSON だけを作成してください。
 
@@ -143,7 +143,7 @@
 - `suggestedQuestions` は必ず文字列配列にし、3 件を基本とする
 - `suggestedQuestionDetails` は必ず object 配列にし、`suggestedQuestions` と同じ長さ・同じ順序にする
 - `suggestedQuestionDetails` の各要素は `question` と `answer` を必須にする
-- 新規に作る各要素には `lawGroundedExplanationNotNeeded` を boolean で入れる。`true` は「根拠条文から解説」ボタンを事前に非表示にしてよい場合だけにする
+- 新規に作る各要素には `isLawRelated` と `lawGroundedExplanationNotNeeded` を boolean で入れる。`isLawRelated` は法令・制度論点かどうかの正本フラグであり、`lawGroundedExplanationNotNeeded` は原則その逆にする
 - 資格別方針で `lawReferences` を出す場合は、選択肢ごとの配列にし、外側配列の長さを `choiceTextList` と一致させる。各要素は、その選択肢に紐づく法令参照オブジェクト配列にする
 - 資格別方針で `lawReferences` を出す場合でも、法令問題でない場合、または法令条項を正誤判断の根拠にしない問題では `lawReferences` を作らず、省略する
 - 資格別方針で `lawReferences` を出す場合でも、特定の選択肢に紐づく検証済み条文がない場合、その選択肢の `lawReferences` は空配列 `[]` にする
@@ -154,14 +154,21 @@
 `mecnet-kokushi` では、最終成果物に `lawReferences` を入れない。アプリ側に「根拠条文から解説」機能があり、条文提示自体はそこで扱うためである。
 
 - ただし、制度・法令問題かどうかを判断するための一次情報確認は必要なら行う
-- `lawGroundedExplanationNotNeeded` は全問必須
-- 制度・法令・届出・義務・行政手続・法定基準が論点なら、原則 `false`
-- 純医学問題だけを保守的に `true`
+- `isLawRelated` と `lawGroundedExplanationNotNeeded` は全問必須
+- 制度・法令・届出・義務・行政手続・法定基準が論点なら、原則 `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false`
+- 純医学問題だけを保守的に `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true`
 - `mecnet-kokushi` では `lawReferences` を patch に含めない
 
-## `lawGroundedExplanationNotNeeded` の判定方針
+## `isLawRelated` / `lawGroundedExplanationNotNeeded` の判定方針
 
-`lawGroundedExplanationNotNeeded` は、アプリ側の「根拠条文から解説」ボタンを問題データの時点で非表示にし、ボタン押下時の Gemini 判定コストを減らすための保守的なフラグである。
+`isLawRelated` は、法令・政令・省令・告示・通達・条例・制度上の義務/定義/手続/数値基準が、正誤判断または学習上の主要理解に関係するかを表す正本フラグである。年次03b監査では、まず `isLawRelated=true` の問題を対象候補にする。
+
+`lawGroundedExplanationNotNeeded` は、アプリ側の「根拠条文から解説」ボタンを問題データの時点で非表示にし、ボタン押下時の Gemini 判定コストを減らすための従属フラグである。
+
+- `isLawRelated=true`: 法令・制度論点である。原則 `lawGroundedExplanationNotNeeded=false`
+- `isLawRelated=false`: 法令・制度論点ではない。原則 `lawGroundedExplanationNotNeeded=true`
+- `lawReferences` が非空なら、必ず `isLawRelated=true` かつ `lawGroundedExplanationNotNeeded=false`
+- `isLawRelated=false` の問題に `lawReferences` を入れてはいけない
 
 - `true`: 根拠条文・法令・制度文書を使った追加解説が明らかに不要で、ボタンを非表示にしてよい
 - `false`: 根拠条文からの追加解説が必要、または必要かもしれない、または判断に迷う
@@ -181,7 +188,7 @@
 - 法令ではなくても、行政文書・ガイドライン・制度基準の原文確認が学習上有用な問題
 - 一部の選択肢だけでも条文確認が有用な混在問題
 
-資格別方針で `lawReferences` を出す資格では、`lawReferences` が非空の問題で `lawGroundedExplanationNotNeeded: true` にしてはいけない。この2つが矛盾する場合は、`lawGroundedExplanationNotNeeded` を `false` にする。
+資格別方針で `lawReferences` を出す資格では、`lawReferences` が非空の問題で `isLawRelated: false` または `lawGroundedExplanationNotNeeded: true` にしてはいけない。この3つが矛盾する場合は、`isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にする。
 
 ## `explanationText` の品質定義
 
@@ -206,7 +213,7 @@
 
 条項は、判断根拠として使った選択肢の `explanationText` 内に書く（URLは書かない）。
 
-`mecnet-kokushi` では、法令・制度問題でも `lawReferences` 自体は出力しない。必要なのは、条文ベースの追加解説が要るかどうかを `lawGroundedExplanationNotNeeded` で誤判定しないことである。したがって、法令名や制度名は必要な範囲で `explanationText` に書いてよいが、条文紐付け JSON は作らない。
+`mecnet-kokushi` では、法令・制度問題でも `lawReferences` 自体は出力しない。必要なのは、法令・制度論点かどうかを `isLawRelated` で誤判定せず、条文ベースの追加解説が要る場合に `lawGroundedExplanationNotNeeded=false` とすることである。したがって、法令名や制度名は必要な範囲で `explanationText` に書いてよいが、条文紐付け JSON は作らない。
 
 ### 資格別の対象法令スコープ（`lawReferences` を出す資格では必須）
 
@@ -268,7 +275,7 @@
 - 出題当時法令も確認できた場合は、出題当時根拠を `role="exam_time_basis"` として入れ、`comparisonStatus="differs_from_current"` と `differenceNote` を付ける。
 - 5.5 high 再確認フラグ sidecar には、`reasonCategory` に `current_vs_historical_rule` を含め、`currentDecision` に「現行法に合わせて正誤更新した」こと、元の正誤、更新後の正誤、参照条項を残す。
 
-将来的に repaso 側の schema / Firestore rules / UI を更新する場合は、question 直下に次のような正式フラグを追加する。現時点の schema では未対応のため、これらを通常 upload 用 JSON に混入させてはいけない。
+`isLawRelated` は03以降の正式フラグとして通常 upload 用 JSON に残してよい。将来的に repaso 側の schema / Firestore rules / UI をさらに更新する場合は、question 直下に次のような現行法更新専用フラグを追加する。現時点ではこれらは未対応のため、通常 upload 用 JSON に混入させてはいけない。
 
 - `lawAnswerBasis`: `exam_time_law` / `current_law`
 - `lawAnswerUpdatedFromExamTime`: boolean
@@ -305,17 +312,17 @@
 
 `prompt/qualification_docs/<qualification>/` に法令参照の監査手順がある資格では、`lawReferences` の目視監査を `03_prompt_add_explanationText.md` の外部作業ではなく、解説作成フローの QA 工程として扱う。
 
-一方で、`mecnet-kokushi` のように `lawReferences` を最終成果物へ出さない資格では、ここで求める QA の中心は `lawGroundedExplanationNotNeeded` の保守的判定である。すなわち、制度・法令問題を `true` 側へ誤って倒さないことを最優先にする。
+一方で、`mecnet-kokushi` のように `lawReferences` を最終成果物へ出さない資格でも、ここで求める QA の中心は `isLawRelated` の厳密判定と `lawGroundedExplanationNotNeeded` の保守的判定である。すなわち、制度・法令問題を `isLawRelated=false` / `lawGroundedExplanationNotNeeded=true` 側へ誤って倒さないことを最優先にする。
 
 基本フローは次の通り。
 
 1. この `03_prompt_add_explanationText.md` と資格別補助資料を読む。
 2. 法令問題を扱う資格では、資格別方針を確認する。`lawReferences` を出す資格は対象法令スコープを確認し、未整備なら簡易スコープを作ってから進める。
-3. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / `lawGroundedExplanationNotNeeded` を作る。資格別方針で必要な場合だけ `lawReferences` も作る。
+3. `20_merged_1/question_*_merged.json` を起点に、`explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` / `isLawRelated` / `lawGroundedExplanationNotNeeded` を作る。資格別方針で必要な場合だけ `lawReferences` も作る。
 4. `lawReferences` を出す資格では、問題文・設問文・選択肢・解説文・法令文書本文を照合して作る。`lawId` が入っているだけでは合格にしない。
-5. `lawGroundedExplanationNotNeeded` の正誤判定や、`lawReferences` を出す資格での条文紐付けは、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・必要なら法令本文を目視で照合して判断する。
+5. `isLawRelated` / `lawGroundedExplanationNotNeeded` の判定や、`lawReferences` を出す資格での条文紐付けは、Python のキーワード一致・正規表現・XML 自動突合に任せない。必ず問題文・設問・選択肢・解説文・必要なら法令本文を目視で照合して判断する。
 6. Python スクリプトを使う場合は、台帳生成、JSON 構造チェック、必須フィールドの有無確認など、作業補助に限定する。Python の結果だけで `ok` / `needs_fix` / `verified` / `true` / `false` を決めてはいけない。
-7. 資格別の manual review sheet がある場合は生成し、1問ずつ `lawGroundedExplanationNotNeeded` が妥当か、また `lawReferences` を出す資格では選択肢の正誤根拠と一致するか目視確認する。
+7. 資格別の manual review sheet がある場合は生成し、1問ずつ `isLawRelated` / `lawGroundedExplanationNotNeeded` が妥当か、また `lawReferences` を出す資格では選択肢の正誤根拠と一致するか目視確認する。
 8. `needs_fix` がある場合は、JSON を場当たり的に直すのではなく、問題文・設問・選択肢・解説文・必要なら法令本文のどの照合で不一致が出たかを明記して修正する。
 9. manual review で全件 `ok` になったものだけを upload 対象にする。
 
@@ -630,8 +637,8 @@ python3 scripts/check/check_2nd_class_kenchikushi_law_reference_review_sheet.py 
 - sidecar は1行1問の JSONL とし、対象がない場合は作成しなくてよい。
 - sidecar の各行は次のフィールドを持つ:
 ```json
-{"original_question_id":"xxxx","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["missing_choice_snippets","primary_source_uncertain"],"currentDecision":{"lawGroundedExplanationNotNeeded":false},"reviewQuestion":"選択肢3の誤り理由が現行制度と出題当時制度で変わらないかを再確認する。","evidenceChecked":["20_merged_1","00_source","官公庁一次資料"],"notes":"explanation_choice_snippets が空で、一次情報では現行制度のみ確認できた。"}
-{"original_question_id":"yyyy","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["current_vs_historical_rule"],"currentDecision":{"lawGroundedExplanationNotNeeded":false,"updatedToCurrentLaw":true,"originalExamTimeCorrectChoiceText":"正しい","updatedCorrectChoiceText":"間違い","currentBasis":"○○法第○条","examTimeBasis":"出題当時の○○法第○条"},"reviewQuestion":"現行法に合わせて正誤更新した判断と、出題当時正答との差分注記が妥当かを再確認する。","evidenceChecked":["20_merged_1","00_source","e-Gov","Lawzilla"],"notes":"現行法では対象範囲が変更され、元の正答と逆になるため更新した。"}
+{"original_question_id":"xxxx","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["missing_choice_snippets","primary_source_uncertain"],"currentDecision":{"isLawRelated":true,"lawGroundedExplanationNotNeeded":false},"reviewQuestion":"選択肢3の誤り理由が現行制度と出題当時制度で変わらないかを再確認する。","evidenceChecked":["20_merged_1","00_source","官公庁一次資料"],"notes":"explanation_choice_snippets が空で、一次情報では現行制度のみ確認できた。"}
+{"original_question_id":"yyyy","reviewStage":"03_explanationText","needs55HighReview":true,"uncertaintyLevel":"high","reasonCategory":["current_vs_historical_rule"],"currentDecision":{"isLawRelated":true,"lawGroundedExplanationNotNeeded":false,"updatedToCurrentLaw":true,"originalExamTimeCorrectChoiceText":"正しい","updatedCorrectChoiceText":"間違い","currentBasis":"○○法第○条","examTimeBasis":"出題当時の○○法第○条"},"reviewQuestion":"現行法に合わせて正誤更新した判断と、出題当時正答との差分注記が妥当かを再確認する。","evidenceChecked":["20_merged_1","00_source","e-Gov","Lawzilla"],"notes":"現行法では対象範囲が変更され、元の正答と逆になるため更新した。"}
 ```
 - `reasonCategory` は、必要に応じて次から選ぶ:
   - `missing_common_summary`
@@ -654,6 +661,7 @@ AI が最初に作る JSON は、原則として次の最小形式でよい。
 [
   {
     "original_question_id": "xxxx",
+    "isLawRelated": false,
     "lawGroundedExplanationNotNeeded": true,
     "explanationText": [
       "正しい。\n\n理由を書く。",
@@ -721,7 +729,8 @@ python3 scripts/fix/archive_patch_outputs.py \
 - `suggestedQuestionDetails` が object 配列で、`suggestedQuestions` と件数・順序が一致しているか
 - `suggestedQuestionDetails[].question` が対応する `suggestedQuestions` と完全一致しているか
 - `suggestedQuestionDetails[].answer` が空でなく、質問に対する保存済み回答になっているか
-- `lawGroundedExplanationNotNeeded` が全件に入り、制度・法令問題を安易に `true` に倒していないか
+- `isLawRelated` が全件に入り、制度・法令問題を安易に `false` に倒していないか
+- `lawGroundedExplanationNotNeeded` が全件に入り、原則 `!isLawRelated` になっているか
 - 正しい選択肢で、正しい理由が具体的に書かれているか
 - 間違いの選択肢で、誤っている語句・条件・数値・関係が明示されているか
 - 間違いの選択肢で、正しい内容が書かれているか
@@ -756,15 +765,8 @@ python3 scripts/fix/archive_patch_outputs.py \
 ```bash
 python3 tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
-  --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json
-```
-
-`lawGroundedExplanationNotNeeded` を全件必須にする資格では、次のオプションも付ける。
-
-```bash
-python3 tools/question_bank/question_bank.py check-explanation-patch \
-  --source /path/to/question_*_merged.json \
   --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json \
+  --require-is-law-related \
   --require-law-grounded-flag
 ```
 

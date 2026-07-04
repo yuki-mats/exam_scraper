@@ -143,6 +143,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "suggestedQuestions",
         "suggestedQuestionDetails",
         "lawReferences",
+        "isLawRelated",
         "lawGroundedExplanationNotNeeded",
         "explanationImageUrls",
         "explanationImagePaths",
@@ -359,6 +360,12 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
             raise ValueError(f"questions:{doc_id} {list_key} must be list[str]|null")
     if "lawReferences" in doc and doc["lawReferences"] is not None and not _is_law_reference_list(doc["lawReferences"]):
         raise ValueError(f"questions:{doc_id} lawReferences must be list<object>|null")
+    if (
+        "isLawRelated" in doc
+        and doc["isLawRelated"] is not None
+        and not isinstance(doc["isLawRelated"], bool)
+    ):
+        raise ValueError(f"questions:{doc_id} isLawRelated must be bool|null")
     if (
         "lawGroundedExplanationNotNeeded" in doc
         and doc["lawGroundedExplanationNotNeeded"] is not None

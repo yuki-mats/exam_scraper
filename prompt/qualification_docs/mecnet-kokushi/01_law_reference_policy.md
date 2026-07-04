@@ -1,6 +1,6 @@
 # 医師国家試験 法令ベース解説要否方針
 
-この文書は、`03_prompt_add_explanationText.md` で医師国家試験の `lawGroundedExplanationNotNeeded` を判定するときに参照する方針である。
+この文書は、`03_prompt_add_explanationText.md` で医師国家試験の `isLawRelated` と `lawGroundedExplanationNotNeeded` を判定するときに参照する方針である。
 
 医師国家試験では大半が医学知識問題であり、法令本文を引いても学習価値が薄い問題が多い。一方で、医師の義務、届出、制度、感染症対応、母子保健、精神保健、臓器移植、医療安全、診断書・死亡診断書のように、法令・制度の原文が正誤判断に直結する問題も一定数ある。
 
@@ -8,40 +8,41 @@
 
 ## 基本原則
 
-- `lawGroundedExplanationNotNeeded` は保守的に扱う。
-  - 純医学問題は原則 `true`
-  - 制度・法令問題は原則 `false`
-  - 迷う場合も `false`
+- `isLawRelated` は厳密に扱う。
+  - 純医学問題は原則 `false`
+  - 制度・法令問題は原則 `true`
+  - 迷う場合も `true`
+- `lawGroundedExplanationNotNeeded` は `isLawRelated` の逆を基本にする。
 
-## `lawGroundedExplanationNotNeeded: false` に倒す問題
+## `isLawRelated: true` に倒す問題
 
-次のような問題では、法令ベースの追加解説が必要または有用なので `lawGroundedExplanationNotNeeded: false` にする。
+次のような問題では、法令ベースの追加解説が必要または有用なので `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にする。
 
 - 医師法、医療法、感染症法、予防接種法、母子保健法、母体保護法、精神保健及び精神障害者福祉に関する法律などの義務・届出・手続・対象者・定義を問う
 - 異状死体、感染症届出、麻薬中毒者届出、人工妊娠中絶、死亡診断書・死体検案書、隔離・就業制限、定期予防接種、措置入院、臓器提供などの制度判断を問う
 - 問題文または選択肢に、法令名、届出義務、通知、告示、手続主体、条文内容が実質的に含まれる
 - `explanationText` の中で法令名、制度名、手続主体、届出先、基準の種別を書かないと、なぜその肢が正しいか誤りかを十分に説明できない
 
-## `lawGroundedExplanationNotNeeded: true` に倒してよい問題
+## `isLawRelated: false` に倒してよい問題
 
-次のような問題では、法令ベースの追加解説は不要なので `lawGroundedExplanationNotNeeded: true` に倒してよい。
+次のような問題では、法令ベースの追加解説は不要なので `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` に倒してよい。
 
 - 病態生理、解剖、生理、薬理、微生物、免疫、診断、検査、治療、画像読影、統計計算、公衆衛生指標の問題
 - 法令名や制度名が背景に見えても、実際の判定が医学知識だけで完結する問題
 - 条文候補を推測でしか特定できないが、そもそも医学知識だけで正誤判断が完結する問題
 
-## `lawGroundedExplanationNotNeeded` の倒し方
+## `isLawRelated` の倒し方
 
-- `true`
+- `isLawRelated=false`
   - 純医学問題
   - 数値計算や病態判断で完結する問題
   - 法令本文を追加で示しても学習価値がほぼ増えない問題
-- `false`
+- `isLawRelated=true`
   - 医師の義務、届出、制度主体、行政手続、保健所対応、法定の対象範囲、法定の数値基準が絡む問題
   - 法令名や制度名が背景にあるだけでなく、原文確認が学習上有用な問題
   - 迷う問題
 
-医師国家試験では `lawReferences` を出力しないため、フラグ判定そのものを保守的に行う。
+医師国家試験では `lawReferences` を出力しないため、`isLawRelated` 判定そのものを保守的に行う。`lawGroundedExplanationNotNeeded` は原則 `!isLawRelated` とする。
 
 ## 現行法と出題当時法令
 
@@ -58,6 +59,6 @@
 - 設問が医学知識を問うのか、制度・法令を問うのか
 - 各選択肢の正誤理由が医学知識で完結するのか、条文・制度定義を要するのか
 - `explanationText` と制度上の根拠が矛盾していないか
-- `lawGroundedExplanationNotNeeded` を `true` に倒してよいだけの確実性があるか
+- `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` に倒してよいだけの確実性があるか
 
 キーワード一致、正規表現、既存スニペットだけで `true` / `false` を決めてはいけない。

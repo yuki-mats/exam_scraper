@@ -44,9 +44,8 @@
 - `この証で重視する所見は何か`
 - `法令上の免許と業務範囲はどう区別するのか`
 
-## lawGroundedExplanationNotNeeded の扱い
+## isLawRelated / lawGroundedExplanationNotNeeded の扱い
 
-- 医学知識、東洋医学、施術理論、安全管理で完結する問題は、原則 `true` にしてよい。
-- 関係法規、医療制度、免許、業務範囲、広告、届出、罰則、守秘義務など、法令や制度上の根拠が正誤判断に関わる問題は `false` にする。
-- 迷う場合は `false` にし、`04_law_reference_policy.md` の範囲で一次情報を確認する。
-
+- 医学知識、東洋医学、施術理論、安全管理で完結する問題は、原則 `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` にしてよい。
+- 関係法規、医療制度、免許、業務範囲、広告、届出、罰則、守秘義務など、法令や制度上の根拠が正誤判断に関わる問題は `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にする。
+- 迷う場合は `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` にし、`04_law_reference_policy.md` の範囲で一次情報を確認する。

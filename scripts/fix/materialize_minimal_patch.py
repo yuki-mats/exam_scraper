@@ -201,6 +201,8 @@ def materialize_explanation(
     law_references = raw_entry.get("lawReferences")
     if law_references is not None:
         materialized["lawReferences"] = law_references
+    if "isLawRelated" in raw_entry:
+        materialized["isLawRelated"] = raw_entry.get("isLawRelated")
     if "lawGroundedExplanationNotNeeded" in raw_entry:
         materialized["lawGroundedExplanationNotNeeded"] = raw_entry.get(
             "lawGroundedExplanationNotNeeded"

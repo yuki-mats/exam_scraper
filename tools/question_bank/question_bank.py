@@ -266,6 +266,7 @@ def run_patch_checks(
     list_group_dirs: Iterable[Path],
     category_path: Path | None,
     require_law_grounded_flag: bool,
+    require_is_law_related: bool,
     questionset_only: bool,
 ) -> int:
     print_heading("patch coverage")
@@ -308,6 +309,8 @@ def run_patch_checks(
                 ]
                 if stage.label == "explanationText" and require_law_grounded_flag:
                     cmd.append("--require-law-grounded-flag")
+                if stage.label == "explanationText" and require_is_law_related:
+                    cmd.append("--require-is-law-related")
                 if stage.label == "questionSetId":
                     cmd.extend(["--category", str(category_path)])
                     if questionset_only:
@@ -369,6 +372,11 @@ def add_explanation_patch_parser(
         "--require-law-grounded-flag",
         action="store_true",
         help="Require lawGroundedExplanationNotNeeded on every patch entry.",
+    )
+    parser.add_argument(
+        "--require-is-law-related",
+        action="store_true",
+        help="Require isLawRelated on every patch entry.",
     )
 
 
@@ -474,6 +482,11 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
         help="Require lawGroundedExplanationNotNeeded on every explanation patch entry.",
     )
     parser.add_argument(
+        "--require-is-law-related",
+        action="store_true",
+        help="Require isLawRelated on every explanation patch entry.",
+    )
+    parser.add_argument(
         "--questionset-only",
         action="store_true",
         help="Pass --questionset-only to questionSetId coverage checks.",
@@ -536,6 +549,8 @@ def run_explanation_patch_check(args: argparse.Namespace) -> int:
     ]
     if args.require_law_grounded_flag:
         cmd.append("--require-law-grounded-flag")
+    if args.require_is_law_related:
+        cmd.append("--require-is-law-related")
     return run_command(cmd)
 
 
@@ -620,6 +635,7 @@ def main(argv: list[str] | None = None) -> int:
             list_group_dirs=list_group_dirs,
             category_path=category_path,
             require_law_grounded_flag=args.require_law_grounded_flag,
+            require_is_law_related=args.require_is_law_related,
             questionset_only=args.questionset_only,
         )
 

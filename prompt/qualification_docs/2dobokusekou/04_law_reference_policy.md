@@ -27,11 +27,11 @@
 - 数値や試験条件が出る問題では、教科書的な一般論ではなく、どの条件でその数値になるのかを説明する。
 - 公式基準に当たる必要がある場合は、国土交通省、厚生労働省、環境省などの公的資料を優先する。
 
-## `lawGroundedExplanationNotNeeded` の扱い
-- 次のような問題では `true` を基本にする。
+## `isLawRelated` / `lawGroundedExplanationNotNeeded` の扱い
+- 次のような問題では `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` を基本にする。
   - 材料、工法、試験、図表、施工手順、部材名称が主題の問題
   - 法令名が本文に出ず、工学知識だけで判定できる問題
-- 次のような問題では `false` を基本にする。
+- 次のような問題では `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` を基本にする。
   - 労働基準法、労働安全衛生法、建設業法など法令名または法令上の義務が主題の問題
   - 許可、届出、選任、罰則、就業制限、規制区域、管理者権限が論点の問題
 

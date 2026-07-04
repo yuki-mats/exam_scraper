@@ -213,6 +213,7 @@ def compare_entries(
     patch_entries: List[Dict[str, Any]],
     *,
     require_law_grounded_flag: bool = False,
+    require_is_law_related: bool = False,
 ) -> Tuple[List[str], List[str]]:
     errors: List[str] = []
     warnings: List[str] = []
@@ -290,6 +291,7 @@ def compare_entries(
             errors=errors,
         )
 
+        has_law_references = has_non_empty_law_references(patch.get("lawReferences"))
         if "lawReferences" in patch:
             validate_law_references_shape(
                 law_references=patch.get("lawReferences"),
@@ -297,6 +299,16 @@ def compare_entries(
                 index=idx,
                 errors=errors,
             )
+
+        is_law_related: bool | None = None
+        if require_is_law_related and "isLawRelated" not in patch:
+            errors.append(f"index {idx}: missing isLawRelated")
+        elif "isLawRelated" in patch:
+            value = patch.get("isLawRelated")
+            if not isinstance(value, bool):
+                errors.append(f"index {idx}: isLawRelated must be bool when present")
+            else:
+                is_law_related = value
 
         if require_law_grounded_flag and "lawGroundedExplanationNotNeeded" not in patch:
             errors.append(
@@ -308,10 +320,19 @@ def compare_entries(
                 errors.append(
                     f"index {idx}: lawGroundedExplanationNotNeeded must be bool when present"
                 )
-            elif flag and has_non_empty_law_references(patch.get("lawReferences")):
+            elif flag and has_law_references:
                 errors.append(
                     f"index {idx}: lawGroundedExplanationNotNeeded cannot be true when lawReferences is non-empty"
                 )
+            elif is_law_related is not None and flag == is_law_related:
+                errors.append(
+                    f"index {idx}: lawGroundedExplanationNotNeeded must be the inverse of isLawRelated"
+                )
+
+        if is_law_related is False and has_law_references:
+            errors.append(
+                f"index {idx}: isLawRelated cannot be false when lawReferences is non-empty"
+            )
 
     if len(set(patch_ids)) != len(patch_ids):
         warnings.append("duplicate original_question_id detected in patch")
@@ -324,6 +345,7 @@ def check_pair(
     patch_path: Path,
     *,
     require_law_grounded_flag: bool = False,
+    require_is_law_related: bool = False,
 ) -> int:
     if not source_path.exists():
         print(f"[ERROR] source not found: {source_path}")
@@ -342,6 +364,7 @@ def check_pair(
         source_questions,
         patch_entries,
         require_law_grounded_flag=require_law_grounded_flag,
+        require_is_law_related=require_is_law_related,
     )
     for warn in warnings:
         print(f"[WARN] {warn}")
@@ -369,11 +392,17 @@ def main() -> int:
         action="store_true",
         help="Require lawGroundedExplanationNotNeeded on every patch entry.",
     )
+    parser.add_argument(
+        "--require-is-law-related",
+        action="store_true",
+        help="Require isLawRelated on every patch entry.",
+    )
     args = parser.parse_args()
     return check_pair(
         Path(args.source),
         Path(args.patch),
         require_law_grounded_flag=args.require_law_grounded_flag,
+        require_is_law_related=args.require_is_law_related,
     )
 
 

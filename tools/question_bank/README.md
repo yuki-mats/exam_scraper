@@ -33,6 +33,7 @@ python scripts/check/run_question_quality_gate.py \
 - `00_source`、merged、`40_convert` の必須フィールド
 - `questionType`、`questionIntent`、`explanationText`、`questionSetId` patch の全問 coverage
 - `suggestedQuestions` / `suggestedQuestionDetails` の整合
+- `isLawRelated` の有無と `lawGroundedExplanationNotNeeded` との逆関係
 - `lawReferences` の基本構造
 - Firestore upload dry-run による schema validation
 
@@ -44,12 +45,13 @@ python tools/question_bank/question_bank.py quality-gate --qualification <qualif
 python tools/question_bank/question_bank.py quality-gate --qualification <qualification> --list-group-id <list_group_id> --mode firestore
 ```
 
-法令監査で、全解説 patch に「条文根拠不要かどうか」の判断を必ず残す運用では次を追加します。
+03工程後は、全解説 patch に厳密な `isLawRelated` と、条文解説ボタン制御用の `lawGroundedExplanationNotNeeded` を必ず残すため、次を追加します。
 
 ```bash
 python tools/question_bank/question_bank.py quality-gate \
   --qualification <qualification> \
   --list-group-id <list_group_id> \
+  --require-is-law-related \
   --require-law-grounded-flag
 ```
 
@@ -86,7 +88,9 @@ python tools/question_bank/question_bank.py check-question-intent-patch \
 ```bash
 python tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
-  --patch /path/to/21_explanationText_added/question_*_explanationText_added.json
+  --patch /path/to/21_explanationText_added/question_*_explanationText_added.json \
+  --require-is-law-related \
+  --require-law-grounded-flag
 ```
 
 ```bash

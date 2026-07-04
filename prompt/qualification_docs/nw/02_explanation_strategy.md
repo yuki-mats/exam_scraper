@@ -102,7 +102,7 @@
   - `設計の論点と運用の論点はどう見分けるか`
   - `この問題で最初に見るべきキーワードは何か`
 
-## lawGroundedExplanationNotNeeded の扱い
+## isLawRelated / lawGroundedExplanationNotNeeded の扱い
 - NWでは法令条文からの追加解説が主論点になる問題は基本的に想定しにくい。
-- そのため、通常は `lawGroundedExplanationNotNeeded: true` を基本に考えてよい。
-- ただし、情報セキュリティ管理、個人情報保護、知的財産、標準化、契約・監査などの制度的背景を問う問題では、断定に迷う場合は `false` を残す。
+- そのため、通常は `isLawRelated=false`、`lawGroundedExplanationNotNeeded=true` を基本に考えてよい。
+- ただし、情報セキュリティ管理、個人情報保護、知的財産、標準化、契約・監査などの制度的背景を問う問題では、断定に迷う場合は `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` を残す。

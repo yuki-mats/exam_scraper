@@ -31,4 +31,4 @@
 
 - `lawReferences` を別途作る前提ではなく、必要な根拠は `explanationText` に簡潔に書く。
 - ただし、法令名・制度名・統計名は省略しすぎず、受験者が再確認できる粒度は残す。
-- 法規・制度・届出・免許・業務範囲が絡む問題は、迷ったら `lawGroundedExplanationNotNeeded` を `false` に倒す。
+- 法規・制度・届出・免許・業務範囲が絡む問題は、迷ったら `isLawRelated=true`、`lawGroundedExplanationNotNeeded=false` に倒す。

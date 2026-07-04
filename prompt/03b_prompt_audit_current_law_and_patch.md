@@ -55,6 +55,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
   "reviewQuestionId": "<review question id>",
   "questionUrl": "<question_url>",
   "examYear": 2024,
+  "isLawRelated": true,
   "auditDate": "YYYY-MM-DD",
   "auditStatus": "same_as_current | updated_to_current_law | hold | not_law_related",
   "examTimeDecision": "正しい | 間違い | unknown",
@@ -72,7 +73,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - `same_as_current`: 出題当時の正答と現行法ベースの正誤が同じ
 - `updated_to_current_law`: 現行法に合わせて `correctChoiceText` / `explanationText` を更新した
 - `hold`: 差分が疑われるが、条文・施行日・出題当時法令を確認しきれない
-- `not_law_related`: 法令問題に見えたが、正誤判断は法令差分に依存しない
+- `not_law_related`: 法令問題に見えたが、正誤判断は法令差分に依存しない。この場合は `isLawRelated=false` として03成果物にも反映する
 
 ### 2. 正誤更新 patch へのマージ
 
@@ -94,6 +95,8 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - `explanationText`: 現行法に合わせて更新していること、出題当時の正答と異なる可能性または差分があること
 - `suggestedQuestions`: `現行法ではどう考える？` または `出題当時と現在で違いはある？`
 - `suggestedQuestionDetails`: 現行法の根拠、出題当時の扱い、受験者が混同しないための短い説明
+- `isLawRelated`: `true`
+- `lawGroundedExplanationNotNeeded`: `false`
 - `lawReferences`: 現行法根拠は `role="current_basis"`、出題当時法令を確認できた場合は `role="exam_time_basis"`
 
 03b sidecar の判断結果を、既存の `21_explanationText_added/` patch に反映します。既存の通常03成果物と競合する場合は、03bの監査根拠・基準日・差分注記を優先し、通常03の薄い説明だけで上書きしてはいけません。

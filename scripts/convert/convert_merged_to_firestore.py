@@ -247,6 +247,20 @@ def resolve_law_grounded_explanation_not_needed(
     return None
 
 
+def resolve_is_law_related(
+    question_body: dict,
+    choice_index: int | None = None,
+) -> bool | None:
+    value = question_body.get("isLawRelated")
+    if isinstance(value, bool):
+        return value
+    if choice_index is not None and isinstance(value, list) and choice_index < len(value):
+        choice_value = value[choice_index]
+        if isinstance(choice_value, bool):
+            return choice_value
+    return None
+
+
 def get_exam_name(question_body: dict) -> str:
     """
     question_body から試験名を取得する。存在しなければデフォルトを返す。
@@ -684,6 +698,9 @@ def create_firestore_question_base(
     law_references = format_flat_law_references(question_body.get("lawReferences", []))
     if law_references:
         firestore_question["lawReferences"] = law_references
+    is_law_related = resolve_is_law_related(question_body)
+    if is_law_related is not None:
+        firestore_question["isLawRelated"] = is_law_related
     law_grounded_explanation_not_needed = resolve_law_grounded_explanation_not_needed(
         question_body
     )
@@ -784,6 +801,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             original_question_choice_image_urls=choice_images,
             question_set_id=question_set_id_for_choice(question_body, i),
             originalQuestionBodyText=upload_question_body,
+            isLawRelated=resolve_is_law_related(question_body, i),
             lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, i
@@ -860,6 +878,7 @@ def convert_group_select_to_firestore(
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
                 question_set_id=question_set_id_for_choice(question_body, i),
+                isLawRelated=resolve_is_law_related(question_body, i),
                 lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                     question_body, i
@@ -890,6 +909,7 @@ def convert_group_select_to_firestore(
                 original_question_choice_image_urls=choice_images,
                 question_set_id=question_set_id_for_choice(question_body, i),
                 isChoiceOnly=True,
+                isLawRelated=resolve_is_law_related(question_body, i),
                 lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                     question_body, i
@@ -916,6 +936,7 @@ def convert_group_select_to_firestore(
                 else []
             ),
             question_set_id=question_set_id_for_choice(question_body, 0),
+            isLawRelated=resolve_is_law_related(question_body, 0),
             lawReferences=format_choice_law_references(question_body.get("lawReferences", []), 0),
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, 0
@@ -1002,6 +1023,9 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         law_references = format_flat_law_references(question_body.get("lawReferences", []))
         if law_references:
             firestore_question["lawReferences"] = law_references
+        is_law_related = resolve_is_law_related(question_body)
+        if is_law_related is not None:
+            firestore_question["isLawRelated"] = is_law_related
         law_grounded_explanation_not_needed = resolve_law_grounded_explanation_not_needed(
             question_body
         )
