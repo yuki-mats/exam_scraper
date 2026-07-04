@@ -529,7 +529,7 @@ def merge_all(
     for key, value in correct_map_fallback.items():
         if value is None:
             continue
-        correct_map[key] = value
+        correct_map.setdefault(key, value)
 
     expl_updates = 0
     qset_updates = 0

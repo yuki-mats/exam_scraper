@@ -69,7 +69,11 @@ def normalize_label(value: Any) -> Any:
 
 def has_trusted_unparseable_answer_text(question_body: dict) -> bool:
     text = str(question_body.get("answer_result_text") or "")
-    return "解説を参照" in text or "採点除外" in text
+    return (
+        "解説を参照" in text
+        or "採点除外" in text
+        or "現行法では該当する正解番号なし" in text
+    )
 
 
 def existing_correct_choice_labels(question_body: dict) -> list[str] | None:
