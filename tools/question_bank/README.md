@@ -6,7 +6,7 @@
 
 1. ルール: `document/reference/question_field_contract.md`
 2. 日々の目視作業: `prompt/README.md` と `prompt/01_prompt_*.md` から `prompt/04_prompt_*.md`
-   - 法改正・現行法差分が疑われる場合、または年1回の法令関係問題の全問監査では `prompt/03b_prompt_audit_current_law_and_patch.md`
+   - 法改正・現行法差分が疑われる場合、または年1回の法令関係問題の全問監査では `prompt/03b_prompt_audit_current_law_and_patch.md` で03bの監査パッチ/sidecarを作成・更新し、既存成果物へマージする
 3. 機械チェック: このディレクトリの `question_bank.py`
 4. 補助実装: 必要な場合だけ `scripts/` 配下を見る
 

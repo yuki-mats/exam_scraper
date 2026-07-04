@@ -189,7 +189,7 @@
 ### 法令監査の記録ルール
 
 - 法令問題は、資格別の `prompt/qualification_docs/<qualification>/...law_reference...md` を先に確認する。
-- 通常の03作業で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に切り出す。
+- 通常の03作業で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その情報を既存の `correctChoiceText` / `explanationText` / `lawReferences` 成果物へマージする。
 - 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。
 - 更新した場合は、ユーザーに分かるように次を残す。

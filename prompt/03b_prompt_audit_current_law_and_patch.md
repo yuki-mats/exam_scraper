@@ -2,16 +2,16 @@
 
 あなたの役割は、法令が関係する過去問について、出題当時の正答と現行法ベースの正誤・解説に差分がないかを監査し、必要な patch と監査 sidecar を作ることです。
 
-このプロンプトは `03_prompt_add_explanationText.md` の派生です。通常の基本解説作成中に法改正・現行法差分が疑われた場合、または年に1度の法令関係問題の全問監査で使います。
+このプロンプトは `03_prompt_add_explanationText.md` の派生です。通常の基本解説作成中に法改正・現行法差分が疑われた場合、または年に1度の法令関係問題の全問監査で、03bの監査パッチ/sidecarを作成・更新し、その結果を既存成果物へマージするための工程定義です。
 
-## 使う場面
+## 適用場面
 
 - `03_prompt_add_explanationText.md` の作業中に、現行法と出題当時法令の差分が正誤・解説に影響しそうな場合
 - 年に1度、法令が関係する問題を資格ごとに全問監査する場合
 - `lawReferences.comparisonStatus` が `not_checked` / `differs_from_current` / 未設定の問題を棚卸しする場合
 - ユーザーに「出題当時の正答」と「現行法ベースの学習上の扱い」の違いを明示すべき問題を特定する場合
 
-通常の03では、疑いを発見したら無理に深掘りせず、この03bへ切り出します。
+通常の03では、疑いを発見したら無理に深掘りせず、03bの監査パッチ/sidecarへ切り出します。その後、03bで確定した差分だけを既存の正誤・解説・法令参照 patch へマージします。
 
 ## 最重要ルール
 
@@ -33,31 +33,13 @@
 6. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
 7. Lawzilla などの法令DB。条文探索や改正前後のあたり付けに使ってよいが、最終 `verified` は一次情報相当で照合する
 
-## 出力
+## 出力とマージ
 
-### 1. 正誤更新 patch
+03bの成果は、監査履歴を残す sidecar と、必要に応じて既存工程へ反映する patch です。既存の `15_correctChoiceText_fixed/` や `21_explanationText_added/` を直接編集して終わらせず、まず03bの判断結果を記録し、その情報をマージします。
 
-現行法で正誤が明らかに変わる場合だけ作ります。出力先は、その資格・工程の既存受け口に合わせます。
+### 1. 03b監査 sidecar
 
-- 02直後の通常フローなら `15_correctChoiceText_fixed/`
-- 03以降や年次監査で後追い補正するなら、既存運用がある資格では `23_correctChoiceText_fixed/`
-
-どちらを使う場合でも、`questionIntent`、`answer_result_text`、更新後の `correctChoiceText` の整合を崩してはいけません。出題当時の元正答は、patch 本文ではなく監査 sidecar に残します。
-
-### 2. 解説・想定質問・法令参照 patch
-
-通常は `21_explanationText_added/` を更新します。
-
-更新した問題では、次を必ず残します。
-
-- `explanationText`: 現行法に合わせて更新していること、出題当時の正答と異なる可能性または差分があること
-- `suggestedQuestions`: `現行法ではどう考える？` または `出題当時と現在で違いはある？`
-- `suggestedQuestionDetails`: 現行法の根拠、出題当時の扱い、受験者が混同しないための短い説明
-- `lawReferences`: 現行法根拠は `role="current_basis"`、出題当時法令を確認できた場合は `role="exam_time_basis"`
-
-### 3. 年次監査 sidecar
-
-監査結果は Firestore に入れず、次のような sidecar に残します。
+監査結果は Firestore に入れず、次のような sidecar に残します。これは03bの判断元であり、年次監査の差分確認・アプリ注記実装の根拠になります。
 
 ```text
 output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_audit.jsonl
@@ -91,6 +73,30 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - `updated_to_current_law`: 現行法に合わせて `correctChoiceText` / `explanationText` を更新した
 - `hold`: 差分が疑われるが、条文・施行日・出題当時法令を確認しきれない
 - `not_law_related`: 法令問題に見えたが、正誤判断は法令差分に依存しない
+
+### 2. 正誤更新 patch へのマージ
+
+現行法で正誤が明らかに変わる場合だけ作ります。出力先は、その資格・工程の既存受け口に合わせます。
+
+- 02直後の通常フローなら `15_correctChoiceText_fixed/`
+- 03以降や年次監査で後追い補正するなら、既存運用がある資格では `23_correctChoiceText_fixed/`
+
+どちらを使う場合でも、`questionIntent`、`answer_result_text`、更新後の `correctChoiceText` の整合を崩してはいけません。出題当時の元正答は、patch 本文ではなく監査 sidecar に残します。
+
+03b sidecar の `auditStatus="updated_to_current_law"` を根拠に、正誤更新 patch を作成・更新します。`hold` の問題は推測でマージしてはいけません。
+
+### 3. 解説・想定質問・法令参照 patch へのマージ
+
+通常は `21_explanationText_added/` を更新します。
+
+更新した問題では、次を必ず残します。
+
+- `explanationText`: 現行法に合わせて更新していること、出題当時の正答と異なる可能性または差分があること
+- `suggestedQuestions`: `現行法ではどう考える？` または `出題当時と現在で違いはある？`
+- `suggestedQuestionDetails`: 現行法の根拠、出題当時の扱い、受験者が混同しないための短い説明
+- `lawReferences`: 現行法根拠は `role="current_basis"`、出題当時法令を確認できた場合は `role="exam_time_basis"`
+
+03b sidecar の判断結果を、既存の `21_explanationText_added/` patch に反映します。既存の通常03成果物と競合する場合は、03bの監査根拠・基準日・差分注記を優先し、通常03の薄い説明だけで上書きしてはいけません。
 
 ## ユーザー向け注記の方針
 
