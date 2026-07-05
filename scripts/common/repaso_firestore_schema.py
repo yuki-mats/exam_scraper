@@ -143,6 +143,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "suggestedQuestions",
         "suggestedQuestionDetails",
         "lawReferences",
+        "lawRevisionFacts",
         "isLawRelated",
         "lawGroundedExplanationNotNeeded",
         "explanationImageUrls",
@@ -220,6 +221,149 @@ def _is_suggested_question_detail_list(value: Any) -> bool:
         extra = sorted(set(detail.keys()) - {"question", "answer"})
         if extra:
             return False
+    return True
+
+
+LAW_REVISION_AUDIT_STATUSES = {
+    "same_as_current",
+    "updated_to_current_law",
+    "hold",
+    "not_law_related",
+}
+
+LAW_REVISION_FACT_KEYS = {
+    "auditStatus",
+    "reviewState",
+    "sourceEvidenceVersionId",
+    "evidenceBindingHash",
+    "examTime",
+    "current",
+    "differenceFacts",
+    "answerImpactFacts",
+    "notes",
+    "evidenceSummary",
+}
+
+LAW_REVISION_SNAPSHOT_KEYS = {
+    "correctChoiceText",
+    "lawId",
+    "lawRevisionId",
+    "lawTitle",
+    "article",
+    "paragraph",
+    "item",
+    "subitem",
+    "referenceDate",
+    "effectiveDate",
+    "verificationStatus",
+    "articleText",
+    "articleTextHash",
+    "sourceUrl",
+}
+
+LAW_REVISION_EVIDENCE_SUMMARY_KEYS = {
+    "verdict",
+    "explanationText",
+    "differenceSummary",
+    "promptContext",
+    "displayRefIds",
+    "refs",
+}
+
+LAW_REVISION_EVIDENCE_REF_KEYS = {
+    "refId",
+    "lawTimeScope",
+    "relation",
+    "primaryBasis",
+    "lawId",
+    "lawRevisionId",
+    "lawTitle",
+    "elm",
+    "encodedElm",
+    "rootArticleElm",
+    "article",
+    "paragraph",
+    "item",
+    "subitem",
+    "highlightElms",
+    "articleTextHash",
+    "textHash",
+}
+
+
+def _is_optional_string_map(
+    value: Any,
+    *,
+    allowed_keys: set[str],
+    list_keys: set[str] | None = None,
+    bool_keys: set[str] | None = None,
+) -> bool:
+    if not isinstance(value, dict):
+        return False
+    list_keys = list_keys or set()
+    bool_keys = bool_keys or set()
+    if set(value.keys()) - allowed_keys:
+        return False
+    for key, item in value.items():
+        if key in list_keys:
+            if not _is_list_of_str(item):
+                return False
+        elif key in bool_keys:
+            if not isinstance(item, bool):
+                return False
+        elif not _is_non_empty_str(item):
+            return False
+    return True
+
+
+def _is_law_revision_evidence_summary(value: Any) -> bool:
+    if not isinstance(value, dict):
+        return False
+    if set(value.keys()) - LAW_REVISION_EVIDENCE_SUMMARY_KEYS:
+        return False
+    for key, item in value.items():
+        if key == "displayRefIds":
+            if not _is_list_of_str(item):
+                return False
+        elif key == "refs":
+            if not isinstance(item, list):
+                return False
+            for ref in item:
+                if not _is_optional_string_map(
+                    ref,
+                    allowed_keys=LAW_REVISION_EVIDENCE_REF_KEYS,
+                    list_keys={"highlightElms"},
+                    bool_keys={"primaryBasis"},
+                ):
+                    return False
+        elif not _is_non_empty_str(item):
+            return False
+    return True
+
+
+def _is_law_revision_facts(value: Any) -> bool:
+    if not isinstance(value, dict):
+        return False
+    if set(value.keys()) - LAW_REVISION_FACT_KEYS:
+        return False
+    audit_status = value.get("auditStatus")
+    if audit_status not in LAW_REVISION_AUDIT_STATUSES:
+        return False
+    for key, item in value.items():
+        if key == "auditStatus":
+            continue
+        if key in {"reviewState", "sourceEvidenceVersionId", "evidenceBindingHash"}:
+            if not _is_non_empty_str(item):
+                return False
+        elif key in {"examTime", "current"}:
+            if not _is_optional_string_map(item, allowed_keys=LAW_REVISION_SNAPSHOT_KEYS):
+                return False
+        elif key in {"differenceFacts", "answerImpactFacts", "notes"}:
+            if not _is_list_of_str(item):
+                return False
+        elif key == "evidenceSummary":
+            if not _is_law_revision_evidence_summary(item):
+                return False
     return True
 
 
@@ -360,6 +504,8 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
             raise ValueError(f"questions:{doc_id} {list_key} must be list[str]|null")
     if "lawReferences" in doc and doc["lawReferences"] is not None and not _is_law_reference_list(doc["lawReferences"]):
         raise ValueError(f"questions:{doc_id} lawReferences must be list<object>|null")
+    if "lawRevisionFacts" in doc and doc["lawRevisionFacts"] is not None and not _is_law_revision_facts(doc["lawRevisionFacts"]):
+        raise ValueError(f"questions:{doc_id} lawRevisionFacts must be object|null")
     if (
         "isLawRelated" in doc
         and doc["isLawRelated"] is not None

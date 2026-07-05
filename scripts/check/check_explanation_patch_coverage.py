@@ -16,6 +16,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.question_identity import review_question_id
+from scripts.common.repaso_firestore_schema import _is_law_revision_facts
 
 
 REQUIRED_FIELDS = [
@@ -205,7 +206,38 @@ def validate_law_references_shape(
                     if not isinstance(value, str) or value.strip() in LAW_REFERENCE_PLACEHOLDERS:
                         errors.append(
                             f"index {index}: lawReferences[{choice_index}][{ref_index}].{verified_key} is required for verified lawReferences"
-                        )
+            )
+
+
+def validate_law_revision_facts_shape(
+    *,
+    law_revision_facts: Any,
+    choice_count: int,
+    index: int,
+    errors: List[str],
+) -> None:
+    if isinstance(law_revision_facts, dict):
+        if not _is_law_revision_facts(law_revision_facts):
+            errors.append(f"index {index}: lawRevisionFacts must be a valid object")
+        return
+    if isinstance(law_revision_facts, list):
+        if choice_count and len(law_revision_facts) != choice_count:
+            errors.append(
+                "index {}: lawRevisionFacts length mismatch (source={} patch={})".format(
+                    index, choice_count, len(law_revision_facts)
+                )
+            )
+        for choice_index, facts in enumerate(law_revision_facts):
+            if not isinstance(facts, dict):
+                errors.append(
+                    f"index {index}: lawRevisionFacts[{choice_index}] must be object"
+                )
+            elif not _is_law_revision_facts(facts):
+                errors.append(
+                    f"index {index}: lawRevisionFacts[{choice_index}] must be a valid object"
+                )
+        return
+    errors.append(f"index {index}: lawRevisionFacts must be object or list[object]")
 
 
 def compare_entries(
@@ -295,6 +327,13 @@ def compare_entries(
         if "lawReferences" in patch:
             validate_law_references_shape(
                 law_references=patch.get("lawReferences"),
+                choice_count=len(choices) if isinstance(choices, list) else 0,
+                index=idx,
+                errors=errors,
+            )
+        if "lawRevisionFacts" in patch:
+            validate_law_revision_facts_shape(
+                law_revision_facts=patch.get("lawRevisionFacts"),
                 choice_count=len(choices) if isinstance(choices, list) else 0,
                 index=idx,
                 errors=errors,

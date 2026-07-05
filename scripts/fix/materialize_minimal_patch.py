@@ -202,6 +202,8 @@ def materialize_law_context(
     }
     if "lawReferences" in raw_entry:
         materialized["lawReferences"] = raw_entry.get("lawReferences")
+    if "lawRevisionFacts" in raw_entry:
+        materialized["lawRevisionFacts"] = raw_entry.get("lawRevisionFacts")
     if "lawContextForExplanation" in raw_entry:
         materialized["lawContextForExplanation"] = raw_entry.get(
             "lawContextForExplanation"
@@ -229,6 +231,8 @@ def materialize_explanation(
         materialized["lawGroundedExplanationNotNeeded"] = raw_entry.get(
             "lawGroundedExplanationNotNeeded"
         )
+    if "lawRevisionFacts" in raw_entry:
+        materialized["lawRevisionFacts"] = raw_entry.get("lawRevisionFacts")
     return materialized
 
 

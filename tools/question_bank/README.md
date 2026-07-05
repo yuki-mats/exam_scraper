@@ -37,6 +37,7 @@ python scripts/check/run_question_quality_gate.py \
 - `suggestedQuestions` / `suggestedQuestionDetails` の整合
 - `isLawRelated` の有無と `lawGroundedExplanationNotNeeded` との逆関係
 - `lawReferences` の基本構造
+- `lawRevisionFacts` の基本構造
 - Firestore upload dry-run による schema validation
 
 部分実行したい場合:
@@ -47,7 +48,7 @@ python tools/question_bank/question_bank.py quality-gate --qualification <qualif
 python tools/question_bank/question_bank.py quality-gate --qualification <qualification> --list-group-id <list_group_id> --mode firestore
 ```
 
-02bを標準工程として必須にする場合は、`--require-law-context-stage` を追加します。03工程後は、全解説 patch に厳密な `isLawRelated` と、条文解説ボタン制御用の `lawGroundedExplanationNotNeeded` を必ず残すため、次を追加します。
+02bを標準工程として必須にする場合は、`--require-law-context-stage` を追加します。03工程後は、全解説 patch に厳密な `isLawRelated` と、互換フラグとしての `lawGroundedExplanationNotNeeded` を必ず残すため、次を追加します。AI解説・条文確認の正本は、03bで確定した `lawRevisionFacts` を使います。
 
 ```bash
 python tools/question_bank/question_bank.py quality-gate \

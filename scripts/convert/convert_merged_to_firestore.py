@@ -261,6 +261,20 @@ def resolve_is_law_related(
     return None
 
 
+def resolve_law_revision_facts(
+    question_body: dict,
+    choice_index: int | None = None,
+) -> dict | None:
+    value = question_body.get("lawRevisionFacts")
+    if isinstance(value, dict):
+        return value
+    if choice_index is not None and isinstance(value, list) and choice_index < len(value):
+        choice_value = value[choice_index]
+        if isinstance(choice_value, dict):
+            return choice_value
+    return None
+
+
 def get_exam_name(question_body: dict) -> str:
     """
     question_body から試験名を取得する。存在しなければデフォルトを返す。
@@ -708,6 +722,9 @@ def create_firestore_question_base(
         firestore_question["lawGroundedExplanationNotNeeded"] = (
             law_grounded_explanation_not_needed
         )
+    law_revision_facts = resolve_law_revision_facts(question_body)
+    if law_revision_facts:
+        firestore_question["lawRevisionFacts"] = law_revision_facts
 
     # 追加フィールドをマージ
     firestore_question.update(additional_fields)
@@ -806,6 +823,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, i
             ),
+            lawRevisionFacts=resolve_law_revision_facts(question_body, i),
         )
 
         firestore_questions.append(finalize_firestore_question(firestore_question))
@@ -883,6 +901,7 @@ def convert_group_select_to_firestore(
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                     question_body, i
                 ),
+                lawRevisionFacts=resolve_law_revision_facts(question_body, i),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
         elif correctness in ("不正解", "間違い", "誤り"):
@@ -914,6 +933,7 @@ def convert_group_select_to_firestore(
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                     question_body, i
                 ),
+                lawRevisionFacts=resolve_law_revision_facts(question_body, i),
             )
             firestore_questions.append(finalize_firestore_question(firestore_question))
 
@@ -941,6 +961,7 @@ def convert_group_select_to_firestore(
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, 0
             ),
+            lawRevisionFacts=resolve_law_revision_facts(question_body, 0),
         )
         firestore_questions.append(finalize_firestore_question(firestore_question))
 
@@ -1033,6 +1054,9 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
             firestore_question["lawGroundedExplanationNotNeeded"] = (
                 law_grounded_explanation_not_needed
             )
+        law_revision_facts = resolve_law_revision_facts(question_body)
+        if law_revision_facts:
+            firestore_question["lawRevisionFacts"] = law_revision_facts
         flat_choice_image_urls = flatten_choice_image_urls(choice_image_urls_by_choice)
         if flat_choice_image_urls:
             firestore_question["originalQuestionChoiceImageUrls"] = flat_choice_image_urls

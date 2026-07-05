@@ -30,6 +30,8 @@
 - `lawReferences` が非空なら、必ず `isLawRelated=true` かつ `lawGroundedExplanationNotNeeded=false`。
 - `isLawRelated=false` の問題に `lawReferences` を入れてはいけない。
 
+`lawGroundedExplanationNotNeeded` は旧「条文に基づき解説」導線との互換フラグです。AI解説・条文確認の正本は03bで作る `lawRevisionFacts` へ寄せます。02bでは、03/03bが迷わないように法令関連性と現行法根拠候補を準備します。
+
 迷う場合は、解説本文に「法令名・条項・制度上の義務/定義/手続/基準」を書く必要があるかで判断します。必要がある、またはユーザーが現行法で確認したくなる可能性が高いなら `isLawRelated=true` に倒します。
 
 ## `lawReferences` の扱い

@@ -387,7 +387,7 @@ def add_explanation_patch_parser(
     parser.add_argument(
         "--require-law-grounded-flag",
         action="store_true",
-        help="Require lawGroundedExplanationNotNeeded on every patch entry.",
+        help="Require compatibility lawGroundedExplanationNotNeeded on every patch entry.",
     )
     parser.add_argument(
         "--require-is-law-related",
@@ -514,7 +514,7 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--require-law-grounded-flag",
         action="store_true",
-        help="Require lawGroundedExplanationNotNeeded on every explanation patch entry.",
+        help="Require compatibility lawGroundedExplanationNotNeeded on every explanation patch entry.",
     )
     parser.add_argument(
         "--require-is-law-related",

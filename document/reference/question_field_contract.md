@@ -37,7 +37,7 @@
    - 空文字を「未確認」の代わりに使う場合は、upload script が既定値として作る field に限る。人間の判断結果としては未確認 reason を sidecar に残す。
 5. `correctChoiceText` は出題当時のソース、`questionIntent`、現行法監査結果の関係を崩さない。
    - AI が目視だけで `correctChoiceText` を推測してはいけない。
-   - 法令問題で現行法ベースへ更新する場合は、出題当時の正答・現行法根拠・更新済み注記を `explanationText` / `suggestedQuestionDetails` / `lawReferences` / review sidecar に残す。
+   - 法令問題で現行法ベースへ更新する場合は、出題当時の正答・現行法根拠・更新済み注記を `lawRevisionFacts` / `explanationText` / `suggestedQuestionDetails` / `lawReferences` / review sidecar に残す。
 6. 資格固有ルールは field の意味を変えない。
    - 資格ごとに変えてよいのは、法令スコープ、カテゴリ粒度、出題形式の傾向、解説方針。
    - `questionType` や `lawReferences` などの共通 field の意味を資格ごとに変えてはいけない。
@@ -98,7 +98,8 @@
 | 想定質問回答 | `suggestedQuestionDetails` | array<object> | 任意 | 推奨 | 可 | 各要素は `{question, answer}` のみ。どちらも空文字不可。 | `21_explanationText_added` | `question` は `suggestedQuestions` と一致させる。 |
 | 条文参照 | `lawReferences` | array<object> | 任意 | 法令問題では推奨/条件付き必須 | 可 | 後述の `lawReferences` 契約に従う。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 条文本文は question doc に持たない。参照と監査状態を残す。 |
 | 法令問題フラグ | `isLawRelated` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 法令・政令・省令・告示・通達・制度上の義務/定義/手続/基準が、正誤判断または学習上の主要理解に関係する場合に true。年次03b監査の抽出軸。 |
-| 法令根拠不要フラグ | `lawGroundedExplanationNotNeeded` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | アプリの「根拠条文から解説」ボタンを非表示にしてよいか。原則 `!isLawRelated` にする。app 側では import/read 互換フィールド扱い。 |
+| 法令根拠不要フラグ | `lawGroundedExplanationNotNeeded` | boolean | 任意 | 02b以降は必須 | 可 | bool/null。 | `18_law_context_prepared`, `21_explanationText_added`, convert | 旧「条文に基づき解説」導線との互換フラグ。原則 `!isLawRelated` にする。AI解説・条文確認の正本ではなく、app 側では import/read 互換フィールド扱い。 |
+| 法令根拠監査 | `lawRevisionFacts` | object | 任意 | 法令問題では03b以降に推奨/年次監査では必須 | 可 | 後述の `lawRevisionFacts` 契約に従う。 | `03b`, `21_explanationText_added`, convert | 法令関連問題の監査済み根拠・出題当時/現行法差分・AI prompt 用根拠要約。基本解説と自由質問 AI の正本。 |
 | 解説画像URL | `explanationImageUrls` | array<string> | 任意 | 任意 | 可 | list[str]。 | Storage upload / app | 解説画像がある場合だけ。 |
 | 解説画像パス | `explanationImagePaths` | array<string> | 任意 | 任意 | 可 | list[str]。 | app / migration | 同上。 |
 | ヒント本文 | `hintText` | string | 任意 | 任意 | 原則omit | string。 | app / user content | 公式過去問では基本解説優先。 |
@@ -188,15 +189,64 @@
 | `differenceNote` | string | 任意 | 現行法と出題当時法令が異なる場合の短い注記。 |
 | `reason` | string | 任意 | 監査上の補足理由。 |
 
+## `lawRevisionFacts` 契約
+
+`lawRevisionFacts` は、法令根拠監査の結果を question doc に載せるための read-only メタデータです。`lawReferences` は軽量 locator、`lawRevisionFacts` はAI解説・条文確認・二次監査で使う監査済み事実セットとして扱います。
+
+`isLawRelated=true` の問題は、差分がある問題だけでなく全件が作成対象です。差分がない問題は `auditStatus="same_as_current"`、出題当時との差分が未確定なら `auditStatus="hold"` として残します。
+
+最終形の主な field:
+
+| field | 型 | 必須性 | 説明 |
+| --- | --- | --- | --- |
+| `auditStatus` | enum string | 必須相当 | `same_as_current`, `updated_to_current_law`, `hold`, `not_law_related`。 |
+| `reviewState` | string | 推奨 | `primary_verified`, `secondary_verified`, `needs_secondary_review` など。 |
+| `sourceEvidenceVersionId` | string | 推奨 | 元になった `lawEvidenceVersions` の document ID。 |
+| `evidenceBindingHash` | string | 推奨 | `lawRevisionFacts.evidenceSummary` と evidence 側 locator set の一致確認用 hash。 |
+| `examTime` | object | 必要時 | 出題当時の正答、lawId、lawRevisionId、条・項・号、参照日、本文hash。 |
+| `current` | object | 法令問題では推奨 | 現行法ベースの正答、lawId、lawRevisionId、条・項・号、参照日、本文hash。 |
+| `differenceFacts` | array<string> | 任意 | 出題当時条文と現行法条文の差分事実。推測や解釈を混ぜない。 |
+| `answerImpactFacts` | array<string> | 任意 | その差分が正誤へ与える影響。 |
+| `notes` | array<string> | 任意 | 監査注記。未確認点はここか sidecar に残す。 |
+| `evidenceSummary` | object | 推奨 | AI prompt と条文確認UIに渡す、監査済み根拠のdenormalized summary。 |
+
+`examTime` / `current` snapshot の主な field:
+
+- `correctChoiceText`
+- `lawId`
+- `lawRevisionId`
+- `lawTitle`
+- `article`
+- `paragraph`
+- `item`
+- `subitem`
+- `referenceDate`
+- `effectiveDate`
+- `verificationStatus`
+- `articleTextHash`
+- `sourceUrl`
+
+`evidenceSummary` の主な field:
+
+- `verdict`: 監査済み結論。例: `correct`, `incorrect`, `same_as_current`, `hold`。
+- `explanationText`: 基本解説・自由質問に渡す短い監査済み説明。
+- `differenceSummary`: 正誤判断や暗記に影響する差分の要約。
+- `promptContext`: AI に渡す方針文。AI はこの範囲外を推測しない。
+- `displayRefIds`: UIで表示する根拠 ref の順序。
+- `refs[]`: `refId`, `lawTimeScope`, `relation`, `primaryBasis`, `lawId`, `lawRevisionId`, `lawTitle`, `elm`, `encodedElm`, `rootArticleElm`, `article`, `paragraph`, `item`, `highlightElms`, `articleTextHash`, `textHash`。
+
+条文本文そのものは、原則として question doc に長文保存しません。本文確認は `lawId + lawRevisionId + elm` と hash から、e-Gov v2 由来 corpus または整備環境のキャッシュを開きます。例外的に短い本文を中間監査で使う場合も、最終 upload 前に `articleTextHash` / locator へ寄せます。
+
 ### 法令監査の記録ルール
 
 - 法令問題は、資格別の `prompt/qualification_docs/<qualification>/...law_reference...md` を先に確認する。
 - 03の前に、原則として `prompt/02b_prompt_prepare_law_context.md` で `18_law_context_prepared/` を作る。merge 後の `20_merged_1/` に `isLawRelated`、`lawGroundedExplanationNotNeeded`、必要な `lawReferences` が入った状態を03の主入力にする。
 - 02b以降では全問題に `isLawRelated` を必ず付ける。`lawReferences` が非空なら `isLawRelated=true`、`isLawRelated=false` なら `lawReferences` は空または未定義にする。
-- `lawGroundedExplanationNotNeeded` は原則 `!isLawRelated` とする。`isLawRelated=true` の問題で条文解説ボタンを非表示にしてはいけない。
+- `lawGroundedExplanationNotNeeded` は原則 `!isLawRelated` とする。これは旧導線との互換フラグであり、現行のAI解説正本ではない。
 - 03は02bの法令コンテキストを使って `explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` を作る。03中に02bの判定と解説内容が矛盾すると分かった場合は、03 patch 側で修正してよい。
 - 02bまたは03で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その情報を既存の `correctChoiceText` / `explanationText` / `lawReferences` 成果物へマージする。
 - 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。
+- 年次監査後は、`isLawRelated=true` の全問題に `lawRevisionFacts` を作成する。差分なしでも `same_as_current` として保存し、hold は二次確認キューへ回す。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。
 - 更新した場合は、ユーザーに分かるように次を残す。
   - `explanationText`: 出題当時の正答と、現行法ベースに更新した注記。
@@ -208,14 +258,17 @@
 
 ### アプリ表示への接続メモ
 
-現行法ベースへ更新した問題では、アプリ上でもユーザーが「出題当時の正答」と「現行法ベースの学習上の扱い」を区別できる必要があります。現行 schema では専用 field を増やさず、まず次の既存データから実装へつなげます。
+現行法ベースへ更新した問題では、アプリ上でもユーザーが「出題当時の正答」と「現行法ベースの学習上の扱い」を区別できる必要があります。正本は `lawRevisionFacts` とし、基本解説・想定質問・自由入力AI補足はいずれもこの監査済み事実を前提にします。
 
+- `lawRevisionFacts.auditStatus` / `reviewState` に監査判断と二次確認状態を残す。
+- `lawRevisionFacts.examTime.correctChoiceText` と `lawRevisionFacts.current.correctChoiceText` を分ける。
+- `lawRevisionFacts.evidenceSummary` に AI prompt と条文確認UIへ渡す根拠要約、`displayRefIds`、`refs[]` を残す。
 - `explanationText` に「現行法に合わせて更新済み」「出題当時の公式正答とは異なる場合がある」という趣旨の短い注記を入れる。
 - `suggestedQuestions` / `suggestedQuestionDetails` に、出題当時と現行法の違いを確認できる質問と回答を入れる。
 - `lawReferences` は `role="current_basis"` と `role="exam_time_basis"` を分け、差分がある場合は `comparisonStatus="differs_from_current"` と `differenceNote` を残す。
 - 年次監査 sidecar では `userVisibleNoticeRequired=true` を残し、将来のUI実装・監査対象抽出に使えるようにする。
 
-repaso 側で UI を実装する場合は、解説画面に小さな注記またはバッジとして「現行法に合わせて更新済み」「出題当時法令と現行法に差分あり」を表示し、タップ時に `suggestedQuestionDetails` 相当の短い説明と `lawReferences` の根拠へ進める体験を基本にします。専用 field を追加する場合は、`lawAnswerBasis`、`lawAnswerUpdatedFromExamTime`、`originalExamTimeCorrectChoiceText`、`lawAnswerUpdateNote` などを候補にし、Firestore rules / typed model / schema validation / app UI を同時に更新します。
+repaso 側では、基本解説で正誤・現行法根拠・必要な差分説明が完結することを優先します。条文本文を見たい場合の UI は `lawRevisionFacts.evidenceSummary.refs[]` の `lawId + lawRevisionId + elm` から開き、一般ユーザー操作で新規検索・再判定を開始しません。
 
 ## `suggestedQuestions` / `suggestedQuestionDetails` 契約
 

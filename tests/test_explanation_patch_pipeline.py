@@ -132,6 +132,92 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
         self.assertEqual(errors, [])
         self.assertEqual(warnings, [])
 
+    def test_compare_entries_accepts_valid_law_revision_facts(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["解説1"],
+                "suggestedQuestions": ["現行法ではどう考える？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "現行法ではどう考える？",
+                        "answer": "監査済みの現行法根拠では正しいです。",
+                    }
+                ],
+                "lawRevisionFacts": {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "secondary_verified",
+                    "current": {
+                        "correctChoiceText": "正しい",
+                        "lawId": "325AC0000000201",
+                        "lawTitle": "建築基準法",
+                        "article": "2",
+                        "referenceDate": "2026-07-05",
+                        "verificationStatus": "verified",
+                    },
+                    "evidenceSummary": {
+                        "verdict": "correct",
+                        "displayRefIds": ["current_basis_Art2"],
+                        "refs": [
+                            {
+                                "refId": "current_basis_Art2",
+                                "lawTimeScope": "current",
+                                "relation": "basis",
+                                "primaryBasis": True,
+                                "lawId": "325AC0000000201",
+                                "lawTitle": "建築基準法",
+                                "elm": "MainProvision-Article_2",
+                                "articleTextHash": "article-hash",
+                            }
+                        ],
+                    },
+                },
+            }
+        ]
+
+        errors, warnings = compare_entries(source_questions, patch_entries)
+
+        self.assertEqual(errors, [])
+        self.assertEqual(warnings, [])
+
+    def test_compare_entries_rejects_invalid_law_revision_facts(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["解説1"],
+                "suggestedQuestions": ["現行法ではどう考える？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "現行法ではどう考える？",
+                        "answer": "監査済みの現行法根拠では正しいです。",
+                    }
+                ],
+                "lawRevisionFacts": {"auditStatus": "maybe"},
+            }
+        ]
+
+        errors, _ = compare_entries(source_questions, patch_entries)
+
+        self.assertTrue(
+            any("lawRevisionFacts must be a valid object" in error for error in errors)
+        )
+
     def test_compare_entries_accepts_public_question_id_when_original_id_missing(self) -> None:
         source_questions = [
             {

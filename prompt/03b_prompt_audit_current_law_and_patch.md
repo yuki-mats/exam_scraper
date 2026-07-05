@@ -22,7 +22,7 @@
 - `00_source` の本文・選択肢・出題当時の出典情報は変更しない。
 - 推測で `correctChoiceText` を変えない。条文本文、法令名、条・項・号、施行日または基準日を確認できない場合は `hold` にする。
 - `lawReferences` の `verified` は、法令名・`lawId`・条番号まで確認できた場合だけ使う。
-- 条文本文の長文転載は禁止する。必要な事実を要約し、URLは patch 本文に入れない。
+- 条文本文の長文転載は禁止する。必要な事実を要約し、`lawId` / `lawRevisionId` / `elm` / `articleTextHash` / `textHash` を `lawRevisionFacts` に残す。
 
 ## 入力の参照順
 
@@ -94,6 +94,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 
 更新した問題では、次を必ず残します。
 
+- `lawRevisionFacts`: 監査済みの正本。`auditStatus`、`examTime`、`current`、差分事実、正答影響、`evidenceSummary` を入れる
 - `explanationText`: 現行法に合わせて更新していること、出題当時の正答と異なる可能性または差分があること
 - `suggestedQuestions`: `現行法ではどう考える？` または `出題当時と現在で違いはある？`
 - `suggestedQuestionDetails`: 現行法の根拠、出題当時の扱い、受験者が混同しないための短い説明
@@ -103,10 +104,74 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 
 03b sidecar の判断結果を、既存の `18_law_context_prepared/` と `21_explanationText_added/` patch に反映します。既存の02b/通常03成果物と競合する場合は、03bの監査根拠・基準日・差分注記を優先し、通常03の薄い説明だけで上書きしてはいけません。
 
+### 4. `lawRevisionFacts` の最小形
+
+`isLawRelated=true` の問題は、差分がある問題だけでなく全件 `lawRevisionFacts` の作成対象です。差分がなければ `same_as_current`、未確定なら `hold` にします。`hold` は推測更新せず、別セッション・二次確認へ回します。
+
+```json
+{
+  "lawRevisionFacts": {
+    "auditStatus": "same_as_current | updated_to_current_law | hold | not_law_related",
+    "reviewState": "primary_verified | secondary_verified | needs_secondary_review",
+    "sourceEvidenceVersionId": "lawEvidenceVersions document id",
+    "evidenceBindingHash": "canonical locator hash",
+    "examTime": {
+      "correctChoiceText": "正しい | 間違い | unknown",
+      "lawId": "325AC0000000201",
+      "lawRevisionId": "出題当時のrevision id",
+      "lawTitle": "建築基準法",
+      "article": "2",
+      "referenceDate": "出題当時基準日",
+      "verificationStatus": "verified",
+      "articleTextHash": "sha256..."
+    },
+    "current": {
+      "correctChoiceText": "正しい | 間違い | unknown",
+      "lawId": "325AC0000000201",
+      "lawRevisionId": "現行revision id",
+      "lawTitle": "建築基準法",
+      "article": "2",
+      "referenceDate": "YYYY-MM-DD",
+      "verificationStatus": "verified",
+      "articleTextHash": "sha256..."
+    },
+    "differenceFacts": ["出題当時条文と現行条文の事実差分。差分なしならその旨。"],
+    "answerImpactFacts": ["正答への影響。差分なしなら同じと明記。"],
+    "evidenceSummary": {
+      "verdict": "correct | incorrect | hold",
+      "explanationText": "基本解説・自由質問に渡す監査済み短文。",
+      "differenceSummary": "正誤判断に必要な差分の要約。",
+      "promptContext": "AIはこの監査済み事実を前提にし、未記載の条文や改正内容を推測しない。",
+      "displayRefIds": ["current_basis_Art2"],
+      "refs": [
+        {
+          "refId": "current_basis_Art2",
+          "lawTimeScope": "current",
+          "relation": "basis",
+          "primaryBasis": true,
+          "lawId": "325AC0000000201",
+          "lawRevisionId": "現行revision id",
+          "lawTitle": "建築基準法",
+          "elm": "MainProvision-Article_2",
+          "rootArticleElm": "MainProvision-Article_2",
+          "article": "2",
+          "highlightElms": ["MainProvision-Article_2-Paragraph_1"],
+          "articleTextHash": "sha256...",
+          "textHash": "sha256..."
+        }
+      ]
+    }
+  }
+}
+```
+
+条文本文をAIに渡す場合も、最終データでは本文そのものより locator と hash を優先します。本文確認 UI は `lawId + lawRevisionId + elm` から e-Gov v2 由来 corpus / 整備済みキャッシュを開きます。
+
 ## ユーザー向け注記の方針
 
-アプリでは、ユーザーが「過去問としての出題当時の正答」と「現行法ベースの学習上の扱い」を区別できる必要があります。現行 schema では専用 field を増やさず、次のデータから実装につなげます。
+アプリでは、ユーザーが「過去問としての出題当時の正答」と「現行法ベースの学習上の扱い」を区別できる必要があります。正本は `lawRevisionFacts` とし、次のデータから実装につなげます。
 
+- `lawRevisionFacts.auditStatus` / `examTime` / `current` / `evidenceSummary`
 - `explanationText` に短い注記を入れる
 - `suggestedQuestions` / `suggestedQuestionDetails` に現行法差分の説明を入れる
 - `lawReferences[].role` で `current_basis` と `exam_time_basis` を分ける
@@ -127,14 +192,13 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 
 ## アプリ実装への接続メモ
 
-repaso 側で将来 UI を実装する場合は、まず次の体験を作ります。
+repaso 側では、基本解説で正誤・現行法根拠・必要な差分説明が完結する体験を優先します。
 
-- 解説画面に「現行法に合わせて更新済み」または「出題当時法令と現行法に差分あり」の小さな注記を出す
-- 注記をタップすると、出題当時の前提と現行法の扱いを `suggestedQuestionDetails` 相当の短い説明で表示する
-- `lawReferences` に `current_basis` がある場合は、現行法の条文参照に誘導する
-- `exam_time_basis` がある場合は、出題当時の根拠も区別して表示する
+- 基本解説・保存済み想定回答・自由入力AI補足には `lawRevisionFacts` を prompt context として渡す。
+- 条文本文を見たい場合だけ `lawRevisionFacts.evidenceSummary.refs[]` の locator から `条文を確認` UI を開く。
+- 一般ユーザー操作で根拠条文の新規検索・正答再判定を開始しない。
 
-専用 field を追加する場合の候補は `document/reference/question_field_contract.md` を更新してから実装します。現時点では、通常 upload 用 JSON に未定義 field を混入させてはいけません。
+通常 upload 用 JSON に新しい field を追加する場合は、`document/reference/question_field_contract.md`、repaso schema、exam_scraper schema、convert/upload、quality-gate を同時に更新します。
 
 ## 判定手順
 
