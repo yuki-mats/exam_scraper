@@ -246,6 +246,7 @@ def compare_entries(
     *,
     require_law_grounded_flag: bool = False,
     require_is_law_related: bool = False,
+    require_law_revision_facts: bool = False,
 ) -> Tuple[List[str], List[str]]:
     errors: List[str] = []
     warnings: List[str] = []
@@ -372,6 +373,14 @@ def compare_entries(
             errors.append(
                 f"index {idx}: isLawRelated cannot be false when lawReferences is non-empty"
             )
+        if (
+            require_law_revision_facts
+            and is_law_related is True
+            and "lawRevisionFacts" not in patch
+        ):
+            errors.append(
+                f"index {idx}: missing lawRevisionFacts for law-related question"
+            )
 
     if len(set(patch_ids)) != len(patch_ids):
         warnings.append("duplicate original_question_id detected in patch")
@@ -385,6 +394,7 @@ def check_pair(
     *,
     require_law_grounded_flag: bool = False,
     require_is_law_related: bool = False,
+    require_law_revision_facts: bool = False,
 ) -> int:
     if not source_path.exists():
         print(f"[ERROR] source not found: {source_path}")
@@ -404,6 +414,7 @@ def check_pair(
         patch_entries,
         require_law_grounded_flag=require_law_grounded_flag,
         require_is_law_related=require_is_law_related,
+        require_law_revision_facts=require_law_revision_facts,
     )
     for warn in warnings:
         print(f"[WARN] {warn}")
@@ -436,12 +447,18 @@ def main() -> int:
         action="store_true",
         help="Require isLawRelated on every patch entry.",
     )
+    parser.add_argument(
+        "--require-law-revision-facts",
+        action="store_true",
+        help="Require lawRevisionFacts when isLawRelated=true.",
+    )
     args = parser.parse_args()
     return check_pair(
         Path(args.source),
         Path(args.patch),
         require_law_grounded_flag=args.require_law_grounded_flag,
         require_is_law_related=args.require_is_law_related,
+        require_law_revision_facts=args.require_law_revision_facts,
     )
 
 

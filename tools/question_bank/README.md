@@ -56,7 +56,8 @@ python tools/question_bank/question_bank.py quality-gate \
   --list-group-id <list_group_id> \
   --require-law-context-stage \
   --require-is-law-related \
-  --require-law-grounded-flag
+  --require-law-grounded-flag \
+  --require-law-revision-facts
 ```
 
 root 直下に出てしまった資格別レポートは、資格フォルダ配下へ寄せます。
@@ -100,7 +101,8 @@ python tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
   --patch /path/to/21_explanationText_added/question_*_explanationText_added.json \
   --require-is-law-related \
-  --require-law-grounded-flag
+  --require-law-grounded-flag \
+  --require-law-revision-facts
 ```
 
 ```bash

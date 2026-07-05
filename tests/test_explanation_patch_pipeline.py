@@ -218,6 +218,40 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
             any("lawRevisionFacts must be a valid object" in error for error in errors)
         )
 
+    def test_compare_entries_requires_law_revision_facts_for_law_related_questions(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["解説1"],
+                "suggestedQuestions": ["現行法ではどう考える？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "現行法ではどう考える？",
+                        "answer": "監査済みの現行法根拠では正しいです。",
+                    }
+                ],
+                "isLawRelated": True,
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_revision_facts=True,
+        )
+
+        self.assertTrue(
+            any("missing lawRevisionFacts for law-related question" in error for error in errors)
+        )
+
     def test_compare_entries_accepts_public_question_id_when_original_id_missing(self) -> None:
         source_questions = [
             {

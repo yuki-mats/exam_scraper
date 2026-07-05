@@ -347,7 +347,8 @@ python tools/question_bank/question_bank.py quality-gate \
   --list-group-id <list_group_id> \
   --require-law-context-stage \
   --require-is-law-related \
-  --require-law-grounded-flag
+  --require-law-grounded-flag \
+  --require-law-revision-facts
 ```
 
 既存互換のため `scripts/check/run_question_quality_gate.py` も残しますが、日常運用の正本入口は `tools/question_bank/` です。
