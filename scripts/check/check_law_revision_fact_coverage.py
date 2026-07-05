@@ -100,6 +100,7 @@ def audit_records(
     require_all_law_related: bool,
     fail_on_hold: bool,
     require_evidence_summary: bool,
+    require_law_references: bool,
 ) -> tuple[list[str], Counter[str]]:
     errors: list[str] = []
     counts: Counter[str] = Counter()
@@ -111,6 +112,10 @@ def audit_records(
             errors.append(f"{label}: lawReferences exists but isLawRelated is not true")
         if is_law_related is True:
             counts["law_related"] += 1
+            if not has_refs:
+                counts["missing_law_references"] += 1
+                if require_law_references:
+                    errors.append(f"{label}: missing lawReferences for law-related record")
             law_grounded = record.get("lawGroundedExplanationNotNeeded")
             if law_grounded is True:
                 errors.append(
@@ -161,6 +166,7 @@ def run(
     require_all_law_related: bool,
     fail_on_hold: bool,
     require_evidence_summary: bool,
+    require_law_references: bool,
     report: Path | None,
 ) -> int:
     if stage == "firestore":
@@ -184,6 +190,7 @@ def run(
         require_all_law_related=require_all_law_related,
         fail_on_hold=fail_on_hold,
         require_evidence_summary=require_evidence_summary,
+        require_law_references=require_law_references,
     )
     print(f"stage: {stage}")
     for source_file in source_files:
@@ -221,6 +228,11 @@ def main() -> int:
         action="store_true",
         help="Fail when lawRevisionFacts.evidenceSummary is missing.",
     )
+    parser.add_argument(
+        "--require-law-references",
+        action="store_true",
+        help="Fail when isLawRelated=true records do not have lawReferences.",
+    )
     parser.add_argument("--report", type=Path, help="Optional JSON report output path.")
     args = parser.parse_args()
     return run(
@@ -229,6 +241,7 @@ def main() -> int:
         require_all_law_related=args.require_all_law_related,
         fail_on_hold=args.fail_on_hold,
         require_evidence_summary=args.require_evidence_summary,
+        require_law_references=args.require_law_references,
         report=args.report,
     )
 

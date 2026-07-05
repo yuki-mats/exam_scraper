@@ -57,10 +57,11 @@ python tools/question_bank/question_bank.py quality-gate \
   --require-law-context-stage \
   --require-is-law-related \
   --require-law-grounded-flag \
-  --require-law-revision-facts
+  --require-law-revision-facts \
+  --require-law-references-for-law-related
 ```
 
-`--require-law-revision-facts` を付けた quality-gate は、解説 patch だけでなく、選択した mode に応じて `30_merged_2/` または `40_convert/` の実データ上でも `isLawRelated=true` 全件に `lawRevisionFacts` があるか確認します。最終公開前はさらに `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を追加し、`hold` や根拠要約不足を残さない状態を目標にします。
+`--require-law-revision-facts` を付けた quality-gate は、解説 patch だけでなく、選択した mode に応じて `30_merged_2/` または `40_convert/` の実データ上でも `isLawRelated=true` 全件に `lawRevisionFacts` があるか確認します。`--require-law-references-for-law-related` は、法令関連レコードに `lawReferences` が空で残る状態を検出します。最終公開前はさらに `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を追加し、`hold` や根拠要約不足を残さない状態を目標にします。
 
 現時点の未整備数を棚卸しするだけなら、単体 checker で report を残します。
 

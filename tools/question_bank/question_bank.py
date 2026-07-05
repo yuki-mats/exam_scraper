@@ -372,6 +372,7 @@ def run_law_revision_fact_coverage_checks(
     stage: str,
     fail_on_hold: bool,
     require_evidence_summary: bool,
+    require_law_references: bool,
 ) -> int:
     print_heading("lawRevisionFacts coverage")
     failed = 0
@@ -389,6 +390,8 @@ def run_law_revision_fact_coverage_checks(
             cmd.append("--fail-on-hold")
         if require_evidence_summary:
             cmd.append("--require-evidence-summary")
+        if require_law_references:
+            cmd.append("--require-law-references")
         if run_command(cmd) != 0:
             failed += 1
     return 1 if failed else 0
@@ -538,6 +541,7 @@ def add_law_revision_fact_coverage_parser(
     parser.add_argument("--require-all-law-related", action="store_true")
     parser.add_argument("--fail-on-hold", action="store_true")
     parser.add_argument("--require-evidence-summary", action="store_true")
+    parser.add_argument("--require-law-references", action="store_true")
     parser.add_argument("--report", type=Path)
 
 
@@ -608,6 +612,11 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
         "--require-law-revision-evidence-summary",
         action="store_true",
         help="Require lawRevisionFacts.evidenceSummary on law-related records.",
+    )
+    parser.add_argument(
+        "--require-law-references-for-law-related",
+        action="store_true",
+        help="Require lawReferences on records where isLawRelated=true during lawRevisionFacts gate.",
     )
     parser.add_argument(
         "--require-law-context-stage",
@@ -748,6 +757,8 @@ def run_law_revision_fact_coverage(args: argparse.Namespace) -> int:
         cmd.append("--fail-on-hold")
     if args.require_evidence_summary:
         cmd.append("--require-evidence-summary")
+    if args.require_law_references:
+        cmd.append("--require-law-references")
     if args.report:
         cmd.extend(["--report", str(args.report)])
     return run_command(cmd)
@@ -847,6 +858,7 @@ def main(argv: list[str] | None = None) -> int:
             stage=fact_stage,
             fail_on_hold=args.fail_on_law_revision_hold,
             require_evidence_summary=args.require_law_revision_evidence_summary,
+            require_law_references=args.require_law_references_for_law_related,
         )
 
     if failures:

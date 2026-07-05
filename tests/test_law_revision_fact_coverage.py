@@ -54,6 +54,7 @@ class LawRevisionFactCoverageTests(unittest.TestCase):
             require_all_law_related=True,
             fail_on_hold=False,
             require_evidence_summary=False,
+            require_law_references=False,
         )
 
         self.assertEqual(counts["law_related"], 1)
@@ -67,16 +68,42 @@ class LawRevisionFactCoverageTests(unittest.TestCase):
                     "questionId": "q1",
                     "isLawRelated": True,
                     "lawGroundedExplanationNotNeeded": False,
+                    "lawReferences": [
+                        {
+                            "lawId": "325AC0000000201",
+                            "article": "6",
+                        }
+                    ],
                     "lawRevisionFacts": valid_facts("hold"),
                 }
             ],
             require_all_law_related=True,
             fail_on_hold=True,
             require_evidence_summary=True,
+            require_law_references=False,
         )
 
         self.assertEqual(counts, Counter({"law_related": 1, "with_facts": 1, "hold": 1}))
         self.assertTrue(any("auditStatus is hold" in error for error in errors))
+
+    def test_can_require_law_references_for_law_related_records(self) -> None:
+        errors, counts = audit_records(
+            [
+                {
+                    "questionId": "q1",
+                    "isLawRelated": True,
+                    "lawGroundedExplanationNotNeeded": False,
+                    "lawRevisionFacts": valid_facts("same_as_current"),
+                }
+            ],
+            require_all_law_related=True,
+            fail_on_hold=False,
+            require_evidence_summary=True,
+            require_law_references=True,
+        )
+
+        self.assertEqual(counts["missing_law_references"], 1)
+        self.assertTrue(any("missing lawReferences" in error for error in errors))
 
 
 if __name__ == "__main__":

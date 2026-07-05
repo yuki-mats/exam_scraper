@@ -251,7 +251,7 @@
 - 02bまたは03で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その情報を既存の `correctChoiceText` / `explanationText` / `lawReferences` 成果物へマージする。
 - 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。
 - 年次監査後は、`isLawRelated=true` の全問題に `lawRevisionFacts` を作成する。差分なしでも `same_as_current` として保存し、hold は二次確認キューへ回す。
-- `lawRevisionFacts` 未整備件数を残したまま公開しない。最終公開前は `check-law-revision-facts --require-all-law-related --require-evidence-summary` を通し、残る `hold` は別セッションの二次確認対象として明示する。
+- `lawRevisionFacts` 未整備件数を残したまま公開しない。最終公開前は `check-law-revision-facts --require-all-law-related --require-evidence-summary --require-law-references` を通し、残る `hold` は別セッションの二次確認対象として明示する。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。
 - 更新した場合は、ユーザーに分かるように次を残す。
   - `explanationText`: 出題当時の正答と、現行法ベースに更新した注記。
