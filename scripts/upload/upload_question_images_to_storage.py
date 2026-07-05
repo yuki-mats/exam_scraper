@@ -111,6 +111,7 @@ def build_upload_plan(
     *,
     output_root: Path = DEFAULT_OUTPUT_ROOT,
     list_group_ids: set[str] | None = None,
+    verify_duplicate_content: bool = True,
 ) -> list[ImageUploadItem]:
     image_root = resolve_image_root(output_root, qualification)
     resolved_list_group_ids = (
@@ -125,20 +126,39 @@ def build_upload_plan(
 
     upload_items: list[ImageUploadItem] = []
     for filename, paths in sorted(files_by_name.items()):
-        hashes: dict[str, list[Path]] = {}
-        for path in paths:
-            hashes.setdefault(sha256_file(path), []).append(path)
+        sorted_paths = sorted(paths)
+        if len(sorted_paths) == 1:
+            local_path = sorted_paths[0]
+            duplicate_paths: tuple[Path, ...] = ()
+            hash_value = ""
+        elif not verify_duplicate_content:
+            sizes: dict[int, list[Path]] = {}
+            for path in sorted_paths:
+                sizes.setdefault(path.stat().st_size, []).append(path)
+            if len(sizes) > 1:
+                detail = "; ".join(
+                    f"{size}: {', '.join(str(path) for path in grouped_paths)}"
+                    for size, grouped_paths in sizes.items()
+                )
+                raise ValueError(f"同名ファイルのサイズが一致しません: {filename}: {detail}")
+            local_path = sorted_paths[0]
+            duplicate_paths = tuple(path for path in sorted_paths if path != local_path)
+            hash_value = ""
+        else:
+            hashes: dict[str, list[Path]] = {}
+            for path in sorted_paths:
+                hashes.setdefault(sha256_file(path), []).append(path)
 
-        if len(hashes) > 1:
-            detail = "; ".join(
-                f"{hash_value[:12]}: {', '.join(str(path) for path in grouped_paths)}"
-                for hash_value, grouped_paths in hashes.items()
-            )
-            raise ValueError(f"同名ファイルの内容が一致しません: {filename}: {detail}")
+            if len(hashes) > 1:
+                detail = "; ".join(
+                    f"{hash_value[:12]}: {', '.join(str(path) for path in grouped_paths)}"
+                    for hash_value, grouped_paths in hashes.items()
+                )
+                raise ValueError(f"同名ファイルの内容が一致しません: {filename}: {detail}")
 
-        hash_value, grouped_paths = next(iter(hashes.items()))
-        local_path = sorted(grouped_paths)[0]
-        duplicate_paths = tuple(path for path in sorted(grouped_paths) if path != local_path)
+            hash_value, grouped_paths = next(iter(hashes.items()))
+            local_path = sorted(grouped_paths)[0]
+            duplicate_paths = tuple(path for path in sorted(grouped_paths) if path != local_path)
         object_path = build_storage_object_path(qualification, filename)
         upload_items.append(
             ImageUploadItem(
@@ -251,6 +271,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=None,
         help="先頭N件だけ処理する。疎通確認用。",
     )
+    parser.add_argument(
+        "--trust-duplicate-filenames",
+        action="store_true",
+        help="同名画像の内容ハッシュ確認を省略し、ファイルサイズ差だけを確認する。",
+    )
     return parser.parse_args(argv)
 
 
@@ -263,6 +288,7 @@ def main(argv: list[str] | None = None) -> int:
         args.qualification,
         output_root=output_root,
         list_group_ids=list_group_ids,
+        verify_duplicate_content=not args.trust_duplicate_filenames,
     )
     upload_items = all_upload_items
     if args.limit is not None:
