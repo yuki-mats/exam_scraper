@@ -60,6 +60,28 @@ python tools/question_bank/question_bank.py quality-gate \
   --require-law-revision-facts
 ```
 
+`--require-law-revision-facts` を付けた quality-gate は、解説 patch だけでなく、選択した mode に応じて `30_merged_2/` または `40_convert/` の実データ上でも `isLawRelated=true` 全件に `lawRevisionFacts` があるか確認します。最終公開前はさらに `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を追加し、`hold` や根拠要約不足を残さない状態を目標にします。
+
+現時点の未整備数を棚卸しするだけなら、単体 checker で report を残します。
+
+```bash
+python tools/question_bank/question_bank.py check-law-revision-facts \
+  --list-group-dir output/<qualification>/questions_json/<list_group_id> \
+  --stage firestore \
+  --report output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_fact_coverage_<timestamp>.json
+```
+
+法令本文の再現性を確保する場合は、Firestore 変換後の verified `lawReferences` から e-Gov 条文スナップショットを取得します。これはアプリ実行時の検索ではなく、問題整備時の evidence 蓄積です。
+
+```bash
+python scripts/pipeline/fetch_law_article_snapshots.py \
+  --list-group-dir output/<qualification>/questions_json/<list_group_id> \
+  --timestamp <YYYYMMDD_HHMM> \
+  --fail-on-fetch-error
+```
+
+出力先は `output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/` です。JSONL には `articleText`、`articleTextHash`、`rawXmlHash`、`apiUrl`、紐づく `questionIds` を保存し、raw XML は `raw_xml/<timestamp>/` に保存します。
+
 root 直下に出てしまった資格別レポートは、資格フォルダ配下へ寄せます。
 
 ```bash

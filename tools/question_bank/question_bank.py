@@ -366,6 +366,34 @@ def run_firestore_dry_run(*, list_group_dirs: Iterable[Path]) -> int:
     return 1 if failed else 0
 
 
+def run_law_revision_fact_coverage_checks(
+    *,
+    list_group_dirs: Iterable[Path],
+    stage: str,
+    fail_on_hold: bool,
+    require_evidence_summary: bool,
+) -> int:
+    print_heading("lawRevisionFacts coverage")
+    failed = 0
+    for group_dir in list_group_dirs:
+        cmd = [
+            sys.executable,
+            "scripts/check/check_law_revision_fact_coverage.py",
+            "--list-group-dir",
+            str(group_dir),
+            "--stage",
+            stage,
+            "--require-all-law-related",
+        ]
+        if fail_on_hold:
+            cmd.append("--fail-on-hold")
+        if require_evidence_summary:
+            cmd.append("--require-evidence-summary")
+        if run_command(cmd) != 0:
+            failed += 1
+    return 1 if failed else 0
+
+
 def add_quality_gate_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     parser = subparsers.add_parser(
         "quality-gate",
@@ -497,6 +525,22 @@ def add_organize_reports_parser(
     parser.add_argument("--dry-run", action="store_true", help="Show moves without changing files.")
 
 
+def add_law_revision_fact_coverage_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "check-law-revision-facts",
+        help="Check lawRevisionFacts coverage on merged or Firestore records.",
+    )
+    parser.set_defaults(command="check-law-revision-facts")
+    parser.add_argument("--list-group-dir", required=True, type=Path)
+    parser.add_argument("--stage", choices=("merged", "firestore"), default="firestore")
+    parser.add_argument("--require-all-law-related", action="store_true")
+    parser.add_argument("--fail-on-hold", action="store_true")
+    parser.add_argument("--require-evidence-summary", action="store_true")
+    parser.add_argument("--report", type=Path)
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -532,7 +576,20 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--require-law-revision-facts",
         action="store_true",
-        help="Require lawRevisionFacts when isLawRelated=true in explanation patches.",
+        help=(
+            "Require lawRevisionFacts when isLawRelated=true in explanation patches "
+            "and in merged/Firestore records for the selected quality-gate mode."
+        ),
+    )
+    parser.add_argument(
+        "--fail-on-law-revision-hold",
+        action="store_true",
+        help="Fail quality-gate when lawRevisionFacts.auditStatus=hold remains.",
+    )
+    parser.add_argument(
+        "--require-law-revision-evidence-summary",
+        action="store_true",
+        help="Require lawRevisionFacts.evidenceSummary on law-related records.",
     )
     parser.add_argument(
         "--require-law-context-stage",
@@ -562,6 +619,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_question_set_patch_parser(subparsers)
     add_materialize_patch_parser(subparsers)
     add_organize_reports_parser(subparsers)
+    add_law_revision_fact_coverage_parser(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
 
@@ -656,6 +714,26 @@ def run_materialize_patch(args: argparse.Namespace) -> int:
     )
 
 
+def run_law_revision_fact_coverage(args: argparse.Namespace) -> int:
+    cmd = [
+        sys.executable,
+        "scripts/check/check_law_revision_fact_coverage.py",
+        "--list-group-dir",
+        str(args.list_group_dir),
+        "--stage",
+        args.stage,
+    ]
+    if args.require_all_law_related:
+        cmd.append("--require-all-law-related")
+    if args.fail_on_hold:
+        cmd.append("--fail-on-hold")
+    if args.require_evidence_summary:
+        cmd.append("--require-evidence-summary")
+    if args.report:
+        cmd.extend(["--report", str(args.report)])
+    return run_command(cmd)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if args.command == "check-question-type-patch":
@@ -672,6 +750,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_materialize_patch(args)
     if args.command == "organize-reports":
         return organize_report_files(args)
+    if args.command == "check-law-revision-facts":
+        return run_law_revision_fact_coverage(args)
 
     base_dir = resolve_base_dir(args)
     if not base_dir.exists():
@@ -714,6 +794,15 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.mode in ("full", "firestore") and not args.skip_upload_dry_run:
         failures += run_firestore_dry_run(list_group_dirs=list_group_dirs)
+
+    if args.require_law_revision_facts:
+        fact_stage = "firestore" if args.mode in ("full", "firestore") else "merged"
+        failures += run_law_revision_fact_coverage_checks(
+            list_group_dirs=list_group_dirs,
+            stage=fact_stage,
+            fail_on_hold=args.fail_on_law_revision_hold,
+            require_evidence_summary=args.require_law_revision_evidence_summary,
+        )
 
     if failures:
         print(f"\n[NG] question quality gate failed: sections_with_failures={failures}")
