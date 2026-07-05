@@ -96,6 +96,18 @@ python tools/question_bank/question_bank.py build-law-revision-audit-queue \
 
 queue の各行は `auditReason=missing_lawRevisionFacts` または `hold` を持ち、`currentEvidence.refs[].snapshot.articleTextHash` と raw XML の hash を含みます。同一 `originalQuestionId` の派生レコードに `lawReferences` が空で、兄弟レコードに根拠がある場合は `lawReferencesSource=same_original_question_fallback` として明示します。これは根拠欠落を隠すためではなく、監査 queue 上で根拠候補を失わないためです。最終公開前は、この queue を消化して `lawRevisionFacts` を作成し、`check-law-revision-facts --require-all-law-related` を通します。
 
+queue 作成直後にまだ出題当時法令との差分を確定できない場合は、`hold` の `lawRevisionFacts` を 21系 explanation patch に初期化します。これは正答変更を断定する工程ではありません。現行法の locator / hash / snapshot を保存し、`reviewState=needs_secondary_review` として自由質問 AI に「推測して断定しない」前提を渡すための工程です。
+
+```bash
+python tools/question_bank/question_bank.py materialize-law-revision-hold-facts \
+  --queue-jsonl output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_audit_queue_<timestamp>.jsonl \
+  --explanation-patch output/<qualification>/questions_json/<list_group_id>/21_explanationText_added/<patch>.json \
+  --output output/<qualification>/questions_json/<list_group_id>/21_explanationText_added/<patch>_hold_facts_<timestamp>.json \
+  --skip-missing-patch-ids
+```
+
+この `hold` は公開前の最終状態ではなく、二次監査対象です。二次監査で `same_as_current` または `updated_to_current_law` に昇格し、最終公開前は `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を付けた gate を通します。
+
 root 直下に出てしまった資格別レポートは、資格フォルダ配下へ寄せます。
 
 ```bash

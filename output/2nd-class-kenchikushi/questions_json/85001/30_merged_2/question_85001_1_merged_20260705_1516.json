@@ -2336,6 +2336,304 @@
           "answer": "まず 建築基準法施行令第1条第1項第2号、建築基準法第2条第十四号、建築基準法第2条第五号、建築基準法第23条、建築基準法第2条第八号 を正本にして覚えるのが安全です。過去問の言い回しは補助に回してください。"
         }
       ],
+      "lawRevisionFacts": [
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L1",
+          "evidenceBindingHash": "5cd15dacf4faed9c5c8f783c54e53760a83e1e6489a9194815b6c9ea027520be",
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325CO0000000338",
+            "lawTitle": "建築基準法施行令",
+            "article": "1条",
+            "paragraph": "1項",
+            "item": "二号",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "80cbe475ce8a89e26aa8be160b43d11915b16e2aa54420038b683e160daa72e3",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325CO0000000338;article=1",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_1_hold_current_basis_1"
+            ],
+            "refs": [
+              {
+                "refId": "choice_1_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325CO0000000338",
+                "lawTitle": "建築基準法施行令",
+                "article": "1条",
+                "paragraph": "1項",
+                "item": "二号",
+                "articleTextHash": "80cbe475ce8a89e26aa8be160b43d11915b16e2aa54420038b683e160daa72e3"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L2",
+          "evidenceBindingHash": "6013dffaa8fd91ef582b92ffc9b0ad48e7f45624ac6fbae805a5eca8385b4e78",
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "2条",
+            "item": "十四号",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=2",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_2_hold_current_basis_1",
+              "choice_2_hold_current_basis_2"
+            ],
+            "refs": [
+              {
+                "refId": "choice_2_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "2条",
+                "item": "十四号",
+                "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6"
+              },
+              {
+                "refId": "choice_2_hold_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "2条",
+                "item": "五号",
+                "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L3",
+          "evidenceBindingHash": "61326e3609105f889ae1f7b2a80f0cfe0891de2b6feb160b4fb418d6a070c27f",
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "23条",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "1359ffde2222d8641dcc0a9fd749f7041142167ebe2b6681e70514993c24d349",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=23",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_3_hold_current_basis_1",
+              "choice_3_hold_current_basis_2"
+            ],
+            "refs": [
+              {
+                "refId": "choice_3_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "23条",
+                "articleTextHash": "1359ffde2222d8641dcc0a9fd749f7041142167ebe2b6681e70514993c24d349"
+              },
+              {
+                "refId": "choice_3_hold_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "2条",
+                "item": "八号",
+                "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L4",
+          "evidenceBindingHash": "a3fee6fcaa78a732ec100afb9b3d1df2aad552d6ce16739c89b71f699350d3ea",
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325CO0000000338",
+            "lawTitle": "建築基準法施行令",
+            "article": "13条",
+            "paragraph": "1項",
+            "item": "一号",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "f85c5df866aa2c794d3a942ad3ca37a3cb6f1c3679b9ac4fb1a7dfbfb238af71",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325CO0000000338;article=13",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_4_hold_current_basis_1"
+            ],
+            "refs": [
+              {
+                "refId": "choice_4_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325CO0000000338",
+                "lawTitle": "建築基準法施行令",
+                "article": "13条",
+                "paragraph": "1項",
+                "item": "一号",
+                "articleTextHash": "f85c5df866aa2c794d3a942ad3ca37a3cb6f1c3679b9ac4fb1a7dfbfb238af71"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L5",
+          "evidenceBindingHash": "146edd7240676b346c53b6f4dd99e213e372eccb41ee483d1380ffeacd539d3d",
+          "current": {
+            "correctChoiceText": "正しい",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "2条",
+            "item": "六号",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=2",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_5_hold_current_basis_1"
+            ],
+            "refs": [
+              {
+                "refId": "choice_5_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "2条",
+                "item": "六号",
+                "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "正しい",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        }
+      ],
       "questionSetId": "g2_01_yougo_teigi"
     },
     {
@@ -3203,6 +3501,421 @@
         {
           "question": "現行法ではどう整理すると良い？",
           "answer": "現行法を正本にして、過去問の言い回しは補助として扱うのが安全です。今回も 建築基準法第7条の6第1項、建築基準法第6条第1項一号、建築基準法第6条第1項二号、建築基準法第6条第1項 から確認できます。"
+        }
+      ],
+      "lawRevisionFacts": [
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L6",
+          "evidenceBindingHash": "dfaf8266ea1833af329151b71acf36bcb869ae9279854963abcb33e7760e4c34",
+          "current": {
+            "correctChoiceText": "正しい",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "7条の6",
+            "paragraph": "1項",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "8e92cac0349f40a9e42467bc1f2496e510a06f6efa57f093eef5ba9d3de6098b",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=7_6",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_1_hold_current_basis_1",
+              "choice_1_hold_current_basis_2",
+              "choice_1_hold_current_basis_3",
+              "choice_1_hold_current_basis_4",
+              "choice_1_hold_current_basis_5"
+            ],
+            "refs": [
+              {
+                "refId": "choice_1_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条の6",
+                "paragraph": "1項",
+                "articleTextHash": "8e92cac0349f40a9e42467bc1f2496e510a06f6efa57f093eef5ba9d3de6098b"
+              },
+              {
+                "refId": "choice_1_hold_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "item": "一号",
+                "articleTextHash": "303639ad43caff7d317f0904c4a3705215168adea4dfb4c980bc90a5bbb88786"
+              },
+              {
+                "refId": "choice_1_hold_current_basis_3",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "item": "二号",
+                "articleTextHash": "303639ad43caff7d317f0904c4a3705215168adea4dfb4c980bc90a5bbb88786"
+              },
+              {
+                "refId": "choice_1_hold_current_basis_4",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "articleTextHash": "303639ad43caff7d317f0904c4a3705215168adea4dfb4c980bc90a5bbb88786"
+              },
+              {
+                "refId": "choice_1_hold_current_basis_5",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条の6",
+                "articleTextHash": "8e92cac0349f40a9e42467bc1f2496e510a06f6efa57f093eef5ba9d3de6098b"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "正しい",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L7",
+          "evidenceBindingHash": "387be8c06bd9312de56942791b306450b5560fc1c9d3299990b4a870d2521755",
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "15条",
+            "paragraph": "1項",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "952846691b8adc5f4e3585dd4ef530776a2846c907f133da2cee94aac028d1f3",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=15",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_2_hold_current_basis_1",
+              "choice_2_hold_current_basis_2"
+            ],
+            "refs": [
+              {
+                "refId": "choice_2_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "15条",
+                "paragraph": "1項",
+                "articleTextHash": "952846691b8adc5f4e3585dd4ef530776a2846c907f133da2cee94aac028d1f3"
+              },
+              {
+                "refId": "choice_2_hold_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "93条",
+                "articleTextHash": "80b0ed8eba07d2c46439057c6c3a1ac64dced794bd4d1d312810242c9923cdb2"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L8",
+          "evidenceBindingHash": "c674bd7d603adf5336d01a160e2463566df05f6ef454b3e8abc1f18eed8c9ede",
+          "current": {
+            "correctChoiceText": "正しい",
+            "lawId": "325CO0000000338",
+            "lawTitle": "建築基準法施行令",
+            "article": "9条",
+            "item": "一号",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "45a9922519c6807c25ccfd9b3bbe242a5d44c5efd8ff3222a80941b5832b83a7",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325CO0000000338;article=9",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_3_hold_current_basis_1",
+              "choice_3_hold_current_basis_2",
+              "choice_3_hold_current_basis_3"
+            ],
+            "refs": [
+              {
+                "refId": "choice_3_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325CO0000000338",
+                "lawTitle": "建築基準法施行令",
+                "article": "9条",
+                "item": "一号",
+                "articleTextHash": "45a9922519c6807c25ccfd9b3bbe242a5d44c5efd8ff3222a80941b5832b83a7"
+              },
+              {
+                "refId": "choice_3_hold_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "323AC1000000186",
+                "lawTitle": "消防法",
+                "article": "9条の2",
+                "articleTextHash": "c0112b9d6a8a5d26a6791d8cec179b34916d5408b42cbc2be72ed38fcd5c4ae9"
+              },
+              {
+                "refId": "choice_3_hold_current_basis_3",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325CO0000000338",
+                "lawTitle": "建築基準法施行令",
+                "article": "9条",
+                "articleTextHash": "45a9922519c6807c25ccfd9b3bbe242a5d44c5efd8ff3222a80941b5832b83a7"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "正しい",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L9",
+          "evidenceBindingHash": "3a8a27489c4476dd702fee11d65aaf772b2887f13edfb326427555377b91ba08",
+          "current": {
+            "correctChoiceText": "正しい",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "7条の3",
+            "paragraph": "1項",
+            "item": "一号",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "1148b54a8ca9b28b910e06ca186ec05cbcb499f94f04c88b12b29fc52640c886",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=7_3",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_4_hold_current_basis_1",
+              "choice_4_hold_current_basis_2",
+              "choice_4_hold_current_basis_3"
+            ],
+            "refs": [
+              {
+                "refId": "choice_4_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条の3",
+                "paragraph": "1項",
+                "item": "一号",
+                "articleTextHash": "1148b54a8ca9b28b910e06ca186ec05cbcb499f94f04c88b12b29fc52640c886"
+              },
+              {
+                "refId": "choice_4_hold_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条の3",
+                "paragraph": "6項",
+                "articleTextHash": "1148b54a8ca9b28b910e06ca186ec05cbcb499f94f04c88b12b29fc52640c886"
+              },
+              {
+                "refId": "choice_4_hold_current_basis_3",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条の3",
+                "articleTextHash": "1148b54a8ca9b28b910e06ca186ec05cbcb499f94f04c88b12b29fc52640c886"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "正しい",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
+        },
+        {
+          "auditStatus": "hold",
+          "reviewState": "needs_secondary_review",
+          "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L10",
+          "evidenceBindingHash": "4beaedb1adad5ac1e3ac0c16aaf93f6535c96598d92caebe7eb48d8c10c17724",
+          "current": {
+            "correctChoiceText": "正しい",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "7条",
+            "paragraph": "1項",
+            "referenceDate": "2026-07-04",
+            "articleTextHash": "ca8946f45e32bba63721cda8daa90a684d1dd842bfac0096640d9ff847f8409f",
+            "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=7",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時法令と現行法の差分は二次監査待ちです。"
+          ],
+          "answerImpactFacts": [
+            "現行法ベースの正答変更は未確定です。"
+          ],
+          "notes": [
+            "lawRevisionFacts は監査 queue から hold として初期化しました。",
+            "現行法条文 snapshot は取得済みです。",
+            "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          ],
+          "evidenceSummary": {
+            "verdict": "hold",
+            "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
+            "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
+            "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+            "displayRefIds": [
+              "choice_5_hold_current_basis_1",
+              "choice_5_hold_current_basis_2",
+              "choice_5_hold_current_basis_3",
+              "choice_5_hold_current_basis_4"
+            ],
+            "refs": [
+              {
+                "refId": "choice_5_hold_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条",
+                "paragraph": "1項",
+                "articleTextHash": "ca8946f45e32bba63721cda8daa90a684d1dd842bfac0096640d9ff847f8409f"
+              },
+              {
+                "refId": "choice_5_hold_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条",
+                "paragraph": "2項",
+                "articleTextHash": "ca8946f45e32bba63721cda8daa90a684d1dd842bfac0096640d9ff847f8409f"
+              },
+              {
+                "refId": "choice_5_hold_current_basis_3",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条の2",
+                "paragraph": "1項",
+                "articleTextHash": "13ad6981ef1a8b02d68d823e9dc2d3034689a6a2d76cc23a42477c60cd5b3f70"
+              },
+              {
+                "refId": "choice_5_hold_current_basis_4",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "7条",
+                "paragraph": "2項",
+                "articleTextHash": "ca8946f45e32bba63721cda8daa90a684d1dd842bfac0096640d9ff847f8409f"
+              }
+            ]
+          },
+          "examTime": {
+            "correctChoiceText": "正しい",
+            "verificationStatus": "from_existing_question_pending_secondary_review"
+          }
         }
       ],
       "questionSetId": "g2_04_tetsuzuki_tekigou"

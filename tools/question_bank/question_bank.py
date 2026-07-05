@@ -563,6 +563,21 @@ def add_law_revision_audit_queue_parser(
     parser.add_argument("--snippet-chars", type=int, default=600)
 
 
+def add_law_revision_hold_materialize_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "materialize-law-revision-hold-facts",
+        help="Materialize hold lawRevisionFacts from an audit queue into an explanation patch.",
+    )
+    parser.set_defaults(command="materialize-law-revision-hold-facts")
+    parser.add_argument("--queue-jsonl", required=True, type=Path)
+    parser.add_argument("--explanation-patch", required=True, type=Path)
+    parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--overwrite-existing", action="store_true")
+    parser.add_argument("--skip-missing-patch-ids", action="store_true")
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -648,6 +663,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_organize_reports_parser(subparsers)
     add_law_revision_fact_coverage_parser(subparsers)
     add_law_revision_audit_queue_parser(subparsers)
+    add_law_revision_hold_materialize_parser(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
 
@@ -788,6 +804,24 @@ def run_law_revision_audit_queue(args: argparse.Namespace) -> int:
     return run_command(cmd)
 
 
+def run_law_revision_hold_materialize(args: argparse.Namespace) -> int:
+    cmd = [
+        sys.executable,
+        "scripts/pipeline/materialize_law_revision_hold_facts_from_queue.py",
+        "--queue-jsonl",
+        str(args.queue_jsonl),
+        "--explanation-patch",
+        str(args.explanation_patch),
+        "--output",
+        str(args.output),
+    ]
+    if args.overwrite_existing:
+        cmd.append("--overwrite-existing")
+    if args.skip_missing_patch_ids:
+        cmd.append("--skip-missing-patch-ids")
+    return run_command(cmd)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if args.command == "check-question-type-patch":
@@ -808,6 +842,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_law_revision_fact_coverage(args)
     if args.command == "build-law-revision-audit-queue":
         return run_law_revision_audit_queue(args)
+    if args.command == "materialize-law-revision-hold-facts":
+        return run_law_revision_hold_materialize(args)
 
     base_dir = resolve_base_dir(args)
     if not base_dir.exists():
