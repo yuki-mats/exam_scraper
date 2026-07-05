@@ -191,16 +191,34 @@
 
 ## `lawRevisionFacts` 契約
 
-`lawRevisionFacts` は、法令根拠監査の結果を question doc に載せるための read-only メタデータです。`lawReferences` は軽量 locator、`lawRevisionFacts` はAI解説・条文確認・二次監査で使う監査済み事実セットとして扱います。
+`lawRevisionFacts` は、法令根拠監査の結果を question doc に載せるための read-only メタデータです。`lawReferences` は軽量 locator、`lawRevisionFacts` はAI解説・条文確認・年次監査・二次/三次監査で使う監査済み事実セットとして扱います。
 
 `isLawRelated=true` の問題は、差分がある問題だけでなく全件が作成対象です。差分がない問題は `auditStatus="same_as_current"`、出題当時との差分が未確定なら `auditStatus="hold"` として残します。
+
+法令根拠監査は次の三段階で扱います。
+
+1. 一次監査: 現行法・必要な出題当時法令の条文 snapshot を取得し、`lawId`、`lawRevisionId`、条・項・号、`articleTextHash`、raw XML hash、暫定判断を固定する。
+2. 二次監査: 一次で取得した evidence bundle を使い、正答・解説・差分説明が条文本文と矛盾しないかを妥当性監査する。根拠不足なら `hold` として追加取得キューへ戻す。
+3. 三次確定: `updated_to_current_law`、一次/二次不一致、高リスク判断を最終決裁し、`correctChoiceText` / `explanationText` の公開確定を承認する。
+
+`referenceDate` は条文の基準日であり、監査判断を確定した日時ではありません。監査日時は `auditedAt`、監査方式の版は `auditMethodVersion` に保存します。
 
 最終形の主な field:
 
 | field | 型 | 必須性 | 説明 |
 | --- | --- | --- | --- |
 | `auditStatus` | enum string | 必須相当 | `same_as_current`, `updated_to_current_law`, `hold`, `not_law_related`。 |
-| `reviewState` | string | 推奨 | `primary_verified`, `secondary_verified`, `needs_secondary_review` など。 |
+| `reviewState` | string | 推奨 | `primary_checked`, `secondary_verified`, `tertiary_verified`, `needs_secondary_review`, `needs_tertiary_review` など。 |
+| `auditedAt` | string | 推奨 | ISO-8601 datetime。監査判断を確定した日時。 |
+| `nextAuditDueAt` | string | 推奨 | ISO-8601 date。原則年1回の次回監査期限。 |
+| `auditMethodVersion` | string | 推奨 | 監査方式、prompt、検索・照合手順の版。方式更新時の再監査判定に使う。 |
+| `auditInputHash` | string | 推奨 | 問題文、選択肢、元正答、現行条文 snapshot、出題当時条文 snapshot、locator/hash をまとめた固定入力 hash。 |
+| `auditRunId` | string | 推奨 | 現在の確定判断に対応する監査 run ID。 |
+| `lawCorpusSnapshotId` | string | 推奨 | 監査時に使った e-Gov / supplemental corpus snapshot ID。 |
+| `primaryAuditRunId` | string | 推奨 | 一次監査 run ID。 |
+| `secondaryAuditRunId` | string | 推奨 | 二次監査 run ID。 |
+| `tertiaryAuditRunId` | string | 条件付き必須 | `updated_to_current_law`、一次/二次不一致、高リスク判断では必須。 |
+| `reconciliationStatus` | string | 推奨 | `matched`, `mismatched`, `approved`, `hold` など。一次/二次/三次の照合状態。 |
 | `sourceEvidenceVersionId` | string | 推奨 | 元になった `lawEvidenceVersions` の document ID。 |
 | `evidenceBindingHash` | string | 推奨 | `lawRevisionFacts.evidenceSummary` と evidence 側 locator set の一致確認用 hash。 |
 | `examTime` | object | 必要時 | 出題当時の正答、lawId、lawRevisionId、条・項・号、参照日、本文hash。 |
@@ -249,10 +267,10 @@
 - `lawGroundedExplanationNotNeeded` は原則 `!isLawRelated` とする。これは旧導線との互換フラグであり、現行のAI解説正本ではない。
 - 03は02bの法令コンテキストを使って `explanationText` / `suggestedQuestions` / `suggestedQuestionDetails` を作る。03中に02bの判定と解説内容が矛盾すると分かった場合は、03 patch 側で修正してよい。
 - 02bまたは03で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その情報を既存の `correctChoiceText` / `explanationText` / `lawReferences` 成果物へマージする。
-- 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。
-- 年次監査後は、`isLawRelated=true` の全問題に `lawRevisionFacts` を作成する。差分なしでも `same_as_current` として保存し、hold は二次確認キューへ回す。
-- `lawRevisionFacts` 未整備件数を残したまま公開しない。最終公開前は `check-law-revision-facts --require-all-law-related --require-evidence-summary --require-law-references` を通し、残る `hold` は別セッションの二次確認対象として明示する。
-- 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。
+- 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。方式更新時は `auditMethodVersion` の差分で再監査対象を抽出する。
+- 年次監査後は、`isLawRelated=true` の全問題に `lawRevisionFacts` を作成する。差分なしでも `same_as_current` として保存し、hold は二次確認または三次確定キューへ回す。
+- `lawRevisionFacts` 未整備件数を残したまま公開しない。最終公開前は `check-law-revision-facts --require-all-law-related --require-evidence-summary --require-law-references` を通し、残る `hold` は別セッションの二次/三次確認対象として明示する。
+- 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。ただし `updated_to_current_law` は原則 `reviewState="tertiary_verified"` になってから公開確定する。
 - 更新した場合は、ユーザーに分かるように次を残す。
   - `explanationText`: 出題当時の正答と、現行法ベースに更新した注記。
   - `suggestedQuestions`: `現行法ではどうなりますか？` のような自然な質問。
@@ -265,7 +283,8 @@
 
 現行法ベースへ更新した問題では、アプリ上でもユーザーが「出題当時の正答」と「現行法ベースの学習上の扱い」を区別できる必要があります。正本は `lawRevisionFacts` とし、基本解説・想定質問・自由入力AI補足はいずれもこの監査済み事実を前提にします。
 
-- `lawRevisionFacts.auditStatus` / `reviewState` に監査判断と二次確認状態を残す。
+- `lawRevisionFacts.auditStatus` / `reviewState` に監査判断と二次/三次確認状態を残す。
+- `lawRevisionFacts.auditedAt` / `auditMethodVersion` / `auditInputHash` / `lawCorpusSnapshotId` に、いつ・どの方式・どの固定入力・どの法令 corpus で監査したかを残す。
 - `lawRevisionFacts.examTime.correctChoiceText` と `lawRevisionFacts.current.correctChoiceText` を分ける。
 - `lawRevisionFacts.evidenceSummary` に AI prompt と条文確認UIへ渡す根拠要約、`displayRefIds`、`refs[]` を残す。
 - `explanationText` に「現行法に合わせて更新済み」「出題当時の公式正答とは異なる場合がある」という趣旨の短い注記を入れる。

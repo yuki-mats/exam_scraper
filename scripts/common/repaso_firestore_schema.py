@@ -234,6 +234,16 @@ LAW_REVISION_AUDIT_STATUSES = {
 LAW_REVISION_FACT_KEYS = {
     "auditStatus",
     "reviewState",
+    "auditedAt",
+    "nextAuditDueAt",
+    "auditMethodVersion",
+    "auditInputHash",
+    "auditRunId",
+    "lawCorpusSnapshotId",
+    "primaryAuditRunId",
+    "secondaryAuditRunId",
+    "tertiaryAuditRunId",
+    "reconciliationStatus",
     "sourceEvidenceVersionId",
     "evidenceBindingHash",
     "examTime",
@@ -352,7 +362,21 @@ def _is_law_revision_facts(value: Any) -> bool:
     for key, item in value.items():
         if key == "auditStatus":
             continue
-        if key in {"reviewState", "sourceEvidenceVersionId", "evidenceBindingHash"}:
+        if key in {
+            "reviewState",
+            "auditedAt",
+            "nextAuditDueAt",
+            "auditMethodVersion",
+            "auditInputHash",
+            "auditRunId",
+            "lawCorpusSnapshotId",
+            "primaryAuditRunId",
+            "secondaryAuditRunId",
+            "tertiaryAuditRunId",
+            "reconciliationStatus",
+            "sourceEvidenceVersionId",
+            "evidenceBindingHash",
+        }:
             if not _is_non_empty_str(item):
                 return False
         elif key in {"examTime", "current"}:

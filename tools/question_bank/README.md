@@ -7,7 +7,7 @@
 1. ルール: `document/reference/question_field_contract.md`
 2. 日々の目視作業: `prompt/README.md` と `prompt/01_prompt_*.md` から `prompt/04_prompt_*.md`
    - 03の前に `prompt/02b_prompt_prepare_law_context.md` で `18_law_context_prepared/` を作り、法令フラグと現行法根拠候補を `20_merged_1/` に反映してから解説を書く
-   - 法改正・現行法差分が疑われる場合、または年1回の法令関係問題の全問監査では `prompt/03b_prompt_audit_current_law_and_patch.md` で03bの監査パッチ/sidecarを作成・更新し、既存成果物へマージする
+   - 法改正・現行法差分が疑われる場合、年1回の法令関係問題の全問監査、または監査方式を更新した再監査では `prompt/03b_prompt_audit_current_law_and_patch.md` で03bの監査パッチ/sidecarを作成・更新し、既存成果物へマージする
 3. 機械チェック: このディレクトリの `question_bank.py`
 4. 補助実装: 必要な場合だけ `scripts/` 配下を見る
 
@@ -61,7 +61,7 @@ python tools/question_bank/question_bank.py quality-gate \
   --require-law-references-for-law-related
 ```
 
-`--require-law-revision-facts` を付けた quality-gate は、解説 patch だけでなく、選択した mode に応じて `30_merged_2/` または `40_convert/` の実データ上でも `isLawRelated=true` 全件に `lawRevisionFacts` があるか確認します。`--require-law-references-for-law-related` は、法令関連レコードに `lawReferences` が空で残る状態を検出します。最終公開前はさらに `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を追加し、`hold` や根拠要約不足を残さない状態を目標にします。
+`--require-law-revision-facts` を付けた quality-gate は、解説 patch だけでなく、選択した mode に応じて `30_merged_2/` または `40_convert/` の実データ上でも `isLawRelated=true` 全件に `lawRevisionFacts` があるか確認します。`--require-law-references-for-law-related` は、法令関連レコードに `lawReferences` が空で残る状態を検出します。最終公開前はさらに `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を追加し、`hold` や根拠要約不足を残さない状態を目標にします。`updated_to_current_law` の正答更新は、原則として `reviewState=tertiary_verified` になってから公開確定します。
 
 現時点の未整備数を棚卸しするだけなら、単体 checker で report を残します。
 
@@ -83,7 +83,7 @@ python scripts/pipeline/fetch_law_article_snapshots.py \
 
 出力先は `output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/` です。JSONL には `articleText`、`articleTextHash`、`rawXmlHash`、`apiUrl`、紐づく `questionIds` を保存し、raw XML は `raw_xml/<timestamp>/` に保存します。
 
-未整備の法令関連問題を監査対象として切り出す場合は、取得済み snapshot と照合した JSONL queue を作ります。これは `same_as_current` / `updated_to_current_law` / `hold` を自動断定する工程ではなく、監査者またはAI補助が同じ根拠から判断できるように、対象問題・現行正誤・lawReferences・条文 hash/API URL を束ねる工程です。
+未整備の法令関連問題を監査対象として切り出す場合は、取得済み snapshot と照合した JSONL queue を作ります。これは `same_as_current` / `updated_to_current_law` / `hold` を自動断定する工程ではなく、監査者またはAI補助が同じ根拠から判断できるように、対象問題・現行正誤・lawReferences・条文 hash/API URL を束ねる工程です。この固定入力から `auditInputHash` を作り、一次監査・二次監査・三次確定で同じ evidence bundle を参照します。
 
 ```bash
 python tools/question_bank/question_bank.py build-law-revision-audit-queue \
@@ -96,7 +96,7 @@ python tools/question_bank/question_bank.py build-law-revision-audit-queue \
 
 queue の各行は `auditReason=missing_lawRevisionFacts` または `hold` を持ち、`currentEvidence.refs[].snapshot.articleTextHash` と raw XML の hash を含みます。同一 `originalQuestionId` の派生レコードに `lawReferences` が空で、兄弟レコードに根拠がある場合は `lawReferencesSource=same_original_question_fallback` として明示します。これは根拠欠落を隠すためではなく、監査 queue 上で根拠候補を失わないためです。最終公開前は、この queue を消化して `lawRevisionFacts` を作成し、`check-law-revision-facts --require-all-law-related` を通します。
 
-queue 作成直後にまだ出題当時法令との差分を確定できない場合は、`hold` の `lawRevisionFacts` を 21系 explanation patch に初期化します。これは正答変更を断定する工程ではありません。現行法の locator / hash / snapshot を保存し、`reviewState=needs_secondary_review` として自由質問 AI に「推測して断定しない」前提を渡すための工程です。
+queue 作成直後にまだ出題当時法令との差分を確定できない場合は、`hold` の `lawRevisionFacts` を 21系 explanation patch に初期化します。これは正答変更を断定する工程ではありません。現行法の locator / hash / snapshot、`auditedAt`、`auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId` を保存し、`reviewState=needs_secondary_review` として自由質問 AI に「推測して断定しない」前提を渡すための工程です。
 
 ```bash
 python tools/question_bank/question_bank.py materialize-law-revision-hold-facts \
@@ -106,7 +106,7 @@ python tools/question_bank/question_bank.py materialize-law-revision-hold-facts 
   --skip-missing-patch-ids
 ```
 
-この `hold` は公開前の最終状態ではなく、二次監査対象です。二次監査で `same_as_current` または `updated_to_current_law` に昇格し、最終公開前は `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を付けた gate を通します。
+この `hold` は公開前の最終状態ではなく、二次監査または三次確定の対象です。二次監査では一次で取得した evidence bundle を使って妥当性を確認し、`same_as_current` / `not_law_related` は `secondary_verified` で確定可とします。`updated_to_current_law`、一次/二次不一致、高リスク判断は三次確定で `tertiary_verified` にしてから正答・解説更新を公開確定します。最終公開前は `--fail-on-law-revision-hold` と `--require-law-revision-evidence-summary` を付けた gate を通します。
 
 root 直下に出てしまった資格別レポートは、資格フォルダ配下へ寄せます。
 
