@@ -239,6 +239,8 @@
 
 整備環境では、verified `lawReferences` から取得した現行条文本文を `output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/` に保存します。JSONL には `lawId`、条・項・号、`apiUrl`、`articleText`、`articleTextHash`、`rawXmlHash`、紐づく `questionIds` を保存し、raw XML は `raw_xml/<timestamp>/` に残します。この evidence は `lawRevisionFacts.current.articleTextHash` や `evidenceSummary.refs[].articleTextHash` の照合元であり、Firestore question doc へ長文本文を直接載せるためのものではありません。
 
+`lawRevisionFacts` が未整備の法令関連問題は、`output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_audit_queue_<timestamp>.jsonl` に監査 queue として切り出します。queue は判断済み成果物ではなく、問題文・現行正誤・`lawReferences`・取得済み条文 snapshot の hash/API URL/raw XML path を束ねる監査準備物です。同一 `originalQuestionId` の派生レコードに `lawReferences` が空で、兄弟レコードに根拠がある場合は、queue 上で `lawReferencesSource="same_original_question_fallback"` として明示し、元データ側の locator 欠落も summary に残します。監査者は queue を基に、`same_as_current` / `updated_to_current_law` / `hold` / `not_law_related` のいずれかを sidecar と `lawRevisionFacts` へ確定します。
+
 ### 法令監査の記録ルール
 
 - 法令問題は、資格別の `prompt/qualification_docs/<qualification>/...law_reference...md` を先に確認する。
@@ -249,6 +251,7 @@
 - 02bまたは03で法改正・現行法差分が疑われる場合は、`prompt/03b_prompt_audit_current_law_and_patch.md` に従って03bの監査パッチ/sidecarを作成・更新し、その情報を既存の `correctChoiceText` / `explanationText` / `lawReferences` 成果物へマージする。
 - 年に1度、法令が関係する問題を資格ごとに全問監査し、結果を `output/<qualification>/review/law_revision_audit/` の sidecar に残す。
 - 年次監査後は、`isLawRelated=true` の全問題に `lawRevisionFacts` を作成する。差分なしでも `same_as_current` として保存し、hold は二次確認キューへ回す。
+- `lawRevisionFacts` 未整備件数を残したまま公開しない。最終公開前は `check-law-revision-facts --require-all-law-related --require-evidence-summary` を通し、残る `hold` は別セッションの二次確認対象として明示する。
 - 現行法で正誤が明らかに変わる場合は、現行法ベースへ `correctChoiceText` / `explanationText` を更新してよい。
 - 更新した場合は、ユーザーに分かるように次を残す。
   - `explanationText`: 出題当時の正答と、現行法ベースに更新した注記。

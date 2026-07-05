@@ -82,6 +82,19 @@ python scripts/pipeline/fetch_law_article_snapshots.py \
 
 出力先は `output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/` です。JSONL には `articleText`、`articleTextHash`、`rawXmlHash`、`apiUrl`、紐づく `questionIds` を保存し、raw XML は `raw_xml/<timestamp>/` に保存します。
 
+未整備の法令関連問題を監査対象として切り出す場合は、取得済み snapshot と照合した JSONL queue を作ります。これは `same_as_current` / `updated_to_current_law` / `hold` を自動断定する工程ではなく、監査者またはAI補助が同じ根拠から判断できるように、対象問題・現行正誤・lawReferences・条文 hash/API URL を束ねる工程です。
+
+```bash
+python tools/question_bank/question_bank.py build-law-revision-audit-queue \
+  --list-group-dir output/<qualification>/questions_json/<list_group_id> \
+  --snapshots output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/<list_group_id>_current_article_snapshots_<timestamp>.jsonl \
+  --output output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_audit_queue_<timestamp>.jsonl \
+  --summary output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_audit_queue_<timestamp>_summary.json \
+  --require-snapshots
+```
+
+queue の各行は `auditReason=missing_lawRevisionFacts` または `hold` を持ち、`currentEvidence.refs[].snapshot.articleTextHash` と raw XML の hash を含みます。同一 `originalQuestionId` の派生レコードに `lawReferences` が空で、兄弟レコードに根拠がある場合は `lawReferencesSource=same_original_question_fallback` として明示します。これは根拠欠落を隠すためではなく、監査 queue 上で根拠候補を失わないためです。最終公開前は、この queue を消化して `lawRevisionFacts` を作成し、`check-law-revision-facts --require-all-law-related` を通します。
+
 root 直下に出てしまった資格別レポートは、資格フォルダ配下へ寄せます。
 
 ```bash

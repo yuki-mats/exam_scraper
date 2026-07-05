@@ -541,6 +541,24 @@ def add_law_revision_fact_coverage_parser(
     parser.add_argument("--report", type=Path)
 
 
+def add_law_revision_audit_queue_parser(
+    subparsers: argparse._SubParsersAction[argparse.ArgumentParser],
+) -> None:
+    parser = subparsers.add_parser(
+        "build-law-revision-audit-queue",
+        help="Build a JSONL review queue for law-related records missing lawRevisionFacts.",
+    )
+    parser.set_defaults(command="build-law-revision-audit-queue")
+    parser.add_argument("--list-group-dir", required=True, type=Path)
+    parser.add_argument("--snapshots", required=True, type=Path)
+    parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--summary", type=Path)
+    parser.add_argument("--include-existing", action="store_true")
+    parser.add_argument("--include-hold", action="store_true")
+    parser.add_argument("--require-snapshots", action="store_true")
+    parser.add_argument("--snippet-chars", type=int, default=600)
+
+
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--qualification", help="Qualification code under output/<qualification>.")
     parser.add_argument("--base-dir", help="questions_json base dir.")
@@ -620,6 +638,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_materialize_patch_parser(subparsers)
     add_organize_reports_parser(subparsers)
     add_law_revision_fact_coverage_parser(subparsers)
+    add_law_revision_audit_queue_parser(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
 
@@ -734,6 +753,30 @@ def run_law_revision_fact_coverage(args: argparse.Namespace) -> int:
     return run_command(cmd)
 
 
+def run_law_revision_audit_queue(args: argparse.Namespace) -> int:
+    cmd = [
+        sys.executable,
+        "scripts/pipeline/build_law_revision_audit_queue.py",
+        "--list-group-dir",
+        str(args.list_group_dir),
+        "--snapshots",
+        str(args.snapshots),
+        "--output",
+        str(args.output),
+        "--snippet-chars",
+        str(args.snippet_chars),
+    ]
+    if args.summary:
+        cmd.extend(["--summary", str(args.summary)])
+    if args.include_existing:
+        cmd.append("--include-existing")
+    if args.include_hold:
+        cmd.append("--include-hold")
+    if args.require_snapshots:
+        cmd.append("--require-snapshots")
+    return run_command(cmd)
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if args.command == "check-question-type-patch":
@@ -752,6 +795,8 @@ def main(argv: list[str] | None = None) -> int:
         return organize_report_files(args)
     if args.command == "check-law-revision-facts":
         return run_law_revision_fact_coverage(args)
+    if args.command == "build-law-revision-audit-queue":
+        return run_law_revision_audit_queue(args)
 
     base_dir = resolve_base_dir(args)
     if not base_dir.exists():
