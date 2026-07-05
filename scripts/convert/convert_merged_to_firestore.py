@@ -805,6 +805,7 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
 
         # explanationText: 対応する解説（あれば）
         explanation_text = explanation_list[i] if i < len(explanation_list) else ""
+        is_law_related = resolve_is_law_related(question_body, i)
 
         # examSource: 試験名（question_body由来）, examYear年, 問x, 設問x
         exam_year = question_body.get("examYear", "")
@@ -830,8 +831,12 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             original_question_choice_image_urls=choice_images,
             question_set_id=question_set_id_for_choice(question_body, i),
             originalQuestionBodyText=upload_question_body,
-            isLawRelated=resolve_is_law_related(question_body, i),
-            lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
+            isLawRelated=is_law_related,
+            lawReferences=format_choice_law_references_with_group_fallback(
+                question_body.get("lawReferences", []),
+                i,
+                allow_group_fallback=is_law_related is True,
+            ),
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, i
             ),

@@ -11,7 +11,9 @@ from typing import Any
 QUALIFICATION = "2nd-class-kenchikushi"
 PATCH_SUBDIR = "21_explanationText_added"
 PATCH_GLOB = "question_*_law_merged_explanationText_added_*.json"
-EXPECTED_ENTRY_COUNT = 256
+CURRENT_LAW_ONLY_SUMMARY_GLOB = "2015_2016_current_law_only_summary_*.json"
+EXPECTED_PATCH_ENTRY_COUNT = 211
+EXPECTED_TOTAL_ENTRY_COUNT = 256
 EXPECTED_CANDIDATE_ALIAS_COUNTS: dict[str, int] = {}
 
 
@@ -32,13 +34,17 @@ def latest_patch_files(repo_root: Path) -> list[Path]:
 def audit(repo_root: Path) -> dict[str, Any]:
     summary = {
         "patchFiles": [],
+        "currentLawOnlySummaryFiles": [],
         "entryCount": 0,
+        "currentLawOnlyOriginalCount": 0,
+        "totalAuditedOriginalCount": 0,
         "withExplanation": 0,
         "withSuggestedQuestions": 0,
         "withSuggestedQuestionDetails": 0,
         "withLawReferences": 0,
         "referenceCount": 0,
         "statusCounts": Counter(),
+        "lawRevisionFactAuditStatusCounts": Counter(),
         "candidateAliasCounts": Counter(),
         "missingLawIdCount": 0,
     }
@@ -89,6 +95,17 @@ def audit(repo_root: Path) -> dict[str, Any]:
                         "question_url": str(entry.get("question_url") or ""),
                     }
                 )
+            facts = entry.get("lawRevisionFacts")
+            if isinstance(facts, dict):
+                summary["lawRevisionFactAuditStatusCounts"][str(facts.get("auditStatus") or "unknown")] += 1
+            else:
+                missing.append(
+                    {
+                        "type": "lawRevisionFacts",
+                        "original_question_id": str(entry.get("original_question_id") or ""),
+                        "question_url": str(entry.get("question_url") or ""),
+                    }
+                )
             for refs in entry.get("lawReferences") or []:
                 for ref in refs:
                     summary["referenceCount"] += 1
@@ -99,21 +116,42 @@ def audit(repo_root: Path) -> dict[str, Any]:
                     if status != "verified":
                         summary["candidateAliasCounts"][str(ref.get("lawAlias") or ref.get("lawTitle") or "")] += 1
 
+    review_dir = repo_root / "output" / QUALIFICATION / "review" / "law_revision_audit"
+    current_law_only_summaries = sorted(review_dir.glob(CURRENT_LAW_ONLY_SUMMARY_GLOB))
+    if current_law_only_summaries:
+        latest_summary = current_law_only_summaries[-1]
+        summary["currentLawOnlySummaryFiles"].append(str(latest_summary))
+        payload = json.loads(latest_summary.read_text(encoding="utf-8"))
+        yearly = payload.get("years") or payload.get("yearly")
+        if isinstance(yearly, dict):
+            for year_summary in yearly.values():
+                if isinstance(year_summary, dict):
+                    summary["currentLawOnlyOriginalCount"] += int(
+                        year_summary.get("lawRevisionFactOriginalCount") or 0
+                    )
+
+    summary["totalAuditedOriginalCount"] = summary["entryCount"] + summary["currentLawOnlyOriginalCount"]
+
     return {
         "summary": {
             "patchFiles": summary["patchFiles"],
+            "currentLawOnlySummaryFiles": summary["currentLawOnlySummaryFiles"],
             "entryCount": summary["entryCount"],
+            "currentLawOnlyOriginalCount": summary["currentLawOnlyOriginalCount"],
+            "totalAuditedOriginalCount": summary["totalAuditedOriginalCount"],
             "withExplanation": summary["withExplanation"],
             "withSuggestedQuestions": summary["withSuggestedQuestions"],
             "withSuggestedQuestionDetails": summary["withSuggestedQuestionDetails"],
             "withLawReferences": summary["withLawReferences"],
             "referenceCount": summary["referenceCount"],
             "statusCounts": dict(summary["statusCounts"]),
+            "lawRevisionFactAuditStatusCounts": dict(summary["lawRevisionFactAuditStatusCounts"]),
             "candidateAliasCounts": dict(summary["candidateAliasCounts"]),
             "missingLawIdCount": summary["missingLawIdCount"],
         },
         "expected": {
-            "entryCount": EXPECTED_ENTRY_COUNT,
+            "patchEntryCount": EXPECTED_PATCH_ENTRY_COUNT,
+            "totalEntryCount": EXPECTED_TOTAL_ENTRY_COUNT,
             "candidateAliasCounts": EXPECTED_CANDIDATE_ALIAS_COUNTS,
         },
         "missing": missing,
@@ -143,15 +181,19 @@ def main() -> int:
         expected = result["expected"]
         if result["missing"]:
             return 1
-        if summary["entryCount"] != expected["entryCount"]:
+        if summary["entryCount"] != expected["patchEntryCount"]:
             return 1
-        if summary["withExplanation"] != expected["entryCount"]:
+        if summary["totalAuditedOriginalCount"] != expected["totalEntryCount"]:
             return 1
-        if summary["withSuggestedQuestions"] != expected["entryCount"]:
+        if summary["lawRevisionFactAuditStatusCounts"].get("hold", 0) != 0:
             return 1
-        if summary["withSuggestedQuestionDetails"] != expected["entryCount"]:
+        if summary["withExplanation"] != expected["patchEntryCount"]:
             return 1
-        if summary["withLawReferences"] != expected["entryCount"]:
+        if summary["withSuggestedQuestions"] != expected["patchEntryCount"]:
+            return 1
+        if summary["withSuggestedQuestionDetails"] != expected["patchEntryCount"]:
+            return 1
+        if summary["withLawReferences"] != expected["patchEntryCount"]:
             return 1
         if summary["missingLawIdCount"] != 0:
             return 1
