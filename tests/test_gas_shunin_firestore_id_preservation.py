@@ -158,6 +158,38 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
             ],
         )
 
+    def test_flash_card_falls_back_to_group_law_references_for_law_related_wrong_choices(self) -> None:
+        question_body = {
+            "original_question_id": "site-law-question-1",
+            "firestoreQuestionIds": ["doc-correct", "doc-wrong-1"],
+            "questionBodyText": "現行法上、正しい数値はどれか。",
+            "choiceTextList": ["正答", "誤答"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["説明1", "説明2"],
+            "questionType": "flash_card",
+            "questionSetId": "qset-law",
+            "examYear": 2025,
+            "questionLabel": "問10",
+            "isLawRelated": True,
+            "lawReferences": [
+                [
+                    {
+                        "role": "current_basis",
+                        "lawId": "325AC0000000201",
+                        "lawTitle": "建築基準法",
+                        "article": "52条",
+                        "paragraph": "2項",
+                    }
+                ],
+                [],
+            ],
+        }
+
+        converted = convert_flash_card_to_firestore(question_body)
+
+        self.assertEqual(converted[0]["lawReferences"][0]["article"], "52条")
+        self.assertEqual(converted[1]["lawReferences"][0]["article"], "52条")
+
     def test_true_false_new_questions_use_source_unique_key_ids(self) -> None:
         question_body = {
             "original_question_id": "site-question-1",

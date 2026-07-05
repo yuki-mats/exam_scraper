@@ -233,6 +233,18 @@ def format_flat_law_references(value: object) -> list[dict[str, object]]:
     return normalized_refs
 
 
+def format_choice_law_references_with_group_fallback(
+    value: object,
+    choice_index: int,
+    *,
+    allow_group_fallback: bool,
+) -> list[dict[str, object]]:
+    choice_refs = format_choice_law_references(value, choice_index)
+    if choice_refs or not allow_group_fallback:
+        return choice_refs
+    return format_flat_law_references(value)
+
+
 def resolve_law_grounded_explanation_not_needed(
     question_body: dict,
     choice_index: int | None = None,
@@ -874,6 +886,12 @@ def convert_group_select_to_firestore(
         correctness = correct_choice_list[i] if i < len(correct_choice_list) else ""
         choice_text = choice_text_list[i] if i < len(choice_text_list) else ""
         explanation_text = explanation_list[i] if i < len(explanation_list) else ""
+        is_law_related = resolve_is_law_related(question_body, i)
+        law_references = format_choice_law_references_with_group_fallback(
+            question_body.get("lawReferences", []),
+            i,
+            allow_group_fallback=is_law_related is True,
+        )
         choice_images = (
             choice_image_urls_by_choice[i]
             if i < len(choice_image_urls_by_choice)
@@ -896,8 +914,8 @@ def convert_group_select_to_firestore(
                 original_question_choice_text=choice_text,
                 original_question_choice_image_urls=choice_images,
                 question_set_id=question_set_id_for_choice(question_body, i),
-                isLawRelated=resolve_is_law_related(question_body, i),
-                lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
+                isLawRelated=is_law_related,
+                lawReferences=law_references,
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                     question_body, i
                 ),
@@ -928,8 +946,8 @@ def convert_group_select_to_firestore(
                 original_question_choice_image_urls=choice_images,
                 question_set_id=question_set_id_for_choice(question_body, i),
                 isChoiceOnly=True,
-                isLawRelated=resolve_is_law_related(question_body, i),
-                lawReferences=format_choice_law_references(question_body.get("lawReferences", []), i),
+                isLawRelated=is_law_related,
+                lawReferences=law_references,
                 lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                     question_body, i
                 ),
@@ -957,7 +975,11 @@ def convert_group_select_to_firestore(
             ),
             question_set_id=question_set_id_for_choice(question_body, 0),
             isLawRelated=resolve_is_law_related(question_body, 0),
-            lawReferences=format_choice_law_references(question_body.get("lawReferences", []), 0),
+            lawReferences=format_choice_law_references_with_group_fallback(
+                question_body.get("lawReferences", []),
+                0,
+                allow_group_fallback=resolve_is_law_related(question_body, 0) is True,
+            ),
             lawGroundedExplanationNotNeeded=resolve_law_grounded_explanation_not_needed(
                 question_body, 0
             ),
