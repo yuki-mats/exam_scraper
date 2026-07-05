@@ -362,9 +362,9 @@
       "questionImageStorageUrls": [],
       "questionIntent": "select_correct",
       "correctChoiceText": [
-        "間違い",
-        "間違い",
         "正しい",
+        "間違い",
+        "間違い",
         "間違い",
         "間違い"
       ],
@@ -2237,6 +2237,303 @@
         {
           "question": "出題当時と現在で何が変わりましたか？",
           "answer": "現行の建築基準法第6条第1項は、特殊建築物は用途部分が200㎡を超えるもの、その他は2以上の階数又は延べ面積200㎡を超えるもの等を確認対象の軸にしています。そのため、延べ面積200㎡ちょうどの鉄骨造平家建自動車車庫は、全国一律の確認対象とは扱いにくくなっています。"
+        }
+      ],
+      "lawRevisionFacts": [
+        {
+          "auditStatus": "updated_to_current_law",
+          "reviewState": "primary_verified",
+          "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+          "evidenceBindingHash": "3b4e518d377b7f0c32231fbf9d338f2e80e5d464952e81a5e00d9401d26246f5",
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_original_answer"
+          },
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325CO0000000338",
+            "lawTitle": "建築基準法施行令",
+            "article": "137条の18",
+            "item": "五号",
+            "referenceDate": "2026-07-04",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+          ],
+          "answerImpactFacts": [
+            "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+            "該当する正しい選択肢なし"
+          ],
+          "evidenceSummary": {
+            "verdict": "incorrect",
+            "displayRefIds": [
+              "choice_1_current_basis_1"
+            ],
+            "refs": [
+              {
+                "refId": "choice_1_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325CO0000000338",
+                "lawTitle": "建築基準法施行令",
+                "article": "137条の18",
+                "item": "五号"
+              }
+            ],
+            "explanationText": "下宿から寄宿舎への用途変更は、建築基準法施行令第137条の18第五号の類似用途に当たり、現行法でも確認済証の交付を受ける必要はありません。よって誤りです。",
+            "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+          },
+          "notes": [
+            "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+            "選択肢4が正しい",
+            "2026-07-04T00:00:00+09:00"
+          ]
+        },
+        {
+          "auditStatus": "updated_to_current_law",
+          "reviewState": "primary_verified",
+          "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+          "evidenceBindingHash": "a1719529b8f622f5f03619a0a8e0cd129af2a668b74a8c8baf9057618eb8c0e0",
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_original_answer"
+          },
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "6条",
+            "paragraph": "1項",
+            "item": "二号",
+            "referenceDate": "2026-07-04",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+          ],
+          "answerImpactFacts": [
+            "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+            "該当する正しい選択肢なし"
+          ],
+          "evidenceSummary": {
+            "verdict": "incorrect",
+            "displayRefIds": [
+              "choice_2_current_basis_1"
+            ],
+            "refs": [
+              {
+                "refId": "choice_2_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "item": "二号"
+              }
+            ],
+            "explanationText": "鉄筋コンクリート造平家建・延べ面積200㎡の事務所は、現行の建築基準法第6条第1項第一号の特殊建築物にも、同項第二号の「2以上の階数又は延べ面積200㎡を超える建築物」にも該当しません。大規模の模様替であっても、全国どこでも確認済証の交付が必要とはいえないため、誤りです。",
+            "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+          },
+          "notes": [
+            "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+            "選択肢4が正しい",
+            "2026-07-04T00:00:00+09:00"
+          ]
+        },
+        {
+          "auditStatus": "updated_to_current_law",
+          "reviewState": "primary_verified",
+          "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+          "evidenceBindingHash": "88d8428786f8c1eefe7b51a84321ff1e56b57f6400eb4513b98a61cd0cb00b20",
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_original_answer"
+          },
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "6条",
+            "paragraph": "2項",
+            "referenceDate": "2026-07-04",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+          ],
+          "answerImpactFacts": [
+            "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+            "該当する正しい選択肢なし"
+          ],
+          "evidenceSummary": {
+            "verdict": "incorrect",
+            "displayRefIds": [
+              "choice_3_current_basis_1"
+            ],
+            "refs": [
+              {
+                "refId": "choice_3_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "2項"
+              }
+            ],
+            "explanationText": "防火地域及び準防火地域外で床面積10㎡以内の増築をする場合は、建築基準法第6条第2項により確認申請の対象外です。地域条件によって扱いが変わるため、「全国どの場所においても」必要とはいえず、誤りです。",
+            "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+          },
+          "notes": [
+            "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+            "選択肢4が正しい",
+            "2026-07-04T00:00:00+09:00"
+          ]
+        },
+        {
+          "auditStatus": "updated_to_current_law",
+          "reviewState": "primary_verified",
+          "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+          "evidenceBindingHash": "4f43364e7deefb8f221cce0ccd00815ec14875000e9f891d99c6ca1a659384b3",
+          "examTime": {
+            "correctChoiceText": "正しい",
+            "verificationStatus": "from_original_answer"
+          },
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "6条",
+            "paragraph": "1項",
+            "item": "一号",
+            "referenceDate": "2026-07-04",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+          ],
+          "answerImpactFacts": [
+            "出題当時の正誤: 正しい。現行法ベースの正誤: 間違い。",
+            "該当する正しい選択肢なし"
+          ],
+          "evidenceSummary": {
+            "verdict": "incorrect",
+            "displayRefIds": [
+              "choice_4_current_basis_1",
+              "choice_4_current_basis_2"
+            ],
+            "refs": [
+              {
+                "refId": "choice_4_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "item": "一号"
+              },
+              {
+                "refId": "choice_4_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "item": "二号"
+              }
+            ],
+            "explanationText": "この選択肢は出題当時の正解でしたが、現行法では建築基準法第6条第1項第一号は特殊建築物の用途部分が200㎡を超えるもの、同項第二号は2以上の階数を有し又は延べ面積が200㎡を超える建築物を対象とします。鉄骨造平家建・延べ面積200㎡の自動車車庫の改築は、現行法ベースでは全国どこでも確認済証の交付が必要とはいえないため、誤りです。",
+            "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「正しい」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+          },
+          "notes": [
+            "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+            "選択肢4が正しい",
+            "2026-07-04T00:00:00+09:00"
+          ]
+        },
+        {
+          "auditStatus": "updated_to_current_law",
+          "reviewState": "primary_verified",
+          "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+          "evidenceBindingHash": "7b50fc7a44faa21d0582472415770e36881eed24b8ed81da1ccd78c1ec5419e6",
+          "examTime": {
+            "correctChoiceText": "間違い",
+            "verificationStatus": "from_original_answer"
+          },
+          "current": {
+            "correctChoiceText": "間違い",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "6条",
+            "paragraph": "1項",
+            "item": "一号",
+            "referenceDate": "2026-07-04",
+            "verificationStatus": "verified"
+          },
+          "differenceFacts": [
+            "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+          ],
+          "answerImpactFacts": [
+            "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+            "該当する正しい選択肢なし"
+          ],
+          "evidenceSummary": {
+            "verdict": "incorrect",
+            "displayRefIds": [
+              "choice_5_current_basis_1",
+              "choice_5_current_basis_2"
+            ],
+            "refs": [
+              {
+                "refId": "choice_5_current_basis_1",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": true,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "item": "一号"
+              },
+              {
+                "refId": "choice_5_current_basis_2",
+                "lawTimeScope": "current",
+                "relation": "current_basis",
+                "primaryBasis": false,
+                "lawId": "325AC0000000201",
+                "lawTitle": "建築基準法",
+                "article": "6条",
+                "paragraph": "1項",
+                "item": "三号"
+              }
+            ],
+            "explanationText": "鉄骨造平家建・延べ面積100㎡の物品販売業を営む店舗は、現行の建築基準法第6条第1項第一号の200㎡超にも、同項第二号にも該当しません。同項第三号は都市計画区域等の区域条件に左右されるため、全国どこでも確認済証の交付が必要とはいえず、誤りです。",
+            "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+            "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+          },
+          "notes": [
+            "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+            "選択肢4が正しい",
+            "2026-07-04T00:00:00+09:00"
+          ]
         }
       ],
       "questionSetId": "g2_03_tetsuzuki_kakunin",

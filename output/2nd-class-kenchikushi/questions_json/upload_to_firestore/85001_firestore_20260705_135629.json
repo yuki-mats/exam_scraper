@@ -482,7 +482,7 @@
       "questionTags": []
     },
     {
-      "questionId": "08f42fc36bd3608c_w1",
+      "questionId": "08f42fc36bd3608c",
       "originalQuestionId": "08f42fc36bd3608c",
       "originalQuestionBodyText": "熱貫流率が1.0W/（m²・K）の壁体に、熱伝導率が0.04W/（m・K）の断熱材を40mmの厚さで設けたときの壁体の熱貫流率の値として、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "0.5W/（m²・K）",
@@ -490,7 +490,7 @@
       "questionSetId": "g1_03_denetsu_ketsuro",
       "questionText": "熱貫流率が1.0W/（m²・K）の壁体に、熱伝導率が0.04W/（m・K）の断熱材を40mmの厚さで設けたときの壁体の熱貫流率の値として、正しいものは、次のうちどれか。",
       "questionType": "flash_card",
-      "correctChoiceText": "間違い",
+      "correctChoiceText": "正しい",
       "explanationText": "正しい。\n\n熱抵抗Rは厚さ/熱伝導率で求める。断熱材は0.04/0.04=1（m²・K/W）で、既存壁は熱貫流率1.0よりR=1/U=1なので、合成Rは2となり、U=1/2=0.5W/(m²・K)。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問5",
@@ -498,15 +498,15 @@
       "isDeleted": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
-      "isChoiceOnly": true,
       "lawReferences": [],
-      "isGroupable": false,
+      "isChoiceOnly": false,
+      "isGroupable": true,
       "listGroupId": "85001",
       "qualificationId": "2nd-class-kenchikushi",
       "questionTags": []
     },
     {
-      "questionId": "08f42fc36bd3608c_w2",
+      "questionId": "08f42fc36bd3608c_w1",
       "originalQuestionId": "08f42fc36bd3608c",
       "originalQuestionBodyText": "熱貫流率が1.0W/（m²・K）の壁体に、熱伝導率が0.04W/（m・K）の断熱材を40mmの厚さで設けたときの壁体の熱貫流率の値として、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "0.6W/（m²・K）",
@@ -530,7 +530,7 @@
       "questionTags": []
     },
     {
-      "questionId": "08f42fc36bd3608c",
+      "questionId": "08f42fc36bd3608c_w2",
       "originalQuestionId": "08f42fc36bd3608c",
       "originalQuestionBodyText": "熱貫流率が1.0W/（m²・K）の壁体に、熱伝導率が0.04W/（m・K）の断熱材を40mmの厚さで設けたときの壁体の熱貫流率の値として、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "0.7W/（m²・K）",
@@ -538,7 +538,7 @@
       "questionSetId": "g1_03_denetsu_ketsuro",
       "questionText": "熱貫流率が1.0W/（m²・K）の壁体に、熱伝導率が0.04W/（m・K）の断熱材を40mmの厚さで設けたときの壁体の熱貫流率の値として、正しいものは、次のうちどれか。",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\n断熱材追加後の熱貫流率はU=1/(1+1)=0.5W/(m²・K)となるため、0.7W/(m²・K)は誤り。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問5",
@@ -546,9 +546,9 @@
       "isDeleted": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
       "lawReferences": [],
-      "isChoiceOnly": false,
-      "isGroupable": true,
+      "isGroupable": false,
       "listGroupId": "85001",
       "qualificationId": "2nd-class-kenchikushi",
       "questionTags": []
@@ -3005,6 +3005,59 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+        "evidenceBindingHash": "3b4e518d377b7f0c32231fbf9d338f2e80e5d464952e81a5e00d9401d26246f5",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "325CO0000000338",
+          "lawTitle": "建築基準法施行令",
+          "article": "137条の18",
+          "item": "五号",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+          "該当する正しい選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "displayRefIds": [
+            "choice_1_current_basis_1"
+          ],
+          "refs": [
+            {
+              "refId": "choice_1_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325CO0000000338",
+              "lawTitle": "建築基準法施行令",
+              "article": "137条の18",
+              "item": "五号"
+            }
+          ],
+          "explanationText": "下宿から寄宿舎への用途変更は、建築基準法施行令第137条の18第五号の類似用途に当たり、現行法でも確認済証の交付を受ける必要はありません。よって誤りです。",
+          "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢4が正しい",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -3057,6 +3110,61 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+        "evidenceBindingHash": "a1719529b8f622f5f03619a0a8e0cd129af2a668b74a8c8baf9057618eb8c0e0",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "325AC0000000201",
+          "lawTitle": "建築基準法",
+          "article": "6条",
+          "paragraph": "1項",
+          "item": "二号",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+          "該当する正しい選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "displayRefIds": [
+            "choice_2_current_basis_1"
+          ],
+          "refs": [
+            {
+              "refId": "choice_2_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC0000000201",
+              "lawTitle": "建築基準法",
+              "article": "6条",
+              "paragraph": "1項",
+              "item": "二号"
+            }
+          ],
+          "explanationText": "鉄筋コンクリート造平家建・延べ面積200㎡の事務所は、現行の建築基準法第6条第1項第一号の特殊建築物にも、同項第二号の「2以上の階数又は延べ面積200㎡を超える建築物」にも該当しません。大規模の模様替であっても、全国どこでも確認済証の交付が必要とはいえないため、誤りです。",
+          "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢4が正しい",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -3108,6 +3216,59 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+        "evidenceBindingHash": "88d8428786f8c1eefe7b51a84321ff1e56b57f6400eb4513b98a61cd0cb00b20",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "325AC0000000201",
+          "lawTitle": "建築基準法",
+          "article": "6条",
+          "paragraph": "2項",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+          "該当する正しい選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "displayRefIds": [
+            "choice_3_current_basis_1"
+          ],
+          "refs": [
+            {
+              "refId": "choice_3_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC0000000201",
+              "lawTitle": "建築基準法",
+              "article": "6条",
+              "paragraph": "2項"
+            }
+          ],
+          "explanationText": "防火地域及び準防火地域外で床面積10㎡以内の増築をする場合は、建築基準法第6条第2項により確認申請の対象外です。地域条件によって扱いが変わるため、「全国どの場所においても」必要とはいえず、誤りです。",
+          "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢4が正しい",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -3173,6 +3334,73 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+        "evidenceBindingHash": "4f43364e7deefb8f221cce0ccd00815ec14875000e9f891d99c6ca1a659384b3",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "325AC0000000201",
+          "lawTitle": "建築基準法",
+          "article": "6条",
+          "paragraph": "1項",
+          "item": "一号",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 正しい。現行法ベースの正誤: 間違い。",
+          "該当する正しい選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "displayRefIds": [
+            "choice_4_current_basis_1",
+            "choice_4_current_basis_2"
+          ],
+          "refs": [
+            {
+              "refId": "choice_4_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC0000000201",
+              "lawTitle": "建築基準法",
+              "article": "6条",
+              "paragraph": "1項",
+              "item": "一号"
+            },
+            {
+              "refId": "choice_4_current_basis_2",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC0000000201",
+              "lawTitle": "建築基準法",
+              "article": "6条",
+              "paragraph": "1項",
+              "item": "二号"
+            }
+          ],
+          "explanationText": "この選択肢は出題当時の正解でしたが、現行法では建築基準法第6条第1項第一号は特殊建築物の用途部分が200㎡を超えるもの、同項第二号は2以上の階数を有し又は延べ面積が200㎡を超える建築物を対象とします。鉄骨造平家建・延べ面積200㎡の自動車車庫の改築は、現行法ベースでは全国どこでも確認済証の交付が必要とはいえないため、誤りです。",
+          "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「正しい」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢4が正しい",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -3238,6 +3466,73 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L1",
+        "evidenceBindingHash": "7b50fc7a44faa21d0582472415770e36881eed24b8ed81da1ccd78c1ec5419e6",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "325AC0000000201",
+          "lawTitle": "建築基準法",
+          "article": "6条",
+          "paragraph": "1項",
+          "item": "一号",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "e-Gov法令APIで2026-07-04時点の建築基準法第6条を確認。第1項第一号は特殊建築物の用途部分200㎡超、第2号は2以上の階数又は延べ面積200㎡超、第3号は区域要件の建築物。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 間違い。現行法ベースの正誤: 間違い。",
+          "該当する正しい選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "displayRefIds": [
+            "choice_5_current_basis_1",
+            "choice_5_current_basis_2"
+          ],
+          "refs": [
+            {
+              "refId": "choice_5_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC0000000201",
+              "lawTitle": "建築基準法",
+              "article": "6条",
+              "paragraph": "1項",
+              "item": "一号"
+            },
+            {
+              "refId": "choice_5_current_basis_2",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC0000000201",
+              "lawTitle": "建築基準法",
+              "article": "6条",
+              "paragraph": "1項",
+              "item": "三号"
+            }
+          ],
+          "explanationText": "鉄骨造平家建・延べ面積100㎡の物品販売業を営む店舗は、現行の建築基準法第6条第1項第一号の200㎡超にも、同項第二号にも該当しません。同項第三号は都市計画区域等の区域条件に左右されるため、全国どこでも確認済証の交付が必要とはいえず、誤りです。",
+          "differenceSummary": "出題当時の正答肢が、現行の建築基準法第6条第1項の確認対象区分では全国一律の確認対象といえないため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「間違い」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の条文本文はこのsidecarでは再掲せず、既存正答をexamTimeDecisionとして保持。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢4が正しい",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -5000,7 +5295,7 @@
       "questionTags": []
     },
     {
-      "questionId": "c0d579ad37478fbd",
+      "questionId": "c0d579ad37478fbd_w1",
       "originalQuestionId": "c0d579ad37478fbd",
       "originalQuestionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。\nただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。\nイ　　住戸には、非常用の照明装置を設けなくてもよい。\nロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。\nハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。\nニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
       "originalQuestionChoiceText": "イとロ",
@@ -5008,7 +5303,7 @@
       "questionSetId": "g2_13_hinan_kitei",
       "questionText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "この記述は正しいです。イとロ",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問9",
@@ -5064,14 +5359,189 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
-      "isChoiceOnly": false,
-      "isGroupable": true,
+      "isChoiceOnly": true,
+      "isGroupable": false,
       "listGroupId": "85001",
       "qualificationId": "2nd-class-kenchikushi",
       "questionTags": []
     },
     {
-      "questionId": "c0d579ad37478fbd_w1",
+      "questionId": "c0d579ad37478fbd_w2",
+      "originalQuestionId": "c0d579ad37478fbd",
+      "originalQuestionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。\nただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。\nイ　　住戸には、非常用の照明装置を設けなくてもよい。\nロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。\nハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。\nニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "originalQuestionChoiceText": "イとハ",
+      "questionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "questionSetId": "g2_13_hinan_kitei",
+      "questionText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "この記述は正しいです。イとハ",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問9",
+      "isOfficial": true,
+      "isDeleted": false,
+      "suggestedQuestions": [
+        "防火・避難の論点は何を先に見る？",
+        "数値や対象部分のひっかけはどこ？",
+        "現行法ではどの条文から確認する？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "防火・避難の論点は何を先に見る？",
+          "answer": "防火・避難では、対象用途、対象部分、必要性能の3点を先に見ます。今回の起点は 関連条文 です。"
+        },
+        {
+          "question": "数値や対象部分のひっかけはどこ？",
+          "answer": "ひっかけは ロとニ のような対象部分や面積条件です。外壁・軒裏・廊下・竪穴などの対象を混ぜないことが重要です。"
+        },
+        {
+          "question": "現行法ではどの条文から確認する？",
+          "answer": "まず 関連条文 を見て、対象用途と適用除外を確認してください。現行法ベースで覚えると他の法規問題にも再利用できます。"
+        }
+      ],
+      "lawReferences": [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "126条の4",
+          "item": "一号",
+          "referenceDate": "2026-07-04",
+          "reason": "イ. 令第126条の4 第一号",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 1
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "121条",
+          "paragraph": "1項",
+          "item": "五号",
+          "referenceDate": "2026-07-04",
+          "reason": "ハ. 令第121条 第1項 第五号・第六号ロ",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 1
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "121条",
+          "paragraph": "1項",
+          "item": "六号ロ",
+          "referenceDate": "2026-07-04",
+          "reason": "ハ. 令第121条 第1項 第五号・第六号ロ",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 1
+        }
+      ],
+      "isLawRelated": true,
+      "lawGroundedExplanationNotNeeded": false,
+      "isChoiceOnly": true,
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "c0d579ad37478fbd_w3",
+      "originalQuestionId": "c0d579ad37478fbd",
+      "originalQuestionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。\nただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。\nイ　　住戸には、非常用の照明装置を設けなくてもよい。\nロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。\nハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。\nニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "originalQuestionChoiceText": "ロとハ",
+      "questionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "questionSetId": "g2_13_hinan_kitei",
+      "questionText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "この記述は正しいです。ロとハ",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問9",
+      "isOfficial": true,
+      "isDeleted": false,
+      "suggestedQuestions": [
+        "防火・避難の論点は何を先に見る？",
+        "数値や対象部分のひっかけはどこ？",
+        "現行法ではどの条文から確認する？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "防火・避難の論点は何を先に見る？",
+          "answer": "防火・避難では、対象用途、対象部分、必要性能の3点を先に見ます。今回の起点は 関連条文 です。"
+        },
+        {
+          "question": "数値や対象部分のひっかけはどこ？",
+          "answer": "ひっかけは ロとニ のような対象部分や面積条件です。外壁・軒裏・廊下・竪穴などの対象を混ぜないことが重要です。"
+        },
+        {
+          "question": "現行法ではどの条文から確認する？",
+          "answer": "まず 関連条文 を見て、対象用途と適用除外を確認してください。現行法ベースで覚えると他の法規問題にも再利用できます。"
+        }
+      ],
+      "lawReferences": [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "119条",
+          "referenceDate": "2026-07-04",
+          "reason": "ロ. 令第119条の表",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 2
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "121条",
+          "paragraph": "1項",
+          "item": "五号",
+          "referenceDate": "2026-07-04",
+          "reason": "ハ. 令第121条 第1項 第五号・第六号ロ",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 2
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "121条",
+          "paragraph": "1項",
+          "item": "六号ロ",
+          "referenceDate": "2026-07-04",
+          "reason": "ハ. 令第121条 第1項 第五号・第六号ロ",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 2
+        }
+      ],
+      "isLawRelated": true,
+      "lawGroundedExplanationNotNeeded": false,
+      "isChoiceOnly": true,
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "c0d579ad37478fbd",
       "originalQuestionId": "c0d579ad37478fbd",
       "originalQuestionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。\nただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。\nイ　　住戸には、非常用の照明装置を設けなくてもよい。\nロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。\nハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。\nニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
       "originalQuestionChoiceText": "ロとニ",
@@ -5079,7 +5549,7 @@
       "questionSetId": "g2_13_hinan_kitei",
       "questionText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
       "questionType": "flash_card",
-      "correctChoiceText": "間違い",
+      "correctChoiceText": "正しい",
       "explanationText": "この記述は誤りです。ロとニ",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問9",
@@ -5130,6 +5600,93 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "choiceIndex": 3
+        }
+      ],
+      "isLawRelated": true,
+      "lawGroundedExplanationNotNeeded": false,
+      "isChoiceOnly": false,
+      "isGroupable": true,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "c0d579ad37478fbd_w4",
+      "originalQuestionId": "c0d579ad37478fbd",
+      "originalQuestionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。\nただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。\nイ　　住戸には、非常用の照明装置を設けなくてもよい。\nロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。\nハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。\nニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "originalQuestionChoiceText": "ハとニ",
+      "questionBodyText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "questionSetId": "g2_13_hinan_kitei",
+      "questionText": "共同住宅（３階建、延べ面積300m²、高さ９m）の避難施設等に関するイ～ニの記述について、建築基準法上、誤っているもののみの組合せは、次のうちどれか。ただし、各階の床面積はそれぞれ100m²とし、耐火性能検証法、防火区画検証法、階避難安全検証法、全館避難安全検証法及び国土交通大臣の認定による安全性の確認は行わないものとする。イ　　住戸には、非常用の照明装置を設けなくてもよい。ロ　　共用の廊下で、片側のみに居室があるものの幅は、1.2m以上としなければならない。ハ　　避難階以外の階から避難階又は地上に通ずる２以上の直通階段を設けなくてもよい。ニ　　各階の外壁面には、非常用の進入口を設けなければならない。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "この記述は正しいです。ハとニ",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問9",
+      "isOfficial": true,
+      "isDeleted": false,
+      "suggestedQuestions": [
+        "防火・避難の論点は何を先に見る？",
+        "数値や対象部分のひっかけはどこ？",
+        "現行法ではどの条文から確認する？"
+      ],
+      "suggestedQuestionDetails": [
+        {
+          "question": "防火・避難の論点は何を先に見る？",
+          "answer": "防火・避難では、対象用途、対象部分、必要性能の3点を先に見ます。今回の起点は 関連条文 です。"
+        },
+        {
+          "question": "数値や対象部分のひっかけはどこ？",
+          "answer": "ひっかけは ロとニ のような対象部分や面積条件です。外壁・軒裏・廊下・竪穴などの対象を混ぜないことが重要です。"
+        },
+        {
+          "question": "現行法ではどの条文から確認する？",
+          "answer": "まず 関連条文 を見て、対象用途と適用除外を確認してください。現行法ベースで覚えると他の法規問題にも再利用できます。"
+        }
+      ],
+      "lawReferences": [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "121条",
+          "paragraph": "1項",
+          "item": "五号",
+          "referenceDate": "2026-07-04",
+          "reason": "ハ. 令第121条 第1項 第五号・第六号ロ",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 4
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "121条",
+          "paragraph": "1項",
+          "item": "六号ロ",
+          "referenceDate": "2026-07-04",
+          "reason": "ハ. 令第121条 第1項 第五号・第六号ロ",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 4
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawTitle": "建築基準法施行令",
+          "lawId": "325CO0000000338",
+          "lawAlias": "建築基準法施行令",
+          "article": "126条の6",
+          "referenceDate": "2026-07-04",
+          "reason": "ニ. 令第126条の6",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 4
         }
       ],
       "isLawRelated": true,
@@ -7405,6 +7962,97 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L2",
+        "evidenceBindingHash": "a4a653b5ff2c93fe93142f948bc3dd9e2818968bc4b17bb1973c858860e6a590",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "325AC1000000202",
+          "lawTitle": "建築士法",
+          "article": "22条の2",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "e-Gov法令APIで2026-07-04時点の建築士法第3条、第3条の2を確認。木造3階建・高さ12m・延べ面積120㎡は第3条の一級建築士限定建築物ではなく、第3条の2の一級又は二級建築士の範囲。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 正しい。現行法ベースの正誤: 正しい。",
+          "選択肢3も正しいため、該当する誤りの選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "displayRefIds": [
+            "choice_1_current_basis_1",
+            "choice_1_current_basis_2",
+            "choice_1_current_basis_3",
+            "choice_1_current_basis_4",
+            "choice_1_current_basis_5"
+          ],
+          "refs": [
+            {
+              "refId": "choice_1_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "22条の2"
+            },
+            {
+              "refId": "choice_1_current_basis_2",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325M50004000038",
+              "lawTitle": "建築士法施行規則",
+              "article": "17条の36"
+            },
+            {
+              "refId": "choice_1_current_basis_3",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "22条の2"
+            },
+            {
+              "refId": "choice_1_current_basis_4",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "22条の2"
+            },
+            {
+              "refId": "choice_1_current_basis_5",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325M50004000038",
+              "lawTitle": "建築士法施行規則",
+              "article": "17条の36"
+            }
+          ],
+          "explanationText": "一級建築士事務所に属する二級建築士は、3年ごとに、登録講習機関が行う所定の二級建築士定期講習を受けなければならない。 該当条文は士法第22条の2、士法施工規則第17条の36になります。 講習の受講期間は、直近のものを受けた日の年度の翌年度の始まりから3年です。 よって正しい記述となります。",
+          "differenceSummary": "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「正しい」、現行法ベースの正誤は「正しい」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の軒高基準との差分をユーザーに明示する必要がある。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢3が間違い",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -7501,6 +8149,94 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L2",
+        "evidenceBindingHash": "2c829a94d3b7f58109c49c157a6e02025f68585041edb55a6edca3f5fbf742a1",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "325AC1000000202",
+          "lawTitle": "建築士法",
+          "article": "37条",
+          "paragraph": "1項",
+          "item": "三号",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "e-Gov法令APIで2026-07-04時点の建築士法第3条、第3条の2を確認。木造3階建・高さ12m・延べ面積120㎡は第3条の一級建築士限定建築物ではなく、第3条の2の一級又は二級建築士の範囲。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 正しい。現行法ベースの正誤: 正しい。",
+          "選択肢3も正しいため、該当する誤りの選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "displayRefIds": [
+            "choice_2_current_basis_1",
+            "choice_2_current_basis_2",
+            "choice_2_current_basis_3",
+            "choice_2_current_basis_4"
+          ],
+          "refs": [
+            {
+              "refId": "choice_2_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "37条",
+              "paragraph": "1項",
+              "item": "三号"
+            },
+            {
+              "refId": "choice_2_current_basis_2",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "37条"
+            },
+            {
+              "refId": "choice_2_current_basis_3",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "37条",
+              "paragraph": "1項",
+              "item": "三号"
+            },
+            {
+              "refId": "choice_2_current_basis_4",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "3条",
+              "paragraph": "1項"
+            }
+          ],
+          "explanationText": "一級建築士でなければ設計又は工事監理をしてはならない建築物の新築に係る設計をした二級建築士は、1年以下の懲役又は100万円以下の罰金に処せられる。 該当条文は士法第37条 第1項 第三号になります。 第3条 第1項の規定の違反となるため、この罰則が適用されます。 よって正しい記述となります。",
+          "differenceSummary": "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「正しい」、現行法ベースの正誤は「正しい」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の軒高基準との差分をユーザーに明示する必要がある。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢3が間違い",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -7566,6 +8302,73 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L2",
+        "evidenceBindingHash": "1b32e7fdbb9d1a2d82e128586739fb6c44d7cab5dd1fb07589b8210ab9f4cac1",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "325AC1000000202",
+          "lawTitle": "建築士法",
+          "article": "3条",
+          "paragraph": "1項",
+          "item": "二号",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "e-Gov法令APIで2026-07-04時点の建築士法第3条、第3条の2を確認。木造3階建・高さ12m・延べ面積120㎡は第3条の一級建築士限定建築物ではなく、第3条の2の一級又は二級建築士の範囲。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 間違い。現行法ベースの正誤: 正しい。",
+          "選択肢3も正しいため、該当する誤りの選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "displayRefIds": [
+            "choice_3_current_basis_1",
+            "choice_3_current_basis_2"
+          ],
+          "refs": [
+            {
+              "refId": "choice_3_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "3条",
+              "paragraph": "1項",
+              "item": "二号"
+            },
+            {
+              "refId": "choice_3_current_basis_2",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "3条の2",
+              "paragraph": "1項",
+              "item": "二号"
+            }
+          ],
+          "explanationText": "この選択肢は出題当時の正解肢でしたが、現行法では正しい記述です。現行の建築士法第3条第1項第二号で一級建築士でなければ設計又は工事監理をしてはならない木造建築物は、高さ16mを超えるもの又は地階を除く階数が4以上であるものです。設問は木造3階建、延べ面積120㎡、高さ12mであり、建築士法第3条の一級建築士限定建築物には当たりません。一方、建築士法第3条の2第1項第二号により一級建築士又は二級建築士でなければ設計又は工事監理をしてはならない建築物には当たるため、二級建築士は設計できます。現行法ベースでは、この設問は誤っている選択肢がなくなります。",
+          "differenceSummary": "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「間違い」、現行法ベースの正誤は「正しい」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の軒高基準との差分をユーザーに明示する必要がある。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢3が間違い",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -7647,6 +8450,81 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L2",
+        "evidenceBindingHash": "23c329dbe185e11addb6ae33f843c56d9ddf9ee7783721e4d303348d5fac3005",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "325AC1000000202",
+          "lawTitle": "建築士法",
+          "article": "20条",
+          "paragraph": "2項",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "e-Gov法令APIで2026-07-04時点の建築士法第3条、第3条の2を確認。木造3階建・高さ12m・延べ面積120㎡は第3条の一級建築士限定建築物ではなく、第3条の2の一級又は二級建築士の範囲。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 正しい。現行法ベースの正誤: 正しい。",
+          "選択肢3も正しいため、該当する誤りの選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "displayRefIds": [
+            "choice_4_current_basis_1",
+            "choice_4_current_basis_2",
+            "choice_4_current_basis_3"
+          ],
+          "refs": [
+            {
+              "refId": "choice_4_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "20条",
+              "paragraph": "2項"
+            },
+            {
+              "refId": "choice_4_current_basis_2",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "20条",
+              "paragraph": "2項"
+            },
+            {
+              "refId": "choice_4_current_basis_3",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "20条",
+              "paragraph": "2項"
+            }
+          ],
+          "explanationText": "二級建築士は、構造計算によって建築物の安全性を確かめた場合においては、遅滞なく、その旨の証明書を設計の委託者に交付しなければならない。 該当条文は士法第20条 第2項になります。 設問の記述通りとなります。 よって正しい記述となります。",
+          "differenceSummary": "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「正しい」、現行法ベースの正誤は「正しい」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の軒高基準との差分をユーザーに明示する必要がある。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢3が間違い",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -7725,6 +8603,77 @@
       ],
       "isLawRelated": true,
       "lawGroundedExplanationNotNeeded": false,
+      "lawRevisionFacts": {
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "primary_verified",
+        "sourceEvidenceVersionId": "law_revision_audit/85001_law_revision_audit_20260704_0000.jsonl:L2",
+        "evidenceBindingHash": "77a2081ea53b12210a52288df25e323cc0fda0af634c96118de086ab39c194a3",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "325AC1000000202",
+          "lawTitle": "建築士法",
+          "article": "21条",
+          "referenceDate": "2026-07-04",
+          "verificationStatus": "verified"
+        },
+        "differenceFacts": [
+          "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "e-Gov法令APIで2026-07-04時点の建築士法第3条、第3条の2を確認。木造3階建・高さ12m・延べ面積120㎡は第3条の一級建築士限定建築物ではなく、第3条の2の一級又は二級建築士の範囲。"
+        ],
+        "answerImpactFacts": [
+          "出題当時の正誤: 正しい。現行法ベースの正誤: 正しい。",
+          "選択肢3も正しいため、該当する誤りの選択肢なし"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "displayRefIds": [
+            "choice_5_current_basis_1",
+            "choice_5_current_basis_2",
+            "choice_5_current_basis_3"
+          ],
+          "refs": [
+            {
+              "refId": "choice_5_current_basis_1",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": true,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "21条"
+            },
+            {
+              "refId": "choice_5_current_basis_2",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "21条"
+            },
+            {
+              "refId": "choice_5_current_basis_3",
+              "lawTimeScope": "current",
+              "relation": "current_basis",
+              "primaryBasis": false,
+              "lawId": "325AC1000000202",
+              "lawTitle": "建築士法",
+              "article": "21条"
+            }
+          ],
+          "explanationText": "二級建築士は、一級建築士でなければ設計又は工事監理をしてはならない建築物について、原則として、建築工事契約に関する事務の業務を行うことができる。 該当条文は士法第21条になります。 建築工事契約に関する事務の業務は、「一級建築士でなければ設計又は工事監理をしてはならない業務」から除外されています。 そのため、一級建築士、二級建築士の資格の有無に関わらず行うことができます。 よって正しい記述となります。",
+          "differenceSummary": "現行の建築士法第3条第1項第二号の木造一級建築士限定範囲が、高さ16m超又は4階以上等であり、設問条件は二級建築士の業務範囲に入るため。",
+          "promptContext": "この選択肢は法令根拠監査済みです。出題当時の正誤は「正しい」、現行法ベースの正誤は「正しい」。AI解説では保存済み根拠の範囲で、必要に応じて出題当時と現行法の違いを明示してください。"
+        },
+        "notes": [
+          "出題当時法令の軒高基準との差分をユーザーに明示する必要がある。現行法ベースでは問題自体が正解なしになるため、UI注記が必要。",
+          "選択肢3が間違い",
+          "2026-07-04T00:00:00+09:00"
+        ]
+      },
       "isChoiceOnly": false,
       "isGroupable": true,
       "listGroupId": "85001",
@@ -8493,7 +9442,7 @@
       "questionTags": []
     },
     {
-      "questionId": "5ec3dd671f087f14",
+      "questionId": "5ec3dd671f087f14_w1",
       "originalQuestionId": "5ec3dd671f087f14",
       "originalQuestionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "240×10³mm⁴",
@@ -8501,8 +9450,62 @@
       "questionSetId": "g3_05_danmen_seishitsu",
       "questionText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\nX軸まわりの断面二次モーメントはI=BH³/12で求め、断面AとBの差は、(20×90³/12)−(20×30³/12)=1,170×10³mm⁴となる。240×10³mm⁴はこの差に一致しない。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問1",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq5ec3dd671f087f14_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "5ec3dd671f087f14_w2",
+      "originalQuestionId": "5ec3dd671f087f14",
+      "originalQuestionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "585×10³mm⁴",
+      "questionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_05_danmen_seishitsu",
+      "questionText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n断面AとBの差は1,170×10³mm⁴であり、585×10³mm⁴は計算結果（差）と一致しない。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問1",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq5ec3dd671f087f14_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "5ec3dd671f087f14",
+      "originalQuestionId": "5ec3dd671f087f14",
+      "originalQuestionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "1,170×10³mm⁴",
+      "questionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_05_danmen_seishitsu",
+      "questionText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "explanationText": "正しい。\n\n断面Aと断面Bで異なるのは、X軸付近のウェブ部（幅20mm）のみであり、Aでは高さ90mm、Bでは高さ30mmである。したがって、この部分についてI=BH³/12を用いればよい。Ix(A)=20×90³/12=1,215×10³mm⁴、Ix(B)=20×30³/12=45×10³mm⁴より、差の絶対値は1,215×10³−45×10³=1,170×10³mm⁴となる。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問1",
       "isOfficial": true,
@@ -8520,7 +9523,7 @@
       "questionTags": []
     },
     {
-      "questionId": "5ec3dd671f087f14_w1",
+      "questionId": "5ec3dd671f087f14_w3",
       "originalQuestionId": "5ec3dd671f087f14",
       "originalQuestionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "1,215×10³mm⁴",
@@ -8530,6 +9533,33 @@
       "questionType": "flash_card",
       "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\n1,215×10³mm⁴は断面A（20×90）のIxであり、「断面Aと断面Bの差」を求める設問の値ではない（Bの分を差し引く必要がある）。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問1",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq5ec3dd671f087f14_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "5ec3dd671f087f14_w4",
+      "originalQuestionId": "5ec3dd671f087f14",
+      "originalQuestionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "2,340×10³mm⁴",
+      "questionBodyText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_05_danmen_seishitsu",
+      "questionText": "図のような断面A及び断面Bにおいて、X軸に関する断面二次モーメントの値の差の絶対値として、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n差の絶対値は1,170×10³mm⁴であり、2,340×10³mm⁴はその2倍で計算条件と合わない。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問1",
       "isOfficial": true,
@@ -8601,7 +9631,88 @@
       "questionTags": []
     },
     {
-      "questionId": "ce4e2fd478ff1ba6",
+      "questionId": "32269833486c3820_w2",
+      "originalQuestionId": "32269833486c3820",
+      "originalQuestionBodyText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "originalQuestionChoiceText": "3N/mm²",
+      "questionBodyText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "questionSetId": "g3_07_oudoryoku",
+      "questionText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n本問の曲げ応力度は2N/mm²であり、3N/mm²はMまたはZの算定を誤っている。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問2",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq32269833486c3820_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "32269833486c3820_w3",
+      "originalQuestionId": "32269833486c3820",
+      "originalQuestionBodyText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "originalQuestionChoiceText": "4N/mm²",
+      "questionBodyText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "questionSetId": "g3_07_oudoryoku",
+      "questionText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n本問の曲げ応力度は2N/mm²であり、4N/mm²は等分布荷重の置換や断面係数の扱いが一致しない。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問2",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq32269833486c3820_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "32269833486c3820_w4",
+      "originalQuestionId": "32269833486c3820",
+      "originalQuestionBodyText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "originalQuestionChoiceText": "5N/mm²",
+      "questionBodyText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "questionSetId": "g3_07_oudoryoku",
+      "questionText": "図のような等分布荷重を受ける単純梁に断面100mm×300mmの部材を用いた場合、A点に生じる最大曲げ応力度として、正しいものは、次のうちどれか。ただし、部材の断面は一様とし、自重は無視するものとする。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n本問の曲げ応力度は2N/mm²であり、5N/mm²は計算条件から得られない。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問2",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq32269833486c3820_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "ce4e2fd478ff1ba6_w1",
       "originalQuestionId": "ce4e2fd478ff1ba6",
       "originalQuestionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "2kN",
@@ -8609,8 +9720,62 @@
       "questionSetId": "g3_01_chikara_tsuri",
       "questionText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\nA-C間のせん断力は支点反力Raに等しく、本問では6kNとなるため2kNではない。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問3",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqce4e2fd478ff1ba6_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "ce4e2fd478ff1ba6_w2",
+      "originalQuestionId": "ce4e2fd478ff1ba6",
+      "originalQuestionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "4kN",
+      "questionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_01_chikara_tsuri",
+      "questionText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\nA-C間のせん断力は支点反力Raに等しく6kNとなるため4kNではない。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問3",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqce4e2fd478ff1ba6_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "ce4e2fd478ff1ba6",
+      "originalQuestionId": "ce4e2fd478ff1ba6",
+      "originalQuestionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "6kN",
+      "questionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_01_chikara_tsuri",
+      "questionText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "explanationText": "正しい。\n\n曲げモーメント図よりC点の曲げモーメントMc=12kN・m。A-C間には外力がないため、曲げモーメントは直線となり、Mc=Ra×AC（AC=2m）とおける。よってRa=12/2=6kNであり、A-C間のせん断力（一定）は6kNとなる。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問3",
       "isOfficial": true,
@@ -8628,7 +9793,7 @@
       "questionTags": []
     },
     {
-      "questionId": "ce4e2fd478ff1ba6_w1",
+      "questionId": "ce4e2fd478ff1ba6_w3",
       "originalQuestionId": "ce4e2fd478ff1ba6",
       "originalQuestionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "8kN",
@@ -8655,7 +9820,34 @@
       "questionTags": []
     },
     {
-      "questionId": "01e3d530fa630652",
+      "questionId": "ce4e2fd478ff1ba6_w4",
+      "originalQuestionId": "ce4e2fd478ff1ba6",
+      "originalQuestionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "10kN",
+      "questionBodyText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_01_chikara_tsuri",
+      "questionText": "図-1のような荷重Pを受ける単純梁において、曲げモーメント図が図-2となる場合、A-C間のせん断力の大きさとして、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\nA-C間のせん断力は6kNであり10kNではない。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問3",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqce4e2fd478ff1ba6_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "01e3d530fa630652_w1",
       "originalQuestionId": "01e3d530fa630652",
       "originalQuestionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
       "originalQuestionChoiceText": "Rₐ：０kN Rᵦ：＋４kN MCの絶対値：０kN・m",
@@ -8663,8 +9855,35 @@
       "questionSetId": "g3_02_hanryoku",
       "questionText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\nつり合い条件（ΣX=0、ΣY=0、ΣM=0）よりRb=+4kN、Ra=0kNとなり、C点曲げモーメントの絶対値は8kN・mとなるため、MC=0kN・mとしている点が誤り。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問4",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq01e3d530fa630652_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "01e3d530fa630652",
+      "originalQuestionId": "01e3d530fa630652",
+      "originalQuestionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "originalQuestionChoiceText": "Rₐ：０kN Rᵦ：＋４kN MCの絶対値：８kN・m",
+      "questionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "questionSetId": "g3_02_hanryoku",
+      "questionText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "explanationText": "正しい。\n\nΣX=0より水平反力Ha=2kN、ΣY=0よりRa+Rb=4kN。ΣMa=0からRb=+4kN、よってRa=0kN。C点で切断して右側（C-B側）を考えると、外力はRbのみなので |MC|=Rb×2m=4×2=8kN・mとなり、この組合せが正しい。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問4",
       "isOfficial": true,
@@ -8682,7 +9901,61 @@
       "questionTags": []
     },
     {
-      "questionId": "01e3d530fa630652_w1",
+      "questionId": "01e3d530fa630652_w2",
+      "originalQuestionId": "01e3d530fa630652",
+      "originalQuestionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "originalQuestionChoiceText": "Rₐ：−４kN Rᵦ：＋８kN MCの絶対値：８kN・m",
+      "questionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "questionSetId": "g3_02_hanryoku",
+      "questionText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n反力はRa=0kN、Rb=+4kNとなるため、Raを−4kNとしている点が誤り（符号・釣合い条件の扱いが違う）。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問4",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq01e3d530fa630652_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "01e3d530fa630652_w3",
+      "originalQuestionId": "01e3d530fa630652",
+      "originalQuestionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "originalQuestionChoiceText": "Rₐ：−４kN Rᵦ：＋８kN MCの絶対値：24kN・m",
+      "questionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "questionSetId": "g3_02_hanryoku",
+      "questionText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n反力はRa=0kN、Rb=+4kN、MC=8kN・mであり、MC=24kN・mとしている点が誤り。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問4",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq01e3d530fa630652_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "01e3d530fa630652_w4",
       "originalQuestionId": "01e3d530fa630652",
       "originalQuestionBodyText": "図のような外力を受ける静定ラーメンにおいて、支点A、Bに生じる鉛直反力Rₐ、Rᵦの値と、C点に生じる曲げモーメントMCの絶対値との組合せとして、正しいものは、次のうちどれか。ただし、鉛直反力の方向は、上向きを「＋」、下向きを「−」とする。",
       "originalQuestionChoiceText": "Rₐ：−６kN Rᵦ：＋10kN MCの絶対値：24kN・m",
@@ -8739,6 +10012,60 @@
       "questionId": "b0568a1d8a69d8c9_w1",
       "originalQuestionId": "b0568a1d8a69d8c9",
       "originalQuestionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "A：０ B：引張り C：引張り",
+      "questionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_04_toras",
+      "questionText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n0部材判定によりBは0となるため、「B：引張り」としている点が誤り。正しくはA：0、B：0、C：引張りである。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問5",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqb0568a1d8a69d8c9_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "b0568a1d8a69d8c9_w2",
+      "originalQuestionId": "b0568a1d8a69d8c9",
+      "originalQuestionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "A：圧縮 B：０ C：圧縮",
+      "questionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_04_toras",
+      "questionText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n0部材判定によりAとBは0となるため、圧縮力が生じるとしている点が誤り。正しくはA：0、B：0、C：引張りである。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問5",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqb0568a1d8a69d8c9_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "b0568a1d8a69d8c9_w3",
+      "originalQuestionId": "b0568a1d8a69d8c9",
+      "originalQuestionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "A：圧縮 B：引張り C：圧縮",
       "questionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
       "questionSetId": "g3_04_toras",
@@ -8763,7 +10090,34 @@
       "questionTags": []
     },
     {
-      "questionId": "972ca45760cf2db3",
+      "questionId": "b0568a1d8a69d8c9_w4",
+      "originalQuestionId": "b0568a1d8a69d8c9",
+      "originalQuestionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "A：引張り B：圧縮 C：引張り",
+      "questionBodyText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_04_toras",
+      "questionText": "図のような荷重Pを受ける静定トラスにおいて、部材A、B、Cに生じる軸方向力の組合せとして、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\nAとBは0部材となるため、引張り・圧縮が生じるとしている点が誤り。正しくはA：0、B：0、C：引張りである。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問5",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fqb0568a1d8a69d8c9_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "972ca45760cf2db3_w1",
       "originalQuestionId": "972ca45760cf2db3",
       "originalQuestionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
       "originalQuestionChoiceText": "lₐ ＞ lᵦ ＞ lC",
@@ -8771,8 +10125,89 @@
       "questionSetId": "g3_06_zakutsu",
       "questionText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\n支持条件より、AとBは同じ座屈長さとなりCが最も大きい。lₐ＞lᵦ＞lCとしている点が誤り。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問6",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq972ca45760cf2db3_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "972ca45760cf2db3_w2",
+      "originalQuestionId": "972ca45760cf2db3",
+      "originalQuestionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "lₐ ＝ lᵦ ＞ lC",
+      "questionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_06_zakutsu",
+      "questionText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\nAとBは支持条件が同等でlₐ=lᵦとなるが、Cはそれより大きくなるため、lₐ=lᵦ＞lCとしている点が誤り。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問6",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq972ca45760cf2db3_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "972ca45760cf2db3_w3",
+      "originalQuestionId": "972ca45760cf2db3",
+      "originalQuestionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "lᵦ ＞ lC ＞ lₐ",
+      "questionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_06_zakutsu",
+      "questionText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\nAとBは同等でlₐ=lᵦとなる一方、Cはそれより大きくなるため、lᵦ＞lC＞lₐとしている点が誤り。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問6",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "questionImageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq972ca45760cf2db3_q_img01.png?alt=media"
+      ],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "972ca45760cf2db3",
+      "originalQuestionId": "972ca45760cf2db3",
+      "originalQuestionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "originalQuestionChoiceText": "lC ＞ lₐ ＝ lᵦ",
+      "questionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "questionSetId": "g3_06_zakutsu",
+      "questionText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "explanationText": "正しい。\n\n座屈長さは l_k=K×L とし、Kは材端条件（水平移動拘束の有無を含む）で決まる。Aは一端自由・他端固定なのでK=2.0、L=lよりlₐ=2l。Bは両端ピン（水平移動拘束）なのでK=1.0、L=2lよりlᵦ=2l。Cは一端ピン・他端固定（水平移動拘束）なのでK=0.7、L=3lよりlC=0.7×3l=2.1l。よってlC＞lₐ=lᵦとなる。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問6",
       "isOfficial": true,
@@ -8790,16 +10225,16 @@
       "questionTags": []
     },
     {
-      "questionId": "972ca45760cf2db3_w1",
+      "questionId": "972ca45760cf2db3_w4",
       "originalQuestionId": "972ca45760cf2db3",
       "originalQuestionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
-      "originalQuestionChoiceText": "lC ＞ lₐ ＝ lᵦ",
+      "originalQuestionChoiceText": "lC ＞ lᵦ ＞ lₐ",
       "questionBodyText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
       "questionSetId": "g3_06_zakutsu",
       "questionText": "図のような材の長さ及び材端の支持条件が異なる柱A、B、Cの座屈長さをそれぞれlₐ、lᵦ、lCとしたとき、それらの大小関係として、正しいものは、次のうちどれか。",
       "questionType": "flash_card",
       "correctChoiceText": "間違い",
-      "explanationText": "正しい。\n\n座屈長さは l_k=K×L とし、Kは材端条件（水平移動拘束の有無を含む）で決まる。Aは一端自由・他端固定なのでK=2.0、L=lよりlₐ=2l。Bは両端ピン（水平移動拘束）なのでK=1.0、L=2lよりlᵦ=2l。Cは一端ピン・他端固定（水平移動拘束）なのでK=0.7、L=3lよりlC=0.7×3l=2.1l。よってlC＞lₐ=lᵦとなる。",
+      "explanationText": "間違い。\n\nCが最も大きくAとBが等しい関係になるため、lC＞lᵦ＞lₐとしている点が誤り。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問6",
       "isOfficial": true,
@@ -9777,7 +11212,7 @@
       "questionTags": []
     },
     {
-      "questionId": "8e914114f2e49133_w1",
+      "questionId": "8e914114f2e49133",
       "originalQuestionId": "8e914114f2e49133",
       "originalQuestionBodyText": "図のように配筋された柱のせん断補強筋比pwを求める式として、正しいものは、次のうちどれか。ただし、地震力は、図に示す方向とする。\n凡例\naₜ：主筋１本当たりの断面積\naw：せん断補強筋１本当たりの断面積\nb、d：柱の幅\nx：せん断補強筋の間隔",
       "originalQuestionChoiceText": "",
@@ -9788,7 +11223,7 @@
       "questionSetId": "g3_14_rc_kouzou",
       "questionText": "図のように配筋された柱のせん断補強筋比pwを求める式として、正しいものは、次のうちどれか。ただし、地震力は、図に示す方向とする。凡例aₜ：主筋１本当たりの断面積aw：せん断補強筋１本当たりの断面積b、d：柱の幅x：せん断補強筋の間隔",
       "questionType": "flash_card",
-      "correctChoiceText": "間違い",
+      "correctChoiceText": "正しい",
       "explanationText": "正しい。\n\npwは、地震力方向のせん断に抵抗する「せん断補強筋（帯筋）の断面積（1ピッチ当たり）」を、部材幅bと間隔xで除したもの。図では同方向に有効な帯筋の脚が2本なので、pw=2aw/(b×x)となる。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問15",
@@ -9796,18 +11231,18 @@
       "isDeleted": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
-      "isChoiceOnly": true,
       "lawReferences": [],
       "questionImageUrls": [
         "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq8e914114f2e49133_q_img01.png?alt=media"
       ],
-      "isGroupable": false,
+      "isChoiceOnly": false,
+      "isGroupable": true,
       "listGroupId": "85001",
       "qualificationId": "2nd-class-kenchikushi",
       "questionTags": []
     },
     {
-      "questionId": "8e914114f2e49133_w2",
+      "questionId": "8e914114f2e49133_w1",
       "originalQuestionId": "8e914114f2e49133",
       "originalQuestionBodyText": "図のように配筋された柱のせん断補強筋比pwを求める式として、正しいものは、次のうちどれか。ただし、地震力は、図に示す方向とする。\n凡例\naₜ：主筋１本当たりの断面積\naw：せん断補強筋１本当たりの断面積\nb、d：柱の幅\nx：せん断補強筋の間隔",
       "originalQuestionChoiceText": "",
@@ -9837,7 +11272,7 @@
       "questionTags": []
     },
     {
-      "questionId": "8e914114f2e49133",
+      "questionId": "8e914114f2e49133_w2",
       "originalQuestionId": "8e914114f2e49133",
       "originalQuestionBodyText": "図のように配筋された柱のせん断補強筋比pwを求める式として、正しいものは、次のうちどれか。ただし、地震力は、図に示す方向とする。\n凡例\naₜ：主筋１本当たりの断面積\naw：せん断補強筋１本当たりの断面積\nb、d：柱の幅\nx：せん断補強筋の間隔",
       "originalQuestionChoiceText": "",
@@ -9848,7 +11283,7 @@
       "questionSetId": "g3_14_rc_kouzou",
       "questionText": "図のように配筋された柱のせん断補強筋比pwを求める式として、正しいものは、次のうちどれか。ただし、地震力は、図に示す方向とする。凡例aₜ：主筋１本当たりの断面積aw：せん断補強筋１本当たりの断面積b、d：柱の幅x：せん断補強筋の間隔",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\n誤りは3awとしている点。有効な帯筋の脚は2本で評価するため、分子は2awとする。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問15",
@@ -9856,12 +11291,12 @@
       "isDeleted": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
       "lawReferences": [],
       "questionImageUrls": [
         "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2F2nd-class-kenchikushi%2Fq8e914114f2e49133_q_img01.png?alt=media"
       ],
-      "isChoiceOnly": false,
-      "isGroupable": true,
+      "isGroupable": false,
       "listGroupId": "85001",
       "qualificationId": "2nd-class-kenchikushi",
       "questionTags": []
@@ -10647,7 +12082,7 @@
       "questionTags": []
     },
     {
-      "questionId": "3e727328dec340f0",
+      "questionId": "3e727328dec340f0_w1",
       "originalQuestionId": "3e727328dec340f0",
       "originalQuestionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。\nA：普通ポルトランドセメント\nB：中庸熱ポルトランドセメント\nC：早強ポルトランドセメント",
       "originalQuestionChoiceText": "A ＞ B ＞ C",
@@ -10655,8 +12090,80 @@
       "questionSetId": "g3_18_concrete",
       "questionText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
       "questionType": "flash_card",
-      "correctChoiceText": "正しい",
+      "correctChoiceText": "間違い",
       "explanationText": "間違い。\n\n誤りは「Aが最も大きい」としている点。初期強度（材齢7日程度まで）は、強度発現が速い早強ポルトランドセメントCが最も大きく、普通ポルトランドセメントAがこれに次ぎ、水和熱を抑えて強度発現が緩やかな中庸熱ポルトランドセメントBは小さい。したがってC＞A＞Bである。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問22",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "3e727328dec340f0_w2",
+      "originalQuestionId": "3e727328dec340f0",
+      "originalQuestionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。\nA：普通ポルトランドセメント\nB：中庸熱ポルトランドセメント\nC：早強ポルトランドセメント",
+      "originalQuestionChoiceText": "B ＞ A ＞ C",
+      "questionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
+      "questionSetId": "g3_18_concrete",
+      "questionText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n誤りは「BがAより大きい」としている点。中庸熱ポルトランドセメントBは初期の強度発現が緩やかで、普通ポルトランドセメントAより初期強度が大きくなる並びは適当でない。初期強度はC＞A＞Bである。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問22",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "3e727328dec340f0_w3",
+      "originalQuestionId": "3e727328dec340f0",
+      "originalQuestionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。\nA：普通ポルトランドセメント\nB：中庸熱ポルトランドセメント\nC：早強ポルトランドセメント",
+      "originalQuestionChoiceText": "B ＞ C ＞ A",
+      "questionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
+      "questionSetId": "g3_18_concrete",
+      "questionText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
+      "questionType": "flash_card",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。\n\n誤りは「Bが最大」としている点。初期強度は早強ポルトランドセメントCが最大で、次いで普通ポルトランドセメントA、中庸熱ポルトランドセメントBの順となるため、この並びは不適当。正しくはC＞A＞Bである。",
+      "examYear": 2015,
+      "examSource": "二級建築士, 2015年, 問22",
+      "isOfficial": true,
+      "isDeleted": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "isChoiceOnly": true,
+      "lawReferences": [],
+      "isGroupable": false,
+      "listGroupId": "85001",
+      "qualificationId": "2nd-class-kenchikushi",
+      "questionTags": []
+    },
+    {
+      "questionId": "3e727328dec340f0",
+      "originalQuestionId": "3e727328dec340f0",
+      "originalQuestionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。\nA：普通ポルトランドセメント\nB：中庸熱ポルトランドセメント\nC：早強ポルトランドセメント",
+      "originalQuestionChoiceText": "C ＞ A ＞ B",
+      "questionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
+      "questionSetId": "g3_18_concrete",
+      "questionText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
+      "questionType": "flash_card",
+      "correctChoiceText": "正しい",
+      "explanationText": "正しい。\n\n早強ポルトランドセメントCは強度発現が速く初期強度が大きい。普通ポルトランドセメントAがこれに次ぎ、中庸熱ポルトランドセメントBは水和熱を抑えるため初期強度が小さい。よって初期強度の大小関係はC＞A＞Bとなる。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問22",
       "isOfficial": true,
@@ -10671,16 +12178,16 @@
       "questionTags": []
     },
     {
-      "questionId": "3e727328dec340f0_w1",
+      "questionId": "3e727328dec340f0_w4",
       "originalQuestionId": "3e727328dec340f0",
       "originalQuestionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。\nA：普通ポルトランドセメント\nB：中庸熱ポルトランドセメント\nC：早強ポルトランドセメント",
-      "originalQuestionChoiceText": "B ＞ A ＞ C",
+      "originalQuestionChoiceText": "C ＞ B ＞ A",
       "questionBodyText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
       "questionSetId": "g3_18_concrete",
       "questionText": "A～Cのセメントを用いた一般的なコンクリートの初期強度（材齢７日程度までの硬化初期の過程における圧縮強度）の大小関係として、正しいものは、次のうちどれか。ただし、呼び強度等の条件は同一とする。A：普通ポルトランドセメントB：中庸熱ポルトランドセメントC：早強ポルトランドセメント",
       "questionType": "flash_card",
       "correctChoiceText": "間違い",
-      "explanationText": "間違い。\n\n誤りは「BがAより大きい」としている点。中庸熱ポルトランドセメントBは初期の強度発現が緩やかで、普通ポルトランドセメントAより初期強度が大きくなる並びは適当でない。初期強度はC＞A＞Bである。",
+      "explanationText": "間違い。\n\n誤りは「BがAより大きい」としている点。中庸熱ポルトランドセメントBは初期強度が小さい側に位置するため、C＞B＞AではなくC＞A＞Bが正しい。",
       "examYear": 2015,
       "examSource": "二級建築士, 2015年, 問22",
       "isOfficial": true,
@@ -15319,5 +16826,5 @@
       "questionTags": []
     }
   ],
-  "total_count": 446
+  "total_count": 470
 }
