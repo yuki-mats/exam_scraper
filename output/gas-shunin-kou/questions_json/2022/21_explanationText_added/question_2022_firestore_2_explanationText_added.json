@@ -608,11 +608,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "間違い。調査の結果、消費機器が技術上の基準に適合していないと認めるときは、所有者又は占有者に通知する必要がある。使用を禁止しなければならないとしている点が誤り。",
-      "正しい。ガス小売事業者が保安業務規程を変更したときは、遅滞なく、変更した事項を経済産業大臣に届け出る必要がある。",
-      "間違い。経済産業大臣が保安業務規程の変更を命ずる相手方は、保安統括者ではなくガス小売事業者である。",
-      "正しい。ガス小売事業者及びその従業者は、保安業務規程を守る必要がある。",
-      "正しい。ガス事業者は、公共の安全の維持又は災害発生の防止に関して、相互に連携を図りながら協力する必要がある。"
+      "間違い。ガス事業法第159条第3項は、調査の結果、消費機器が技術上の基準に適合していないと認めるときは、技術基準に適合させるためにとるべき措置等を所有者又は占有者に遅滞なく通知しなければならないと定めている。使用を禁止しなければならないとしている点が誤り。",
+      "正しい。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したときは、遅滞なく、変更した事項を経済産業大臣に届け出なければならないと定めている。",
+      "間違い。ガス事業法第160条第3項は、経済産業大臣が保安業務規程の変更を命ずる相手方をガス小売事業者と定めている。保安統括者に命ずるとしている点が誤り。",
+      "正しい。ガス事業法第160条第4項は、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。",
+      "正しい。ガス事業法第163条は、ガス事業者が公共の安全の維持又は災害の発生の防止に関し、相互に連携を図りながら協力しなければならないと定めている。"
     ],
     "suggestedQuestions": [
       "ガス小売事業者は、調査の結果、消費機器が経済産業省令で定める技術上の基準に適合していないと認めるときは、速やかにその使用を禁止しなければならない。",
@@ -643,7 +643,7 @@
         "answer": "正しい。ガス事業者は、公共の安全の維持又は災害発生の防止に関して、相互に連携を図りながら協力する必要がある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -663,6 +663,419 @@
       "間違い",
       "正しい",
       "正しい"
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "159",
+          "articleTitle": "消費機器に関する周知及び調査",
+          "paragraph": "3",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
+          "comparisonStatus": "same_as_current",
+          "reason": "消費機器が技術基準に適合しないと認めるときは、所有者又は占有者に必要な措置等を通知する。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "160",
+          "articleTitle": "保安業務規程",
+          "paragraph": "2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4",
+          "comparisonStatus": "same_as_current",
+          "reason": "保安業務規程を変更したときは、遅滞なく、変更事項を経済産業大臣に届け出る。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "160",
+          "articleTitle": "保安業務規程",
+          "paragraph": "3",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4",
+          "comparisonStatus": "same_as_current",
+          "reason": "保安業務規程の変更命令の相手方はガス小売事業者であり、保安統括者ではない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "160",
+          "articleTitle": "保安業務規程",
+          "paragraph": "4",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス小売事業者及びその従業者は、保安業務規程を守らなければならない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "163",
+          "articleTitle": "ガス事業者間の連携協力",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=163",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=163",
+          "articleTextHash": "b1d180304b3222fd64dc930f0fcc1f5bef0ba5565b8733b3256d16c93854bda8",
+          "rawXmlHash": "f1e766f73bd75c9a506b45895152a403e6a5fd22568c22634d256afb0f4c93b9",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス事業者は、公共の安全の維持又は災害防止に関し、相互に連携協力しなければならない。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_203000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則第200条に寄っていたため、調査後の不適合時通知義務の直接根拠としてガス事業法第159条第3項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第159条第3項は、調査の結果、消費機器が技術上の基準に適合していないと認めるときは、技術基準に適合させるためにとるべき措置等を所有者又は占有者に遅滞なく通知しなければならないと定めている。使用を禁止しなければならないとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "不適合時の措置は使用禁止ではなく所有者又は占有者への通知である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:159:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:159:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "159",
+              "paragraph": "3",
+              "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+              "textHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_203000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "2",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則第207条に寄っていたため、保安業務規程変更時の届出義務の直接根拠としてガス事業法第160条第2項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したときは、遅滞なく、変更した事項を経済産業大臣に届け出なければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "保安業務規程を変更したときの経済産業大臣への届出義務に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:160:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:160:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "160",
+              "paragraph": "2",
+              "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_203000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "3",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則第207条に寄っていたため、保安業務規程変更命令の相手方を定める直接根拠としてガス事業法第160条第3項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第160条第3項は、経済産業大臣が保安業務規程の変更を命ずる相手方をガス小売事業者と定めている。保安統括者に命ずるとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "保安業務規程の変更命令の相手方は保安統括者ではなくガス小売事業者である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:160:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:160:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "160",
+              "paragraph": "3",
+              "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_203000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "4",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則第207条に寄っていたため、保安業務規程遵守義務の直接根拠としてガス事業法第160条第4項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第160条第4項は、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス小売事業者及び従業者の保安業務規程遵守義務に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:160:4"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:160:4",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "160",
+              "paragraph": "4",
+              "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_203000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "163",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "b1d180304b3222fd64dc930f0fcc1f5bef0ba5565b8733b3256d16c93854bda8",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=163"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則第207条に寄っていたため、ガス事業者間の連携協力義務の直接根拠としてガス事業法第163条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第163条は、ガス事業者が公共の安全の維持又は災害の発生の防止に関し、相互に連携を図りながら協力しなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス事業者間の連携協力義務に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:163:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:163:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "163",
+              "paragraph": "1",
+              "articleTextHash": "b1d180304b3222fd64dc930f0fcc1f5bef0ba5565b8733b3256d16c93854bda8",
+              "textHash": "b1d180304b3222fd64dc930f0fcc1f5bef0ba5565b8733b3256d16c93854bda8"
+            }
+          ]
+        }
+      }
     ]
   },
   {
