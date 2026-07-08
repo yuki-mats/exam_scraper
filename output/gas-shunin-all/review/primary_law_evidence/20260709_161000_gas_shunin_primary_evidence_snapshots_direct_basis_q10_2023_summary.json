@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-09T16:10:00+09:00",
+  "lawzillaReconciliation": "Lawzilla候補は、選択肢1で技省令第26条、選択肢4で技省令第31条第2項を直接示した一方、選択肢2・3ではガス事業法施行規則第1条・第17条等、選択肢5では技省令第18条・第41条第1項に寄った。最終判断では、直接根拠として技省令第26条、第27条第1項、第28条第3項、第31条第2項、第41条第2項をe-Gov現行XMLで確認した。source_conflict_review は既存の正誤配列、Firestore IDs、questionSetId を維持し、00_source 非変更で処理した。",
+  "recordCount": 5,
+  "records": [
+    {
+      "article": "26",
+      "articleDisplay": "第26条",
+      "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+      "articleTitle": "遮断装置",
+      "choiceIndex": 0,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "1",
+      "rawXmlHash": "dd17afb97324af859794cd657ded16f973a39d2a44be4c6785c1446c991abf8e",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_161000/412M50000400111_26_dd17afb97324af85.xml",
+      "reason": "製造設備には異常時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置が必要であるが、そのガス又は液化ガスを回収することまでは求められていない。"
+    },
+    {
+      "article": "27",
+      "articleDisplay": "第27条",
+      "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+      "articleTitle": "緊急停止装置",
+      "choiceIndex": 1,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "1",
+      "rawXmlHash": "3c1526932497fa1bd55fb42cc0181374ee81522e20f5185a6f010b748780d575",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_161000/412M50000400111_27_3c1526932497fa1b.xml",
+      "reason": "特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備は、異常時に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理できる必要がある。"
+    },
+    {
+      "article": "28",
+      "articleDisplay": "第28条",
+      "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+      "articleTitle": "移動式ガス発生設備の設置等",
+      "choiceIndex": 2,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "3",
+      "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_161000/412M50000400111_28_9a8d343c192c9088.xml",
+      "reason": "移動式ガス発生設備の容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置が必要である。"
+    },
+    {
+      "article": "31",
+      "articleDisplay": "第31条",
+      "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+      "articleTitle": "気化装置の構造",
+      "choiceIndex": 3,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "2",
+      "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_161000/412M50000400111_31_5a321a346bb069e3.xml",
+      "reason": "温水で加熱する構造の気化装置で、加熱部の温水が凍結するおそれがあるものには、凍結防止措置が必要である。"
+    },
+    {
+      "article": "41",
+      "articleDisplay": "第41条",
+      "articleTextHash": "5dc222b8d883f0dd80feca670ce2d0600f4bfe2789536814efe19b5b42549b71",
+      "articleTitle": "構成等",
+      "choiceIndex": 4,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "2",
+      "rawXmlHash": "893fa4c33e4ae57fad5e8459ba0548f2df801e7b6741ac1910b86817d1e6dcd4",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_161000/412M50000400111_41_893fa4c33e4ae57f.xml",
+      "reason": "容器に附属する気化装置内においてガスを発生させる特定ガス発生設備の容器部分には、容器内の液化ガスの量を確認できる装置が必要であり、温度ではない。"
+    }
+  ],
+  "target": "gas-shunin-kou 2023 問10"
+}
