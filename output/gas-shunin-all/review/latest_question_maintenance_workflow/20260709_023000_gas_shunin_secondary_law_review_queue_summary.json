@@ -1,8 +1,8 @@
 {
   "boundary": "review queue only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
   "duplicateQueueKeyCount": 5,
-  "existingLawReferenceCount": 151,
-  "generatedAt": "2026-07-09T04:18:28+09:00",
+  "existingLawReferenceCount": 158,
+  "generatedAt": "2026-07-09T04:28:16+09:00",
   "maintenanceQueueJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl",
   "maxQueueKeyMultiplicity": 2,
   "nextAction": "perform one-question secondary review in queue order, then patch only manually verified lawReferences/lawRevisionFacts.",
@@ -19,11 +19,11 @@
   "queueItemCount": 387,
   "readinessCounts": {
     "answer_recheck_without_lawzilla_evidence": 6,
-    "manual_review_required_all_choices_have_primary_evidence": 232,
+    "manual_review_required_all_choices_have_primary_evidence": 231,
     "manual_review_required_locator_detail": 1,
     "manual_review_required_partial_candidates": 42,
     "non_lawzilla_workflow_item": 80,
-    "secondary_verified_in_question_patch": 26
+    "secondary_verified_in_question_patch": 27
   },
   "schemaVersion": "gas-shunin-secondary-law-review-queue-summary/v1",
   "secondaryReviewQueueJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_023000_gas_shunin_secondary_law_review_queue.jsonl",
