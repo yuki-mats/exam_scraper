@@ -460,11 +460,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "間違い。ガス漏えいによる火災等の発生を防止するための適切な措置が必要なのは、最高使用圧力が高圧の整圧器である。中圧としている点が誤り。",
-      "間違い。一の使用者にガスを供給するための整圧器では、ガス圧力の異常上昇を防止する装置は必要だが、入口に不純物を除去する装置を設ける必要はない。",
-      "正しい。浸水のおそれのある地下に設置する整圧器には、浸水を防止するための措置を講じる必要がある。",
-      "正しい。ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結防止措置を講じる必要がある。",
-      "正しい。整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されている必要がある。"
+      "間違い。技術基準省令第56条は、ガス漏えいによる火災等の発生を防止するための適切な措置を講じなければならない整圧器を、最高使用圧力が高圧の整圧器としている。中圧としている点が誤り。",
+      "間違い。技術基準省令第57条第1項第2号は整圧器の入口に不純物を除去する装置を設けることを定めるが、一の使用者にガスを供給するためのものは除外している。同項第3号により圧力異常上昇防止装置は必要だが、不純物除去装置も必要としている点が誤り。",
+      "正しい。技術基準省令第58条第1項は、浸水のおそれのある地下に設置する整圧器には、浸水を防止するための措置を講じなければならないと定めている。",
+      "正しい。技術基準省令第58条第2項は、ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じなければならないと定めている。",
+      "正しい。技術基準省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備は、地震に対し耐えるよう支持されていなければならないと定めている。"
     ],
     "suggestedQuestions": [
       "最高使用圧力が中圧の整圧器には、ガスの漏えいによる火災等の発生を防止するための適切な措置を講じなければならない。",
@@ -495,7 +495,7 @@
         "answer": "正しい。整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されている必要がある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -515,7 +515,452 @@
         "正しい。整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されている必要がある。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": "correct",
+    "answer_result_text": "正解は 3 です。",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "56",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56",
+          "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
+          "rawXmlHash": "7e696f21c336ce3fa28b2772f1f029b38f2ac42612b128778c6815f3780fc747",
+          "comparisonStatus": "same_as_current",
+          "reason": "最高使用圧力が高圧の整圧器に火災等防止措置を求める。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "57",
+          "paragraph": "1",
+          "item": "2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
+          "comparisonStatus": "same_as_current",
+          "reason": "不純物除去装置は一の使用者にガスを供給するものでは除外される。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "57",
+          "paragraph": "1",
+          "item": "3",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
+          "comparisonStatus": "same_as_current",
+          "reason": "一の使用者にガスを供給するものには圧力異常上昇防止装置を設ける。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "58",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9",
+          "comparisonStatus": "same_as_current",
+          "reason": "地下設置整圧器の浸水防止措置を定める。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "58",
+          "paragraph": "2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9",
+          "comparisonStatus": "same_as_current",
+          "reason": "整圧機能を損なうおそれがある場合の凍結防止措置を定める。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "58",
+          "paragraph": "3",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9",
+          "comparisonStatus": "same_as_current",
+          "reason": "整圧器附属設備を地震に耐えるよう支持する義務を定める。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T21:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_213000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "56",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第17条・第48条・第78条に寄っていたため、整圧器の技術基準の直接根拠として技術基準省令第56条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第56条は、ガス漏えいによる火災等の発生を防止するための適切な措置を講じなければならない整圧器を、最高使用圧力が高圧の整圧器としている。中圧としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "高圧整圧器に限られる点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:56:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:56:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "56",
+              "paragraph": "1",
+              "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
+              "textHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T21:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_213000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "paragraph": "1",
+          "item": "2",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第17条・第48条・第78条に寄っていたため、整圧器の不純物除去装置と圧力異常上昇防止装置の直接根拠として技術基準省令第57条第1項第2号・第3号をe-Gov本文で確認した。source_conflict_review は q13:s02 の本文差分（入ロ/入口および改行）が choiceText-only であるため、Firestore snapshot の本文を保持した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第57条第1項第2号は整圧器の入口に不純物を除去する装置を設けることを定めるが、一の使用者にガスを供給するためのものは除外している。同項第3号により圧力異常上昇防止装置は必要だが、不純物除去装置も必要としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "一の使用者向け整圧器では不純物除去装置が除外され、圧力異常上昇防止装置は必要である点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:57:1:2",
+            "current:412M50000400111:57:1:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:57:1:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "57",
+              "paragraph": "1",
+              "item": "2",
+              "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+              "textHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249"
+            },
+            {
+              "refId": "current:412M50000400111:57:1:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_detail",
+              "primaryBasis": false,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "57",
+              "paragraph": "1",
+              "item": "3",
+              "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+              "textHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T21:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_213000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第17条・第48条・第78条に寄っていたため、浸水防止措置の直接根拠として技術基準省令第58条第1項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第58条第1項は、浸水のおそれのある地下に設置する整圧器には、浸水を防止するための措置を講じなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "地下設置整圧器の浸水防止措置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:58:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:58:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "58",
+              "paragraph": "1",
+              "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+              "textHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T21:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_213000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "2",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第17条・第48条・第78条に寄っていたため、凍結防止措置の直接根拠として技術基準省令第58条第2項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第58条第2項は、ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "整圧機能を損なうおそれがある場合の凍結防止措置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:58:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:58:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "58",
+              "paragraph": "2",
+              "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+              "textHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T21:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_213000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q13_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "3",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第17条・第48条・第78条に寄っていたため、整圧器附属設備の耐震支持の直接根拠として技術基準省令第58条第3項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備は、地震に対し耐えるよう支持されていなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "制御用配管・補助整圧器等の附属設備の耐震支持に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:58:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:58:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "58",
+              "paragraph": "3",
+              "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+              "textHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0306,chiefgasengineerlicense-A-10-0307,chiefgasengineerlicense-A-10-0308,chiefgasengineerlicense-A-10-0309,chiefgasengineerlicense-A-10-0310",

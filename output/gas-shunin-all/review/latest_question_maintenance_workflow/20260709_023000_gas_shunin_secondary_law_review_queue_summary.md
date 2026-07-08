@@ -1,6 +1,6 @@
 # Gas shunin secondary law review queue
 
-- generatedAt: 2026-07-09T21:00:00+09:00
+- generatedAt: 2026-07-09T21:30:00+09:00
 - queueItemCount: 387
 - uniqueQueueItemKeyCount: 382
 - duplicateQueueKeyCount: 5
@@ -9,18 +9,18 @@
 - primaryEvidenceCandidateCount: 3595
 - sourcePrimaryEvidenceLinkChoiceRecordCount: 1485
 - sourcePrimaryEvidenceCandidateCount: 3547
-- existingLawReferenceCount: 296
+- existingLawReferenceCount: 302
 
 ## Readiness Counts
 
 | readiness | count |
 | --- | ---: |
 | `answer_recheck_without_lawzilla_evidence` | 6 |
-| `manual_review_required_all_choices_have_primary_evidence` | 206 |
+| `manual_review_required_all_choices_have_primary_evidence` | 205 |
 | `manual_review_required_locator_detail` | 1 |
 | `manual_review_required_partial_candidates` | 41 |
 | `non_lawzilla_workflow_item` | 80 |
-| `secondary_verified_in_question_patch` | 53 |
+| `secondary_verified_in_question_patch` | 54 |
 
 ## Priority Counts
 
@@ -87,7 +87,7 @@
 | 51 | P0 | `gas-shunin-kou` | 2022 | 問16 | `gasushunin-koushu-hourei-2022-16` | `secondary_verified_in_question_patch` | 5 | 13 |
 | 52 | P0 | `gas-shunin-kou` | 2022 | 問15 | `gasushunin-koushu-hourei-2022-15` | `secondary_verified_in_question_patch` | 5 | 7 |
 | 53 | P0 | `gas-shunin-kou` | 2022 | 問14 | `gasushunin-koushu-hourei-2022-14` | `secondary_verified_in_question_patch` | 5 | 12 |
-| 54 | P0 | `gas-shunin-kou` | 2022 | 問13 | `gasushunin-koushu-hourei-2022-13` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 15 |
+| 54 | P0 | `gas-shunin-kou` | 2022 | 問13 | `gasushunin-koushu-hourei-2022-13` | `secondary_verified_in_question_patch` | 5 | 15 |
 | 55 | P0 | `gas-shunin-kou` | 2022 | 問12 | `gasushunin-koushu-hourei-2022-12` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 15 |
 | 56 | P0 | `gas-shunin-kou` | 2022 | 問11 | `gasushunin-koushu-hourei-2022-11` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 12 |
 | 57 | P0 | `gas-shunin-kou` | 2022 | 問10 | `gasushunin-koushu-hourei-2022-10` | `manual_review_required_partial_candidates` | 5 | 9 |
