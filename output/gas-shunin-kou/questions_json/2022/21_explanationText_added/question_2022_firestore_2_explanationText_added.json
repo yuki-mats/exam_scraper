@@ -312,11 +312,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "間違い。水のたまるおそれのある導管には、適切な水取り器を設ける必要がある。適切な勾配を設けるとしている点が誤り。",
-      "正しい。導管に腐食のおそれがある場合は、その腐食を防止するための適切な措置を講じる必要がある。",
-      "正しい。道路に埋設される最高使用圧力5kPa以上のポリエチレン管の本支管には、掘削等による損傷を防止するための適切な措置を講じる必要がある。",
-      "正しい。特定地下街等への低圧本支管には、災害時に供給を容易に遮断できる適切な措置を講じる必要がある。",
-      "間違い。対象となるガスメーターは、地震動、停電、過大なガス流量又は異常なガス圧力低下を検知した場合に遮断する機能を有する必要がある。過大なガス流量が抜けている点が誤り。"
+      "間違い。技術基準省令第46条は、水のたまるおそれのある導管には適切な水取り器を設けなければならないと定めている。適切な勾配を設けるとしている点が誤り。",
+      "正しい。技術基準省令第47条は、導管に設置状況により腐食を生ずるおそれがある場合、導管の腐食を防止するための適切な措置を講じなければならないと定めている。",
+      "正しい。技術基準省令第48条第2項は、道路に埋設される本支管（最高使用圧力が5kPa以上のポリエチレン管に限る。）には、掘削等による損傷を防止するための適切な措置を講じなければならないと定めている。",
+      "正しい。技術基準省令第49条第2項は、最高使用圧力が低圧の本支管で特定地下街等へのガス供給に係るものについて、災害時にその供給を災害により妨げられない箇所で容易に遮断できる適切な措置を講じなければならないと定めている。",
+      "間違い。技術基準省令第50条第1項は、対象となるガスメーターについて、災害のおそれのある大きさの地震動、過大なガスの流量又は異常なガス圧力の低下を検知した場合にガスを速やかに遮断する機能を求めている。停電としている点、過大なガスの流量が抜けている点が誤り。"
     ],
     "suggestedQuestions": [
       "水のたまるおそれのある導管には、適切な勾配を設けなければならない。",
@@ -347,7 +347,7 @@
         "answer": "間違い。対象となるガスメーターは、地震動、停電、過大なガス流量又は異常なガス圧力低下を検知した場合に遮断する機能を有する必要がある。過大なガス流量が抜けている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -367,7 +367,415 @@
         "間違い。対象となるガスメーターは、地震動、停電、過大なガス流量又は異常なガス圧力低下を検知した場合に遮断する機能を有する必要がある。過大なガス流量が抜けている点が誤り。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": "correct",
+    "answer_result_text": "正解は 2 です。",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "46",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=46",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=46",
+          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+          "rawXmlHash": "fedb9cd678574cf16b416f2b1efbbf7bc9cb0b2fb2cf695c1e7bb4cb22f2820d",
+          "comparisonStatus": "same_as_current",
+          "reason": "水のたまるおそれのある導管には、適切な水取り器を設ける必要がある。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "47",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=47",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=47",
+          "articleTextHash": "0307136f04e895cb745038d3e7681d2a9f99c1f79f76b08eb3043e0241641674",
+          "rawXmlHash": "cb6fd13d15c67e4440da43647c2b3116e7e82ba6071daacc51402b7f3d0c8a35",
+          "comparisonStatus": "same_as_current",
+          "reason": "腐食のおそれがある導管には、防食措置を講じる必要がある。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "48",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=48",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=48",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87",
+          "comparisonStatus": "same_as_current",
+          "reason": "道路に埋設される最高使用圧力5kPa以上のポリエチレン管の本支管には、掘削等損傷防止措置が必要である。",
+          "paragraph": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "49",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=49",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=49",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1",
+          "comparisonStatus": "same_as_current",
+          "reason": "特定地下街等への低圧本支管には、災害時に供給を容易に遮断できる措置が必要である。",
+          "paragraph": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "50",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=50",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=50",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408",
+          "comparisonStatus": "same_as_current",
+          "reason": "対象ガスメーターの遮断機能は、地震動、過大なガス流量又は異常なガス圧力低下の検知を対象とする。",
+          "paragraph": "1"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_223000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "46",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=46",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第1条の定義規定に寄っていたため、水取り器の直接根拠として技術基準省令第46条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第46条は、水のたまるおそれのある導管には適切な水取り器を設けなければならないと定めている。適切な勾配を設けるとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "水のたまるおそれのある導管に必要なのは勾配ではなく水取り器である点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:46:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:46:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "46",
+              "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+              "textHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_223000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "47",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "0307136f04e895cb745038d3e7681d2a9f99c1f79f76b08eb3043e0241641674",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=47",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第1条の定義規定に寄っていたため、防食措置の直接根拠として技術基準省令第47条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第47条は、導管に設置状況により腐食を生ずるおそれがある場合、導管の腐食を防止するための適切な措置を講じなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "腐食のおそれがある導管の防食措置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:47:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:47:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "47",
+              "articleTextHash": "0307136f04e895cb745038d3e7681d2a9f99c1f79f76b08eb3043e0241641674",
+              "textHash": "0307136f04e895cb745038d3e7681d2a9f99c1f79f76b08eb3043e0241641674",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_223000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=48",
+          "paragraph": "2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補に技術基準省令第48条が含まれていたため、道路埋設ポリエチレン本支管の掘削等損傷防止措置の直接根拠として採用した。source_conflict_review は表記差（全角括弧、5kPa表記）に留まるため、Firestore snapshot の本文を保持した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第48条第2項は、道路に埋設される本支管（最高使用圧力が5kPa以上のポリエチレン管に限る。）には、掘削等による損傷を防止するための適切な措置を講じなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "道路埋設の5kPa以上ポリエチレン本支管に必要な掘削等損傷防止措置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:48:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:48:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "48",
+              "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+              "textHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+              "paragraph": "2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_223000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=49",
+          "paragraph": "2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補に技術基準省令第49条が含まれていたため、特定地下街等への低圧本支管の遮断措置の直接根拠として第49条第2項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第49条第2項は、最高使用圧力が低圧の本支管で特定地下街等へのガス供給に係るものについて、災害時にその供給を災害により妨げられない箇所で容易に遮断できる適切な措置を講じなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "特定地下街等への低圧本支管の災害時遮断措置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:49:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:49:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "49",
+              "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+              "textHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+              "paragraph": "2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_223000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q11_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=50",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第197条及び技術基準省令第49条に寄っていたため、ガスメーター遮断機能の直接根拠として技術基準省令第50条をe-Gov本文で確認した。source_conflict_review は単位・検知文言の表記差に留まるため、Firestore snapshot の本文を保持した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第50条第1項は、対象となるガスメーターについて、災害のおそれのある大きさの地震動、過大なガスの流量又は異常なガス圧力の低下を検知した場合にガスを速やかに遮断する機能を求めている。停電としている点、過大なガスの流量が抜けている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガスメーターの遮断機能の検知対象は停電ではなく過大なガス流量を含む点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:50:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:50:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "50",
+              "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+              "textHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+              "paragraph": "1"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0296,chiefgasengineerlicense-A-10-0297,chiefgasengineerlicense-A-10-0298,chiefgasengineerlicense-A-10-0299,chiefgasengineerlicense-A-10-0300",
