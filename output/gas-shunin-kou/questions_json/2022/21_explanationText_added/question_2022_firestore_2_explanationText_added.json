@@ -238,11 +238,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "正しい。製造設備には、使用中の異常による災害を防止するため、異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置を適切な箇所に設ける必要がある。",
-      "正しい。移動式ガス発生設備は、漏えい時の火災等を防止するため、適切な場所に設置し、容易に移動又は転倒しない措置を講じる必要がある。",
-      "間違い。容器に附属する気化装置内でガスを発生させる特定ガス発生設備では、操作用電源が停止した際にガスの供給を維持するための装置を設ける。供給を遮断するためとしている点が誤り。",
-      "正しい。ガスの通ずる部分に液体又は気体を送入する装置を有する製造設備は、逆流による設備損傷やガスの大気放出を防ぐため、逆流が生じない構造とする必要がある。",
-      "間違い。気化装置又はそれに接続される配管等に講じるのは、液化ガスの流出を防止する措置である。ガスの流出としている点が誤り。"
+      "正しい。技術基準省令第26条は、製造設備（ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。）には、使用中に生じた異常による災害を防止するため、異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所に設けなければならないと定めている。",
+      "正しい。技術基準省令第28条第1項は、移動式ガス発生設備について、ガス又は液化ガス（不活性のものを除く。）が漏えいした場合の火災等を防止するため、適切な場所に設置し、容易に移動又は転倒しないよう適切な措置を講じることを求めている。",
+      "間違い。技術基準省令第42条は、容器に附属する気化装置内でガスを発生させる特定ガス発生設備で、当該気化装置を電源で操作するものには、操作用電源が停止した際にガスの供給を維持するための装置を設けなければならないと定めている。ガスの供給を遮断するためとしている点が誤り。",
+      "正しい。技術基準省令第30条は、ガスの通ずる部分に直接液体又は気体を送入する装置を有する製造設備（移動式ガス発生設備を含む。）について、逆流による設備の損傷又はガスの大気への放出を防止するため、逆流が生じない構造でなければならないと定めている。",
+      "間違い。技術基準省令第31条第3項は、気化装置又はそれに接続される配管等には、気化装置から液化ガスの流出を防止する措置を講じなければならないと定めている。ガスの流出としている点が誤り。"
     ],
     "suggestedQuestions": [
       "製造設備（ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。）には、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合にガス又は液化ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。",
@@ -273,7 +273,7 @@
         "answer": "間違い。気化装置又はそれに接続される配管等に講じるのは、液化ガスの流出を防止する措置である。ガスの流出としている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -293,7 +293,415 @@
         "間違い。気化装置又はそれに接続される配管等に講じるのは、液化ガスの流出を防止する措置である。ガスの流出としている点が誤り。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": "correct",
+    "answer_result_text": "正解は 3 です。",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "26",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=26",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=26",
+          "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+          "rawXmlHash": "dd17afb97324af859794cd657ded16f973a39d2a44be4c6785c1446c991abf8e",
+          "comparisonStatus": "same_as_current",
+          "reason": "異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置を設ける必要がある。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "28",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a",
+          "comparisonStatus": "same_as_current",
+          "reason": "移動式ガス発生設備は適切な場所に設置し、容易に移動又は転倒しない措置が必要である。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "42",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=42",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=42",
+          "articleTextHash": "2109ffec3dd5d68f8fd8a950982844a84d3aa495770fef358cd0b9c5aa87dc2c",
+          "rawXmlHash": "83ce69b9ebbfece910f38b353c377a4b8e5c4fa80eee8e113e18b7f35072add8",
+          "comparisonStatus": "same_as_current",
+          "reason": "操作用電源停止時に設けるのは、ガスの供給を維持するための装置である。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "30",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=30",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=30",
+          "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+          "rawXmlHash": "ff79044f60340dac338cf998b66d16d79e92994886cce1fb7d419d34ea956964",
+          "comparisonStatus": "same_as_current",
+          "reason": "液体又は気体を送入する装置を有する製造設備は、逆流が生じない構造でなければならない。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "31",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0",
+          "comparisonStatus": "same_as_current",
+          "reason": "気化装置等に講じるのは、液化ガスの流出を防止する措置である。",
+          "paragraph": "3"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_230000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "26",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=26",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補に技術基準省令第26条が含まれていたため、製造設備の遮断装置の直接根拠として採用した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第26条は、製造設備（ガスホルダー、液化ガス用貯槽及び特定ガス発生設備を除く。）には、使用中に生じた異常による災害を防止するため、異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所に設けなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "製造設備の異常時遮断装置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:26:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:26:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "26",
+              "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+              "textHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_230000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "28",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第1条・第17条に寄っていたため、移動式ガス発生設備の設置等の直接根拠として技術基準省令第28条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第28条第1項は、移動式ガス発生設備について、ガス又は液化ガス（不活性のものを除く。）が漏えいした場合の火災等を防止するため、適切な場所に設置し、容易に移動又は転倒しないよう適切な措置を講じることを求めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "移動式ガス発生設備の設置場所と移動・転倒防止措置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:28:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:28:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "28",
+              "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+              "textHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_230000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "42",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "2109ffec3dd5d68f8fd8a950982844a84d3aa495770fef358cd0b9c5aa87dc2c",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=42",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は技術基準省令第20条・第26条に寄っていたため、操作用電源停止時の措置の直接根拠として技術基準省令第42条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第42条は、容器に附属する気化装置内でガスを発生させる特定ガス発生設備で、当該気化装置を電源で操作するものには、操作用電源が停止した際にガスの供給を維持するための装置を設けなければならないと定めている。ガスの供給を遮断するためとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "操作用電源停止時の措置は供給遮断ではなく供給維持である点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:42:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:42:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "42",
+              "articleTextHash": "2109ffec3dd5d68f8fd8a950982844a84d3aa495770fef358cd0b9c5aa87dc2c",
+              "textHash": "2109ffec3dd5d68f8fd8a950982844a84d3aa495770fef358cd0b9c5aa87dc2c",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_230000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "30",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=30",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補に技術基準省令第30条が含まれていたため、ガスの逆流防止の直接根拠として採用した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第30条は、ガスの通ずる部分に直接液体又は気体を送入する装置を有する製造設備（移動式ガス発生設備を含む。）について、逆流による設備の損傷又はガスの大気への放出を防止するため、逆流が生じない構造でなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガスの逆流防止構造に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:30:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:30:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "30",
+              "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+              "textHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_230000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q10_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "31",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
+          "paragraph": "3"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は初回キューで未取得扱いだったため、液化ガス流出防止措置の直接根拠として技術基準省令第31条第3項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第31条第3項は、気化装置又はそれに接続される配管等には、気化装置から液化ガスの流出を防止する措置を講じなければならないと定めている。ガスの流出としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "気化装置からの流出防止対象はガスではなく液化ガスである点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:31:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:31:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "31",
+              "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+              "textHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+              "paragraph": "3"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0291,chiefgasengineerlicense-A-10-0292,chiefgasengineerlicense-A-10-0293,chiefgasengineerlicense-A-10-0294,chiefgasengineerlicense-A-10-0295",
