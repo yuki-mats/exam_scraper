@@ -1,0 +1,7 @@
+# gas-shunin-kou 2025 問13 direct basis snapshots
+
+- target: gas-shunin-kou 2025 問13
+- recordCount: 3
+- ガス工作物の技術上の基準を定める省令 第54条: articleTextHash=ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9 rawXmlHash=b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e
+- ガス工作物の技術上の基準を定める省令 第57条: articleTextHash=146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249 rawXmlHash=9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691
+- ガス工作物の技術上の基準を定める省令 第58条: articleTextHash=84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754 rawXmlHash=4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9
