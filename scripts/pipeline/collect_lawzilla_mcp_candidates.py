@@ -249,17 +249,22 @@ def question_matches_item(question: dict[str, Any], item: dict[str, Any]) -> boo
         str(question.get("original_question_id") or "").strip(),
         str(question.get("originalQuestionId") or "").strip(),
         str(question.get("questionId") or "").strip(),
+        str(question.get("source_original_question_id") or "").strip(),
+        str(question.get("sourceOriginalQuestionId") or "").strip(),
     }
     question_ids.discard("")
     if public_id and public_id in question_ids:
         return True
     if original_id and original_id in question_ids:
         return True
+    record_firestore_ids = set()
+    for key in ("original_question_id", "originalQuestionId"):
+        record_firestore_ids.update(firestore_ids_from_review_id(question.get(key)))
     record_firestore_ids = {
         str(value).strip()
         for value in (question.get("firestoreQuestionIds") or [])
         if str(value).strip()
-    }
+    } | record_firestore_ids
     if firestore_ids and record_firestore_ids and firestore_ids.issubset(record_firestore_ids):
         return True
     if firestore_ids and str(question.get("questionId") or "").strip() in firestore_ids:
