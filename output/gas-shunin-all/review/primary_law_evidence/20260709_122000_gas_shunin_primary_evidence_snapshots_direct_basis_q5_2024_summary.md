@@ -1,0 +1,12 @@
+# gas-shunin-kou 2024 問5 direct basis snapshots
+
+- target: gas-shunin-kou 2024 問5
+- recordCount: 5
+- choiceIndex=0 ガス事業法 第98条 paragraph=1 articleTextHash=4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb rawXmlHash=b1c6e5136e9b7429d8ce5b6bf8fe152658275fb1dd2e15f111c6f78ba1d2a000
+- choiceIndex=1 ガス事業法 第98条 paragraph=2 articleTextHash=4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb rawXmlHash=b1c6e5136e9b7429d8ce5b6bf8fe152658275fb1dd2e15f111c6f78ba1d2a000
+- choiceIndex=2 ガス事業法施行規則 第151条 paragraph=1 articleTextHash=42578e4b9c73d75a1bbe2cc04901cac12132d07cfa838d046845ff21a2d9e6d6 rawXmlHash=be9cbf753a2ae8b1e559a5202fb49bac22db1fb35a1b3302cb785d4af8c8cb95
+- choiceIndex=3 ガス事業法 第26条 paragraph=4 item=2 articleTextHash=175a35a5a7a1173dbd5a1e286a8054731915a085611b8744970921ebabfa4133 rawXmlHash=70f71e45afededfd35886ed044047b9bd223ba8fe481f2529bd76e360ba90358
+- choiceIndex=4 ガス事業法 第27条 paragraph=1 articleTextHash=b75bbb6873559ce680606dafa8381eeb2bb96265a921f746d8d3b420211b14ca rawXmlHash=4dc5e5923cf8e086dc060e9d291adbcdd24a2f6f7b8d841e560ea57eca7b50f6
+
+- Lawzilla候補は第98条の選任・届出では概ね直接候補を拾えていたが、実務経験・免状交付制限・返納命令では周辺条文に寄ったため、直接根拠条文をe-Gov現行XMLで補完確認した。
+- direct primary evidence for gas-shunin-kou 2024 問5 only; no 00_source or existing Firestore IDs were modified by this fetch.
