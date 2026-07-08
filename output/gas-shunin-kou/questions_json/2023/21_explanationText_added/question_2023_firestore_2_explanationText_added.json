@@ -3952,10 +3952,10 @@
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
     "explanationText": [
       "正しい。ガス事業法第61条第1項は、一般ガス導管事業者が一般ガス導管事業の用に供するガス工作物を経済産業省令で定める技術上の基準に適合するように維持しなければならないと定めている。",
-      "正しい。ガス事業法第62条第1項は、一般ガス導管事業者以外の者が所有し又は占有するガス工作物について、一般ガス導管事業者が技術基準適合維持のため必要な措置を講じようとするとき、所有者又は占有者がその措置の実施に協力するよう努めなければならないと定めている。記述の趣旨はこの協力努力義務に合う。",
+      "正しい。ガス事業法第62条第1項は、一般ガス導管事業者以外の者が所有し又は占有するガス工作物について、一般ガス導管事業者が技術基準適合維持のため必要な措置を講じようとするとき、所有者又は占有者がその措置の実施に協力するよう努めなければならないと定めている。",
       "間違い。ガス事業法第64条第1項は、一般ガス導管事業者が保安規程を定め、事業の開始前に経済産業大臣に届け出なければならないと定めている。経済産業大臣の許可を受けるとしている点が誤り。",
-      "間違い。ガス事業法施行規則第24条、第92条及び第148条の保安規程記載事項には、経済産業省との連携協力に関することは掲げられていない。",
-      "正しい。ガス事業法施行規則第24条第1項第8号、第92条第1項第8号及び第148条第1項第8号は、導管の工事現場の責任者の条件その他導管の工事現場における保安監督体制に関することを保安規程に定める事項として掲げている。"
+      "間違い。ガス事業法施行規則第92条第1項は、一般ガス導管事業者の保安規程に定める事項を列挙しているが、経済産業省との連携協力に関することは掲げていない。",
+      "正しい。ガス事業法施行規則第92条第1項第8号は、導管の工事現場の責任者の条件その他導管の工事現場における保安監督体制に関することを、一般ガス導管事業者の保安規程に定める事項として掲げている。"
     ],
     "suggestedQuestions": [
       "一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物を技術上の基準に適合するよう維持しなければならない。",
@@ -4023,6 +4023,417 @@
       "間違い",
       "間違い",
       "正しい"
+    ],
+    "firestoreQuestionIds": [
+      "chiefgasengineerlicense-A-10-0331",
+      "chiefgasengineerlicense-A-10-0332",
+      "chiefgasengineerlicense-A-10-0333",
+      "chiefgasengineerlicense-A-10-0334",
+      "chiefgasengineerlicense-A-10-0335"
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "61",
+          "articleTitle": "ガス工作物の維持等",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=61",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=61",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "rawXmlHash": "31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者は、一般ガス導管事業の用に供するガス工作物を技術上の基準に適合するよう維持する義務を負う。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "62",
+          "articleTitle": "ガス工作物の所有者又は占有者の責務",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=62",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=62",
+          "articleTextHash": "e733c7795fcc150a4e1abdfa7020ee4c214352ba7ff42b7057f3710011bbbcb0",
+          "rawXmlHash": "1ae84bb1d21aa98f8b36085fb08078e0b53597efe40989ba6432ab238a3b89a0",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者以外の者が所有又は占有するガス工作物について、所有者又は占有者は維持措置の実施に協力する努力義務を負う。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "64",
+          "articleTitle": "保安規程",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=64",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=64",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者は、保安規程を定めて事業開始前に経済産業大臣へ届け出る必要があり、許可を受けるものではない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-09",
+          "article": "92",
+          "articleTitle": "保安規程",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者の保安規程記載事項を列挙する第92条第1項には、経済産業省との連携協力に関する事項は掲げられていない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-09",
+          "article": "92",
+          "articleTitle": "保安規程",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者の保安規程には、導管の工事現場の責任者の条件その他保安監督体制に関することを定める必要がある。",
+          "item": "8"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:50:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_185000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "61",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=61"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は定義規定や第39条にも寄ったため、選択肢本文の直接根拠としてガス事業法第61条第1項をe-Gov本文で確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第61条第1項は、一般ガス導管事業者が一般ガス導管事業の用に供するガス工作物を経済産業省令で定める技術上の基準に適合するように維持しなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "一般ガス導管事業者のガス工作物維持義務が技術上の基準適合維持である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:61:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:61:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "61",
+              "paragraph": "1",
+              "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+              "textHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:50:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_185000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "62",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "e733c7795fcc150a4e1abdfa7020ee4c214352ba7ff42b7057f3710011bbbcb0",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=62"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は定義規定や第39条にも寄ったため、所有者又は占有者の責務の直接根拠としてガス事業法第62条第1項をe-Gov本文で確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第62条第1項は、一般ガス導管事業者以外の者が所有し又は占有するガス工作物について、一般ガス導管事業者が技術基準適合維持のため必要な措置を講じようとするとき、所有者又は占有者がその措置の実施に協力するよう努めなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "所有者だけでなく占有者も含む協力努力義務であり、選択肢は所有者について述べているため正しい点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:62:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:62:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "62",
+              "paragraph": "1",
+              "articleTextHash": "e733c7795fcc150a4e1abdfa7020ee4c214352ba7ff42b7057f3710011bbbcb0",
+              "textHash": "e733c7795fcc150a4e1abdfa7020ee4c214352ba7ff42b7057f3710011bbbcb0"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:50:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_185000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=64"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法第64条第1項を示しており、保安規程の届出義務の直接根拠として一致する。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第64条第1項は、一般ガス導管事業者が保安規程を定め、事業の開始前に経済産業大臣に届け出なければならないと定めている。経済産業大臣の許可を受けるとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "保安規程は許可ではなく届出である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:64:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:64:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "64",
+              "paragraph": "1",
+              "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+              "textHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:50:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_185000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法第24条に寄ったため、一般ガス導管事業者の保安規程記載事項の直接根拠としてガス事業法施行規則第92条第1項をe-Gov本文で確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法施行規則第92条第1項は、一般ガス導管事業者の保安規程に定める事項を列挙しているが、経済産業省との連携協力に関することは掲げていない。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "一般ガス導管事業者の保安規程記載事項に、経済産業省との連携協力が掲げられていない点に限定して説明する。",
+          "displayRefIds": [
+            "current:345M50000400097:92:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:345M50000400097:92:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "92",
+              "paragraph": "1",
+              "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+              "textHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:50:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_185000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q3_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92",
+          "item": "8"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法第64条に寄ったため、具体的な保安規程記載事項の直接根拠としてガス事業法施行規則第92条第1項第8号をe-Gov本文で確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法施行規則第92条第1項第8号は、導管の工事現場の責任者の条件その他導管の工事現場における保安監督体制に関することを、一般ガス導管事業者の保安規程に定める事項として掲げている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "導管工事現場の責任者の条件その他保安監督体制が第92条第1項第8号で保安規程記載事項とされる点に限定して説明する。",
+          "displayRefIds": [
+            "current:345M50000400097:92:1:8"
+          ],
+          "refs": [
+            {
+              "refId": "current:345M50000400097:92:1:8",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "92",
+              "paragraph": "1",
+              "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+              "textHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+              "item": "8"
+            }
+          ]
+        }
+      }
     ]
   },
   {
