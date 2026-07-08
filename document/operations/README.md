@@ -16,6 +16,9 @@
 - [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md)
   - Lawzilla MCP を法令根拠整備の並列検証レイヤーとして使い、実務に耐えうるかのレビューを蓄積・定期フィードバックする運用。
   - API キーや endpoint を artifact / repo / 送付文面へ残さないための記録項目と送付前チェックもここで確認する。
+- [lawzilla_mcp_question_maintenance_workflow.md](lawzilla_mcp_question_maintenance_workflow.md)
+  - Lawzilla MCP を過去問整備へ組み込み、解説精度向上、誤答修正、現行法監査、既存条文検索改善までつなげる全体ワークフロー。
+  - `correctChoiceText` の修正理由を source / parse error と current-law update に分け、Lawzilla 単独断定を避ける境界を確認する。
 - [ai_patch_execution_prompt_templates.md](/Users/yuki/development/exam_scraper/document/operations/ai_patch_execution_prompt_templates.md)
   - Codex / Gemini / Claude などへ patch 作成を依頼するときの省トークン指示テンプレート。
   - prompt の入力正本や出力先を変更した場合はここも直す。
