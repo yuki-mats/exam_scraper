@@ -1,0 +1,1994 @@
+{
+  "batchId": "20260709_000305_P0_first_32",
+  "generatedAt": "2026-07-09T00:03:05+09:00",
+  "itemCount": 32,
+  "items": [
+    {
+      "answerResultText": "正解は 2 です。",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|間違い|正しい",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        370
+      ],
+      "priority": "P0",
+      "publicQuestionId": "bd05d02105026f15",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "消費機器の技術上の基準で規定されている次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問16",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-080",
+      "questionType": "true_false",
+      "queueSequence": 1,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:bd05d02105026f15",
+      "reviewQuestionId": "bd05d02105026f15",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|正しい|正しい|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        369
+      ],
+      "priority": "P0",
+      "publicQuestionId": "7bd905381415c9b4",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されている消費機器に関する周知及び調査、保安業務規程に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問15",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 2,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:7bd905381415c9b4",
+      "reviewQuestionId": "7bd905381415c9b4",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|正しい|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        368
+      ],
+      "priority": "P0",
+      "publicQuestionId": "f73181ec7b58db9a",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問14",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 3,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:f73181ec7b58db9a",
+      "reviewQuestionId": "f73181ec7b58db9a",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        367
+      ],
+      "priority": "P0",
+      "publicQuestionId": "b366a2fcd28be935",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されている導管及び整圧器に関する記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問13",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 4,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:b366a2fcd28be935",
+      "reviewQuestionId": "b366a2fcd28be935",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|間違い|間違い|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        366
+      ],
+      "priority": "P0",
+      "publicQuestionId": "02995d8bb53f6d42",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されている漏えい検査及び導管の設置場所に関する次の記述のうち、正しいものはいくつあるか。ただし、イ、ロ及びハについては、この導管は、特定管理管ではなく、特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検査を行う区間に漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問12",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 5,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:02995d8bb53f6d42",
+      "reviewQuestionId": "02995d8bb53f6d42",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        365
+      ],
+      "priority": "P0",
+      "publicQuestionId": "e9fa6e51658d6e1f",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問11",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 6,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:e9fa6e51658d6e1f",
+      "reviewQuestionId": "e9fa6e51658d6e1f",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        364
+      ],
+      "priority": "P0",
+      "publicQuestionId": "cd086d1aeb2029f7",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問10",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 7,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:cd086d1aeb2029f7",
+      "reviewQuestionId": "cd086d1aeb2029f7",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        363
+      ],
+      "priority": "P0",
+      "publicQuestionId": "c451b45f04b5d97f",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問9",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 8,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:c451b45f04b5d97f",
+      "reviewQuestionId": "c451b45f04b5d97f",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|正しい|正しい",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        362
+      ],
+      "priority": "P0",
+      "publicQuestionId": "ca6ffbbb1cc30192",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問8",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 9,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:ca6ffbbb1cc30192",
+      "reviewQuestionId": "ca6ffbbb1cc30192",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|正しい",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        361
+      ],
+      "priority": "P0",
+      "publicQuestionId": "277819d0f657d22a",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 10,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:277819d0f657d22a",
+      "reviewQuestionId": "277819d0f657d22a",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        360
+      ],
+      "priority": "P0",
+      "publicQuestionId": "4a1f8f37df1b07b4",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されている認定高度保安実施一般ガス導管事業者に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問6",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-050",
+      "questionType": "true_false",
+      "queueSequence": 11,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:4a1f8f37df1b07b4",
+      "reviewQuestionId": "4a1f8f37df1b07b4",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|正しい|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        359
+      ],
+      "priority": "P0",
+      "publicQuestionId": "270520054cd311ea",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス主任技術者と立入検査に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問5",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-050",
+      "questionType": "true_false",
+      "queueSequence": 12,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:270520054cd311ea",
+      "reviewQuestionId": "270520054cd311ea",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 5 です。",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        358
+      ],
+      "priority": "P0",
+      "publicQuestionId": "bf1f4414f56731a4",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス事故の報告について、誤っているものはいくつあるか。ただし、ロからホのガス事故は、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問4",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-040",
+      "questionType": "true_false",
+      "queueSequence": 13,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:bf1f4414f56731a4",
+      "reviewQuestionId": "bf1f4414f56731a4",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        357
+      ],
+      "priority": "P0",
+      "publicQuestionId": "813f596b05bf2267",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス工作物及び保安規程に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問3",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-120",
+      "questionType": "true_false",
+      "queueSequence": 14,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:813f596b05bf2267",
+      "reviewQuestionId": "813f596b05bf2267",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "間違い|正しい|間違い|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        356
+      ],
+      "priority": "P0",
+      "publicQuestionId": "b85f33d43566b1fe",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されている一般ガス導管事業者、特定ガス導管事業者の業務に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問2",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-030",
+      "questionType": "true_false",
+      "queueSequence": 15,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:b85f33d43566b1fe",
+      "reviewQuestionId": "b85f33d43566b1fe",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 1 です。",
+      "correctChoiceTextCompact": "間違い|正しい|間違い|間違い|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        355
+      ],
+      "priority": "P0",
+      "publicQuestionId": "675ce6f3db722a24",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されている用語の定義等に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問1",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-160",
+      "questionType": "true_false",
+      "queueSequence": 16,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_1:675ce6f3db722a24",
+      "reviewQuestionId": "675ce6f3db722a24",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|間違い|間違い|間違い|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        312
+      ],
+      "priority": "P0",
+      "publicQuestionId": "8254b1976c93db27",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "消費機器の技術上の基準で規定されている次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問16",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-080",
+      "questionType": "true_false",
+      "queueSequence": 17,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:8254b1976c93db27",
+      "reviewQuestionId": "8254b1976c93db27",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|間違い|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        311
+      ],
+      "priority": "P0",
+      "publicQuestionId": "9629e0f0e30a9ba6",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されている消費機器に関する周知及び調査、保安業務規程に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問15",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 18,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:9629e0f0e30a9ba6",
+      "reviewQuestionId": "9629e0f0e30a9ba6",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|正しい|間違い|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        310
+      ],
+      "priority": "P0",
+      "publicQuestionId": "a42e5bc2a9c012a5",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス用品及び「特定ガス消費機器の設置工事の監督に関する法律」に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問14",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 19,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:a42e5bc2a9c012a5",
+      "reviewQuestionId": "a42e5bc2a9c012a5",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|間違い|間違い|正しい|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        309
+      ],
+      "priority": "P0",
+      "publicQuestionId": "5d3de50bde7929c2",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されている導管及び整圧器に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問13",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 20,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:5d3de50bde7929c2",
+      "reviewQuestionId": "5d3de50bde7929c2",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 1 です。",
+      "correctChoiceTextCompact": "間違い|間違い|正しい|間違い|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        308
+      ],
+      "priority": "P0",
+      "publicQuestionId": "5ab400b643bac920",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されている漏えい検査及び導管の設置場所に関する次の記述のうち、正しいものはいくつあるか。ただし、イ、ロ及びハについては、この導管は特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検査を行う区間に漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問12",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-510",
+      "questionType": "true_false",
+      "queueSequence": 21,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:5ab400b643bac920",
+      "reviewQuestionId": "5ab400b643bac920",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 1 です。",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        307
+      ],
+      "priority": "P0",
+      "publicQuestionId": "2401c6d4fa7111a5",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。ただし、ニ及びホのガスメーターは、ガス事業者がガスの使用者との取引のために使用するものであり、使用最大流量が毎時16m³以下、使用最大圧力が4kPa以下及び口径250mm以下のものとする。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問11",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 22,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:2401c6d4fa7111a5",
+      "reviewQuestionId": "2401c6d4fa7111a5",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|間違い|間違い|間違い|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        306
+      ],
+      "priority": "P0",
+      "publicQuestionId": "db637cee87824d57",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問10",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 23,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:db637cee87824d57",
+      "reviewQuestionId": "db637cee87824d57",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|正しい|間違い|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        305
+      ],
+      "priority": "P0",
+      "publicQuestionId": "fd9364f45fe29acc",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問9",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 24,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:fd9364f45fe29acc",
+      "reviewQuestionId": "fd9364f45fe29acc",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        304
+      ],
+      "priority": "P0",
+      "publicQuestionId": "d7367850b0588b72",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問8",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 25,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:d7367850b0588b72",
+      "reviewQuestionId": "d7367850b0588b72",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|正しい|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        303
+      ],
+      "priority": "P0",
+      "publicQuestionId": "ffc0cd209ba5b141",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 26,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:ffc0cd209ba5b141",
+      "reviewQuestionId": "ffc0cd209ba5b141",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|間違い|間違い|正しい|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        302
+      ],
+      "priority": "P0",
+      "publicQuestionId": "cdb9cad7080f3d37",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問6",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-060",
+      "questionType": "true_false",
+      "queueSequence": 27,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:cdb9cad7080f3d37",
+      "reviewQuestionId": "cdb9cad7080f3d37",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 1 です。",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        301
+      ],
+      "priority": "P0",
+      "publicQuestionId": "7b372e50d597c363",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス主任技術者に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問5",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-050",
+      "questionType": "true_false",
+      "queueSequence": 28,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:7b372e50d597c363",
+      "reviewQuestionId": "7b372e50d597c363",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|正しい|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        300
+      ],
+      "priority": "P0",
+      "publicQuestionId": "b312de5198cdf4bf",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "次のガス事故のうち、ガス事故速報及びガス事故詳報の両方を報告することが法令で規定されているものはいくつあるか。ただし、台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲の地域にわたるガス工作物の損壊事故、製造支障事故又は供給支障事故であって、経済産業大臣が指定するものではない。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問4",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-040",
+      "questionType": "true_false",
+      "queueSequence": 29,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:b312de5198cdf4bf",
+      "reviewQuestionId": "b312de5198cdf4bf",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        299
+      ],
+      "priority": "P0",
+      "publicQuestionId": "c8af1e8b0c970ab1",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス工作物及び保安規程に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問3",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 30,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:c8af1e8b0c970ab1",
+      "reviewQuestionId": "c8af1e8b0c970ab1",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 2 です。",
+      "correctChoiceTextCompact": "正しい|間違い|間違い|正しい|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        298
+      ],
+      "priority": "P0",
+      "publicQuestionId": "677edcd7d7120dcd",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されているガス小売事業者及び一般ガス導管事業者の業務に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問2",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-030",
+      "questionType": "true_false",
+      "queueSequence": 31,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:677edcd7d7120dcd",
+      "reviewQuestionId": "677edcd7d7120dcd",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|正しい|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        297
+      ],
+      "priority": "P0",
+      "publicQuestionId": "f72eb811cf645592",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "法令で規定されている用語の定義及び事業の届出等に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問1",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-10-160",
+      "questionType": "true_false",
+      "queueSequence": 32,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "route_to_03b_law_audit_if_current_law_difference_or_uncertainty_exists"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_1:f72eb811cf645592",
+      "reviewQuestionId": "f72eb811cf645592",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "法令",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "sourceCategory=法令"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    }
+  ],
+  "queuePath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl",
+  "schemaVersion": "gas-shunin-latest-question-maintenance-batch/v1",
+  "selectionRule": "first 32 P0 items after queue ordering; newest years first"
+}

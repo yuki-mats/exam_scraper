@@ -1,0 +1,53 @@
+{
+  "byQualificationPriority": {
+    "gas-shunin-kou:P0": 117,
+    "gas-shunin-kou:P1": 17,
+    "gas-shunin-kou:P2": 82,
+    "gas-shunin-otsu:P0": 144,
+    "gas-shunin-otsu:P1": 23,
+    "gas-shunin-otsu:P2": 4
+  },
+  "generatedAt": "2026-07-09T00:03:05+09:00",
+  "p0ByQualificationYear": {
+    "gas-shunin-kou:2019": 16,
+    "gas-shunin-kou:2020": 16,
+    "gas-shunin-kou:2021": 18,
+    "gas-shunin-kou:2022": 17,
+    "gas-shunin-kou:2023": 18,
+    "gas-shunin-kou:2024": 16,
+    "gas-shunin-kou:2025": 16,
+    "gas-shunin-otsu:2017": 16,
+    "gas-shunin-otsu:2018": 16,
+    "gas-shunin-otsu:2019": 16,
+    "gas-shunin-otsu:2020": 16,
+    "gas-shunin-otsu:2021": 16,
+    "gas-shunin-otsu:2022": 16,
+    "gas-shunin-otsu:2023": 16,
+    "gas-shunin-otsu:2024": 16,
+    "gas-shunin-otsu:2025": 16
+  },
+  "priorityCounts": {
+    "P0": 261,
+    "P1": 40,
+    "P2": 86
+  },
+  "queuePath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl",
+  "queuePolicy": {
+    "idPreservation": "preserve existing Firestore document IDs",
+    "lawzillaBoundary": "Lawzilla MCP is parallel evidence, not sole final authority",
+    "order": "P0 before P1 before P2; newest year and later question labels first within each qualification",
+    "scope": "all targets from latest Lawzilla MCP target discovery report",
+    "sourceImmutability": "do not edit 00_source"
+  },
+  "schemaVersion": "gas-shunin-latest-question-maintenance-queue-summary/v1",
+  "sourceTargetReport": "output/gas-shunin-all/review/lawzilla_mcp_target_discovery/20260708_235625_gas_shunin_lawzilla_workflow_targets.jsonl",
+  "statusCounts": {
+    "pending": 387
+  },
+  "totalQueueItems": 387,
+  "trackCounts": {
+    "answer_recheck": 28,
+    "lawzilla_law_evidence": 301,
+    "source_conflict_review": 132
+  }
+}
