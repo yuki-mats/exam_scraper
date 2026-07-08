@@ -1,0 +1,6 @@
+# gas-shunin-kou 2025 問4 direct basis snapshots
+
+- target: gas-shunin-kou 2025 問4
+- recordCount: 2
+- ガス関係報告規則 第3条: articleTextHash=29ae421ef8e58fe21a5e06b6b92379885eaf7c9ffc9333c25be1c741eeca8915 rawXmlHash=37e3f68bf667e0810851b16251872413b291527620f8940043e6111c358e736f
+- ガス関係報告規則 第4条: articleTextHash=8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63 rawXmlHash=fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8
