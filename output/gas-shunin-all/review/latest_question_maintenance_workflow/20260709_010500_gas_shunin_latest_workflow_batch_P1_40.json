@@ -1,0 +1,2549 @@
+{
+  "batchId": "20260709_010500_P1_40",
+  "boundary": "batch extraction only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
+  "generatedAt": "2026-07-09T00:55:00+09:00",
+  "itemCount": 40,
+  "items": [
+    {
+      "answerResultText": "正解は 2 です。",
+      "correctChoiceTextCompact": "間違い|間違い|正しい|正しい|正しい",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        392
+      ],
+      "priority": "P1",
+      "publicQuestionId": "ff4acfaca7ea857b",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-187",
+      "questionType": "true_false",
+      "queueSequence": 262,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2025:question_2025_gassyunin_site_2:ff4acfaca7ea857b",
+      "reviewQuestionId": "ff4acfaca7ea857b",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_2.json",
+      "sourceFileIndex": 21,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2025/15_correctChoiceText_fixed/question_2025_gassyunin_site_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2025/22_questionSetId_linked/question_2025_gassyunin_site_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2025/10_questionType_fixed/question_2025_gassyunin_site_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 2 です。",
+      "correctChoiceTextCompact": "不正解|正解|不正解|不正解|不正解",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        340
+      ],
+      "priority": "P1",
+      "publicQuestionId": "6602bb83e4a77334",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "外径300㎜の鋼管が内圧3MPaを受ける場合、ガス事業法の管厚計算式を用いたときの管厚(mm)として、最も近い値はどれか。なお、この鋼管の外径と内径の比は1.5以下とし、鋼管の許容引張応力は100N/mm²、継手効率は1.0、腐れしろは1.0mmとする。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問13",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-80-191",
+      "questionType": "group_choice",
+      "queueSequence": 263,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_2:6602bb83e4a77334",
+      "reviewQuestionId": "6602bb83e4a77334",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "供給",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
+      "sourceFileIndex": 18,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "間違い|正しい|間違い|正しい|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        333
+      ],
+      "priority": "P1",
+      "publicQuestionId": "460b0695bbd7b211",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "製造設備の保安及び防災に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問6",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-165",
+      "questionType": "true_false",
+      "queueSequence": 264,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2024:question_2024_gassyunin_site_2:460b0695bbd7b211",
+      "reviewQuestionId": "460b0695bbd7b211",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
+      "sourceFileIndex": 18,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2024/15_correctChoiceText_fixed/question_2024_gassyunin_site_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2024/22_questionSetId_linked/question_2024_gassyunin_site_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2024/10_questionType_fixed/question_2024_gassyunin_site_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|正しい|間違い|正しい",
+      "examYear": 2023,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2023",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2023-15",
+      "planSequences": [
+        243
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "導管工事に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問15",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-80-191",
+      "questionType": "true_false",
+      "queueSequence": 265,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2023:question_2023_firestore_1:firestore:chiefgasengineerlicense-A-80-1063,chiefgasengineerlicense-A-80-1064,chiefgasengineerlicense-A-80-1065,chiefgasengineerlicense-A-80-1066,chiefgasengineerlicense-A-80-1067",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1063,chiefgasengineerlicense-A-80-1064,chiefgasengineerlicense-A-80-1065,chiefgasengineerlicense-A-80-1066,chiefgasengineerlicense-A-80-1067",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "供給",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json",
+      "sourceFileIndex": 13,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 2 です。",
+      "correctChoiceTextCompact": "間違い|正しい|正しい|正しい|間違い",
+      "examYear": 2023,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2023",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2023-7",
+      "planSequences": [
+        261
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-187",
+      "questionType": "true_false",
+      "queueSequence": 266,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2023:question_2023_firestore_1:firestore:chiefgasengineerlicense-A-40-1031,chiefgasengineerlicense-A-40-1032,chiefgasengineerlicense-A-40-1033,chiefgasengineerlicense-A-40-1034,chiefgasengineerlicense-A-40-1035",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1031,chiefgasengineerlicense-A-40-1032,chiefgasengineerlicense-A-40-1033,chiefgasengineerlicense-A-40-1034,chiefgasengineerlicense-A-40-1035",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_1.json",
+      "sourceFileIndex": 13,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2023/15_correctChoiceText_fixed/question_2023_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2023/22_questionSetId_linked/question_2023_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2023/10_questionType_fixed/question_2023_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|正しい",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2022-24",
+      "planSequences": [
+        194
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "ガス機器の給排気に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問24",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-60-171",
+      "questionType": "true_false",
+      "queueSequence": 267,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_firestore_1:firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1235,chiefgasengineerlicense-A-60-1236,chiefgasengineerlicense-A-60-1237,chiefgasengineerlicense-A-60-1238,chiefgasengineerlicense-A-60-1239",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
+      "sourceFileIndex": 10,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|正しい|間違い|間違い|間違い",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2022-15",
+      "planSequences": [
+        184
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "導管の工事に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問15",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-80-191",
+      "questionType": "true_false",
+      "queueSequence": 268,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_firestore_1:firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "供給",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
+      "sourceFileIndex": 10,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|正しい",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2022-7",
+      "planSequences": [
+        202
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-187",
+      "questionType": "true_false",
+      "queueSequence": 269,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_firestore_1:firestore:chiefgasengineerlicense-A-40-1158,chiefgasengineerlicense-A-40-1159,chiefgasengineerlicense-A-40-1160,chiefgasengineerlicense-A-40-1161,chiefgasengineerlicense-A-40-1162",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1158,chiefgasengineerlicense-A-40-1159,chiefgasengineerlicense-A-40-1160,chiefgasengineerlicense-A-40-1161,chiefgasengineerlicense-A-40-1162",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
+      "sourceFileIndex": 10,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|間違い",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2022-6",
+      "planSequences": [
+        201
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "製造設備の保安、防災に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問6",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-165",
+      "questionType": "true_false",
+      "queueSequence": 270,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_firestore_1:firestore:chiefgasengineerlicense-A-40-1153,chiefgasengineerlicense-A-40-1154,chiefgasengineerlicense-A-40-1155,chiefgasengineerlicense-A-40-1156,chiefgasengineerlicense-A-40-1157",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1153,chiefgasengineerlicense-A-40-1154,chiefgasengineerlicense-A-40-1155,chiefgasengineerlicense-A-40-1156,chiefgasengineerlicense-A-40-1157",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
+      "sourceFileIndex": 10,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|正しい|間違い|間違い",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2022-4",
+      "planSequences": [
+        199
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "都市ガスの熱量調整と燃焼性管理に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問4",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-175",
+      "questionType": "true_false",
+      "queueSequence": 271,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_firestore_1:firestore:chiefgasengineerlicense-A-40-1143,chiefgasengineerlicense-A-40-1144,chiefgasengineerlicense-A-40-1145,chiefgasengineerlicense-A-40-1146,chiefgasengineerlicense-A-40-1147",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1143,chiefgasengineerlicense-A-40-1144,chiefgasengineerlicense-A-40-1145,chiefgasengineerlicense-A-40-1146,chiefgasengineerlicense-A-40-1147",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
+      "sourceFileIndex": 10,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2022/15_correctChoiceText_fixed/question_2022_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2022/22_questionSetId_linked/question_2022_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2022/10_questionType_fixed/question_2022_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|間違い|間違い|正しい|正しい",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2021-23",
+      "planSequences": [
+        133
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "コージェネレーションシステム及びガス冷暖房機器に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問23",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-60-170",
+      "questionType": "true_false",
+      "queueSequence": 272,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_firestore_1:firestore:chiefgasengineerlicense-A-60-1349,chiefgasengineerlicense-A-60-1350,chiefgasengineerlicense-A-60-1351,chiefgasengineerlicense-A-60-1352,chiefgasengineerlicense-A-60-1353",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1349,chiefgasengineerlicense-A-60-1350,chiefgasengineerlicense-A-60-1351,chiefgasengineerlicense-A-60-1352,chiefgasengineerlicense-A-60-1353",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+      "sourceFileIndex": 7,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|間違い",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2021-17",
+      "planSequences": [
+        126
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "導管の維持管理に関する次の記述のうち、正しいものはいくつあるか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問17",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-80-193",
+      "questionType": "true_false",
+      "queueSequence": 273,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_firestore_1:firestore:chiefgasengineerlicense-A-80-1319,chiefgasengineerlicense-A-80-1320,chiefgasengineerlicense-A-80-1321,chiefgasengineerlicense-A-80-1322,chiefgasengineerlicense-A-80-1323",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1319,chiefgasengineerlicense-A-80-1320,chiefgasengineerlicense-A-80-1321,chiefgasengineerlicense-A-80-1322,chiefgasengineerlicense-A-80-1323",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "供給",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+      "sourceFileIndex": 7,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|間違い",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2021-7",
+      "planSequences": [
+        142
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-187",
+      "questionType": "true_false",
+      "queueSequence": 274,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_firestore_1:firestore:chiefgasengineerlicense-A-40-1281,chiefgasengineerlicense-A-40-1282,chiefgasengineerlicense-A-40-1283,chiefgasengineerlicense-A-40-1284,chiefgasengineerlicense-A-40-1285",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1281,chiefgasengineerlicense-A-40-1282,chiefgasengineerlicense-A-40-1283,chiefgasengineerlicense-A-40-1284,chiefgasengineerlicense-A-40-1285",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+      "sourceFileIndex": 7,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|正しい",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2021-4",
+      "planSequences": [
+        139
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "ガスの熱量・比重の測定に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問4",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-166",
+      "questionType": "true_false",
+      "queueSequence": 275,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_firestore_1:firestore:chiefgasengineerlicense-A-40-1270,chiefgasengineerlicense-A-40-1271,chiefgasengineerlicense-A-40-1272,chiefgasengineerlicense-A-40-1273,chiefgasengineerlicense-A-40-1274",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1270,chiefgasengineerlicense-A-40-1271,chiefgasengineerlicense-A-40-1272,chiefgasengineerlicense-A-40-1273,chiefgasengineerlicense-A-40-1274",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_1.json",
+      "sourceFileIndex": 7,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|間違い|正しい",
+      "examYear": 2020,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2020",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2020-13",
+      "planSequences": [
+        63
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "問13 外径200mmの鋼管が内圧1MPaを受ける場合、ガス事業法の管厚計算式を用いたときの管厚（mm）として最も近い値はどれか。なお、この鋼管の外径と内径の比は1.5以下とし、鋼管の許容引張応力は62N/mm²、継手効率1.00、腐れしろ1mmとする。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問13",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-80-191",
+      "questionType": "flash_card",
+      "queueSequence": 276,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2020:question_2020_firestore_1:firestore:chiefgasengineerlicense-gizyutu-koushu-2020-13-1,chiefgasengineerlicense-gizyutu-koushu-2020-13-2,chiefgasengineerlicense-gizyutu-koushu-2020-13-3,chiefgasengineerlicense-gizyutu-koushu-2020-13-4,chiefgasengineerlicense-gizyutu-koushu-2020-13-5",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-gizyutu-koushu-2020-13-1,chiefgasengineerlicense-gizyutu-koushu-2020-13-2,chiefgasengineerlicense-gizyutu-koushu-2020-13-3,chiefgasengineerlicense-gizyutu-koushu-2020-13-4,chiefgasengineerlicense-gizyutu-koushu-2020-13-5",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "供給",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_1.json",
+      "sourceFileIndex": 4,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2020/15_correctChoiceText_fixed/question_2020_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2020/22_questionSetId_linked/question_2020_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2020/10_questionType_fixed/question_2020_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "間違い|正しい|間違い|正しい|間違い",
+      "examYear": 2019,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2019",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2019-7",
+      "planSequences": [
+        25
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "ガス製造設備の建設に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-180",
+      "questionType": "true_false",
+      "queueSequence": 277,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2019:question_2019_firestore_1:firestore:chiefgasengineerlicense-A-40-1525,chiefgasengineerlicense-A-40-1526,chiefgasengineerlicense-A-40-1527,chiefgasengineerlicense-A-40-1528,chiefgasengineerlicense-A-40-1529",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1525,chiefgasengineerlicense-A-40-1526,chiefgasengineerlicense-A-40-1527,chiefgasengineerlicense-A-40-1528,chiefgasengineerlicense-A-40-1529",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
+      "sourceFileIndex": 1,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|正しい|正しい",
+      "examYear": 2019,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2019",
+      "originalQuestionId": "gasushunin-koushu-gizyutsu-2019-4",
+      "planSequences": [
+        22
+      ],
+      "priority": "P1",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionBodyText": "ガスの成分分析及び発熱量の測定に関する次の記述のうち、誤っているものはいくつあるか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問4",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-A-40-166",
+      "questionType": "true_false",
+      "queueSequence": 278,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2019:question_2019_firestore_1:firestore:chiefgasengineerlicense-A-40-1510,chiefgasengineerlicense-A-40-1511,chiefgasengineerlicense-A-40-1512,chiefgasengineerlicense-A-40-1513,chiefgasengineerlicense-A-40-1514",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1510,chiefgasengineerlicense-A-40-1511,chiefgasengineerlicense-A-40-1512,chiefgasengineerlicense-A-40-1513,chiefgasengineerlicense-A-40-1514",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_1.json",
+      "sourceFileIndex": 1,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2019/15_correctChoiceText_fixed/question_2019_firestore_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2019/22_questionSetId_linked/question_2019_firestore_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2019/10_questionType_fixed/question_2019_firestore_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|正しい",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        933
+      ],
+      "priority": "P1",
+      "publicQuestionId": "851ce6e11c7168a8",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "ガス機器の安全装置及び安全機能に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問26",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1930",
+      "questionType": "true_false",
+      "queueSequence": 279,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2025:question_2025_3:851ce6e11c7168a8",
+      "reviewQuestionId": "851ce6e11c7168a8",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_3.json",
+      "sourceFileIndex": 27,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_3_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 2 です。",
+      "correctChoiceTextCompact": "間違い|正しい|正しい|正しい|間違い",
+      "examYear": 2025,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2025",
+      "originalQuestionId": "",
+      "planSequences": [
+        916
+      ],
+      "priority": "P1",
+      "publicQuestionId": "07dff3424a00183a",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "環境対策及び省エネルギーに関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問9",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1780",
+      "questionType": "true_false",
+      "queueSequence": 280,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2025:question_2025_2:07dff3424a00183a",
+      "reviewQuestionId": "07dff3424a00183a",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2025/00_source/question_2025_2.json",
+      "sourceFileIndex": 26,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2025/15_correctChoiceText_fixed/question_2025_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2025/22_questionSetId_linked/question_2025_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 5 です。",
+      "correctChoiceTextCompact": "不正解|不正解|不正解|不正解|正解",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        862
+      ],
+      "priority": "P1",
+      "publicQuestionId": "6602bb83e4a77334",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "内圧を受ける鋼管の管厚t(mm)を求める場合のガス事業法の管厚計算式について、[ ]の中の(イ)～(ハ)にあてはまる語句等の組合せとして、適切なものはどれか。なお、この鋼管の外径と内径の比は1.5以下とする。\nt = (P × [イ]) / (2 × [ハ] × η + 0.8 × P) + C\nP: 内圧(MPa)\nη: 継手効率\n[ハ] = ([ロ] × 10^3) / 4\nC: 腐れしろ(mm)",
+      "questionIntent": "select_correct",
+      "questionLabel": "問13",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-2040",
+      "questionType": "group_choice",
+      "queueSequence": 281,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2024:question_2024_2:6602bb83e4a77334",
+      "reviewQuestionId": "6602bb83e4a77334",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "供給",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
+      "sourceFileIndex": 23,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 2 です。",
+      "correctChoiceTextCompact": "間違い|正しい|正しい|正しい|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        856
+      ],
+      "priority": "P1",
+      "publicQuestionId": "61e22295f24a06e4",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionType": "true_false",
+      "queueSequence": 282,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2024:question_2024_2:61e22295f24a06e4",
+      "reviewQuestionId": "61e22295f24a06e4",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
+      "sourceFileIndex": 23,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|正しい|間違い",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        855
+      ],
+      "priority": "P1",
+      "publicQuestionId": "460b0695bbd7b211",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造設備の保安及び防災に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問6",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionType": "true_false",
+      "queueSequence": 283,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2024:question_2024_2:460b0695bbd7b211",
+      "reviewQuestionId": "460b0695bbd7b211",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
+      "sourceFileIndex": 23,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 5 です。",
+      "correctChoiceTextCompact": "間違い|間違い|間違い|正しい|正しい",
+      "examYear": 2024,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2024",
+      "originalQuestionId": "",
+      "planSequences": [
+        852
+      ],
+      "priority": "P1",
+      "publicQuestionId": "fafd5412e2152b2e",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造設備の電気設備及び計装設備に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問3",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1830",
+      "questionType": "true_false",
+      "queueSequence": 284,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2024:question_2024_2:fafd5412e2152b2e",
+      "reviewQuestionId": "fafd5412e2152b2e",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_2.json",
+      "sourceFileIndex": 23,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2024/15_correctChoiceText_fixed/question_2024_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2024/22_questionSetId_linked/question_2024_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|正しい",
+      "examYear": 2023,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2023",
+      "originalQuestionId": "",
+      "planSequences": [
+        816
+      ],
+      "priority": "P1",
+      "publicQuestionId": "d7ee8ce3f382aa2a",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "ガス機器の給排気に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問25",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1900",
+      "questionType": "true_false",
+      "queueSequence": 285,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2023:question_2023_3:d7ee8ce3f382aa2a",
+      "reviewQuestionId": "d7ee8ce3f382aa2a",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_3.json",
+      "sourceFileIndex": 21,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_3_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_3_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "間違い|正しい|間違い|正しい|間違い",
+      "examYear": 2023,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2023",
+      "originalQuestionId": "",
+      "planSequences": [
+        798
+      ],
+      "priority": "P1",
+      "publicQuestionId": "1681bfa8e2d38c9c",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionType": "true_false",
+      "queueSequence": 286,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2023:question_2023_2:1681bfa8e2d38c9c",
+      "reviewQuestionId": "1681bfa8e2d38c9c",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 5 です。",
+      "correctChoiceTextCompact": "間違い|間違い|正しい|正しい|間違い",
+      "examYear": 2023,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2023",
+      "originalQuestionId": "",
+      "planSequences": [
+        792
+      ],
+      "priority": "P1",
+      "publicQuestionId": "92e13673ae650747",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "都市ガスの原料に関する次の記述のうち、いずれも正しいものの組合せはどれか。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問1",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1790",
+      "questionType": "true_false",
+      "queueSequence": 287,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2023:question_2023_2:92e13673ae650747",
+      "reviewQuestionId": "92e13673ae650747",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_2.json",
+      "sourceFileIndex": 20,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2023/15_correctChoiceText_fixed/question_2023_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2023/22_questionSetId_linked/question_2023_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 1 です。",
+      "correctChoiceTextCompact": "間違い|正しい|正しい|正しい|正しい",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "gasushunin-otsushu-gizyutsu-2022-27",
+      "planSequences": [
+        760
+      ],
+      "priority": "P1",
+      "publicQuestionId": "056afe33878bb43b",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "ガス機器とガス栓との接続に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問27",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1940",
+      "questionType": "true_false",
+      "queueSequence": 288,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_3:firestore:gasushunin-otsushu-gizyutsu-2022-27-1,gasushunin-otsushu-gizyutsu-2022-27-2,gasushunin-otsushu-gizyutsu-2022-27-3,gasushunin-otsushu-gizyutsu-2022-27-4,gasushunin-otsushu-gizyutsu-2022-27-5",
+      "reviewQuestionId": "firestore:gasushunin-otsushu-gizyutsu-2022-27-1,gasushunin-otsushu-gizyutsu-2022-27-2,gasushunin-otsushu-gizyutsu-2022-27-3,gasushunin-otsushu-gizyutsu-2022-27-4,gasushunin-otsushu-gizyutsu-2022-27-5",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
+      "sourceFileIndex": 18,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|正しい",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "",
+      "planSequences": [
+        757
+      ],
+      "priority": "P1",
+      "publicQuestionId": "f2e6316d00032685",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "換気及び給排気方式に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問24",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1900",
+      "questionType": "true_false",
+      "queueSequence": 289,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_3:f2e6316d00032685",
+      "reviewQuestionId": "f2e6316d00032685",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_3.json",
+      "sourceFileIndex": 18,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_3_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_3_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_3_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|間違い|正しい",
+      "examYear": 2022,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2022",
+      "originalQuestionId": "",
+      "planSequences": [
+        740
+      ],
+      "priority": "P1",
+      "publicQuestionId": "478a753a8f5e9017",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionType": "true_false",
+      "queueSequence": 290,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2022:question_2022_2:478a753a8f5e9017",
+      "reviewQuestionId": "478a753a8f5e9017",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_2.json",
+      "sourceFileIndex": 17,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2022/15_correctChoiceText_fixed/question_2022_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2022/22_questionSetId_linked/question_2022_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|正しい",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "",
+      "planSequences": [
+        702
+      ],
+      "priority": "P1",
+      "publicQuestionId": "23b68bdcb6547c87",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "警報器に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問27",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1970",
+      "questionType": "true_false",
+      "queueSequence": 291,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_3:23b68bdcb6547c87",
+      "reviewQuestionId": "23b68bdcb6547c87",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_3.json",
+      "sourceFileIndex": 15,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2021/15_correctChoiceText_fixed/question_2021_3_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_3_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2021/22_questionSetId_linked/question_2021_3_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 5 です。",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|正しい|間違い",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "",
+      "planSequences": [
+        690
+      ],
+      "priority": "P1",
+      "publicQuestionId": "ad42521191d4f26c",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "導管の工事に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問15",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-2040",
+      "questionType": "true_false",
+      "queueSequence": 292,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_2:ad42521191d4f26c",
+      "reviewQuestionId": "ad42521191d4f26c",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "供給",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
+      "sourceFileIndex": 14,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2021/15_correctChoiceText_fixed/question_2021_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2021/22_questionSetId_linked/question_2021_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|正しい|間違い",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "",
+      "planSequences": [
+        682
+      ],
+      "priority": "P1",
+      "publicQuestionId": "e786207857a22dad",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造設備の建設及び操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionType": "true_false",
+      "queueSequence": 293,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_2:e786207857a22dad",
+      "reviewQuestionId": "e786207857a22dad",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
+      "sourceFileIndex": 14,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2021/15_correctChoiceText_fixed/question_2021_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2021/22_questionSetId_linked/question_2021_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 1 です。",
+      "correctChoiceTextCompact": "間違い|正しい|正しい|正しい|間違い",
+      "examYear": 2021,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2021",
+      "originalQuestionId": "",
+      "planSequences": [
+        679
+      ],
+      "priority": "P1",
+      "publicQuestionId": "2b44480aa6983f05",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "都市ガスの熱量調整と燃焼性、特殊成分の分析に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問4",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1810",
+      "questionType": "true_false",
+      "queueSequence": 294,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2021:question_2021_2:2b44480aa6983f05",
+      "reviewQuestionId": "2b44480aa6983f05",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
+      "sourceFileIndex": 14,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2021/15_correctChoiceText_fixed/question_2021_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2021/22_questionSetId_linked/question_2021_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|正しい",
+      "examYear": 2020,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2020",
+      "originalQuestionId": "",
+      "planSequences": [
+        641
+      ],
+      "priority": "P1",
+      "publicQuestionId": "d51f3a79ea8c01cc",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "換気と一酸化炭素（CO）中毒に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問24",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1920",
+      "questionType": "true_false",
+      "queueSequence": 295,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2020:question_2020_3:d51f3a79ea8c01cc",
+      "reviewQuestionId": "d51f3a79ea8c01cc",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_3.json",
+      "sourceFileIndex": 12,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2020/15_correctChoiceText_fixed/question_2020_3_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_3_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2020/22_questionSetId_linked/question_2020_3_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|間違い|正しい|正しい|間違い",
+      "examYear": 2020,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2020",
+      "originalQuestionId": "",
+      "planSequences": [
+        624
+      ],
+      "priority": "P1",
+      "publicQuestionId": "1fb12c51360dafbb",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造設備の操業に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionType": "true_false",
+      "queueSequence": 296,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2020:question_2020_2:1fb12c51360dafbb",
+      "reviewQuestionId": "1fb12c51360dafbb",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
+      "sourceFileIndex": 11,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2020/22_questionSetId_linked/question_2020_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 4 です。",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|間違い|間違い",
+      "examYear": 2020,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2020",
+      "originalQuestionId": "",
+      "planSequences": [
+        623
+      ],
+      "priority": "P1",
+      "publicQuestionId": "7f735c0129589d6c",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "製造所の停電対策に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問6",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1760",
+      "questionType": "true_false",
+      "queueSequence": 297,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2020:question_2020_2:7f735c0129589d6c",
+      "reviewQuestionId": "7f735c0129589d6c",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
+      "sourceFileIndex": 11,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2020/22_questionSetId_linked/question_2020_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 3 です。",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|正しい",
+      "examYear": 2020,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2020",
+      "originalQuestionId": "gasushunin-otsushu-kiso-2020-5",
+      "planSequences": [
+        607
+      ],
+      "priority": "P1",
+      "publicQuestionId": "da18acfb40810c8f",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "化学反応及び電気化学反応に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問5",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 298,
+      "recommendedWorkflowSteps": [
+        "confirm_source_and_answer_mapping_without_editing_00_source",
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2020:question_2020_1:da18acfb40810c8f",
+      "reviewQuestionId": "da18acfb40810c8f",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "基礎理論",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
+      "sourceFileIndex": 10,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2020/15_correctChoiceText_fixed/question_2020_1_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2020/22_questionSetId_linked/question_2020_1_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review",
+        "source_conflict_cannot_be_resolved_without_Mazuda_policy_or_primary_source"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords",
+        "source_conflict_needs_review",
+        "source_content_conflict"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ]
+    },
+    {
+      "answerResultText": "正解は 5 です。",
+      "correctChoiceTextCompact": "正しい|正しい|間違い|正しい|間違い",
+      "examYear": 2020,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2020",
+      "originalQuestionId": "",
+      "planSequences": [
+        622
+      ],
+      "priority": "P1",
+      "publicQuestionId": "5a389221b2f07332",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "都市ガスの付臭に関する次の記述のうち、いずれも誤っているものの組合せはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問5",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1840",
+      "questionType": "true_false",
+      "queueSequence": 299,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2020:question_2020_2:5a389221b2f07332",
+      "reviewQuestionId": "5a389221b2f07332",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_2.json",
+      "sourceFileIndex": 11,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2020/22_questionSetId_linked/question_2020_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 1 です。",
+      "correctChoiceTextCompact": "正解|不正解|不正解|不正解|不正解",
+      "examYear": 2018,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2018",
+      "originalQuestionId": "",
+      "planSequences": [
+        508
+      ],
+      "priority": "P1",
+      "publicQuestionId": "592f58edb670503a",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "都市ガス製造設備の巡視・点検に関する次の記述について、[ ]の中の(イ)〜(ホ)にあてはまる語句の組合せとして最も適切なものはどれか。\n製造設備は、これらの設備を正常に維持するため、[ (イ) ]等を作成し、それに従って製造設備の管理を行う。製造設備に係る巡視・点検周期やその方法は、[ (ロ) ]に定める内容を満足するほか、設備の運転状態を表す監視項目や点検内容も考慮し、製造所の[ (ハ) ]に合わせて決定する。\n設備に異常を発見した場合は応急処置を施すとともに、速やかに[ (ニ) ]に努めなければならない。万が一、復旧に時間を要する場合は、製造設備の[ (ホ) ]などを行って、ガスの供給に影響を及ぼさないようにする。",
+      "questionIntent": "select_correct",
+      "questionLabel": "問7",
+      "questionNo": null,
+      "questionSetId": "chiefgasengineerlicense-B-1850",
+      "questionType": "group_choice",
+      "queueSequence": 300,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2018:question_2018_2:592f58edb670503a",
+      "reviewQuestionId": "592f58edb670503a",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "製造",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_2.json",
+      "sourceFileIndex": 5,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2018/15_correctChoiceText_fixed/question_2018_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2018/22_questionSetId_linked/question_2018_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    },
+    {
+      "answerResultText": "正解は 5 です。",
+      "correctChoiceTextCompact": "正しい|正しい|正しい|正しい|間違い",
+      "examYear": 2017,
+      "expectedArtifacts": [
+        "law_context_patch_or_candidate_when_law_related",
+        "lawzilla_mcp_feedback_jsonl_record_when_tool_available",
+        "law_evidence_comparison_note",
+        "explanation_or_hold_decision"
+      ],
+      "generatedAt": "2026-07-09T00:03:05+09:00",
+      "listGroupId": "2017",
+      "originalQuestionId": "",
+      "planSequences": [
+        466
+      ],
+      "priority": "P1",
+      "publicQuestionId": "5c94da4fce6d43ec",
+      "qualification": "gas-shunin-otsu",
+      "questionBodyText": "給排気及び警報器に関する次の記述のうち、誤っているものはどれか。",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問23",
+      "questionNo": null,
+      "questionSetId": "",
+      "questionType": "true_false",
+      "queueSequence": 301,
+      "recommendedWorkflowSteps": [
+        "prepare_or_update_02b_law_context_candidate",
+        "run_existing_evidence_lookup_or_snapshot_check",
+        "run_lawzilla_mcp_parallel_check_when_tool_available",
+        "compare_existing_evidence_with_lawzilla_result",
+        "tighten_explanationText_only_when_evidence_matches",
+        "create_lawzilla_feedback_record",
+        "promote_to_P0_or_close_as_not_law_related_after_manual_check"
+      ],
+      "reviewId": "2017:question_2017_3:5c94da4fce6d43ec",
+      "reviewQuestionId": "5c94da4fce6d43ec",
+      "schemaVersion": "gas-shunin-latest-question-maintenance-queue/v1",
+      "sourceCategory": "消費機器",
+      "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_3.json",
+      "sourceFileIndex": 3,
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-otsu/questions_json/2017/15_correctChoiceText_fixed/question_2017_3_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_3_explanationText_added.json",
+        "questionSet": "output/gas-shunin-otsu/questions_json/2017/22_questionSetId_linked/question_2017_3_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-otsu/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
+      },
+      "status": "pending",
+      "stopIf": [
+        "00_source_body_or_choice_text_would_need_edit",
+        "existing_firestore_question_id_mapping_is_ambiguous",
+        "lawzilla_result_conflicts_with_existing_verified_evidence",
+        "law_reference_cannot_be_verified_from_existing_primary_evidence",
+        "correctChoiceText_would_change_without_source_or_tertiary_review"
+      ],
+      "targetReasons": [
+        "non_law_sourceCategory_but_legal_keywords"
+      ],
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ]
+    }
+  ],
+  "missingSourceFiles": [],
+  "priority": "P1",
+  "purpose": "Lawzilla MCP candidate collection for remaining lawzilla_law_evidence targets after P0.",
+  "schemaVersion": "gas-shunin-latest-workflow-priority-batch/v1",
+  "sourceFileCount": 21,
+  "sourceQueuePath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl"
+}

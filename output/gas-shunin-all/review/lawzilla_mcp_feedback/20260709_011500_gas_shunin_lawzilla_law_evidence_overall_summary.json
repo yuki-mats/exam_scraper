@@ -1,0 +1,58 @@
+{
+  "boundary": "candidate collection and batch extraction only; no correctChoiceText, explanationText, lawReferences, lawRevisionFacts, 00_source, or existing Firestore IDs were modified.",
+  "choiceRecordCount": 1485,
+  "choicesWithCandidates": 1417,
+  "choicesWithSeedArticles": 160,
+  "choicesWithoutCandidates": 68,
+  "completedLawzillaQuestionCount": 301,
+  "generatedAt": "2026-07-09T00:56:00+09:00",
+  "includedPriorities": [
+    "P0",
+    "P1"
+  ],
+  "lawzillaTargetQuestionCount": 301,
+  "missingLawzillaQuestionCount": 0,
+  "nextAction": "Compare Lawzilla candidates with existing primary evidence for P0/P1, and run source conflict / answer recheck review for the P2 batch.",
+  "noHitCountsByPriority": {
+    "P0": 27,
+    "P1": 41
+  },
+  "noHitCountsByQualification": {
+    "gas-shunin-kou": 23,
+    "gas-shunin-otsu": 45
+  },
+  "p2ReviewBatch": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_010500_gas_shunin_latest_workflow_batch_P2_86.json",
+  "recordCountsByPriority": {
+    "P0": 1285,
+    "P1": 200
+  },
+  "recordCountsByQualification": {
+    "gas-shunin-kou": 650,
+    "gas-shunin-otsu": 835
+  },
+  "recordCountsByQualificationYear": {
+    "gas-shunin-kou:2019": 90,
+    "gas-shunin-kou:2020": 85,
+    "gas-shunin-kou:2021": 102,
+    "gas-shunin-kou:2022": 108,
+    "gas-shunin-kou:2023": 90,
+    "gas-shunin-kou:2024": 90,
+    "gas-shunin-kou:2025": 85,
+    "gas-shunin-otsu:2017": 85,
+    "gas-shunin-otsu:2018": 85,
+    "gas-shunin-otsu:2019": 80,
+    "gas-shunin-otsu:2020": 105,
+    "gas-shunin-otsu:2021": 100,
+    "gas-shunin-otsu:2022": 95,
+    "gas-shunin-otsu:2023": 95,
+    "gas-shunin-otsu:2024": 100,
+    "gas-shunin-otsu:2025": 90
+  },
+  "schemaVersion": "gas-shunin-lawzilla-law-evidence-overall-summary/v1",
+  "sourceArtifacts": [
+    "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_002200_gas_shunin_P0_first_32_lawzilla_candidates.jsonl",
+    "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates.jsonl",
+    "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_011000_gas_shunin_P1_40_lawzilla_candidates.jsonl"
+  ],
+  "sourceQueuePath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl"
+}

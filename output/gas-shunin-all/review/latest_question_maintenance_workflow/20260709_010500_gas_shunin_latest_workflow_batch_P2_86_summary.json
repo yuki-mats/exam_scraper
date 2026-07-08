@@ -1,0 +1,33 @@
+{
+  "batchId": "20260709_010500_P2_86",
+  "batchPath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_010500_gas_shunin_latest_workflow_batch_P2_86.json",
+  "boundary": "batch extraction only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
+  "firstQueueSequence": 302,
+  "generatedAt": "2026-07-09T00:55:00+09:00",
+  "itemCount": 86,
+  "lastQueueSequence": 387,
+  "missingSourceFileCount": 0,
+  "priority": "P2",
+  "purpose": "Source conflict and answer recheck review batch; Lawzilla MCP is not required by targetTracks for this priority.",
+  "qualificationCounts": {
+    "gas-shunin-kou": 82,
+    "gas-shunin-otsu": 4
+  },
+  "qualificationYearCounts": {
+    "gas-shunin-kou:2020": 30,
+    "gas-shunin-kou:2021": 15,
+    "gas-shunin-kou:2022": 14,
+    "gas-shunin-kou:2023": 17,
+    "gas-shunin-kou:2024": 1,
+    "gas-shunin-kou:2025": 5,
+    "gas-shunin-otsu:2020": 2,
+    "gas-shunin-otsu:2022": 2
+  },
+  "schemaVersion": "gas-shunin-latest-workflow-priority-batch-summary/v1",
+  "sourceFileCount": 17,
+  "sourceQueuePath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl",
+  "trackCounts": {
+    "answer_recheck": 6,
+    "source_conflict_review": 81
+  }
+}
