@@ -1,0 +1,36 @@
+{
+  "articleSourceCounts": {
+    "kanjiaddress_appendix_table": 2,
+    "kanjiaddress_article": 1,
+    "lawzilla_ln_address": 124
+  },
+  "boundary": "primary evidence queue only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
+  "comparisonJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_lawzilla_evidence_comparison.jsonl",
+  "fetchPriorityCounts": {
+    "primary_api_fetch": 125,
+    "table_manual_review": 2
+  },
+  "fetchQueueArticleCount": 127,
+  "fetchQueueJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_014500_gas_shunin_primary_evidence_fetch_queue.jsonl",
+  "generatedAt": "2026-07-09T01:07:56+09:00",
+  "highPriorityFetchBatchArticleCount": 40,
+  "highPriorityFetchBatchCandidateChoiceLinkCount": 1764,
+  "highPriorityFetchBatchDistinctChoiceRecordCount": 1220,
+  "highPriorityFetchBatchJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_014500_gas_shunin_primary_evidence_fetch_batch_top40.json",
+  "lawCounts": {
+    "326AC0000000204": 17,
+    "329AC0000000051": 36,
+    "329CO0000000068": 2,
+    "345M50000400097": 44,
+    "412M50000400111": 26,
+    "429M60000400016": 2
+  },
+  "nextAction": "fetch e-Gov article snapshots for highPriorityFetchBatch, then compare article text with Lawzilla candidate snippets before patching lawReferences.",
+  "schemaVersion": "gas-shunin-primary-evidence-fetch-queue-summary/v1",
+  "sourceChoiceRecordCount": 1485,
+  "summaryJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_014500_gas_shunin_primary_evidence_fetch_queue_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_014500_gas_shunin_primary_evidence_fetch_queue_summary.md",
+  "tableManualReviewArticleCount": 2,
+  "unparsedCandidateCount": 66,
+  "unparsedCandidatesJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_014500_gas_shunin_primary_evidence_unparsed_candidates.jsonl"
+}
