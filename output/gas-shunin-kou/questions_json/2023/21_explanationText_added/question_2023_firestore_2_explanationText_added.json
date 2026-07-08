@@ -4419,6 +4419,12 @@
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0352,chiefgasengineerlicense-A-10-0353,chiefgasengineerlicense-A-10-0354,chiefgasengineerlicense-A-10-0355",
     "source_original_question_id": "gasushunin-koushu-hourei-2023-7",
+    "firestoreQuestionIds": [
+      "chiefgasengineerlicense-A-10-0352",
+      "chiefgasengineerlicense-A-10-0353",
+      "chiefgasengineerlicense-A-10-0354",
+      "chiefgasengineerlicense-A-10-0355"
+    ],
     "public_question_id": null,
     "question_url": null,
     "questionLabel": "問7",
@@ -4462,6 +4468,7 @@
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
+    "isLawRelated": true,
     "sourceExplanationCommonPrefix": [
       "4肢はいずれも技術基準上は正しい。"
     ],
@@ -4493,6 +4500,327 @@
       "正しい",
       "正しい",
       "正しい"
+    ],
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "referenceDate": "2026-07-09",
+          "article": "5",
+          "articleTitle": "通信設備",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=5",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=5",
+          "articleTextHash": "adfae06788bcaa2b7ac1afa136e9beb28954b7f90613c7b62ab52da32e936217",
+          "rawXmlHash": "37455c0dfdc18455eaeaeece24655afedc5bd1312bbf091cf02e4f97a9a15b41",
+          "comparisonStatus": "same_as_current",
+          "reason": "製造所（特定製造所を除く。）、供給所及び導管を管理する事業場には、緊急時に迅速な通信を確保するため適切な通信設備を設ける必要がある。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "referenceDate": "2026-07-09",
+          "article": "6",
+          "articleTitle": "離隔距離",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "articleTextHash": "ef67b1e6823ffdc301553b9255740a18b3d28f68f450b4d6839a044c65898f6b",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、離隔距離規定によらずガス工作物を施設できる。",
+          "paragraph": "4"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "referenceDate": "2026-07-09",
+          "article": "9",
+          "articleTitle": "ガス漏えい対策",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9",
+          "articleTextHash": "88e0dbb83303c24770dbe43e0133c211c21465e3ece03a9a44b2b9234a5b97e5",
+          "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a",
+          "comparisonStatus": "same_as_current",
+          "reason": "製造所には、漏えいしたガスが滞留するおそれのある適当な場所に、漏えいを適切に検知し警報する設備を設ける必要がある。",
+          "paragraph": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "referenceDate": "2026-07-09",
+          "article": "10",
+          "articleTitle": "電気設備の防爆性能",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=10",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=10",
+          "articleTextHash": "3ce1d7c73c9342aad837d355374951c98fc1d526c5b9af3c7f84316f9ddaca40",
+          "rawXmlHash": "691a406b6b56039913bff94378d326c79f179673f3b195beea758e587da5e59f",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス又は液化ガスを通ずるガス工作物等の付近に設置する電気設備は、設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能を有する必要がある。",
+          "paragraph": "1"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T17:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_173000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "reconciliationStatus": "lawzilla_candidate_unusable_for_split_record",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "5",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "adfae06788bcaa2b7ac1afa136e9beb28954b7f90613c7b62ab52da32e936217",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=5",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はA-10-0351側のガス事業法施行規則第26条第1項に寄っていたため、この分割レコードの直接根拠として技省令第5条をe-Gov現行XMLで確認した。",
+          "source_conflict_review track: A-10-0352〜A-10-0355の4肢レコードとして既存正誤・Firestore IDを維持し、問題意図はholdのままanswer_result_textを追加しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技省令第5条は、製造所（特定製造所を除く。）、供給所及び導管を管理する事業場に、緊急時に迅速な通信を確保するため適切な通信設備を設けることを求めている。加入電話設備を設置することはこの趣旨に合う。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "通信設備義務と加入電話設備が適切な通信設備に当たる点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:5:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:5:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "5",
+              "articleTextHash": "adfae06788bcaa2b7ac1afa136e9beb28954b7f90613c7b62ab52da32e936217",
+              "textHash": "adfae06788bcaa2b7ac1afa136e9beb28954b7f90613c7b62ab52da32e936217",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T17:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_173000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "reconciliationStatus": "lawzilla_candidate_unusable_for_split_record",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "ef67b1e6823ffdc301553b9255740a18b3d28f68f450b4d6839a044c65898f6b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "paragraph": "4"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "この分割レコードの直接根拠として、離隔距離規定の認可例外を定める技省令第6条第4項をe-Gov現行XMLで確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技省令第6条第4項は、ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合、第1項から第3項までの離隔距離規定によらずガス工作物を施設できると定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "経済産業大臣の認可を受けた場合の離隔距離規定の例外に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:6:4"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:6:4",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "6",
+              "articleTextHash": "ef67b1e6823ffdc301553b9255740a18b3d28f68f450b4d6839a044c65898f6b",
+              "textHash": "ef67b1e6823ffdc301553b9255740a18b3d28f68f450b4d6839a044c65898f6b",
+              "paragraph": "4"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T17:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_173000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "reconciliationStatus": "lawzilla_candidate_unusable_for_split_record",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "9",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "88e0dbb83303c24770dbe43e0133c211c21465e3ece03a9a44b2b9234a5b97e5",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9",
+          "paragraph": "2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "この分割レコードの直接根拠として、製造所のガス漏えい検知・警報設備を定める技省令第9条第2項をe-Gov現行XMLで確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技省令第9条第2項は、製造所において、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある適当な場所に、漏えいを適切に検知し警報する設備を設けることを求めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "製造所内のガス漏えい検知・警報設備義務に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:9:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:9:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "9",
+              "articleTextHash": "88e0dbb83303c24770dbe43e0133c211c21465e3ece03a9a44b2b9234a5b97e5",
+              "textHash": "88e0dbb83303c24770dbe43e0133c211c21465e3ece03a9a44b2b9234a5b97e5",
+              "paragraph": "2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T17:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_173000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q7_seq43_secondary_review",
+        "reconciliationStatus": "lawzilla_candidate_unusable_for_split_record",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "10",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "3ce1d7c73c9342aad837d355374951c98fc1d526c5b9af3c7f84316f9ddaca40",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=10",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "この分割レコードの直接根拠として、電気設備の防爆性能を定める技省令第10条をe-Gov現行XMLで確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技省令第10条は、製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は移動式ガス発生設備の付近の電気設備について、設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能を求めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス工作物等の付近に設置する電気設備の防爆性能義務に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:10:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:10:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "10",
+              "articleTextHash": "3ce1d7c73c9342aad837d355374951c98fc1d526c5b9af3c7f84316f9ddaca40",
+              "textHash": "3ce1d7c73c9342aad837d355374951c98fc1d526c5b9af3c7f84316f9ddaca40",
+              "paragraph": "1"
+            }
+          ]
+        }
+      }
     ]
   },
   {
