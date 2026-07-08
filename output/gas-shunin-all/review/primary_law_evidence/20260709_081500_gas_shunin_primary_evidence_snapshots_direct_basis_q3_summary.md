@@ -1,0 +1,7 @@
+# gas-shunin-kou 2025 問3 direct basis snapshots
+
+- target: gas-shunin-kou 2025 問3
+- recordCount: 3
+- ガス事業法 第61条: articleTextHash=2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13 rawXmlHash=31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e
+- ガス事業法 第64条: articleTextHash=732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944 rawXmlHash=b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f
+- ガス事業法施行規則 第92条: articleTextHash=81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37 rawXmlHash=a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278
