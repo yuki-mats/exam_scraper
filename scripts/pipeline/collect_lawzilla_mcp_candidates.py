@@ -233,7 +233,41 @@ def load_batch_items(path: Path) -> tuple[str, list[dict[str, Any]]]:
     raise ValueError(f"unsupported batch shape: {path}")
 
 
-def load_question_from_stage(path: Path, public_question_id: str) -> dict[str, Any] | None:
+def firestore_ids_from_review_id(value: Any) -> set[str]:
+    if not isinstance(value, str) or not value.startswith("firestore:"):
+        return set()
+    return {part.strip() for part in value.removeprefix("firestore:").split(",") if part.strip()}
+
+
+def question_matches_item(question: dict[str, Any], item: dict[str, Any]) -> bool:
+    public_id = str(item.get("publicQuestionId") or "").strip()
+    original_id = str(item.get("originalQuestionId") or "").strip()
+    review_id = str(item.get("reviewQuestionId") or "").strip()
+    firestore_ids = firestore_ids_from_review_id(review_id)
+    question_ids = {
+        str(question.get("public_question_id") or "").strip(),
+        str(question.get("original_question_id") or "").strip(),
+        str(question.get("originalQuestionId") or "").strip(),
+        str(question.get("questionId") or "").strip(),
+    }
+    question_ids.discard("")
+    if public_id and public_id in question_ids:
+        return True
+    if original_id and original_id in question_ids:
+        return True
+    record_firestore_ids = {
+        str(value).strip()
+        for value in (question.get("firestoreQuestionIds") or [])
+        if str(value).strip()
+    }
+    if firestore_ids and record_firestore_ids and firestore_ids.issubset(record_firestore_ids):
+        return True
+    if firestore_ids and str(question.get("questionId") or "").strip() in firestore_ids:
+        return True
+    return False
+
+
+def load_question_from_stage(path: Path, item: dict[str, Any]) -> dict[str, Any] | None:
     payload = load_json(path)
     candidates: list[dict[str, Any]] = []
     if isinstance(payload, dict) and isinstance(payload.get("question_bodies"), list):
@@ -241,25 +275,29 @@ def load_question_from_stage(path: Path, public_question_id: str) -> dict[str, A
     elif isinstance(payload, list):
         candidates = [item for item in payload if isinstance(item, dict)]
     for question in candidates:
-        if question.get("public_question_id") == public_question_id or question.get("original_question_id") == public_question_id:
+        if question_matches_item(question, item):
             return question
     return None
 
 
 def stage_question(item: dict[str, Any], repo_root: Path) -> dict[str, Any]:
-    public_id = str(item.get("publicQuestionId") or item.get("reviewQuestionId") or "")
     stage_files = item.get("stagePatchFiles") if isinstance(item.get("stagePatchFiles"), dict) else {}
     for key in ("explanation", "correctChoice", "questionSet"):
         raw_path = stage_files.get(key)
         if not isinstance(raw_path, str) or not raw_path:
             continue
-        question = load_question_from_stage(repo_root / raw_path, public_id)
+        question = load_question_from_stage(repo_root / raw_path, item)
         if question:
             return question
-    question = load_question_from_stage(repo_root / str(item.get("sourceFile")), public_id)
+    question = load_question_from_stage(repo_root / str(item.get("sourceFile")), item)
     if question:
         return question
-    raise ValueError(f"question not found for publicQuestionId={public_id}")
+    raise ValueError(
+        "question not found for "
+        f"publicQuestionId={item.get('publicQuestionId')!r}, "
+        f"originalQuestionId={item.get('originalQuestionId')!r}, "
+        f"reviewQuestionId={item.get('reviewQuestionId')!r}"
+    )
 
 
 def infer_law_ids(question_text: str, choice_text: str) -> str:
@@ -435,6 +473,7 @@ def collect_records(
                 "listGroupId": item.get("listGroupId"),
                 "examYear": item.get("examYear"),
                 "questionLabel": item.get("questionLabel"),
+                "originalQuestionId": item.get("originalQuestionId"),
                 "publicQuestionId": item.get("publicQuestionId"),
                 "reviewQuestionId": item.get("reviewQuestionId"),
                 "sourceFile": item.get("sourceFile"),
@@ -518,7 +557,7 @@ def collect_records(
     summary = {
         "schemaVersion": "lawzilla-mcp-candidate-collection-summary/v1",
         "generatedAt": generated_at,
-        "batchPath": str(batch_path),
+        "batchPath": str(batch_path.relative_to(repo_root) if batch_path.is_relative_to(repo_root) else batch_path),
         "batchId": batch_id,
         "itemCount": len(items),
         "choiceRecordCount": len(records),
@@ -558,13 +597,14 @@ def write_summary_markdown(path: Path, summary: dict[str, Any], records: list[di
         lines.extend(["| qualification | year | label | choice | id | query |", "| --- | ---: | --- | ---: | --- | --- |"])
         for record in no_hit[:80]:
             query = str(record.get("lawzillaSearchParams", {}).get("query") or "").replace("|", "/")
+            display_id = record.get("publicQuestionId") or record.get("originalQuestionId") or record.get("reviewQuestionId")
             lines.append(
                 "| `{}` | {} | {} | {} | `{}` | {} |".format(
                     record.get("qualification"),
                     record.get("examYear"),
                     record.get("questionLabel"),
                     int(record.get("choiceIndex", 0)) + 1,
-                    record.get("publicQuestionId"),
+                    display_id,
                     query[:120],
                 )
             )
