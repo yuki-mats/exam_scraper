@@ -175,12 +175,21 @@ def _normalize_law_reference_entry(value: object) -> dict[str, object] | None:
         "lawRevisionId",
         "lawAlias",
         "article",
+        "articleTitle",
         "paragraph",
         "item",
+        "subitem",
         "referenceDate",
+        "effectiveDate",
+        "source",
+        "sourceUrl",
+        "apiUrl",
+        "articleTextHash",
+        "rawXmlHash",
         "reason",
         "verificationStatus",
         "comparisonStatus",
+        "differenceNote",
     ):
         raw = value.get(key)
         if raw is None:

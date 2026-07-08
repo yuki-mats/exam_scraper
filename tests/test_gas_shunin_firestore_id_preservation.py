@@ -179,6 +179,9 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
                         "lawTitle": "建築基準法",
                         "article": "52条",
                         "paragraph": "2項",
+                        "source": "egov_xml",
+                        "articleTextHash": "hash-current-article",
+                        "rawXmlHash": "hash-current-raw",
                     }
                 ],
                 [],
@@ -189,6 +192,9 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
 
         self.assertEqual(converted[0]["lawReferences"][0]["article"], "52条")
         self.assertEqual(converted[1]["lawReferences"][0]["article"], "52条")
+        self.assertEqual(converted[0]["lawReferences"][0]["source"], "egov_xml")
+        self.assertEqual(converted[0]["lawReferences"][0]["articleTextHash"], "hash-current-article")
+        self.assertEqual(converted[0]["lawReferences"][0]["rawXmlHash"], "hash-current-raw")
 
     def test_true_false_new_questions_use_source_unique_key_ids(self) -> None:
         question_body = {
