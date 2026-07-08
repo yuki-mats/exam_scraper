@@ -386,11 +386,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "間違い。絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分も、埋設の日以後6年に1回以上の漏えい検査が必要であり、検査不要としている点が誤り。",
-      "間違い。道路に埋設されている導管からガス栓までの間の導管は4年に1回以上検査が必要だが、ポリエチレン管を使用している場合は対象外である。ポリエチレン管に6年に1回以上の検査が必要としている点が誤り。",
-      "間違い。最高使用圧力が高圧の導管は、建物内部又は基礎面下に設置してはならない。設問のようなガスが滞留するおそれがない場所の例外は規定されていない。",
-      "間違い。危険標識に記載するのは、導管により供給するガスの種類等であり、ガスの圧力としている点が誤り。",
-      "正しい。導管を共同溝に設置する場合は、ガス漏れにより共同溝や他の物件の構造又は管理に支障を及ぼさないよう、導管と共同溝内の双方に適切な措置を講じる必要がある。"
+      "間違い。技術基準省令第51条第2項の表(1)は、本支管からガス栓までの間に絶縁措置が講じられ、その絶縁措置部分からガス栓までの間でプラスチック被覆された部分について、埋設の日以後6年に1回以上の漏えい検査を求めている。漏えい検査を要しないとしている点が誤り。",
+      "間違い。技術基準省令第51条第2項ただし書第3号は、ポリエチレン管を使用している場合は当該部分を漏えい検査の対象から除外している。ポリエチレン管に6年に1回以上の検査を求めている点が誤り。",
+      "間違い。技術基準省令第52条第1項は、最高使用圧力が高圧の導管を建物内部又は基礎面下（当該建物がガスの供給に係るものを除く。）に設置してはならないと定めている。ガスが滞留するおそれがない場所の例外は同条第3項の中圧導管に関するもので、高圧導管に付している点が誤り。",
+      "間違い。技術基準省令第52条の2は、危険標識に明瞭に記載する事項を、当該導管により供給するガスの種類、当該導管に異常を認めたときの連絡先その他必要な事項としている。ガスの圧力としている点が誤り。",
+      "正しい。技術基準省令第53条は、導管を共同溝に設置する場合、ガス漏れにより共同溝及び共同溝内の他の物件の構造又は管理に支障を及ぼさないよう、導管に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置しなければならないと定めている。"
     ],
     "suggestedQuestions": [
       "道路に埋設されている導管からガス栓までの間に絶縁措置が講じられており当該絶縁措置が講じられた部分からガス栓までの間でプラスチックにて被覆された部分は漏えい検査を要しない。",
@@ -421,7 +421,7 @@
         "answer": "正しい。導管を共同溝に設置する場合は、ガス漏れにより共同溝や他の物件の構造又は管理に支障を及ぼさないよう、導管と共同溝内の双方に適切な措置を講じる必要がある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -441,7 +441,449 @@
         "正しい。導管を共同溝に設置する場合は、ガス漏れにより共同溝や他の物件の構造又は管理に支障を及ぼさないよう、導管と共同溝内の双方に適切な措置を講じる必要がある。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": "correct",
+    "answer_result_text": "正解は 1 です。",
+    "correctChoiceText": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "51",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
+          "comparisonStatus": "same_as_current",
+          "reason": "プラスチック被覆された部分は漏えい検査不要ではなく、6年に1回以上の検査対象である。",
+          "paragraph": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "51",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
+          "comparisonStatus": "same_as_current",
+          "reason": "ポリエチレン管を使用している場合は、当該使用部分が漏えい検査の対象から除外される。",
+          "paragraph": "2",
+          "item": "3"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "52",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85",
+          "comparisonStatus": "same_as_current",
+          "reason": "最高使用圧力が高圧の導管は、建物内部又は基礎面下への設置が禁止される。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "52",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガスが滞留するおそれがない場所の例外は、最高使用圧力が中圧の導管に関する規定である。",
+          "paragraph": "3",
+          "item": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "52の2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52%E3%81%AE2",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52%E3%81%AE2",
+          "articleTextHash": "1a98905309b8a4b79e62360f86544472ece11fc493d756e16adefb48470018ed",
+          "rawXmlHash": "ed7c794cf93b02cffb7fea7a8779410e8eebecefc5e0611899e3d0abf8ed5990",
+          "comparisonStatus": "same_as_current",
+          "reason": "危険標識に記載するのはガスの種類等であり、ガスの圧力ではない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "53",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=53",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=53",
+          "articleTextHash": "40441f774366dad5490f4761b9983aa6c85b609163c06b2696bbbe6f439ac0e0",
+          "rawXmlHash": "86524f2e8f9f17d1e692b7770da9a064783f62c27faa610a6ecd92316423fce3",
+          "comparisonStatus": "same_as_current",
+          "reason": "共同溝内に導管を設置する場合の導管側措置及び共同溝側措置を定める。",
+          "paragraph": "1"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_220000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "paragraph": "2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補に技術基準省令第51条が含まれていたため、漏えい検査の頻度の直接根拠としてe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第51条第2項の表(1)は、本支管からガス栓までの間に絶縁措置が講じられ、その絶縁措置部分からガス栓までの間でプラスチック被覆された部分について、埋設の日以後6年に1回以上の漏えい検査を求めている。漏えい検査を要しないとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "プラスチック被覆部分は検査不要ではなく6年に1回以上の漏えい検査対象である点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:51:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:51:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "51",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "textHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "paragraph": "2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_220000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "paragraph": "2",
+          "item": "3"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補に技術基準省令第51条が含まれていたため、ポリエチレン管使用部分の除外の直接根拠としてe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第51条第2項ただし書第3号は、ポリエチレン管を使用している場合は当該部分を漏えい検査の対象から除外している。ポリエチレン管に6年に1回以上の検査を求めている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ポリエチレン管使用部分は漏えい検査の対象から除外され、6年に1回以上ではない点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:51:2:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:51:2:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "51",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "textHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "paragraph": "2",
+              "item": "3"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_220000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第1条など定義規定に寄っていたため、高圧導管の設置場所制限と中圧導管の例外の直接根拠として技術基準省令第52条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第52条第1項は、最高使用圧力が高圧の導管を建物内部又は基礎面下（当該建物がガスの供給に係るものを除く。）に設置してはならないと定めている。ガスが滞留するおそれがない場所の例外は同条第3項の中圧導管に関するもので、高圧導管に付している点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "高圧導管の建物内部等への設置禁止と、中圧導管の例外を取り違えている点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:52:1",
+            "current:412M50000400111:52:3:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:52:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "52",
+              "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+              "textHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:412M50000400111:52:3:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_detail",
+              "primaryBasis": false,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "52",
+              "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+              "textHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+              "paragraph": "3",
+              "item": "2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_220000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52の2",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "1a98905309b8a4b79e62360f86544472ece11fc493d756e16adefb48470018ed",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52%E3%81%AE2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第17条・第48条・第53条に寄っていたため、危険標識の記載事項の直接根拠として技術基準省令第52条の2をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第52条の2は、危険標識に明瞭に記載する事項を、当該導管により供給するガスの種類、当該導管に異常を認めたときの連絡先その他必要な事項としている。ガスの圧力としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "危険標識の記載事項はガスの圧力ではなくガスの種類である点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:52の2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:52の2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "52の2",
+              "articleTextHash": "1a98905309b8a4b79e62360f86544472ece11fc493d756e16adefb48470018ed",
+              "textHash": "1a98905309b8a4b79e62360f86544472ece11fc493d756e16adefb48470018ed"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T22:00:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_220000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q12_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "53",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "40441f774366dad5490f4761b9983aa6c85b609163c06b2696bbbe6f439ac0e0",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=53",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第1条など定義規定に寄っていたため、共同溝内に導管を設置する場合の直接根拠として技術基準省令第53条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第53条は、導管を共同溝に設置する場合、ガス漏れにより共同溝及び共同溝内の他の物件の構造又は管理に支障を及ぼさないよう、導管に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置しなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "共同溝内に導管を設置する場合の導管側及び共同溝側の措置に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:53:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:53:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "53",
+              "articleTextHash": "40441f774366dad5490f4761b9983aa6c85b609163c06b2696bbbe6f439ac0e0",
+              "textHash": "40441f774366dad5490f4761b9983aa6c85b609163c06b2696bbbe6f439ac0e0",
+              "paragraph": "1"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0301,chiefgasengineerlicense-A-10-0302,chiefgasengineerlicense-A-10-0303,chiefgasengineerlicense-A-10-0304,chiefgasengineerlicense-A-10-0305",
