@@ -4287,6 +4287,10 @@
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0351",
     "source_original_question_id": "gasushunin-koushu-hourei-2023-7",
+    "firestoreQuestionIds": [
+      "chiefgasengineerlicense-A-10-0351"
+    ],
+    "answer_result_text": "正解は 1 です。",
     "public_question_id": null,
     "question_url": null,
     "questionLabel": "問7",
@@ -4294,6 +4298,9 @@
     "questionBodyText": "ガス工作物に関する次の行為のうち、技術基準に適合しているものはいくつあるか。",
     "choiceTextList": [
       "製造所及び供給所において、周囲の状況により公衆が立ち入るおそれがないため、さく等を設置しなかった。"
+    ],
+    "correctChoiceText": [
+      "正しい"
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
     "explanationText": [
@@ -4309,6 +4316,7 @@
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
+    "isLawRelated": true,
     "sourceExplanationCommonPrefix": [
       "正しい記述は1の1個。"
     ],
@@ -4322,6 +4330,90 @@
     ],
     "sourceExplanationChoiceCorrectness": [
       "正しい"
+    ],
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技省令",
+          "referenceDate": "2026-07-09",
+          "article": "4",
+          "articleTitle": "立入りの防止等",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=4",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=4",
+          "articleTextHash": "f2f26a2494cd852425b46f4907ab89f515910d4ea48656d7ba89e01a845ff52a",
+          "rawXmlHash": "42cd314794580a99332af8e24276d23bf04cad276f3d92d1e8113ccbe693294b",
+          "comparisonStatus": "same_as_current",
+          "reason": "製造所及び供給所には立入防止措置が必要だが、周囲の状況により公衆が立ち入るおそれがない場合は例外となるため、さく等を設置しなかった本記述は技術基準に適合している。",
+          "paragraph": "1"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T17:10:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q7_seq42_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_171000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q7_seq42_secondary_review",
+        "reconciliationStatus": "lawzilla_candidate_conflicts_with_direct_basis",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "4",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "f2f26a2494cd852425b46f4907ab89f515910d4ea48656d7ba89e01a845ff52a",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=4",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第26条第1項に寄ったため、選択肢本文の直接根拠として技省令第4条第1項ただし書をe-Gov現行XMLで確認した。",
+          "source_conflict_review track: A-10-0351の単独肢レコードとして既存正誤・Firestore IDを維持し、00_sourceは変更しない判断で保持した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技省令第4条第1項は、製造所及び供給所に公衆がみだりに立ち入らないよう適切な措置を講じる義務を定める一方、ただし書で周囲の状況により公衆が立ち入るおそれがない場合を除外している。したがって、さく等を設置しなかった本記述は技術基準に適合する。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "この選択肢の正誤判断は、製造所及び供給所の立入防止措置と、公衆が立ち入るおそれがない場合の例外に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:4:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:4:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "4",
+              "articleTextHash": "f2f26a2494cd852425b46f4907ab89f515910d4ea48656d7ba89e01a845ff52a",
+              "textHash": "f2f26a2494cd852425b46f4907ab89f515910d4ea48656d7ba89e01a845ff52a",
+              "paragraph": "1"
+            }
+          ]
+        }
+      }
     ]
   },
   {
