@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-09T16:30:00+09:00",
+  "lawzillaReconciliation": "Lawzilla候補は、選択肢2で技省令第18条第1項・第2項を示した一方、選択肢1でガス事業法施行規則第17条、選択肢3でガス事業法施行規則第1条、選択肢4・5でガス事業法施行規則第30条に寄った。最終判断では、直接根拠として技省令第25条、第18条第2項、第22条ただし書、第34条、第39条をe-Gov現行XMLで確認した。既存の正誤配列、Firestore IDs、questionSetId を維持し、00_source 非変更で処理した。",
+  "recordCount": 5,
+  "records": [
+    {
+      "article": "25",
+      "articleDisplay": "第25条",
+      "articleTextHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a",
+      "articleTitle": "低圧ガス発生設備等の圧力上昇防止装置",
+      "choiceIndex": 0,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "1",
+      "rawXmlHash": "d449bd3ae174104cc666013fd37d2efe685107cc9d88c3c7d07335bb61db05f2",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_163000/412M50000400111_25_d449bd3ae174104c.xml",
+      "reason": "過圧のおそれがある最高使用圧力が低圧のガス発生設備等には、圧力を逃がすための圧力上昇防止装置が必要であり、高圧設備へのインターロック機構ではない。"
+    },
+    {
+      "article": "18",
+      "articleDisplay": "第18条",
+      "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+      "articleTitle": "計測装置等",
+      "choiceIndex": 1,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "2",
+      "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_163000/412M50000400111_18_7a5b1c8f9d73d720.xml",
+      "reason": "移動式ガス発生設備には、使用の状態を計測又は確認できる措置が必要であり、記録し保存できる措置ではない。"
+    },
+    {
+      "article": "22",
+      "articleDisplay": "第22条",
+      "articleTextHash": "3d51d59c4fbbf21f1be979179032bb5a7dad3e6ebd93c69eeb4a43d6a05d870b",
+      "articleTitle": "付臭措置",
+      "choiceIndex": 2,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "1",
+      "rawXmlHash": "b5800b12bf800a8ff0f60dbbc1d0ea462bc0191e7045f228dd08208fd4b34701",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_163000/412M50000400111_22_b5800b12bf800a8f.xml",
+      "reason": "中圧以上のガス圧力により行う大口供給の用に供するガスは、付臭義務の例外に当たる。"
+    },
+    {
+      "article": "34",
+      "articleDisplay": "第34条",
+      "articleTextHash": "34e5fdd1c468d08feece4a76a3909cfbd5e58fd1f172d5cc0e08aa9a380c0a6a",
+      "articleTitle": "表示",
+      "choiceIndex": 3,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "1",
+      "rawXmlHash": "caa9451425b70ee07a63ca93d3fbf45c396269cdf2f81409f431ca44788ca487",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_163000/412M50000400111_34_caa9451425b70ee0.xml",
+      "reason": "液化ガス用貯槽又はガスホルダー等には、その設備である旨の表示が必要であり、ガス主任技術者の氏名及び連絡先ではない。"
+    },
+    {
+      "article": "39",
+      "articleDisplay": "第39条",
+      "articleTextHash": "791f1f14a85126f93786b96764ef4df02106f056ce3265e912d6088f8cad4d9e",
+      "articleTitle": "貯槽の防食措置",
+      "choiceIndex": 4,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "paragraph": "1",
+      "rawXmlHash": "f756d810943a72efbc9717fe7409ed15b9dd1daff1b2f5629fb3a87fe071c433",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_163000/412M50000400111_39_f756d810943a72ef.xml",
+      "reason": "液化ガス用貯槽の埋設部分に腐食のおそれがある場合には、腐食防止のための適切な措置が必要である。"
+    }
+  ],
+  "target": "gas-shunin-kou 2023 問9"
+}
