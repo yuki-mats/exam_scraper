@@ -95,11 +95,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_gassyunin_site_1.json",
     "explanationText": [
-      "間違い。ガス製造事業者は、その製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならない。「報告しなければならない」としている点が誤りである。",
-      "正しい。災害その他の非常時に熱量及び燃焼性の測定が困難で、熱量及び燃焼性が測定された液化天然ガスを成分変更なく一時的に供給する場合、一般ガス導管事業者は熱量及び燃焼性を測定することを要しない。",
-      "間違い。特定ガス導管事業者が正当な理由なく拒んではならないのは、その供給地点における託送供給である。最終保障供給を拒んではならないとしている点が誤りである。",
-      "正しい。一般ガス導管事業者は、毎年度、所定期間の供給計画を作成し、当該年度の開始前に、一般ガス導管事業者となった年度はなった後遅滞なく、経済産業大臣に届け出なければならない。",
-      "正しい。ガス製造事業者は、製造するガスの圧力について、常時、ガスホルダーの出口及び経済産業大臣が指定する場所で、圧力値を自動的に記録する圧力計を使用して測定しなければならない。"
+      "間違い。ガス事業法第91条第1項は、ガス製造事業者がその製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。これを報告しなければならないとしている点が誤り。",
+      "正しい。ガス事業法施行規則第78条第3項は、災害その他の非常時に熱量及び燃焼性の測定が困難な場合、熱量及び燃焼性が測定された液化天然ガスを成分変更なく一時的に供給するときは、熱量及び燃焼性を測定することを要しないと定めている。",
+      "間違い。ガス事業法第75条は、特定ガス導管事業者が正当な理由なく拒んではならないものを、その供給地点における託送供給と定めている。最終保障供給を拒めないのは一般ガス導管事業者についての同法第47条第2項である。",
+      "正しい。ガス事業法第56条第1項は、一般ガス導管事業者が毎年度、所定期間の供給計画を作成し、当該年度の開始前に、一般ガス導管事業者となった年度はその後遅滞なく、経済産業大臣に届け出なければならないと定めている。",
+      "正しい。ガス事業法第91条第1項は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し記録保存する義務を定め、同法施行規則第144条第1項第2号は、圧力を常時、ガスホルダーの出口及び経済産業大臣が指定する場所で自動記録式の圧力計により測定することを定めている。"
     ],
     "suggestedQuestions": [
       "ガス製造事業者は、熱量、圧力及び燃焼性の測定結果を記録し、これを報告しなければならない？",
@@ -130,7 +130,7 @@
         "answer": "正しい。ガス製造事業者は、製造するガスの圧力について、常時、ガスホルダーの出口及び経済産業大臣が指定する場所で、圧力値を自動的に記録する圧力計を使用して測定しなければならない。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
       "法令 第2章「供給計画・製造計画の届出（法19条・56条・93条）」が本問の関連論点。一言で:「ガス小売・一般ガス導管・ガス製造の各事業者は毎年度の供給計画（製造計画）を経済産業大臣に届け出る義務がある。」",
       "法令 第2章「最終保障供給約款と供給計画（法51条・56条）」が本問の関連論点。一言で:「一般ガス導管事業者は最終保障供給約款を定め届け出る義務と、毎年度の供給計画を届け出る義務がある。」",
@@ -158,6 +158,489 @@
       "間違い",
       "正しい",
       "正しい"
+    ],
+    "answer_result_text": "正解は 3 です。",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "91",
+          "articleTitle": "熱量等の測定義務",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス製造事業者は、製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録保存しなければならず、報告義務ではない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-09",
+          "article": "78",
+          "articleTitle": "熱量等の測定方法",
+          "paragraph": "3",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=78",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=78",
+          "articleTextHash": "aa9e816157102f6c73b147024a96ba86c057a400d5a302a0ea80227a53a23f37",
+          "rawXmlHash": "38724c3cc25ffd372d9c02c08dfa2abc5519138a8ece8f6b6ca9886dd827b339",
+          "comparisonStatus": "same_as_current",
+          "reason": "災害その他の非常時に測定済み液化天然ガスを成分変更なく一時供給するときは、熱量及び燃焼性を測定することを要しない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "75",
+          "articleTitle": "託送供給義務",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=75",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=75",
+          "articleTextHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3",
+          "rawXmlHash": "5387ebe3430998ad8c66a795c3c9d3cb611cc91602d610ba766f65029610cb84",
+          "comparisonStatus": "same_as_current",
+          "reason": "特定ガス導管事業者が正当な理由なく拒んではならないのは、その供給地点における託送供給である。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "47",
+          "articleTitle": "託送供給義務等",
+          "paragraph": "2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=47",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=47",
+          "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+          "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936",
+          "comparisonStatus": "same_as_current",
+          "reason": "最終保障供給を正当な理由なく拒んではならない義務は、一般ガス導管事業者について定められている。",
+          "relation": "contrast_basis"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "56",
+          "articleTitle": "供給計画",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=56",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=56",
+          "articleTextHash": "5d1fb3a249d59a14aaba81f2d15434daade240995103500a7ea102efab2d0b7e",
+          "rawXmlHash": "6010d4a3199796100300177d50c02e56618f673d76b2b25da4d03d12daa5d6d1",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者は、毎年度、所定期間の供給計画を作成し、当該年度の開始前等に経済産業大臣へ届け出なければならない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "91",
+          "articleTitle": "熱量等の測定義務",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス製造事業者は、その製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録保存しなければならない。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-09",
+          "article": "144",
+          "articleTitle": "熱量等の測定方法",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "articleTextHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
+          "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a",
+          "comparisonStatus": "same_as_current",
+          "reason": "圧力は、常時、ガスホルダーの出口及び経済産業大臣が指定する場所において、自動記録式圧力計で測定する。",
+          "item": "2",
+          "relation": "direct_basis_detail"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T19:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_193000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "91",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は定義規定の第1条に寄ったため、ガス製造事業者の測定結果の記録保存義務としてガス事業法第91条第1項をe-Gov本文で確認した。",
+          "source_conflict_review は既存site本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第91条第1項は、ガス製造事業者がその製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。これを報告しなければならないとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス製造事業者は測定結果を記録保存する義務であり、報告義務ではない点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:91:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:91:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "91",
+              "paragraph": "1",
+              "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+              "textHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T19:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_193000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "78",
+          "paragraph": "3",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "aa9e816157102f6c73b147024a96ba86c057a400d5a302a0ea80227a53a23f37",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=78"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は定義規定の第1条に寄ったため、非常時の測定不要特例の直接根拠としてガス事業法施行規則第78条第3項をe-Gov本文で確認した。",
+          "source_conflict_review は既存site本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法施行規則第78条第3項は、災害その他の非常時に熱量及び燃焼性の測定が困難な場合、熱量及び燃焼性が測定された液化天然ガスを成分変更なく一時的に供給するときは、熱量及び燃焼性を測定することを要しないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "災害その他非常時に、測定済み液化天然ガスを成分変更なく一時供給する場合は熱量及び燃焼性の測定を要しない点に限定して説明する。",
+          "displayRefIds": [
+            "current:345M50000400097:78:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:345M50000400097:78:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "78",
+              "paragraph": "3",
+              "articleTextHash": "aa9e816157102f6c73b147024a96ba86c057a400d5a302a0ea80227a53a23f37",
+              "textHash": "aa9e816157102f6c73b147024a96ba86c057a400d5a302a0ea80227a53a23f37"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T19:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_193000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "75",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=75"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は定義規定の第2条に寄ったため、特定ガス導管事業者の託送供給義務を定めるガス事業法第75条と、一般ガス導管事業者の最終保障供給義務を定める第47条第2項をe-Gov本文で確認した。",
+          "source_conflict_review は既存site本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第75条は、特定ガス導管事業者が正当な理由なく拒んではならないものを、その供給地点における託送供給と定めている。最終保障供給を拒めないのは一般ガス導管事業者についての同法第47条第2項である。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "特定ガス導管事業者の拒否禁止は託送供給であり、最終保障供給は一般ガス導管事業者の義務である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:75:1",
+            "current:329AC0000000051:47:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:75:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "75",
+              "paragraph": "1",
+              "articleTextHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3",
+              "textHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3"
+            },
+            {
+              "refId": "current:329AC0000000051:47:2",
+              "lawTimeScope": "current",
+              "relation": "contrast_basis",
+              "primaryBasis": false,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "47",
+              "paragraph": "2",
+              "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+              "textHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T19:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_193000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "56",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "5d1fb3a249d59a14aaba81f2d15434daade240995103500a7ea102efab2d0b7e",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=56"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則第1条・第4条・第13条に寄ったため、一般ガス導管事業者の供給計画届出義務の直接根拠としてガス事業法第56条第1項をe-Gov本文で確認した。",
+          "source_conflict_review は既存site本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第56条第1項は、一般ガス導管事業者が毎年度、所定期間の供給計画を作成し、当該年度の開始前に、一般ガス導管事業者となった年度はその後遅滞なく、経済産業大臣に届け出なければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "一般ガス導管事業者の供給計画は毎年度作成し、年度開始前等に経済産業大臣へ届け出る義務である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:56:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:56:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "56",
+              "paragraph": "1",
+              "articleTextHash": "5d1fb3a249d59a14aaba81f2d15434daade240995103500a7ea102efab2d0b7e",
+              "textHash": "5d1fb3a249d59a14aaba81f2d15434daade240995103500a7ea102efab2d0b7e"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T19:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_193000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q2_site_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "91",
+          "paragraph": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は定義規定の第1条に寄ったため、ガス製造事業者の測定義務としてガス事業法第91条、圧力の具体的測定方法としてガス事業法施行規則第144条第1項第2号をe-Gov本文で確認した。",
+          "source_conflict_review は既存site本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第91条第1項は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し記録保存する義務を定め、同法施行規則第144条第1項第2号は、圧力を常時、ガスホルダーの出口及び経済産業大臣が指定する場所で自動記録式の圧力計により測定することを定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス製造事業者の圧力測定義務と、施行規則上の自動記録式圧力計による常時測定方法に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:91:1",
+            "current:345M50000400097:144:1:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:91:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "91",
+              "paragraph": "1",
+              "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+              "textHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb"
+            },
+            {
+              "refId": "current:345M50000400097:144:1:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_detail",
+              "primaryBasis": false,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "144",
+              "paragraph": "1",
+              "articleTextHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
+              "textHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
+              "item": "2"
+            }
+          ]
+        }
+      }
     ]
   }
 ]
