@@ -1,6 +1,6 @@
 # Gas shunin secondary law review queue
 
-- generatedAt: 2026-07-09T05:06:39+09:00
+- generatedAt: 2026-07-09T05:21:40+09:00
 - queueItemCount: 387
 - uniqueQueueItemKeyCount: 382
 - duplicateQueueKeyCount: 5
@@ -9,18 +9,18 @@
 - primaryEvidenceCandidateCount: 3595
 - sourcePrimaryEvidenceLinkChoiceRecordCount: 1485
 - sourcePrimaryEvidenceCandidateCount: 3547
-- existingLawReferenceCount: 184
+- existingLawReferenceCount: 189
 
 ## Readiness Counts
 
 | readiness | count |
 | --- | ---: |
 | `answer_recheck_without_lawzilla_evidence` | 6 |
-| `manual_review_required_all_choices_have_primary_evidence` | 226 |
+| `manual_review_required_all_choices_have_primary_evidence` | 225 |
 | `manual_review_required_locator_detail` | 1 |
 | `manual_review_required_partial_candidates` | 42 |
 | `non_lawzilla_workflow_item` | 80 |
-| `secondary_verified_in_question_patch` | 32 |
+| `secondary_verified_in_question_patch` | 33 |
 
 ## Priority Counts
 
@@ -66,7 +66,7 @@
 | 30 | P0 | `gas-shunin-kou` | 2024 | 問3 | `c8af1e8b0c970ab1` | `secondary_verified_in_question_patch` | 5 | 15 |
 | 31 | P0 | `gas-shunin-kou` | 2024 | 問2 | `677edcd7d7120dcd` | `secondary_verified_in_question_patch` | 5 | 15 |
 | 32 | P0 | `gas-shunin-kou` | 2024 | 問1 | `f72eb811cf645592` | `secondary_verified_in_question_patch` | 5 | 15 |
-| 33 | P0 | `gas-shunin-kou` | 2023 | 問16 | `gasushunin-koushu-hourei-2023-16` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 12 |
+| 33 | P0 | `gas-shunin-kou` | 2023 | 問16 | `gasushunin-koushu-hourei-2023-16` | `secondary_verified_in_question_patch` | 5 | 12 |
 | 34 | P0 | `gas-shunin-kou` | 2023 | 問15 | `gasushunin-koushu-hourei-2023-15` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 11 |
 | 35 | P0 | `gas-shunin-kou` | 2023 | 問14 | `gasushunin-koushu-hourei-2023-14` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 14 |
 | 36 | P0 | `gas-shunin-kou` | 2023 | 問13 | `gasushunin-koushu-hourei-2023-13` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 13 |
