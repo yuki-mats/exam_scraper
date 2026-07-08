@@ -1,0 +1,12 @@
+# gas-shunin-kou 2024 問7 direct basis snapshots
+
+- target: gas-shunin-kou 2024 問7
+- recordCount: 5
+- choiceIndex=0 ガス工作物の技術上の基準を定める省令 第5条 paragraph=1 articleTextHash=13050333b7a56805c831b5da7eec0aa727d08f96dd997628ce8e8ca086882275 rawXmlHash=37455c0dfdc18455eaeaeece24655afedc5bd1312bbf091cf02e4f97a9a15b41
+- choiceIndex=1 ガス工作物の技術上の基準を定める省令 第9条 paragraph=2 articleTextHash=5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3 rawXmlHash=667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a
+- choiceIndex=2 ガス工作物の技術上の基準を定める省令 第6条 paragraph=7 articleTextHash=777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8 rawXmlHash=1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907
+- choiceIndex=3 ガス工作物の技術上の基準を定める省令 第8条 paragraph=1 articleTextHash=83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3 rawXmlHash=7c8fe2885f6d9f11fa94a5797e64417798bb6a1785fcf6b09e72492888bcb6b8
+- choiceIndex=4 ガス工作物の技術上の基準を定める省令 第9条 paragraph=1 articleTextHash=5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3 rawXmlHash=667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a
+
+- Lawzilla候補は施行規則第1条・第26条・第30条など周辺条文に寄った選択肢があったため、技術基準省令の直接根拠条文をe-Gov現行XMLで補完確認した。
+- direct primary evidence for gas-shunin-kou 2024 問7 only; no 00_source or existing Firestore IDs were modified by this fetch.
