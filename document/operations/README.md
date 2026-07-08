@@ -13,6 +13,9 @@
 - [goal_driven_update_workflow.md](/Users/yuki/development/exam_scraper/document/operations/goal_driven_update_workflow.md)
   - `qualification_code` / `list_group_id` / `question` 単位で goal に載せるための運用設計。
   - 日次更新や厳密レビューの粒度を変更する場合はここを直す。
+- [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md)
+  - Lawzilla MCP を法令根拠整備の並列検証レイヤーとして使い、実務に耐えうるかのレビューを蓄積・定期フィードバックする運用。
+  - API キーや endpoint を artifact / repo / 送付文面へ残さないための記録項目と送付前チェックもここで確認する。
 - [ai_patch_execution_prompt_templates.md](/Users/yuki/development/exam_scraper/document/operations/ai_patch_execution_prompt_templates.md)
   - Codex / Gemini / Claude などへ patch 作成を依頼するときの省トークン指示テンプレート。
   - prompt の入力正本や出力先を変更した場合はここも直す。
