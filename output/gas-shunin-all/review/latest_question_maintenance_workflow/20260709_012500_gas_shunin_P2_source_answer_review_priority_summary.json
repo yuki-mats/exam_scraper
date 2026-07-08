@@ -1,0 +1,24 @@
+{
+  "boundary": "review prioritization only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
+  "countMappingStatusCounts": {
+    "answer_index_matches_correctChoiceTextCompact": 6,
+    "answer_result_unavailable": 72,
+    "count_matches_correctChoiceTextCompact": 8
+  },
+  "generatedAt": "2026-07-09T01:03:09+09:00",
+  "itemCount": 86,
+  "nextAction": "start with P2A mismatches if any, then P2B answer recheck records, then P2C source conflict records.",
+  "p2BatchPath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_010500_gas_shunin_latest_workflow_batch_P2_86.json",
+  "reviewJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_P2_source_answer_review_priority.jsonl",
+  "reviewPriorityCounts": {
+    "P2B_answer_recheck_confirm_mapping": 6,
+    "P2C_source_conflict_review": 80
+  },
+  "schemaVersion": "gas-shunin-p2-source-answer-review-priority-summary/v1",
+  "summaryJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_P2_source_answer_review_priority_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_P2_source_answer_review_priority_summary.md",
+  "trackCounts": {
+    "answer_recheck": 6,
+    "source_conflict_review": 81
+  }
+}

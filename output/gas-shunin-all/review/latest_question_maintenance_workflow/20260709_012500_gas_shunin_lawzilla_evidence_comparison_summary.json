@@ -1,0 +1,28 @@
+{
+  "boundary": "comparison artifact only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
+  "candidateJsonlPaths": [
+    "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_002200_gas_shunin_P0_first_32_lawzilla_candidates.jsonl",
+    "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates.jsonl",
+    "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_011000_gas_shunin_P1_40_lawzilla_candidates.jsonl"
+  ],
+  "choiceRecordCount": 1485,
+  "choicesWithCandidateLawReferences": 1417,
+  "choicesWithExistingLawReferences": 0,
+  "choicesWithoutCandidateLawReferences": 68,
+  "choicesWithoutExistingLawReferences": 1485,
+  "classificationCounts": {
+    "lawzilla_no_hit": 68,
+    "no_existing_law_reference__candidate_available": 1417
+  },
+  "generatedAt": "2026-07-09T01:03:09+09:00",
+  "missingQueueRecordCount": 0,
+  "nextAction": "verify candidate law locators against primary evidence and only then materialize candidate or verified lawReferences.",
+  "questionCountWithAllChoicesCandidateAvailable": 268,
+  "questionRecordCount": 301,
+  "questionSummaryJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_lawzilla_evidence_question_summary.jsonl",
+  "queuePath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl",
+  "reviewJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_lawzilla_evidence_comparison.jsonl",
+  "schemaVersion": "gas-shunin-lawzilla-evidence-comparison-summary/v1",
+  "summaryJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_lawzilla_evidence_comparison_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_lawzilla_evidence_comparison_summary.md"
+}
