@@ -1,0 +1,59 @@
+{
+  "byQualificationPriority": {
+    "gas-shunin-kou:P0": 117,
+    "gas-shunin-kou:P1": 17,
+    "gas-shunin-kou:P2": 82,
+    "gas-shunin-otsu:P0": 144,
+    "gas-shunin-otsu:P1": 23,
+    "gas-shunin-otsu:P2": 4
+  },
+  "duplicatePlanReviewIds": {
+    "2024:question_2024_gassyunin_site_1:c8af1e8b0c970ab1": 2,
+    "2024:question_2024_gassyunin_site_1:ffc0cd209ba5b141": 2
+  },
+  "executionPlanRows": 936,
+  "generatedAt": "2026-07-08T23:56:25+09:00",
+  "outputs": {
+    "jsonl": "output/gas-shunin-all/review/lawzilla_mcp_target_discovery/20260708_235625_gas_shunin_lawzilla_workflow_targets.jsonl",
+    "markdown": "output/gas-shunin-all/review/lawzilla_mcp_target_discovery/20260708_235625_gas_shunin_lawzilla_workflow_targets.md"
+  },
+  "p0ByQualificationYear": {
+    "gas-shunin-kou:2019": 16,
+    "gas-shunin-kou:2020": 16,
+    "gas-shunin-kou:2021": 18,
+    "gas-shunin-kou:2022": 17,
+    "gas-shunin-kou:2023": 18,
+    "gas-shunin-kou:2024": 16,
+    "gas-shunin-kou:2025": 16,
+    "gas-shunin-otsu:2017": 16,
+    "gas-shunin-otsu:2018": 16,
+    "gas-shunin-otsu:2019": 16,
+    "gas-shunin-otsu:2020": 16,
+    "gas-shunin-otsu:2021": 16,
+    "gas-shunin-otsu:2022": 16,
+    "gas-shunin-otsu:2023": 16,
+    "gas-shunin-otsu:2024": 16,
+    "gas-shunin-otsu:2025": 16
+  },
+  "priorityCounts": {
+    "P0": 261,
+    "P1": 40,
+    "P2": 86
+  },
+  "reasonCounts": {
+    "combo_answer_recheck": 13,
+    "count_answer_recheck": 15,
+    "non_law_sourceCategory_but_legal_keywords": 40,
+    "sourceCategory=法令": 261,
+    "source_conflict_needs_review": 129,
+    "source_content_conflict": 132
+  },
+  "reviewLedgerRows": 934,
+  "schemaVersion": "gas-shunin-lawzilla-target-summary/v1",
+  "targetCount": 387,
+  "trackCounts": {
+    "answer_recheck": 28,
+    "lawzilla_law_evidence": 301,
+    "source_conflict_review": 132
+  }
+}
