@@ -4042,11 +4042,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
     "explanationText": [
-      "正しい。ガス関係報告規則第4条の表第3号は、供給支障戸数が500以上の供給支障事故を、ガス事故速報及びガス事故詳報の報告対象としている。",
-      "正しい。ガス関係報告規則第4条の表第6号は、工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故を、速報及び詳報の報告対象としている。",
-      "間違い。ガス関係報告規則第4条の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を速報及び詳報の報告対象としている。5時間以上としている点が誤り。",
-      "正しい。ガス関係報告規則第4条の表第16号は、ガス栓の欠陥、損壊又は破壊によりガス栓から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。",
-      "正しい。ガス関係報告規則第4条の表第19号は、消費機器又はガス栓から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。"
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、ガス事故速報及びガス事故詳報の報告対象としている。",
+      "正しい。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故を、速報及び詳報の報告対象としている。",
+      "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を速報及び詳報の報告対象としている。5時間以上としている点が誤り。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の欠陥、損壊又は破壊によりガス栓から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。",
+      "正しい。ガス関係報告規則第4条第1項の表第19号は、消費機器又はガス栓から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。"
     ],
     "suggestedQuestions": [
       "供給支障戸数が500以上の供給支障事故は、ガス事故速報及びガス事故詳報の報告対象である。",
@@ -4107,6 +4107,441 @@
       "間違い",
       "正しい",
       "正しい"
+    ],
+    "firestoreQuestionIds": [
+      "chiefgasengineerlicense-A-10-0336",
+      "chiefgasengineerlicense-A-10-0337",
+      "chiefgasengineerlicense-A-10-0338",
+      "chiefgasengineerlicense-A-10-0339",
+      "chiefgasengineerlicense-A-10-0340"
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "lawAlias": "ガス関係報告規則",
+          "referenceDate": "2026-07-09",
+          "article": "4",
+          "articleTitle": "事故報告",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 0,
+          "item": "3",
+          "reason": "供給支障戸数が500以上の供給支障事故は、表第3号により速報及び詳報の報告対象である。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "lawAlias": "ガス関係報告規則",
+          "referenceDate": "2026-07-09",
+          "article": "4",
+          "articleTitle": "事故報告",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 1,
+          "item": "6",
+          "reason": "工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故は、表第6号により速報及び詳報の報告対象である。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "lawAlias": "ガス関係報告規則",
+          "referenceDate": "2026-07-09",
+          "article": "4",
+          "articleTitle": "事故報告",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 2,
+          "item": "8",
+          "reason": "製造支障事故で速報及び詳報の対象となる表第8号は、製造支障時間が10時間以上24時間未満のものを対象としており、5時間以上では足りない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "lawAlias": "ガス関係報告規則",
+          "referenceDate": "2026-07-09",
+          "article": "4",
+          "articleTitle": "事故報告",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 3,
+          "item": "16",
+          "reason": "ガス栓の欠陥、損壊又は破壊により漏えいしたガスに引火して発生した負傷事故は、表第16号により速報及び詳報の報告対象である。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "lawAlias": "ガス関係報告規則",
+          "referenceDate": "2026-07-09",
+          "article": "4",
+          "articleTitle": "事故報告",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+          "comparisonStatus": "same_as_current",
+          "choiceIndex": 4,
+          "item": "19",
+          "reason": "消費機器又はガス栓から漏えいしたガスに引火して発生した負傷事故は、表第19号により速報及び詳報の報告対象である。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_183000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "3",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス関係報告規則第4条は直接根拠として有効であり、表第3号をe-Gov本文で確認した。",
+          "source_conflict_review は既存Firestore/answer keyの正誤と現行第4条第1項の表を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、ガス事故速報及びガス事故詳報の報告対象としている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "この選択肢の正誤判断は、供給支障戸数500以上の供給支障事故が表第3号で速報及び詳報の対象となる点に限定して説明する。",
+          "displayRefIds": [
+            "current:429M60000400016:4:1:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:429M60000400016:4:1:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "3",
+              "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_183000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "6",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス関係報告規則第4条は直接根拠として有効であり、表第6号をe-Gov本文で確認した。",
+          "source_conflict_review は既存Firestore/answer keyの正誤と現行第4条第1項の表を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故を、速報及び詳報の報告対象としている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "この選択肢の正誤判断は、工事中のガス工作物の損壊等により人が負傷した事故が表第6号で速報及び詳報の対象となる点に限定して説明する。",
+          "displayRefIds": [
+            "current:429M60000400016:4:1:6"
+          ],
+          "refs": [
+            {
+              "refId": "current:429M60000400016:4:1:6",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "6",
+              "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_183000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "8",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス関係報告規則第4条は直接根拠として有効であり、表第8号をe-Gov本文で確認した。",
+          "source_conflict_review は既存Firestore/answer keyの正誤と現行第4条第1項の表を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を速報及び詳報の報告対象としている。5時間以上としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "この選択肢の正誤判断は、製造支障事故で速報及び詳報の対象となる製造支障時間が10時間以上であり、5時間以上ではない点に限定して説明する。",
+          "displayRefIds": [
+            "current:429M60000400016:4:1:8"
+          ],
+          "refs": [
+            {
+              "refId": "current:429M60000400016:4:1:8",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "8",
+              "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_183000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "16",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス関係報告規則第4条は直接根拠として有効であり、表第16号をe-Gov本文で確認した。",
+          "source_conflict_review は既存Firestore/answer keyの正誤と現行第4条第1項の表を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の欠陥、損壊又は破壊によりガス栓から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "この選択肢の正誤判断は、ガス栓から漏えいしたガスへの引火による負傷事故が表第16号で速報及び詳報の対象となる点に限定して説明する。",
+          "displayRefIds": [
+            "current:429M60000400016:4:1:16"
+          ],
+          "refs": [
+            {
+              "refId": "current:429M60000400016:4:1:16",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "16",
+              "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T18:30:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_183000",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2023_q4_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "19",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス関係報告規則第4条は直接根拠として有効であり、表第19号をe-Gov本文で確認した。",
+          "source_conflict_review は既存Firestore/answer keyの正誤と現行第4条第1項の表を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス関係報告規則第4条第1項の表第19号は、消費機器又はガス栓から漏えいしたガスに引火して発生した負傷事故を、速報及び詳報の報告対象としている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "この選択肢の正誤判断は、消費機器又はガス栓から漏えいしたガスへの引火による負傷事故が表第19号で速報及び詳報の対象となる点に限定して説明する。",
+          "displayRefIds": [
+            "current:429M60000400016:4:1:19"
+          ],
+          "refs": [
+            {
+              "refId": "current:429M60000400016:4:1:19",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "19",
+              "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+            }
+          ]
+        }
+      }
     ]
   },
   {

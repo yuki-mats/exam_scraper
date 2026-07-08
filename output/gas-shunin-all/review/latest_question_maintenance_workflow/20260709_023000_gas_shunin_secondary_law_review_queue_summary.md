@@ -1,6 +1,6 @@
 # Gas shunin secondary law review queue
 
-- generatedAt: 2026-07-09T18:10:00+09:00
+- generatedAt: 2026-07-09T18:30:00+09:00
 - queueItemCount: 387
 - uniqueQueueItemKeyCount: 382
 - duplicateQueueKeyCount: 5
@@ -9,18 +9,18 @@
 - primaryEvidenceCandidateCount: 3595
 - sourcePrimaryEvidenceLinkChoiceRecordCount: 1485
 - sourcePrimaryEvidenceCandidateCount: 3547
-- existingLawReferenceCount: 252
+- existingLawReferenceCount: 257
 
 ## Readiness Counts
 
 | readiness | count |
 | --- | ---: |
 | `answer_recheck_without_lawzilla_evidence` | 6 |
-| `manual_review_required_all_choices_have_primary_evidence` | 213 |
+| `manual_review_required_all_choices_have_primary_evidence` | 212 |
 | `manual_review_required_locator_detail` | 1 |
 | `manual_review_required_partial_candidates` | 42 |
 | `non_lawzilla_workflow_item` | 80 |
-| `secondary_verified_in_question_patch` | 45 |
+| `secondary_verified_in_question_patch` | 46 |
 
 ## Priority Counts
 
@@ -79,7 +79,7 @@
 | 43 | P0 | `gas-shunin-kou` | 2023 | 問7 | `gasushunin-koushu-hourei-2023-7` | `secondary_verified_in_question_patch` | 4 | 2 |
 | 44 | P0 | `gas-shunin-kou` | 2023 | 問6 | `gasushunin-koushu-hourei-2023-6` | `secondary_verified_in_question_patch` | 5 | 15 |
 | 45 | P0 | `gas-shunin-kou` | 2023 | 問5 | `gasushunin-koushu-hourei-2023-5` | `secondary_verified_in_question_patch` | 5 | 15 |
-| 46 | P0 | `gas-shunin-kou` | 2023 | 問4 | `gasushunin-koushu-hourei-2023-4` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 5 |
+| 46 | P0 | `gas-shunin-kou` | 2023 | 問4 | `gasushunin-koushu-hourei-2023-4` | `secondary_verified_in_question_patch` | 5 | 5 |
 | 47 | P0 | `gas-shunin-kou` | 2023 | 問3 | `gasushunin-koushu-hourei-2023-3` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 15 |
 | 48 | P0 | `gas-shunin-kou` | 2023 | 問2 | `gasushunin-koushu-hourei-2023-2` | `manual_review_required_all_choices_have_primary_evidence` | 3 | 9 |
 | 49 | P0 | `gas-shunin-kou` | 2023 | 問2 | `a2493f72a866d905` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 15 |
