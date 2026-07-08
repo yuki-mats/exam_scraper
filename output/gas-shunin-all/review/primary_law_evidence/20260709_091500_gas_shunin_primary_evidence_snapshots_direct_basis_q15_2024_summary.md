@@ -1,0 +1,7 @@
+# gas-shunin-kou 2024 問15 direct basis snapshots
+
+- target: gas-shunin-kou 2024 問15
+- recordCount: 3
+- ガス事業法 第159条: articleTextHash=709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf rawXmlHash=c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb
+- ガス事業法 第160条: articleTextHash=5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b rawXmlHash=fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4
+- ガス事業法 第161条: articleTextHash=09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c rawXmlHash=81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688
