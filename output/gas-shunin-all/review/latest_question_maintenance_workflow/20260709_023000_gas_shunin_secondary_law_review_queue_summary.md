@@ -1,6 +1,6 @@
 # Gas shunin secondary law review queue
 
-- generatedAt: 2026-07-09T01:35:06+09:00
+- generatedAt: 2026-07-09T01:42:18+09:00
 - queueItemCount: 387
 - uniqueQueueItemKeyCount: 382
 - duplicateQueueKeyCount: 5
@@ -9,18 +9,18 @@
 - primaryEvidenceCandidateCount: 3595
 - sourcePrimaryEvidenceLinkChoiceRecordCount: 1485
 - sourcePrimaryEvidenceCandidateCount: 3547
-- existingLawReferenceCount: 5
+- existingLawReferenceCount: 10
 
 ## Readiness Counts
 
 | readiness | count |
 | --- | ---: |
 | `answer_recheck_without_lawzilla_evidence` | 6 |
-| `manual_review_required_all_choices_have_primary_evidence` | 254 |
+| `manual_review_required_all_choices_have_primary_evidence` | 253 |
 | `manual_review_required_locator_detail` | 1 |
 | `manual_review_required_partial_candidates` | 45 |
 | `non_lawzilla_workflow_item` | 80 |
-| `secondary_verified_in_question_patch` | 1 |
+| `secondary_verified_in_question_patch` | 2 |
 
 ## Priority Counts
 
@@ -35,7 +35,7 @@
 | seq | priority | qualification | year | label | id | readiness | choices | candidates |
 | ---: | --- | --- | ---: | --- | --- | --- | ---: | ---: |
 | 1 | P0 | `gas-shunin-kou` | 2025 | 問16 | `bd05d02105026f15` | `secondary_verified_in_question_patch` | 5 | 14 |
-| 2 | P0 | `gas-shunin-kou` | 2025 | 問15 | `7bd905381415c9b4` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 11 |
+| 2 | P0 | `gas-shunin-kou` | 2025 | 問15 | `7bd905381415c9b4` | `secondary_verified_in_question_patch` | 5 | 11 |
 | 3 | P0 | `gas-shunin-kou` | 2025 | 問14 | `f73181ec7b58db9a` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 14 |
 | 4 | P0 | `gas-shunin-kou` | 2025 | 問13 | `b366a2fcd28be935` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 15 |
 | 5 | P0 | `gas-shunin-kou` | 2025 | 問12 | `02995d8bb53f6d42` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 13 |
