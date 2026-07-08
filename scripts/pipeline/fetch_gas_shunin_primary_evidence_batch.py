@@ -123,6 +123,7 @@ def main() -> int:
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--timestamp", required=True)
     parser.add_argument("--repo-root", default=".")
+    parser.add_argument("--output-label", default="primary_evidence_snapshots_top40")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--timeout-seconds", type=float, default=15.0)
     parser.add_argument("--delay-seconds", type=float, default=0.2)
@@ -176,9 +177,10 @@ def main() -> int:
             time.sleep(args.delay_seconds)
 
     status_counts = Counter(str(record.get("status") or "") for record in records)
-    snapshot_jsonl = output_dir / f"{args.timestamp}_gas_shunin_primary_evidence_snapshots_top40.jsonl"
-    summary_json = output_dir / f"{args.timestamp}_gas_shunin_primary_evidence_snapshots_top40_summary.json"
-    summary_md = output_dir / f"{args.timestamp}_gas_shunin_primary_evidence_snapshots_top40_summary.md"
+    output_label = args.output_label.strip()
+    snapshot_jsonl = output_dir / f"{args.timestamp}_gas_shunin_{output_label}.jsonl"
+    summary_json = output_dir / f"{args.timestamp}_gas_shunin_{output_label}_summary.json"
+    summary_md = output_dir / f"{args.timestamp}_gas_shunin_{output_label}_summary.md"
     summary = {
         "schemaVersion": "gas-shunin-primary-evidence-snapshot-batch-summary/v1",
         "generatedAt": generated_at,

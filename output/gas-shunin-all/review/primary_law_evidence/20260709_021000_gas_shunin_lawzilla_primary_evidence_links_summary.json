@@ -1,0 +1,30 @@
+{
+  "boundary": "primary evidence link report only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
+  "choiceRecordCount": 1485,
+  "choiceRecordsWithPrimaryEvidenceCandidates": 1404,
+  "choiceRecordsWithoutPrimaryEvidenceCandidates": 81,
+  "comparisonJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_012500_gas_shunin_lawzilla_evidence_comparison.jsonl",
+  "generatedAt": "2026-07-09T01:23:11+09:00",
+  "linkJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260709_021000_gas_shunin_lawzilla_primary_evidence_links.jsonl",
+  "nextAction": "review matched candidate links by question, then materialize only verified lawReferences with articleTextHash/rawXmlHash.",
+  "primaryEvidenceCandidateLinkCount": 3547,
+  "primaryEvidenceLinkStatusCounts": {
+    "primary_article_fetched_needs_locator_detail_review": 1,
+    "primary_article_fetched_snippet_matched": 1403,
+    "primary_snapshot_not_in_batch": 81
+  },
+  "schemaVersion": "gas-shunin-lawzilla-primary-evidence-link-summary/v1",
+  "snapshotArticleCount": 125,
+  "snapshotsJsonl": [
+    "output/gas-shunin-all/review/primary_law_evidence/20260709_015000_gas_shunin_primary_evidence_snapshots_top40.jsonl",
+    "output/gas-shunin-all/review/primary_law_evidence/20260709_020500_gas_shunin_primary_evidence_snapshots_remaining85.jsonl"
+  ],
+  "snippetMatchStatusCounts": {
+    "snippet_exact_match": 1947,
+    "snippet_fragment_match": 1465,
+    "snippet_keyword_overlap": 120,
+    "snippet_not_matched": 15
+  },
+  "summaryJson": "output/gas-shunin-all/review/primary_law_evidence/20260709_021000_gas_shunin_lawzilla_primary_evidence_links_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/primary_law_evidence/20260709_021000_gas_shunin_lawzilla_primary_evidence_links_summary.md"
+}

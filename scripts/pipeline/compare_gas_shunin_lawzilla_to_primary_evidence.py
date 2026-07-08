@@ -228,7 +228,7 @@ def write_markdown(path: Path, summary: dict[str, Any], records: list[dict[str, 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Compare gas-shunin Lawzilla candidates with fetched primary evidence snapshots.")
     parser.add_argument("--comparison-jsonl", required=True)
-    parser.add_argument("--snapshots-jsonl", required=True)
+    parser.add_argument("--snapshots-jsonl", action="append", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--timestamp", required=True)
     parser.add_argument("--repo-root", default=".")
@@ -238,16 +238,22 @@ def main() -> int:
     comparison_path = Path(args.comparison_jsonl).expanduser()
     if not comparison_path.is_absolute():
         comparison_path = repo_root / comparison_path
-    snapshots_path = Path(args.snapshots_jsonl).expanduser()
-    if not snapshots_path.is_absolute():
-        snapshots_path = repo_root / snapshots_path
+    snapshot_paths: list[Path] = []
+    for raw_path in args.snapshots_jsonl:
+        path = Path(raw_path).expanduser()
+        if not path.is_absolute():
+            path = repo_root / path
+        snapshot_paths.append(path)
     output_dir = Path(args.output_dir).expanduser()
     if not output_dir.is_absolute():
         output_dir = repo_root / output_dir
     generated_at = now_jst()
+    snapshots: list[dict[str, Any]] = []
+    for path in snapshot_paths:
+        snapshots.extend(load_jsonl(path))
     records, summary = build_records(
         comparison_records=load_jsonl(comparison_path),
-        snapshots=load_jsonl(snapshots_path),
+        snapshots=snapshots,
         generated_at=generated_at,
     )
     jsonl_path = output_dir / f"{args.timestamp}_gas_shunin_lawzilla_primary_evidence_links.jsonl"
@@ -256,7 +262,10 @@ def main() -> int:
     summary.update(
         {
             "comparisonJsonl": str(comparison_path.relative_to(repo_root) if comparison_path.is_relative_to(repo_root) else comparison_path),
-            "snapshotsJsonl": str(snapshots_path.relative_to(repo_root) if snapshots_path.is_relative_to(repo_root) else snapshots_path),
+            "snapshotsJsonl": [
+                str(path.relative_to(repo_root) if path.is_relative_to(repo_root) else path)
+                for path in snapshot_paths
+            ],
             "linkJsonl": str(jsonl_path.relative_to(repo_root)),
             "summaryJson": str(summary_json.relative_to(repo_root)),
             "summaryMarkdown": str(summary_md.relative_to(repo_root)),

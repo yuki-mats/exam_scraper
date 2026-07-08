@@ -1,0 +1,21 @@
+{
+  "batchId": "20260709_020000_remaining85_primary_api_fetch",
+  "batchPath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_020000_gas_shunin_primary_evidence_fetch_batch_remaining85.json",
+  "boundary": "primary evidence fetch batch only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.",
+  "candidateChoiceLinkCount": 414,
+  "excludedAlreadyFetchedBatch": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_014500_gas_shunin_primary_evidence_fetch_batch_top40.json",
+  "generatedAt": "2026-07-09T01:20:00+09:00",
+  "itemCount": 85,
+  "lawCounts": {
+    "326AC0000000204": 15,
+    "329AC0000000051": 23,
+    "329CO0000000068": 2,
+    "345M50000400097": 27,
+    "412M50000400111": 17,
+    "429M60000400016": 1
+  },
+  "nextAction": "fetch e-Gov snapshots for these remaining primary_api_fetch articles, then regenerate Lawzilla-to-primary-evidence links using all fetched snapshots.",
+  "sampleDistinctChoiceRecordCount": 261,
+  "schemaVersion": "gas-shunin-primary-evidence-fetch-batch-summary/v1",
+  "sourceQueuePath": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_014500_gas_shunin_primary_evidence_fetch_queue.jsonl"
+}
