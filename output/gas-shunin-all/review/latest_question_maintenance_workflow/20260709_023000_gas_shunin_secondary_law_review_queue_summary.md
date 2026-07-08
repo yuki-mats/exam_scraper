@@ -1,6 +1,6 @@
 # Gas shunin secondary law review queue
 
-- generatedAt: 2026-07-09T05:29:28+09:00
+- generatedAt: 2026-07-09T05:39:12+09:00
 - queueItemCount: 387
 - uniqueQueueItemKeyCount: 382
 - duplicateQueueKeyCount: 5
@@ -9,18 +9,18 @@
 - primaryEvidenceCandidateCount: 3595
 - sourcePrimaryEvidenceLinkChoiceRecordCount: 1485
 - sourcePrimaryEvidenceCandidateCount: 3547
-- existingLawReferenceCount: 194
+- existingLawReferenceCount: 202
 
 ## Readiness Counts
 
 | readiness | count |
 | --- | ---: |
 | `answer_recheck_without_lawzilla_evidence` | 6 |
-| `manual_review_required_all_choices_have_primary_evidence` | 224 |
+| `manual_review_required_all_choices_have_primary_evidence` | 223 |
 | `manual_review_required_locator_detail` | 1 |
 | `manual_review_required_partial_candidates` | 42 |
 | `non_lawzilla_workflow_item` | 80 |
-| `secondary_verified_in_question_patch` | 34 |
+| `secondary_verified_in_question_patch` | 35 |
 
 ## Priority Counts
 
@@ -68,7 +68,7 @@
 | 32 | P0 | `gas-shunin-kou` | 2024 | 問1 | `f72eb811cf645592` | `secondary_verified_in_question_patch` | 5 | 15 |
 | 33 | P0 | `gas-shunin-kou` | 2023 | 問16 | `gasushunin-koushu-hourei-2023-16` | `secondary_verified_in_question_patch` | 5 | 12 |
 | 34 | P0 | `gas-shunin-kou` | 2023 | 問15 | `gasushunin-koushu-hourei-2023-15` | `secondary_verified_in_question_patch` | 5 | 11 |
-| 35 | P0 | `gas-shunin-kou` | 2023 | 問14 | `gasushunin-koushu-hourei-2023-14` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 14 |
+| 35 | P0 | `gas-shunin-kou` | 2023 | 問14 | `gasushunin-koushu-hourei-2023-14` | `secondary_verified_in_question_patch` | 5 | 14 |
 | 36 | P0 | `gas-shunin-kou` | 2023 | 問13 | `gasushunin-koushu-hourei-2023-13` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 13 |
 | 37 | P0 | `gas-shunin-kou` | 2023 | 問12 | `gasushunin-koushu-hourei-2023-12` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 14 |
 | 38 | P0 | `gas-shunin-kou` | 2023 | 問11 | `gasushunin-koushu-hourei-2023-11` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 13 |
