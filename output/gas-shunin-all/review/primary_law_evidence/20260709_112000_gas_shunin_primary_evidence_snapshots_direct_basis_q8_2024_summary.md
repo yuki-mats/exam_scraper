@@ -1,0 +1,10 @@
+# gas-shunin-kou 2024 問8 direct basis snapshots
+
+- target: gas-shunin-kou 2024 問8
+- recordCount: 3
+- ガス工作物の技術上の基準を定める省令 第14条: paragraph=1 item=6 articleTextHash=8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0 rawXmlHash=b2ad8cfe8d9a67acb678e084878c6f3656a360dcc9431a6fee8b35e691fe2de9
+- ガス工作物の技術上の基準を定める省令 第15条: paragraph=1 item=3 subitem=ハ articleTextHash=52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2 rawXmlHash=11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074
+- ガス工作物の技術上の基準を定める省令 第16条: paragraph=1 articleTextHash=d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83 rawXmlHash=c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a
+
+- Lawzilla候補は施行規則第1条・第13条・第74条・第197条など周辺条文に寄ったため、技術基準省令の直接根拠条文をe-Gov現行XMLで補完確認した。
+- direct primary evidence for gas-shunin-kou 2024 問8 only; no 00_source or existing Firestore IDs were modified by this fetch.
