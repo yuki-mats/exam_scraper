@@ -1,26 +1,26 @@
 # Gas shunin secondary law review queue
 
-- generatedAt: 2026-07-09T23:59:00+09:00
+- generatedAt: 2026-07-10T01:40:00+09:00
 - queueItemCount: 387
-- uniqueQueueItemKeyCount: 382
-- duplicateQueueKeyCount: 5
+- uniqueQueueItemKeyCount: 330
+- duplicateQueueKeyCount: 45
 - questionLoadErrorCount: 0
 - primaryEvidenceChoiceRecordCount: 1507
 - primaryEvidenceCandidateCount: 3595
 - sourcePrimaryEvidenceLinkChoiceRecordCount: 1485
 - sourcePrimaryEvidenceCandidateCount: 3547
-- existingLawReferenceCount: 338
+- existingLawReferenceCount: 343
 
 ## Readiness Counts
 
 | readiness | count |
 | --- | ---: |
 | `answer_recheck_without_lawzilla_evidence` | 6 |
-| `manual_review_required_all_choices_have_primary_evidence` | 201 |
+| `manual_review_required_all_choices_have_primary_evidence` | 200 |
 | `manual_review_required_locator_detail` | 1 |
 | `manual_review_required_partial_candidates` | 38 |
 | `non_lawzilla_workflow_item` | 80 |
-| `secondary_verified_in_question_patch` | 61 |
+| `secondary_verified_in_question_patch` | 62 |
 
 ## Priority Counts
 
@@ -101,7 +101,7 @@
 | 65 | P0 | `gas-shunin-kou` | 2022 | 問2 | `gasushunin-koushu-hourei-2022-2` | `manual_review_required_partial_candidates` | 4 | 18 |
 | 66 | P0 | `gas-shunin-kou` | 2022 | 問2 | `gasushunin-koushu-hourei-2022-2` | `manual_review_required_partial_candidates` | 4 | 18 |
 | 67 | P0 | `gas-shunin-kou` | 2022 | 問1 | `gasushunin-koushu-hourei-2022-1` | `manual_review_required_partial_candidates` | 5 | 12 |
-| 68 | P0 | `gas-shunin-kou` | 2021 | 問16 | `gasushunin-koushu-hourei-2021-16` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 13 |
+| 68 | P0 | `gas-shunin-kou` | 2021 | 問16 | `gasushunin-koushu-hourei-2021-16` | `secondary_verified_in_question_patch` | 5 | 13 |
 | 69 | P0 | `gas-shunin-kou` | 2021 | 問15 | `gasushunin-koushu-hourei-2021-15` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 11 |
 | 70 | P0 | `gas-shunin-kou` | 2021 | 問14 | `gasushunin-koushu-hourei-2021-14` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 11 |
 | 71 | P0 | `gas-shunin-kou` | 2021 | 問13 | `gasushunin-koushu-hourei-2021-13` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 13 |
@@ -117,5 +117,5 @@
 
 ## Boundary
 
-- review queue only; no 00_source, correctChoiceText, explanationText, lawReferences, lawRevisionFacts, or existing Firestore IDs were modified.
+- review queue only; no 00_source or existing Firestore IDs were modified.
 - perform one-question secondary review in queue order, then patch only manually verified lawReferences/lawRevisionFacts.
