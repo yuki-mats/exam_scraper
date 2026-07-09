@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-targets/v1",
+  "generatedAt": "2026-07-09T20:59:53+09:00",
+  "sourceSecondaryQueue": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_023000_gas_shunin_secondary_law_review_queue.jsonl",
+  "remainingTargetsJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_205953_q4_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "summaryJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_205953_q4_gas_shunin_current_remaining_workflow_targets_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_205953_q4_gas_shunin_current_remaining_workflow_targets.md",
+  "initialTargetRecords": 283,
+  "initialUniqueQueueItemKeys": null,
+  "initialDuplicateQueueItemKeyKinds": null,
+  "initialDuplicateTargetRecordExtraCount": null,
+  "alreadySecondaryVerifiedRecords": 124,
+  "remainingTargetRecords": 263,
+  "remainingUniqueDisplayQuestionIds": 260,
+  "remainingUniqueQueueItemKeys": 263,
+  "remainingDuplicateQueueItemKeys": [],
+  "remainingDuplicateQueueItemKeyKinds": {},
+  "remainingDuplicateTargetRecordExtraCount": 0,
+  "remainingPriorityCounts": {
+    "P0": 160,
+    "P1": 31,
+    "P2": 72
+  },
+  "remainingReadinessCounts": {
+    "answer_recheck_without_lawzilla_evidence": 6,
+    "manual_review_required_all_choices_have_primary_evidence": 163,
+    "manual_review_required_partial_candidates": 28,
+    "non_lawzilla_workflow_item": 66
+  },
+  "remainingTrackCounts": {
+    "answer_recheck": 23,
+    "lawzilla_law_evidence": 191,
+    "source_conflict_review": 85
+  },
+  "remainingByQualificationYearPriority": [
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "total": 47,
+      "uniqueDisplayQuestionIds": 46,
+      "P0": 16,
+      "P1": 1,
+      "P2": 30
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2020,
+      "total": 23,
+      "uniqueDisplayQuestionIds": 23,
+      "P0": 16,
+      "P1": 5,
+      "P2": 2
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2022,
+      "total": 21,
+      "uniqueDisplayQuestionIds": 21,
+      "P0": 16,
+      "P1": 3,
+      "P2": 2
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2024,
+      "total": 20,
+      "uniqueDisplayQuestionIds": 20,
+      "P0": 16,
+      "P1": 4,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P0": 0,
+      "P1": 4,
+      "P2": 15
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2023,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P0": 0,
+      "P1": 2,
+      "P2": 17
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2023,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P0": 16,
+      "P1": 3,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2019,
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18,
+      "P0": 16,
+      "P1": 2,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2025,
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18,
+      "P0": 16,
+      "P1": 2,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2017,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2018,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2019,
+      "total": 16,
+      "uniqueDisplayQuestionIds": 16,
+      "P0": 16,
+      "P1": 0,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2025,
+      "total": 6,
+      "uniqueDisplayQuestionIds": 6,
+      "P0": 0,
+      "P1": 1,
+      "P2": 5
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2024,
+      "total": 3,
+      "uniqueDisplayQuestionIds": 3,
+      "P0": 0,
+      "P1": 2,
+      "P2": 1
+    }
+  ],
+  "removedInThisRun": [
+    {
+      "queueSequence": 294,
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問4",
+      "displayQuestionId": "2b44480aa6983f05",
+      "answerResultText": "正解は 1 です。",
+      "handling": "choice 2 law-grounded; choices 1, 3, 4, and 5 technical analysis not law-related"
+    }
+  ],
+  "currentYearCheckpoint": null,
+  "nextTargets2021": [],
+  "previousRemainingTargetsJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_204731_q7_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "yearCheckpointCompletion": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2021,
+    "remainingTargetRecords": 0,
+    "status": "completed"
+  }
+}

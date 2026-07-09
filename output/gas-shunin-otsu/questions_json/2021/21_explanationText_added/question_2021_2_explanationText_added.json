@@ -765,7 +765,7 @@
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_2.json",
     "explanationText": [
       "導管中でガス温度が露点域になると、LPGなど高発熱量成分が液化してガス相から失われ、導管閉そくなども生じ得る。ガス発熱量は増加ではなく低下方向に働くため、この記述は誤り。",
-      "天然ガスとプロパンを混合したガスや、プロパンに空気を混入したガスは、特殊成分検査の対象から除かれる扱いがあり、この記述は正しい。",
+      "正しい。ガス事業法施行規則の成分検査方法では、天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。",
       "ガスクロマトグラフの水素炎イオン化検出器（FID）は、有機化合物の多くを高感度に検出できる検出器であり、この記述は正しい。",
       "イオンクロマトグラフ法は、特殊成分の分析方法として全硫黄やアンモニアの分析に用いることができ、この記述は正しい。",
       "ガスクロマトグラフでは、固定相への溶解性や吸着性が強い成分ほど固定相にとどまりやすく、移動速度は遅くなる。移動速度が速くなるとしている点が誤り。"
@@ -784,7 +784,7 @@
       },
       {
         "question": "天然ガスとプロパンの混合ガスやプロパン空気混合ガスは特殊成分検査を免除されるか。",
-        "answer": "正しい。これらのガスは特殊成分検査を免除される扱いがある。"
+        "answer": "正しい。ガス事業法施行規則の成分検査方法では、天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。"
       },
       {
         "question": "FIDは有機化合物の多くを高感度に検出できるか。",
@@ -799,7 +799,7 @@
         "answer": "いいえ。固定相への相互作用が強いほど保持されやすく、移動速度は遅くなる。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -815,6 +815,367 @@
       null,
       null,
       null
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "23",
+          "articleTitle": "ガスの成分の検査義務",
+          "paragraph": "1",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23",
+          "articleTextHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
+          "rawXmlHash": "78fafe5f2d76c72b7c6f0afa9fd6b5b3b983da1328fcd3f36753949b2799802d",
+          "relation": "enabling_basis_for_retail_gas_component_inspection",
+          "elm": "ln23.1",
+          "rootArticleElm": "ln23",
+          "reason": "ガス事業法第23条第1項は、ガス小売事業者に、供給するガスの成分のうち人体危害又は物件損傷のおそれがあるものの量を検査・記録・保存する義務を定めている。",
+          "choiceIndex": 1
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "22",
+          "articleTitle": "成分の検査方法",
+          "paragraph": "1",
+          "item": "一",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22",
+          "articleTextHash": "0455ff312b1a44933d466e1fd7285ed87c7e68f10e9a695d5789684a02aa9cf7",
+          "rawXmlHash": "1bb623fedea163f2f7418aff97e2e48472e0a6ab1d1c8bb39313faafe501c6e8",
+          "relation": "direct_exclusion_basis_for_natural_gas_lpg_and_air_mixed_gas",
+          "elm": "ln22.1.1",
+          "rootArticleElm": "ln22",
+          "reason": "ガス事業法施行規則第22条第1項第1号は、成分検査の対象ガスから、天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスを除いている。",
+          "choiceIndex": 1
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "63",
+          "articleTitle": "ガスの成分の検査義務",
+          "paragraph": "1",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=63",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=63",
+          "articleTextHash": "6a992e245f18244eea8a72ec3c056db809f0275caa72516ff8ec29303596605f",
+          "rawXmlHash": "b69e2785433d4b56c5b8611728aa2a430948641bc42e1c83db61ea81092a694f",
+          "relation": "parallel_enabling_basis_for_general_gas_pipeline_component_inspection",
+          "elm": "ln63.1",
+          "rootArticleElm": "ln63",
+          "reason": "ガス事業法第63条第1項は、一般ガス導管事業者の最終保障供給に係るガス成分検査義務を定めている。",
+          "choiceIndex": 1
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "90",
+          "articleTitle": "成分の検査方法",
+          "paragraph": "1",
+          "item": "一",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=90",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=90",
+          "articleTextHash": "c5dd8e4d5b374d0daad63d9df676171325ce1cb544891b5cd40b6bd5bb530a72",
+          "rawXmlHash": "1907c52d40cdbec2d79f7c300a60618568cf364799e932302ca0b28451e73021",
+          "relation": "parallel_direct_exclusion_basis_for_general_gas_pipeline_component_inspection",
+          "elm": "ln90.1.1",
+          "rootArticleElm": "ln90",
+          "reason": "ガス事業法施行規則第90条第1項第1号も、一般ガス導管事業者の成分検査について、天然ガス又はプロパン等を主成分とするガス及びこれらに空気を混入したガスを検査対象から除いている。",
+          "choiceIndex": 1
+        }
+      ],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:59:53+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice1",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "LPG等の液化による発熱量変化と導管閉そくを問う熱量調整上の技術知識であり、条文適合性の直接判断ではない。Lawzilla候補の施行規則第17条・第78条は熱量測定方法であり、露点域での発熱量低下の直接根拠ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は熱量調整・燃焼性・特殊成分分析の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "導管中でガス温度が露点域になると、LPGなど高発熱量成分が液化してガス相から失われ、導管閉そくなども生じ得る。ガス発熱量は増加ではなく低下方向に働くため、この記述は誤り。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "分析・熱量調整の技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "7286148aae029317a5201ad44eac109f1ca7fc9d865f0a0090dd274884d41830"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:59:53+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice2",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "天然ガス・プロパン等を主成分とするガス及び空気混入ガスの成分検査対象除外は、現行施行規則第22条第1項第1号及び第90条第1項第1号で直接確認できる。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "22",
+          "paragraph": "1",
+          "item": "一",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "0455ff312b1a44933d466e1fd7285ed87c7e68f10e9a695d5789684a02aa9cf7",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=22"
+        },
+        "answerImpactFacts": [
+          "現行施行規則第22条第1項第1号は、成分検査の対象から天然ガス又はプロパン等を主成分とするガス等を除いている。",
+          "同号はこれらに空気を混入したガスも除外しており、既存の「正しい」判定と一致する。",
+          "一般ガス導管事業者についても施行規則第90条第1項第1号で同趣旨の除外を確認できる。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法施行規則の成分検査方法では、天然ガス又はプロパン等を主成分とするガス、これらを原料として製造したガス、及びこれらに空気を混入したガスは、硫黄全量・硫化水素・アンモニアの検査対象から除かれる。",
+          "differenceSummary": "出題当時条文は未固定。現行法令では既存の正誤・解説と一致。",
+          "promptContext": "特殊成分検査の対象から除かれるガス種を、施行規則第22条及び第90条の本文に基づいて説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:23:1",
+            "current:345M50000400097:22:1:一",
+            "current:329AC0000000051:63:1",
+            "current:345M50000400097:90:1:一"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:23:1",
+              "lawTimeScope": "current",
+              "relation": "enabling_basis_for_retail_gas_component_inspection",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln23.1",
+              "rootArticleElm": "ln23",
+              "article": "23",
+              "articleTextHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
+              "textHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:345M50000400097:22:1:一",
+              "lawTimeScope": "current",
+              "relation": "direct_exclusion_basis_for_natural_gas_lpg_and_air_mixed_gas",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "elm": "ln22.1.1",
+              "rootArticleElm": "ln22",
+              "article": "22",
+              "articleTextHash": "0455ff312b1a44933d466e1fd7285ed87c7e68f10e9a695d5789684a02aa9cf7",
+              "textHash": "0455ff312b1a44933d466e1fd7285ed87c7e68f10e9a695d5789684a02aa9cf7",
+              "paragraph": "1",
+              "item": "一"
+            },
+            {
+              "refId": "current:329AC0000000051:63:1",
+              "lawTimeScope": "current",
+              "relation": "parallel_enabling_basis_for_general_gas_pipeline_component_inspection",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln63.1",
+              "rootArticleElm": "ln63",
+              "article": "63",
+              "articleTextHash": "6a992e245f18244eea8a72ec3c056db809f0275caa72516ff8ec29303596605f",
+              "textHash": "6a992e245f18244eea8a72ec3c056db809f0275caa72516ff8ec29303596605f",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:345M50000400097:90:1:一",
+              "lawTimeScope": "current",
+              "relation": "parallel_direct_exclusion_basis_for_general_gas_pipeline_component_inspection",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "elm": "ln90.1.1",
+              "rootArticleElm": "ln90",
+              "article": "90",
+              "articleTextHash": "c5dd8e4d5b374d0daad63d9df676171325ce1cb544891b5cd40b6bd5bb530a72",
+              "textHash": "c5dd8e4d5b374d0daad63d9df676171325ce1cb544891b5cd40b6bd5bb530a72",
+              "paragraph": "1",
+              "item": "一"
+            }
+          ]
+        },
+        "evidenceBindingHash": "c902c7a280df10782b5ec4a0d50aece611860bcc7cbd9211adc7baceab2e8494"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:59:53+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice3",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "FIDの検出特性はガスクロマトグラフ分析の技術知識であり、ガス事業法の熱量・燃焼性測定条文を直接根拠として扱わない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は熱量調整・燃焼性・特殊成分分析の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "ガスクロマトグラフの水素炎イオン化検出器（FID）は、有機化合物の多くを高感度に検出できる検出器であり、この記述は正しい。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "分析・熱量調整の技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "0205a91fd823a466a2967671b356598e1d77c55ca05b17fbfea524a139d281d3"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:59:53+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice4",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "イオンクロマトグラフ法の全硫黄・アンモニア分析への使用可否はJIS等の分析技術知識であり、今回の条文候補だけでは直接条文化しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は熱量調整・燃焼性・特殊成分分析の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "イオンクロマトグラフ法は、特殊成分の分析方法として全硫黄やアンモニアの分析に用いることができ、この記述は正しい。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "分析・熱量調整の技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "36b3677fedf417ec38dfad445475aea43ebfd42bcfe05710d751ffdccdae4ca1"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:59:53+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "lawCorpusSnapshotId": "egov-current-20260709_205953_q4",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q4_gas_components_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_205953_q4:choice5",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "ガスクロマトグラフの固定相への溶解性・吸着性と移動速度の関係は分析技術知識であり、ガス事業法の熱量・燃焼性測定条文を直接根拠として扱わない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は熱量調整・燃焼性・特殊成分分析の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "ガスクロマトグラフでは、固定相への溶解性や吸着性が強い成分ほど固定相にとどまりやすく、移動速度は遅くなる。移動速度が速くなるとしている点が誤り。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "分析・熱量調整の技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "c99b4273f5da9aebf4a73e10bc1836c40e6cea6b2eaf8d6ba2d2ab2c11fbcd04"
+      }
     ]
   },
   {
