@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-summary/v1",
+  "generatedAt": "2026-07-10T01:50:00+09:00",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2021,
+  "questionLabel": "問14",
+  "displayQuestionId": "gasushunin-koushu-hourei-2021-14",
+  "queueSequence": 70,
+  "reviewQuestionIds": "firestore:chiefgasengineerlicense-A-10-0226,chiefgasengineerlicense-A-10-0227,chiefgasengineerlicense-A-10-0228,chiefgasengineerlicense-A-10-0229,chiefgasengineerlicense-A-10-0230",
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_015000_q14_gas_shunin_primary_evidence_snapshots_direct_basis_q14_2021.jsonl",
+  "recordCount": 5,
+  "rawXmlCount": 4,
+  "rawXmlPaths": [
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_015000_q14/329AC0000000051_137_ca8a8f8b29a495ff.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_015000_q14/329AC0000000051_138_08190a9abc36e76b.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_015000_q14/354AC0000000033_3_4a7829179e5e090c.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_015000_q14/354AC0000000033_6_e0f0c3d02183fdf0.xml"
+  ],
+  "choiceCountByVariant": {
+    "firestore_statement_set": 5
+  },
+  "directBasisLocators": [
+    {
+      "choiceIndex": 0,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "137",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+      "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 1,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "138",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
+      "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 2,
+      "lawId": "354AC0000000033",
+      "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+      "article": "3",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+      "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 3,
+      "lawId": "354AC0000000033",
+      "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+      "article": "3",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+      "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 4,
+      "lawId": "354AC0000000033",
+      "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+      "article": "6",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
+      "rawXmlHash": "e0f0c3d02183fdf0d10baa3feb4fad74e277ba497ee9415895873376eb64fc92",
+      "sourceVariant": "firestore_statement_set"
+    }
+  ],
+  "lawzillaReconciliationCounts": {
+    "matched_after_reranking": 1,
+    "candidate_missed_direct_article_replaced": 1,
+    "candidate_misdirected": 3
+  },
+  "practicalNotes": [
+    "ガス用品の定義はガス事業法第137条第1項、販売目的陳列は第138条第1項で分けて確認する。",
+    "特定工事の監督者資格・実地監督は特監法第3条が直接根拠。",
+    "施工年月日の表示義務は特監法第6条本文で直接確認できる。",
+    "Lawzilla候補はガス事業法第1条・第137条・第159条へ寄る肢があり、特監法へのルーティング強化が必要。"
+  ]
+}

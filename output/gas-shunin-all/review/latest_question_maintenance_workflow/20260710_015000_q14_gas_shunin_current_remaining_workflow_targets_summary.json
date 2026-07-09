@@ -1,0 +1,832 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-summary/v1",
+  "generatedAt": "2026-07-10T01:50:00+09:00",
+  "sourceMaintenanceQueue": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl",
+  "sourceSecondaryQueue": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_023000_gas_shunin_secondary_law_review_queue.jsonl",
+  "initialTargetRecords": 302,
+  "initialUniqueQueueItemKeys": 265,
+  "initialDuplicateQueueItemKeyKinds": 28,
+  "initialDuplicateTargetRecordExtraCount": 37,
+  "remainingTargetsJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_015000_q14_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "summaryJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_015000_q14_gas_shunin_current_remaining_workflow_targets_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_015000_q14_gas_shunin_current_remaining_workflow_targets.md",
+  "remainingTargetRecords": 298,
+  "remainingUniqueQueueItemKeys": 263,
+  "remainingUniqueDisplayQuestionIds": 293,
+  "alreadySecondaryVerifiedRecords": 89,
+  "remainingDuplicateQueueItemKeyKinds": 27,
+  "remainingDuplicateTargetRecordExtraCount": 35,
+  "remainingDuplicateQueueItemKeys": {
+    "gas-shunin-kou:2019:問4:": 2,
+    "gas-shunin-kou:2019:問7:": 2,
+    "gas-shunin-kou:2020:問11:": 3,
+    "gas-shunin-kou:2020:問12:": 3,
+    "gas-shunin-kou:2020:問13:": 2,
+    "gas-shunin-kou:2020:問14:": 4,
+    "gas-shunin-kou:2020:問15:": 2,
+    "gas-shunin-kou:2020:問16:": 2,
+    "gas-shunin-kou:2020:問1:": 2,
+    "gas-shunin-kou:2020:問2:": 2,
+    "gas-shunin-kou:2020:問3:": 3,
+    "gas-shunin-kou:2020:問4:": 2,
+    "gas-shunin-kou:2020:問5:": 2,
+    "gas-shunin-kou:2020:問6:": 2,
+    "gas-shunin-kou:2020:問7:": 2,
+    "gas-shunin-kou:2020:問8:": 2,
+    "gas-shunin-kou:2020:問9:": 2,
+    "gas-shunin-kou:2021:問11:": 2,
+    "gas-shunin-kou:2021:問12:": 2,
+    "gas-shunin-kou:2021:問14:": 2,
+    "gas-shunin-kou:2021:問1:": 3,
+    "gas-shunin-kou:2021:問2:": 3,
+    "gas-shunin-kou:2021:問4:": 3,
+    "gas-shunin-kou:2021:問5:": 2,
+    "gas-shunin-kou:2021:問7:": 2,
+    "gas-shunin-kou:2021:問8:": 2,
+    "gas-shunin-kou:2023:問15:": 2
+  },
+  "remainingPriorityCounts": {
+    "P0": 191,
+    "P1": 35,
+    "P2": 72
+  },
+  "remainingReadinessCounts": {
+    "answer_recheck_without_lawzilla_evidence": 6,
+    "manual_review_required_all_choices_have_primary_evidence": 195,
+    "manual_review_required_partial_candidates": 31,
+    "non_lawzilla_workflow_item": 66
+  },
+  "remainingTrackCounts": {
+    "answer_recheck": 28,
+    "lawzilla_law_evidence": 226,
+    "source_conflict_review": 94
+  },
+  "remainingByQualificationYearPriority": [
+    {
+      "P0": 15,
+      "P1": 4,
+      "P2": 15,
+      "examYear": 2021,
+      "qualification": "gas-shunin-kou",
+      "total": 34,
+      "uniqueDisplayQuestionIds": 32
+    },
+    {
+      "P0": 16,
+      "P1": 1,
+      "P2": 30,
+      "examYear": 2020,
+      "qualification": "gas-shunin-kou",
+      "total": 47,
+      "uniqueDisplayQuestionIds": 46
+    },
+    {
+      "P0": 16,
+      "P1": 2,
+      "P2": 0,
+      "examYear": 2019,
+      "qualification": "gas-shunin-kou",
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18
+    },
+    {
+      "P0": 16,
+      "P1": 2,
+      "P2": 0,
+      "examYear": 2025,
+      "qualification": "gas-shunin-otsu",
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18
+    },
+    {
+      "P0": 16,
+      "P1": 4,
+      "P2": 0,
+      "examYear": 2024,
+      "qualification": "gas-shunin-otsu",
+      "total": 20,
+      "uniqueDisplayQuestionIds": 20
+    },
+    {
+      "P0": 16,
+      "P1": 3,
+      "P2": 0,
+      "examYear": 2023,
+      "qualification": "gas-shunin-otsu",
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19
+    },
+    {
+      "P0": 16,
+      "P1": 3,
+      "P2": 2,
+      "examYear": 2022,
+      "qualification": "gas-shunin-otsu",
+      "total": 21,
+      "uniqueDisplayQuestionIds": 21
+    },
+    {
+      "P0": 16,
+      "P1": 4,
+      "P2": 0,
+      "examYear": 2021,
+      "qualification": "gas-shunin-otsu",
+      "total": 20,
+      "uniqueDisplayQuestionIds": 20
+    },
+    {
+      "P0": 16,
+      "P1": 5,
+      "P2": 2,
+      "examYear": 2020,
+      "qualification": "gas-shunin-otsu",
+      "total": 23,
+      "uniqueDisplayQuestionIds": 23
+    },
+    {
+      "P0": 16,
+      "P1": 0,
+      "P2": 0,
+      "examYear": 2019,
+      "qualification": "gas-shunin-otsu",
+      "total": 16,
+      "uniqueDisplayQuestionIds": 16
+    },
+    {
+      "P0": 16,
+      "P1": 1,
+      "P2": 0,
+      "examYear": 2018,
+      "qualification": "gas-shunin-otsu",
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17
+    },
+    {
+      "P0": 16,
+      "P1": 1,
+      "P2": 0,
+      "examYear": 2017,
+      "qualification": "gas-shunin-otsu",
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17
+    },
+    {
+      "P0": 0,
+      "P1": 1,
+      "P2": 5,
+      "examYear": 2025,
+      "qualification": "gas-shunin-kou",
+      "total": 6,
+      "uniqueDisplayQuestionIds": 6
+    },
+    {
+      "P0": 0,
+      "P1": 2,
+      "P2": 1,
+      "examYear": 2024,
+      "qualification": "gas-shunin-kou",
+      "total": 3,
+      "uniqueDisplayQuestionIds": 3
+    },
+    {
+      "P0": 0,
+      "P1": 2,
+      "P2": 17,
+      "examYear": 2023,
+      "qualification": "gas-shunin-kou",
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19
+    }
+  ],
+  "next2022Targets": [],
+  "next2021Targets": [
+    {
+      "queueSequence": 71,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問13",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-13",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 72,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問12",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-12",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 73,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問11",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-11",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 74,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問10",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-10",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 75,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問9",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-9",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 76,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問8",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-8",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 77,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問7",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-7",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 78,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問6",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-6",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    },
+    {
+      "queueSequence": 79,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問5",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-5",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 80,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問4",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-4",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 81,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問3",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-3",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 82,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 83,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 84,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 85,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 272,
+      "priority": "P1",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問23",
+      "displayQuestionId": "gasushunin-koushu-gizyutsu-2021-23",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    },
+    {
+      "queueSequence": 273,
+      "priority": "P1",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問17",
+      "displayQuestionId": "gasushunin-koushu-gizyutsu-2021-17",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 274,
+      "priority": "P1",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問7",
+      "displayQuestionId": "gasushunin-koushu-gizyutsu-2021-7",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 275,
+      "priority": "P1",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問4",
+      "displayQuestionId": "gasushunin-koushu-gizyutsu-2021-4",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 339,
+      "priority": "P2",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問27",
+      "displayQuestionId": "gasushunin-koushu-gizyutsu-2021-27",
+      "secondaryReviewReadiness": "non_lawzilla_workflow_item"
+    }
+  ],
+  "next20Targets": [
+    {
+      "queueSequence": 71,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問13",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-13",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 72,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問12",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-12",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 73,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問11",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-11",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 74,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問10",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-10",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 75,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問9",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-9",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 76,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問8",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-8",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 77,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問7",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-7",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 78,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問6",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-6",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    },
+    {
+      "queueSequence": 79,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問5",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-5",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 80,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問4",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-4",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 81,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問3",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-3",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 82,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 83,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 84,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 85,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 86,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問16",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-16",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 87,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問15",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-15",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 88,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問14",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-14",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 89,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問13",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-13",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 90,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問12",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-12",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    }
+  ],
+  "removedInThisRun": [
+    {
+      "answerResultText": "正解は 5 です。",
+      "choiceCount": 5,
+      "choiceReviews": [
+        {
+          "choiceIndex": 0,
+          "choiceText": "（イ）材料",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。ガス事業法は、ガス用品を主として一般消費者等がガスを消費する場合に用いられる機械、器具又は材料であって政令で定めるものと定義している。",
+          "primaryEvidenceCandidateCount": 2,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=1",
+              "article": "第1条",
+              "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+              "candidateAddress": "ln1.1",
+              "candidateKanjiaddress": "第1条第1項",
+              "candidateSnippet": "...ることによつて、ガスの使用者の利益を保護し、及びガス事業の健全な発達を図るとともに、ガス工作物の工事、維持及び運用並びにガス用品の製造及び販売を規制することによつて、公共の安全を確保し、あわせて公害の防止を図ることを目的とする。",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_1_ff93b5903f848214.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=137",
+              "article": "第137条",
+              "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+              "candidateAddress": "ln137.1",
+              "candidateKanjiaddress": "第137条第1項",
+              "candidateSnippet": "この法律において「ガス用品」とは、主として一般消費者等(液化石油ガス法第2条第2項に規定する一般消費者等をいう。以下同じ。)がガスを消費する場合に用いられる機械、器具又は材料(同条第7項に規定する機械、器具又は材料を除く。)であつて、政令…",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_137_ca8a8f8b29a495ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 1,
+          "choiceText": "（ロ）販売の目的で陳列",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。ガス用品は、所定の表示が付されているものでなければ、販売し、又は販売の目的で陳列してはならない。",
+          "primaryEvidenceCandidateCount": 2,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=1",
+              "article": "第1条",
+              "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+              "candidateAddress": "ln1.1",
+              "candidateKanjiaddress": "第1条第1項",
+              "candidateSnippet": "...ることによつて、ガスの使用者の利益を保護し、及びガス事業の健全な発達を図るとともに、ガス工作物の工事、維持及び運用並びにガス用品の製造及び販売を規制することによつて、公共の安全を確保し、あわせて公害の防止を図ることを目的とする。",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_1_ff93b5903f848214.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=137",
+              "article": "第137条",
+              "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+              "candidateAddress": "ln137.1",
+              "candidateKanjiaddress": "第137条第1項",
+              "candidateSnippet": "この法律において「ガス用品」とは、主として一般消費者等(液化石油ガス法第2条第2項に規定する一般消費者等をいう。以下同じ。)がガスを消費する場合に用いられる機械、器具又は材料(同条第7項に規定する機械、器具又は材料を除く。)であつて、政令…",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_137_ca8a8f8b29a495ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 2,
+          "choiceText": "（ハ）ガス消費機器設置工事監督者",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。特定工事事業者は、特定工事が技術上の基準に適合することを確保するため、ガス消費機器設置工事監督者の資格を有する者に監督させる必要がある。",
+          "primaryEvidenceCandidateCount": 3,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+              "article": "第159条",
+              "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+              "candidateAddress": "ln159",
+              "candidateKanjiaddress": "第159条",
+              "candidateSnippet": "(消費機器に関する周知及び調査)",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_159_c690236f0f0959bc.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+              "article": "第159条",
+              "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+              "candidateAddress": "ln159.1",
+              "candidateKanjiaddress": "第159条第1項",
+              "candidateSnippet": "...において同じ。)は、経済産業省令で定めるところにより、ガスを消費する場合に用いられる機械又は器具(附属装置を含む。以下「消費機器」という。)を使用する者に対し、当該ガス小売事業者が供給するガスの使用に伴う危険の発生の防止に関し必要な…",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_159_c690236f0f0959bc.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+              "article": "第159条",
+              "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+              "candidateAddress": "ln159.2",
+              "candidateKanjiaddress": "第159条第2項",
+              "candidateSnippet": "ガス小売事業者は、経済産業省令で定めるところにより、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならない。ただし、その消費機器を設置し、又は使用する場所に立ち入ることにつき、その所…",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_159_c690236f0f0959bc.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 3,
+          "choiceText": "（ニ）実地に監督",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。特定工事は、ガス消費機器設置工事監督者の資格を有する者に実地に監督させ、又は資格を有する特定工事事業者が自ら実地に監督しなければならない。",
+          "primaryEvidenceCandidateCount": 2,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=1",
+              "article": "第1条",
+              "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+              "candidateAddress": "ln1.1",
+              "candidateKanjiaddress": "第1条第1項",
+              "candidateSnippet": "...ることによつて、ガスの使用者の利益を保護し、及びガス事業の健全な発達を図るとともに、ガス工作物の工事、維持及び運用並びにガス用品の製造及び販売を規制することによつて、公共の安全を確保し、あわせて公害の防止を図ることを目的とする。",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_1_ff93b5903f848214.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=137",
+              "article": "第137条",
+              "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+              "candidateAddress": "ln137.1",
+              "candidateKanjiaddress": "第137条第1項",
+              "candidateSnippet": "この法律において「ガス用品」とは、主として一般消費者等(液化石油ガス法第2条第2項に規定する一般消費者等をいう。以下同じ。)がガスを消費する場合に用いられる機械、器具又は材料(同条第7項に規定する機械、器具又は材料を除く。)であつて、政令…",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_137_ca8a8f8b29a495ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 4,
+          "choiceText": "（ホ）施工年月日",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。特定工事事業者は、特定工事を施工したとき、特定ガス消費機器の見やすい場所に氏名又は名称、施工年月日その他の事項を記載した表示を付す必要がある。",
+          "primaryEvidenceCandidateCount": 2,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=1",
+              "article": "第1条",
+              "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+              "candidateAddress": "ln1.1",
+              "candidateKanjiaddress": "第1条第1項",
+              "candidateSnippet": "...ることによつて、ガスの使用者の利益を保護し、及びガス事業の健全な発達を図るとともに、ガス工作物の工事、維持及び運用並びにガス用品の製造及び販売を規制することによつて、公共の安全を確保し、あわせて公害の防止を図ることを目的とする。",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_1_ff93b5903f848214.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=137",
+              "article": "第137条",
+              "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+              "candidateAddress": "ln137.1",
+              "candidateKanjiaddress": "第137条第1項",
+              "candidateSnippet": "この法律において「ガス用品」とは、主として一般消費者等(液化石油ガス法第2条第2項に規定する一般消費者等をいう。以下同じ。)がガスを消費する場合に用いられる機械、器具又は材料(同条第7項に規定する機械、器具又は材料を除く。)であつて、政令…",
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/329AC0000000051_137_ca8a8f8b29a495ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        }
+      ],
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-14",
+      "examYear": 2021,
+      "existingIsLawRelated": true,
+      "existingLawGroundedExplanationNotNeeded": false,
+      "existingLawReferenceCount": 5,
+      "generatedAt": "2026-07-09T23:59:00+09:00",
+      "originalQuestionId": "gasushunin-koushu-hourei-2021-14",
+      "primaryEvidenceCandidateCount": 11,
+      "primaryEvidenceChoiceRecordCount": 5,
+      "primaryEvidenceLinkStatusCounts": {
+        "primary_article_fetched_snippet_matched": 5
+      },
+      "priority": "P0",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionIntent": "select_correct",
+      "questionLabel": "問14",
+      "questionType": "true_false",
+      "queueSequence": 70,
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0226,chiefgasengineerlicense-A-10-0227,chiefgasengineerlicense-A-10-0228,chiefgasengineerlicense-A-10-0229,chiefgasengineerlicense-A-10-0230",
+      "schemaVersion": "gas-shunin-secondary-law-review-queue/v1",
+      "secondaryReviewReadiness": "secondary_verified_in_question_patch",
+      "secondaryReviewReasons": [
+        "Verified lawReferences and lawRevisionFacts exist in the question patch.",
+        "Each choice was manually reconciled from Lawzilla candidates to Gas Business Act Article 137/138 or Tokkanhou Article 3/6 direct basis.",
+        "Source conflict ledger was reviewed; preserve Firestore snapshot/sourcePriority=1 per 01-04 manual review."
+      ],
+      "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_2_questionType_fixed.json"
+      },
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ],
+      "workflowDecision": "secondary_verified_in_question_patch"
+    }
+  ]
+}
