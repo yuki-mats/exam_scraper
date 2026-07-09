@@ -1513,7 +1513,67 @@
         "正しい。都市ガス用触媒燃焼バーナーは、触媒マットを用いた全二次空気燃焼方式により、約600度以下で無炎燃焼する。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "answer_result_text": "正しいものは 3 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T00:45:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:370-371",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:190",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1215,chiefgasengineerlicense-A-60-1216,chiefgasengineerlicense-A-60-1217,chiefgasengineerlicense-A-60-1218,chiefgasengineerlicense-A-60-1219",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-60-1215",
+        "chiefgasengineerlicense-A-60-1216",
+        "chiefgasengineerlicense-A-60-1217",
+        "chiefgasengineerlicense-A-60-1218",
+        "chiefgasengineerlicense-A-60-1219"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-60-182",
+      "questionSetName": "ガスの燃焼（甲種）",
+      "conflicts": [
+        {
+          "line": 370,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 0,
+          "statementNo": 1,
+          "firestoreValue": "成分ガス1㎥を燃焼させるのに理論上必要な酸素量のことを酸素当量といい、メタンでは1.0㎥/㎥である。",
+          "siteValue": "成分ガス1m³Nを燃焼させるのに理論上必要な酸素量のことを酸素当量といい、メタンでは\n1.0m³N/m³Nである。",
+          "differenceSummary": "「㎥」と「m³N」の単位表記差および改行差。メタンの酸素当量を1.0とする誤りの判断には影響しない。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 371,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 3,
+          "statementNo": 4,
+          "firestoreValue": "濃淡燃焼に使われる淡バーナー用混合気の一次空気比は、0.5～0.7程度である。",
+          "siteValue": "濃淡燃焼に使われる淡バーナー用混合気の一次空気比は、0.5〜0.7程度\nである。",
+          "differenceSummary": "「～」と「〜」の表記差および改行差のみ。一次空気比0.5から0.7程度とする誤りの判断には影響しない。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢2、3、5が正しい。選択肢1と4は間違い。設問は正しいものの個数を問うため、正しいものは3つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-60-1215..1219を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令のガス燃焼・燃焼方式知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1220,chiefgasengineerlicense-A-60-1221,chiefgasengineerlicense-A-60-1222,chiefgasengineerlicense-A-60-1223,chiefgasengineerlicense-A-60-1224",
