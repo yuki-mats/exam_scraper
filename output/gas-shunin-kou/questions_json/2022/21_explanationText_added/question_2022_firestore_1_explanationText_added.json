@@ -1659,7 +1659,67 @@
         "正しい。潜熱回収型給湯器のドレン水は、下水道法で規定される水素イオン濃度（pH）を満たすように水質が改善されている。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい"
+    ],
+    "answer_result_text": "正しいものは 3 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T00:40:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:372-373",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:192",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1225,chiefgasengineerlicense-A-60-1226,chiefgasengineerlicense-A-60-1227,chiefgasengineerlicense-A-60-1228,chiefgasengineerlicense-A-60-1229",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-60-1225",
+        "chiefgasengineerlicense-A-60-1226",
+        "chiefgasengineerlicense-A-60-1227",
+        "chiefgasengineerlicense-A-60-1228",
+        "chiefgasengineerlicense-A-60-1229"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-60-169",
+      "questionSetName": "家庭用ガス機器（甲種）",
+      "conflicts": [
+        {
+          "line": 372,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 2,
+          "statementNo": 3,
+          "firestoreValue": "水位センサーを内蔵したふろ給湯器では、浴槽循環口から水面までの水頭差を計測することで、浴槽の大きさや形状にかかわらず、水位監視が可能である。",
+          "siteValue": "水位センサーを内蔵したふろ給湯器では、浴槽循環口から水面までの水頭圧を計測することで、浴槽の大きさや形状にかかわらず、水位監視が可能である。",
+          "differenceSummary": "「水頭差」と「水頭圧」の用語差。既存Firestore本文の正誤判断では水位監視の説明として正しいため、正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 373,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 3,
+          "statementNo": 4,
+          "firestoreValue": "給湯暖房用熱源機の温水循環回路に使用されるシスコンターダーは、暖房使用時に昇温され膨張した温水によるウォーターハンマーを吸収するために設計されている。",
+          "siteValue": "給湯暖房用熱源機の温水循環回路に使用されるシスターンは、暖房使用時に昇温され膨張した温水による\nウォーターハンマーを吸収する\nために設けられている。",
+          "differenceSummary": "装置名と表現の差分。既存Firestore本文では「シスコンターダー」とウォーターハンマー吸収を結びつけている点を誤りとしており、site差分は適用せず正誤への影響なしとして保持する。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢2、3、5が正しい。選択肢1と4は間違い。設問は正しいものの個数を問うため、正しいものは3つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-60-1225..1229を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の家庭用ガス温水機器知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1230,chiefgasengineerlicense-A-60-1231,chiefgasengineerlicense-A-60-1232,chiefgasengineerlicense-A-60-1233,chiefgasengineerlicense-A-60-1234",
