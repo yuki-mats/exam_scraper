@@ -2565,7 +2565,56 @@
         "正しい。移動設置形のガス機器とガス栓の接続は、ガス栓側で脱着することを基本とする。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "answer_result_text": "正しいものは 5 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T00:25:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:380",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:197",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1250,chiefgasengineerlicense-A-60-1251,chiefgasengineerlicense-A-60-1252,chiefgasengineerlicense-A-60-1253,chiefgasengineerlicense-A-60-1254",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-60-1250",
+        "chiefgasengineerlicense-A-60-1251",
+        "chiefgasengineerlicense-A-60-1252",
+        "chiefgasengineerlicense-A-60-1253",
+        "chiefgasengineerlicense-A-60-1254"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-60-199",
+      "questionSetName": "接続具及びガス栓（甲種）",
+      "conflicts": [
+        {
+          "line": 380,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 0,
+          "statementNo": 1,
+          "firestoreValue": "ガスコンセントは、迅速継手が外れた場合や、不完全に接続された状態でも、接続部分からガスは流出しない。",
+          "siteValue": "ガスコンセントは、迅速継手が外れた場合や、不完全に接続された状態でも、接続部からガスは流出しない。",
+          "differenceSummary": "「接続部分」と「接続部」の表記差のみ。意味・正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "全5選択肢の正誤は既存Firestore snapshotどおり「正しい」。設問は正しいものの個数を問うため、正しいものは5つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-60-1250..1254を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の接続具・ガス栓運用知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1138,chiefgasengineerlicense-A-40-1139,chiefgasengineerlicense-A-40-1140,chiefgasengineerlicense-A-40-1141,chiefgasengineerlicense-A-40-1142",
