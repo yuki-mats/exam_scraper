@@ -279,6 +279,7 @@ def run_patch_checks(
     require_law_grounded_flag: bool,
     require_is_law_related: bool,
     require_law_revision_facts: bool,
+    require_law_evidence_utilization: bool,
     require_law_context_stage: bool,
     questionset_only: bool,
 ) -> int:
@@ -330,6 +331,8 @@ def run_patch_checks(
                     cmd.append("--require-is-law-related")
                 if stage.label == "explanationText" and require_law_revision_facts:
                     cmd.append("--require-law-revision-facts")
+                if stage.label == "explanationText" and require_law_evidence_utilization:
+                    cmd.append("--require-law-evidence-utilization")
                 if stage.label == "questionSetId":
                     cmd.extend(["--category", str(category_path)])
                     if questionset_only:
@@ -432,6 +435,14 @@ def add_explanation_patch_parser(
         "--require-law-revision-facts",
         action="store_true",
         help="Require lawRevisionFacts when isLawRelated=true.",
+    )
+    parser.add_argument(
+        "--require-law-evidence-utilization",
+        action="store_true",
+        help=(
+            "Require law-related explanationText/suggestedQuestions/"
+            "suggestedQuestionDetails to reflect existing law evidence."
+        ),
     )
 
 
@@ -619,6 +630,14 @@ def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
         ),
     )
     parser.add_argument(
+        "--require-law-evidence-utilization",
+        action="store_true",
+        help=(
+            "Require law-related explanation patches to use existing law evidence "
+            "in explanationText/suggestedQuestions/suggestedQuestionDetails."
+        ),
+    )
+    parser.add_argument(
         "--fail-on-law-revision-hold",
         action="store_true",
         help="Fail quality-gate when lawRevisionFacts.auditStatus=hold remains.",
@@ -722,6 +741,8 @@ def run_explanation_patch_check(args: argparse.Namespace) -> int:
         cmd.append("--require-is-law-related")
     if args.require_law_revision_facts:
         cmd.append("--require-law-revision-facts")
+    if args.require_law_evidence_utilization:
+        cmd.append("--require-law-evidence-utilization")
     return run_command(cmd)
 
 
@@ -880,6 +901,7 @@ def main(argv: list[str] | None = None) -> int:
             require_law_grounded_flag=args.require_law_grounded_flag,
             require_is_law_related=args.require_is_law_related,
             require_law_revision_facts=args.require_law_revision_facts,
+            require_law_evidence_utilization=args.require_law_evidence_utilization,
             require_law_context_stage=args.require_law_context_stage,
             questionset_only=args.questionset_only,
         )

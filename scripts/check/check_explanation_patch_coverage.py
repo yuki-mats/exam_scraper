@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -36,6 +37,32 @@ ALLOWED_LAW_REFERENCE_COMPARISON_STATUS = {
     "not_checked",
 }
 LAW_REFERENCE_PLACEHOLDERS = {"", "不明", "未確認", "TODO", "TBD", "N/A", "null", "None"}
+LAW_CONTEXT_KEYWORDS = (
+    "現行法",
+    "出題当時",
+    "当時",
+    "現在",
+    "法",
+    "条",
+    "項",
+    "号",
+    "政令",
+    "省令",
+    "規則",
+    "告示",
+    "基準",
+    "制度",
+    "定義",
+    "要件",
+    "義務",
+    "手続",
+    "届出",
+    "許可",
+    "確認",
+    "改正",
+)
+CURRENT_LAW_TERMS = ("現行法", "現在", "現行")
+EXAM_TIME_TERMS = ("出題当時", "当時", "試験当時", "元の正答", "掲載元")
 
 
 def has_non_empty_law_references(value: Any) -> bool:
@@ -44,6 +71,174 @@ def has_non_empty_law_references(value: Any) -> bool:
     if isinstance(value, list):
         return any(has_non_empty_law_references(entry) for entry in value)
     return False
+
+
+def normalize_for_anchor_match(value: Any) -> str:
+    return re.sub(r"\s+", "", str(value or ""))
+
+
+def iter_nested_strings(value: Any) -> List[str]:
+    strings: List[str] = []
+    if isinstance(value, str):
+        if value.strip():
+            strings.append(value.strip())
+    elif isinstance(value, dict):
+        for nested in value.values():
+            strings.extend(iter_nested_strings(nested))
+    elif isinstance(value, list):
+        for nested in value:
+            strings.extend(iter_nested_strings(nested))
+    return strings
+
+
+def iter_law_reference_objects(value: Any) -> List[Dict[str, Any]]:
+    refs: List[Dict[str, Any]] = []
+    if isinstance(value, dict):
+        refs.append(value)
+    elif isinstance(value, list):
+        for nested in value:
+            refs.extend(iter_law_reference_objects(nested))
+    return refs
+
+
+def iter_law_revision_fact_objects(value: Any) -> List[Dict[str, Any]]:
+    if isinstance(value, dict):
+        return [value]
+    if isinstance(value, list):
+        return [entry for entry in value if isinstance(entry, dict)]
+    return []
+
+
+def law_revision_fact_statuses(value: Any) -> set[str]:
+    statuses: set[str] = set()
+    for fact in iter_law_revision_fact_objects(value):
+        status = fact.get("auditStatus")
+        if isinstance(status, str) and status:
+            statuses.add(status)
+    return statuses
+
+
+def law_related_for_utilization(patch: Dict[str, Any], has_law_references: bool) -> bool:
+    if patch.get("isLawRelated") is True:
+        return True
+    if has_law_references:
+        return True
+    statuses = law_revision_fact_statuses(patch.get("lawRevisionFacts"))
+    return bool(statuses and statuses != {"not_law_related"})
+
+
+def law_evidence_anchors(patch: Dict[str, Any]) -> List[str]:
+    anchors: list[str] = []
+
+    for ref in iter_law_reference_objects(patch.get("lawReferences")):
+        for key in ("lawTitle", "lawAlias"):
+            value = ref.get(key)
+            if isinstance(value, str) and len(normalize_for_anchor_match(value)) >= 3:
+                anchors.append(value)
+        article = ref.get("article")
+        if isinstance(article, str) and article.strip():
+            article_text = article.strip()
+            if "条" in article_text:
+                anchors.append(article_text)
+            elif article_text.isdigit():
+                anchors.append(f"第{article_text}条")
+                anchors.append(f"{article_text}条")
+
+    for fact in iter_law_revision_fact_objects(patch.get("lawRevisionFacts")):
+        for key in ("current", "examTime", "evidenceSummary"):
+            source = fact.get(key)
+            for text in iter_nested_strings(source):
+                if "法" in text and len(normalize_for_anchor_match(text)) <= 40:
+                    anchors.append(text)
+            if isinstance(source, dict):
+                law_title = source.get("lawTitle")
+                if isinstance(law_title, str) and len(normalize_for_anchor_match(law_title)) >= 3:
+                    anchors.append(law_title)
+                article = source.get("article")
+                if isinstance(article, str) and article.strip():
+                    article_text = article.strip()
+                    if "条" in article_text:
+                        anchors.append(article_text)
+                    elif article_text.isdigit():
+                        anchors.append(f"第{article_text}条")
+                        anchors.append(f"{article_text}条")
+
+    normalized_seen: set[str] = set()
+    unique: list[str] = []
+    for anchor in anchors:
+        normalized = normalize_for_anchor_match(anchor)
+        if len(normalized) < 2 or normalized in normalized_seen:
+            continue
+        normalized_seen.add(normalized)
+        unique.append(anchor)
+    return unique
+
+
+def public_text_for_patch(patch: Dict[str, Any]) -> str:
+    parts: list[str] = []
+    parts.extend(iter_nested_strings(patch.get("explanationText")))
+    parts.extend(iter_nested_strings(patch.get("suggestedQuestions")))
+    parts.extend(iter_nested_strings(patch.get("suggestedQuestionDetails")))
+    return "\n".join(parts)
+
+
+def contains_any(text: str, terms: tuple[str, ...] | list[str]) -> bool:
+    return any(term in text for term in terms)
+
+
+def validate_law_evidence_utilization(
+    *,
+    patch: Dict[str, Any],
+    index: int,
+    has_law_references: bool,
+    errors: List[str],
+) -> None:
+    if not law_related_for_utilization(patch, has_law_references):
+        return
+
+    statuses = law_revision_fact_statuses(patch.get("lawRevisionFacts"))
+    if statuses == {"hold"}:
+        return
+
+    questions = patch.get("suggestedQuestions")
+    details = patch.get("suggestedQuestionDetails")
+    question_text = "\n".join(q for q in questions if isinstance(q, str)) if isinstance(questions, list) else ""
+    answer_text = "\n".join(
+        detail.get("answer", "")
+        for detail in details
+        if isinstance(detail, dict) and isinstance(detail.get("answer"), str)
+    ) if isinstance(details, list) else ""
+    public_text = public_text_for_patch(patch)
+
+    if not contains_any(question_text, LAW_CONTEXT_KEYWORDS):
+        errors.append(
+            f"index {index}: law-related suggestedQuestions must include at least one law/context-specific question"
+        )
+
+    if not contains_any(answer_text, LAW_CONTEXT_KEYWORDS):
+        errors.append(
+            f"index {index}: law-related suggestedQuestionDetails answers must use law/context evidence"
+        )
+
+    anchors = law_evidence_anchors(patch)
+    normalized_public_text = normalize_for_anchor_match(public_text)
+    if anchors and not any(normalize_for_anchor_match(anchor) in normalized_public_text for anchor in anchors):
+        errors.append(
+            f"index {index}: public explanation fields do not mention any concrete law evidence anchor"
+        )
+
+    if "updated_to_current_law" in statuses:
+        if not contains_any(public_text, CURRENT_LAW_TERMS) or not contains_any(public_text, EXAM_TIME_TERMS):
+            errors.append(
+                f"index {index}: updated_to_current_law explanation must distinguish current law from exam-time handling"
+            )
+        if not (
+            contains_any(question_text, CURRENT_LAW_TERMS)
+            and contains_any(question_text, EXAM_TIME_TERMS)
+        ):
+            errors.append(
+                f"index {index}: updated_to_current_law suggestedQuestions must ask about current law and exam-time difference"
+            )
 
 
 def load_json(path: Path) -> Any:
@@ -247,6 +442,7 @@ def compare_entries(
     require_law_grounded_flag: bool = False,
     require_is_law_related: bool = False,
     require_law_revision_facts: bool = False,
+    require_law_evidence_utilization: bool = False,
 ) -> Tuple[List[str], List[str]]:
     errors: List[str] = []
     warnings: List[str] = []
@@ -381,6 +577,13 @@ def compare_entries(
             errors.append(
                 f"index {idx}: missing lawRevisionFacts for law-related question"
             )
+        if require_law_evidence_utilization:
+            validate_law_evidence_utilization(
+                patch=patch,
+                index=idx,
+                has_law_references=has_law_references,
+                errors=errors,
+            )
 
     if len(set(patch_ids)) != len(patch_ids):
         warnings.append("duplicate original_question_id detected in patch")
@@ -395,6 +598,7 @@ def check_pair(
     require_law_grounded_flag: bool = False,
     require_is_law_related: bool = False,
     require_law_revision_facts: bool = False,
+    require_law_evidence_utilization: bool = False,
 ) -> int:
     if not source_path.exists():
         print(f"[ERROR] source not found: {source_path}")
@@ -415,6 +619,7 @@ def check_pair(
         require_law_grounded_flag=require_law_grounded_flag,
         require_is_law_related=require_is_law_related,
         require_law_revision_facts=require_law_revision_facts,
+        require_law_evidence_utilization=require_law_evidence_utilization,
     )
     for warn in warnings:
         print(f"[WARN] {warn}")
@@ -452,6 +657,11 @@ def main() -> int:
         action="store_true",
         help="Require lawRevisionFacts when isLawRelated=true.",
     )
+    parser.add_argument(
+        "--require-law-evidence-utilization",
+        action="store_true",
+        help="Require law-related explanationText/suggestedQuestions/suggestedQuestionDetails to reflect existing law evidence.",
+    )
     args = parser.parse_args()
     return check_pair(
         Path(args.source),
@@ -459,6 +669,7 @@ def main() -> int:
         require_law_grounded_flag=args.require_law_grounded_flag,
         require_is_law_related=args.require_is_law_related,
         require_law_revision_facts=args.require_law_revision_facts,
+        require_law_evidence_utilization=args.require_law_evidence_utilization,
     )
 
 

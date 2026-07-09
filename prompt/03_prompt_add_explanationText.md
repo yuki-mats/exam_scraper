@@ -744,6 +744,8 @@ python3 scripts/fix/archive_patch_outputs.py \
 - 法令問題で現行法に合わせて正誤更新した場合、`explanationText` に更新済み注記があるか
 - 法令問題で現行法に合わせて正誤更新した場合、`suggestedQuestions` / `suggestedQuestionDetails` で出題当時正答との差分を確認できるか
 - 法令問題で現行法に合わせて正誤更新した場合、review sidecar に `updatedToCurrentLaw`、元の正誤、更新後の正誤、参照条項が残っているか
+- 法令問題で `lawRevisionFacts` / `lawReferences` がある場合、`explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` の少なくとも一部に、具体的な法令名・条項・現行法/出題当時の扱いなど、整理済み根拠が反映されているか
+- 法令問題の `suggestedQuestions` が `正誤を判断するポイントはどこですか？` のような汎用質問だけで終わっていないか
 - `lawReferences` を出す資格では、`verificationStatus="verified"` の `lawReferences` に `lawId` と `article` が非空で入っているか
 - `lawReferences` を出す資格では、`lawId` が法令名・略称・URL・`TODO`・`不明` ではなく、e-Gov の正式な法令IDになっているか
 - `lawReferences` を出す資格では、`lawReferences` が資格別の対象法令スコープ内の法令を優先しているか
@@ -773,7 +775,8 @@ python3 tools/question_bank/question_bank.py check-explanation-patch \
   --source /path/to/question_*_merged.json \
   --patch /path/to/21_explanationText_added/question_*_merged_explanationText_added.json \
   --require-is-law-related \
-  --require-law-grounded-flag
+  --require-law-grounded-flag \
+  --require-law-evidence-utilization
 ```
 
 通過しない場合は、説明文や配列長を修正してから再実行すること。

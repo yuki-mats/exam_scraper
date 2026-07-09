@@ -9,6 +9,40 @@ from scripts.fix.materialize_minimal_patch import materialize_explanation
 from scripts.pipeline.build_tsukanshi_upload_artifacts import build_explanation_patch, build_intent_patch
 
 
+def valid_law_revision_facts(status: str = "same_as_current") -> dict:
+    return {
+        "auditStatus": status,
+        "reviewState": "secondary_verified" if status != "updated_to_current_law" else "tertiary_verified",
+        "current": {
+            "correctChoiceText": "正しい",
+            "lawId": "325AC0000000201",
+            "lawTitle": "建築基準法",
+            "article": "6",
+            "referenceDate": "2026-07-05",
+            "verificationStatus": "verified",
+        },
+        "examTime": {
+            "correctChoiceText": "正しい",
+            "verificationStatus": "from_original_answer",
+        },
+        "evidenceSummary": {
+            "verdict": "correct",
+            "differenceSummary": "正誤に影響する差分はありません。",
+            "refs": [
+                {
+                    "refId": "current_basis_Art6",
+                    "lawTimeScope": "current",
+                    "relation": "basis",
+                    "primaryBasis": True,
+                    "lawId": "325AC0000000201",
+                    "lawTitle": "建築基準法",
+                    "article": "6",
+                }
+            ],
+        },
+    }
+
+
 class ExplanationPatchPipelineTests(unittest.TestCase):
     def test_build_expected_correct_choice_text_prefers_answer_result_text_over_bad_inferred_numbers(self) -> None:
         question = {
@@ -340,6 +374,121 @@ class ExplanationPatchPipelineTests(unittest.TestCase):
 
         self.assertTrue(
             any("suggestedQuestionDetails[0].question must match suggestedQuestions[0]" in error for error in errors)
+        )
+
+    def test_compare_entries_accepts_law_evidence_utilization_when_public_fields_use_facts(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": [
+                    "正しい。\n\n建築基準法第6条の確認申請の要件に沿って判断する。"
+                ],
+                "suggestedQuestions": ["建築基準法第6条では何を確認しますか？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "建築基準法第6条では何を確認しますか？",
+                        "answer": "建築基準法第6条は確認申請の対象を判断する根拠になる。問題では対象建築物に当たるかを条文の要件で見る。",
+                    }
+                ],
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawRevisionFacts": valid_law_revision_facts(),
+            }
+        ]
+
+        errors, warnings = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_evidence_utilization=True,
+        )
+
+        self.assertEqual(errors, [])
+        self.assertEqual(warnings, [])
+
+    def test_compare_entries_rejects_generic_law_related_suggestions_when_utilization_required(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["正しい。\n\n条件に合うため正しい。"],
+                "suggestedQuestions": ["正誤を判断するポイントはどこですか？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "正誤を判断するポイントはどこですか？",
+                        "answer": "問題文の条件、数値、対象、例外の有無を確認します。",
+                    }
+                ],
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawRevisionFacts": valid_law_revision_facts(),
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_evidence_utilization=True,
+        )
+
+        self.assertTrue(
+            any("suggestedQuestions must include" in error for error in errors)
+        )
+        self.assertTrue(
+            any("do not mention any concrete law evidence anchor" in error for error in errors)
+        )
+
+    def test_compare_entries_requires_current_and_exam_time_words_for_current_law_update(self) -> None:
+        source_questions = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "choiceTextList": ["肢1"],
+            }
+        ]
+        patch_entries = [
+            {
+                "original_question_id": "q123",
+                "question_url": "https://example.com/q123",
+                "explanationText": ["間違い。\n\n建築基準法第6条の要件とは異なる。"],
+                "suggestedQuestions": ["建築基準法第6条では何を確認しますか？"],
+                "suggestedQuestionDetails": [
+                    {
+                        "question": "建築基準法第6条では何を確認しますか？",
+                        "answer": "建築基準法第6条の要件に当たるかを確認する。",
+                    }
+                ],
+                "isLawRelated": True,
+                "lawGroundedExplanationNotNeeded": False,
+                "lawRevisionFacts": valid_law_revision_facts("updated_to_current_law"),
+            }
+        ]
+
+        errors, _ = compare_entries(
+            source_questions,
+            patch_entries,
+            require_law_evidence_utilization=True,
+        )
+
+        self.assertTrue(
+            any("must distinguish current law from exam-time handling" in error for error in errors)
+        )
+        self.assertTrue(
+            any("must ask about current law and exam-time difference" in error for error in errors)
         )
 
     def test_convert_true_false_to_firestore_attaches_choice_law_references(self) -> None:
