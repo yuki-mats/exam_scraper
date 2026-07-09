@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-snapshot-summary/v1",
+  "generatedAt": "2026-07-10T03:30:00+09:00",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2021,
+  "questionLabel": "問2",
+  "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+  "reviewQuestionIds": [
+    "firestore:chiefgasengineerlicense-A-10-0166,chiefgasengineerlicense-A-10-0167,chiefgasengineerlicense-A-10-0168,chiefgasengineerlicense-A-10-0169,chiefgasengineerlicense-A-10-0170",
+    "firestore:chiefgasengineerlicense-A-10-0246"
+  ],
+  "sourceQuestionJson": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_033000_q2_gas_shunin_primary_evidence_snapshots_direct_basis_q2_2021.jsonl",
+  "rawXmlDir": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_033000_q2",
+  "questionRecordCount": 2,
+  "choiceCount": 6,
+  "directBasisCount": 6,
+  "lawReferencesAdded": 6,
+  "answerResultTexts": {
+    "queueSequence82": "正解は 2 です。",
+    "queueSequence83": "正解は 1 です。"
+  },
+  "directBasisArticles": [
+    {
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "48",
+      "articleTitle": "託送供給約款",
+      "paragraphs": [
+        "1"
+      ],
+      "items": [],
+      "articleTextHash": "fa9f6148aaf1d2bd0f873301613d959322db85efc1c6f7ff21a14b9b747ab276",
+      "rawXmlHash": "eed046678834ed296bb041aebe558fa8cda9d3fa3418df2821ca7a9d04436215"
+    },
+    {
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "article": "64",
+      "articleTitle": "託送供給約款において定めるべき事項",
+      "paragraphs": [
+        "1"
+      ],
+      "items": [
+        "一ホ・二ヘ"
+      ],
+      "articleTextHash": "28349904dea2f638a5ad6d4a80d38193309a678e8a4dc5b4e4084731cd87de6d",
+      "rawXmlHash": "5f369929f276356c120f33e85bb566679eb310a370f5ebcb76084029139c4596"
+    },
+    {
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "47",
+      "articleTitle": "託送供給義務等",
+      "paragraphs": [
+        "2"
+      ],
+      "items": [],
+      "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+      "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+    },
+    {
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "93",
+      "articleTitle": "製造計画",
+      "paragraphs": [
+        "1"
+      ],
+      "items": [],
+      "articleTextHash": "8e51cd0c71caedfe517826ebab2982eb4b72b416aa969d7736d552e6134e4399",
+      "rawXmlHash": "db7740139619e17f135df8ffe0a6ede15a9e11f377ec888ed44fcbc2c821c467"
+    },
+    {
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "article": "144",
+      "articleTitle": "熱量等の測定方法",
+      "paragraphs": [
+        "1"
+      ],
+      "items": [
+        "二"
+      ],
+      "articleTextHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
+      "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a"
+    },
+    {
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "13",
+      "articleTitle": "供給能力の確保",
+      "paragraphs": [
+        "1"
+      ],
+      "items": [],
+      "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+      "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
+    }
+  ],
+  "lawzillaPracticalVerdict": "singleton_article13_candidate_valid_but_five_statement_row_requires_reviewQuestionId_separation_and_direct_fallback",
+  "metadataDecision": "preserve_firestore_statement_ids_and_metadata_resolved_duplicate_handling"
+}
