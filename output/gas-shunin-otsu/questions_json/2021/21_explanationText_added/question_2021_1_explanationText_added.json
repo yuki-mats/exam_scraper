@@ -454,65 +454,70 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
     "explanationText": [
-      "正しい。ガス小売事業者が、ガス小売事業の用に供するガス工作物の設置又は変更の工事で経済産業省令で定めるものをしようとするときは、工事計画の届出対象となる。",
-      "間違い。工事計画の届出をしたガス小売事業者は、対象となるガス工作物の工事について使用前自主検査を行う。完成検査としている点が誤り。",
-      "間違い。工事計画の届出に係る工事は、原則として届出が受理された日から30日を経過した後でなければ開始できない。届出を提出した日としている点が誤り。",
-      "正しい。使用前自主検査の結果について、登録ガス工作物検査機関が行う検査を受け、これに合格した後でなければ、対象のガス工作物を使用できない。",
-      "正しい。ガス小売事業者の工事計画の届出先は経済産業大臣である。"
+      "正しい。ガス事業法第32条第1項は、ガス小売事業者がガス小売事業の用に供するガス工作物の設置又は変更の工事で経済産業省令で定めるものをしようとするとき、工事計画を経済産業大臣に届け出なければならないと定めている。",
+      "間違い。ガス事業法第33条第1項は、工事計画届出に係る対象ガス工作物の工事について自主検査を行うことを定めている。完成検査としている点が誤りである。",
+      "間違い。ガス事業法第32条第3項は、工事開始制限の30日について、その届出が受理された日から起算すると定めている。届出を提出した日としている点が誤りである。",
+      "正しい。ガス事業法第33条第1項は、自主検査の結果が同条第2項各号に適合していることについて、経済産業大臣の登録を受けた者が行う検査を受け、これに合格した後でなければ対象ガス工作物を使用してはならないと定めている。登録ガス工作物検査機関に相当する語句は正しい。",
+      "正しい。ガス事業法第32条第1項は、ガス小売事業者が対象工事をしようとするとき、その工事の計画を経済産業大臣に届け出なければならないと定めている。届出先を経済産業大臣としている点は正しい。"
     ],
     "suggestedQuestions": [
       "工事計画届出の対象はガス工作物の設置又は変更の工事か。",
       "工事計画届出後に行う検査は完成検査か。",
       "工事開始制限の30日は届出を提出した日から数えるか。",
-      "使用前自主検査の結果について登録ガス工作物検査機関の検査を受ける必要があるか。",
+      "使用前検査では登録ガス工作物検査機関に相当する者の検査を受ける必要があるか。",
       "ガス小売事業者の工事計画の届出先は経済産業大臣か。"
     ],
     "suggestedQuestionDetails": [
       {
         "question": "工事計画届出の対象はガス工作物の設置又は変更の工事か。",
-        "answer": "はい。設置又は変更の工事が対象になり得る。"
+        "answer": "はい。ガス小売事業の用に供するガス工作物の設置又は変更の工事で、経済産業省令で定めるものが対象である。",
+        "explanation": "正しい。ガス事業法第32条第1項は、ガス小売事業者がガス小売事業の用に供するガス工作物の設置又は変更の工事で経済産業省令で定めるものをしようとするとき、工事計画を経済産業大臣に届け出なければならないと定めている。"
       },
       {
         "question": "工事計画届出後に行う検査は完成検査か。",
-        "answer": "いいえ。使用前自主検査であり、完成検査ではない。"
+        "answer": "いいえ。条文上は自主検査を行うのであり、完成検査ではない。",
+        "explanation": "間違い。ガス事業法第33条第1項は、工事計画届出に係る対象ガス工作物の工事について自主検査を行うことを定めている。完成検査としている点が誤りである。"
       },
       {
         "question": "工事開始制限の30日は届出を提出した日から数えるか。",
-        "answer": "いいえ。届出が受理された日から数える。。間違い。工事計画の届出に係る工事は、原則として届出が受理された日から30日を経過した後でなければ開始できない。届出を提出した日としている点が誤り。"
+        "answer": "いいえ。届出が受理された日から三十日を経過した後でなければ開始できない。",
+        "explanation": "間違い。ガス事業法第32条第3項は、工事開始制限の30日について、その届出が受理された日から起算すると定めている。届出を提出した日としている点が誤りである。"
       },
       {
-        "question": "使用前自主検査の結果について登録ガス工作物検査機関の検査を受ける必要があるか。",
-        "answer": "はい。登録ガス工作物検査機関の検査を受け、合格する必要がある。"
+        "question": "使用前検査では登録ガス工作物検査機関に相当する者の検査を受ける必要があるか。",
+        "answer": "はい。自主検査の結果について、経済産業大臣の登録を受けた者が行う検査を受け、合格する必要がある。",
+        "explanation": "正しい。ガス事業法第33条第1項は、自主検査の結果が同条第2項各号に適合していることについて、経済産業大臣の登録を受けた者が行う検査を受け、これに合格した後でなければ対象ガス工作物を使用してはならないと定めている。登録ガス工作物検査機関に相当する語句は正しい。"
       },
       {
         "question": "ガス小売事業者の工事計画の届出先は経済産業大臣か。",
-        "answer": "はい。届出先は経済産業大臣である。。正しい。ガス小売事業者の工事計画の届出先は経済産業大臣である。"
+        "answer": "はい。届出先は経済産業大臣である。",
+        "explanation": "正しい。ガス事業法第32条第1項は、ガス小売事業者が対象工事をしようとするとき、その工事の計画を経済産業大臣に届け出なければならないと定めている。届出先を経済産業大臣としている点は正しい。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
-      "ガス事業法の工事計画届出、工事開始制限、使用前自主検査、登録ガス工作物検査機関による検査が本問の関連論点。",
-      "設問は誤っている語句の組合せを問う形式で、選択肢2「完成検査」と選択肢3「を提出した」が誤りである。",
-      "04分類は category.json の active category「工事計画及び検査（乙種）」に対応する。"
+      "ガス小売事業者の工事計画及び使用前検査について、ガス事業法第32条・第33条が本問の直接根拠。",
+      "設問は誤っている語句の組合せを問う形式で、保存順では選択肢2「完成検査」と選択肢3「を提出した」が誤り、選択肢1・4・5が正しい。",
+      "00_sourceの「正解は 4 です。」は組合せ選択肢番号であり、statement-levelの正誤ではないため、answer_result_textは空欄のままcorrectChoiceTextを正本にする。"
     ],
     "sourceExplanationCommonSummary": [
-      "正しい語句は、設置又は変更、経済産業大臣、受理された、使用前自主検査、登録ガス工作物検査機関である。保存順の選択肢では2と3が誤り。"
+      "誤っている語句は「完成検査」と「を提出した」。第33条第1項は「自主検査」を定め、第32条第3項は30日の起算点を「届出が受理された日」とする。"
     ],
     "sourceExplanationChoiceSnippets": [
       [
-        "ガス工作物の設置又は変更の工事は工事計画届出の対象になり得る。"
+        "ガス事業法 第32条第1項: ガス小売事業者は、ガス工作物の設置又は変更の工事で経済産業省令で定めるものをしようとするとき、工事計画を経済産業大臣に届け出る。"
       ],
       [
-        "使用前に行うのは完成検査ではなく使用前自主検査。"
+        "ガス事業法 第33条第1項: 届出に係る対象ガス工作物の工事について自主検査を行い、その結果について登録を受けた者が行う検査を受ける。"
       ],
       [
-        "30日制限の起算点は届出を提出した日ではなく届出が受理された日。"
+        "ガス事業法 第32条第3項: 届出をした者は、その届出が受理された日から三十日を経過した後でなければ、工事を開始してはならない。"
       ],
       [
-        "使用前自主検査の結果について登録ガス工作物検査機関の検査を受ける。"
+        "ガス事業法 第33条第1項: 自主検査の結果について経済産業大臣の登録を受けた者が行う検査を受け、合格した後でなければ使用できない。"
       ],
       [
-        "工事計画の届出先は経済産業大臣。"
+        "ガス事業法 第32条第1項: ガス小売事業者は、対象工事の計画を経済産業大臣に届け出なければならない。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
@@ -522,7 +527,504 @@
       "正しい",
       "正しい"
     ],
-    "explanationTextCount": 5
+    "explanation_choice_correctness": [
+      "正しい",
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "explanation_choice_snippets": [
+      [
+        "ガス事業法 第32条第1項: ガス小売事業者は、ガス工作物の設置又は変更の工事で経済産業省令で定めるものをしようとするとき、工事計画を経済産業大臣に届け出る。"
+      ],
+      [
+        "ガス事業法 第33条第1項: 届出に係る対象ガス工作物の工事について自主検査を行い、その結果について登録を受けた者が行う検査を受ける。"
+      ],
+      [
+        "ガス事業法 第32条第3項: 届出をした者は、その届出が受理された日から三十日を経過した後でなければ、工事を開始してはならない。"
+      ],
+      [
+        "ガス事業法 第33条第1項: 自主検査の結果について経済産業大臣の登録を受けた者が行う検査を受け、合格した後でなければ使用できない。"
+      ],
+      [
+        "ガス事業法 第32条第1項: ガス小売事業者は、対象工事の計画を経済産業大臣に届け出なければならない。"
+      ]
+    ],
+    "explanation_common_prefix": [
+      "ガス小売事業者の工事計画及び使用前検査について、ガス事業法第32条・第33条が本問の直接根拠。",
+      "設問は誤っている語句の組合せを問う形式で、保存順では選択肢2「完成検査」と選択肢3「を提出した」が誤り、選択肢1・4・5が正しい。",
+      "00_sourceの「正解は 4 です。」は組合せ選択肢番号であり、statement-levelの正誤ではないため、answer_result_textは空欄のままcorrectChoiceTextを正本にする。"
+    ],
+    "explanation_common_summary": [
+      "誤っている語句は「完成検査」と「を提出した」。第33条第1項は「自主検査」を定め、第32条第3項は30日の起算点を「届出が受理された日」とする。"
+    ],
+    "answer_result_text": "",
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "32",
+          "articleTitle": "工事計画",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln32.1",
+          "rootArticleElm": "ln32",
+          "reason": "ガス事業法第32条第1項は、ガス小売事業者の工事計画届出の対象を、ガス工作物の設置又は変更の工事で経済産業省令で定めるものとしている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "33",
+          "articleTitle": "使用前検査",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
+          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+          "rawXmlHash": "ae83c40e886ef71fc42786356910b24878b9beaae1cdb5a4bf928967f213cac0",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln33.1",
+          "rootArticleElm": "ln33",
+          "reason": "ガス事業法第33条第1項は、工事計画届出に係る対象ガス工作物の工事について自主検査を行うことを求めており、完成検査とはしていない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "32",
+          "articleTitle": "工事計画",
+          "paragraph": "3",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln32.3",
+          "rootArticleElm": "ln32",
+          "reason": "ガス事業法第32条第3項は、届出に係る工事の開始制限について、届出が受理された日から三十日を経過した後でなければ開始できないと定めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "33",
+          "articleTitle": "使用前検査",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
+          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+          "rawXmlHash": "ae83c40e886ef71fc42786356910b24878b9beaae1cdb5a4bf928967f213cac0",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln33.1",
+          "rootArticleElm": "ln33",
+          "reason": "ガス事業法第33条第1項は、自主検査の結果について経済産業大臣の登録を受けた者が行う検査を受け、合格後でなければ使用できないと定めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "32",
+          "articleTitle": "工事計画",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln32.1",
+          "rootArticleElm": "ln32",
+          "reason": "ガス事業法第32条第1項は、ガス小売事業者の工事計画の届出先を経済産業大臣としている。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T07:30:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_073000_q6",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_073000_q6:choice1",
+        "evidenceBindingHash": "38ba15fb7952a9ba4c59f0de4f90afb0b2ff1829c8c046cb8418cb5c1deabd92",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_statement_correctness"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "32",
+          "paragraph": "1",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存のstatement-level正誤・解説は矛盾しない。",
+          "statement-levelでは選択肢2・3が誤りで、選択肢1・4・5が正しい。",
+          "00_source本文・選択肢と既存IDは変更しない。",
+          "source answer_result_text=正解は 4 です。は組合せ選択肢番号であり、answer_result_textには再書き込みしない。"
+        ],
+        "notes": [
+          "ガス事業法第32条・第33条で各選択肢を確認した。",
+          "00_sourceのanswer_result_textは組合せ選択肢番号であり、statement-levelでは選択肢2・3が誤りである。",
+          "Lawzilla MCP候補は施行規則第39条周辺に寄ったため、最終確定にはガス事業法本体のe-Gov XML直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第32条第1項は、ガス小売事業者がガス小売事業の用に供するガス工作物の設置又は変更の工事で経済産業省令で定めるものをしようとするとき、工事計画を経済産業大臣に届け出なければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存のstatement-level正誤と一致。",
+          "promptContext": "ガス小売事業者の工事計画届出対象が設置又は変更の工事である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:32:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:32:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln32.1",
+              "rootArticleElm": "ln32",
+              "article": "32",
+              "paragraph": "1",
+              "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+              "textHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T07:30:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_073000_q6",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_073000_q6:choice2",
+        "evidenceBindingHash": "8359d69c9540105581cf211cc9927b257d8296e214900cd8a206096a977704fa",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_statement_correctness"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "33",
+          "paragraph": "1",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存のstatement-level正誤・解説は矛盾しない。",
+          "statement-levelでは選択肢2・3が誤りで、選択肢1・4・5が正しい。",
+          "00_source本文・選択肢と既存IDは変更しない。",
+          "source answer_result_text=正解は 4 です。は組合せ選択肢番号であり、answer_result_textには再書き込みしない。"
+        ],
+        "notes": [
+          "ガス事業法第32条・第33条で各選択肢を確認した。",
+          "00_sourceのanswer_result_textは組合せ選択肢番号であり、statement-levelでは選択肢2・3が誤りである。",
+          "Lawzilla MCP候補は施行規則第39条周辺に寄ったため、最終確定にはガス事業法本体のe-Gov XML直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第33条第1項は、工事計画届出に係る対象ガス工作物の工事について自主検査を行うことを定めている。完成検査としている点が誤りである。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存のstatement-level正誤と一致。",
+          "promptContext": "使用前検査に係る語句が完成検査ではなく自主検査である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:33:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:33:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln33.1",
+              "rootArticleElm": "ln33",
+              "article": "33",
+              "paragraph": "1",
+              "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+              "textHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T07:30:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_073000_q6",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_073000_q6:choice3",
+        "evidenceBindingHash": "55551b09b116caf568e75856e1632cd1a4ba2ad343eba0ed3c2915d8f46e3991",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_statement_correctness"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "32",
+          "paragraph": "3",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存のstatement-level正誤・解説は矛盾しない。",
+          "statement-levelでは選択肢2・3が誤りで、選択肢1・4・5が正しい。",
+          "00_source本文・選択肢と既存IDは変更しない。",
+          "source answer_result_text=正解は 4 です。は組合せ選択肢番号であり、answer_result_textには再書き込みしない。"
+        ],
+        "notes": [
+          "ガス事業法第32条・第33条で各選択肢を確認した。",
+          "00_sourceのanswer_result_textは組合せ選択肢番号であり、statement-levelでは選択肢2・3が誤りである。",
+          "Lawzilla MCP候補は施行規則第39条周辺に寄ったため、最終確定にはガス事業法本体のe-Gov XML直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第32条第3項は、工事開始制限の30日について、その届出が受理された日から起算すると定めている。届出を提出した日としている点が誤りである。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存のstatement-level正誤と一致。",
+          "promptContext": "工事開始制限の起算点が提出日ではなく受理日である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:32:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:32:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln32.3",
+              "rootArticleElm": "ln32",
+              "article": "32",
+              "paragraph": "3",
+              "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+              "textHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T07:30:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_073000_q6",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_073000_q6:choice4",
+        "evidenceBindingHash": "1f04d65f5648570ea89492d43b3e4c8f14d853e0c6e3b49c59772c922ef01769",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_statement_correctness"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "33",
+          "paragraph": "1",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存のstatement-level正誤・解説は矛盾しない。",
+          "statement-levelでは選択肢2・3が誤りで、選択肢1・4・5が正しい。",
+          "00_source本文・選択肢と既存IDは変更しない。",
+          "source answer_result_text=正解は 4 です。は組合せ選択肢番号であり、answer_result_textには再書き込みしない。"
+        ],
+        "notes": [
+          "ガス事業法第32条・第33条で各選択肢を確認した。",
+          "00_sourceのanswer_result_textは組合せ選択肢番号であり、statement-levelでは選択肢2・3が誤りである。",
+          "Lawzilla MCP候補は施行規則第39条周辺に寄ったため、最終確定にはガス事業法本体のe-Gov XML直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第33条第1項は、自主検査の結果が同条第2項各号に適合していることについて、経済産業大臣の登録を受けた者が行う検査を受け、これに合格した後でなければ対象ガス工作物を使用してはならないと定めている。登録ガス工作物検査機関に相当する語句は正しい。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存のstatement-level正誤と一致。",
+          "promptContext": "自主検査結果に対する登録を受けた者の検査と合格要件に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:33:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:33:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln33.1",
+              "rootArticleElm": "ln33",
+              "article": "33",
+              "paragraph": "1",
+              "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+              "textHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T07:30:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_073000_q6",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q6_work_plan_inspection_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_073000_q6:choice5",
+        "evidenceBindingHash": "77f4fed8759d2d4fbee6359c37ba60762ad364a67ac0d89e227b0521af5d45d7",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_statement_correctness"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "32",
+          "paragraph": "1",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存のstatement-level正誤・解説は矛盾しない。",
+          "statement-levelでは選択肢2・3が誤りで、選択肢1・4・5が正しい。",
+          "00_source本文・選択肢と既存IDは変更しない。",
+          "source answer_result_text=正解は 4 です。は組合せ選択肢番号であり、answer_result_textには再書き込みしない。"
+        ],
+        "notes": [
+          "ガス事業法第32条・第33条で各選択肢を確認した。",
+          "00_sourceのanswer_result_textは組合せ選択肢番号であり、statement-levelでは選択肢2・3が誤りである。",
+          "Lawzilla MCP候補は施行規則第39条周辺に寄ったため、最終確定にはガス事業法本体のe-Gov XML直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第32条第1項は、ガス小売事業者が対象工事をしようとするとき、その工事の計画を経済産業大臣に届け出なければならないと定めている。届出先を経済産業大臣としている点は正しい。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存のstatement-level正誤と一致。",
+          "promptContext": "ガス小売事業者の工事計画届出先が経済産業大臣である点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:32:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:32:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln32.1",
+              "rootArticleElm": "ln32",
+              "article": "32",
+              "paragraph": "1",
+              "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+              "textHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     "original_question_id": "7405ae79e013a3e0",
