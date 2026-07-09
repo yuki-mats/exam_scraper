@@ -2417,7 +2417,67 @@
         "間違い。CO濃度0.02％（200ppm）程度では、一般に頭痛などの症状が問題となる濃度であり、2～3時間で死亡に至るとする記述は過大である。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "answer_result_text": "正しいものは 2 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T00:35:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:376-377",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:195",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1240,chiefgasengineerlicense-A-60-1241,chiefgasengineerlicense-A-60-1242,chiefgasengineerlicense-A-60-1243,chiefgasengineerlicense-A-60-1244",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-60-1240",
+        "chiefgasengineerlicense-A-60-1241",
+        "chiefgasengineerlicense-A-60-1242",
+        "chiefgasengineerlicense-A-60-1243",
+        "chiefgasengineerlicense-A-60-1244"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-60-177",
+      "questionSetName": "換気と一酸化炭素（CO）中毒（甲種）",
+      "conflicts": [
+        {
+          "line": 376,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 2,
+          "statementNo": 3,
+          "firestoreValue": "調理室の必要換気量は、レンジフードの形状のみで決まる。",
+          "siteValue": "調理室の必要換気量は、\nレンジフードの形状のみにより決まる\n。",
+          "differenceSummary": "「形状のみで決まる」と「形状のみにより決まる」の表現差と改行差のみ。意味・正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 377,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 4,
+          "statementNo": 5,
+          "firestoreValue": "CO中毒の症状は、空気中におけるCO濃度と吸入時間とにより異なり、CO濃度が0.02％（200ppm）程度であっても、2～3時間で死亡に至る。",
+          "siteValue": "CO中毒の症状は、空気中におけるCO濃度と吸入時間により異なり、CO濃度が0.02%(200ppm)程度であっても、2〜3時間で死に至る\n。",
+          "differenceSummary": "「吸入時間とにより/吸入時間により」、全角記号、波ダッシュ、死亡/死に至るの表記差。記述の過大性という正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢1と2のみ正しい。設問は正しいものの個数を問うため、正しいものは2つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-60-1240..1244を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の換気・CO中毒知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1245,chiefgasengineerlicense-A-60-1246,chiefgasengineerlicense-A-60-1247,chiefgasengineerlicense-A-60-1248,chiefgasengineerlicense-A-60-1249",
