@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-summary/v1",
+  "generatedAt": "2026-07-10T02:05:00+09:00",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2021,
+  "questionLabel": "問11",
+  "displayQuestionId": "gasushunin-koushu-hourei-2021-11",
+  "queueSequence": 73,
+  "reviewQuestionIds": "firestore:chiefgasengineerlicense-A-10-0211,chiefgasengineerlicense-A-10-0212,chiefgasengineerlicense-A-10-0213,chiefgasengineerlicense-A-10-0214,chiefgasengineerlicense-A-10-0215",
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_020500_q11_gas_shunin_primary_evidence_snapshots_direct_basis_q11_2021.jsonl",
+  "recordCount": 5,
+  "rawXmlCount": 3,
+  "rawXmlPaths": [
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_020500_q11/412M50000400111_45_10be9e4a08f2ee52.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_020500_q11/412M50000400111_49_4eef7aaa9230747d.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_020500_q11/412M50000400111_50_cee2e13380909329.xml"
+  ],
+  "choiceCountByVariant": {
+    "firestore_statement_set": 5
+  },
+  "directBasisLocators": [
+    {
+      "choiceIndex": 0,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "article": "45",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "4223c179dc0715b97c5cdad2be51cdaee7fea24e464f68066966707164bc3f81",
+      "rawXmlHash": "10be9e4a08f2ee52607cc392ad2aecf2379d0c8ac6586381e26394f68dbb62f9",
+      "sourceVariant": "firestore_statement_set",
+      "item": "2"
+    },
+    {
+      "choiceIndex": 1,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "article": "49",
+      "paragraph": "3",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+      "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1",
+      "sourceVariant": "firestore_statement_set",
+      "item": "1"
+    },
+    {
+      "choiceIndex": 2,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "article": "50",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+      "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 3,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "article": "50",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+      "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 4,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "article": "50",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+      "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408",
+      "sourceVariant": "firestore_statement_set"
+    }
+  ],
+  "lawzillaReconciliationCounts": {
+    "candidate_misdirected_to_enforcement_rule_definition": 5
+  },
+  "practicalNotes": [
+    "ガス栓の過流出安全機構は技術基準省令第45条第1項第2号で確認する。",
+    "超高層建物等へ供給する導管の遮断装置は技術基準省令第49条第3項第1号で確認する。",
+    "ガス遮断機能を有するガスメーターの流量・流量異常・圧力低下は技術基準省令第50条第1項で確認する。",
+    "施行規則第1条の定義候補は直接根拠ではないため、技術基準省令45/49/50条へルーティング補正が必要。"
+  ]
+}
