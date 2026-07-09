@@ -1,6 +1,6 @@
 # Gas shunin secondary law review queue
 
-- generatedAt: 2026-07-09T23:30:00+09:00
+- generatedAt: 2026-07-09T23:45:00+09:00
 - queueItemCount: 387
 - uniqueQueueItemKeyCount: 382
 - duplicateQueueKeyCount: 5
@@ -9,18 +9,18 @@
 - primaryEvidenceCandidateCount: 3595
 - sourcePrimaryEvidenceLinkChoiceRecordCount: 1485
 - sourcePrimaryEvidenceCandidateCount: 3547
-- existingLawReferenceCount: 323
+- existingLawReferenceCount: 328
 
 ## Readiness Counts
 
 | readiness | count |
 | --- | ---: |
 | `answer_recheck_without_lawzilla_evidence` | 6 |
-| `manual_review_required_all_choices_have_primary_evidence` | 203 |
+| `manual_review_required_all_choices_have_primary_evidence` | 202 |
 | `manual_review_required_locator_detail` | 1 |
 | `manual_review_required_partial_candidates` | 39 |
 | `non_lawzilla_workflow_item` | 80 |
-| `secondary_verified_in_question_patch` | 58 |
+| `secondary_verified_in_question_patch` | 59 |
 
 ## Priority Counts
 
@@ -92,7 +92,7 @@
 | 56 | P0 | `gas-shunin-kou` | 2022 | 問11 | `gasushunin-koushu-hourei-2022-11` | `secondary_verified_in_question_patch` | 5 | 12 |
 | 57 | P0 | `gas-shunin-kou` | 2022 | 問10 | `gasushunin-koushu-hourei-2022-10` | `secondary_verified_in_question_patch` | 5 | 9 |
 | 58 | P0 | `gas-shunin-kou` | 2022 | 問9 | `gasushunin-koushu-hourei-2022-9` | `secondary_verified_in_question_patch` | 5 | 9 |
-| 59 | P0 | `gas-shunin-kou` | 2022 | 問8 | `gasushunin-koushu-hourei-2022-8` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 12 |
+| 59 | P0 | `gas-shunin-kou` | 2022 | 問8 | `gasushunin-koushu-hourei-2022-8` | `secondary_verified_in_question_patch` | 5 | 12 |
 | 60 | P0 | `gas-shunin-kou` | 2022 | 問7 | `gasushunin-koushu-hourei-2022-7` | `manual_review_required_partial_candidates` | 5 | 5 |
 | 61 | P0 | `gas-shunin-kou` | 2022 | 問6 | `gasushunin-koushu-hourei-2022-6` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 15 |
 | 62 | P0 | `gas-shunin-kou` | 2022 | 問5 | `gasushunin-koushu-hourei-2022-5` | `manual_review_required_all_choices_have_primary_evidence` | 5 | 15 |
