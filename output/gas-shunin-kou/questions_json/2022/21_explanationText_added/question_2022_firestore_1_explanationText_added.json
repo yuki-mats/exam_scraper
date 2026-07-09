@@ -1689,7 +1689,57 @@
         "正しい。LNGポンプでは、軸受及びモーターの冷却にLNGを用いる自己冷却方式が採られるため、記述は正しい。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "answer_result_text": "正しいものは 1 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T01:25:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:349",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:189",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1133,chiefgasengineerlicense-A-40-1134,chiefgasengineerlicense-A-40-1135,chiefgasengineerlicense-A-40-1136,chiefgasengineerlicense-A-40-1137",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-40-1133",
+        "chiefgasengineerlicense-A-40-1134",
+        "chiefgasengineerlicense-A-40-1135",
+        "chiefgasengineerlicense-A-40-1136",
+        "chiefgasengineerlicense-A-40-1137"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-40-164",
+      "questionSetName": "製造所の製造設備（甲種）",
+      "conflicts": [
+        {
+          "line": 349,
+          "conflictId": "1efdcf05f392c6b2",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 0,
+          "statementNo": 1,
+          "firestoreValue": "受け入れ時における緊急時の安全対策の一つとして緊急遮断システム（ESDS：EmergencyShutdown System）があり、第2ステップ（ESD-2）では、LNG船のカーゴポンプ等の停止及び船側・基地側の緊急遮断弁を閉止し、受け入れを緊急停止させる。",
+          "siteValue": "受け入れ時における緊急時の安全対策の一つとして緊急遮断システム(ESDS:Emergency Shut Down System)があり、\n第2ステップ(ESD-2)では\n、LNG船のカーゴポンプ等の停止、及び船側・基地側の緊急遮断弁を閉止し、受け入れを緊急停止させる。",
+          "differenceSummary": "ESDS表記、括弧、空白、句読点、改行の差分。既存Firestore本文では第2ステップでポンプ停止としている点を誤りとしており、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢5のみ正しい。選択肢1から4は間違い。設問は正しいものの個数を問うため、正しいものは1つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-40-1133..1137を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の製造設備・LNG受入設備知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1215,chiefgasengineerlicense-A-60-1216,chiefgasengineerlicense-A-60-1217,chiefgasengineerlicense-A-60-1218,chiefgasengineerlicense-A-60-1219",
