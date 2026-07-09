@@ -9450,6 +9450,98 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "answer_result_text": "最も不適切なものは選択肢4です。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T01:10:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:313-317",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:227",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-C-10068,chiefgasengineerlicense-C-10069,chiefgasengineerlicense-C-10070,chiefgasengineerlicense-C-10071,chiefgasengineerlicense-C-10072",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-C-10068",
+        "chiefgasengineerlicense-C-10069",
+        "chiefgasengineerlicense-C-10070",
+        "chiefgasengineerlicense-C-10071",
+        "chiefgasengineerlicense-C-10072"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-1006",
+      "questionSetName": "材料力学・材料（甲種）",
+      "conflicts": [
+        {
+          "line": 313,
+          "conflictId": "bffebe5784b1f267",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 0,
+          "statementNo": 1,
+          "firestoreValue": "i－ブタン 炭素鋼（Siキルド）",
+          "siteValue": "i−ブタン : 炭素鋼(Siキルド)",
+          "differenceSummary": "中黒・コロン・括弧表記の差分のみ。気体と金属材料の組合せは同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 314,
+          "conflictId": "3ef7f47697363504",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 1,
+          "statementNo": 2,
+          "firestoreValue": "プロパン 炭素鋼（Alキルド）",
+          "siteValue": "プロパン : 炭素鋼(Alキルド)",
+          "differenceSummary": "コロン・括弧表記の差分のみ。気体と金属材料の組合せは同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 315,
+          "conflictId": "dde3b41f7d4ad698",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 2,
+          "statementNo": 3,
+          "firestoreValue": "エタン 3.5%Ni鋼",
+          "siteValue": "エタン : 3.5%Ni鋼",
+          "differenceSummary": "コロン挿入の表記差のみ。気体と金属材料の組合せは同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 316,
+          "conflictId": "b8c97ed166813954",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 3,
+          "statementNo": 4,
+          "firestoreValue": "メタン 炭素鋼（リムド）",
+          "siteValue": "メタン :\n炭素鋼(リムド)",
+          "differenceSummary": "コロン・括弧・改行の表記差のみ。メタンと炭素鋼（リムド）の組合せは同一で、選択肢4を不適切とする正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 317,
+          "conflictId": "f8502654b8b27be6",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 4,
+          "statementNo": 5,
+          "firestoreValue": "水素 Al合金",
+          "siteValue": "水素 : Al合金",
+          "differenceSummary": "コロン挿入の表記差のみ。気体と金属材料の組合せは同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢1、2、3、5は正しい、選択肢4は間違い。設問は最も不適切なものを問うため、解答は選択肢4。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-C-10068..10072を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の低温材料・材料知識として扱う。"
+      ]
+    }
   }
 ]
