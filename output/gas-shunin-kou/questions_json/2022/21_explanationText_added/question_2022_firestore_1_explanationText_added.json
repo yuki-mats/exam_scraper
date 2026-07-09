@@ -2491,7 +2491,67 @@
         "間違い。残留未燃焼ガスによる爆発点火を防止するため、燃焼室が空気に置換された後に点火動作を行う装置は点火時安全装置である。緩点火装置としている点が誤り。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "answer_result_text": "正しいものは 1 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T00:30:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:378-379",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:196",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1245,chiefgasengineerlicense-A-60-1246,chiefgasengineerlicense-A-60-1247,chiefgasengineerlicense-A-60-1248,chiefgasengineerlicense-A-60-1249",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-60-1245",
+        "chiefgasengineerlicense-A-60-1246",
+        "chiefgasengineerlicense-A-60-1247",
+        "chiefgasengineerlicense-A-60-1248",
+        "chiefgasengineerlicense-A-60-1249"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-60-178",
+      "questionSetName": "ガス機器の安全装置及び制御装置（甲種）",
+      "conflicts": [
+        {
+          "line": 378,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 3,
+          "statementNo": 4,
+          "firestoreValue": "サーミスタは、ガス機器の様々な安全装置に用いられているが、不完全燃焼防止装置として使用されている機器もある。",
+          "siteValue": "サーミスターは、ガス機器の様々な安全装置に用いられているが、不完全燃焼防止装置として使用されている機器もある。",
+          "differenceSummary": "「サーミスタ」と「サーミスター」の表記差のみ。意味・正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 379,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 4,
+          "statementNo": 5,
+          "firestoreValue": "ガス機器の残留未燃焼ガスによる爆発点火を防止するため、燃焼室が完全に空気に置換されたことを検出した後に点火動作を行う装置を、緩点火装置という。",
+          "siteValue": "ガス機器の残留未燃ガスによる爆発点火を防止するため、燃焼室が完全に空気に置換されたことを検出した後に点火動作する装置を、\n緩点火装置\nという。",
+          "differenceSummary": "「残留未燃焼ガス/点火動作を行う装置」と「残留未燃ガス/点火動作する装置」の表現差。意味・正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢4のみ正しい。設問は正しいものの個数を問うため、正しいものは1つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-60-1245..1249を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令のガス機器安全装置・制御装置知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1250,chiefgasengineerlicense-A-60-1251,chiefgasengineerlicense-A-60-1252,chiefgasengineerlicense-A-60-1253,chiefgasengineerlicense-A-60-1254",
