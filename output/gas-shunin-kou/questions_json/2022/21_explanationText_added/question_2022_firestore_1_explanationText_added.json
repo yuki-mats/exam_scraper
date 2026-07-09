@@ -77,7 +77,51 @@
       "間違い",
       "間違い",
       "間違い"
-    ]
+    ],
+    "answer_result_text": "誤っているものは 5 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T01:30:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:348",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:178",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1128,chiefgasengineerlicense-A-40-1129,chiefgasengineerlicense-A-40-1130,chiefgasengineerlicense-A-40-1131,chiefgasengineerlicense-A-40-1132",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-40-1128",
+        "chiefgasengineerlicense-A-40-1129",
+        "chiefgasengineerlicense-A-40-1130",
+        "chiefgasengineerlicense-A-40-1131",
+        "chiefgasengineerlicense-A-40-1132"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-40-173",
+      "questionSetName": "都市ガスの原料・甲種",
+      "conflicts": [
+        {
+          "line": 348,
+          "conflictId": "df6b3324484791f9",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 0,
+          "statementNo": 1,
+          "firestoreValue": "国産天然ガスはH₂S等の不純物が少なく脱硫設備等の精製設備を必要としないが、COが多く含まれる場合、水と共存して導管を腐食させることがないようにCOを取り除く。",
+          "siteValue": "国産天然ガスはH₂S等の不純物が少なく、脱硫設備等の精製設備を必要としないが、COが多く含まれる場合\n、水と共存して導管を腐食させることがないようにCOを取り除く。",
+          "differenceSummary": "句読点および改行差。既存Firestore本文ではCOではなくCO₂を除去すべき点を誤りとしており、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢1から5まですべて間違い。設問は誤っているものの個数を問うため、誤っているものは5つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-40-1128..1132を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の都市ガス原料・製造知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-gizyutsu-2022-10-1,gasushunin-koushu-gizyutsu-2022-10-2,gasushunin-koushu-gizyutsu-2022-10-3,gasushunin-koushu-gizyutsu-2022-10-4,gasushunin-koushu-gizyutsu-2022-10-5",
