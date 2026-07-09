@@ -2658,11 +2658,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
     "explanationText": [
-      "間違い。燃焼性を示す指標はウォッベ指数（WI）と最大燃焼速度（MCP）である。最小燃焼速度としている点が誤り。",
-      "間違い。ウォッベ指数（WI）は総発熱量をガスの比重の平方根で除して算出する。ガスの密度の平方根としている点が誤り。",
-      "正しい。ガスを増熱する場合は、混合ガスの熱量と燃焼性に加え、増熱原料の露点を管理する必要がある。",
-      "間違い。ガス－ガス、液－ガス、液－液の熱量調整方式の中でランニングコストが一番高いのは、ガス－ガス熱量調整方式である。液－ガス方式としている点が誤り。",
-      "間違い。空気でガスを希釈する高圧供給では、混合ガスの酸素濃度が4%以上にならないように空気混合量を管理する必要がある。8%以下とならないようにしている点が誤り。"
+      "間違い。ガス事業法第91条第1項はガス製造事業者に熱量・圧力・燃焼性の測定を求め、ガス事業法施行規則第144条第1項第3号は燃焼性を燃焼速度及びウォッベ指数について告示で定める方法により測定すると定める。燃焼性指標はウォッベ指数（WI）と最大燃焼速度（MCP）であり、「最小燃焼速度」としている点が誤り。",
+      "間違い。ウォッベ指数（WI）は、ガスの総発熱量を空気に対する比重の平方根で除して求める指標である。ガス事業法施行規則第144条第1項第3号はウォッベ指数の測定を告示で定める方法に委任しており、「密度」の平方根としている点が誤り。source conflict は「指標/指数」等の表記差で、正誤には影響しない。",
+      "正しい。ガス事業法第91条第1項及びガス事業法施行規則第144条第1項は、製造ガスの熱量・燃焼性を測定管理する枠組みを定める。JOGMECの熱量調整解説でも、増熱では混合ガスの熱量・燃焼性とLPガス等の露点に注意が必要とされており、記述は正しい。",
+      "間違い。JOGMECの熱量調整解説では、ガス－ガス方式はLPガス気化設備・高温熱源が必要で、液－ガス方式や液－液方式はガス－ガス方式に比べランニングコストを低減できるとされる。最も高い方式を液－ガス方式としている点が誤り。",
+      "間違い。空気により高圧の供給ガスを希釈する場合、一般高圧ガス保安規則第6条第2項第1号ハは、可燃性ガス中の酸素容量が全容量の4%以上のものを圧縮しないことを定める。したがって酸素濃度が4%以上にならないよう管理する必要があり、8%以下とならないようにしている点が誤り。"
     ],
     "suggestedQuestions": [
       "燃焼性を示す指標には、ウォッベ指数（WI）と最小燃焼速度（MCP）があり、ともにガス事業法で算出方法が定められている。",
@@ -2674,26 +2674,26 @@
     "suggestedQuestionDetails": [
       {
         "question": "燃焼性を示す指標には、ウォッベ指数（WI）と最小燃焼速度（MCP）があり、ともにガス事業法で算出方法が定められている。",
-        "answer": "間違い。燃焼性を示す指標はウォッベ指数（WI）と最大燃焼速度（MCP）である。最小燃焼速度としている点が誤り。"
+        "answer": "間違い。ガス事業法第91条第1項はガス製造事業者に熱量・圧力・燃焼性の測定を求め、ガス事業法施行規則第144条第1項第3号は燃焼性を燃焼速度及びウォッベ指数について告示で定める方法により測定すると定める。燃焼性指標はウォッベ指数（WI）と最大燃焼速度（MCP）であり、「最小燃焼速度」としている点が誤り。"
       },
       {
         "question": "ウォッベ指数（WI）は、ガス機器のノズルから単位時間に噴出するガスの熱量の大きさを示す指標であり、ガスの総発熱量をガスの密度の平方根で除して算出される。",
-        "answer": "間違い。ウォッベ指数（WI）は総発熱量をガスの比重の平方根で除して算出する。ガスの密度の平方根としている点が誤り。"
+        "answer": "間違い。ウォッベ指数（WI）は、ガスの総発熱量を空気に対する比重の平方根で除して求める指標である。ガス事業法施行規則第144条第1項第3号はウォッベ指数の測定を告示で定める方法に委任しており、「密度」の平方根としている点が誤り。source conflict は「指標/指数」等の表記差で、正誤には影響しない。"
       },
       {
         "question": "ガスの増熱を行う場合には、混合ガスの熱量と燃焼性及び増熱原料の露点を管理する必要がある。",
-        "answer": "正しい。ガスを増熱する場合は、混合ガスの熱量と燃焼性に加え、増熱原料の露点を管理する必要がある。"
+        "answer": "正しい。ガス事業法第91条第1項及びガス事業法施行規則第144条第1項は、製造ガスの熱量・燃焼性を測定管理する枠組みを定める。JOGMECの熱量調整解説でも、増熱では混合ガスの熱量・燃焼性とLPガス等の露点に注意が必要とされており、記述は正しい。"
       },
       {
         "question": "ガス－ガス熱量調整方式、液－ガス熱量調整方式、液－液熱量調整方式の中で、ランニングコストが一番高いのは、液－ガス熱量調整方式である。",
-        "answer": "間違い。ガス－ガス、液－ガス、液－液の熱量調整方式の中でランニングコストが一番高いのは、ガス－ガス熱量調整方式である。液－ガス方式としている点が誤り。"
+        "answer": "間違い。JOGMECの熱量調整解説では、ガス－ガス方式はLPガス気化設備・高温熱源が必要で、液－ガス方式や液－液方式はガス－ガス方式に比べランニングコストを低減できるとされる。最も高い方式を液－ガス方式としている点が誤り。"
       },
       {
         "question": "空気によりガスの希釈を行う場合、高圧供給では、混合ガスの酸素濃度が8%以下とならないように空気混合量を管理する必要がある。",
-        "answer": "間違い。空気でガスを希釈する高圧供給では、混合ガスの酸素濃度が4%以上にならないように空気混合量を管理する必要がある。8%以下とならないようにしている点が誤り。"
+        "answer": "間違い。空気により高圧の供給ガスを希釈する場合、一般高圧ガス保安規則第6条第2項第1号ハは、可燃性ガス中の酸素容量が全容量の4%以上のものを圧縮しないことを定める。したがって酸素濃度が4%以上にならないよう管理する必要があり、8%以下とならないようにしている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -2713,7 +2713,545 @@
         "間違い。空気でガスを希釈する高圧供給では、混合ガスの酸素濃度が4%以上にならないように空気混合量を管理する必要がある。8%以下とならないようにしている点が誤り。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い"
+    ],
+    "answer_result_text": "誤っているものは 4 つです。",
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "91",
+          "paragraph": "1",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
+          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2",
+          "comparisonStatus": "same_as_current",
+          "relation": "legal_framework",
+          "primaryBasis": false,
+          "reason": "ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定・記録・保存する法令上の枠組みを確認する。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-10",
+          "article": "144",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+          "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "燃焼性を燃焼速度及びウォッベ指数について告示で定める方法により測定することを確認する。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-10",
+          "article": "144",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+          "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a",
+          "comparisonStatus": "same_as_current",
+          "relation": "measurement_method_delegation",
+          "primaryBasis": false,
+          "reason": "ウォッベ指数が燃焼性の測定対象であり、具体的な算出方法は告示で定める方法に委任されることを確認する。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "91",
+          "paragraph": "1",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
+          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2",
+          "comparisonStatus": "same_as_current",
+          "relation": "legal_framework",
+          "primaryBasis": false,
+          "reason": "製造ガスの熱量及び燃焼性を測定・管理する法令上の枠組みを確認する。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-10",
+          "article": "144",
+          "paragraph": "1",
+          "item": "1・3",
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+          "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a",
+          "comparisonStatus": "same_as_current",
+          "relation": "measurement_framework",
+          "primaryBasis": false,
+          "reason": "熱量及び燃焼性の測定方法を確認し、増熱後の混合ガス管理の法令上の背景を確認する。"
+        }
+      ],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "341M50000400053",
+          "lawTitle": "一般高圧ガス保安規則",
+          "lawAlias": "一般高圧ガス則",
+          "referenceDate": "2026-07-10",
+          "article": "6",
+          "paragraph": "2",
+          "item": "1",
+          "subitem": "ハ(イ)",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=341M50000400053;article=6",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=341M50000400053;article=6",
+          "articleTextHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b",
+          "rawXmlHash": "821f3b973183887b480d78bec3779225f792b5834b6760734938ab4a181d6ff8",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "可燃性ガス中の酸素容量が全容量の4%以上のものは圧縮しないことを確認する。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T00:20:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "reconciliationStatus": "lawzilla_related_articles_reweighted_to_gas_manufacturing_articles91_144",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "144",
+          "paragraph": "1",
+          "item": "3",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144"
+        },
+        "notes": [
+          "Lawzilla候補はガス事業法第18条・第52条・第78条等の供給側測定義務を上位に出したが、本問はガス製造・熱量調整文脈のため、ガス事業法第91条及びガス事業法施行規則第144条を優先した。",
+          "施行規則第144条第1項第3号により、燃焼性は燃焼速度及びウォッベ指数について測定することを確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第91条第1項はガス製造事業者に熱量・圧力・燃焼性の測定を求め、ガス事業法施行規則第144条第1項第3号は燃焼性を燃焼速度及びウォッベ指数について告示で定める方法により測定すると定める。燃焼性指標はウォッベ指数（WI）と最大燃焼速度（MCP）であり、「最小燃焼速度」としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
+          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:91:1::",
+            "current:345M50000400097:144:1:3:"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:91:1::",
+              "lawTimeScope": "current",
+              "relation": "legal_framework",
+              "primaryBasis": false,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "91",
+              "paragraph": "1",
+              "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
+              "textHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446"
+            },
+            {
+              "refId": "current:345M50000400097:144:1:3:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "144",
+              "paragraph": "1",
+              "item": "3",
+              "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+              "textHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T00:20:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "reconciliationStatus": "lawzilla_measurement_method_delegation_plus_wobbe_technical_source",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "144",
+          "paragraph": "1",
+          "item": "3",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144"
+        },
+        "notes": [
+          "施行規則第144条第1項第3号はウォッベ指数を測定対象とし、算出式は告示・技術資料で補完確認した。",
+          "source conflict line 357 は「指標/指数」及び表記差であり、正誤に影響しない。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ウォッベ指数（WI）は、ガスの総発熱量を空気に対する比重の平方根で除して求める指標である。ガス事業法施行規則第144条第1項第3号はウォッベ指数の測定を告示で定める方法に委任しており、「密度」の平方根としている点が誤り。source conflict は「指標/指数」等の表記差で、正誤には影響しない。",
+          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
+          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
+          "displayRefIds": [
+            "current:345M50000400097:144:1:3:"
+          ],
+          "refs": [
+            {
+              "refId": "current:345M50000400097:144:1:3:",
+              "lawTimeScope": "current",
+              "relation": "measurement_method_delegation",
+              "primaryBasis": false,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "144",
+              "paragraph": "1",
+              "item": "3",
+              "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+              "textHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T00:20:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "reconciliationStatus": "measurement_framework_plus_jogmec_calorific_adjustment_source",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "91",
+          "paragraph": "1",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91"
+        },
+        "notes": [
+          "増熱時の熱量・燃焼性・露点管理は、条文の測定管理枠組みとJOGMEC熱量調整解説で補完確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第91条第1項及びガス事業法施行規則第144条第1項は、製造ガスの熱量・燃焼性を測定管理する枠組みを定める。JOGMECの熱量調整解説でも、増熱では混合ガスの熱量・燃焼性とLPガス等の露点に注意が必要とされており、記述は正しい。",
+          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
+          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:91:1::",
+            "current:345M50000400097:144:1:1・3:"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:91:1::",
+              "lawTimeScope": "current",
+              "relation": "legal_framework",
+              "primaryBasis": false,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "91",
+              "paragraph": "1",
+              "articleTextHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446",
+              "textHash": "1f007529bd533faf182d71840ff0b010ebf70ca441d4a187bf12d123a2a38446"
+            },
+            {
+              "refId": "current:345M50000400097:144:1:1・3:",
+              "lawTimeScope": "current",
+              "relation": "measurement_framework",
+              "primaryBasis": false,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "144",
+              "paragraph": "1",
+              "item": "1・3",
+              "articleTextHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1",
+              "textHash": "4883f12dab6846ba19fdeccf39ac9c14f2dbf6915cf5e21c9bee6f4160977bf1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T00:20:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "reconciliationStatus": "technical_source_required_no_direct_statute_basis",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified_with_supplemental_technical_source",
+          "sourceUrl": "https://journal.jogmec.go.jp/oilgas/termsearch/list/naninuneno/calorific-adjust.html"
+        },
+        "notes": [
+          "熱量調整3方式のランニングコスト比較は、e-Gov条文だけでは確定しにくいため、JOGMECの技術解説で補完確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。JOGMECの熱量調整解説では、ガス－ガス方式はLPガス気化設備・高温熱源が必要で、液－ガス方式や液－液方式はガス－ガス方式に比べランニングコストを低減できるとされる。最も高い方式を液－ガス方式としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
+          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
+          "displayRefIds": [
+            "supplemental:3:technical_source"
+          ],
+          "refs": [
+            {
+              "refId": "supplemental:3:technical_source",
+              "lawTimeScope": "current",
+              "relation": "supplemental_technical_basis",
+              "primaryBasis": true,
+              "lawTitle": "JOGMEC JOURNAL 用語辞典「熱量調整（カロリー調整）」"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T00:20:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_002000_q4",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q4_secondary_review",
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "reconciliationStatus": "high_pressure_gas_rules_article6_plus_jogmec_calorific_adjustment_source",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "341M50000400053",
+          "lawTitle": "一般高圧ガス保安規則",
+          "article": "6",
+          "paragraph": "2",
+          "item": "1",
+          "subitem": "ハ(イ)",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=341M50000400053;article=6"
+        },
+        "notes": [
+          "空気希釈時の酸素濃度4%管理は、一般高圧ガス保安規則第6条第2項第1号ハ及びJOGMEC熱量調整解説で確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。空気により高圧の供給ガスを希釈する場合、一般高圧ガス保安規則第6条第2項第1号ハは、可燃性ガス中の酸素容量が全容量の4%以上のものを圧縮しないことを定める。したがって酸素濃度が4%以上にならないよう管理する必要があり、8%以下とならないようにしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法令及び補完技術資料では既存正誤と一致。",
+          "promptContext": "都市ガスの熱量調整・燃焼性管理は、条文の測定義務とJOGMEC等の技術資料を分けて確認する。",
+          "displayRefIds": [
+            "current:341M50000400053:6:2:1:ハ(イ)"
+          ],
+          "refs": [
+            {
+              "refId": "current:341M50000400053:6:2:1:ハ(イ)",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "341M50000400053",
+              "lawTitle": "一般高圧ガス保安規則",
+              "article": "6",
+              "paragraph": "2",
+              "item": "1",
+              "subitem": "ハ(イ)",
+              "articleTextHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b",
+              "textHash": "448194dccbff69dd8a7cd9005d0e15e7775a7f250d068e670bb36b12fa5b7b7b"
+            }
+          ]
+        }
+      }
+    ],
+    "supplementalTechnicalEvidence": [
+      {
+        "choiceIndex": 0,
+        "sourceLabel": "JOGMEC JOURNAL 用語辞典「ウォッベ指数」",
+        "sourceUrl": "https://journal.jogmec.go.jp/oilgas/termsearch/list/ueo/wobbe-index.html",
+        "use": "ウォッベ指数と最大燃焼速度MCPが燃焼性管理で扱われる指標であることを補完確認。",
+        "authority": "public_industry_technical_reference",
+        "lineRange": "L412-L420"
+      },
+      {
+        "choiceIndex": 1,
+        "sourceLabel": "JOGMEC JOURNAL 用語辞典「ウォッベ指数」",
+        "sourceUrl": "https://journal.jogmec.go.jp/oilgas/termsearch/list/ueo/wobbe-index.html",
+        "use": "WI=H/√S、Hは総発熱量、Sはガス比重（空気=1）であることを補完確認。",
+        "authority": "public_industry_technical_reference",
+        "lineRange": "L412-L418"
+      },
+      {
+        "choiceIndex": 1,
+        "sourceLabel": "gas-shunin-kou source conflict review ledger",
+        "sourceUrl": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:357",
+        "use": "選択肢2の「指標/指数」及び表記差はsource conflictだが、正誤に影響しないことを確認。",
+        "authority": "reviewed_internal_source_conflict_ledger"
+      },
+      {
+        "choiceIndex": 2,
+        "sourceLabel": "JOGMEC JOURNAL 用語辞典「熱量調整（カロリー調整）」",
+        "sourceUrl": "https://journal.jogmec.go.jp/oilgas/termsearch/list/naninuneno/calorific-adjust.html",
+        "use": "増熱では混合ガスの熱量・燃焼性及びLPガス等の露点に注意が必要であることを補完確認。",
+        "authority": "public_industry_technical_reference",
+        "lineRange": "L411-L413"
+      },
+      {
+        "choiceIndex": 3,
+        "sourceLabel": "JOGMEC JOURNAL 用語辞典「熱量調整（カロリー調整）」",
+        "sourceUrl": "https://journal.jogmec.go.jp/oilgas/termsearch/list/naninuneno/calorific-adjust.html",
+        "use": "ガス－ガス方式はLPガス気化設備と高温熱源が必要で、液－ガス方式・液－液方式はランニングコストを低減できることを補完確認。",
+        "authority": "public_industry_technical_reference",
+        "lineRange": "L415-L417"
+      },
+      {
+        "choiceIndex": 4,
+        "sourceLabel": "JOGMEC JOURNAL 用語辞典「熱量調整（カロリー調整）」",
+        "sourceUrl": "https://journal.jogmec.go.jp/oilgas/termsearch/list/naninuneno/calorific-adjust.html",
+        "use": "空気希釈時は酸素濃度が4%以上とならないようにする実務説明を補完確認。",
+        "authority": "public_industry_technical_reference",
+        "lineRange": "L414-L414"
+      }
+    ],
+    "lawzillaMcpReview": {
+      "reviewedAt": "2026-07-10T00:20:00+09:00",
+      "reviewStatus": "secondary_verified_with_primary_and_supplemental_sources",
+      "lawzillaCandidateSource": "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_011000_gas_shunin_P1_40_lawzilla_candidates.jsonl:46-50",
+      "practicalVerdict": "usable_as_hint_not_sufficient_alone",
+      "impactOnExistingSearch": "needs_statute_family_routing_measurement_method_and_technical_evidence_fallback",
+      "feedbackForSearchImprovement": [
+        "「燃焼性 熱量」はガス事業法第18条・第52条・第78条だけでなく、ガス製造分野の第91条及びガス事業法施行規則第144条を優先候補にする。",
+        "ウォッベ指数やMCPの算出式・用語定義は、e-Gov条文だけでは「告示で定める方法」までしか出ないため、告示・公式/準公式技術資料で補完する。",
+        "熱量調整方式のランニングコスト、増熱原料の露点、空気希釈時の酸素濃度は技術運用論点としてJOGMEC等の補助資料を必須扱いにする。",
+        "source conflict が表記差にとどまる場合は、Firestore snapshot/sourcePriority を維持し、正誤影響なしとして記録する。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1148,chiefgasengineerlicense-A-40-1149,chiefgasengineerlicense-A-40-1150,chiefgasengineerlicense-A-40-1151,chiefgasengineerlicense-A-40-1152",
