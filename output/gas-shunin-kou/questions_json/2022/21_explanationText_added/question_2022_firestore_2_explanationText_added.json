@@ -4123,11 +4123,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "正しい。ガス事業者は、ガス主任技術者免状の交付を受け、所定の実務経験を有する者のうちからガス主任技術者を選任する必要がある。",
-      "正しい。ガス製造事業における所定の実務経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したこととされる。",
-      "間違い。ガス製造事業者は、ガス主任技術者を解任したときは、遅滞なくその旨を経済産業大臣に届け出る必要がある。事前に届け出るとしている点が誤り。",
-      "正しい。ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者が保安のためにする指示に従う必要がある。",
-      "正しい。経済産業大臣は、ガス主任技術者が法令又はこれに基づく処分に違反したとき、ガス事業者に対してガス主任技術者の解任を命ずることができる。"
+      "正しい。ガス事業法は、ガス小売事業者（第25条第1項）、一般ガス導管事業者（第65条第1項）及びガス製造事業者（第98条第1項）について、免状の交付を受け所定の実務経験を有する者からガス主任技術者を選任することを求めている。特定ガス導管事業者には第84条第1項により第65条等が準用されるため、ガス事業者が選任するという記述は正しい。",
+      "正しい。ガス事業法第98条第1項は、ガス製造事業者が経済産業省令で定める実務経験を有する者からガス主任技術者を選任すると定めている。その実務経験について、ガス事業法施行規則第151条第1項は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したことと定めている。",
+      "間違い。ガス事業法第98条第2項は、ガス製造事業者がガス主任技術者を選任したときは遅滞なく経済産業大臣に届け出なければならず、解任したときも同様と定めている。解任するときに事前に届け出るとしている点が誤り。",
+      "正しい。ガス事業法第99条第2項は、ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者がその保安のためにする指示に従わなければならないと定めている。",
+      "正しい。ガス事業法第31条、第67条、第84条第1項及び第100条は、ガス主任技術者が法令又はこれに基づく処分に違反したときなどに、経済産業大臣がガス事業者に対しガス主任技術者の解任を命ずることができる旨を定めている。"
     ],
     "suggestedQuestions": [
       "ガス主任技術者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務の経験を有するもののうちから、ガス事業者が選任しなければならない。",
@@ -4138,34 +4138,44 @@
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "ガス主任技術者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務の経験を有するもののうちから、ガス事業者が選任しなければならない。",
-        "answer": "正しい。ガス事業者は、ガス主任技術者免状の交付を受け、所定の実務経験を有する者のうちからガス主任技術者を選任する必要がある。"
+        "choiceIndex": 1,
+        "suggestedQuestion": "ガス主任技術者は、経済産業省令で定めるところにより、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務の経験を有するもののうちから、ガス事業者が選任しなければならない。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法は、ガス小売事業者（第25条第1項）、一般ガス導管事業者（第65条第1項）及びガス製造事業者（第98条第1項）について、免状の交付を受け所定の実務経験を有する者からガス主任技術者を選任することを求めている。特定ガス導管事業者には第84条第1項により第65条等が準用されるため、ガス事業者が選任するという記述は正しい。"
       },
       {
-        "question": "ガス製造事業において、経済産業省令で定める実務の経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して１年以上従事したこととする。",
-        "answer": "正しい。ガス製造事業における所定の実務経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したこととされる。"
+        "choiceIndex": 2,
+        "suggestedQuestion": "ガス製造事業において、経済産業省令で定める実務の経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して１年以上従事したこととする。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第98条第1項は、ガス製造事業者が経済産業省令で定める実務経験を有する者からガス主任技術者を選任すると定めている。その実務経験について、ガス事業法施行規則第151条第1項は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したことと定めている。"
       },
       {
-        "question": "ガス製造事業者は、ガス主任技術者を解任するときは、事前にその旨を経済産業大臣に届け出なければならない。",
-        "answer": "間違い。ガス製造事業者は、ガス主任技術者を解任したときは、遅滞なくその旨を経済産業大臣に届け出る必要がある。事前に届け出るとしている点が誤り。"
+        "choiceIndex": 3,
+        "suggestedQuestion": "ガス製造事業者は、ガス主任技術者を解任するときは、事前にその旨を経済産業大臣に届け出なければならない。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ガス事業法第98条第2項は、ガス製造事業者がガス主任技術者を選任したときは遅滞なく経済産業大臣に届け出なければならず、解任したときも同様と定めている。解任するときに事前に届け出るとしている点が誤り。"
       },
       {
-        "question": "ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者がその保安のためにする指示に従わなければならない。",
-        "answer": "正しい。ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者が保安のためにする指示に従う必要がある。"
+        "choiceIndex": 4,
+        "suggestedQuestion": "ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者がその保安のためにする指示に従わなければならない。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第99条第2項は、ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者がその保安のためにする指示に従わなければならないと定めている。"
       },
       {
-        "question": "経済産業大臣は、ガス主任技術者がこの法律若しくはこの法律に基づく命令若しくはこれらに基づく処分に違反したときは、ガス事業者に対し、ガス主任技術者の解任を命ずることができる。",
-        "answer": "正しい。経済産業大臣は、ガス主任技術者が法令又はこれに基づく処分に違反したとき、ガス事業者に対してガス主任技術者の解任を命ずることができる。"
+        "choiceIndex": 5,
+        "suggestedQuestion": "経済産業大臣は、ガス主任技術者がこの法律若しくはこの法律に基づく命令若しくはこれらに基づく処分に違反したときは、ガス事業者に対し、ガス主任技術者の解任を命ずることができる。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第31条、第67条、第84条第1項及び第100条は、ガス主任技術者が法令又はこれに基づく処分に違反したときなどに、経済産業大臣がガス事業者に対しガス主任技術者の解任を命ずることができる旨を定めている。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [],
       [],
       [
-        "「事前に届け出」ではなく「解任したときは遅滞なく届け出」と規定されている。（法第98条の2）"
+        "「事前に届け出」ではなく「解任したときは遅滞なく届け出」と規定されている。（法第98条第2項）"
       ],
       [],
       []
@@ -4176,6 +4186,638 @@
       "間違い",
       "正しい",
       "正しい"
+    ],
+    "answer_result_text": "正解は 4 です。",
+    "correctChoiceText": [
+      "正しい",
+      "正しい",
+      "間違い",
+      "正しい",
+      "正しい"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "25",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=25",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=25",
+          "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+          "rawXmlHash": "75cc647474eae33aeae60159c3412a8dd41d03a35a562ad5ab8d6d38420701ef",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス小売事業者は、免状の交付を受け所定の実務経験を有する者からガス主任技術者を選任する必要がある。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "65",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=65",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=65",
+          "articleTextHash": "49d27e25faea946c7d275cb97f41e3e0a49dfdb428578b4a825e55d6265e9c6c",
+          "rawXmlHash": "001d8d5dcbc45e3650380e6830fe363975ee1c35a4f96a6fce5667f68f620f69",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者にも同旨のガス主任技術者選任義務がある。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "84",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=84",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=84",
+          "articleTextHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+          "rawXmlHash": "5ca489298ec41586886cc2d644333c997cf6f24d4462af2660b404fa1db74ea9",
+          "comparisonStatus": "same_as_current",
+          "reason": "特定ガス導管事業者については、第65条等が準用される。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "98",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+          "rawXmlHash": "b1c6e5136e9b7429d8ce5b6bf8fe152658275fb1dd2e15f111c6f78ba1d2a000",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス製造事業者にも同旨のガス主任技術者選任義務がある。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "98",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+          "rawXmlHash": "b1c6e5136e9b7429d8ce5b6bf8fe152658275fb1dd2e15f111c6f78ba1d2a000",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス製造事業者のガス主任技術者選任要件は、経済産業省令で定める実務経験を有する者である。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス事業法施行規則",
+          "referenceDate": "2026-07-09",
+          "article": "151",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=151",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=151",
+          "articleTextHash": "42578e4b9c73d75a1bbe2cc04901cac12132d07cfa838d046845ff21a2d9e6d6",
+          "rawXmlHash": "be9cbf753a2ae8b1e559a5202fb49bac22db1fb35a1b3302cb785d4af8c8cb95",
+          "comparisonStatus": "same_as_current",
+          "reason": "法第98条第1項の実務経験は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したこととされる。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "98",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+          "rawXmlHash": "b1c6e5136e9b7429d8ce5b6bf8fe152658275fb1dd2e15f111c6f78ba1d2a000",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス製造事業者は、ガス主任技術者を選任したときは遅滞なく届け出る必要があり、解任したときも同様である。事前届出ではない。",
+          "paragraph": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "99",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=99",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=99",
+          "articleTextHash": "6e8d7dc980885eb272c05c640e26a9894ca6d49d88ad2db169abae4d09adedf5",
+          "rawXmlHash": "cb5cdeef10b7c45d1ecb9e5b9a2caab7977979fa29dea99e91e2456095b1af06",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者の保安上の指示に従う必要がある。",
+          "paragraph": "2"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "31",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=31",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=31",
+          "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+          "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス小売事業者について、経済産業大臣は所定の場合にガス主任技術者の解任を命ずることができる。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "67",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=67",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=67",
+          "articleTextHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+          "rawXmlHash": "7d6a1a7caee11c987ae3865516dd72deb7f9cafdf3ea87e083d122e328a8ef2a",
+          "comparisonStatus": "same_as_current",
+          "reason": "一般ガス導管事業者について、経済産業大臣は所定の場合にガス主任技術者の解任を命ずることができる。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "84",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=84",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=84",
+          "articleTextHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+          "rawXmlHash": "5ca489298ec41586886cc2d644333c997cf6f24d4462af2660b404fa1db74ea9",
+          "comparisonStatus": "same_as_current",
+          "reason": "特定ガス導管事業者については、第67条等が準用される。",
+          "paragraph": "1"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-09",
+          "article": "100",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=100",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=100",
+          "articleTextHash": "3b6bc6bc2436f769b5e1fc5872486b6dc4a45881582494488cd0a08a6cdaeac7",
+          "rawXmlHash": "695bc6f060a364b296e4d14f51e9be8f7b26640ddc09c17db916756fd81ad635",
+          "comparisonStatus": "same_as_current",
+          "reason": "ガス製造事業者について、経済産業大臣は所定の場合にガス主任技術者の解任を命ずることができる。",
+          "paragraph": "1"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:50+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235950",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "25",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=25",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は主にガス事業法第25条・第98条に寄っていたため、ガス事業者総称の直接根拠として第25条、第65条、第84条第1項及び第98条をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法は、ガス小売事業者（第25条第1項）、一般ガス導管事業者（第65条第1項）及びガス製造事業者（第98条第1項）について、免状の交付を受け所定の実務経験を有する者からガス主任技術者を選任することを求めている。特定ガス導管事業者には第84条第1項により第65条等が準用されるため、ガス事業者が選任するという記述は正しい。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス事業者総称の選任義務は、ガス小売・一般導管・特定導管・製造の各規定で確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:25:1",
+            "current:329AC0000000051:65:1",
+            "current:329AC0000000051:84:1",
+            "current:329AC0000000051:98:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:25:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "25",
+              "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+              "textHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:329AC0000000051:65:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "65",
+              "articleTextHash": "49d27e25faea946c7d275cb97f41e3e0a49dfdb428578b4a825e55d6265e9c6c",
+              "textHash": "49d27e25faea946c7d275cb97f41e3e0a49dfdb428578b4a825e55d6265e9c6c",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:329AC0000000051:84:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "84",
+              "articleTextHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+              "textHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:329AC0000000051:98:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "98",
+              "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "textHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:50+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235950",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "151",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "42578e4b9c73d75a1bbe2cc04901cac12132d07cfa838d046845ff21a2d9e6d6",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=151",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補の第98条に加え、実務経験1年以上の直接根拠としてガス事業法施行規則第151条第1項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第98条第1項は、ガス製造事業者が経済産業省令で定める実務経験を有する者からガス主任技術者を選任すると定めている。その実務経験について、ガス事業法施行規則第151条第1項は、製造又は供給の用に供するガス工作物の工事、維持又は運用に関する業務に通算して1年以上従事したことと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス製造事業における実務経験1年以上は、法第98条と施行規則第151条の組合せで説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:98:1",
+            "current:345M50000400097:151:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:98:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "98",
+              "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "textHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:345M50000400097:151:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "151",
+              "articleTextHash": "42578e4b9c73d75a1bbe2cc04901cac12132d07cfa838d046845ff21a2d9e6d6",
+              "textHash": "42578e4b9c73d75a1bbe2cc04901cac12132d07cfa838d046845ff21a2d9e6d6",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:50+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235950",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "98",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "paragraph": "2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス事業法第98条第2項とe-Gov本文を照合し、届出時期が事前ではなく選任・解任後の遅滞ない届出であることを確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第98条第2項は、ガス製造事業者がガス主任技術者を選任したときは遅滞なく経済産業大臣に届け出なければならず、解任したときも同様と定めている。解任するときに事前に届け出るとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "解任の届出時期は事前ではなく解任後遅滞なくである点に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:98:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:98:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "98",
+              "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "textHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "paragraph": "2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:50+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235950",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "99",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "6e8d7dc980885eb272c05c640e26a9894ca6d49d88ad2db169abae4d09adedf5",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=99",
+          "paragraph": "2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス事業法第99条第2項とe-Gov本文を照合し、従事者の指示遵守義務を確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第99条第2項は、ガス製造事業の用に供するガス工作物の工事、維持又は運用に従事する者は、ガス主任技術者がその保安のためにする指示に従わなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス製造事業の従事者がガス主任技術者の保安上の指示に従う義務に限定して説明する。",
+          "displayRefIds": [
+            "current:329AC0000000051:99:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:99:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "99",
+              "articleTextHash": "6e8d7dc980885eb272c05c640e26a9894ca6d49d88ad2db169abae4d09adedf5",
+              "textHash": "6e8d7dc980885eb272c05c640e26a9894ca6d49d88ad2db169abae4d09adedf5",
+              "paragraph": "2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:50+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235950",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q5_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "31",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=31",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス事業法第100条に加え、ガス事業者総称の直接根拠として第31条、第67条及び第84条第1項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第31条、第67条、第84条第1項及び第100条は、ガス主任技術者が法令又はこれに基づく処分に違反したときなどに、経済産業大臣がガス事業者に対しガス主任技術者の解任を命ずることができる旨を定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ガス事業者への解任命令は、小売・一般導管・特定導管・製造の各規定で確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:31:1",
+            "current:329AC0000000051:67:1",
+            "current:329AC0000000051:84:1",
+            "current:329AC0000000051:100:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:31:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "31",
+              "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "textHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:329AC0000000051:67:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "67",
+              "articleTextHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+              "textHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:329AC0000000051:84:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "84",
+              "articleTextHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+              "textHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:329AC0000000051:100:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "100",
+              "articleTextHash": "3b6bc6bc2436f769b5e1fc5872486b6dc4a45881582494488cd0a08a6cdaeac7",
+              "textHash": "3b6bc6bc2436f769b5e1fc5872486b6dc4a45881582494488cd0a08a6cdaeac7",
+              "paragraph": "1"
+            }
+          ]
+        }
+      }
     ]
   },
   {
