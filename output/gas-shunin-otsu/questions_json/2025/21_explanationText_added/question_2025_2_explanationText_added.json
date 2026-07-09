@@ -81,7 +81,8 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "87e96a07f7e35ea9",
@@ -165,7 +166,8 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "d3a875bb5d87861a",
@@ -249,7 +251,8 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "75fe8fc18f6594b2",
@@ -334,7 +337,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "c21cf801fe0d51e0",
@@ -417,7 +421,8 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "f76598463308a709",
@@ -501,7 +506,8 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "6d21b6e2f7def104",
@@ -584,7 +590,8 @@
       "間違い",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "ce4d4dbe44c1e42f",
@@ -668,7 +675,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "40cc82909b61abbe",
@@ -752,7 +760,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "118355ef06bb5c99",
@@ -836,7 +845,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "6fde3c0701bf1013",
@@ -906,7 +916,8 @@
       "不正解",
       "不正解",
       "正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "e4ef8e531fbc435b",
@@ -976,7 +987,8 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "ff4acfaca7ea857b",
@@ -1046,7 +1058,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "dbe5ecc0d9952b92",
@@ -1116,7 +1129,8 @@
       "正しい",
       "間違い",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "07dff3424a00183a",
@@ -1186,7 +1200,23 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false,
+    "lawzillaWorkflowReview": {
+      "reviewedAt": "2026-07-10T09:15:00+09:00",
+      "reviewMethodVersion": "gas-shunin-lawzilla-secondary-year-block/v1",
+      "practicalReadiness": "not_law_related_after_review",
+      "decision": "kept_without_law_references",
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ],
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates",
+      "notes": [
+        "問題内容は技術・計算・一般知識の確認であり、正誤判断の直接根拠として条文紐付けは不要と判断した。",
+        "Lawzilla候補に法令名が含まれる場合も、直接根拠でなければ検索改善用の false positive として扱う。",
+        "APIキー・MCPエンドポイントは成果物に保存していない。"
+      ]
+    }
   },
   {
     "original_question_id": "ffa4745b469a77a9",
@@ -1256,7 +1286,8 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "6e3cdbf4facea64e",
@@ -1326,7 +1357,8 @@
       "間違い",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "3746645048eafc91",
@@ -1396,7 +1428,8 @@
       "間違い",
       "間違い",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "828023772aa37293",
@@ -1466,7 +1499,8 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "a7c9e783d12c3ed5",
@@ -1536,7 +1570,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "6472a4ae655d7828",
@@ -1606,7 +1641,8 @@
       "間違い",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "42393caf853a3f2c",
@@ -1676,7 +1712,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "d1aedf7ac90fc668",
@@ -1746,7 +1783,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "39e2b01fd3cdb8a6",
@@ -1816,7 +1854,8 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "b52dda6015da8b95",
@@ -1886,6 +1925,7 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   }
 ]

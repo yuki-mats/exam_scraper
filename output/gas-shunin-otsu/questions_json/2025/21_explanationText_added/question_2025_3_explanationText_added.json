@@ -67,7 +67,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "30d4a0bfbe45188a",
@@ -137,7 +138,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "36671e7d6f13eec2",
@@ -207,7 +209,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "3a65f66e45517939",
@@ -277,7 +280,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "620333366e793249",
@@ -347,7 +351,8 @@
       null,
       null,
       null
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "232faed18eb90bc1",
@@ -417,7 +422,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "851ce6e11c7168a8",
@@ -487,7 +493,23 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false,
+    "lawzillaWorkflowReview": {
+      "reviewedAt": "2026-07-10T09:15:00+09:00",
+      "reviewMethodVersion": "gas-shunin-lawzilla-secondary-year-block/v1",
+      "practicalReadiness": "not_law_related_after_review",
+      "decision": "kept_without_law_references",
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ],
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates",
+      "notes": [
+        "問題内容は技術・計算・一般知識の確認であり、正誤判断の直接根拠として条文紐付けは不要と判断した。",
+        "Lawzilla候補に法令名が含まれる場合も、直接根拠でなければ検索改善用の false positive として扱う。",
+        "APIキー・MCPエンドポイントは成果物に保存していない。"
+      ]
+    }
   },
   {
     "original_question_id": "03f7edabcc660a32",
@@ -557,6 +579,7 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   }
 ]

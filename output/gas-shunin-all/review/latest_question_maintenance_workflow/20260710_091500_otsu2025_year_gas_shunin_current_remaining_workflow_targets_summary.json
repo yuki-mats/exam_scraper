@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-targets-summary/v1",
+  "generatedAt": "2026-07-10T09:15:00+09:00",
+  "sourcePreviousRemainingTargets": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_081500_kou2019_year_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "previousRemainingTargetRecords": 85,
+  "completedYearBlock": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2025,
+    "completedTargetRecords": 18,
+    "completedUniqueDisplayQuestionIds": 18,
+    "priorityCounts": {
+      "P0": 16,
+      "P1": 2
+    },
+    "trackCounts": {
+      "lawzilla_law_evidence": 18,
+      "answer_recheck": 1
+    },
+    "lawRelatedQuestionsMaterialized": 16,
+    "sourceConflictReviewJsonl": "output/gas-shunin-all/review/source_conflict_feedback/20260710_091500_otsu2025_year_gas_shunin_otsu_2025_source_conflict_review.jsonl",
+    "lawzillaFeedbackJsonl": "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260710_091500_otsu2025_year_gas_shunin_otsu_2025_lawzilla_practical_review.jsonl",
+    "primaryEvidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_091500_otsu2025_year_gas_shunin_otsu_2025_primary_evidence.jsonl",
+    "patchFilesTouched": [
+      "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+      "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_2_explanationText_added.json",
+      "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_3_explanationText_added.json"
+    ],
+    "boundary": "00_source unchanged; existing IDs preserved; no Lawzilla endpoint or API key stored."
+  },
+  "remainingTargetRecords": 67,
+  "remainingUniqueDisplayQuestionIds": 67,
+  "remainingPriorityCounts": {
+    "P0": 52,
+    "P1": 9,
+    "P2": 6
+  },
+  "remainingTrackCounts": {
+    "lawzilla_law_evidence": 61,
+    "answer_recheck": 19,
+    "source_conflict_review": 1
+  },
+  "remainingReadinessCounts": {
+    "manual_review_required_all_choices_have_primary_evidence": 55,
+    "manual_review_required_partial_candidates": 6,
+    "answer_recheck_without_lawzilla_evidence": 6
+  },
+  "remainingByQualificationYearPriority": [
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2017,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2018,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2019,
+      "total": 16,
+      "uniqueDisplayQuestionIds": 16,
+      "P0": 16
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "total": 8,
+      "uniqueDisplayQuestionIds": 8,
+      "P0": 4,
+      "P1": 4
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2025,
+      "total": 6,
+      "uniqueDisplayQuestionIds": 6,
+      "P1": 1,
+      "P2": 5
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2024,
+      "total": 3,
+      "uniqueDisplayQuestionIds": 3,
+      "P1": 2,
+      "P2": 1
+    }
+  ],
+  "nextYearCheckpoint": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2017,
+    "total": 17,
+    "uniqueDisplayQuestionIds": 17,
+    "P0": 16,
+    "P1": 1
+  },
+  "supersedesStaleSingleQuestionChains": [
+    "20260710_* single-question current_remaining_workflow_targets files are not used as this year-block chain source."
+  ]
+}
