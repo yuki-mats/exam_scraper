@@ -164,11 +164,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "間違い。ガス事業法上の「ガス事業」は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。託送供給事業を含めている点が誤り。",
-      "正しい。「ガス小売事業者」は、ガス小売事業を営もうとして経済産業大臣の登録を受けた者をいう。",
-      "正しい。導管によりガスを受け入れ、一定範囲のガス量の変動に応じて他の者に導管でガスを供給することは、託送供給に当たる。",
-      "正しい。ガス製造事業を営もうとする者は、ガス発生設備及びガスホルダーについて設置場所、種類、能力別の数などを経済産業大臣に届け出る必要がある。",
-      "正しい。最終保障供給は、一般ガス導管事業者が自らの供給区域で、ガス小売事業者から小売供給を受けていない一般需要に応ずる小売供給である。"
+      "間違い。ガス事業法第2条第11項は、「ガス事業」をガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業と定義している。託送供給事業は含まれていないため、これを含めている点が誤り。",
+      "正しい。ガス事業法第2条第3項は、「ガス小売事業者」を同法第3条の登録を受けた者と定義し、同法第3条は、ガス小売事業を営もうとする者が経済産業大臣の登録を受けなければならないと定めている。",
+      "正しい。ガス事業法第2条第4項第1号は、ガスを供給する事業を営む他の者から導管によりガスを受け入れた者が、同時に、受入場所外で当該他の者のガス事業用のガス量の変動で経済産業省令で定める範囲内のものに応じて、当該他の者に導管でガスを供給することを「託送供給」と定めている。ガス事業法施行規則第2条第1項も、その範囲を同号のガス量の変動の範囲と定めている。",
+      "正しい。ガス事業法第86条第1項第3号ロは、ガス製造事業を営もうとする者が、ガス発生設備及びガスホルダーについて、設置の場所、種類及び能力別の数を経済産業大臣に届け出なければならない事項として定めている。ガス事業法施行規則第135条第1項は、この届出をガス製造事業届出書により提出するものとしている。",
+      "正しい。ガス事業法第2条第5項は、一般ガス導管事業に含まれる小売供給として、一般ガス導管事業者が自らの供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給を「最終保障供給」と定義している。"
     ],
     "suggestedQuestions": [
       "「ガス事業」とは、ガス小売事業、一般ガス導管事業、特定ガス導管事業、託送供給事業及びガス製造事業をいう。",
@@ -180,26 +180,46 @@
     "suggestedQuestionDetails": [
       {
         "question": "「ガス事業」とは、ガス小売事業、一般ガス導管事業、特定ガス導管事業、託送供給事業及びガス製造事業をいう。",
-        "answer": "間違い。ガス事業法上の「ガス事業」は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。託送供給事業を含めている点が誤り。"
+        "answer": "間違い。ガス事業法第2条第11項は、「ガス事業」をガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業と定義している。託送供給事業は含まれていないため、これを含めている点が誤り。",
+        "choiceIndex": 1,
+        "suggestedQuestion": "「ガス事業」とは、ガス小売事業、一般ガス導管事業、特定ガス導管事業、託送供給事業及びガス製造事業をいう。",
+        "correctChoiceText": "間違い",
+        "explanationText": "間違い。ガス事業法第2条第11項は、「ガス事業」をガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業と定義している。託送供給事業は含まれていないため、これを含めている点が誤り。"
       },
       {
         "question": "「ガス小売事業者」とは、ガス小売事業を営もうとして、経済産業大臣の登録を受けた者をいう。",
-        "answer": "正しい。「ガス小売事業者」は、ガス小売事業を営もうとして経済産業大臣の登録を受けた者をいう。"
+        "answer": "正しい。ガス事業法第2条第3項は、「ガス小売事業者」を同法第3条の登録を受けた者と定義し、同法第3条は、ガス小売事業を営もうとする者が経済産業大臣の登録を受けなければならないと定めている。",
+        "choiceIndex": 2,
+        "suggestedQuestion": "「ガス小売事業者」とは、ガス小売事業を営もうとして、経済産業大臣の登録を受けた者をいう。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第2条第3項は、「ガス小売事業者」を同法第3条の登録を受けた者と定義し、同法第3条は、ガス小売事業を営もうとする者が経済産業大臣の登録を受けなければならないと定めている。"
       },
       {
         "question": "ガスを供給する事業を営む他の者から導管によりガスを受け入れた者が、同時に、その受け入れた場所以外の場所において、当該他の者のガスを供給する事業の用に供するためのガスの量の変動であって経済産業省令で定める範囲内のものに応じて、当該他の者に対して、導管によりガスの供給を行うことは、「託送供給」である。",
-        "answer": "正しい。導管によりガスを受け入れ、一定範囲のガス量の変動に応じて他の者に導管でガスを供給することは、託送供給に当たる。"
+        "answer": "正しい。ガス事業法第2条第4項第1号は、ガスを供給する事業を営む他の者から導管によりガスを受け入れた者が、同時に、受入場所外で当該他の者のガス事業用のガス量の変動で経済産業省令で定める範囲内のものに応じて、当該他の者に導管でガスを供給することを「託送供給」と定めている。ガス事業法施行規則第2条第1項も、その範囲を同号のガス量の変動の範囲と定めている。",
+        "choiceIndex": 3,
+        "suggestedQuestion": "ガスを供給する事業を営む他の者から導管によりガスを受け入れた者が、同時に、その受け入れた場所以外の場所において、当該他の者のガスを供給する事業の用に供するためのガスの量の変動であって経済産業省令で定める範囲内のものに応じて、当該他の者に対して、導管によりガスの供給を行うことは、「託送供給」である。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第2条第4項第1号は、ガスを供給する事業を営む他の者から導管によりガスを受け入れた者が、同時に、受入場所外で当該他の者のガス事業用のガス量の変動で経済産業省令で定める範囲内のものに応じて、当該他の者に導管でガスを供給することを「託送供給」と定めている。ガス事業法施行規則第2条第1項も、その範囲を同号のガス量の変動の範囲と定めている。"
       },
       {
         "question": "ガス製造事業を営もうとする者は、経済産業省令で定めるところにより、ガス発生設備及びガスホルダーにあっては、これらの設置の場所、種類及び能力別の数を、経済産業大臣に届け出なければならない。",
-        "answer": "正しい。ガス製造事業を営もうとする者は、ガス発生設備及びガスホルダーについて設置場所、種類、能力別の数などを経済産業大臣に届け出る必要がある。"
+        "answer": "正しい。ガス事業法第86条第1項第3号ロは、ガス製造事業を営もうとする者が、ガス発生設備及びガスホルダーについて、設置の場所、種類及び能力別の数を経済産業大臣に届け出なければならない事項として定めている。ガス事業法施行規則第135条第1項は、この届出をガス製造事業届出書により提出するものとしている。",
+        "choiceIndex": 4,
+        "suggestedQuestion": "ガス製造事業を営もうとする者は、経済産業省令で定めるところにより、ガス発生設備及びガスホルダーにあっては、これらの設置の場所、種類及び能力別の数を、経済産業大臣に届け出なければならない。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第86条第1項第3号ロは、ガス製造事業を営もうとする者が、ガス発生設備及びガスホルダーについて、設置の場所、種類及び能力別の数を経済産業大臣に届け出なければならない事項として定めている。ガス事業法施行規則第135条第1項は、この届出をガス製造事業届出書により提出するものとしている。"
       },
       {
         "question": "「最終保障供給」とは、一般ガス導管事業者自らの供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給をいう。",
-        "answer": "正しい。最終保障供給は、一般ガス導管事業者が自らの供給区域で、ガス小売事業者から小売供給を受けていない一般需要に応ずる小売供給である。"
+        "answer": "正しい。ガス事業法第2条第5項は、一般ガス導管事業に含まれる小売供給として、一般ガス導管事業者が自らの供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給を「最終保障供給」と定義している。",
+        "choiceIndex": 5,
+        "suggestedQuestion": "「最終保障供給」とは、一般ガス導管事業者自らの供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給をいう。",
+        "correctChoiceText": "正しい",
+        "explanationText": "正しい。ガス事業法第2条第5項は、一般ガス導管事業に含まれる小売供給として、一般ガス導管事業者が自らの供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給を「最終保障供給」と定義している。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -219,7 +239,560 @@
         "正しい。最終保障供給は、一般ガス導管事業者が自らの供給区域で、ガス小売事業者から小売供給を受けていない一般需要に応ずる小売供給である。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": "correct",
+    "answer_result_text": "正解は 1 です。",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "2",
+          "paragraph": "11",
+          "item": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "ガス事業の定義を定めており、託送供給事業を含めていない。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "2",
+          "paragraph": "3",
+          "item": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "ガス小売事業者を第3条の登録を受けた者と定義している。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "3",
+          "paragraph": "1",
+          "item": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=3",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=3",
+          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis_detail",
+          "primaryBasis": false,
+          "reason": "ガス小売事業を営もうとする者の経済産業大臣登録義務を定めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "2",
+          "paragraph": "4",
+          "item": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "導管受入れと受入場所以外での変動対応供給を託送供給と定義している。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-09",
+          "article": "2",
+          "paragraph": "1",
+          "item": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=2",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=2",
+          "articleTextHash": "4d085687407cbc9536840aad0360451f4dc2adbe917ddf7f26881e9d427258cf",
+          "rawXmlHash": "06ed2aa61b528ab7044afc3782aec11083577a85cb6eded02a58fb7d67b3933f",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis_detail",
+          "primaryBasis": false,
+          "reason": "法第2条第4項第1号の経済産業省令で定める範囲を定めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "86",
+          "paragraph": "1",
+          "item": "3ロ",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=86",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=86",
+          "articleTextHash": "c44e1d4f3a8630ab42da9be8c798557e0f359d2e69c94f7b910967e69c7d157c",
+          "rawXmlHash": "68aafbe04f20de26ca15d9052a9be3a78b65de555f25366fb1c05ab3d256860e",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "ガス製造事業届出事項として、ガス発生設備及びガスホルダーの設置場所、種類、能力別の数を定めている。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス則",
+          "referenceDate": "2026-07-09",
+          "article": "135",
+          "paragraph": "1",
+          "item": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=135",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=135",
+          "articleTextHash": "273818ba5575139af1de3fcad8271c55600b0eee3cceb5063fc1829158edada2",
+          "rawXmlHash": "de28aaa700762fcad99f6b4280b3982f9433a32f9a59349b2eb2599fd2718442",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis_detail",
+          "primaryBasis": false,
+          "reason": "ガス製造事業届出書による届出手続を定めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス法",
+          "referenceDate": "2026-07-09",
+          "article": "2",
+          "paragraph": "5",
+          "item": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "一般ガス導管事業に含まれる最終保障供給の定義を定めている。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:58+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235958",
+        "primaryAuditRunId": "20260709_002500_gas_shunin_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "reconciliationStatus": "matched",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0321,chiefgasengineerlicense-A-10-0322,chiefgasengineerlicense-A-10-0323,chiefgasengineerlicense-A-10-0324,chiefgasengineerlicense-A-10-0325",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "11",
+          "item": null,
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法第2条を返しており、e-Gov XMLで第11項のガス事業定義を確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "Archived site側の2022年問1は本文・肢構成が異なるため、既存Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第2条第11項は、「ガス事業」をガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業と定義している。託送供給事業は含まれていないため、これを含めている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "選択肢ごとの直接根拠を、ガス事業法及びガス事業法施行規則の現行e-Gov XMLで条項単位に確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:2:11:"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:2:11:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "2",
+              "paragraph": "11",
+              "item": null,
+              "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+              "textHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:58+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235958",
+        "primaryAuditRunId": "20260709_002500_gas_shunin_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "reconciliationStatus": "reconciled_no_hit",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0321,chiefgasengineerlicense-A-10-0322,chiefgasengineerlicense-A-10-0323,chiefgasengineerlicense-A-10-0324,chiefgasengineerlicense-A-10-0325",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "3",
+          "item": null,
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は該当なしだったため、e-Gov XMLでガス事業法第2条第3項及び第3条第1項を直接確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "Archived site側の2022年問1は本文・肢構成が異なるため、既存Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第2条第3項は、「ガス小売事業者」を同法第3条の登録を受けた者と定義し、同法第3条は、ガス小売事業を営もうとする者が経済産業大臣の登録を受けなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "選択肢ごとの直接根拠を、ガス事業法及びガス事業法施行規則の現行e-Gov XMLで条項単位に確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:2:3:"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:2:3:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "2",
+              "paragraph": "3",
+              "item": null,
+              "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+              "textHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6"
+            },
+            {
+              "refId": "current:329AC0000000051:3:1:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_detail",
+              "primaryBasis": false,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "3",
+              "paragraph": "1",
+              "item": null,
+              "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+              "textHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:58+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235958",
+        "primaryAuditRunId": "20260709_002500_gas_shunin_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "reconciliationStatus": "matched_but_noisy",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0321,chiefgasengineerlicense-A-10-0322,chiefgasengineerlicense-A-10-0323,chiefgasengineerlicense-A-10-0324,chiefgasengineerlicense-A-10-0325",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "4",
+          "item": "1",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は導管語で広く返ったため、e-Gov XMLでガス事業法第2条第4項第1号及び施行規則第2条第1項に絞り込んだ。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "Archived site側の2022年問1は本文・肢構成が異なるため、既存Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第2条第4項第1号は、ガスを供給する事業を営む他の者から導管によりガスを受け入れた者が、同時に、受入場所外で当該他の者のガス事業用のガス量の変動で経済産業省令で定める範囲内のものに応じて、当該他の者に導管でガスを供給することを「託送供給」と定めている。ガス事業法施行規則第2条第1項も、その範囲を同号のガス量の変動の範囲と定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "選択肢ごとの直接根拠を、ガス事業法及びガス事業法施行規則の現行e-Gov XMLで条項単位に確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:2:4:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:2:4:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "2",
+              "paragraph": "4",
+              "item": "1",
+              "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+              "textHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6"
+            },
+            {
+              "refId": "current:345M50000400097:2:1:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_detail",
+              "primaryBasis": false,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "2",
+              "paragraph": "1",
+              "item": null,
+              "articleTextHash": "4d085687407cbc9536840aad0360451f4dc2adbe917ddf7f26881e9d427258cf",
+              "textHash": "4d085687407cbc9536840aad0360451f4dc2adbe917ddf7f26881e9d427258cf"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:58+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235958",
+        "primaryAuditRunId": "20260709_002500_gas_shunin_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "reconciliationStatus": "reconciled_misleading_candidate",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0321,chiefgasengineerlicense-A-10-0322,chiefgasengineerlicense-A-10-0323,chiefgasengineerlicense-A-10-0324,chiefgasengineerlicense-A-10-0325",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "86",
+          "paragraph": "1",
+          "item": "3ロ",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "c44e1d4f3a8630ab42da9be8c798557e0f359d2e69c94f7b910967e69c7d157c",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=86"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス事業法第90条は公開義務であり、届出事項の直接根拠ではないため、同法第86条第1項第3号ロ及び施行規則第135条第1項を採用した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "Archived site側の2022年問1は本文・肢構成が異なるため、既存Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第86条第1項第3号ロは、ガス製造事業を営もうとする者が、ガス発生設備及びガスホルダーについて、設置の場所、種類及び能力別の数を経済産業大臣に届け出なければならない事項として定めている。ガス事業法施行規則第135条第1項は、この届出をガス製造事業届出書により提出するものとしている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "選択肢ごとの直接根拠を、ガス事業法及びガス事業法施行規則の現行e-Gov XMLで条項単位に確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:86:1:3ロ"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:86:1:3ロ",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "86",
+              "paragraph": "1",
+              "item": "3ロ",
+              "articleTextHash": "c44e1d4f3a8630ab42da9be8c798557e0f359d2e69c94f7b910967e69c7d157c",
+              "textHash": "c44e1d4f3a8630ab42da9be8c798557e0f359d2e69c94f7b910967e69c7d157c"
+            },
+            {
+              "refId": "current:345M50000400097:135:1:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_detail",
+              "primaryBasis": false,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "135",
+              "paragraph": "1",
+              "item": null,
+              "articleTextHash": "273818ba5575139af1de3fcad8271c55600b0eee3cceb5063fc1829158edada2",
+              "textHash": "273818ba5575139af1de3fcad8271c55600b0eee3cceb5063fc1829158edada2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:59:58+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235958",
+        "primaryAuditRunId": "20260709_002500_gas_shunin_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q1_secondary_review",
+        "reconciliationStatus": "reconciled_contextual_candidate",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0321,chiefgasengineerlicense-A-10-0322,chiefgasengineerlicense-A-10-0323,chiefgasengineerlicense-A-10-0324,chiefgasengineerlicense-A-10-0325",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "5",
+          "item": null,
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は最終保障供給の義務条文を返したが、定義問題の直接根拠としてガス事業法第2条第5項を採用した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "Archived site側の2022年問1は本文・肢構成が異なるため、既存Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス事業法第2条第5項は、一般ガス導管事業に含まれる小売供給として、一般ガス導管事業者が自らの供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給を「最終保障供給」と定義している。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "選択肢ごとの直接根拠を、ガス事業法及びガス事業法施行規則の現行e-Gov XMLで条項単位に確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:2:5:"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:2:5:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "2",
+              "paragraph": "5",
+              "item": null,
+              "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+              "textHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-10-0286,chiefgasengineerlicense-A-10-0287,chiefgasengineerlicense-A-10-0288,chiefgasengineerlicense-A-10-0289,chiefgasengineerlicense-A-10-0290",
