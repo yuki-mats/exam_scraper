@@ -1278,7 +1278,50 @@
       "供給継続地区の需要家からのガス漏えい通報に対しては、供給停止地区に優先して迅速かつ適切に対応し、ガスによる二次災害の防止に必要な措置を講ずる。",
       "地震対策は基本的に、設計対策、緊急対策、復旧対策の三つで構成されている。このうち緊急対策は、安全かつ可能な限り速やかにガスの供給を再開することが基本である。",
       "ガス防災支援システム（G-React）は、大規模地震発生時の早期復旧のため、国、ガス事業者が被害情報、復旧活動に必要な情報の共有を図るシステムである。"
-    ]
+    ],
+    "answer_result_text": "正しいものは 3 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T00:55:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:323",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:187",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1205,chiefgasengineerlicense-A-80-1206,chiefgasengineerlicense-A-80-1207,chiefgasengineerlicense-A-80-1208,chiefgasengineerlicense-A-80-1209",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-80-1205",
+        "chiefgasengineerlicense-A-80-1206",
+        "chiefgasengineerlicense-A-80-1207",
+        "chiefgasengineerlicense-A-80-1208",
+        "chiefgasengineerlicense-A-80-1209"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-80-194",
+      "questionSetName": "地震対策（甲種）",
+      "conflicts": [
+        {
+          "line": 323,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 3,
+          "statementNo": 4,
+          "firestoreValue": "地震対策は基本的に、設計対策、緊急対策、復旧対策の三つで構成されている。このうち緊急対策は、安全かつ可能な限り速やかにガスの供給を再開することが基本である。",
+          "siteValue": "地震対策は基本的に、設備対策、緊急対策、復旧対策の三つで構成されている。このうち緊急対策は、\n安全かつ可能な限り速やかにガスの供給を再開することが基本\nである。",
+          "differenceSummary": "「設計対策」と「設備対策」の表記差および改行差。既存Firestore本文では緊急対策を復旧対策の説明にしている点を誤りとしており、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢2、3、5が正しい。選択肢1と4は間違い。設問は正しいものの個数を問うため、正しいものは3つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-80-1205..1209を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の地震対策・供給防災知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-60-1210,chiefgasengineerlicense-A-60-1211,chiefgasengineerlicense-A-60-1212,chiefgasengineerlicense-A-60-1213,chiefgasengineerlicense-A-60-1214",
