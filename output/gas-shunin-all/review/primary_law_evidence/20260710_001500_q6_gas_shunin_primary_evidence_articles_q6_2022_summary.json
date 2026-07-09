@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-article-summary/v1",
+  "generatedAt": "2026-07-10T00:15:00+09:00",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2022,
+  "questionLabel": "問6",
+  "displayQuestionId": "gasushunin-koushu-gizyutsu-2022-6",
+  "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1153,chiefgasengineerlicense-A-40-1154,chiefgasengineerlicense-A-40-1155,chiefgasengineerlicense-A-40-1156,chiefgasengineerlicense-A-40-1157",
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_001500_q6_gas_shunin_primary_evidence_articles_q6_2022.jsonl",
+  "recordCount": 3,
+  "articleHashes": [
+    {
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=97",
+      "article": "97",
+      "articleTextHash": "83f9de2629167800fd9bc32126b8936e3fcc23d0877fde6bfa2fa9ea754faf87",
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "rawXmlHash": "879c2e0699702fb28089bba4d5b46b92e9dd6a9d974ae5a3d5404248397223b3",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_001500_q6/329AC0000000051_97_879c2e0699702fb2.xml"
+    },
+    {
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=148",
+      "article": "148",
+      "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05",
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "rawXmlHash": "614549de97d997dd8dd7c6be7fe5fb0e14c4c9e7ef985027fe837cd2dcc64af6",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_001500_q6/345M50000400097_148_614549de97d997dd.xml"
+    },
+    {
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9",
+      "article": "9",
+      "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_001500_q6/412M50000400111_9_667e16806b7a64c4.xml"
+    }
+  ],
+  "choiceEvidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_001500_q6_gas_shunin_primary_evidence_snapshots_direct_basis_q6_2022.jsonl",
+  "choiceEvidenceRecordCount": 7,
+  "directBasisLocators": [
+    {
+      "choiceIndex": 0,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "97",
+      "paragraph": "1",
+      "item": null,
+      "subitem": null,
+      "relation": "legal_framework",
+      "primaryBasis": false,
+      "articleTextHash": "83f9de2629167800fd9bc32126b8936e3fcc23d0877fde6bfa2fa9ea754faf87",
+      "rawXmlHash": "879c2e0699702fb28089bba4d5b46b92e9dd6a9d974ae5a3d5404248397223b3"
+    },
+    {
+      "choiceIndex": 0,
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "article": "148",
+      "paragraph": "1",
+      "item": "1・3・10",
+      "subitem": null,
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05",
+      "rawXmlHash": "614549de97d997dd8dd7c6be7fe5fb0e14c4c9e7ef985027fe837cd2dcc64af6"
+    },
+    {
+      "choiceIndex": 1,
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "article": "148",
+      "paragraph": "1",
+      "item": "1",
+      "subitem": null,
+      "relation": "legal_framework",
+      "primaryBasis": false,
+      "articleTextHash": "a4e9124bd982e681db1e675747e15c6008ccf6812c5ddee37246f00e4162ba05",
+      "rawXmlHash": "614549de97d997dd8dd7c6be7fe5fb0e14c4c9e7ef985027fe837cd2dcc64af6"
+    },
+    {
+      "choiceIndex": 3,
+      "lawId": "412M50000400111",
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "article": "9",
+      "paragraph": "1",
+      "item": null,
+      "subitem": null,
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+      "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a"
+    }
+  ],
+  "practicalNotes": [
+    "保安規程はガス製造事業者側のガス事業法第97条及びガス事業法施行規則第148条で確認。",
+    "ガス滞留防止はガス工作物技術基準省令第9条及びMETI解釈例第6条で確認。",
+    "防災一般、保安管理組織運用、LNG貯槽の台風時圧力管理は補助技術資料・既存レビュー済みコーパスで確認し、Lawzilla候補を直接条文根拠として採用しない。"
+  ]
+}
