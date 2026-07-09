@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-summary/v1",
+  "generatedAt": "2026-07-10T01:45:00+09:00",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2021,
+  "questionLabel": "問15",
+  "displayQuestionId": "gasushunin-koushu-hourei-2021-15",
+  "queueSequence": 69,
+  "reviewQuestionIds": "firestore:chiefgasengineerlicense-A-10-0231,chiefgasengineerlicense-A-10-0232,chiefgasengineerlicense-A-10-0233,chiefgasengineerlicense-A-10-0234,chiefgasengineerlicense-A-10-0235",
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_014500_q15_gas_shunin_primary_evidence_snapshots_direct_basis_q15_2021.jsonl",
+  "recordCount": 5,
+  "rawXmlCount": 3,
+  "rawXmlPaths": [
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_014500_q15/329AC0000000051_159_c690236f0f0959bc.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_014500_q15/329AC0000000051_161_81fd7941e7f60a28.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_014500_q15/345M50000400097_207_2856b02a1ffa97c9.xml"
+  ],
+  "choiceCountByVariant": {
+    "firestore_statement_set": 5
+  },
+  "directBasisLocators": [
+    {
+      "choiceIndex": 0,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "159",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+      "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 1,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "159",
+      "paragraph": "2",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+      "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 2,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "161",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
+      "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688",
+      "sourceVariant": "firestore_statement_set"
+    },
+    {
+      "choiceIndex": 3,
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "article": "207",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+      "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6",
+      "sourceVariant": "firestore_statement_set",
+      "item": "表 ガス小売事業者 第2号"
+    },
+    {
+      "choiceIndex": 4,
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "article": "207",
+      "paragraph": "1",
+      "relation": "direct_basis",
+      "primaryBasis": true,
+      "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+      "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6",
+      "sourceVariant": "firestore_statement_set",
+      "item": "表 ガス小売事業者 第4号"
+    }
+  ],
+  "lawzillaReconciliationCounts": {
+    "useful_detail_but_parent_law_article_preferred": 2,
+    "candidate_misdirected": 1,
+    "false_positive_replaced_by_article_207_table": 1,
+    "matched_direct_basis": 1
+  },
+  "practicalNotes": [
+    "周知・調査の詳細候補として施行規則第197条・第200条は有用だが、選択肢1・2の直接根拠はガス事業法第159条。",
+    "使用一時停止命令の誤りはガス事業法第161条の基準適合命令本文で確認。",
+    "保安業務規程の記載事項は、ガス主任技術者条項ではなく施行規則第207条のガス小売事業者欄で確認。"
+  ]
+}
