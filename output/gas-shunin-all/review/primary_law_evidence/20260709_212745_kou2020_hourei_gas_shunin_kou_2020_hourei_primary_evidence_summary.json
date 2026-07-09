@@ -1,0 +1,42 @@
+{
+  "directBasisLawIds": [
+    "329AC0000000051",
+    "345M50000400097",
+    "354AC0000000033",
+    "354M50000400077",
+    "412M50000400111",
+    "429M60000400016",
+    "METI-GIKOKUJI"
+  ],
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260709_212745_kou2020_hourei_gas_shunin_kou_2020_hourei_primary_evidence_snapshots.jsonl",
+  "examYear": 2020,
+  "generatedAt": "2026-07-09T21:27:45+09:00",
+  "lawzillaReconciliationCounts": {
+    "candidate_gap_corrected_to_act_1": 5,
+    "candidate_noisy_articles_197_200_corrected_to_rule_202": 5,
+    "candidate_noisy_corrected_to_act_162_and_specific_gas_law": 5,
+    "needs_supplemental_notice_for_exact_safety_object_threshold": 1,
+    "reconciled_with_primary_law": 64
+  },
+  "officialSources": {
+    "egovLawIds": [
+      "329AC0000000051",
+      "345M50000400097",
+      "354AC0000000033",
+      "354M50000400077",
+      "412M50000400111",
+      "429M60000400016"
+    ],
+    "metiPdf": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+    "metiPdfFetchStatus": "local_fetch_http_403; sourceUrl retained and web/manual verification required for reproduction"
+  },
+  "qualification": "gas-shunin-kou",
+  "rawPdfDir": "not_saved_local_http_403",
+  "rawXmlDir": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_212745_kou2020_hourei",
+  "schemaVersion": "gas-shunin-primary-evidence-summary/v1",
+  "sourcePatch": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+  "sourceQuestionFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+  "targetBlock": "hourei",
+  "targetChoiceCount": 80,
+  "targetQuestionCount": 16
+}
