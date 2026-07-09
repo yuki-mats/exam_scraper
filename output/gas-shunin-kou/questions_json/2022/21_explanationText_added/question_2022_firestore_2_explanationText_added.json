@@ -4279,11 +4279,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "間違い。告示で定める離隔距離を有しないでガス工作物を施設できるのは、あらかじめ経済産業大臣の認可を受けた場合である。届け出た場合としている点が誤り。",
-      "正しい。所定の液化ガス用貯槽と高圧のガスホルダーとの相互間は、漏えい時の災害発生を防止するため、保安上必要な距離を有する必要がある。",
-      "間違い。特定事業所における高圧のガス又は液化ガスを通ずるガス工作物は、配管及び導管を除いて、設備の種類及び規模に応じ保安上適切な区画に区分して設置する必要がある。配管及び導管を対象としている点が誤り。",
-      "正しい。製造所又は供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、規模に応じて適切な防消火設備を適切な箇所に設ける必要がある。",
-      "間違い。ふく射熱対策と安全放出措置を講じる対象はフレアースタックである。ベントスタックとしている点が誤り。"
+      "間違い。技術基準省令第6条第4項は、ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、同条前各項の規定によらないでガス工作物を施設できると定めている。届け出た場合としている点が誤り。",
+      "正しい。技術基準省令第6条第7項は、所定の液化ガス用貯槽と最高使用圧力が高圧のガスホルダーとの相互間について、ガス又は液化ガスが漏えいした場合の災害を防止するため、保安上必要な距離を有しなければならないと定めている。",
+      "間違い。技術基準省令第7条第1項は、特定事業所における高圧のガス又は液化ガスを通ずるガス工作物について、配管及び導管を除いたものを保安区画の対象としている。配管及び導管を対象としている点が誤り。",
+      "正しい。技術基準省令第8条第1項は、製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、その規模に応じて、適切な防消火設備を適切な箇所に設けなければならないと定めている。",
+      "間違い。技術基準省令第13条第3項は、フレアースタックには、当該フレアースタックで発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならないと定めている。ベントスタックとしている点が誤り。"
     ],
     "suggestedQuestions": [
       "ガスの種類、ガス工作物の状況、周囲の状況等の理由によりあらかじめ経済産業大臣に届け出た場合は、告示で定める離隔距離を有しないでガス工作物を施設することができる。",
@@ -4324,7 +4324,7 @@
         "explanationText": "間違い。ふく射熱対策と安全放出措置を講じる対象はフレアースタックである。ベントスタックとしている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -4346,6 +4346,414 @@
       "間違い",
       "正しい",
       "間違い"
+    ],
+    "answer_result_text": "正解は 2 です。",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "正しい",
+      "間違い"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "6",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907",
+          "comparisonStatus": "same_as_current",
+          "reason": "第6条第4項は、離隔距離等によらず施設できるのは経済産業大臣の認可を受けた場合とする。届出ではない。",
+          "paragraph": "4"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "6",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907",
+          "comparisonStatus": "same_as_current",
+          "reason": "第6条第7項は、所定の液化ガス用貯槽と高圧ガスホルダーとの相互間に、漏えい災害防止のため保安上必要な距離を求める。",
+          "paragraph": "7"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "7",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=7",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=7",
+          "articleTextHash": "fc43e9957b938fd49b93d8a6418c6f8469090a59ed7ad993e3b68f27d96af9ba",
+          "rawXmlHash": "e50cbe3c485fab6d66f1a45d390ed8fb668b629609255ffd08af2e96c0f22133",
+          "comparisonStatus": "same_as_current",
+          "reason": "第7条第1項は、保安区画の対象となる高圧のガス工作物等から配管及び導管を除いている。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "8",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=8",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=8",
+          "articleTextHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+          "rawXmlHash": "7c8fe2885f6d9f11fa94a5797e64417798bb6a1785fcf6b09e72492888bcb6b8",
+          "comparisonStatus": "same_as_current",
+          "reason": "第8条第1項は、製造所・供給所のガス工作物又は大容量移動式ガス発生設備に、規模に応じた防消火設備を適切な箇所に設けることを求める。",
+          "paragraph": "1"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-09",
+          "article": "13",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=13",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=13",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "rawXmlHash": "90e37be1a77ea96227e1404350b4e7b34d86b42dce85b0f9d6f66cfd1579ea15",
+          "comparisonStatus": "same_as_current",
+          "reason": "第13条第3項は、ふく射熱対策と安全放出措置の対象をフレアースタックとしている。ベントスタックではない。",
+          "paragraph": "3"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:55:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235500",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "paragraph": "4"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は初回キューで未取得扱いだったため、離隔距離例外の直接根拠として技術基準省令第6条第4項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第6条第4項は、ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、同条前各項の規定によらないでガス工作物を施設できると定めている。届け出た場合としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "離隔距離の例外は届出ではなく経済産業大臣の認可である点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:6:4"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:6:4",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "6",
+              "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "textHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "paragraph": "4"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:55:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235500",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "paragraph": "7"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第30条に寄っていたため、保安距離の直接根拠として技術基準省令第6条第7項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第6条第7項は、所定の液化ガス用貯槽と最高使用圧力が高圧のガスホルダーとの相互間について、ガス又は液化ガスが漏えいした場合の災害を防止するため、保安上必要な距離を有しなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "液化ガス用貯槽と高圧ガスホルダー相互間の保安距離に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:6:7"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:6:7",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "6",
+              "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "textHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "paragraph": "7"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:55:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235500",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "7",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "fc43e9957b938fd49b93d8a6418c6f8469090a59ed7ad993e3b68f27d96af9ba",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=7",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第1条の定義条項に寄っていたため、保安区画の直接根拠として技術基準省令第7条第1項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第7条第1項は、特定事業所における高圧のガス又は液化ガスを通ずるガス工作物について、配管及び導管を除いたものを保安区画の対象としている。配管及び導管を対象としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "保安区画の対象から配管及び導管が除かれる点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:7:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:7:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "7",
+              "articleTextHash": "fc43e9957b938fd49b93d8a6418c6f8469090a59ed7ad993e3b68f27d96af9ba",
+              "textHash": "fc43e9957b938fd49b93d8a6418c6f8469090a59ed7ad993e3b68f27d96af9ba",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:55:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235500",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "8",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=8",
+          "paragraph": "1"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補に技術基準省令第8条が含まれていたため、防消火設備の直接根拠として採用した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第8条第1項は、製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は大容量移動式ガス発生設備には、その規模に応じて、適切な防消火設備を適切な箇所に設けなければならないと定めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "防消火設備の設置義務に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:8:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:8:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "8",
+              "articleTextHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+              "textHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+              "paragraph": "1"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T23:55:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260709_235500",
+        "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
+        "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q7_secondary_review",
+        "reconciliationStatus": "matched",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "13",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=13",
+          "paragraph": "3"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は初回キューで未取得扱いだったため、フレアースタックの直接根拠として技術基準省令第13条第3項をe-Gov本文で確認した。",
+          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第13条第3項は、フレアースタックには、当該フレアースタックで発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならないと定めている。ベントスタックとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
+          "promptContext": "ふく射熱対策と安全放出措置の対象はベントスタックではなくフレアースタックである点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:13:3"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:13:3",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "13",
+              "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+              "textHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+              "paragraph": "3"
+            }
+          ]
+        }
+      }
     ]
   },
   {
