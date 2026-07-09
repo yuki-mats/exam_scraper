@@ -1191,7 +1191,50 @@
       "支管供管一括採水装置は、初期採水は強力なバキューム圧を発生するエジェクターを使用し、後期採水はピグを使用し管内の水たまりを移動させ、完全に排水させる。",
       "パイプロケーターは、誘導法の方が直接法より精度的に優れている。",
       "地中探査レーダーは、地中に向けて超音波を入射し、埋設管に反射された超音波を捉えることにより、埋設位置を探査する。"
-    ]
+    ],
+    "answer_result_text": "誤っているものは 5 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T01:00:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:322",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:186",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1200,chiefgasengineerlicense-A-80-1201,chiefgasengineerlicense-A-80-1202,chiefgasengineerlicense-A-80-1203,chiefgasengineerlicense-A-80-1204",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-80-1200",
+        "chiefgasengineerlicense-A-80-1201",
+        "chiefgasengineerlicense-A-80-1202",
+        "chiefgasengineerlicense-A-80-1203",
+        "chiefgasengineerlicense-A-80-1204"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-80-197",
+      "questionSetName": "ガス導管の維持管理・甲種",
+      "conflicts": [
+        {
+          "line": 322,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 2,
+          "statementNo": 3,
+          "firestoreValue": "支管供管一括採水装置は、初期採水は強力なバキューム圧を発生するエジェクターを使用し、後期採水はピグを使用し管内の水たまりを移動させ、完全に排水させる。",
+          "siteValue": "支管供給管一括採水装置は、初期採水は強力なバキューム圧を発生するエジェクターを使用し、\n後期採水はピグを使用し\n管内の水たまりを移動させ、完全に排水させる。",
+          "differenceSummary": "「支管供管一括採水装置」と「支管供給管一括採水装置」の表記差および改行差。既存Firestore本文では後期採水にピグを使用するとしている点を誤りとしており、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢1から5まですべて間違い。設問は誤っているものの個数を問うため、誤っているものは5つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-80-1200..1204を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の導管維持管理・供給技術知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1205,chiefgasengineerlicense-A-80-1206,chiefgasengineerlicense-A-80-1207,chiefgasengineerlicense-A-80-1208,chiefgasengineerlicense-A-80-1209",
