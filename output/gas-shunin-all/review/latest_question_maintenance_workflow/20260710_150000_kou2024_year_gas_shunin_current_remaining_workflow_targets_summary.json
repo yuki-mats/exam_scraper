@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-targets-summary/v1",
+  "generatedAt": "2026-07-10T15:00:00+09:00",
+  "sourcePreviousRemainingTargets": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_140000_kou2025_year_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "previousRemainingTargetRecords": 3,
+  "completedYearBlock": {
+    "qualification": "gas-shunin-kou",
+    "examYear": 2024,
+    "completedTargetRecords": 3,
+    "completedUniqueDisplayQuestionIds": 3,
+    "priorityCounts": {
+      "P1": 2,
+      "P2": 1
+    },
+    "trackCounts": {
+      "lawzilla_law_evidence": 2,
+      "answer_recheck": 1,
+      "source_conflict_review": 1
+    },
+    "lawRelatedQuestionsMaterialized": 0,
+    "answerRecheckQuestionsReviewed": 1,
+    "lawzillaNotMaterializedQuestions": 2,
+    "sourceConflictQuestionsReviewed": 1,
+    "sourceConflictReviewJsonl": "output/gas-shunin-all/review/source_conflict_feedback/20260710_150000_kou2024_year_gas_shunin_kou_2024_source_conflict_review.jsonl",
+    "lawzillaFeedbackJsonl": "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260710_150000_kou2024_year_gas_shunin_kou_2024_lawzilla_practical_review.jsonl",
+    "primaryEvidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_150000_kou2024_year_gas_shunin_kou_2024_primary_evidence.jsonl",
+    "answerRecheckJsonl": "output/gas-shunin-all/review/answer_recheck_feedback/20260710_150000_kou2024_year_gas_shunin_kou_2024_answer_recheck_review.jsonl",
+    "patchFilesTouched": [
+      "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_2_explanationText_added.json"
+    ],
+    "manualDirectBasisQuestionIds": [],
+    "boundary": "00_source unchanged; existing IDs preserved; no Lawzilla endpoint or API key stored."
+  },
+  "remainingTargetRecords": 0,
+  "remainingUniqueDisplayQuestionIds": 0,
+  "remainingPriorityCounts": {},
+  "remainingTrackCounts": {},
+  "remainingReadinessCounts": {},
+  "remainingByQualificationYearPriority": [],
+  "nextYearCheckpoint": null,
+  "supersedesStaleSingleQuestionChains": [
+    "20260710_* single-question current_remaining_workflow_targets files are not used as this year-block chain source."
+  ]
+}

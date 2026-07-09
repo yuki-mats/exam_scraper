@@ -721,7 +721,8 @@
     ],
     "questionSetId": "chiefgasengineerlicense-A-40-175",
     "questionSetName": "都市ガスの熱量調整及び燃焼性管理（甲種）",
-    "category": "都市ガスの熱量調整及び燃焼性管理（甲種）"
+    "category": "都市ガスの熱量調整及び燃焼性管理（甲種）",
+    "isLawRelated": false
   },
   {
     "original_question_id": "515727ddd8156a5d",
@@ -861,7 +862,8 @@
       "間違い",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "61e22295f24a06e4",
@@ -1312,11 +1314,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_2.json",
     "explanationText": [
-      "不正解。ガス事業法の管厚計算式 t=0.8PD0/(σaη)+C に P=3、D0=300、σa=100、η=1.0、C=1.0 を代入すると t=8.2mm となる。9.2mmは計算値より大きく、最も近い値ではない。",
+      "不正解。設問の管厚計算式 t=0.8PD0/(σaη)+C に P=3、D0=300、σa=100、η=1.0、C=1.0 を代入すると t=8.2mm となる。9.2mmは計算値より大きく、最も近い値ではない。",
       "正解。t=0.8×3×300/(100×1.0)+1.0=7.2+1.0=8.2mm であり、選択肢では8.1mmが最も近い。",
       "不正解。計算値は8.2mmであり、4.6mmはこれより小さく、最も近い値ではない。",
       "不正解。管厚計算式に腐れしろ1.0mmまで加えると8.2mmとなる。3.4mmは計算値から離れており誤り。",
-      "不正解。ガス事業法の管厚計算式では0.8PD0/(σaη)に腐れしろCを加えるため計算値は8.2mmとなる。2.2mmではない。"
+      "不正解。設問の管厚計算式では0.8PD0/(σaη)に腐れしろCを加えるため計算値は8.2mmとなる。2.2mmではない。"
     ],
     "suggestedQuestions": [
       "次の記述の正誤を確認する: 9.2",
@@ -1328,7 +1330,7 @@
     "suggestedQuestionDetails": [
       {
         "question": "次の記述の正誤を確認する: 9.2",
-        "answer": "不正解。ガス事業法の管厚計算式 t=0.8PD0/(σaη)+C に P=3、D0=300、σa=100、η=1.0、C=1.0 を代入すると t=8.2mm となる。9.2mmは計算値より大きく、最も近い値ではない。"
+        "answer": "不正解。設問の管厚計算式 t=0.8PD0/(σaη)+C に P=3、D0=300、σa=100、η=1.0、C=1.0 を代入すると t=8.2mm となる。9.2mmは計算値より大きく、最も近い値ではない。"
       },
       {
         "question": "次の記述の正誤を確認する: 8.1",
@@ -1344,7 +1346,7 @@
       },
       {
         "question": "次の記述の正誤を確認する: 2.2",
-        "answer": "不正解。ガス事業法の管厚計算式では0.8PD0/(σaη)に腐れしろCを加えるため計算値は8.2mmとなる。2.2mmではない。"
+        "answer": "不正解。設問の管厚計算式では0.8PD0/(σaη)に腐れしろCを加えるため計算値は8.2mmとなる。2.2mmではない。"
       }
     ],
     "lawGroundedExplanationNotNeeded": true,
@@ -1363,7 +1365,8 @@
       "不正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "3147d6811ce1cb5f",
@@ -1627,7 +1630,7 @@
         "answer": "正しい。亀裂・折損漏えい予防を目的とした本支管の更生修理工法には、反転シール系、樹脂ライニング系がある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1697,7 +1700,7 @@
         "answer": "間違い。中・低圧導管の地盤変位吸収能力は、配管系に漏えいが生じるときの地盤変位量で定義される。配管系に変形が生じるときとしている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1767,7 +1770,7 @@
         "answer": "正しい。一般にセミ・ブンゼン燃焼式の炎の長さは、ブンゼン燃焼式に比べて長い。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
