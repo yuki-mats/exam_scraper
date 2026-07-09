@@ -8556,6 +8556,15 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false,
+    "lawzillaWorkflowReview": {
+      "reviewedAt": "2026-07-10T00:20:00+09:00",
+      "reviewRunId": "20260710_002000_kou2023_year",
+      "classification": "non_law_technical_or_foundation_problem_after_lawzilla_candidate_review",
+      "reason": "技術・基礎科目のsource conflict/Lawzilla候補整理対象。法令名・法令キーワードはあるが、選択肢の正誤を現行条文だけで直接確定する設問としては扱わない。未検証の条文をlawReferencesへ付けない。",
+      "sourceConflictHandling": "preserve_firestore_snapshot_after_review",
+      "secretHandling": "no Lawzilla endpoint or API key stored"
+    }
   }
 ]
