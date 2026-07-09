@@ -51,7 +51,7 @@
         "answer": "不正解。1960Paは本問の水位差50mmから求める値ではなく、P=ρgHの計算値は490Paである。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -67,7 +67,8 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "6ec9b12d812fcd54",
@@ -121,7 +122,7 @@
         "answer": "間違い。乱流の管摩擦係数は、レイノルズ数だけでなく管壁面の相対粗さにも依存する。管壁面の粗さに依存しないとしている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -137,7 +138,8 @@
       null,
       null,
       null
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "8d1ff4a7220cdc14",
@@ -191,7 +193,7 @@
         "answer": "不正解。最大可能温度差は180-20=160℃、高温流体の温度低下は130℃なので、温度効率は約81%であり88%ではない。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -207,7 +209,8 @@
       "不正解",
       "正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "c43fbf195b5d0be5",
@@ -261,7 +264,7 @@
         "answer": "間違い。熱交換器では流体側の対流熱伝達に加え、伝熱面や管壁を通した熱伝導も生じる。熱伝導は生じないとしている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -277,7 +280,8 @@
       null,
       null,
       null
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "94c70c7f3e7ec91f",
@@ -331,7 +335,7 @@
         "answer": "正しい。溶接部近傍の遅れ割れは、水素、硬化組織、拘束応力などの影響を受け、大型構造物のように拘束や冷却速度が大きい条件で発生しやすい。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -347,7 +351,8 @@
       null,
       null,
       null
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "211e4c2510298123",
@@ -450,7 +455,8 @@
       "不正解"
     ],
     "questionSetId": "chiefgasengineerlicense-B-2170",
-    "questionSetName": "材料力学（乙種）"
+    "questionSetName": "材料力学（乙種）",
+    "isLawRelated": false
   },
   {
     "original_question_id": "b55f464a2ab10d24",
@@ -544,7 +550,8 @@
     ],
     "questionSetId": "chiefgasengineerlicense-B-1790",
     "questionSetName": "都市ガスの原料（乙種）",
-    "category": "都市ガスの原料（乙種）"
+    "category": "都市ガスの原料（乙種）",
+    "isLawRelated": false
   },
   {
     "original_question_id": "25907a4eeba420fd",
@@ -639,7 +646,8 @@
     ],
     "questionSetId": "chiefgasengineerlicense-B-1750",
     "questionSetName": "製造所の製造設備（乙種）",
-    "category": "製造所の製造設備（乙種）"
+    "category": "製造所の製造設備（乙種）",
+    "isLawRelated": false
   },
   {
     "original_question_id": "fafd5412e2152b2e",
@@ -723,7 +731,8 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "ac156d57d1e51b9d",
@@ -807,7 +816,8 @@
       "間違い",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "515727ddd8156a5d",
@@ -877,7 +887,8 @@
       "正解",
       "不正解",
       "不正解"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "460b0695bbd7b211",
@@ -947,7 +958,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "61e22295f24a06e4",
@@ -1017,7 +1029,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "40fde79515772c6c",
@@ -1089,7 +1102,8 @@
       "間違い"
     ],
     "questionIntent": "select_incorrect",
-    "explanationTextCount": 5
+    "explanationTextCount": 5,
+    "isLawRelated": false
   },
   {
     "original_question_id": "fc50a39e093fa458",
@@ -1161,7 +1175,8 @@
       "正しい"
     ],
     "questionIntent": "select_incorrect",
-    "explanationTextCount": 5
+    "explanationTextCount": 5,
+    "isLawRelated": false
   },
   {
     "original_question_id": "2d6f28e79d59f1ff",
@@ -1233,7 +1248,8 @@
       "不正解"
     ],
     "questionIntent": "select_correct",
-    "explanationTextCount": 5
+    "explanationTextCount": 5,
+    "isLawRelated": false
   },
   {
     "original_question_id": "85386c740cb302e8",
@@ -1305,7 +1321,8 @@
       "正しい"
     ],
     "questionIntent": "select_incorrect",
-    "explanationTextCount": 5
+    "explanationTextCount": 5,
+    "isLawRelated": false
   },
   {
     "original_question_id": "e6ce621ee6bf7c78",
@@ -1377,7 +1394,8 @@
       "間違い"
     ],
     "questionIntent": "select_correct",
-    "explanationTextCount": 5
+    "explanationTextCount": 5,
+    "isLawRelated": false
   },
   {
     "original_question_id": "6602bb83e4a77334",
@@ -1449,7 +1467,8 @@
       "正解"
     ],
     "questionIntent": "select_correct",
-    "explanationTextCount": 5
+    "explanationTextCount": 5,
+    "isLawRelated": false
   },
   {
     "original_question_id": "3147d6811ce1cb5f",
@@ -1519,7 +1538,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "282458465cb3fb36",
@@ -1589,7 +1609,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "9ad6e87ef8da4548",
@@ -1659,7 +1680,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "23126d5753d089ac",
@@ -1729,7 +1751,8 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "452f05e1b4e6388b",
@@ -1811,7 +1834,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "05d41bc1bb4c60ef",
@@ -1893,6 +1917,7 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   }
 ]
