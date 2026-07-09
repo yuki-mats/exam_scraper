@@ -2886,11 +2886,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
     "explanationText": [
-      "間違い。塑性変形能力を期待した設計法による耐震性能評価は、レベル2地震動に対して行う。レベル1地震動に対する評価としている点が誤り。",
-      "間違い。工事計画の届出をして設置する重要なガス工作物は、使用前自主検査だけでなく、登録ガス工作物検査機関の使用前検査に合格した後でなければ使用できない。自主検査に合格すれば使用できるとしている点が誤り。",
-      "間違い。LNG貯槽ではメタンを主成分とするBOGが発生することで、残留LNGの熱量は上がる。熱量が下がるとしている点が誤り。",
-      "間違い。やむを得ず製造設備を停止し、製造停止に至る場合には、ガス事業法上の報告義務が発生する場合がある。報告義務がないとしている点が誤り。",
-      "正しい。圧力制御方式は、需要変動に応じて供給量を自動的に調整できるため安定供給を図れるが、設備負荷は頻繁に変動する。"
+      "間違い。製造設備等のレベル2耐震性能評価では、塑性率評価法により応答塑性率が許容塑性率を超えないことを確認する。レベル1地震動に対する評価としている点が誤り。",
+      "間違い。ガス事業法第101条はガス製造事業者の工事計画届出を定め、第102条第1項は届出対象のガス工作物について自主検査に加え、経済産業大臣の登録を受けた者が行う使用前検査を受け、これに合格した後でなければ使用してはならないと定めている。自主検査に合格すれば使用できるとしている点が誤り。",
+      "間違い。LNG貯槽では低沸点成分を多く含むBOGが発生するため、残留LNGは濃縮し、熱量は下がるのではなく上がる。",
+      "間違い。ガス関係報告規則第4条は、ガス製造事業者について製造支障事故等が発生した場合の報告を定めている。製造設備停止が製造支障事故に該当する場合には報告義務が生じるため、報告義務がないと断定する点が誤り。",
+      "正しい。圧力制御方式は需要変動に応じて供給量を自動調整できる一方、設備負荷は頻繁に変動する。流量制御方式のように設備負荷を一定に保つ方式ではない。"
     ],
     "suggestedQuestions": [
       "レベル１地震動に対する耐震性能評価は、構造物の塑性変形能力を期待した設計法により、耐震上重要な部位に生じる応力塑性率が許容塑性率を超えないことを確認する。",
@@ -2902,45 +2902,331 @@
     "suggestedQuestionDetails": [
       {
         "question": "レベル１地震動に対する耐震性能評価は、構造物の塑性変形能力を期待した設計法により、耐震上重要な部位に生じる応力塑性率が許容塑性率を超えないことを確認する。",
-        "answer": "間違い。塑性変形能力を期待した設計法による耐震性能評価は、レベル2地震動に対して行う。レベル1地震動に対する評価としている点が誤り。"
+        "answer": "間違い。製造設備等のレベル2耐震性能評価では、塑性率評価法により応答塑性率が許容塑性率を超えないことを確認する。レベル1地震動に対する評価としている点が誤り。"
       },
       {
         "question": "ガス製造事業者は、工事計画の届け出をして設置する重要なガス工作物の工事について、使用前自主検査を行いこれに合格すれば使用することができる。",
-        "answer": "間違い。工事計画の届出をして設置する重要なガス工作物は、使用前自主検査だけでなく、登録ガス工作物検査機関の使用前検査に合格した後でなければ使用できない。自主検査に合格すれば使用できるとしている点が誤り。"
+        "answer": "間違い。ガス事業法第101条はガス製造事業者の工事計画届出を定め、第102条第1項は届出対象のガス工作物について自主検査に加え、経済産業大臣の登録を受けた者が行う使用前検査を受け、これに合格した後でなければ使用してはならないと定めている。自主検査に合格すれば使用できるとしている点が誤り。"
       },
       {
         "question": "LNG貯槽内においては、ボイルオフガス（BOG）が常に発生することにより、貯槽内のLNGの熱量が下がるため、その下がり具合を加味した上での熱量管理が重要である。",
-        "answer": "間違い。LNG貯槽ではメタンを主成分とするBOGが発生することで、残留LNGの熱量は上がる。熱量が下がるとしている点が誤り。"
+        "answer": "間違い。LNG貯槽では低沸点成分を多く含むBOGが発生するため、残留LNGは濃縮し、熱量は下がるのではなく上がる。"
       },
       {
         "question": "警報や異常が発生した場合の緊急時には、初期段階で適切な処置を行い、やむを得ず製造設備を停止した場合は、あらかじめ定められた手順に沿って安全に停止させるため、ガス事業法上、報告義務がない。",
-        "answer": "間違い。やむを得ず製造設備を停止し、製造停止に至る場合には、ガス事業法上の報告義務が発生する場合がある。報告義務がないとしている点が誤り。"
+        "answer": "間違い。ガス関係報告規則第4条は、ガス製造事業者について製造支障事故等が発生した場合の報告を定めている。製造設備停止が製造支障事故に該当する場合には報告義務が生じるため、報告義務がないと断定する点が誤り。"
       },
       {
         "question": "稼働調整方式である圧力制御方式は、需要変動に応じて供給量を自動的に調整できるため安定供給が図れるが、設備負荷が頻繁に変動することになる。",
-        "answer": "正しい。圧力制御方式は、需要変動に応じて供給量を自動的に調整できるため安定供給を図れるが、設備負荷は頻繁に変動する。"
+        "answer": "正しい。圧力制御方式は需要変動に応じて供給量を自動調整できる一方、設備負荷は頻繁に変動する。流量制御方式のように設備負荷を一定に保つ方式ではない。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
-        "間違い。塑性変形能力を期待した設計法による耐震性能評価は、レベル2地震動に対して行う。レベル1地震動に対する評価としている点が誤り。"
+        "間違い。製造設備等のレベル2耐震性能評価では、塑性率評価法により応答塑性率が許容塑性率を超えないことを確認する。レベル1地震動に対する評価としている点が誤り。"
       ],
       [
-        "間違い。工事計画の届出をして設置する重要なガス工作物は、使用前自主検査だけでなく、登録ガス工作物検査機関の使用前検査に合格した後でなければ使用できない。自主検査に合格すれば使用できるとしている点が誤り。"
+        "間違い。ガス事業法第101条はガス製造事業者の工事計画届出を定め、第102条第1項は届出対象のガス工作物について自主検査に加え、経済産業大臣の登録を受けた者が行う使用前検査を受け、これに合格した後でなければ使用してはならないと定めている。自主検査に合格すれば使用できるとしている点が誤り。"
       ],
       [
-        "間違い。LNG貯槽ではメタンを主成分とするBOGが発生することで、残留LNGの熱量は上がる。熱量が下がるとしている点が誤り。"
+        "間違い。LNG貯槽では低沸点成分を多く含むBOGが発生するため、残留LNGは濃縮し、熱量は下がるのではなく上がる。"
       ],
       [
-        "間違い。やむを得ず製造設備を停止し、製造停止に至る場合には、ガス事業法上の報告義務が発生する場合がある。報告義務がないとしている点が誤り。"
+        "間違い。ガス関係報告規則第4条は、ガス製造事業者について製造支障事故等が発生した場合の報告を定めている。製造設備停止が製造支障事故に該当する場合には報告義務が生じるため、報告義務がないと断定する点が誤り。"
       ],
       [
-        "正しい。圧力制御方式は、需要変動に応じて供給量を自動的に調整できるため安定供給を図れるが、設備負荷は頻繁に変動する。"
+        "正しい。圧力制御方式は需要変動に応じて供給量を自動調整できる一方、設備負荷は頻繁に変動する。流量制御方式のように設備負荷を一定に保つ方式ではない。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "間違い",
+      "間違い",
+      "正しい"
+    ],
+    "suggestedQuestion": [
+      "レベル１地震動に対する耐震性能評価は、構造物の塑性変形能力を期待した設計法により、耐震上重要な部位に生じる応力塑性率が許容塑性率を超えないことを確認する。",
+      "ガス製造事業者は、工事計画の届け出をして設置する重要なガス工作物の工事について、使用前自主検査を行いこれに合格すれば使用することができる。",
+      "LNG貯槽内においては、ボイルオフガス（BOG）が常に発生することにより、貯槽内のLNGの熱量が下がるため、その下がり具合を加味した上での熱量管理が重要である。",
+      "警報や異常が発生した場合の緊急時には、初期段階で適切な処置を行い、やむを得ず製造設備を停止した場合は、あらかじめ定められた手順に沿って安全に停止させるため、ガス事業法上、報告義務がない。",
+      "稼働調整方式である圧力制御方式は、需要変動に応じて供給量を自動的に調整できるため安定供給が図れるが、設備負荷が頻繁に変動することになる。"
+    ],
+    "answer_result_text": "誤っているものは 4 つです。",
+    "isLawRelated": true,
+    "lawReferences": [
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "101",
+          "paragraph": "1",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=101",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=101",
+          "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "rawXmlHash": "f7732a461407838fcdf72343a315fafd72d1bfb3b9050bd34e58ebb56d2eb3c1",
+          "comparisonStatus": "same_as_current",
+          "relation": "construction_plan_context",
+          "primaryBasis": false,
+          "reason": "ガス製造事業者がガス製造事業の用に供するガス工作物の設置又は変更工事について工事計画を届け出る枠組みを確認する。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "referenceDate": "2026-07-10",
+          "article": "102",
+          "paragraph": "1",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=102",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=102",
+          "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "rawXmlHash": "7cfeb9544f3a9126f633f0d3d3f735136396abc364c12f15db2b6ace6f549c2d",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "届出対象の工事は自主検査に加え、登録を受けた者が行う使用前検査を受け、合格後でなければ使用できない。"
+        }
+      ],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "lawAlias": "ガス関係報告規則",
+          "referenceDate": "2026-07-10",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第4号・第8号",
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis_with_conditions",
+          "primaryBasis": true,
+          "reason": "ガス製造事業者の事業用ガス工作物について、製造支障事故等が発生した場合の報告義務を定める。"
+        }
+      ],
+      []
+    ],
+    "supplementalTechnicalEvidence": [
+      {
+        "choiceIndex": 0,
+        "sourceLabel": "日本ガス協会「製造設備等耐震設計指針（追補1）」通知資料",
+        "sourceUrl": "https://www.gas.or.jp/pdf/books/notice2014041701.pdf",
+        "use": "レベル2耐震性能評価で、応答塑性率が許容塑性率を超えないことを確認する塑性率評価法を補完確認。",
+        "authority": "industry_guideline_public_material",
+        "lineRange": "7.2 エネルギー法"
+      },
+      {
+        "choiceIndex": 2,
+        "sourceLabel": "既存Firestore解説・同系過去問整備済みコーパス",
+        "sourceUrl": "output/gas-shunin-kou/questions_json/upload_ready_subset_t020/2020_firestore_20260701_000755.json",
+        "use": "BOGとして軽質成分が抜けるため、残ったLNGの液密度・熱量が上昇するという同系論点を補完確認。",
+        "authority": "existing_exam_corpus_reviewed_source"
+      },
+      {
+        "choiceIndex": 4,
+        "sourceLabel": "既存Firestore knowledgeText（都市ガス工業概要 製造編 P228 9.5 日常の稼働調整）",
+        "sourceUrl": "output/gas-shunin-kou/questions_json/upload_ready_subset_t020/2020_firestore_20260701_000755.json",
+        "use": "圧力制御方式は需要変動に追従しやすい一方、設備負荷が変動しやすいことを補完確認。",
+        "authority": "existing_exam_corpus_reviewed_source"
+      },
+      {
+        "choiceIndex": 4,
+        "sourceLabel": "ガス主任ハック 製造設備の建設及び操業 重要ポイント集",
+        "sourceUrl": "https://gassyunin.com/text/seizo/08-keikaku/",
+        "use": "圧力制御方式・流量制御方式の違いについて、既存条文検索ではなく技術解説として補助確認。",
+        "authority": "secondary_exam_study_material"
+      }
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T00:10:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_001000_q7",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1158,chiefgasengineerlicense-A-40-1159,chiefgasengineerlicense-A-40-1160,chiefgasengineerlicense-A-40-1161,chiefgasengineerlicense-A-40-1162",
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "choiceIndex": 1,
+        "reconciliationStatus": "lawzilla_broad_enforcement_rule_hits_replaced_with_gas_business_act_articles101_102",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "102",
+          "paragraph": "1",
+          "item": null,
+          "subitem": null,
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=102"
+        },
+        "notes": [
+          "Lawzilla候補はガス事業法施行規則第5条・第39条などに寄ったが、ガス製造事業者の工事計画及び使用前検査の直接根拠はガス事業法第101条・第102条で確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "source conflict ledger lines 359-360は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス事業法第101条はガス製造事業者の工事計画届出を定め、第102条第1項は届出対象のガス工作物について自主検査に加え、経済産業大臣の登録を受けた者が行う使用前検査を受け、これに合格した後でなければ使用してはならないと定めている。自主検査に合格すれば使用できるとしている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法令では既存正誤と一致。",
+          "promptContext": "ガス製造事業者の工事計画届出と使用前検査は、施行規則の候補だけで閉じず、ガス事業法本文の直接条文で確認する。",
+          "displayRefIds": [
+            "current:329AC0000000051:101:1::",
+            "current:329AC0000000051:102:1::"
+          ],
+          "refs": [
+            {
+              "refId": "current:329AC0000000051:101:1::",
+              "lawTimeScope": "current",
+              "relation": "construction_plan_context",
+              "primaryBasis": false,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "101",
+              "paragraph": "1",
+              "item": null,
+              "subitem": null,
+              "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "textHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "refId": "current:329AC0000000051:102:1::",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "102",
+              "paragraph": "1",
+              "item": null,
+              "subitem": null,
+              "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "textHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T00:10:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_001000_q7",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q7_secondary_review",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1158,chiefgasengineerlicense-A-40-1159,chiefgasengineerlicense-A-40-1160,chiefgasengineerlicense-A-40-1161,chiefgasengineerlicense-A-40-1162",
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "choiceIndex": 3,
+        "reconciliationStatus": "lawzilla_appendix_construction_plan_hit_replaced_with_gas_relation_reporting_rules_article4",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第4号・第8号",
+          "subitem": null,
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+        },
+        "notes": [
+          "Lawzilla候補は施行規則別表第一の工事計画対象に寄ったが、選択肢の「報告義務がない」はガス関係報告規則第4条の事故報告で確認する。",
+          "第4条第1項はガス製造事業者について同表第1号から第14号までの事故を報告対象とし、同表第4号・第8号に製造支障事故を掲げる。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス関係報告規則第4条は、ガス製造事業者について製造支障事故等が発生した場合の報告を定めている。製造設備停止が製造支障事故に該当する場合には報告義務が生じるため、報告義務がないと断定する点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法令では既存正誤と一致。",
+          "promptContext": "製造設備停止が常に報告対象とは限らないため、製造支障事故等に該当する場合という条件付きで解説する。",
+          "displayRefIds": [
+            "current:429M60000400016:4:1:表第4号・第8号:"
+          ],
+          "refs": [
+            {
+              "refId": "current:429M60000400016:4:1:表第4号・第8号:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_with_conditions",
+              "primaryBasis": true,
+              "lawId": "429M60000400016",
+              "lawTitle": "ガス関係報告規則",
+              "article": "4",
+              "paragraph": "1",
+              "item": "表第4号・第8号",
+              "subitem": null,
+              "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "textHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ]
+        }
+      }
+    ],
+    "lawzillaMcpReview": {
+      "reviewedAt": "2026-07-10T00:10:00+09:00",
+      "reviewStatus": "secondary_verified_with_primary_and_supplemental_sources",
+      "lawzillaCandidateSource": "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_011000_gas_shunin_P1_40_lawzilla_candidates.jsonl:36-40",
+      "practicalVerdict": "usable_as_hint_not_sufficient_alone",
+      "impactOnExistingSearch": "needs_statute_family_routing_and_technical_evidence_fallback",
+      "feedbackForSearchImprovement": [
+        "「ガス製造事業者 工事計画 自主検査 使用前検査」は、施行規則第39条ではなくガス事業法第101条・第102条を優先候補にする。",
+        "「報告義務 製造設備停止 製造支障事故」は、施行規則別表第一ではなくガス関係報告規則第4条を優先候補にする。",
+        "耐震性能評価、BOGによる熱量変化、圧力制御方式はe-Gov条文だけで正誤を確定しにくいため、補助技術資料確認が必要な候補として扱う。",
+        "法令候補が語句一致だけで高圧ガス保安法や設備別表に寄った場合は、問題文の資格領域・選択肢の論点に照らして棄却理由を記録する。"
+      ]
+    }
   }
 ]

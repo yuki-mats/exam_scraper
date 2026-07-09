@@ -1,0 +1,85 @@
+{
+  "articleHashes": [
+    {
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=101",
+      "article": "101",
+      "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "rawXmlHash": "f7732a461407838fcdf72343a315fafd72d1bfb3b9050bd34e58ebb56d2eb3c1",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_001000_q7/329AC0000000051_101_f7732a461407838f.xml"
+    },
+    {
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=102",
+      "article": "102",
+      "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "rawXmlHash": "7cfeb9544f3a9126f633f0d3d3f735136396abc364c12f15db2b6ace6f549c2d",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_001000_q7/329AC0000000051_102_7cfeb9544f3a9126.xml"
+    },
+    {
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+      "article": "4",
+      "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "lawId": "429M60000400016",
+      "lawTitle": "ガス関係報告規則",
+      "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+      "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_001000_q7/429M60000400016_4_fa1e1c302c2835a6.xml"
+    }
+  ],
+  "choiceEvidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_001000_q7_gas_shunin_primary_evidence_snapshots_direct_basis_q7_2022.jsonl",
+  "choiceEvidenceRecordCount": 6,
+  "directBasisLocators": [
+    {
+      "article": "101",
+      "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "choiceIndex": 1,
+      "item": null,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "paragraph": "1",
+      "primaryBasis": false,
+      "rawXmlHash": "f7732a461407838fcdf72343a315fafd72d1bfb3b9050bd34e58ebb56d2eb3c1",
+      "relation": "construction_plan_context"
+    },
+    {
+      "article": "102",
+      "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "choiceIndex": 1,
+      "item": null,
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "paragraph": "1",
+      "primaryBasis": true,
+      "rawXmlHash": "7cfeb9544f3a9126f633f0d3d3f735136396abc364c12f15db2b6ace6f549c2d",
+      "relation": "direct_basis"
+    },
+    {
+      "article": "4",
+      "articleTextHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "choiceIndex": 3,
+      "item": "表第4号・第8号",
+      "lawId": "429M60000400016",
+      "lawTitle": "ガス関係報告規則",
+      "paragraph": "1",
+      "primaryBasis": true,
+      "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+      "relation": "direct_basis_with_conditions"
+    }
+  ],
+  "displayQuestionId": "gasushunin-koushu-gizyutsu-2022-7",
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_001000_q7_gas_shunin_primary_evidence_articles_q7_2022.jsonl",
+  "examYear": 2022,
+  "generatedAt": "2026-07-10T00:10:00+09:00",
+  "practicalNotes": [
+    "ガス製造事業者の工事計画・使用前検査はガス事業法第101条・第102条で確認。",
+    "製造支障事故等の報告義務はガス関係報告規則第4条で条件付き根拠として確認。",
+    "耐震、BOG、圧力制御方式は補助技術資料で確認し、Lawzilla候補を直接条文根拠として採用しない。"
+  ],
+  "qualification": "gas-shunin-kou",
+  "questionLabel": "問7",
+  "recordCount": 3,
+  "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1158,chiefgasengineerlicense-A-40-1159,chiefgasengineerlicense-A-40-1160,chiefgasengineerlicense-A-40-1161,chiefgasengineerlicense-A-40-1162",
+  "schemaVersion": "gas-shunin-primary-evidence-article-summary/v1"
+}
