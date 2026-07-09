@@ -25,6 +25,187 @@
 
 法令問題では、スクレイピング元の正誤は出題当時の公式正答または掲載元の正誤を反映しているものとして扱う。03の前に02bで `isLawRelated` と現行法根拠候補を整理し、03ではその情報を使って解説本文と想定質問を作る。現行法と突き合わせ、明らかに正誤が異なる場合は現行法ベースへ `correctChoiceText` / `explanationText` を更新する。その場合は、更新した事実、出題当時の正答、現行法の根拠条項を `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails`、`lawReferences`、review sidecar に残し、ユーザーにも「現行法に合わせて更新済み」と伝わるようにする。`isLawRelated` は upload 可能な import metadata として扱えるが、`lawAnswerBasis` などの現行法更新専用 field は未対応のため、repaso 側の schema / Firestore rules / UI 更新なしに通常 upload JSON へ混入させてはいけない。
 
+## 0.1 全体ワークフロー図
+
+通常の整備は、`00_source` を直接直さず、各工程の patch を作って merge し、最後に Firestore 変換と dry-run で schema を確認する流れです。
+
+```mermaid
+flowchart LR
+  Preset["config/scrape_presets.json<br/>資格・対象回・サイト設定"] --> Scrape["scrape runner / site scraper"]
+  Scrape --> Source["00_source<br/>スクレイピング正本"]
+  Scrape --> Images["question_images/&lt;list_group_id&gt;<br/>ローカル画像"]
+
+  Source --> QType["01 questionType<br/>10_questionType_fixed"]
+  QType --> MergeA["merge<br/>12_merged_questionType / 20_merged_1"]
+  Source --> MergeA
+
+  MergeA --> Intent["02 questionIntent<br/>15_correctChoiceText_fixed"]
+  Intent --> CorrectDraft["answer_result_text + questionIntent<br/>correctChoiceText 下書き"]
+  CorrectDraft --> Merged1["20_merged_1<br/>解説作成前の主入力"]
+
+  Merged1 --> LawContext["02b law context<br/>18_law_context_prepared"]
+  LawContext --> Merged1Law["merge<br/>20_merged_1 に法令情報反映"]
+
+  Merged1Law --> Explanation["03 explanation<br/>21_explanationText_added"]
+  Merged1Law --> QuestionSet["04 questionSetId<br/>22_questionSetId_linked"]
+  Explanation --> Merged2["merge<br/>30_merged_2"]
+  QuestionSet --> Merged2
+
+  CorrectReview["厳密 correctChoiceText review<br/>23_correctChoiceText_fixed"] --> Merged2
+  Merged2 --> Convert["convert<br/>40_convert"]
+  Convert --> UploadJson["upload_to_firestore"]
+  Images --> Storage["Storage dry-run / upload"]
+  UploadJson --> FirestoreDryRun["Firestore dry-run<br/>schema validation"]
+  FirestoreDryRun --> Firestore["Firestore upload"]
+```
+
+## 0.2 人間判断とスクリプト責務
+
+```mermaid
+flowchart TB
+  subgraph Human["人間・AI Worker が判断するもの"]
+    HT["questionType<br/>学習体験の分類"]
+    HI["questionIntent<br/>正しいもの/誤っているもの"]
+    HC["correctChoiceText 厳密確認<br/>設問意図・元正答・根拠の照合"]
+    HE["explanationText<br/>正誤理由・誤り箇所・正しい内容"]
+    HL["law context / current law audit<br/>法令関連性・根拠・差分判断"]
+    HQ["questionSetId<br/>category との意味的対応"]
+  end
+
+  subgraph Script["スクリプトが機械的に行うもの"]
+    SM["materialize-patch<br/>最小 JSON から正式 patch 補完"]
+    SG["merge<br/>patch を merged JSON へ反映"]
+    SC["convert<br/>Firestore schema へ変換"]
+    SQ["quality-gate<br/>coverage / required / schema check"]
+    SU["upload dry-run / upload"]
+  end
+
+  Human --> SM
+  SM --> SG
+  SG --> SC
+  SC --> SQ
+  SQ --> SU
+```
+
+判断本文の量産を Python に寄せないでください。Python を使ってよい範囲は、退避、正式 patch 化、merge、convert、下書き補完、coverage check、schema validation、upload dry-run / upload です。
+
+## 0.3 法令問題の分岐図
+
+法令問題は、通常の03解説作成へ入る前に02bで `isLawRelated` と現行法根拠候補を整理します。法改正・現行法差分が疑われる場合だけ03bへ切り出します。
+
+```mermaid
+flowchart TD
+  Start["20_merged_1<br/>question + correctChoiceText 下書き"] --> Scope["資格別 law reference policy 確認"]
+  Scope --> Related{"法令・制度論点か"}
+  Related -- "No" --> NotLaw["isLawRelated=false<br/>lawGroundedExplanationNotNeeded=true"]
+  Related -- "Yes" --> LawCtx["02b<br/>isLawRelated=true<br/>lawGroundedExplanationNotNeeded=false<br/>lawReferences 候補"]
+
+  LawCtx --> CurrentBasis{"現行法根拠を確認できたか"}
+  CurrentBasis -- "No" --> Candidate["candidate / unverified<br/>lawContextForExplanation に未確認点"]
+  CurrentBasis -- "Yes" --> Verified["verified current_basis<br/>lawId + article + referenceDate"]
+
+  Candidate --> Explain["03 explanation<br/>断定せず保守的に説明"]
+  Verified --> Explain
+  NotLaw --> Explain
+
+  Explain --> DiffSuspect{"現行法差分が正誤に影響しそうか"}
+  DiffSuspect -- "No" --> NormalMerge["21_explanationText_added<br/>通常 merge"]
+  DiffSuspect -- "Yes" --> AuditQueue["03b / audit queue<br/>evidence bundle 固定"]
+
+  AuditQueue --> Primary["一次監査<br/>locator / hash / auditInputHash"]
+  Primary --> Secondary{"二次監査で根拠妥当か"}
+  Secondary -- "No" --> Hold["lawRevisionFacts.auditStatus=hold<br/>needs_secondary_review"]
+  Secondary -- "Yes / 差分なし" --> Same["same_as_current<br/>secondary_verified"]
+  Secondary -- "正誤更新あり" --> Tertiary["needs_tertiary_review"]
+  Tertiary --> Approved{"三次確定"}
+  Approved -- "No" --> Hold
+  Approved -- "Yes" --> Updated["updated_to_current_law<br/>tertiary_verified"]
+
+  Same --> LawFacts["lawRevisionFacts 作成<br/>evidenceSummary あり"]
+  Updated --> Notice["correctChoiceText / explanationText 更新<br/>出題当時との差分注記"]
+  Notice --> LawFacts
+  Hold --> GateBlock["公開前 gate で hold を残さない"]
+```
+
+法令監査の正本は `lawRevisionFacts` と review sidecar です。条文本文の長文を question doc に保存せず、`lawId`、`lawRevisionId`、`elm`、`articleTextHash`、raw XML hash などの locator と hash で再現性を確保します。
+
+## 0.4 quality-gate 図
+
+日常運用では、個別 script を直接探す前に `tools/question_bank/question_bank.py` を入口にします。
+
+```mermaid
+flowchart LR
+  CLI["tools/question_bank/question_bank.py quality-gate"] --> Mode{"--mode"}
+  Mode --> Required["required<br/>00_source / merged 必須項目"]
+  Mode --> Patches["patches<br/>10 / 15 / 18 / 21 / 22 coverage"]
+  Mode --> FirestoreMode["firestore<br/>40_convert + upload dry-run"]
+  Mode --> Full["full<br/>required + patches + firestore"]
+
+  Patches --> QTypeCheck["questionType coverage"]
+  Patches --> IntentCheck["questionIntent coverage"]
+  Patches --> LawContextCheck["18_law_context_prepared<br/>必要時だけ必須"]
+  Patches --> ExplanationCheck["explanationText<br/>配列長・suggested 系・法令 flags"]
+  Patches --> QuestionSetCheck["questionSetId<br/>category と照合"]
+
+  Full --> LawFactsGate{"--require-law-revision-facts"}
+  LawFactsGate -- "on" --> MergedOrFirestore["merged / firestore 上の<br/>isLawRelated=true を検査"]
+  MergedOrFirestore --> HoldGate["--fail-on-law-revision-hold<br/>--require-law-revision-evidence-summary"]
+```
+
+代表コマンド:
+
+```bash
+python tools/question_bank/question_bank.py quality-gate \
+  --qualification <qualification> \
+  --list-group-id <list_group_id> \
+  --require-law-context-stage \
+  --require-is-law-related \
+  --require-law-grounded-flag \
+  --require-law-revision-facts \
+  --require-law-evidence-utilization \
+  --require-law-references-for-law-related
+```
+
+## 0.5 押さえるべき仕様境界
+
+| 領域 | 押さえること | 破ると起きること |
+| --- | --- | --- |
+| `00_source` | スクレイピング正本。原則直接編集しない。 | 出典・元正答・元本文の追跡が崩れる。 |
+| patch 出力 | 各工程は固定ディレクトリへ patch を出す。source と件数・ID を一致させる。 | merge 不能、patch coverage 不足、別問題への誤適用。 |
+| `questionType` | 回答体験の分類。資格ごとに意味を変えない。 | アプリ表示・分割 convert・復習体験が壊れる。 |
+| `questionIntent` | 正しいもの/誤っているものの設問要求。AI が `correctChoiceText` を直接推測しない。 | 正答ラベルが逆転する。 |
+| `correctChoiceText` | `answer_result_text`、`questionIntent`、厳密レビュー、法令監査の関係を崩さない。 | 過去問としての元正答と現行法更新が混ざる。 |
+| `explanationText` | 正誤、誤り箇所、正しい内容、根拠を選択肢単位で書く。 | 正答は合っていても学習データとして使えない。 |
+| `suggestedQuestions` | 画面表示時に AI を自動起動しないための事前質問。 | UI 上の補足導線が空になる。 |
+| `suggestedQuestionDetails` | `{question, answer}` のみ。`question` は `suggestedQuestions[i]` と一致。 | Firestore schema / app 読み取りが壊れる。 |
+| `isLawRelated` | 02b以降の法令問題抽出軸。全件に付ける運用。 | 年次監査対象を取りこぼす。 |
+| `lawGroundedExplanationNotNeeded` | 互換フラグ。原則 `!isLawRelated`。 | 法令問題なのに根拠不要扱いになる。 |
+| `lawReferences` | 軽量 locator。条文本文は持たず、verified は lawId + article まで確認。 | 根拠条文の再現性が落ちる。 |
+| `lawRevisionFacts` | 現行法監査・自由質問 AI・条文確認 UI の正本。 | 現行法更新の理由と監査状態が追えない。 |
+| review sidecar | 不確実性、5.5 high、法令監査履歴を残す。Firestore へ入れない。 | 作業判断の経緯が消える。 |
+| Firestore schema | 未知キーを増やさない。追加するなら repaso rules/model/schema も同時更新。 | upload dry-run またはアプリ読み取りで破綻する。 |
+| `questionSetId` | upload 前に必須。`category.json` と照合する。 | アプリ内の問題集へ表示できない。 |
+
+## 0.6 判断を止める・切り出すポイント
+
+```mermaid
+flowchart TD
+  Work["作業中の疑問"] --> Type{"どの種類か"}
+  Type -- "問題形式が曖昧" --> Sidecar01["99_model_review_flags<br/>01 questionType 5.5 high"]
+  Type -- "否定語・設問要求が曖昧" --> Sidecar02["99_model_review_flags<br/>02 questionIntent 5.5 high"]
+  Type -- "元正答と説明が矛盾" --> CorrectReview["23_correctChoiceText_fixed<br/>一問ずつ厳密レビュー"]
+  Type -- "法令差分がありそう" --> LawAudit["03b / law_revision_audit<br/>推測更新しない"]
+  Type -- "根拠が足りないが解説は必要" --> Conservative["保守的に書く<br/>断定しない / review sidecar"]
+
+  Sidecar01 --> Continue["本作業は止めず<br/>最も妥当な暫定判断を残す"]
+  Sidecar02 --> Continue
+  CorrectReview --> Gate["quality-gate"]
+  LawAudit --> Gate
+  Conservative --> Gate
+```
+
+迷いを patch 本体の未知キーで表現しないでください。正式 patch は契約どおりの field だけにし、迷いは sidecar、review queue、goal notes に分けます。
+
 ## 正本の場所
 
 - スクレイピング実装（サイト別）:
@@ -125,6 +306,40 @@ output/<qualification>/
 - `30_merged_2/`: explanation / questionSetId / correctChoiceText を反映した upload 前 merged。
 - `40_convert/`: Firestore schema 向け変換結果。
 - `upload_to_firestore/`: Firestore upload 用 JSON。
+
+### 3.1 生成物・保存タイミング・ファイル名
+
+`<source_stem>` は元ファイル名から `.json` を除いた stem です。例: `00_source/question_85010_1.json` なら `<source_stem>=question_85010_1`。patch checker は一部の timestamp 付き legacy ファイルも扱えますが、日常作業では固定名で上書きし、同じ工程のファイルを増やさない方針です。
+
+| タイミング | 保存先 | ファイル名パターン | 作るもの / 注意 |
+| --- | --- | --- | --- |
+| scrape 直後 | `output/<qualification>/questions_json/<list_group_id>/00_source/` | `question_<list_group_id>_<n>.json` などサイト実装ごとの `question_*.json` | スクレイピング正本。手で直接編集しない。 |
+| scrape 直後 | `output/<qualification>/question_images/<list_group_id>/` | scraper が保存した画像ファイル名 | ローカル画像。Firestore では `question_images/official/<qualification>/<filename>` の公開URLへ寄せる。 |
+| 01 `questionType` | `10_questionType_fixed/` | `<source_stem>_questionType_fixed.json` | `questionType` patch。AI最小JSONは `materialize-patch --task question_type` で正式 patch 化する。 |
+| 01 merge 後 | `12_merged_questionType/` | `<source_stem>_merged.json` | `questionType` 反映後の中間 view。手作業 patch の出力先ではない。 |
+| 01/02 merge 後 | `20_merged_1/` | `<source_stem>_merged.json` | 03前の主入力。`questionType`、`questionIntent`、`correctChoiceText` 下書き、02b法令コンテキストを反映する。 |
+| 02 `questionIntent` | `15_correctChoiceText_fixed/` | `<source_stem>_merged_correctChoiceText_fixed.json` | 互換名は `correctChoiceText_fixed` だが、実質は `questionIntent` patch。timestamp 付き legacy は最新を選ぶ。 |
+| 02b `law_context` | `18_law_context_prepared/` | `<source_stem>_merged_lawContext_prepared.json` | 03前の法令コンテキスト patch。`isLawRelated`、`lawGroundedExplanationNotNeeded`、必要な `lawReferences` を持つ。 |
+| 03 `explanation` | `21_explanationText_added/` | `<source_stem>_merged_explanationText_added.json` | `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` patch。timestamp 付き legacy は最新を選ぶ。 |
+| 04 `questionSetId` | `22_questionSetId_linked/` | `<source_stem>_merged_questionSetId_linked.json` | `category.json` を根拠に `questionSetId` を紐付ける patch。 |
+| 厳密正答レビュー | `23_correctChoiceText_fixed/` | `<source_stem>_merged_correctChoiceText_fixed.json` | 03以降の後追い補正用。`correctChoiceText` を一問ずつ専門家目線で確認した結果だけ入れる。 |
+| 最終 merge 後 | `30_merged_2/` | `<source_stem>_merged.json` | explanation / questionSetId / 最終 correctChoiceText を反映した upload 前 merged。 |
+| Firestore 変換 | `40_convert/` | `<list_group_id>_firestore_<YYYYMMDD_HHMMSS>.json` | Firestore schema 相当の `questions[]`。upload 前 schema validation の対象。 |
+| upload 準備 | `questions_json/upload_to_firestore/` | `<list_group_id>_firestore_<YYYYMMDD_HHMMSS>.json` | Firestore upload 用 JSON。通常は `40_convert` 由来。 |
+| category 整備 | `output/<qualification>/category/` | `category.json` | `questionSetId` の正本。04と upload 前検証で参照する。 |
+| report 整理 | `output/<qualification>/reports/` | `<qualification>-*.json` など | root 直下に出たレポートは `organize-reports` でここへ寄せる。 |
+| 不確実性メモ | `<list_group_id>/99_model_review_flags/` | `<source_stem>_<stage>_needs_5_5_high_review.jsonl` | patch 本体に未知キーを入れず、5.5 high 再確認対象を sidecar として残す。 |
+| 法令 evidence snapshot | `output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/` | `<list_group_id>_current_article_snapshots_<timestamp>.jsonl` | verified `lawReferences` から取得した現行条文 snapshot。raw XML は `raw_xml/<timestamp>/`。 |
+| 法令監査 queue | `output/<qualification>/review/law_revision_audit/` | `<list_group_id>_law_revision_audit_queue_<timestamp>.jsonl` / `*_summary.json` | `lawRevisionFacts` 未整備・hold の監査対象。判断済み成果物ではなく固定入力。 |
+| hold facts 初期化 | `21_explanationText_added/` | `<patch>_hold_facts_<timestamp>.json` | queue から `hold` の `lawRevisionFacts` を explanation patch へ初期化する中間成果物。公開確定ではない。 |
+
+生成物の責務を迷ったら、次の原則で判断します。
+
+- 正本入力は `00_source`。原則編集しない。
+- 人間判断は patch ディレクトリに保存する。
+- merge / convert / upload 用 JSON は機械生成物として扱う。
+- 不確実性、監査履歴、未確認点は patch 本体に未知キーを混ぜず、sidecar / review queue / reports に分ける。
+- Firestore に入れる可能性がある新規 field は、`document/reference/question_field_contract.md`、repaso schema、convert/upload、quality-gate を同時に更新するまで通常 JSON に入れない。
 
 画像の扱い:
 
