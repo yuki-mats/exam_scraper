@@ -82,7 +82,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "a2202ddf839a6418",
@@ -167,7 +168,8 @@
       "間違い",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "821d5d4b5c6ecc65",
@@ -253,7 +255,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "5c94da4fce6d43ec",
@@ -344,7 +347,23 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false,
+    "lawzillaWorkflowReview": {
+      "reviewedAt": "2026-07-10T10:00:00+09:00",
+      "reviewMethodVersion": "gas-shunin-lawzilla-secondary-year-block/v1",
+      "practicalReadiness": "not_law_related_after_review",
+      "decision": "kept_without_law_references",
+      "targetTracks": [
+        "lawzilla_law_evidence"
+      ],
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates",
+      "notes": [
+        "問題全体は消費機器・換気・警報器等の技術知識であり、正誤判断の直接根拠として条文紐付けは不要と判断した。",
+        "選択肢に法令上の規定有無が含まれる場合も、全体整備では検索改善用の観測値として扱う。",
+        "APIキー・MCPエンドポイントは成果物に保存していない。"
+      ]
+    }
   },
   {
     "original_question_id": "461856989962777d",
@@ -429,7 +448,8 @@
       "間違い",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "878e2a20d282dd1f",
@@ -514,7 +534,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "26a04d333d2a54f2",
@@ -613,7 +634,8 @@
       "正しい。ガスコンセントは、コンセント継手などの迅速継手が接続されるとガス通路が開き、外れると閉じる構造である。",
       "正しい。家庭用オーブンのような常設形ガス機器をねじガス栓へ接続する場合には、一般に金属可とう管が用いられる。",
       "正しい。小型湯沸器と可とう管ガス栓との接続には、耐切断性能や耐候性能を備えた強化ガスホースが用いられる。"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "7b35d561d61a1695",
@@ -712,6 +734,7 @@
       "正しい。CF式ふろがまは半密閉式で浴室内の空気を燃焼に用いるため、現在は新規に浴室内へ設置できない。",
       "間違い。PA13A（プロパン・エアー-13Aガス）はプロパンを空気で希釈して13A相当の燃焼性に調整したガスで、空気より重く、比重は1より大きい。",
       "正しい。PA13Aは13A用ガス機器で使用できるよう燃焼性を13A相当に調整したガスであるため、供給ガスがPA13Aの場合は13A用のガス機器を使用する。"
-    ]
+    ],
+    "isLawRelated": false
   }
 ]
