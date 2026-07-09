@@ -1365,7 +1365,117 @@
       "ガスの不完全燃焼により発生する中間生成物には、一酸化炭素、水素、アルデヒド、すす等がある。",
       "ウォッベ指数（WI）と燃焼速度指数（MCP）による互換性図（下図）の中で、②の線は、リフティング限界を表しており、②の線より左側では、炎がバーナーより浮き上がって燃え去る現象が発生する。",
       "同様に下図において、④の線は、フラッシュバック限界を表しており、④の線より下側では、炎がバーナー混合管内に燃え戻る現象が発生する。"
-    ]
+    ],
+    "answer_result_text": "正しいものは 5 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T00:50:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:363-369",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:188",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-60-1210,chiefgasengineerlicense-A-60-1211,chiefgasengineerlicense-A-60-1212,chiefgasengineerlicense-A-60-1213,chiefgasengineerlicense-A-60-1214",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-60-1210",
+        "chiefgasengineerlicense-A-60-1211",
+        "chiefgasengineerlicense-A-60-1212",
+        "chiefgasengineerlicense-A-60-1213",
+        "chiefgasengineerlicense-A-60-1214"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-60-182",
+      "questionSetName": "ガスの燃焼（甲種）",
+      "conflicts": [
+        {
+          "line": 363,
+          "field": "originalQuestionBodyText->questionBodyText",
+          "choiceIndex": null,
+          "statementNo": 1,
+          "firestoreValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。",
+          "siteValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。(図あり: 縦軸WI・横軸MCPの互換性図。互換域(良好燃焼範囲)を①〜⑤の線が囲む。①=上辺、②=左辺、③=下辺、④=右下辺、⑤=右上辺)",
+          "differenceSummary": "site側は互換性図の説明を設問本文に追加しているが、既存Firestore本文・画像・IDを正本として保持するため、正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 364,
+          "field": "originalQuestionBodyText->questionBodyText",
+          "choiceIndex": null,
+          "statementNo": 2,
+          "firestoreValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。",
+          "siteValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。(図あり: 縦軸WI・横軸MCPの互換性図。互換域(良好燃焼範囲)を①〜⑤の線が囲む。①=上辺、②=左辺、③=下辺、④=右下辺、⑤=右上辺)",
+          "differenceSummary": "site側は互換性図の説明を設問本文に追加しているが、既存Firestore本文・画像・IDを正本として保持するため、正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 365,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 1,
+          "statementNo": 2,
+          "firestoreValue": "サーマルNOxの生成量は、燃焼ガスの温度と密接な関係にあり空気比とにより変化し、空気比1付近で最大となる。",
+          "siteValue": "サーマルNOxの生成量は、燃焼ガスの温度と密接な関係にある空気比により変化し、空気比1付近で最大となる。",
+          "differenceSummary": "「温度と密接な関係にあり空気比とにより」と「温度と密接な関係にある空気比により」の表現差。サーマルNOx生成量と空気比の関係という正誤判断には影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 366,
+          "field": "originalQuestionBodyText->questionBodyText",
+          "choiceIndex": null,
+          "statementNo": 3,
+          "firestoreValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。",
+          "siteValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。(図あり: 縦軸WI・横軸MCPの互換性図。互換域(良好燃焼範囲)を①〜⑤の線が囲む。①=上辺、②=左辺、③=下辺、④=右下辺、⑤=右上辺)",
+          "differenceSummary": "site側は互換性図の説明を設問本文に追加しているが、既存Firestore本文・画像・IDを正本として保持するため、正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 367,
+          "field": "originalQuestionBodyText->questionBodyText",
+          "choiceIndex": null,
+          "statementNo": 4,
+          "firestoreValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。",
+          "siteValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。(図あり: 縦軸WI・横軸MCPの互換性図。互換域(良好燃焼範囲)を①〜⑤の線が囲む。①=上辺、②=左辺、③=下辺、④=右下辺、⑤=右上辺)",
+          "differenceSummary": "site側は互換性図の説明を設問本文に追加しているが、既存Firestore本文・画像・IDを正本として保持するため、正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 368,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 3,
+          "statementNo": 4,
+          "firestoreValue": "ウォッベ指数（WI）と燃焼速度指数（MCP）による互換性図（下図）の中で、②の線は、リフティング限界を表しており、②の線より左側では、炎がバーナーより浮き上がって燃え去る現象が発生する。",
+          "siteValue": "ウォッベ指数(WI)と燃焼速度指数(MCP)による互換性図(下図)の中で、②の線は、リフティング限界を表しており、②の線より左側では、炎がバーナーより浮き上がって燃える現象が発生する。",
+          "differenceSummary": "括弧表記と「燃え去る/燃える」の表現差。リフティング限界の説明としての正誤判断には影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 369,
+          "field": "originalQuestionBodyText->questionBodyText",
+          "choiceIndex": null,
+          "statementNo": 5,
+          "firestoreValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。",
+          "siteValue": "ガスの燃焼及びガス機器の適応に関する次の記述のうち、正しいものはいくつあるか。(図あり: 縦軸WI・横軸MCPの互換性図。互換域(良好燃焼範囲)を①〜⑤の線が囲む。①=上辺、②=左辺、③=下辺、④=右下辺、⑤=右上辺)",
+          "differenceSummary": "site側は互換性図の説明を設問本文に追加しているが、既存Firestore本文・画像・IDを正本として保持するため、正誤への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、5選択肢すべて正しい。設問は正しいものの個数を問うため、正しいものは5つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-60-1210..1214を維持する。",
+        "site側の図説明はsource conflictとして記録し、既存Firestore本文・画像・IDを保持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令のガス燃焼・ガス機器適応知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1133,chiefgasengineerlicense-A-40-1134,chiefgasengineerlicense-A-40-1135,chiefgasengineerlicense-A-40-1136,chiefgasengineerlicense-A-40-1137",
