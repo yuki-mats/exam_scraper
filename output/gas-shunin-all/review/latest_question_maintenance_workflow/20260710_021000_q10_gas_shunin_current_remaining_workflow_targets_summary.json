@@ -1,0 +1,886 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-summary/v1",
+  "generatedAt": "2026-07-10T02:10:00+09:00",
+  "sourceMaintenanceQueue": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_000305_gas_shunin_latest_workflow_queue.jsonl",
+  "sourceSecondaryQueue": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_023000_gas_shunin_secondary_law_review_queue.jsonl",
+  "initialTargetRecords": 302,
+  "initialUniqueQueueItemKeys": 265,
+  "initialDuplicateQueueItemKeyKinds": 28,
+  "initialDuplicateTargetRecordExtraCount": 37,
+  "remainingTargetsJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_021000_q10_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "summaryJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_021000_q10_gas_shunin_current_remaining_workflow_targets_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_021000_q10_gas_shunin_current_remaining_workflow_targets.md",
+  "remainingTargetRecords": 294,
+  "remainingUniqueQueueItemKeys": 261,
+  "remainingUniqueDisplayQuestionIds": 289,
+  "alreadySecondaryVerifiedRecords": 93,
+  "remainingDuplicateQueueItemKeyKinds": 25,
+  "remainingDuplicateTargetRecordExtraCount": 33,
+  "remainingDuplicateQueueItemKeys": {
+    "gas-shunin-kou:2019:問4:": 2,
+    "gas-shunin-kou:2019:問7:": 2,
+    "gas-shunin-kou:2020:問11:": 3,
+    "gas-shunin-kou:2020:問12:": 3,
+    "gas-shunin-kou:2020:問13:": 2,
+    "gas-shunin-kou:2020:問14:": 4,
+    "gas-shunin-kou:2020:問15:": 2,
+    "gas-shunin-kou:2020:問16:": 2,
+    "gas-shunin-kou:2020:問1:": 2,
+    "gas-shunin-kou:2020:問2:": 2,
+    "gas-shunin-kou:2020:問3:": 3,
+    "gas-shunin-kou:2020:問4:": 2,
+    "gas-shunin-kou:2020:問5:": 2,
+    "gas-shunin-kou:2020:問6:": 2,
+    "gas-shunin-kou:2020:問7:": 2,
+    "gas-shunin-kou:2020:問8:": 2,
+    "gas-shunin-kou:2020:問9:": 2,
+    "gas-shunin-kou:2021:問14:": 2,
+    "gas-shunin-kou:2021:問1:": 3,
+    "gas-shunin-kou:2021:問2:": 3,
+    "gas-shunin-kou:2021:問4:": 3,
+    "gas-shunin-kou:2021:問5:": 2,
+    "gas-shunin-kou:2021:問7:": 2,
+    "gas-shunin-kou:2021:問8:": 2,
+    "gas-shunin-kou:2023:問15:": 2
+  },
+  "remainingPriorityCounts": {
+    "P0": 187,
+    "P1": 35,
+    "P2": 72
+  },
+  "remainingReadinessCounts": {
+    "answer_recheck_without_lawzilla_evidence": 6,
+    "manual_review_required_all_choices_have_primary_evidence": 191,
+    "manual_review_required_partial_candidates": 31,
+    "non_lawzilla_workflow_item": 66
+  },
+  "remainingTrackCounts": {
+    "answer_recheck": 28,
+    "lawzilla_law_evidence": 222,
+    "source_conflict_review": 90
+  },
+  "remainingByQualificationYearPriority": [
+    {
+      "P0": 11,
+      "P1": 4,
+      "P2": 15,
+      "examYear": 2021,
+      "qualification": "gas-shunin-kou",
+      "total": 30,
+      "uniqueDisplayQuestionIds": 28
+    },
+    {
+      "P0": 16,
+      "P1": 1,
+      "P2": 30,
+      "examYear": 2020,
+      "qualification": "gas-shunin-kou",
+      "total": 47,
+      "uniqueDisplayQuestionIds": 46
+    },
+    {
+      "P0": 16,
+      "P1": 2,
+      "P2": 0,
+      "examYear": 2019,
+      "qualification": "gas-shunin-kou",
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18
+    },
+    {
+      "P0": 16,
+      "P1": 2,
+      "P2": 0,
+      "examYear": 2025,
+      "qualification": "gas-shunin-otsu",
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18
+    },
+    {
+      "P0": 16,
+      "P1": 4,
+      "P2": 0,
+      "examYear": 2024,
+      "qualification": "gas-shunin-otsu",
+      "total": 20,
+      "uniqueDisplayQuestionIds": 20
+    },
+    {
+      "P0": 16,
+      "P1": 3,
+      "P2": 0,
+      "examYear": 2023,
+      "qualification": "gas-shunin-otsu",
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19
+    },
+    {
+      "P0": 16,
+      "P1": 3,
+      "P2": 2,
+      "examYear": 2022,
+      "qualification": "gas-shunin-otsu",
+      "total": 21,
+      "uniqueDisplayQuestionIds": 21
+    },
+    {
+      "P0": 16,
+      "P1": 4,
+      "P2": 0,
+      "examYear": 2021,
+      "qualification": "gas-shunin-otsu",
+      "total": 20,
+      "uniqueDisplayQuestionIds": 20
+    },
+    {
+      "P0": 16,
+      "P1": 5,
+      "P2": 2,
+      "examYear": 2020,
+      "qualification": "gas-shunin-otsu",
+      "total": 23,
+      "uniqueDisplayQuestionIds": 23
+    },
+    {
+      "P0": 16,
+      "P1": 0,
+      "P2": 0,
+      "examYear": 2019,
+      "qualification": "gas-shunin-otsu",
+      "total": 16,
+      "uniqueDisplayQuestionIds": 16
+    },
+    {
+      "P0": 16,
+      "P1": 1,
+      "P2": 0,
+      "examYear": 2018,
+      "qualification": "gas-shunin-otsu",
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17
+    },
+    {
+      "P0": 16,
+      "P1": 1,
+      "P2": 0,
+      "examYear": 2017,
+      "qualification": "gas-shunin-otsu",
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17
+    },
+    {
+      "P0": 0,
+      "P1": 1,
+      "P2": 5,
+      "examYear": 2025,
+      "qualification": "gas-shunin-kou",
+      "total": 6,
+      "uniqueDisplayQuestionIds": 6
+    },
+    {
+      "P0": 0,
+      "P1": 2,
+      "P2": 1,
+      "examYear": 2024,
+      "qualification": "gas-shunin-kou",
+      "total": 3,
+      "uniqueDisplayQuestionIds": 3
+    },
+    {
+      "P0": 0,
+      "P1": 2,
+      "P2": 17,
+      "examYear": 2023,
+      "qualification": "gas-shunin-kou",
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19
+    }
+  ],
+  "next2022Targets": [],
+  "next2021Targets": [
+    {
+      "queueSequence": 75,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問9",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-9",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 76,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問8",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-8",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 77,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問7",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-7",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 78,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問6",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-6",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    },
+    {
+      "queueSequence": 79,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問5",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-5",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 80,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問4",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-4",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 81,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問3",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-3",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 82,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 83,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 84,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 85,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 182,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問16",
+      "displayQuestionId": "b7db75cab073fa14",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 183,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問15",
+      "displayQuestionId": "4b28ac5a4dc1dc80",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 184,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問14",
+      "displayQuestionId": "d5c41adb0dfcc2c8",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 185,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問13",
+      "displayQuestionId": "df0c80eab7f3591f",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 186,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問12",
+      "displayQuestionId": "2fa4dac6881eec9b",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 187,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問11",
+      "displayQuestionId": "aacce362b22eb526",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 188,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問10",
+      "displayQuestionId": "9b3bf0ec5c52e855",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 189,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問9",
+      "displayQuestionId": "3952884e68d2bcd9",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 190,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "questionLabel": "問8",
+      "displayQuestionId": "c1e00d7abba21841",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    }
+  ],
+  "next20Targets": [
+    {
+      "queueSequence": 75,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問9",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-9",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 76,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問8",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-8",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 77,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問7",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-7",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 78,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問6",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-6",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    },
+    {
+      "queueSequence": 79,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問5",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-5",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 80,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問4",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-4",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 81,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問3",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-3",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 82,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 83,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問2",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 84,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 85,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "questionLabel": "問1",
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 86,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問16",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-16",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 87,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問15",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-15",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 88,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問14",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-14",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 89,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問13",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-13",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 90,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問12",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-12",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 91,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問11",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-11",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 92,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問10",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-10",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 93,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問9",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-9",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 94,
+      "priority": "P0",
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "questionLabel": "問8",
+      "displayQuestionId": "gasushunin-koushu-hourei-2020-8",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    }
+  ],
+  "removedInThisRun": [
+    {
+      "answerResultText": "正解は 1 です。",
+      "choiceCount": 5,
+      "choiceReviews": [
+        {
+          "choiceIndex": 0,
+          "choiceText": "ガス（不活性のガスを除く。）を発生させる設備（特定ガス発生設備及び移動式ガス発生設備を除く。）は、使用中に生じた異常による災害の発生を防止するため、その異常が発生した場合に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理することができるものでなければならない。",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。ガス（不活性のガスを除く。）を発生させる設備（特定ガス発生設備及び移動式ガス発生設備を除く。）は、異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できるものでなければならない。",
+          "primaryEvidenceCandidateCount": 3,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=1",
+              "article": "第1条",
+              "articleTextHash": "dc5325c9671968fb2f1c44b66ff36ea9223b5184fd5ef8b3d00d6ece64eb7da2",
+              "candidateAddress": "ln1.2.6",
+              "candidateKanjiaddress": "第1条第2項第6号",
+              "candidateSnippet": "「移動式ガス発生設備」とは、導管等の工事を行つた場合及び災害その他非常の場合に、ガス事業者が、既に供給しているそのガスの使用者に対し、ガスを一時的に供給するための移動可能なガス発生設備であつて、告示で定める方法により算出した貯蔵能力(以下…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "0626e12cf0eca5afb6b5a1470cd3d7cd18e07e89379d925c9d83ea1f7fac219d",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_1_0626e12cf0eca5af.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=17",
+              "article": "第17条",
+              "articleTextHash": "c36a5b39b13f24080ea21aae9c5a576391674e2704690b5476266db1f9c9f00a",
+              "candidateAddress": "ln17.2",
+              "candidateKanjiaddress": "第17条第2項",
+              "candidateSnippet": "前項の規定にかかわらず、移動式ガス発生設備における熱量等の測定は、次の各号に掲げるところにより行わなければならない。ただし、熱量及び燃焼性が測定されたガス若しくは液化ガスを用いてその成分に変更を加えることなく供給する場合又は液化石油ガスを…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "48ea7792a873b1ff06e280e4eaadc5f4a6697122222b03af01672226252e4616",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_17_48ea7792a873b1ff.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=17",
+              "article": "第17条",
+              "articleTextHash": "c36a5b39b13f24080ea21aae9c5a576391674e2704690b5476266db1f9c9f00a",
+              "candidateAddress": "ln17.2.1",
+              "candidateKanjiaddress": "第17条第2項第1号",
+              "candidateSnippet": "...供給する場合については、充塡終了から供給開始までの間に当該容器ごとに一回、それ以外の場合については、供給開始後毎日一回、移動式ガス発生設備の出口において告示で定める方法により測定すること。ただし、ガスの熱量、燃焼速度又はウォッベ指数…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "48ea7792a873b1ff06e280e4eaadc5f4a6697122222b03af01672226252e4616",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_17_48ea7792a873b1ff.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 1,
+          "choiceText": "温水で加熱する構造の気化装置であって、加熱部の温水が流出するおそれのあるものには、これを防止する措置を講じなければならない。",
+          "correctChoiceText": "間違い",
+          "existingLawReferenceCount": 1,
+          "explanationText": "「温水が流出するおそれ」が誤りで、正しくは「温水が凍結するおそれ」。温水で加熱する構造の気化装置で、加熱部の温水が凍結するおそれのあるものには、これを防止する措置が必要である。",
+          "primaryEvidenceCandidateCount": 3,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=1",
+              "article": "第1条",
+              "articleTextHash": "dc5325c9671968fb2f1c44b66ff36ea9223b5184fd5ef8b3d00d6ece64eb7da2",
+              "candidateAddress": "ln1.2.6",
+              "candidateKanjiaddress": "第1条第2項第6号",
+              "candidateSnippet": "「移動式ガス発生設備」とは、導管等の工事を行つた場合及び災害その他非常の場合に、ガス事業者が、既に供給しているそのガスの使用者に対し、ガスを一時的に供給するための移動可能なガス発生設備であつて、告示で定める方法により算出した貯蔵能力(以下…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "0626e12cf0eca5afb6b5a1470cd3d7cd18e07e89379d925c9d83ea1f7fac219d",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_1_0626e12cf0eca5af.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=3",
+              "article": "第3条",
+              "articleTextHash": "2911e3a4cea02ca761f08369c4e949b0bd12ada1295c185fe6ec9b472d1aee58",
+              "candidateAddress": "ln3.1.2",
+              "candidateKanjiaddress": "第3条第1項第2号",
+              "candidateSnippet": "特定ガス発生設備において発生させたガスを供給する導管(前号に掲げるものを除く。)",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "308cbf400cdfa8380b44683860980b3a4d225dfc4a7a308bde8b1ebd55867981",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_020500/345M50000400097_3_308cbf400cdfa838.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=6",
+              "article": "第6条",
+              "articleTextHash": "f9a86ae491c27a1505c68ce039a17c7f519289f1509a85d21e870ef623b52238",
+              "candidateAddress": "ln6.4.4",
+              "candidateKanjiaddress": "第6条第4項第4号",
+              "candidateSnippet": "申請者が法第2条第1項に規定する特定ガス発生設備においてガスを発生させ、導管によりこれを供給する者である場合にあつては、供給地点群(特定ガス発生設備に係るガスの供給地点であつて一の団地内にあるものの総体をいう。以下同じ。)の位置を明示した…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "56369d7dccdb5bc72096baeb6e91bb195b139f475975d641838d77478f09769f",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_020500/345M50000400097_6_56369d7dccdb5bc7.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 2,
+          "choiceText": "移動式ガス発生設備には、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を講じなければならない。",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。移動式ガス発生設備には、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を講じなければならない。",
+          "primaryEvidenceCandidateCount": 3,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=18",
+              "article": "第18条",
+              "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+              "candidateAddress": "ln18.1",
+              "candidateKanjiaddress": "第18条第1項",
+              "candidateSnippet": "ガス発生設備(移動式ガス発生設備を除く。)、ガス精製設備、ガスホルダー、排送機、圧送機及び附帯設備であって製造設備に属するものには、ガス又は液化ガスを通ずる設備の損傷を防止するため使用の状態を計測又は確認できる適切な装置を設けなければなら…",
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/412M50000400111_18_7a5b1c8f9d73d720.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=18",
+              "article": "第18条",
+              "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+              "candidateAddress": "ln18.2",
+              "candidateKanjiaddress": "第18条第2項",
+              "candidateSnippet": "移動式ガス発生設備には、設備の損傷を防止するため使用の状態を計測又は確認できる適切な措置が講じられていなければならない。 移動式ガス発生設備には、設備の損傷を防止するため使用の状態を計測又は確認できる適切な措置が講じられていなければならな…",
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/412M50000400111_18_7a5b1c8f9d73d720.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
+              "article": "第19条",
+              "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
+              "candidateAddress": "ln19.1",
+              "candidateKanjiaddress": "第19条第1項",
+              "candidateSnippet": "ガス発生設備(移動式ガス発生設備を除く。)、ガス精製設備、ガスホルダー、排送機、圧送機及び附帯設備であって製造設備に属するものには、ガス又は液化ガスを通ずる設備の損傷に至るおそれのある状態を検知し警報する適切な装置を設けなければならない。…",
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "rawXmlHash": "4d42a6fd913ada1b1e7e2377a98e30056c351e1a1ff459b4f88761c0fcdc20d0",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/412M50000400111_19_4d42a6fd913ada1b.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 3,
+          "choiceText": "特定ガス発生設備の容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる適切な措置を講じなければならない。",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。特定ガス発生設備の容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう、適切な温度に維持できる措置が必要である。",
+          "primaryEvidenceCandidateCount": 3,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=17",
+              "article": "第17条",
+              "articleTextHash": "c36a5b39b13f24080ea21aae9c5a576391674e2704690b5476266db1f9c9f00a",
+              "candidateAddress": "ln17.1",
+              "candidateKanjiaddress": "第17条第1項",
+              "candidateSnippet": "法第18条の規定による熱量、圧力及び燃焼性(以下「熱量等」という。)の測定は、次の各号に掲げるところにより行わなければならない。ただし、特定ガス発生設備であつて液化石油ガスの保安の確保及び取引の適正化に関する法律(昭和四十二年法律第百四十…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "48ea7792a873b1ff06e280e4eaadc5f4a6697122222b03af01672226252e4616",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_17_48ea7792a873b1ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=17",
+              "article": "第17条",
+              "articleTextHash": "c36a5b39b13f24080ea21aae9c5a576391674e2704690b5476266db1f9c9f00a",
+              "candidateAddress": "ln17.1.2",
+              "candidateKanjiaddress": "第17条第1項第2号",
+              "candidateSnippet": "圧力にあつては、常時、ガスホルダーの出口(他のガスホルダー又は整圧器にガスを送出するためのものを除く。第78条、第126条及び第144条において同じ。)、整圧器(ガスの圧力が異常に上昇することを防止する装置が設けられ、道路に平行して埋設さ…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "48ea7792a873b1ff06e280e4eaadc5f4a6697122222b03af01672226252e4616",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_17_48ea7792a873b1ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=17",
+              "article": "第17条",
+              "articleTextHash": "c36a5b39b13f24080ea21aae9c5a576391674e2704690b5476266db1f9c9f00a",
+              "candidateAddress": "ln17.2.2",
+              "candidateKanjiaddress": "第17条第2項第2号",
+              "candidateSnippet": "圧力にあつては、常時、移動式ガス発生設備の出口において、圧力値を自動的に記録する圧力計を使用して測定すること。ただし、一の使用者にガスを供給するためのものにあつてはこの限りでない。 圧力にあつては、常時、移動式ガス発生設備の出口において、…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "48ea7792a873b1ff06e280e4eaadc5f4a6697122222b03af01672226252e4616",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_17_48ea7792a873b1ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        },
+        {
+          "choiceIndex": 4,
+          "choiceText": "最高使用圧力が低圧のガス発生設備（特定ガス発生設備並びに移動式ガス発生設備及び液化ガスを通ずるものを除く。）であって過圧が生ずるおそれのあるものには、その圧力を逃がすために適切な圧力上昇防止装置を設けなければならない。",
+          "correctChoiceText": "正しい",
+          "existingLawReferenceCount": 1,
+          "explanationText": "正しい。最高使用圧力が低圧のガス発生設備（特定ガス発生設備、移動式ガス発生設備及び液化ガスを通ずるものを除く。）で過圧が生ずるおそれのあるものには、適切な圧力上昇防止装置を設けなければならない。",
+          "primaryEvidenceCandidateCount": 3,
+          "primaryEvidenceCandidates": [
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=17",
+              "article": "第17条",
+              "articleTextHash": "c36a5b39b13f24080ea21aae9c5a576391674e2704690b5476266db1f9c9f00a",
+              "candidateAddress": "ln17.2.2",
+              "candidateKanjiaddress": "第17条第2項第2号",
+              "candidateSnippet": "圧力にあつては、常時、移動式ガス発生設備の出口において、圧力値を自動的に記録する圧力計を使用して測定すること。ただし、一の使用者にガスを供給するためのものにあつてはこの限りでない。 圧力にあつては、常時、移動式ガス発生設備の出口において、…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "48ea7792a873b1ff06e280e4eaadc5f4a6697122222b03af01672226252e4616",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_17_48ea7792a873b1ff.xml",
+              "snippetMatchStatus": "snippet_fragment_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=30",
+              "article": "第30条",
+              "articleTextHash": "f27b83b14e2d3623f93e2e250eb5bff38db72fbace6a0adf3e796162bde734f7",
+              "candidateAddress": "ln30.1",
+              "candidateKanjiaddress": "第30条第1項",
+              "candidateSnippet": "...ガス主任技術者免状ガス工作物の工事、維持及び運用二 乙種ガス主任技術者免状次に掲げるものの工事、維持及び運用イ 最高使用圧力が中圧及び低圧のガス工作物ロ 最高使用圧力が高圧の液化ガス用貯槽(液化石油ガスを貯蔵するものに限る。)、当該…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "da8ccab9bf571a6e1eef5393100eb57c223bc80d896517c3af74ef0db995cb09",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_30_da8ccab9bf571a6e.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            },
+            {
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=48",
+              "article": "第48条",
+              "articleTextHash": "c80ea9bb30f4e713247627948f4c285d44a658aa3558762b9fd673d41800576b",
+              "candidateAddress": "ln48.1.1",
+              "candidateKanjiaddress": "第48条第1項第1号",
+              "candidateSnippet": "ガス発生設備(移動式ガス発生設備及び液化石油ガスを気化してガスを発生させる設備(気化したガスの出口部分の最高使用圧力が高圧であるもの以外のものに限る。)を除く。)、ガス精製設備、ガスホルダー、熱交換器、冷凍設備(小型、ユニット型又は冷媒ガ…",
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "rawXmlHash": "6b7ec51ac85f59d62910ded0a43bbd752c3bd8ea75764ee429996cb85af70c3d",
+              "rawXmlPath": "/Users/yuki/Library/CloudStorage/GoogleDrive-yuki.matsuda007@gmail.com/マイドライブ/400_アプリ開発・運営/exam_scraper_drive_candidate/output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_015000/345M50000400097_48_6b7ec51ac85f59d6.xml",
+              "snippetMatchStatus": "snippet_exact_match",
+              "verificationStatus": "candidate_primary_article_fetched"
+            }
+          ],
+          "primaryEvidenceLinkStatus": [
+            "primary_article_fetched_snippet_matched"
+          ]
+        }
+      ],
+      "displayQuestionId": "gasushunin-koushu-hourei-2021-10",
+      "examYear": 2021,
+      "existingIsLawRelated": true,
+      "existingLawGroundedExplanationNotNeeded": false,
+      "existingLawReferenceCount": 5,
+      "generatedAt": "2026-07-09T23:59:00+09:00",
+      "originalQuestionId": "gasushunin-koushu-hourei-2021-10",
+      "primaryEvidenceCandidateCount": 15,
+      "primaryEvidenceChoiceRecordCount": 5,
+      "primaryEvidenceLinkStatusCounts": {
+        "primary_article_fetched_snippet_matched": 5
+      },
+      "priority": "P0",
+      "publicQuestionId": "",
+      "qualification": "gas-shunin-kou",
+      "questionIntent": "select_incorrect",
+      "questionLabel": "問10",
+      "questionType": "true_false",
+      "queueSequence": 74,
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0206,chiefgasengineerlicense-A-10-0207,chiefgasengineerlicense-A-10-0208,chiefgasengineerlicense-A-10-0209,chiefgasengineerlicense-A-10-0210",
+      "schemaVersion": "gas-shunin-secondary-law-review-queue/v1",
+      "secondaryReviewReadiness": "secondary_verified_in_question_patch",
+      "secondaryReviewReasons": [
+        "Verified lawReferences and lawRevisionFacts exist in the question patch.",
+        "Each choice was manually reconciled from Lawzilla candidates to Technical Standards Ordinance Article 25/27/28/31/43 direct basis.",
+        "Source conflict ledger was reviewed; preserve Firestore snapshot/sourcePriority=1 per 01-04 manual review."
+      ],
+      "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+      "stagePatchFiles": {
+        "correctChoice": "output/gas-shunin-kou/questions_json/2021/15_correctChoiceText_fixed/question_2021_firestore_2_correctChoiceText_fixed.json",
+        "explanation": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+        "questionSet": "output/gas-shunin-kou/questions_json/2021/22_questionSetId_linked/question_2021_firestore_2_questionSetId_linked.json",
+        "questionType": "output/gas-shunin-kou/questions_json/2021/10_questionType_fixed/question_2021_firestore_2_questionType_fixed.json"
+      },
+      "targetTracks": [
+        "lawzilla_law_evidence",
+        "source_conflict_review"
+      ],
+      "workflowDecision": "secondary_verified_in_question_patch"
+    }
+  ]
+}
