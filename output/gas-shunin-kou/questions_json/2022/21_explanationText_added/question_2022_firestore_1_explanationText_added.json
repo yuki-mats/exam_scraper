@@ -1104,7 +1104,61 @@
       "溶接施工法は、溶接事業所の溶接士ごとに確認を受けなければならない。",
       "開先不良とは、溶込み不良や割れ等の原因となる。",
       "放射線透過試験において、試験体の内部にきずがある場合、放射線フィルムで露光すると、きずのある部分は健全部より濃度が薄くなる。"
-    ]
+    ],
+    "answer_result_text": "誤っているものは 4 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T01:05:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:320-321",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:185",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1195,chiefgasengineerlicense-A-80-1196,chiefgasengineerlicense-A-80-1197,chiefgasengineerlicense-A-80-1198,chiefgasengineerlicense-A-80-1199",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-80-1195",
+        "chiefgasengineerlicense-A-80-1196",
+        "chiefgasengineerlicense-A-80-1197",
+        "chiefgasengineerlicense-A-80-1198",
+        "chiefgasengineerlicense-A-80-1199"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-80-192",
+      "questionSetName": "溶接と非破壊試験・甲種",
+      "conflicts": [
+        {
+          "line": 320,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 2,
+          "statementNo": 3,
+          "firestoreValue": "溶接施工法は、溶接事業所の溶接士ごとに確認を受けなければならない。",
+          "siteValue": "溶接施工法は、\n溶接事業所かつ溶接士ごとに確認を受けなければならない\n。",
+          "differenceSummary": "「溶接事業所の溶接士ごと」と「溶接事業所かつ溶接士ごと」の文言差および改行差。既存Firestore本文では溶接士ごとの確認としている点を誤りとしており、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "line": 321,
+          "field": "choiceText->choiceText",
+          "choiceIndex": 3,
+          "statementNo": 4,
+          "firestoreValue": "開先不良とは、溶込み不良や割れ等の原因となる。",
+          "siteValue": "開先不良は、溶込み不良や割れ等の原因となる。",
+          "differenceSummary": "「とは」と「は」の助詞差。意味と正誤判断に影響はなく、開先不良が溶込み不良や割れ等の原因となる説明として正しい。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢1、2、3、5は間違い、選択肢4は正しい。設問は誤っているものの個数を問うため、誤っているものは4つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-80-1195..1199を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の溶接・非破壊試験知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1200,chiefgasengineerlicense-A-80-1201,chiefgasengineerlicense-A-80-1202,chiefgasengineerlicense-A-80-1203,chiefgasengineerlicense-A-80-1204",
