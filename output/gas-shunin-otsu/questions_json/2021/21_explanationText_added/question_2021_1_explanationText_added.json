@@ -903,11 +903,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
     "explanationText": [
-      "間違い。温水で加熱する構造の気化装置では、加熱部の温水が凍結するおそれのあるものについて凍結を防止する措置を講じる必要がある。流出を防止するとしている点が誤り。",
-      "正しい。特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備は、異常が発生した場合に迅速かつ安全にガスの発生を停止し、又はガスを処理できるものでなければならない。",
-      "正しい。移動式ガス発生設備には、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を講じる必要がある。",
-      "正しい。特定ガス発生設備の容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を講じる必要がある。",
-      "正しい。最高使用圧力が低圧のガス発生設備で、特定ガス発生設備、移動式ガス発生設備及び液化ガスを通ずるものを除き、過圧のおそれがあるものには適切な圧力上昇防止装置が必要である。"
+      "間違い。技術基準省令第31条第2項は、温水で加熱する構造の気化装置について、加熱部の温水が凍結するおそれのあるものに凍結防止措置を求めている。流出防止としている点が誤り。",
+      "正しい。技術基準省令第27条第1項は、特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備について、異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できることを求めている。",
+      "正しい。技術基準省令第28条第2項は、移動式ガス発生設備について、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を求めている。",
+      "正しい。技術基準省令第43条第2項は、特定ガス発生設備の容器又は容器の設置場所について、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を求めている。",
+      "正しい。技術基準省令第25条第1項は、最高使用圧力が低圧のガス発生設備等で、過圧が生ずるおそれのあるものに適切な圧力上昇防止装置を設けることを求めている。対象から特定ガス発生設備、移動式ガス発生設備及び液化ガスを通ずるものは除かれる。"
     ],
     "suggestedQuestions": [
       "温水加熱式の気化装置で防止すべきものは流出か凍結か。",
@@ -919,41 +919,58 @@
     "suggestedQuestionDetails": [
       {
         "question": "温水加熱式の気化装置で防止すべきものは流出か凍結か。",
-        "answer": "凍結である。流出ではない。。間違い。温水で加熱する構造の気化装置では、加熱部の温水が凍結するおそれのあるものについて凍結を防止する措置を講じる必要がある。流出を防止するとしている点が誤り。"
+        "answer": "凍結である。流出ではない。",
+        "explanation": "間違い。技術基準省令第31条第2項は、温水で加熱する構造の気化装置について、加熱部の温水が凍結するおそれのあるものに凍結防止措置を求めている。流出防止としている点が誤り。"
       },
       {
         "question": "ガス発生設備は異常時にガス発生停止又はガス処理ができる必要があるか。",
-        "answer": "はい。異常時に迅速かつ安全に停止又は処理できる必要がある。"
+        "answer": "はい。異常時に迅速かつ安全に停止又は処理できる必要がある。",
+        "explanation": "正しい。技術基準省令第27条第1項は、特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備について、異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できることを求めている。"
       },
       {
         "question": "移動式ガス発生設備には容器の腐食・転倒・バルブ損傷の防止措置が必要か。",
-        "answer": "はい。腐食・転倒・バルブ損傷を防止する措置が必要である。"
+        "answer": "はい。腐食・転倒・バルブ損傷を防止する措置が必要である。",
+        "explanation": "正しい。技術基準省令第28条第2項は、移動式ガス発生設備について、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を求めている。"
       },
       {
         "question": "特定ガス発生設備の容器等には温度維持措置が必要か。",
-        "answer": "はい。圧力異常上昇を防ぐため適切な温度に維持できる措置が必要である。"
+        "answer": "はい。圧力異常上昇を防ぐため適切な温度に維持できる措置が必要である。",
+        "explanation": "正しい。技術基準省令第43条第2項は、特定ガス発生設備の容器又は容器の設置場所について、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を求めている。"
       },
       {
         "question": "低圧ガス発生設備等には圧力上昇防止装置が必要な場合があるか。",
-        "answer": "はい。ただし特定ガス発生設備、移動式ガス発生設備、液化ガスを通ずるものは除かれる。"
+        "answer": "はい。ただし特定ガス発生設備、移動式ガス発生設備、液化ガスを通ずるものは除かれる。",
+        "explanation": "正しい。技術基準省令第25条第1項は、最高使用圧力が低圧のガス発生設備等で、過圧が生ずるおそれのあるものに適切な圧力上昇防止装置を設けることを求めている。対象から特定ガス発生設備、移動式ガス発生設備及び液化ガスを通ずるものは除かれる。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
-    "sourceExplanationCommonSummary": [],
+    "sourceExplanationCommonSummary": [
+      "選択肢1は流出ではなく凍結防止が正しいため誤り。選択肢2〜5は技術基準省令第27条第1項、第28条第2項、第43条第2項、第25条第1項に沿う正しい記述。"
+    ],
     "sourceExplanationChoiceSnippets": [
-      [],
-      [],
-      [],
-      [],
-      []
+      [
+        "技術基準省令 第31条第2項: 温水で加熱する構造の気化装置であって、加熱部の温水が凍結するおそれのあるものには、これを防止する措置を講じなければならない。"
+      ],
+      [
+        "技術基準省令 第27条第1項: ガスを発生させる設備は、異常が発生した場合に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理することができるものでなければならない。"
+      ],
+      [
+        "技術基準省令 第28条第2項: 移動式ガス発生設備には、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を講じなければならない。"
+      ],
+      [
+        "技術基準省令 第43条第2項: 特定ガス発生設備の容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる適切な措置を講じなければならない。"
+      ],
+      [
+        "技術基準省令 第25条第1項: 最高使用圧力が低圧のガス発生設備等であって過圧が生ずるおそれのあるものには、その圧力を逃がすために適切な圧力上昇防止装置を設けなければならない。"
+      ]
     ],
     "sourceExplanationChoiceCorrectness": [
-      null,
-      null,
-      null,
-      null,
-      null
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
     ],
     "explanation_common_prefix": [
       "ガス工作物の技術上の基準を定める省令のうち、ガス発生設備等、移動式ガス発生設備、特定ガス発生設備、気化装置、圧力上昇防止装置が本問の関連論点。",
@@ -961,23 +978,23 @@
       "乙種では関連細分類の多くが削除済みのため、有効カテゴリの技省令_ガス発生設備等（乙種）へリンクする。"
     ],
     "explanation_common_summary": [
-      "選択肢1は流出ではなく凍結防止が正しいため誤り。選択肢2〜5はガス発生設備等の技術基準に沿う正しい記述。"
+      "選択肢1は流出ではなく凍結防止が正しいため誤り。したがって誤っているものは1。技術基準省令第31条第2項、第27条第1項、第28条第2項、第43条第2項、第25条第1項を直接根拠として確認した。"
     ],
     "explanation_choice_snippets": [
       [
-        "温水加熱式気化装置で防止するのは温水の凍結。"
+        "技術基準省令 第31条第2項: 温水で加熱する構造の気化装置であって、加熱部の温水が凍結するおそれのあるものには、これを防止する措置を講じなければならない。"
       ],
       [
-        "異常時にガス発生停止又は安全なガス処理ができる必要がある。"
+        "技術基準省令 第27条第1項: ガスを発生させる設備は、異常が発生した場合に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理することができるものでなければならない。"
       ],
       [
-        "移動式ガス発生設備は容器の腐食・転倒・バルブ損傷を防止する。"
+        "技術基準省令 第28条第2項: 移動式ガス発生設備には、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を講じなければならない。"
       ],
       [
-        "特定ガス発生設備は容器内圧力の異常上昇を防ぐ温度維持措置が必要。"
+        "技術基準省令 第43条第2項: 特定ガス発生設備の容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる適切な措置を講じなければならない。"
       ],
       [
-        "低圧ガス発生設備等には、対象除外を除き、圧力上昇防止装置が必要。"
+        "技術基準省令 第25条第1項: 最高使用圧力が低圧のガス発生設備等であって過圧が生ずるおそれのあるものには、その圧力を逃がすために適切な圧力上昇防止装置を設けなければならない。"
       ]
     ],
     "explanation_choice_correctness": [
@@ -986,6 +1003,467 @@
       "正しい",
       "正しい",
       "正しい"
+    ],
+    "answer_result_text": "正解は 1 です。",
+    "isLawRelated": true,
+    "lawReferences": [
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-10",
+          "article": "31",
+          "articleTitle": "気化装置の構造",
+          "paragraph": "2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln31.2",
+          "rootArticleElm": "ln31",
+          "reason": "技術基準省令第31条第2項は、温水で加熱する構造の気化装置について、加熱部の温水が凍結するおそれのあるものに凍結防止措置を求めている。流出防止としている点が誤り。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-10",
+          "article": "27",
+          "articleTitle": "緊急停止装置",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=27",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=27",
+          "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+          "rawXmlHash": "3c1526932497fa1bd55fb42cc0181374ee81522e20f5185a6f010b748780d575",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln27.1",
+          "rootArticleElm": "ln27",
+          "reason": "技術基準省令第27条第1項は、特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備について、異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できることを求めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-10",
+          "article": "28",
+          "articleTitle": "移動式ガス発生設備の設置等",
+          "paragraph": "2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln28.2",
+          "rootArticleElm": "ln28",
+          "reason": "技術基準省令第28条第2項は、移動式ガス発生設備について、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を求めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-10",
+          "article": "43",
+          "articleTitle": "附属設備等",
+          "paragraph": "2",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=43",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=43",
+          "articleTextHash": "1c6ae21f5c2b6edc33be6a3e5b971276a52d1f3e7c5b102cddbd9f94b819d0aa",
+          "rawXmlHash": "446d3f96be3293c271f86915fbc50d9726601c40a9e9e4538756f293311a478f",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln43.2",
+          "rootArticleElm": "ln43",
+          "reason": "技術基準省令第43条第2項は、特定ガス発生設備の容器又は容器の設置場所について、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を求めている。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "技術基準省令",
+          "referenceDate": "2026-07-10",
+          "article": "25",
+          "articleTitle": "低圧ガス発生設備等の圧力上昇防止装置",
+          "paragraph": "1",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=25",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=25",
+          "articleTextHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a",
+          "rawXmlHash": "d449bd3ae174104cc666013fd37d2efe685107cc9d88c3c7d07335bb61db05f2",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "ln25.1",
+          "rootArticleElm": "ln25",
+          "reason": "技術基準省令第25条第1項は、最高使用圧力が低圧のガス発生設備等で、過圧が生ずるおそれのあるものに適切な圧力上昇防止装置を設けることを求めている。対象から特定ガス発生設備、移動式ガス発生設備及び液化ガスを通ずるものは除かれる。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T06:00:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_060000_q10",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_060000_q10:choice1",
+        "evidenceBindingHash": "54fd74ffe8f10cac885cea943f265adcc9978215db9bbb59ede5ea5183e7aac3",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "31",
+          "paragraph": "2",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。",
+          "正解は1であり、選択肢1が誤り。",
+          "00_source本文・選択肢と既存IDは変更しない。"
+        ],
+        "notes": [
+          "ガス発生設備等の各記述は技術基準省令第25条・第27条・第28条・第31条・第43条で確認した。",
+          "温水加熱式気化装置は第31条第2項の凍結と第31条第3項の液化ガス流出を区別する必要がある。",
+          "Lawzilla MCP候補は施行規則や計測・警報条項に寄り、最終確定にはe-Gov XMLの直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。技術基準省令第31条第2項は、温水で加熱する構造の気化装置について、加熱部の温水が凍結するおそれのあるものに凍結防止措置を求めている。流出防止としている点が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
+          "promptContext": "技術基準省令第31条第2項は、温水で加熱する構造の気化装置について、加熱部の温水が凍結するおそれのあるものに凍結防止措置を求めている。流出防止としている点が誤り。",
+          "displayRefIds": [
+            "current:412M50000400111:31:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:31:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "elm": "ln31.2",
+              "rootArticleElm": "ln31",
+              "article": "31",
+              "paragraph": "2",
+              "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+              "textHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T06:00:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_060000_q10",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_060000_q10:choice2",
+        "evidenceBindingHash": "7c66ddfcd3947fe85586d630747fc8d2cc037db6ece3e7613f6fb11cf06c4fb6",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "27",
+          "paragraph": "1",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=27"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。",
+          "正解は1であり、選択肢1が誤り。",
+          "00_source本文・選択肢と既存IDは変更しない。"
+        ],
+        "notes": [
+          "ガス発生設備等の各記述は技術基準省令第25条・第27条・第28条・第31条・第43条で確認した。",
+          "温水加熱式気化装置は第31条第2項の凍結と第31条第3項の液化ガス流出を区別する必要がある。",
+          "Lawzilla MCP候補は施行規則や計測・警報条項に寄り、最終確定にはe-Gov XMLの直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第27条第1項は、特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備について、異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できることを求めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
+          "promptContext": "技術基準省令第27条第1項は、特定ガス発生設備及び移動式ガス発生設備を除くガス発生設備について、異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できることを求めている。",
+          "displayRefIds": [
+            "current:412M50000400111:27:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:27:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "elm": "ln27.1",
+              "rootArticleElm": "ln27",
+              "article": "27",
+              "paragraph": "1",
+              "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+              "textHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T06:00:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_060000_q10",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_060000_q10:choice3",
+        "evidenceBindingHash": "60f5987e24f0ddf284e15dfde2e3ee2fd0831a3822cd5fa8166e8bea353732f5",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "28",
+          "paragraph": "2",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。",
+          "正解は1であり、選択肢1が誤り。",
+          "00_source本文・選択肢と既存IDは変更しない。"
+        ],
+        "notes": [
+          "ガス発生設備等の各記述は技術基準省令第25条・第27条・第28条・第31条・第43条で確認した。",
+          "温水加熱式気化装置は第31条第2項の凍結と第31条第3項の液化ガス流出を区別する必要がある。",
+          "Lawzilla MCP候補は施行規則や計測・警報条項に寄り、最終確定にはe-Gov XMLの直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第28条第2項は、移動式ガス発生設備について、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を求めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
+          "promptContext": "技術基準省令第28条第2項は、移動式ガス発生設備について、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を求めている。",
+          "displayRefIds": [
+            "current:412M50000400111:28:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:28:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "elm": "ln28.2",
+              "rootArticleElm": "ln28",
+              "article": "28",
+              "paragraph": "2",
+              "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+              "textHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T06:00:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_060000_q10",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_060000_q10:choice4",
+        "evidenceBindingHash": "ce9b8167f717615cd56ec13102e27aa8c68e6f559181c2270d74c28f6a1f32c6",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "43",
+          "paragraph": "2",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "1c6ae21f5c2b6edc33be6a3e5b971276a52d1f3e7c5b102cddbd9f94b819d0aa",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=43"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。",
+          "正解は1であり、選択肢1が誤り。",
+          "00_source本文・選択肢と既存IDは変更しない。"
+        ],
+        "notes": [
+          "ガス発生設備等の各記述は技術基準省令第25条・第27条・第28条・第31条・第43条で確認した。",
+          "温水加熱式気化装置は第31条第2項の凍結と第31条第3項の液化ガス流出を区別する必要がある。",
+          "Lawzilla MCP候補は施行規則や計測・警報条項に寄り、最終確定にはe-Gov XMLの直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第43条第2項は、特定ガス発生設備の容器又は容器の設置場所について、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を求めている。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
+          "promptContext": "技術基準省令第43条第2項は、特定ガス発生設備の容器又は容器の設置場所について、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を求めている。",
+          "displayRefIds": [
+            "current:412M50000400111:43:2"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:43:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "elm": "ln43.2",
+              "rootArticleElm": "ln43",
+              "article": "43",
+              "paragraph": "2",
+              "articleTextHash": "1c6ae21f5c2b6edc33be6a3e5b971276a52d1f3e7c5b102cddbd9f94b819d0aa",
+              "textHash": "1c6ae21f5c2b6edc33be6a3e5b971276a52d1f3e7c5b102cddbd9f94b819d0aa"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-10T06:00:00+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_060000_q10",
+        "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
+        "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q10_gas_generation_equipment_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260710_060000_q10:choice5",
+        "evidenceBindingHash": "9f7003050c555b3655948a94fe27558810ff2e3828316e863e7d19e224f989dc",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "25",
+          "paragraph": "1",
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=25"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法条文と既存の正誤・解説は矛盾しない。",
+          "正解は1であり、選択肢1が誤り。",
+          "00_source本文・選択肢と既存IDは変更しない。"
+        ],
+        "notes": [
+          "ガス発生設備等の各記述は技術基準省令第25条・第27条・第28条・第31条・第43条で確認した。",
+          "温水加熱式気化装置は第31条第2項の凍結と第31条第3項の液化ガス流出を区別する必要がある。",
+          "Lawzilla MCP候補は施行規則や計測・警報条項に寄り、最終確定にはe-Gov XMLの直接確認が必要だった。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。技術基準省令第25条第1項は、最高使用圧力が低圧のガス発生設備等で、過圧が生ずるおそれのあるものに適切な圧力上昇防止装置を設けることを求めている。対象から特定ガス発生設備、移動式ガス発生設備及び液化ガスを通ずるものは除かれる。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
+          "promptContext": "技術基準省令第25条第1項は、最高使用圧力が低圧のガス発生設備等で、過圧が生ずるおそれのあるものに適切な圧力上昇防止装置を設けることを求めている。対象から特定ガス発生設備、移動式ガス発生設備及び液化ガスを通ずるものは除かれる。",
+          "displayRefIds": [
+            "current:412M50000400111:25:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:25:1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "elm": "ln25.1",
+              "rootArticleElm": "ln25",
+              "article": "25",
+              "paragraph": "1",
+              "articleTextHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a",
+              "textHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a"
+            }
+          ]
+        }
+      }
     ]
   },
   {
