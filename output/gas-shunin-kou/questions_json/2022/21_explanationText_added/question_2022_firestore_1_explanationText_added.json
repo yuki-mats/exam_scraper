@@ -3178,7 +3178,129 @@
         "間違い。制御遅れが起こらずオーバーシュートなしで制御できる方式はフィードフォワード制御である。フィードバック制御としている点が誤り。"
       ]
     ],
-    "sourceExplanationChoiceCorrectness": "correct"
+    "sourceExplanationChoiceCorrectness": [
+      "間違い",
+      "間違い",
+      "正しい",
+      "正しい",
+      "間違い"
+    ],
+    "answer_result_text": "誤っているものは 3 つです。",
+    "isLawRelated": false,
+    "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+    "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+    "sourceConflictReview": {
+      "reviewedAt": "2026-07-10T01:20:00+09:00",
+      "reviewStatus": "secondary_verified_source_conflict_no_answer_impact",
+      "sourceConflictStatus": "needs_source_review",
+      "sourceConflictReviewDecision": "preserve_firestore_snapshot_after_review",
+      "sourceContentConflictPolicy": "preserve_firestore_until_pdf_or_source_review",
+      "conflictLedgerSource": "output/gas-shunin-kou/review/source_conflicts/firestore_site_conflicts.jsonl:350-356",
+      "manualReviewSource": "output/gas-shunin-kou/review/01_04_manual_review/gas-shunin-kou_01_04_manual_review.jsonl:198",
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-40-1138,chiefgasengineerlicense-A-40-1139,chiefgasengineerlicense-A-40-1140,chiefgasengineerlicense-A-40-1141,chiefgasengineerlicense-A-40-1142",
+      "firestoreQuestionIdsPreserved": [
+        "chiefgasengineerlicense-A-40-1138",
+        "chiefgasengineerlicense-A-40-1139",
+        "chiefgasengineerlicense-A-40-1140",
+        "chiefgasengineerlicense-A-40-1141",
+        "chiefgasengineerlicense-A-40-1142"
+      ],
+      "questionSetIdPreserved": "chiefgasengineerlicense-A-40-185",
+      "questionSetName": "電気設備及び計装設備（甲種）",
+      "conflicts": [
+        {
+          "field": "originalQuestionBodyText->questionBodyText",
+          "firestoreValue": "電気・計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "siteValue": "電気、計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "differenceSummary": "設問文の「電気・計装」と「電気、計装」の表記差。設問要求は同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value",
+          "line": 350,
+          "conflictId": "de76f5aceb37df0f",
+          "choiceIndex": 0,
+          "statementNo": 1
+        },
+        {
+          "field": "originalQuestionBodyText->questionBodyText",
+          "firestoreValue": "電気・計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "siteValue": "電気、計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "differenceSummary": "設問文の「電気・計装」と「電気、計装」の表記差。設問要求は同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value",
+          "line": 351,
+          "conflictId": "425467b79a2024c6",
+          "choiceIndex": 1,
+          "statementNo": 2
+        },
+        {
+          "field": "originalQuestionBodyText->questionBodyText",
+          "firestoreValue": "電気・計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "siteValue": "電気、計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "differenceSummary": "設問文の「電気・計装」と「電気、計装」の表記差。設問要求は同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value",
+          "line": 352,
+          "conflictId": "3d3ab6c5ae76000c",
+          "choiceIndex": 2,
+          "statementNo": 3
+        },
+        {
+          "line": 353,
+          "conflictId": "d12d8fdd4ef4566a",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 2,
+          "statementNo": 3,
+          "firestoreValue": "液化ガスを通ずる貯槽・配管等は、静電気除去のために確実な方法で接地をする。貯槽管理や受入・払出作業を行う者の人体の静電気除去も必要である。",
+          "siteValue": "液化ガスを通ずる貯槽、配管等は、静電気除去のために確実な方法で接地をする。貯槽管理や受入・払出作業を行う者の人体の静電気除去も必要である。",
+          "differenceSummary": "貯槽・配管等と貯槽、配管等の区切り記号差。内容は同一で、正しい肢という正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        },
+        {
+          "field": "originalQuestionBodyText->questionBodyText",
+          "firestoreValue": "電気・計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "siteValue": "電気、計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "differenceSummary": "設問文の「電気・計装」と「電気、計装」の表記差。設問要求は同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value",
+          "line": 354,
+          "conflictId": "87112636164d3fce",
+          "choiceIndex": 3,
+          "statementNo": 4
+        },
+        {
+          "field": "originalQuestionBodyText->questionBodyText",
+          "firestoreValue": "電気・計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "siteValue": "電気、計装設備に関する次の記述のうち、誤っているものはいくつあるか。",
+          "differenceSummary": "設問文の「電気・計装」と「電気、計装」の表記差。設問要求は同一で、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value",
+          "line": 355,
+          "conflictId": "7437f3f3ac596f2f",
+          "choiceIndex": 4,
+          "statementNo": 5
+        },
+        {
+          "line": 356,
+          "conflictId": "6a88fb63806dd0f6",
+          "field": "choiceText->choiceText",
+          "choiceIndex": 4,
+          "statementNo": 5,
+          "firestoreValue": "自動制御方式のうち、フィードバック制御は制御遅れが起こらず、オーバーシュートなしで制御できる。",
+          "siteValue": "自動制御方式のうち、フィードバック制御は\n制御遅れが起こらずオーバーシュートなしで制御できる\n。",
+          "differenceSummary": "制御遅れ/オーバーシュート周辺の句読点・改行差。既存Firestore本文ではフィードバック制御としている点を誤りとしており、正誤判断への影響なし。",
+          "answerImpact": "none",
+          "decision": "preserve_firestore_value"
+        }
+      ],
+      "answerImpactSummary": "既存Firestore snapshotどおり、選択肢1、2、5は間違い、選択肢3、4は正しい。設問は誤っているものの個数を問うため、誤っているものは3つ。",
+      "notes": [
+        "00_source body/choicesは変更しない。",
+        "既存statement-level Firestore doc IDs chiefgasengineerlicense-A-40-1138..1142を維持する。",
+        "source conflictはstrict tracking上 needs_source_review のまま扱うが、upload時はFirestore snapshotを保持する。",
+        "Lawzilla証拠トラックではなく、非法令の電気・計装設備知識として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-40-1143,chiefgasengineerlicense-A-40-1144,chiefgasengineerlicense-A-40-1145,chiefgasengineerlicense-A-40-1146,chiefgasengineerlicense-A-40-1147",
