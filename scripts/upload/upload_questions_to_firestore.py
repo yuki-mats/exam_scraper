@@ -69,6 +69,7 @@ DOC_COMPARE_KEYS = (
     "isChoiceOnly",
     "isGroupable",
 )
+EXISTING_DOC_FIELD_PATHS = tuple(dict.fromkeys((*DOC_COMPARE_KEYS, "createdAt", "createdById")))
 
 _TRUTHY_CORRECT = {"正しい", "正解", "○", "〇", "true", "True", "TRUE"}
 _TRUTHY_INCORRECT = {"間違い", "不正解", "誤り", "×", "false", "False", "FALSE"}
@@ -207,6 +208,13 @@ def build_doc_data(question: dict, now: datetime) -> dict:
     doc_data["updatedAt"] = now
     doc_data["updatedById"] = UPDATED_BY_ID
     return doc_data
+
+
+def fetch_existing_question_snapshots(db, doc_refs: list):
+    get_all = getattr(db, "get_all", None)
+    if callable(get_all):
+        return list(get_all(doc_refs, field_paths=EXISTING_DOC_FIELD_PATHS))
+    return [ref.get(field_paths=EXISTING_DOC_FIELD_PATHS) for ref in doc_refs]
 
 
 def normalize_exam_year(value: object) -> int | None:
@@ -392,11 +400,7 @@ def upload_questions(
 
         # 既存ドキュメントをまとめて取得し、差分があるものだけ書き込む（updatedAtは差分がある時のみ更新）
         try:
-            get_all = getattr(db, "get_all", None)
-            if callable(get_all):
-                snapshots = list(get_all(doc_refs))
-            else:
-                snapshots = [ref.get() for ref in doc_refs]
+            snapshots = fetch_existing_question_snapshots(db, doc_refs)
         except Exception as exc:
             # 「差分がある時のみ updatedAt 更新」を守るため、既存取得に失敗したら中断する
             raise RuntimeError(f"既存ドキュメントの取得に失敗しました: {exc}") from exc

@@ -217,6 +217,40 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             },
         )
 
+    def test_fetch_existing_question_snapshots_uses_field_mask_with_get_all(self) -> None:
+        class FakeDb:
+            def __init__(self) -> None:
+                self.field_paths = None
+
+            def get_all(self, refs, field_paths=None):
+                self.refs = refs
+                self.field_paths = field_paths
+                return ["snapshot"]
+
+        db = FakeDb()
+        refs = ["ref-1"]
+
+        self.assertEqual(module.fetch_existing_question_snapshots(db, refs), ["snapshot"])
+        self.assertEqual(db.refs, refs)
+        self.assertEqual(db.field_paths, module.EXISTING_DOC_FIELD_PATHS)
+
+    def test_fetch_existing_question_snapshots_uses_field_mask_with_ref_get_fallback(self) -> None:
+        class FakeRef:
+            def __init__(self) -> None:
+                self.field_paths = None
+
+            def get(self, field_paths=None):
+                self.field_paths = field_paths
+                return "snapshot"
+
+        class FakeDb:
+            pass
+
+        ref = FakeRef()
+
+        self.assertEqual(module.fetch_existing_question_snapshots(FakeDb(), [ref]), ["snapshot"])
+        self.assertEqual(ref.field_paths, module.EXISTING_DOC_FIELD_PATHS)
+
 
 if __name__ == "__main__":
     unittest.main()

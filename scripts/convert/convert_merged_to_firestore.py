@@ -23,6 +23,13 @@ if __package__ in {None, ""}:
     from scripts.check.check_question_intent_correct_choice_text_distribution import (
         raise_on_violations as raise_on_question_intent_correct_choice_violations,
     )
+    from scripts.common.repaso_firestore_schema import (
+        LAW_REVISION_AUDIT_STATUSES,
+        LAW_REVISION_EVIDENCE_REF_KEYS,
+        LAW_REVISION_EVIDENCE_SUMMARY_KEYS,
+        LAW_REVISION_FACT_KEYS,
+        LAW_REVISION_SNAPSHOT_KEYS,
+    )
 else:
     from scripts.common.image_storage_urls import (
         infer_qualification_from_path,
@@ -30,6 +37,13 @@ else:
     )
     from scripts.check.check_question_intent_correct_choice_text_distribution import (
         raise_on_violations as raise_on_question_intent_correct_choice_violations,
+    )
+    from scripts.common.repaso_firestore_schema import (
+        LAW_REVISION_AUDIT_STATUSES,
+        LAW_REVISION_EVIDENCE_REF_KEYS,
+        LAW_REVISION_EVIDENCE_SUMMARY_KEYS,
+        LAW_REVISION_FACT_KEYS,
+        LAW_REVISION_SNAPSHOT_KEYS,
     )
 
 # 試験名定義（ここに必要な試験名を追加して使う）
@@ -282,17 +296,134 @@ def resolve_is_law_related(
     return None
 
 
+def drop_none_values(value):
+    if isinstance(value, dict):
+        return {
+            key: drop_none_values(item)
+            for key, item in value.items()
+            if item is not None
+        }
+    if isinstance(value, list):
+        return [drop_none_values(item) for item in value if item is not None]
+    return value
+
+
+def non_empty_string(value: Any) -> str | None:
+    if isinstance(value, str) and value.strip():
+        return value
+    return None
+
+
+def sanitize_optional_string_map(
+    value: Any,
+    *,
+    allowed_keys: set[str],
+    list_keys: set[str] | None = None,
+    bool_keys: set[str] | None = None,
+) -> dict:
+    if not isinstance(value, dict):
+        return {}
+    list_keys = list_keys or set()
+    bool_keys = bool_keys or set()
+    sanitized: dict[str, Any] = {}
+    for key, item in value.items():
+        if key not in allowed_keys or item is None:
+            continue
+        if key in list_keys:
+            if isinstance(item, list):
+                cleaned = [entry for entry in item if non_empty_string(entry)]
+                if cleaned:
+                    sanitized[key] = cleaned
+        elif key in bool_keys:
+            if isinstance(item, bool):
+                sanitized[key] = item
+        else:
+            text = non_empty_string(item)
+            if text is not None:
+                sanitized[key] = text
+    return sanitized
+
+
+def sanitize_law_revision_evidence_summary(value: Any) -> dict:
+    if not isinstance(value, dict):
+        return {}
+    sanitized: dict[str, Any] = {}
+    for key, item in value.items():
+        if key not in LAW_REVISION_EVIDENCE_SUMMARY_KEYS or item is None:
+            continue
+        if key == "displayRefIds":
+            if isinstance(item, list):
+                refs = [entry for entry in item if non_empty_string(entry)]
+                if refs:
+                    sanitized[key] = refs
+        elif key == "refs":
+            if isinstance(item, list):
+                cleaned_refs = []
+                for ref in item:
+                    cleaned_ref = sanitize_optional_string_map(
+                        ref,
+                        allowed_keys=LAW_REVISION_EVIDENCE_REF_KEYS,
+                        list_keys={"highlightElms"},
+                        bool_keys={"primaryBasis"},
+                    )
+                    if cleaned_ref:
+                        cleaned_refs.append(cleaned_ref)
+                if cleaned_refs:
+                    sanitized[key] = cleaned_refs
+        else:
+            text = non_empty_string(item)
+            if text is not None:
+                sanitized[key] = text
+    return sanitized
+
+
+def sanitize_law_revision_facts(value: Any) -> dict | None:
+    if not isinstance(value, dict):
+        return None
+    value = drop_none_values(value)
+    sanitized: dict[str, Any] = {}
+    for key, item in value.items():
+        if key not in LAW_REVISION_FACT_KEYS or item is None:
+            continue
+        if key == "auditStatus":
+            if item in LAW_REVISION_AUDIT_STATUSES:
+                sanitized[key] = item
+        elif key in {"examTime", "current"}:
+            cleaned = sanitize_optional_string_map(
+                item,
+                allowed_keys=LAW_REVISION_SNAPSHOT_KEYS,
+            )
+            if cleaned:
+                sanitized[key] = cleaned
+        elif key in {"differenceFacts", "answerImpactFacts", "notes"}:
+            if isinstance(item, list):
+                cleaned = [entry for entry in item if non_empty_string(entry)]
+                if cleaned:
+                    sanitized[key] = cleaned
+        elif key == "evidenceSummary":
+            cleaned = sanitize_law_revision_evidence_summary(item)
+            if cleaned:
+                sanitized[key] = cleaned
+        else:
+            text = non_empty_string(item)
+            if text is not None:
+                sanitized[key] = text
+    if sanitized.get("auditStatus") not in LAW_REVISION_AUDIT_STATUSES:
+        return None
+    return sanitized
+
+
 def resolve_law_revision_facts(
     question_body: dict,
     choice_index: int | None = None,
 ) -> dict | None:
     value = question_body.get("lawRevisionFacts")
     if isinstance(value, dict):
-        return value
+        return sanitize_law_revision_facts(value)
     if choice_index is not None and isinstance(value, list) and choice_index < len(value):
         choice_value = value[choice_index]
         if isinstance(choice_value, dict):
-            return choice_value
+            return sanitize_law_revision_facts(choice_value)
     return None
 
 
@@ -598,20 +729,27 @@ def question_set_id_for_choice(question_body: dict, choice_index: int) -> str | 
 
 def original_question_id_for_upload(question_body: dict) -> str:
     """Return the stable originalQuestionId, falling back to site public ids for new docs."""
-    for key in (
-        "uploadOriginalQuestionId",
-        "original_question_id",
-        "originalQuestionId",
-        "public_question_id",
-        "publicQuestionId",
-    ):
+    explicit_upload_id = question_body.get("uploadOriginalQuestionId")
+    if explicit_upload_id is not None:
+        text = str(explicit_upload_id).strip()
+        if text:
+            return text
+
+    snake_original_id = str(question_body.get("original_question_id") or "").strip()
+    if snake_original_id and not snake_original_id.startswith("firestore:"):
+        return snake_original_id
+
+    # Some review patches use original_question_id="firestore:<doc ids>" as a
+    # matching key. Keep that out of Firestore's originalQuestionId field when
+    # the source-side stable ID is still available.
+    for key in ("originalQuestionId", "public_question_id", "publicQuestionId"):
         value = question_body.get(key)
         if value is None:
             continue
         text = str(value).strip()
         if text:
             return text
-    return ""
+    return snake_original_id
 
 
 def single_firestore_question_id(question_body: dict) -> str | None:
