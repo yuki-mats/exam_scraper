@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-summary/v1",
+  "generatedAt": "2026-07-10T03:40:00+09:00",
+  "displayQuestionId": "gasushunin-koushu-hourei-2021-1",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2021,
+  "questionLabel": "問1",
+  "reviewRecordCount": 2,
+  "choiceEvidenceRecordCount": 10,
+  "reviewRecords": [
+    {
+      "queueSequence": 84,
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0161,chiefgasengineerlicense-A-10-0162,chiefgasengineerlicense-A-10-0163,chiefgasengineerlicense-A-10-0164,chiefgasengineerlicense-A-10-0165",
+      "answerResultText": "正解は 1 です。",
+      "incorrectChoiceCount": 1,
+      "directLocators": [
+        "ガス事業法 第2条第11項",
+        "ガス事業法 第2条第1項",
+        "ガス事業法施行規則 第1条第2項 五",
+        "ガス事業法施行規則 第1条第2項 八ハ",
+        "ガス事業法 第86条第1項 三ロ"
+      ]
+    },
+    {
+      "queueSequence": 85,
+      "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0241,chiefgasengineerlicense-A-10-0242,chiefgasengineerlicense-A-10-0243,chiefgasengineerlicense-A-10-0244,chiefgasengineerlicense-A-10-0245",
+      "answerResultText": "正解は 2 です。",
+      "incorrectChoiceCount": 2,
+      "directLocators": [
+        "ガス事業法 第1条第1項",
+        "ガス事業法 第2条第11項",
+        "ガス事業法 第35条第1項",
+        "ガス事業法施行規則 第1条第2項 五",
+        "ガス事業法 第175条第1項"
+      ]
+    }
+  ],
+  "rawXmlDir": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_034000_q1",
+  "evidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_034000_q1_gas_shunin_primary_evidence_snapshots_direct_basis_q1_2021.jsonl",
+  "lawzillaReconciliationSummary": "同一displayQuestionIdの2行をreviewQuestionId単位で分離。Lawzilla候補は一部有用だが、ガス事業法第2条・第35条・第86条・第175条は直接e-Gov条文で補完した。",
+  "metadataDecision": "preserve Firestore statement IDs and do not edit 00_source."
+}
