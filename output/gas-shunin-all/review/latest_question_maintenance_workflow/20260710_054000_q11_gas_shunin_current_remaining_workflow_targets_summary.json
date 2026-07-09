@@ -1,0 +1,309 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-targets/v1",
+  "generatedAt": "2026-07-10T05:40:00+09:00",
+  "sourceSecondaryQueue": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_023000_gas_shunin_secondary_law_review_queue.jsonl",
+  "sourceMaintenanceQueue": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_052000_q12_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "remainingTargetsJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_054000_q11_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "summaryJson": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_054000_q11_gas_shunin_current_remaining_workflow_targets_summary.json",
+  "summaryMarkdown": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_054000_q11_gas_shunin_current_remaining_workflow_targets.md",
+  "remainingTargetRecords": 277,
+  "remainingUniqueQueueItemKeys": 252,
+  "remainingUniqueDisplayQuestionIds": 274,
+  "alreadySecondaryVerifiedRecords": 110,
+  "remainingReadinessCounts": {
+    "answer_recheck_without_lawzilla_evidence": 6,
+    "manual_review_required_all_choices_have_primary_evidence": 175,
+    "manual_review_required_partial_candidates": 30,
+    "non_lawzilla_workflow_item": 66
+  },
+  "remainingTrackCounts": {
+    "answer_recheck": 26,
+    "lawzilla_law_evidence": 205,
+    "source_conflict_review": 85
+  },
+  "remainingPriorityCounts": {
+    "P0": 170,
+    "P1": 35,
+    "P2": 72
+  },
+  "remainingByQualificationYearPriority": [
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2020,
+      "total": 47,
+      "uniqueDisplayQuestionIds": 46,
+      "P0": 16,
+      "P1": 1,
+      "P2": 30
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2020,
+      "total": 23,
+      "uniqueDisplayQuestionIds": 23,
+      "P0": 16,
+      "P1": 5,
+      "P2": 2
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2022,
+      "total": 21,
+      "uniqueDisplayQuestionIds": 21,
+      "P0": 16,
+      "P1": 3,
+      "P2": 2
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2024,
+      "total": 20,
+      "uniqueDisplayQuestionIds": 20,
+      "P0": 16,
+      "P1": 4,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P0": 0,
+      "P1": 4,
+      "P2": 15
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2023,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P0": 0,
+      "P1": 2,
+      "P2": 17
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2023,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P0": 16,
+      "P1": 3,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2019,
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18,
+      "P0": 16,
+      "P1": 2,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2025,
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18,
+      "P0": 16,
+      "P1": 2,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2017,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2018,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2019,
+      "total": 16,
+      "uniqueDisplayQuestionIds": 16,
+      "P0": 16,
+      "P1": 0,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "total": 14,
+      "uniqueDisplayQuestionIds": 14,
+      "P0": 10,
+      "P1": 4,
+      "P2": 0
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2025,
+      "total": 6,
+      "uniqueDisplayQuestionIds": 6,
+      "P0": 0,
+      "P1": 1,
+      "P2": 5
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2024,
+      "total": 3,
+      "uniqueDisplayQuestionIds": 3,
+      "P0": 0,
+      "P1": 2,
+      "P2": 1
+    }
+  ],
+  "remainingDuplicateQueueItemKeys": {
+    "gas-shunin-kou:2019:問4:": 2,
+    "gas-shunin-kou:2019:問7:": 2,
+    "gas-shunin-kou:2020:問11:": 3,
+    "gas-shunin-kou:2020:問12:": 3,
+    "gas-shunin-kou:2020:問13:": 2,
+    "gas-shunin-kou:2020:問14:": 4,
+    "gas-shunin-kou:2020:問15:": 2,
+    "gas-shunin-kou:2020:問16:": 2,
+    "gas-shunin-kou:2020:問1:": 2,
+    "gas-shunin-kou:2020:問2:": 2,
+    "gas-shunin-kou:2020:問3:": 3,
+    "gas-shunin-kou:2020:問4:": 2,
+    "gas-shunin-kou:2020:問5:": 2,
+    "gas-shunin-kou:2020:問6:": 2,
+    "gas-shunin-kou:2020:問7:": 2,
+    "gas-shunin-kou:2020:問8:": 2,
+    "gas-shunin-kou:2020:問9:": 2,
+    "gas-shunin-kou:2021:問14:": 2,
+    "gas-shunin-kou:2021:問4:": 2,
+    "gas-shunin-kou:2023:問15:": 2
+  },
+  "remainingDuplicateQueueItemKeyKinds": {
+    "": 20
+  },
+  "remainingDuplicateTargetRecordExtraCount": 25,
+  "initialTargetRecords": 283,
+  "initialUniqueQueueItemKeys": null,
+  "initialDuplicateQueueItemKeyKinds": null,
+  "initialDuplicateTargetRecordExtraCount": null,
+  "removedInThisRun": [
+    {
+      "displayQuestionId": "aacce362b22eb526",
+      "questionLabel": "問11",
+      "answerResultText": "正解は 5 です。",
+      "queueSequence": 187
+    }
+  ],
+  "currentYearCheckpoint": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2021,
+    "remainingTargetRecords": 14,
+    "remainingUniqueDisplayQuestionIds": 14,
+    "nextDisplayQuestionId": "9b3bf0ec5c52e855"
+  },
+  "nextTargets2021": [
+    {
+      "queueSequence": 188,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問10",
+      "displayQuestionId": "9b3bf0ec5c52e855",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 189,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問9",
+      "displayQuestionId": "3952884e68d2bcd9",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 190,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問8",
+      "displayQuestionId": "c1e00d7abba21841",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    },
+    {
+      "queueSequence": 191,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問7",
+      "displayQuestionId": "7405ae79e013a3e0",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 192,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問6",
+      "displayQuestionId": "df59c30e223cb590",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 193,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問5",
+      "displayQuestionId": "11e45cb9ebc00dc2",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 194,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問4",
+      "displayQuestionId": "926e9e893655f2d8",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 195,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問3",
+      "displayQuestionId": "13088ed044a86680",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 196,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問2",
+      "displayQuestionId": "86f55d862b0416dc",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 197,
+      "priority": "P0",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問1",
+      "displayQuestionId": "ef408279da68602f",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    },
+    {
+      "queueSequence": 291,
+      "priority": "P1",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問27",
+      "displayQuestionId": "23b68bdcb6547c87",
+      "secondaryReviewReadiness": "manual_review_required_partial_candidates"
+    },
+    {
+      "queueSequence": 292,
+      "priority": "P1",
+      "qualification": "gas-shunin-otsu",
+      "questionLabel": "問15",
+      "displayQuestionId": "ad42521191d4f26c",
+      "secondaryReviewReadiness": "manual_review_required_all_choices_have_primary_evidence"
+    }
+  ]
+}
