@@ -991,7 +991,7 @@
       "正しい。LNGローリーの運行では、気象条件や交通事情で輸送に支障が出る場合に備え、LNG在庫の確保や出荷元の複数化などを事前に講じることが望ましい。",
       "間違い。LNGサテライト基地の熱量は出荷元のLNG熱量だけでなく、貯槽内での濃縮などによって変動し得るため、熱量管理では貯槽内濃縮にも留意する必要がある。「留意しなくてもよい」とする点が誤り。",
       "正しい。ガス製造能力に関係する設備の定期修理計画では、ガス製造計画や製造設備稼働計画を踏まえ、ピーク時の最大必要能力を確保できるように計画する必要がある。",
-      "正しい。「あらかじめ確認」は、溶接施工方法や溶接士技能が技術基準に適合しているかを確認する行為である。",
+      "正しい。「あらかじめ確認」は、溶接前に溶接施工法と溶接士技能が技術基準に適合するものかを確認する趣旨であり、ガス主任技術者の保安監督業務と結びつく。",
       "間違い。耐震設計で重要な構造設計・安全設計・防災設計のうち、地震時に異常が発生しても安全性を確保できるようにするのは主に安全設計である。これを防災設計の説明としている点が誤り。"
     ],
     "suggestedQuestions": [
@@ -1016,14 +1016,14 @@
       },
       {
         "question": "次の記述の正誤を確認する: 「あらかじめ確認」とは、溶接施工法、溶接士技能が技術基準に適合しているか否かをガス主任技術者が確認する行為である。",
-        "answer": "正しい。「あらかじめ確認」は、溶接施工方法や溶接士技能が技術基準に適合しているかを確認する行為である。"
+        "answer": "正しい。「あらかじめ確認」は、溶接前に溶接施工法と溶接士技能が技術基準に適合するものかを確認する趣旨であり、ガス主任技術者の保安監督業務と結びつく。"
       },
       {
         "question": "次の記述の正誤を確認する: 耐震設計を行う上で重要なことは、構造設計、安全設計、防災設計であり、防災設計とは\n地震時に異常が発生しても安全性を確保できるよう設計するものである\n。",
         "answer": "間違い。耐震設計で重要な構造設計・安全設計・防災設計のうち、地震時に異常が発生しても安全性を確保できるようにするのは主に安全設計である。これを防災設計の説明としている点が誤り。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
       "製造設備の建設及び操業に関する各記述について、設問は誤っている記述の組合せを問うているため、correctChoiceTextは各記述単位の正誤で保持する。"
     ],
@@ -1053,6 +1053,365 @@
       "正しい",
       "正しい",
       "間違い"
+    ],
+    "isLawRelated": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "ガス工作物技術基準省令",
+          "article": "16",
+          "articleTitle": "溶接部分",
+          "paragraph": "2",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a",
+          "relation": "direct_basis_for_preconfirmed_welding_methods",
+          "elm": "ln16.2",
+          "rootArticleElm": "ln16",
+          "reason": "省令第16条第2項は、一定の溶接部分について、適切な機械試験等により適切な溶接施工方法等であることをあらかじめ確認したものによらなければならないと定めている。",
+          "choiceIndex": 3
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "lawAlias": "ガス工作物技術基準解釈例",
+          "article": "52",
+          "articleTitle": "溶接一般",
+          "paragraph": "3",
+          "item": "一",
+          "source": "meti_pdf_excerpt",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "apiUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "articleTextHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+          "sourceExcerptHash": "ddc08ce60d5f84e3ce482bab19dd7abd7d9ddaff6a5c296ec10edbf654c411d5",
+          "rawPdfHash": "d78e4db895f1b551edcf559763d7221a70d4bfab31dc9ab5f0229c88d1be80e7",
+          "relation": "direct_interpretation_basis_for_welding_method_and_welder_skill",
+          "elm": "interpretation-article52-3-1",
+          "rootArticleElm": "interpretation-article52",
+          "reason": "解釈例第52条第3項第1号は、あらかじめ確認した溶接施工方法等について、溶接施工法は第54条、溶接士は第55条によるものと示している。",
+          "choiceIndex": 3
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "98",
+          "articleTitle": "ガス主任技術者",
+          "paragraph": "1",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=98",
+          "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+          "rawXmlHash": "b1c6e5136e9b7429d8ce5b6bf8fe152658275fb1dd2e15f111c6f78ba1d2a000",
+          "relation": "supervision_context_for_gas_chief_engineer_in_manufacturing_business",
+          "elm": "ln98.1",
+          "rootArticleElm": "ln98",
+          "reason": "ガス事業法第98条第1項は、ガス製造事業者がガス主任技術者を選任し、ガス製造事業の用に供するガス工作物の工事・維持・運用に関する保安を監督させることを定めている。",
+          "choiceIndex": 3
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "METI_GAS_PRE_USE_SELF_INSPECTION_GUIDE",
+          "lawTitle": "ガス工作物使用前自主検査要領",
+          "lawAlias": "ガス工作物使用前自主検査要領",
+          "article": "検査項目4",
+          "articleTitle": "溶接部分",
+          "paragraph": "1",
+          "source": "meti_pdf_excerpt",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/shiyoumaekensayouryou.pdf",
+          "apiUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/shiyoumaekensayouryou.pdf",
+          "articleTextHash": "012ce9efdfc2bd85080fd13438e03c45898bc387a20e2d791ea28abae109945f",
+          "sourceExcerptHash": "012ce9efdfc2bd85080fd13438e03c45898bc387a20e2d791ea28abae109945f",
+          "relation": "official_inspection_procedure_supporting_preconfirmation",
+          "elm": "inspection-item4-welding-methods",
+          "rootArticleElm": "inspection-item4",
+          "reason": "使用前自主検査要領は、省令第16条第2項に規定する溶接する部分について、溶接施工方法等（溶接施工法、溶接士技能）をあらかじめ確認する検査手順を示している。",
+          "choiceIndex": 3
+        }
+      ],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:47:31+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_204731_q7",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_204731_q7:choice1",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "LNGローリーの運行時の事前対策を問う運用知識で、今回のLawzilla候補は高圧ガス保安法の容器製造設備に寄っており直接根拠ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は製造設備の運用・熱量管理・定期修理計画・耐震設計の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。LNGローリーの運行では、気象条件や交通事情で輸送に支障が出る場合に備え、LNG在庫の確保や出荷元の複数化などを事前に講じることが望ましい。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "製造設備の実務・技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "ee0a6df1c0a32b251b31637936915341933d9a1138b42a26d5a2e4dd263d972d"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:47:31+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_204731_q7",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_204731_q7:choice2",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "LNGサテライト基地の熱量管理・貯槽内濃縮を問う製造運用知識で、条文の直接適合性判断として扱わない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は製造設備の運用・熱量管理・定期修理計画・耐震設計の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "間違い。LNGサテライト基地の熱量は出荷元のLNG熱量だけでなく、貯槽内での濃縮などによって変動し得るため、熱量管理では貯槽内濃縮にも留意する必要がある。「留意しなくてもよい」とする点が誤り。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "製造設備の実務・技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "65821f280e47d2a1a69492f92f10e548d7a5338164ccad2c1ae38e4c9b216d6f"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:47:31+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_204731_q7",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_204731_q7:choice3",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "定期修理計画とピーク時製造能力確保を問う運用計画知識で、今回のLawzilla候補は容器製造設備に寄っており直接根拠ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は製造設備の運用・熱量管理・定期修理計画・耐震設計の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。ガス製造能力に関係する設備の定期修理計画では、ガス製造計画や製造設備稼働計画を踏まえ、ピーク時の最大必要能力を確保できるように計画する必要がある。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "製造設備の実務・技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "4a39aa906f0862f9b08d3c9b12c6a920452adf55ec3ddbe8747bf7a25ab10064"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:47:31+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_204731_q7",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_204731_q7:choice4",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "溶接施工方法等のあらかじめ確認は省令第16条第2項と解釈例第52条第3項で直接確認でき、ガス製造分野ではガス事業法第98条第1項のガス主任技術者の保安監督文脈と整合する。"
+        ],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=16"
+        },
+        "answerImpactFacts": [
+          "現行省令第16条第2項は、一定の溶接部分について、あらかじめ確認した溶接施工方法等によることを求めている。",
+          "現行解釈例第52条第3項第1号は、溶接施工法は第54条、溶接士は第55条の規定によるものと示しており、既存の「正しい」判定と整合する。",
+          "ガス製造分野のガス主任技術者の保安監督はガス事業法第98条第1項で確認できる。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。「あらかじめ確認」は、溶接前に溶接施工法と溶接士技能が技術基準に適合するものかを確認する趣旨であり、ガス主任技術者の保安監督業務と結びつく。",
+          "differenceSummary": "出題当時条文は未固定。現行省令・解釈例・ガス事業法の確認範囲では既存の正誤と一致。",
+          "promptContext": "溶接施工法・溶接士技能のあらかじめ確認と、ガス製造分野のガス主任技術者の保安監督文脈を区別して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:16:2",
+            "current:METI_GAS_TECH_INTERPRETATION_20230210:52:3",
+            "current:329AC0000000051:98:1",
+            "current:METI_GAS_PRE_USE_SELF_INSPECTION_GUIDE:検査項目4:1"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:16:2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_for_preconfirmed_welding_methods",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "elm": "ln16.2",
+              "rootArticleElm": "ln16",
+              "article": "16",
+              "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+              "textHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+              "paragraph": "2"
+            },
+            {
+              "refId": "current:METI_GAS_TECH_INTERPRETATION_20230210:52:3",
+              "lawTimeScope": "current",
+              "relation": "direct_interpretation_basis_for_welding_method_and_welder_skill",
+              "primaryBasis": true,
+              "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "elm": "interpretation-article52-3-1",
+              "rootArticleElm": "interpretation-article52",
+              "article": "52",
+              "articleTextHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+              "textHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+              "paragraph": "3",
+              "item": "一"
+            },
+            {
+              "refId": "current:329AC0000000051:98:1",
+              "lawTimeScope": "current",
+              "relation": "supervision_context_for_gas_chief_engineer_in_manufacturing_business",
+              "primaryBasis": true,
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "elm": "ln98.1",
+              "rootArticleElm": "ln98",
+              "article": "98",
+              "articleTextHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "textHash": "4c22a6a2391116645b39dfc7f1114e7500b6994068eeda92311e117a782b0adb",
+              "paragraph": "1"
+            },
+            {
+              "refId": "current:METI_GAS_PRE_USE_SELF_INSPECTION_GUIDE:検査項目4:1",
+              "lawTimeScope": "current",
+              "relation": "official_inspection_procedure_supporting_preconfirmation",
+              "primaryBasis": true,
+              "lawId": "METI_GAS_PRE_USE_SELF_INSPECTION_GUIDE",
+              "lawTitle": "ガス工作物使用前自主検査要領",
+              "elm": "inspection-item4-welding-methods",
+              "rootArticleElm": "inspection-item4",
+              "article": "検査項目4",
+              "articleTextHash": "012ce9efdfc2bd85080fd13438e03c45898bc387a20e2d791ea28abae109945f",
+              "textHash": "012ce9efdfc2bd85080fd13438e03c45898bc387a20e2d791ea28abae109945f",
+              "paragraph": "1"
+            }
+          ]
+        },
+        "evidenceBindingHash": "16774ff7bf6ed108a09abc099809514212eb4b236a88fa035c3b28081ecad1d8"
+      },
+      {
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:47:31+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_204731_q7",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q7_welding_and_operations_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_204731_q7:choice5",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "notes": [
+          "耐震設計上の構造設計・安全設計・防災設計の概念整理を問う技術知識で、今回のLawzilla候補は高圧ガス保安法の容器製造設備に寄っており直接根拠ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "answerImpactFacts": [
+          "この選択肢は製造設備の運用・熱量管理・定期修理計画・耐震設計の技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "間違い。耐震設計で重要な構造設計・安全設計・防災設計のうち、地震時に異常が発生しても安全性を確保できるようにするのは主に安全設計である。これを防災設計の説明としている点が誤り。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "製造設備の実務・技術解説を維持し、Lawzilla候補を無理に条文根拠化しない。",
+          "displayRefIds": [],
+          "refs": []
+        },
+        "evidenceBindingHash": "e1017de323350a02893e24298a5693c44a8eaccc4120de4c1337faa52e048a6f"
+      }
     ]
   },
   {

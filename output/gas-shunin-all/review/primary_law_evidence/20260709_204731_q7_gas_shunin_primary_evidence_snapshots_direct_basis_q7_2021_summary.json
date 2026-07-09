@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-summary/v1",
+  "generatedAt": "2026-07-09T20:47:31+09:00",
+  "target": "gas-shunin-otsu 2021 問7 e786207857a22dad",
+  "source": "e-Gov Law API XML + METI official interpretation and inspection excerpts",
+  "directBasis": [
+    "ガス工作物技術基準省令 第16条第2項",
+    "ガス工作物技術基準の解釈例 第52条第3項第1号・第54条・第55条",
+    "ガス事業法 第98条第1項",
+    "ガス工作物使用前自主検査要領 検査項目4 溶接部分"
+  ],
+  "technicalChoices": [
+    1,
+    2,
+    3,
+    5
+  ],
+  "lawChoices": [
+    4
+  ],
+  "rawXmlPaths": [
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_204731_q7/412M50000400111_16_c180343df55e94e7.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_204731_q7/329AC0000000051_98_b1c6e5136e9b7429.xml"
+  ],
+  "interpretationExcerptPath": "output/gas-shunin-all/review/primary_law_evidence/raw_text/20260709_204731_q7/gas_technical_interpretation_articles52_54_55_ddc08ce60d5f84e3.txt",
+  "inspectionExcerptPath": "output/gas-shunin-all/review/primary_law_evidence/raw_text/20260709_204731_q7/gas_pre_use_self_inspection_welding_012ce9efdfc2bd85.txt",
+  "interpretationPdfHash": "d78e4db895f1b551edcf559763d7221a70d4bfab31dc9ab5f0229c88d1be80e7",
+  "interpretationTextHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+  "lawzillaReconciliation": "Lawzilla候補は記述4でガス事業法第25条を返したが、製造分野では第98条が適切。記述1・2・3・5の高圧ガス保安法容器製造設備候補は本文と直接対応せず、法令根拠化しない。"
+}
