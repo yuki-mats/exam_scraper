@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-targets-summary/v1",
+  "generatedAt": "2026-07-09T23:15:00+09:00",
+  "sourcePreviousRemainingTargets": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_220800_otsu2020_year_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "previousRemainingTargetRecords": 201,
+  "remainingTargetRecords": 180,
+  "remainingUniqueDisplayQuestionIds": 178,
+  "remainingPriorityCounts": {
+    "P0": 116,
+    "P1": 26,
+    "P2": 38
+  },
+  "remainingTrackCounts": {
+    "lawzilla_law_evidence": 142,
+    "answer_recheck": 21,
+    "source_conflict_review": 37
+  },
+  "remainingReadinessCounts": {
+    "manual_review_required_all_choices_have_primary_evidence": 125,
+    "manual_review_required_partial_candidates": 17,
+    "answer_recheck_without_lawzilla_evidence": 6,
+    "non_lawzilla_workflow_item": 32
+  },
+  "remainingByQualificationYearPriority": [
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2024,
+      "total": 20,
+      "uniqueDisplayQuestionIds": 20,
+      "P0": 16,
+      "P1": 4
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2021,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P1": 4,
+      "P2": 15
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2023,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P1": 2,
+      "P2": 17
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2023,
+      "total": 19,
+      "uniqueDisplayQuestionIds": 19,
+      "P0": 16,
+      "P1": 3
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2019,
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18,
+      "P0": 16,
+      "P1": 2
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2025,
+      "total": 18,
+      "uniqueDisplayQuestionIds": 18,
+      "P0": 16,
+      "P1": 2
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2017,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2018,
+      "total": 17,
+      "uniqueDisplayQuestionIds": 17,
+      "P0": 16,
+      "P1": 1
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2019,
+      "total": 16,
+      "uniqueDisplayQuestionIds": 16,
+      "P0": 16
+    },
+    {
+      "qualification": "gas-shunin-otsu",
+      "examYear": 2021,
+      "total": 8,
+      "uniqueDisplayQuestionIds": 8,
+      "P0": 4,
+      "P1": 4
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2025,
+      "total": 6,
+      "uniqueDisplayQuestionIds": 6,
+      "P1": 1,
+      "P2": 5
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2024,
+      "total": 3,
+      "uniqueDisplayQuestionIds": 3,
+      "P1": 2,
+      "P2": 1
+    }
+  ],
+  "completedBlock": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2022,
+    "track": "year_block",
+    "status": "completed",
+    "completedTargetRecords": 21,
+    "completedUniqueDisplayQuestionIds": 21,
+    "lawRelatedQuestions": 16,
+    "lawzillaFeedbackJsonl": "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_231500_otsu2022_year_gas_shunin_otsu_2022_lawzilla_practical_review.jsonl",
+    "sourceConflictReviewJsonl": "output/gas-shunin-all/review/source_conflict_feedback/20260709_231500_otsu2022_year_gas_shunin_otsu_2022_source_conflict_review.jsonl",
+    "primaryEvidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260709_231500_otsu2022_year_gas_shunin_otsu_2022_primary_evidence.jsonl"
+  },
+  "yearCheckpointCompletion": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2022,
+    "remainingTargetRecords": 0,
+    "status": "completed"
+  },
+  "nextYearCheckpoint": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2024,
+    "total": 20,
+    "uniqueDisplayQuestionIds": 20,
+    "P0": 16,
+    "P1": 4
+  },
+  "remainingTargetsJsonl": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260709_231500_otsu2022_year_gas_shunin_current_remaining_workflow_targets.jsonl"
+}
