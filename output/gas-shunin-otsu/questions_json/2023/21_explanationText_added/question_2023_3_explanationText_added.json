@@ -114,7 +114,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "c27463fb8f453f0a",
@@ -231,7 +232,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "1772c8b908134fd6",
@@ -348,7 +350,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "ca9cfa987610a65c",
@@ -464,7 +467,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "e35e4c334ff89d9e",
@@ -580,7 +584,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "d7ee8ce3f382aa2a",
@@ -696,7 +701,15 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false,
+    "lawzillaWorkflowReview": {
+      "reviewedAt": "2026-07-10T00:40:00+09:00",
+      "reviewRunId": "20260710_004000_otsu2023_year",
+      "classification": "non_law_technical_or_foundation_problem_after_lawzilla_candidate_review",
+      "reason": "法令候補又は法令キーワードはあるが、乙種2023年度ブロックでは技術・基礎・消費機器知識の問題として扱い、未検証の条文をlawReferencesへ付けない。",
+      "secretHandling": "no Lawzilla endpoint or API key stored"
+    }
   },
   {
     "original_question_id": "f55a3384d71fcd9b",
@@ -781,7 +794,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "47f733ca36117816",
@@ -866,6 +880,7 @@
       "間違い",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   }
 ]
