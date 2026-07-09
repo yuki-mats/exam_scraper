@@ -700,7 +700,7 @@
         "answer": "正しい。業務用換気警報器には、温度・湿度や一酸化炭素以外のガスの影響を受けにくく、CO検知に適した電気化学式センサーが用いられる。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [
       "警報器に関する記述の正誤を、ガス検知方式・警報設定濃度・CO警報器・業務用換気警報器の仕様で確認する。"
     ],
@@ -737,6 +737,293 @@
       "間違い",
       "正しい",
       "正しい"
+    ],
+    "questionIntent": "select_incorrect",
+    "answer_result_text": "",
+    "isLawRelated": true,
+    "lawReferences": [
+      [],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "施行規則",
+          "referenceDate": "2026-07-09",
+          "article": "202",
+          "articleTitle": "消費機器の技術上の基準",
+          "paragraph": "1",
+          "item": "十",
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "articleTextHash": "c17edaae86e4016a583e098582f6dbf3eccade8ef83747df9ba617ded9d31309",
+          "itemTextHash": "bdfef4f4dfa7fbf6c9282b4d5138d5b56b6c4bd951fcad1e25343dcefb6cfd59",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "comparisonStatus": "same_as_current",
+          "relation": "enabling_basis_for_notice",
+          "primaryBasis": true,
+          "elm": "ln202.1.10",
+          "rootArticleElm": "ln202",
+          "reason": "ガス事業法施行規則第202条第1項第10号は、対象燃焼器に告示で定める規格に適合するガス漏れ警報器を告示で定める方法により設けることを定めている。",
+          "choiceIndex": 2
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "lawId": "平成十二年通商産業省告示第五百七十八号",
+          "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
+          "lawAlias": "ガス漏れ警報器告示",
+          "referenceDate": "2026-07-09",
+          "article": "2",
+          "articleTitle": "ガス漏れ警報器の規格",
+          "paragraph": "25",
+          "item": "二十五",
+          "verificationStatus": "verified",
+          "source": "meti_pdf",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihouki_20190701kaisei.pdf",
+          "apiUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihouki_20190701kaisei.pdf",
+          "articleTextHash": "72de130923a7e534c268457e41c37eabe6371d4d060b84c3f2542ba811151ded",
+          "sourceExcerptHash": "21a1c6608da9ed3f0c8c0d9f808df957a46a0b51fab13c4223b93b6ae5e5bc4d",
+          "rawPdfHash": "3db2e364a17d775986ca40d93d3da91c2ae031f052b56b0e1cb09f46b04d0fc8",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "elm": "notice-article2-item25",
+          "rootArticleElm": "notice-article2",
+          "reason": "告示第2条第25号は、ガスの濃度が爆発下限界の四分の一以上のときに確実に作動し、二百分の一以下のときに作動しないことを規格として定めている。",
+          "choiceIndex": 2
+        }
+      ],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:25:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-pdf-20260709_202500_q27",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_202500_q27:choice1",
+        "evidenceBindingHash": "3c58760103431a9b405e1f55536689c7f4f8d360ebf74480f183cc6b1eebc81d",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "この選択肢はガス警報器等の技術的性質を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "接触燃焼式の検知回路出力特性を問う技術知識であり、条文適合性の直接判断を要しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。接触燃焼式ガス警報器は、可燃性ガスが触媒上で燃焼すると検知素子の温度・抵抗が変化し、ブリッジ等の検知回路出力がガス濃度にほぼ比例する性質を利用する。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "技術知識の解説を維持し、法令根拠を無理に付与しない。",
+          "displayRefIds": [],
+          "refs": []
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:25:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-pdf-20260709_202500_q27",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_202500_q27:choice2",
+        "evidenceBindingHash": "5d454b1fe180d8307ccf0878c4c3591f1a243a010b0bf37b0febd280d51e5fda",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "この選択肢はガス警報器等の技術的性質を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "熱線型半導体式センサーの濃度応答特性を問う技術知識であり、条文適合性の直接判断を要しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。熱線型半導体式ガス警報器のセンサーは、低濃度域のガスに比較的敏感で、ガス濃度が高くなるにつれて検知回路の出力上昇が緩やかになる。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "技術知識の解説を維持し、法令根拠を無理に付与しない。",
+          "displayRefIds": [],
+          "refs": []
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:25:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-pdf-20260709_202500_q27",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_202500_q27:choice3",
+        "evidenceBindingHash": "5a4ca7ed0199b565182db8f331f5d10eebb8252b047386ed0788a8ce38eee11e",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "平成十二年通商産業省告示第五百七十八号",
+          "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
+          "article": "2",
+          "paragraph": "25",
+          "item": "二十五",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "72de130923a7e534c268457e41c37eabe6371d4d060b84c3f2542ba811151ded",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/keihouki_20190701kaisei.pdf"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行のMETI告示では、ガス漏れ警報器は爆発下限界の四分の一以上で確実に作動することが求められる。",
+          "設問の「爆発下限界の1/10のときに確実に作動する」は現行告示の直接根拠と一致しないため、既存の「間違い」判定は妥当である。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は高圧ガス保安法に寄っており、この肢の直接根拠としては不適切だった。",
+          "ガス事業法施行規則第202条第1項第10号を告示への根拠条文、METI告示第2条第25号を作動濃度の直接根拠として確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。可燃性ガス用のガス警報器は、爆発下限界の1/4以上で確実に作動することが求められる。設問のように「爆発下限界の1/10のときに確実に作動する」とする記述が誤り。",
+          "differenceSummary": "出題当時条文は未固定。現行告示本文では既存の正誤・解説と一致。",
+          "promptContext": "ガス警報器の作動濃度が爆発下限界の1/10ではなく四分の一以上である点に限定して説明する。",
+          "displayRefIds": [
+            "current:345M50000400097:202:1",
+            "current:平成十二年通商産業省告示第五百七十八号:2:25"
+          ],
+          "refs": [
+            {
+              "refId": "current:345M50000400097:202:1",
+              "lawTimeScope": "current",
+              "relation": "enabling_basis_for_notice",
+              "primaryBasis": true,
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "elm": "ln202.1.10",
+              "rootArticleElm": "ln202",
+              "article": "202",
+              "paragraph": "1",
+              "articleTextHash": "c17edaae86e4016a583e098582f6dbf3eccade8ef83747df9ba617ded9d31309",
+              "textHash": "c17edaae86e4016a583e098582f6dbf3eccade8ef83747df9ba617ded9d31309",
+              "item": "十"
+            },
+            {
+              "refId": "current:平成十二年通商産業省告示第五百七十八号:2:25",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "平成十二年通商産業省告示第五百七十八号",
+              "lawTitle": "ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法",
+              "elm": "notice-article2-item25",
+              "rootArticleElm": "notice-article2",
+              "article": "2",
+              "paragraph": "25",
+              "articleTextHash": "72de130923a7e534c268457e41c37eabe6371d4d060b84c3f2542ba811151ded",
+              "textHash": "72de130923a7e534c268457e41c37eabe6371d4d060b84c3f2542ba811151ded",
+              "item": "二十五"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:25:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-pdf-20260709_202500_q27",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_202500_q27:choice4",
+        "evidenceBindingHash": "59a3fd240ee5ef67124da7e5131c26520e5457a1dddc564461e8717d99640ffe",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "この選択肢はガス警報器等の技術的性質を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "CO警報器の酸化スズ半導体センサーとヒートクリーニングを問う技術知識であり、条文適合性の直接判断を要しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。酸化スズ半導体センサーを用いるCO警報器では、センサー表面の汚染等による感度低下を抑えるため、間欠的に高温加熱するヒートクリーニングを行う。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "技術知識の解説を維持し、法令根拠を無理に付与しない。",
+          "displayRefIds": [],
+          "refs": []
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:25:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-pdf-20260709_202500_q27",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q27_alarm_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_202500_q27:choice5",
+        "evidenceBindingHash": "f887474eb87eacc9687f7167daabceed84a289ddc795acb1c16cf97fff011b66",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "この選択肢はガス警報器等の技術的性質を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "業務用換気警報器の電気化学式センサーの特徴を問う技術知識であり、条文適合性の直接判断を要しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。業務用換気警報器には、温度・湿度や一酸化炭素以外のガスの影響を受けにくく、CO検知に適した電気化学式センサーが用いられる。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "技術知識の解説を維持し、法令根拠を無理に付与しない。",
+          "displayRefIds": [],
+          "refs": []
+        }
+      }
     ]
   }
 ]
