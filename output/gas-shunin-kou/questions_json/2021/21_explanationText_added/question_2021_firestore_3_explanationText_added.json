@@ -67,7 +67,16 @@
       "間違い",
       "間違い",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false,
+    "lawzillaWorkflowReview": {
+      "reviewedAt": "2026-07-09T23:58:00+09:00",
+      "reviewRunId": "20260709_235800_kou2021_year",
+      "classification": "non_law_technical_or_foundation_problem_after_lawzilla_candidate_review",
+      "reason": "法令キーワード又はLawzilla候補はあるが、2021甲種の技術・基礎科目として、既存解説の正誤は技術知識・Firestore snapshot確認で足りる。未検証の条文をlawReferencesへ付けない。",
+      "sourceConflictHandling": "preserve_firestore_snapshot_after_review",
+      "secretHandling": "no Lawzilla endpoint or API key stored"
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-C-10104,chiefgasengineerlicense-C-10105,chiefgasengineerlicense-C-10106,chiefgasengineerlicense-C-10107,chiefgasengineerlicense-C-10108",
@@ -355,7 +364,16 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false,
+    "lawzillaWorkflowReview": {
+      "reviewedAt": "2026-07-09T23:58:00+09:00",
+      "reviewRunId": "20260709_235800_kou2021_year",
+      "classification": "non_law_technical_or_foundation_problem_after_lawzilla_candidate_review",
+      "reason": "法令キーワード又はLawzilla候補はあるが、2021甲種の技術・基礎科目として、既存解説の正誤は技術知識・Firestore snapshot確認で足りる。未検証の条文をlawReferencesへ付けない。",
+      "sourceConflictHandling": "preserve_firestore_snapshot_after_review",
+      "secretHandling": "no Lawzilla endpoint or API key stored"
+    }
   },
   {
     "original_question_id": "firestore:gasushunin-koushu-kiso-2021-5-1,gasushunin-koushu-kiso-2021-5-2,chiefgasengineerlicense-C-10086,gasushunin-koushu-kiso-2021-5-4,gasushunin-koushu-kiso-2021-5-5",
