@@ -462,11 +462,11 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_1.json",
     "explanationText": [
-      "間違い。工事計画箇所に他埋設物がある場合に施工通知を行い保安措置等を協議する相手は、道路使用を許可した所轄警察署ではなく他埋設物管理者であるため、記述は誤りである。",
-      "正しい。一定規模以上の掘削工事で発生するアスファルト・コンクリート等は、特定建設資材廃棄物として事前届出や再資源化等の義務の対象となる。",
-      "間違い。多数の揚水管を打ち込み、集水管を通して真空ポンプで揚水し地下水位を下げる工法はウェルポイント工法であり、重力排水法とする記述は誤りである。",
-      "間違い。中圧以上の導管でも、非破壊検査で健全性が確認できる場合など条件を満たすと耐圧試験を要しない場合があるため、すべての導管に耐圧試験が必須とする記述は誤りである。",
-      "間違い。ガス検知器による気密試験では、ガス濃度が0.2%以下で作動するガス検知器を使用するため、0.5%以下で作動するとする記述は誤りである。"
+      "間違い。工事計画箇所に他埋設物・他埋設設備がある場合、施工通知と保安措置等の協議を行う相手は、道路使用を許可した所轄警察署ではなく、上下水道・電気・通信等の他埋設物管理者である。警察署は道路使用許可の相手方であり、埋設物の保安措置協議先ではない。",
+      "正しい。建設リサイクル法では、アスファルト・コンクリートは特定建設資材に含まれ、対象建設工事では発注者等の事前届出と、対象建設工事受注者による特定建設資材廃棄物の再資源化等が求められる。",
+      "間違い。数メートル間隔で多数の揚水管を打ち込み、集水管を通して真空ポンプで揚水し地下水位を下げる工法はウェルポイント工法であり、重力排水法とする記述は誤りである。",
+      "間違い。ガス工作物技術基準省令第15条第2項は耐圧部分等の耐圧試験を定めるが、同項ただし書には非破壊試験に合格した溶接導管や、延長15m未満の高圧・中圧導管等の例外がある。「最高使用圧力が中圧以上のすべての導管」と断定する点が誤りである。",
+      "間違い。ガス検知器による気密試験では、METIのガス工作物技術基準の解釈例第51条第2項第2号で、試験に用いるガスの濃度が0.2%以下で作動するガス検知器を用いる方法が示されている。0.5%以下で作動する検知器とする記述は誤りである。"
     ],
     "suggestedQuestions": [
       "工事計画箇所に他埋設設備がある場合、道路使用を許可した所轄警察署へ施工通知を行い、保安措置等について協議を行う。",
@@ -478,43 +478,43 @@
     "suggestedQuestionDetails": [
       {
         "question": "工事計画箇所に他埋設設備がある場合、道路使用を許可した所轄警察署へ施工通知を行い、保安措置等について協議を行う。",
-        "answer": "間違い。工事計画箇所に他埋設物がある場合に施工通知を行い保安措置等を協議する相手は、道路使用を許可した所轄警察署ではなく他埋設物管理者であるため、記述は誤りである。"
+        "answer": "間違い。工事計画箇所に他埋設物・他埋設設備がある場合、施工通知と保安措置等の協議を行う相手は、道路使用を許可した所轄警察署ではなく、上下水道・電気・通信等の他埋設物管理者である。警察署は道路使用許可の相手方であり、埋設物の保安措置協議先ではない。"
       },
       {
         "question": "一定規模以上の掘削工事で発生するアスファルト・コンクリート等については、事前届出及び再資源化義務が課せられる。",
-        "answer": "正しい。一定規模以上の掘削工事で発生するアスファルト・コンクリート等は、特定建設資材廃棄物として事前届出や再資源化等の義務の対象となる。"
+        "answer": "正しい。建設リサイクル法では、アスファルト・コンクリートは特定建設資材に含まれ、対象建設工事では発注者等の事前届出と、対象建設工事受注者による特定建設資材廃棄物の再資源化等が求められる。"
       },
       {
         "question": "重力排水法とは、数メートル間隔で多数の揚水管を打ち込んで集水管を通して真空ポンプで揚水し、地下水位を下げる工法である。",
-        "answer": "間違い。多数の揚水管を打ち込み、集水管を通して真空ポンプで揚水し地下水位を下げる工法はウェルポイント工法であり、重力排水法とする記述は誤りである。"
+        "answer": "間違い。数メートル間隔で多数の揚水管を打ち込み、集水管を通して真空ポンプで揚水し地下水位を下げる工法はウェルポイント工法であり、重力排水法とする記述は誤りである。"
       },
       {
         "question": "最高使用圧力が中圧以上のすべての導管は、耐圧試験を行い合格しなければならない。",
-        "answer": "間違い。中圧以上の導管でも、非破壊検査で健全性が確認できる場合など条件を満たすと耐圧試験を要しない場合があるため、すべての導管に耐圧試験が必須とする記述は誤りである。"
+        "answer": "間違い。ガス工作物技術基準省令第15条第2項は耐圧部分等の耐圧試験を定めるが、同項ただし書には非破壊試験に合格した溶接導管や、延長15m未満の高圧・中圧導管等の例外がある。「最高使用圧力が中圧以上のすべての導管」と断定する点が誤りである。"
       },
       {
         "question": "ガス検知器による気密試験を行う場合、ガス濃度が0.5%以下で作動するガス検知器を使用し、ガス検知器が作動しないことにより判定する。",
-        "answer": "間違い。ガス検知器による気密試験では、ガス濃度が0.2%以下で作動するガス検知器を使用するため、0.5%以下で作動するとする記述は誤りである。"
+        "answer": "間違い。ガス検知器による気密試験では、METIのガス工作物技術基準の解釈例第51条第2項第2号で、試験に用いるガスの濃度が0.2%以下で作動するガス検知器を用いる方法が示されている。0.5%以下で作動する検知器とする記述は誤りである。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
       [
-        "間違い。工事計画箇所に他埋設物がある場合に施工通知を行い保安措置等を協議する相手は、道路使用を許可した所轄警察署ではなく他埋設物管理者であるため、記述は誤りである。"
+        "間違い。工事計画箇所に他埋設物・他埋設設備がある場合、施工通知と保安措置等の協議を行う相手は、道路使用を許可した所轄警察署ではなく、上下水道・電気・通信等の他埋設物管理者である。警察署は道路使用許可の相手方であり、埋設物の保安措置協議先ではない。"
       ],
       [
-        "正しい。一定規模以上の掘削工事で発生するアスファルト・コンクリート等は、特定建設資材廃棄物として事前届出や再資源化等の義務の対象となる。"
+        "正しい。建設リサイクル法では、アスファルト・コンクリートは特定建設資材に含まれ、対象建設工事では発注者等の事前届出と、対象建設工事受注者による特定建設資材廃棄物の再資源化等が求められる。"
       ],
       [
-        "間違い。多数の揚水管を打ち込み、集水管を通して真空ポンプで揚水し地下水位を下げる工法はウェルポイント工法であり、重力排水法とする記述は誤りである。"
+        "間違い。数メートル間隔で多数の揚水管を打ち込み、集水管を通して真空ポンプで揚水し地下水位を下げる工法はウェルポイント工法であり、重力排水法とする記述は誤りである。"
       ],
       [
-        "間違い。中圧以上の導管でも、非破壊検査で健全性が確認できる場合など条件を満たすと耐圧試験を要しない場合があるため、すべての導管に耐圧試験が必須とする記述は誤りである。"
+        "間違い。ガス工作物技術基準省令第15条第2項は耐圧部分等の耐圧試験を定めるが、同項ただし書には非破壊試験に合格した溶接導管や、延長15m未満の高圧・中圧導管等の例外がある。「最高使用圧力が中圧以上のすべての導管」と断定する点が誤りである。"
       ],
       [
-        "間違い。ガス検知器による気密試験では、ガス濃度が0.2%以下で作動するガス検知器を使用するため、0.5%以下で作動するとする記述は誤りである。"
+        "間違い。ガス検知器による気密試験では、METIのガス工作物技術基準の解釈例第51条第2項第2号で、試験に用いるガスの濃度が0.2%以下で作動するガス検知器を用いる方法が示されている。0.5%以下で作動する検知器とする記述は誤りである。"
       ]
     ],
     "sourceExplanationChoiceCorrectness": [
@@ -530,7 +530,494 @@
       "重力排水法とは、数メートル間隔で多数の揚水管を打ち込んで集水管を通して真空ポンプで揚水し、地下水位を下げる工法である。",
       "最高使用圧力が中圧以上のすべての導管は、耐圧試験を行い合格しなければならない。",
       "ガス検知器による気密試験を行う場合、ガス濃度が0.5%以下で作動するガス検知器を使用し、ガス検知器が作動しないことにより判定する。"
-    ]
+    ],
+    "answer_result_text": "誤っているものは 4 つです。",
+    "isLawRelated": true,
+    "lawReferences": [
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412AC0000000104",
+          "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+          "lawAlias": "建設リサイクル法",
+          "referenceDate": "2026-07-10",
+          "article": "2",
+          "paragraph": "5・6・8",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=2",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=2",
+          "articleTextHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20",
+          "rawXmlHash": "de95f897279f9678dce9dfe844e93d7af189472c73b01d29534f58b9e9629bcb",
+          "comparisonStatus": "same_as_current",
+          "relation": "definition",
+          "primaryBasis": false,
+          "reason": "特定建設資材及び特定建設資材廃棄物、再資源化等の定義を確認する。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412CO0000000495",
+          "lawTitle": "建設工事に係る資材の再資源化等に関する法律施行令",
+          "lawAlias": "建設リサイクル法施行令",
+          "referenceDate": "2026-07-10",
+          "article": "1",
+          "paragraph": null,
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412CO0000000495;article=1",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412CO0000000495;article=1",
+          "articleTextHash": "6b757048a31f6282947e1f8286ad35e62a2b22ac12cb0beaba8f53be9ba6e013",
+          "rawXmlHash": "fb5ed6bd9636f679d4615451475df1aae8f281813538cbd881ab8cce26cfd767",
+          "comparisonStatus": "same_as_current",
+          "relation": "definition_detail",
+          "primaryBasis": false,
+          "reason": "アスファルト・コンクリートが特定建設資材に含まれることを確認する。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412AC0000000104",
+          "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+          "lawAlias": "建設リサイクル法",
+          "referenceDate": "2026-07-10",
+          "article": "10",
+          "paragraph": "1",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=10",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=10",
+          "articleTextHash": "2dcda17b97cb9459459485626150360ec596e8aa1efc80160ff9d46029a9f10c",
+          "rawXmlHash": "5e3a3bda1d895d3edca99849ce060f9add4b025b43a9688e2a19f5024195d0ec",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "対象建設工事の発注者又は自主施工者に工事着手7日前までの届出義務がある。"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "lawId": "412AC0000000104",
+          "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+          "lawAlias": "建設リサイクル法",
+          "referenceDate": "2026-07-10",
+          "article": "16",
+          "paragraph": "1",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=16",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=16",
+          "articleTextHash": "f5f9722e8b48eded4ea4202f830ee2d6d89e85ef9e5bcd51e96a330ea87f4240",
+          "rawXmlHash": "fdfb854448a3801db65b636277dbc84daadd434761ae865dd777dee5fb173ac0",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis",
+          "primaryBasis": true,
+          "reason": "対象建設工事受注者に特定建設資材廃棄物の再資源化義務がある。"
+        }
+      ],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "ガス工作物技術基準省令",
+          "referenceDate": "2026-07-10",
+          "article": "15",
+          "paragraph": "2",
+          "item": "1・2",
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
+          "comparisonStatus": "same_as_current",
+          "relation": "direct_basis_with_exceptions",
+          "primaryBasis": true,
+          "reason": "耐圧部分等の耐圧試験義務を定めつつ、非破壊試験合格の溶接導管や延長15m未満の高圧・中圧導管等の例外を置く。"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "ガス工作物技術基準省令",
+          "referenceDate": "2026-07-10",
+          "article": "15",
+          "paragraph": "3",
+          "item": null,
+          "subitem": null,
+          "verificationStatus": "verified",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
+          "comparisonStatus": "same_as_current",
+          "relation": "legal_framework",
+          "primaryBasis": true,
+          "reason": "ガス又は液化ガスを通ずる部分は適切な方法による気密試験で漏えいがないことを求める。ガス検知器0.2%条件はMETI解釈例第51条第2項第2号で補完確認する。"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "choiceIndex": 1,
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T11:01:46+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_000500_q15",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "lawzilla_candidate_misdirected_to_gas_pipeline_excavation_replaced_with_construction_recycling_law",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412AC0000000104",
+          "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+          "article": "2",
+          "paragraph": "5・6・8",
+          "item": null,
+          "subitem": null,
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412AC0000000104;article=2"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補はガス工作物技術基準省令第54条・第55条の導管掘削へ寄ったが、選択肢の「アスファルト・コンクリート等」「事前届出」「再資源化義務」は建設リサイクル法第10条・第16条及び同施行令第1条を直接根拠とする。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "source conflict ledger lines 318-319は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。建設リサイクル法では、アスファルト・コンクリートは特定建設資材に含まれ、対象建設工事では発注者等の事前届出と、対象建設工事受注者による特定建設資材廃棄物の再資源化等が求められる。",
+          "differenceSummary": "出題当時条文は未固定。現行法令・補完技術資料では既存正誤と一致。",
+          "promptContext": "q15は法令・施工実務・土木工法が混在するため、条文に直接載る事項と補助技術資料で確認する事項を分離した。",
+          "displayRefIds": [
+            "current:412AC0000000104:2:5・6・8::",
+            "current:412CO0000000495:1:::",
+            "current:412AC0000000104:10:1::",
+            "current:412AC0000000104:16:1::"
+          ],
+          "refs": [
+            {
+              "refId": "current:412AC0000000104:2:5・6・8::",
+              "lawTimeScope": "current",
+              "relation": "definition",
+              "primaryBasis": false,
+              "lawId": "412AC0000000104",
+              "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+              "article": "2",
+              "paragraph": "5・6・8",
+              "item": null,
+              "subitem": null,
+              "articleTextHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20",
+              "textHash": "7abe80542650ee9228b2f46bc189277339d94e7d158c7384e30eda2a63225c20"
+            },
+            {
+              "refId": "current:412CO0000000495:1:::",
+              "lawTimeScope": "current",
+              "relation": "definition_detail",
+              "primaryBasis": false,
+              "lawId": "412CO0000000495",
+              "lawTitle": "建設工事に係る資材の再資源化等に関する法律施行令",
+              "article": "1",
+              "paragraph": null,
+              "item": null,
+              "subitem": null,
+              "articleTextHash": "6b757048a31f6282947e1f8286ad35e62a2b22ac12cb0beaba8f53be9ba6e013",
+              "textHash": "6b757048a31f6282947e1f8286ad35e62a2b22ac12cb0beaba8f53be9ba6e013"
+            },
+            {
+              "refId": "current:412AC0000000104:10:1::",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412AC0000000104",
+              "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+              "article": "10",
+              "paragraph": "1",
+              "item": null,
+              "subitem": null,
+              "articleTextHash": "2dcda17b97cb9459459485626150360ec596e8aa1efc80160ff9d46029a9f10c",
+              "textHash": "2dcda17b97cb9459459485626150360ec596e8aa1efc80160ff9d46029a9f10c"
+            },
+            {
+              "refId": "current:412AC0000000104:16:1::",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "412AC0000000104",
+              "lawTitle": "建設工事に係る資材の再資源化等に関する法律",
+              "article": "16",
+              "paragraph": "1",
+              "item": null,
+              "subitem": null,
+              "articleTextHash": "f5f9722e8b48eded4ea4202f830ee2d6d89e85ef9e5bcd51e96a330ea87f4240",
+              "textHash": "f5f9722e8b48eded4ea4202f830ee2d6d89e85ef9e5bcd51e96a330ea87f4240"
+            }
+          ]
+        },
+        "supplementalTechnicalEvidence": [
+          {
+            "choiceIndex": 1,
+            "sourceLabel": "日本ガス協会 供給管・内管指針（工事編）関連資料",
+            "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20170301_03.pdf",
+            "use": "建設リサイクル法に基づく一定規模以上工事の事前届出と再資源化等義務を実務資料でも補完確認。",
+            "authority": "industry_guideline_public_material",
+            "lineRange": "L251-L258"
+          }
+        ]
+      },
+      {
+        "choiceIndex": 3,
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T11:01:46+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_000500_q15",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "lawzilla_broad_pressure_hits_needed_article15_exception_review",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "1・2",
+          "subitem": null,
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則の圧力定義など広いヒットに寄ったため、ガス工作物技術基準省令第15条第2項ただし書とMETI解釈例第50条で例外構造を確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "source conflict ledger lines 318-319は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス工作物技術基準省令第15条第2項は耐圧部分等の耐圧試験を定めるが、同項ただし書には非破壊試験に合格した溶接導管や、延長15m未満の高圧・中圧導管等の例外がある。「最高使用圧力が中圧以上のすべての導管」と断定する点が誤りである。",
+          "differenceSummary": "出題当時条文は未固定。現行法令・補完技術資料では既存正誤と一致。",
+          "promptContext": "q15は法令・施工実務・土木工法が混在するため、条文に直接載る事項と補助技術資料で確認する事項を分離した。",
+          "displayRefIds": [
+            "current:412M50000400111:15:2:1・2:"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:15:2:1・2:",
+              "lawTimeScope": "current",
+              "relation": "direct_basis_with_exceptions",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "15",
+              "paragraph": "2",
+              "item": "1・2",
+              "subitem": null,
+              "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+              "textHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
+            }
+          ]
+        },
+        "supplementalTechnicalEvidence": [
+          {
+            "choiceIndex": 3,
+            "sourceLabel": "ガス工作物技術基準の解釈例（METI、令和5年2月8日改正）",
+            "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+            "use": "解釈例第50条で耐圧試験の具体方法及び構造上困難な場合の非破壊試験等を補完確認。",
+            "authority": "official_meti_technical_interpretation",
+            "lineRange": "L1520-L1560"
+          }
+        ]
+      },
+      {
+        "choiceIndex": 4,
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T11:01:46+09:00",
+        "nextAuditDueAt": "2027-07-10",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
+        "lawCorpusSnapshotId": "egov-api-v1-20260710_000500_q15",
+        "primaryAuditRunId": "20260709_011000_gas_shunin_P1_lawzilla_candidates_plus_egov_direct_basis",
+        "secondaryAuditRunId": "20260710_gas_shunin_kou_2022_q15_secondary_review",
+        "reconciliationStatus": "lawzilla_found_article15_framework_but_needed_meti_interpretation_for_0_2_percent",
+        "sourceVariant": "firestore_statement_set",
+        "reviewQuestionId": "firestore:chiefgasengineerlicense-A-80-1190,chiefgasengineerlicense-A-80-1191,chiefgasengineerlicense-A-80-1192,chiefgasengineerlicense-A-80-1193,chiefgasengineerlicense-A-80-1194",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_original_answer"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "3",
+          "item": null,
+          "subitem": null,
+          "referenceDate": "2026-07-10",
+          "verificationStatus": "verified",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行法令・補完技術資料と既存の正誤・解説は矛盾しない。"
+        ],
+        "notes": [
+          "Lawzilla候補のガス工作物技術基準省令第15条第3項は気密試験の法令枠として有用。ただし、0.2%以下のガス検知器条件はe-Gov省令本文ではなくMETI解釈例第51条第2項第2号で補完確認した。",
+          "既存Firestore本文、statement-level document IDs、正誤情報を維持し、00_sourceは変更しない。",
+          "source conflict ledger lines 318-319は文言差・改行差として確認済みで、Firestore版をアップロード権威として扱う。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。ガス検知器による気密試験では、METIのガス工作物技術基準の解釈例第51条第2項第2号で、試験に用いるガスの濃度が0.2%以下で作動するガス検知器を用いる方法が示されている。0.5%以下で作動する検知器とする記述は誤りである。",
+          "differenceSummary": "出題当時条文は未固定。現行法令・補完技術資料では既存正誤と一致。",
+          "promptContext": "q15は法令・施工実務・土木工法が混在するため、条文に直接載る事項と補助技術資料で確認する事項を分離した。",
+          "displayRefIds": [
+            "current:412M50000400111:15:3::"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:15:3::",
+              "lawTimeScope": "current",
+              "relation": "legal_framework",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "15",
+              "paragraph": "3",
+              "item": null,
+              "subitem": null,
+              "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+              "textHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2"
+            }
+          ]
+        },
+        "supplementalTechnicalEvidence": [
+          {
+            "choiceIndex": 4,
+            "sourceLabel": "ガス工作物技術基準の解釈例（METI、令和5年2月8日改正）",
+            "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+            "use": "解釈例第51条第2項第2号で、試験ガス濃度0.2%以下で作動するガス検知器を用いることを補完確認。",
+            "authority": "official_meti_technical_interpretation",
+            "lineRange": "L1561-L1606"
+          }
+        ]
+      }
+    ],
+    "supplementalTechnicalEvidence": [
+      {
+        "choiceIndex": 0,
+        "sourceLabel": "地下埋設物の事故防止マニュアル（中部地方整備局）",
+        "sourceUrl": "https://www.cbr.mlit.go.jp/architecture/kensetsugijutsu/pdf/r0210_manual.pdf",
+        "use": "埋設物に近接して掘削する場合は、発注者及び埋設物管理者とあらかじめ協議し、保安に必要な措置を講じることを補完確認。",
+        "authority": "official_mlit_manual",
+        "lineRange": "L240-L244"
+      },
+      {
+        "choiceIndex": 0,
+        "sourceLabel": "日本ガス協会 供給管・内管指針（工事編）関連資料",
+        "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20170301_03.pdf",
+        "use": "警察署等の道路使用許可と他埋設物管理者への連絡が別項目で整理されていることを補完確認。",
+        "authority": "industry_guideline_public_material",
+        "lineRange": "L234-L245"
+      },
+      {
+        "choiceIndex": 1,
+        "sourceLabel": "日本ガス協会 供給管・内管指針（工事編）関連資料",
+        "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20170301_03.pdf",
+        "use": "建設リサイクル法に基づく一定規模以上工事の事前届出と再資源化等義務を実務資料でも補完確認。",
+        "authority": "industry_guideline_public_material",
+        "lineRange": "L251-L258"
+      },
+      {
+        "choiceIndex": 2,
+        "sourceLabel": "極東建設 土木用語集 ウェルポイント工法",
+        "sourceUrl": "https://www.kyokuto-k.co.jp/glossary/03u/009.html",
+        "use": "数メートル間隔の揚水管、集水管、真空ポンプで地下水位を下げる工法がウェルポイント工法であることを補完確認。",
+        "authority": "technical_glossary"
+      },
+      {
+        "choiceIndex": 3,
+        "sourceLabel": "ガス工作物技術基準の解釈例（METI、令和5年2月8日改正）",
+        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+        "use": "解釈例第50条で耐圧試験の具体方法及び構造上困難な場合の非破壊試験等を補完確認。",
+        "authority": "official_meti_technical_interpretation",
+        "lineRange": "L1520-L1560"
+      },
+      {
+        "choiceIndex": 4,
+        "sourceLabel": "ガス工作物技術基準の解釈例（METI、令和5年2月8日改正）",
+        "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+        "use": "解釈例第51条第2項第2号で、試験ガス濃度0.2%以下で作動するガス検知器を用いることを補完確認。",
+        "authority": "official_meti_technical_interpretation",
+        "lineRange": "L1561-L1606"
+      }
+    ],
+    "lawzillaMcpReview": {
+      "reviewedAt": "2026-07-09T11:01:46+09:00",
+      "reviewStatus": "secondary_verified_with_primary_and_supplemental_sources",
+      "lawzillaCandidateSource": "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260709_011000_gas_shunin_P1_40_lawzilla_candidates.jsonl:31-35",
+      "practicalVerdict": "usable_as_hint_not_sufficient_alone",
+      "impactOnExistingSearch": "needs_domain_and_law_family_routing",
+      "feedbackForSearchImprovement": [
+        "「掘削 導管」だけでは建設リサイクル法の届出・再資源化義務へ到達しにくいため、アスファルト・コンクリート、特定建設資材、再資源化、届出を検索語に含める。",
+        "耐圧試験は圧力定義ではなくガス工作物技術基準省令第15条第2項及び解釈例第50条を優先する。",
+        "気密試験のガス検知器条件は省令第15条第3項だけでなくMETI解釈例第51条第2項第2号まで辿る。",
+        "施工実務・土木工法はe-Gov法令本文と分離し、補助技術資料が必要な候補として扱う。"
+      ]
+    }
   },
   {
     "original_question_id": "firestore:chiefgasengineerlicense-A-80-1195,chiefgasengineerlicense-A-80-1196,chiefgasengineerlicense-A-80-1197,chiefgasengineerlicense-A-80-1198,chiefgasengineerlicense-A-80-1199",
