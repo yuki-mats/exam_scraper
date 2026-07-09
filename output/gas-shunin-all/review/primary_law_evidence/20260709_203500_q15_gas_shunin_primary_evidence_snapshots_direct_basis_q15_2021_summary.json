@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "gas-shunin-primary-evidence-summary/v1",
+  "generatedAt": "2026-07-09T20:35:00+09:00",
+  "target": "gas-shunin-otsu 2021 問15 ad42521191d4f26c",
+  "source": "e-Gov Law API XML + METI official interpretation excerpt",
+  "directBasis": [
+    "ガス工作物技術基準省令 第15条第3項",
+    "ガス工作物技術基準の解釈例 第51条第2項第2号",
+    "道路交通法 第77条第1項第1号",
+    "道路法 第32条第1項第2号"
+  ],
+  "technicalChoices": [
+    1,
+    2,
+    3
+  ],
+  "lawChoices": [
+    4,
+    5
+  ],
+  "rawXmlPaths": [
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_203500_q15/412M50000400111_15_11b1c21b8b79da57.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_203500_q15/335AC0000000105_77_c9867973f64550dc.xml",
+    "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260709_203500_q15/327AC1000000180_32_0460eb80a814fca8.xml"
+  ],
+  "interpretationExcerptPath": "output/gas-shunin-all/review/primary_law_evidence/raw_text/20260709_203500_q15/gas_technical_interpretation_article51_a4fbb68f88a71b33.txt",
+  "interpretationPdfHash": "d78e4db895f1b551edcf559763d7221a70d4bfab31dc9ab5f0229c88d1be80e7",
+  "interpretationTextHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+  "lawzillaReconciliation": "Lawzilla候補は肢4のみ省令第15条の入口として有用。肢5は施行規則第1条に寄ったため道路交通法第77条・道路法第32条で補正。"
+}

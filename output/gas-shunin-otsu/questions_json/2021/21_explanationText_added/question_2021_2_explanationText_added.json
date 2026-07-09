@@ -561,7 +561,7 @@
         "answer": "正しい。軽質と重質の異種LNGを同一貯槽に受け入れる場合は、密度差による層状化がロールオーバーの原因となるため、受入方法を注意深く設定する必要がある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1107,7 +1107,7 @@
         "answer": "間違い。ステンレス鋼のすきま腐食では、すきま内に塩化物イオンが蓄積し、pH低下などによって不動態皮膜が破壊される。不動態が形成されるとしている点が誤りである。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
       "製造「製造設備の保安及び防災（乙種）」の保全、腐食、疲労、非破壊検査に関する複合問題。",
       "設問は「いずれも誤っているものの組合せ」を問うため、answer_result_textの番号は組合せ番号として扱い、各記述の正誤をstatement-levelで確認する。",
@@ -1283,7 +1283,7 @@
         "answer": "不正解。C点の追加需要によりA-C間の流量は400m³/hとなり、A-C間だけで0.4kPa低下する。さらにC-B間で0.1kPa低下するため、B点圧力は1.8kPaであり、1.9kPaでは高すぎる。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": null,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
       "供給「導管の工事（乙種）」の低圧導管における圧力損失計算が本問の関連論点。",
       "同一口径で高低差を考慮しない低圧導管では、圧力損失は延長と流量の2乗に比例する関係で比較できる。",
@@ -1666,7 +1666,7 @@
         "answer": "間違い。道路使用許可は道路を使用するために所轄警察署長から受ける許可であり、道路管理者から取得するものではない。道路管理者から取得するのは道路占用許可などである。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": true,
+    "lawGroundedExplanationNotNeeded": false,
     "sourceExplanationCommonPrefix": [],
     "sourceExplanationCommonSummary": [],
     "sourceExplanationChoiceSnippets": [
@@ -1682,6 +1682,387 @@
       null,
       null,
       null
+    ],
+    "questionIntent": "select_incorrect",
+    "answer_result_text": "",
+    "isLawRelated": true,
+    "lawReferences": [
+      [],
+      [],
+      [],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "lawAlias": "ガス工作物技術基準省令",
+          "article": "15",
+          "articleTitle": "構造等",
+          "paragraph": "3",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "articleTextHash": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
+          "relation": "enabling_basis_for_interpretation",
+          "elm": "ln15.3",
+          "rootArticleElm": "ln15",
+          "reason": "省令第15条第3項は、ガス又は液化ガスを通ずる部分について、適切な方法による気密試験で漏えいがないことを求めている。",
+          "choiceIndex": 3
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
+          "lawTitle": "ガス工作物技術基準の解釈例",
+          "lawAlias": "ガス工作物技術基準解釈例",
+          "article": "51",
+          "articleTitle": "気密試験",
+          "paragraph": "2",
+          "item": "二",
+          "source": "meti_pdf_excerpt",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "apiUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/20230210-01-02.pdf",
+          "articleTextHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+          "sourceExcerptHash": "a4fbb68f88a71b33e3919374d7a515c5d3e12622e5afbb01267d96dcefc5561d",
+          "rawPdfHash": "d78e4db895f1b551edcf559763d7221a70d4bfab31dc9ab5f0229c88d1be80e7",
+          "relation": "direct_interpretation_basis",
+          "elm": "interpretation-article51-2-2",
+          "rootArticleElm": "interpretation-article51",
+          "reason": "解釈例第51条第2項第2号は、試験に用いるガスの濃度が0.2パーセント以下で作動するガス検知器を使用し、当該検知器が作動しないことにより判定する方法を気密試験方法として示している。",
+          "choiceIndex": 3
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "335AC0000000105",
+          "lawTitle": "道路交通法",
+          "lawAlias": "道路交通法",
+          "article": "77",
+          "articleTitle": "道路の使用の許可",
+          "paragraph": "1",
+          "item": "一",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=335AC0000000105;article=77",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=335AC0000000105;article=77",
+          "articleTextHash": "a88a7902cb4ef697ba0b6759c50e8c10297ff58f942243de19b984841bfe1f73",
+          "rawXmlHash": "c9867973f64550dcf207efb0e44651e736d0f41c04b184b0b78b76a66aac03fd",
+          "relation": "direct_basis",
+          "elm": "ln77.1.1",
+          "rootArticleElm": "ln77",
+          "reason": "道路交通法第77条第1項第1号は、道路で工事又は作業をしようとする者等が、当該場所を管轄する警察署長の道路使用許可を受けなければならないと定めている。",
+          "choiceIndex": 4
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "primaryBasis": true,
+          "lawId": "327AC1000000180",
+          "lawTitle": "道路法",
+          "lawAlias": "道路法",
+          "article": "32",
+          "articleTitle": "道路の占用の許可",
+          "paragraph": "1",
+          "item": "二",
+          "source": "egov_xml",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=327AC1000000180;article=32",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=327AC1000000180;article=32",
+          "articleTextHash": "e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b",
+          "rawXmlHash": "0460eb80a814fca8a954fa4ee7fb67f8bd68c9923ce59fc337105247c58dd137",
+          "relation": "contrast_basis_for_road_administrator_permission",
+          "elm": "ln32.1.2",
+          "rootArticleElm": "ln32",
+          "reason": "道路法第32条第1項第2号は、道路にガス管等を設け継続して道路を使用する場合に道路管理者の占用許可を受けることを定めており、道路使用許可とは許可主体・制度が異なる。",
+          "choiceIndex": 4
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:35:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_203500_q15",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_203500_q15:choice1",
+        "evidenceBindingHash": "2d095dd1d6dbbbe91387c4ee2f51e7689eb99baef262624212fec591c550d65f",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "この選択肢は導管工事の施工技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "導管の機械的接合の使用対象を問う施工技術知識であり、条文適合性の直接判断を要しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。機械的接合は、主として鋳鉄管や口径80mm以下の小口径鋼管などで用いられる接合方法であり、記述は適切である。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "施工技術の解説を維持し、法令根拠を無理に付与しない。",
+          "displayRefIds": [],
+          "refs": []
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:35:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_203500_q15",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_203500_q15:choice2",
+        "evidenceBindingHash": "f25a7cf75008a05272693c66bd9b10df987023694bda92a3f98943f8466fb152",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "この選択肢は導管工事の施工技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "ポリエチレン管の融着接合方式を問う施工技術知識であり、条文適合性の直接判断を要しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。ポリエチレン管の融着接合には、加熱工具で接合面を溶かすヒートフュージョン接合と、電熱線入り継手を用いるエレクトロフュージョン接合がある。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "施工技術の解説を維持し、法令根拠を無理に付与しない。",
+          "displayRefIds": [],
+          "refs": []
+        }
+      },
+      {
+        "auditStatus": "not_law_related",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:35:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_203500_q15",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_203500_q15:choice3",
+        "evidenceBindingHash": "6c72b939518dd3a8deb9297d67fb8c4c16370c94293749893f23f6ca286ebbe8",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "この選択肢は導管工事の施工技術知識を問うもので、条文番号の直接照合対象ではない。",
+          "既存の正誤・解説は00_sourceのchoice-level correctnessと整合する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "架管の壁貫通部スリーブとシール材施工を問う施工技術知識であり、条文適合性の直接判断を要しない。"
+        ],
+        "evidenceSummary": {
+          "verdict": "not_law_related",
+          "explanationText": "正しい。架管が橋台等の壁を貫通する部分ではスリーブを設け、スリーブとガス管の隙間に弾力性のあるシール材を隙間なく充てんする施工が適切である。",
+          "differenceSummary": "法令改正差分の評価対象外。",
+          "promptContext": "施工技術の解説を維持し、法令根拠を無理に付与しない。",
+          "displayRefIds": [],
+          "refs": []
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:35:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_203500_q15",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_203500_q15:choice4",
+        "evidenceBindingHash": "5b21bee4b8fad907c367667cabebeae1abe497779101843afc7c9507855aa7cb",
+        "examTime": {
+          "correctChoiceText": "正しい",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "current": {
+          "correctChoiceText": "正しい",
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "3",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "現行省令第15条第3項は、ガス又は液化ガスを通ずる部分について適切な気密試験で漏えいがないことを求めている。",
+          "METI解釈例第51条第2項第2号は、0.2パーセント以下で作動するガス検知器による判定方法を示しており、既存の「正しい」判定と一致する。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は省令第15条を含み気密試験の入口として有用だったが、0.2パーセントの直接根拠はMETI解釈例第51条第2項第2号で補完した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "correct",
+          "explanationText": "正しい。ガス検知器による気密試験では、ガス濃度が0.2%以下で作動する検知器を使用し、検知器が作動しないことにより判定する扱いでよい。",
+          "differenceSummary": "出題当時条文は未固定。現行省令及び現行解釈例では既存の正誤・解説と一致。",
+          "promptContext": "気密試験で0.2パーセント以下作動のガス検知器を使い、作動しないことで判定できる点に限定して説明する。",
+          "displayRefIds": [
+            "current:412M50000400111:15:3",
+            "current:METI_GAS_TECH_INTERPRETATION_20230210:51:2:二"
+          ],
+          "refs": [
+            {
+              "refId": "current:412M50000400111:15:3",
+              "lawTimeScope": "current",
+              "relation": "enabling_basis_for_interpretation",
+              "primaryBasis": true,
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "elm": "ln15.3",
+              "rootArticleElm": "ln15",
+              "article": "15",
+              "paragraph": "3",
+              "articleTextHash": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+              "textHash": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb"
+            },
+            {
+              "refId": "current:METI_GAS_TECH_INTERPRETATION_20230210:51:2:二",
+              "lawTimeScope": "current",
+              "relation": "direct_interpretation_basis",
+              "primaryBasis": true,
+              "lawId": "METI_GAS_TECH_INTERPRETATION_20230210",
+              "lawTitle": "ガス工作物技術基準の解釈例",
+              "elm": "interpretation-article51-2-2",
+              "rootArticleElm": "interpretation-article51",
+              "article": "51",
+              "paragraph": "2",
+              "articleTextHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+              "textHash": "932235c77fc2b4b5cbed3014d2be5f4068beb21473ab9fc7bca8b015716f0a6c",
+              "item": "二"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "secondary_verified",
+        "auditedAt": "2026-07-09T20:35:00+09:00",
+        "nextAuditDueAt": "2027-07-09",
+        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "lawCorpusSnapshotId": "egov-and-meti-excerpt-20260709_203500_q15",
+        "primaryAuditRunId": "20260709_023000_gas_shunin_secondary_law_review_queue",
+        "secondaryAuditRunId": "20260709_gas_shunin_otsu_2021_q15_pipework_secondary_review",
+        "reconciliationStatus": "reconciled",
+        "sourceEvidenceVersionId": "primary_law_evidence/20260709_203500_q15:choice5",
+        "evidenceBindingHash": "9095bff35e5164be0e722e35c909057fac3c9bc5a1ab2d58282f83ba2846c1ec",
+        "examTime": {
+          "correctChoiceText": "間違い",
+          "verificationStatus": "from_2021_otsu_source_choice_correctness"
+        },
+        "current": {
+          "correctChoiceText": "間違い",
+          "lawId": "335AC0000000105",
+          "lawTitle": "道路交通法",
+          "article": "77",
+          "paragraph": "1",
+          "item": "一",
+          "referenceDate": "2026-07-09",
+          "verificationStatus": "verified",
+          "articleTextHash": "a88a7902cb4ef697ba0b6759c50e8c10297ff58f942243de19b984841bfe1f73",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=335AC0000000105;article=77"
+        },
+        "differenceFacts": [],
+        "answerImpactFacts": [
+          "道路使用許可は道路交通法第77条第1項第1号により所轄警察署長から受ける許可である。",
+          "道路管理者から受けるのは、道路法第32条第1項第2号に基づくガス管等の道路占用許可であり、道路使用許可ではない。",
+          "設問の「道路管理者から道路使用許可」は許可主体と制度を取り違えているため、既存の「間違い」判定は妥当である。",
+          "00_source本文・選択肢・既存IDは変更しない。"
+        ],
+        "notes": [
+          "Lawzilla候補は施行規則第1条に寄っており、この道路使用許可の直接根拠としては不適切だった。",
+          "道路交通法第77条第1項第1号と道路法第32条第1項第2号を併せて、道路使用許可と道路占用許可の違いを確認した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "incorrect",
+          "explanationText": "間違い。道路使用許可は道路を使用するために所轄警察署長から受ける許可であり、道路管理者から取得するものではない。道路管理者から取得するのは道路占用許可などである。",
+          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
+          "promptContext": "道路使用許可の許可主体は警察署長、道路管理者から受けるのは道路占用許可である点に限定して説明する。",
+          "displayRefIds": [
+            "current:335AC0000000105:77:1:一",
+            "current:327AC1000000180:32:1:二"
+          ],
+          "refs": [
+            {
+              "refId": "current:335AC0000000105:77:1:一",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawId": "335AC0000000105",
+              "lawTitle": "道路交通法",
+              "elm": "ln77.1.1",
+              "rootArticleElm": "ln77",
+              "article": "77",
+              "paragraph": "1",
+              "articleTextHash": "a88a7902cb4ef697ba0b6759c50e8c10297ff58f942243de19b984841bfe1f73",
+              "textHash": "a88a7902cb4ef697ba0b6759c50e8c10297ff58f942243de19b984841bfe1f73",
+              "item": "一"
+            },
+            {
+              "refId": "current:327AC1000000180:32:1:二",
+              "lawTimeScope": "current",
+              "relation": "contrast_basis_for_road_administrator_permission",
+              "primaryBasis": true,
+              "lawId": "327AC1000000180",
+              "lawTitle": "道路法",
+              "elm": "ln32.1.2",
+              "rootArticleElm": "ln32",
+              "article": "32",
+              "paragraph": "1",
+              "articleTextHash": "e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b",
+              "textHash": "e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b",
+              "item": "二"
+            }
+          ]
+        }
+      }
     ]
   },
   {
