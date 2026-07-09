@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "gas-shunin-current-remaining-workflow-targets-summary/v1",
+  "generatedAt": "2026-07-10T13:00:00+09:00",
+  "sourcePreviousRemainingTargets": "output/gas-shunin-all/review/latest_question_maintenance_workflow/20260710_120000_otsu2019_year_gas_shunin_current_remaining_workflow_targets.jsonl",
+  "previousRemainingTargetRecords": 17,
+  "completedYearBlock": {
+    "qualification": "gas-shunin-otsu",
+    "examYear": 2021,
+    "completedTargetRecords": 8,
+    "completedUniqueDisplayQuestionIds": 8,
+    "priorityCounts": {
+      "P0": 4,
+      "P1": 4
+    },
+    "trackCounts": {
+      "lawzilla_law_evidence": 8
+    },
+    "lawRelatedQuestionsMaterialized": 8,
+    "sourceConflictReviewJsonl": "output/gas-shunin-all/review/source_conflict_feedback/20260710_130000_otsu2021_year_gas_shunin_otsu_2021_source_conflict_review.jsonl",
+    "lawzillaFeedbackJsonl": "output/gas-shunin-all/review/lawzilla_mcp_feedback/20260710_130000_otsu2021_year_gas_shunin_otsu_2021_lawzilla_practical_review.jsonl",
+    "primaryEvidenceJsonl": "output/gas-shunin-all/review/primary_law_evidence/20260710_130000_otsu2021_year_gas_shunin_otsu_2021_primary_evidence.jsonl",
+    "patchFilesTouched": [
+      "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+      "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_2_explanationText_added.json",
+      "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_3_explanationText_added.json"
+    ],
+    "manualDirectBasisQuestionIds": [
+      "23b68bdcb6547c87",
+      "2b44480aa6983f05",
+      "ad42521191d4f26c",
+      "e786207857a22dad"
+    ],
+    "boundary": "00_source unchanged; existing IDs preserved; no Lawzilla endpoint or API key stored."
+  },
+  "remainingTargetRecords": 9,
+  "remainingUniqueDisplayQuestionIds": 9,
+  "remainingPriorityCounts": {
+    "P1": 3,
+    "P2": 6
+  },
+  "remainingTrackCounts": {
+    "answer_recheck": 6,
+    "lawzilla_law_evidence": 3,
+    "source_conflict_review": 1
+  },
+  "remainingReadinessCounts": {
+    "answer_recheck_without_lawzilla_evidence": 6,
+    "manual_review_required_all_choices_have_primary_evidence": 3
+  },
+  "remainingByQualificationYearPriority": [
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2025,
+      "total": 6,
+      "uniqueDisplayQuestionIds": 6,
+      "P1": 1,
+      "P2": 5
+    },
+    {
+      "qualification": "gas-shunin-kou",
+      "examYear": 2024,
+      "total": 3,
+      "uniqueDisplayQuestionIds": 3,
+      "P1": 2,
+      "P2": 1
+    }
+  ],
+  "nextYearCheckpoint": {
+    "qualification": "gas-shunin-kou",
+    "examYear": 2025,
+    "total": 6,
+    "uniqueDisplayQuestionIds": 6,
+    "P1": 1,
+    "P2": 5
+  },
+  "supersedesStaleSingleQuestionChains": [
+    "20260710_* single-question current_remaining_workflow_targets files are not used as this year-block chain source."
+  ]
+}

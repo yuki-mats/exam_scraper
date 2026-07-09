@@ -91,7 +91,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "205b3fd5ba830110",
@@ -185,7 +186,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "c57c43f0ad18f8df",
@@ -279,7 +281,8 @@
       "正しい",
       "正しい",
       "間違い"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "57751bb8c2c5881a",
@@ -373,7 +376,8 @@
       "正しい",
       "間違い",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "7e71d38d6bc6a4e5",
@@ -469,7 +473,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "a649f9a096b7dd33",
@@ -562,7 +567,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "ab9fece7f57ed772",
@@ -616,7 +622,7 @@
         "answer": "水位センサー式、水位スイッチ式、ボールタップ式などがある。"
       }
     ],
-    "lawGroundedExplanationNotNeeded": false,
+    "lawGroundedExplanationNotNeeded": true,
     "sourceExplanationCommonPrefix": [
       "ガス機器の安全装置及び制御装置では、異常時にガスを遮断する安全装置と、通水・水位・ガス量などを制御する装置を区別する。"
     ],
@@ -646,7 +652,8 @@
       "正しい",
       "正しい",
       "正しい"
-    ]
+    ],
+    "isLawRelated": false
   },
   {
     "original_question_id": "23b68bdcb6547c87",
@@ -676,7 +683,8 @@
       "熱線型半導体式ガス警報器の低濃度域感度と高濃度域の出力特性を確認する。",
       "ガス警報器の作動濃度について、爆発下限界の1/10ではなく1/4以上で確実作動が求められる点を確認する。",
       "CO警報器の酸化スズ半導体センサーでヒートクリーニングが必要な理由を確認する。",
-      "業務用換気警報器に電気化学式センサーが用いられる理由を確認する。"
+      "業務用換気警報器に電気化学式センサーが用いられる理由を確認する。",
+      "現行法上、本問の判断に使う主な根拠条文は何か。"
     ],
     "suggestedQuestionDetails": [
       {
@@ -698,6 +706,10 @@
       {
         "question": "業務用換気警報器に電気化学式センサーが用いられる理由を確認する。",
         "answer": "正しい。業務用換気警報器には、温度・湿度や一酸化炭素以外のガスの影響を受けにくく、CO検知に適した電気化学式センサーが用いられる。"
+      },
+      {
+        "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
+        "answer": "主な根拠は、ガス事業法施行規則 第202条、ガス事業法施行規則第二百二条第十号の規定に基づくガス漏れ警報器の規格及びその設置方法 第2条。現行一次根拠では解説の正誤判断を変更する必要はない。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
