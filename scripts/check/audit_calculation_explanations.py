@@ -48,12 +48,19 @@ CASE_JUDGMENT_PROMPT_RE = re.compile(
     r"(次の事例を読んで|事例を読んで|助言として|提案として|対応として|回答として)"
 )
 CASE_PROFILE_RE = re.compile(r"\d+歳の(?:男性|女性|男子|女子|男児|女児|男|女)[A-ZＡ-Ｚ]")
+BROAD_MEDICAL_CASE_PROFILE_RE = re.compile(
+    r"\d+歳の[^。]{0,12}(?:男性|女性|男子|女子|男児|女児|妊婦|初産婦|経産婦)"
+)
 DIRECT_CALCULATION_INTENT_RE = re.compile(
     r"(計算|算出|求め|最も近い|いくら|何倍|何%|何％|およそ)"
 )
 CASE_DIRECT_CALCULATION_INTENT_RE = re.compile(
-    r"(計算せよ|計算し|算出|求めよ|求めなさい|値を求め|量を求め|"
-    r"何倍|何%|何％|最も近い|いくら|およそ)"
+    r"(計算せよ|計算し|計算した場合|計算するものとする|算出せよ|"
+    r"求めよ|求めなさい|値を求め|量を求め|何倍|何%|何％|"
+    r"検査後確率|事後確率|確率はどれ|陽性適中度|オッズ比|尤度比|"
+    r"9の法則|Cockcroft-Gault|クレアチニンクリアランス|"
+    r"平均赤血球|MCV|MCH|検査値として考えられる|"
+    r"(?:確率|割合|受傷面積|面積|濃度|酸素飽和度|SaO2|CrCl).{0,30}最も近い)"
 )
 NON_CALCULATION_STEM_RE = re.compile(
     r"("
@@ -63,7 +70,25 @@ NON_CALCULATION_STEM_RE = re.compile(
     r"図として、?最も適切|記号の説明として|"
     r"シミュレーションに関する記述|平均化時間を.*計算すべき項目|"
     r"高発熱量.*高い順|"
-    r"測定法に関する記述|脱水に関する記述|用語の定義"
+    r"測定法に関する記述|脱水に関する記述|用語の定義|"
+    r"健常者安静時の値として異常|死亡診断書|死亡時刻|病理解剖|"
+    r"事業主に義務|男女雇用機会均等法|労働基準法|主治医意見書|"
+    r"介護保険|職種はどれ|同席者として|家族への説明|患者への発言|"
+    r"救急救命士|性暴力|健康被害の検査|"
+    r"65歳以上の人口の割合|平均余命|成人眼球.*眼軸長|"
+    r"開心術.*安全限界|妊娠後半期.*摂取エネルギー付加量|"
+    r"一般的な.*所要時間|分娩予定日を算出するのに有用|"
+    r"1日摂取エネルギー算出の基準|推定エネルギー必要量.*算出.*必要な情報|"
+    r"食事摂取基準の指標|有訴者率.*Aの症状|計算力低下"
+    r")"
+)
+ALWAYS_EXCLUDE_STEM_RE = re.compile(
+    r"("
+    r"健常者安静時の値として異常|65歳以上の人口の割合|平均余命|"
+    r"成人眼球.*眼軸長|開心術.*安全限界|"
+    r"妊娠後半期.*摂取エネルギー付加量|食事摂取基準の指標|"
+    r"一般的な.*所要時間|推定エネルギー必要量.*算出.*必要な情報|"
+    r"1日摂取エネルギー算出の基準"
     r")"
 )
 UNIT_RE = re.compile(
@@ -143,6 +168,8 @@ def is_calculation_candidate(question: dict[str, Any]) -> bool:
     )
     strong_in_stem = bool(STRONG_CALCULATION_PROMPT_RE.search(stem))
     number_count = len(NUMBER_RE.findall(body))
+    if ALWAYS_EXCLUDE_STEM_RE.search(stem):
+        return False
     if re.search(r"下線を付した", stem):
         return False
     if re.search(
@@ -161,7 +188,11 @@ def is_calculation_candidate(question: dict[str, Any]) -> bool:
     if re.search(r"(数値|語句).*組み合わせ", stem) and not re.search(r"(計算|算出)", stem):
         return False
     if (
-        (CASE_JUDGMENT_PROMPT_RE.search(stem) or CASE_PROFILE_RE.search(stem))
+        (
+            CASE_JUDGMENT_PROMPT_RE.search(stem)
+            or CASE_PROFILE_RE.search(stem)
+            or BROAD_MEDICAL_CASE_PROFILE_RE.search(stem)
+        )
         and not CASE_DIRECT_CALCULATION_INTENT_RE.search(stem)
     ):
         return False
