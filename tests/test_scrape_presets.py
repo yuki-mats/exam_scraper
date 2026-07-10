@@ -167,6 +167,23 @@ class ScrapePresetTests(unittest.TestCase):
             "https://tsukanshi.kakomonn.com/list1/68011?page=1",
         )
 
+    def test_load_scrape_preset_for_1st_class_kenchikushi(self) -> None:
+        preset = load_scrape_preset("1st-class-kenchikushi")
+
+        self.assertEqual(preset.qualification_name, "一級建築士")
+        self.assertEqual(preset.scraper_type, "kakomonn")
+        self.assertEqual(preset.list_group_ids[0], "2025")
+        self.assertEqual(preset.list_group_ids[-1], "2015")
+
+    def test_build_list_first_page_url_for_1st_class_kenchikushi(self) -> None:
+        preset = load_scrape_preset("1st-class-kenchikushi")
+        url = build_list_first_page_url(preset, "2025")
+
+        self.assertEqual(
+            url,
+            "https://1kenchikushi.kakomonn.com/list1/69011?page=1",
+        )
+
     def test_load_scrape_preset_for_2dobokusekou(self) -> None:
         preset = load_scrape_preset("2dobokusekou")
 

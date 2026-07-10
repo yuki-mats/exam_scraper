@@ -134,12 +134,14 @@ def make_canonical_question_key(
     exam_occurrence_id: str | None,
     exam_year: int | None,
     question_label: str | None,
+    section_code: str | None = None,
 ) -> str | None:
     return common_make_canonical_question_key(
         qualification_code=QUALIFICATION_CODE,
         exam_occurrence_id=exam_occurrence_id,
         exam_year=exam_year,
         question_label=question_label,
+        section_code=section_code,
     )
 
 
@@ -148,6 +150,23 @@ def make_canonical_statement_keys(
     statement_count: int,
 ) -> list[str]:
     return common_make_canonical_statement_keys(canonical_question_key, statement_count)
+
+
+def extract_1st_class_kenchikushi_section_code(exam_label: str | None) -> str | None:
+    if not exam_label:
+        return None
+
+    if any(k in exam_label for k in ["学科1", "学科Ⅰ", "計画"]):
+        return "gakka1-keikaku"
+    if any(k in exam_label for k in ["学科2", "学科Ⅱ", "環境・設備"]):
+        return "gakka2-kankyo-setsubi"
+    if any(k in exam_label for k in ["学科3", "学科Ⅲ", "法規"]):
+        return "gakka3-houki"
+    if any(k in exam_label for k in ["学科4", "学科Ⅳ", "構造"]):
+        return "gakka4-kouzou"
+    if any(k in exam_label for k in ["学科5", "学科Ⅴ", "施工"]):
+        return "gakka5-sekou"
+    return None
 
 
 def extract_list_group_id_from_url(list_page_url: str) -> str | None:
@@ -2249,10 +2268,14 @@ def main() -> None:
         # examOccurrenceId 用の共通試験回識別子と、西暦年を抽出
         exam_year = extract_exam_year_value(question_data.exam_label)
         exam_occurrence_id = build_exam_occurrence_id(question_data.exam_label)
+        section_code = None
+        if QUALIFICATION_CODE == "1st-class-kenchikushi":
+            section_code = extract_1st_class_kenchikushi_section_code(question_data.exam_label)
         canonical_question_key = make_canonical_question_key(
             exam_occurrence_id=exam_occurrence_id,
             exam_year=exam_year,
             question_label=question_data.question_label,
+            section_code=section_code,
         )
         if canonical_question_key:
             public_qid = make_public_question_id(canonical_question_key)
@@ -2262,14 +2285,26 @@ def main() -> None:
         # 判定対象の文字列（exam_label を見るのが確実）
         cat_check_str = question_data.exam_label or ""
         
-        if any(k in cat_check_str for k in ["建築計画", "学科Ⅰ", "学科1"]):
-            category_val = "学科Ⅰ（建築計画）"
-        elif any(k in cat_check_str for k in ["建築法規", "学科Ⅱ", "学科2"]):
-            category_val = "学科Ⅱ（建築法規）"
-        elif any(k in cat_check_str for k in ["建築構造", "学科Ⅲ", "学科3"]):
-            category_val = "学科Ⅲ（建築構造）"
-        elif any(k in cat_check_str for k in ["建築施工", "学科Ⅳ", "学科4"]):
-            category_val = "学科Ⅳ（建築施工）"
+        if QUALIFICATION_CODE == "1st-class-kenchikushi":
+            if any(k in cat_check_str for k in ["計画", "学科Ⅰ", "学科1"]):
+                category_val = "学科Ⅰ（計画）"
+            elif any(k in cat_check_str for k in ["環境・設備", "学科Ⅱ", "学科2"]):
+                category_val = "学科Ⅱ（環境・設備）"
+            elif any(k in cat_check_str for k in ["法規", "学科Ⅲ", "学科3"]):
+                category_val = "学科Ⅲ（法規）"
+            elif any(k in cat_check_str for k in ["構造", "学科Ⅳ", "学科4"]):
+                category_val = "学科Ⅳ（構造）"
+            elif any(k in cat_check_str for k in ["施工", "学科Ⅴ", "学科5"]):
+                category_val = "学科Ⅴ（施工）"
+        else:
+            if any(k in cat_check_str for k in ["建築計画", "学科Ⅰ", "学科1"]):
+                category_val = "学科Ⅰ（建築計画）"
+            elif any(k in cat_check_str for k in ["建築法規", "学科Ⅱ", "学科2"]):
+                category_val = "学科Ⅱ（建築法規）"
+            elif any(k in cat_check_str for k in ["建築構造", "学科Ⅲ", "学科3"]):
+                category_val = "学科Ⅲ（建築構造）"
+            elif any(k in cat_check_str for k in ["建築施工", "学科Ⅳ", "学科4"]):
+                category_val = "学科Ⅳ（建築施工）"
 
         # === 選択肢リストと正誤判定の準備 ===
         # 選択肢リストを決定（画像選択肢などで空の場合の補完を含む）
