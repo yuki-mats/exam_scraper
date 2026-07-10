@@ -15,6 +15,8 @@ from scripts.scrape.common import (
     download_and_save_images,
     extract_image_urls_from_element,
     load_local_secure_env,
+    make_canonical_question_key,
+    make_canonical_statement_keys,
     make_public_question_id,
     make_storage_url,
     normalize_inline_text,
@@ -484,7 +486,7 @@ def infer_source_kind(url: str) -> str:
 def make_source_question_id(source_kind: str, url: str) -> str:
     parsed = urlparse(url)
     path_key = parsed.path.strip("/").replace("/", ":")
-    return f"kougai:{source_kind}:{path_key}"
+    return f"{QUALIFICATION_CODE}:{source_kind}:{path_key}"
 
 
 def make_question_dict(
@@ -513,7 +515,20 @@ def make_question_dict(
         raise ValueError(f"解説数と選択肢数が一致しません: {question_url}")
 
     source_question_id = make_source_question_id(source_kind, question_url)
-    public_question_id = make_public_question_id(source_question_id)
+    source_public_question_id = make_public_question_id(source_question_id)
+    canonical_question_key = make_canonical_question_key(
+        qualification_code=QUALIFICATION_CODE,
+        exam_year=exam_year,
+        question_number=question_number,
+        section_code=subject,
+    )
+    public_question_id = make_public_question_id(
+        canonical_question_key or source_question_id
+    )
+    source_unique_keys = make_canonical_statement_keys(
+        canonical_question_key or source_question_id,
+        len(choice_text_list),
+    )
     correct_numbers = [idx + 1 for idx, label in enumerate(correct_choice_text) if label == "正しい"]
 
     return {
@@ -532,9 +547,12 @@ def make_question_dict(
         "question_url": question_url,
         "public_question_id": public_question_id,
         "original_question_id": public_question_id,
-        "question_id_policy_key": "kougai:hmac-source-key:v1",
+        "source_public_question_id": source_public_question_id,
+        "question_id_policy_key": "canonical-question-key:hmac:v1",
         "question_id_policy_version": 1,
-        "question_id_source_key_description": "kougai:{source_kind}:{url_path}",
+        "question_id_source_key_description": (
+            "{qualification_code}:{exam_year}:{section_code}:q{question_number}"
+        ),
         "questionImageStorageUrls": [],
         "questionIntent": question_intent,
         "correctChoiceText": correct_choice_text,
@@ -543,6 +561,8 @@ def make_question_dict(
         "answer_result_inferred_correct_choice_numbers": answer_numbers,
         "source_question_id": source_question_id,
         "questionSourceSite": source_kind,
+        "canonical_question_key": canonical_question_key,
+        "sourceUniqueKeys": source_unique_keys,
         "sourceTransformMode": transform_mode,
         "sourceCorrectChoiceNumbers": answer_numbers,
         "sourceTrueChoiceNumbers": correct_numbers,

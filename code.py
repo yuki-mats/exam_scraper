@@ -22,15 +22,19 @@ from bs4.element import NavigableString, Tag
 from scripts.scrape.common import (
     create_http_session as common_create_http_session,
     download_and_save_images as common_download_and_save_images,
+    make_canonical_question_key as common_make_canonical_question_key,
+    make_canonical_statement_keys as common_make_canonical_statement_keys,
     extract_image_urls_from_element as common_extract_image_urls_from_element,
     fetch_html_text as common_fetch_html_text,
     load_local_secure_env as common_load_local_secure_env,
     make_public_question_id as common_make_public_question_id,
     make_storage_url as common_make_storage_url,
+    make_url_source_question_id as common_make_url_source_question_id,
     normalize_inline_text as common_normalize_inline_text,
     normalize_question_body_text as common_normalize_question_body_text,
     save_question_body_chunks,
     slow_down as common_slow_down,
+    source_site_from_url as common_source_site_from_url,
 )
 
 
@@ -123,6 +127,27 @@ def apply_runtime_overrides_from_env() -> None:
 
 def make_public_question_id(question_id: int | str) -> str:
     return common_make_public_question_id(question_id)
+
+
+def make_canonical_question_key(
+    *,
+    exam_occurrence_id: str | None,
+    exam_year: int | None,
+    question_label: str | None,
+) -> str | None:
+    return common_make_canonical_question_key(
+        qualification_code=QUALIFICATION_CODE,
+        exam_occurrence_id=exam_occurrence_id,
+        exam_year=exam_year,
+        question_label=question_label,
+    )
+
+
+def make_canonical_statement_keys(
+    canonical_question_key: str | None,
+    statement_count: int,
+) -> list[str]:
+    return common_make_canonical_statement_keys(canonical_question_key, statement_count)
 
 
 def extract_list_group_id_from_url(list_page_url: str) -> str | None:
@@ -2168,8 +2193,14 @@ def main() -> None:
         html_text = fetch_html_text(http_session, question_url)
         question_data = parse_question_page(html_text, question_url, http_session)
 
-        # 公開用 question ID（ハッシュ済み）を生成
-        public_qid = make_public_question_id(question_data.question_id)
+        # 出典ページ自体の識別子。canonical identity とは分けて保持する。
+        source_question_id = (
+            question_data.source_question_id
+            or common_make_url_source_question_id(QUALIFICATION_CODE, question_data.question_url)
+        )
+        source_public_qid = make_public_question_id(source_question_id)
+        question_source_site = common_source_site_from_url(question_data.question_url)
+        public_qid = source_public_qid
 
         # 問題全体に紐づく導入・まとめを取得
         common_prefix_list, common_summary_list = extract_common_explanation_parts(
@@ -2218,6 +2249,13 @@ def main() -> None:
         # examOccurrenceId 用の共通試験回識別子と、西暦年を抽出
         exam_year = extract_exam_year_value(question_data.exam_label)
         exam_occurrence_id = build_exam_occurrence_id(question_data.exam_label)
+        canonical_question_key = make_canonical_question_key(
+            exam_occurrence_id=exam_occurrence_id,
+            exam_year=exam_year,
+            question_label=question_data.question_label,
+        )
+        if canonical_question_key:
+            public_qid = make_public_question_id(canonical_question_key)
 
         # カテゴリ判定
         category_val = None
@@ -2259,6 +2297,10 @@ def main() -> None:
             final_choice_image_storage_urls_by_choice.extend(
                 [[] for _ in range(len(final_choice_text_list) - len(final_choice_image_storage_urls_by_choice))]
             )
+        source_unique_keys = make_canonical_statement_keys(
+            canonical_question_key or source_question_id,
+            len(final_choice_text_list),
+        )
 
         # 正誤判定リストの作成
         # 設計変更（ユーザー要望）:
@@ -2384,6 +2426,17 @@ def main() -> None:
                     "list_group_id": output_list_group_id,
                     "question_url": question_data.question_url,
                     "public_question_id": public_qid,
+                    "original_question_id": public_qid,
+                    "source_question_id": source_question_id,
+                    "source_public_question_id": source_public_qid,
+                    "questionSourceSite": question_source_site,
+                    "canonical_question_key": canonical_question_key,
+                    "question_id_policy_key": "canonical-question-key:hmac:v1",
+                    "question_id_policy_version": 1,
+                    "question_id_source_key_description": (
+                        "{qualification_code}:{exam_occurrence_id_or_year}:q{question_number}"
+                    ),
+                    "sourceUniqueKeys": source_unique_keys,
                     "questionImageStorageUrls": question_image_storage_urls,
                     "questionIntent": intent_val,
                     "correctChoiceText": all_correct_choice_texts,
@@ -2449,7 +2502,12 @@ def main() -> None:
 
             # questionId (Firestore のドキュメントIDとして利用する想定)
             # 現在の importKey に記載しているもの（public_qid）と設問番号の組み合わせ
-            question_id_for_doc = f"{public_qid}_{sub_index}"
+            source_unique_key = (
+                source_unique_keys[sub_index - 1]
+                if sub_index - 1 < len(source_unique_keys)
+                else f"{public_qid}_{sub_index}"
+            )
+            question_id_for_doc = source_unique_key
 
             # examSource の生成
             # 例: 二級建築士,2025年10月,問1,設問2
@@ -2492,9 +2550,15 @@ def main() -> None:
                 "importKey": None,
                 
                 # --- Internal / Debug Info (Preserved) ---
-                "original_question_id": question_data.question_id,
+                "original_question_id": public_qid,
                 "question_url": question_data.question_url,
                 "sub_question_index": sub_index,
+                "source_question_id": source_question_id,
+                "source_public_question_id": source_public_qid,
+                "questionSourceSite": question_source_site,
+                "canonical_question_key": canonical_question_key,
+                "sourceUniqueKey": source_unique_key,
+                "sourceUniqueKeys": source_unique_keys,
                 "choice_text": choice_text,
                 "is_correct_choice": (
                     sub_index in question_data.correct_choice_numbers

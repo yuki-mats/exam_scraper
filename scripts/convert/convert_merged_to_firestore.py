@@ -769,6 +769,14 @@ def original_question_id_for_upload(question_body: dict) -> str:
         if text:
             return text
 
+    for key in ("canonical_question_id", "canonicalQuestionId", "canonical_public_question_id"):
+        value = question_body.get(key)
+        if value is None:
+            continue
+        text = str(value).strip()
+        if text:
+            return text
+
     snake_original_id = str(question_body.get("original_question_id") or "").strip()
     if snake_original_id and not snake_original_id.startswith("firestore:"):
         return snake_original_id

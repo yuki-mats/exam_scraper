@@ -8,6 +8,7 @@ import os
 import random
 import re
 import time
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
@@ -141,6 +142,106 @@ def make_public_question_id(question_id: int | str) -> str:
     msg = str(question_id).encode("utf-8")
     digest = hmac.new(secret_key.encode("utf-8"), msg, hashlib.sha256).hexdigest()
     return digest[:16]
+
+
+def normalize_identity_token(value: int | str | None) -> str:
+    """Return a deterministic ASCII token for identity keys."""
+    if value is None:
+        return ""
+    normalized = unicodedata.normalize("NFKC", str(value)).strip().lower()
+    normalized = re.sub(r"\s+", "-", normalized)
+    ascii_token = re.sub(r"[^a-z0-9_-]+", "-", normalized).strip("-")
+    if ascii_token:
+        return ascii_token
+    digest = hashlib.sha1(normalized.encode("utf-8")).hexdigest()[:12]
+    return f"h{digest}"
+
+
+def source_site_from_url(url: str) -> str:
+    host = urlparse(url).netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    if host.endswith(".kakomonn.com"):
+        return "kakomonn"
+    if host == "yaku-tik.com" or host.endswith(".yaku-tik.com"):
+        return "yaku-tik"
+    return normalize_identity_token(host.replace(".", "-"))
+
+
+def make_url_source_question_id(qualification_code: str, question_url: str) -> str:
+    parsed = urlparse(question_url)
+    path_key = parsed.path.strip("/").replace("/", ":")
+    return ":".join(
+        part
+        for part in [
+            normalize_identity_token(qualification_code),
+            source_site_from_url(question_url),
+            path_key,
+        ]
+        if part
+    )
+
+
+def extract_primary_question_number(question_label: str | None) -> int | None:
+    if not question_label:
+        return None
+    normalized = unicodedata.normalize("NFKC", str(question_label))
+    match = re.search(r"(?:問|問題)\s*([0-9]{1,4})", normalized)
+    if not match:
+        return None
+    return int(match.group(1))
+
+
+def make_canonical_question_key(
+    *,
+    qualification_code: str,
+    exam_occurrence_id: str | None = None,
+    exam_year: int | str | None = None,
+    question_number: int | str | None = None,
+    question_label: str | None = None,
+    section_code: str | None = None,
+) -> str | None:
+    """Build a site-independent exam question key.
+
+    The key intentionally excludes the scrape site. It should identify the same
+    exam question when kakomonn, yaku-tik, PDFs, or another source describe it.
+    """
+    occurrence = str(exam_occurrence_id or exam_year or "").strip()
+    if not occurrence:
+        return None
+
+    number_value = question_number
+    if number_value is None:
+        number_value = extract_primary_question_number(question_label)
+    if number_value is None or str(number_value).strip() == "":
+        return None
+
+    number_text = str(number_value).strip()
+    if number_text.isdigit():
+        question_token = f"q{int(number_text):03d}"
+    else:
+        question_token = f"q-{normalize_identity_token(number_text)}"
+
+    parts = [
+        normalize_identity_token(qualification_code),
+        normalize_identity_token(occurrence),
+    ]
+    if section_code:
+        parts.append(normalize_identity_token(section_code))
+    parts.append(question_token)
+    return ":".join(part for part in parts if part)
+
+
+def make_canonical_statement_keys(
+    canonical_question_key: str | None,
+    statement_count: int,
+) -> list[str]:
+    if not canonical_question_key or statement_count <= 0:
+        return []
+    return [
+        f"{canonical_question_key}:s{index:02d}"
+        for index in range(1, statement_count + 1)
+    ]
 
 
 def firebase_storage_path_prefix(qualification_code: str) -> str:

@@ -11,6 +11,7 @@ from scrape_kougai import (
     parse_zoron_question_page,
     source_filename_suffix_for_url,
 )
+from scripts.scrape.common import make_canonical_question_key
 from scripts.scrape.qualification_presets import build_list_first_page_url, load_scrape_preset
 
 
@@ -65,6 +66,18 @@ class ScrapeKougaiTests(unittest.TestCase):
         question = parsed.question
 
         self.assertEqual(question["sourceTransformMode"], "blank_pair_true_false")
+        expected_key = make_canonical_question_key(
+            qualification_code="kougai",
+            exam_year=2025,
+            section_code="公害総論",
+            question_number=1,
+        )
+        self.assertEqual(question["canonical_question_key"], expected_key)
+        self.assertEqual(question["source_question_id"], "kougai:yaku-tik:kougai:r7-kousou-01")
+        self.assertEqual(question["questionSourceSite"], "yaku-tik")
+        self.assertEqual(question["original_question_id"], question["public_question_id"])
+        self.assertEqual(question["sourceUniqueKeys"][0], f"{expected_key}:s01")
+        self.assertNotEqual(question["source_public_question_id"], question["public_question_id"])
         self.assertEqual(question["questionIntent"], "select_correct")
         self.assertIn("次の空欄と語句の対応が正しいか判定してください。", question["questionBodyText"])
         self.assertEqual(question["choiceTextList"][:3], ["ア：環境の保全", "イ：事項", "ウ：総合的"])
