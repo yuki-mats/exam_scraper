@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2022,
+  "sourceQuestionKey": "gas-shunin:kou:2022:law:q12",
+  "questionLabel": "問12",
+  "sourceQuestionBodyText": "技術基準で規定されている導管に関する次の記述のうち、正しいものはいくつあるか。ただし、イ、ロについては、漏えい検査を行う区間に漏えい検知装置が設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": ["間違い", "間違い", "間違い", "間違い", "正しい"],
+  "patchedCorrectChoiceText": ["間違い", "間違い", "間違い", "間違い", "正しい"],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {"choiceIndex":0,"verdict":"間違い","directBasis":["ガス工作物の技術上の基準を定める省令第51条第2項表(1)"],"basisText":"所定のプラスチック被覆部分は6年に1回以上の漏えい検査対象である。"},
+    {"choiceIndex":1,"verdict":"間違い","directBasis":["同令第51条第2項ただし書第3号"],"basisText":"ポリエチレン管の使用部分は漏えい検査の例外である。"},
+    {"choiceIndex":2,"verdict":"間違い","directBasis":["同令第52条第1項", "同条第3項"],"basisText":"高圧導管の建物内部又は基礎面下への設置は禁止され、中圧導管の例外を適用しない。"},
+    {"choiceIndex":3,"verdict":"間違い","directBasis":["同令第52条の2"],"basisText":"危険標識に記載するのは供給するガスの種類等である。"},
+    {"choiceIndex":4,"verdict":"正しい","directBasis":["同令第53条"],"basisText":"共同溝へ設置する導管及び共同溝の双方に適切な措置を講じる。"}
+  ],
+  "changedFields": ["explanationText", "sourceExplanationCommonSummary", "sourceExplanationChoiceSnippets", "sourceExplanationChoiceCorrectness"],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": ["https://laws.e-gov.go.jp/law/412M50000400111"]
+}
