@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2023,
+  "sourceQuestionKey": "gas-shunin:kou:2023:law:q08",
+  "questionLabel": "問8",
+  "sourceQuestionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": [
+    "正しい",
+    "正しい",
+    "間違い",
+    "正しい",
+    "間違い"
+  ],
+  "patchedCorrectChoiceText": [
+    "正しい",
+    "正しい",
+    "間違い",
+    "正しい",
+    "間違い"
+  ],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {
+      "choiceIndex": 0,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第14条第1項第2号"
+      ],
+      "basisText": "ガスホルダーのガスを貯蔵する部分の主要材料は、最高・最低使用温度での化学的・物理的影響に対し、設備の種類・規模に応じて安全な機械的性質を有しなければならない。"
+    },
+    {
+      "choiceIndex": 1,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第15条第1項第11号"
+      ],
+      "basisText": "昇圧供給装置の耐圧部分の構造は、供用中の荷重並びに最高・最低使用温度における最高使用圧力に対し、設備の種類・規模に応じて適切でなければならない。"
+    },
+    {
+      "choiceIndex": 2,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第15条第2項ただし書第4号"
+      ],
+      "basisText": "整圧器及び特定ガス発生設備に属する調整装置は、耐圧試験規定の例外である。"
+    },
+    {
+      "choiceIndex": 3,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第15条第3項"
+      ],
+      "basisText": "ガス又は液化ガスを通ずる部分は、気密試験を行ったとき漏えいがないものでなければならず、低圧導管は例外に含まれない。"
+    },
+    {
+      "choiceIndex": 4,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第16条第1項"
+      ],
+      "basisText": "対象となる溶接部分には、設計上要求される強度以上の強度が必要であり、運用時に問題を生じない強度ではない。"
+    }
+  ],
+  "changedFields": [
+    "explanationText",
+    "sourceExplanationCommonSummary",
+    "sourceExplanationChoiceSnippets"
+  ],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": [
+    "https://laws.e-gov.go.jp/law/412M50000400111"
+  ]
+}
