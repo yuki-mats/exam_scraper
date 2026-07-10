@@ -5,11 +5,66 @@ import unittest
 from scripts.convert.convert_merged_to_firestore import (
     get_original_question_body_text,
     original_question_id_for_upload,
+    resolve_exam_name_override,
     resolve_law_revision_facts,
 )
 
 
+KOUNIN_SHINRISHI_LIST_GROUP_IDS = (
+    "97001",
+    "97002",
+    "97003",
+    "97004",
+    "97005",
+    "97006",
+    "97007",
+    "97008",
+    "97009",
+)
+
+
 class ConvertMergedToFirestoreTests(unittest.TestCase):
+    def test_resolve_exam_name_override_for_kounin_shinrishi_list_groups(self) -> None:
+        for list_group_id in KOUNIN_SHINRISHI_LIST_GROUP_IDS:
+            with self.subTest(list_group_id=list_group_id):
+                self.assertEqual(
+                    resolve_exam_name_override(
+                        explicit_exam_name=None,
+                        qualification=None,
+                        list_group_id=list_group_id,
+                    ),
+                    "公認心理師",
+                )
+
+    def test_resolve_exam_name_override_uses_qualification_for_future_groups(self) -> None:
+        self.assertEqual(
+            resolve_exam_name_override(
+                explicit_exam_name=None,
+                qualification="kounin-shinrishi",
+                list_group_id="future-group",
+            ),
+            "公認心理師",
+        )
+
+    def test_resolve_exam_name_override_prefers_explicit_name(self) -> None:
+        self.assertEqual(
+            resolve_exam_name_override(
+                explicit_exam_name="明示した試験名",
+                qualification="kounin-shinrishi",
+                list_group_id="97001",
+            ),
+            "明示した試験名",
+        )
+
+    def test_resolve_exam_name_override_does_not_change_unrelated_groups(self) -> None:
+        self.assertIsNone(
+            resolve_exam_name_override(
+                explicit_exam_name=None,
+                qualification="2nd-class-kenchikushi",
+                list_group_id="85001",
+            )
+        )
+
     def test_get_original_question_body_text_falls_back_to_question_body_text(self) -> None:
         question_body = {
             "questionBodyText": "  元の問題文として使う本文  ",

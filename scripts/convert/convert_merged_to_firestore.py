@@ -48,6 +48,20 @@ else:
 
 # 試験名定義（ここに必要な試験名を追加して使う）
 EXAM_NAME_PSY = "二級建築士"
+EXAM_NAME_BY_QUALIFICATION = {
+    "kounin-shinrishi": "公認心理師",
+}
+EXAM_NAME_BY_LIST_GROUP_ID = {
+    "97001": "公認心理師",
+    "97002": "公認心理師",
+    "97003": "公認心理師",
+    "97004": "公認心理師",
+    "97005": "公認心理師",
+    "97006": "公認心理師",
+    "97007": "公認心理師",
+    "97008": "公認心理師",
+    "97009": "公認心理師",
+}
 # 上書き用（コマンドライン引数で設定可能）
 OVERRIDE_EXAM_NAME = None
 
@@ -444,6 +458,26 @@ def get_exam_name(question_body: dict) -> str:
     if inferred:
         return inferred
     return EXAM_NAME_PSY
+
+
+def resolve_exam_name_override(
+    *,
+    explicit_exam_name: str | None,
+    qualification: str | None,
+    list_group_id: str,
+) -> str | None:
+    """CLI指定、資格コード、listGroupIdの順に試験名上書きを解決する。"""
+    normalized_explicit_name = str(explicit_exam_name or "").strip()
+    if normalized_explicit_name:
+        return normalized_explicit_name
+
+    qualification_exam_name = EXAM_NAME_BY_QUALIFICATION.get(
+        str(qualification or "").strip()
+    )
+    if qualification_exam_name:
+        return qualification_exam_name
+
+    return EXAM_NAME_BY_LIST_GROUP_ID.get(str(list_group_id).strip())
 
 
 def infer_exam_name_from_question_body(question_body: dict) -> str | None:
@@ -1401,14 +1435,13 @@ def main(argv: list[str] | None = None):
     try:
         base_dir = Path(args.base_dir)
         qualification = infer_qualification_from_path(base_dir)
-        # CLIで指定があれば OVERRIDE_EXAM_NAME を設定
+        # CLI指定を最優先し、既知の資格コード/listGroupIdからも試験名を補完する
         global OVERRIDE_EXAM_NAME
-        if args.exam_name:
-            OVERRIDE_EXAM_NAME = args.exam_name
-        else:
-            # list_group_idごとの既知の試験名をここで補完（必要なら追加）
-            if args.list_group_id == "97009":
-                OVERRIDE_EXAM_NAME = "公認心理師"
+        OVERRIDE_EXAM_NAME = resolve_exam_name_override(
+            explicit_exam_name=args.exam_name,
+            qualification=qualification,
+            list_group_id=args.list_group_id,
+        )
         merged_files = find_merged_files(args.list_group_id, base_dir)
         
         # 全てのmergedファイルからの問題を結合
