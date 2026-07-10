@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2022,
+  "sourceQuestionKey": "gas-shunin:kou:2022:law:q10",
+  "questionLabel": "問10",
+  "sourceQuestionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": ["正しい", "正しい", "間違い", "正しい", "間違い"],
+  "patchedCorrectChoiceText": ["正しい", "正しい", "間違い", "正しい", "間違い"],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {"choiceIndex": 0, "verdict": "正しい", "directBasis": ["ガス工作物の技術上の基準を定める省令第26条"], "basisText": "異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断する装置を設ける。"},
+    {"choiceIndex": 1, "verdict": "正しい", "directBasis": ["同令第28条第1項"], "basisText": "移動式ガス発生設備は適切な場所に設置し、容易に移動又は転倒しない措置を講じる。"},
+    {"choiceIndex": 2, "verdict": "間違い", "directBasis": ["同令第42条"], "basisText": "操作用電源停止時にはガスの供給を維持するための装置を設ける。"},
+    {"choiceIndex": 3, "verdict": "正しい", "directBasis": ["同令第30条"], "basisText": "送入部分からの逆流による設備損傷又はガスの大気放出を防止する構造を求める。"},
+    {"choiceIndex": 4, "verdict": "間違い", "directBasis": ["同令第31条第3項"], "basisText": "気化装置から液化ガスの流出を防止する措置を講じる。"}
+  ],
+  "changedFields": ["explanationText", "sourceExplanationCommonSummary", "sourceExplanationChoiceSnippets", "sourceExplanationChoiceCorrectness"],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": ["https://laws.e-gov.go.jp/law/412M50000400111"]
+}
