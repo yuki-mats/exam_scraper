@@ -38,13 +38,27 @@ CALCULATION_ACTION_RE = re.compile(
     r"(求め|算出|計算|最も近い|いくら|何倍|合計|総和|判定基準|許容差|必要.*量|所要|時間当たり作業量)"
 )
 KNOWLEDGE_PROMPT_RE = re.compile(
-    r"(記述として|記述中|記述のうち|関する記述|関する次の記述|下線を付した|組合せとして|最も不適切なもの|最も適切なもの)"
+    r"(記述として|記述中|記述のうち|関する記述|関する次の記述|下線を付した|組合せとして|最も不適切なもの|最も適切なもの|もっとも適切なもの)"
 )
-LEGAL_PROMPT_RE = re.compile(r"(法令|技術基準|省令|告示|要綱|基づく|規定されている|ガス事業法)")
+LEGAL_PROMPT_RE = re.compile(
+    r"(法令|技術基準|省令|告示|要綱|基づく|規定されている|規定する|"
+    r"ガス事業法|憲法|訴訟)"
+)
+CASE_JUDGMENT_PROMPT_RE = re.compile(
+    r"(次の事例を読んで|事例を読んで|助言として|提案として|対応として|回答として)"
+)
+CASE_PROFILE_RE = re.compile(r"\d+歳の(?:男性|女性|男子|女子|男児|女児|男|女)[A-ZＡ-Ｚ]")
+DIRECT_CALCULATION_INTENT_RE = re.compile(
+    r"(計算|算出|求め|最も近い|いくら|何倍|何%|何％|およそ)"
+)
+CASE_DIRECT_CALCULATION_INTENT_RE = re.compile(
+    r"(計算せよ|計算し|算出|求めよ|求めなさい|値を求め|量を求め|"
+    r"何倍|何%|何％|最も近い|いくら|およそ)"
+)
 NON_CALCULATION_STEM_RE = re.compile(
     r"("
     r"大小関係|式として、?正しいもの|式として.*どれか|"
-    r"挿入すべき語句の組合せ|語句の組み合わせ|語句等の組合せ|"
+    r"挿入すべき語句の組合せ|語句の組み合わせ|語句等の組合せ|文章に入る数値|"
     r"定義に関する|計算式について|直接使わない因子|性能を求められている項目|"
     r"図として、?最も適切|記号の説明として|"
     r"シミュレーションに関する記述|平均化時間を.*計算すべき項目|"
@@ -131,7 +145,14 @@ def is_calculation_candidate(question: dict[str, Any]) -> bool:
     number_count = len(NUMBER_RE.findall(body))
     if re.search(r"下線を付した", stem):
         return False
+    if re.search(r"文章に入る数値", stem):
+        return False
     if re.search(r"(数値|語句).*組み合わせ", stem) and not re.search(r"(計算|算出)", stem):
+        return False
+    if (
+        (CASE_JUDGMENT_PROMPT_RE.search(stem) or CASE_PROFILE_RE.search(stem))
+        and not CASE_DIRECT_CALCULATION_INTENT_RE.search(stem)
+    ):
         return False
     if LEGAL_PROMPT_RE.search(stem) and not strong_in_stem:
         return False
