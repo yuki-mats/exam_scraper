@@ -435,13 +435,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
         "間違い",
         "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "生物学的製剤を用いたCrohn病治療の対象"
@@ -8973,13 +8973,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
         "間違い",
-        "正しい"
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "呼吸リハビリテーションの適応"
@@ -12221,20 +12221,20 @@
       "answer_result_inferred_correct_choice_numbers": [],
       "source_question_id": "bbe2887b928f4f1f",
       "explanationText": [
-        "解答。\n\n相対危険度の算出\n相対危険度は、危険因子がある場合の罹患率÷危険因子がない場合の罹患率で求められる。この問の場合は、（408/40,000）÷（72/60,000）=8.5である。"
+        "解答。\n\n相対危険度は、曝露群の罹患率÷非曝露群の罹患率で求める。まず喫煙者の罹患率は 408人/40,000人=0.0102、次に非喫煙者の罹患率は 72人/60,000人=0.0012。したがって相対危険度は 0.0102÷0.0012=8.5 となる。比なので単位はない。"
       ],
       "suggestedQuestions": [
-        "107B-62で問われる判断基準は何か。",
-        "107B-62の正答選択肢と誤答選択肢の違いは何か。"
+        "相対危険度を求める式は何か。",
+        "喫煙者と非喫煙者の罹患率はいくらか。"
       ],
       "suggestedQuestionDetails": [
         {
-          "question": "107B-62で問われる判断基準は何か。",
-          "answer": "設問文の条件、検査所見、病態の対応関係を選択肢別解説に沿って整理する。"
+          "question": "相対危険度を求める式は何か。",
+          "answer": "相対危険度＝曝露群の罹患率÷非曝露群の罹患率である。"
         },
         {
-          "question": "107B-62の正答選択肢と誤答選択肢の違いは何か。",
-          "answer": "正答番号と各選択肢の解説を対応させ、正しい記述と誤った記述の根拠を確認する。"
+          "question": "喫煙者と非喫煙者の罹患率はいくらか。",
+          "answer": "喫煙者は408/40,000=0.0102、非喫煙者は72/60,000=0.0012である。"
         }
       ],
       "lawGroundedExplanationNotNeeded": true,
@@ -14954,13 +14954,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
         "間違い",
-        "正しい"
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "尿閉の患者に実施する必要のない検査"
@@ -15656,13 +15656,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
+        "間違い",
         "間違い",
         "正しい",
-        "正しい"
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "Fanconi症候群の所見"
@@ -15756,13 +15756,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
+        "間違い",
         "間違い",
         "正しい",
-        "正しい"
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "子宮内膜症の所見"
@@ -37888,13 +37888,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
+        "正しい",
         "間違い",
-        "正しい",
-        "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "左気胸の身体所見"
@@ -43046,13 +43046,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
         "間違い",
         "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "二次性赤血球増加症の原因とならない要因"
@@ -44538,13 +44538,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
-        "正しい",
-        "間違い"
+        "間違い",
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "飲酒がリスクファクターとならない癌"
@@ -46626,13 +46626,13 @@
       "questionImageStorageUrls": [
         "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fmecnet-kokushi%2Fqd2b093dc5454921b_q_img01.png?alt=media"
       ],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
         "間違い",
         "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "Vogt-小柳-原田病の女性にみられない症状"

@@ -4161,13 +4161,13 @@
       "questionImageStorageUrls": [
         "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fmecnet-kokushi%2Fqe8c2a3909a27191f_q_img01.png?alt=media"
       ],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
+        "間違い",
         "間違い",
         "正しい",
-        "正しい"
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "先端巨大症の所見"
@@ -9100,13 +9100,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
         "間違い",
-        "正しい"
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "慢性腎臓病の発症のリスクファクター"
@@ -14805,13 +14805,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
+        "間違い",
         "間違い",
         "正しい",
-        "正しい"
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "循環は保たれているが自発呼吸がみられない患者の呼吸管理"
@@ -14940,24 +14940,24 @@
       ],
       "source_question_id": "5c89a97ee03320b9",
       "explanationText": [
-        "間違い。\n\n～ｅ 維持輸液製剤のエネルギーはグルコースに含まれる。グルコースのエネルギー量は4kcal/gである。維持輸液製剤500mLにはグルコース5.0％が含まれているので、エネルギー量は、500×0.05×4＝100（kcal）である。",
-        "間違い。\n\n正答番号と選択肢別解説を照合して判断する。",
-        "正しい。\n\n正答番号と選択肢別解説を照合して判断する。",
-        "間違い。\n\n正答番号と選択肢別解説を照合して判断する。",
-        "間違い。\n\n正答番号と選択肢別解説を照合して判断する。"
+        "間違い。\n\n維持輸液のエネルギーはグルコース量から求める。5.0%は100mL中5gなので、500mL中のグルコースは 5g/100mL×500mL=25g。グルコースは4kcal/gだから、25g×4kcal/g=100kcal。したがってこの選択肢ではない。",
+        "間違い。\n\n計算式は、グルコース量(g)=500mL×0.05=25g、エネルギー量=25g×4kcal/g=100kcal である。この選択肢は計算値と一致しない。",
+        "正しい。\n\n5.0%グルコースは100mL中5gである。500mL中のグルコース量は 500×0.05=25g。グルコースは1gあたり4kcalなので、エネルギー量は 25×4=100kcal。よって100kcalが正しい。",
+        "間違い。\n\n500mL中のグルコース量は 500×0.05=25g、エネルギー量は 25×4=100kcal である。これより大きい値は過大である。",
+        "間違い。\n\n電解質量ではなくグルコース量からエネルギーを計算する。5.0%×500mL=25g、25g×4kcal/g=100kcal なので、この選択肢ではない。"
       ],
       "suggestedQuestions": [
-        "114C-24で問われる判断基準は何か。",
-        "114C-24の正答選択肢と誤答選択肢の違いは何か。"
+        "5.0%グルコース500mLに含まれるグルコース量は何gか。",
+        "グルコース量からエネルギー量をどう求めるか。"
       ],
       "suggestedQuestionDetails": [
         {
-          "question": "114C-24で問われる判断基準は何か。",
-          "answer": "設問文の条件、検査所見、病態の対応関係を選択肢別解説に沿って整理する。"
+          "question": "5.0%グルコース500mLに含まれるグルコース量は何gか。",
+          "answer": "500mL×0.05=25gである。"
         },
         {
-          "question": "114C-24の正答選択肢と誤答選択肢の違いは何か。",
-          "answer": "正答番号と各選択肢の解説を対応させ、正しい記述と誤った記述の根拠を確認する。"
+          "question": "グルコース量からエネルギー量をどう求めるか。",
+          "answer": "25g×4kcal/g=100kcalである。"
         }
       ],
       "lawGroundedExplanationNotNeeded": true,
@@ -23250,13 +23250,13 @@
       "questionImageStorageUrls": [
         "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fmecnet-kokushi%2Fqf80708f4e88a8e40_q_img01.png?alt=media"
       ],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
         "間違い",
         "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "再生不良性貧血の治療"
@@ -30652,13 +30652,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
+        "間違い",
         "間違い",
         "正しい",
-        "正しい"
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "Glasgow Coma Scaleによる意識レベルの評価"

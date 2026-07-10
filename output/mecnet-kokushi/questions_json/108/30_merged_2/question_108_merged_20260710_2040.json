@@ -35,13 +35,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
+        "正しい",
         "間違い",
-        "正しい",
-        "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "先天性風疹症候群でみられるもの"
@@ -1123,13 +1123,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
         "間違い",
         "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "Stanford A型急性大動脈解離が原因とならない疾患"
@@ -6166,13 +6166,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
         "間違い",
         "正しい",
-        "正しい",
-        "正しい"
+        "間違い",
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "公費医療の対象"
@@ -15414,13 +15414,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
-        "正しい",
-        "間違い"
+        "間違い",
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "サルコイドーシスで治療の対象とならないもの"
@@ -27917,20 +27917,20 @@
       "answer_result_inferred_correct_choice_numbers": [],
       "source_question_id": "f1932e25be27f24d",
       "explanationText": [
-        "解答。\n\n心胸郭比の算出（計算問題）\n心胸郭比=（C＋D）/（E＋F）なので、42%となる。正常は50%以下であり、50%以上は心拡大とされる。"
+        "解答。\n\n心胸郭比(%)は、心横径÷胸郭横径×100で求める。この問題では心横径が C＋D=40mm＋87mm=127mm、胸郭横径が E＋F=157mm＋145mm=302mm。したがって心胸郭比は 127/302×100=42.05...% となり、小数点以下第1位を四捨五入して42%である。"
       ],
       "suggestedQuestions": [
-        "108E-69で問われる判断基準は何か。",
-        "108E-69の正答選択肢と誤答選択肢の違いは何か。"
+        "心胸郭比はどの式で求めるか。",
+        "この問題でC＋DとE＋Fはいくらか。"
       ],
       "suggestedQuestionDetails": [
         {
-          "question": "108E-69で問われる判断基準は何か。",
-          "answer": "設問文の条件、検査所見、病態の対応関係を選択肢別解説に沿って整理する。"
+          "question": "心胸郭比はどの式で求めるか。",
+          "answer": "心胸郭比(%)＝心横径÷胸郭横径×100で求める。"
         },
         {
-          "question": "108E-69の正答選択肢と誤答選択肢の違いは何か。",
-          "answer": "正答番号と各選択肢の解説を対応させ、正しい記述と誤った記述の根拠を確認する。"
+          "question": "この問題でC＋DとE＋Fはいくらか。",
+          "answer": "C＋D=40＋87=127mm、E＋F=157＋145=302mmである。"
         }
       ],
       "lawGroundedExplanationNotNeeded": true,
@@ -29856,13 +29856,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
+        "間違い",
         "間違い",
         "正しい",
-        "正しい"
+        "間違い",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "Glasgow coma scaleによる意識レベルの評価"
@@ -31844,13 +31844,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
-        "正しい",
-        "間違い"
+        "間違い",
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "高カルシウム血症でみられない症候"
@@ -33632,13 +33632,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
         "間違い",
-        "正しい"
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
       ],
       "explanation_common_prefix": [
         "根治目的の放射線治療の対象"
@@ -43660,13 +43660,13 @@
       "question_id_policy_version": 1,
       "question_id_source_key_description": "{questionLabel}:{site_qid}",
       "questionImageStorageUrls": [],
-      "questionIntent": "select_incorrect",
+      "questionIntent": "select_correct",
       "correctChoiceText": [
-        "正しい",
-        "正しい",
-        "正しい",
-        "正しい",
-        "間違い"
+        "間違い",
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
       ],
       "explanation_common_prefix": [
         "僧帽弁閉鎖不全症の直接の原因とならない疾患"
