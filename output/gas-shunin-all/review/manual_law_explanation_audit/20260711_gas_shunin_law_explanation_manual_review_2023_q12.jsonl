@@ -1,0 +1,24 @@
+{
+  "schemaVersion":"gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt":"2026-07-11",
+  "qualification":"gas-shunin-kou",
+  "examYear":2023,
+  "sourceQuestionKey":"gas-shunin:kou:2023:law:q12",
+  "questionLabel":"問12",
+  "sourceQuestionBodyText":"技術基準で規定されている導管に関する次の記述のうち、正しいものはいくつあるか。ただし、イ、ロ及びハの導管は、特定地下街等又は特定地下室等にガスを供給するものではなく、漏えい検知装置は設置されておらず、検査にあたって導管等が設置されている場所に立ち入ることができるものとする。",
+  "sourceFile":"output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+  "explanationPatchFile":"output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText":["間違い","正しい","正しい","間違い","正しい"],
+  "patchedCorrectChoiceText":["間違い","正しい","正しい","間違い","正しい"],
+  "correctChoiceTextMatchesSource":true,
+  "choiceReviews":[
+    {"choiceIndex":0,"verdict":"間違い","directBasis":["ガス工作物の技術上の基準を定める省令第51条第1項"],"basisText":"道路に埋設されている最高使用圧力が高圧の導管は、埋設の日以後一年に一回以上検査する。"},
+    {"choiceIndex":1,"verdict":"正しい","directBasis":["ガス工作物の技術上の基準を定める省令第51条第2項"],"basisText":"絶縁措置後からガス栓までの間でプラスチックにて被覆された対象部分は、埋設の日以後六年に一回以上検査する。"},
+    {"choiceIndex":2,"verdict":"正しい","directBasis":["ガス工作物の技術上の基準を定める省令第51条第1項及び第2項"],"basisText":"道路埋設導管等は漏えい検査対象だが、ポリエチレン管を使用する部分は例外である。"},
+    {"choiceIndex":3,"verdict":"間違い","directBasis":["ガス工作物の技術上の基準を定める省令第52条第1項"],"basisText":"建物の内部又は基礎面下に設置してはならないのは最高使用圧力が高圧の導管である。"},
+    {"choiceIndex":4,"verdict":"正しい","directBasis":["ガス工作物の技術上の基準を定める省令第52条第2項"],"basisText":"特定地下街等又は特定地下室等への供給導管は、ガス漏れ警報設備の検知区域で外壁を貫通するように設置する。"}
+  ],
+  "changedFields":["explanationText","sourceExplanationCommonSummary"],
+  "result":"reviewed_and_rewritten",
+  "sourceUrls":["https://laws.e-gov.go.jp/law/412M50000400111"]
+}
