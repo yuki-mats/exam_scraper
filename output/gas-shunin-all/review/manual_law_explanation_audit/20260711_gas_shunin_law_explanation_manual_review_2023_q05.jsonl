@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2023,
+  "sourceQuestionKey": "gas-shunin:kou:2023:law:q05",
+  "questionLabel": "問5",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": [
+    "間違い",
+    "正しい",
+    "正しい",
+    "正しい",
+    "間違い"
+  ],
+  "patchedCorrectChoiceText": [
+    "間違い",
+    "正しい",
+    "正しい",
+    "正しい",
+    "間違い"
+  ],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {
+      "choiceIndex": 0,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス事業法第25条第1項"
+      ],
+      "basisText": "ガス主任技術者は、免状交付者であって経済産業省令で定める実務経験を有する者から選任する。"
+    },
+    {
+      "choiceIndex": 1,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス事業法施行規則第27条第1項"
+      ],
+      "basisText": "甲種ガス主任技術者免状の交付者の実務経験は、製造又は供給用ガス工作物の工事、維持又は運用業務に通算一年以上従事したことである。"
+    },
+    {
+      "choiceIndex": 2,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス事業法第65条第2項"
+      ],
+      "basisText": "一般ガス導管事業者は、ガス主任技術者の選任又は解任時に遅滞なく届け出なければならない。"
+    },
+    {
+      "choiceIndex": 3,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス事業法第67条",
+        "同法第27条"
+      ],
+      "basisText": "経済産業大臣は一般ガス導管事業者に解任を命じ、違反した免状交付者に免状の返納を命ずることができる。"
+    },
+    {
+      "choiceIndex": 4,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス事業法第172条第1項"
+      ],
+      "basisText": "ガス事業者の営業所等への立入検査を行うのは、経済産業大臣の職員である。"
+    }
+  ],
+  "changedFields": [
+    "explanationText",
+    "suggestedQuestionDetails",
+    "sourceExplanationCommonSummary",
+    "sourceExplanationChoiceSnippets"
+  ],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": [
+    "https://laws.e-gov.go.jp/law/329AC0000000051",
+    "https://laws.e-gov.go.jp/law/345M50000400097"
+  ]
+}
