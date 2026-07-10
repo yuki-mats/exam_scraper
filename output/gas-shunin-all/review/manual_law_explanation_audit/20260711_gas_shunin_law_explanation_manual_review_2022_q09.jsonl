@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2022,
+  "sourceQuestionKey": "gas-shunin:kou:2022:law:q09",
+  "questionLabel": "問9",
+  "sourceQuestionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": ["正しい", "正しい", "正しい", "間違い", "間違い"],
+  "patchedCorrectChoiceText": ["正しい", "正しい", "正しい", "間違い", "間違い"],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {"choiceIndex": 0, "verdict": "正しい", "directBasis": ["ガス工作物の技術上の基準を定める省令第17条"], "basisText": "過圧のおそれがある高圧のガス発生設備等には安全弁を設け、吹出しガスによる障害を防止する。"},
+    {"choiceIndex": 1, "verdict": "正しい", "directBasis": ["同令第18条第1項"], "basisText": "ガスホルダー等には使用状態を計測又は確認する装置を設ける。"},
+    {"choiceIndex": 2, "verdict": "正しい", "directBasis": ["同令第19条"], "basisText": "ガスホルダー等には損傷に至るおそれのある状態を検知し警報する装置を設ける。"},
+    {"choiceIndex": 3, "verdict": "間違い", "directBasis": ["同令第21条"], "basisText": "停電等により保安上重要な設備の機能が失われない措置を求める。"},
+    {"choiceIndex": 4, "verdict": "間違い", "directBasis": ["同令第33条"], "basisText": "漏えい時にはガスの流出及び流入を速やかに遮断する装置を設ける。"}
+  ],
+  "changedFields": ["explanationText", "sourceExplanationCommonSummary", "sourceExplanationChoiceSnippets"],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": ["https://laws.e-gov.go.jp/law/412M50000400111"]
+}
