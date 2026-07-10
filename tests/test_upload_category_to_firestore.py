@@ -161,6 +161,46 @@ class UploadCategoryToFirestoreTests(unittest.TestCase):
             doc_id="kougai-taiki-1_qs01_01_kankyo",
         )
 
+    def test_fetch_existing_doc_data_uses_field_mask(self) -> None:
+        class FakeSnapshot:
+            exists = True
+
+            def to_dict(self) -> dict:
+                return {"createdAt": "original-created-at"}
+
+        class FakeDocRef:
+            def __init__(self) -> None:
+                self.field_paths = None
+
+            def get(self, field_paths=None):
+                self.field_paths = field_paths
+                return FakeSnapshot()
+
+        ref = FakeDocRef()
+
+        self.assertEqual(
+            module.fetch_existing_doc_data(ref, module.EXISTING_QUESTION_SET_FIELD_PATHS),
+            {"createdAt": "original-created-at"},
+        )
+        self.assertEqual(ref.field_paths, module.EXISTING_QUESTION_SET_FIELD_PATHS)
+
+    def test_fetch_existing_doc_data_returns_none_for_missing_doc(self) -> None:
+        class FakeSnapshot:
+            exists = False
+
+            def to_dict(self) -> dict:
+                raise AssertionError("to_dict should not be called")
+
+        class FakeDocRef:
+            def get(self, field_paths=None):
+                self.field_paths = field_paths
+                return FakeSnapshot()
+
+        ref = FakeDocRef()
+
+        self.assertIsNone(module.fetch_existing_doc_data(ref, module.EXISTING_FOLDER_FIELD_PATHS))
+        self.assertEqual(ref.field_paths, module.EXISTING_FOLDER_FIELD_PATHS)
+
 
 if __name__ == "__main__":
     unittest.main()

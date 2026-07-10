@@ -32,6 +32,28 @@ QUESTION_SET_REFERENCE_FIELDS = (
     "sourceSharedFolderId",
     "sourceSharedQuestionSetId",
 )
+EXISTING_FOLDER_FIELD_PATHS = (
+    "name",
+    "isDeleted",
+    "isPublic",
+    "isOfficial",
+    "licenseName",
+    "qualificationId",
+    "licenseNames",
+    "qualificationIds",
+    "questionCount",
+    "createdAt",
+    *FOLDER_REFERENCE_FIELDS,
+)
+EXISTING_QUESTION_SET_FIELD_PATHS = (
+    "name",
+    "isDeleted",
+    "isOfficial",
+    "folderId",
+    "questionCount",
+    "createdAt",
+    *QUESTION_SET_REFERENCE_FIELDS,
+)
 QUALIFICATION_NAME_BY_CODE = {
     "2nd-class-kenchikushi": "二級建築士",
     "kaigofukushi": "介護福祉士",
@@ -270,17 +292,22 @@ def delete_folders_and_question_sets(db, data):
             print(f"Warning: failed to delete questionSet {qset_id}: {e}")
 
 
+def fetch_existing_doc_data(doc_ref, field_paths: tuple[str, ...]) -> dict | None:
+    existing_doc = doc_ref.get(field_paths=field_paths)
+    if not existing_doc.exists:
+        return None
+    return existing_doc.to_dict() or {}
+
+
 def upsert_folder(db, folder, now, license_name: str, qualification_id: str):
     folder_id = folder.get("folderId")
     doc_ref = db.collection("folders").document(folder_id)
     created_at = now
     existing_data: dict | None = None
     try:
-        existing_doc = doc_ref.get()
-        if existing_doc.exists:
-            existing_data = existing_doc.to_dict() or {}
-            if "createdAt" in existing_data:
-                created_at = existing_data["createdAt"]
+        existing_data = fetch_existing_doc_data(doc_ref, EXISTING_FOLDER_FIELD_PATHS)
+        if existing_data is not None and "createdAt" in existing_data:
+            created_at = existing_data["createdAt"]
     except Exception as e:
         print(f"Warning: failed to fetch existing folder {folder_id}: {e}")
         existing_data = None
@@ -336,11 +363,9 @@ def upsert_question_set(db, qset, now, qualification_id: str):
     created_at = now
     existing_data: dict | None = None
     try:
-        existing_doc = doc_ref.get()
-        if existing_doc.exists:
-            existing_data = existing_doc.to_dict() or {}
-            if "createdAt" in existing_data:
-                created_at = existing_data["createdAt"]
+        existing_data = fetch_existing_doc_data(doc_ref, EXISTING_QUESTION_SET_FIELD_PATHS)
+        if existing_data is not None and "createdAt" in existing_data:
+            created_at = existing_data["createdAt"]
     except Exception as e:
         print(f"Warning: failed to fetch existing questionSet {qset_id}: {e}")
         existing_data = None
