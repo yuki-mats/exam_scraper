@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2023,
+  "sourceQuestionKey": "gas-shunin:kou:2023:law:q09",
+  "questionLabel": "問9",
+  "sourceQuestionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": [
+    "間違い",
+    "間違い",
+    "間違い",
+    "間違い",
+    "正しい"
+  ],
+  "patchedCorrectChoiceText": [
+    "間違い",
+    "間違い",
+    "間違い",
+    "間違い",
+    "正しい"
+  ],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {
+      "choiceIndex": 0,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第25条"
+      ],
+      "basisText": "過圧が生ずるおそれのある最高使用圧力が低圧のガス発生設備等には、圧力上昇防止装置が必要であり、高圧設備へのインターロック機構ではない。"
+    },
+    {
+      "choiceIndex": 1,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第18条第2項"
+      ],
+      "basisText": "移動式ガス発生設備には、使用の状態を計測又は確認できる適切な措置が必要であり、記録・保存ではない。"
+    },
+    {
+      "choiceIndex": 2,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第22条ただし書"
+      ],
+      "basisText": "中圧以上のガス圧力により行う大口供給の用に供するものは、付臭義務の例外である。"
+    },
+    {
+      "choiceIndex": 3,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第34条"
+      ],
+      "basisText": "液化ガス用貯槽又はガスホルダーには、設備である旨を表示し、ガス主任技術者の氏名及び連絡先を表示するものではない。"
+    },
+    {
+      "choiceIndex": 4,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第39条"
+      ],
+      "basisText": "不活性の液化ガス用のものを除く液化ガス用貯槽の埋設部分に腐食のおそれがある場合は、腐食防止の適切な措置が必要である。"
+    }
+  ],
+  "changedFields": [
+    "explanationText",
+    "sourceExplanationCommonSummary",
+    "sourceExplanationChoiceSnippets"
+  ],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": [
+    "https://laws.e-gov.go.jp/law/412M50000400111"
+  ]
+}
