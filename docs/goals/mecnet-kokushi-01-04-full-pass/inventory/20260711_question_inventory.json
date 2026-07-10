@@ -1,0 +1,2898 @@
+{
+  "summary": {
+    "generated_date_jst": "2026-07-11",
+    "qualification": "mecnet-kokushi",
+    "occurrence_count": 52,
+    "source_total": 13060,
+    "stage_complete_occurrences": {
+      "00_source": 52,
+      "10_questionType_fixed": 52,
+      "12_merged_questionType": 52,
+      "15_correctChoiceText_fixed": 52,
+      "20_merged_1": 52,
+      "21_explanationText_added": 52,
+      "22_questionSetId_linked": 52,
+      "30_merged_2": 52
+    },
+    "stage_total_questions": {
+      "00_source": 13060,
+      "10_questionType_fixed": 13060,
+      "12_merged_questionType": 13060,
+      "15_correctChoiceText_fixed": 13060,
+      "20_merged_1": 13060,
+      "21_explanationText_added": 13060,
+      "22_questionSetId_linked": 13060,
+      "30_merged_2": 13060
+    },
+    "stage_missing_occurrences": {
+      "00_source": [],
+      "10_questionType_fixed": [],
+      "12_merged_questionType": [],
+      "15_correctChoiceText_fixed": [],
+      "20_merged_1": [],
+      "21_explanationText_added": [],
+      "22_questionSetId_linked": [],
+      "30_merged_2": []
+    },
+    "stage_file_present_occurrences": {
+      "00_source": 52,
+      "10_questionType_fixed": 52,
+      "12_merged_questionType": 52,
+      "15_correctChoiceText_fixed": 52,
+      "20_merged_1": 52,
+      "21_explanationText_added": 52,
+      "22_questionSetId_linked": 52,
+      "30_merged_2": 52,
+      "40_convert": 52
+    },
+    "stage_file_missing_occurrences": {
+      "00_source": [],
+      "10_questionType_fixed": [],
+      "12_merged_questionType": [],
+      "15_correctChoiceText_fixed": [],
+      "20_merged_1": [],
+      "21_explanationText_added": [],
+      "22_questionSetId_linked": [],
+      "30_merged_2": [],
+      "40_convert": []
+    },
+    "firestore_document_total_latest_40": 65078,
+    "question_type_distribution_latest_30": {
+      "fill_in_blank": 46,
+      "flash_card": 160,
+      "true_false": 12854
+    },
+    "question_intent_distribution_latest_30": {
+      "free_text": 46,
+      "select_correct": 12121,
+      "select_incorrect": 893
+    },
+    "law_grounded_flag_distribution_21": {
+      "False": 710,
+      "True": 12350
+    },
+    "law_grounded_flag_distribution_30": {
+      "False": 710,
+      "True": 12350
+    },
+    "question_set_missing_latest_30": 0,
+    "explanation_missing_latest_30": 0,
+    "suggested_questions_missing_latest_30": 0,
+    "convert_missing_or_stale_occurrences": [
+      81,
+      93,
+      99,
+      100,
+      101,
+      105,
+      106,
+      107,
+      108,
+      109,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120
+    ],
+    "occurrences_requiring_full_reaudit": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120
+    ],
+    "notes": [
+      "This is an inventory snapshot, not a quality approval.",
+      "Existing 10_questionType_fixed coverage does not prove questionType correctness; the user reported weak review quality, so all source questions remain in full re-audit scope.",
+      "40_convert count is Firestore document count after conversion, not source question count.",
+      "23_correctChoiceText_fixed is optional and only exists when the post-02 audit found a correction need."
+    ],
+    "issues_total_occurrences": 19
+  },
+  "rows": [
+    {
+      "occurrence": 69,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/69/00_source/question_69.json",
+          "count": 2
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/69/10_questionType_fixed/question_69_questionType_fixed_20260610_2329.json",
+          "count": 2
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/69/12_merged_questionType/question_69_merged.json",
+          "count": 2
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/69/15_correctChoiceText_fixed/question_69_correctChoiceText_fixed_20260610_2329.json",
+          "count": 2
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/69/20_merged_1/question_69_merged.json",
+          "count": 2
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/69/21_explanationText_added/question_69_explanationText_added_20260610_2329.json",
+          "count": 2
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/69/22_questionSetId_linked/question_69_questionSetId_linked_20260610_2329.json",
+          "count": 2
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/69/30_merged_2/question_69_merged_20260610_2334.json",
+          "count": 2
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/69/40_convert/69_firestore_20260610_233403.json",
+          "count": 10
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 2
+    },
+    {
+      "occurrence": 70,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/70/00_source/question_70.json",
+          "count": 1
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/70/10_questionType_fixed/question_70_questionType_fixed_20260610_2336.json",
+          "count": 1
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/70/12_merged_questionType/question_70_merged.json",
+          "count": 1
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/70/15_correctChoiceText_fixed/question_70_correctChoiceText_fixed_20260610_2336.json",
+          "count": 1
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/70/20_merged_1/question_70_merged.json",
+          "count": 1
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/70/21_explanationText_added/question_70_explanationText_added_20260610_2336.json",
+          "count": 1
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/70/22_questionSetId_linked/question_70_questionSetId_linked_20260610_2336.json",
+          "count": 1
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/70/30_merged_2/question_70_merged_20260610_2343.json",
+          "count": 1
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/70/40_convert/70_firestore_20260610_234317.json",
+          "count": 5
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 1
+    },
+    {
+      "occurrence": 71,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/71/00_source/question_71.json",
+          "count": 3
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/71/10_questionType_fixed/question_71_questionType_fixed_20260610_2350.json",
+          "count": 3
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/71/12_merged_questionType/question_71_merged.json",
+          "count": 3
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/71/15_correctChoiceText_fixed/question_71_correctChoiceText_fixed_20260610_2350.json",
+          "count": 3
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/71/20_merged_1/question_71_merged.json",
+          "count": 3
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/71/21_explanationText_added/question_71_explanationText_added_20260610_2350.json",
+          "count": 3
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/71/22_questionSetId_linked/question_71_questionSetId_linked_20260610_2350.json",
+          "count": 3
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/71/30_merged_2/question_71_merged_20260611_0032.json",
+          "count": 3
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/71/40_convert/71_firestore_20260611_003202.json",
+          "count": 14
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 3
+    },
+    {
+      "occurrence": 72,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/72/00_source/question_72.json",
+          "count": 5
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/72/10_questionType_fixed/question_72_questionType_fixed_20260611_0115.json",
+          "count": 5
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/72/12_merged_questionType/question_72_merged.json",
+          "count": 5
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/72/15_correctChoiceText_fixed/question_72_correctChoiceText_fixed_20260611_0115.json",
+          "count": 5
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/72/20_merged_1/question_72_merged.json",
+          "count": 5
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/72/21_explanationText_added/question_72_explanationText_added_20260611_0115.json",
+          "count": 5
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/72/22_questionSetId_linked/question_72_questionSetId_linked_20260611_0115.json",
+          "count": 5
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/72/30_merged_2/question_72_merged_20260611_0104.json",
+          "count": 5
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/72/40_convert/72_firestore_20260611_010444.json",
+          "count": 24
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 5
+    },
+    {
+      "occurrence": 73,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/73/00_source/question_73.json",
+          "count": 5
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/73/10_questionType_fixed/question_73_questionType_fixed_20260611_0106.json",
+          "count": 5
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/73/12_merged_questionType/question_73_merged.json",
+          "count": 5
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/73/15_correctChoiceText_fixed/question_73_correctChoiceText_fixed_20260611_0106.json",
+          "count": 5
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/73/20_merged_1/question_73_merged.json",
+          "count": 5
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/73/21_explanationText_added/question_73_explanationText_added_20260611_0106.json",
+          "count": 5
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/73/22_questionSetId_linked/question_73_questionSetId_linked_20260611_0106.json",
+          "count": 5
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/73/30_merged_2/question_73_merged_20260611_0108.json",
+          "count": 5
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/73/40_convert/73_firestore_20260611_010808.json",
+          "count": 22
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 5
+    },
+    {
+      "occurrence": 74,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/74/00_source/question_74.json",
+          "count": 1
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/74/10_questionType_fixed/question_74_questionType_fixed_20260611_0106.json",
+          "count": 1
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/74/12_merged_questionType/question_74_merged.json",
+          "count": 1
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/74/15_correctChoiceText_fixed/question_74_correctChoiceText_fixed_20260611_0106.json",
+          "count": 1
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/74/20_merged_1/question_74_merged.json",
+          "count": 1
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/74/21_explanationText_added/question_74_explanationText_added_20260611_0106.json",
+          "count": 1
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/74/22_questionSetId_linked/question_74_questionSetId_linked_20260611_0106.json",
+          "count": 1
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/74/30_merged_2/question_74_merged_20260611_0111.json",
+          "count": 1
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/74/40_convert/74_firestore_20260611_011116.json",
+          "count": 4
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 1
+    },
+    {
+      "occurrence": 75,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/75/00_source/question_75.json",
+          "count": 15
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/75/10_questionType_fixed/question_75_questionType_fixed_20260611_0123.json",
+          "count": 15
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/75/12_merged_questionType/question_75_merged.json",
+          "count": 15
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/75/15_correctChoiceText_fixed/question_75_correctChoiceText_fixed_20260611_0123.json",
+          "count": 15
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/75/20_merged_1/question_75_merged.json",
+          "count": 15
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/75/21_explanationText_added/question_75_explanationText_added_20260611_0123.json",
+          "count": 15
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/75/22_questionSetId_linked/question_75_questionSetId_linked_20260611_0123.json",
+          "count": 15
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/75/30_merged_2/question_75_merged_20260611_0128.json",
+          "count": 15
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/75/40_convert/75_firestore_20260611_012801.json",
+          "count": 70
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 15
+    },
+    {
+      "occurrence": 76,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/76/00_source/question_76.json",
+          "count": 8
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/76/10_questionType_fixed/question_76_questionType_fixed_20260611_0130.json",
+          "count": 8
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/76/12_merged_questionType/question_76_merged.json",
+          "count": 8
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/76/15_correctChoiceText_fixed/question_76_correctChoiceText_fixed_20260611_0130.json",
+          "count": 8
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/76/20_merged_1/question_76_merged.json",
+          "count": 8
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/76/21_explanationText_added/question_76_explanationText_added_20260611_0130.json",
+          "count": 8
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/76/22_questionSetId_linked/question_76_questionSetId_linked_20260611_0130.json",
+          "count": 8
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/76/30_merged_2/question_76_merged_20260611_0132.json",
+          "count": 8
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/76/40_convert/76_firestore_20260611_013202.json",
+          "count": 40
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 8
+    },
+    {
+      "occurrence": 77,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/77/00_source/question_77.json",
+          "count": 12
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/77/10_questionType_fixed/question_77_questionType_fixed_20260611_0217.json",
+          "count": 12
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/77/12_merged_questionType/question_77_merged.json",
+          "count": 12
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/77/15_correctChoiceText_fixed/question_77_correctChoiceText_fixed_20260611_0217.json",
+          "count": 12
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/77/20_merged_1/question_77_merged.json",
+          "count": 12
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/77/21_explanationText_added/question_77_explanationText_added_20260611_0217.json",
+          "count": 12
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/77/22_questionSetId_linked/question_77_questionSetId_linked_20260611_0217.json",
+          "count": 12
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/77/30_merged_2/question_77_merged_20260611_0747.json",
+          "count": 12
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/77/40_convert/77_firestore_20260611_074747.json",
+          "count": 58
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 12
+    },
+    {
+      "occurrence": 78,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/78/00_source/question_78.json",
+          "count": 17
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/78/10_questionType_fixed/question_78_questionType_fixed_20260611_0815.json",
+          "count": 17
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/78/12_merged_questionType/question_78_merged.json",
+          "count": 17
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/78/15_correctChoiceText_fixed/question_78_correctChoiceText_fixed_20260611_0815.json",
+          "count": 17
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/78/20_merged_1/question_78_merged.json",
+          "count": 17
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/78/21_explanationText_added/question_78_explanationText_added_20260611_0815.json",
+          "count": 17
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/78/22_questionSetId_linked/question_78_questionSetId_linked_20260611_0815.json",
+          "count": 17
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/78/30_merged_2/question_78_merged_20260611_0817.json",
+          "count": 17
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/78/40_convert/78_firestore_20260611_081735.json",
+          "count": 85
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 17
+    },
+    {
+      "occurrence": 79,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/79/00_source/question_79.json",
+          "count": 33
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/79/10_questionType_fixed/question_79_questionType_fixed_20260611_0829.json",
+          "count": 33
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/79/12_merged_questionType/question_79_merged.json",
+          "count": 33
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/79/15_correctChoiceText_fixed/question_79_correctChoiceText_fixed_20260611_0829.json",
+          "count": 33
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/79/20_merged_1/question_79_merged.json",
+          "count": 33
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/79/21_explanationText_added/question_79_explanationText_added_20260611_0829.json",
+          "count": 33
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/79/22_questionSetId_linked/question_79_questionSetId_linked_20260611_0829.json",
+          "count": 33
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/79/30_merged_2/question_79_merged_20260611_0848.json",
+          "count": 33
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/79/40_convert/79_firestore_20260611_084821.json",
+          "count": 161
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 33
+    },
+    {
+      "occurrence": 80,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/80/00_source/question_80.json",
+          "count": 48
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/80/10_questionType_fixed/question_80_questionType_fixed_20260611_0903.json",
+          "count": 48
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/80/12_merged_questionType/question_80_merged.json",
+          "count": 48
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/80/15_correctChoiceText_fixed/question_80_correctChoiceText_fixed_20260611_0903.json",
+          "count": 48
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/80/20_merged_1/question_80_merged.json",
+          "count": 48
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/80/21_explanationText_added/question_80_explanationText_added_20260611_0903.json",
+          "count": 48
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/80/22_questionSetId_linked/question_80_questionSetId_linked_20260611_0903.json",
+          "count": 48
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/80/30_merged_2/question_80_merged_20260611_0916.json",
+          "count": 48
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/80/40_convert/80_firestore_20260611_091643.json",
+          "count": 231
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 48
+    },
+    {
+      "occurrence": 81,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/81/00_source/question_81.json",
+          "count": 65
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/81/10_questionType_fixed/question_81_questionType_fixed_20260611_0922.json",
+          "count": 65
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/81/12_merged_questionType/question_81_merged.json",
+          "count": 65
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/81/15_correctChoiceText_fixed/question_81_correctChoiceText_fixed_20260611_0922.json",
+          "count": 65
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/81/20_merged_1/question_81_merged.json",
+          "count": 65
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/81/21_explanationText_added/question_81_explanationText_added_20260611_0922.json",
+          "count": 65
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/81/22_questionSetId_linked/question_81_questionSetId_linked_20260611_0922.json",
+          "count": 65
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/81/30_merged_2/question_81_merged_20260710_1701.json",
+          "count": 65
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/81/40_convert/81_firestore_20260611_092856.json",
+          "count": 311
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 65
+    },
+    {
+      "occurrence": 82,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/82/00_source/question_82.json",
+          "count": 55
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/82/10_questionType_fixed/question_82_questionType_fixed_20260611_0931.json",
+          "count": 55
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/82/12_merged_questionType/question_82_merged.json",
+          "count": 55
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/82/15_correctChoiceText_fixed/question_82_correctChoiceText_fixed_20260611_0931.json",
+          "count": 55
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/82/20_merged_1/question_82_merged.json",
+          "count": 55
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/82/21_explanationText_added/question_82_explanationText_added_20260611_0931.json",
+          "count": 55
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/82/22_questionSetId_linked/question_82_questionSetId_linked_20260611_0931.json",
+          "count": 55
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/82/30_merged_2/question_82_merged_20260611_0938.json",
+          "count": 55
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/82/40_convert/82_firestore_20260611_093805.json",
+          "count": 268
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 55
+    },
+    {
+      "occurrence": 83,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/83/00_source/question_83.json",
+          "count": 63
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/83/10_questionType_fixed/question_83_questionType_fixed_20260611_0940.json",
+          "count": 63
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/83/12_merged_questionType/question_83_merged.json",
+          "count": 63
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/83/15_correctChoiceText_fixed/question_83_correctChoiceText_fixed_20260611_0940.json",
+          "count": 63
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/83/20_merged_1/question_83_merged.json",
+          "count": 63
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/83/21_explanationText_added/question_83_explanationText_added_20260611_0940.json",
+          "count": 63
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/83/22_questionSetId_linked/question_83_questionSetId_linked_20260611_0940.json",
+          "count": 63
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/83/30_merged_2/question_83_merged_20260611_0946.json",
+          "count": 63
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/83/40_convert/83_firestore_20260611_094652.json",
+          "count": 304
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 63
+    },
+    {
+      "occurrence": 84,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/84/00_source/question_84.json",
+          "count": 63
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/84/10_questionType_fixed/question_84_questionType_fixed_20260611_0954.json",
+          "count": 63
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/84/12_merged_questionType/question_84_merged.json",
+          "count": 63
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/84/15_correctChoiceText_fixed/question_84_correctChoiceText_fixed_20260611_0954.json",
+          "count": 63
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/84/20_merged_1/question_84_merged.json",
+          "count": 63
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/84/21_explanationText_added/question_84_explanationText_added_20260611_0954.json",
+          "count": 63
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/84/22_questionSetId_linked/question_84_questionSetId_linked_20260611_0954.json",
+          "count": 63
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/84/30_merged_2/question_84_merged_20260611_0958.json",
+          "count": 63
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/84/40_convert/84_firestore_20260611_095845.json",
+          "count": 300
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 63
+    },
+    {
+      "occurrence": 85,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/85/00_source/question_85.json",
+          "count": 84
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/85/10_questionType_fixed/question_85_questionType_fixed_20260611_1001.json",
+          "count": 84
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/85/12_merged_questionType/question_85_merged.json",
+          "count": 84
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/85/15_correctChoiceText_fixed/question_85_correctChoiceText_fixed_20260611_1001.json",
+          "count": 84
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/85/20_merged_1/question_85_merged.json",
+          "count": 84
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/85/21_explanationText_added/question_85_explanationText_added_20260611_1001.json",
+          "count": 84
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/85/22_questionSetId_linked/question_85_questionSetId_linked_20260611_1001.json",
+          "count": 84
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/85/30_merged_2/question_85_merged_20260611_1005.json",
+          "count": 84
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/85/40_convert/85_firestore_20260611_100544.json",
+          "count": 404
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 84
+    },
+    {
+      "occurrence": 86,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/86/00_source/question_86.json",
+          "count": 90
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/86/10_questionType_fixed/question_86_questionType_fixed_20260611_1008.json",
+          "count": 90
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/86/12_merged_questionType/question_86_merged.json",
+          "count": 90
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/86/15_correctChoiceText_fixed/question_86_correctChoiceText_fixed_20260611_1008.json",
+          "count": 90
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/86/20_merged_1/question_86_merged.json",
+          "count": 90
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/86/21_explanationText_added/question_86_explanationText_added_20260611_1008.json",
+          "count": 90
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/86/22_questionSetId_linked/question_86_questionSetId_linked_20260611_1008.json",
+          "count": 90
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/86/30_merged_2/question_86_merged_20260611_1014.json",
+          "count": 90
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/86/40_convert/86_firestore_20260611_101401.json",
+          "count": 440
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 90
+    },
+    {
+      "occurrence": 87,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/87/00_source/question_87.json",
+          "count": 88
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/87/10_questionType_fixed/question_87_questionType_fixed_20260611_1020.json",
+          "count": 88
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/87/12_merged_questionType/question_87_merged.json",
+          "count": 88
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/87/15_correctChoiceText_fixed/question_87_correctChoiceText_fixed_20260611_1020.json",
+          "count": 88
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/87/20_merged_1/question_87_merged.json",
+          "count": 88
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/87/21_explanationText_added/question_87_explanationText_added_20260611_1020.json",
+          "count": 88
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/87/22_questionSetId_linked/question_87_questionSetId_linked_20260611_1020.json",
+          "count": 88
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/87/30_merged_2/question_87_merged_20260611_1031.json",
+          "count": 88
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/87/40_convert/87_firestore_20260611_103127.json",
+          "count": 432
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 88
+    },
+    {
+      "occurrence": 88,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/88/00_source/question_88.json",
+          "count": 100
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/88/10_questionType_fixed/question_88_questionType_fixed_20260611_1036.json",
+          "count": 100
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/88/12_merged_questionType/question_88_merged.json",
+          "count": 100
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/88/15_correctChoiceText_fixed/question_88_correctChoiceText_fixed_20260611_1036.json",
+          "count": 100
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/88/20_merged_1/question_88_merged.json",
+          "count": 100
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/88/21_explanationText_added/question_88_explanationText_added_20260611_1036.json",
+          "count": 100
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/88/22_questionSetId_linked/question_88_questionSetId_linked_20260611_1036.json",
+          "count": 100
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/88/30_merged_2/question_88_merged_20260611_1046.json",
+          "count": 100
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/88/40_convert/88_firestore_20260611_104647.json",
+          "count": 492
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 100
+    },
+    {
+      "occurrence": 89,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/89/00_source/question_89.json",
+          "count": 115
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/89/10_questionType_fixed/question_89_questionType_fixed_20260611_1055.json",
+          "count": 115
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/89/12_merged_questionType/question_89_merged.json",
+          "count": 115
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/89/15_correctChoiceText_fixed/question_89_correctChoiceText_fixed_20260611_1055.json",
+          "count": 115
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/89/20_merged_1/question_89_merged.json",
+          "count": 115
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/89/21_explanationText_added/question_89_explanationText_added_20260611_1055.json",
+          "count": 115
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/89/22_questionSetId_linked/question_89_questionSetId_linked_20260611_1055.json",
+          "count": 115
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/89/30_merged_2/question_89_merged_20260611_1059.json",
+          "count": 115
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/89/40_convert/89_firestore_20260611_105916.json",
+          "count": 574
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 115
+    },
+    {
+      "occurrence": 90,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/90/00_source/question_90.json",
+          "count": 112
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/90/10_questionType_fixed/question_90_questionType_fixed_20260611_1100.json",
+          "count": 112
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/90/12_merged_questionType/question_90_merged.json",
+          "count": 112
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/90/15_correctChoiceText_fixed/question_90_correctChoiceText_fixed_20260611_1100.json",
+          "count": 112
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/90/20_merged_1/question_90_merged.json",
+          "count": 112
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/90/21_explanationText_added/question_90_explanationText_added_20260611_1100.json",
+          "count": 112
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/90/22_questionSetId_linked/question_90_questionSetId_linked_20260611_1100.json",
+          "count": 112
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/90/30_merged_2/question_90_merged_20260611_1110.json",
+          "count": 112
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/90/40_convert/90_firestore_20260611_111050.json",
+          "count": 560
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 112
+    },
+    {
+      "occurrence": 91,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/91/00_source/question_91.json",
+          "count": 129
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/91/10_questionType_fixed/question_91_questionType_fixed_20260611_1114.json",
+          "count": 129
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/91/12_merged_questionType/question_91_merged.json",
+          "count": 129
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/91/15_correctChoiceText_fixed/question_91_correctChoiceText_fixed_20260611_1114.json",
+          "count": 129
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/91/20_merged_1/question_91_merged.json",
+          "count": 129
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/91/21_explanationText_added/question_91_explanationText_added_20260611_1114.json",
+          "count": 129
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/91/22_questionSetId_linked/question_91_questionSetId_linked_20260611_1114.json",
+          "count": 129
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/91/30_merged_2/question_91_merged_20260611_1121.json",
+          "count": 129
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/91/40_convert/91_firestore_20260611_112121.json",
+          "count": 645
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 129
+    },
+    {
+      "occurrence": 92,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/92/00_source/question_92.json",
+          "count": 144
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/92/10_questionType_fixed/question_92_questionType_fixed_20260611_1123.json",
+          "count": 144
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/92/12_merged_questionType/question_92_merged.json",
+          "count": 144
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/92/15_correctChoiceText_fixed/question_92_correctChoiceText_fixed_20260611_1123.json",
+          "count": 144
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/92/20_merged_1/question_92_merged.json",
+          "count": 144
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/92/21_explanationText_added/question_92_explanationText_added_20260611_1123.json",
+          "count": 144
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/92/22_questionSetId_linked/question_92_questionSetId_linked_20260611_1123.json",
+          "count": 144
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/92/30_merged_2/question_92_merged_20260611_1129.json",
+          "count": 144
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/92/40_convert/92_firestore_20260611_112947.json",
+          "count": 720
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 144
+    },
+    {
+      "occurrence": 93,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/93/00_source/question_93.json",
+          "count": 128
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/93/10_questionType_fixed/question_93_questionType_fixed_20260611_1132.json",
+          "count": 128
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/93/12_merged_questionType/question_93_merged.json",
+          "count": 128
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/93/15_correctChoiceText_fixed/question_93_correctChoiceText_fixed_20260611_1132.json",
+          "count": 128
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/93/20_merged_1/question_93_merged.json",
+          "count": 128
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/93/21_explanationText_added/question_93_explanationText_added_20260611_1132.json",
+          "count": 128
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/93/22_questionSetId_linked/question_93_questionSetId_linked_20260611_1132.json",
+          "count": 128
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/93/30_merged_2/question_93_merged_20260710_1701.json",
+          "count": 128
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/93/40_convert/93_firestore_20260611_114128.json",
+          "count": 640
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 128
+    },
+    {
+      "occurrence": 94,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/94/00_source/question_94.json",
+          "count": 176
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/94/10_questionType_fixed/question_94_questionType_fixed_20260611_1142.json",
+          "count": 176
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/94/12_merged_questionType/question_94_merged.json",
+          "count": 176
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/94/15_correctChoiceText_fixed/question_94_correctChoiceText_fixed_20260611_1142.json",
+          "count": 176
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/94/20_merged_1/question_94_merged.json",
+          "count": 176
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/94/21_explanationText_added/question_94_explanationText_added_20260611_1142.json",
+          "count": 176
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/94/22_questionSetId_linked/question_94_questionSetId_linked_20260611_1142.json",
+          "count": 176
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/94/30_merged_2/question_94_merged_20260611_1150.json",
+          "count": 176
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/94/40_convert/94_firestore_20260611_115043.json",
+          "count": 880
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 176
+    },
+    {
+      "occurrence": 95,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/95/00_source/question_95.json",
+          "count": 259
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/95/10_questionType_fixed/question_95_questionType_fixed_20260608_2315.json",
+          "count": 259
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/95/12_merged_questionType/question_95_merged.json",
+          "count": 259
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/95/15_correctChoiceText_fixed/question_95_correctChoiceText_fixed_20260608_2315.json",
+          "count": 259
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/95/20_merged_1/question_95_merged.json",
+          "count": 259
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/95/21_explanationText_added/question_95_explanationText_added_20260609_2012.json",
+          "count": 259
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/95/22_questionSetId_linked/question_95_questionSetId_linked_20260609_2241.json",
+          "count": 259
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/95/30_merged_2/question_95_merged_20260611_1155.json",
+          "count": 259
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/95/40_convert/95_firestore_20260611_115556.json",
+          "count": 1233
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 259
+    },
+    {
+      "occurrence": 96,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/96/00_source/question_96.json",
+          "count": 337
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/96/10_questionType_fixed/question_96_questionType_fixed_20260609_2004.json",
+          "count": 337
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/96/12_merged_questionType/question_96_merged.json",
+          "count": 337
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/96/15_correctChoiceText_fixed/question_96_correctChoiceText_fixed_20260609_2004.json",
+          "count": 337
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/96/20_merged_1/question_96_merged.json",
+          "count": 337
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/96/21_explanationText_added/question_96_explanationText_added_20260609_2012.json",
+          "count": 337
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/96/22_questionSetId_linked/question_96_questionSetId_linked_20260609_2204.json",
+          "count": 337
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/96/30_merged_2/question_96_merged_20260611_1200.json",
+          "count": 337
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/96/40_convert/96_firestore_20260611_120020.json",
+          "count": 1685
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 337
+    },
+    {
+      "occurrence": 97,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/97/00_source/question_97.json",
+          "count": 363
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/97/10_questionType_fixed/question_97_questionType_fixed_20260609_2004.json",
+          "count": 363
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/97/12_merged_questionType/question_97_merged.json",
+          "count": 363
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/97/15_correctChoiceText_fixed/question_97_correctChoiceText_fixed_20260609_2004.json",
+          "count": 363
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/97/20_merged_1/question_97_merged.json",
+          "count": 363
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/97/21_explanationText_added/question_97_explanationText_added_20260609_2012.json",
+          "count": 363
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/97/22_questionSetId_linked/question_97_questionSetId_linked_20260609_2325.json",
+          "count": 363
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/97/30_merged_2/question_97_merged_20260611_1211.json",
+          "count": 363
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/97/40_convert/97_firestore_20260611_121103.json",
+          "count": 1815
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 363
+    },
+    {
+      "occurrence": 98,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/98/00_source/question_98.json",
+          "count": 379
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/98/10_questionType_fixed/question_98_questionType_fixed_20260609_2004.json",
+          "count": 379
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/98/12_merged_questionType/question_98_merged.json",
+          "count": 379
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/98/15_correctChoiceText_fixed/question_98_correctChoiceText_fixed_20260609_2004.json",
+          "count": 379
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/98/20_merged_1/question_98_merged.json",
+          "count": 379
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/98/21_explanationText_added/question_98_explanationText_added_20260609_2012.json",
+          "count": 379
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/98/22_questionSetId_linked/question_98_questionSetId_linked_20260611_1150.json",
+          "count": 379
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/98/30_merged_2/question_98_merged_20260611_1153.json",
+          "count": 379
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/98/40_convert/98_firestore_20260611_115352.json",
+          "count": 1895
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 379
+    },
+    {
+      "occurrence": 99,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/99/00_source/question_99.json",
+          "count": 530
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/99/10_questionType_fixed/question_99_questionType_fixed_20260609_2004.json",
+          "count": 530
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/99/12_merged_questionType/question_99_merged.json",
+          "count": 530
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/99/15_correctChoiceText_fixed/question_99_correctChoiceText_fixed_20260609_2004.json",
+          "count": 530
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/99/20_merged_1/question_99_merged.json",
+          "count": 530
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/99/21_explanationText_added/question_99_explanationText_added_20260609_2012.json",
+          "count": 530
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/99/22_questionSetId_linked/question_99_questionSetId_linked_20260611_1156.json",
+          "count": 530
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/99/30_merged_2/question_99_merged_20260710_1701.json",
+          "count": 530
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/99/40_convert/99_firestore_20260611_115754.json",
+          "count": 2650
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 530
+    },
+    {
+      "occurrence": 100,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/100/00_source/question_100.json",
+          "count": 530
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/100/10_questionType_fixed/question_100_questionType_fixed_20260609_2004.json",
+          "count": 530
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/100/12_merged_questionType/question_100_merged.json",
+          "count": 530
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/100/15_correctChoiceText_fixed/question_100_correctChoiceText_fixed_20260609_2004.json",
+          "count": 530
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/100/20_merged_1/question_100_merged.json",
+          "count": 530
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/100/21_explanationText_added/question_100_explanationText_added_20260609_2012.json",
+          "count": 530
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/100/22_questionSetId_linked/question_100_questionSetId_linked_20260611_1219.json",
+          "count": 530
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/100/30_merged_2/question_100_merged_20260710_1701.json",
+          "count": 530
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/100/40_convert/100_firestore_20260611_122156.json",
+          "count": 2650
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 530
+    },
+    {
+      "occurrence": 101,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/101/00_source/question_101.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/101/10_questionType_fixed/question_101_questionType_fixed_20260611_1424.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/101/12_merged_questionType/question_101_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/101/15_correctChoiceText_fixed/question_101_correctChoiceText_fixed_20260611_1424.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/101/20_merged_1/question_101_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/101/21_explanationText_added/question_101_explanationText_added_20260611_1424.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/101/22_questionSetId_linked/question_101_questionSetId_linked_20260611_1424.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/101/30_merged_2/question_101_merged_20260710_2100.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/101/40_convert/101_firestore_20260611_142551.json",
+          "count": 2500
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 500
+    },
+    {
+      "occurrence": 102,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/102/00_source/question_102.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/102/10_questionType_fixed/question_102_questionType_fixed_20260611_1338.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/102/12_merged_questionType/question_102_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/102/15_correctChoiceText_fixed/question_102_correctChoiceText_fixed_20260611_1338.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/102/20_merged_1/question_102_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/102/21_explanationText_added/question_102_explanationText_added_20260611_1338.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/102/22_questionSetId_linked/question_102_questionSetId_linked_20260611_1338.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/102/30_merged_2/question_102_merged_20260611_1340.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/102/40_convert/102_firestore_20260611_134041.json",
+          "count": 2500
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 500
+    },
+    {
+      "occurrence": 103,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/103/00_source/question_103.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/103/10_questionType_fixed/question_103_questionType_fixed_20260611_1347.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/103/12_merged_questionType/question_103_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/103/15_correctChoiceText_fixed/question_103_correctChoiceText_fixed_20260611_1347.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/103/20_merged_1/question_103_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/103/21_explanationText_added/question_103_explanationText_added_20260611_1347.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/103/22_questionSetId_linked/question_103_questionSetId_linked_20260611_1347.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/103/30_merged_2/question_103_merged_20260611_1349.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/103/40_convert/103_firestore_20260611_134921.json",
+          "count": 2523
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 500
+    },
+    {
+      "occurrence": 104,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/104/00_source/question_104.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/104/10_questionType_fixed/question_104_questionType_fixed_20260611_1351.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/104/12_merged_questionType/question_104_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/104/15_correctChoiceText_fixed/question_104_correctChoiceText_fixed_20260611_1351.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/104/20_merged_1/question_104_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/104/21_explanationText_added/question_104_explanationText_added_20260611_1351.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/104/22_questionSetId_linked/question_104_questionSetId_linked_20260611_1351.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/104/30_merged_2/question_104_merged_20260611_1352.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/104/40_convert/104_firestore_20260611_135242.json",
+          "count": 2515
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 500
+    },
+    {
+      "occurrence": 105,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/105/00_source/question_105.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/105/10_questionType_fixed/question_105_questionType_fixed_20260611_1353.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/105/12_merged_questionType/question_105_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/105/15_correctChoiceText_fixed/question_105_correctChoiceText_fixed_20260611_1353.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/105/20_merged_1/question_105_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/105/21_explanationText_added/question_105_explanationText_added_20260611_1353.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/105/22_questionSetId_linked/question_105_questionSetId_linked_20260611_1353.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/105/30_merged_2/question_105_merged_20260710_1701.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/105/40_convert/105_firestore_20260611_140241.json",
+          "count": 2530
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 500
+    },
+    {
+      "occurrence": 106,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/106/00_source/question_106.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/106/10_questionType_fixed/question_106_questionType_fixed_20260611_1404.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/106/12_merged_questionType/question_106_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/106/15_correctChoiceText_fixed/question_106_correctChoiceText_fixed_20260611_1404.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/106/20_merged_1/question_106_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/106/21_explanationText_added/question_106_explanationText_added_20260611_1404.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/106/22_questionSetId_linked/question_106_questionSetId_linked_20260611_1404.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/106/30_merged_2/question_106_merged_20260710_1701.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/106/40_convert/106_firestore_20260611_140519.json",
+          "count": 2503
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 500
+    },
+    {
+      "occurrence": 107,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/107/00_source/question_107.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/107/10_questionType_fixed/question_107_questionType_fixed_20260611_1406.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/107/12_merged_questionType/question_107_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/107/15_correctChoiceText_fixed/question_107_correctChoiceText_fixed_20260611_1406.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/107/20_merged_1/question_107_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/107/21_explanationText_added/question_107_explanationText_added_20260611_1406.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/107/22_questionSetId_linked/question_107_questionSetId_linked_20260611_1406.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/107/30_merged_2/question_107_merged_20260710_2040.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/107/40_convert/107_firestore_20260611_140830.json",
+          "count": 2503
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 500
+    },
+    {
+      "occurrence": 108,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/108/00_source/question_108.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/108/10_questionType_fixed/question_108_questionType_fixed_20260611_1408.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/108/12_merged_questionType/question_108_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/108/15_correctChoiceText_fixed/question_108_correctChoiceText_fixed_20260611_1408.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/108/20_merged_1/question_108_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/108/21_explanationText_added/question_108_explanationText_added_20260611_1408.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/108/22_questionSetId_linked/question_108_questionSetId_linked_20260611_1408.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/108/30_merged_2/question_108_merged_20260710_2040.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/108/40_convert/108_firestore_20260611_140937.json",
+          "count": 2490
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 500
+    },
+    {
+      "occurrence": 109,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/109/00_source/question_109.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/109/10_questionType_fixed/question_109_questionType_fixed_20260611_1410.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/109/12_merged_questionType/question_109_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/109/15_correctChoiceText_fixed/question_109_correctChoiceText_fixed_20260611_1410.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/109/20_merged_1/question_109_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/109/21_explanationText_added/question_109_explanationText_added_20260611_1410.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/109/22_questionSetId_linked/question_109_questionSetId_linked_20260611_1410.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/109/30_merged_2/question_109_merged_20260710_1701.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/109/40_convert/109_firestore_20260611_141106.json",
+          "count": 2493
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 500
+    },
+    {
+      "occurrence": 110,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/110/00_source/question_110.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/110/10_questionType_fixed/question_110_questionType_fixed_20260611_1411.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/110/12_merged_questionType/question_110_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/110/15_correctChoiceText_fixed/question_110_correctChoiceText_fixed_20260611_1411.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/110/20_merged_1/question_110_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/110/21_explanationText_added/question_110_explanationText_added_20260611_1411.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/110/22_questionSetId_linked/question_110_questionSetId_linked_20260611_1411.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/110/30_merged_2/question_110_merged_20260611_1411.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/110/40_convert/110_firestore_20260611_141154.json",
+          "count": 2498
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 500
+    },
+    {
+      "occurrence": 111,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/111/00_source/question_111.json",
+          "count": 500
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/111/10_questionType_fixed/question_111_questionType_fixed_20260611_1412.json",
+          "count": 500
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/111/12_merged_questionType/question_111_merged.json",
+          "count": 500
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/111/15_correctChoiceText_fixed/question_111_correctChoiceText_fixed_20260611_1412.json",
+          "count": 500
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/111/20_merged_1/question_111_merged.json",
+          "count": 500
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/111/21_explanationText_added/question_111_explanationText_added_20260611_1412.json",
+          "count": 500
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/111/22_questionSetId_linked/question_111_questionSetId_linked_20260611_1412.json",
+          "count": 500
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/111/30_merged_2/question_111_merged_20260611_1413.json",
+          "count": 500
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/111/40_convert/111_firestore_20260611_141315.json",
+          "count": 2489
+        }
+      },
+      "counts_match_required": true,
+      "issues": [],
+      "source_count": 500
+    },
+    {
+      "occurrence": 112,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/112/00_source/question_112.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/112/10_questionType_fixed/question_112_questionType_fixed_20260611_1413.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/112/12_merged_questionType/question_112_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/112/15_correctChoiceText_fixed/question_112_correctChoiceText_fixed_20260611_1413.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/112/20_merged_1/question_112_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/112/21_explanationText_added/question_112_explanationText_added_20260611_1413.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/112/22_questionSetId_linked/question_112_questionSetId_linked_20260611_1413.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/112/30_merged_2/question_112_merged_20260710_1701.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/112/40_convert/112_firestore_20260611_141357.json",
+          "count": 1992
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 113,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/113/00_source/question_113.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/113/10_questionType_fixed/question_113_questionType_fixed_20260611_1414.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/113/12_merged_questionType/question_113_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/113/15_correctChoiceText_fixed/question_113_correctChoiceText_fixed_20260611_1414.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/113/20_merged_1/question_113_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/113/21_explanationText_added/question_113_explanationText_added_20260611_1414.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/113/22_questionSetId_linked/question_113_questionSetId_linked_20260611_1414.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/113/30_merged_2/question_113_merged_20260710_1701.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/113/40_convert/113_firestore_20260611_141518.json",
+          "count": 1996
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 114,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/114/00_source/question_114.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/114/10_questionType_fixed/question_114_questionType_fixed_20260611_1415.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/114/12_merged_questionType/question_114_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/114/15_correctChoiceText_fixed/question_114_correctChoiceText_fixed_20260611_1415.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/114/20_merged_1/question_114_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/114/21_explanationText_added/question_114_explanationText_added_20260611_1415.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/114/22_questionSetId_linked/question_114_questionSetId_linked_20260611_1415.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/114/30_merged_2/question_114_merged_20260710_2100.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/114/40_convert/114_firestore_20260611_141600.json",
+          "count": 1988
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 115,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/115/00_source/question_115.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/115/10_questionType_fixed/question_115_questionType_fixed_20260611_1416.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/115/12_merged_questionType/question_115_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/115/15_correctChoiceText_fixed/question_115_correctChoiceText_fixed_20260611_1416.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/115/20_merged_1/question_115_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/115/21_explanationText_added/question_115_explanationText_added_20260611_1416.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/115/22_questionSetId_linked/question_115_questionSetId_linked_20260611_1416.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/115/30_merged_2/question_115_merged_20260710_2040.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/115/40_convert/115_firestore_20260611_141724.json",
+          "count": 1995
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 116,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/116/00_source/question_116.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/116/10_questionType_fixed/question_116_questionType_fixed_20260611_1417.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/116/12_merged_questionType/question_116_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/116/15_correctChoiceText_fixed/question_116_correctChoiceText_fixed_20260611_1417.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/116/20_merged_1/question_116_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/116/21_explanationText_added/question_116_explanationText_added_20260611_1417.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/116/22_questionSetId_linked/question_116_questionSetId_linked_20260611_1417.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/116/30_merged_2/question_116_merged_20260710_1701.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/116/40_convert/116_firestore_20260611_141810.json",
+          "count": 1989
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 117,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/117/00_source/question_117.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/117/10_questionType_fixed/question_117_questionType_fixed_20260611_1418.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/117/12_merged_questionType/question_117_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/117/15_correctChoiceText_fixed/question_117_correctChoiceText_fixed_20260611_1418.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/117/20_merged_1/question_117_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/117/21_explanationText_added/question_117_explanationText_added_20260611_1418.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/117/22_questionSetId_linked/question_117_questionSetId_linked_20260611_1418.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/117/30_merged_2/question_117_merged_20260710_2045.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/117/40_convert/117_firestore_20260611_141933.json",
+          "count": 1992
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 118,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/118/00_source/question_118.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/118/10_questionType_fixed/question_118_questionType_fixed_20260611_1419.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/118/12_merged_questionType/question_118_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/118/15_correctChoiceText_fixed/question_118_correctChoiceText_fixed_20260611_1419.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/118/20_merged_1/question_118_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/118/21_explanationText_added/question_118_explanationText_added_20260611_1419.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/118/22_questionSetId_linked/question_118_questionSetId_linked_20260611_1419.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/118/30_merged_2/question_118_merged_20260710_1701.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/118/40_convert/118_firestore_20260611_142017.json",
+          "count": 1988
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 119,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/119/00_source/question_119.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/119/10_questionType_fixed/question_119_questionType_fixed_20260611_1420.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/119/12_merged_questionType/question_119_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/119/15_correctChoiceText_fixed/question_119_correctChoiceText_fixed_20260611_1420.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/119/20_merged_1/question_119_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/119/21_explanationText_added/question_119_explanationText_added_20260611_1420.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/119/22_questionSetId_linked/question_119_questionSetId_linked_20260611_1420.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/119/30_merged_2/question_119_merged_20260710_1701.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/119/40_convert/119_firestore_20260611_142143.json",
+          "count": 1984
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    },
+    {
+      "occurrence": 120,
+      "stages": {
+        "00_source": {
+          "file": "output/mecnet-kokushi/questions_json/120/00_source/question_120.json",
+          "count": 400
+        },
+        "10_questionType_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/120/10_questionType_fixed/question_120_questionType_fixed_20260611_1421.json",
+          "count": 400
+        },
+        "12_merged_questionType": {
+          "file": "output/mecnet-kokushi/questions_json/120/12_merged_questionType/question_120_merged.json",
+          "count": 400
+        },
+        "15_correctChoiceText_fixed": {
+          "file": "output/mecnet-kokushi/questions_json/120/15_correctChoiceText_fixed/question_120_correctChoiceText_fixed_20260611_1421.json",
+          "count": 400
+        },
+        "20_merged_1": {
+          "file": "output/mecnet-kokushi/questions_json/120/20_merged_1/question_120_merged.json",
+          "count": 400
+        },
+        "21_explanationText_added": {
+          "file": "output/mecnet-kokushi/questions_json/120/21_explanationText_added/question_120_explanationText_added_20260611_1421.json",
+          "count": 400
+        },
+        "22_questionSetId_linked": {
+          "file": "output/mecnet-kokushi/questions_json/120/22_questionSetId_linked/question_120_questionSetId_linked_20260611_1421.json",
+          "count": 400
+        },
+        "23_correctChoiceText_fixed": {
+          "file": null,
+          "count": null
+        },
+        "30_merged_2": {
+          "file": "output/mecnet-kokushi/questions_json/120/30_merged_2/question_120_merged_20260710_2045.json",
+          "count": 400
+        },
+        "40_convert": {
+          "file": "output/mecnet-kokushi/questions_json/120/40_convert/120_firestore_20260611_142231.json",
+          "count": 1988
+        }
+      },
+      "counts_match_required": true,
+      "issues": [
+        "40_convert older than latest 30_merged_2",
+        "30_merged_2 was regenerated/modified on 2026-07-10; rerun 40_convert/upload dry-run before using"
+      ],
+      "source_count": 400
+    }
+  ],
+  "question_type_by_occurrence": {
+    "69": {
+      "flash_card": 1,
+      "true_false": 1
+    },
+    "70": {
+      "true_false": 1
+    },
+    "71": {
+      "flash_card": 1,
+      "true_false": 2
+    },
+    "72": {
+      "true_false": 5
+    },
+    "73": {
+      "true_false": 5
+    },
+    "74": {
+      "true_false": 1
+    },
+    "75": {
+      "true_false": 15
+    },
+    "76": {
+      "true_false": 8
+    },
+    "77": {
+      "true_false": 12
+    },
+    "78": {
+      "true_false": 17
+    },
+    "79": {
+      "true_false": 33
+    },
+    "80": {
+      "true_false": 48
+    },
+    "81": {
+      "true_false": 65
+    },
+    "82": {
+      "true_false": 55
+    },
+    "83": {
+      "true_false": 63
+    },
+    "84": {
+      "true_false": 63
+    },
+    "85": {
+      "true_false": 84
+    },
+    "86": {
+      "true_false": 90
+    },
+    "87": {
+      "true_false": 88
+    },
+    "88": {
+      "true_false": 100
+    },
+    "89": {
+      "true_false": 115
+    },
+    "90": {
+      "true_false": 112
+    },
+    "91": {
+      "true_false": 129
+    },
+    "92": {
+      "true_false": 144
+    },
+    "93": {
+      "true_false": 128
+    },
+    "94": {
+      "true_false": 176
+    },
+    "95": {
+      "flash_card": 158,
+      "true_false": 101
+    },
+    "96": {
+      "true_false": 337
+    },
+    "97": {
+      "true_false": 363
+    },
+    "98": {
+      "true_false": 379
+    },
+    "99": {
+      "true_false": 530
+    },
+    "100": {
+      "true_false": 530
+    },
+    "101": {
+      "true_false": 500
+    },
+    "102": {
+      "true_false": 500
+    },
+    "103": {
+      "fill_in_blank": 2,
+      "true_false": 498
+    },
+    "104": {
+      "fill_in_blank": 1,
+      "true_false": 499
+    },
+    "105": {
+      "fill_in_blank": 1,
+      "true_false": 499
+    },
+    "106": {
+      "fill_in_blank": 3,
+      "true_false": 497
+    },
+    "107": {
+      "fill_in_blank": 2,
+      "true_false": 498
+    },
+    "108": {
+      "fill_in_blank": 3,
+      "true_false": 497
+    },
+    "109": {
+      "fill_in_blank": 2,
+      "true_false": 498
+    },
+    "110": {
+      "fill_in_blank": 2,
+      "true_false": 498
+    },
+    "111": {
+      "fill_in_blank": 4,
+      "true_false": 496
+    },
+    "112": {
+      "fill_in_blank": 2,
+      "true_false": 398
+    },
+    "113": {
+      "fill_in_blank": 2,
+      "true_false": 398
+    },
+    "114": {
+      "fill_in_blank": 3,
+      "true_false": 397
+    },
+    "115": {
+      "fill_in_blank": 2,
+      "true_false": 398
+    },
+    "116": {
+      "fill_in_blank": 3,
+      "true_false": 397
+    },
+    "117": {
+      "fill_in_blank": 3,
+      "true_false": 397
+    },
+    "118": {
+      "fill_in_blank": 4,
+      "true_false": 396
+    },
+    "119": {
+      "fill_in_blank": 4,
+      "true_false": 396
+    },
+    "120": {
+      "fill_in_blank": 3,
+      "true_false": 397
+    }
+  }
+}
