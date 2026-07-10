@@ -14,6 +14,8 @@ PATCH_GLOB = "question_*_law_merged_explanationText_added_*.json"
 CURRENT_LAW_ONLY_SUMMARY_GLOB = "2015_2016_current_law_only_summary_*.json"
 EXPECTED_PATCH_ENTRY_COUNT = 211
 EXPECTED_TOTAL_ENTRY_COUNT = 256
+# Backwards-compatible public name used by the repository-wide contract test.
+EXPECTED_ENTRY_COUNT = EXPECTED_TOTAL_ENTRY_COUNT
 EXPECTED_CANDIDATE_ALIAS_COUNTS: dict[str, int] = {}
 
 

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "question-issue-report-config/v1",
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "canonicalBranch": "codex/goal-driven-workflow",
+  "promptStageFiles": {
+    "01": "prompt/01_prompt_fix_questionType.md",
+    "02": "prompt/02_prompt_fix_questionIntent.md",
+    "02b": "prompt/02b_prompt_prepare_law_context.md",
+    "03": "prompt/03_prompt_add_explanationText.md",
+    "03b": "prompt/03b_prompt_audit_current_law_and_patch.md",
+    "04": "prompt/04_prompt_link_questionSetId.md",
+    "23_correctChoiceText_fixed": "document/operations/ai_patch_execution_prompt_templates.md"
+  },
+  "categories": {
+    "question_content": {
+      "label": "問題文・選択肢",
+      "allowedChangeFields": [
+        "questionBodyText",
+        "choiceTextList"
+      ],
+      "existingPromptStages": ["01", "02", "03"]
+    },
+    "correct_answer": {
+      "label": "正答",
+      "allowedChangeFields": [
+        "correctChoiceText",
+        "answer_result_text",
+        "answer_result_inferred_correct_choice_numbers",
+        "questionIntent"
+      ],
+      "existingPromptStages": ["02", "23_correctChoiceText_fixed"]
+    },
+    "explanation": {
+      "label": "解説",
+      "allowedChangeFields": [
+        "explanationText",
+        "suggestedQuestions",
+        "suggestedQuestionDetails",
+        "lawReferences"
+      ],
+      "existingPromptStages": ["02b", "03"]
+    },
+    "outdated_law_or_information": {
+      "label": "法令・制度・情報の古さ",
+      "allowedChangeFields": [
+        "correctChoiceText",
+        "explanationText",
+        "suggestedQuestions",
+        "suggestedQuestionDetails",
+        "lawReferences",
+        "lawRevisionFacts",
+        "isLawRelated",
+        "lawGroundedExplanationNotNeeded"
+      ],
+      "existingPromptStages": ["02b", "03", "03b"]
+    },
+    "image": {
+      "label": "画像",
+      "allowedChangeFields": [
+        "questionImageStorageUrls",
+        "originalQuestionChoiceImageUrls",
+        "explanationImageUrls"
+      ],
+      "existingPromptStages": []
+    },
+    "classification": {
+      "label": "所属フォルダ・問題集",
+      "allowedChangeFields": [
+        "questionSetId",
+        "choiceQuestionSetIds",
+        "questionSetIds"
+      ],
+      "existingPromptStages": ["04"]
+    },
+    "answer_format_or_display": {
+      "label": "回答形式・表示",
+      "allowedChangeFields": [
+        "questionType",
+        "questionIntent"
+      ],
+      "existingPromptStages": ["01", "02"]
+    },
+    "other": {
+      "label": "その他",
+      "allowedChangeFields": [
+        "questionBodyText",
+        "choiceTextList",
+        "questionType",
+        "questionIntent",
+        "correctChoiceText",
+        "answer_result_text",
+        "answer_result_inferred_correct_choice_numbers",
+        "explanationText",
+        "suggestedQuestions",
+        "suggestedQuestionDetails",
+        "lawReferences",
+        "questionSetId",
+        "choiceQuestionSetIds",
+        "questionSetIds",
+        "questionImageStorageUrls",
+        "originalQuestionChoiceImageUrls",
+        "explanationImageUrls"
+      ],
+      "existingPromptStages": ["01", "02", "02b", "03", "04"]
+    }
+  },
+  "workflowStatuses": {
+    "unreviewed": "客観レビュー未実施",
+    "in_batch": "承認済みbatchで処理中",
+    "reviewed_no_change": "修正不要",
+    "reviewed_hold": "根拠不足で保留",
+    "ready_for_patch": "patch適用待ち",
+    "publish_pending": "commit後のpush/upload/readback再試行待ち",
+    "published": "問題データ修正・readback完了",
+    "app_update_queued": "アプリ更新へ分離"
+  }
+}

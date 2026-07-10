@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "question-issue-blind-review/v1",
+  "phase": "blind",
+  "reviewerSlot": "B",
+  "inputHash": "$BLIND_INPUT_HASH",
+  "workflowContractHashes": "$WORKFLOW_CONTRACT_HASHES",
+  "conclusion": "problem_found",
+  "proposedChanges": {
+    "questionBodyText": "公式表記の問題文"
+  },
+  "findings": [
+    {
+      "field": "questionBodyText",
+      "observed": "公式本文と異なる",
+      "expected": "公式表記に修正",
+      "rationale": "一次資料の本文と不一致"
+    }
+  ],
+  "evidence": [
+    {
+      "sourceClass": "primary",
+      "locator": "official-document-2026-question-1",
+      "title": "試験実施機関公開原本",
+      "verifiedAt": "2026-07-10T00:00:00Z",
+      "contentHash": "c4b7fa8ca0f42b31e752de7a217967801bf144f39f6f13958befb9beda1b02af"
+    }
+  ]
+}

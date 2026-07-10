@@ -36,6 +36,10 @@ if __package__ in {None, ""}:
         build_patch_map_from_paths,
         normalize_true_false_intent_and_correct_choice,
     )
+    from scripts.merge.question_issue_corrections import (
+        apply_question_issue_correction_paths,
+        ensure_all_question_issue_corrections_applied,
+    )
 else:
     from scripts.common.questions_json_paths import resolve_list_group_base_dir
     from .merge_utils import (
@@ -55,6 +59,10 @@ else:
         build_patch_map_from_paths,
         normalize_true_false_intent_and_correct_choice,
     )
+    from .question_issue_corrections import (
+        apply_question_issue_correction_paths,
+        ensure_all_question_issue_corrections_applied,
+    )
 
 
 SOURCE_SUBDIR = "00_source"
@@ -67,6 +75,7 @@ PATCH_DIR_LAW_CONTEXT = "18_law_context_prepared"
 PATCH_DIR_EXPLANATION = "21_explanationText_added"
 PATCH_DIR_QSET = "22_questionSetId_linked"
 PATCH_DIR_CORRECT = "23_correctChoiceText_fixed"
+PATCH_DIR_QUESTION_ISSUES = "24_questionIssueCorrections"
 PATCH_DIR_INTENT_AND_CORRECT_FALLBACK = "15_correctChoiceText_fixed"
 
 PATCH_TAGS = {
@@ -472,6 +481,7 @@ def merge_all(
     patch_expl_dir = list_group_dir / PATCH_DIR_EXPLANATION
     patch_qset_dir = list_group_dir / PATCH_DIR_QSET
     patch_correct_dir = list_group_dir / PATCH_DIR_CORRECT
+    patch_question_issues_dir = list_group_dir / PATCH_DIR_QUESTION_ISSUES
 
     expl_paths = (
         select_latest_patch_files(
@@ -495,6 +505,11 @@ def merge_all(
             PATCH_TAGS["correct_choice"],
         )
         if patch_correct_dir.exists()
+        else []
+    )
+    question_issue_paths = (
+        sorted(patch_question_issues_dir.glob("*.json"))
+        if patch_question_issues_dir.exists()
         else []
     )
 
@@ -540,6 +555,8 @@ def merge_all(
     true_false_correct_choice_updates_merged2 = 0
     exam_year_backfills_merged2 = 0
     correct_choice_backfills_merged2 = 0
+    question_issue_updates = 0
+    applied_question_issue_targets: set[str] = set()
 
     merged2_dir.mkdir(parents=True, exist_ok=True)
     archived_merged2 = archive_existing_json_files(merged2_dir)
@@ -557,6 +574,11 @@ def merge_all(
         true_false_correct_choice_updates_merged2 += u_choice
         exam_year_backfills_merged2 += backfill_exam_year(data)
         correct_choice_backfills_merged2 += backfill_correct_choice_text_from_answer_result(data)
+        question_issue_updates += apply_question_issue_correction_paths(
+            data,
+            question_issue_paths,
+            applied_targets=applied_question_issue_targets,
+        )
         # 30_merged_2 は実行時刻付きで新規出力する
         out_path = merged2_dir / output_filename_for_base(merged_path, force_new=True)
         valid_data, manual_data = maybe_split_for_manual_output(data, out_path)
@@ -567,6 +589,11 @@ def merge_all(
             manual_path = build_manual_output_path(out_path)
             save_json(manual_data, manual_path)
             print(f"[WARN] choiceTextList 空のため外出し: {manual_path}")
+
+    ensure_all_question_issue_corrections_applied(
+        question_issue_paths,
+        applied_question_issue_targets,
+    )
 
     print(f"[INFO] 30_merged_2 生成完了: {merged2_dir}")
     print(f"[INFO] explanationText 更新件数: {expl_updates}")
@@ -581,6 +608,8 @@ def merge_all(
         print(f"[INFO] examYear 推定補完件数: {exam_year_backfills_merged2}")
     if correct_choice_backfills_merged2:
         print(f"[INFO] correctChoiceText(None) 自動補完件数: {correct_choice_backfills_merged2}")
+    if question_issue_updates:
+        print(f"[INFO] 問題報告 correction 更新件数: {question_issue_updates}")
 
 
 def main() -> int:

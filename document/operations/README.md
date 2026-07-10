@@ -13,6 +13,9 @@
 - [goal_driven_update_workflow.md](/Users/yuki/development/exam_scraper/document/operations/goal_driven_update_workflow.md)
   - `qualification_code` / `list_group_id` / `question` 単位で goal に載せるための運用設計。
   - 日次更新や厳密レビューの粒度を変更する場合はここを直す。
+- [question_issue_report_workflow.md](question_issue_report_workflow.md)
+  - Repaso の公式問題報告をオンデマンド棚卸しし、blind A/B、challenge、報告由来 patch、commit/push、upload、live readback まで処理する正本。
+  - 問題更新とアプリ更新の分離、raw comment の非公開境界、一度だけの batch 承認、終了条件を確認する。
 - [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md)
   - Lawzilla MCP を法令根拠整備の並列検証レイヤーとして使い、実務に耐えうるかのレビューを蓄積・定期フィードバックする運用。
   - API キーや endpoint を artifact / repo / 送付文面へ残さないための記録項目と送付前チェックもここで確認する。

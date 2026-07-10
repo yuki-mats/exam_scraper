@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "question-issue-challenge-review/v1",
+  "phase": "challenge",
+  "inputHash": "$CHALLENGE_INPUT_HASH",
+  "blindReviewHashes": ["$BLIND_A_HASH", "$BLIND_B_HASH"],
+  "decision": "fix",
+  "rationale": "独立した二つの一次資料監査が同じ本文差分を確認したため、公式表記へ置換する。",
+  "changes": {
+    "questionBodyText": "公式表記の問題文"
+  },
+  "evidence": [
+    {
+      "sourceClass": "official",
+      "locator": "https://official.example/exam/2026.pdf#page=1",
+      "title": "公式試験問題冊子",
+      "verifiedAt": "2026-07-10T00:00:00Z",
+      "contentHash": "c4b7fa8ca0f42b31e752de7a217967801bf144f39f6f13958befb9beda1b02af"
+    },
+    {
+      "sourceClass": "primary",
+      "locator": "official-document-2026-question-1",
+      "title": "試験実施機関公開原本",
+      "verifiedAt": "2026-07-10T00:00:00Z",
+      "contentHash": "c4b7fa8ca0f42b31e752de7a217967801bf144f39f6f13958befb9beda1b02af"
+    }
+  ]
+}

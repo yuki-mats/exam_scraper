@@ -75,6 +75,45 @@ python tools/question_bank/question_bank.py check-law-revision-facts \
   --report output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_fact_coverage_<timestamp>.json
 ```
 
+## 公式問題の問題報告
+
+Repaso から届いた問題報告は定期 polling せず、依頼された時だけ次で棚卸しします。
+
+```bash
+python tools/question_bank/question_bank.py report-inventory \
+  --credentials-json /secure/service-account.json
+```
+
+カテゴリを選んだら棚卸し時点の対象を固定し、総量への承認を一度だけ得ます。
+
+```bash
+python tools/question_bank/question_bank.py report-snapshot \
+  --category correct_answer \
+  --credentials-json /secure/service-account.json \
+  --output output/question_issue_reports/batches/correct-answer.json
+
+python tools/question_bank/question_bank.py report-run \
+  --manifest output/question_issue_reports/batches/correct-answer.json \
+  --approve --execute-publish \
+  --credentials-json /secure/service-account.json
+```
+
+`report-run` は blind A/B → challenge → `24_questionIssueCorrections` → merge → gate → upload dry-run → correction unit commit/push → upload → live readback を順に実行します。raw comment を blind review、patch、Git、通常ログへ入れません。詳細は `document/operations/question_issue_report_workflow.md` を正本にします。
+
+production では `--approve --execute-publish` を組にし、承認後に patch preview だけで止まる実行を拒否します。commit 後の push/upload/readback 失敗は `publish_pending` として保持され、同じ commit を次で再試行します。
+
+```bash
+python tools/question_bank/question_bank.py report-retry-publish \
+  --credentials-json /secure/service-account.json
+```
+
+報告由来 overlay 単体の確認:
+
+```bash
+python tools/question_bank/question_bank.py check-question-issue-correction \
+  --patch output/<qualification>/questions_json/<list_group_id>/24_questionIssueCorrections/<patch>.json
+```
+
 法令本文の再現性を確保する場合は、Firestore 変換後の verified `lawReferences` から e-Gov 条文スナップショットを取得します。これはアプリ実行時の検索ではなく、問題整備時の evidence 蓄積です。
 
 ```bash
@@ -169,7 +208,7 @@ python tools/question_bank/question_bank.py check-question-set-patch \
 | 場所 | 役割 |
 | --- | --- |
 | `document/reference/question_field_contract.md` | 共通フィールドの人間向け正本。 |
-| `prompt/` | 01から04の目視 patch 作成プロンプト。02bで法令コンテキスト、03で解説本文を作る。 |
+| `prompt/` | 01から04の目視 patch 作成プロンプト。02bで法令コンテキスト、03で解説本文を作る。`question_issue_reports/` は blind A/B と challenge の共通 orchestrator。 |
 | `tools/question_bank/` | 日常運用で直接叩く統一CLI。 |
 | `scripts/` | CLIから呼ばれる実装、互換入口、個別補助。通常は直接探さない。 |
 | `output/` | 資格ごとの生成物・作業中データ。Git管理の正本にしない。root直下に単発レポートを増やさず、`output/<qualification>/reports/` へ置く。 |

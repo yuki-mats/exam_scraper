@@ -29,6 +29,10 @@ from scripts.common.requirements import (  # noqa: E402
     load_requirements,
     validate_records,
 )
+from tools.question_bank.question_issue_reports import (  # noqa: E402
+    add_question_issue_report_parsers,
+    run_question_issue_report_command,
+)
 
 TIMESTAMP_SUFFIX_PATTERN = re.compile(r"_(\d{8}_\d{4}|\d{8}_\d{6})$")
 
@@ -344,6 +348,17 @@ def run_patch_checks(
                 if source_stem not in source_stems:
                     print(f"[ERROR] {group_dir.name}: {stage.label}: patch has no source: {patch_path.name}")
                     failed += 1
+        correction_dir = group_dir / "24_questionIssueCorrections"
+        for correction_path in sorted(correction_dir.glob("*.json")):
+            if run_command(
+                [
+                    sys.executable,
+                    "scripts/check/check_question_issue_correction_patch.py",
+                    "--patch",
+                    str(correction_path),
+                ]
+            ) != 0:
+                failed += 1
     return 1 if failed else 0
 
 
@@ -683,6 +698,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     add_law_revision_fact_coverage_parser(subparsers)
     add_law_revision_audit_queue_parser(subparsers)
     add_law_revision_hold_materialize_parser(subparsers)
+    add_question_issue_report_parsers(subparsers)
     add_quality_gate_arguments(parser)
     return parser.parse_args(argv)
 
@@ -845,6 +861,14 @@ def run_law_revision_hold_materialize(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.command in {
+        "report-inventory",
+        "report-snapshot",
+        "report-run",
+        "report-retry-publish",
+        "check-question-issue-correction",
+    }:
+        return run_question_issue_report_command(args)
     if args.command == "check-question-type-patch":
         return run_question_type_patch_check(args)
     if args.command == "check-question-intent-patch":

@@ -286,6 +286,7 @@ output/<qualification>/
     21_explanationText_added/
     22_questionSetId_linked/
     23_correctChoiceText_fixed/
+    24_questionIssueCorrections/
     30_merged_2/
     40_convert/
   questions_json/upload_to_firestore/
@@ -303,6 +304,7 @@ output/<qualification>/
 - `21_explanationText_added/`: `explanationText` patch。
 - `22_questionSetId_linked/`: `questionSetId` patch。
 - `23_correctChoiceText_fixed/`: 最終 `correctChoiceText` の厳密レビュー patch。
+- `24_questionIssueCorrections/`: 問題報告を blind A/B と challenge で客観レビューした後の correction overlay。case/input/review/evidence hash を持つ。
 - `30_merged_2/`: explanation / questionSetId / correctChoiceText を反映した upload 前 merged。
 - `40_convert/`: Firestore schema 向け変換結果。
 - `upload_to_firestore/`: Firestore upload 用 JSON。
@@ -323,6 +325,7 @@ output/<qualification>/
 | 03 `explanation` | `21_explanationText_added/` | `<source_stem>_merged_explanationText_added.json` | `explanationText`、`suggestedQuestions`、`suggestedQuestionDetails` patch。timestamp 付き legacy は最新を選ぶ。 |
 | 04 `questionSetId` | `22_questionSetId_linked/` | `<source_stem>_merged_questionSetId_linked.json` | `category.json` を根拠に `questionSetId` を紐付ける patch。 |
 | 厳密正答レビュー | `23_correctChoiceText_fixed/` | `<source_stem>_merged_correctChoiceText_fixed.json` | 03以降の後追い補正用。`correctChoiceText` を一問ずつ専門家目線で確認した結果だけ入れる。 |
+| 問題報告 correction | `24_questionIssueCorrections/` | `<batch>_<work>_<originalQuestionId>.json` | `00_source` を変更せず、blind A/B + challenge を通った変更だけを overlay。`expectedBeforeHash` 不一致で停止し、case ID を patch から追跡できる。 |
 | 最終 merge 後 | `30_merged_2/` | `<source_stem>_merged.json` | explanation / questionSetId / 最終 correctChoiceText を反映した upload 前 merged。 |
 | Firestore 変換 | `40_convert/` | `<list_group_id>_firestore_<YYYYMMDD_HHMMSS>.json` | Firestore schema 相当の `questions[]`。upload 前 schema validation の対象。 |
 | upload 準備 | `questions_json/upload_to_firestore/` | `<list_group_id>_firestore_<YYYYMMDD_HHMMSS>.json` | Firestore upload 用 JSON。通常は `40_convert` 由来。 |
