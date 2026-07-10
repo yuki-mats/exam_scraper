@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2022,
+  "sourceQuestionKey": "gas-shunin:kou:2022:law:q11",
+  "questionLabel": "問11",
+  "sourceQuestionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": ["間違い", "正しい", "正しい", "正しい", "間違い"],
+  "patchedCorrectChoiceText": ["間違い", "正しい", "正しい", "正しい", "間違い"],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {"choiceIndex":0,"verdict":"間違い","directBasis":["ガス工作物の技術上の基準を定める省令第46条"],"basisText":"水のたまるおそれのある導管には水取り器を設ける。"},
+    {"choiceIndex":1,"verdict":"正しい","directBasis":["同令第47条"],"basisText":"腐食のおそれがある導管には腐食防止措置を講じる。"},
+    {"choiceIndex":2,"verdict":"正しい","directBasis":["同令第48条第2項"],"basisText":"道路に埋設される所定のポリエチレン本支管には掘削等損傷防止措置を講じる。"},
+    {"choiceIndex":3,"verdict":"正しい","directBasis":["同令第49条第2項"],"basisText":"特定地下街等へ供給する低圧本支管には災害時の遮断措置を講じる。"},
+    {"choiceIndex":4,"verdict":"間違い","directBasis":["同令第50条第1項"],"basisText":"遮断要件は地震動、過大なガス流量又は異常なガス圧力低下であり、停電ではない。"}
+  ],
+  "changedFields": ["explanationText", "suggestedQuestionDetails", "sourceExplanationCommonSummary", "sourceExplanationChoiceSnippets", "sourceExplanationChoiceCorrectness"],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": ["https://laws.e-gov.go.jp/law/412M50000400111"]
+}
