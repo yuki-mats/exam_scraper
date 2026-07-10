@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2023,
+  "sourceQuestionKey": "gas-shunin:kou:2023:law:q11",
+  "questionLabel": "問11",
+  "sourceQuestionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": ["正しい", "間違い", "正しい", "間違い", "間違い"],
+  "patchedCorrectChoiceText": ["正しい", "間違い", "正しい", "間違い", "間違い"],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {"choiceIndex": 0, "verdict": "正しい", "directBasis": ["ガス工作物の技術上の基準を定める省令第46条"], "basisText": "水のたまるおそれのある導管には、適切な水取り器を設けなければならない。"},
+    {"choiceIndex": 1, "verdict": "間違い", "directBasis": ["ガス工作物の技術上の基準を定める省令第45条第1項第2号"], "basisText": "告示で定める着脱が容易なガス栓は、内部に過流出安全機構を有しなければならない。"},
+    {"choiceIndex": 2, "verdict": "正しい", "directBasis": ["ガス工作物の技術上の基準を定める省令第48条第3項"], "basisText": "道路以外の地盤面下に埋設される対象本支管には、掘削等による損傷を防止する措置が必要であり、他工事による損傷のおそれがないものは例外である。"},
+    {"choiceIndex": 3, "verdict": "間違い", "directBasis": ["ガス工作物の技術上の基準を定める省令第49条第4項"], "basisText": "地下室等にガスを供給する導管の遮断装置は、地下室等の付近の適切な場所に設ける。"},
+    {"choiceIndex": 4, "verdict": "間違い", "directBasis": ["ガス工作物の技術上の基準を定める省令第50条第1項"], "basisText": "対象のガスメーターは、異常なガス圧力の低下を検知した場合にガスを遮断する機能を有しなければならない。"}
+  ],
+  "changedFields": ["explanationText", "sourceExplanationCommonSummary"],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": ["https://laws.e-gov.go.jp/law/412M50000400111"]
+}
