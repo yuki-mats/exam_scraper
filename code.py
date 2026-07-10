@@ -2408,12 +2408,15 @@ def main() -> None:
             else:
                 target_dict = unique_question_bodies
 
+            # 同じ本文でも別設問として出題されるケースがあるため、URL が取れる場合は URL 単位で保持する。
+            dedupe_key = question_data.question_url or body_key
+
             # まだ登録されていなければ追加
-            if body_key not in target_dict:
+            if dedupe_key not in target_dict:
                 # 問題文の意図を判定（出力用）
                 intent_val = question_intent
 
-                target_dict[body_key] = {
+                target_dict[dedupe_key] = {
                     "questionBodyText": body_key,
                     "examLabel": question_data.exam_label,
                     "questionLabel": question_data.question_label,
