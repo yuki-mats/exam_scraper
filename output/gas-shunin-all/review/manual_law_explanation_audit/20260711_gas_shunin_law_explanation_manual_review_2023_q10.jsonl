@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2023,
+  "sourceQuestionKey": "gas-shunin:kou:2023:law:q10",
+  "questionLabel": "問10",
+  "sourceQuestionBodyText": "技術基準で規定されているガス工作物に関する次の記述のうち、正しいものはいくつあるか。",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+  "sourceCorrectChoiceText": [
+    "間違い",
+    "正しい",
+    "正しい",
+    "正しい",
+    "間違い"
+  ],
+  "patchedCorrectChoiceText": [
+    "間違い",
+    "正しい",
+    "正しい",
+    "正しい",
+    "間違い"
+  ],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {
+      "choiceIndex": 0,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第26条"
+      ],
+      "basisText": "製造設備には異常時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置が必要だが、回収することは定めていない。"
+    },
+    {
+      "choiceIndex": 1,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第27条第1項"
+      ],
+      "basisText": "対象のガス発生設備は、異常時に迅速かつ安全にガスの発生を停止し、又はガスを処理できるものでなければならない。"
+    },
+    {
+      "choiceIndex": 2,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第28条第3項"
+      ],
+      "basisText": "移動式ガス発生設備の容器又は容器の設置場所には、容器内圧力が異常に上昇しないよう適切な温度に維持できる措置が必要である。"
+    },
+    {
+      "choiceIndex": 3,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第31条第2項"
+      ],
+      "basisText": "温水で加熱する構造の気化装置で、加熱部の温水が凍結するおそれがあるものには凍結防止措置が必要である。"
+    },
+    {
+      "choiceIndex": 4,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス工作物の技術上の基準を定める省令第41条第2項"
+      ],
+      "basisText": "対象となる特定ガス発生設備の容器部分には、容器内の液化ガスの量を確認できる装置が必要であり、温度ではない。"
+    }
+  ],
+  "changedFields": [
+    "explanationText",
+    "sourceExplanationCommonSummary"
+  ],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": [
+    "https://laws.e-gov.go.jp/law/412M50000400111"
+  ]
+}
