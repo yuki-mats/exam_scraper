@@ -206,9 +206,9 @@ def backfill_correct_choice_text_from_answer_result(data: dict) -> int:
     correctChoiceText に None が含まれる場合に、
     answer_result_text（優先）/ answer_result_inferred_correct_choice_numbers と questionIntent を使って補完する。
 
-    ルール（絶対）:
-      - select_correct   → 正解番号の位置が「正しい」
-      - select_incorrect → 正解番号の位置が「間違い」
+    correctChoiceText は選択肢そのものの正誤なので、answer_result_text が
+    「正解は N です。」でも「正しいものはいくつあるか」などのカウント問題では
+    肢位置を特定できない。その場合は補完しない。
     """
     bodies = data.get("question_bodies")
     if not isinstance(bodies, list):
@@ -226,6 +226,10 @@ def backfill_correct_choice_text_from_answer_result(data: dict) -> int:
         if not isinstance(choice_list, list) or not choice_list:
             continue
         choice_count = len(choice_list)
+
+        body_text = str(body.get("questionBodyText") or body.get("originalQuestionBodyText") or "")
+        if "いくつ" in body_text:
+            continue
 
         answer_numbers = _parse_answer_numbers(str(body.get("answer_result_text") or ""))
         if not answer_numbers:

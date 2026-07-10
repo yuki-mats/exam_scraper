@@ -145,6 +145,14 @@ def build_expected_correct_choice_text(question_body: dict) -> tuple[list[str] |
                 return existing, None
         return None, "answer_result_text_unparseable"
 
+    existing = existing_correct_choice_labels(question_body)
+    if existing is not None:
+        return existing, None
+
+    body_text = str(question_body.get("questionBodyText") or question_body.get("originalQuestionBodyText") or "")
+    if "いくつ" in body_text:
+        return None, "count_answer_cannot_determine_statement_labels"
+
     choice_count = detect_choice_count(question_body)
     if choice_count <= 0:
         return None, "choice_count_unresolved"
@@ -157,9 +165,8 @@ def build_expected_correct_choice_text(question_body: dict) -> tuple[list[str] |
     if question_intent not in ("select_correct", "select_incorrect"):
         return None, "question_intent_required"
 
-    # ルール: answer_numbers の件数が絶対。
-    # - select_correct   → answer_numbers の位置が「正しい」
-    # - select_incorrect → answer_numbers の位置が「間違い」
+    # 位置選択型だけを補完対象にする。
+    # correctChoiceText は選択肢そのものの正誤であり、カウント問題には使えない。
     if question_intent == "select_incorrect":
         labels = ["正しい"] * choice_count
         for idx in answer_indexes:

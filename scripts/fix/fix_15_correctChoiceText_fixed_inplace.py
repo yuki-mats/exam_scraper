@@ -86,9 +86,8 @@ def expected_correct_choice_text(
     if not answer_indexes:
         return None
 
-    # ルール: answer_numbers の件数が絶対。
-    # - select_correct   → answer_numbers の位置が「正しい」
-    # - select_incorrect → answer_numbers の位置が「間違い」
+    # 位置選択型だけを補完対象にする。
+    # correctChoiceText は選択肢そのものの正誤であり、カウント問題には使えない。
     if question_intent == "select_incorrect":
         labels = ["正しい"] * choice_count
         for idx in answer_indexes:
@@ -211,6 +210,15 @@ def fix_file(path: Path, source_by_url: dict[str, SourceQuestion], *, apply: boo
                 if v not in answer_numbers:
                     answer_numbers.append(v)
         intent = source.question_intent or infer_question_intent(source.question_body_text)
+        current = entry.get("correctChoiceText")
+        if (
+            isinstance(current, list)
+            and current
+            and all(str(value).strip() in {"正しい", "間違い"} for value in current)
+        ):
+            continue
+        if "いくつ" in str(source.question_body_text or ""):
+            continue
         expected = expected_correct_choice_text(
             question_intent=intent,
             answer_numbers=answer_numbers,

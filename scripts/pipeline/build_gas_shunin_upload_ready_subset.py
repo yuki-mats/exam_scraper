@@ -177,6 +177,27 @@ def archive_existing_output_files(output_dir: Path, upload_filename: str) -> Pat
     return archive_dir
 
 
+def output_filename_for_upload(upload_path: Path) -> str:
+    """
+    gas-shunin-kou / gas-shunin-otsu の同一年ファイル名衝突を避ける。
+
+    各 qualification 側の upload_to_firestore は 2019_firestore_*.json の形だが、
+    gas-shunin-all の統合 subset では 2019_kou_firestore_*.json のように
+    grade を含めないと同一年の甲種・乙種が上書きされる。
+    """
+    name = upload_path.name
+    match = re.match(r"^(?P<year>\d{4})_firestore_(?P<suffix>.+\.json)$", name)
+    if not match:
+        return name
+
+    parts = set(upload_path.parts)
+    if "gas-shunin-kou" in parts:
+        return f"{match.group('year')}_kou_firestore_{match.group('suffix')}"
+    if "gas-shunin-otsu" in parts:
+        return f"{match.group('year')}_otsu_firestore_{match.group('suffix')}"
+    return name
+
+
 def build_id_decisions(rows: list[dict[str, Any]]) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
     decisions_by_id: dict[str, dict[str, Any]] = {}
     row_counts: Counter[str] = Counter()
@@ -257,8 +278,9 @@ def filter_upload_file(
     output_payload = dict(payload)
     output_payload["questions"] = kept_questions
     output_payload["total_count"] = len(kept_questions)
-    output_path = output_dir / upload_path.name
-    archive_existing_output_files(output_dir, upload_path.name)
+    output_filename = output_filename_for_upload(upload_path)
+    output_path = output_dir / output_filename
+    archive_existing_output_files(output_dir, output_filename)
     write_json(output_path, output_payload)
 
     summary = {

@@ -472,12 +472,12 @@ def normalize_true_false_intent_and_correct_choice(
     """
     questionIntent / correctChoiceText を一次情報から整合する。
 
-    設計変更（ユーザー要望）:
-      - correctChoiceText は answer_result_text（優先）/ answer_result_inferred_correct_choice_numbers と questionIntent で決定する。
-      - 正解番号が複数ある場合、その件数が「正しい」または「間違い」の件数になる。
+    correctChoiceText は選択肢そのものの正誤を保持する。
+    既に 00_source やレビューで正誤ラベルが埋まっている場合は、
+    answer_result_text と questionIntent から再計算して上書きしない。
 
     - questionIntent は questionBodyText（無ければ originalQuestionBodyText）から推定して上書き（推定できる場合のみ）
-    - correctChoiceText は answer_numbers + questionIntent から再計算して上書き
+    - correctChoiceText は欠損時のみ、位置選択型の answer_numbers から補完する
     """
     normalize_question_ids(data)
     intent_updates = 0
@@ -511,18 +511,27 @@ def normalize_true_false_intent_and_correct_choice(
         if intent not in {"select_correct", "select_incorrect"}:
             continue
 
+        current_correct_choice = question.get("correctChoiceText")
+        if (
+            isinstance(current_correct_choice, list)
+            and current_correct_choice
+            and all(
+                str(value).strip() in {"正しい", "間違い"}
+                for value in current_correct_choice
+            )
+        ):
+            if manual_intent_override:
+                question.pop("manualQuestionIntentOverride", None)
+            continue
+
+        body_text = str(question.get("questionBodyText") or question.get("originalQuestionBodyText") or "")
+        if "いくつ" in body_text:
+            if manual_intent_override:
+                question.pop("manualQuestionIntentOverride", None)
+            continue
+
         answer_numbers = parse_answer_numbers(question.get("answer_result_text"))
         if not answer_numbers:
-            current_correct_choice = question.get("correctChoiceText")
-            if (
-                isinstance(current_correct_choice, list)
-                and current_correct_choice
-                and all(
-                    str(value).strip() in {"正しい", "間違い"}
-                    for value in current_correct_choice
-                )
-            ):
-                continue
             inferred_numbers = question.get("answer_result_inferred_correct_choice_numbers")
             if isinstance(inferred_numbers, list) and inferred_numbers:
                 answer_numbers = []

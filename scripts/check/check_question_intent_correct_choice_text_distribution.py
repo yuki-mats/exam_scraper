@@ -138,12 +138,11 @@ def validate_question_intent_correct_choice_distribution(
     expected_choice_count: int | None = None,
 ) -> list[Violation]:
     """
-    questionIntent と correctChoiceText の整合性を検査する。
+    questionIntent と correctChoiceText の基礎整合性を検査する。
 
-    ルール（絶対）:
-      - answer_result_text（なければ answer_result_inferred_correct_choice_numbers）の件数が「正しい/間違い」の件数になる
-        - select_correct   → 正解番号の位置が「正しい」
-        - select_incorrect → 正解番号の位置が「間違い」
+    correctChoiceText は選択肢そのものの正誤を表す。
+    answer_result_text は「いくつあるか」では件数、「どれか」では位置を表すため、
+    このチェックでは answer_result_text から correctChoiceText を再導出しない。
     """
     violations: list[Violation] = []
     for idx, qb in enumerate(_iter_question_bodies(payload)):
@@ -208,10 +207,6 @@ def validate_question_intent_correct_choice_distribution(
             )
             continue
 
-        answer_numbers = get_answer_numbers(qb)
-        if not answer_numbers and has_trusted_unparseable_answer_text(qb):
-            continue
-
         if any(v not in (LABEL_TRUE, LABEL_FALSE) for v in normalized):
             violations.append(
                 Violation(
@@ -225,68 +220,6 @@ def validate_question_intent_correct_choice_distribution(
                 )
             )
             continue
-
-        if not answer_numbers:
-            violations.append(
-                Violation(
-                    source_path=source_path,
-                    question_index=idx,
-                    original_question_id=qb.get("original_question_id") or qb.get("public_question_id"),
-                    question_url=qb.get("question_url"),
-                    question_intent=intent,
-                    correct_choice_text=normalized,
-                    reason="answer_numbers_missing",
-                )
-            )
-            continue
-        if any((n < 1 or n > choice_count) for n in answer_numbers):
-            violations.append(
-                Violation(
-                    source_path=source_path,
-                    question_index=idx,
-                    original_question_id=qb.get("original_question_id") or qb.get("public_question_id"),
-                    question_url=qb.get("question_url"),
-                    question_intent=intent,
-                    correct_choice_text=normalized,
-                    reason=f"answer_number_out_of_range:{answer_numbers}",
-                )
-            )
-            continue
-
-        if intent == INTENT_SELECT_CORRECT:
-            expected = [
-                LABEL_TRUE if (i + 1) in set(answer_numbers) else LABEL_FALSE
-                for i in range(choice_count)
-            ]
-            if normalized != expected:
-                violations.append(
-                    Violation(
-                        source_path=source_path,
-                        question_index=idx,
-                        original_question_id=qb.get("original_question_id") or qb.get("public_question_id"),
-                        question_url=qb.get("question_url"),
-                        question_intent=intent,
-                        correct_choice_text=normalized,
-                        reason=f"labels_mismatch expected={expected} answer_numbers={answer_numbers}",
-                    )
-                )
-        else:
-            expected = [
-                LABEL_FALSE if (i + 1) in set(answer_numbers) else LABEL_TRUE
-                for i in range(choice_count)
-            ]
-            if normalized != expected:
-                violations.append(
-                    Violation(
-                        source_path=source_path,
-                        question_index=idx,
-                        original_question_id=qb.get("original_question_id") or qb.get("public_question_id"),
-                        question_url=qb.get("question_url"),
-                        question_intent=intent,
-                        correct_choice_text=normalized,
-                        reason=f"labels_mismatch expected={expected} answer_numbers={answer_numbers}",
-                    )
-                )
 
     return violations
 
@@ -340,7 +273,7 @@ def main(argv: list[str] | None = None) -> int:
         "--expected-choice-count",
         type=int,
         default=None,
-        help="想定する選択肢数（省略時は、選択肢数は固定せず「answer_numbers + questionIntent で導出したラベル」と一致するかを検査）",
+        help="想定する選択肢数（省略時は、選択肢数を固定しない）",
     )
     parser.add_argument(
         "--glob",
