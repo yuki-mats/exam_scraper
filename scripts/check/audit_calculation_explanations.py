@@ -145,9 +145,11 @@ def is_calculation_candidate(question: dict[str, Any]) -> bool:
     number_count = len(NUMBER_RE.findall(body))
     if re.search(r"下線を付した", stem):
         return False
-    if re.search(r"(挿入すべき語句|語句.*組合せ)", stem):
+    if re.search(r"(挿入すべき語句|語句.*組合せ|正しいもののみの組合せ)", stem):
         return False
     if re.search(r"文章に入る数値", stem):
+        return False
+    if re.search(r"構造計算によって安全性を確かめる必要があるもの", stem):
         return False
     if re.search(r"(モデル計算|計算過程|計算で用いる).{0,40}記述", stem):
         return False
