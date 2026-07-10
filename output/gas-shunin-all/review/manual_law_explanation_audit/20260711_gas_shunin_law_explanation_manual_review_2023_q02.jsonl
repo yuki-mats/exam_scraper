@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "gas-shunin-manual-law-explanation-audit/v1",
+  "reviewedAt": "2026-07-11",
+  "qualification": "gas-shunin-kou",
+  "examYear": 2023,
+  "sourceQuestionKey": "gas-shunin:kou:2023:law:q02",
+  "questionLabel": "問2",
+  "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_gassyunin_site_1.json",
+  "explanationPatchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_gassyunin_site_1_explanationText_added.json",
+  "sourceCorrectChoiceText": [
+    "間違い",
+    "正しい",
+    "間違い",
+    "正しい",
+    "正しい"
+  ],
+  "patchedCorrectChoiceText": [
+    "間違い",
+    "正しい",
+    "間違い",
+    "正しい",
+    "正しい"
+  ],
+  "correctChoiceTextMatchesSource": true,
+  "choiceReviews": [
+    {
+      "choiceIndex": 0,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス事業法第91条"
+      ],
+      "basisText": "ガス製造事業者は測定結果を記録し、保存しなければならず、報告ではない。"
+    },
+    {
+      "choiceIndex": 1,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス事業法施行規則第78条第3項"
+      ],
+      "basisText": "非常時に測定済みLNGを成分変更なく一時供給する場合は、熱量及び燃焼性の測定を要しない。"
+    },
+    {
+      "choiceIndex": 2,
+      "verdict": "間違い",
+      "directBasis": [
+        "ガス事業法第75条"
+      ],
+      "basisText": "特定ガス導管事業者は、正当な理由なく供給地点における託送供給を拒んではならない。"
+    },
+    {
+      "choiceIndex": 3,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス事業法第56条第1項"
+      ],
+      "basisText": "一般ガス導管事業者は、毎年度の供給計画を作成し、当該年度の開始前等に届け出る。"
+    },
+    {
+      "choiceIndex": 4,
+      "verdict": "正しい",
+      "directBasis": [
+        "ガス事業法施行規則第144条第1項第二号"
+      ],
+      "basisText": "圧力は常時、ガスホルダーの出口及び経済産業大臣指定場所で自動記録式圧力計により測定する。"
+    }
+  ],
+  "changedFields": [
+    "explanationText",
+    "suggestedQuestionDetails",
+    "sourceExplanationCommonSummary",
+    "sourceExplanationChoiceSnippets"
+  ],
+  "result": "reviewed_and_rewritten",
+  "sourceUrls": [
+    "https://laws.e-gov.go.jp/law/329AC0000000051",
+    "https://laws.e-gov.go.jp/law/345M50000400097"
+  ]
+}
