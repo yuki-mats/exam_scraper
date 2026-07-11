@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 123,
+  "auditKey": "gas-shunin:otsu:2017:law:q06:7e2a5fe9050d",
+  "auditInputHash": "4c2104598519408241440afb44edc3eb153fbfe9722f93829410fee593600964",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:23:49+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「ガスを通ずるものであって内面に零Paを超える圧力」が誤り。ガス工作物の技術上の基準を定める省令第15条第1項第1号は、ガスを通ずる部分は内面に0.2MPa以上の圧力を受けるものとし、内面に零Paを超える圧力とするのは液化ガスを通ずる部分と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第2項第1号ロは、液化ガスを通ずる容器のうち、最高使用圧力をMPaで表した数値と内容積をm³で表した数値との積が0.004を超えるものについて、圧力を受ける部分を溶接する場合は、適切な機械試験等であらかじめ確認した溶接施工方法等によると定めている。",
+      "間違い。選択肢の「安全弁を2個以上」が誤り。ガス工作物の技術上の基準を定める省令第17条第1項は、液化ガスを通ずるガス発生設備で過圧が生ずるおそれのあるものには、圧力を逃すために適切な安全弁を設けると定めており、2個以上とは定めていない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第2項は、移動式ガス発生設備には、設備の損傷を防止するため、使用の状態を計測又は確認できる適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置には、誤操作を防止し、かつ、確実に操作できる措置を講じると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガスを通ずる容器・管で第15条第1項第1号の構造規定の対象となる圧力は？",
+      "液化ガスを通ずる容器の溶接施工方法等を事前確認する基準は？",
+      "過圧のおそれがある液化ガス設備に設ける安全弁の個数は？",
+      "移動式ガス発生設備の損傷防止措置は？",
+      "遮断装置に必要な誤操作防止措置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガスを通ずる容器・管で第15条第1項第1号の構造規定の対象となる圧力は？",
+        "answer": "内面に0.2MPa以上の圧力を受ける部分。零Paを超える圧力という基準は、液化ガスを通ずる部分に適用される。"
+      },
+      {
+        "question": "液化ガスを通ずる容器の溶接施工方法等を事前確認する基準は？",
+        "answer": "最高使用圧力のMPa値と内容積のm³値との積が0.004を超える容器について、適切な機械試験等により確認する。"
+      },
+      {
+        "question": "過圧のおそれがある液化ガス設備に設ける安全弁の個数は？",
+        "answer": "適切な安全弁を設ける必要があるが、2個以上という個数規定はない。"
+      },
+      {
+        "question": "移動式ガス発生設備の損傷防止措置は？",
+        "answer": "使用の状態を計測又は確認できる適切な措置を講じる。"
+      },
+      {
+        "question": "遮断装置に必要な誤操作防止措置は？",
+        "answer": "誤操作を防止し、かつ、確実に操作できる措置を講じる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第15条第1項第1号、第16条第2項第1号ロ、第17条第1項、第18条第2項及び第20条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "1",
+          "subitem": "ロ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "17",
+          "paragraph": "1",
+          "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
+          "rawXmlHash": "4cdef19a07fe4efcfc82f7389a7f710cbf9480266b0e3f0b71e9f4388d75dace"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "2",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "20",
+          "paragraph": "1",
+          "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
+          "rawXmlHash": "3664ff5af8230a26f3d045b64f6ad4ac59c33f4e7481e74667b133b8aa1532df"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、正しい、正しいは現行法と一致する。",
+    "誤りの選択肢について、零Pa超と0.2MPa以上の適用対象の違い及び安全弁の個数規定がないことを明示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q06-s01",
+      "gas-shunin-otsu-2017-law-q06-s02",
+      "gas-shunin-otsu-2017-law-q06-s03",
+      "gas-shunin-otsu-2017-law-q06-s04",
+      "gas-shunin-otsu-2017-law-q06-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:24:55Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
