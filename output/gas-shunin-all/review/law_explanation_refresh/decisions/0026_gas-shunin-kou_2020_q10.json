@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 26,
+  "auditKey": "gas-shunin:kou:2020:law:q10:0a6bba0083c2",
+  "auditInputHash": "12c8894a72b40b9892b3ec57b803ca331ca9baedfda6f66191f2da9d26af6a5b",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T17:36:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第1項は、高圧又は中圧の本支管に、危急時にガスを速やかに遮断できる装置を適切な場所へ設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「特定地下街等以外の供給に影響を与えることなく遮断」が誤り。ガス工作物の技術上の基準を定める省令第49条第2項は、災害により妨げられない箇所で、特定地下街等へのガス供給を容易に遮断できる措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第3項第2号は、中圧の導管でガスを供給する建物に、危急時にガスを速やかに遮断できる装置を設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「地下室等から十分離れた」が誤り。ガス工作物の技術上の基準を定める省令第49条第4項は、地下室等への供給を地上から遮断する装置を、地下室等の付近の適切な場所に設けると定めている。",
+      "間違い。選択肢の「廃棄物処理場にガスを供給するもの」が誤り。ガス工作物の技術上の基準を定める省令第49条第6項第1号は、工場、廃棄物処理場、浄水場、下水処理場等に設置される中圧導管を、同項の遮断装置の対象から除くと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "中圧の本支管に必要な遮断装置は？",
+      "特定地下街等の低圧本支管はどこで遮断する？",
+      "中圧で建物へ供給する導管に必要な装置は？",
+      "地下室等の遮断装置はどこに設ける？",
+      "廃棄物処理場の中圧導管は第49条第6項の対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "中圧の本支管に必要な遮断装置は？",
+        "answer": "危急時にガスを速やかに遮断できる適切な装置。"
+      },
+      {
+        "question": "特定地下街等の低圧本支管はどこで遮断する？",
+        "answer": "災害により妨げられない箇所で容易に遮断できるようにする。"
+      },
+      {
+        "question": "中圧で建物へ供給する導管に必要な装置は？",
+        "answer": "危急時にガスを速やかに遮断できる装置。"
+      },
+      {
+        "question": "地下室等の遮断装置はどこに設ける？",
+        "answer": "地下室等の付近の適切な場所。"
+      },
+      {
+        "question": "廃棄物処理場の中圧導管は第49条第6項の対象？",
+        "answer": "対象外。第6項第1号に除外対象として掲げられている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第49条第1項から第4項及び第6項第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "1",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "2",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "3",
+          "item": "2",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "4",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "6",
+          "item": "1",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、間違いは現行条文と一致する。",
+    "第49条第6項第1号は廃棄物処理場等に設置される中圧導管を同項の対象から除外している。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "article": "49",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:10:49Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
