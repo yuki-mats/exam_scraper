@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T217
+active_task: T218
 
 tasks:
   - id: T153
@@ -3269,13 +3269,62 @@ tasks:
   - id: T217
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "sequence 217、gas-shunin-otsu 2023 法令 問4を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 217", "2023 00_source", "公式e-Gov法令API"]
     constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
     allowed_files:
       - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0217_gas-shunin-otsu_2023_q04.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json"
+    verify:
+      - "apply decision"
+      - "build inventory"
+      - "19 unittest cases"
+      - "00_source diff check"
+    stop_if:
+      - "source又はID変更が必要。"
+      - "正答不一致のflag判断が必要。"
+      - "一問を超える更新になる。"
+    receipt:
+      result: done
+      summary: "sequence 217のガス事故速報・詳報対象を現行報告規則で精査し、各事故類型の表番号と製造支障事故の正しい10時間下限を具体化した。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0217_gas-shunin-otsu_2023_q04.json"
+        - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+        - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+        - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json"
+      commands:
+        - cmd: "apply decision 0217"
+          status: pass
+        - cmd: "build inventory"
+          status: pass
+        - cmd: "19 unittest cases"
+          status: pass
+        - cmd: "00_source diff check"
+          status: pass
+      evidence:
+        - "patchAppliedQuestionCount=217"
+        - "pendingReviewQuestionCount=44"
+        - "correctChoiceTextChanged=false, flags=[]"
+        - "mappingErrorCount=0, decisionErrorCount=0"
+        - "5択explanationTextをpush前に表示済み"
+        - "public_question_id=4e2e4af72d3c96aaで反映後readback済み"
+        - "正誤配列は正しい・正しい・間違い・正しい・正しいでsourceと整合し、answer_result_textの正解3と一致"
+        - "ガス関係報告規則第4条第1項の表第3・4・6・8・16・19号のarticleTextHashとrawXmlHashを現行e-Gov API応答から保存"
+      harness: codex
+  - id: T218
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "sequence 218、gas-shunin-otsu 2023 法令 問5を現行法で一問精査し、解説更新と検証を完了する。"
+    inputs: ["review_ledger sequence 218", "2023 00_source", "公式e-Gov法令API"]
+    constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0218_gas-shunin-otsu_2023_q05.json"
       - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
       - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
       - "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json"
@@ -3310,10 +3359,10 @@ tasks:
     receipt: null
 
 checks:
-  dirty_fingerprint: "sequence-216-verified@3796a394e"
+  dirty_fingerprint: "sequence-217-verified@b0a24db1d"
   last_verification:
     result: pass
-    task: T216
+    task: T217
     commands:
       - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
       - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json"
