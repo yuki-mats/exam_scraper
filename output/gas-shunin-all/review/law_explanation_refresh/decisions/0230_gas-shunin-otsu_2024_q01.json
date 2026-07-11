@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 230,
+  "auditKey": "gas-shunin:otsu:2024:law:q01:8b0635a790c7",
+  "auditInputHash": "ab4226fa5067aa80a5faef9067581f41a96fe4fb92e7f8dc624b605ac6282f09",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T04:02:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第2条第11項は、「ガス事業」とは、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいうと定めている。",
+      "間違い。選択肢の「経済産業大臣の許可」が誤りで、正しくは「経済産業大臣の登録」である。ガス事業法第3条第1項は、ガス小売事業を営もうとする者は、経済産業大臣の登録を受けなければならないと定めている。",
+      "正しい。ガス事業法第2条第1項は、「小売供給」とは一般の需要に応じ導管によりガスを供給することをいい、特定ガス発生設備による場合は、一の団地内におけるガスの供給地点の数が70以上のものに限ると定めている。",
+      "正しい。ガス事業法第2条第5項は、経済産業省令で定める要件に該当する導管による供給を一般ガス導管事業から除くと定めている。ガス事業法施行規則第3条第1項第1号は、その導管として、12A及び13A以外のガスグループに属するガスを供給する導管を定めている。",
+      "正しい。ガス事業法第2条第9項は、「ガス製造事業」とは、自らが維持し、及び運用する液化ガス貯蔵設備等を用いてガスを製造する事業で、その液化ガス貯蔵設備が経済産業省令で定める要件に該当するものをいうと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス事業に含まれる4事業は？",
+      "ガス小売事業の開始に必要なのは許可と登録のどちら？",
+      "特定ガス発生設備による小売供給の供給地点数要件は？",
+      "12A及び13A以外のガスを供給する導管は一般ガス導管事業に含まれる？",
+      "ガス製造事業の定義は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス事業に含まれる4事業は？",
+        "answer": "ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業。"
+      },
+      {
+        "question": "ガス小売事業の開始に必要なのは許可と登録のどちら？",
+        "answer": "経済産業大臣の登録。"
+      },
+      {
+        "question": "特定ガス発生設備による小売供給の供給地点数要件は？",
+        "answer": "一の団地内におけるガスの供給地点の数が70以上。"
+      },
+      {
+        "question": "12A及び13A以外のガスを供給する導管は一般ガス導管事業に含まれる？",
+        "answer": "含まれない。ガス事業法第2条第5項及びガス事業法施行規則第3条第1項第1号の除外対象である。"
+      },
+      {
+        "question": "ガス製造事業の定義は？",
+        "answer": "自ら維持・運用する液化ガス貯蔵設備等を用いてガスを製造し、その液化ガス貯蔵設備が省令要件に該当する事業。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第2条第1項・第5項・第9項・第11項及び第3条第1項並びにガス事業法施行規則第3条第1項第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "11",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "1",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "5",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "2",
+              "paragraph": "5",
+              "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+              "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "3",
+              "paragraph": "1",
+              "item": "1",
+              "articleTextHash": "2911e3a4cea02ca761f08369c4e949b0bd12ada1295c185fe6ec9b472d1aee58",
+              "rawXmlHash": "308cbf400cdfa8380b44683860980b3a4d225dfc4a7a308bde8b1ebd55867981"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "9",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、正しい、正しいは現行法と一致する。",
+    "第2肢は経済産業大臣の許可ではなく登録を受ける必要がある。",
+    "第4肢はガス事業法第2条第5項の省令除外と、施行規則第3条第1項第1号の12A・13A以外の導管要件を直接根拠として保存する。",
+    "誤っている記述は第2肢で、answer_result_textの正解2と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2024-law-q01-s01",
+      "gas-shunin-otsu-2024-law-q01-s02",
+      "gas-shunin-otsu-2024-law-q01-s03",
+      "gas-shunin-otsu-2024-law-q01-s04",
+      "gas-shunin-otsu-2024-law-q01-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス事業法",
+        "lawId": "329AC0000000051",
+        "articles": [
+          "2",
+          "3"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051"
+      },
+      {
+        "lawTitle": "ガス事業法施行規則",
+        "lawId": "345M50000400097",
+        "articles": [
+          "3"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T19:02:55Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
