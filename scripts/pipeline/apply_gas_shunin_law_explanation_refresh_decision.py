@@ -69,6 +69,157 @@ def strip_verdict(explanation: str) -> str:
     return explanation
 
 
+def correction_basis_by_choice(
+    correction: dict[str, Any], choice_count: int
+) -> list[dict[str, Any]]:
+    explicit = correction.get("basisByChoiceIndex")
+    if isinstance(explicit, dict):
+        bases = []
+        for choice_index in range(choice_count):
+            basis = explicit.get(str(choice_index))
+            if not isinstance(basis, dict):
+                raise ValueError(f"missing correction basis for choice {choice_index}")
+            bases.append(basis)
+        return bases
+
+    item_by_choice = correction.get("itemsByChoiceIndex") or {}
+    bases = []
+    for choice_index in range(choice_count):
+        basis = {
+            key: correction[key]
+            for key in (
+                "lawId",
+                "lawTitle",
+                "article",
+                "paragraph",
+                "articleTextHash",
+                "rawXmlHash",
+            )
+            if key in correction
+        }
+        item = item_by_choice.get(str(choice_index))
+        if item not in (None, ""):
+            basis["item"] = item
+        bases.append(basis)
+    return bases
+
+
+def validate_basis(basis: dict[str, Any], choice_index: int) -> None:
+    external_primary = basis.get("sourceType") == "external_primary"
+    required = ("lawTitle", "article", "articleTextHash")
+    if external_primary:
+        required += ("sourceUrl",)
+    else:
+        required += ("lawId",)
+    missing = [
+        key
+        for key in required
+        if not str(basis.get(key) or "").strip()
+    ]
+    if missing:
+        raise ValueError(
+            f"correction basis for choice {choice_index} is missing: {', '.join(missing)}"
+        )
+
+
+def basis_references(basis: dict[str, Any]) -> list[dict[str, Any]]:
+    locations = basis.get("references")
+    if not isinstance(locations, list) or not locations:
+        return [basis]
+    common = {key: value for key, value in basis.items() if key != "references"}
+    merged = []
+    for location in locations:
+        if not isinstance(location, dict):
+            raise ValueError("correction basis reference must be object")
+        merged.append({**common, **location})
+    return merged
+
+
+def basis_label(basis: dict[str, Any]) -> str:
+    return (
+        f"{basis['lawTitle']}第{basis['article']}条"
+        + (f"第{basis['paragraph']}項" if basis.get("paragraph") else "")
+        + (f"第{basis['item']}号" if basis.get("item") else "")
+        + (f"{basis['subitem']}" if basis.get("subitem") else "")
+    )
+
+
+def update_law_references(
+    entry: dict[str, Any],
+    *,
+    explanations: list[str],
+    correction: dict[str, Any],
+    reviewed_at: str,
+) -> None:
+    law_references = entry.get("lawReferences")
+    if not isinstance(law_references, list) or len(law_references) != len(explanations):
+        raise ValueError("lawReferences length mismatch")
+    bases = correction_basis_by_choice(correction, len(explanations))
+    reference_date = reviewed_at[:10]
+
+    for choice_index, (explanation, references, basis) in enumerate(
+        zip(explanations, law_references, bases, strict=True)
+    ):
+        validate_basis(basis, choice_index)
+        if not isinstance(references, list) or not references:
+            raise ValueError("lawReferences choice entry must be non-empty list")
+        template = references[0]
+        if not isinstance(template, dict):
+            raise ValueError("lawReference must be object")
+        updated_references = []
+        for reference_basis in basis_references(basis):
+            validate_basis(reference_basis, choice_index)
+            reference = dict(template)
+            external_primary = reference_basis.get("sourceType") == "external_primary"
+            law_id = str(reference_basis.get("lawId") or "")
+            article = str(reference_basis["article"])
+            reference.update(
+                {
+                    "lawTitle": str(reference_basis["lawTitle"]),
+                    "lawAlias": str(
+                        reference_basis.get("lawAlias") or reference_basis["lawTitle"]
+                    ),
+                    "article": article,
+                    "articleTextHash": str(reference_basis["articleTextHash"]),
+                    "reason": explanation,
+                    "referenceDate": reference_date,
+                    "verificationStatus": "verified",
+                }
+            )
+            if external_primary:
+                reference.pop("lawId", None)
+                reference.pop("apiUrl", None)
+                reference.update(
+                    {
+                        "sourceUrl": str(reference_basis["sourceUrl"]),
+                        "source": str(reference_basis.get("source") or "official_primary"),
+                        "appLinkMode": "source_url",
+                        "externalPrimarySource": True,
+                    }
+                )
+            else:
+                reference.update(
+                    {
+                        "lawId": law_id,
+                        "apiUrl": (
+                            "https://laws.e-gov.go.jp/api/1/articles;"
+                            f"lawId={law_id};article={article}"
+                        ),
+                        "sourceUrl": f"https://laws.e-gov.go.jp/law/{law_id}",
+                        "source": "egov_law",
+                        "appLinkMode": "egov_api",
+                    }
+                )
+            for key in ("paragraph", "item", "subitem", "rawXmlHash"):
+                value = reference_basis.get(key)
+                if value not in (None, ""):
+                    reference[key] = str(value)
+                else:
+                    reference.pop(key, None)
+            updated_references.append(reference)
+        law_references[choice_index] = updated_references
+
+
 def update_law_revision_facts(
     entry: dict[str, Any],
     *,
@@ -79,36 +230,58 @@ def update_law_revision_facts(
     facts = entry.get("lawRevisionFacts")
     if not isinstance(facts, list) or len(facts) != len(explanations):
         raise ValueError("lawRevisionFacts length mismatch")
-    law_id = str(correction["lawId"])
-    law_title = str(correction["lawTitle"])
-    article = str(correction["article"])
-    paragraph = str(correction.get("paragraph") or "")
-    item_by_choice = correction.get("itemsByChoiceIndex") or {}
-    source_url = f"https://laws.e-gov.go.jp/api/1/articles;lawId={law_id};article={article}"
+    bases = correction_basis_by_choice(correction, len(explanations))
     reference_date = reviewed_at[:10]
 
-    for choice_index, (fact, explanation) in enumerate(zip(facts, explanations, strict=True)):
+    for choice_index, (fact, explanation, basis) in enumerate(
+        zip(facts, explanations, bases, strict=True)
+    ):
         if not isinstance(fact, dict):
             raise ValueError(f"lawRevisionFacts[{choice_index}] must be object")
-        item = str(item_by_choice.get(str(choice_index)) or "")
+        validate_basis(basis, choice_index)
+        external_primary = basis.get("sourceType") == "external_primary"
+        law_id = str(basis.get("lawId") or "")
+        law_title = str(basis["lawTitle"])
+        article = str(basis["article"])
+        paragraph = str(basis.get("paragraph") or "")
+        item = str(basis.get("item") or "")
+        subitem = str(basis.get("subitem") or "")
+        source_url = (
+            str(basis["sourceUrl"])
+            if external_primary
+            else (
+                "https://laws.e-gov.go.jp/api/1/articles;"
+                f"lawId={law_id};article={article}"
+            )
+        )
         current = {
-            "lawId": law_id,
             "lawTitle": law_title,
             "article": article,
             "referenceDate": reference_date,
             "verificationStatus": "verified",
-            "articleTextHash": correction.get("articleTextHash"),
+            "articleTextHash": str(basis["articleTextHash"]),
             "sourceUrl": source_url,
         }
+        if law_id:
+            current["lawId"] = law_id
+        if external_primary:
+            current["sourceType"] = "external_primary"
+            current["source"] = str(basis.get("source") or "official_primary")
         if paragraph:
             current["paragraph"] = paragraph
         if item:
             current["item"] = item
+        if subitem:
+            current["subitem"] = subitem
         fact["auditStatus"] = "same_as_current"
         fact["reviewState"] = "refresh_reviewed"
         fact["auditedAt"] = reviewed_at
         fact["auditMethodVersion"] = "gas-shunin-law-explanation-refresh/v1"
-        fact["lawCorpusSnapshotId"] = f"egov-current-{reference_date}"
+        fact["lawCorpusSnapshotId"] = (
+            f"official-primary-{reference_date}"
+            if external_primary
+            else f"egov-current-{reference_date}"
+        )
         fact["reconciliationStatus"] = "direct_primary_basis_reverified"
         fact["current"] = current
         fact["differenceFacts"] = [
@@ -118,33 +291,44 @@ def update_law_revision_facts(
             "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ]
         fact["notes"] = [
-            "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
+            (
+                "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
+                if external_primary
+                else "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
+            )
         ]
-        ref = {
-            "refId": f"choice-{choice_index}-ref-1",
-            "lawTimeScope": "current",
-            "relation": "direct_basis",
-            "primaryBasis": True,
-            "lawId": law_id,
-            "lawTitle": law_title,
-            "article": article,
-            "articleTextHash": correction.get("articleTextHash"),
-        }
-        if paragraph:
-            ref["paragraph"] = paragraph
-        if item:
-            ref["item"] = item
+        refs = []
+        reference_bases = basis_references(basis)
+        for ref_index, reference_basis in enumerate(reference_bases, start=1):
+            validate_basis(reference_basis, choice_index)
+            ref = {
+                "refId": f"choice-{choice_index}-ref-{ref_index}",
+                "lawTimeScope": "current",
+                "relation": "direct_basis",
+                "primaryBasis": True,
+                "lawTitle": str(reference_basis["lawTitle"]),
+                "article": str(reference_basis["article"]),
+                "articleTextHash": str(reference_basis["articleTextHash"]),
+            }
+            reference_law_id = str(reference_basis.get("lawId") or "")
+            if reference_law_id:
+                ref["lawId"] = reference_law_id
+            if reference_basis.get("sourceType") == "external_primary":
+                ref["sourceUrl"] = str(reference_basis["sourceUrl"])
+            for key in ("paragraph", "item", "subitem"):
+                value = reference_basis.get(key)
+                if value not in (None, ""):
+                    ref[key] = str(value)
+            refs.append(ref)
         fact["evidenceSummary"] = {
             "verdict": "same_as_current",
             "explanationText": strip_verdict(explanation),
             "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
             "promptContext": (
-                f"{law_title}第{article}条"
-                + (f"第{paragraph}項" if paragraph else "")
-                + (f"第{item}号" if item else "")
+                "、".join(basis_label(reference_basis) for reference_basis in reference_bases)
                 + f"を選択肢{choice_index}の直接根拠として確認。"
             ),
-            "refs": [ref],
+            "refs": refs,
         }
 
 
@@ -173,30 +357,36 @@ def apply_decision(decision_path: Path, refresh_dir: Path) -> dict[str, Any]:
     entry["explanationText"] = explanations
     entry["suggestedExplanationText"] = list(explanations)
     entry["lawGroundedExplanationText"] = list(explanations)
-    law_references = entry.get("lawReferences")
-    if not isinstance(law_references, list) or len(law_references) != len(explanations):
-        raise ValueError("lawReferences length mismatch")
-    for explanation, references in zip(explanations, law_references, strict=True):
-        if not isinstance(references, list) or not references:
-            raise ValueError("lawReferences choice entry must be non-empty list")
-        for reference in references:
-            if not isinstance(reference, dict):
-                raise ValueError("lawReference must be object")
-            reference["reason"] = explanation
-            reference["referenceDate"] = str(decision["reviewedAt"])[:10]
-
     if "proposedSuggestedQuestions" in review_decision:
         entry["suggestedQuestions"] = review_decision["proposedSuggestedQuestions"]
     if "proposedSuggestedQuestionDetails" in review_decision:
         entry["suggestedQuestionDetails"] = review_decision["proposedSuggestedQuestionDetails"]
     correction = review_decision.get("lawRevisionFactsCorrection")
     if isinstance(correction, dict):
+        update_law_references(
+            entry,
+            explanations=explanations,
+            correction=correction,
+            reviewed_at=str(decision["reviewedAt"]),
+        )
         update_law_revision_facts(
             entry,
             explanations=explanations,
             correction=correction,
             reviewed_at=str(decision["reviewedAt"]),
         )
+    else:
+        law_references = entry.get("lawReferences")
+        if not isinstance(law_references, list) or len(law_references) != len(explanations):
+            raise ValueError("lawReferences length mismatch")
+        for explanation, references in zip(explanations, law_references, strict=True):
+            if not isinstance(references, list) or not references:
+                raise ValueError("lawReferences choice entry must be non-empty list")
+            for reference in references:
+                if not isinstance(reference, dict):
+                    raise ValueError("lawReference must be object")
+                reference["reason"] = explanation
+                reference["referenceDate"] = str(decision["reviewedAt"])[:10]
 
     write_json(patch_path, payload)
     decision["status"] = "patch_applied"

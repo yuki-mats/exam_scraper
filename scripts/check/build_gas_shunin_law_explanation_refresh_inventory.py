@@ -77,18 +77,34 @@ def law_revision_matches_reference(law_revision_facts: Any, law_references: Any)
     if not isinstance(current, dict) or not isinstance(law_references, list):
         return False
     current_law_id = str(current.get("lawId") or "")
+    current_law_title = str(current.get("lawTitle") or "")
     current_article = str(current.get("article") or "")
-    if not current_law_id or not current_article:
+    if not current_article or not (current_law_id or current_law_title):
         return False
     for reference in law_references:
         if not isinstance(reference, dict):
             continue
-        if str(reference.get("lawId") or "") != current_law_id:
+        if current_law_id:
+            if str(reference.get("lawId") or "") != current_law_id:
+                continue
+        elif str(reference.get("lawTitle") or "") != current_law_title:
             continue
         if str(reference.get("article") or "") != current_article:
             continue
         return True
     return False
+
+
+def resolve_explanation_patch_file(value: Any) -> tuple[str, str | None]:
+    relative = Path(str(value or ""))
+    exact = ROOT_DIR / relative
+    suffixed = exact.with_name(f"{exact.stem}_explanationText_added{exact.suffix}")
+    existing = [candidate for candidate in (exact, suffixed) if candidate.is_file()]
+    if len(existing) == 1:
+        return rel(existing[0]), None
+    if not existing:
+        return str(relative), f"explanation patch file not found: {relative}"
+    return str(relative), f"ambiguous explanation patch file: {relative}"
 
 
 def load_existing_ledger(path: Path) -> dict[str, dict[str, Any]]:
@@ -144,6 +160,13 @@ def build_rows(
 
     staged: list[dict[str, Any]] = []
     for review in reviews:
+        explanation_patch_file, patch_error = resolve_explanation_patch_file(
+            review.get("explanationPatchFile")
+        )
+        if patch_error:
+            mapping_errors.append(
+                f"{review.get('sourceQuestionKey')}: {patch_error}"
+            )
         mapped_choices = sorted(
             mapped_by_review.get(id(review), []),
             key=lambda item: int(item[1]["choiceIndex"]),
@@ -231,7 +254,7 @@ def build_rows(
                 "examYear": review.get("examYear"),
                 "questionLabel": review.get("questionLabel"),
                 "sourceFile": review.get("sourceFile"),
-                "explanationPatchFile": review.get("explanationPatchFile"),
+                "explanationPatchFile": explanation_patch_file,
                 "choiceCount": len(choice_rows),
                 "questionIds": question_ids,
                 "qualityIssueCodes": sorted(issue_codes),

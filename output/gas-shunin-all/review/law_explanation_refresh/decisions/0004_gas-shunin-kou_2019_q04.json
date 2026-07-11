@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 4,
+  "auditKey": "gas-shunin:kou:2019:law:q04:b09e167ac347",
+  "auditInputHash": "c0217e818b9d522287f16b574d6870c1b2b57daee0b16d6b7d9497e7c28b662f",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T16:24:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第47条第1項は、一般ガス導管事業者が正当な理由なく、その供給区域における託送供給を拒んではならないと定めている。選択肢はこれと一致する。",
+      "正しい。ガス事業法第166条第1項は、ガス事業者が公共用の土地に導管を設置する必要があるときは、その効用を妨げない限度で、管理者の許可を受けて使用できると定めている。選択肢はこれと一致する。",
+      "正しい。ガス事業法第32条第3項は、工事計画の届出受理日から30日を経過した後でなければ工事を開始できないと定めている。同条第4項は、工事計画が所定の要件に適合すると認めるときは、経済産業大臣がこの期間を短縮できると定めている。",
+      "正しい。ガス事業法施行規則第46条第1項第5号は、使用前自主検査等の記録事項に、自主検査を実施した者の氏名を含めると定めている。選択肢はこれと一致する。",
+      "正しい。ガス事業法施行規則第47条第2項は、自主検査記録を電磁的方法で保存する場合、必要に応じて電子計算機その他の機器で直ちに表示できるようにしておくと定めている。選択肢はこれと一致する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "託送供給を拒めるのはどのような場合？",
+      "公共用の土地に導管を設置するための条件は？",
+      "工事計画届出後の工事開始時期は？",
+      "使用前自主検査等の記録に実施者氏名は必要？",
+      "電磁保存した自主検査記録に必要な状態は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "託送供給を拒めるのはどのような場合？",
+        "answer": "正当な理由がある場合。ガス事業法第47条第1項が定めている。"
+      },
+      {
+        "question": "公共用の土地に導管を設置するための条件は？",
+        "answer": "公共用の土地の効用を妨げない限度で、管理者の許可を受けること。"
+      },
+      {
+        "question": "工事計画届出後の工事開始時期は？",
+        "answer": "原則として届出受理日から30日経過後。計画が所定要件に適合すると大臣が認めるときは短縮できる。"
+      },
+      {
+        "question": "使用前自主検査等の記録に実施者氏名は必要？",
+        "answer": "必要。ガス事業法施行規則第46条第1項第5号が定めている。"
+      },
+      {
+        "question": "電磁保存した自主検査記録に必要な状態は？",
+        "answer": "必要に応じて電子計算機その他の機器で直ちに表示できる状態。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第47条第1項、第166条第1項、第32条第3項及び第4項、ガス事業法施行規則第46条第1項第5号並びに第47条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "47",
+          "paragraph": "1",
+          "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+          "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "166",
+          "paragraph": "1",
+          "articleTextHash": "547d13640c61c7439c3b6d1d044da1edffa91a705d0e4bce02fba0f6972680db",
+          "rawXmlHash": "0f16bb2df8cda0276cbff03ceb898b5e615aeda8bc456755fbe910e735e6d2bc"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "32",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d",
+          "references": [
+            {
+              "paragraph": "3"
+            },
+            {
+              "paragraph": "4"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "46",
+          "paragraph": "1",
+          "item": "5",
+          "articleTextHash": "607938269ab06fdf7782b9dab1cbe0bcc836e5d9a88df3c13c081e536b148500",
+          "rawXmlHash": "332e0a1da0d154cd80d2111e9876e131acb5e282eaeb889f48916691785d915e"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "47",
+          "paragraph": "2",
+          "articleTextHash": "f7c13e7c75542451cf324c6a98ebcf295584b0b8229df557768bdffc3464bf23",
+          "rawXmlHash": "509e0a31d76e7eb249fba93a84cb5549c94c8f0b280cf49150439bba0767ab12"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextは5肢すべて正しいで、現行条文と一致する。",
+    "00_source.explanationTextは空欄だが、knowledgeTextが示す条項をe-Gov現行条文で確認した。",
+    "選択肢0、1、3、4のlawRevisionFacts.currentが直接根拠と異なるため、選択肢別の条文情報へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": false,
+    "sourceKnowledgeTextUsed": true,
+    "currentLaw": {
+      "references": [
+        "ガス事業法第47条第1項",
+        "ガス事業法第166条第1項",
+        "ガス事業法第32条第3項及び第4項",
+        "ガス事業法施行規則第46条第1項第5号",
+        "ガス事業法施行規則第47条第2項"
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:18:20Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
