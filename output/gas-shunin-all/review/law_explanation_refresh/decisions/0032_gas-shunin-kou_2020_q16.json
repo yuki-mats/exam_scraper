@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 32,
+  "auditKey": "gas-shunin:kou:2020:law:q16:ae5b429a7d9b",
+  "auditInputHash": "d0bc703ca2ab939d07dc46f8fdac9c371a1521099c6b86a2ec8047c842254115",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:22:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「ガス用品」が誤り。ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が同法第159条第2項の技術上の基準に適合するように行うと定めている。",
+      "間違い。選択肢の「製造年月日」が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条第1項は、特定ガス消費機器を、構造、使用状況等からみてガス災害のおそれが多いと認められる機器と定めている。",
+      "間違い。選択肢の「保安業務監督者に選任されている者」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格を有する者に監督させると定めている。",
+      "間違い。選択肢の「事前に確認」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、資格を有する者に特定工事を実地に監督させると定めている。",
+      "間違い。選択肢の「主要材料」が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条及び同法施行規則第15条第4号は、特定工事後の表示事項として施工年月日を定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "設置工事で適合させる技術基準の対象は？",
+      "特定ガス消費機器の定義で考慮するものは？",
+      "特定工事を監督できる資格者は？",
+      "特定工事の監督はどのように行う？",
+      "特定工事後の表示事項は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "設置工事で適合させる技術基準の対象は？",
+        "answer": "設置又は変更する消費機器。"
+      },
+      {
+        "question": "特定ガス消費機器の定義で考慮するものは？",
+        "answer": "構造、使用状況等。"
+      },
+      {
+        "question": "特定工事を監督できる資格者は？",
+        "answer": "ガス消費機器設置工事監督者の資格を有する者。"
+      },
+      {
+        "question": "特定工事の監督はどのように行う？",
+        "answer": "実地に監督する。"
+      },
+      {
+        "question": "特定工事後の表示事項は？",
+        "answer": "氏名又は名称、施工年月日など。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第162条、特定ガス消費機器の設置工事の監督に関する法律第2条、第3条及び第6条並びに同法施行規則第15条第4号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "162",
+          "paragraph": "1",
+          "articleTextHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd",
+          "rawXmlHash": "e0c79a2ece402209b3d250a58a85124c3518dbcb062c5ab55dcf3b78bb1caef8"
+        },
+        "1": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "2",
+          "paragraph": "1",
+          "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
+          "rawXmlHash": "6eef6d4dc6007d2ac2efab5add13feee94545e18a2b636082218fc07bffe3be4"
+        },
+        "2": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a"
+        },
+        "3": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a"
+        },
+        "4": {
+          "lawId": "354M50000400077",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+          "article": "15",
+          "paragraph": "1",
+          "item": "4",
+          "articleTextHash": "fb994010530d4962a4191b39e77836d3a98e6427e3dc0a4a2227f4f441bf8e09",
+          "rawXmlHash": "a08cd74ec567b373df557a93195352a72c194abf1b9f9bbabad5619357f52b6d",
+          "references": [
+            {
+              "lawId": "354AC0000000033",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+              "article": "6",
+              "paragraph": "1",
+              "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
+              "rawXmlHash": "e0f0c3d02183fdf0d10baa3feb4fad74e277ba497ee9415895873376eb64fc92"
+            },
+            {
+              "article": "15",
+              "paragraph": "1",
+              "item": "4"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextは5肢すべて間違いで、現行法令と一致する。",
+    "穴埋めの正しい語句は、消費機器、構造、ガス消費機器設置工事監督者の資格を有する、実地に監督、施工年月日である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "egovLawIds": [
+        "329AC0000000051",
+        "354AC0000000033",
+        "354M50000400077"
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:22:50Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
