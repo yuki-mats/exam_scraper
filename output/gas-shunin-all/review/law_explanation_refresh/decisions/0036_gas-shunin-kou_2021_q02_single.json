@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 36,
+  "auditKey": "gas-shunin:kou:2021:law:q02:5e04eb83a70d",
+  "auditInputHash": "8a31f29a1a46c3c5ccb2efe873122af3def7b672820e66c3277c048f64fbc709",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:05:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保すると定めている。選択肢はこれと一致する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス小売事業者が確保すべきものは？",
+      "供給能力確保義務の例外は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス小売事業者が確保すべきものは？",
+        "answer": "小売供給の相手方のガス需要に応ずるために必要な供給能力。"
+      },
+      {
+        "question": "供給能力確保義務の例外は？",
+        "answer": "正当な理由がある場合。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第13条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "13",
+      "paragraph": "1",
+      "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+      "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しいは現行条文と一致する。",
+    "同じ問2の別レコードであり、Firestore ID chiefgasengineerlicense-A-10-0246で対象を特定した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0246"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "article": "13",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:32:15Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+    "choiceCount": 1,
+    "correctChoiceTextChanged": false
+  }
+}

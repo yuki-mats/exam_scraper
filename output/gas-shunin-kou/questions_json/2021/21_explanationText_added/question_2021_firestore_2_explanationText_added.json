@@ -4619,20 +4619,25 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "正しい。ガス事業法第13条第1項は、正当な理由がある場合を除き、小売供給の相手方の需要に必要な供給能力を確保する。"
+      "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保すると定めている。選択肢はこれと一致する。"
     ],
     "suggestedQuestions": [
-      "ガス小売事業者は、正当な理由がある場合を除き、その小売供給の相手方の当該小売供給\nに係るガスの需要に応ずるために必要な供給能力を確保しなければならない。",
+      "ガス小売事業者が確保すべきものは？",
+      "供給能力確保義務の例外は？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "ガス小売事業者は、正当な理由がある場合を除き、その小売供給の相手方の当該小売供給\nに係るガスの需要に応ずるために必要な供給能力を確保しなければならない。",
-        "answer": "正しい。ガス小売事業者は、正当な理由がある場合を除き、小売供給の相手方の当該小売供給に係るガス需要に応ずるために必要な供給能力を確保しなければならない。"
+        "question": "ガス小売事業者が確保すべきものは？",
+        "answer": "小売供給の相手方のガス需要に応ずるために必要な供給能力。"
+      },
+      {
+        "question": "供給能力確保義務の例外は？",
+        "answer": "正当な理由がある場合。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法第13条第1項。"
+        "answer": "ガス事業法第13条第1項。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -4663,84 +4668,78 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第13条第1項は、正当な理由がある場合を除き、小売供給の相手方の需要に必要な供給能力を確保する。",
+          "reason": "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保すると定めている。選択肢はこれと一致する。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=13",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+          "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T03:30:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T19:05:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q2_single_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_033000_q2",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q2_single_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_firestore_snapshot_after_metadata_resolved_review"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "13",
-          "paragraph": "1",
-          "item": null,
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=13"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=13",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "正しい記述数をanswer_result_textへ補完した。",
-          "00_source本文・選択肢と既存statement-level Firestore IDsは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "2021問2は同じdisplayQuestionIdに五肢Firestore行とsingleton legacy行が併存するため、reviewQuestionId単位で検証した。",
-          "Lawzilla候補はガス事業法第13条第1項に到達しており、singleton legacy行では実務上有効。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス小売事業者は、正当な理由がある場合を除き、小売供給の相手方の当該小売供給に係るガス需要に応ずるために必要な供給能力を確保しなければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文ではFirestore snapshotの正誤と一致。",
-          "promptContext": "ガス小売事業者の供給能力確保義務に限定して説明する。",
-          "displayRefIds": [
-            "current:329AC0000000051:13:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保すると定めている。選択肢はこれと一致する。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第13条第1項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:13:1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
               "article": "13",
-              "paragraph": "1",
-              "item": null,
               "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
-              "textHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f"
+              "lawId": "329AC0000000051",
+              "paragraph": "1"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "正しい。ガス事業法第13条第1項は、正当な理由がある場合を除き、小売供給の相手方の需要に必要な供給能力を確保する。"
+      "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保すると定めている。選択肢はこれと一致する。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス事業法第13条第1項は、正当な理由がある場合を除き、小売供給の相手方の需要に必要な供給能力を確保する。"
+      "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保すると定めている。選択肢はこれと一致する。"
     ]
   },
   {
