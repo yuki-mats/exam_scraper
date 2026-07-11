@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 159,
+  "auditKey": "gas-shunin:otsu:2019:law:q10:d0e1a1cc58e7",
+  "auditInputHash": "9b8d02e230470b2dc49427589f358fe45ec1ccce332e6c73dc168e3eb6649b28",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:53:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第45条第1項第1号は、告示対象となるガス栓の出口側形状を告示規格に適合させると定めている。同告示第7条第1項第1号は、ゴム管口又は迅速継手の形状をJIS S 2120「ガス栓」に適合させると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第46条第1項は、水のたまるおそれがある導管に、適切な水取り器を設けると定めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第3項は、道路以外の地盤面下に埋設される本支管について、低圧のもの等及び他工事による損傷のおそれがないものを除き、掘削等による損傷防止措置を求めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「高層建物」が誤り。ガス工作物の技術上の基準を定める省令第49条第5項は、外壁貫通箇所付近に遠隔遮断装置を設ける対象を、特定地下街等、特定地下室等、超高層建物及び特定大規模建物と定めている。",
+      "間違い。選択肢の「異常なガス圧力の上昇」が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、異常なガス圧力の低下を検知した場合にガスを速やかに遮断する機能を求めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ゴム管口・迅速継手のガス栓が適合する規格は？",
+      "水のたまるおそれがある導管に必要な設備は？",
+      "道路以外に埋設する本支管の損傷防止措置は？",
+      "外壁貫通部付近の遠隔遮断装置が必要な建物は？",
+      "取引用ガスメーターが検知する異常圧力は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ゴム管口・迅速継手のガス栓が適合する規格は？",
+        "answer": "告示第7条第1項第1号が示すJIS S 2120「ガス栓」。"
+      },
+      {
+        "question": "水のたまるおそれがある導管に必要な設備は？",
+        "answer": "適切な水取り器。"
+      },
+      {
+        "question": "道路以外に埋設する本支管の損傷防止措置は？",
+        "answer": "掘削等による損傷を防止する適切な措置。"
+      },
+      {
+        "question": "外壁貫通部付近の遠隔遮断装置が必要な建物は？",
+        "answer": "特定地下街等、特定地下室等、超高層建物及び特定大規模建物。"
+      },
+      {
+        "question": "取引用ガスメーターが検知する異常圧力は？",
+        "answer": "異常なガス圧力の低下。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "省令第45条第1項第1号、第46条第1項、第48条第3項、第49条第5項及び第50条第1項並びに告示第7条第1項第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "45",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "4223c179dc0715b97c5cdad2be51cdaee7fea24e464f68066966707164bc3f81",
+          "rawXmlHash": "10be9e4a08f2ee52607cc392ad2aecf2379d0c8ac6586381e26394f68dbb62f9",
+          "references": [
+            {
+              "paragraph": "1",
+              "item": "1"
+            },
+            {
+              "sourceType": "external_primary",
+              "source": "meti_official_pdf",
+              "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+              "lawId": "",
+              "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
+              "article": "7",
+              "paragraph": "1",
+              "item": "1",
+              "articleTextHash": "90b402f502ec2dcad55fde982573de788ac0aa04866d783e621f6e3ca4c50ee0"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "46",
+          "paragraph": "1",
+          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+          "rawXmlHash": "fedb9cd678574cf16b416f2b1efbbf7bc9cb0b2fb2cf695c1e7bb4cb22f2820d"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "3",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "5",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行一次資料と一致する。",
+    "高層建物と超高層建物の区別、圧力上昇と低下の相違を具体的に示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2019-law-q10-s01",
+      "gas-shunin-otsu-2019-law-q10-s02",
+      "gas-shunin-otsu-2019-law-q10-s03",
+      "gas-shunin-otsu-2019-law-q10-s04",
+      "gas-shunin-otsu-2019-law-q10-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令等",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:53:41Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}

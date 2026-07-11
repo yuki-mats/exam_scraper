@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T159
+active_task: T160
 
 tasks:
   - id: T153
@@ -386,13 +386,54 @@ tasks:
   - id: T159
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "sequence 159、gas-shunin-otsu 2019 法令 問10を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 159", "2019 00_source", "公式e-Gov法令API"]
     constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
     allowed_files:
       - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0159_gas-shunin-otsu_2019_q10.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json"
+    verify:
+      - "apply decision"
+      - "build inventory"
+      - "17 unittest cases"
+      - "00_source diff check"
+    stop_if:
+      - "source又はID変更が必要。"
+      - "正答不一致のflag判断が必要。"
+      - "一問を超える更新になる。"
+    receipt:
+      result: done
+      summary: "sequence 159を現行第45・46・48・49・50条と告示で精査し、高層/超高層と圧力上昇/低下の違いを明示した。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0159_gas-shunin-otsu_2019_q10.json"
+        - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+        - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+        - "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json"
+      commands:
+        - cmd: "apply decision 0159"
+          status: pass
+        - cmd: "build inventory"
+          status: pass
+        - cmd: "17 unittest cases"
+          status: pass
+        - cmd: "00_source diff check"
+          status: pass
+      evidence: ["patchAppliedQuestionCount=159", "pendingReviewQuestionCount=102", "5択解説表示済み"]
+      harness: codex
+  - id: T160
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "sequence 160、gas-shunin-otsu 2019 法令 問11を現行法で一問精査し、解説更新と検証を完了する。"
+    inputs: ["review_ledger sequence 160", "2019 00_source", "公式e-Gov法令API"]
+    constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0160_gas-shunin-otsu_2019_q11.json"
       - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
       - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
       - "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json"
@@ -427,10 +468,10 @@ tasks:
     receipt: null
 
 checks:
-  dirty_fingerprint: "sequence-158-verified@a42ea06dd"
+  dirty_fingerprint: "sequence-159-verified@912fe083b"
   last_verification:
     result: pass
-    task: T158
+    task: T159
     commands:
       - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
       - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json"
