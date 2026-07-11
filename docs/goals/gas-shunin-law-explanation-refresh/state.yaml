@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T201
+active_task: T202
 
 tasks:
   - id: T153
@@ -2484,13 +2484,62 @@ tasks:
   - id: T201
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "sequence 201、gas-shunin-otsu 2022 法令 問4を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 201", "2022 00_source", "公式e-Gov法令API"]
     constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
     allowed_files:
       - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0201_gas-shunin-otsu_2022_q04.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json"
+    verify:
+      - "apply decision"
+      - "build inventory"
+      - "19 unittest cases"
+      - "00_source diff check"
+    stop_if:
+      - "source又はID変更が必要。"
+      - "正答不一致のflag判断が必要。"
+      - "一問を超える更新になる。"
+    receipt:
+      result: done
+      summary: "sequence 201のガス事故速報及び詳報の対象を現行ガス関係報告規則第4条で精査し、5肢すべてが報告対象で正解5と整合することを確認した。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0201_gas-shunin-otsu_2022_q04.json"
+        - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+        - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+        - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json"
+      commands:
+        - cmd: "apply decision 0201"
+          status: pass
+        - cmd: "build inventory"
+          status: pass
+        - cmd: "19 unittest cases"
+          status: pass
+        - cmd: "00_source diff check"
+          status: pass
+      evidence:
+        - "patchAppliedQuestionCount=201"
+        - "pendingReviewQuestionCount=60"
+        - "correctChoiceTextChanged=false, flags=[]"
+        - "mappingErrorCount=0, decisionErrorCount=0"
+        - "5択explanationTextをpush前に表示済み"
+        - "public_question_id=d5a6abd4e99d904dで反映後readback済み"
+        - "正誤配列は5肢すべて正しいでsourceと整合し、answer_result_textの正解5と一致"
+        - "ガス関係報告規則第4条第1項の表第5・7・8・17・16号のarticleTextHashとrawXmlHashを現行e-Gov API応答から保存"
+      harness: codex
+  - id: T202
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "sequence 202、gas-shunin-otsu 2022 法令 問5を現行法で一問精査し、解説更新と検証を完了する。"
+    inputs: ["review_ledger sequence 202", "2022 00_source", "公式e-Gov法令API"]
+    constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0202_gas-shunin-otsu_2022_q05.json"
       - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
       - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
       - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json"
@@ -2525,10 +2574,10 @@ tasks:
     receipt: null
 
 checks:
-  dirty_fingerprint: "sequence-200-verified@74bc0d9bf"
+  dirty_fingerprint: "sequence-201-verified@c99560a57"
   last_verification:
     result: pass
-    task: T200
+    task: T201
     commands:
       - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
       - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json"

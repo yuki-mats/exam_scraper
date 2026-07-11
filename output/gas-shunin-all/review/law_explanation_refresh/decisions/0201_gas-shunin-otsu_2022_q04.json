@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 201,
+  "auditKey": "gas-shunin:otsu:2022:law:q04:50f135e380e2",
+  "auditInputHash": "990971ba67a0f49a5dad9e8a331eb2684ceb4a758325e9bf761b8babb3a4088c",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T02:15:57+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス関係報告規則第4条第1項の表第5号は、ガス工作物（ガス栓を除く。）を操作することにより人が負傷した事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第7号は、保安閉栓を除き、供給支障戸数が100以上500未満の供給支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第17号は、消費機器又はガス栓の使用に伴い人が死亡した事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の欠陥、損壊又は破壊により漏えいしたガスに引火して発生した負傷又は物損事故を、ガス事故速報及びガス事故詳報の対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス工作物を操作して人が負傷した事故は速報及び詳報の対象か？",
+      "供給支障戸数が100の供給支障事故は速報及び詳報の対象か？",
+      "製造支障時間が10時間の製造支障事故は速報及び詳報の対象か？",
+      "消費機器の使用に伴い人が死亡した事故は速報及び詳報の対象か？",
+      "ガス栓の欠陥による漏えいガスへの引火物損事故は速報及び詳報の対象か？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス工作物を操作して人が負傷した事故は速報及び詳報の対象か？",
+        "answer": "対象である。ガス工作物（ガス栓を除く。）の操作により人が負傷した事故は、ガス関係報告規則第4条第1項の表第5号に該当する。"
+      },
+      {
+        "question": "供給支障戸数が100の供給支障事故は速報及び詳報の対象か？",
+        "answer": "対象である。保安閉栓を除き、供給支障戸数100は同表第7号の100以上500未満に該当する。"
+      },
+      {
+        "question": "製造支障時間が10時間の製造支障事故は速報及び詳報の対象か？",
+        "answer": "対象である。製造支障時間10時間は同表第8号の10時間以上24時間未満に該当する。"
+      },
+      {
+        "question": "消費機器の使用に伴い人が死亡した事故は速報及び詳報の対象か？",
+        "answer": "対象である。消費機器の使用に伴う死亡事故は同表第17号に該当する。"
+      },
+      {
+        "question": "ガス栓の欠陥による漏えいガスへの引火物損事故は速報及び詳報の対象か？",
+        "answer": "対象である。ガス栓の欠陥により漏えいしたガスへの引火で発生した物損事故は同表第16号に該当する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第4条第1項の表第5号、第7号、第8号、第17号及び第16号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "lawId": "429M60000400016",
+      "lawTitle": "ガス関係報告規則",
+      "article": "4",
+      "paragraph": "1",
+      "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+      "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+      "itemsByChoiceIndex": {
+        "0": "5",
+        "1": "7",
+        "2": "8",
+        "3": "17",
+        "4": "16"
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの5肢すべての「正しい」は現行法と一致する。",
+    "第4条第1項の表第5号、第7号、第8号、第17号及び第16号はいずれも速報及び詳報を報告する事故として規定されている。",
+    "報告対象は5つで、answer_result_textの正解5と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2022-law-q04-s01",
+      "gas-shunin-otsu-2022-law-q04-s02",
+      "gas-shunin-otsu-2022-law-q04-s03",
+      "gas-shunin-otsu-2022-law-q04-s04",
+      "gas-shunin-otsu-2022-law-q04-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス関係報告規則",
+        "lawId": "429M60000400016",
+        "articles": [
+          "4"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T17:16:32Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
