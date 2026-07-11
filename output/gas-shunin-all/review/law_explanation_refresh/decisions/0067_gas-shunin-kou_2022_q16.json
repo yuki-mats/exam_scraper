@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 67,
+  "auditKey": "gas-shunin:kou:2022:law:q16:7b13b057b804",
+  "auditInputHash": "45cf78597551f71a80c92b637b6ba1e12d3d02362ee7ad98e18be1f240aafa3d",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:51:37+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第1項第1号ロは、屋内に設置する密閉燃焼式以外のガス瞬間湯沸器で、ガス消費量が12キロワットを超えるものに、原則として燃焼器に接続する排気筒を設けると定めている。構造上その他の理由で困難な場合に排気フードを設けるときは例外となる。",
+      "間違い。選択肢の「先端に逆風止めを取り付ける」が誤り。ガス事業法施行規則第202条第1項第2号イ(2)は、逆風止めを、排気筒のうち燃焼器と同一室内にある部分の燃焼器と近接した箇所に取り付けると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号イは、排気扇の排気ガスに触れる部分の材料を不燃性とし、同号ハは、排気扇が停止した場合に燃焼器へのガス供給を自動的に遮断する装置を設けると定めている。",
+      "間違い。選択肢の「不燃性の金属材料で覆われている」が誤り。ガス事業法施行規則第202条第1項第6号リは、給排気部の天井裏、床裏等にある排気部分を、金属以外の不燃性材料で覆うと定めている。燃焼器出口の排気ガスが100度以下の場合は例外となる。",
+      "正しい。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器に、告示所定の規格及び方法によるガス漏れ警報設備を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス瞬間湯沸器に排気筒が必要な条件は？",
+      "逆風止めを取り付ける位置は？",
+      "排気扇に必要な2つの安全要件は？",
+      "天井裏等の給排気部を覆う材料は？",
+      "地下街等の燃焼器に必要な警報設備は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス瞬間湯沸器に排気筒が必要な条件は？",
+        "answer": "屋内設置、密閉燃焼式以外、ガス消費量12キロワット超の場合。困難時に排気フードを設ける例外がある。"
+      },
+      {
+        "question": "逆風止めを取り付ける位置は？",
+        "answer": "排気筒のうち、燃焼器と同一室内にある部分の燃焼器と近接した箇所。"
+      },
+      {
+        "question": "排気扇に必要な2つの安全要件は？",
+        "answer": "排気ガスに触れる部分を不燃性材料とし、停止時にガス供給を自動遮断する装置を設ける。"
+      },
+      {
+        "question": "天井裏等の給排気部を覆う材料は？",
+        "answer": "金属以外の不燃性材料。燃焼器出口の排気ガスが100度以下の場合は例外。"
+      },
+      {
+        "question": "地下街等の燃焼器に必要な警報設備は？",
+        "answer": "告示で定める規格に適合するガス漏れ警報設備を、告示で定める方法で設ける。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1項第1号ロ、第2号イ(2)、第3号イ及びハ、第6号リ並びに第8号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "subitem": "ロ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "イ(2)",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "イ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "subitem": "イ"
+            },
+            {
+              "subitem": "ハ"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "6",
+          "subitem": "リ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "8",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、正しいは現行施行規則と一致する。",
+    "第4肢の出ロは出口の転記誤りだが、correctChoiceTextの誤りではない。正誤の決め手は金属材料ではなく金属以外の不燃性材料で覆う点である。",
+    "第1肢の12kwは単位表記上の揺れであり、条文の12キロワット超という要件と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0316",
+      "chiefgasengineerlicense-A-10-0317",
+      "chiefgasengineerlicense-A-10-0318",
+      "chiefgasengineerlicense-A-10-0319",
+      "chiefgasengineerlicense-A-10-0320"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "articles": [
+        "202"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:52:40Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
