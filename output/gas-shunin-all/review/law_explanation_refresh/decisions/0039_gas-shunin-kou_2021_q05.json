@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 39,
+  "auditKey": "gas-shunin:kou:2021:law:q05:0c010b0c469e",
+  "auditInputHash": "4c9a0717ecf9aa5e363796d8fabbd7ef19cd214a13bb45343ac293860707d47a",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:31:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第27条第1項は、実務経験を要する免状を甲種ガス主任技術者免状と定めている。",
+      "正しい。ガス事業法施行規則第27条第1項は、対象業務に通算して従事した期間を実務経験として定めている。",
+      "正しい。ガス事業法施行規則第27条第1項は、甲種免状の交付を受けている者に必要な実務経験を通算1年以上と定めている。",
+      "正しい。ガス事業法施行規則第27条第2項は、同等以上の実務経験であると経済産業大臣が認定した経験で代えることができると定めている。",
+      "正しい。ガス事業法第31条は、ガス主任技術者が法令等に違反した場合などに、経済産業大臣がガス小売事業者へその解任を命ずることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "実務経験を要する免状区分は？",
+      "甲種の実務経験期間はどのように数える？",
+      "甲種に必要な実務経験期間は？",
+      "同等以上の実務経験を認定する者は？",
+      "大臣は誰に主任技術者の解任を命じる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "実務経験を要する免状区分は？",
+        "answer": "甲種ガス主任技術者免状。"
+      },
+      {
+        "question": "甲種の実務経験期間はどのように数える？",
+        "answer": "対象業務に従事した期間を通算する。"
+      },
+      {
+        "question": "甲種に必要な実務経験期間は？",
+        "answer": "通算1年以上。"
+      },
+      {
+        "question": "同等以上の実務経験を認定する者は？",
+        "answer": "経済産業大臣。"
+      },
+      {
+        "question": "大臣は誰に主任技術者の解任を命じる？",
+        "answer": "ガス小売事業者。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第27条第1項・第2項及びガス事業法第31条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "2",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "31",
+          "paragraph": "1",
+          "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+          "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextは5肢すべて正しいで、現行法令と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0181",
+      "chiefgasengineerlicense-A-10-0182",
+      "chiefgasengineerlicense-A-10-0183",
+      "chiefgasengineerlicense-A-10-0184",
+      "chiefgasengineerlicense-A-10-0185"
+    ],
+    "currentLaw": {
+      "egovLawIds": [
+        "329AC0000000051",
+        "345M50000400097"
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:37:24Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
