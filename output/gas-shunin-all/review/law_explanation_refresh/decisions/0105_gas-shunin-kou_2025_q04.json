@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 105,
+  "auditKey": "gas-shunin:kou:2025:law:q04:f6399095c0a4",
+  "auditInputHash": "66f7880e17f592ef16c86f37912bc3a82c5b6f44fc0b168776a08f56753b78bf",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:59:39+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「翌年3月末日まで」が誤り。ガス関係報告規則第3条第1項の表は、毎年のガス事故報告書を当該年の翌年2月末日までに提出すると定めている。",
+      "間違い。選択肢の「48時間以内」が誤り。ガス関係報告規則第4条第1項の表は、ガス事故速報を、事故発生時又は事故発生を知った時から24時間以内可能な限り速やかに報告すると定めている。",
+      "間違い。選択肢の「供給支障戸数が20」が誤り。ガス関係報告規則第4条第1項の表第7号は、速報及び詳報の対象となる供給支障事故を、供給支障戸数が100以上500未満のものと定めている。",
+      "間違い。選択肢の「製造支障時間が5時間」が誤り。ガス関係報告規則第4条第1項の表第8号は、速報及び詳報の対象となる製造支障事故を、製造支障時間が10時間以上24時間未満のものと定めている。",
+      "間違い。選択肢の「ガス事故速報及びガス事故詳報の両方」が誤り。ガス関係報告規則第4条第1項の表第18号は、消費機器から漏えいしたガスへの引火による死傷者のない消費機器損傷事故を、ガス事故詳報のみの対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "毎年のガス事故報告書の提出期限は？",
+      "ガス事故速報の期限は？",
+      "速報と詳報の対象となる供給支障戸数は？",
+      "速報と詳報の対象となる製造支障時間は？",
+      "死傷者のない消費機器損傷事故の報告区分は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "毎年のガス事故報告書の提出期限は？",
+        "answer": "当該年の翌年3月末日ではなく、翌年2月末日まで。"
+      },
+      {
+        "question": "ガス事故速報の期限は？",
+        "answer": "48時間以内ではなく、事故発生時等から24時間以内可能な限り速やかに報告する。"
+      },
+      {
+        "question": "速報と詳報の対象となる供給支障戸数は？",
+        "answer": "20戸ではなく、100戸以上500戸未満。"
+      },
+      {
+        "question": "速報と詳報の対象となる製造支障時間は？",
+        "answer": "5時間ではなく、10時間以上24時間未満。"
+      },
+      {
+        "question": "死傷者のない消費機器損傷事故の報告区分は？",
+        "answer": "速報と詳報の両方ではなく、詳報のみ。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第3条第1項の表並びに第4条第1項の表、第7号、第8号及び第18号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "3",
+          "paragraph": "1",
+          "item": "表",
+          "articleTextHash": "29ae421ef8e58fe21a5e06b6b92379885eaf7c9ffc9333c25be1c741eeca8915",
+          "rawXmlHash": "37e3f68bf667e0810851b16251872413b291527620f8940043e6111c358e736f"
+        },
+        "1": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "2": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第7号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "3": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第8号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "4": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第18号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextは5肢すべて間違いで、現行法と一致する。",
+    "期限、戸数、時間及び報告区分をガス関係報告規則の表の該当行で確認した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q04-s01",
+      "gas-shunin-kou-2025-law-q04-s02",
+      "gas-shunin-kou-2025-law-q04-s03",
+      "gas-shunin-kou-2025-law-q04-s04",
+      "gas-shunin-kou-2025-law-q04-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス関係報告規則",
+      "lawId": "429M60000400016",
+      "articles": [
+        "3",
+        "4"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:00:30Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
