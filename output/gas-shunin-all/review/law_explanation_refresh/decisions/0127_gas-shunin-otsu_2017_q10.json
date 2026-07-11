@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 127,
+  "auditKey": "gas-shunin:otsu:2017:law:q10:645c256af95d",
+  "auditInputHash": "3b65259cea2bf4d00efe224e8f653cf60a884cbf02bbfc143ef9a32310e83b8a",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:34:35+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第1項は、道路の路面に露出している導管のうち、最高使用圧力が低圧で内径100mm未満のものを衝撃による損傷防止措置の対象から除外すると定めている。低圧で内径50mmの導管に措置を講じなかった行為は技術基準に適合する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第2項は、道路に埋設されるポリエチレン管の本支管について、掘削等による損傷防止措置の対象を最高使用圧力5kPa以上のものに限ると定めている。最高使用圧力3kPaの本支管に措置を講じなかった行為は技術基準に適合する。",
+      "間違い。選択肢の「遮断することができる適切な装置を適切な場所に設けなかった」が誤り。ガス工作物の技術上の基準を定める省令第49条第1項は、最高使用圧力が高圧又は中圧の本支管には、危急の場合にガスを速やかに遮断できる適切な装置を適切な場所に設けると定めている。",
+      "間違い。選択肢の「ガスの供給を容易に遮断することができる適切な措置を講じなかった」が誤り。ガス工作物の技術上の基準を定める省令第49条第2項は、低圧の本支管で特定地下街等へのガス供給に係るものには、災害に妨げられない箇所で供給を容易に遮断できる適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第3項第3号は、一般の建物へ低圧でガスを供給する導管について遮断装置を必要とするのは、原則として内径70mm以上のものと定めている。内径30mmの導管で一般集合住宅へ供給する場合に装置を設けなかった行為は技術基準に適合する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "道路の路面に露出する低圧導管で衝撃防止措置の対象外となる内径は？",
+      "道路に埋設するポリエチレン管本支管で掘削損傷防止措置が必要となる圧力は？",
+      "高圧又は中圧の本支管に必要な遮断装置は？",
+      "特定地下街等へ供給する低圧本支管に必要な遮断措置は？",
+      "一般の建物へ低圧で供給する導管で遮断装置が必要となる内径は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "道路の路面に露出する低圧導管で衝撃防止措置の対象外となる内径は？",
+        "answer": "内径100mm未満。"
+      },
+      {
+        "question": "道路に埋設するポリエチレン管本支管で掘削損傷防止措置が必要となる圧力は？",
+        "answer": "最高使用圧力5kPa以上。"
+      },
+      {
+        "question": "高圧又は中圧の本支管に必要な遮断装置は？",
+        "answer": "危急の場合にガスを速やかに遮断できる適切な装置を、適切な場所に設ける。"
+      },
+      {
+        "question": "特定地下街等へ供給する低圧本支管に必要な遮断措置は？",
+        "answer": "災害に妨げられない箇所で、特定地下街等へのガス供給を容易に遮断できる適切な措置。"
+      },
+      {
+        "question": "一般の建物へ低圧で供給する導管で遮断装置が必要となる内径は？",
+        "answer": "原則として70mm以上。液化石油ガスを原料として成分を変えずに供給するガスでは45mm以上。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第48条第1項・第2項及び第49条第1項・第2項・第3項第3号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "1",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "2",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "1",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "2",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "3",
+          "item": "3",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、間違い、正しいは現行法と一致する。",
+    "既存lawRevisionFacts.currentの施行規則への紐付けを、省令第48条及び第49条の直接根拠へ修正する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q10-s01",
+      "gas-shunin-otsu-2017-law-q10-s02",
+      "gas-shunin-otsu-2017-law-q10-s03",
+      "gas-shunin-otsu-2017-law-q10-s04",
+      "gas-shunin-otsu-2017-law-q10-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:35:37Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
