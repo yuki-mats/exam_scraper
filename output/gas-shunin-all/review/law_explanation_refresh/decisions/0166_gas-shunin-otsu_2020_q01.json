@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 166,
+  "auditKey": "gas-shunin:otsu:2020:law:q01:af2b772764d1",
+  "auditInputHash": "19a5e576982aa360ad4953a78dd3370f1456837167cc89b1f5aeac680a951919",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:10:20+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。空欄（イ）の「国の関与を最小限に」が誤り。ガス事業法第1条は、ガス事業の運営を調整することによって、ガスの使用者の利益を保護し、ガス事業の健全な発達を図ることを目的の一部として定めている。",
+      "間違い。空欄（ニ）の「保安規程」が誤り。ガス事業法第1条は、ガス工作物の工事、維持及び運用並びにガス用品の製造及び販売を規制することによって、公共の安全を確保すると定めている。空欄（ニ）に入るのは「ガス用品の製造及び販売」である。",
+      "間違い。空欄（ハ）の「ガス主任技術者」が誤り。ガス事業法第1条は、公共の安全を確保するための規制対象を、ガス工作物の工事、維持及び運用並びにガス用品の製造及び販売と定めている。空欄（ハ）に入るのは「ガス工作物の工事、維持及び運用」である。",
+      "正しい。ガス事業法第1条は、公共の安全を確保し、あわせて公害の防止を図ることを目的と定めている。したがって、空欄（ホ）の「公害の防止」は正しい。",
+      "間違い。空欄（ロ）の「ガス事業者の自主保安体制を確立」が誤り。ガス事業法第1条は、ガス事業の運営を調整することによって、ガスの使用者の利益を保護すると定めている。空欄（ロ）に入るのは「ガスの使用者の利益を保護」である。"
+    ],
+    "proposedSuggestedQuestions": [
+      "空欄（イ）に入る目的規定の文言は？",
+      "空欄（ニ）に入る規制対象は？",
+      "空欄（ハ）に入る規制対象は？",
+      "公害の防止はガス事業法の目的？",
+      "空欄（ロ）に入る保護対象は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "空欄（イ）に入る目的規定の文言は？",
+        "answer": "ガス事業の運営を調整。国の関与を最小限に、ではない。"
+      },
+      {
+        "question": "空欄（ニ）に入る規制対象は？",
+        "answer": "ガス用品の製造及び販売。保安規程ではない。"
+      },
+      {
+        "question": "空欄（ハ）に入る規制対象は？",
+        "answer": "ガス工作物の工事、維持及び運用。ガス主任技術者ではない。"
+      },
+      {
+        "question": "公害の防止はガス事業法の目的？",
+        "answer": "目的の一つ。第1条が定めている。"
+      },
+      {
+        "question": "空欄（ロ）に入る保護対象は？",
+        "answer": "ガスの使用者の利益を保護。ガス事業者の自主保安体制の確立ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第1条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "1",
+          "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+          "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "1",
+          "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+          "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "1",
+          "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+          "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "1",
+          "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+          "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "1",
+          "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+          "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、正しい、間違いは現行条文と一致する。",
+    "choiceTextListの並びと空欄記号を対応付け、各誤答で空欄記号、誤った語句及び正しい語句を明示した。",
+    "現行ガス事業法第1条の全文を一次根拠として再取得し、全5肢の判断根拠を同条へ統一した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "1"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:10:58Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
