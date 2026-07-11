@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 86,
+  "auditKey": "gas-shunin:kou:2024:law:q01:77516314b831",
+  "auditInputHash": "0318f77b9cfbd45adbc6e6cac48b16ff0610f8a7a5ba41e217f90fbb9266695b",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:00:17+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第2条第11項は、ガス事業を、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業と定めている。",
+      "間違い。選択肢の「経済産業大臣の許可」が誤り。ガス事業法第3条第1項は、ガス小売事業を営もうとする者は、経済産業大臣の登録を受けなければならないと定めている。",
+      "正しい。ガス事業法第2条第1項は、小売供給を、一般の需要に応じ導管によりガスを供給することと定め、特定ガス発生設備による供給は、一の団地内の供給地点数が70以上のものに限ると定めている。",
+      "正しい。ガス事業法第2条第5項は、経済産業省令で定める要件に該当する導管による供給を一般ガス導管事業から除外している。ガス事業法施行規則第3条第1号は、その導管に、12A及び13A以外のガスグループに属するガスを供給する導管を含めると定めている。",
+      "正しい。ガス事業法第2条第9項は、ガス製造事業を、自ら維持・運用する液化ガス貯蔵設備等を用いてガスを製造する事業で、その液化ガス貯蔵設備が経済産業省令の要件に該当するものと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス事業に含まれる4事業は？",
+      "ガス小売事業の開始に必要な手続は？",
+      "特定ガス発生設備による小売供給の地点数要件は？",
+      "一般ガス導管事業に該当しない導管は？",
+      "ガス製造事業とは？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス事業に含まれる4事業は？",
+        "answer": "ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業。"
+      },
+      {
+        "question": "ガス小売事業の開始に必要な手続は？",
+        "answer": "経済産業大臣の許可ではなく、登録。"
+      },
+      {
+        "question": "特定ガス発生設備による小売供給の地点数要件は？",
+        "answer": "一の団地内におけるガスの供給地点数が70以上。"
+      },
+      {
+        "question": "一般ガス導管事業に該当しない導管は？",
+        "answer": "12A及び13A以外のガスグループに属するガスを供給する導管など、施行規則第3条の要件に該当する導管。"
+      },
+      {
+        "question": "ガス製造事業とは？",
+        "answer": "自ら維持・運用する液化ガス貯蔵設備等を用いてガスを製造し、その設備が省令要件に該当する事業。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第2条第1項・第5項・第9項・第11項、第3条第1項及びガス事業法施行規則第3条第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "11",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "1",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "5",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
+          "references": [
+            {
+              "article": "2",
+              "paragraph": "5",
+              "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+              "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "3",
+              "paragraph": "1",
+              "item": "1",
+              "articleTextHash": "2911e3a4cea02ca761f08369c4e949b0bd12ada1295c185fe6ec9b472d1aee58",
+              "rawXmlHash": "308cbf400cdfa8380b44683860980b3a4d225dfc4a7a308bde8b1ebd55867981"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "9",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、正しい、正しいは現行法令と一致する。",
+    "第2肢で必要な行政手続は許可ではなく登録である。",
+    "第4肢はガス事業法第2条第5項と施行規則第3条第1号を組み合わせて判断した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q01-s01",
+      "gas-shunin-kou-2024-law-q01-s02",
+      "gas-shunin-kou-2024-law-q01-s03",
+      "gas-shunin-kou-2024-law-q01-s04",
+      "gas-shunin-kou-2024-law-q01-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法及びガス事業法施行規則",
+      "lawId": "multiple",
+      "articles": [
+        "ガス事業法第2条・第3条",
+        "ガス事業法施行規則第3条"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:01:21Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
