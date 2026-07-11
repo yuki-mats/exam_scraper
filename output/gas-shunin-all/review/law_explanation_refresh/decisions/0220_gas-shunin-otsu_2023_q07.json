@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 220,
+  "auditKey": "gas-shunin:otsu:2023:law:q07:10e625b2e8b2",
+  "auditInputHash": "9e33e59f30c284d5fc8fb5d66750f9f76290ae3501f2b904aa3ccd5ac566bc88",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T03:22:48+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。(イ)の「届け出た」は「認可を受けた」、(ロ)の「種類」は「規模」、(ニ)の「排出」は「警報」、(ホ)の「耐食」は「防爆」が正しい。ガス工作物の技術上の基準を定める省令第6条第4項、第8条、第9条第2項及び第10条は、空欄を順に「認可を受けた」「規模」「滞留」「警報」「防爆」と定めている。(ハ)の「滞留」は正しい。",
+      "間違い。(イ)の「届け出た」が誤りで、正しくは「認可を受けた」である。ガス工作物の技術上の基準を定める省令第6条第4項は、離隔距離の規定によらずガス工作物を施設できるのは、所定の理由により経済産業大臣の認可を受けた場合と定めている。(ロ)の「規模」、(ハ)の「滞留」、(ニ)の「警報」及び(ホ)の「防爆」は正しい。",
+      "正しい。ガス工作物の技術上の基準を定める省令第6条第4項、第8条、第9条第2項及び第10条は、空欄を順に「認可を受けた」「規模」「滞留」「警報」「防爆」と定めており、この組合せと一致する。",
+      "間違い。(イ)の「認可を受けた」は正しいが、(ロ)の「種類」は「規模」、(ハ)の「拡散」は「滞留」、(ニ)の「排出」は「警報」、(ホ)の「耐食」は「防爆」が正しい。ガス工作物の技術上の基準を定める省令第8条、第9条第2項及び第10条は、それぞれこれらの内容を定めている。",
+      "間違い。(イ)の「届け出た」は「認可を受けた」、(ハ)の「拡散」は「滞留」が正しい。ガス工作物の技術上の基準を定める省令第6条第4項は経済産業大臣の認可を、第9条第2項は漏えいガスが滞留するおそれのある場所への検知・警報設備を定めている。(ロ)の「規模」、(ニ)の「警報」及び(ホ)の「防爆」は正しい。"
+    ],
+    "proposedSuggestedQuestions": [
+      "空欄(イ)から(ホ)の正しい語句は？",
+      "離隔距離の例外に必要なのは届出か認可か？",
+      "防消火設備は何に応じて設けるか？",
+      "漏えいガスの検知設備はどこに設け、何を行うか？",
+      "付近の電気設備に必要な性能は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "空欄(イ)から(ホ)の正しい語句は？",
+        "answer": "順に「認可を受けた」「規模」「滞留」「警報」「防爆」。"
+      },
+      {
+        "question": "離隔距離の例外に必要なのは届出か認可か？",
+        "answer": "経済産業大臣の認可。届出ではない。"
+      },
+      {
+        "question": "防消火設備は何に応じて設けるか？",
+        "answer": "ガス工作物又は大容量移動式ガス発生設備の規模に応じて設ける。"
+      },
+      {
+        "question": "漏えいガスの検知設備はどこに設け、何を行うか？",
+        "answer": "漏えいガスが滞留するおそれのある製造所内の適当な場所に設け、漏えいを検知して警報する。"
+      },
+      {
+        "question": "付近の電気設備に必要な性能は？",
+        "answer": "設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第6条第4項、第8条、第9条第2項及び第10条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "4",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7",
+          "references": [
+            {
+              "article": "6",
+              "paragraph": "4",
+              "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7"
+            },
+            {
+              "article": "8",
+              "paragraph": "1",
+              "articleTextHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+              "rawXmlHash": "5f1ca19c9fff548313a7a1fbc0090e27f5b81bdf528735a2964a64e3ccb3df01"
+            },
+            {
+              "article": "9",
+              "paragraph": "2",
+              "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+              "rawXmlHash": "900dd62d4e416934b2c6b1db823f1ca2f2fa6d3fb1b974213de12e1c9aa4f6ef"
+            },
+            {
+              "article": "10",
+              "paragraph": "1",
+              "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
+              "rawXmlHash": "b140db6656a13384edf9b73f93a9a9bf596ac4e72a840676821d2317fb5adc77"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "4",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "4",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7",
+          "references": [
+            {
+              "article": "6",
+              "paragraph": "4",
+              "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7"
+            },
+            {
+              "article": "8",
+              "paragraph": "1",
+              "articleTextHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+              "rawXmlHash": "5f1ca19c9fff548313a7a1fbc0090e27f5b81bdf528735a2964a64e3ccb3df01"
+            },
+            {
+              "article": "9",
+              "paragraph": "2",
+              "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+              "rawXmlHash": "900dd62d4e416934b2c6b1db823f1ca2f2fa6d3fb1b974213de12e1c9aa4f6ef"
+            },
+            {
+              "article": "10",
+              "paragraph": "1",
+              "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
+              "rawXmlHash": "b140db6656a13384edf9b73f93a9a9bf596ac4e72a840676821d2317fb5adc77"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "4",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7",
+          "references": [
+            {
+              "article": "6",
+              "paragraph": "4",
+              "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7"
+            },
+            {
+              "article": "8",
+              "paragraph": "1",
+              "articleTextHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+              "rawXmlHash": "5f1ca19c9fff548313a7a1fbc0090e27f5b81bdf528735a2964a64e3ccb3df01"
+            },
+            {
+              "article": "9",
+              "paragraph": "2",
+              "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+              "rawXmlHash": "900dd62d4e416934b2c6b1db823f1ca2f2fa6d3fb1b974213de12e1c9aa4f6ef"
+            },
+            {
+              "article": "10",
+              "paragraph": "1",
+              "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
+              "rawXmlHash": "b140db6656a13384edf9b73f93a9a9bf596ac4e72a840676821d2317fb5adc77"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "4",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7",
+          "references": [
+            {
+              "article": "6",
+              "paragraph": "4",
+              "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+              "rawXmlHash": "2ba392db4648852223314feff78269c3ea7705fe80aca872dafa1e91aac6eea7"
+            },
+            {
+              "article": "9",
+              "paragraph": "2",
+              "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+              "rawXmlHash": "900dd62d4e416934b2c6b1db823f1ca2f2fa6d3fb1b974213de12e1c9aa4f6ef"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの不正解、不正解、正解、不正解、不正解は現行省令と一致する。",
+    "空欄の正しい組合せは、認可を受けた、規模、滞留、警報、防爆である。",
+    "各不正解肢について誤っている空欄をすべて明示し、正しい語句へ置き換えた。",
+    "正解は第3肢で、answer_result_textの正解3と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2023-law-q07-s01",
+      "gas-shunin-otsu-2023-law-q07-s02",
+      "gas-shunin-otsu-2023-law-q07-s03",
+      "gas-shunin-otsu-2023-law-q07-s04",
+      "gas-shunin-otsu-2023-law-q07-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "6",
+        "8",
+        "9",
+        "10"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T18:24:02Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
