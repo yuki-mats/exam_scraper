@@ -96,6 +96,19 @@ class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
             "施行令別表第二第1号",
         )
 
+    def test_basis_label_formats_table_item_without_item_affixes(self) -> None:
+        self.assertEqual(
+            basis_label(
+                {
+                    "lawTitle": "省令",
+                    "article": "51",
+                    "paragraph": "1",
+                    "item": "表（3）",
+                }
+            ),
+            "省令第51条第1項の表（3）",
+        )
+
     def test_validate_basis_accepts_external_primary_without_law_id(self) -> None:
         validate_basis(
             {
