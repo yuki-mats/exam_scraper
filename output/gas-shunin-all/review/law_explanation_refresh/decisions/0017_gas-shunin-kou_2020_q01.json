@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 17,
+  "auditKey": "gas-shunin:kou:2020:law:q01:43e200dbe9f3",
+  "auditInputHash": "2fdaa14a2b486c8a3bc26dcd87b2a70d1e31cec4ba66d6130e41b15abf77f06b",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:05:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。（イ）の「国の関与を最小限に」が誤り。ガス事業法第1条は、ガス事業の運営を調整することによって目的を達成すると定めている。",
+      "間違い。（ロ）の「ガス事業者の自主保安体制を確立」が誤り。ガス事業法第1条は、ガスの使用者の利益を保護すると定めている。",
+      "間違い。（ハ）の「ガス主任技術者」が誤り。ガス事業法第1条は、ガス工作物の工事、維持及び運用を規制すると定めている。",
+      "間違い。（ニ）の「保安規程」が誤り。ガス事業法第1条は、ガス用品の製造及び販売を規制すると定めている。",
+      "正しい。ガス事業法第1条は、公共の安全を確保し、あわせて公害の防止を図ることを目的と定めている。（ホ）はこれと一致する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス事業法が調整するものは？",
+      "ガス事業法が保護する利益は？",
+      "公共安全のため規制するガス工作物の事項は？",
+      "公共安全のため規制するガス用品の事項は？",
+      "公共安全とあわせて図るものは？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス事業法が調整するものは？",
+        "answer": "ガス事業の運営。"
+      },
+      {
+        "question": "ガス事業法が保護する利益は？",
+        "answer": "ガスの使用者の利益。"
+      },
+      {
+        "question": "公共安全のため規制するガス工作物の事項は？",
+        "answer": "ガス工作物の工事、維持及び運用。"
+      },
+      {
+        "question": "公共安全のため規制するガス用品の事項は？",
+        "answer": "ガス用品の製造及び販売。"
+      },
+      {
+        "question": "公共安全とあわせて図るものは？",
+        "answer": "公害の防止。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第1条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "lawId": "329AC0000000051",
+      "lawTitle": "ガス事業法",
+      "article": "1",
+      "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+      "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、間違い、正しいは現行第1条と一致する。",
+    "誤り4肢について、誤っている穴埋め語句と正しい条文文言が一文で対応するように更新した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "article": "1",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:50:38Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}

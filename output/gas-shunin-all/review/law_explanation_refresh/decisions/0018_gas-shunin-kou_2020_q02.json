@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 18,
+  "auditKey": "gas-shunin:kou:2020:law:q02:6b7efaa0a97e",
+  "auditInputHash": "3d1b26ed3e0cc4e8b08e87176b3ab97d333e234ca2956dcaee9b103c43582676",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:20:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「経済産業大臣に届け出なければならない」が誤り。ガス事業法第14条第1項は、小売供給契約の締結前に、料金その他の供給条件を小売供給を受けようとする者へ説明すると定めている。",
+      "正しい。ガス事業法第18条は、ガス小売事業者が供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存すると定めている。",
+      "正しい。ガス事業法施行規則第17条第1項ただし書は、特定ガス発生設備に係る場合、供給するガスの燃焼性を測定する必要がないと定めている。",
+      "正しい。ガス事業法第23条は、人体への危害又は物件への損傷のおそれがあるガス成分が所定数量を超えないか検査し、その量を記録して保存すると定めている。",
+      "正しい。ガス事業法施行規則第22条第1号は、硫黄全量、硫化水素及びアンモニアの定期検査対象となるガスから、天然ガスを主成分とするガスを除外している。"
+    ],
+    "proposedSuggestedQuestions": [
+      "小売供給条件を説明する相手は？",
+      "測定・記録するガスの性質は？",
+      "特定ガス発生設備で不要となる測定は？",
+      "危険なガス成分について必要な業務は？",
+      "天然ガスで不要となる成分検査は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "小売供給条件を説明する相手は？",
+        "answer": "小売供給を受けようとする者。"
+      },
+      {
+        "question": "測定・記録するガスの性質は？",
+        "answer": "熱量、圧力及び燃焼性。"
+      },
+      {
+        "question": "特定ガス発生設備で不要となる測定は？",
+        "answer": "燃焼性の測定。"
+      },
+      {
+        "question": "危険なガス成分について必要な業務は？",
+        "answer": "所定数量を超えないか検査し、その量を記録して保存する。"
+      },
+      {
+        "question": "天然ガスで不要となる成分検査は？",
+        "answer": "硫黄全量、硫化水素及びアンモニアの検査。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第14条第1項、第18条及び第23条並びにガス事業法施行規則第17条第1項及び第22条第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "14",
+          "paragraph": "1",
+          "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+          "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "18",
+          "articleTextHash": "4d5691cb69c10df40acb37d940df8b4b32244c870c43d8dc8758b6a300117044",
+          "rawXmlHash": "42c68f7b7b0592b994cef32cfab43dcbe3cc42f55b120415c277ace723b62236"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "17",
+          "paragraph": "1",
+          "articleTextHash": "c36a5b39b13f24080ea21aae9c5a576391674e2704690b5476266db1f9c9f00a",
+          "rawXmlHash": "48ea7792a873b1ff06e280e4eaadc5f4a6697122222b03af01672226252e4616"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "23",
+          "articleTextHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
+          "rawXmlHash": "78fafe5f2d76c72b7c6f0afa9fd6b5b3b983da1328fcd3f36753949b2799802d"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "22",
+          "item": "1",
+          "articleTextHash": "0455ff312b1a44933d466e1fd7285ed87c7e68f10e9a695d5789684a02aa9cf7",
+          "rawXmlHash": "1bb623fedea163f2f7418aff97e2e48472e0a6ab1d1c8bb39313faafe501c6e8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、正しいは現行法令と一致する。",
+    "天然ガスの検査除外について、既存の第22条第1項ただし書ではなく、第22条第1号を直接根拠として記録した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "references": [
+        "ガス事業法第14条第1項、第18条及び第23条",
+        "ガス事業法施行規則第17条第1項及び第22条第1号"
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:52:17Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
