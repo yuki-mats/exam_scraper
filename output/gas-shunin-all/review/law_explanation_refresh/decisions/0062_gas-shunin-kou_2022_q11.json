@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 62,
+  "auditKey": "gas-shunin:kou:2022:law:q11:88caceb0d8c0",
+  "auditInputHash": "f9fd5a981ee3f7218cbfcd50d0c7d69b33d8eb427d6390dfdb635caf822a9e5e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:04:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「適切な勾配」が誤り。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管に適切な水取り器を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第47条は、設置状況により腐食のおそれがある導管に、腐食防止のための適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第2項は、道路に埋設される最高使用圧力5キロパスカル以上のポリエチレン本支管に、掘削等による損傷防止措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第2項は、特定地下街等へ供給する低圧本支管に、災害に妨げられない箇所で容易に供給を遮断できる措置を講じると定めている。",
+      "間違い。選択肢の「停電」が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、遮断機能が作動する検知対象を、地震動、過大なガス流量又は異常なガス圧力の低下と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "水のたまる導管に設けるものは？",
+      "腐食のおそれがある導管の措置は？",
+      "ポリエチレン本支管の損傷防止条件は？",
+      "特定地下街等への低圧本支管に必要な措置は？",
+      "ガスメーターが遮断する検知条件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "水のたまる導管に設けるものは？",
+        "answer": "適切な水取り器。"
+      },
+      {
+        "question": "腐食のおそれがある導管の措置は？",
+        "answer": "腐食を防止するための適切な措置。"
+      },
+      {
+        "question": "ポリエチレン本支管の損傷防止条件は？",
+        "answer": "道路に埋設され、最高使用圧力が5キロパスカル以上の場合。"
+      },
+      {
+        "question": "特定地下街等への低圧本支管に必要な措置は？",
+        "answer": "災害に妨げられない箇所で、ガス供給を容易に遮断できる措置。"
+      },
+      {
+        "question": "ガスメーターが遮断する検知条件は？",
+        "answer": "所定の地震動、過大なガス流量又は異常なガス圧力の低下。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第46条、第47条、第48条第2項、第49条第2項及び第50条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "46",
+          "paragraph": "1",
+          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+          "rawXmlHash": "fedb9cd678574cf16b416f2b1efbbf7bc9cb0b2fb2cf695c1e7bb4cb22f2820d"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "47",
+          "paragraph": "1",
+          "articleTextHash": "0307136f04e895cb745038d3e7681d2a9f99c1f79f76b08eb3043e0241641674",
+          "rawXmlHash": "cb6fd13d15c67e4440da43647c2b3116e7e82ba6071daacc51402b7f3d0c8a35"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "2",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "2",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、間違いは現行省令と一致する。",
+    "第5肢のロ径は口径の転記誤りだがcorrectChoiceTextの誤りではない。遮断条件は停電ではなく過大なガス流量である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0291",
+      "chiefgasengineerlicense-A-10-0292",
+      "chiefgasengineerlicense-A-10-0293",
+      "chiefgasengineerlicense-A-10-0294",
+      "chiefgasengineerlicense-A-10-0295"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:32:06Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
