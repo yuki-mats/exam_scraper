@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 140,
+  "auditKey": "gas-shunin:otsu:2018:law:q07:bdb09cfb813b",
+  "auditInputHash": "0f7749fa1d43c6863d0d8288ae7083f7a30d144d79a3b9215c8313ed9a7e0d91",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:08:06+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第26条は、移動式ガス発生設備を含む所定の製造設備に、異常時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置を、適切な箇所へ設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第28条第2項は、移動式ガス発生設備に、容器の腐食及び転倒並びに容器バルブの損傷を防止する適切な措置を講ずると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第27条第2項は、移動式ガス発生設備に、異常時に迅速かつ安全にガスの発生を停止できる装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第28条第3項は、容器又は容器の設置場所に、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を講ずると定めている。",
+      "間違い。選択肢の「移動式ガス発生設備を除く」が誤り。ガス工作物の技術上の基準を定める省令第30条は、ガスを通ずる部分へ直接液体又は気体を送入する装置を有する製造設備について、移動式ガス発生設備を含め、逆流が生じない構造とすると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "移動式ガス発生設備に必要な異常時遮断装置は？",
+      "移動式ガス発生設備の容器に必要な損傷防止措置は？",
+      "移動式ガス発生設備に必要な緊急停止装置は？",
+      "容器内圧力の異常上昇を防ぐために必要な措置は？",
+      "ガス逆流防止構造の対象に移動式ガス発生設備は含まれる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "移動式ガス発生設備に必要な異常時遮断装置は？",
+        "answer": "異常時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置を、適切な箇所へ設ける。"
+      },
+      {
+        "question": "移動式ガス発生設備の容器に必要な損傷防止措置は？",
+        "answer": "容器の腐食・転倒と容器バルブの損傷を防止する適切な措置。"
+      },
+      {
+        "question": "移動式ガス発生設備に必要な緊急停止装置は？",
+        "answer": "異常時に迅速かつ安全にガスの発生を停止できる装置。"
+      },
+      {
+        "question": "容器内圧力の異常上昇を防ぐために必要な措置は？",
+        "answer": "容器又はその設置場所を適切な温度に維持できる措置。"
+      },
+      {
+        "question": "ガス逆流防止構造の対象に移動式ガス発生設備は含まれる？",
+        "answer": "含まれる。第30条は移動式ガス発生設備を明示的に対象へ含めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第26条、第27条第2項、第28条第2項及び第3項並びに第30条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "26",
+          "paragraph": "1",
+          "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+          "rawXmlHash": "dd17afb97324af859794cd657ded16f973a39d2a44be4c6785c1446c991abf8e"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "28",
+          "paragraph": "2",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "27",
+          "paragraph": "2",
+          "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+          "rawXmlHash": "3c1526932497fa1bd55fb42cc0181374ee81522e20f5185a6f010b748780d575"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "28",
+          "paragraph": "3",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "30",
+          "paragraph": "1",
+          "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+          "rawXmlHash": "ff79044f60340dac338cf998b66d16d79e92994886cce1fb7d419d34ea956964"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、正しい、間違いは現行法と一致する。",
+    "逆流防止構造の対象は移動式ガス発生設備を除くのではなく含むことを明示した。",
+    "移動式ガス発生設備の遮断、緊急停止、容器保護及び温度維持要件を各条項へ接続した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q07-s01",
+      "gas-shunin-otsu-2018-law-q07-s02",
+      "gas-shunin-otsu-2018-law-q07-s03",
+      "gas-shunin-otsu-2018-law-q07-s04",
+      "gas-shunin-otsu-2018-law-q07-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:08:49Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
