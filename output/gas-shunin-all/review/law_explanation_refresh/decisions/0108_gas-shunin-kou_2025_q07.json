@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 108,
+  "auditKey": "gas-shunin:kou:2025:law:q07:09d60c72d419",
+  "auditInputHash": "fa9d876a0261053c8093b271f74950b33647d330336bea1acd0073af272a35cf",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:06:18+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第4条第1項は、製造所及び供給所に公衆のみだりな立入りを防ぐ措置を求め、周囲の状況により立入りのおそれがない場合を例外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第5条第1項は、製造所、供給所及び導管を管理する事業場に、緊急時の迅速な通信を確保する適切な通信設備を設けると定めている。",
+      "間違い。選択肢の「安全に放出する設備」が誤り。ガス工作物の技術上の基準を定める省令第9条第2項は、漏えいガスが滞留するおそれのある場所に、漏えいを適切に検知し、かつ、警報する設備を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第10条第1項は、ガス工作物等の付近の電気設備に、設置場所及びガス等の種類に応じた防爆性能を求めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第13条第1項は、製造設備に属する所定の部分を、ガス又は液化ガスを安全に置換できる構造とするよう定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "製造所への立入防止措置の例外は？",
+      "緊急時のために必要な通信設備は？",
+      "漏えいガスが滞留する場所に必要な設備は？",
+      "電気設備に必要な防爆性能は？",
+      "製造設備のガス置換構造は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "製造所への立入防止措置の例外は？",
+        "answer": "周囲の状況により公衆が立ち入るおそれがない場合。"
+      },
+      {
+        "question": "緊急時のために必要な通信設備は？",
+        "answer": "迅速な通信を確保するための適切な通信設備。"
+      },
+      {
+        "question": "漏えいガスが滞留する場所に必要な設備は？",
+        "answer": "安全に放出する設備ではなく、漏えいを検知し、警報する設備。"
+      },
+      {
+        "question": "電気設備に必要な防爆性能は？",
+        "answer": "設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能。"
+      },
+      {
+        "question": "製造設備のガス置換構造は？",
+        "answer": "ガス又は液化ガスを安全に置換できる構造。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第4条第1項、第5条第1項、第9条第2項、第10条第1項及び第13条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "4",
+          "paragraph": "1",
+          "articleTextHash": "b6d5a0556ec648f70109d2644282720fa04461f174c87b34bcc4dcd963178ae2",
+          "rawXmlHash": "42cd314794580a99332af8e24276d23bf04cad276f3d92d1e8113ccbe693294b"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "5",
+          "paragraph": "1",
+          "articleTextHash": "13050333b7a56805c831b5da7eec0aa727d08f96dd997628ce8e8ca086882275",
+          "rawXmlHash": "37455c0dfdc18455eaeaeece24655afedc5bd1312bbf091cf02e4f97a9a15b41"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "9",
+          "paragraph": "2",
+          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+          "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "10",
+          "paragraph": "1",
+          "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
+          "rawXmlHash": "691a406b6b56039913bff94378d326c79f179673f3b195beea758e587da5e59f"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "rawXmlHash": "90e37be1a77ea96227e1404350b4e7b34d86b42dce85b0f9d6f66cfd1579ea15"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行法と一致する。",
+    "第3肢に必要なのは安全放出設備ではなく、漏えい検知・警報設備である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q07-s01",
+      "gas-shunin-kou-2025-law-q07-s02",
+      "gas-shunin-kou-2025-law-q07-s03",
+      "gas-shunin-kou-2025-law-q07-s04",
+      "gas-shunin-kou-2025-law-q07-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:07:06Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
