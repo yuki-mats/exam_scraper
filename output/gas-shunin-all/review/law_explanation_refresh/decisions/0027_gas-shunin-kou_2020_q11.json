@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 27,
+  "auditKey": "gas-shunin:kou:2020:law:q11:df2987ba53e3",
+  "auditInputHash": "9b06186716240704776d28715cbde129705ff06f2333d01eedcf46b5ca3d32f2",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T17:44:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項ただし書第1号は、適切な漏えい検知装置を設置した場合、その装置が検知できる部分を漏えい検査の対象外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項ただし書第2号は、設置場所への立入りについて所有者又は占有者の承諾を得られない場合を、漏えい検査の対象外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項ただし書第4号は、屋外で埋設されていない部分を、漏えい検査の対象外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項ただし書第3号は、ポリエチレン管を使用している部分を、漏えい検査の対象外と定めている。",
+      "間違い。選択肢の「プラスチックにて被覆された部分」が除外対象である点が誤り。特定地下室等への導管にはガス工作物の技術上の基準を定める省令第51条第3項が適用され、同項の表は、除外事由に該当しない部分を1年に1回以上検査すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "漏えい検知装置を設置した部分は検査対象？",
+      "立入り承諾を得られない場合は検査対象？",
+      "屋外の非埋設部分は検査対象？",
+      "ポリエチレン管部分は検査対象？",
+      "特定地下室等のプラスチック被覆部分の検査頻度は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "漏えい検知装置を設置した部分は検査対象？",
+        "answer": "装置が漏えいを検知できる部分は対象外。"
+      },
+      {
+        "question": "立入り承諾を得られない場合は検査対象？",
+        "answer": "対象外。第51条第3項ただし書第2号が定めている。"
+      },
+      {
+        "question": "屋外の非埋設部分は検査対象？",
+        "answer": "その非埋設部分は対象外。"
+      },
+      {
+        "question": "ポリエチレン管部分は検査対象？",
+        "answer": "ポリエチレン管を使用している部分は対象外。"
+      },
+      {
+        "question": "特定地下室等のプラスチック被覆部分の検査頻度は？",
+        "answer": "除外事由に該当しなければ1年に1回以上。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第3項ただし書第1号から第4号及び同項の表。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "3",
+          "item": "1",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "3",
+          "item": "2",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "3",
+          "item": "4",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "3",
+          "item": "3",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "3",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、正しい、間違いは現行条文と一致する。",
+    "絶縁措置後のプラスチック被覆部分を6年周期とする第2項の表は、特定地下室等への導管には適用されない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "article": "51",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:13:30Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
