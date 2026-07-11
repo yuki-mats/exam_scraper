@@ -66,6 +66,8 @@ python tools/question_bank/question_bank.py quality-gate \
 
 `--require-law-evidence-utilization` は、法令関連の `21_explanationText_added` について、既存の `lawRevisionFacts` / `lawReferences` が `explanationText`、想定質問チップ、保存済み回答に最低限反映されているかを機械チェックします。大きな別レビュー工程は増やさず、汎用チップだけで法令問題を通してしまう事故を防ぐための軽い gate です。
 
+e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されていない問題は、資格別方針で認める場合、現行法ベースのみで確定してよい。この場合は `lawRevisionFacts.examTime.correctChoiceText` に公式元正答を残し、`examTime.verificationStatus="not_referenced_current_law_only_policy"` または `"from_original_answer"`、`notes` / review sidecar の `remainingRisk` に未参照理由を保存します。出題当時 revision がないこと自体は `hold` 理由にせず、現行法根拠・委任規定・施行令・施行規則・告示・別表等が不足する場合だけ `hold` に戻します。
+
 現時点の未整備数を棚卸しするだけなら、単体 checker で report を残します。
 
 ```bash

@@ -195,9 +195,11 @@
 
 `isLawRelated=true` の問題は、差分がある問題だけでなく全件が作成対象です。差分がない問題は `auditStatus="same_as_current"`、出題当時との差分が未確定なら `auditStatus="hold"` として残します。
 
+e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されておらず、資格別方針で認めた一次資料でも出題当時条文を固定できない場合は、出題当時条文を参照していないことを明示したうえで現行法ベースのみの監査としてよい。この場合は `examTime.correctChoiceText` に公式元正答を残し、`examTime.verificationStatus="not_referenced_current_law_only_policy"` または `"from_original_answer"`、`notes` / review sidecar の `remainingRisk` に未参照理由を保存する。出題当時の `lawRevisionId`、`articleTextHash`、`exam_time_basis` は推測で作らない。出題当時 revision が e-Gov API v2 にないこと自体は `hold` 理由にせず、現行法根拠・委任規定・別表等が不足する場合だけ `hold` に戻す。
+
 法令根拠監査は次の三段階で扱います。
 
-1. 一次監査: 現行法・必要な出題当時法令の条文 snapshot を取得し、`lawId`、`lawRevisionId`、条・項・号、`articleTextHash`、raw XML hash、暫定判断を固定する。
+1. 一次監査: 現行法・取得できる場合の出題当時法令の条文 snapshot を取得し、`lawId`、`lawRevisionId`、条・項・号、`articleTextHash`、raw XML hash、暫定判断を固定する。
 2. 二次監査: 一次で取得した evidence bundle を使い、正答・解説・差分説明が条文本文と矛盾しないかを妥当性監査する。根拠不足なら `hold` として追加取得キューへ戻す。
 3. 三次確定: `updated_to_current_law`、一次/二次不一致、高リスク判断を最終決裁し、`correctChoiceText` / `explanationText` の公開確定を承認する。
 
@@ -212,7 +214,7 @@
 | `auditedAt` | string | 推奨 | ISO-8601 datetime。監査判断を確定した日時。 |
 | `nextAuditDueAt` | string | 推奨 | ISO-8601 date。原則年1回の次回監査期限。 |
 | `auditMethodVersion` | string | 推奨 | 監査方式、prompt、検索・照合手順の版。方式更新時の再監査判定に使う。 |
-| `auditInputHash` | string | 推奨 | 問題文、選択肢、元正答、現行条文 snapshot、出題当時条文 snapshot、locator/hash をまとめた固定入力 hash。 |
+| `auditInputHash` | string | 推奨 | 問題文、選択肢、元正答、現行条文 snapshot、取得できた場合の出題当時条文 snapshot、locator/hash をまとめた固定入力 hash。 |
 | `auditRunId` | string | 推奨 | 現在の確定判断に対応する監査 run ID。 |
 | `lawCorpusSnapshotId` | string | 推奨 | 監査時に使った e-Gov / supplemental corpus snapshot ID。 |
 | `primaryAuditRunId` | string | 推奨 | 一次監査 run ID。 |
@@ -221,8 +223,8 @@
 | `reconciliationStatus` | string | 推奨 | `matched`, `mismatched`, `approved`, `hold` など。一次/二次/三次の照合状態。 |
 | `sourceEvidenceVersionId` | string | 推奨 | 元になった `lawEvidenceVersions` の document ID。 |
 | `evidenceBindingHash` | string | 推奨 | `lawRevisionFacts.evidenceSummary` と evidence 側 locator set の一致確認用 hash。 |
-| `examTime` | object | 必要時 | 出題当時の正答、lawId、lawRevisionId、条・項・号、参照日、本文hash。 |
-| `current` | object | 法令問題では推奨 | 現行法ベースの正答、lawId、lawRevisionId、条・項・号、参照日、本文hash。 |
+| `examTime` | object | 必要時 | 出題当時の正答、取得できた場合の lawId、lawRevisionId、条・項・号、参照日、本文hash。current-law-only 方針では公式元正答と verificationStatus だけでもよい。 |
+| `current` | object | 法令問題では推奨 | 現行法ベースの正答、lawId、取得できた場合の lawRevisionId、条・項・号、参照日、本文hash。 |
 | `differenceFacts` | array<string> | 任意 | 出題当時条文と現行法条文の差分事実。推測や解釈を混ぜない。 |
 | `answerImpactFacts` | array<string> | 任意 | その差分が正誤へ与える影響。 |
 | `notes` | array<string> | 任意 | 監査注記。未確認点はここか sidecar に残す。 |
@@ -232,7 +234,7 @@
 
 - `correctChoiceText`
 - `lawId`
-- `lawRevisionId`
+- `lawRevisionId`（e-Gov API v2 / corpus から特定できる場合。取得できない場合は omit し、`referenceDate`、`articleTextHash`、`sourceUrl`、sidecar の raw XML hash で固定する）
 - `lawTitle`
 - `article`
 - `paragraph`
@@ -251,9 +253,9 @@
 - `differenceSummary`: 正誤判断や暗記に影響する差分の要約。
 - `promptContext`: AI に渡す方針文。AI はこの範囲外を推測しない。
 - `displayRefIds`: UIで表示する根拠 ref の順序。
-- `refs[]`: `refId`, `lawTimeScope`, `relation`, `primaryBasis`, `lawId`, `lawRevisionId`, `lawTitle`, `elm`, `encodedElm`, `rootArticleElm`, `article`, `paragraph`, `item`, `highlightElms`, `articleTextHash`, `textHash`。
+- `refs[]`: `refId`, `lawTimeScope`, `relation`, `primaryBasis`, `lawId`, `lawRevisionId`（取得できる場合）, `lawTitle`, `elm`, `encodedElm`, `rootArticleElm`, `article`, `paragraph`, `item`, `highlightElms`, `articleTextHash`, `textHash`。
 
-条文本文そのものは、原則として question doc に長文保存しません。本文確認は `lawId + lawRevisionId + elm` と hash から、e-Gov v2 由来 corpus または整備環境のキャッシュを開きます。例外的に短い本文を中間監査で使う場合も、最終 upload 前に `articleTextHash` / locator へ寄せます。
+条文本文そのものは、原則として question doc に長文保存しません。本文確認は `lawId + lawRevisionId + elm` と hash から、または `lawRevisionId` が未取得の場合は `lawId + article + referenceDate + articleTextHash` から、e-Gov v2 由来 corpus または整備環境のキャッシュを開きます。例外的に短い本文を中間監査で使う場合も、最終 upload 前に `articleTextHash` / locator へ寄せます。
 
 整備環境では、verified `lawReferences` から取得した現行条文本文を `output/<qualification>/law_evidence/<list_group_id>/current_article_snapshots/` に保存します。JSONL には `lawId`、条・項・号、`apiUrl`、`articleText`、`articleTextHash`、`rawXmlHash`、紐づく `questionIds` を保存し、raw XML は `raw_xml/<timestamp>/` に残します。この evidence は `lawRevisionFacts.current.articleTextHash` や `evidenceSummary.refs[].articleTextHash` の照合元であり、Firestore question doc へ長文本文を直接載せるためのものではありません。
 
@@ -289,10 +291,10 @@
 - `lawRevisionFacts.evidenceSummary` に AI prompt と条文確認UIへ渡す根拠要約、`displayRefIds`、`refs[]` を残す。
 - `explanationText` に「現行法に合わせて更新済み」「出題当時の公式正答とは異なる場合がある」という趣旨の短い注記を入れる。
 - `suggestedQuestions` / `suggestedQuestionDetails` に、出題当時と現行法の違いを確認できる質問と回答を入れる。
-- `lawReferences` は `role="current_basis"` と `role="exam_time_basis"` を分け、差分がある場合は `comparisonStatus="differs_from_current"` と `differenceNote` を残す。
+- `lawReferences` は `role="current_basis"` と `role="exam_time_basis"` を分け、差分がある場合は `comparisonStatus="differs_from_current"` と `differenceNote` を残す。current-law-only 方針では `current_basis` だけでよく、未取得の `exam_time_basis` は作らない。
 - 年次監査 sidecar では `userVisibleNoticeRequired=true` を残し、将来のUI実装・監査対象抽出に使えるようにする。
 
-repaso 側では、基本解説で正誤・現行法根拠・必要な差分説明が完結することを優先します。条文本文を見たい場合の UI は `lawRevisionFacts.evidenceSummary.refs[]` の `lawId + lawRevisionId + elm` から開き、一般ユーザー操作で新規検索・再判定を開始しません。
+repaso 側では、基本解説で正誤・現行法根拠・必要な差分説明が完結することを優先します。条文本文を見たい場合の UI は `lawRevisionFacts.evidenceSummary.refs[]` の `lawId + lawRevisionId + elm`、または `lawRevisionId` 未取得時の `lawId + article + referenceDate + articleTextHash` から開き、一般ユーザー操作で新規検索・再判定を開始しません。
 
 ## `suggestedQuestions` / `suggestedQuestionDetails` 契約
 
