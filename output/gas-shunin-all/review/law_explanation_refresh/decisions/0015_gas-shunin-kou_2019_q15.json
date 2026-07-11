@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 15,
+  "auditKey": "gas-shunin:kou:2019:law:q15:cfe68802fe2a",
+  "auditInputHash": "75a5b3fa3bb4d3cb8213aae87c34df16a5066f0426468f1084b212b8a1a5df9b",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:41:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第5号ロは、ガス消費量が12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気用開口部を設けた室に設置すると定めている。この場合、第1号の排気筒設置対象には含まれない。",
+      "正しい。ガス事業法施行規則第202条第2号イ（1）は、自然排気式燃焼器の排気筒材料を、告示規格に適合するもの又は同等以上のものと定めている。選択肢はこれと一致する。",
+      "正しい。ガス事業法施行規則第202条第2号イ（3）は、排気扇を接続しない自然排気式燃焼器の排気筒について、燃焼器との接続部より小さくない有効断面積を求めている。",
+      "正しい。ガス事業法施行規則第202条第6号ヌは、密閉燃焼式燃焼器の給排気部を、燃焼が妨げられないよう十分な風量を確保できる形状と定めている。ガスふろがまも対象に含まれる。",
+      "間違い。選択肢の「自動ガス遮断装置を設け、又はガス漏れ警報器を設ける」が誤り。ガス事業法施行規則第202条第8号は、特定地下街等に設置する燃焼器に、告示規格へ適合するガス漏れ警報設備を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "12kW以下の瞬間湯沸器に必要な換気条件は？",
+      "自然排気式燃焼器の排気筒材料の基準は？",
+      "排気筒の有効断面積の基準は？",
+      "密閉燃焼式燃焼器の給排気部に必要な形状は？",
+      "特定地下街等の燃焼器に必要な警報設備は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "12kW以下の瞬間湯沸器に必要な換気条件は？",
+        "answer": "換気扇又は有効な給排気用開口部を設けた室に設置する。"
+      },
+      {
+        "question": "自然排気式燃焼器の排気筒材料の基準は？",
+        "answer": "告示規格に適合するもの又は同等以上のもの。"
+      },
+      {
+        "question": "排気筒の有効断面積の基準は？",
+        "answer": "燃焼器の排気部との接続部の有効断面積より小さくないこと。"
+      },
+      {
+        "question": "密閉燃焼式燃焼器の給排気部に必要な形状は？",
+        "answer": "燃焼を妨げないよう十分な風量を確保できる形状。"
+      },
+      {
+        "question": "特定地下街等の燃焼器に必要な警報設備は？",
+        "answer": "告示規格に適合するガス漏れ警報設備。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第2号イ（1）及び（3）、第5号ロ、第6号ヌ並びに第8号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "5",
+          "subitem": "ロ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "2",
+          "subitem": "イ（1）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "2",
+          "subitem": "イ（3）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "6",
+          "subitem": "ヌ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "8",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、正しい、間違いは現行規則と一致する。",
+    "選択肢0の直接根拠は第1号ではなく第5号ロ、選択肢3は第3号ではなく第6号ヌであるため監査参照を修正した。",
+    "既存suggestedQuestionDetailsに混入していた施行規則第197条への参照を削除した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "article": "202",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:45:57Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
