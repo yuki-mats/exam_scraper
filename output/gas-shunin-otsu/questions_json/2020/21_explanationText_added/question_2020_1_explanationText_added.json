@@ -6702,44 +6702,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
     "explanationText": [
-      "正しい。ガス事業法第137条第2項は、特定ガス用品は政令指定の高リスクのガス用品である。",
-      "間違い。ガス事業法第142条は、型式の区分は申請認可でなく届出である。",
-      "正しい。ガス事業法第145条は、試験用製造又は輸入には技術基準適合義務の例外がある。",
-      "正しい。ガス事業法第147条は、義務履行後は所定表示を付することができる。",
-      "正しい。ガス事業法第149条第1項は、技術基準不適合時は1年以内の表示禁止を命ずることができる。"
+      "正しい。ガス事業法第137条第2項は、特定ガス用品を、構造、使用条件、使用状況等からみて特にガスによる災害発生のおそれが多いと認められるガス用品で、政令で定めるものと定義している。",
+      "間違い。選択肢の「型式の区分を経済産業大臣に申請し認められなければならない」が誤り。ガス事業法第140条第1項第3号は、製造又は輸入事業者が経済産業省令で定めるガス用品の区分に従い、型式の区分等を経済産業大臣に届け出ることができると定めている。",
+      "正しい。ガス事業法第145条第1項ただし書第3号は、届出事業者が試験用にガス用品を製造又は輸入するときは、同項の技術上の基準への適合義務を適用しないと定めている。",
+      "正しい。ガス事業法第147条第1項及び第2項は、届出事業者が技術上の基準への適合性に関する所定の義務を履行した場合、ガス用品に経済産業省令で定める方式の表示を付することができると定めている。",
+      "正しい。ガス事業法第149条第1項第1号は、届出に係る型式のガス用品が技術上の基準に適合せず、災害防止のため特に必要がある場合、経済産業大臣が届出事業者に対して1年以内の期間を定めて表示を禁止できると定めている。"
     ],
     "suggestedQuestions": [
-      "特定ガス用品とは、特にガスによる災害の発生のおそれが多いと認められる政令で定めるガス用品か。",
-      "ガス用品の製造又は輸入の事業を行う者は、型式の区分について経済産業大臣に申請し認められなければならないか。",
-      "届出に係る型式のガス用品を試験用に製造又は輸入する場合、技術上の基準への適合義務は除外されるか。",
-      "届出事業者は、所定の義務を履行したガス用品に表示を付することができるか。",
-      "経済産業大臣は、基準不適合のガス用品について表示を付することを禁止できるか。",
+      "特定ガス用品とは？",
+      "ガス用品の型式区分は申請認可制？",
+      "試験用ガス用品にも技術基準適合義務がある？",
+      "ガス用品に所定表示を付けられる条件は？",
+      "表示禁止を命じられる期間は？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "特定ガス用品とは、特にガスによる災害の発生のおそれが多いと認められる政令で定めるガス用品か。",
-        "answer": "そのとおり。"
+        "question": "特定ガス用品とは？",
+        "answer": "特にガスによる災害発生のおそれが多いと認められ、政令で定められるガス用品。"
       },
       {
-        "question": "ガス用品の製造又は輸入の事業を行う者は、型式の区分について経済産業大臣に申請し認められなければならないか。",
-        "answer": "いいえ。"
+        "question": "ガス用品の型式区分は申請認可制？",
+        "answer": "違う。ガス用品の区分に従い、型式の区分等を経済産業大臣へ届け出る制度。"
       },
       {
-        "question": "届出に係る型式のガス用品を試験用に製造又は輸入する場合、技術上の基準への適合義務は除外されるか。",
-        "answer": "除外される。"
+        "question": "試験用ガス用品にも技術基準適合義務がある？",
+        "answer": "試験用に製造又は輸入するときは、第145条第1項ただし書第3号の例外となる。"
       },
       {
-        "question": "届出事業者は、所定の義務を履行したガス用品に表示を付することができるか。",
-        "answer": "できる。"
+        "question": "ガス用品に所定表示を付けられる条件は？",
+        "answer": "技術基準への適合性について、第145条・第146条等の所定義務を履行すること。"
       },
       {
-        "question": "経済産業大臣は、基準不適合のガス用品について表示を付することを禁止できるか。",
-        "answer": "できる。"
+        "question": "表示禁止を命じられる期間は？",
+        "answer": "1年以内。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法第137条第2項、ガス事業法第142条、ガス事業法第145条、ガス事業法第147条、ガス事業法第149条第1項。"
+        "answer": "ガス事業法第137条第2項、第140条第1項第3号、第145条第1項ただし書第3号、第147条第1項・第2項及び第149条第1項第1号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -6785,16 +6785,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "137",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第137条第2項は、特定ガス用品は政令指定の高リスクのガス用品である。",
+          "reason": "正しい。ガス事業法第137条第2項は、特定ガス用品を、構造、使用条件、使用状況等からみて特にガスによる災害発生のおそれが多いと認められるガス用品で、政令で定めるものと定義している。",
           "paragraph": "2",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=137",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
         }
       ],
       [
@@ -6804,16 +6806,20 @@
           "choiceIndex": 1,
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
-          "article": "142",
-          "referenceDate": "2026-07-11",
+          "article": "140",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第142条は、型式の区分は申請認可でなく届出である。",
+          "reason": "間違い。選択肢の「型式の区分を経済産業大臣に申請し認められなければならない」が誤り。ガス事業法第140条第1項第3号は、製造又は輸入事業者が経済産業省令で定めるガス用品の区分に従い、型式の区分等を経済産業大臣に届け出ることができると定めている。",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=142",
-          "appLinkMode": "egov_api"
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=140",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "36b913dd73471277fa58e85f2f66fc067edd47b61d8f58d4ad2da69e10d18195",
+          "paragraph": "1",
+          "item": "3",
+          "rawXmlHash": "7ddc0a482832042ab98013bfda3abe8644bbb80cff024dc4ba70583518d602df"
         }
       ],
       [
@@ -6824,15 +6830,19 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "145",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第145条は、試験用製造又は輸入には技術基準適合義務の例外がある。",
+          "reason": "正しい。ガス事業法第145条第1項ただし書第3号は、届出事業者が試験用にガス用品を製造又は輸入するときは、同項の技術上の基準への適合義務を適用しないと定めている。",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+          "paragraph": "1",
+          "item": "3",
+          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b"
         }
       ],
       [
@@ -6843,15 +6853,38 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "147",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第147条は、義務履行後は所定表示を付することができる。",
+          "reason": "正しい。ガス事業法第147条第1項及び第2項は、届出事業者が技術上の基準への適合性に関する所定の義務を履行した場合、ガス用品に経済産業省令で定める方式の表示を付することができると定めている。",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+          "paragraph": "1",
+          "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "147",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第147条第1項及び第2項は、届出事業者が技術上の基準への適合性に関する所定の義務を履行した場合、ガス用品に経済産業省令で定める方式の表示を付することができると定めている。",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+          "paragraph": "2",
+          "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2"
         }
       ],
       [
@@ -6862,32 +6895,35 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "149",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第149条第1項は、技術基準不適合時は1年以内の表示禁止を命ずることができる。",
+          "reason": "正しい。ガス事業法第149条第1項第1号は、届出に係る型式のガス用品が技術上の基準に適合せず、災害防止のため特に必要がある場合、経済産業大臣が届出事業者に対して1年以内の期間を定めて表示を禁止できると定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=149",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "3aa5fe0e01cd6d935d715df077f72a42459c3bff2c6d40f2512e0c090bc65760",
+          "item": "1",
+          "rawXmlHash": "63bc70e8d821d31a4f53f2c238c0509f261e92e39456b203a11baa7e6fd3e336"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:54:40+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "9cc7aa8c20958a75143bcaa3adc99ee91a9c826ff98394957308f24b66737120",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問13:choice1",
         "evidenceBindingHash": "353e527fb6c6c68bf944a8c8a6aba7b7b0abac09628c76b8a74006bf3ab20e1a",
         "examTime": {
@@ -6895,60 +6931,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "137",
-          "paragraph": "2",
-          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=137",
+          "lawId": "329AC0000000051",
+          "paragraph": "2"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。特定ガス用品は、構造、使用条件、使用状況等からみて特にガスによる災害の発生のおそれが多いと認められるガス用品であって、政令で定めるものをいう。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:137:2::1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第137条第2項は、特定ガス用品を、構造、使用条件、使用状況等からみて特にガスによる災害発生のおそれが多いと認められるガス用品で、政令で定めるものと定義している。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第137条第2項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:137:2::1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "137",
-              "paragraph": "2",
               "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
-              "textHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94"
+              "lawId": "329AC0000000051",
+              "paragraph": "2"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:54:40+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "133c6a74a1d2c3a42c0c06e3bd72fe5432b70714e0f11cfc3640ab3129287c92",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問13:choice2",
         "evidenceBindingHash": "7b3595839f981331e43a84f9744603134252ad2279245de6f0bc25e04dd757b7",
         "examTime": {
@@ -6956,60 +6988,58 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "140",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "36b913dd73471277fa58e85f2f66fc067edd47b61d8f58d4ad2da69e10d18195",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=140",
+          "lawId": "329AC0000000051",
           "paragraph": "1",
-          "articleTextHash": "36b913dd73471277fa58e85f2f66fc067edd47b61d8f58d4ad2da69e10d18195"
+          "item": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス用品の製造又は輸入の事業を行う者は、経済産業省令で定めるガス用品の区分に従い、型式の区分などを経済産業大臣に届け出ることができる。経済産業大臣に申請し認められなければならないわけではない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:140:1::2"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「型式の区分を経済産業大臣に申請し認められなければならない」が誤り。ガス事業法第140条第1項第3号は、製造又は輸入事業者が経済産業省令で定めるガス用品の区分に従い、型式の区分等を経済産業大臣に届け出ることができると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第140条第1項第3号を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:140:1::2",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "140",
-              "paragraph": "1",
               "articleTextHash": "36b913dd73471277fa58e85f2f66fc067edd47b61d8f58d4ad2da69e10d18195",
-              "textHash": "36b913dd73471277fa58e85f2f66fc067edd47b61d8f58d4ad2da69e10d18195"
+              "lawId": "329AC0000000051",
+              "paragraph": "1",
+              "item": "3"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:54:40+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "8f60528d38c3022f494f6bdf76d5d845e0164530a9c3b954eed9e32f70679c30",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問13:choice3",
         "evidenceBindingHash": "4d22b6296aab098e4621590d63fae75c2a7f3b029eadf984b4fe03ed11463d56",
         "examTime": {
@@ -7017,60 +7047,58 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "145",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
+          "lawId": "329AC0000000051",
           "paragraph": "1",
-          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3"
+          "item": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。届出事業者が届出に係る型式のガス用品を試験用に製造又は輸入する場合は、経済産業省令で定める技術上の基準に適合することを要しない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:145:1::3"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第145条第1項ただし書第3号は、届出事業者が試験用にガス用品を製造又は輸入するときは、同項の技術上の基準への適合義務を適用しないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第145条第1項第3号を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:145:1::3",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "145",
-              "paragraph": "1",
               "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
-              "textHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3"
+              "lawId": "329AC0000000051",
+              "paragraph": "1",
+              "item": "3"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:54:40+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "0cc6e66109ea571a0a35dffe553abaf7fea5c09a97332e7bef759e7264a5c830",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問13:choice4",
         "evidenceBindingHash": "3232fba2288b7ffaad7bb12087b9a4694be945655a49f6a6b4cbc4a53390cb00",
         "examTime": {
@@ -7078,60 +7106,67 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "147",
-          "paragraph": "1",
-          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。届出事業者が技術上の基準への適合性について規定の義務を履行したときは、当該ガス用品に経済産業省令で定めるところにより表示を付することができる。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:147:1::4"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第147条第1項及び第2項は、届出事業者が技術上の基準への適合性に関する所定の義務を履行した場合、ガス用品に経済産業省令で定める方式の表示を付することができると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第147条第1項、ガス事業法第147条第2項を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:147:1::4",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "147",
-              "paragraph": "1",
               "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
-              "textHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a"
+              "lawId": "329AC0000000051",
+              "paragraph": "1"
+            },
+            {
+              "refId": "choice-3-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス事業法",
+              "article": "147",
+              "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+              "lawId": "329AC0000000051",
+              "paragraph": "2"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:54:40+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "1963cc5b000365ca144b07e31e459466709c4e6f9c18160938861727676bbb45",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問13:choice5",
         "evidenceBindingHash": "582fe4502954f04803daad95e15600d356d91b0f896254d4a7fa910ab8cf5fb7",
         "examTime": {
@@ -7139,62 +7174,60 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "149",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "3aa5fe0e01cd6d935d715df077f72a42459c3bff2c6d40f2512e0c090bc65760",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=149",
+          "lawId": "329AC0000000051",
           "paragraph": "1",
-          "articleTextHash": "3aa5fe0e01cd6d935d715df077f72a42459c3bff2c6d40f2512e0c090bc65760"
+          "item": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス用品が技術上の基準に適合しておらず、災害防止のため特に必要があるときは、経済産業大臣は届出事業者に対し、1年以内の期間を定めて表示を付することを禁止できる。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:149:1::5"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第149条第1項第1号は、届出に係る型式のガス用品が技術上の基準に適合せず、災害防止のため特に必要がある場合、経済産業大臣が届出事業者に対して1年以内の期間を定めて表示を禁止できると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第149条第1項第1号を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:149:1::5",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "149",
-              "paragraph": "1",
               "articleTextHash": "3aa5fe0e01cd6d935d715df077f72a42459c3bff2c6d40f2512e0c090bc65760",
-              "textHash": "3aa5fe0e01cd6d935d715df077f72a42459c3bff2c6d40f2512e0c090bc65760"
+              "lawId": "329AC0000000051",
+              "paragraph": "1",
+              "item": "1"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "正しい。ガス事業法第137条第2項は、特定ガス用品は政令指定の高リスクのガス用品である。",
-      "間違い。ガス事業法第142条は、型式の区分は申請認可でなく届出である。",
-      "正しい。ガス事業法第145条は、試験用製造又は輸入には技術基準適合義務の例外がある。",
-      "正しい。ガス事業法第147条は、義務履行後は所定表示を付することができる。",
-      "正しい。ガス事業法第149条第1項は、技術基準不適合時は1年以内の表示禁止を命ずることができる。"
+      "正しい。ガス事業法第137条第2項は、特定ガス用品を、構造、使用条件、使用状況等からみて特にガスによる災害発生のおそれが多いと認められるガス用品で、政令で定めるものと定義している。",
+      "間違い。選択肢の「型式の区分を経済産業大臣に申請し認められなければならない」が誤り。ガス事業法第140条第1項第3号は、製造又は輸入事業者が経済産業省令で定めるガス用品の区分に従い、型式の区分等を経済産業大臣に届け出ることができると定めている。",
+      "正しい。ガス事業法第145条第1項ただし書第3号は、届出事業者が試験用にガス用品を製造又は輸入するときは、同項の技術上の基準への適合義務を適用しないと定めている。",
+      "正しい。ガス事業法第147条第1項及び第2項は、届出事業者が技術上の基準への適合性に関する所定の義務を履行した場合、ガス用品に経済産業省令で定める方式の表示を付することができると定めている。",
+      "正しい。ガス事業法第149条第1項第1号は、届出に係る型式のガス用品が技術上の基準に適合せず、災害防止のため特に必要がある場合、経済産業大臣が届出事業者に対して1年以内の期間を定めて表示を禁止できると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス事業法第137条第2項は、特定ガス用品は政令指定の高リスクのガス用品である。",
-      "間違い。ガス事業法第142条は、型式の区分は申請認可でなく届出である。",
-      "正しい。ガス事業法第145条は、試験用製造又は輸入には技術基準適合義務の例外がある。",
-      "正しい。ガス事業法第147条は、義務履行後は所定表示を付することができる。",
-      "正しい。ガス事業法第149条第1項は、技術基準不適合時は1年以内の表示禁止を命ずることができる。"
+      "正しい。ガス事業法第137条第2項は、特定ガス用品を、構造、使用条件、使用状況等からみて特にガスによる災害発生のおそれが多いと認められるガス用品で、政令で定めるものと定義している。",
+      "間違い。選択肢の「型式の区分を経済産業大臣に申請し認められなければならない」が誤り。ガス事業法第140条第1項第3号は、製造又は輸入事業者が経済産業省令で定めるガス用品の区分に従い、型式の区分等を経済産業大臣に届け出ることができると定めている。",
+      "正しい。ガス事業法第145条第1項ただし書第3号は、届出事業者が試験用にガス用品を製造又は輸入するときは、同項の技術上の基準への適合義務を適用しないと定めている。",
+      "正しい。ガス事業法第147条第1項及び第2項は、届出事業者が技術上の基準への適合性に関する所定の義務を履行した場合、ガス用品に経済産業省令で定める方式の表示を付することができると定めている。",
+      "正しい。ガス事業法第149条第1項第1号は、届出に係る型式のガス用品が技術上の基準に適合せず、災害防止のため特に必要がある場合、経済産業大臣が届出事業者に対して1年以内の期間を定めて表示を禁止できると定めている。"
     ]
   },
   {
