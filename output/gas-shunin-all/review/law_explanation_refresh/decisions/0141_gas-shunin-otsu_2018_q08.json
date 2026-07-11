@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 141,
+  "auditKey": "gas-shunin:otsu:2018:law:q08:9da90dd9d35d",
+  "auditInputHash": "54c67ba56f8c6155f56c3a50578a3fbbb49117bafa954f34dae92214fdcbba7b",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:10:22+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能低下又は損傷のおそれがあるガスホルダーに、凝縮液を抜く装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーのガスを送出又は受入する配管に、漏えい時の災害を防止するため、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所へ設けると定めている。",
+      "間違い。選択肢の「及び最高使用圧力」が誤り。ガス工作物の技術上の基準を定める省令第34条は、対象となる液化ガス用貯槽及びガスホルダー又はその付近に、外部から見やすいよう、液化ガス用貯槽又はガスホルダーである旨を表示すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第37条は、最高使用圧力が高圧のガスホルダー及びその支持物を、受けるおそれのある熱に十分耐えるものとし、又は適切な冷却装置を設置すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第36条は、対象となる液化ガス用貯槽の送出又は受入配管に、漏えい時の災害を防止するため、液化ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所へ設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "凝縮液で機能低下のおそれがあるガスホルダーに必要な装置は？",
+      "ガスホルダーの送出・受入配管に必要な遮断装置は？",
+      "液化ガス用貯槽とガスホルダーに表示する内容は？",
+      "高圧ガスホルダーと支持物に必要な耐熱措置は？",
+      "液化ガス用貯槽の配管に必要な遮断装置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "凝縮液で機能低下のおそれがあるガスホルダーに必要な装置は？",
+        "answer": "ガスホルダーの凝縮液を抜く装置。"
+      },
+      {
+        "question": "ガスホルダーの送出・受入配管に必要な遮断装置は？",
+        "answer": "漏えい時にガスの流出及び流入を速やかに遮断できる適切な装置を、適切な箇所へ設ける。"
+      },
+      {
+        "question": "液化ガス用貯槽とガスホルダーに表示する内容は？",
+        "answer": "液化ガス用貯槽又はガスホルダーである旨。最高使用圧力の表示は第34条の要件ではない。"
+      },
+      {
+        "question": "高圧ガスホルダーと支持物に必要な耐熱措置は？",
+        "answer": "受けるおそれのある熱に十分耐えるものとするか、適切な冷却装置を設置する。"
+      },
+      {
+        "question": "液化ガス用貯槽の配管に必要な遮断装置は？",
+        "answer": "漏えい時に液化ガスの流出及び流入を速やかに遮断できる適切な装置を、適切な箇所へ設ける。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第32条第1項、第33条、第34条、第36条及び第37条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "32",
+          "paragraph": "1",
+          "articleTextHash": "7e144e36c680edb3b6b80282307f2a994c08707945a7574efe8b2d16c98d3de9",
+          "rawXmlHash": "8f2ff3c145d9eeb52eb651de556d8e98780cdecc504dd2879b1f548124a09cfd"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "33",
+          "paragraph": "1",
+          "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
+          "rawXmlHash": "b5ccea88b31ae06bcf4f22fb69b7a06a60d7b7719d7b6fbabff79c91a7147507"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "34",
+          "paragraph": "1",
+          "articleTextHash": "34e5fdd1c468d08feece4a76a3909cfbd5e58fd1f172d5cc0e08aa9a380c0a6a",
+          "rawXmlHash": "caa9451425b70ee07a63ca93d3fbf45c396269cdf2f81409f431ca44788ca487"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "37",
+          "paragraph": "1",
+          "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
+          "rawXmlHash": "86269577933916677d7963ea62f3830f10572971d8cf52bda58ab1f500f35ac0"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "36",
+          "paragraph": "1",
+          "articleTextHash": "d5d55d2247f1dcae646eca8a17fd81de06352ccdf570dcb8375ddbefd150116e",
+          "rawXmlHash": "a4eb693c84d7224072f51518cfb0753ae601e359f119dcb803159b83f66c3fca"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行法と一致する。",
+    "第34条の表示事項に最高使用圧力は含まれないことを誤り箇所として明示した。",
+    "ガスホルダー及び液化ガス用貯槽の凝縮液、遮断、表示及び耐熱要件を各直接根拠へ接続した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q08-s01",
+      "gas-shunin-otsu-2018-law-q08-s02",
+      "gas-shunin-otsu-2018-law-q08-s03",
+      "gas-shunin-otsu-2018-law-q08-s04",
+      "gas-shunin-otsu-2018-law-q08-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:11:07Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
