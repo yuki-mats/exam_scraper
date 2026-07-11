@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 157,
+  "auditKey": "gas-shunin:otsu:2019:law:q08:8ba6fd181469",
+  "auditInputHash": "bd1d5bc1edfa67c37fb3d98a107955473502792f73bbd113b1ab4fe4201b2ca7",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:48:02+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「流出及び流入を速やかに調整」が誤り。ガス工作物の技術上の基準を定める省令第26条第1項は、異常時にガス又は液化ガスの流出及び流入を速やかに遮断できる装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第27条第2項は、移動式ガス発生設備に、異常時に迅速かつ安全にガスの発生を停止できる装置を設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「圧力が異常に低下しないよう」が誤り。ガス工作物の技術上の基準を定める省令第28条第3項は、容器内の圧力が異常に上昇しないよう、適切な温度に維持できる措置を講じると定めている。",
+      "間違い。選択肢の「液体の外部への漏えい」が誤り。ガス工作物の技術上の基準を定める省令第30条第1項は、逆流防止構造の目的を、設備の損傷又はガスの大気への放出の防止と定めている。",
+      "間違い。選択肢の「温水が沸騰するおそれ」が誤り。ガス工作物の技術上の基準を定める省令第31条第2項は、加熱部の温水が凍結するおそれがある場合に、凍結防止措置を講じると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "製造設備の異常時に流出・流入をどうする？",
+      "移動式ガス発生設備の異常時停止装置は必要？",
+      "容器内圧力の異常上昇を防ぐ措置は？",
+      "逆流防止構造が防ぐものは？",
+      "温水加熱式気化装置で防止するものは？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "製造設備の異常時に流出・流入をどうする？",
+        "answer": "速やかに遮断する。第26条第1項が定めている。"
+      },
+      {
+        "question": "移動式ガス発生設備の異常時停止装置は必要？",
+        "answer": "必要。第27条第2項が定めている。"
+      },
+      {
+        "question": "容器内圧力の異常上昇を防ぐ措置は？",
+        "answer": "容器又は設置場所を適切な温度に維持できる措置。"
+      },
+      {
+        "question": "逆流防止構造が防ぐものは？",
+        "answer": "設備の損傷又はガスの大気への放出。"
+      },
+      {
+        "question": "温水加熱式気化装置で防止するものは？",
+        "answer": "加熱部の温水の凍結。第31条第2項が定めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第26条第1項、第27条第2項、第28条第3項、第30条第1項及び第31条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "26",
+          "paragraph": "1",
+          "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+          "rawXmlHash": "dd17afb97324af859794cd657ded16f973a39d2a44be4c6785c1446c991abf8e"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "27",
+          "paragraph": "2",
+          "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+          "rawXmlHash": "3c1526932497fa1bd55fb42cc0181374ee81522e20f5185a6f010b748780d575"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "28",
+          "paragraph": "3",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "30",
+          "paragraph": "1",
+          "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+          "rawXmlHash": "ff79044f60340dac338cf998b66d16d79e92994886cce1fb7d419d34ea956964"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "31",
+          "paragraph": "2",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、間違い、間違いは現行条文と一致する。",
+    "4つの誤り肢について、条文と異なる語句と正しい内容を具体的に示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2019-law-q08-s01",
+      "gas-shunin-otsu-2019-law-q08-s02",
+      "gas-shunin-otsu-2019-law-q08-s03",
+      "gas-shunin-otsu-2019-law-q08-s04",
+      "gas-shunin-otsu-2019-law-q08-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:48:40Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
