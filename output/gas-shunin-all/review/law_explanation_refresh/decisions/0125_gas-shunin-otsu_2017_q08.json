@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 125,
+  "auditKey": "gas-shunin:otsu:2017:law:q08:2b32f03d407d",
+  "auditInputHash": "d14e474cda9a655ffc93f1ebcc46ac2aeb92efabb82f18ea25d0a6915118eeb6",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:29:12+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第34条第1項は、液化ガス用貯槽（不活性の液化ガス用のものを除く。）及びガスホルダー又はこれらの付近には、外部から見やすいように液化ガス用貯槽又はガスホルダーである旨を表示すると定めている。",
+      "間違い。選択肢の「最高使用圧力が中圧のガスホルダー」が誤り。ガス工作物の技術上の基準を定める省令第37条第1項は、熱に十分耐えるものとし、又は適切な冷却装置を設置する対象を、液化ガス用貯槽又は最高使用圧力が高圧のガスホルダー及びこれらの支持物と定めている。",
+      "間違い。選択肢の「液化窒素用低温貯槽」が誤り。ガス工作物の技術上の基準を定める省令第35条第2項は、低温貯槽には負圧による破壊を防止する適切な措置を講じるものの、液化窒素のような不活性の液化ガス用のものは例外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第38条第2項は、防液堤の外面から防災作業のために必要な距離の内側には、液化ガスの漏えい又は火災等の拡大防止上支障のない設備以外を設置してはならないと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第39条第1項は、液化ガス用貯槽（不活性の液化ガス用のものを除く。）の埋設部分に腐食のおそれがある場合には、腐食防止のための適切な措置を講じると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "液化ガス用貯槽及びガスホルダーにはどのような表示が必要？",
+      "耐熱措置又は冷却装置が必要なガスホルダーの圧力区分は？",
+      "低温貯槽の負圧破壊防止措置が不要となる例外は？",
+      "防液堤周辺で設備の設置が制限される範囲は？",
+      "埋設された液化ガス用貯槽に必要な腐食防止措置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "液化ガス用貯槽及びガスホルダーにはどのような表示が必要？",
+        "answer": "外部から見やすいように、液化ガス用貯槽又はガスホルダーである旨を表示する。"
+      },
+      {
+        "question": "耐熱措置又は冷却装置が必要なガスホルダーの圧力区分は？",
+        "answer": "最高使用圧力が高圧のガスホルダー。中圧ではない。"
+      },
+      {
+        "question": "低温貯槽の負圧破壊防止措置が不要となる例外は？",
+        "answer": "不活性の液化ガス用の低温貯槽。液化窒素用低温貯槽もこの例外に該当する。"
+      },
+      {
+        "question": "防液堤周辺で設備の設置が制限される範囲は？",
+        "answer": "防液堤の外面から防災作業のために必要な距離の内側。"
+      },
+      {
+        "question": "埋設された液化ガス用貯槽に必要な腐食防止措置は？",
+        "answer": "設置状況により腐食のおそれがある場合、設備の腐食を防止する適切な措置を講じる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第34条第1項、第37条第1項、第35条第2項、第38条第2項及び第39条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "34",
+          "paragraph": "1",
+          "articleTextHash": "34e5fdd1c468d08feece4a76a3909cfbd5e58fd1f172d5cc0e08aa9a380c0a6a",
+          "rawXmlHash": "caa9451425b70ee07a63ca93d3fbf45c396269cdf2f81409f431ca44788ca487"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "37",
+          "paragraph": "1",
+          "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
+          "rawXmlHash": "86269577933916677d7963ea62f3830f10572971d8cf52bda58ab1f500f35ac0"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "35",
+          "paragraph": "2",
+          "articleTextHash": "45d5f13eb51c9655535017b57e37e670117a9ebb081e3360b9412ec440478ca0",
+          "rawXmlHash": "0d50032389d94206db16c2b357e2c768fc3686db686b76db4243ddc5bbadb32a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "38",
+          "paragraph": "2",
+          "articleTextHash": "3ce9eeaa034c45e2c30e28745533ecbaa134b79b8f974b3e17dbbb449dbf5317",
+          "rawXmlHash": "da67585a93aed322c0fe02b3e30988059562c088f0ec44e14f37744ac0e4be58"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "39",
+          "paragraph": "1",
+          "articleTextHash": "791f1f14a85126f93786b96764ef4df02106f056ce3265e912d6088f8cad4d9e",
+          "rawXmlHash": "f756d810943a72efbc9717fe7409ed15b9dd1daff1b2f5629fb3a87fe071c433"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、正しい、正しいは現行法と一致する。",
+    "既存lawRevisionFacts.currentのガス事業法施行規則第30条を、各選択肢の直接根拠となる省令第34条、第37条、第35条第2項、第38条第2項及び第39条へ修正する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q08-s01",
+      "gas-shunin-otsu-2017-law-q08-s02",
+      "gas-shunin-otsu-2017-law-q08-s03",
+      "gas-shunin-otsu-2017-law-q08-s04",
+      "gas-shunin-otsu-2017-law-q08-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:30:13Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
