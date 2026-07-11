@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 163,
+  "auditKey": "gas-shunin:otsu:2019:law:q14:37fb0129050a",
+  "auditInputHash": "242603c899668bef6c05e4b4fd4737a8acf93a612ccec450423bbf37f321ca95",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:03:36+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「消費機器の所有者又は占有者に対し」が誤り。ガス事業法第159条第1項は、ガス小売事業者が危険発生の防止に必要な事項を周知させる相手を、消費機器を使用する者と定めている。",
+      "正しい。ガス事業法第159条第2項は、ガス小売事業者が供給するガスに係る消費機器の技術基準適合性を調査することと、設置又は使用場所への立入りについて所有者又は占有者の承諾を得られない場合の例外を定めている。",
+      "正しい。ガス事業法第159条第3項は、調査した消費機器が技術上の基準に適合していない場合、適合のためにとるべき措置と、その措置をとらなかった場合に生ずべき結果を、所有者又は占有者へ遅滞なく通知することを定めている。",
+      "正しい。ガス事業法第159条第6項は、ガス小売事業者が帳簿を備え、消費機器の調査及び調査結果に基づく通知に関する所定事項を記載して保存することを定めている。",
+      "間違い。選択肢の「使用を一時停止すべきことを命ずる」が誤り。ガス事業法第161条は、消費機器が技術上の基準に適合していない場合、経済産業大臣が所有者又は占有者に命ずることができる措置を、消費機器の修理、改造又は移転と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "危険防止事項を周知する相手は誰？",
+      "消費機器の調査義務と例外は？",
+      "消費機器が技術基準に不適合の場合は何を通知する？",
+      "消費機器の調査・通知業務に帳簿は必要？",
+      "経済産業大臣が命じられる基準適合措置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "危険防止事項を周知する相手は誰？",
+        "answer": "消費機器を使用する者。第159条第1項が定めている。"
+      },
+      {
+        "question": "消費機器の調査義務と例外は？",
+        "answer": "技術基準への適合性を調査する。ただし、設置又は使用場所への立入りについて所有者又は占有者の承諾を得られない場合は例外。"
+      },
+      {
+        "question": "消費機器が技術基準に不適合の場合は何を通知する？",
+        "answer": "適合のためにとるべき措置と、その措置をとらなかった場合に生ずべき結果。"
+      },
+      {
+        "question": "消費機器の調査・通知業務に帳簿は必要？",
+        "answer": "必要。所定事項を記載して保存しなければならない。"
+      },
+      {
+        "question": "経済産業大臣が命じられる基準適合措置は？",
+        "answer": "消費機器の修理、改造又は移転。使用の一時停止ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第1項・第2項・第3項・第6項及び第161条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "1",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "2",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "6",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "161",
+          "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
+          "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、間違いは現行条文と一致する。",
+    "選択肢0は周知対象が所有者又は占有者ではなく、消費機器を使用する者であることを明記した。",
+    "選択肢4は経済産業大臣が命じられる内容が使用の一時停止ではなく、修理、改造又は移転であることを明記した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "159",
+        "161"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:04:15Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
