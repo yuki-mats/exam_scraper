@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 81,
+  "auditKey": "gas-shunin:kou:2023:law:q12:c258e9e85b98",
+  "auditInputHash": "2bd8f313b8c48ab7ecc72e6c92b48714e0d8d862c7d828fe1d86e6714eea09ca",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:46:58+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「4年に1回以上」が誤り。ガス工作物の技術上の基準を定める省令第51条第1項の表（1）は、道路に埋設されている最高使用圧力が高圧の導管を、埋設の日以後1年に1回以上検査すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第2項の表（1）は、本支管からガス栓までの間に絶縁措置が講じられ、その部分からガス栓までの間でプラスチックにより被覆された対象部分を、埋設の日以後6年に1回以上検査すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第1項及び第2項は、対象となる導管等に漏えい検査を求める一方、それぞれのただし書で、ポリエチレン管を使用している部分を検査対象外と定めている。",
+      "間違い。選択肢の「最高使用圧力が中圧」が誤り。ガス工作物の技術上の基準を定める省令第52条第1項は、建物の内部又は基礎面下に設置してはならない対象を、最高使用圧力が高圧の導管と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第52条第2項は、特定地下街等又は特定地下室等にガスを供給する導管を、適切なガス漏れ警報設備の検知区域で、その外壁を貫通するように設置すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "高圧の道路埋設導管の検査周期は？",
+      "プラスチック被覆部分の検査周期は？",
+      "ポリエチレン管は漏えい検査の対象？",
+      "建物内部等に設置できない導管は？",
+      "特定地下街等への導管が外壁を貫通する位置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "高圧の道路埋設導管の検査周期は？",
+        "answer": "埋設の日以後1年に1回以上。"
+      },
+      {
+        "question": "プラスチック被覆部分の検査周期は？",
+        "answer": "第51条第2項の表（1）に該当する部分は、埋設の日以後6年に1回以上。"
+      },
+      {
+        "question": "ポリエチレン管は漏えい検査の対象？",
+        "answer": "ポリエチレン管を使用している部分に限り、第51条第1項・第2項の漏えい検査の対象外。"
+      },
+      {
+        "question": "建物内部等に設置できない導管は？",
+        "answer": "最高使用圧力が中圧ではなく、高圧の導管。"
+      },
+      {
+        "question": "特定地下街等への導管が外壁を貫通する位置は？",
+        "answer": "適切に設置されたガス漏れ警報設備の検知区域。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第1項・第2項及び第52条第1項・第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "1",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
+          "references": [
+            {
+              "article": "51",
+              "paragraph": "1",
+              "item": "2",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+            },
+            {
+              "article": "51",
+              "paragraph": "2",
+              "item": "3",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "1",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "2",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、間違い、正しいは現行省令と一致する。",
+    "第1肢の高圧道路埋設導管の検査周期は4年ではなく1年に1回以上である。",
+    "第2肢の対象部分は第51条第2項の表（1）に該当し、検査周期は6年に1回以上である。",
+    "第3肢のポリエチレン管使用部分の例外は、第51条第1項ただし書第2号及び第2項ただし書第3号に規定される。",
+    "第4肢の設置禁止対象は中圧ではなく高圧の導管である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0376",
+      "chiefgasengineerlicense-A-10-0377",
+      "chiefgasengineerlicense-A-10-0378",
+      "chiefgasengineerlicense-A-10-0379",
+      "chiefgasengineerlicense-A-10-0380"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "51",
+        "52"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:48:05Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
