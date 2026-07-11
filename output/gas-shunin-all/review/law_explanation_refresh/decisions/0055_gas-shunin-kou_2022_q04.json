@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 55,
+  "auditKey": "gas-shunin:kou:2022:law:q04:d7affdd57834",
+  "auditInputHash": "0ac81dfb020fa308b3be7208109ea154b2c39263e2a8c773280110490bfd6e48",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:18:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス関係報告規則第4条第1項の表第5号は、ガス工作物の操作により人が負傷した事故を、ガス事故速報及びガス事故詳報の報告対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第7号は、保安閉栓等を除き、供給支障戸数が100以上500未満の供給支障事故を、速報及び詳報の報告対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、速報及び詳報の報告対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第17号は、消費機器の使用に伴い人が死亡した事故を、速報及び詳報の報告対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の欠陥等により漏えいしたガスへ引火して発生した物損事故を、速報及び詳報の報告対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス工作物の操作による負傷事故の報告は？",
+      "供給支障事故が速報対象となる戸数は？",
+      "製造支障事故が速報対象となる時間は？",
+      "消費機器使用による死亡事故の区分は？",
+      "ガス栓から漏えいしたガスによる物損事故の区分は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス工作物の操作による負傷事故の報告は？",
+        "answer": "ガス事故速報及びガス事故詳報の両方。"
+      },
+      {
+        "question": "供給支障事故が速報対象となる戸数は？",
+        "answer": "表第7号では、保安閉栓等を除き100戸以上500戸未満。"
+      },
+      {
+        "question": "製造支障事故が速報対象となる時間は？",
+        "answer": "表第8号では、10時間以上24時間未満。"
+      },
+      {
+        "question": "消費機器使用による死亡事故の区分は？",
+        "answer": "第17号。速報及び詳報の対象。"
+      },
+      {
+        "question": "ガス栓から漏えいしたガスによる物損事故の区分は？",
+        "answer": "ガス栓の欠陥等が原因の場合は第16号。速報及び詳報の対象。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第4条第1項の表第5号、第7号、第8号、第16号及び第17号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第5号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "1": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第7号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "2": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第8号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "3": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第17号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "4": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第16号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの5肢すべて正しいは現行規則と一致する。",
+    "00_source.knowledgeTextの第4肢と第5肢は事故区分番号がずれており、正しくはそれぞれ表第17号と第16号である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0256",
+      "chiefgasengineerlicense-A-10-0257",
+      "chiefgasengineerlicense-A-10-0258",
+      "chiefgasengineerlicense-A-10-0259",
+      "chiefgasengineerlicense-A-10-0260"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス関係報告規則",
+      "lawId": "429M60000400016",
+      "articles": [
+        "4"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:15:28Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
