@@ -2625,19 +2625,44 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出する導管の露出部分の両端は、地くずれのおそれがない地中に支持されていなければならない。",
-      "間違い。選択肢の「フランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号は、抜出し防止措置の対象は、直管以外の管の接合部で特定接合又は告示適合接合以外の方法によるもの。フランジ接合は特定接合である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第56条は、高圧整圧器には、ガス漏えいによる火災等の発生を防止する適切な措置が必要である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口には、ガス遮断装置を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されなければならない。"
+      "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出した導管の露出部分の両端を、地くずれのおそれがない地中に支持すると定めている。",
+      "間違い。選択肢の「接合部がフランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号ロは、直管以外の管の接合部のうち、フランジ接合等の特定接合又は告示適合接合以外の方法で接合したものに、抜出し防止措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第56条は、最高使用圧力が高圧の整圧器に、ガス漏えいによる火災等の発生を防止する適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口にガス遮断装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備を、地震に耐えるよう支持すると定めている。"
     ],
     "suggestedQuestions": [
+      "掘削で露出した導管の両端はどこに支持する？",
+      "露出導管で抜出し防止措置が必要な接合部は？",
+      "高圧整圧器に必要な保安措置は？",
+      "整圧器の入口に必要な装置は？",
+      "整圧器の附属設備に必要な地震対策は？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
+        "question": "掘削で露出した導管の両端はどこに支持する？",
+        "answer": "地くずれのおそれがない地中。"
+      },
+      {
+        "question": "露出導管で抜出し防止措置が必要な接合部は？",
+        "answer": "直管以外の管の接合部で、特定接合又は告示適合接合以外の方法により接合したもの。"
+      },
+      {
+        "question": "高圧整圧器に必要な保安措置は？",
+        "answer": "ガス漏えいによる火災等の発生を防止する適切な措置。"
+      },
+      {
+        "question": "整圧器の入口に必要な装置は？",
+        "answer": "ガス遮断装置。"
+      },
+      {
+        "question": "整圧器の附属設備に必要な地震対策は？",
+        "answer": "地震に対し耐えるよう支持すること。"
+      },
+      {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第54条第1号、ガス工作物の技術上の基準を定める省令第54条第3号、ガス工作物の技術上の基準を定める省令第56条、ガス工作物の技術上の基準を定める省令第57条第1号、ガス工作物の技術上の基準を定める省令第58条第3項。"
+        "answer": "ガス工作物の技術上の基準を定める省令第54条第1号及び第3号ロ、第56条、第57条第1号並びに第58条第3項。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -2682,12 +2707,15 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出する導管の露出部分の両端は、地くずれのおそれがない地中に支持されていなければならない。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出した導管の露出部分の両端を、地くずれのおそれがない地中に支持すると定めている。",
           "item": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "paragraph": "1",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
         }
       ],
       [
@@ -2702,12 +2730,16 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「フランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号は、抜出し防止措置の対象は、直管以外の管の接合部で特定接合又は告示適合接合以外の方法によるもの。フランジ接合は特定接合である。",
+          "reason": "間違い。選択肢の「接合部がフランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号ロは、直管以外の管の接合部のうち、フランジ接合等の特定接合又は告示適合接合以外の方法で接合したものに、抜出し防止措置を講じると定めている。",
           "item": "3",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "paragraph": "1",
+          "subitem": "ロ",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
         }
       ],
       [
@@ -2722,11 +2754,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第56条は、高圧整圧器には、ガス漏えいによる火災等の発生を防止する適切な措置が必要である。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第56条は、最高使用圧力が高圧の整圧器に、ガス漏えいによる火災等の発生を防止する適切な措置を講じると定めている。",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
+          "paragraph": "1",
+          "rawXmlHash": "7e696f21c336ce3fa28b2772f1f029b38f2ac42612b128778c6815f3780fc747"
         }
       ],
       [
@@ -2741,12 +2776,15 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口には、ガス遮断装置を設ける。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口にガス遮断装置を設けると定めている。",
           "item": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "paragraph": "1",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
         }
       ],
       [
@@ -2761,72 +2799,69 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されなければならない。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備を、地震に耐えるよう支持すると定めている。",
           "paragraph": "3",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T01:55:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T18:38:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_015500_q13",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "54",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "lawId": "412M50000400111",
+          "paragraph": "1",
           "item": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補の技術基準省令第54条は有用だが、第1項第1号まで絞って直接根拠にする。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。",
-          "sourceConflictStatusは既存方針どおり維持しつつ、conflict ledger確認済みのFirestore snapshotを正本として扱う。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業者の掘削により周囲が露出する導管は、露出している部分の両端が地くずれのおそれのない地中に支持されていなければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "ガス事業者の掘削で露出した導管の両端支持要件に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:54:1:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出した導管の露出部分の両端を、地くずれのおそれがない地中に支持すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第54条第1項第1号を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:54:1:1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "54",
-              "paragraph": "1",
               "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
-              "textHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+              "lawId": "412M50000400111",
+              "paragraph": "1",
               "item": "1"
             }
           ]
@@ -2834,61 +2869,56 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T01:55:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T18:38:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_015500_q13",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "54",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=54",
+          "lawId": "412M50000400111",
+          "paragraph": "1",
           "item": "3",
           "subitem": "ロ"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補の技術基準省令第54条は有用だが、正誤判断は第1項第3号ロの特定接合の除外で確認する。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。",
-          "sourceConflictStatusは既存方針どおり維持しつつ、conflict ledger確認済みのFirestore snapshotを正本として扱う。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "「フランジ接合のもの」が誤り。抜出し防止措置の対象は、直管以外の管の接合部で、溶接、フランジ接合、融着、ねじ接合又は告示で定める規格に適合する接合以外の方法で接合されているもの。フランジ接合自体は特定接合に含まれる。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "フランジ接合が抜出し防止措置の対象外となる特定接合に含まれる点に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:54:1:3:ロ"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「接合部がフランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号ロは、直管以外の管の接合部のうち、フランジ接合等の特定接合又は告示適合接合以外の方法で接合したものに、抜出し防止措置を講じると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第54条第1項第3号ロを選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:54:1:3:ロ",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "54",
-              "paragraph": "1",
               "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
-              "textHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+              "lawId": "412M50000400111",
+              "paragraph": "1",
               "item": "3",
               "subitem": "ロ"
             }
@@ -2897,119 +2927,109 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T01:55:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T18:38:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_015500_q13",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "56",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56",
+          "lawId": "412M50000400111",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補はガス事業法施行規則第17条・第48条・第78条に寄ったが、高圧整圧器の保安措置は技術基準省令第56条で確認する。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。",
-          "sourceConflictStatusは既存方針どおり維持しつつ、conflict ledger確認済みのFirestore snapshotを正本として扱う。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。最高使用圧力が高圧の整圧器には、ガスの漏えいによる火災等の発生を防止するための適切な措置を講じなければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "高圧整圧器のガス漏えい火災等防止措置に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:56:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第56条は、最高使用圧力が高圧の整圧器に、ガス漏えいによる火災等の発生を防止する適切な措置を講じると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第56条第1項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:56:1",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "56",
-              "paragraph": "1",
               "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
-              "textHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826"
+              "lawId": "412M50000400111",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T01:55:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T18:38:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_015500_q13",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "57",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "lawId": "412M50000400111",
+          "paragraph": "1",
           "item": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は技術基準省令第54条の露出導管中のガス遮断装置語に寄ったが、整圧器入口の直接根拠は技術基準省令第57条第1項第1号。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。",
-          "sourceConflictStatusは既存方針どおり維持しつつ、conflict ledger確認済みのFirestore snapshotを正本として扱う。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。整圧器の入口には、ガス遮断装置を設けなければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "整圧器入口のガス遮断装置設置義務に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:57:1:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口にガス遮断装置を設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第57条第1項第1号を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:57:1:1",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "57",
-              "paragraph": "1",
               "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
-              "textHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+              "lawId": "412M50000400111",
+              "paragraph": "1",
               "item": "1"
             }
           ]
@@ -3017,77 +3037,72 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T01:55:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T18:38:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_015500_q13",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q13_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "58",
-          "paragraph": "3",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=58",
+          "lawId": "412M50000400111",
+          "paragraph": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補はガス事業法施行規則第17条・第48条・第78条に寄ったが、整圧器附属設備の耐震支持は技術基準省令第58条第3項で確認する。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。",
-          "sourceConflictStatusは既存方針どおり維持しつつ、conflict ledger確認済みのFirestore snapshotを正本として扱う。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されていなければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "整圧器附属設備の耐震支持要件に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:58:3"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備を、地震に耐えるよう支持すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第58条第3項を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:58:3",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "58",
-              "paragraph": "3",
               "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
-              "textHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754"
+              "lawId": "412M50000400111",
+              "paragraph": "3"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出する導管の露出部分の両端は、地くずれのおそれがない地中に支持されていなければならない。",
-      "間違い。選択肢の「フランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号は、抜出し防止措置の対象は、直管以外の管の接合部で特定接合又は告示適合接合以外の方法によるもの。フランジ接合は特定接合である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第56条は、高圧整圧器には、ガス漏えいによる火災等の発生を防止する適切な措置が必要である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口には、ガス遮断装置を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されなければならない。"
+      "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出した導管の露出部分の両端を、地くずれのおそれがない地中に支持すると定めている。",
+      "間違い。選択肢の「接合部がフランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号ロは、直管以外の管の接合部のうち、フランジ接合等の特定接合又は告示適合接合以外の方法で接合したものに、抜出し防止措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第56条は、最高使用圧力が高圧の整圧器に、ガス漏えいによる火災等の発生を防止する適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口にガス遮断装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備を、地震に耐えるよう支持すると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出する導管の露出部分の両端は、地くずれのおそれがない地中に支持されていなければならない。",
-      "間違い。選択肢の「フランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号は、抜出し防止措置の対象は、直管以外の管の接合部で特定接合又は告示適合接合以外の方法によるもの。フランジ接合は特定接合である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第56条は、高圧整圧器には、ガス漏えいによる火災等の発生を防止する適切な措置が必要である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口には、ガス遮断装置を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備は、地震に耐えるよう支持されなければならない。"
+      "正しい。ガス工作物の技術上の基準を定める省令第54条第1号は、掘削により露出した導管の露出部分の両端を、地くずれのおそれがない地中に支持すると定めている。",
+      "間違い。選択肢の「接合部がフランジ接合のもの」が誤り。ガス工作物の技術上の基準を定める省令第54条第3号ロは、直管以外の管の接合部のうち、フランジ接合等の特定接合又は告示適合接合以外の方法で接合したものに、抜出し防止措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第56条は、最高使用圧力が高圧の整圧器に、ガス漏えいによる火災等の発生を防止する適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第57条第1号は、整圧器の入口にガス遮断装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備を、地震に耐えるよう支持すると定めている。"
     ]
   },
   {
