@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 164,
+  "auditKey": "gas-shunin:otsu:2019:law:q15:0e6dc7450edb",
+  "auditInputHash": "5152ff7f92cd4b56a251c5d30892c41e0f4365013c1158ac89f4fd8e63c202ca",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:05:37+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第5号ロは、ガス消費量が12キロワット以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置することを定めている。排気筒の設置対象を定める同条第1号ロは、ガス消費量が12キロワットを超えるガス瞬間湯沸器を対象としている。",
+      "正しい。ガス事業法施行規則第202条第2号イ（1）は、屋内に設置する自然排気式燃焼器の排気筒の材料を、告示で定める規格に適合するもの又はこれと同等以上のものと定めている。",
+      "正しい。ガス事業法施行規則第202条第2号イ（3）は、排気扇を接続していない自然排気式燃焼器の排気筒の有効断面積を、燃焼器の排気部との接続部の有効断面積より小さくないものと定めている。",
+      "正しい。ガス事業法施行規則第202条第6号ヌは、屋内に設置する密閉燃焼式燃焼器の給排気部の形状を、燃焼が妨げられないよう風量が十分に確保されるものと定めている。",
+      "間違い。選択肢の「自動ガス遮断装置を設け、又はガス漏れ警報器を設ける」が誤り。ガス事業法施行規則第202条第8号は、特定地下街等又は特定地下室等に設置する燃焼器に、告示で定める規格に適合するガス漏れ警報設備を、告示で定める方法により設けることを定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "12キロワット以下のガス瞬間湯沸器の設置室要件は？",
+      "自然排気式燃焼器の排気筒材料の基準は？",
+      "自然排気式燃焼器の排気筒の有効断面積は？",
+      "密閉燃焼式燃焼器の給排気部に必要な形状は？",
+      "特定地下街等の燃焼器に必要な警報設備は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "12キロワット以下のガス瞬間湯沸器の設置室要件は？",
+        "answer": "換気扇又は有効な給排気のための開口部を設けた室に設置する。"
+      },
+      {
+        "question": "自然排気式燃焼器の排気筒材料の基準は？",
+        "answer": "告示で定める規格に適合するもの又はこれと同等以上のもの。"
+      },
+      {
+        "question": "自然排気式燃焼器の排気筒の有効断面積は？",
+        "answer": "燃焼器の排気部との接続部の有効断面積より小さくないこと。"
+      },
+      {
+        "question": "密閉燃焼式燃焼器の給排気部に必要な形状は？",
+        "answer": "燃焼が妨げられないよう風量が十分に確保される形状。"
+      },
+      {
+        "question": "特定地下街等の燃焼器に必要な警報設備は？",
+        "answer": "告示で定める規格に適合するガス漏れ警報設備。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1号ロ、第2号イ（1）・（3）、第5号ロ、第6号ヌ及び第8号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "5",
+          "subitem": "ロ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "item": "5",
+              "subitem": "ロ"
+            },
+            {
+              "item": "1",
+              "subitem": "ロ"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "2",
+          "subitem": "イ（1）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "2",
+          "subitem": "イ（3）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "6",
+          "subitem": "ヌ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "item": "8",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "item": "8"
+            },
+            {
+              "item": "10"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、正しい、間違いは現行条文と一致する。",
+    "選択肢0は第202条第5号ロと第1号ロを併せて確認し、12キロワット以下の瞬間湯沸器が排気筒必置対象ではないことを説明した。",
+    "選択肢4は特定地下街等向けの第8号と、超高層建物等向けの第10号を混同しているため、第8号が要求するガス漏れ警報設備を明記した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "articles": [
+        "202"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:06:19Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
