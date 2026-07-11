@@ -16,18 +16,19 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_gassyunin_site_1.json",
     "explanationText": [
-      "間違い。ガス事業法第2条第11項は、ガス事業を「ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業」と定める。託送供給は第4項で別に定義されるが、ガス事業の列挙には含まれない。",
-      "正しい。ガス事業法第2条第3項は、ガス小売事業者を「次条の登録を受けた者」と定める。同法第3条第1項は、ガス小売事業を営もうとする者に経済産業大臣の登録を求めており、本肢は条文どおりである。",
-      "正しい。ガス事業法第2条第4項第一号は、他の者から導管によりガスを受け入れ、同時に受入れ場所以外の場所で、ガス量の変動に応じて当該他の者に導管によりガスを供給することを託送供給と定める。本肢は同号の文言どおりである。",
-      "正しい。ガス事業法第86条第1項は、ガス製造事業を営もうとする者に届出を求め、第三号ロでガス発生設備及びガスホルダーについて「設置の場所、種類及び能力別の数」を届出事項と定める。本肢は条文どおりである。",
-      "正しい。ガス事業法第2条第5項は、一般ガス導管事業に、供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給を含め、「最終保障供給」とする。本肢は条文どおりである。"
+      "間違い。選択肢の記載が誤り。ガス事業法第2条第11項は、ガス事業は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。",
+      "正しい。ガス事業法第2条第3項、ガス事業法第3条第1項は、ガス小売事業者は第3条の登録を受けた者であり、ガス小売事業を営もうとする者は経済産業大臣の登録を受ける。",
+      "正しい。ガス事業法第2条第4項一号は、他の者から受入れたガスの量の変動に応じ、その者へ導管により供給する行為は託送供給である。",
+      "正しい。ガス事業法第86条第1項三号は、ガス発生設備及びガスホルダーの設置場所、種類及び能力別の数は、ガス製造事業の届出事項である。",
+      "正しい。ガス事業法第2条第5項は、供給区域の一般の需要に応ずるガスの供給を保障するための小売供給を、最終保障供給という。"
     ],
     "suggestedQuestions": [
       "「ガス事業」とは、ガス小売事業、一般ガス導管事業、特定ガス導管事業、\n託送供給事業\n及びガス製造事業をいう。",
       "「ガス小売事業者」とは、ガス小売事業を営もうとして、経済産業大臣の登録を受けた者をいう。",
       "ガスを供給する事業を営む他の者から導管によりガスを受け入れた者が、同時に、その受け入れた場所以外の場所において、当該他の者のガスを供給する事業の用に供するためのガスの量の変動であって経済産業省令で定める範囲内のものに応じて、当該他の者に対して、導管によりガスの供給を行うことは、「託送供給」である。",
       "ガス製造事業を営もうとする者は、経済産業省令で定めるところにより、ガス発生設備及びガスホルダーにあっては、これらの設置の場所、種類及び能力別の数を、経済産業大臣に届け出なければならない。",
-      "「最終保障供給」とは、一般ガス導管事業者自らの供給区域における一般の需要(ガス小売事業者から小売供給を受けているものを除く。)に応ずるガスの供給を保障するための小売供給をいう。"
+      "「最終保障供給」とは、一般ガス導管事業者自らの供給区域における一般の需要(ガス小売事業者から小売供給を受けているものを除く。)に応ずるガスの供給を保障するための小売供給をいう。",
+      "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
@@ -49,6 +50,10 @@
       {
         "question": "「最終保障供給」とは、一般ガス導管事業者自らの供給区域における一般の需要(ガス小売事業者から小売供給を受けているものを除く。)に応ずるガスの供給を保障するための小売供給をいう。",
         "answer": "正しい。ガス事業法第2条第5項は、一般ガス導管事業に、供給区域における一般の需要（ガス小売事業者から小売供給を受けているものを除く。）に応ずるガスの供給を保障するための小売供給を含め、「最終保障供給」とする。本肢は条文どおりである。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "根拠は、ガス事業法第2条第11項、ガス事業法第2条第3項、ガス事業法第3条第1項、ガス事業法第2条第4項一号、ガス事業法第86条第1項三号、ガス事業法第2条第5項。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -100,21 +105,19 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 0,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "2",
-          "articleTitle": "定義",
-          "paragraph": "11",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
-          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
           "comparisonStatus": "same_as_current",
-          "reason": "ガス事業は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいい、託送供給事業を含まない。"
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第2条第11項は、ガス事業は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。",
+          "paragraph": "11",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -122,42 +125,37 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 1,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "2",
-          "articleTitle": "定義",
-          "paragraph": "3",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
-          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
           "comparisonStatus": "same_as_current",
-          "reason": "ガス小売事業者は、ガス事業法第3条の登録を受けた者である。"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第2条第3項、ガス事業法第3条第1項は、ガス小売事業者は第3条の登録を受けた者であり、ガス小売事業を営もうとする者は経済産業大臣の登録を受ける。",
+          "paragraph": "3",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "appLinkMode": "egov_api"
         },
         {
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 1,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "3",
-          "articleTitle": "登録",
-          "paragraph": "1",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=3",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=3",
-          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
-          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e",
           "comparisonStatus": "same_as_current",
-          "reason": "ガス小売事業を営もうとする者は、経済産業大臣の登録を受けなければならない。",
-          "relation": "direct_basis_detail"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第2条第3項、ガス事業法第3条第1項は、ガス小売事業者は第3条の登録を受けた者であり、ガス小売事業を営もうとする者は経済産業大臣の登録を受ける。",
+          "paragraph": "1",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=3",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -165,22 +163,20 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 2,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "2",
-          "articleTitle": "定義",
-          "paragraph": "4",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
-          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
           "comparisonStatus": "same_as_current",
-          "reason": "ガスを導管で受け入れ、同時に別の場所でガス量変動に応じて導管で供給する類型は託送供給に含まれる。",
-          "item": "1"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第2条第4項一号は、他の者から受入れたガスの量の変動に応じ、その者へ導管により供給する行為は託送供給である。",
+          "paragraph": "4",
+          "item": "一",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -188,23 +184,20 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 3,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "86",
-          "articleTitle": "事業の届出",
-          "paragraph": "1",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=86",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=86",
-          "articleTextHash": "c44e1d4f3a8630ab42da9be8c798557e0f359d2e69c94f7b910967e69c7d157c",
-          "rawXmlHash": "68aafbe04f20de26ca15d9052a9be3a78b65de555f25366fb1c05ab3d256860e",
           "comparisonStatus": "same_as_current",
-          "reason": "ガス製造事業の届出事項には、ガス発生設備及びガスホルダーの設置場所、種類及び能力別の数が含まれる。",
-          "item": "3",
-          "subitem": "ロ"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第86条第1項三号は、ガス発生設備及びガスホルダーの設置場所、種類及び能力別の数は、ガス製造事業の届出事項である。",
+          "paragraph": "1",
+          "item": "三",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=86",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -212,21 +205,19 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 4,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "2",
-          "articleTitle": "定義",
-          "paragraph": "6",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
-          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
-          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb",
           "comparisonStatus": "same_as_current",
-          "reason": "最終保障供給は、一般ガス導管事業者が自らの供給区域で小売供給を受けていない一般需要に応ずる小売供給である。"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第2条第5項は、供給区域の一般の需要に応ずるガスの供給を保障するための小売供給を、最終保障供給という。",
+          "paragraph": "5",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=2",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -540,6 +531,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス事業法第2条第11項は、ガス事業は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。",
+      "正しい。ガス事業法第2条第3項、ガス事業法第3条第1項は、ガス小売事業者は第3条の登録を受けた者であり、ガス小売事業を営もうとする者は経済産業大臣の登録を受ける。",
+      "正しい。ガス事業法第2条第4項一号は、他の者から受入れたガスの量の変動に応じ、その者へ導管により供給する行為は託送供給である。",
+      "正しい。ガス事業法第86条第1項三号は、ガス発生設備及びガスホルダーの設置場所、種類及び能力別の数は、ガス製造事業の届出事項である。",
+      "正しい。ガス事業法第2条第5項は、供給区域の一般の需要に応ずるガスの供給を保障するための小売供給を、最終保障供給という。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス事業法第2条第11項は、ガス事業は、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業をいう。",
+      "正しい。ガス事業法第2条第3項、ガス事業法第3条第1項は、ガス小売事業者は第3条の登録を受けた者であり、ガス小売事業を営もうとする者は経済産業大臣の登録を受ける。",
+      "正しい。ガス事業法第2条第4項一号は、他の者から受入れたガスの量の変動に応じ、その者へ導管により供給する行為は託送供給である。",
+      "正しい。ガス事業法第86条第1項三号は、ガス発生設備及びガスホルダーの設置場所、種類及び能力別の数は、ガス製造事業の届出事項である。",
+      "正しい。ガス事業法第2条第5項は、供給区域の一般の需要に応ずるガスの供給を保障するための小売供給を、最終保障供給という。"
     ]
   },
   {
@@ -559,18 +564,19 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_gassyunin_site_1.json",
     "explanationText": [
-      "間違い。ガス事業法第91条は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し、「その結果を記録し、これを保存しなければならない」と定める。報告義務とする本肢は誤りである。",
-      "正しい。ガス事業法施行規則第78条第3項は、災害その他の非常時に熱量及び燃焼性の測定が困難で、測定済みの液化天然ガスを成分変更なく一時的に供給するときは、熱量及び燃焼性を測定することを要しないと定める。本肢は条文どおりである。",
-      "間違い。ガス事業法第75条は、特定ガス導管事業者が正当な理由なく拒んではならないものを「その供給地点における託送供給」と定める。最終保障供給ではない。",
-      "正しい。ガス事業法第56条第1項は、一般ガス導管事業者に毎年度の供給計画の作成を求め、「当該年度の開始前に」（新規事業者はなった後遅滞なく）経済産業大臣へ届け出なければならないと定める。本肢は条文どおりである。",
-      "正しい。ガス事業法施行規則第144条第1項第二号は、圧力について「常時、ガスホルダーの出口及び経済産業大臣が指定する場所」において、「圧力値を自動的に記録する圧力計」を使用して測定することを定める。本肢は条文どおりである。"
+      "間違い。選択肢の記載が誤り。ガス事業法第91条は、ガス製造事業者は測定結果を記録し、保存しなければならず、報告ではない。",
+      "正しい。ガス事業法施行規則第78条第3項は、非常時に測定済みLNGを成分変更なく一時供給する場合は、熱量及び燃焼性の測定を要しない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第75条は、特定ガス導管事業者は、正当な理由なく供給地点における託送供給を拒んではならない。",
+      "正しい。ガス事業法第56条第1項は、一般ガス導管事業者は、毎年度の供給計画を作成し、当該年度の開始前等に届け出る。",
+      "正しい。ガス事業法施行規則第144条第1項二号は、圧力は常時、ガスホルダーの出口及び経済産業大臣指定場所で自動記録式圧力計により測定する。"
     ],
     "suggestedQuestions": [
       "ガス製造事業者は、熱量、圧力及び燃焼性の測定結果を記録し、これを報告しなければならない？",
       "非常時に測定済みLNGを成分変更なく一時供給する場合、一般ガス導管事業者は熱量及び燃焼性を測定しなくてよい？",
       "特定ガス導管事業者は、正当な理由がなければ、最終保障供給を拒んではならない？",
       "一般ガス導管事業者は、毎年度、供給計画を作成し経済産業大臣に届け出なければならない？",
-      "ガス製造事業者は、所定場所で圧力値を自動記録する圧力計により圧力を測定しなければならない？"
+      "ガス製造事業者は、所定場所で圧力値を自動記録する圧力計により圧力を測定しなければならない？",
+      "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
@@ -592,6 +598,10 @@
       {
         "question": "ガス製造事業者は、所定場所で圧力値を自動記録する圧力計により圧力を測定しなければならない？",
         "answer": "正しい。ガス事業法施行規則第144条第1項第二号は、圧力について「常時、ガスホルダーの出口及び経済産業大臣が指定する場所」において、「圧力値を自動的に記録する圧力計」を使用して測定することを定める。本肢は条文どおりである。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "根拠は、ガス事業法第91条、ガス事業法施行規則第78条第3項、ガス事業法第75条、ガス事業法第56条第1項、ガス事業法施行規則第144条第1項二号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -644,21 +654,18 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 0,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "91",
-          "articleTitle": "熱量等の測定義務",
-          "paragraph": "1",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
-          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
-          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2",
           "comparisonStatus": "same_as_current",
-          "reason": "ガス製造事業者は、製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録保存しなければならず、報告義務ではない。"
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第91条は、ガス製造事業者は測定結果を記録し、保存しなければならず、報告ではない。",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -666,21 +673,19 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 1,
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス則",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法施行規則",
           "article": "78",
-          "articleTitle": "熱量等の測定方法",
-          "paragraph": "3",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=78",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=78",
-          "articleTextHash": "aa9e816157102f6c73b147024a96ba86c057a400d5a302a0ea80227a53a23f37",
-          "rawXmlHash": "38724c3cc25ffd372d9c02c08dfa2abc5519138a8ece8f6b6ca9886dd827b339",
           "comparisonStatus": "same_as_current",
-          "reason": "災害その他の非常時に測定済み液化天然ガスを成分変更なく一時供給するときは、熱量及び燃焼性を測定することを要しない。"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第78条第3項は、非常時に測定済みLNGを成分変更なく一時供給する場合は、熱量及び燃焼性の測定を要しない。",
+          "paragraph": "3",
+          "lawId": "345M50000400097",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=78",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -688,42 +693,18 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 2,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "75",
-          "articleTitle": "託送供給義務",
-          "paragraph": "1",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=75",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=75",
-          "articleTextHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3",
-          "rawXmlHash": "5387ebe3430998ad8c66a795c3c9d3cb611cc91602d610ba766f65029610cb84",
           "comparisonStatus": "same_as_current",
-          "reason": "特定ガス導管事業者が正当な理由なく拒んではならないのは、その供給地点における託送供給である。"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 2,
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第75条は、特定ガス導管事業者は、正当な理由なく供給地点における託送供給を拒んではならない。",
           "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
-          "article": "47",
-          "articleTitle": "託送供給義務等",
-          "paragraph": "2",
-          "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=47",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=47",
-          "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
-          "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936",
-          "comparisonStatus": "same_as_current",
-          "reason": "最終保障供給を正当な理由なく拒んではならない義務は、一般ガス導管事業者について定められている。",
-          "relation": "contrast_basis"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=75",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -731,21 +712,19 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 3,
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法",
           "article": "56",
-          "articleTitle": "供給計画",
-          "paragraph": "1",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=56",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=56",
-          "articleTextHash": "5d1fb3a249d59a14aaba81f2d15434daade240995103500a7ea102efab2d0b7e",
-          "rawXmlHash": "6010d4a3199796100300177d50c02e56618f673d76b2b25da4d03d12daa5d6d1",
           "comparisonStatus": "same_as_current",
-          "reason": "一般ガス導管事業者は、毎年度、所定期間の供給計画を作成し、当該年度の開始前等に経済産業大臣へ届け出なければならない。"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第56条第1項は、一般ガス導管事業者は、毎年度の供給計画を作成し、当該年度の開始前等に届け出る。",
+          "paragraph": "1",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=56",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -753,43 +732,20 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 4,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "lawAlias": "ガス法",
-          "referenceDate": "2026-07-09",
-          "article": "91",
-          "articleTitle": "熱量等の測定義務",
-          "paragraph": "1",
-          "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
-          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
-          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2",
-          "comparisonStatus": "same_as_current",
-          "reason": "ガス製造事業者は、その製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録保存しなければならない。"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 4,
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス則",
-          "referenceDate": "2026-07-09",
+          "lawAlias": "ガス事業法施行規則",
           "article": "144",
-          "articleTitle": "熱量等の測定方法",
-          "paragraph": "1",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
-          "articleTextHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
-          "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a",
           "comparisonStatus": "same_as_current",
-          "reason": "圧力は、常時、ガスホルダーの出口及び経済産業大臣が指定する場所において、自動記録式圧力計で測定する。",
-          "item": "2",
-          "relation": "direct_basis_detail"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第144条第1項二号は、圧力は常時、ガスホルダーの出口及び経済産業大臣指定場所で自動記録式圧力計により測定する。",
+          "paragraph": "1",
+          "item": "二",
+          "lawId": "345M50000400097",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=144",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -1111,6 +1067,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス事業法第91条は、ガス製造事業者は測定結果を記録し、保存しなければならず、報告ではない。",
+      "正しい。ガス事業法施行規則第78条第3項は、非常時に測定済みLNGを成分変更なく一時供給する場合は、熱量及び燃焼性の測定を要しない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第75条は、特定ガス導管事業者は、正当な理由なく供給地点における託送供給を拒んではならない。",
+      "正しい。ガス事業法第56条第1項は、一般ガス導管事業者は、毎年度の供給計画を作成し、当該年度の開始前等に届け出る。",
+      "正しい。ガス事業法施行規則第144条第1項二号は、圧力は常時、ガスホルダーの出口及び経済産業大臣指定場所で自動記録式圧力計により測定する。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス事業法第91条は、ガス製造事業者は測定結果を記録し、保存しなければならず、報告ではない。",
+      "正しい。ガス事業法施行規則第78条第3項は、非常時に測定済みLNGを成分変更なく一時供給する場合は、熱量及び燃焼性の測定を要しない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第75条は、特定ガス導管事業者は、正当な理由なく供給地点における託送供給を拒んではならない。",
+      "正しい。ガス事業法第56条第1項は、一般ガス導管事業者は、毎年度の供給計画を作成し、当該年度の開始前等に届け出る。",
+      "正しい。ガス事業法施行規則第144条第1項二号は、圧力は常時、ガスホルダーの出口及び経済産業大臣指定場所で自動記録式圧力計により測定する。"
     ]
   }
 ]

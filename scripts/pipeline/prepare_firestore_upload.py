@@ -201,6 +201,7 @@ def process_list_group(
     category_json: Path,
     exam_name: str | None,
     skip_merge: bool,
+    allow_missing_answer_result: bool,
     skip_qset_check: bool,
     questionset_only: bool,
     requirements_path: Path,
@@ -220,26 +221,37 @@ def process_list_group(
         print("answer_result_text の欠損は見つかりませんでした。")
 
     if not skip_merge:
+        merge_command = [
+            python_cmd,
+            str(SCRIPT_MERGE_ALL),
+            list_group_id,
+            "--base-dir",
+            str(base_dir),
+        ]
+        if allow_missing_answer_result:
+            merge_command.append("--allow-missing-answer-result")
         run_step(
             f"merge ({list_group_id})",
-            [python_cmd, str(SCRIPT_MERGE_ALL), list_group_id, "--base-dir", str(base_dir)],
+            merge_command,
             dry_run,
         )
     else:
         print(f"\n[STEP] merge ({list_group_id})")
         print("スキップしました。")
 
+    auto_assign_command = [
+        python_cmd,
+        str(SCRIPT_AUTO_ASSIGN_CORRECT_CHOICE),
+        list_group_id,
+        "--base-dir",
+        str(base_dir),
+        "--apply",
+    ]
+    if not allow_missing_answer_result:
+        auto_assign_command.append("--fail-on-unresolved")
     run_step(
         f"auto assign correctChoiceText ({list_group_id})",
-        [
-            python_cmd,
-            str(SCRIPT_AUTO_ASSIGN_CORRECT_CHOICE),
-            list_group_id,
-            "--base-dir",
-            str(base_dir),
-            "--apply",
-            "--fail-on-unresolved",
-        ],
+        auto_assign_command,
         dry_run,
     )
 
@@ -290,6 +302,8 @@ def process_list_group(
     convert_cmd = [python_cmd, str(SCRIPT_CONVERT), list_group_id, "-b", str(base_dir)]
     if exam_name:
         convert_cmd.extend(["--exam-name", exam_name])
+    if allow_missing_answer_result:
+        convert_cmd.append("--skip-intent-correct-choice-check")
     run_step(f"convert ({list_group_id})", convert_cmd, dry_run)
 
     print(f"\n[STEP] locate outputs ({list_group_id})")
@@ -489,6 +503,14 @@ def main(argv: list[str] | None = None) -> int:
         help="00_merge_all.py をスキップ",
     )
     parser.add_argument(
+        "--allow-missing-answer-result",
+        action="store_true",
+        help=(
+            "Firestore snapshot 由来など answer_result_text がない既存正誤保持データの "
+            "merge/convert を許可する"
+        ),
+    )
+    parser.add_argument(
         "--skip-qset-check",
         action="store_true",
         help="check_questionSetId.py をスキップ",
@@ -568,6 +590,7 @@ def main(argv: list[str] | None = None) -> int:
                     category_json=category_json,
                     exam_name=args.exam_name,
                     skip_merge=args.skip_merge,
+                    allow_missing_answer_result=args.allow_missing_answer_result,
                     skip_qset_check=args.skip_qset_check,
                     questionset_only=args.questionset_only,
                     requirements_path=args.requirements,

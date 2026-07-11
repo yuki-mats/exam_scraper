@@ -212,6 +212,7 @@ def _normalize_law_reference_entry(value: object) -> dict[str, object] | None:
         "source",
         "sourceUrl",
         "apiUrl",
+        "appLinkMode",
         "articleTextHash",
         "rawXmlHash",
         "reason",
@@ -226,6 +227,10 @@ def _normalize_law_reference_entry(value: object) -> dict[str, object] | None:
         if isinstance(text, str) and not text:
             continue
         normalized[key] = text
+
+    external_primary_source = value.get("externalPrimarySource")
+    if isinstance(external_primary_source, bool):
+        normalized["externalPrimarySource"] = external_primary_source
 
     choice_index = value.get("choiceIndex")
     if isinstance(choice_index, int):

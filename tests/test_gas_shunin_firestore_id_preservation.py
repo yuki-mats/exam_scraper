@@ -180,6 +180,7 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
                         "article": "52条",
                         "paragraph": "2項",
                         "source": "egov_xml",
+                        "appLinkMode": "egov_api",
                         "articleTextHash": "hash-current-article",
                         "rawXmlHash": "hash-current-raw",
                     }
@@ -193,6 +194,7 @@ class GasShuninFirestoreIdPreservationTest(unittest.TestCase):
         self.assertEqual(converted[0]["lawReferences"][0]["article"], "52条")
         self.assertEqual(converted[1]["lawReferences"][0]["article"], "52条")
         self.assertEqual(converted[0]["lawReferences"][0]["source"], "egov_xml")
+        self.assertEqual(converted[0]["lawReferences"][0]["appLinkMode"], "egov_api")
         self.assertEqual(converted[0]["lawReferences"][0]["articleTextHash"], "hash-current-article")
         self.assertEqual(converted[0]["lawReferences"][0]["rawXmlHash"], "hash-current-raw")
 

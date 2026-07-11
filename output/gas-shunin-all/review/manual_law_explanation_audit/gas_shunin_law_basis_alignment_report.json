@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "gas-shunin-law-basis-alignment/v1",
+  "generatedAt": "2026-07-11T03:56:16Z",
+  "reviewedAt": "2026-07-11",
+  "scope": {
+    "reviewRecords": 261,
+    "choiceReviews": 1289,
+    "qualifications": [
+      "gas-shunin-kou",
+      "gas-shunin-otsu"
+    ],
+    "years": {
+      "kou": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "otsu": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ]
+    }
+  },
+  "result": {
+    "autoPassedChoices": 1240,
+    "correctedBasisChoices": 38,
+    "manuallyVerifiedFalsePositiveQuestions": 43,
+    "manuallyVerifiedFalsePositiveChoices": 49,
+    "remainingQuestions": 0,
+    "remainingChoices": 0,
+    "manuallyVerifiedFalsePositiveReviewRecords": 44
+  },
+  "manualVerification": {
+    "status": "verified_current_basis",
+    "reason": "e-Gov本文と事業類型を照合し、類似条文候補は誤検知と確認",
+    "evidenceField": "choiceReviews[].basisAlignmentReviewedDirectBasis"
+  }
+}

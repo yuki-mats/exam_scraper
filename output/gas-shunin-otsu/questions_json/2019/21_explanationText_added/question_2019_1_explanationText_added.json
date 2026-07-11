@@ -16,11 +16,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "不正解。供給条件の説明事項では、供給するガスの熱量の最低値及び標準値その他のガスの成分に関する事項を説明する。また、ガス栓の出口における圧力、導管・器具等に関する保安上の責任を説明するため、この組合せは一致しない。",
-      "不正解。供給条件の説明事項では、熱量は最低値、圧力はガス栓の出口、供給するガスは属するガスグループ、設備に関しては保安上の責任を説明する。最高値、ガスメーター、使用に伴う危険性、所有区分を含むため一致しない。",
-      "正解。供給条件の説明事項は、供給するガスの熱量の最低値及び標準値、ガス栓の出口における圧力の最高値及び最低値、供給するガスの属するガスグループ、並びに導管・器具・機械その他の設備に関する保安上の責任であり、この組合せが適切である。",
-      "不正解。熱量の最低値とガス栓は正しいが、供給するガスについては使用に伴う危険性ではなく属するガスグループを説明する。また、導管等と並ぶ設備は器具であり、説明事項は所有区分ではなく保安上の責任である。",
-      "不正解。熱量の最低値、属するガスグループ、器具、保安上の責任は正しいが、圧力の説明箇所はガスメーターではなくガス栓の出口であるため、この組合せは一致しない。"
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、供給条件説明では熱量最低値、ガス栓出口圧力、ガスグループ、保安上責任が正しい。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、最高値、ガスメーター、危険性、所有区分の組合せは条文と異なる。",
+      "正しい。ガス事業法施行規則第26条は、設問の全ての空欄を満たす。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、ガスグループ、器具、保安上責任が正しい。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、圧力はガスメーターでなくガス栓出口である。"
     ],
     "suggestedQuestions": [
       "選択肢1の組合せは供給条件の説明事項として適切か？",
@@ -53,7 +53,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス事業法 第14条、ガス事業法施行規則 第13条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス事業法施行規則第26条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -98,39 +98,18 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 0,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "14",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "reason": "不正解。供給条件の説明事項では、供給するガスの熱量の最低値及び標準値その他のガスの成分に関する事項を説明する。また、ガス栓の出口における圧力、導管・器具等に関する保安上の責任を説明するため、この組合せは一致しない。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
-          "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_14_7ff51a3d928e4ac5.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 0,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "13",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "26",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "reason": "不正解。供給条件の説明事項では、供給するガスの熱量の最低値及び標準値その他のガスの成分に関する事項を説明する。また、ガス栓の出口における圧力、導管・器具等に関する保安上の責任を説明するため、この組合せは一致しない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、供給条件説明では熱量最低値、ガス栓出口圧力、ガスグループ、保安上責任が正しい。",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
-          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_13_5452ea8a621aa72e.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=26",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -138,39 +117,18 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 1,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "14",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "reason": "不正解。供給条件の説明事項では、熱量は最低値、圧力はガス栓の出口、供給するガスは属するガスグループ、設備に関しては保安上の責任を説明する。最高値、ガスメーター、使用に伴う危険性、所有区分を含むため一致しない。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
-          "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_14_7ff51a3d928e4ac5.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 1,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "13",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "26",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "reason": "不正解。供給条件の説明事項では、熱量は最低値、圧力はガス栓の出口、供給するガスは属するガスグループ、設備に関しては保安上の責任を説明する。最高値、ガスメーター、使用に伴う危険性、所有区分を含むため一致しない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、最高値、ガスメーター、危険性、所有区分の組合せは条文と異なる。",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
-          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_13_5452ea8a621aa72e.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=26",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -178,39 +136,18 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 2,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "14",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "reason": "正解。供給条件の説明事項は、供給するガスの熱量の最低値及び標準値、ガス栓の出口における圧力の最高値及び最低値、供給するガスの属するガスグループ、並びに導管・器具・機械その他の設備に関する保安上の責任であり、この組合せが適切である。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
-          "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_14_7ff51a3d928e4ac5.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 2,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "13",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "26",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "reason": "正解。供給条件の説明事項は、供給するガスの熱量の最低値及び標準値、ガス栓の出口における圧力の最高値及び最低値、供給するガスの属するガスグループ、並びに導管・器具・機械その他の設備に関する保安上の責任であり、この組合せが適切である。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第26条は、設問の全ての空欄を満たす。",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
-          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_13_5452ea8a621aa72e.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=26",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -218,39 +155,18 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 3,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "14",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "reason": "不正解。熱量の最低値とガス栓は正しいが、供給するガスについては使用に伴う危険性ではなく属するガスグループを説明する。また、導管等と並ぶ設備は器具であり、説明事項は所有区分ではなく保安上の責任である。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
-          "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_14_7ff51a3d928e4ac5.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 3,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "13",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "26",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "reason": "不正解。熱量の最低値とガス栓は正しいが、供給するガスについては使用に伴う危険性ではなく属するガスグループを説明する。また、導管等と並ぶ設備は器具であり、説明事項は所有区分ではなく保安上の責任である。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、ガスグループ、器具、保安上責任が正しい。",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
-          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_13_5452ea8a621aa72e.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=26",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -258,39 +174,18 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 4,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "14",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "reason": "不正解。熱量の最低値、属するガスグループ、器具、保安上の責任は正しいが、圧力の説明箇所はガスメーターではなくガス栓の出口であるため、この組合せは一致しない。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
-          "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_14_7ff51a3d928e4ac5.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 4,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "13",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "26",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
-          "reason": "不正解。熱量の最低値、属するガスグループ、器具、保安上の責任は正しいが、圧力の説明箇所はガスメーターではなくガス栓の出口であるため、この組合せは一致しない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、圧力はガスメーターでなくガス栓出口である。",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
-          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_13_5452ea8a621aa72e.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=26",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -605,6 +500,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、供給条件説明では熱量最低値、ガス栓出口圧力、ガスグループ、保安上責任が正しい。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、最高値、ガスメーター、危険性、所有区分の組合せは条文と異なる。",
+      "正しい。ガス事業法施行規則第26条は、設問の全ての空欄を満たす。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、ガスグループ、器具、保安上責任が正しい。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、圧力はガスメーターでなくガス栓出口である。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、供給条件説明では熱量最低値、ガス栓出口圧力、ガスグループ、保安上責任が正しい。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、最高値、ガスメーター、危険性、所有区分の組合せは条文と異なる。",
+      "正しい。ガス事業法施行規則第26条は、設問の全ての空欄を満たす。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、ガスグループ、器具、保安上責任が正しい。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第26条は、圧力はガスメーターでなくガス栓出口である。"
     ]
   },
   {
@@ -624,11 +533,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "間違い。工事中のガス工作物（ガス栓を除く。）の操作により人が死亡した事故はガス事故速報の対象であるが、報告先は産業保安監督部長のみではなく、経済産業大臣への報告も必要となる。",
-      "間違い。台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲のガス工作物損壊事故等で経済産業大臣が指定するものは、産業保安監督部長のみを速報先とする事故ではない。",
-      "正しい。ガス栓の欠陥、損壊又は破壊により人が死亡した事故は、当該事故に係るガス栓の設置場所を管轄する産業保安監督部長を速報の報告先とする事故である。",
-      "正しい。消費機器の使用に伴い人が死亡した事故は、当該消費機器の設置場所を管轄する産業保安監督部長を速報の報告先とする事故である。",
-      "間違い。消費機器から漏えいしたガスに引火して発生した死傷なしの消費機器損傷物損事故は、ガス事故速報の対象ではなく、産業保安監督部長のみを速報先とする事故には該当しない。"
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第2号の表は、工事中死亡事故の速報先には経済産業大臣も含まれる。",
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第13号の表は、指定災害事故は監督部長のみを速報先としない。",
+      "正しい。ガス関係報告規則第4条第1項第15号の表は、ガス栓欠陥等による死亡事故の速報先は管轄産業保安監督部長である。",
+      "正しい。ガス関係報告規則第4条第1項第17号の表は、消費機器使用に伴う死亡事故の速報先は管轄産業保安監督部長である。",
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第18号の表は、死傷なしの消費機器損傷物損事故は詳報のみである。"
     ],
     "suggestedQuestions": [
       "工事中のガス工作物の操作による死亡事故は産業保安監督部長のみへ速報するか？",
@@ -661,7 +570,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス関係報告規則 第4条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス関係報告規則第4条第1項第2号の表、ガス関係報告規則第4条第1項第13号の表、ガス関係報告規則第4条第1項第15号の表、ガス関係報告規則第4条第1項第17号の表、ガス関係報告規則第4条第1項第18号の表。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -704,19 +613,19 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス関係報告規則",
           "article": "4",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "reason": "間違い。工事中のガス工作物（ガス栓を除く。）の操作により人が死亡した事故はガス事故速報の対象であるが、報告先は産業保安監督部長のみではなく、経済産業大臣への報告も必要となる。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第2号の表は、工事中死亡事故の速報先には経済産業大臣も含まれる。",
+          "paragraph": "1",
+          "item": "2",
           "lawId": "429M60000400016",
-          "lawAlias": "ガス関係報告規則",
-          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/429M60000400016_4_fa1e1c302c2835a6.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -725,19 +634,19 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス関係報告規則",
           "article": "4",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "reason": "間違い。台風、高潮、洪水、津波、地震その他の自然災害又は火災による広範囲のガス工作物損壊事故等で経済産業大臣が指定するものは、産業保安監督部長のみを速報先とする事故ではない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第13号の表は、指定災害事故は監督部長のみを速報先としない。",
+          "paragraph": "1",
+          "item": "13",
           "lawId": "429M60000400016",
-          "lawAlias": "ガス関係報告規則",
-          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/429M60000400016_4_fa1e1c302c2835a6.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -746,19 +655,19 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス関係報告規則",
           "article": "4",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "reason": "正しい。ガス栓の欠陥、損壊又は破壊により人が死亡した事故は、当該事故に係るガス栓の設置場所を管轄する産業保安監督部長を速報の報告先とする事故である。",
+          "source": "egov_law",
+          "reason": "正しい。ガス関係報告規則第4条第1項第15号の表は、ガス栓欠陥等による死亡事故の速報先は管轄産業保安監督部長である。",
+          "paragraph": "1",
+          "item": "15",
           "lawId": "429M60000400016",
-          "lawAlias": "ガス関係報告規則",
-          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/429M60000400016_4_fa1e1c302c2835a6.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -767,19 +676,19 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス関係報告規則",
           "article": "4",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "reason": "正しい。消費機器の使用に伴い人が死亡した事故は、当該消費機器の設置場所を管轄する産業保安監督部長を速報の報告先とする事故である。",
+          "source": "egov_law",
+          "reason": "正しい。ガス関係報告規則第4条第1項第17号の表は、消費機器使用に伴う死亡事故の速報先は管轄産業保安監督部長である。",
+          "paragraph": "1",
+          "item": "17",
           "lawId": "429M60000400016",
-          "lawAlias": "ガス関係報告規則",
-          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/429M60000400016_4_fa1e1c302c2835a6.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -788,19 +697,19 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス関係報告規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス関係報告規則",
           "article": "4",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "reason": "間違い。消費機器から漏えいしたガスに引火して発生した死傷なしの消費機器損傷物損事故は、ガス事故速報の対象ではなく、産業保安監督部長のみを速報先とする事故には該当しない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第18号の表は、死傷なしの消費機器損傷物損事故は詳報のみである。",
+          "paragraph": "1",
+          "item": "18",
           "lawId": "429M60000400016",
-          "lawAlias": "ガス関係報告規則",
-          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/429M60000400016_4_fa1e1c302c2835a6.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -1060,6 +969,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第2号の表は、工事中死亡事故の速報先には経済産業大臣も含まれる。",
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第13号の表は、指定災害事故は監督部長のみを速報先としない。",
+      "正しい。ガス関係報告規則第4条第1項第15号の表は、ガス栓欠陥等による死亡事故の速報先は管轄産業保安監督部長である。",
+      "正しい。ガス関係報告規則第4条第1項第17号の表は、消費機器使用に伴う死亡事故の速報先は管轄産業保安監督部長である。",
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第18号の表は、死傷なしの消費機器損傷物損事故は詳報のみである。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第2号の表は、工事中死亡事故の速報先には経済産業大臣も含まれる。",
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第13号の表は、指定災害事故は監督部長のみを速報先としない。",
+      "正しい。ガス関係報告規則第4条第1項第15号の表は、ガス栓欠陥等による死亡事故の速報先は管轄産業保安監督部長である。",
+      "正しい。ガス関係報告規則第4条第1項第17号の表は、消費機器使用に伴う死亡事故の速報先は管轄産業保安監督部長である。",
+      "間違い。選択肢の記載が誤り。ガス関係報告規則第4条第1項第18号の表は、死傷なしの消費機器損傷物損事故は詳報のみである。"
     ]
   },
   {
@@ -1079,11 +1002,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。ガス事業法第24条第1項は、ガス小売事業者がガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するため、保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
-      "間違い。同法第24条第2項は、保安規程を変更したときは遅滞なく変更した事項を経済産業大臣に届け出なければならないと定めている。軽微な変更を届出不要とするただし書きはない。",
-      "間違い。同法第24条第3項の保安規程変更命令は、ガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するため必要があると認めるときに行われる。公共の利益の増進を図るためとしている点が誤り。",
-      "間違い。同法第25条第1項は、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務の経験を有するもののうちからガス主任技術者を選任すると定めている。免状交付者又は実務経験者のいずれかでよいとしている点が誤り。",
-      "正しい。同法第30条は、経済産業大臣が、ガス主任技術者に職務を行わせることがガス工作物の工事、維持及び運用に関する保安に支障を及ぼすと認めるとき、ガス事業者に対してガス主任技術者の解任を命ずることができると定めている。"
+      "正しい。ガス事業法第24条第1項は、ガス小売事業者は保安規程を定め事業開始前に届け出る。",
+      "間違い。選択肢の記載が誤り。ガス事業法第24条第2項は、保安規程変更に軽微変更の届出例外はない。",
+      "間違い。公共の利益の増進を図るためとしている点が誤り。ガス事業法第24条第3項は、変更命令の目的はガス工作物保安確保である。",
+      "間違い。免状交付者又は実務経験者のいずれかでよいとしている点が誤り。ガス事業法第25条第1項は、免状と実務経験の双方を有する者から選任する。",
+      "正しい。ガス事業法第31条は、保安支障のおそれがある場合は事業者に主任技術者の解任を命ずることができる。"
     ],
     "suggestedQuestions": [
       "ガス小売事業者は保安規程を事業開始前に届け出なければならないか？",
@@ -1096,32 +1019,27 @@
     "suggestedQuestionDetails": [
       {
         "question": "ガス小売事業者は保安規程を事業開始前に届け出なければならないか？",
-        "answer": "届け出なければならない。",
-        "explanation": "正しい。ガス事業法第24条第1項は、ガス小売事業者がガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するため、保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。"
+        "answer": "届け出なければならない。"
       },
       {
         "question": "保安規程の軽微な変更は届出不要か？",
-        "answer": "届出不要ではない。変更時は遅滞なく届け出る必要がある。",
-        "explanation": "間違い。同法第24条第2項は、保安規程を変更したときは遅滞なく変更した事項を経済産業大臣に届け出なければならないと定めている。軽微な変更を届出不要とするただし書きはない。"
+        "answer": "届出不要ではない。変更時は遅滞なく届け出る必要がある。"
       },
       {
         "question": "保安規程変更命令の理由は公共の利益の増進か？",
-        "answer": "違う。保安を確保するため必要があると認めるときである。",
-        "explanation": "間違い。同法第24条第3項の保安規程変更命令は、ガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するため必要があると認めるときに行われる。公共の利益の増進を図るためとしている点が誤り。"
+        "answer": "違う。保安を確保するため必要があると認めるときである。"
       },
       {
         "question": "ガス主任技術者は免状交付者又は実務経験者のいずれかから選任できるか？",
-        "answer": "できない。免状の交付を受け、かつ所定の実務経験を有する者から選任する。",
-        "explanation": "間違い。同法第25条第1項は、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務の経験を有するもののうちからガス主任技術者を選任すると定めている。免状交付者又は実務経験者のいずれかでよいとしている点が誤り。"
+        "answer": "できない。免状の交付を受け、かつ所定の実務経験を有する者から選任する。"
       },
       {
         "question": "経済産業大臣は保安上支障がある場合にガス主任技術者の解任を命ずることができるか？",
-        "answer": "命ずることができる。",
-        "explanation": "正しい。同法第30条は、経済産業大臣が、ガス主任技術者に職務を行わせることがガス工作物の工事、維持及び運用に関する保安に支障を及ぼすと認めるとき、ガス事業者に対してガス主任技術者の解任を命ずることができると定めている。"
+        "answer": "命ずることができる。"
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス事業法 第24条、ガス事業法 第25条、ガス事業法 第30条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス事業法第24条第1項、ガス事業法第24条第2項、ガス事業法第24条第3項、ガス事業法第25条第1項、ガス事業法第31条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -1168,20 +1086,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "24",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
-          "reason": "正しい。ガス事業法第24条第1項は、ガス小売事業者がガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するため、保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第24条第1項は、ガス小売事業者は保安規程を定め事業開始前に届け出る。",
+          "paragraph": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "d654b5ca0616ae3010b6bb55fb20c279edf4acd46be4f7c9361f9adb3ea14b69",
-          "rawXmlHash": "935185d58b5e121c78c436e9af4c4c48916f4d2d9155ca608a1fde8c57b91040",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_24_935185d58b5e121c.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1190,20 +1106,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "24",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
-          "reason": "間違い。同法第24条第2項は、保安規程を変更したときは遅滞なく変更した事項を経済産業大臣に届け出なければならないと定めている。軽微な変更を届出不要とするただし書きはない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第24条第2項は、保安規程変更に軽微変更の届出例外はない。",
+          "paragraph": "2",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "d654b5ca0616ae3010b6bb55fb20c279edf4acd46be4f7c9361f9adb3ea14b69",
-          "rawXmlHash": "935185d58b5e121c78c436e9af4c4c48916f4d2d9155ca608a1fde8c57b91040",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_24_935185d58b5e121c.xml",
-          "paragraph": "2"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1212,20 +1126,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "24",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
-          "reason": "間違い。同法第24条第3項の保安規程変更命令は、ガス小売事業の用に供するガス工作物の工事、維持及び運用に関する保安を確保するため必要があると認めるときに行われる。公共の利益の増進を図るためとしている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。公共の利益の増進を図るためとしている点が誤り。ガス事業法第24条第3項は、変更命令の目的はガス工作物保安確保である。",
+          "paragraph": "3",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "d654b5ca0616ae3010b6bb55fb20c279edf4acd46be4f7c9361f9adb3ea14b69",
-          "rawXmlHash": "935185d58b5e121c78c436e9af4c4c48916f4d2d9155ca608a1fde8c57b91040",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_24_935185d58b5e121c.xml",
-          "paragraph": "3"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1234,20 +1146,18 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "25",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=25",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=25",
-          "reason": "間違い。同法第25条第1項は、ガス主任技術者免状の交付を受けている者であって、経済産業省令で定める実務の経験を有するもののうちからガス主任技術者を選任すると定めている。免状交付者又は実務経験者のいずれかでよいとしている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。免状交付者又は実務経験者のいずれかでよいとしている点が誤り。ガス事業法第25条第1項は、免状と実務経験の双方を有する者から選任する。",
+          "paragraph": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
-          "rawXmlHash": "75cc647474eae33aeae60159c3412a8dd41d03a35a562ad5ab8d6d38420701ef",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_25_75cc647474eae33a.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=25",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1256,19 +1166,17 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "30",
+          "lawAlias": "ガス事業法",
+          "article": "31",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=30",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=30",
-          "reason": "正しい。同法第30条は、経済産業大臣が、ガス主任技術者に職務を行わせることがガス工作物の工事、維持及び運用に関する保安に支障を及ぼすと認めるとき、ガス事業者に対してガス主任技術者の解任を命ずることができると定めている。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第31条は、保安支障のおそれがある場合は事業者に主任技術者の解任を命ずることができる。",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "02753d0c882d462c096d2a01bd2f8c155fed4009642d20fbb0e64518ca57de57",
-          "rawXmlHash": "aa5ed1001717026b34ca75d78d7de71c6176607f0a3a6a77aec9a945a861eb07",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_30_aa5ed1001717026b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=31",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -1536,6 +1444,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス事業法第24条第1項は、ガス小売事業者は保安規程を定め事業開始前に届け出る。",
+      "間違い。選択肢の記載が誤り。ガス事業法第24条第2項は、保安規程変更に軽微変更の届出例外はない。",
+      "間違い。公共の利益の増進を図るためとしている点が誤り。ガス事業法第24条第3項は、変更命令の目的はガス工作物保安確保である。",
+      "間違い。免状交付者又は実務経験者のいずれかでよいとしている点が誤り。ガス事業法第25条第1項は、免状と実務経験の双方を有する者から選任する。",
+      "正しい。ガス事業法第31条は、保安支障のおそれがある場合は事業者に主任技術者の解任を命ずることができる。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス事業法第24条第1項は、ガス小売事業者は保安規程を定め事業開始前に届け出る。",
+      "間違い。選択肢の記載が誤り。ガス事業法第24条第2項は、保安規程変更に軽微変更の届出例外はない。",
+      "間違い。公共の利益の増進を図るためとしている点が誤り。ガス事業法第24条第3項は、変更命令の目的はガス工作物保安確保である。",
+      "間違い。免状交付者又は実務経験者のいずれかでよいとしている点が誤り。ガス事業法第25条第1項は、免状と実務経験の双方を有する者から選任する。",
+      "正しい。ガス事業法第31条は、保安支障のおそれがある場合は事業者に主任技術者の解任を命ずることができる。"
     ]
   },
   {
@@ -1555,11 +1477,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。一般ガス導管事業者は、正当な理由がなければ、その供給区域（一般ガス導管事業者が特定ガス導管事業を営む場合はその供給地点を含む。）における託送供給を拒んではならない。",
-      "正しい。ガス事業者は、ガス事業の用に供するため公共の用に供せられる土地の地上又は地中に導管を設置する必要があるときは、その効用を妨げない限度で管理者の許可を受けて使用できる。",
-      "間違い。工事計画の届出をした者は、原則として届出が受理された日から30日を経過した後でなければ工事を開始できないが、経済産業大臣の技術基準適合の通知を受け取った後でなければならないという要件はない。",
-      "正しい。使用前自主検査の記録に記載すべき事項には、使用前自主検査を実施した者の氏名が含まれる。",
-      "正しい。使用前自主検査の結果の記録を電磁的方法で作成・保存する場合は、必要に応じて電子計算機その他の機器で直ちに表示できるようにしておく必要がある。"
+      "正しい。ガス事業法第47条第1項は、一般ガス導管事業者は正当な理由なく託送供給を拒めない。",
+      "正しい。ガス事業法第166条第1項は、公共用地は管理者許可を得て効用を妨げない限度で使用できる。",
+      "間違い。選択肢の記載が誤り。ガス事業法第32条第3項は、工事開始に技術基準適合通知の受領要件はない。",
+      "正しい。ガス事業法施行規則第46条第1項第5号は、使用前自主検査記録には実施者氏名を記載する。",
+      "正しい。ガス事業法施行規則第47条第2項は、電磁的記録は必要に応じ直ちに表示できるよう保存する。"
     ],
     "suggestedQuestions": [
       "一般ガス導管事業者は正当な理由なく託送供給を拒めるか？",
@@ -1572,32 +1494,27 @@
     "suggestedQuestionDetails": [
       {
         "question": "一般ガス導管事業者は正当な理由なく託送供給を拒めるか？",
-        "answer": "拒めない。",
-        "explanation": "正しい。一般ガス導管事業者は、正当な理由がなければ、その供給区域（一般ガス導管事業者が特定ガス導管事業を営む場合はその供給地点を含む。）における託送供給を拒んではならない。"
+        "answer": "拒めない。"
       },
       {
         "question": "ガス事業者は公共用地に導管を設置するため管理者の許可を受けて使用できるか？",
-        "answer": "使用できる。",
-        "explanation": "正しい。ガス事業者は、ガス事業の用に供するため公共の用に供せられる土地の地上又は地中に導管を設置する必要があるときは、その効用を妨げない限度で管理者の許可を受けて使用できる。"
+        "answer": "使用できる。"
       },
       {
         "question": "工事計画届出後の工事開始には経済産業大臣の技術基準適合通知が必要か？",
-        "answer": "必要ではない。",
-        "explanation": "間違い。工事計画の届出をした者は、原則として届出が受理された日から30日を経過した後でなければ工事を開始できないが、経済産業大臣の技術基準適合の通知を受け取った後でなければならないという要件はない。"
+        "answer": "必要ではない。"
       },
       {
         "question": "使用前自主検査の記録には実施者の氏名を記載するか？",
-        "answer": "記載する。",
-        "explanation": "正しい。使用前自主検査の記録に記載すべき事項には、使用前自主検査を実施した者の氏名が含まれる。"
+        "answer": "記載する。"
       },
       {
         "question": "使用前自主検査記録を電磁保存する場合は直ちに表示できる必要があるか？",
-        "answer": "必要がある。",
-        "explanation": "正しい。使用前自主検査の結果の記録を電磁的方法で作成・保存する場合は、必要に応じて電子計算機その他の機器で直ちに表示できるようにしておく必要がある。"
+        "answer": "必要がある。"
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス事業法 第47条、ガス事業法 第166条、ガス事業法 第32条、ガス事業法 第33条、ガス事業法施行規則 第46条、ガス事業法施行規則 第47条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス事業法第47条第1項、ガス事業法第166条第1項、ガス事業法第32条第3項、ガス事業法施行規則第46条第1項第5号、ガス事業法施行規則第47条第2項。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -1640,20 +1557,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "47",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=47",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=47",
-          "reason": "正しい。一般ガス導管事業者は、正当な理由がなければ、その供給区域（一般ガス導管事業者が特定ガス導管事業を営む場合はその供給地点を含む。）における託送供給を拒んではならない。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第47条第1項は、一般ガス導管事業者は正当な理由なく託送供給を拒めない。",
+          "paragraph": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
-          "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_47_1cdc80e350f629ad.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=47",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1662,19 +1577,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "166",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=166",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=166",
-          "reason": "正しい。ガス事業者は、ガス事業の用に供するため公共の用に供せられる土地の地上又は地中に導管を設置する必要があるときは、その効用を妨げない限度で管理者の許可を受けて使用できる。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第166条第1項は、公共用地は管理者許可を得て効用を妨げない限度で使用できる。",
+          "paragraph": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "547d13640c61c7439c3b6d1d044da1edffa91a705d0e4bce02fba0f6972680db",
-          "rawXmlHash": "0f16bb2df8cda0276cbff03ceb898b5e615aeda8bc456755fbe910e735e6d2bc",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_166_0f16bb2df8cda027.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=166",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1683,20 +1597,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "32",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第32条第3項は、工事開始に技術基準適合通知の受領要件はない。",
+          "paragraph": "3",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=32",
-          "reason": "間違い。工事計画の届出をした者は、原則として届出が受理された日から30日を経過した後でなければ工事を開始できないが、経済産業大臣の技術基準適合の通知を受け取った後でなければならないという要件はない。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
-          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_32_46602555b866d8e1.xml",
-          "paragraph": "3"
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1704,40 +1616,20 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 3,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "33",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
-          "reason": "正しい。使用前自主検査の記録に記載すべき事項には、使用前自主検査を実施した者の氏名が含まれる。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
-          "rawXmlHash": "ae83c40e886ef71fc42786356910b24878b9beaae1cdb5a4bf928967f213cac0",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_33_ae83c40e886ef71f.xml",
-          "paragraph": "3"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 3,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法施行規則",
           "article": "46",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=46",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=46",
-          "reason": "正しい。使用前自主検査の記録に記載すべき事項には、使用前自主検査を実施した者の氏名が含まれる。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第46条第1項第5号は、使用前自主検査記録には実施者氏名を記載する。",
+          "paragraph": "1",
+          "item": "5",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "607938269ab06fdf7782b9dab1cbe0bcc836e5d9a88df3c13c081e536b148500",
-          "rawXmlHash": "332e0a1da0d154cd80d2111e9876e131acb5e282eaeb889f48916691785d915e",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_46_332e0a1da0d154cd.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=46",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -1745,40 +1637,19 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 4,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "33",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=33",
-          "reason": "正しい。使用前自主検査の結果の記録を電磁的方法で作成・保存する場合は、必要に応じて電子計算機その他の機器で直ちに表示できるようにしておく必要がある。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
-          "rawXmlHash": "ae83c40e886ef71fc42786356910b24878b9beaae1cdb5a4bf928967f213cac0",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_33_ae83c40e886ef71f.xml",
-          "paragraph": "3"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 4,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法施行規則",
           "article": "47",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=47",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=47",
-          "reason": "正しい。使用前自主検査の結果の記録を電磁的方法で作成・保存する場合は、必要に応じて電子計算機その他の機器で直ちに表示できるようにしておく必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第47条第2項は、電磁的記録は必要に応じ直ちに表示できるよう保存する。",
+          "paragraph": "2",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "f7c13e7c75542451cf324c6a98ebcf295584b0b8229df557768bdffc3464bf23",
-          "rawXmlHash": "509e0a31d76e7eb249fba93a84cb5549c94c8f0b280cf49150439bba0767ab12",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_47_509e0a31d76e7eb2.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=47",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -2068,6 +1939,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス事業法第47条第1項は、一般ガス導管事業者は正当な理由なく託送供給を拒めない。",
+      "正しい。ガス事業法第166条第1項は、公共用地は管理者許可を得て効用を妨げない限度で使用できる。",
+      "間違い。選択肢の記載が誤り。ガス事業法第32条第3項は、工事開始に技術基準適合通知の受領要件はない。",
+      "正しい。ガス事業法施行規則第46条第1項第5号は、使用前自主検査記録には実施者氏名を記載する。",
+      "正しい。ガス事業法施行規則第47条第2項は、電磁的記録は必要に応じ直ちに表示できるよう保存する。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス事業法第47条第1項は、一般ガス導管事業者は正当な理由なく託送供給を拒めない。",
+      "正しい。ガス事業法第166条第1項は、公共用地は管理者許可を得て効用を妨げない限度で使用できる。",
+      "間違い。選択肢の記載が誤り。ガス事業法第32条第3項は、工事開始に技術基準適合通知の受領要件はない。",
+      "正しい。ガス事業法施行規則第46条第1項第5号は、使用前自主検査記録には実施者氏名を記載する。",
+      "正しい。ガス事業法施行規則第47条第2項は、電磁的記録は必要に応じ直ちに表示できるよう保存する。"
     ]
   },
   {
@@ -2087,11 +1972,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。製造所及び供給所には、構内に公衆がみだりに立ち入らないよう適切な措置を講じる必要がある。ただし、周囲の状況により公衆が立ち入るおそれがない場合は例外となる。",
-      "正しい。製造所若しくは供給所に設置する液化ガスを通ずるガス工作物（不活性の液化ガスのみを通ずるものを除く。）又は移動式ガス発生設備の付近に設置する電気設備は、設置場所の状況及び液化ガスの種類に応じた防爆性能を有する必要がある。",
-      "正しい。製造所（特定製造所を除く。）、供給所及び導管を管理する事業場には、緊急時に迅速な通信を確保するため、適切な通信設備を設ける必要がある。",
-      "間違い。移動式ガス発生設備相互の離隔距離が求められるのは大容量移動式ガス発生設備による供給を行う場合である。液化ガスの貯蔵能力が30kgの移動式ガス発生設備としている点が誤り。",
-      "正しい。1日に平均2万人以上の者が乗降する駅の母屋及びプラットホーム（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。"
+      "正しい。ガス工作物の技術上の基準を定める省令第4条第1項は、製造所及び供給所について、公衆の立入り防止と周囲の状況によるただし書を定める。",
+      "正しい。ガス工作物の技術上の基準を定める省令第10条は、非不活性の液化ガスを通ずるガス工作物付近の電気設備は、防爆性能を要する対象に含まれる。",
+      "正しい。ガス工作物の技術上の基準を定める省令第5条は、特定製造所を除く製造所、供給所及び導管管理事業場には保安通信設備を要する。",
+      "間違い。液化ガスの貯蔵能力が30kgの移動式ガス発生設備としている点が誤り。ガス工作物の技術上の基準を定める省令第6条第8項は、離隔距離を要する大容量移動式ガス発生設備は、液化ガスでは貯蔵能力100kg超であり、30kgではない。",
+      "正しい。ガス工作物の技術上の基準の細目を定める告示第3条は、平均1日2万人以上が乗降する駅の母屋及びプラットホームは第1種保安物件に該当する。"
     ],
     "suggestedQuestions": [
       "製造所及び供給所には公衆の立入り防止措置が必要か？",
@@ -2104,32 +1989,27 @@
     "suggestedQuestionDetails": [
       {
         "question": "製造所及び供給所には公衆の立入り防止措置が必要か？",
-        "answer": "必要である。",
-        "explanation": "正しい。製造所及び供給所には、構内に公衆がみだりに立ち入らないよう適切な措置を講じる必要がある。ただし、周囲の状況により公衆が立ち入るおそれがない場合は例外となる。"
+        "answer": "必要である。"
       },
       {
         "question": "液化ガス工作物等の付近の電気設備には防爆性能が必要か？",
-        "answer": "必要である。",
-        "explanation": "正しい。製造所若しくは供給所に設置する液化ガスを通ずるガス工作物（不活性の液化ガスのみを通ずるものを除く。）又は移動式ガス発生設備の付近に設置する電気設備は、設置場所の状況及び液化ガスの種類に応じた防爆性能を有する必要がある。"
+        "answer": "必要である。"
       },
       {
         "question": "製造所等には緊急時の通信設備が必要か？",
-        "answer": "必要である。",
-        "explanation": "正しい。製造所（特定製造所を除く。）、供給所及び導管を管理する事業場には、緊急時に迅速な通信を確保するため、適切な通信設備を設ける必要がある。"
+        "answer": "必要である。"
       },
       {
         "question": "貯蔵能力30kgの移動式ガス発生設備には他の移動式ガス発生設備との離隔距離が必要か？",
-        "answer": "必要ではない。",
-        "explanation": "間違い。移動式ガス発生設備相互の離隔距離が求められるのは大容量移動式ガス発生設備による供給を行う場合である。液化ガスの貯蔵能力が30kgの移動式ガス発生設備としている点が誤り。"
+        "answer": "必要ではない。"
       },
       {
         "question": "1日平均2万人以上が乗降する駅は第1種保安物件に該当するか？",
-        "answer": "該当する。",
-        "explanation": "正しい。1日に平均2万人以上の者が乗降する駅の母屋及びプラットホーム（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。"
+        "answer": "該当する。"
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第4条、ガス工作物の技術上の基準を定める省令 第10条、ガス工作物の技術上の基準を定める省令 第5条、ガス工作物の技術上の基準を定める省令 第6条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第4条第1項、ガス工作物の技術上の基準を定める省令第10条、ガス工作物の技術上の基準を定める省令第5条、ガス工作物の技術上の基準を定める省令第6条第8項、ガス工作物の技術上の基準の細目を定める告示第3条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -2172,20 +2052,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "4",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=4",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=4",
-          "reason": "正しい。製造所及び供給所には、構内に公衆がみだりに立ち入らないよう適切な措置を講じる必要がある。ただし、周囲の状況により公衆が立ち入るおそれがない場合は例外となる。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第4条第1項は、製造所及び供給所について、公衆の立入り防止と周囲の状況によるただし書を定める。",
+          "paragraph": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "b6d5a0556ec648f70109d2644282720fa04461f174c87b34bcc4dcd963178ae2",
-          "rawXmlHash": "42cd314794580a99332af8e24276d23bf04cad276f3d92d1e8113ccbe693294b",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_4_42cd314794580a99.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=4",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2194,19 +2072,17 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "10",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=10",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=10",
-          "reason": "正しい。製造所若しくは供給所に設置する液化ガスを通ずるガス工作物（不活性の液化ガスのみを通ずるものを除く。）又は移動式ガス発生設備の付近に設置する電気設備は、設置場所の状況及び液化ガスの種類に応じた防爆性能を有する必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第10条は、非不活性の液化ガスを通ずるガス工作物付近の電気設備は、防爆性能を要する対象に含まれる。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
-          "rawXmlHash": "691a406b6b56039913bff94378d326c79f179673f3b195beea758e587da5e59f",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_10_691a406b6b560399.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=10",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2215,19 +2091,17 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "5",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=5",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=5",
-          "reason": "正しい。製造所（特定製造所を除く。）、供給所及び導管を管理する事業場には、緊急時に迅速な通信を確保するため、適切な通信設備を設ける必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第5条は、特定製造所を除く製造所、供給所及び導管管理事業場には保安通信設備を要する。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "13050333b7a56805c831b5da7eec0aa727d08f96dd997628ce8e8ca086882275",
-          "rawXmlHash": "37455c0dfdc18455eaeaeece24655afedc5bd1312bbf091cf02e4f97a9a15b41",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_5_37455c0dfdc18455.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=5",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2236,19 +2110,18 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "6",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
-          "reason": "間違い。移動式ガス発生設備相互の離隔距離が求められるのは大容量移動式ガス発生設備による供給を行う場合である。液化ガスの貯蔵能力が30kgの移動式ガス発生設備としている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。液化ガスの貯蔵能力が30kgの移動式ガス発生設備としている点が誤り。ガス工作物の技術上の基準を定める省令第6条第8項は、離隔距離を要する大容量移動式ガス発生設備は、液化ガスでは貯蔵能力100kg超であり、30kgではない。",
+          "paragraph": "8",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
-          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_6_1c60914cb0beb1a9.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2256,20 +2129,17 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 4,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
-          "article": "6",
+          "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
+          "lawAlias": "ガス工作物の技術上の基準の細目を定める告示",
+          "article": "3",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
-          "reason": "正しい。1日に平均2万人以上の者が乗降する駅の母屋及びプラットホーム（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。",
-          "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
-          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_6_1c60914cb0beb1a9.xml"
+          "source": "meti_official_pdf",
+          "reason": "正しい。ガス工作物の技術上の基準の細目を定める告示第3条は、平均1日2万人以上が乗降する駅の母屋及びプラットホームは第1種保安物件に該当する。",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true
         }
       ]
     ],
@@ -2531,6 +2401,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第4条第1項は、製造所及び供給所について、公衆の立入り防止と周囲の状況によるただし書を定める。",
+      "正しい。ガス工作物の技術上の基準を定める省令第10条は、非不活性の液化ガスを通ずるガス工作物付近の電気設備は、防爆性能を要する対象に含まれる。",
+      "正しい。ガス工作物の技術上の基準を定める省令第5条は、特定製造所を除く製造所、供給所及び導管管理事業場には保安通信設備を要する。",
+      "間違い。液化ガスの貯蔵能力が30kgの移動式ガス発生設備としている点が誤り。ガス工作物の技術上の基準を定める省令第6条第8項は、離隔距離を要する大容量移動式ガス発生設備は、液化ガスでは貯蔵能力100kg超であり、30kgではない。",
+      "正しい。ガス工作物の技術上の基準の細目を定める告示第3条は、平均1日2万人以上が乗降する駅の母屋及びプラットホームは第1種保安物件に該当する。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第4条第1項は、製造所及び供給所について、公衆の立入り防止と周囲の状況によるただし書を定める。",
+      "正しい。ガス工作物の技術上の基準を定める省令第10条は、非不活性の液化ガスを通ずるガス工作物付近の電気設備は、防爆性能を要する対象に含まれる。",
+      "正しい。ガス工作物の技術上の基準を定める省令第5条は、特定製造所を除く製造所、供給所及び導管管理事業場には保安通信設備を要する。",
+      "間違い。液化ガスの貯蔵能力が30kgの移動式ガス発生設備としている点が誤り。ガス工作物の技術上の基準を定める省令第6条第8項は、離隔距離を要する大容量移動式ガス発生設備は、液化ガスでは貯蔵能力100kg超であり、30kgではない。",
+      "正しい。ガス工作物の技術上の基準の細目を定める告示第3条は、平均1日2万人以上が乗降する駅の母屋及びプラットホームは第1種保安物件に該当する。"
     ]
   },
   {
@@ -2550,11 +2434,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第2号では、ガスホルダーを、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないガス工作物に掲げている。最高使用圧力が低圧のガスホルダーも対象である。",
-      "正しい。同省令第15条第1項第3号ニでは、附帯設備であって製造設備に属する配管（冷凍設備に属するものを除く。）のうち、ガスを通ずるもので内面に0.2MPa以上の圧力を受ける部分を対象としている。天然ガスで0.3MPaを受ける部分は該当する。",
-      "間違い。同省令第15条第1項第3号ニでは、不活性のガスによる圧力を受ける配管は、内面に1MPa以上の圧力を受ける部分に限って対象となる。0.5MPaの圧力を受ける部分としているため該当しない。",
-      "正しい。同省令第15条第1項第6号は、導管及びガス栓を適切な構造が求められる対象として掲げている。ガス栓はこの規定に該当する。",
-      "正しい。同省令第15条第1項第10号は、整圧器に取り付けるガス加温装置のガスを通ずる配管を対象として掲げている。したがって該当する。"
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第2号は、ガスホルダーは圧力区分を問わず構造規定の対象である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、非不活性ガスを通じ、内面に0.2MPa以上の圧力を受ける配管が対象であり、天然ガス0.3MPaは該当する。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、不活性ガスの圧力を受ける部分は1MPa以上に限られ、0.5MPaは対象外である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓を対象として明記する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第10号は、整圧器に取り付けるガス加温装置のガスを通ずる配管を対象として明記する。"
     ],
     "suggestedQuestions": [
       "低圧のガスホルダーは適切な構造基準の対象か？",
@@ -2587,7 +2471,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第15条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第15条第1項第2号、ガス工作物の技術上の基準を定める省令第15条第1項第3号、ガス工作物の技術上の基準を定める省令第15条第1項第6号、ガス工作物の技術上の基準を定める省令第15条第1項第10号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -2630,20 +2514,19 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "15",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第2号では、ガスホルダーを、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないガス工作物に掲げている。最高使用圧力が低圧のガスホルダーも対象である。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第2号は、ガスホルダーは圧力区分を問わず構造規定の対象である。",
+          "paragraph": "1",
+          "item": "2",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_15_11b1c21b8b79da57.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2652,20 +2535,19 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "15",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "reason": "正しい。同省令第15条第1項第3号ニでは、附帯設備であって製造設備に属する配管（冷凍設備に属するものを除く。）のうち、ガスを通ずるもので内面に0.2MPa以上の圧力を受ける部分を対象としている。天然ガスで0.3MPaを受ける部分は該当する。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、非不活性ガスを通じ、内面に0.2MPa以上の圧力を受ける配管が対象であり、天然ガス0.3MPaは該当する。",
+          "paragraph": "1",
+          "item": "3",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_15_11b1c21b8b79da57.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2674,20 +2556,19 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "15",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "reason": "間違い。同省令第15条第1項第3号ニでは、不活性のガスによる圧力を受ける配管は、内面に1MPa以上の圧力を受ける部分に限って対象となる。0.5MPaの圧力を受ける部分としているため該当しない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、不活性ガスの圧力を受ける部分は1MPa以上に限られ、0.5MPaは対象外である。",
+          "paragraph": "1",
+          "item": "3",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_15_11b1c21b8b79da57.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2696,20 +2577,19 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "15",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "reason": "正しい。同省令第15条第1項第6号は、導管及びガス栓を適切な構造が求められる対象として掲げている。ガス栓はこの規定に該当する。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓を対象として明記する。",
+          "paragraph": "1",
+          "item": "6",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_15_11b1c21b8b79da57.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -2718,20 +2598,19 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "15",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
-          "reason": "正しい。同省令第15条第1項第10号は、整圧器に取り付けるガス加温装置のガスを通ずる配管を対象として掲げている。したがって該当する。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第10号は、整圧器に取り付けるガス加温装置のガスを通ずる配管を対象として明記する。",
+          "paragraph": "1",
+          "item": "10",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
-          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_15_11b1c21b8b79da57.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=15",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -3001,6 +2880,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第2号は、ガスホルダーは圧力区分を問わず構造規定の対象である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、非不活性ガスを通じ、内面に0.2MPa以上の圧力を受ける配管が対象であり、天然ガス0.3MPaは該当する。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、不活性ガスの圧力を受ける部分は1MPa以上に限られ、0.5MPaは対象外である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓を対象として明記する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第10号は、整圧器に取り付けるガス加温装置のガスを通ずる配管を対象として明記する。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第2号は、ガスホルダーは圧力区分を問わず構造規定の対象である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、非不活性ガスを通じ、内面に0.2MPa以上の圧力を受ける配管が対象であり、天然ガス0.3MPaは該当する。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第15条第1項第3号は、不活性ガスの圧力を受ける部分は1MPa以上に限られ、0.5MPaは対象外である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓を対象として明記する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第10号は、整圧器に取り付けるガス加温装置のガスを通ずる配管を対象として明記する。"
     ]
   },
   {
@@ -3020,11 +2913,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。最高使用圧力が高圧又は中圧のガスホルダーであって過圧が生ずるおそれのあるものには、圧力を逃がすための適切な安全弁を設け、安全弁から吹き出されるガスによる障害が生じないよう施設する必要がある。",
-      "間違い。使用の状態を計測又は確認できる適切な装置を設ける対象は、ガス発生設備では移動式ガス発生設備を除くもの等である。特定ガス発生設備を除くとしている点が誤り。",
-      "間違い。損傷に至るおそれのある状態を検知し警報する装置の対象は、移動式ガス発生設備を除くガス発生設備等である。移動式ガス発生設備に設けるとしている点が誤り。",
-      "間違い。製造設備を安全に停止させるのに必要な装置その他の製造所及び供給所の保安上重要な設備には、停電等で機能が失われないよう適切な措置を講じる必要があり、特定製造所の例外はない。",
-      "間違い。ガスは容易に臭気で感知できるよう付臭する必要があるが、中圧以上のガス圧力により行う大口供給の用に供するものは例外である。中圧の大口供給用ガスも付臭が必要としている点が誤り。"
+      "正しい。ガス工作物の技術上の基準を定める省令第17条は、中圧ガスホルダーで過圧のおそれがあるものには安全弁と吹出しガスによる障害防止を要する。",
+      "間違い。特定ガス発生設備を除くとしている点が誤り。ガス工作物の技術上の基準を定める省令第18条第1項は、計測又は確認装置の対象から除かれるのは特定ガス発生設備ではなく移動式ガス発生設備である。",
+      "間違い。移動式ガス発生設備に設けるとしている点が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置の対象から移動式ガス発生設備は除かれる。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第21条は、保安上重要な設備への停電等対策に、特定製造所の除外はない。",
+      "間違い。中圧の大口供給用ガスも付臭が必要としている点が誤り。ガス工作物の技術上の基準を定める省令第22条は、中圧以上で行う大口供給の用に供するガスは付臭義務の例外である。"
     ],
     "suggestedQuestions": [
       "中圧ガスホルダーで過圧のおそれがあるものには安全弁が必要か？",
@@ -3037,32 +2930,27 @@
     "suggestedQuestionDetails": [
       {
         "question": "中圧ガスホルダーで過圧のおそれがあるものには安全弁が必要か？",
-        "answer": "必要である。",
-        "explanation": "正しい。最高使用圧力が高圧又は中圧のガスホルダーであって過圧が生ずるおそれのあるものには、圧力を逃がすための適切な安全弁を設け、安全弁から吹き出されるガスによる障害が生じないよう施設する必要がある。"
+        "answer": "必要である。"
       },
       {
         "question": "計測又は確認装置の対象から除かれるガス発生設備は何か？",
-        "answer": "移動式ガス発生設備。",
-        "explanation": "間違い。使用の状態を計測又は確認できる適切な装置を設ける対象は、ガス発生設備では移動式ガス発生設備を除くもの等である。特定ガス発生設備を除くとしている点が誤り。"
+        "answer": "移動式ガス発生設備。"
       },
       {
         "question": "移動式ガス発生設備は警報装置設置対象か？",
-        "answer": "対象ではない。",
-        "explanation": "間違い。損傷に至るおそれのある状態を検知し警報する装置の対象は、移動式ガス発生設備を除くガス発生設備等である。移動式ガス発生設備に設けるとしている点が誤り。"
+        "answer": "対象ではない。"
       },
       {
         "question": "保安上重要な設備の停電時機能維持措置に特定製造所の例外はあるか？",
-        "answer": "ない。",
-        "explanation": "間違い。製造設備を安全に停止させるのに必要な装置その他の製造所及び供給所の保安上重要な設備には、停電等で機能が失われないよう適切な措置を講じる必要があり、特定製造所の例外はない。"
+        "answer": "ない。"
       },
       {
         "question": "中圧以上の大口供給用ガスは付臭義務の例外か？",
-        "answer": "例外である。",
-        "explanation": "間違い。ガスは容易に臭気で感知できるよう付臭する必要があるが、中圧以上のガス圧力により行う大口供給の用に供するものは例外である。中圧の大口供給用ガスも付臭が必要としている点が誤り。"
+        "answer": "例外である。"
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第17条、ガス工作物の技術上の基準を定める省令 第18条、ガス工作物の技術上の基準を定める省令 第19条、ガス工作物の技術上の基準を定める省令 第21条、ガス工作物の技術上の基準を定める省令 第22条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第17条、ガス工作物の技術上の基準を定める省令第18条第1項、ガス工作物の技術上の基準を定める省令第19条、ガス工作物の技術上の基準を定める省令第21条、ガス工作物の技術上の基準を定める省令第22条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -3105,19 +2993,17 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "17",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17",
-          "reason": "正しい。最高使用圧力が高圧又は中圧のガスホルダーであって過圧が生ずるおそれのあるものには、圧力を逃がすための適切な安全弁を設け、安全弁から吹き出されるガスによる障害が生じないよう施設する必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第17条は、中圧ガスホルダーで過圧のおそれがあるものには安全弁と吹出しガスによる障害防止を要する。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
-          "rawXmlHash": "4cdef19a07fe4efcfc82f7389a7f710cbf9480266b0e3f0b71e9f4388d75dace",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_17_4cdef19a07fe4efc.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3126,20 +3012,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "18",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=18",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=18",
-          "reason": "間違い。使用の状態を計測又は確認できる適切な装置を設ける対象は、ガス発生設備では移動式ガス発生設備を除くもの等である。特定ガス発生設備を除くとしている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。特定ガス発生設備を除くとしている点が誤り。ガス工作物の技術上の基準を定める省令第18条第1項は、計測又は確認装置の対象から除かれるのは特定ガス発生設備ではなく移動式ガス発生設備である。",
+          "paragraph": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
-          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_18_7a5b1c8f9d73d720.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=18",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3148,19 +3032,17 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "19",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
-          "reason": "間違い。損傷に至るおそれのある状態を検知し警報する装置の対象は、移動式ガス発生設備を除くガス発生設備等である。移動式ガス発生設備に設けるとしている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。移動式ガス発生設備に設けるとしている点が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置の対象から移動式ガス発生設備は除かれる。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
-          "rawXmlHash": "4d42a6fd913ada1b1e7e2377a98e30056c351e1a1ff459b4f88761c0fcdc20d0",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_19_4d42a6fd913ada1b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3169,19 +3051,17 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "21",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=21",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=21",
-          "reason": "間違い。製造設備を安全に停止させるのに必要な装置その他の製造所及び供給所の保安上重要な設備には、停電等で機能が失われないよう適切な措置を講じる必要があり、特定製造所の例外はない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第21条は、保安上重要な設備への停電等対策に、特定製造所の除外はない。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
-          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_21_a3b614964c878141.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=21",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3190,19 +3070,17 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "22",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=22",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=22",
-          "reason": "間違い。ガスは容易に臭気で感知できるよう付臭する必要があるが、中圧以上のガス圧力により行う大口供給の用に供するものは例外である。中圧の大口供給用ガスも付臭が必要としている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。中圧の大口供給用ガスも付臭が必要としている点が誤り。ガス工作物の技術上の基準を定める省令第22条は、中圧以上で行う大口供給の用に供するガスは付臭義務の例外である。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "3d51d59c4fbbf21f1be979179032bb5a7dad3e6ebd93c69eeb4a43d6a05d870b",
-          "rawXmlHash": "b5800b12bf800a8ff0f60dbbc1d0ea462bc0191e7045f228dd08208fd4b34701",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_22_b5800b12bf800a8f.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=22",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -3464,6 +3342,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第17条は、中圧ガスホルダーで過圧のおそれがあるものには安全弁と吹出しガスによる障害防止を要する。",
+      "間違い。特定ガス発生設備を除くとしている点が誤り。ガス工作物の技術上の基準を定める省令第18条第1項は、計測又は確認装置の対象から除かれるのは特定ガス発生設備ではなく移動式ガス発生設備である。",
+      "間違い。移動式ガス発生設備に設けるとしている点が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置の対象から移動式ガス発生設備は除かれる。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第21条は、保安上重要な設備への停電等対策に、特定製造所の除外はない。",
+      "間違い。中圧の大口供給用ガスも付臭が必要としている点が誤り。ガス工作物の技術上の基準を定める省令第22条は、中圧以上で行う大口供給の用に供するガスは付臭義務の例外である。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第17条は、中圧ガスホルダーで過圧のおそれがあるものには安全弁と吹出しガスによる障害防止を要する。",
+      "間違い。特定ガス発生設備を除くとしている点が誤り。ガス工作物の技術上の基準を定める省令第18条第1項は、計測又は確認装置の対象から除かれるのは特定ガス発生設備ではなく移動式ガス発生設備である。",
+      "間違い。移動式ガス発生設備に設けるとしている点が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置の対象から移動式ガス発生設備は除かれる。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第21条は、保安上重要な設備への停電等対策に、特定製造所の除外はない。",
+      "間違い。中圧の大口供給用ガスも付臭が必要としている点が誤り。ガス工作物の技術上の基準を定める省令第22条は、中圧以上で行う大口供給の用に供するガスは付臭義務の例外である。"
     ]
   },
   {
@@ -3483,11 +3375,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "間違い。ガス工作物の技術上の基準を定める省令第26条では、対象となる製造設備には、異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置を設ける必要がある。速やかに調整するとしている点が誤りである。",
-      "正しい。同省令第27条第2項は、移動式ガス発生設備には、異常発生時に迅速かつ安全にガスの発生を停止できる装置を設けることを定めている。",
-      "間違い。同省令第28条第3項では、容器又は容器の設置場所に、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を講じることを定めている。異常に低下しないようとしている点が誤りである。",
-      "間違い。同省令第30条では、直接液体又は気体を送入する装置を有する製造設備について、逆流による設備損傷又はガスの大気への放出を防止する構造を求めている。液体の外部への漏えいとしている点が誤りである。",
-      "間違い。同省令第31条第2項では、温水で加熱する構造の気化装置について、加熱部の温水が凍結するおそれがあるものには凍結防止措置を講じることを定めている。沸騰するおそれとしている点が誤りである。"
+      "間違い。速やかに調整するとしている点が誤りである。ガス工作物の技術上の基準を定める省令第26条は、異常時に求められるのはガス又は液化ガスの流出及び流入の速やかな遮断であり、調整ではない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第27条第2項は、移動式ガス発生設備には、異常時に迅速かつ安全にガス発生を停止する装置を要する。",
+      "間違い。異常に低下しないようとしている点が誤りである。ガス工作物の技術上の基準を定める省令第28条第3項は、容器内の圧力が異常に上昇しないよう温度維持措置を要し、低下ではない。",
+      "間違い。液体の外部への漏えいとしている点が誤りである。ガス工作物の技術上の基準を定める省令第30条は、逆流防止は設備の損傷又はガスの大気への放出を防止するためであり、液体の外部漏えいではない。",
+      "間違い。沸騰するおそれとしている点が誤りである。ガス工作物の技術上の基準を定める省令第31条第2項は、温水加熱の気化装置では、加熱部温水の凍結防止措置を要し、沸騰防止ではない。"
     ],
     "suggestedQuestions": [
       "製造設備の異常時に必要な装置は流出入を調整する装置か？",
@@ -3520,7 +3412,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第26条、ガス工作物の技術上の基準を定める省令 第27条、ガス工作物の技術上の基準を定める省令 第28条、ガス工作物の技術上の基準を定める省令 第30条、ガス工作物の技術上の基準を定める省令 第31条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第26条、ガス工作物の技術上の基準を定める省令第27条第2項、ガス工作物の技術上の基準を定める省令第28条第3項、ガス工作物の技術上の基準を定める省令第30条、ガス工作物の技術上の基準を定める省令第31条第2項。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -3563,19 +3455,17 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "26",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=26",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=26",
-          "reason": "間違い。ガス工作物の技術上の基準を定める省令第26条では、対象となる製造設備には、異常発生時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置を設ける必要がある。速やかに調整するとしている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。速やかに調整するとしている点が誤りである。ガス工作物の技術上の基準を定める省令第26条は、異常時に求められるのはガス又は液化ガスの流出及び流入の速やかな遮断であり、調整ではない。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
-          "rawXmlHash": "dd17afb97324af859794cd657ded16f973a39d2a44be4c6785c1446c991abf8e",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_26_dd17afb97324af85.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=26",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3584,20 +3474,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "27",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=27",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=27",
-          "reason": "正しい。同省令第27条第2項は、移動式ガス発生設備には、異常発生時に迅速かつ安全にガスの発生を停止できる装置を設けることを定めている。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第27条第2項は、移動式ガス発生設備には、異常時に迅速かつ安全にガス発生を停止する装置を要する。",
+          "paragraph": "2",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
-          "rawXmlHash": "3c1526932497fa1bd55fb42cc0181374ee81522e20f5185a6f010b748780d575",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_27_3c1526932497fa1b.xml",
-          "paragraph": "2"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=27",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3606,20 +3494,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "28",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
-          "reason": "間違い。同省令第28条第3項では、容器又は容器の設置場所に、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を講じることを定めている。異常に低下しないようとしている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。異常に低下しないようとしている点が誤りである。ガス工作物の技術上の基準を定める省令第28条第3項は、容器内の圧力が異常に上昇しないよう温度維持措置を要し、低下ではない。",
+          "paragraph": "3",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
-          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_28_9a8d343c192c9088.xml",
-          "paragraph": "3"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=28",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3628,19 +3514,17 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "30",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=30",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=30",
-          "reason": "間違い。同省令第30条では、直接液体又は気体を送入する装置を有する製造設備について、逆流による設備損傷又はガスの大気への放出を防止する構造を求めている。液体の外部への漏えいとしている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。液体の外部への漏えいとしている点が誤りである。ガス工作物の技術上の基準を定める省令第30条は、逆流防止は設備の損傷又はガスの大気への放出を防止するためであり、液体の外部漏えいではない。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
-          "rawXmlHash": "ff79044f60340dac338cf998b66d16d79e92994886cce1fb7d419d34ea956964",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_30_ff79044f60340dac.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=30",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -3649,20 +3533,18 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "31",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
-          "reason": "間違い。同省令第31条第2項では、温水で加熱する構造の気化装置について、加熱部の温水が凍結するおそれがあるものには凍結防止措置を講じることを定めている。沸騰するおそれとしている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。沸騰するおそれとしている点が誤りである。ガス工作物の技術上の基準を定める省令第31条第2項は、温水加熱の気化装置では、加熱部温水の凍結防止措置を要し、沸騰防止ではない。",
+          "paragraph": "2",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
-          "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_31_5a321a346bb069e3.xml",
-          "paragraph": "2"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=31",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -3928,6 +3810,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。速やかに調整するとしている点が誤りである。ガス工作物の技術上の基準を定める省令第26条は、異常時に求められるのはガス又は液化ガスの流出及び流入の速やかな遮断であり、調整ではない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第27条第2項は、移動式ガス発生設備には、異常時に迅速かつ安全にガス発生を停止する装置を要する。",
+      "間違い。異常に低下しないようとしている点が誤りである。ガス工作物の技術上の基準を定める省令第28条第3項は、容器内の圧力が異常に上昇しないよう温度維持措置を要し、低下ではない。",
+      "間違い。液体の外部への漏えいとしている点が誤りである。ガス工作物の技術上の基準を定める省令第30条は、逆流防止は設備の損傷又はガスの大気への放出を防止するためであり、液体の外部漏えいではない。",
+      "間違い。沸騰するおそれとしている点が誤りである。ガス工作物の技術上の基準を定める省令第31条第2項は、温水加熱の気化装置では、加熱部温水の凍結防止措置を要し、沸騰防止ではない。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。速やかに調整するとしている点が誤りである。ガス工作物の技術上の基準を定める省令第26条は、異常時に求められるのはガス又は液化ガスの流出及び流入の速やかな遮断であり、調整ではない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第27条第2項は、移動式ガス発生設備には、異常時に迅速かつ安全にガス発生を停止する装置を要する。",
+      "間違い。異常に低下しないようとしている点が誤りである。ガス工作物の技術上の基準を定める省令第28条第3項は、容器内の圧力が異常に上昇しないよう温度維持措置を要し、低下ではない。",
+      "間違い。液体の外部への漏えいとしている点が誤りである。ガス工作物の技術上の基準を定める省令第30条は、逆流防止は設備の損傷又はガスの大気への放出を防止するためであり、液体の外部漏えいではない。",
+      "間違い。沸騰するおそれとしている点が誤りである。ガス工作物の技術上の基準を定める省令第31条第2項は、温水加熱の気化装置では、加熱部温水の凍結防止措置を要し、沸騰防止ではない。"
     ]
   },
   {
@@ -3947,11 +3843,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。凝縮液により機能の低下又は損傷のおそれがあるガスホルダーには、ガスホルダーの凝縮液を抜く装置を設ける必要がある。",
-      "正しい。過圧が生ずるおそれのある液化ガス用貯槽には、適切な安全弁を設け、その作動時に安全弁から吹き出されるガスによる障害が生じないように施設する必要がある。",
-      "正しい。低温貯槽には、負圧による破壊を防止するための適切な措置を講じる必要がある。",
-      "間違い。熱に対し十分に耐えるものとし、又は適切な冷却装置を設置する必要がある対象は、液化ガス用貯槽又は最高使用圧力が高圧のガスホルダー及びその支持物である。最高使用圧力が中圧以上のガスホルダーとしている点が誤り。",
-      "間違い。液化ガス用貯槽の防液堤設置義務の例外は、貯蔵能力が1000t未満のもの等である。貯蔵能力が2000t未満としている点が誤り。"
+      "正しい。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能低下又は損傷のおそれがあるガスホルダーには凝縮液を抜く装置を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第1項は、過圧のおそれがある液化ガス用貯槽には、安全弁と吹出しガスによる障害防止を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第2項は、低温貯槽には負圧による破壊を防止する措置を要する。",
+      "間違い。最高使用圧力が中圧以上のガスホルダーとしている点が誤り。ガス工作物の技術上の基準を定める省令第37条は、耐熱又は冷却措置の対象となるガスホルダーは最高使用圧力が高圧のものに限られ、中圧は含まれない。",
+      "間違い。貯蔵能力が2000t未満としている点が誤り。ガス工作物の技術上の基準を定める省令第38条第1項は、防液堤義務の貯蔵能力による例外は1000t未満であり、2000t未満ではない。"
     ],
     "suggestedQuestions": [
       "凝縮液で機能低下等のおそれがあるガスホルダーには何を設ける必要があるか？",
@@ -3964,32 +3860,27 @@
     "suggestedQuestionDetails": [
       {
         "question": "凝縮液で機能低下等のおそれがあるガスホルダーには何を設ける必要があるか？",
-        "answer": "凝縮液を抜く装置。",
-        "explanation": "正しい。凝縮液により機能の低下又は損傷のおそれがあるガスホルダーには、ガスホルダーの凝縮液を抜く装置を設ける必要がある。"
+        "answer": "凝縮液を抜く装置。"
       },
       {
         "question": "過圧のおそれがある液化ガス用貯槽には安全弁が必要か？",
-        "answer": "必要である。",
-        "explanation": "正しい。過圧が生ずるおそれのある液化ガス用貯槽には、適切な安全弁を設け、その作動時に安全弁から吹き出されるガスによる障害が生じないように施設する必要がある。"
+        "answer": "必要である。"
       },
       {
         "question": "低温貯槽には負圧破壊防止措置が必要か？",
-        "answer": "必要である。",
-        "explanation": "正しい。低温貯槽には、負圧による破壊を防止するための適切な措置を講じる必要がある。"
+        "answer": "必要である。"
       },
       {
         "question": "耐熱措置又は冷却装置が必要なガスホルダーの圧力区分は？",
-        "answer": "最高使用圧力が高圧のガスホルダー。",
-        "explanation": "間違い。熱に対し十分に耐えるものとし、又は適切な冷却装置を設置する必要がある対象は、液化ガス用貯槽又は最高使用圧力が高圧のガスホルダー及びその支持物である。最高使用圧力が中圧以上のガスホルダーとしている点が誤り。"
+        "answer": "最高使用圧力が高圧のガスホルダー。"
       },
       {
         "question": "防液堤設置義務の貯蔵能力による例外は何トン未満か？",
-        "answer": "1000t未満。",
-        "explanation": "間違い。液化ガス用貯槽の防液堤設置義務の例外は、貯蔵能力が1000t未満のもの等である。貯蔵能力が2000t未満としている点が誤り。"
+        "answer": "1000t未満。"
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第32条、ガス工作物の技術上の基準を定める省令 第35条、ガス工作物の技術上の基準を定める省令 第37条、ガス工作物の技術上の基準を定める省令 第38条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第32条第1項、ガス工作物の技術上の基準を定める省令第35条第1項、ガス工作物の技術上の基準を定める省令第35条第2項、ガス工作物の技術上の基準を定める省令第37条、ガス工作物の技術上の基準を定める省令第38条第1項。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -4032,20 +3923,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "32",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=32",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=32",
-          "reason": "正しい。凝縮液により機能の低下又は損傷のおそれがあるガスホルダーには、ガスホルダーの凝縮液を抜く装置を設ける必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能低下又は損傷のおそれがあるガスホルダーには凝縮液を抜く装置を要する。",
+          "paragraph": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "7e144e36c680edb3b6b80282307f2a994c08707945a7574efe8b2d16c98d3de9",
-          "rawXmlHash": "8f2ff3c145d9eeb52eb651de556d8e98780cdecc504dd2879b1f548124a09cfd",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_32_8f2ff3c145d9eeb5.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=32",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4054,20 +3943,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "35",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=35",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=35",
-          "reason": "正しい。過圧が生ずるおそれのある液化ガス用貯槽には、適切な安全弁を設け、その作動時に安全弁から吹き出されるガスによる障害が生じないように施設する必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第35条第1項は、過圧のおそれがある液化ガス用貯槽には、安全弁と吹出しガスによる障害防止を要する。",
+          "paragraph": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "45d5f13eb51c9655535017b57e37e670117a9ebb081e3360b9412ec440478ca0",
-          "rawXmlHash": "0d50032389d94206db16c2b357e2c768fc3686db686b76db4243ddc5bbadb32a",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_35_0d50032389d94206.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=35",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4076,20 +3963,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "35",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=35",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=35",
-          "reason": "正しい。低温貯槽には、負圧による破壊を防止するための適切な措置を講じる必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第35条第2項は、低温貯槽には負圧による破壊を防止する措置を要する。",
+          "paragraph": "2",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "45d5f13eb51c9655535017b57e37e670117a9ebb081e3360b9412ec440478ca0",
-          "rawXmlHash": "0d50032389d94206db16c2b357e2c768fc3686db686b76db4243ddc5bbadb32a",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_35_0d50032389d94206.xml",
-          "paragraph": "2"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=35",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4098,19 +3983,17 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "37",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=37",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=37",
-          "reason": "間違い。熱に対し十分に耐えるものとし、又は適切な冷却装置を設置する必要がある対象は、液化ガス用貯槽又は最高使用圧力が高圧のガスホルダー及びその支持物である。最高使用圧力が中圧以上のガスホルダーとしている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。最高使用圧力が中圧以上のガスホルダーとしている点が誤り。ガス工作物の技術上の基準を定める省令第37条は、耐熱又は冷却措置の対象となるガスホルダーは最高使用圧力が高圧のものに限られ、中圧は含まれない。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
-          "rawXmlHash": "86269577933916677d7963ea62f3830f10572971d8cf52bda58ab1f500f35ac0",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_37_8626957793391667.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=37",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4119,20 +4002,18 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "38",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=38",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=38",
-          "reason": "間違い。液化ガス用貯槽の防液堤設置義務の例外は、貯蔵能力が1000t未満のもの等である。貯蔵能力が2000t未満としている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。貯蔵能力が2000t未満としている点が誤り。ガス工作物の技術上の基準を定める省令第38条第1項は、防液堤義務の貯蔵能力による例外は1000t未満であり、2000t未満ではない。",
+          "paragraph": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "3ce9eeaa034c45e2c30e28745533ecbaa134b79b8f974b3e17dbbb449dbf5317",
-          "rawXmlHash": "da67585a93aed322c0fe02b3e30988059562c088f0ec44e14f37744ac0e4be58",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_38_da67585a93aed322.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=38",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -4400,6 +4281,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能低下又は損傷のおそれがあるガスホルダーには凝縮液を抜く装置を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第1項は、過圧のおそれがある液化ガス用貯槽には、安全弁と吹出しガスによる障害防止を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第2項は、低温貯槽には負圧による破壊を防止する措置を要する。",
+      "間違い。最高使用圧力が中圧以上のガスホルダーとしている点が誤り。ガス工作物の技術上の基準を定める省令第37条は、耐熱又は冷却措置の対象となるガスホルダーは最高使用圧力が高圧のものに限られ、中圧は含まれない。",
+      "間違い。貯蔵能力が2000t未満としている点が誤り。ガス工作物の技術上の基準を定める省令第38条第1項は、防液堤義務の貯蔵能力による例外は1000t未満であり、2000t未満ではない。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能低下又は損傷のおそれがあるガスホルダーには凝縮液を抜く装置を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第1項は、過圧のおそれがある液化ガス用貯槽には、安全弁と吹出しガスによる障害防止を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第2項は、低温貯槽には負圧による破壊を防止する措置を要する。",
+      "間違い。最高使用圧力が中圧以上のガスホルダーとしている点が誤り。ガス工作物の技術上の基準を定める省令第37条は、耐熱又は冷却措置の対象となるガスホルダーは最高使用圧力が高圧のものに限られ、中圧は含まれない。",
+      "間違い。貯蔵能力が2000t未満としている点が誤り。ガス工作物の技術上の基準を定める省令第38条第1項は、防液堤義務の貯蔵能力による例外は1000t未満であり、2000t未満ではない。"
     ]
   },
   {
@@ -4419,11 +4314,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。ガス出口側の形状がゴム管口又は迅速継手であるガス栓は、その形状がJISのガス栓規格に適合する必要がある。",
-      "正しい。水のたまるおそれのある導管には、適切な水取り器を設けなければならない。",
-      "正しい。道路以外の地盤面下に埋設される最高使用圧力が中圧以上の本支管には、他工事による損傷のおそれがないものを除き、掘削等による損傷を防止するための適切な措置を講じる必要がある。",
-      "間違い。外壁貫通部付近から直ちに遮断できる装置を設ける対象は、特定地下街等、特定地下室等、超高層建物及び特定大規模建物にガスを供給する導管等である。設問は高層建物にガスを供給する低圧導管としている点が誤り。",
-      "間違い。該当する取引用ガスメーターは、災害のおそれのある地震動、過大なガス流量又は異常なガス圧力の低下を検知した場合に遮断する機能が必要である。異常なガス圧力の上昇としている点が誤り。"
+      "正しい。ガス工作物の技術上の基準を定める省令第45条第1号は、告示対象のゴム管口又は迅速継手のガス栓は、定められた規格に適合する必要がある。",
+      "正しい。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管には適切な水取り器を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第3項は、道路以外に埋設する本支管は、低圧又は他工事による損傷のおそれがないものを除き、掘削損傷防止措置を要する。",
+      "間違い。設問は高層建物にガスを供給する低圧導管としている点が誤り。ガス工作物の技術上の基準を定める省令第49条第5項は、外壁貫通部付近での遠隔遮断を要する対象は特定地下街等、特定地下室等、超高層建物及び特定大規模建物であり、一般の高層建物への低圧供給ではない。",
+      "間違い。異常なガス圧力の上昇としている点が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、取引用ガスメーターの遮断対象は異常なガス圧力の低下であり、上昇ではない。"
     ],
     "suggestedQuestions": [
       "ゴム管口又は迅速継手のガス栓形状はJIS規格適合が必要か？",
@@ -4436,32 +4331,27 @@
     "suggestedQuestionDetails": [
       {
         "question": "ゴム管口又は迅速継手のガス栓形状はJIS規格適合が必要か？",
-        "answer": "必要である。ゴム管口又は迅速継手の形状はJISのガス栓規格に適合する必要がある。",
-        "explanation": "正しい。ガス出口側の形状がゴム管口又は迅速継手であるガス栓は、その形状がJISのガス栓規格に適合する必要がある。"
+        "answer": "必要である。ゴム管口又は迅速継手の形状はJISのガス栓規格に適合する必要がある。"
       },
       {
         "question": "水のたまるおそれのある導管には何を設ける必要があるか？",
-        "answer": "適切な水取り器を設ける。",
-        "explanation": "正しい。水のたまるおそれのある導管には、適切な水取り器を設けなければならない。"
+        "answer": "適切な水取り器を設ける。"
       },
       {
         "question": "道路以外の地盤面下に埋設される中圧以上の本支管には掘削損傷防止措置が必要か？",
-        "answer": "必要である。ただし、他工事による損傷のおそれがないものは除かれる。",
-        "explanation": "正しい。道路以外の地盤面下に埋設される最高使用圧力が中圧以上の本支管には、他工事による損傷のおそれがないものを除き、掘削等による損傷を防止するための適切な措置を講じる必要がある。"
+        "answer": "必要である。ただし、他工事による損傷のおそれがないものは除かれる。"
       },
       {
         "question": "高層建物へ供給する低圧導管は外壁貫通部付近の直ちに遮断できる装置の対象か？",
-        "answer": "対象ではない。対象は特定地下街等、特定地下室等、超高層建物及び特定大規模建物に供給する導管等であり、高層建物は含まれない。",
-        "explanation": "間違い。外壁貫通部付近から直ちに遮断できる装置を設ける対象は、特定地下街等、特定地下室等、超高層建物及び特定大規模建物にガスを供給する導管等である。設問は高層建物にガスを供給する低圧導管としている点が誤り。"
+        "answer": "対象ではない。対象は特定地下街等、特定地下室等、超高層建物及び特定大規模建物に供給する導管等であり、高層建物は含まれない。"
       },
       {
         "question": "取引用ガスメーターの遮断機能は異常なガス圧力の上昇を検知対象にするか？",
-        "answer": "しない。異常なガス圧力の低下が検知対象であり、上昇としている点が誤り。",
-        "explanation": "間違い。該当する取引用ガスメーターは、災害のおそれのある地震動、過大なガス流量又は異常なガス圧力の低下を検知した場合に遮断する機能が必要である。異常なガス圧力の上昇としている点が誤り。"
+        "answer": "しない。異常なガス圧力の低下が検知対象であり、上昇としている点が誤り。"
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第45条、ガス工作物の技術上の基準を定める省令 第46条、ガス工作物の技術上の基準を定める省令 第48条、ガス工作物の技術上の基準を定める省令 第49条、ガス工作物の技術上の基準を定める省令 第52条、ガス工作物の技術上の基準を定める省令 第50条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第45条第1号、ガス工作物の技術上の基準を定める省令第46条、ガス工作物の技術上の基準を定める省令第48条第3項、ガス工作物の技術上の基準を定める省令第49条第5項、ガス工作物の技術上の基準を定める省令第50条第1項。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -4504,19 +4394,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "45",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=45",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=45",
-          "reason": "正しい。ガス出口側の形状がゴム管口又は迅速継手であるガス栓は、その形状がJISのガス栓規格に適合する必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第45条第1号は、告示対象のゴム管口又は迅速継手のガス栓は、定められた規格に適合する必要がある。",
+          "item": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "4223c179dc0715b97c5cdad2be51cdaee7fea24e464f68066966707164bc3f81",
-          "rawXmlHash": "10be9e4a08f2ee52607cc392ad2aecf2379d0c8ac6586381e26394f68dbb62f9",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_45_10be9e4a08f2ee52.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=45",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4525,19 +4414,17 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "46",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=46",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=46",
-          "reason": "正しい。水のたまるおそれのある導管には、適切な水取り器を設けなければならない。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管には適切な水取り器を要する。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
-          "rawXmlHash": "fedb9cd678574cf16b416f2b1efbbf7bc9cb0b2fb2cf695c1e7bb4cb22f2820d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_46_fedb9cd678574cf1.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=46",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4546,19 +4433,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "48",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=48",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=48",
-          "reason": "正しい。道路以外の地盤面下に埋設される最高使用圧力が中圧以上の本支管には、他工事による損傷のおそれがないものを除き、掘削等による損傷を防止するための適切な措置を講じる必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第48条第3項は、道路以外に埋設する本支管は、低圧又は他工事による損傷のおそれがないものを除き、掘削損傷防止措置を要する。",
+          "paragraph": "3",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
-          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_48_52b18f715c6e938b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=48",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4567,38 +4453,18 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "49",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=49",
+          "source": "egov_law",
+          "reason": "間違い。設問は高層建物にガスを供給する低圧導管としている点が誤り。ガス工作物の技術上の基準を定める省令第49条第5項は、外壁貫通部付近での遠隔遮断を要する対象は特定地下街等、特定地下室等、超高層建物及び特定大規模建物であり、一般の高層建物への低圧供給ではない。",
+          "paragraph": "5",
+          "lawId": "412M50000400111",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=49",
-          "reason": "間違い。外壁貫通部付近から直ちに遮断できる装置を設ける対象は、特定地下街等、特定地下室等、超高層建物及び特定大規模建物にガスを供給する導管等である。設問は高層建物にガスを供給する低圧導管としている点が誤り。",
-          "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
-          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_49_4eef7aaa9230747d.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 3,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
-          "article": "52",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
-          "reason": "間違い。外壁貫通部付近から直ちに遮断できる装置を設ける対象は、特定地下街等、特定地下室等、超高層建物及び特定大規模建物にガスを供給する導管等である。設問は高層建物にガスを供給する低圧導管としている点が誤り。",
-          "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
-          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_52_a2341e0fb489a882.xml"
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -4607,19 +4473,18 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "50",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=50",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=50",
-          "reason": "間違い。該当する取引用ガスメーターは、災害のおそれのある地震動、過大なガス流量又は異常なガス圧力の低下を検知した場合に遮断する機能が必要である。異常なガス圧力の上昇としている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。異常なガス圧力の上昇としている点が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、取引用ガスメーターの遮断対象は異常なガス圧力の低下であり、上昇ではない。",
+          "paragraph": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
-          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_50_cee2e13380909329.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=50",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -4890,6 +4755,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第45条第1号は、告示対象のゴム管口又は迅速継手のガス栓は、定められた規格に適合する必要がある。",
+      "正しい。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管には適切な水取り器を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第3項は、道路以外に埋設する本支管は、低圧又は他工事による損傷のおそれがないものを除き、掘削損傷防止措置を要する。",
+      "間違い。設問は高層建物にガスを供給する低圧導管としている点が誤り。ガス工作物の技術上の基準を定める省令第49条第5項は、外壁貫通部付近での遠隔遮断を要する対象は特定地下街等、特定地下室等、超高層建物及び特定大規模建物であり、一般の高層建物への低圧供給ではない。",
+      "間違い。異常なガス圧力の上昇としている点が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、取引用ガスメーターの遮断対象は異常なガス圧力の低下であり、上昇ではない。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第45条第1号は、告示対象のゴム管口又は迅速継手のガス栓は、定められた規格に適合する必要がある。",
+      "正しい。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管には適切な水取り器を要する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第3項は、道路以外に埋設する本支管は、低圧又は他工事による損傷のおそれがないものを除き、掘削損傷防止措置を要する。",
+      "間違い。設問は高層建物にガスを供給する低圧導管としている点が誤り。ガス工作物の技術上の基準を定める省令第49条第5項は、外壁貫通部付近での遠隔遮断を要する対象は特定地下街等、特定地下室等、超高層建物及び特定大規模建物であり、一般の高層建物への低圧供給ではない。",
+      "間違い。異常なガス圧力の上昇としている点が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、取引用ガスメーターの遮断対象は異常なガス圧力の低下であり、上昇ではない。"
     ]
   },
   {
@@ -4909,11 +4788,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "間違い。ガス工作物の技術上の基準を定める省令第51条第2項ただし書では、屋外において埋設されていない部分は漏えい検査の対象外とされる。屋外非埋設部分にも4年に1回以上の検査が必要としている点が誤りである。",
-      "間違い。特定地下街等にガスを供給する導管等は同省令第51条第3項の対象であり、同項表では検査頻度が1年に1回以上とされる。6年に1回以上としている点が誤りである。",
-      "正しい。同省令第51条第3項ただし書は、ポリエチレン管を使用している場合、その使用している部分を漏えい検査の適用除外としている。",
-      "間違い。同省令第52条第1項で建物の内部又は基礎面下への設置が禁止されるのは、最高使用圧力が高圧の導管である。中圧の導管としている点が誤りである。",
-      "間違い。同省令第52条第3項は中圧導管で建物にガスを供給するものの設置方法を定めるが、工場等に設置されるものは除外されている。工場に供給する導管にも検知区域で外壁を貫通させる必要があるとしている点が誤りである。"
+      "間違い。屋外非埋設部分にも4年に1回以上の検査が必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第2項第4号ただし書は、屋外の非埋設部分は同項の漏えい検査義務の適用除外である。",
+      "間違い。6年に1回以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第3項は、特定地下街等に供給する導管は、適用除外部分を除き1年に1回以上の検査を要し、6年に1回ではない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項第3号ただし書は、ポリエチレン管を使用している部分は漏えい検査の適用除外である。",
+      "間違い。中圧の導管としている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第1項は、建物の内部又は基礎面下への設置が禁止されるのは最高使用圧力が高圧の導管であり、中圧ではない。",
+      "間違い。工場に供給する導管にも検知区域で外壁を貫通させる必要があるとしている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第3項第1号は、工場等に設置される中圧導管は、外壁貫通及び検知区域内設置の規定の除外対象である。"
     ],
     "suggestedQuestions": [
       "屋外で埋設されていない部分は漏えい検査の対象か？",
@@ -4946,7 +4825,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第51条、ガス工作物の技術上の基準を定める省令 第52条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第51条第2項第4号ただし書、ガス工作物の技術上の基準を定める省令第51条第3項、ガス工作物の技術上の基準を定める省令第51条第3項第3号ただし書、ガス工作物の技術上の基準を定める省令第52条第1項、ガス工作物の技術上の基準を定める省令第52条第3項第1号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -4989,19 +4868,19 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "51",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
-          "reason": "間違い。ガス工作物の技術上の基準を定める省令第51条第2項ただし書では、屋外において埋設されていない部分は漏えい検査の対象外とされる。屋外非埋設部分にも4年に1回以上の検査が必要としている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。屋外非埋設部分にも4年に1回以上の検査が必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第2項第4号ただし書は、屋外の非埋設部分は同項の漏えい検査義務の適用除外である。",
+          "paragraph": "2",
+          "item": "4",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
-          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_51_2d2150c3a71f855b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5010,19 +4889,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "51",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
-          "reason": "間違い。特定地下街等にガスを供給する導管等は同省令第51条第3項の対象であり、同項表では検査頻度が1年に1回以上とされる。6年に1回以上としている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。6年に1回以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第3項は、特定地下街等に供給する導管は、適用除外部分を除き1年に1回以上の検査を要し、6年に1回ではない。",
+          "paragraph": "3",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
-          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_51_2d2150c3a71f855b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5031,19 +4909,19 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "51",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
-          "reason": "正しい。同省令第51条第3項ただし書は、ポリエチレン管を使用している場合、その使用している部分を漏えい検査の適用除外としている。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第51条第3項第3号ただし書は、ポリエチレン管を使用している部分は漏えい検査の適用除外である。",
+          "paragraph": "3",
+          "item": "3",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
-          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_51_2d2150c3a71f855b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=51",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5052,20 +4930,18 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "52",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
-          "reason": "間違い。同省令第52条第1項で建物の内部又は基礎面下への設置が禁止されるのは、最高使用圧力が高圧の導管である。中圧の導管としている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。中圧の導管としている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第1項は、建物の内部又は基礎面下への設置が禁止されるのは最高使用圧力が高圧の導管であり、中圧ではない。",
+          "paragraph": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
-          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_52_a2341e0fb489a882.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5074,20 +4950,19 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "52",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
-          "reason": "間違い。同省令第52条第3項は中圧導管で建物にガスを供給するものの設置方法を定めるが、工場等に設置されるものは除外されている。工場に供給する導管にも検知区域で外壁を貫通させる必要があるとしている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。工場に供給する導管にも検知区域で外壁を貫通させる必要があるとしている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第3項第1号は、工場等に設置される中圧導管は、外壁貫通及び検知区域内設置の規定の除外対象である。",
+          "paragraph": "3",
+          "item": "1",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
-          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_52_a2341e0fb489a882.xml",
-          "paragraph": "3"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=52",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -5351,6 +5226,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。屋外非埋設部分にも4年に1回以上の検査が必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第2項第4号ただし書は、屋外の非埋設部分は同項の漏えい検査義務の適用除外である。",
+      "間違い。6年に1回以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第3項は、特定地下街等に供給する導管は、適用除外部分を除き1年に1回以上の検査を要し、6年に1回ではない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項第3号ただし書は、ポリエチレン管を使用している部分は漏えい検査の適用除外である。",
+      "間違い。中圧の導管としている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第1項は、建物の内部又は基礎面下への設置が禁止されるのは最高使用圧力が高圧の導管であり、中圧ではない。",
+      "間違い。工場に供給する導管にも検知区域で外壁を貫通させる必要があるとしている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第3項第1号は、工場等に設置される中圧導管は、外壁貫通及び検知区域内設置の規定の除外対象である。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。屋外非埋設部分にも4年に1回以上の検査が必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第2項第4号ただし書は、屋外の非埋設部分は同項の漏えい検査義務の適用除外である。",
+      "間違い。6年に1回以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第51条第3項は、特定地下街等に供給する導管は、適用除外部分を除き1年に1回以上の検査を要し、6年に1回ではない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項第3号ただし書は、ポリエチレン管を使用している部分は漏えい検査の適用除外である。",
+      "間違い。中圧の導管としている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第1項は、建物の内部又は基礎面下への設置が禁止されるのは最高使用圧力が高圧の導管であり、中圧ではない。",
+      "間違い。工場に供給する導管にも検知区域で外壁を貫通させる必要があるとしている点が誤りである。ガス工作物の技術上の基準を定める省令第52条第3項第1号は、工場等に設置される中圧導管は、外壁貫通及び検知区域内設置の規定の除外対象である。"
     ]
   },
   {
@@ -5370,11 +5259,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "間違い。ガス工作物の技術上の基準を定める省令第56条で、ガスの漏えいによる火災等の発生を防止するための適切な措置が求められるのは、最高使用圧力が高圧の整圧器である。中圧以上としている点が誤りである。",
-      "間違い。同省令第57条第2号では整圧器の入口に不純物を除去する装置を設けることを定めるが、一の使用者にガスを供給するためのものは例外である。一の使用者用にも必要としている点が誤りである。",
-      "間違い。同省令第57条第3号は、一の使用者にガスを供給するための整圧器に、ガス圧力の異常上昇を防止する装置を設けることを求めている。使用者の承諾を得られない場合の例外はない。",
-      "正しい。同省令第60条は、昇圧供給装置の圧縮できるガスの量を標準状態において毎時18.5m3未満と定めている。",
-      "正しい。同省令第63条は、昇圧供給装置について設置の日以後14月に1回以上適切な点検を行い、装置の異常が認められなかったものでなければ使用してはならないと定めている。"
+      "間違い。中圧以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第56条は、漏えいによる火災等防止措置の対象は最高使用圧力が高圧の整圧器であり、中圧以上ではない。",
+      "間違い。一の使用者用にも必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第57条第2号は、一の使用者に供給するための整圧器は、入口の不純物除去装置の例外である。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第57条第3号は、一の使用者に供給する整圧器の異常昇圧防止装置に、使用者承諾による例外はない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第60条は、昇圧供給装置の圧縮可能量は標準状態で毎時18.5立方メートル未満である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第63条は、昇圧供給装置は設置後14月に1回以上の点検で異常なしを確認しなければ使用できない。"
     ],
     "suggestedQuestions": [
       "漏えい火災等の防止措置が必要な整圧器はどれか？",
@@ -5387,32 +5276,27 @@
     "suggestedQuestionDetails": [
       {
         "question": "漏えい火災等の防止措置が必要な整圧器はどれか？",
-        "answer": "最高使用圧力が高圧の整圧器。",
-        "explanation": "省令第56条は高圧整圧器を対象としており、中圧以上ではない。"
+        "answer": "最高使用圧力が高圧の整圧器。"
       },
       {
         "question": "一の使用者に供給する整圧器の入口に不純物除去装置は必要か？",
-        "answer": "一の使用者に供給するものは例外。",
-        "explanation": "省令第57条第2号ただし書により、一の使用者用の整圧器は不純物除去装置の例外となる。"
+        "answer": "一の使用者に供給するものは例外。"
       },
       {
         "question": "一の使用者に供給する整圧器にはどの装置が必要か？",
-        "answer": "ガス圧力の異常上昇を防止する装置。",
-        "explanation": "省令第57条第3号は、一の使用者用の整圧器について圧力異常上昇防止装置を求めている。"
+        "answer": "ガス圧力の異常上昇を防止する装置。"
       },
       {
         "question": "昇圧供給装置の圧縮できるガス量の上限は？",
-        "answer": "標準状態で毎時18.5m3未満。",
-        "explanation": "省令第60条の昇圧限界に関する数値である。"
+        "answer": "標準状態で毎時18.5m3未満。"
       },
       {
         "question": "昇圧供給装置の点検周期は？",
-        "answer": "設置の日以後14月に1回以上。",
-        "explanation": "省令第63条の点検規定で、点検後に装置の異常が認められないことが使用条件となる。"
+        "answer": "設置の日以後14月に1回以上。"
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス工作物の技術上の基準を定める省令 第56条、ガス工作物の技術上の基準を定める省令 第57条、ガス工作物の技術上の基準を定める省令 第60条、ガス工作物の技術上の基準を定める省令 第63条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第56条、ガス工作物の技術上の基準を定める省令第57条第2号、ガス工作物の技術上の基準を定める省令第57条第3号、ガス工作物の技術上の基準を定める省令第60条、ガス工作物の技術上の基準を定める省令第63条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -5455,19 +5339,17 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "56",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56",
-          "reason": "間違い。ガス工作物の技術上の基準を定める省令第56条で、ガスの漏えいによる火災等の発生を防止するための適切な措置が求められるのは、最高使用圧力が高圧の整圧器である。中圧以上としている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。中圧以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第56条は、漏えいによる火災等防止措置の対象は最高使用圧力が高圧の整圧器であり、中圧以上ではない。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
-          "rawXmlHash": "7e696f21c336ce3fa28b2772f1f029b38f2ac42612b128778c6815f3780fc747",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_56_7e696f21c336ce3f.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=56",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5476,20 +5358,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "57",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
-          "reason": "間違い。同省令第57条第2号では整圧器の入口に不純物を除去する装置を設けることを定めるが、一の使用者にガスを供給するためのものは例外である。一の使用者用にも必要としている点が誤りである。",
+          "source": "egov_law",
+          "reason": "間違い。一の使用者用にも必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第57条第2号は、一の使用者に供給するための整圧器は、入口の不純物除去装置の例外である。",
+          "item": "2",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
-          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_57_9bad5e8438db1036.xml",
-          "paragraph": "2"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5498,20 +5378,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "57",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
-          "reason": "間違い。同省令第57条第3号は、一の使用者にガスを供給するための整圧器に、ガス圧力の異常上昇を防止する装置を設けることを求めている。使用者の承諾を得られない場合の例外はない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第57条第3号は、一の使用者に供給する整圧器の異常昇圧防止装置に、使用者承諾による例外はない。",
+          "item": "3",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
-          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_57_9bad5e8438db1036.xml",
-          "paragraph": "3"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5520,19 +5398,17 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "60",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=60",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=60",
-          "reason": "正しい。同省令第60条は、昇圧供給装置の圧縮できるガスの量を標準状態において毎時18.5m3未満と定めている。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第60条は、昇圧供給装置の圧縮可能量は標準状態で毎時18.5立方メートル未満である。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "7c2186b7df76bd87024a479b40ad29fdbabb08fde00541c032f70fe585270dd7",
-          "rawXmlHash": "2f1f70729dbfa0a2b71a037d50a1a5981c91132c4eeb590ee33f1beb2a111426",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_60_2f1f70729dbfa0a2.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=60",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5541,19 +5417,17 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "63",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=63",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=63",
-          "reason": "正しい。同省令第63条は、昇圧供給装置について設置の日以後14月に1回以上適切な点検を行い、装置の異常が認められなかったものでなければ使用してはならないと定めている。",
+          "source": "egov_law",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第63条は、昇圧供給装置は設置後14月に1回以上の点検で異常なしを確認しなければ使用できない。",
           "lawId": "412M50000400111",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "articleTextHash": "bc281ded307a1efefdab7fdffe9d7b5565e8a93f4ed10ce3fcd4ceb631feeaac",
-          "rawXmlHash": "b496f2b610c5391a55076d3b1460379ad70d7a0bc06c429a67319fae833ba324",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/412M50000400111_63_b496f2b610c5391a.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=63",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -5817,6 +5691,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。中圧以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第56条は、漏えいによる火災等防止措置の対象は最高使用圧力が高圧の整圧器であり、中圧以上ではない。",
+      "間違い。一の使用者用にも必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第57条第2号は、一の使用者に供給するための整圧器は、入口の不純物除去装置の例外である。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第57条第3号は、一の使用者に供給する整圧器の異常昇圧防止装置に、使用者承諾による例外はない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第60条は、昇圧供給装置の圧縮可能量は標準状態で毎時18.5立方メートル未満である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第63条は、昇圧供給装置は設置後14月に1回以上の点検で異常なしを確認しなければ使用できない。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。中圧以上としている点が誤りである。ガス工作物の技術上の基準を定める省令第56条は、漏えいによる火災等防止措置の対象は最高使用圧力が高圧の整圧器であり、中圧以上ではない。",
+      "間違い。一の使用者用にも必要としている点が誤りである。ガス工作物の技術上の基準を定める省令第57条第2号は、一の使用者に供給するための整圧器は、入口の不純物除去装置の例外である。",
+      "間違い。選択肢の記載が誤り。ガス工作物の技術上の基準を定める省令第57条第3号は、一の使用者に供給する整圧器の異常昇圧防止装置に、使用者承諾による例外はない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第60条は、昇圧供給装置の圧縮可能量は標準状態で毎時18.5立方メートル未満である。",
+      "正しい。ガス工作物の技術上の基準を定める省令第63条は、昇圧供給装置は設置後14月に1回以上の点検で異常なしを確認しなければ使用できない。"
     ]
   },
   {
@@ -5836,11 +5724,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正解。イは届出事業者が義務主体で、ロは検査記録を作成・保存する義務であり、どちらも正しい。",
-      "不正解。イは正しいが、ホは誤り。輸出用以外の特定用途に供するガス用品を販売又は販売目的で陳列する場合の適用除外は、経済産業大臣の承認を受けたときであり、届け出たときではない。",
-      "不正解。ロは正しいが、ハは誤り。義務履行後の表示は経済産業省令で定めるところにより付するもので、登録ガス用品検査機関が定めるものではない。",
-      "不正解。ハもニも誤り。表示は登録ガス用品検査機関ではなく経済産業省令で定めるところにより付し、輸出用のガス用品の販売又は販売目的陳列の適用除外は経済産業大臣に届け出たときである。",
-      "不正解。ニもホも誤り。輸出用は経済産業大臣に届け出たとき、輸出用以外の特定用途は経済産業大臣の承認を受けたときが適用除外であり、設問の語句は逆である。"
+      "正しい。ガス事業法第145条第1項は、届出事業者が技術基準適合、検査、検査記録の作成及び保存を行う。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第2号は、輸出用以外の特定用途に供するガス用品は、経済産業大臣の承認を要し、届出ではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第147条第1項は、表示方式を定めるのは経済産業省令であり、登録ガス用品検査機関ではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第147条第1項は、輸出用は届出で足り、表示方式は登録ガス用品検査機関が定めるものではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第138条第2項第2号は、輸出用は届出、輸出用以外の特定用途は承認であり、語句が逆である。"
     ],
     "suggestedQuestions": [
       "イ・ロの組合せは正しい？",
@@ -5873,7 +5761,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス事業法 第145条、ガス事業法 第147条、ガス事業法 第138条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス事業法第145条第1項、ガス事業法第138条第2項第2号、ガス事業法第147条第1項、ガス事業法第138条第2項第1号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -5915,57 +5803,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "145",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第145条第1項は、届出事業者が技術基準適合、検査、検査記録の作成及び保存を行う。",
+          "paragraph": "1",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
-          "reason": "正解。イは届出事業者が義務主体で、ロは検査記録を作成・保存する義務であり、どちらも正しい。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
-          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_145_3adee1e419e08868.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 0,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "147",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
-          "reason": "正解。イは届出事業者が義務主体で、ロは検査記録を作成・保存する義務であり、どちらも正しい。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
-          "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_147_96a2fbaeb4fcb415.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 0,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "138",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "reason": "正解。イは届出事業者が義務主体で、ロは検査記録を作成・保存する義務であり、どちらも正しい。",
-          "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
-          "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_138_08190a9abc36e76b.xml"
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -5974,38 +5823,19 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "145",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
-          "reason": "不正解。イは正しいが、ホは誤り。輸出用以外の特定用途に供するガス用品を販売又は販売目的で陳列する場合の適用除外は、経済産業大臣の承認を受けたときであり、届け出たときではない。",
-          "lawId": "329AC0000000051",
           "lawAlias": "ガス事業法",
-          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
-          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_145_3adee1e419e08868.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 1,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
           "article": "138",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "reason": "不正解。イは正しいが、ホは誤り。輸出用以外の特定用途に供するガス用品を販売又は販売目的で陳列する場合の適用除外は、経済産業大臣の承認を受けたときであり、届け出たときではない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第2号は、輸出用以外の特定用途に供するガス用品は、経済産業大臣の承認を要し、届出ではない。",
+          "paragraph": "2",
+          "item": "2",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
-          "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_138_08190a9abc36e76b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -6014,38 +5844,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "145",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=145",
-          "reason": "不正解。ロは正しいが、ハは誤り。義務履行後の表示は経済産業省令で定めるところにより付するもので、登録ガス用品検査機関が定めるものではない。",
-          "lawId": "329AC0000000051",
           "lawAlias": "ガス事業法",
-          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
-          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_145_3adee1e419e08868.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 2,
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
           "article": "147",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
-          "reason": "不正解。ロは正しいが、ハは誤り。義務履行後の表示は経済産業省令で定めるところにより付するもので、登録ガス用品検査機関が定めるものではない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第147条第1項は、表示方式を定めるのは経済産業省令であり、登録ガス用品検査機関ではない。",
+          "paragraph": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
-          "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_147_96a2fbaeb4fcb415.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -6054,38 +5864,37 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "147",
+          "lawAlias": "ガス事業法",
+          "article": "138",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
-          "reason": "不正解。ハもニも誤り。表示は登録ガス用品検査機関ではなく経済産業省令で定めるところにより付し、輸出用のガス用品の販売又は販売目的陳列の適用除外は経済産業大臣に届け出たときである。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第147条第1項は、輸出用は届出で足り、表示方式は登録ガス用品検査機関が定めるものではない。",
+          "paragraph": "2",
+          "item": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
-          "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_147_96a2fbaeb4fcb415.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
+          "appLinkMode": "egov_api"
         },
         {
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "138",
+          "lawAlias": "ガス事業法",
+          "article": "147",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "reason": "不正解。ハもニも誤り。表示は登録ガス用品検査機関ではなく経済産業省令で定めるところにより付し、輸出用のガス用品の販売又は販売目的陳列の適用除外は経済産業大臣に届け出たときである。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第147条第1項は、輸出用は届出で足り、表示方式は登録ガス用品検査機関が定めるものではない。",
+          "paragraph": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
-          "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_138_08190a9abc36e76b.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=147",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -6094,19 +5903,38 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "138",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
-          "reason": "不正解。ニもホも誤り。輸出用は経済産業大臣に届け出たとき、輸出用以外の特定用途は経済産業大臣の承認を受けたときが適用除外であり、設問の語句は逆である。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第138条第2項第2号は、輸出用は届出、輸出用以外の特定用途は承認であり、語句が逆である。",
+          "paragraph": "2",
+          "item": "1",
           "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
+          "appLinkMode": "egov_api"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
-          "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
-          "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_138_08190a9abc36e76b.xml"
+          "article": "138",
+          "referenceDate": "2026-07-11",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第138条第2項第2号は、輸出用は届出、輸出用以外の特定用途は承認であり、語句が逆である。",
+          "paragraph": "2",
+          "item": "2",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=138",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -6421,6 +6249,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス事業法第145条第1項は、届出事業者が技術基準適合、検査、検査記録の作成及び保存を行う。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第2号は、輸出用以外の特定用途に供するガス用品は、経済産業大臣の承認を要し、届出ではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第147条第1項は、表示方式を定めるのは経済産業省令であり、登録ガス用品検査機関ではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第147条第1項は、輸出用は届出で足り、表示方式は登録ガス用品検査機関が定めるものではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第138条第2項第2号は、輸出用は届出、輸出用以外の特定用途は承認であり、語句が逆である。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス事業法第145条第1項は、届出事業者が技術基準適合、検査、検査記録の作成及び保存を行う。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第2号は、輸出用以外の特定用途に供するガス用品は、経済産業大臣の承認を要し、届出ではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第147条第1項は、表示方式を定めるのは経済産業省令であり、登録ガス用品検査機関ではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第147条第1項は、輸出用は届出で足り、表示方式は登録ガス用品検査機関が定めるものではない。",
+      "間違い。選択肢の記載が誤り。ガス事業法第138条第2項第1号、ガス事業法第138条第2項第2号は、輸出用は届出、輸出用以外の特定用途は承認であり、語句が逆である。"
     ]
   },
   {
@@ -6440,11 +6282,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "間違い。ガス事業法第159条第1項は、ガス小売事業者が消費機器を使用する者に対し、ガスの使用に伴う危険の発生の防止に関し必要な事項を周知させることを求めている。周知先を消費機器の所有者又は占有者としている点が誤り。",
-      "正しい。ガス小売事業者は、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならない。設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないときは、この限りでない。",
-      "正しい。ガス小売事業者は、調査の結果、消費機器が技術上の基準に適合していないと認めるときは、遅滞なく、基準に適合させるためにとるべき措置及びその措置をとらなかった場合の結果を所有者又は占有者に通知しなければならない。",
-      "正しい。ガス小売事業者は、消費機器に関する調査及び調査結果に基づく通知の業務について、帳簿を備え、経済産業省令で定める事項を記載し、保存しなければならない。",
-      "間違い。経済産業大臣が命ずることができるのは、消費機器の所有者又は占有者に対し、技術上の基準に適合するように消費機器を修理し、改造し、又は移転すべきことである。使用を一時停止すべきことを命ずるとしている点が誤り。"
+      "間違い。周知先を消費機器の所有者又は占有者としている点が誤り。ガス事業法第159条第1項は、周知対象は消費機器を使用する者であり、所有者又は占有者ではない。",
+      "正しい。ガス事業法第159条第2項は、技術基準適合調査と、立入り承諾を得られない場合の例外を定める。",
+      "正しい。ガス事業法第159条第3項は、不適合時には、適合のための措置及び不実施の場合の結果を所有者又は占有者へ通知する。",
+      "正しい。ガス事業法第159条第6項は、調査及び通知の業務に関する帳簿の記載・保存を要する。",
+      "間違い。使用を一時停止すべきことを命ずるとしている点が誤り。ガス事業法第161条は、大臣が命じ得るのは修理、改造又は移転であり、使用の一時停止ではない。"
     ],
     "suggestedQuestions": [
       "ガス小売事業者が危険防止事項を周知する相手は誰か？",
@@ -6477,7 +6319,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス事業法 第159条、ガス事業法施行規則 第200条、ガス事業法施行規則 第205条、ガス事業法 第161条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス事業法第159条第1項、ガス事業法第159条第2項、ガス事業法第159条第3項、ガス事業法第159条第6項、ガス事業法第161条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -6528,20 +6370,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "159",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "reason": "間違い。ガス事業法第159条第1項は、ガス小売事業者が消費機器を使用する者に対し、ガスの使用に伴う危険の発生の防止に関し必要な事項を周知させることを求めている。周知先を消費機器の所有者又は占有者としている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。周知先を消費機器の所有者又は占有者としている点が誤り。ガス事業法第159条第1項は、周知対象は消費機器を使用する者であり、所有者又は占有者ではない。",
+          "paragraph": "1",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
-          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_159_c690236f0f0959bc.xml",
-          "paragraph": "1"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -6550,39 +6390,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "159",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "reason": "正しい。ガス小売事業者は、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならない。設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないときは、この限りでない。",
-          "lawId": "329AC0000000051",
           "lawAlias": "ガス事業法",
-          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
-          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_159_c690236f0f0959bc.xml",
-          "paragraph": "2"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 1,
-          "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "200",
+          "article": "159",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=200",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=200",
-          "reason": "正しい。ガス小売事業者は、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならない。設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないときは、この限りでない。",
-          "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "dddb05cadc2fd442a1c7443aeaf46671d320382572817211761a407605255e37",
-          "rawXmlHash": "41945a94cc8b861f0fb3c5f50653e5c6d613d72918aa2f39b6ba08f23a9030ae",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_200_41945a94cc8b861f.xml"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第159条第2項は、技術基準適合調査と、立入り承諾を得られない場合の例外を定める。",
+          "paragraph": "2",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -6591,20 +6410,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "159",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "reason": "正しい。ガス小売事業者は、調査の結果、消費機器が技術上の基準に適合していないと認めるときは、遅滞なく、基準に適合させるためにとるべき措置及びその措置をとらなかった場合の結果を所有者又は占有者に通知しなければならない。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第159条第3項は、不適合時には、適合のための措置及び不実施の場合の結果を所有者又は占有者へ通知する。",
+          "paragraph": "3",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
-          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_159_c690236f0f0959bc.xml",
-          "paragraph": "3"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -6613,39 +6430,18 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
-          "article": "159",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
-          "reason": "正しい。ガス小売事業者は、消費機器に関する調査及び調査結果に基づく通知の業務について、帳簿を備え、経済産業省令で定める事項を記載し、保存しなければならない。",
-          "lawId": "329AC0000000051",
           "lawAlias": "ガス事業法",
-          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
-          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_159_c690236f0f0959bc.xml",
-          "paragraph": "6"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 3,
-          "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "205",
+          "article": "159",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=205",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=205",
-          "reason": "正しい。ガス小売事業者は、消費機器に関する調査及び調査結果に基づく通知の業務について、帳簿を備え、経済産業省令で定める事項を記載し、保存しなければならない。",
-          "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "3bc1ca953e66ef00b8277228708d42b9330882c5f13bdce3f99853c74cbd19b5",
-          "rawXmlHash": "2fb1e92c3d1f5d9201266942c77a0fbdacec1fdd9b54e53375eea0f787382292",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_205_2fb1e92c3d1f5d92.xml"
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法第159条第6項は、調査及び通知の業務に関する帳簿の記載・保存を要する。",
+          "paragraph": "6",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=159",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -6654,19 +6450,17 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法",
           "article": "161",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=161",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=161",
-          "reason": "間違い。経済産業大臣が命ずることができるのは、消費機器の所有者又は占有者に対し、技術上の基準に適合するように消費機器を修理し、改造し、又は移転すべきことである。使用を一時停止すべきことを命ずるとしている点が誤り。",
+          "source": "egov_law",
+          "reason": "間違い。使用を一時停止すべきことを命ずるとしている点が誤り。ガス事業法第161条は、大臣が命じ得るのは修理、改造又は移転であり、使用の一時停止ではない。",
           "lawId": "329AC0000000051",
-          "lawAlias": "ガス事業法",
-          "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
-          "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/329AC0000000051_161_81fd7941e7f60a28.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=161",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -6956,6 +6750,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "間違い。周知先を消費機器の所有者又は占有者としている点が誤り。ガス事業法第159条第1項は、周知対象は消費機器を使用する者であり、所有者又は占有者ではない。",
+      "正しい。ガス事業法第159条第2項は、技術基準適合調査と、立入り承諾を得られない場合の例外を定める。",
+      "正しい。ガス事業法第159条第3項は、不適合時には、適合のための措置及び不実施の場合の結果を所有者又は占有者へ通知する。",
+      "正しい。ガス事業法第159条第6項は、調査及び通知の業務に関する帳簿の記載・保存を要する。",
+      "間違い。使用を一時停止すべきことを命ずるとしている点が誤り。ガス事業法第161条は、大臣が命じ得るのは修理、改造又は移転であり、使用の一時停止ではない。"
+    ],
+    "lawGroundedExplanationText": [
+      "間違い。周知先を消費機器の所有者又は占有者としている点が誤り。ガス事業法第159条第1項は、周知対象は消費機器を使用する者であり、所有者又は占有者ではない。",
+      "正しい。ガス事業法第159条第2項は、技術基準適合調査と、立入り承諾を得られない場合の例外を定める。",
+      "正しい。ガス事業法第159条第3項は、不適合時には、適合のための措置及び不実施の場合の結果を所有者又は占有者へ通知する。",
+      "正しい。ガス事業法第159条第6項は、調査及び通知の業務に関する帳簿の記載・保存を要する。",
+      "間違い。使用を一時停止すべきことを命ずるとしている点が誤り。ガス事業法第161条は、大臣が命じ得るのは修理、改造又は移転であり、使用の一時停止ではない。"
     ]
   },
   {
@@ -6975,11 +6783,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気のための開口部を設けた室に設置する基準の対象であり、排気筒を設けない扱いが認められる。",
-      "正しい。屋内に設置する自然排気式燃焼器の排気筒材料は、告示で定める規格に適合するもの又は同等以上のものとされている。",
-      "正しい。排気扇を接続していない自然排気式燃焼器の排気筒は、燃焼器の排気部との接続部の有効断面積より小さくない必要がある。",
-      "正しい。密閉燃焼式のガスふろがまの給排気部は、燃焼が妨げられないよう十分な風量が確保される形状である必要がある。",
-      "間違い。特定地下街等に設置される燃焼器にはガス漏れ警報設備を設ける基準があり、低圧燃焼器について自動ガス遮断装置又はガス漏れ警報器としている点が適切でない。"
+      "正しい。ガス事業法施行規則第202条第5号は、12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気開口部を設けた室に設置する対象で、排気筒必置の第1号ロの対象外である。",
+      "正しい。ガス事業法施行規則第202条第2号は、屋内の自然排気式燃焼器の排気筒材料は告示規格適合又は同等以上を要する。",
+      "正しい。ガス事業法施行規則第202条第2号は、排気扇を接続しない自然排気式燃焼器の排気筒断面積は、燃焼器の排気部接続部より小さくできない。",
+      "正しい。ガス事業法施行規則第202条第6号は、密閉燃焼式燃焼器の給排気部は燃焼を妨げない十分な風量を確保する形状を要する。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第202条第8号は、特定地下街等又は特定地下室等の燃焼器には、告示規格適合のガス漏れ警報設備を設ける。自動遮断装置又はガス漏れ警報器の選択規定ではない。"
     ],
     "suggestedQuestions": [
       "12kW以下のガス瞬間湯沸器はどのような室に設置する必要がある？",
@@ -7012,7 +6820,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、ガス事業法施行規則 第202条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、ガス事業法施行規則第202条第5号、ガス事業法施行規則第202条第2号、ガス事業法施行規則第202条第6号、ガス事業法施行規則第202条第8号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -7067,19 +6875,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法施行規則",
           "article": "202",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "reason": "正しい。12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気のための開口部を設けた室に設置する基準の対象であり、排気筒を設けない扱いが認められる。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第202条第5号は、12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気開口部を設けた室に設置する対象で、排気筒必置の第1号ロの対象外である。",
+          "item": "5",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_202_cf8dcd0498d0f4d5.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7088,19 +6895,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法施行規則",
           "article": "202",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "reason": "正しい。屋内に設置する自然排気式燃焼器の排気筒材料は、告示で定める規格に適合するもの又は同等以上のものとされている。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第202条第2号は、屋内の自然排気式燃焼器の排気筒材料は告示規格適合又は同等以上を要する。",
+          "item": "2",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_202_cf8dcd0498d0f4d5.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7109,19 +6915,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法施行規則",
           "article": "202",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "reason": "正しい。排気扇を接続していない自然排気式燃焼器の排気筒は、燃焼器の排気部との接続部の有効断面積より小さくない必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第202条第2号は、排気扇を接続しない自然排気式燃焼器の排気筒断面積は、燃焼器の排気部接続部より小さくできない。",
+          "item": "2",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_202_cf8dcd0498d0f4d5.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7130,19 +6935,18 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法施行規則",
           "article": "202",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "reason": "正しい。密閉燃焼式のガスふろがまの給排気部は、燃焼が妨げられないよう十分な風量が確保される形状である必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第202条第6号は、密閉燃焼式燃焼器の給排気部は燃焼を妨げない十分な風量を確保する形状を要する。",
+          "item": "6",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_202_cf8dcd0498d0f4d5.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7151,19 +6955,18 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "ガス事業法施行規則",
           "article": "202",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "reason": "間違い。特定地下街等に設置される燃焼器にはガス漏れ警報設備を設ける基準があり、低圧燃焼器について自動ガス遮断装置又はガス漏れ警報器としている点が適切でない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。ガス事業法施行規則第202条第8号は、特定地下街等又は特定地下室等の燃焼器には、告示規格適合のガス漏れ警報設備を設ける。自動遮断装置又はガス漏れ警報器の選択規定ではない。",
+          "item": "8",
           "lawId": "345M50000400097",
-          "lawAlias": "ガス事業法施行規則",
-          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
-          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/345M50000400097_202_cf8dcd0498d0f4d5.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -7423,6 +7226,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第5号は、12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気開口部を設けた室に設置する対象で、排気筒必置の第1号ロの対象外である。",
+      "正しい。ガス事業法施行規則第202条第2号は、屋内の自然排気式燃焼器の排気筒材料は告示規格適合又は同等以上を要する。",
+      "正しい。ガス事業法施行規則第202条第2号は、排気扇を接続しない自然排気式燃焼器の排気筒断面積は、燃焼器の排気部接続部より小さくできない。",
+      "正しい。ガス事業法施行規則第202条第6号は、密閉燃焼式燃焼器の給排気部は燃焼を妨げない十分な風量を確保する形状を要する。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第202条第8号は、特定地下街等又は特定地下室等の燃焼器には、告示規格適合のガス漏れ警報設備を設ける。自動遮断装置又はガス漏れ警報器の選択規定ではない。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第5号は、12kW以下のガス瞬間湯沸器は、換気扇又は有効な給排気開口部を設けた室に設置する対象で、排気筒必置の第1号ロの対象外である。",
+      "正しい。ガス事業法施行規則第202条第2号は、屋内の自然排気式燃焼器の排気筒材料は告示規格適合又は同等以上を要する。",
+      "正しい。ガス事業法施行規則第202条第2号は、排気扇を接続しない自然排気式燃焼器の排気筒断面積は、燃焼器の排気部接続部より小さくできない。",
+      "正しい。ガス事業法施行規則第202条第6号は、密閉燃焼式燃焼器の給排気部は燃焼を妨げない十分な風量を確保する形状を要する。",
+      "間違い。選択肢の記載が誤り。ガス事業法施行規則第202条第8号は、特定地下街等又は特定地下室等の燃焼器には、告示規格適合のガス漏れ警報設備を設ける。自動遮断装置又はガス漏れ警報器の選択規定ではない。"
     ]
   },
   {
@@ -7442,11 +7259,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
     "explanationText": [
-      "正しい。特監法では、特定工事を特定ガス消費機器の設置又は変更の工事（経済産業省令で定める軽微なものを除く。）と定義している。",
-      "正しい。特定工事を実地に監督する者は、監督の職務を行うときに資格証又は液化石油ガス設備士免状を携帯する必要がある。",
-      "正しい。特定工事に従事する者は、実地に監督する者が監督上必要と認めて行う指示に従わなければならない。",
-      "間違い。特監法で経済産業大臣が求めることができるのは、特定工事事業者に対する施工に関する報告であり、職員に事業場へ立ち入って帳簿等を検査させる規定ではない。",
-      "正しい。特定工事事業者は、施工後に特定ガス消費機器の見やすい場所へ氏名又は名称、施工年月日その他の定められた事項を表示しなければならない。"
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第2条第2項は、特定工事は、特定ガス消費機器の設置又は変更工事から省令上の軽微工事を除くものをいう。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第3項は、実地監督者は監督職務中に資格証又は液化石油ガス設備士免状を携帯する。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第2項は、特定工事従事者は監督上必要な指示に従わなければならない。",
+      "間違い。選択肢の記載が誤り。特定ガス消費機器の設置工事の監督に関する法律第7条は、大臣の権限は特定工事事業者への施工に関する報告徴収であり、立入検査ではない。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後、対象機器の見やすい場所に氏名等と施工年月日その他省令事項を表示する。"
     ],
     "suggestedQuestions": [
       "特監法の「特定工事」とは何か？",
@@ -7479,7 +7296,7 @@
       },
       {
         "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "主な根拠は、特定ガス消費機器の設置工事の監督に関する法律 第2条、特定ガス消費機器の設置工事の監督に関する法律 第5条、特定ガス消費機器の設置工事の監督に関する法律 第7条、特定ガス消費機器の設置工事の監督に関する法律 第6条、特定ガス消費機器の設置工事の監督に関する法律施行規則 第15条。現行一次根拠では解説の正誤判断を変更する必要はない。"
+        "answer": "根拠は、特定ガス消費機器の設置工事の監督に関する法律第2条第2項、特定ガス消費機器の設置工事の監督に関する法律第5条第3項、特定ガス消費機器の設置工事の監督に関する法律第5条第2項、特定ガス消費機器の設置工事の監督に関する法律第7条、特定ガス消費機器の設置工事の監督に関する法律第6条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -7530,20 +7347,18 @@
           "scope": "choice",
           "choiceIndex": 0,
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "2",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=2",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=2",
-          "reason": "正しい。特監法では、特定工事を特定ガス消費機器の設置又は変更の工事（経済産業省令で定める軽微なものを除く。）と定義している。",
+          "source": "egov_law",
+          "reason": "正しい。特定ガス消費機器の設置工事の監督に関する法律第2条第2項は、特定工事は、特定ガス消費機器の設置又は変更工事から省令上の軽微工事を除くものをいう。",
+          "paragraph": "2",
           "lawId": "354AC0000000033",
-          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
-          "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
-          "rawXmlHash": "6eef6d4dc6007d2ac2efab5add13feee94545e18a2b636082218fc07bffe3be4",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/354AC0000000033_2_6eef6d4dc6007d2a.xml",
-          "paragraph": "2"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=2",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7552,20 +7367,18 @@
           "scope": "choice",
           "choiceIndex": 1,
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "5",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=5",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=5",
-          "reason": "正しい。特定工事を実地に監督する者は、監督の職務を行うときに資格証又は液化石油ガス設備士免状を携帯する必要がある。",
+          "source": "egov_law",
+          "reason": "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第3項は、実地監督者は監督職務中に資格証又は液化石油ガス設備士免状を携帯する。",
+          "paragraph": "3",
           "lawId": "354AC0000000033",
-          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
-          "articleTextHash": "387eb64d0ccbff7e0b73aaa1fae9899bb735dca615d9776b94955603d8421fd3",
-          "rawXmlHash": "1a3e61a90fc8b6ef3ec4b039f5cf99cc083536ad4a550b3da6868a88579528ab",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/354AC0000000033_5_1a3e61a90fc8b6ef.xml",
-          "paragraph": "3"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=5",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7574,20 +7387,18 @@
           "scope": "choice",
           "choiceIndex": 2,
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "5",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=5",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=5",
-          "reason": "正しい。特定工事に従事する者は、実地に監督する者が監督上必要と認めて行う指示に従わなければならない。",
+          "source": "egov_law",
+          "reason": "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第2項は、特定工事従事者は監督上必要な指示に従わなければならない。",
+          "paragraph": "2",
           "lawId": "354AC0000000033",
-          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
-          "articleTextHash": "387eb64d0ccbff7e0b73aaa1fae9899bb735dca615d9776b94955603d8421fd3",
-          "rawXmlHash": "1a3e61a90fc8b6ef3ec4b039f5cf99cc083536ad4a550b3da6868a88579528ab",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/354AC0000000033_5_1a3e61a90fc8b6ef.xml",
-          "paragraph": "2"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=5",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7596,19 +7407,17 @@
           "scope": "choice",
           "choiceIndex": 3,
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-10",
+          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "7",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=7",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=7",
-          "reason": "間違い。特監法で経済産業大臣が求めることができるのは、特定工事事業者に対する施工に関する報告であり、職員に事業場へ立ち入って帳簿等を検査させる規定ではない。",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の記載が誤り。特定ガス消費機器の設置工事の監督に関する法律第7条は、大臣の権限は特定工事事業者への施工に関する報告徴収であり、立入検査ではない。",
           "lawId": "354AC0000000033",
-          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
-          "articleTextHash": "9ce11f5644360034beb8e6b71538d17bcd8ec8a68c93edc154a9acde612f9f1d",
-          "rawXmlHash": "eb497fe8843b99c59b939c195217467bf017528fa9a90c678c049d2e9b0096c9",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/354AC0000000033_7_eb497fe8843b99c5.xml"
+          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=7",
+          "appLinkMode": "egov_api"
         }
       ],
       [
@@ -7617,38 +7426,17 @@
           "scope": "choice",
           "choiceIndex": 4,
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-10",
-          "article": "6",
-          "verificationStatus": "verified",
-          "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=6",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=6",
-          "reason": "正しい。特定工事事業者は、施工後に特定ガス消費機器の見やすい場所へ氏名又は名称、施工年月日その他の定められた事項を表示しなければならない。",
-          "lawId": "354AC0000000033",
           "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
-          "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
-          "rawXmlHash": "e0f0c3d02183fdf0d10baa3feb4fad74e277ba497ee9415895873376eb64fc92",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/354AC0000000033_6_e0f0c3d02183fdf0.xml"
-        },
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 4,
-          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
-          "referenceDate": "2026-07-10",
-          "article": "15",
+          "article": "6",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_xml",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354M50000400077;article=15",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354M50000400077;article=15",
-          "reason": "正しい。特定工事事業者は、施工後に特定ガス消費機器の見やすい場所へ氏名又は名称、施工年月日その他の定められた事項を表示しなければならない。",
-          "lawId": "354M50000400077",
-          "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
-          "articleTextHash": "fb994010530d4962a4191b39e77836d3a98e6427e3dc0a4a2227f4f441bf8e09",
-          "rawXmlHash": "a08cd74ec567b373df557a93195352a72c194abf1b9f9bbabad5619357f52b6d",
-          "rawXmlPath": "output/gas-shunin-all/review/primary_law_evidence/raw_xml/20260710_120000_otsu2019_year/354M50000400077_15_a08cd74ec567b373.xml"
+          "source": "egov_law",
+          "reason": "正しい。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後、対象機器の見やすい場所に氏名等と施工年月日その他省令事項を表示する。",
+          "lawId": "354AC0000000033",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=6",
+          "appLinkMode": "egov_api"
         }
       ]
     ],
@@ -7925,6 +7713,20 @@
           ]
         }
       }
+    ],
+    "suggestedExplanationText": [
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第2条第2項は、特定工事は、特定ガス消費機器の設置又は変更工事から省令上の軽微工事を除くものをいう。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第3項は、実地監督者は監督職務中に資格証又は液化石油ガス設備士免状を携帯する。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第2項は、特定工事従事者は監督上必要な指示に従わなければならない。",
+      "間違い。選択肢の記載が誤り。特定ガス消費機器の設置工事の監督に関する法律第7条は、大臣の権限は特定工事事業者への施工に関する報告徴収であり、立入検査ではない。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後、対象機器の見やすい場所に氏名等と施工年月日その他省令事項を表示する。"
+    ],
+    "lawGroundedExplanationText": [
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第2条第2項は、特定工事は、特定ガス消費機器の設置又は変更工事から省令上の軽微工事を除くものをいう。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第3項は、実地監督者は監督職務中に資格証又は液化石油ガス設備士免状を携帯する。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第2項は、特定工事従事者は監督上必要な指示に従わなければならない。",
+      "間違い。選択肢の記載が誤り。特定ガス消費機器の設置工事の監督に関する法律第7条は、大臣の権限は特定工事事業者への施工に関する報告徴収であり、立入検査ではない。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後、対象機器の見やすい場所に氏名等と施工年月日その他省令事項を表示する。"
     ]
   },
   {
