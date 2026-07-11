@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 187,
+  "auditKey": "gas-shunin:otsu:2021:law:q06:8df2fa643116",
+  "auditInputHash": "c517c8e1cd4a3e7442c73e76e95839c3286656e30d17103460f31d121626f782",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:17:54+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第32条第1項は、工事計画の届出対象を、ガス小売事業用ガス工作物の設置又は変更の工事で経済産業省令に定めるものとしている。",
+      "間違い。選択肢の「完成検査」が誤り。ガス事業法第33条第1項は、届出に係るガス工作物の工事についてガス小売事業者が行う検査を自主検査と定めている。",
+      "間違い。選択肢の「届出を提出した日」が誤り。ガス事業法第32条第3項は、工事開始制限の30日を、届出が受理された日から起算すると定めている。",
+      "正しい。ガス事業法第33条第1項は、自主検査の結果について経済産業大臣の登録を受けた者が行う検査を受け、合格した後でなければ対象ガス工作物を使用できないと定めている。",
+      "正しい。ガス事業法第32条第1項は、工事計画の届出先を経済産業大臣と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事計画届出の対象工事は？",
+      "使用前に事業者が行う検査は？",
+      "工事開始制限の起算日は？",
+      "自主検査後に必要な検査は？",
+      "工事計画の届出先は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事計画届出の対象工事は？",
+        "answer": "ガス小売事業用ガス工作物の設置又は変更工事で、省令に定めるもの。"
+      },
+      {
+        "question": "使用前に事業者が行う検査は？",
+        "answer": "完成検査ではなく自主検査。"
+      },
+      {
+        "question": "工事開始制限の起算日は？",
+        "answer": "届出を提出した日ではなく、受理された日。"
+      },
+      {
+        "question": "自主検査後に必要な検査は？",
+        "answer": "経済産業大臣の登録を受けた者が行う検査。"
+      },
+      {
+        "question": "工事計画の届出先は？",
+        "answer": "経済産業大臣。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第32条第1項・第3項及び第33条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "32",
+          "paragraph": "1",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "33",
+          "paragraph": "1",
+          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+          "rawXmlHash": "ae83c40e886ef71fc42786356910b24878b9beaae1cdb5a4bf928967f213cac0"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "32",
+          "paragraph": "3",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "33",
+          "paragraph": "1",
+          "articleTextHash": "6c2784d414cb2f64b3e0228266cfd94ba99ca4bcb608c63614b3d4208ebe5358",
+          "rawXmlHash": "ae83c40e886ef71fc42786356910b24878b9beaae1cdb5a4bf928967f213cac0"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "32",
+          "paragraph": "1",
+          "articleTextHash": "2a44d7d25b7694435d969b01badae5f58165a18d5c63bb4b5380a16d1d9b3c4f",
+          "rawXmlHash": "46602555b866d8e1c72276691d92c43e0f0316c80552d3537113f523b36dcd7d"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、正しい、正しいは現行法令と一致する。",
+    "空欄(ニ)の完成検査は自主検査、空欄(ハ)の提出日は受理日が正しいことを明示した。",
+    "誤っている空欄(ニ)・(ハ)の組合せがanswer_result_textの正解4と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "32",
+        "33"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:18:56Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
