@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 189,
+  "auditKey": "gas-shunin:otsu:2021:law:q08:1b7e288b21cb",
+  "auditInputHash": "c02f80648b4e6e54d2b3601ecbbb05cf5e1b5b5b875b487cfe61e1b219533cb3",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:26:55+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第14条第1項第6号は、導管及びガス栓の主要材料について、最高使用温度及び最低使用温度で材料に及ぼす化学的及び物理的影響に対し、設備の種類、規模に応じて安全な機械的性質を有すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第1項は、内面に零パスカルを超える圧力を受ける部分の溶接部について、溶込みが十分で、有害な欠陥がなく、設計上要求される強度以上とすると定めている。",
+      "間違い。選択肢の「液化ガスを通ずる配管の基礎」が誤り。ガス工作物の技術上の基準を定める省令第15条第4項は、高圧ガス又は液化ガスを通ずるガス工作物の基礎構造要件から配管を除外すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第2項第3号ロは、最高使用圧力が0.3メガパスカル以上で、内径150ミリメートル以上の中圧ガス導管を溶接する場合、適切な機械試験等であらかじめ確認した溶接施工方法等によると定めている。",
+      "間違い。選択肢の「液化ガス用ポンプは耐圧試験に耐えるものでなければならない」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第3号は、液化ガス用ポンプを耐圧試験要件の例外と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス栓の主要材料に必要な性質は？",
+      "圧力を受ける部分の溶接部に必要な条件は？",
+      "液化ガス配管は基礎構造要件の対象？",
+      "中圧導管の溶接施工方法を事前確認する条件は？",
+      "液化ガス用ポンプは耐圧試験の対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス栓の主要材料に必要な性質は？",
+        "answer": "最高・最低使用温度での化学的及び物理的影響に対し、設備の種類、規模に応じて安全な機械的性質。"
+      },
+      {
+        "question": "圧力を受ける部分の溶接部に必要な条件は？",
+        "answer": "溶込みが十分で、有害な欠陥がなく、設計上要求される強度以上であること。"
+      },
+      {
+        "question": "液化ガス配管は基礎構造要件の対象？",
+        "answer": "第15条第4項の対象外。同項は配管を基礎構造要件から除外している。"
+      },
+      {
+        "question": "中圧導管の溶接施工方法を事前確認する条件は？",
+        "answer": "最高使用圧力が0.3メガパスカル以上で、内径が150ミリメートル以上であること。"
+      },
+      {
+        "question": "液化ガス用ポンプは耐圧試験の対象？",
+        "answer": "対象外。第15条第2項ただし書第3号の例外に該当する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第14条第1項第6号、第15条第2項ただし書第3号・第4項、第16条第1項及び第2項第3号ロ。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "14",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
+          "rawXmlHash": "b2ad8cfe8d9a67acb678e084878c6f3656a360dcc9431a6fee8b35e691fe2de9"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "1",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "4",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "3",
+          "subitem": "ロ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "3",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、間違いは現行省令と一致する。",
+    "第3肢は配管が第15条第4項の基礎構造要件から除外されるため誤り、第5肢は液化ガス用ポンプが同条第2項ただし書第3号の耐圧試験例外であるため誤りと確認した。",
+    "誤っている記述は選択肢3・5で、answer_result_textの正解3（組合せ）と整合する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2021-law-q08-s01",
+      "gas-shunin-otsu-2021-law-q08-s02",
+      "gas-shunin-otsu-2021-law-q08-s03",
+      "gas-shunin-otsu-2021-law-q08-s04",
+      "gas-shunin-otsu-2021-law-q08-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "14",
+        "15",
+        "16"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:27:41Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
