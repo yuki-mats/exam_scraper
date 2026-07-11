@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 138,
+  "auditKey": "gas-shunin:otsu:2018:law:q05:e8471744705e",
+  "auditInputHash": "a446688686be1862eea393a741e87ceecabcf06902d53ae4e6fabb40b7a4eb0a",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:04:28+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第5条は、特定製造所を除く製造所に、緊急時の迅速な通信を確保するための適切な通信設備を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第12条は、液化ガスを通ずるガス工作物に静電気除去措置を講じ、静電気によるガスへの引火のおそれがない場合を例外と定めている。",
+      "間違い。選択肢の「不活性の液化ガスのみを通ずるものを除く」及び「安全に回収できる構造」が誤り。ガス工作物の技術上の基準を定める省令第9条第1項は、製造所又は供給所にある、ガス又は液化ガスを通ずるガス工作物を設置する室を、漏えいしたガス又は液化ガスが滞留しない構造とすると定めている。",
+      "間違い。選択肢は、フレアースタックの要件をベントスタックの要件としている点が誤り。ガス工作物の技術上の基準を定める省令第13条第2項は、ベントスタックに、放出したガスが周囲へ障害を与えるおそれがないよう適切な措置を講ずると定め、ふく射熱対策及び安全放出措置は同条第3項のフレアースタックについて定めている。",
+      "間違い。選択肢は「一の使用者にガスを供給するために使用する整圧器」を義務対象としている点が誤り。ガス工作物の技術上の基準を定める省令第4条第2項は、一の使用者にガスを供給する整圧器を、公衆によるみだりな操作を防止する措置の対象から除外している。"
+    ],
+    "proposedSuggestedQuestions": [
+      "特定製造所を除く製造所にはどのような通信設備が必要？",
+      "液化ガスを通ずるガス工作物の静電気対策と例外は？",
+      "ガス工作物を設置する室に必要な漏えい時の構造は？",
+      "ベントスタックとフレアースタックの安全要件の違いは？",
+      "一の使用者用整圧器は公衆操作防止措置の対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "特定製造所を除く製造所にはどのような通信設備が必要？",
+        "answer": "緊急時に迅速な通信を確保するための適切な通信設備。"
+      },
+      {
+        "question": "液化ガスを通ずるガス工作物の静電気対策と例外は？",
+        "answer": "静電気除去措置が必要。ただし、その静電気でガスに引火するおそれがない場合は例外となる。"
+      },
+      {
+        "question": "ガス工作物を設置する室に必要な漏えい時の構造は？",
+        "answer": "製造所又は供給所にある室は、漏えいしたガス又は液化ガスが滞留しない構造である必要がある。安全に回収できる構造という規定ではない。"
+      },
+      {
+        "question": "ベントスタックとフレアースタックの安全要件の違いは？",
+        "answer": "ベントスタックは放出ガスが周囲へ障害を与えない措置。フレアースタックはふく射熱による障害防止とガスの安全放出措置。"
+      },
+      {
+        "question": "一の使用者用整圧器は公衆操作防止措置の対象？",
+        "answer": "対象外。第4条第2項は、一の使用者にガスを供給する整圧器を除外している。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第4条第2項、第5条、第9条第1項、第12条並びに第13条第2項及び第3項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "5",
+          "paragraph": "1",
+          "articleTextHash": "13050333b7a56805c831b5da7eec0aa727d08f96dd997628ce8e8ca086882275",
+          "rawXmlHash": "37455c0dfdc18455eaeaeece24655afedc5bd1312bbf091cf02e4f97a9a15b41"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "12",
+          "paragraph": "1",
+          "articleTextHash": "95c8000c0e7d41b22fecd116f68e48901484aa0c8d75cec7c1c52ee7b64d4e81",
+          "rawXmlHash": "670cdba6f933a480a4960311e0bd8eeb5ffa8c15e0b0901a688209fcb4844b6a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "9",
+          "paragraph": "1",
+          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+          "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "13",
+          "paragraph": "2",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "rawXmlHash": "90e37be1a77ea96227e1404350b4e7b34d86b42dce85b0f9d6f66cfd1579ea15",
+          "references": [
+            {
+              "paragraph": "2"
+            },
+            {
+              "paragraph": "3"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "4",
+          "paragraph": "2",
+          "articleTextHash": "b6d5a0556ec648f70109d2644282720fa04461f174c87b34bcc4dcd963178ae2",
+          "rawXmlHash": "42cd314794580a99332af8e24276d23bf04cad276f3d92d1e8113ccbe693294b"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、間違い、間違いは現行法と一致する。",
+    "室の滞留防止要件について、不活性液化ガスの除外と安全回収構造の両方が条文と異なることを明示した。",
+    "ベントスタックとフレアースタックの要件を第13条第2項及び第3項で対比した。",
+    "一使用者用整圧器が公衆操作防止措置の除外対象であることを明示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q05-s01",
+      "gas-shunin-otsu-2018-law-q05-s02",
+      "gas-shunin-otsu-2018-law-q05-s03",
+      "gas-shunin-otsu-2018-law-q05-s04",
+      "gas-shunin-otsu-2018-law-q05-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:05:15Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
