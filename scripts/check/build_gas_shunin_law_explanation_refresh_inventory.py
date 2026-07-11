@@ -39,7 +39,8 @@ AUDIT_STATUS_VALUES = {
     "pending",
     "reviewed_no_change",
     "reviewed_needs_update",
-    "applied",
+    "patch_applied",
+    "published",
     "hold",
 }
 
@@ -294,6 +295,31 @@ def main(argv: list[str] | None = None) -> int:
         row["evidence"] = decision.get("evidence")
     write_jsonl(ledger_path, rows)
 
+    correct_choice_flags = [
+        {
+            "schemaVersion": "gas-shunin-correct-choice-review-flag/v1",
+            "sequence": decision.get("sequence"),
+            "auditKey": audit_key,
+            "auditInputHash": decision.get("auditInputHash"),
+            "reviewedAt": decision.get("reviewedAt"),
+            "sourceQuestionKey": rows_by_key.get(audit_key, {}).get("sourceQuestionKey"),
+            "qualification": rows_by_key.get(audit_key, {}).get("qualification"),
+            "examYear": rows_by_key.get(audit_key, {}).get("examYear"),
+            "questionLabel": rows_by_key.get(audit_key, {}).get("questionLabel"),
+            "questionIds": rows_by_key.get(audit_key, {}).get("questionIds"),
+            "flags": decision.get("reviewDecision", {})
+            .get("correctChoiceTextReview", {})
+            .get("flags", []),
+            "status": "awaiting_user_confirmation",
+        }
+        for audit_key, decision in decisions.items()
+        if decision.get("reviewDecision", {})
+        .get("correctChoiceTextReview", {})
+        .get("status")
+        == "flagged"
+    ]
+    write_jsonl(args.output_dir / "correct_choice_review_flags.jsonl", correct_choice_flags)
+
     status_counts = Counter(str(row["status"]) for row in rows)
     issue_question_counts = Counter(
         issue for row in rows for issue in set(row.get("qualityIssueCodes") or [])
@@ -316,14 +342,18 @@ def main(argv: list[str] | None = None) -> int:
         "pendingReviewQuestionCount": status_counts.get("pending", 0),
         "needsUpdateQuestionCount": status_counts.get("reviewed_needs_update", 0),
         "holdQuestionCount": status_counts.get("hold", 0),
+        "patchAppliedQuestionCount": status_counts.get("patch_applied", 0),
+        "publishedQuestionCount": status_counts.get("published", 0),
         "completedQuestionCount": (
-            status_counts.get("reviewed_no_change", 0) + status_counts.get("applied", 0)
+            status_counts.get("reviewed_no_change", 0) + status_counts.get("published", 0)
         ),
         "remainingQuestionCount": (
             status_counts.get("pending", 0)
             + status_counts.get("reviewed_needs_update", 0)
+            + status_counts.get("patch_applied", 0)
             + status_counts.get("hold", 0)
         ),
+        "correctChoiceTextFlagCount": len(correct_choice_flags),
         "issueQuestionCounts": dict(sorted(issue_question_counts.items())),
         "issueChoiceCounts": dict(sorted(issue_choice_counts.items())),
         "mappingErrorCount": len(mapping_errors),

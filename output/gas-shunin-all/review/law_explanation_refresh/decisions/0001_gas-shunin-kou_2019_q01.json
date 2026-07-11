@@ -3,10 +3,14 @@
   "sequence": 1,
   "auditKey": "gas-shunin:kou:2019:law:q01:d28fee68bcb2",
   "auditInputHash": "87900a38b33a79df795ab1ab07537171f24a2e0cc11f4b9ae91f87415d03312c",
-  "status": "reviewed_needs_update",
+  "status": "patch_applied",
   "reviewedAt": "2026-07-11T15:04:06+09:00",
   "reviewDecision": {
     "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
     "requiresPatch": true,
     "changeFields": [
       "explanationText",
@@ -96,5 +100,11 @@
       "referenceDate": "2019",
       "verificationStatus": "source_correct_text_confirmed_historical_article_not_independently_fetched"
     }
+  },
+  "appliedAt": "2026-07-11T07:04:15Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
   }
 }

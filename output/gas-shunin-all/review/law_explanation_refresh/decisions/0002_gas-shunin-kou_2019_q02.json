@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 2,
+  "auditKey": "gas-shunin:kou:2019:law:q02:1007a6a9d7a5",
+  "auditInputHash": "20d29af3b222134aceca92f3da3ca4b2d078a816cac47e617e6bf9003f211955",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T16:05:53+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences.reason",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。この事故を「所轄産業保安監督部長のみが速報の報告先」に該当するとする点が誤り。ガス関係報告規則第4条第1項の表第2号は、速報の報告先を経済産業大臣及び所轄産業保安監督部長と定めている。",
+      "間違い。この事故を「所轄産業保安監督部長のみが速報の報告先」に該当するとする点が誤り。ガス関係報告規則第4条第1項の表第13号は、報告先を経済産業大臣及び所轄産業保安監督部長と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第15号は、ガス栓の欠陥、損壊又は破壊による死亡事故の速報先を、当該ガス栓の設置場所を管轄する産業保安監督部長と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第17号は、消費機器の使用に伴う死亡事故の速報先を、当該消費機器の設置場所を管轄する産業保安監督部長と定めている。",
+      "間違い。この事故を速報の対象とする点が誤り。ガス関係報告規則第4条第1項の表第18号は、人が死亡せず、又は負傷しない消費機器損傷の物損事故を詳報のみの対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事中のガス工作物操作による死亡事故の速報先は？",
+      "大臣指定の広範囲災害事故の報告先と期限は？",
+      "ガス栓の欠陥等による死亡事故の速報先は？",
+      "消費機器の使用に伴う死亡事故の速報先は？",
+      "人身被害のない消費機器損傷事故に速報は必要？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事中のガス工作物操作による死亡事故の速報先は？",
+        "answer": "経済産業大臣及び所轄産業保安監督部長。ガス関係報告規則第4条第1項の表第2号が定めている。"
+      },
+      {
+        "question": "大臣指定の広範囲災害事故の報告先と期限は？",
+        "answer": "報告先は経済産業大臣及び所轄産業保安監督部長で、速報・詳報の期限は経済産業大臣が指定する。"
+      },
+      {
+        "question": "ガス栓の欠陥等による死亡事故の速報先は？",
+        "answer": "当該ガス栓の設置場所を管轄する産業保安監督部長。"
+      },
+      {
+        "question": "消費機器の使用に伴う死亡事故の速報先は？",
+        "answer": "当該消費機器の設置場所を管轄する産業保安監督部長。"
+      },
+      {
+        "question": "人身被害のない消費機器損傷事故に速報は必要？",
+        "answer": "速報は不要で、詳報のみが必要。ガス関係報告規則第4条第1項の表第18号が定めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第4条第1項の表第2号、第13号、第15号、第17号及び第18号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "lawId": "429M60000400016",
+      "lawTitle": "ガス関係報告規則",
+      "article": "4",
+      "paragraph": "1",
+      "itemsByChoiceIndex": {
+        "0": "2",
+        "1": "13",
+        "2": "15",
+        "3": "17",
+        "4": "18"
+      },
+      "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+      "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、正しい、間違いは現行条文と一致する。",
+    "00_source.correctTextの表番号は出題当時の第12号・第17号で、現行条文では第13号・第18号に対応する。",
+    "選択肢1と3のlawRevisionFacts.currentがガス事業法施行規則第197条を指しており、直接根拠のガス関係報告規則第4条と不一致。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス関係報告規則",
+      "lawId": "429M60000400016",
+      "article": "4",
+      "paragraph": "1",
+      "tableItems": [
+        "2",
+        "13",
+        "15",
+        "17",
+        "18"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed_current_table_number_changed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:07:48Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
