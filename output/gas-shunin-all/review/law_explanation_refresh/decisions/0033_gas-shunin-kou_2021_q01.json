@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 33,
+  "auditKey": "gas-shunin:kou:2021:law:q01:65987b6b2aae",
+  "auditInputHash": "75f8fbebb970882639dd732422e2808f31272ab24c8d675e8d74f84142bcfd72",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:36:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「ガス事業者の利益」が誤り。ガス事業法第1条は、ガス事業の運営を調整することにより、ガスの使用者の利益を保護すると定めている。",
+      "正しい。ガス事業法第2条第11項は、ガス事業を、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業と定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「経済産業大臣の登録」が誤り。ガス事業法第35条は、一般ガス導管事業を営もうとする者が、経済産業大臣の許可を受けなければならないと定めている。",
+      "正しい。ガス事業法施行規則第1条第2項第5号は、液化ガスを、0.2MPaの圧力及び35度の温度の条件により定めている。選択肢はこれと一致する。",
+      "正しい。ガス事業法第175条は、高圧ガス保安法中の高圧ガスの製造・販売事業及びその施設に関する規定を、ガス事業及びガス工作物に適用しないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス事業法が保護する利益は？",
+      "ガス事業に含まれる4事業は？",
+      "一般ガス導管事業に必要な手続は？",
+      "液化ガスを定義する圧力と温度は？",
+      "高圧ガス保安法はガス事業に適用される？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス事業法が保護する利益は？",
+        "answer": "ガスの使用者の利益。"
+      },
+      {
+        "question": "ガス事業に含まれる4事業は？",
+        "answer": "ガス小売、一般ガス導管、特定ガス導管及びガス製造の各事業。"
+      },
+      {
+        "question": "一般ガス導管事業に必要な手続は？",
+        "answer": "経済産業大臣の許可。"
+      },
+      {
+        "question": "液化ガスを定義する圧力と温度は？",
+        "answer": "0.2MPa及び35度。"
+      },
+      {
+        "question": "高圧ガス保安法はガス事業に適用される？",
+        "answer": "同法中の製造・販売事業及び施設に関する規定は適用されない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第1条、第2条第11項、第35条及び第175条並びにガス事業法施行規則第1条第2項第5号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "1",
+          "paragraph": "1",
+          "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+          "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "11",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "35",
+          "paragraph": "1",
+          "articleTextHash": "14645d8354f14750f0a54b4a48ccaff66ed688934d7beb09ee236a8aba23190e",
+          "rawXmlHash": "81826f2e4375ec165e765222bc05e8bb68674a360a20bd430b21b6a174225c66"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "1",
+          "paragraph": "2",
+          "item": "5",
+          "articleTextHash": "dc5325c9671968fb2f1c44b66ff36ea9223b5184fd5ef8b3d00d6ece64eb7da2",
+          "rawXmlHash": "0626e12cf0eca5afb6b5a1470cd3d7cd18e07e89379d925c9d83ea1f7fac219d"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "175",
+          "paragraph": "1",
+          "articleTextHash": "5920d9b9e122f7e7b9abdaf9a89edb785f45a03e647a690157ec4c322ba7098f",
+          "rawXmlHash": "927241d890e3c04007cbd92dab7b2f14daa4311c3886bf2628a19ba6102f8ac0"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、正しい、正しいは現行法令と一致する。",
+    "同一sourceQuestionKeyの別レコードがあるため、Firestore ID群0241から0245及び選択肢本文で対象を特定した。",
+    "既存の第1条等のarticleTextHashを、2026-07-11取得のe-Gov本文から再計算した値へ更新した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0241",
+      "chiefgasengineerlicense-A-10-0242",
+      "chiefgasengineerlicense-A-10-0243",
+      "chiefgasengineerlicense-A-10-0244",
+      "chiefgasengineerlicense-A-10-0245"
+    ],
+    "currentLaw": {
+      "egovLawIds": [
+        "329AC0000000051",
+        "345M50000400097"
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:27:15Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
