@@ -7247,44 +7247,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
     "explanationText": [
-      "正しい。ガス事業法第160条第1項は、保安業務規程は事業開始前に届け出る。",
-      "間違い。ガス事業法第160条第4項は、災害時例外なく、事業者及び従業者は保安業務規程を守る。",
-      "正しい。ガス事業法第160条第3項は、経済産業大臣は事業者に保安業務規程変更を命ずることができる。",
-      "間違い。ガス事業法施行規則第207条は、事業場ごとに定めるのは保安業務監督者の選任である。",
-      "正しい。ガス事業法第160条第2項は、変更時は遅滞なく変更事項を届け出る。"
+      "正しい。ガス事業法第160条第1項は、ガス小売事業者が保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「災害その他非常の場合は保安業務規程を守らなくてよい」が誤り。ガス事業法第160条第4項は、例外を設けず、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。",
+      "正しい。ガス事業法第160条第3項は、保安業務の適正な実施を確保するため必要があるとき、経済産業大臣がガス小売事業者に保安業務規程の変更を命ずることができると定めている。",
+      "間違い。選択肢の「事業場ごとのガス主任技術者の選任」が誤り。ガス事業法施行規則第207条の表のガス小売事業者の項第2号は、保安業務を管理する事業場ごとの保安業務監督者の選任に関することを保安業務規程に定めると規定している。",
+      "正しい。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したとき、遅滞なく変更事項を経済産業大臣へ届け出なければならないと定めている。"
     ],
     "suggestedQuestions": [
-      "ガス小売事業者は、事業開始前に保安業務規程を経済産業大臣へ届け出なければならないか。",
-      "ガス小売事業者及びその従業者が保安業務規程を守る義務には、災害その他非常の場合の例外があるか。",
-      "経済産業大臣は、必要があると認めるとき、ガス小売事業者に保安業務規程の変更を命ずることができるか。",
-      "保安業務規程には、保安業務を管理する事業場ごとのガス主任技術者の選任に関することを定めるか。",
-      "保安業務規程を変更したとき、ガス小売事業者は遅滞なく変更事項を届け出なければならないか。",
+      "保安業務規程はいつ届け出る？",
+      "非常時に保安業務規程の遵守義務はなくなる？",
+      "大臣は保安業務規程の変更を命じられる？",
+      "事業場ごとに選任する保安業務の責任者は？",
+      "保安業務規程の変更届はいつ提出する？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "ガス小売事業者は、事業開始前に保安業務規程を経済産業大臣へ届け出なければならないか。",
-        "answer": "届け出なければならない。"
+        "question": "保安業務規程はいつ届け出る？",
+        "answer": "事業の開始前に経済産業大臣へ届け出る。"
       },
       {
-        "question": "ガス小売事業者及びその従業者が保安業務規程を守る義務には、災害その他非常の場合の例外があるか。",
-        "answer": "ない。"
+        "question": "非常時に保安業務規程の遵守義務はなくなる？",
+        "answer": "なくならない。第160条第4項は非常時の例外を設けていない。"
       },
       {
-        "question": "経済産業大臣は、必要があると認めるとき、ガス小売事業者に保安業務規程の変更を命ずることができるか。",
-        "answer": "できる。"
+        "question": "大臣は保安業務規程の変更を命じられる？",
+        "answer": "保安業務の適正な実施を確保するため必要がある場合は命じられる。"
       },
       {
-        "question": "保安業務規程には、保安業務を管理する事業場ごとのガス主任技術者の選任に関することを定めるか。",
-        "answer": "定めない。"
+        "question": "事業場ごとに選任する保安業務の責任者は？",
+        "answer": "ガス主任技術者ではなく、保安業務監督者。"
       },
       {
-        "question": "保安業務規程を変更したとき、ガス小売事業者は遅滞なく変更事項を届け出なければならないか。",
-        "answer": "届け出なければならない。"
+        "question": "保安業務規程の変更届はいつ提出する？",
+        "answer": "変更後、遅滞なく提出する。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法第160条第1項、ガス事業法第160条第4項、ガス事業法第160条第3項、ガス事業法施行規則第207条、ガス事業法第160条第2項。"
+        "answer": "ガス事業法第160条第1項から第4項及びガス事業法施行規則第207条の表。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -7330,16 +7330,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "160",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第160条第1項は、保安業務規程は事業開始前に届け出る。",
+          "reason": "正しい。ガス事業法第160条第1項は、ガス小売事業者が保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
         }
       ],
       [
@@ -7350,16 +7352,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "160",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第160条第4項は、災害時例外なく、事業者及び従業者は保安業務規程を守る。",
+          "reason": "間違い。選択肢の「災害その他非常の場合は保安業務規程を守らなくてよい」が誤り。ガス事業法第160条第4項は、例外を設けず、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。",
           "paragraph": "4",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
         }
       ],
       [
@@ -7370,16 +7374,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "160",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第160条第3項は、経済産業大臣は事業者に保安業務規程変更を命ずることができる。",
+          "reason": "正しい。ガス事業法第160条第3項は、保安業務の適正な実施を確保するため必要があるとき、経済産業大臣がガス小売事業者に保安業務規程の変更を命ずることができると定めている。",
           "paragraph": "3",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
         }
       ],
       [
@@ -7390,15 +7396,18 @@
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
           "article": "207",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法施行規則第207条は、事業場ごとに定めるのは保安業務監督者の選任である。",
+          "reason": "間違い。選択肢の「事業場ごとのガス主任技術者の選任」が誤り。ガス事業法施行規則第207条の表のガス小売事業者の項第2号は、保安業務を管理する事業場ごとの保安業務監督者の選任に関することを保安業務規程に定めると規定している。",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=207",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+          "paragraph": "1",
+          "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6"
         }
       ],
       [
@@ -7409,32 +7418,34 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "160",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第160条第2項は、変更時は遅滞なく変更事項を届け出る。",
+          "reason": "正しい。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したとき、遅滞なく変更事項を経済産業大臣へ届け出なければならないと定めている。",
           "paragraph": "2",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:58:52+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "dc0af4eab4f574330f1e90a04ca5ab1fe06b0d4c51d9aaf02fe9fc6e39bccaae",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問14:choice1",
         "evidenceBindingHash": "59e2ce5411124690f24336da15e89b73d5b121d31000f04b155156406ff3c945",
         "examTime": {
@@ -7442,60 +7453,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "160",
-          "paragraph": "1",
-          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス小売事業者は、経済産業省令で定めるところにより保安業務規程を定め、事業の開始前に経済産業大臣へ届け出なければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:160:1::1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第160条第1項は、ガス小売事業者が保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第160条第1項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:160:1::1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "160",
-              "paragraph": "1",
               "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
-              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+              "lawId": "329AC0000000051",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:58:52+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "7c7eb004b258b0d8579382fd7a724493010324854a66b6da4b55fa829dd9c980",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問14:choice2",
         "evidenceBindingHash": "f8a25e482cd76b973bbeb3301f94fd998e3fac7475aeed638dc41724ecaeb9b8",
         "examTime": {
@@ -7503,60 +7510,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "160",
-          "paragraph": "4",
-          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "lawId": "329AC0000000051",
+          "paragraph": "4"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス小売事業者及びその従業者は保安業務規程を守らなければならず、設問のような災害その他非常の場合の例外規定はない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:160:4::2"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「災害その他非常の場合は保安業務規程を守らなくてよい」が誤り。ガス事業法第160条第4項は、例外を設けず、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第160条第4項を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:160:4::2",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "160",
-              "paragraph": "4",
               "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
-              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+              "lawId": "329AC0000000051",
+              "paragraph": "4"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:58:52+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "a76a431f51093efed490899a1050e9f08ac6f18c3374d438085a13e1be1c69ce",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問14:choice3",
         "evidenceBindingHash": "9101655ed9812bc33e01d4b4a18fdcc8867299c63067609e8438dc92cbc04ac4",
         "examTime": {
@@ -7564,60 +7567,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "160",
-          "paragraph": "3",
-          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "lawId": "329AC0000000051",
+          "paragraph": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。経済産業大臣は、保安業務の適正な実施を確保するため必要があると認めるとき、ガス小売事業者に対し保安業務規程を変更すべきことを命ずることができる。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:160:3::3"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第160条第3項は、保安業務の適正な実施を確保するため必要があるとき、経済産業大臣がガス小売事業者に保安業務規程の変更を命ずることができると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第160条第3項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:160:3::3",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "160",
-              "paragraph": "3",
               "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
-              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+              "lawId": "329AC0000000051",
+              "paragraph": "3"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:58:52+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "f11fe751bfce845bbae16e303f54595f82dd351958743eaa8bec63c2f3e96275",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問14:choice4",
         "evidenceBindingHash": "41872015983f466c702d6e67155318ddac98856596b1907f77e4b4b87ec5a1ba",
         "examTime": {
@@ -7625,60 +7624,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
           "lawTitle": "ガス事業法施行規則",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "lawId": "345M50000400097",
           "article": "207",
-          "paragraph": "1",
-          "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=207",
+          "lawId": "345M50000400097",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。保安業務規程に定めるのは、保安業務を管理する事業場ごとの保安業務監督者の選任に関することであり、ガス主任技術者の選任ではない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:345M50000400097:207:1::4"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「事業場ごとのガス主任技術者の選任」が誤り。ガス事業法施行規則第207条の表のガス小売事業者の項第2号は、保安業務を管理する事業場ごとの保安業務監督者の選任に関することを保安業務規程に定めると規定している。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法施行規則第207条第1項を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:345M50000400097:207:1::4",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法施行規則",
-              "lawId": "345M50000400097",
               "article": "207",
-              "paragraph": "1",
               "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
-              "textHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860"
+              "lawId": "345M50000400097",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:58:52+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "b0187b90b520c4febceca4fb787dcea125eaedf93c41658a0554e59f14b41086",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問14:choice5",
         "evidenceBindingHash": "a0a394cb919205a6eee44c7a1acb9eba26c863da8c089391ae91348aaea0dd22",
         "examTime": {
@@ -7686,62 +7681,58 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "160",
-          "paragraph": "2",
-          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "lawId": "329AC0000000051",
+          "paragraph": "2"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス小売事業者が保安業務規程を変更したときは、遅滞なく、変更した事項を経済産業大臣に届け出なければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:160:2::5"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したとき、遅滞なく変更事項を経済産業大臣へ届け出なければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第160条第2項を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:160:2::5",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "160",
-              "paragraph": "2",
               "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
-              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b"
+              "lawId": "329AC0000000051",
+              "paragraph": "2"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "正しい。ガス事業法第160条第1項は、保安業務規程は事業開始前に届け出る。",
-      "間違い。ガス事業法第160条第4項は、災害時例外なく、事業者及び従業者は保安業務規程を守る。",
-      "正しい。ガス事業法第160条第3項は、経済産業大臣は事業者に保安業務規程変更を命ずることができる。",
-      "間違い。ガス事業法施行規則第207条は、事業場ごとに定めるのは保安業務監督者の選任である。",
-      "正しい。ガス事業法第160条第2項は、変更時は遅滞なく変更事項を届け出る。"
+      "正しい。ガス事業法第160条第1項は、ガス小売事業者が保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「災害その他非常の場合は保安業務規程を守らなくてよい」が誤り。ガス事業法第160条第4項は、例外を設けず、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。",
+      "正しい。ガス事業法第160条第3項は、保安業務の適正な実施を確保するため必要があるとき、経済産業大臣がガス小売事業者に保安業務規程の変更を命ずることができると定めている。",
+      "間違い。選択肢の「事業場ごとのガス主任技術者の選任」が誤り。ガス事業法施行規則第207条の表のガス小売事業者の項第2号は、保安業務を管理する事業場ごとの保安業務監督者の選任に関することを保安業務規程に定めると規定している。",
+      "正しい。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したとき、遅滞なく変更事項を経済産業大臣へ届け出なければならないと定めている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス事業法第160条第1項は、保安業務規程は事業開始前に届け出る。",
-      "間違い。ガス事業法第160条第4項は、災害時例外なく、事業者及び従業者は保安業務規程を守る。",
-      "正しい。ガス事業法第160条第3項は、経済産業大臣は事業者に保安業務規程変更を命ずることができる。",
-      "間違い。ガス事業法施行規則第207条は、事業場ごとに定めるのは保安業務監督者の選任である。",
-      "正しい。ガス事業法第160条第2項は、変更時は遅滞なく変更事項を届け出る。"
+      "正しい。ガス事業法第160条第1項は、ガス小売事業者が保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「災害その他非常の場合は保安業務規程を守らなくてよい」が誤り。ガス事業法第160条第4項は、例外を設けず、ガス小売事業者及びその従業者が保安業務規程を守らなければならないと定めている。",
+      "正しい。ガス事業法第160条第3項は、保安業務の適正な実施を確保するため必要があるとき、経済産業大臣がガス小売事業者に保安業務規程の変更を命ずることができると定めている。",
+      "間違い。選択肢の「事業場ごとのガス主任技術者の選任」が誤り。ガス事業法施行規則第207条の表のガス小売事業者の項第2号は、保安業務を管理する事業場ごとの保安業務監督者の選任に関することを保安業務規程に定めると規定している。",
+      "正しい。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したとき、遅滞なく変更事項を経済産業大臣へ届け出なければならないと定めている。"
     ]
   },
   {
