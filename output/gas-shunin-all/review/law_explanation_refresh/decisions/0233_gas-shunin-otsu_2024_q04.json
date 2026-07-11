@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 233,
+  "auditKey": "gas-shunin:otsu:2024:law:q04:25e1628d3225",
+  "auditInputHash": "02fa2b0b60ee502e6705dd19a8fb5876904dbb9a9787817042844e6b23f943ec",
+  "status": "hold",
+  "reviewedAt": "2026-07-12T04:13:26+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "flagged",
+      "flags": [
+        {
+          "issueCode": "current_law_correct_choice_mismatch",
+          "choiceIndex": 2,
+          "sourceCorrectChoiceText": "正しい",
+          "currentLawCorrectChoiceText": "間違い",
+          "reason": "製造支障時間10時間は、ガス関係報告規則第4条第1項の表第8号が定める10時間以上24時間未満に該当し、ガス事故速報及び詳報の対象である。",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "8",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        {
+          "issueCode": "current_law_correct_choice_mismatch",
+          "choiceIndex": 4,
+          "sourceCorrectChoiceText": "間違い",
+          "currentLawCorrectChoiceText": "正しい",
+          "reason": "死傷者がいない消費機器損傷の物損事故は、ガス関係報告規則第4条第1項の表第18号で詳報のみの対象とされ、ガス事故速報の報告は規定されていない。",
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "18",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        }
+      ]
+    },
+    "requiresPatch": false,
+    "changeFields": [],
+    "sourceNotReportableChoiceIndexes": [
+      1,
+      2
+    ],
+    "currentLawNotReportableChoiceIndexes": [
+      1,
+      4
+    ],
+    "currentLawExplanationText": [
+      "間違い。ガス関係報告規則第4条第1項の表第5号は、ガス工作物を操作することにより人が酸素欠乏症となった事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第7号は、供給支障戸数が100以上500未満の供給支障事故をガス事故速報及びガス事故詳報の対象と定めているため、供給支障戸数20の事故について速報の報告は規定されていない。",
+      "間違い。ガス関係報告規則第4条第1項の表第8号は、製造支障時間が10時間以上24時間未満の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。製造支障時間10時間はこの対象に含まれる。",
+      "間違い。ガス関係報告規則第4条第1項の表第12号は、ガス工作物からのガス漏えいによる爆発又は火災事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第18号は、死傷者がいない消費機器損傷の物損事故をガス事故詳報のみの対象と定めており、ガス事故速報の報告は規定していない。"
+    ]
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextは間違い、正しい、正しい、間違い、間違いで、速報対象外を第2肢と第3肢としている。",
+    "現行のガス関係報告規則第4条第1項の表では、速報対象外は第2肢と第5肢である。",
+    "第3肢は表第8号により速報及び詳報の対象、第5肢は表第18号により詳報のみの対象であり、source評価が相互に逆転している。",
+    "00_source、既存ID及び公開正答は変更せず、correct_choice_review_flags.jsonlで人手確認待ちとする。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceCorrectTextUsed": false,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2024-law-q04-s01",
+      "gas-shunin-otsu-2024-law-q04-s02",
+      "gas-shunin-otsu-2024-law-q04-s03",
+      "gas-shunin-otsu-2024-law-q04-s04",
+      "gas-shunin-otsu-2024-law-q04-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス関係報告規則",
+        "lawId": "429M60000400016",
+        "articles": [
+          "4"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+        "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+        "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified_source_conflict",
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_requires_confirmation"
+    }
+  }
+}
