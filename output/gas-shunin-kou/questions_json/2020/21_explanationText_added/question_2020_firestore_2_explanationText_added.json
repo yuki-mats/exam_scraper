@@ -6257,11 +6257,11 @@
     ],
     "examLabel": null,
     "explanationText": [
-      "間違い。選択肢の「敷地境界から保安物件に対し」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象ガス工作物は、その外面から保安物件に対し告示で定める距離を有する。",
-      "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3の3条は、劇場等の第1種保安物件該当基準は、床面積ではなく収容定員300人以上である。",
-      "間違い。選択肢の「届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらない施設には経済産業大臣の認可が必要であり、届出ではない。",
-      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所には、漏えいガスが滞留するおそれがある場所に検知・警報設備を設ける。",
-      "間違い。選択肢の「廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分は液化ガスを廃棄する構造ではなく、安全に置換できる構造でなければならない。"
+      "間違い。選択肢の「製造所の敷地境界から」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となるガス工作物の外面から保安物件に対し、告示で定める距離を確保すると定めている。",
+      "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3条第3号は、第1種保安物件となる劇場等を、収容定員300人以上のものと定めている。",
+      "間違い。選択肢の「経済産業大臣に届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらず施設できる場合を、経済産業大臣の認可を受けた場合と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、漏えいを検知し警報する設備を設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「液化ガスを廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分を、ガス又は液化ガスを安全に置換できる構造とすると定めている。"
     ],
     "isLawRelated": true,
     "lawGroundedExplanationNotNeeded": false,
@@ -6278,12 +6278,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「敷地境界から保安物件に対し」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象ガス工作物は、その外面から保安物件に対し告示で定める距離を有する。",
+          "reason": "間違い。選択肢の「製造所の敷地境界から」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となるガス工作物の外面から保安物件に対し、告示で定める距離を確保すると定めている。",
           "paragraph": "2",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907"
         }
       ],
       [
@@ -6293,15 +6295,17 @@
           "choiceIndex": 1,
           "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
           "lawAlias": "ガス工作物の技術上の基準の細目を定める告示",
-          "article": "3の3",
+          "article": "3",
           "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "meti_official_pdf",
-          "reason": "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3の3条は、劇場等の第1種保安物件該当基準は、床面積ではなく収容定員300人以上である。",
+          "reason": "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3条第3号は、第1種保安物件となる劇場等を、収容定員300人以上のものと定めている。",
           "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
           "appLinkMode": "source_url",
-          "externalPrimarySource": true
+          "externalPrimarySource": true,
+          "articleTextHash": "52a32db9daaffbeb01246dadd7420dbcabbb7f6c968dbdb2e47f27d86e4a2df8",
+          "item": "3"
         }
       ],
       [
@@ -6316,12 +6320,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらない施設には経済産業大臣の認可が必要であり、届出ではない。",
+          "reason": "間違い。選択肢の「経済産業大臣に届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらず施設できる場合を、経済産業大臣の認可を受けた場合と定めている。",
           "paragraph": "4",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907"
         }
       ],
       [
@@ -6336,12 +6342,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所には、漏えいガスが滞留するおそれがある場所に検知・警報設備を設ける。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、漏えいを検知し警報する設備を設けると定めている。選択肢はこれと一致する。",
           "paragraph": "2",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+          "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a"
         }
       ],
       [
@@ -6356,301 +6364,287 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分は液化ガスを廃棄する構造ではなく、安全に置換できる構造でなければならない。",
+          "reason": "間違い。選択肢の「液化ガスを廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分を、ガス又は液化ガスを安全に置換できる構造とすると定めている。",
           "paragraph": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=13",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "rawXmlHash": "90e37be1a77ea96227e1404350b4e7b34d86b42dce85b0f9d6f66cfd1579ea15"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "現行一次条文又は公式告示と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_212745_kou2020_hourei_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-09T21:27:45+09:00",
+        "auditedAt": "2026-07-11T17:08:00+09:00",
         "current": {
-          "article": "6",
-          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "2",
-          "referenceDate": "2026-07-09",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
+          "article": "6",
+          "referenceDate": "2026-07-11",
+          "verificationStatus": "verified",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "lawId": "412M50000400111",
+          "paragraph": "2"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "evidenceSummary": {
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致するものとして二次確認済み。",
-          "displayRefIds": [
-            "current:412M50000400111:6:2::1"
-          ],
-          "explanationText": "間違い。技術基準では、対象となるガス発生器・増熱器等は、その外面から保安物件に対し告示で定める距離を有しなければならない。製造所の敷地境界からとしている点が誤り。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「製造所の敷地境界から」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となるガス工作物の外面から保安物件に対し、告示で定める距離を確保すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第6条第2項を選択肢0の直接根拠として確認。",
           "refs": [
             {
+              "refId": "choice-0-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "6",
               "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
               "lawId": "412M50000400111",
-              "lawTimeScope": "current",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "paragraph": "2",
-              "primaryBasis": true,
-              "refId": "current:412M50000400111:6:2::1",
-              "relation": "direct_basis",
-              "textHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8"
+              "paragraph": "2"
             }
-          ],
-          "verdict": "incorrect"
+          ]
         },
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_original_answer"
         },
-        "lawCorpusSnapshotId": "egov-api-v1-and-meti-pdf-20260709_212745_kou2020_hourei",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "nextAuditDueAt": "2027-07-09",
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XML又は公式告示PDFで直接根拠条項を選定した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "primaryAuditRunId": "20260709_212745_kou2020_hourei",
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "refresh_reviewed",
         "secondaryAuditRunId": "20260709_212745_kou2020_hourei_secondary_review"
       },
       {
         "answerImpactFacts": [
-          "現行一次条文又は公式告示と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_212745_kou2020_hourei_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-09T21:27:45+09:00",
+        "auditedAt": "2026-07-11T17:08:00+09:00",
         "current": {
-          "article": "3の3",
-          "articleTextHash": "56c8d7f6faef4924d3bd33bf683261b25843889ccff48ff6024e9635391e7e62",
-          "correctChoiceText": "間違い",
-          "item": "ハ",
-          "lawId": "METI-GIKOKUJI",
           "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
+          "article": "3",
+          "referenceDate": "2026-07-11",
+          "verificationStatus": "verified",
+          "articleTextHash": "52a32db9daaffbeb01246dadd7420dbcabbb7f6c968dbdb2e47f27d86e4a2df8",
           "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
-          "verificationStatus": "verified"
+          "sourceType": "external_primary",
+          "source": "meti_official_pdf",
+          "item": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "evidenceSummary": {
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致するものとして二次確認済み。",
-          "displayRefIds": [
-            "current:METI-GIKOKUJI:3の3:1:ハ:1"
-          ],
-          "explanationText": "間違い。第1種保安物件に該当する劇場等の基準は、用途に供する部分の床面積1000m²以上ではなく、収容定員300人以上である。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3条第3号は、第1種保安物件となる劇場等を、収容定員300人以上のものと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準の細目を定める告示第3条第3号を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "article": "3の3",
-              "articleTextHash": "56c8d7f6faef4924d3bd33bf683261b25843889ccff48ff6024e9635391e7e62",
-              "item": "ハ",
-              "lawId": "METI-GIKOKUJI",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
-              "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
-              "paragraph": "1",
-              "primaryBasis": true,
-              "refId": "current:METI-GIKOKUJI:3の3:1:ハ:1",
               "relation": "direct_basis",
-              "textHash": "56c8d7f6faef4924d3bd33bf683261b25843889ccff48ff6024e9635391e7e62"
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
+              "article": "3",
+              "articleTextHash": "52a32db9daaffbeb01246dadd7420dbcabbb7f6c968dbdb2e47f27d86e4a2df8",
+              "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+              "item": "3"
             }
-          ],
-          "verdict": "incorrect"
+          ]
         },
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_original_answer"
         },
-        "lawCorpusSnapshotId": "egov-api-v1-and-meti-pdf-20260709_212745_kou2020_hourei",
+        "lawCorpusSnapshotId": "official-primary-2026-07-11",
         "nextAuditDueAt": "2027-07-09",
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XML又は公式告示PDFで直接根拠条項を選定した。"
+          "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
         ],
         "primaryAuditRunId": "20260709_212745_kou2020_hourei",
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "refresh_reviewed",
         "secondaryAuditRunId": "20260709_212745_kou2020_hourei_secondary_review"
       },
       {
         "answerImpactFacts": [
-          "現行一次条文又は公式告示と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_212745_kou2020_hourei_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-09T21:27:45+09:00",
+        "auditedAt": "2026-07-11T17:08:00+09:00",
         "current": {
-          "article": "6",
-          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "4",
-          "referenceDate": "2026-07-09",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
+          "article": "6",
+          "referenceDate": "2026-07-11",
+          "verificationStatus": "verified",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=6",
+          "lawId": "412M50000400111",
+          "paragraph": "4"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "evidenceSummary": {
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致するものとして二次確認済み。",
-          "displayRefIds": [
-            "current:412M50000400111:6:4::1"
-          ],
-          "explanationText": "間違い。告示で定める距離によらず施設できるのは、ガスの種類や周囲の状況等の理由により経済産業大臣の認可を受けた場合であり、届け出た場合ではない。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「経済産業大臣に届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらず施設できる場合を、経済産業大臣の認可を受けた場合と定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第6条第4項を選択肢2の直接根拠として確認。",
           "refs": [
             {
+              "refId": "choice-2-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "6",
               "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
               "lawId": "412M50000400111",
-              "lawTimeScope": "current",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "paragraph": "4",
-              "primaryBasis": true,
-              "refId": "current:412M50000400111:6:4::1",
-              "relation": "direct_basis",
-              "textHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8"
+              "paragraph": "4"
             }
-          ],
-          "verdict": "incorrect"
+          ]
         },
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_original_answer"
         },
-        "lawCorpusSnapshotId": "egov-api-v1-and-meti-pdf-20260709_212745_kou2020_hourei",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "nextAuditDueAt": "2027-07-09",
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XML又は公式告示PDFで直接根拠条項を選定した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "primaryAuditRunId": "20260709_212745_kou2020_hourei",
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "refresh_reviewed",
         "secondaryAuditRunId": "20260709_212745_kou2020_hourei_secondary_review"
       },
       {
         "answerImpactFacts": [
-          "現行一次条文又は公式告示と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_212745_kou2020_hourei_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-09T21:27:45+09:00",
+        "auditedAt": "2026-07-11T17:08:00+09:00",
         "current": {
-          "article": "9",
-          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "2",
-          "referenceDate": "2026-07-09",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
+          "article": "9",
+          "referenceDate": "2026-07-11",
+          "verificationStatus": "verified",
+          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=9",
+          "lawId": "412M50000400111",
+          "paragraph": "2"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "evidenceSummary": {
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致するものとして二次確認済み。",
-          "displayRefIds": [
-            "current:412M50000400111:9:2::1"
-          ],
-          "explanationText": "正しい。製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある適当な場所に、漏えいを検知し警報する設備を設ける必要がある。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、漏えいを検知し警報する設備を設けると定めている。選択肢はこれと一致する。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第9条第2項を選択肢3の直接根拠として確認。",
           "refs": [
             {
+              "refId": "choice-3-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "9",
               "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
               "lawId": "412M50000400111",
-              "lawTimeScope": "current",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "paragraph": "2",
-              "primaryBasis": true,
-              "refId": "current:412M50000400111:9:2::1",
-              "relation": "direct_basis",
-              "textHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3"
+              "paragraph": "2"
             }
-          ],
-          "verdict": "correct"
+          ]
         },
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
-        "lawCorpusSnapshotId": "egov-api-v1-and-meti-pdf-20260709_212745_kou2020_hourei",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "nextAuditDueAt": "2027-07-09",
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XML又は公式告示PDFで直接根拠条項を選定した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "primaryAuditRunId": "20260709_212745_kou2020_hourei",
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "refresh_reviewed",
         "secondaryAuditRunId": "20260709_212745_kou2020_hourei_secondary_review"
       },
       {
         "answerImpactFacts": [
-          "現行一次条文又は公式告示と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_212745_kou2020_hourei_secondary_review",
         "auditStatus": "same_as_current",
-        "auditedAt": "2026-07-09T21:27:45+09:00",
+        "auditedAt": "2026-07-11T17:08:00+09:00",
         "current": {
-          "article": "13",
-          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "verificationStatus": "verified"
+          "article": "13",
+          "referenceDate": "2026-07-11",
+          "verificationStatus": "verified",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=13",
+          "lawId": "412M50000400111",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "evidenceSummary": {
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致するものとして二次確認済み。",
-          "displayRefIds": [
-            "current:412M50000400111:13:1::1"
-          ],
-          "explanationText": "間違い。ガス発生設備等のガス又は液化ガスを通ずる部分は、安全に置換できる構造でなければならない。液化ガスを廃棄できる構造としている点が誤り。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「液化ガスを廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分を、ガス又は液化ガスを安全に置換できる構造とすると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第13条第1項を選択肢4の直接根拠として確認。",
           "refs": [
             {
+              "refId": "choice-4-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "13",
               "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
               "lawId": "412M50000400111",
-              "lawTimeScope": "current",
-              "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "paragraph": "1",
-              "primaryBasis": true,
-              "refId": "current:412M50000400111:13:1::1",
-              "relation": "direct_basis",
-              "textHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8"
+              "paragraph": "1"
             }
-          ],
-          "verdict": "incorrect"
+          ]
         },
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_original_answer"
         },
-        "lawCorpusSnapshotId": "egov-api-v1-and-meti-pdf-20260709_212745_kou2020_hourei",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "nextAuditDueAt": "2027-07-09",
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XML又は公式告示PDFで直接根拠条項を選定した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "primaryAuditRunId": "20260709_212745_kou2020_hourei",
-        "reconciliationStatus": "reconciled",
-        "reviewState": "secondary_verified",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "reviewState": "refresh_reviewed",
         "secondaryAuditRunId": "20260709_212745_kou2020_hourei_secondary_review"
       }
     ],
@@ -6689,51 +6683,51 @@
     "source_original_question_id": "gasushunin-koushu-hourei-2020-6",
     "suggestedQuestionDetails": [
       {
-        "question": "ガス発生器及び増熱器等の保安物件に対する離隔距離は、製造所の敷地境界から測るのか。",
-        "answer": "いいえ。保安物件に対する距離は、対象ガス工作物等の外面から測るものです。"
+        "question": "保安物件との離隔距離はどこから測る？",
+        "answer": "対象となるガス工作物の外面から測る。"
       },
       {
-        "question": "第1種保安物件に該当する劇場等は、床面積1000m²以上を基準にするのか。",
-        "answer": "いいえ。劇場等は収容定員300人以上で第1種保安物件に該当します。"
+        "question": "第1種保安物件となる劇場等の基準は？",
+        "answer": "収容定員300人以上。"
       },
       {
-        "question": "告示で定める距離によらずガス工作物を施設できるのは、経済産業大臣に届け出た場合か。",
-        "answer": "いいえ。経済産業大臣の認可を受けた場合です。"
+        "question": "距離規定によらず施設するために必要な手続は？",
+        "answer": "経済産業大臣の認可を受ける。"
       },
       {
-        "question": "製造所には、漏えいしたガスを検知し警報する設備を設ける必要があるか。",
-        "answer": "はい。ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある場所に、検知・警報設備を設ける必要があります。"
+        "question": "製造所の漏えい検知・警報設備はどこに設ける？",
+        "answer": "漏えいガスが滞留するおそれのある製造所内の適当な場所。"
       },
       {
-        "question": "液化ガスを通ずる製造設備部分は、液化ガスを廃棄できる構造でなければならないか。",
-        "answer": "いいえ。安全に置換できる構造であることが求められます。"
+        "question": "液化ガスを通ずる製造設備部分に必要な構造は？",
+        "answer": "ガス又は液化ガスを安全に置換できる構造。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第6条第2項、ガス工作物の技術上の基準の細目を定める告示第3の3条、ガス工作物の技術上の基準を定める省令第6条第4項、ガス工作物の技術上の基準を定める省令第9条第2項、ガス工作物の技術上の基準を定める省令第13条第1項。"
+        "answer": "ガス工作物の技術上の基準を定める省令第6条第2項・第4項、第9条第2項及び第13条第1項並びにガス工作物の技術上の基準の細目を定める告示第3条第3号。"
       }
     ],
     "suggestedQuestions": [
-      "ガス発生器及び増熱器等の保安物件に対する離隔距離は、製造所の敷地境界から測るのか。",
-      "第1種保安物件に該当する劇場等は、床面積1000m²以上を基準にするのか。",
-      "告示で定める距離によらずガス工作物を施設できるのは、経済産業大臣に届け出た場合か。",
-      "製造所には、漏えいしたガスを検知し警報する設備を設ける必要があるか。",
-      "液化ガスを通ずる製造設備部分は、液化ガスを廃棄できる構造でなければならないか。",
+      "保安物件との離隔距離はどこから測る？",
+      "第1種保安物件となる劇場等の基準は？",
+      "距離規定によらず施設するために必要な手続は？",
+      "製造所の漏えい検知・警報設備はどこに設ける？",
+      "液化ガスを通ずる製造設備部分に必要な構造は？",
       "この問題の根拠条文は？"
     ],
     "suggestedExplanationText": [
-      "間違い。選択肢の「敷地境界から保安物件に対し」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象ガス工作物は、その外面から保安物件に対し告示で定める距離を有する。",
-      "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3の3条は、劇場等の第1種保安物件該当基準は、床面積ではなく収容定員300人以上である。",
-      "間違い。選択肢の「届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらない施設には経済産業大臣の認可が必要であり、届出ではない。",
-      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所には、漏えいガスが滞留するおそれがある場所に検知・警報設備を設ける。",
-      "間違い。選択肢の「廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分は液化ガスを廃棄する構造ではなく、安全に置換できる構造でなければならない。"
+      "間違い。選択肢の「製造所の敷地境界から」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となるガス工作物の外面から保安物件に対し、告示で定める距離を確保すると定めている。",
+      "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3条第3号は、第1種保安物件となる劇場等を、収容定員300人以上のものと定めている。",
+      "間違い。選択肢の「経済産業大臣に届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらず施設できる場合を、経済産業大臣の認可を受けた場合と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、漏えいを検知し警報する設備を設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「液化ガスを廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分を、ガス又は液化ガスを安全に置換できる構造とすると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "間違い。選択肢の「敷地境界から保安物件に対し」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象ガス工作物は、その外面から保安物件に対し告示で定める距離を有する。",
-      "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3の3条は、劇場等の第1種保安物件該当基準は、床面積ではなく収容定員300人以上である。",
-      "間違い。選択肢の「届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらない施設には経済産業大臣の認可が必要であり、届出ではない。",
-      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所には、漏えいガスが滞留するおそれがある場所に検知・警報設備を設ける。",
-      "間違い。選択肢の「廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分は液化ガスを廃棄する構造ではなく、安全に置換できる構造でなければならない。"
+      "間違い。選択肢の「製造所の敷地境界から」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となるガス工作物の外面から保安物件に対し、告示で定める距離を確保すると定めている。",
+      "間違い。選択肢の「床面積の合計が1000m²以上」が誤り。ガス工作物の技術上の基準の細目を定める告示第3条第3号は、第1種保安物件となる劇場等を、収容定員300人以上のものと定めている。",
+      "間違い。選択肢の「経済産業大臣に届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらず施設できる場合を、経済産業大臣の認可を受けた場合と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、漏えいを検知し警報する設備を設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「液化ガスを廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、対象部分を、ガス又は液化ガスを安全に置換できる構造とすると定めている。"
     ]
   },
   {
