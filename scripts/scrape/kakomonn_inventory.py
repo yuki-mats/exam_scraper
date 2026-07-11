@@ -7,7 +7,7 @@ import os
 import re
 import subprocess
 import sys
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
 
@@ -24,6 +24,8 @@ from scripts.scrape.common import create_http_session, load_local_secure_env  # 
 
 DEFAULT_TOP_URL = "https://kakomonn.com/"
 DEFAULT_CONFIG_PATH = REPO_ROOT / "config" / "scrape_presets.json"
+MISSING_STATUSES = {"missing_preset", "configured_not_scraped"}
+UNSCRAPED_STATUSES = {*MISSING_STATUSES, "unconfigured_source_exists"}
 GENERIC_LINK_TEXTS = {
     "",
     "出題",
@@ -406,6 +408,10 @@ def summarize_rows(rows: list[dict]) -> dict[str, int]:
     return summary
 
 
+def bulk_scrape_candidate_statuses(*, include_partial_sources: bool) -> set[str]:
+    return UNSCRAPED_STATUSES if include_partial_sources else MISSING_STATUSES
+
+
 def resolve_requested_qualifications(
     rows: list[dict],
     qualifications: list[KakomonnQualification],
@@ -514,6 +520,10 @@ def run_inventory(args: argparse.Namespace) -> int:
 
 
 def run_scrape(args: argparse.Namespace) -> int:
+    if args.group_retries < 0:
+        print("[ERROR] --group-retries は 0 以上を指定してください")
+        return 2
+
     session = create_http_session()
     qualifications = discover_qualifications(session, top_url=args.top_url)
     configured_by_host = load_configured_kakomonn_presets(Path(args.config))
@@ -524,11 +534,18 @@ def run_scrape(args: argparse.Namespace) -> int:
         output_root=output_root,
     )
 
-    if args.all_missing:
+    if args.all_missing and args.all_unscraped:
+        print("[ERROR] --all-missing と --all-unscraped は同時に指定できません")
+        return 2
+
+    if args.all_missing or args.all_unscraped:
+        candidate_statuses = bulk_scrape_candidate_statuses(
+            include_partial_sources=args.all_unscraped
+        )
         selected_hosts = {
             row["host"]
             for row in rows
-            if row["status"] in {"missing_preset", "configured_not_scraped"}
+            if row["status"] in candidate_statuses
         }
         selected = [qualification for qualification in qualifications if qualification.host in selected_hosts]
     else:
@@ -542,12 +559,12 @@ def run_scrape(args: argparse.Namespace) -> int:
         return 2
 
     if (
-        args.all_missing
+        (args.all_missing or args.all_unscraped)
         and not args.dry_run
         and args.max_qualifications is None
         and not args.yes
     ):
-        print("[ERROR] --all-missing の本取得には --yes か --max-qualifications を指定してください")
+        print("[ERROR] 全体本取得には --yes か --max-qualifications を指定してください")
         return 2
 
     if args.qualification_code and len(selected) != 1:
@@ -602,13 +619,25 @@ def run_scrape(args: argparse.Namespace) -> int:
             if args.max_questions is not None:
                 env["SCRAPER_MAX_QUESTIONS"] = str(args.max_questions)
 
-            result = subprocess.run(
-                [args.python_executable, str(REPO_ROOT / "code.py")],
-                cwd=REPO_ROOT,
-                env=env,
-                check=False,
-            )
-            if result.returncode != 0:
+            max_attempts = args.group_retries + 1
+            result: subprocess.CompletedProcess[str] | subprocess.CompletedProcess[bytes] | None = None
+            for attempt in range(1, max_attempts + 1):
+                if attempt > 1:
+                    print(
+                        f"[RETRY] qualification={qualification_code} "
+                        f"group={target.output_list_group_id} attempt={attempt}/{max_attempts}",
+                        flush=True,
+                    )
+                result = subprocess.run(
+                    [args.python_executable, str(REPO_ROOT / "code.py")],
+                    cwd=REPO_ROOT,
+                    env=env,
+                    check=False,
+                )
+                if result.returncode == 0:
+                    break
+
+            if result is not None and result.returncode != 0:
                 failures += 1
                 print(
                     f"[ERROR] scrape failed qualification={qualification_code} "
@@ -674,6 +703,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="missing_preset と configured_not_scraped を全て対象にする",
     )
     scrape.add_argument(
+        "--all-unscraped",
+        action="store_true",
+        help="未登録・未取得・部分取得済みの kakomonn 資格を全て対象にし、保存済みグループはスキップする",
+    )
+    scrape.add_argument(
         "--qualification-code",
         help="単一資格取得時の出力 qualification code を明示する",
     )
@@ -685,6 +719,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     scrape.add_argument("--max-qualifications", type=int, help="対象資格数の上限")
     scrape.add_argument("--max-groups", type=int, help="各資格の list1 グループ数上限")
     scrape.add_argument("--max-questions", type=int, help="各 list1 で取得する問題数上限")
+    scrape.add_argument(
+        "--group-retries",
+        type=int,
+        default=0,
+        help="失敗した list1 グループを追加で再試行する回数",
+    )
     scrape.add_argument("--force", action="store_true", help="既存 00_source があっても再取得する")
     scrape.add_argument("--dry-run", action="store_true", help="実行計画だけ表示する")
     scrape.add_argument("--yes", action="store_true", help="--all-missing 本取得の安全確認")

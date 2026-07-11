@@ -7,6 +7,7 @@ from pathlib import Path
 
 from scripts.scrape.kakomonn_inventory import (
     build_inventory_rows,
+    bulk_scrape_candidate_statuses,
     discover_list_targets_from_html,
     discover_qualifications_from_html,
     infer_year_from_label,
@@ -112,6 +113,16 @@ class KakomonnInventoryTests(unittest.TestCase):
 
         self.assertEqual(rows[0]["status"], "configured_scraped")
         self.assertEqual(rows[1]["status"], "missing_preset")
+
+    def test_bulk_scrape_statuses_can_include_partial_sources(self) -> None:
+        self.assertEqual(
+            bulk_scrape_candidate_statuses(include_partial_sources=False),
+            {"missing_preset", "configured_not_scraped"},
+        )
+        self.assertEqual(
+            bulk_scrape_candidate_statuses(include_partial_sources=True),
+            {"missing_preset", "configured_not_scraped", "unconfigured_source_exists"},
+        )
 
     @staticmethod
     def _write_config(config_path: Path) -> Path:
