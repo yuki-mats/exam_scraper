@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 156,
+  "auditKey": "gas-shunin:otsu:2019:law:q07:80102bab5f0e",
+  "auditInputHash": "eccd1093d18b6e12cec88bc72891175ceb523d306d4b2d9d48755fcf6a188c80",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:46:01+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第17条第1項は、最高使用圧力が高圧又は中圧のガスホルダーで過圧が生ずるおそれのあるものに、圧力を逃がす適切な安全弁を設け、吹出しガスによる障害が生じないよう施設すると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「特定ガス発生設備を除く」が誤り。ガス工作物の技術上の基準を定める省令第18条第1項は、計測又は確認装置の対象となるガス発生設備から、移動式ガス発生設備を除くと定めている。",
+      "間違い。選択肢の「移動式ガス発生設備には」が誤り。ガス工作物の技術上の基準を定める省令第19条第1項は、警報装置の対象となるガス発生設備から、移動式ガス発生設備を除くと定めている。",
+      "間違い。選択肢の「特定製造所にあっては、この限りでない」が誤り。ガス工作物の技術上の基準を定める省令第21条第1項は、製造所及び供給所の保安上重要な設備に停電等で機能を失わないための措置を求めており、特定製造所を除外していない。",
+      "間違い。選択肢の「付臭されていなければならない」が誤り。ガス工作物の技術上の基準を定める省令第22条第1項ただし書は、中圧以上のガス圧力により行う大口供給の用に供するガスを、付臭義務の例外と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "安全弁が必要なガスホルダーの圧力区分は？",
+      "計測・確認装置の対象から除かれるガス発生設備は？",
+      "警報装置の対象から除かれるガス発生設備は？",
+      "保安電力の規定に特定製造所の例外はある？",
+      "中圧以上の大口供給に付臭義務はある？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "安全弁が必要なガスホルダーの圧力区分は？",
+        "answer": "最高使用圧力が高圧又は中圧で、過圧が生ずるおそれがあるもの。"
+      },
+      {
+        "question": "計測・確認装置の対象から除かれるガス発生設備は？",
+        "answer": "移動式ガス発生設備。第18条第1項が定めている。"
+      },
+      {
+        "question": "警報装置の対象から除かれるガス発生設備は？",
+        "answer": "移動式ガス発生設備。第19条第1項が定めている。"
+      },
+      {
+        "question": "保安電力の規定に特定製造所の例外はある？",
+        "answer": "ない。第21条第1項は特定製造所を除外していない。"
+      },
+      {
+        "question": "中圧以上の大口供給に付臭義務はある？",
+        "answer": "ない。第22条第1項ただし書が付臭義務の例外と定めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第17条第1項、第18条第1項、第19条第1項、第21条第1項及び第22条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "17",
+          "paragraph": "1",
+          "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
+          "rawXmlHash": "4cdef19a07fe4efcfc82f7389a7f710cbf9480266b0e3f0b71e9f4388d75dace"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "1",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "19",
+          "paragraph": "1",
+          "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
+          "rawXmlHash": "4d42a6fd913ada1b1e7e2377a98e30056c351e1a1ff459b4f88761c0fcdc20d0"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "21",
+          "paragraph": "1",
+          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "22",
+          "paragraph": "1",
+          "articleTextHash": "3d51d59c4fbbf21f1be979179032bb5a7dad3e6ebd93c69eeb4a43d6a05d870b",
+          "rawXmlHash": "b5800b12bf800a8ff0f60dbbc1d0ea462bc0191e7045f228dd08208fd4b34701"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、間違い、間違いは現行条文と一致する。",
+    "各誤り肢について、除外対象、例外の有無及び付臭義務の例外を具体的に示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2019-law-q07-s01",
+      "gas-shunin-otsu-2019-law-q07-s02",
+      "gas-shunin-otsu-2019-law-q07-s03",
+      "gas-shunin-otsu-2019-law-q07-s04",
+      "gas-shunin-otsu-2019-law-q07-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:46:38Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
