@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 94,
+  "auditKey": "gas-shunin:kou:2024:law:q09:2363691fb5cb",
+  "auditInputHash": "56e1b7634391ae988c968bd3d0ccf2d7a6fc3caf382731cad5e38b5c46135c30",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:22:23+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「インターロック機構」が誤り。ガス工作物の技術上の基準を定める省令第17条は、対象となる製造設備で過圧が生ずるおそれのあるものに、圧力を逃がすための適切な安全弁を設けると定めている。",
+      "間違い。選択肢の「製造設備の運転を継続させるのに必要な装置」が誤り。ガス工作物の技術上の基準を定める省令第21条は、製造設備を安全に停止させるのに必要な装置その他の保安上重要な設備に、停電等で機能が失われない措置を講ずると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能低下又は損傷のおそれがあるガスホルダーに、凝縮液を抜く装置を設けると定めている。",
+      "間違い。選択肢の「ガス小売事業者の名称及び連絡先」が誤り。ガス工作物の技術上の基準を定める省令第34条は、液化ガス用貯槽又はガスホルダー若しくはその付近に、その設備である旨を外部から見やすく表示すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第38条第2項は、防液堤の外面から防災作業に必要な距離の内側に、液化ガスの漏えい又は火災等の拡大防止に支障のない設備以外を設置してはならないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "過圧のおそれがある製造設備に必要な装置は？",
+      "停電時にも機能を維持すべき装置は？",
+      "ガスホルダーの凝縮液対策は？",
+      "液化ガス用貯槽等に表示する内容は？",
+      "防液堤周辺に設置できる設備は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "過圧のおそれがある製造設備に必要な装置は？",
+        "answer": "インターロック機構ではなく、圧力を逃がすための適切な安全弁。"
+      },
+      {
+        "question": "停電時にも機能を維持すべき装置は？",
+        "answer": "製造設備を安全に停止させるのに必要な装置その他の保安上重要な設備。"
+      },
+      {
+        "question": "ガスホルダーの凝縮液対策は？",
+        "answer": "機能低下又は損傷のおそれがある場合、凝縮液を抜く装置を設ける。"
+      },
+      {
+        "question": "液化ガス用貯槽等に表示する内容は？",
+        "answer": "事業者名・連絡先ではなく、液化ガス用貯槽又はガスホルダーである旨。"
+      },
+      {
+        "question": "防液堤周辺に設置できる設備は？",
+        "answer": "漏えい又は火災等の拡大防止に支障のない設備。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第17条、第21条、第32条第1項、第34条及び第38条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "17",
+          "paragraph": "1",
+          "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
+          "rawXmlHash": "4cdef19a07fe4efcfc82f7389a7f710cbf9480266b0e3f0b71e9f4388d75dace"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "21",
+          "paragraph": "1",
+          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "32",
+          "paragraph": "1",
+          "articleTextHash": "7e144e36c680edb3b6b80282307f2a994c08707945a7574efe8b2d16c98d3de9",
+          "rawXmlHash": "8f2ff3c145d9eeb52eb651de556d8e98780cdecc504dd2879b1f548124a09cfd"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "34",
+          "paragraph": "1",
+          "articleTextHash": "34e5fdd1c468d08feece4a76a3909cfbd5e58fd1f172d5cc0e08aa9a380c0a6a",
+          "rawXmlHash": "caa9451425b70ee07a63ca93d3fbf45c396269cdf2f81409f431ca44788ca487"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "38",
+          "paragraph": "2",
+          "articleTextHash": "3ce9eeaa034c45e2c30e28745533ecbaa134b79b8f974b3e17dbbb449dbf5317",
+          "rawXmlHash": "da67585a93aed322c0fe02b3e30988059562c088f0ec44e14f37744ac0e4be58"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、間違い、正しいは現行省令と一致する。",
+    "第1肢は安全弁をインターロック機構に置き換えている。",
+    "第2肢は安全停止に必要な装置を運転継続に必要な装置へ置き換えている。",
+    "第4肢の表示内容は事業者名・連絡先ではなく、設備である旨である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q09-s01",
+      "gas-shunin-kou-2024-law-q09-s02",
+      "gas-shunin-kou-2024-law-q09-s03",
+      "gas-shunin-kou-2024-law-q09-s04",
+      "gas-shunin-kou-2024-law-q09-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "17",
+        "21",
+        "32",
+        "34",
+        "38"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:24:04Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
