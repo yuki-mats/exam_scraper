@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 209,
+  "auditKey": "gas-shunin:otsu:2022:law:q12:8cc0995f6264",
+  "auditInputHash": "6eb83ee9b3803900cfd5183a1a883cd3fd34e103fde5bcbf6a1870e4c8b04f3b",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T02:45:16+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第2項の表(1)は、本支管からガス栓までの間に絶縁措置が講じられ、その絶縁部分からガス栓までの間でプラスチック被覆された部分について、埋設の日以後6年に1回以上、適切な方法で漏えい検査を行わなければならないと定めている。",
+      "間違い。選択肢の「6年に1回以上、漏えい検査を行う」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項ただし書第3号は、ポリエチレン管を使用している部分を同項の漏えい検査義務の例外と定めている。",
+      "間違い。選択肢の「ガスが滞留するおそれがない場所に設置されるものは除く」が誤り。ガス工作物の技術上の基準を定める省令第52条第1項は、高圧導管を所定の建物内部又は基礎面下に設置してはならないと定め、この例外を設けていない。同条第3項第2号の例外は中圧導管を対象としている。",
+      "間違い。選択肢の「供給するガスの圧力」が誤り。ガス工作物の技術上の基準を定める省令第52条の2は、危険標識に、導管により供給するガスの種類、異常を認めたときの連絡先その他必要な事項を明瞭に記載すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第53条は、導管を共同溝に設置する場合、ガス漏れによる構造又は管理上の支障を防止するため導管に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置しなければならないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "所定のプラスチック被覆部分の漏えい検査周期は？",
+      "ポリエチレン管部分には定期漏えい検査が必要？",
+      "高圧導管の建物内設置禁止にガス滞留のおそれがない場所の例外はある？",
+      "地盤面上の所定導管の危険標識に記載するガス情報は？",
+      "導管を共同溝に設置する条件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "所定のプラスチック被覆部分の漏えい検査周期は？",
+        "answer": "埋設の日以後6年に1回以上。"
+      },
+      {
+        "question": "ポリエチレン管部分には定期漏えい検査が必要？",
+        "answer": "第51条第2項ただし書第3号により、その使用部分は同項の検査義務の例外となる。"
+      },
+      {
+        "question": "高圧導管の建物内設置禁止にガス滞留のおそれがない場所の例外はある？",
+        "answer": "ない。その例外は第52条第3項の中圧導管に関する規定。"
+      },
+      {
+        "question": "地盤面上の所定導管の危険標識に記載するガス情報は？",
+        "answer": "供給するガスの圧力ではなく、ガスの種類。"
+      },
+      {
+        "question": "導管を共同溝に設置する条件は？",
+        "answer": "導管に適切な措置を講じ、適切な措置が講じられた共同溝内に設置する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第2項の表(1)及び同項ただし書第3号、第52条第1項及び第3項第2号、第52条の2並びに第53条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "3",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "1",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85",
+          "references": [
+            {
+              "article": "52",
+              "paragraph": "1",
+              "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+              "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+            },
+            {
+              "article": "52",
+              "paragraph": "3",
+              "item": "2",
+              "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+              "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52の2",
+          "paragraph": "1",
+          "articleTextHash": "1a98905309b8a4b79e62360f86544472ece11fc493d756e16adefb48470018ed",
+          "rawXmlHash": "ed7c794cf93b02cffb7fea7a8779410e8eebecefc5e0611899e3d0abf8ed5990"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "53",
+          "paragraph": "1",
+          "articleTextHash": "40441f774366dad5490f4761b9983aa6c85b609163c06b2696bbbe6f439ac0e0",
+          "rawXmlHash": "86524f2e8f9f17d1e692b7770da9a064783f62c27faa610a6ecd92316423fce3"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、間違い、正しいは現行省令と一致する。",
+    "選択肢2のポリエチレン管部分は第51条第2項ただし書第3号の例外であり、選択肢3のガス滞留例外は中圧導管にのみ関係する。",
+    "選択肢4の危険標識に記載するのはガスの圧力ではなくガスの種類である。",
+    "誤っているものは選択肢2、3、4の3個で、answer_result_textの正解3と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2022-law-q12-s01",
+      "gas-shunin-otsu-2022-law-q12-s02",
+      "gas-shunin-otsu-2022-law-q12-s03",
+      "gas-shunin-otsu-2022-law-q12-s04",
+      "gas-shunin-otsu-2022-law-q12-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+        "lawId": "412M50000400111",
+        "articles": [
+          "51",
+          "52",
+          "52の2",
+          "53"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T17:46:06Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}

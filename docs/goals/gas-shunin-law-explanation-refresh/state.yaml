@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T209
+active_task: T210
 
 tasks:
   - id: T153
@@ -2877,13 +2877,62 @@ tasks:
   - id: T209
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "sequence 209、gas-shunin-otsu 2022 法令 問12を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 209", "2022 00_source", "公式e-Gov法令API"]
     constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
     allowed_files:
       - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0209_gas-shunin-otsu_2022_q12.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json"
+    verify:
+      - "apply decision"
+      - "build inventory"
+      - "19 unittest cases"
+      - "00_source diff check"
+    stop_if:
+      - "source又はID変更が必要。"
+      - "正答不一致のflag判断が必要。"
+      - "一問を超える更新になる。"
+    receipt:
+      result: done
+      summary: "sequence 209の漏えい検査、導管設置場所、危険標識及び共同溝設置を現行省令で精査し、ポリエチレン管例外、高圧導管の例外誤用及び標識の圧力記載を具体化した。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0209_gas-shunin-otsu_2022_q12.json"
+        - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+        - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+        - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json"
+      commands:
+        - cmd: "apply decision 0209"
+          status: pass
+        - cmd: "build inventory"
+          status: pass
+        - cmd: "19 unittest cases"
+          status: pass
+        - cmd: "00_source diff check"
+          status: pass
+      evidence:
+        - "patchAppliedQuestionCount=209"
+        - "pendingReviewQuestionCount=52"
+        - "correctChoiceTextChanged=false, flags=[]"
+        - "mappingErrorCount=0, decisionErrorCount=0"
+        - "5択explanationTextをpush前に表示済み"
+        - "public_question_id=259db8d1a859bfbeで反映後readback済み"
+        - "正誤配列は正しい・間違い・間違い・間違い・正しいでsourceと整合し、answer_result_textの正解3と一致"
+        - "省令第51・52・52条の2・53条のarticleTextHashとrawXmlHashを現行e-Gov API応答から保存"
+      harness: codex
+  - id: T210
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "sequence 210、gas-shunin-otsu 2022 法令 問13を現行法で一問精査し、解説更新と検証を完了する。"
+    inputs: ["review_ledger sequence 210", "2022 00_source", "公式e-Gov法令API"]
+    constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0210_gas-shunin-otsu_2022_q13.json"
       - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
       - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
       - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json"
@@ -2918,10 +2967,10 @@ tasks:
     receipt: null
 
 checks:
-  dirty_fingerprint: "sequence-208-verified@462f12b32"
+  dirty_fingerprint: "sequence-209-verified@4945f27f2"
   last_verification:
     result: pass
-    task: T208
+    task: T209
     commands:
       - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
       - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json"
