@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 175,
+  "auditKey": "gas-shunin:otsu:2020:law:q10:6c483ac03981",
+  "auditInputHash": "d8ae3bd532a88ffc346f320f7c77ed521adc413e20c9cf8e8beadc906eafd129",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:45:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第47条は、設置状況により腐食を生ずるおそれがある導管に、腐食を防止するための適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第4項は、地下室等にガスを供給する導管に、地下室等の付近の適切な場所で、危急時に地上からガス供給を速やかに遮断できる適切な装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第2項は、道路に埋設される本支管のうち、最高使用圧力が5kPa以上のポリエチレン管に、掘削等による損傷を防止するための適切な措置を講じると定めている。",
+      "間違い。選択肢の「長時間にわたるガスの継続使用」が誤り。ガス工作物の技術上の基準を定める省令第50条第1項が定める検知対象は、災害のおそれがある大きさの地震動、過大なガスの流量又は異常なガス圧力の低下である。",
+      "間違い。選択肢の「振動を軽減するための措置」が誤り。ガス工作物の技術上の基準を定める省令第48条第1項は、対象となる道路露出導管のうち損傷のおそれのある部分に、衝撃による損傷を防止するための措置を講じると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "腐食のおそれがある導管に必要な措置は？",
+      "地下室等への供給導管に必要な遮断装置は？",
+      "道路埋設ポリエチレン本支管に必要な措置は？",
+      "小型取引用ガスメーターの遮断検知対象は？",
+      "道路露出導管に必要なのは振動軽減措置？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "腐食のおそれがある導管に必要な措置は？",
+        "answer": "腐食を防止するための適切な措置。"
+      },
+      {
+        "question": "地下室等への供給導管に必要な遮断装置は？",
+        "answer": "地下室等の付近の適切な場所に、危急時に地上から供給を速やかに遮断できる適切な装置。"
+      },
+      {
+        "question": "道路埋設ポリエチレン本支管に必要な措置は？",
+        "answer": "最高使用圧力が5kPa以上の場合、掘削等による損傷を防止するための適切な措置。"
+      },
+      {
+        "question": "小型取引用ガスメーターの遮断検知対象は？",
+        "answer": "地震動、過大なガス流量又は異常なガス圧力低下。長時間の継続使用ではない。"
+      },
+      {
+        "question": "道路露出導管に必要なのは振動軽減措置？",
+        "answer": "違う。損傷のおそれのある部分に、衝撃による損傷を防止する措置が必要。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第47条、第48条第1項・第2項、第49条第4項及び第50条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "47",
+          "articleTextHash": "0307136f04e895cb745038d3e7681d2a9f99c1f79f76b08eb3043e0241641674",
+          "rawXmlHash": "cb6fd13d15c67e4440da43647c2b3116e7e82ba6071daacc51402b7f3d0c8a35"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "4",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "2",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "1",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行条文と一致する。",
+    "選択肢3は長時間の継続使用ではなく、過大なガスの流量が第50条第1項の検知対象であることを明記した。",
+    "選択肢4は振動軽減ではなく、衝撃による損傷防止措置が第48条第1項の要件であることを明記した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "47",
+        "48",
+        "49",
+        "50"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:38:25Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
