@@ -1025,31 +1025,32 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
     "explanationText": [
-      "間違い。公共の利益の確保としている点が誤り。ガス事業法第21条第3項は、移転等命令の緊急要件は公共の安全維持又は災害発生防止である。",
-      "正しい。ガス事業法第22条第1項は、所有者又は占有者は維持措置に協力するよう努める。",
-      "間違い。ガス事業法第24条第1項は、保安規程は事業開始前に届け出る。",
-      "間違い。保安業務監督者としている点が誤り。ガス事業法施行規則第92条第1項第2号は、職務代行者はガス主任技術者が職務不能の場合に関する事項である。",
-      "間違い。ガス事業法第160条第1項、ガス事業法施行規則第207条は、消費機器の周知・調査は保安業務規程の事項である。"
+      "間違い。選択肢の「公共の利益の確保」が誤り。ガス事業法第21条第3項は、経済産業大臣がガス工作物の移転若しくは使用の一時停止等を命ずることができるのは、公共の安全の維持又は災害の発生の防止のため緊急の必要があると認めるときであると定めている。",
+      "正しい。ガス事業法第22条第1項は、ガス小売事業者以外の者が所有又は占有するガス小売事業用のガス工作物について、ガス小売事業者が技術上の基準に適合するよう維持するため必要な措置を講じようとするとき、その所有者又は占有者は措置の実施に協力するよう努めなければならないと定めている。",
+      "間違い。選択肢の「経済産業大臣の許可を受け」が誤り。ガス事業法第24条第1項は、ガス小売事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「保安業務監督者」が誤り。ガス事業法施行規則第24条第1項第2号は、保安規程に、ガス主任技術者が旅行、疾病その他事故によって職務を行うことができない場合の職務代行者に関することを定めるものとしている。",
+      "間違い。選択肢の「保安規程」が誤り。ガス事業法第160条第1項及びガス事業法施行規則第207条の表のガス小売事業者の項第5号は、消費機器に関する周知、調査等の実施方法は保安業務規程に定める事項であると定めている。"
     ],
     "suggestedQuestions": [
-      "緊急時にガス工作物の移転や使用停止を命ずる根拠は何のためか？",
+      "緊急時にガス工作物の移転や使用停止を命ずるのは何のためか？",
       "他者が所有又は占有するガス小売事業用ガス工作物の維持措置には協力義務があるか？",
       "ガス小売事業者の保安規程は許可制か届出制か？",
       "保安規程で職務代行者を定める対象者は誰か？",
-      "消費機器の周知・調査等の実施方法はどの規程に定めるか？"
+      "消費機器の周知・調査等の実施方法はどの規程に定めるか？",
+      "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "緊急時にガス工作物の移転や使用停止を命ずる根拠は何のためか？",
-        "answer": "根拠は、ガス事業法第21条第3項、ガス事業法第22条第1項、ガス事業法第24条第1項、ガス事業法施行規則第92条第1項第2号、ガス事業法第160条第1項、ガス事業法施行規則第207条。"
+        "question": "緊急時にガス工作物の移転や使用停止を命ずるのは何のためか？",
+        "answer": "公共の安全の維持又は災害の発生の防止のため。"
       },
       {
         "question": "他者が所有又は占有するガス小売事業用ガス工作物の維持措置には協力義務があるか？",
-        "answer": "所有者又は占有者は、ガス小売事業者の維持措置に協力するよう努めなければならない。"
+        "answer": "所有者又は占有者は、ガス小売事業者が講じようとする維持措置の実施に協力するよう努めなければならない。"
       },
       {
         "question": "ガス小売事業者の保安規程は許可制か届出制か？",
-        "answer": "届出制であり、事業開始前に経済産業大臣へ届け出る。"
+        "answer": "届出制であり、事業の開始前に経済産業大臣へ届け出る。"
       },
       {
         "question": "保安規程で職務代行者を定める対象者は誰か？",
@@ -1057,7 +1058,11 @@
       },
       {
         "question": "消費機器の周知・調査等の実施方法はどの規程に定めるか？",
-        "answer": "保安業務規程に定める事項であり、保安規程ではない。"
+        "answer": "保安業務規程に定める。保安規程ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第21条第3項、第22条第1項、第24条第1項及び第160条第1項、ガス事業法施行規則第24条第1項第2号及び第207条の表のガス小売事業者の項第5号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -1103,16 +1108,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "21",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。公共の利益の確保としている点が誤り。ガス事業法第21条第3項は、移転等命令の緊急要件は公共の安全維持又は災害発生防止である。",
+          "reason": "間違い。選択肢の「公共の利益の確保」が誤り。ガス事業法第21条第3項は、経済産業大臣がガス工作物の移転若しくは使用の一時停止等を命ずることができるのは、公共の安全の維持又は災害の発生の防止のため緊急の必要があると認めるときであると定めている。",
           "paragraph": "3",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=21",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "120e495e8fcf7e0def0de72071ebee5e6573e3ec3df317933d0658c39275f1f6",
+          "rawXmlHash": "a3015d8af8ae0aa2a3597f938ee318fc8a93a58ec7aef017d9b742714ecb0540"
         }
       ],
       [
@@ -1123,16 +1130,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "22",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第22条第1項は、所有者又は占有者は維持措置に協力するよう努める。",
+          "reason": "正しい。ガス事業法第22条第1項は、ガス小売事業者以外の者が所有又は占有するガス小売事業用のガス工作物について、ガス小売事業者が技術上の基準に適合するよう維持するため必要な措置を講じようとするとき、その所有者又は占有者は措置の実施に協力するよう努めなければならないと定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=22",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "c95d9014ae88087c6a6c7139f83984f71e2f0f7a4913e52eb9906d998805e1f4",
+          "rawXmlHash": "6c952b680d5b5ccdb782b213bd96c6e357401b29d3cb8a473d688dcdd6a667ce"
         }
       ],
       [
@@ -1143,16 +1152,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "24",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第24条第1項は、保安規程は事業開始前に届け出る。",
+          "reason": "間違い。選択肢の「経済産業大臣の許可を受け」が誤り。ガス事業法第24条第1項は、ガス小売事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "d654b5ca0616ae3010b6bb55fb20c279edf4acd46be4f7c9361f9adb3ea14b69",
+          "rawXmlHash": "935185d58b5e121c78c436e9af4c4c48916f4d2d9155ca608a1fde8c57b91040"
         }
       ],
       [
@@ -1162,18 +1173,20 @@
           "choiceIndex": 3,
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
-          "article": "92",
-          "referenceDate": "2026-07-11",
+          "article": "24",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。保安業務監督者としている点が誤り。ガス事業法施行規則第92条第1項第2号は、職務代行者はガス主任技術者が職務不能の場合に関する事項である。",
+          "reason": "間違い。選択肢の「保安業務監督者」が誤り。ガス事業法施行規則第24条第1項第2号は、保安規程に、ガス主任技術者が旅行、疾病その他事故によって職務を行うことができない場合の職務代行者に関することを定めるものとしている。",
           "paragraph": "1",
           "item": "2",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=92",
-          "appLinkMode": "egov_api"
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=24",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "a2112970a43873082c9e5c7afc53b25c90df76365b1e23678e3ee1e5422bcd55",
+          "rawXmlHash": "bdabab75e98e14c5458e654a94e8cd85c75d821ce6f1e2171943417ce97e4a66"
         }
       ],
       [
@@ -1184,16 +1197,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "160",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第160条第1項、ガス事業法施行規則第207条は、消費機器の周知・調査は保安業務規程の事項である。",
+          "reason": "間違い。選択肢の「保安規程」が誤り。ガス事業法第160条第1項及びガス事業法施行規則第207条の表のガス小売事業者の項第5号は、消費機器に関する周知、調査等の実施方法は保安業務規程に定める事項であると定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
         },
         {
           "role": "current_basis",
@@ -1202,31 +1217,35 @@
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
           "article": "207",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第160条第1項、ガス事業法施行規則第207条は、消費機器の周知・調査は保安業務規程の事項である。",
+          "reason": "間違い。選択肢の「保安規程」が誤り。ガス事業法第160条第1項及びガス事業法施行規則第207条の表のガス小売事業者の項第5号は、消費機器に関する周知、調査等の実施方法は保安業務規程に定める事項であると定めている。",
+          "paragraph": "1",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=207",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+          "item": "5",
+          "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:12:02+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "ddb4c3776d128d4484ced2da8fdc3c22139cd10cd218e6bd887159c96492f524",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:335a0acfe7454e65:choice1",
         "evidenceBindingHash": "fde8317730fbb15bd265c5be9feaa61606393c4f540823f8eecaea6db1f8693c",
         "examTime": {
@@ -1234,46 +1253,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "21",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "120e495e8fcf7e0def0de72071ebee5e6573e3ec3df317933d0658c39275f1f6",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=21"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=21",
+          "lawId": "329AC0000000051",
+          "paragraph": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第21条第3項は、経済産業大臣がガス工作物の移転又は使用の一時停止等を命ずることができる場合を、公共の安全の維持又は災害の発生の防止のため緊急の必要があると認めるときとしている。公共の利益の確保としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。",
-          "displayRefIds": [
-            "current:329AC0000000051:21:3"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「公共の利益の確保」が誤り。ガス事業法第21条第3項は、経済産業大臣がガス工作物の移転若しくは使用の一時停止等を命ずることができるのは、公共の安全の維持又は災害の発生の防止のため緊急の必要があると認めるときであると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第21条第3項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:21:3",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln21.3",
-              "rootArticleElm": "ln21",
               "article": "21",
               "articleTextHash": "120e495e8fcf7e0def0de72071ebee5e6573e3ec3df317933d0658c39275f1f6",
-              "textHash": "120e495e8fcf7e0def0de72071ebee5e6573e3ec3df317933d0658c39275f1f6",
+              "lawId": "329AC0000000051",
               "paragraph": "3"
             }
           ]
@@ -1281,16 +1293,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:12:02+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "16b66d5a0791c16b29d4bf8505c17d160cd49dc82e0399703a1b61dff10cb1cb",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:335a0acfe7454e65:choice2",
         "evidenceBindingHash": "c2d4fcf9aa6d675a3a359db03bfd841af99da4d77c7e94970c14bf491c91284d",
         "examTime": {
@@ -1298,46 +1310,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "22",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "c95d9014ae88087c6a6c7139f83984f71e2f0f7a4913e52eb9906d998805e1f4",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=22"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=22",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第22条第1項は、ガス小売事業の用に供するガス工作物のうちガス小売事業者以外の者が所有又は占有するものについて、ガス小売事業者が技術上の基準に適合するよう維持するため必要な措置を講じようとするとき、その所有者又は占有者は協力するよう努めなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。",
-          "displayRefIds": [
-            "current:329AC0000000051:22:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第22条第1項は、ガス小売事業者以外の者が所有又は占有するガス小売事業用のガス工作物について、ガス小売事業者が技術上の基準に適合するよう維持するため必要な措置を講じようとするとき、その所有者又は占有者は措置の実施に協力するよう努めなければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第22条第1項を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:22:1",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln22.1",
-              "rootArticleElm": "ln22",
               "article": "22",
               "articleTextHash": "c95d9014ae88087c6a6c7139f83984f71e2f0f7a4913e52eb9906d998805e1f4",
-              "textHash": "c95d9014ae88087c6a6c7139f83984f71e2f0f7a4913e52eb9906d998805e1f4",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             }
           ]
@@ -1345,16 +1350,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:12:02+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "e91f8c7ddb4e93827b6e9638f0d55d582a533588789cf0ef7c1f7885873e2edd",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:335a0acfe7454e65:choice3",
         "evidenceBindingHash": "427e135f6a4bb3f20d2d425714b37510680466939e49982f74ab20f2a6b376ee",
         "examTime": {
@@ -1362,46 +1367,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "24",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "d654b5ca0616ae3010b6bb55fb20c279edf4acd46be4f7c9361f9adb3ea14b69",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=24",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第24条第1項は、ガス小売事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。許可を受けるものではない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。",
-          "displayRefIds": [
-            "current:329AC0000000051:24:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「経済産業大臣の許可を受け」が誤り。ガス事業法第24条第1項は、ガス小売事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第24条第1項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:24:1",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln24.1",
-              "rootArticleElm": "ln24",
               "article": "24",
               "articleTextHash": "d654b5ca0616ae3010b6bb55fb20c279edf4acd46be4f7c9361f9adb3ea14b69",
-              "textHash": "d654b5ca0616ae3010b6bb55fb20c279edf4acd46be4f7c9361f9adb3ea14b69",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             }
           ]
@@ -1409,16 +1407,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:12:02+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "ae3b295333f34884a9395593f489cf7a416eadf1ffaf6875740766684a9ea9d1",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:335a0acfe7454e65:choice4",
         "evidenceBindingHash": "46dea3034bcca07dc357d8e21b56f074bfc00cfb2ffa5533fee08ac8af525a48",
         "examTime": {
@@ -1426,46 +1424,40 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "article": "24",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "a2112970a43873082c9e5c7afc53b25c90df76365b1e23678e3ee1e5422bcd55",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=24"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=24",
+          "lawId": "345M50000400097",
+          "paragraph": "1",
+          "item": "2"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。保安規程で定める代行者は、ガス主任技術者が旅行、疾病その他事故によって職務を行うことができない場合の職務代行者である。保安業務監督者としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。",
-          "displayRefIds": [
-            "current:345M50000400097:24:1:2"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「保安業務監督者」が誤り。ガス事業法施行規則第24条第1項第2号は、保安規程に、ガス主任技術者が旅行、疾病その他事故によって職務を行うことができない場合の職務代行者に関することを定めるものとしている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法施行規則第24条第1項第2号を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:345M50000400097:24:1:2",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "345M50000400097",
               "lawTitle": "ガス事業法施行規則",
-              "elm": "ln24.1.2",
-              "rootArticleElm": "ln24",
               "article": "24",
               "articleTextHash": "a2112970a43873082c9e5c7afc53b25c90df76365b1e23678e3ee1e5422bcd55",
-              "textHash": "a2112970a43873082c9e5c7afc53b25c90df76365b1e23678e3ee1e5422bcd55",
+              "lawId": "345M50000400097",
               "paragraph": "1",
               "item": "2"
             }
@@ -1474,16 +1466,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:12:02+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "352e33971de98775b3a5e0a7fe10fa7c78724052dc69c34f192a4ff537a70da6",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:335a0acfe7454e65:choice5",
         "evidenceBindingHash": "9e438befb136b6935da366b076898458b82e69d14dd6303af9faab9310113916",
         "examTime": {
@@ -1491,61 +1483,50 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "160",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=160",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。消費機器に関する周知、調査等の実施方法は、ガス事業法第160条第1項の保安業務規程とガス事業法施行規則第207条に定める事項であり、保安規程の事項ではない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス工作物に関する次の記述のうち、正しいものはどれか。",
-          "displayRefIds": [
-            "current:329AC0000000051:160:1",
-            "current:345M50000400097:207:1:5"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「保安規程」が誤り。ガス事業法第160条第1項及びガス事業法施行規則第207条の表のガス小売事業者の項第5号は、消費機器に関する周知、調査等の実施方法は保安業務規程に定める事項であると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第160条第1項、ガス事業法施行規則第207条第1項第5号を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:160:1",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln160.1",
-              "rootArticleElm": "ln160",
               "article": "160",
               "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
-              "textHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             },
             {
-              "refId": "current:345M50000400097:207:1:5",
+              "refId": "choice-4-ref-2",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "345M50000400097",
               "lawTitle": "ガス事業法施行規則",
-              "elm": "ln207.1.5",
-              "rootArticleElm": "ln207",
               "article": "207",
               "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
-              "textHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+              "lawId": "345M50000400097",
               "paragraph": "1",
               "item": "5"
             }
@@ -1554,18 +1535,18 @@
       }
     ],
     "suggestedExplanationText": [
-      "間違い。公共の利益の確保としている点が誤り。ガス事業法第21条第3項は、移転等命令の緊急要件は公共の安全維持又は災害発生防止である。",
-      "正しい。ガス事業法第22条第1項は、所有者又は占有者は維持措置に協力するよう努める。",
-      "間違い。ガス事業法第24条第1項は、保安規程は事業開始前に届け出る。",
-      "間違い。保安業務監督者としている点が誤り。ガス事業法施行規則第92条第1項第2号は、職務代行者はガス主任技術者が職務不能の場合に関する事項である。",
-      "間違い。ガス事業法第160条第1項、ガス事業法施行規則第207条は、消費機器の周知・調査は保安業務規程の事項である。"
+      "間違い。選択肢の「公共の利益の確保」が誤り。ガス事業法第21条第3項は、経済産業大臣がガス工作物の移転若しくは使用の一時停止等を命ずることができるのは、公共の安全の維持又は災害の発生の防止のため緊急の必要があると認めるときであると定めている。",
+      "正しい。ガス事業法第22条第1項は、ガス小売事業者以外の者が所有又は占有するガス小売事業用のガス工作物について、ガス小売事業者が技術上の基準に適合するよう維持するため必要な措置を講じようとするとき、その所有者又は占有者は措置の実施に協力するよう努めなければならないと定めている。",
+      "間違い。選択肢の「経済産業大臣の許可を受け」が誤り。ガス事業法第24条第1項は、ガス小売事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「保安業務監督者」が誤り。ガス事業法施行規則第24条第1項第2号は、保安規程に、ガス主任技術者が旅行、疾病その他事故によって職務を行うことができない場合の職務代行者に関することを定めるものとしている。",
+      "間違い。選択肢の「保安規程」が誤り。ガス事業法第160条第1項及びガス事業法施行規則第207条の表のガス小売事業者の項第5号は、消費機器に関する周知、調査等の実施方法は保安業務規程に定める事項であると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "間違い。公共の利益の確保としている点が誤り。ガス事業法第21条第3項は、移転等命令の緊急要件は公共の安全維持又は災害発生防止である。",
-      "正しい。ガス事業法第22条第1項は、所有者又は占有者は維持措置に協力するよう努める。",
-      "間違い。ガス事業法第24条第1項は、保安規程は事業開始前に届け出る。",
-      "間違い。保安業務監督者としている点が誤り。ガス事業法施行規則第92条第1項第2号は、職務代行者はガス主任技術者が職務不能の場合に関する事項である。",
-      "間違い。ガス事業法第160条第1項、ガス事業法施行規則第207条は、消費機器の周知・調査は保安業務規程の事項である。"
+      "間違い。選択肢の「公共の利益の確保」が誤り。ガス事業法第21条第3項は、経済産業大臣がガス工作物の移転若しくは使用の一時停止等を命ずることができるのは、公共の安全の維持又は災害の発生の防止のため緊急の必要があると認めるときであると定めている。",
+      "正しい。ガス事業法第22条第1項は、ガス小売事業者以外の者が所有又は占有するガス小売事業用のガス工作物について、ガス小売事業者が技術上の基準に適合するよう維持するため必要な措置を講じようとするとき、その所有者又は占有者は措置の実施に協力するよう努めなければならないと定めている。",
+      "間違い。選択肢の「経済産業大臣の許可を受け」が誤り。ガス事業法第24条第1項は、ガス小売事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「保安業務監督者」が誤り。ガス事業法施行規則第24条第1項第2号は、保安規程に、ガス主任技術者が旅行、疾病その他事故によって職務を行うことができない場合の職務代行者に関することを定めるものとしている。",
+      "間違い。選択肢の「保安規程」が誤り。ガス事業法第160条第1項及びガス事業法施行規則第207条の表のガス小売事業者の項第5号は、消費機器に関する周知、調査等の実施方法は保安業務規程に定める事項であると定めている。"
     ]
   },
   {
