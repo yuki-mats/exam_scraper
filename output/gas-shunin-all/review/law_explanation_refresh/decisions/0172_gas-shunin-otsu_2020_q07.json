@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 172,
+  "auditKey": "gas-shunin:otsu:2020:law:q07:ed124f053baf",
+  "auditInputHash": "1f8835c4cc0c9e0c4a999c90980d9830d58be09fde0e6e895006fc064fb48ae3",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:28:51+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項第3号は、液化ガス用ポンプを耐圧試験義務の例外と定めている。",
+      "間違い。選択肢の「海底に設置される導管は、非破壊試験に合格すれば耐圧試験が不要」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項第1号は、非破壊試験に合格した溶接導管を例外とする一方、同条第1項第7号の海底に設置される導管をその例外から除外している。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項第4号は、整圧器を耐圧試験義務の例外と定めている。",
+      "間違い。選択肢の「適切な機械試験により確認されたもの」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項第2号は、中圧導管及び附属設備の例外について、同一材料、同一寸法及び同一施工方法で接合した試験管が、最高使用圧力の1.5倍以上の圧力に耐えることを要件と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項第3号は、昇圧供給装置を耐圧試験義務の例外と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "液化ガス用ポンプは耐圧試験が必要？",
+      "非破壊試験に合格した海底導管は耐圧試験が不要？",
+      "整圧器は耐圧試験が必要？",
+      "中圧導管が耐圧試験の例外となる試験管の条件は？",
+      "昇圧供給装置は耐圧試験が必要？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "液化ガス用ポンプは耐圧試験が必要？",
+        "answer": "不要。第15条第2項第3号の例外に該当する。"
+      },
+      {
+        "question": "非破壊試験に合格した海底導管は耐圧試験が不要？",
+        "answer": "不要ではない。海底導管は第2項第1号の非破壊試験例外から除外されている。"
+      },
+      {
+        "question": "整圧器は耐圧試験が必要？",
+        "answer": "不要。第15条第2項第4号の例外に該当する。"
+      },
+      {
+        "question": "中圧導管が耐圧試験の例外となる試験管の条件は？",
+        "answer": "同一材料・寸法・施工方法で接合し、最高使用圧力の1.5倍以上の圧力に耐えること。"
+      },
+      {
+        "question": "昇圧供給装置は耐圧試験が必要？",
+        "answer": "不要。第15条第2項第3号の例外に該当する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第15条第1項第7号並びに第2項第1号から第4号まで。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "3",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "1",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
+          "references": [
+            {
+              "paragraph": "2",
+              "item": "1"
+            },
+            {
+              "paragraph": "1",
+              "item": "7"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "4",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "2",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "3",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、正しいは現行条文と一致する。",
+    "整圧器の既存根拠は第2項第3号であったが、現行条文上の直接根拠は第4号であるため修正した。",
+    "海底導管は第2項第1号の非破壊試験例外から除外され、中圧導管の例外には1.5倍以上の圧力試験が必要であることを明記した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "15"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:29:44Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
