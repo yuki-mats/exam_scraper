@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 143,
+  "auditKey": "gas-shunin:otsu:2018:law:q10:8e0acc251de9",
+  "auditInputHash": "76b74f5201e1898c226bab080474ebfd1cf333a755db33b03a4de49a65fc4acf",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:13:41+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第1項は、最高使用圧力が高圧又は中圧の本支管に、危急時にガスを速やかに遮断できる適切な装置を適切な場所へ設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第2項は、特定地下街等へガスを供給する低圧本支管に、災害により妨げられない箇所で容易に供給を遮断できる適切な措置を講ずると定めている。",
+      "間違い。選択肢の「当該地下室等にて」が誤り。ガス工作物の技術上の基準を定める省令第49条第4項は、地下室等へのガス供給を地上から速やかに遮断できる装置を設けると定めている。",
+      "間違い。選択肢は「工場の建物」を義務対象としている点が誤り。ガス工作物の技術上の基準を定める省令第49条第6項第1号は、工場等に設置される中圧導管を、建物外壁貫通箇所付近の遮断装置義務から除外している。",
+      "間違い。選択肢の「異常なガス圧力の上昇」が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、所定のガスメーターが異常なガス圧力の低下等を検知した場合に、ガスを速やかに遮断する機能を有すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "高圧・中圧本支管に必要な危急時遮断装置は？",
+      "特定地下街等への低圧供給を遮断する場所の条件は？",
+      "地下室等へのガス供給はどこから遮断する？",
+      "工場に設置される中圧導管は外壁付近遮断装置の対象？",
+      "所定のガスメーターが遮断する異常圧力は上昇と低下のどちら？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "高圧・中圧本支管に必要な危急時遮断装置は？",
+        "answer": "危急時にガスを速やかに遮断できる適切な装置を、適切な場所へ設ける。"
+      },
+      {
+        "question": "特定地下街等への低圧供給を遮断する場所の条件は？",
+        "answer": "災害により妨げられない箇所で、容易に遮断できること。"
+      },
+      {
+        "question": "地下室等へのガス供給はどこから遮断する？",
+        "answer": "地上から速やかに遮断できる必要がある。"
+      },
+      {
+        "question": "工場に設置される中圧導管は外壁付近遮断装置の対象？",
+        "answer": "第49条第6項第1号の除外対象。"
+      },
+      {
+        "question": "所定のガスメーターが遮断する異常圧力は上昇と低下のどちら？",
+        "answer": "異常なガス圧力の低下。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第49条第1項、第2項、第4項及び第6項第1号並びに第50条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "1",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "2",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "4",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "6",
+          "item": "1",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、間違い、間違いは現行法と一致する。",
+    "地下室等での遮断位置、工場等の除外、異常圧力の低下を誤り箇所として明示した。",
+    "選択肢3の誤ったlawRevisionFacts.current第52条を、直接根拠の第49条第6項第1号へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q10-s01",
+      "gas-shunin-otsu-2018-law-q10-s02",
+      "gas-shunin-otsu-2018-law-q10-s03",
+      "gas-shunin-otsu-2018-law-q10-s04",
+      "gas-shunin-otsu-2018-law-q10-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:14:25Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
