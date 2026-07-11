@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 139,
+  "auditKey": "gas-shunin:otsu:2018:law:q06:4836be658083",
+  "auditInputHash": "bebeb4897c490726ec9a7ad7cccddda8b7abf222826155aa86a973f4f0a3f2a2",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:06:21+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第1号及び第3号ハは、製造設備に属する所定の容器及び管のうち、液化ガスを通じ、内面に0Paを超える圧力を受ける部分を、供用中の荷重並びに最高・最低使用温度における最高使用圧力に対し適切な構造とすると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、附帯設備であって製造設備に属する液化ガス用貯槽に、設備の損傷を防止するため使用状態を計測又は確認できる適切な装置を設けると定めている。",
+      "間違い。選択肢の「最高使用圧力が中圧のガスを通ずる内径が150mm以上の配管」が誤り。ガス工作物の技術上の基準を定める省令第16条第2項第2号イ及びロは、内径150mm以上の配管では高圧ガス又は液化ガスを通ずるものを対象とし、中圧ガスを通ずる内径150mm以上のものは同項第3号ロの導管について定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第19条は、附帯設備であって製造設備に属する液化ガス用貯槽に、ガス又は液化ガスを通ずる設備の損傷に至るおそれのある状態を検知し、警報する適切な装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第21条は、製造設備を安全に停止させるために必要な装置その他の製造所の保安上重要な設備に、停電等で機能が失われないよう適切な措置を講ずると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "液化ガスを通ずる製造設備の容器・管にはどのような構造が必要？",
+      "液化ガス用貯槽に必要な計測・確認装置は？",
+      "内径150mm以上の配管で溶接施工方法等の事前確認が必要な流体条件は？",
+      "中圧ガス・内径150mm以上という条件が適用されるのは配管と導管のどちら？",
+      "製造所の保安上重要な設備にはどのような停電対策が必要？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "液化ガスを通ずる製造設備の容器・管にはどのような構造が必要？",
+        "answer": "供用中の荷重並びに最高・最低使用温度における最高使用圧力に対し、設備の種類・規模に応じた適切な構造。"
+      },
+      {
+        "question": "液化ガス用貯槽に必要な計測・確認装置は？",
+        "answer": "ガス又は液化ガスを通ずる設備の損傷を防止するため、使用状態を計測又は確認できる適切な装置。"
+      },
+      {
+        "question": "内径150mm以上の配管で溶接施工方法等の事前確認が必要な流体条件は？",
+        "answer": "最高使用圧力が高圧のガスを通ずるもの、又は液化ガスを通ずるもの。"
+      },
+      {
+        "question": "中圧ガス・内径150mm以上という条件が適用されるのは配管と導管のどちら？",
+        "answer": "導管。配管ではない。"
+      },
+      {
+        "question": "製造所の保安上重要な設備にはどのような停電対策が必要？",
+        "answer": "停電等により設備の機能が失われないよう、適切な措置を講ずる必要がある。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第15条第1項第1号及び第3号ハ、第16条第2項第2号イ・ロ及び第3号ロ、第18条第1項、第19条並びに第21条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074",
+          "references": [
+            {
+              "item": "1",
+              "subitem": ""
+            },
+            {
+              "item": "3",
+              "subitem": "ハ"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "1",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "2",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a",
+          "references": [
+            {
+              "item": "2",
+              "subitem": "イ"
+            },
+            {
+              "item": "2",
+              "subitem": "ロ"
+            },
+            {
+              "item": "3",
+              "subitem": "ロ"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "19",
+          "paragraph": "1",
+          "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
+          "rawXmlHash": "4d42a6fd913ada1b1e7e2377a98e30056c351e1a1ff459b4f88761c0fcdc20d0"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "21",
+          "paragraph": "1",
+          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行法と一致する。",
+    "中圧ガス・内径150mm以上の条件が配管ではなく導管に適用されることを、各号・イロハ単位で明示した。",
+    "製造設備に属する容器及び管の構造根拠を、第15条第1項第1号及び第3号ハへ細分化した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q06-s01",
+      "gas-shunin-otsu-2018-law-q06-s02",
+      "gas-shunin-otsu-2018-law-q06-s03",
+      "gas-shunin-otsu-2018-law-q06-s04",
+      "gas-shunin-otsu-2018-law-q06-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:07:11Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
