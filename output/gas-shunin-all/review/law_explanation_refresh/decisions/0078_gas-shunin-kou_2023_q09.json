@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 78,
+  "auditKey": "gas-shunin:kou:2023:law:q09:70f976f7456b",
+  "auditInputHash": "be5a8538d540121174e0245023bffb4feff1ff51ec526420b367ee780b655bff",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:39:29+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「最高使用圧力が高圧」と「インターロック機構」が誤り。ガス工作物の技術上の基準を定める省令第25条は、過圧が生ずるおそれのある最高使用圧力が低圧のガス発生設備等に、圧力を逃がすための適切な圧力上昇防止装置を設けると定めている。",
+      "間違い。選択肢の「使用の状態を記録し、これを保存」が誤り。ガス工作物の技術上の基準を定める省令第18条第2項は、移動式ガス発生設備に、設備の損傷を防止するため使用の状態を計測又は確認できる適切な措置を講ずると定めている。",
+      "間違い。選択肢の「付臭されていなければならない」が誤り。ガス工作物の技術上の基準を定める省令第22条ただし書は、中圧以上のガス圧力により行う大口供給の用に供するガスを、付臭義務の対象外と定めている。",
+      "間違い。選択肢の「ガス主任技術者の氏名及び連絡先」が誤り。ガス工作物の技術上の基準を定める省令第34条は、液化ガス用貯槽又はガスホルダー若しくはその付近に、その設備である旨を外部から見やすく表示すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第39条は、不活性の液化ガス用のものを除く液化ガス用貯槽の埋設部分について、設置状況により腐食のおそれがある場合、腐食を防止するための適切な措置を講ずると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "低圧ガス発生設備等に必要な過圧対策は？",
+      "移動式ガス発生設備に必要な計測措置は？",
+      "中圧以上の大口供給用ガスは付臭対象？",
+      "液化ガス用貯槽等に表示する内容は？",
+      "液化ガス用貯槽の埋設部分に必要な防食措置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "低圧ガス発生設備等に必要な過圧対策は？",
+        "answer": "過圧が生ずるおそれがある場合、圧力を逃がすための適切な圧力上昇防止装置を設ける。"
+      },
+      {
+        "question": "移動式ガス発生設備に必要な計測措置は？",
+        "answer": "設備の損傷を防止するため、使用の状態を計測又は確認できる適切な措置を講ずる。"
+      },
+      {
+        "question": "中圧以上の大口供給用ガスは付臭対象？",
+        "answer": "中圧以上のガス圧力により行う大口供給用ガスは、付臭義務の対象外。"
+      },
+      {
+        "question": "液化ガス用貯槽等に表示する内容は？",
+        "answer": "液化ガス用貯槽又はガスホルダーである旨を、外部から見やすく表示する。"
+      },
+      {
+        "question": "液化ガス用貯槽の埋設部分に必要な防食措置は？",
+        "answer": "設置状況により腐食のおそれがある場合、腐食防止の適切な措置を講ずる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第18条第2項、第22条ただし書、第25条、第34条及び第39条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "25",
+          "paragraph": "1",
+          "articleTextHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a",
+          "rawXmlHash": "d449bd3ae174104cc666013fd37d2efe685107cc9d88c3c7d07335bb61db05f2"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "2",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "22",
+          "paragraph": "1",
+          "articleTextHash": "3d51d59c4fbbf21f1be979179032bb5a7dad3e6ebd93c69eeb4a43d6a05d870b",
+          "rawXmlHash": "b5800b12bf800a8ff0f60dbbc1d0ea462bc0191e7045f228dd08208fd4b34701"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "34",
+          "paragraph": "1",
+          "articleTextHash": "34e5fdd1c468d08feece4a76a3909cfbd5e58fd1f172d5cc0e08aa9a380c0a6a",
+          "rawXmlHash": "caa9451425b70ee07a63ca93d3fbf45c396269cdf2f81409f431ca44788ca487"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "39",
+          "paragraph": "1",
+          "articleTextHash": "791f1f14a85126f93786b96764ef4df02106f056ce3265e912d6088f8cad4d9e",
+          "rawXmlHash": "f756d810943a72efbc9717fe7409ed15b9dd1daff1b2f5629fb3a87fe071c433"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、間違い、正しいは現行省令と一致する。",
+    "第1肢は対象圧力と装置名の双方が誤りで、正しくは低圧のガス発生設備等に圧力上昇防止装置を設ける。",
+    "第3肢の中圧による大口供給用ガスは、第22条ただし書の付臭義務の例外に該当する。",
+    "第4肢の表示内容はガス主任技術者の氏名・連絡先ではなく、液化ガス用貯槽又はガスホルダーである旨である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0361",
+      "chiefgasengineerlicense-A-10-0362",
+      "chiefgasengineerlicense-A-10-0363",
+      "chiefgasengineerlicense-A-10-0364",
+      "chiefgasengineerlicense-A-10-0365"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "18",
+        "22",
+        "25",
+        "34",
+        "39"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:40:33Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
