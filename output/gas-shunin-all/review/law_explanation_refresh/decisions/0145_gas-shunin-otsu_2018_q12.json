@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 145,
+  "auditKey": "gas-shunin:otsu:2018:law:q12:8c5b221ab69f",
+  "auditInputHash": "55dcf48df7800142025bc3f24dabf64e679a6741235e3153770ea63b9347bf2e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:17:56+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第2項の表第3号は、特定管理管でない対象部分について、埋設の日以後4年に1回以上、適切な方法で漏えい検査を行うと定めている。",
+      "間違い。選択肢の「6年に1回」が誤り。ガス工作物の技術上の基準を定める省令第51条第3項の表第2号は、特定地下街等又は特定地下室等にガスを供給する導管等のうち、表第1号以外の部分について、埋設の日以後1年に1回以上検査すると定めている。",
+      "間違い。選択肢の「基準日前3月以内若しくは後1月以内」が誤り。ガス工作物の技術上の基準を定める省令第51条第4項は、基準日前4月以内に検査した場合、基準日に検査したものとみなすと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第58条第1項は、浸水のおそれのある地下に設置する整圧器に、浸水防止措置を講ずると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備を、地震に耐えるよう支持すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "特定管理管でない対象部分の漏えい検査頻度は？",
+      "特定地下街等へ供給する導管等の漏えい検査頻度は？",
+      "基準日に検査したとみなされる検査期間は？",
+      "地下設置整圧器の浸水防止措置は第58条の何項？",
+      "整圧器の附属設備にはどのような耐震措置が必要？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "特定管理管でない対象部分の漏えい検査頻度は？",
+        "answer": "埋設の日以後4年に1回以上。"
+      },
+      {
+        "question": "特定地下街等へ供給する導管等の漏えい検査頻度は？",
+        "answer": "表第1号以外の部分も埋設の日以後1年に1回以上。"
+      },
+      {
+        "question": "基準日に検査したとみなされる検査期間は？",
+        "answer": "基準日前4月以内。基準日後の期間は含まれない。"
+      },
+      {
+        "question": "地下設置整圧器の浸水防止措置は第58条の何項？",
+        "answer": "第1項。第2項はガス中水分の凍結防止措置。"
+      },
+      {
+        "question": "整圧器の附属設備にはどのような耐震措置が必要？",
+        "answer": "地震に耐えるよう支持する必要がある。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第2項表第3号、第3項表第2号及び第4項並びに第58条第1項及び第3項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "表第3号",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "3",
+          "item": "表第2号",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "4",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "1",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "3",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、正しい、正しいは現行法と一致する。",
+    "特定地下街等供給導管の1年周期と、基準日前4月以内のみなし規定を明示した。",
+    "浸水防止措置の既存根拠を第58条第2項から正しい第1項へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q12-s01",
+      "gas-shunin-otsu-2018-law-q12-s02",
+      "gas-shunin-otsu-2018-law-q12-s03",
+      "gas-shunin-otsu-2018-law-q12-s04",
+      "gas-shunin-otsu-2018-law-q12-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:18:35Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
