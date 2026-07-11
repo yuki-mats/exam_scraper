@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 9,
+  "auditKey": "gas-shunin:kou:2019:law:q09:98647ae38a6b",
+  "auditInputHash": "2637a651ea7e066cdcd52ed54a7ef01fc1ba4e13eaedd55a4ca77cc7df0c1eac",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T17:20:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能低下又は損傷のおそれがあるガスホルダーに、凝縮液を抜く装置を設けると定めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第1項は、過圧のおそれがある液化ガス用貯槽に安全弁を設け、吹出しガスによる障害が生じないよう施設すると定めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第2項は、低温貯槽に負圧による破壊を防止する措置を講じると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「最高使用圧力が中圧以上」が誤り。ガス工作物の技術上の基準を定める省令第37条は、耐熱又は冷却措置の対象となるガスホルダーを、最高使用圧力が高圧のものと定めている。",
+      "間違い。選択肢の「貯蔵能力が2000t未満」が誤り。ガス工作物の技術上の基準を定める省令第38条第1項ただし書は、防液堤を要しない貯槽の貯蔵能力を1,000t未満、特定事業所に設置するものは500t未満と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガスホルダーの凝縮液抜き装置はいつ必要？",
+      "液化ガス用貯槽の安全弁に必要な措置は？",
+      "低温貯槽に必要な負圧対策は？",
+      "耐熱措置の対象となるガスホルダーは？",
+      "防液堤が不要となる貯蔵能力基準は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガスホルダーの凝縮液抜き装置はいつ必要？",
+        "answer": "凝縮液により機能低下又は損傷のおそれがあるとき。"
+      },
+      {
+        "question": "液化ガス用貯槽の安全弁に必要な措置は？",
+        "answer": "作動時の吹出しガスによる障害が生じないように施設する。"
+      },
+      {
+        "question": "低温貯槽に必要な負圧対策は？",
+        "answer": "負圧による破壊を防止する適切な措置。"
+      },
+      {
+        "question": "耐熱措置の対象となるガスホルダーは？",
+        "answer": "最高使用圧力が高圧のガスホルダー。"
+      },
+      {
+        "question": "防液堤が不要となる貯蔵能力基準は？",
+        "answer": "1,000t未満。特定事業所に設置するものは500t未満。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第32条第1項、第35条第1項及び第2項、第37条並びに第38条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "32",
+          "paragraph": "1",
+          "articleTextHash": "7e144e36c680edb3b6b80282307f2a994c08707945a7574efe8b2d16c98d3de9",
+          "rawXmlHash": "8f2ff3c145d9eeb52eb651de556d8e98780cdecc504dd2879b1f548124a09cfd"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "35",
+          "paragraph": "1",
+          "articleTextHash": "45d5f13eb51c9655535017b57e37e670117a9ebb081e3360b9412ec440478ca0",
+          "rawXmlHash": "0d50032389d94206db16c2b357e2c768fc3686db686b76db4243ddc5bbadb32a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "35",
+          "paragraph": "2",
+          "articleTextHash": "45d5f13eb51c9655535017b57e37e670117a9ebb081e3360b9412ec440478ca0",
+          "rawXmlHash": "0d50032389d94206db16c2b357e2c768fc3686db686b76db4243ddc5bbadb32a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "37",
+          "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
+          "rawXmlHash": "86269577933916677d7963ea62f3830f10572971d8cf52bda58ab1f500f35ac0"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "38",
+          "paragraph": "1",
+          "articleTextHash": "3ce9eeaa034c45e2c30e28745533ecbaa134b79b8f974b3e17dbbb449dbf5317",
+          "rawXmlHash": "da67585a93aed322c0fe02b3e30988059562c088f0ec44e14f37744ac0e4be58"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行条文と一致する。",
+    "00_source.correctTextの高圧及び1,000t未満という訂正は現行第37条及び第38条第1項と一致する。",
+    "第38条第1項の解説には、特定事業所では500t未満となる条件も含めた。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "32",
+        "35",
+        "37",
+        "38"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:30:44Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
