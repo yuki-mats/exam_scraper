@@ -1,0 +1,182 @@
+version: 2
+
+goal:
+  title: "ガス主任技術者 法令261問 基本解説更新"
+  slug: "gas-shunin-law-explanation-refresh"
+  kind: existing_plan
+  tranche: "pending問題を一問ずつ公式e-Govで精査し、検証・commit・origin/main pushまで継続する。"
+  status: active
+  oracle:
+    signal: "summary.jsonで261問適用済み、pending/error/未処理flagが0、公開成果物監査と17テストが通り、00_sourceと既存IDが不変。"
+    cadence: "各設問のWorker完了後と最終PM監査時"
+    final_proof: "全decision、summary/ledger、e-Gov hash、公開成果物、テスト、git同期を対応付けた最終PM receipt。"
+  intake:
+    original_request: "ガス主任技術者試験の法令問題について、一問ずつ棚卸しして基本解説を更新する作業を継続する。"
+    interpreted_outcome: "全261問について、具体的で現行法に裏付けられた基本解説と参照情報を一問単位で完成させる。"
+    input_shape: existing_plan
+    audience: "ガス主任技術者試験の受験者と運用者"
+    authority: requested
+    proof_type: source_backed_answer
+    completion_proof: "261問すべての精査・公開成果物・検証が完了し、未処理項目が0になること。"
+    likely_misfire: "00_sourceやIDを変える、複数問を一括判断する、曖昧な解説を残す、全問完了前にFirestoreへ反映する。"
+    blind_spots_considered:
+      - "既存lawRevisionFactsの直接根拠が誤っている場合がある。"
+      - "空欄組合せ問題では誤っている空欄を個別に示す必要がある。"
+      - "現行法とcorrectChoiceTextが明白に矛盾する場合はsourceを直さずflagへ回す。"
+      - "e-Gov参照は条・項・号・細目とhashを保存する。"
+    existing_plan_facts:
+      - "mainのみを使用し、一問ごとにcommitしてorigin/mainへpushする。"
+      - "00_sourceと既存questionIdを変更しない。"
+      - "各問の具体的なexplanationTextをpush前にチャットへ表示する。"
+      - "Firestore反映は全261問と公開成果物の完成後に行う。"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 261
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: false
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: none
+  local:
+    status: not_requested
+    url: null
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
+
+active_task: T154
+
+tasks:
+  - id: T153
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "sequence 153、gas-shunin-otsu 2019 法令 問4を現行法で一問精査し、解説更新と検証を完了する。"
+    inputs:
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl sequence 153"
+      - "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json"
+      - "公式e-Gov法令API"
+    constraints:
+      - "00_sourceを変更しない。"
+      - "correctChoiceTextと現行法が明白に矛盾する場合はsourceを直さずflagへ回す。"
+      - "push前に具体的なexplanationTextをチャットへ表示する。"
+      - "一問を超えるデータを更新しない。"
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0153_gas-shunin-otsu_2019_q04.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json"
+    verify:
+      - ".venv/bin/python scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py output/gas-shunin-all/review/law_explanation_refresh/decisions/0153_gas-shunin-otsu_2019_q04.json"
+      - ".venv/bin/python scripts/check/build_gas_shunin_law_explanation_refresh_inventory.py"
+      - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
+      - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json"
+    stop_if:
+      - "00_source又は既存questionIdを変更する必要が出る。"
+      - "現行法と正答の不一致が明白でflag判断が必要になる。"
+      - "一問を超える範囲を更新しそうになる。"
+      - "指定検証が二度失敗し、原因が対象外ファイルにある。"
+    receipt:
+      result: done
+      summary: "sequence 153、2019乙種法令問4を現行e-Govで精査。correctChoiceTextを保持し、技術基準適合通知の受領を開始要件とする誤りを明示し、施行規則第46条・第47条へ直接根拠を修正した。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0153_gas-shunin-otsu_2019_q04.json"
+        - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+        - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+        - "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json"
+      commands:
+        - cmd: ".venv/bin/python scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py output/gas-shunin-all/review/law_explanation_refresh/decisions/0153_gas-shunin-otsu_2019_q04.json"
+          status: pass
+        - cmd: ".venv/bin/python scripts/check/build_gas_shunin_law_explanation_refresh_inventory.py"
+          status: pass
+        - cmd: ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
+          status: pass
+        - cmd: "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json"
+          status: pass
+      evidence:
+        - "patchAppliedQuestionCount=153, pendingReviewQuestionCount=108"
+        - "correctChoiceTextChanged=false, flags=[]"
+        - "mappingErrorCount=0, decisionErrorCount=0"
+        - "e-Gov rawXmlHash verified for law 47, 166, 32 and rule 46, 47"
+        - "具体的な5択explanationTextをpush前にチャット表示済み"
+        - "00_source unchanged"
+      harness: codex
+  - id: T154
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "sequence 154、gas-shunin-otsu 2019 法令 問5を現行法で一問精査し、解説更新と検証を完了する。"
+    inputs:
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl sequence 154"
+      - "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json"
+      - "公式e-Gov法令API"
+    constraints:
+      - "00_sourceを変更しない。"
+      - "correctChoiceTextと現行法が明白に矛盾する場合はsourceを直さずflagへ回す。"
+      - "push前に具体的なexplanationTextをチャットへ表示する。"
+      - "一問を超えるデータを更新しない。"
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0154_gas-shunin-otsu_2019_q05.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json"
+    verify:
+      - ".venv/bin/python scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py output/gas-shunin-all/review/law_explanation_refresh/decisions/0154_gas-shunin-otsu_2019_q05.json"
+      - ".venv/bin/python scripts/check/build_gas_shunin_law_explanation_refresh_inventory.py"
+      - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
+      - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json"
+    stop_if:
+      - "00_source又は既存questionIdを変更する必要が出る。"
+      - "現行法と正答の不一致が明白でflag判断が必要になる。"
+      - "一問を超える範囲を更新しそうになる。"
+      - "指定検証が二度失敗し、原因が対象外ファイルにある。"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "全261問、公開成果物、Firestore前gate、00_source/ID不変、最終検証を監査する。"
+    inputs:
+      - "全task receipts"
+      - "summary.jsonとreview_ledger.jsonl"
+      - "公開成果物と最終テスト"
+      - "git同期状態"
+    constraints:
+      - "pending又は必要なWorker taskが残る間は完了を拒否する。"
+      - "全261問精査前のFirestore反映を拒否する。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "missing evidence"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "sequence-153-verified@bf7b920dd"
+  last_verification:
+    result: pass
+    task: T153
+    commands:
+      - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
+      - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json"
