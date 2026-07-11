@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 195,
+  "auditKey": "gas-shunin:otsu:2021:law:q14:3398ac11ac96",
+  "auditInputHash": "cb97113ffa9e19c8d0e8967114818827348593c0149a4fef87fb755904afbdc5",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:52:51+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。空欄（イ）の「部品」が誤り。ガス事業法第137条第1項は、「ガス用品」を、主として一般消費者等がガスを消費する場合に用いられる機械、器具又は材料であって、政令で定めるものと定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事を施工するとき、ガス消費機器設置工事監督者の資格を有する者に実地に監督させ、又はその資格を有する特定工事事業者が自ら実地に監督することと定めている。",
+      "間違い。空欄（ハ）の「ガス用品」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事がガス事業法第162条等に適合することを確保するための監督を定め、ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が技術上の基準に適合するように行うことと定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事の施工後、特定ガス消費機器の見やすい場所に、氏名又は名称、施工年月日その他の所定事項を記載した表示を付すことと定めている。",
+      "正しい。ガス事業法第138条第1項は、所定の表示が付されたものでなければ、ガス用品を販売し、又は販売の目的で陳列してはならないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス用品の定義に含まれるものは？",
+      "特定工事を実地に監督するのは誰？",
+      "特定工事で技術基準に適合させる対象は？",
+      "特定工事施工後の表示事項は？",
+      "表示のないガス用品の販売・陳列は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス用品の定義に含まれるものは？",
+        "answer": "主として一般消費者等がガスを消費する場合に用いられる機械、器具又は材料であって、政令で定めるもの。"
+      },
+      {
+        "question": "特定工事を実地に監督するのは誰？",
+        "answer": "ガス消費機器設置工事監督者の資格を有する者。資格を有する特定工事事業者が自ら監督する場合もある。"
+      },
+      {
+        "question": "特定工事で技術基準に適合させる対象は？",
+        "answer": "ガス用品ではなく、設置又は変更工事の対象となる消費機器。"
+      },
+      {
+        "question": "特定工事施工後の表示事項は？",
+        "answer": "氏名又は名称、施工年月日その他の経済産業省令で定める事項。"
+      },
+      {
+        "question": "表示のないガス用品の販売・陳列は？",
+        "answer": "所定の表示がなければ、販売又は販売目的の陳列をしてはならない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第137条第1項・第138条第1項・第162条及び特定ガス消費機器の設置工事の監督に関する法律第3条・第6条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "137",
+          "paragraph": "1",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
+        },
+        "1": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a"
+        },
+        "2": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a",
+          "references": [
+            {},
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "162",
+              "paragraph": "1",
+              "articleTextHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd",
+              "rawXmlHash": "e0c79a2ece402209b3d250a58a85124c3518dbcb062c5ab55dcf3b78bb1caef8"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "6",
+          "paragraph": "1",
+          "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
+          "rawXmlHash": "e0f0c3d02183fdf0d10baa3feb4fad74e277ba497ee9415895873376eb64fc92"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "138",
+          "paragraph": "1",
+          "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
+          "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、正しい、正しいは現行法と一致する。",
+    "誤り語句は空欄（イ）の部品と空欄（ハ）のガス用品で、正しくはそれぞれ材料と消費機器である。",
+    "誤り語句の組合せは（イ）・（ハ）で、answer_result_textの正解1と一致する。",
+    "選択肢4の既存lawReferenceがガス事業法第6条を指していたため、特定ガス消費機器の設置工事の監督に関する法律第6条へ修正する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2021-law-q14-s01",
+      "gas-shunin-otsu-2021-law-q14-s02",
+      "gas-shunin-otsu-2021-law-q14-s03",
+      "gas-shunin-otsu-2021-law-q14-s04",
+      "gas-shunin-otsu-2021-law-q14-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス事業法",
+        "lawId": "329AC0000000051",
+        "articles": [
+          "137",
+          "138",
+          "162"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051"
+      },
+      {
+        "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+        "lawId": "354AC0000000033",
+        "articles": [
+          "3",
+          "6"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:53:39Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
