@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 24,
+  "auditKey": "gas-shunin:kou:2020:law:q08:3e96b7f93b0c",
+  "auditInputHash": "acf688fdaa2ffa40d43f76e325054fa699863034230a4b9ed39d50459ecd79e4",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T17:20:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第21条は、製造設備を安全に停止させる装置などの保安上重要な設備に、停電等で機能が失われない措置を講じると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「使用の状態を記録できる」が誤り。ガス工作物の技術上の基準を定める省令第18条第2項は、移動式ガス発生設備に、使用の状態を計測又は確認できる適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所等に設置する遮断装置に、誤操作を防止し、確実に操作できる措置を講じると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「高圧又は中圧のガスを通ずるガス工作物」が誤り。ガス工作物の技術上の基準を定める省令第20条第2項は、対象を、高圧のガス若しくは液化ガスを通ずるガス工作物又はそのガス工作物に係る計装回路と定めている。",
+      "間違い。選択肢の「凝縮液を気化する装置」が誤り。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液による機能低下又は損傷のおそれがあるガスホルダーに、凝縮液を抜く装置を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "保安上重要な設備に必要な停電対策は？",
+      "移動式ガス発生設備で確認すべき状態は？",
+      "遮断装置に必要な操作上の措置は？",
+      "インターロック機構を設ける対象は？",
+      "ガスホルダーの凝縮液に必要な装置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "保安上重要な設備に必要な停電対策は？",
+        "answer": "停電等により設備の機能が失われないよう適切な措置を講じる。"
+      },
+      {
+        "question": "移動式ガス発生設備で確認すべき状態は？",
+        "answer": "設備の使用状態を計測又は確認できるようにする。"
+      },
+      {
+        "question": "遮断装置に必要な操作上の措置は？",
+        "answer": "誤操作を防止し、確実に操作できる措置。"
+      },
+      {
+        "question": "インターロック機構を設ける対象は？",
+        "answer": "特定事業所の高圧ガス若しくは液化ガスを通ずるガス工作物又はその計装回路。"
+      },
+      {
+        "question": "ガスホルダーの凝縮液に必要な装置は？",
+        "answer": "凝縮液を抜く装置。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第18条第2項、第20条第1項・第2項、第21条及び第32条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "21",
+          "paragraph": "1",
+          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "2",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "20",
+          "paragraph": "1",
+          "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
+          "rawXmlHash": "3664ff5af8230a26f3d045b64f6ad4ac59c33f4e7481e74667b133b8aa1532df"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "20",
+          "paragraph": "2",
+          "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
+          "rawXmlHash": "3664ff5af8230a26f3d045b64f6ad4ac59c33f4e7481e74667b133b8aa1532df"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "32",
+          "paragraph": "1",
+          "articleTextHash": "7e144e36c680edb3b6b80282307f2a994c08707945a7574efe8b2d16c98d3de9",
+          "rawXmlHash": "8f2ff3c145d9eeb52eb651de556d8e98780cdecc504dd2879b1f548124a09cfd"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、間違いは現行条文と一致する。",
+    "第20条第2項の対象は、中圧ガスではなく高圧ガス若しくは液化ガスを通ずる工作物又はその計装回路である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "18",
+        "20",
+        "21",
+        "32"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:06:46Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
