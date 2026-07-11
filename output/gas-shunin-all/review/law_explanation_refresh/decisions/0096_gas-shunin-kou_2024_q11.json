@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 96,
+  "auditKey": "gas-shunin:kou:2024:law:q11:2cc38212ab8a",
+  "auditInputHash": "b4d9a108cdf19767c6339a67b126b78b5c3773d64ca695df43d0d065f2df3cc8",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:28:32+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「適切な勾配」が誤り。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管に、適切な水取り器を設けると定めている。",
+      "間違い。選択肢の「最高使用圧力が10kPa以上」が誤り。ガス工作物の技術上の基準を定める省令第48条第2項は、道路に埋設される本支管のうち、最高使用圧力が5kPa以上のポリエチレン管に、掘削等による損傷防止措置を講ずると定めている。",
+      "間違い。選択肢の「地下室等から十分離れた適切な場所」が誤り。ガス工作物の技術上の基準を定める省令第49条第4項は、地下室等にガスを供給する導管の遮断装置を、その地下室等の付近の適切な場所に設けると定めている。",
+      "間違い。選択肢の「異常なガス圧力の上昇」が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、対象となるガスメーターに、異常なガス圧力の低下を検知した場合にガスを速やかに遮断する機能を持たせると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第50条第1項は、対象ガスメーターに地震動検知時の遮断機能を求めている。同条第2項は、供給地点数300未満の団地で、250ガルを超える地震動を継続検知した際に団地供給を遮断する設備を特定製造所に設置した場合、この地震動検知部分を適用しないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "水のたまる導管に必要な設備は？",
+      "道路埋設ポリエチレン本支管の圧力基準は？",
+      "地下室等への遮断装置を設ける場所は？",
+      "ガスメーターが検知する異常圧力は？",
+      "団地遮断設備による地震検知機能の例外は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "水のたまる導管に必要な設備は？",
+        "answer": "適切な勾配ではなく、適切な水取り器。"
+      },
+      {
+        "question": "道路埋設ポリエチレン本支管の圧力基準は？",
+        "answer": "最高使用圧力10kPa以上ではなく、5kPa以上。"
+      },
+      {
+        "question": "地下室等への遮断装置を設ける場所は？",
+        "answer": "地下室等から十分離れた場所ではなく、その付近の適切な場所。"
+      },
+      {
+        "question": "ガスメーターが検知する異常圧力は？",
+        "answer": "異常なガス圧力の上昇ではなく、低下。"
+      },
+      {
+        "question": "団地遮断設備による地震検知機能の例外は？",
+        "answer": "供給地点数300未満の団地で、特定製造所に250ガル超の継続検知時の団地遮断設備を設けた場合。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第46条、第48条第2項、第49条第4項及び第50条第1項・第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "46",
+          "paragraph": "1",
+          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+          "rawXmlHash": "fedb9cd678574cf16b416f2b1efbbf7bc9cb0b2fb2cf695c1e7bb4cb22f2820d"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "2",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "4",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408",
+          "references": [
+            {
+              "article": "50",
+              "paragraph": "1",
+              "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+              "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+            },
+            {
+              "article": "50",
+              "paragraph": "2",
+              "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+              "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、間違い、正しいは現行省令と一致する。",
+    "第1肢は水取り器を勾配に、第2肢は5kPaを10kPaに置き換えている。",
+    "第3肢は地下室等の付近を十分離れた場所に、第4肢は圧力低下を圧力上昇に置き換えている。",
+    "第5肢の団地遮断設備による地震動検知部分の適用除外条件は第50条第2項と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q11-s01",
+      "gas-shunin-kou-2024-law-q11-s02",
+      "gas-shunin-kou-2024-law-q11-s03",
+      "gas-shunin-kou-2024-law-q11-s04",
+      "gas-shunin-kou-2024-law-q11-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "46",
+        "48",
+        "49",
+        "50"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:29:54Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
