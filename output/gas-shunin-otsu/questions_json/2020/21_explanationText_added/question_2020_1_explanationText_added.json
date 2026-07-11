@@ -6124,44 +6124,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
     "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第57条は、ハウスレギュレーターに関する設問の説明は既存技術解説と一致する。",
-      "正しい。整圧器の作動原理は、レイノルド式整圧器の説明は既存技術解説と一致する。",
-      "正しい。整圧器の選定要件は、必要差圧の選定説明は既存技術解説と一致する。",
-      "間違い。流量変化に対する応答の敏速性と安定性の両方が特に要求されるとしている点が誤り。整圧器の選定要件は、大規模地区の整圧器は安定性を重視し、敏速性と安定性の両立を特に要求するものではない。",
-      "正しい。整圧器の故障原因は、メインバルブへのダストかみ込みは二次圧異常上昇の原因となり得る。"
+      "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
+      "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+      "正しい。パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+      "間違い。選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
+      "正しい。フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。"
     ],
     "suggestedQuestions": [
-      "ハウスレギュレーターは、不純物除去装置と圧力上昇防止装置を一体化した構造か。",
-      "レイノルド式整圧器で需要家のガス使用量が減少したとき、中間圧力は高くなるか。",
-      "パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が作動最小差圧より大きくなるように選定するか。",
-      "大規模地区で使用される整圧器には、応答の敏速性と安定性の両方が特に要求されるか。",
-      "フィッシャー式整圧器の二次圧異常上昇の原因に、メインバルブへのダストかみ込みによる締め切り不良があるか。",
-      "この問題の根拠条文は？"
+      "ハウスレギュレーターに一体化される装置は？",
+      "レイノルド式整圧器で需要が減少すると中間圧力はどうなる？",
+      "パイロット式整圧器の差圧選定条件は？",
+      "大規模地区用整圧器で重視する特性は？",
+      "フィッシャー式整圧器の二次圧異常上昇原因は？",
+      "この問題の公式出典は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "ハウスレギュレーターは、不純物除去装置と圧力上昇防止装置を一体化した構造か。",
-        "answer": "そのとおり。。ハウスレギュレーターは、不純物除去と二次圧の異常上昇防止の機能を一体化した構造で用いられる。"
+        "question": "ハウスレギュレーターに一体化される装置は？",
+        "answer": "一般に、不純物除去装置と圧力上昇防止装置。"
       },
       {
-        "question": "レイノルド式整圧器で需要家のガス使用量が減少したとき、中間圧力は高くなるか。",
-        "answer": "高くなる。。需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が高くなる。"
+        "question": "レイノルド式整圧器で需要が減少すると中間圧力はどうなる？",
+        "answer": "低圧補助ガバナの開度が減少し、中間圧力は高くなる。"
       },
       {
-        "question": "パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が作動最小差圧より大きくなるように選定するか。",
-        "answer": "選定する。。パイロット式整圧器は作動最小差圧を確保する必要があるため、最低一次圧力と最高二次圧力の差圧が作動最小差圧を上回るように選ぶ。"
+        "question": "パイロット式整圧器の差圧選定条件は？",
+        "answer": "最低一次圧力と最高二次圧力の差圧が、作動最小差圧より大きくなるように選定する。"
       },
       {
-        "question": "大規模地区で使用される整圧器には、応答の敏速性と安定性の両方が特に要求されるか。",
-        "answer": "いいえ。。大規模地区で使用される整圧器は安定性を重視する。応答の敏速性と安定性の両方が特に要求されるという記述が誤り。"
+        "question": "大規模地区用整圧器で重視する特性は？",
+        "answer": "オフセットやロックアップが小さい静特性。"
       },
       {
-        "question": "フィッシャー式整圧器の二次圧異常上昇の原因に、メインバルブへのダストかみ込みによる締め切り不良があるか。",
-        "answer": "ある。。フィッシャー式整圧器では、メインバルブへのダストかみ込みによる締め切り不良が二次圧異常上昇の原因となり得る。"
+        "question": "フィッシャー式整圧器の二次圧異常上昇原因は？",
+        "answer": "メインバルブへのダストかみ込みによる締め切り不良など。"
       },
       {
-        "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第57条。"
+        "question": "この問題の公式出典は？",
+        "answer": "JIA公式の令和2年度乙種ガス主任技術者試験問題・ガス技術供給問11及び同年度公式解答。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -6202,18 +6202,18 @@
     "sourceConflictReviewDecision": "correct_answer_result_text_in_patch_preserve_00_source",
     "sourceContentConflictPolicy": "00_source answer_result_text remains '正解は 5 です。'; prepared patch uses choice 4 as the incorrect statement.",
     "suggestedExplanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第57条は、ハウスレギュレーターに関する設問の説明は既存技術解説と一致する。",
-      "正しい。整圧器の作動原理は、レイノルド式整圧器の説明は既存技術解説と一致する。",
-      "正しい。整圧器の選定要件は、必要差圧の選定説明は既存技術解説と一致する。",
-      "間違い。流量変化に対する応答の敏速性と安定性の両方が特に要求されるとしている点が誤り。整圧器の選定要件は、大規模地区の整圧器は安定性を重視し、敏速性と安定性の両立を特に要求するものではない。",
-      "正しい。整圧器の故障原因は、メインバルブへのダストかみ込みは二次圧異常上昇の原因となり得る。"
+      "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
+      "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+      "正しい。パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+      "間違い。選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
+      "正しい。フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第57条は、ハウスレギュレーターに関する設問の説明は既存技術解説と一致する。",
-      "正しい。整圧器の作動原理は、レイノルド式整圧器の説明は既存技術解説と一致する。",
-      "正しい。整圧器の選定要件は、必要差圧の選定説明は既存技術解説と一致する。",
-      "間違い。流量変化に対する応答の敏速性と安定性の両方が特に要求されるとしている点が誤り。整圧器の選定要件は、大規模地区の整圧器は安定性を重視し、敏速性と安定性の両立を特に要求するものではない。",
-      "正しい。整圧器の故障原因は、メインバルブへのダストかみ込みは二次圧異常上昇の原因となり得る。"
+      "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
+      "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+      "正しい。パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+      "間違い。選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
+      "正しい。フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。"
     ],
     "lawReferences": [
       [
@@ -6221,24 +6221,468 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 0,
-          "lawTitle": "ガス工作物の技術上の基準を定める省令",
-          "lawAlias": "ガス工作物の技術上の基準を定める省令",
-          "article": "57",
-          "referenceDate": "2026-07-11",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "lawAlias": "JIA公式試験問題",
+          "article": "ガス技術供給問11選択肢1",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
-          "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第57条は、ハウスレギュレーターに関する設問の説明は既存技術解説と一致する。",
-          "lawId": "412M50000400111",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
-          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=57",
-          "appLinkMode": "egov_api"
+          "source": "jia_official_pdf_archived",
+          "reason": "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "appLinkMode": "source_url",
+          "articleTextHash": "475faa9324749ad99345f95dddb3fb5eec72f7bffc99627b7d3e9672bec5b5a8",
+          "externalPrimarySource": true,
+          "rawXmlHash": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+          "lawAlias": "JIA公式試験解答",
+          "article": "ガス技術供給問11正解4",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "jia_official_pdf_archived",
+          "reason": "正しい。ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
+          "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf",
+          "appLinkMode": "source_url",
+          "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+          "externalPrimarySource": true,
+          "rawXmlHash": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
         }
       ],
-      [],
-      [],
-      [],
-      []
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "lawAlias": "JIA公式試験問題",
+          "article": "ガス技術供給問11選択肢2",
+          "articleTextHash": "4973a79a88293e050af663a5604eb55bad354933ee06bad32888c24ee804b69b",
+          "reason": "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 1,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+          "lawAlias": "JIA公式試験解答",
+          "article": "ガス技術供給問11正解4",
+          "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+          "reason": "正しい。レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "lawAlias": "JIA公式試験問題",
+          "article": "ガス技術供給問11選択肢3",
+          "articleTextHash": "44036453bf34546e8f6f87fc6f02a5351cba7ed9356d7fb4587a01349cbd1e45",
+          "reason": "正しい。パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+          "lawAlias": "JIA公式試験解答",
+          "article": "ガス技術供給問11正解4",
+          "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+          "reason": "正しい。パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "lawAlias": "JIA公式試験問題",
+          "article": "ガス技術供給問11選択肢4",
+          "articleTextHash": "1034a3ce8474e7f3d8409d9808e0e8da02adeab7fed53c1e1d7a1421f3cad5cc",
+          "reason": "間違い。選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+          "lawAlias": "JIA公式試験解答",
+          "article": "ガス技術供給問11正解4",
+          "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+          "reason": "間違い。選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
+        }
+      ],
+      [
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "lawAlias": "JIA公式試験問題",
+          "article": "ガス技術供給問11選択肢5",
+          "articleTextHash": "b2f7dab3dd843ecd4a9e83bc00d6f6460a6bf1750324112c718259c9077b508a",
+          "reason": "正しい。フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 4,
+          "comparisonStatus": "same_as_current",
+          "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+          "lawAlias": "JIA公式試験解答",
+          "article": "ガス技術供給問11正解4",
+          "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+          "reason": "正しい。フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf",
+          "source": "jia_official_pdf_archived",
+          "appLinkMode": "source_url",
+          "externalPrimarySource": true,
+          "rawXmlHash": "5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:49:27+09:00",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
+        "lawCorpusSnapshotId": "official-primary-2026-07-12",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "current": {
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "article": "ガス技術供給問11選択肢1",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "475faa9324749ad99345f95dddb3fb5eec72f7bffc99627b7d3e9672bec5b5a8",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "sourceType": "external_primary",
+          "source": "jia_official_pdf_archived"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+        ],
+        "notes": [
+          "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "ハウスレギュレーターは、一般に不純物除去装置と圧力上昇防止装置を本体に一体化している。JIA公式の令和2年度乙種ガス技術・供給問11及び公式解答でも正しい記述として確認できる。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "令和2年度乙種ガス主任技術者試験問題第ガス技術供給問11選択肢1条、令和2年度乙種ガス主任技術者試験解答第ガス技術供給問11正解4条を選択肢0の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-0-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+              "article": "ガス技術供給問11選択肢1",
+              "articleTextHash": "475faa9324749ad99345f95dddb3fb5eec72f7bffc99627b7d3e9672bec5b5a8",
+              "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf"
+            },
+            {
+              "refId": "choice-0-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+              "article": "ガス技術供給問11正解4",
+              "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+              "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:49:27+09:00",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
+        "lawCorpusSnapshotId": "official-primary-2026-07-12",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "current": {
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "article": "ガス技術供給問11選択肢2",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "4973a79a88293e050af663a5604eb55bad354933ee06bad32888c24ee804b69b",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "sourceType": "external_primary",
+          "source": "jia_official_pdf_archived"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+        ],
+        "notes": [
+          "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "レイノルド式整圧器では、需要家のガス使用量が減少すると低圧補助ガバナの開度が減少し、中間圧力が上昇するため、オキシャリーボール内のダイヤフラムを押し上げる力が強くなる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "令和2年度乙種ガス主任技術者試験問題第ガス技術供給問11選択肢2条、令和2年度乙種ガス主任技術者試験解答第ガス技術供給問11正解4条を選択肢1の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-1-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+              "article": "ガス技術供給問11選択肢2",
+              "articleTextHash": "4973a79a88293e050af663a5604eb55bad354933ee06bad32888c24ee804b69b",
+              "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf"
+            },
+            {
+              "refId": "choice-1-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+              "article": "ガス技術供給問11正解4",
+              "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+              "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:49:27+09:00",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
+        "lawCorpusSnapshotId": "official-primary-2026-07-12",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "current": {
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "article": "ガス技術供給問11選択肢3",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "44036453bf34546e8f6f87fc6f02a5351cba7ed9356d7fb4587a01349cbd1e45",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "sourceType": "external_primary",
+          "source": "jia_official_pdf_archived"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+        ],
+        "notes": [
+          "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "パイロット式整圧器は、最低一次圧力と最高二次圧力の差圧が、整圧器の作動最小差圧より大きくなるように選定する。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "令和2年度乙種ガス主任技術者試験問題第ガス技術供給問11選択肢3条、令和2年度乙種ガス主任技術者試験解答第ガス技術供給問11正解4条を選択肢2の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-2-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+              "article": "ガス技術供給問11選択肢3",
+              "articleTextHash": "44036453bf34546e8f6f87fc6f02a5351cba7ed9356d7fb4587a01349cbd1e45",
+              "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf"
+            },
+            {
+              "refId": "choice-2-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+              "article": "ガス技術供給問11正解4",
+              "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+              "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:49:27+09:00",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
+        "lawCorpusSnapshotId": "official-primary-2026-07-12",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "current": {
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "article": "ガス技術供給問11選択肢4",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "1034a3ce8474e7f3d8409d9808e0e8da02adeab7fed53c1e1d7a1421f3cad5cc",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "sourceType": "external_primary",
+          "source": "jia_official_pdf_archived"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+        ],
+        "notes": [
+          "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「大規模地区では負荷変動が大きく、流量変化に対する応答の敏速性と安定性の両方が特に要求される」が誤り。大規模地区で使用する整圧器は、オフセットやロックアップが小さい静特性に優れたものを選定する。JIA公式の同問では選択肢4が誤りとされている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "令和2年度乙種ガス主任技術者試験問題第ガス技術供給問11選択肢4条、令和2年度乙種ガス主任技術者試験解答第ガス技術供給問11正解4条を選択肢3の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-3-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+              "article": "ガス技術供給問11選択肢4",
+              "articleTextHash": "1034a3ce8474e7f3d8409d9808e0e8da02adeab7fed53c1e1d7a1421f3cad5cc",
+              "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf"
+            },
+            {
+              "refId": "choice-3-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+              "article": "ガス技術供給問11正解4",
+              "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+              "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf"
+            }
+          ]
+        }
+      },
+      {
+        "auditStatus": "same_as_current",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T00:49:27+09:00",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
+        "lawCorpusSnapshotId": "official-primary-2026-07-12",
+        "reconciliationStatus": "direct_primary_basis_reverified",
+        "current": {
+          "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+          "article": "ガス技術供給問11選択肢5",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "b2f7dab3dd843ecd4a9e83bc00d6f6460a6bf1750324112c718259c9077b508a",
+          "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf",
+          "sourceType": "external_primary",
+          "source": "jia_official_pdf_archived"
+        },
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
+        "answerImpactFacts": [
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
+        ],
+        "notes": [
+          "所管省庁が公開する一次資料の該当箇所と選択肢の文言を照合した。"
+        ],
+        "evidenceSummary": {
+          "verdict": "same_as_current",
+          "explanationText": "フィッシャー式整圧器では、メインバルブにダストがかみ込んで締め切り不良になると、二次側へのガス流入が止まらず、二次圧異常上昇の原因となる。JIA公式の同問及び公式解答でも正しい記述として確認できる。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "令和2年度乙種ガス主任技術者試験問題第ガス技術供給問11選択肢5条、令和2年度乙種ガス主任技術者試験解答第ガス技術供給問11正解4条を選択肢4の直接根拠として確認。",
+          "refs": [
+            {
+              "refId": "choice-4-ref-1",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験問題",
+              "article": "ガス技術供給問11選択肢5",
+              "articleTextHash": "b2f7dab3dd843ecd4a9e83bc00d6f6460a6bf1750324112c718259c9077b508a",
+              "sourceUrl": "https://web.archive.org/web/20230809110023id_/https://www.jia-page.or.jp/files/user/doc/exam/q_otsu_r2.pdf"
+            },
+            {
+              "refId": "choice-4-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "令和2年度乙種ガス主任技術者試験解答",
+              "article": "ガス技術供給問11正解4",
+              "articleTextHash": "601f6cb6215e7b432b30b93bbc85a90806a1997090b6f10cb5cbc447787748e0",
+              "sourceUrl": "https://web.archive.org/web/20230809105932id_/https://www.jia-page.or.jp/files/user/doc/exam/a_otsu_r2.pdf"
+            }
+          ]
+        }
+      }
     ]
   },
   {
