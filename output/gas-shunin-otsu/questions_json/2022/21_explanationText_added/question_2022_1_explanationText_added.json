@@ -522,11 +522,11 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
     "explanationText": [
-      "正しい。ガス事業法第13条第1項は、正当な理由がない限り必要な供給能力を確保する。",
-      "正しい。ガス事業法第14条第1項は、契約締結前に料金その他の供給条件を説明する。",
-      "正しい。ガス事業法第18条は、熱量、圧力及び燃焼性を測定し記録保存する。",
-      "正しい。ガス事業法第19条第1項は、毎年度の供給計画を作成し届け出る。",
-      "正しい。ガス事業法第23条は、有害成分量を検査し記録保存する。"
+      "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保しなければならないと定めている。",
+      "正しい。ガス事業法第14条第1項は、ガス小売事業者等が小売供給契約を締結しようとするとき、料金その他の供給条件について小売供給を受けようとする者に説明しなければならないと定めている。",
+      "正しい。ガス事業法第18条は、ガス小売事業者が、供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。",
+      "正しい。ガス事業法第19条第1項は、ガス小売事業者が毎年度、所定期間のガス供給並びにガス工作物の設置及び運用について供給計画を作成し、年度開始前等に経済産業大臣へ届け出なければならないと定めている。",
+      "正しい。ガス事業法第23条は、ガス小売事業者が、供給するガスの成分のうち人体に危害を及ぼし、又は物件に損傷を与えるおそれがあるものの量を検査し、その量を記録して保存しなければならないと定めている。"
     ],
     "suggestedQuestions": [
       "ガス小売事業者には供給能力確保義務があるか？",
@@ -539,7 +539,7 @@
     "suggestedQuestionDetails": [
       {
         "question": "ガス小売事業者には供給能力確保義務があるか？",
-        "answer": "ある。正当な理由がある場合を除き、需要に応ずるために必要な供給能力を確保しなければならない。"
+        "answer": "ある。正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保しなければならない。"
       },
       {
         "question": "小売供給契約の締結時に料金その他の供給条件を説明する義務はあるか？",
@@ -547,7 +547,7 @@
       },
       {
         "question": "ガス小売事業者は熱量、圧力及び燃焼性の測定結果をどう扱うか？",
-        "answer": "測定し、その結果を記録して保存する。。正しい。ガス事業法第18条は、ガス小売事業者が、経済産業省令で定めるところにより、その供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。"
+        "answer": "測定し、その結果を記録して保存しなければならない。"
       },
       {
         "question": "ガス小売事業者は供給計画をいつ誰に届け出るか？",
@@ -555,11 +555,11 @@
       },
       {
         "question": "ガス小売事業者は有害成分等の量を検査し記録保存する義務があるか？",
-        "answer": "ある。人体への危害又は物件への損傷のおそれがある成分量を検査し、記録して保存する。"
+        "answer": "ある。人体への危害又は物件への損傷のおそれがある成分量を検査し、その量を記録して保存しなければならない。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法第13条第1項、ガス事業法第14条第1項、ガス事業法第18条、ガス事業法第19条第1項、ガス事業法第23条。"
+        "answer": "ガス事業法第13条第1項、第14条第1項、第18条、第19条第1項及び第23条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -603,16 +603,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "13",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第13条第1項は、正当な理由がない限り必要な供給能力を確保する。",
+          "reason": "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保しなければならないと定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=13",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+          "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
         }
       ],
       [
@@ -623,16 +625,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "14",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第14条第1項は、契約締結前に料金その他の供給条件を説明する。",
+          "reason": "正しい。ガス事業法第14条第1項は、ガス小売事業者等が小売供給契約を締結しようとするとき、料金その他の供給条件について小売供給を受けようとする者に説明しなければならないと定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+          "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680"
         }
       ],
       [
@@ -643,15 +647,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "18",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第18条は、熱量、圧力及び燃焼性を測定し記録保存する。",
+          "reason": "正しい。ガス事業法第18条は、ガス小売事業者が、供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=18",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "4d5691cb69c10df40acb37d940df8b4b32244c870c43d8dc8758b6a300117044",
+          "paragraph": "1",
+          "rawXmlHash": "42c68f7b7b0592b994cef32cfab43dcbe3cc42f55b120415c277ace723b62236"
         }
       ],
       [
@@ -662,16 +669,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "19",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第19条第1項は、毎年度の供給計画を作成し届け出る。",
+          "reason": "正しい。ガス事業法第19条第1項は、ガス小売事業者が毎年度、所定期間のガス供給並びにガス工作物の設置及び運用について供給計画を作成し、年度開始前等に経済産業大臣へ届け出なければならないと定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=19",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "7fd166f158e5f2957cee669e7fc312247df10d01482535adb10080194b68cd31",
+          "rawXmlHash": "bc77166103d566d401ec17813f5806904bb98622e588cf323c084241f8899643"
         }
       ],
       [
@@ -682,31 +691,34 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "23",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第23条は、有害成分量を検査し記録保存する。",
+          "reason": "正しい。ガス事業法第23条は、ガス小売事業者が、供給するガスの成分のうち人体に危害を及ぼし、又は物件に損傷を与えるおそれがあるものの量を検査し、その量を記録して保存しなければならないと定めている。",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
+          "paragraph": "1",
+          "rawXmlHash": "78fafe5f2d76c72b7c6f0afa9fd6b5b3b983da1328fcd3f36753949b2799802d"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:08:01+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "0e8f6fe8143d5115fd146122b4ddea1483984639635646293000b53407ba8045",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:16ac8a1e9b5adc33:choice1",
         "evidenceBindingHash": "03df50f028a4a1006272571ee1d77100ab7a8e7be59e30eea1fb1229d8811beb",
         "examTime": {
@@ -714,46 +726,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "13",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=13"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=13",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方の需要に応ずるために必要な供給能力を確保しなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:13:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保しなければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第13条第1項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:13:1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln13.1",
-              "rootArticleElm": "ln13",
               "article": "13",
               "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
-              "textHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             }
           ]
@@ -761,16 +766,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:08:01+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "8f31cc3d1449ae3f805ae213fa0e96d3794d00b42a9b79b2ed6414f8fbe221fd",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:16ac8a1e9b5adc33:choice2",
         "evidenceBindingHash": "ac2639a5594867ce7817a30806a618a65c79ef1cdf04ccd6406761be6334ba67",
         "examTime": {
@@ -778,46 +783,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "14",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=14",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第14条第1項は、ガス小売事業者等が小売供給契約を締結しようとするとき、料金その他の供給条件について小売供給を受けようとする者に説明しなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:14:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第14条第1項は、ガス小売事業者等が小売供給契約を締結しようとするとき、料金その他の供給条件について小売供給を受けようとする者に説明しなければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第14条第1項を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:14:1",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln14.1",
-              "rootArticleElm": "ln14",
               "article": "14",
               "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
-              "textHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             }
           ]
@@ -825,16 +823,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:08:01+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "cd81383bdf6d3f294d12fe5e20b207da922bd9e41df6906a8d72ab335b402bc4",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:16ac8a1e9b5adc33:choice3",
         "evidenceBindingHash": "b590d544ce1ded76dfac4fae2a493521bdc5baabb4635ce78ad986d0b40a02be",
         "examTime": {
@@ -842,46 +840,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "18",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "4d5691cb69c10df40acb37d940df8b4b32244c870c43d8dc8758b6a300117044",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=18"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=18",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第18条は、ガス小売事業者が、経済産業省令で定めるところにより、その供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:18:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第18条は、ガス小売事業者が、供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第18条第1項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:18:1",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln18.1",
-              "rootArticleElm": "ln18",
               "article": "18",
               "articleTextHash": "4d5691cb69c10df40acb37d940df8b4b32244c870c43d8dc8758b6a300117044",
-              "textHash": "4d5691cb69c10df40acb37d940df8b4b32244c870c43d8dc8758b6a300117044",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             }
           ]
@@ -889,16 +880,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:08:01+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "cfeacd7d4ac78d500823a3994f4ebfd5979a89cd6011060661d6a4e58d999509",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:16ac8a1e9b5adc33:choice4",
         "evidenceBindingHash": "5e817c5f5cef6a7b9123cdf7220b75cb512279f77fc33f3f3e85cde34b483f4f",
         "examTime": {
@@ -906,46 +897,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "19",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "7fd166f158e5f2957cee669e7fc312247df10d01482535adb10080194b68cd31",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=19"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=19",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第19条第1項は、ガス小売事業者が毎年度、所定期間のガス供給並びにガス工作物の設置及び運用についての供給計画を作成し、年度開始前等に経済産業大臣へ届け出なければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:19:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第19条第1項は、ガス小売事業者が毎年度、所定期間のガス供給並びにガス工作物の設置及び運用について供給計画を作成し、年度開始前等に経済産業大臣へ届け出なければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第19条第1項を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:19:1",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln19.1",
-              "rootArticleElm": "ln19",
               "article": "19",
               "articleTextHash": "7fd166f158e5f2957cee669e7fc312247df10d01482535adb10080194b68cd31",
-              "textHash": "7fd166f158e5f2957cee669e7fc312247df10d01482535adb10080194b68cd31",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             }
           ]
@@ -953,16 +937,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:15:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T02:08:01+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "db1ea1ef5456b8e59bed61d10da24d1cde6f5741db12e5cfde01b28d80cef1e4",
         "auditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_231500_otsu2022_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_gas_shunin_otsu_2022_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_231500_otsu2022_year:16ac8a1e9b5adc33:choice5",
         "evidenceBindingHash": "1ecde6ad3393c257b2db0a366aa8a0f79646fd23d3a0ded9c667aafc3079b676",
         "examTime": {
@@ -970,46 +954,39 @@
           "verificationStatus": "from_2022_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "23",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=23",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第23条は、ガス小売事業者が、供給するガスの成分のうち人体への危害又は物件への損傷のおそれがあるものの量を検査し、その量を記録して保存しなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されているガス小売事業者の業務等に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:23:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第23条は、ガス小売事業者が、供給するガスの成分のうち人体に危害を及ぼし、又は物件に損傷を与えるおそれがあるものの量を検査し、その量を記録して保存しなければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第23条第1項を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:23:1",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
-              "elm": "ln23.1",
-              "rootArticleElm": "ln23",
               "article": "23",
               "articleTextHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
-              "textHash": "e5c7d271fe76622f7bc79714c4569999b979c21ef176b6ccd13ac79b817c5d15",
+              "lawId": "329AC0000000051",
               "paragraph": "1"
             }
           ]
@@ -1017,18 +994,18 @@
       }
     ],
     "suggestedExplanationText": [
-      "正しい。ガス事業法第13条第1項は、正当な理由がない限り必要な供給能力を確保する。",
-      "正しい。ガス事業法第14条第1項は、契約締結前に料金その他の供給条件を説明する。",
-      "正しい。ガス事業法第18条は、熱量、圧力及び燃焼性を測定し記録保存する。",
-      "正しい。ガス事業法第19条第1項は、毎年度の供給計画を作成し届け出る。",
-      "正しい。ガス事業法第23条は、有害成分量を検査し記録保存する。"
+      "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保しなければならないと定めている。",
+      "正しい。ガス事業法第14条第1項は、ガス小売事業者等が小売供給契約を締結しようとするとき、料金その他の供給条件について小売供給を受けようとする者に説明しなければならないと定めている。",
+      "正しい。ガス事業法第18条は、ガス小売事業者が、供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。",
+      "正しい。ガス事業法第19条第1項は、ガス小売事業者が毎年度、所定期間のガス供給並びにガス工作物の設置及び運用について供給計画を作成し、年度開始前等に経済産業大臣へ届け出なければならないと定めている。",
+      "正しい。ガス事業法第23条は、ガス小売事業者が、供給するガスの成分のうち人体に危害を及ぼし、又は物件に損傷を与えるおそれがあるものの量を検査し、その量を記録して保存しなければならないと定めている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス事業法第13条第1項は、正当な理由がない限り必要な供給能力を確保する。",
-      "正しい。ガス事業法第14条第1項は、契約締結前に料金その他の供給条件を説明する。",
-      "正しい。ガス事業法第18条は、熱量、圧力及び燃焼性を測定し記録保存する。",
-      "正しい。ガス事業法第19条第1項は、毎年度の供給計画を作成し届け出る。",
-      "正しい。ガス事業法第23条は、有害成分量を検査し記録保存する。"
+      "正しい。ガス事業法第13条第1項は、ガス小売事業者が、正当な理由がある場合を除き、小売供給の相手方のガス需要に応ずるために必要な供給能力を確保しなければならないと定めている。",
+      "正しい。ガス事業法第14条第1項は、ガス小売事業者等が小売供給契約を締結しようとするとき、料金その他の供給条件について小売供給を受けようとする者に説明しなければならないと定めている。",
+      "正しい。ガス事業法第18条は、ガス小売事業者が、供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。",
+      "正しい。ガス事業法第19条第1項は、ガス小売事業者が毎年度、所定期間のガス供給並びにガス工作物の設置及び運用について供給計画を作成し、年度開始前等に経済産業大臣へ届け出なければならないと定めている。",
+      "正しい。ガス事業法第23条は、ガス小売事業者が、供給するガスの成分のうち人体に危害を及ぼし、又は物件に損傷を与えるおそれがあるものの量を検査し、その量を記録して保存しなければならないと定めている。"
     ]
   },
   {
