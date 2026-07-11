@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 66,
+  "auditKey": "gas-shunin:kou:2022:law:q15:766431de18c9",
+  "auditInputHash": "23c1f2eec097dc350c4a07ffef6ef39e34248e8be837fc17e0b475129aef1036",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:48:42+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「速やかにその使用を禁止」が誤り。ガス事業法第159条第3項は、消費機器が技術上の基準に適合していないときは、適合のためにとるべき措置と、その措置をとらなかった場合に生ずる結果を、所有者又は占有者に遅滞なく通知すると定めている。",
+      "正しい。ガス事業法第160条第2項は、ガス小売事業者が保安業務規程を変更したときは、遅滞なく、変更した事項を経済産業大臣に届け出ると定めている。",
+      "間違い。選択肢の「保安統括者に対し」が誤り。ガス事業法第160条第3項は、経済産業大臣が保安業務規程の変更を命ずる相手方を、ガス小売事業者と定めている。",
+      "正しい。ガス事業法第160条第4項は、ガス小売事業者及びその従業者が保安業務規程を守ると定めている。",
+      "正しい。ガス事業法第163条は、ガス事業者が公共の安全の維持又は災害の発生の防止に関し、相互に連携を図りながら協力すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "消費機器が基準不適合の場合の措置は？",
+      "保安業務規程を変更した場合の届出は？",
+      "保安業務規程の変更命令の相手方は？",
+      "保安業務規程を守る者は？",
+      "ガス事業者間の連携義務は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "消費機器が基準不適合の場合の措置は？",
+        "answer": "適合のためにとるべき措置と、措置をとらなかった場合の結果を、所有者又は占有者に遅滞なく通知する。"
+      },
+      {
+        "question": "保安業務規程を変更した場合の届出は？",
+        "answer": "変更した事項を、遅滞なく経済産業大臣に届け出る。"
+      },
+      {
+        "question": "保安業務規程の変更命令の相手方は？",
+        "answer": "ガス小売事業者。"
+      },
+      {
+        "question": "保安業務規程を守る者は？",
+        "answer": "ガス小売事業者及びその従業者。"
+      },
+      {
+        "question": "ガス事業者間の連携義務は？",
+        "answer": "公共の安全の維持又は災害の発生の防止に関し、相互に連携を図りながら協力する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第3項、第160条第2項から第4項及び第163条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "2",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "3",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "4",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "163",
+          "paragraph": "1",
+          "articleTextHash": "b1d180304b3222fd64dc930f0fcc1f5bef0ba5565b8733b3256d16c93854bda8",
+          "rawXmlHash": "f1e766f73bd75c9a506b45895152a403e6a5fd22568c22634d256afb0f4c93b9"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、正しい、正しいは現行法と一致する。",
+    "第1肢は使用禁止義務ではなく、適合措置と未実施時の結果を所有者又は占有者へ通知する義務である。",
+    "第3肢は変更命令の相手方を保安統括者としているが、正しくはガス小売事業者である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0311",
+      "chiefgasengineerlicense-A-10-0312",
+      "chiefgasengineerlicense-A-10-0313",
+      "chiefgasengineerlicense-A-10-0314",
+      "chiefgasengineerlicense-A-10-0315"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "159",
+        "160",
+        "163"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:49:38Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
