@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 133,
+  "auditKey": "gas-shunin:otsu:2017:law:q16:09e6fc5a7a90",
+  "auditInputHash": "3f7b95d546e892d850ad57b979f84fc6bb07de24485edfea14708011c3c52ae3",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:51:15+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第1条は、特定ガス消費機器の設置又は変更工事の欠陥に係るガス災害を防止するため、これらの工事を行う者の工事監督に関する義務等を定めることを目的としている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第2条第2項は軽微な工事を特定工事から除外し、同法施行規則第2条第2号は、屋内の特定ガス消費機器に接続する排気筒等の変更工事のうち、能力の変更を伴わないものを軽微な工事と定めている。したがって、能力の変更を伴うものは特定工事に当たる。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律施行令第1条第2号は、ガス瞬間湯沸器についてガス消費量が12kWを超えるものを特定ガス消費機器と定めているため、14kWのものは該当する。",
+      "間違い。選択肢の「5年以内」が誤り。特定ガス消費機器の設置工事の監督に関する法律第4条第2項及び第3項並びに同法施行規則第9条第1項により、講習修了資格者等は、資格証の交付を受けた日の属する年度の翌年度の開始の日から3年ごとに再講習を受けなければならず、受けなかったときは資格を失う。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第7条は、経済産業大臣が、特定工事に係るガス災害の防止に必要があると認めるとき、特定工事事業者に施工に関する報告をさせることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "特定ガス消費機器設置工事監督法の目的は？",
+      "排気筒等の能力変更を伴う工事は特定工事に当たる？",
+      "ガス瞬間湯沸器が特定ガス消費機器となる消費量の基準は？",
+      "講習修了資格者等の再講習期間と未受講時の扱いは？",
+      "経済産業大臣は特定工事事業者に何を報告させることができる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "特定ガス消費機器設置工事監督法の目的は？",
+        "answer": "特定ガス消費機器の設置又は変更工事の欠陥に係るガス災害を防止するため、工事事業者の工事監督に関する義務等を定めること。"
+      },
+      {
+        "question": "排気筒等の能力変更を伴う工事は特定工事に当たる？",
+        "answer": "当たる。屋内の特定ガス消費機器に接続する排気筒等では、能力の変更を伴わない変更工事だけが軽微な工事として除外される。"
+      },
+      {
+        "question": "ガス瞬間湯沸器が特定ガス消費機器となる消費量の基準は？",
+        "answer": "12kWを超えるもの。したがって14kWのものは該当する。"
+      },
+      {
+        "question": "講習修了資格者等の再講習期間と未受講時の扱いは？",
+        "answer": "初回は資格証交付日の属する年度の翌年度開始日から3年。期間内に再講習を受けなかったときは資格を失う。"
+      },
+      {
+        "question": "経済産業大臣は特定工事事業者に何を報告させることができる？",
+        "answer": "特定工事に係るガス災害防止に必要があると認めるとき、特定工事の施工に関する報告をさせることができる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "特定ガス消費機器の設置工事の監督に関する法律第1条、第2条第2項、第4条第2項及び第3項、第7条、同法施行令第1条第2号並びに同法施行規則第2条第2号及び第9条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "1",
+          "paragraph": "1",
+          "articleTextHash": "4bcfc35f9843ca0ee3bf59746153d67b506f457eaf9403e9b2770aa2075b609d",
+          "rawXmlHash": "ea02b6b1fb416183303d28566462d0fde68cb42453e9bbe690fb0101deaac282"
+        },
+        "1": {
+          "lawId": "354M50000400077",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+          "article": "2",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "1f16d87291132c55b983f7186fdc8344a3c8fa206fd3c374e68dfb1ab0beb38b",
+          "rawXmlHash": "e25afe8348c45f3044ac23dbce59744b53fddc42b8895597702c57a21f738b38",
+          "references": [
+            {
+              "lawId": "354AC0000000033",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+              "article": "2",
+              "paragraph": "2",
+              "item": "",
+              "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
+              "rawXmlHash": "6eef6d4dc6007d2ac2efab5add13feee94545e18a2b636082218fc07bffe3be4"
+            },
+            {
+              "lawId": "354M50000400077",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+              "article": "2",
+              "paragraph": "1",
+              "item": "2",
+              "articleTextHash": "1f16d87291132c55b983f7186fdc8344a3c8fa206fd3c374e68dfb1ab0beb38b",
+              "rawXmlHash": "e25afe8348c45f3044ac23dbce59744b53fddc42b8895597702c57a21f738b38"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "354CO0000000231",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行令",
+          "article": "1",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "180f581b1df07aac6f0ba9e61d70b7e891fa3c97b47fe2cae0fcbb0d09e516fa",
+          "rawXmlHash": "a07782fa1c4078acfdd7b7a66635df79f08daf8c743de3e0e6c6e9025df5cab3"
+        },
+        "3": {
+          "lawId": "354M50000400077",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+          "article": "9",
+          "paragraph": "1",
+          "articleTextHash": "546b197fdf253c0bf2d983d1f3a7f0f0fe329670d3533dc461e8966e321d446b",
+          "rawXmlHash": "49e922c7ae83dda292f1bea66c1331b93c978102104a9530468de33a2ab6fd05",
+          "references": [
+            {
+              "lawId": "354AC0000000033",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+              "article": "4",
+              "paragraph": "2",
+              "articleTextHash": "190c17003e1d139813ffaec6dc390b2f44187fff3a9f3462fadb2eecf79882fb",
+              "rawXmlHash": "38556c2c66001a693bef848fb9d8f4eb74ae79670d554335b78bca238d7e4bc4"
+            },
+            {
+              "lawId": "354AC0000000033",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+              "article": "4",
+              "paragraph": "3",
+              "articleTextHash": "190c17003e1d139813ffaec6dc390b2f44187fff3a9f3462fadb2eecf79882fb",
+              "rawXmlHash": "38556c2c66001a693bef848fb9d8f4eb74ae79670d554335b78bca238d7e4bc4"
+            },
+            {
+              "lawId": "354M50000400077",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+              "article": "9",
+              "paragraph": "1",
+              "articleTextHash": "546b197fdf253c0bf2d983d1f3a7f0f0fe329670d3533dc461e8966e321d446b",
+              "rawXmlHash": "49e922c7ae83dda292f1bea66c1331b93c978102104a9530468de33a2ab6fd05"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "7",
+          "paragraph": "1",
+          "articleTextHash": "9ce11f5644360034beb8e6b71538d17bcd8ec8a68c93edc154a9acde612f9f1d",
+          "rawXmlHash": "eb497fe8843b99c59b939c195217467bf017528fa9a90c678c049d2e9b0096c9"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、正しいは現行法と一致する。",
+    "排気筒等の能力変更を伴う工事は、法第2条第2項と施行規則第2条第2号を組み合わせて特定工事に当たることを確認した。",
+    "再講習の3年周期と未受講時の資格喪失を、法第4条第2項及び第3項並びに施行規則第9条第1項で確認した。",
+    "全選択肢の既存lawRevisionFacts.currentを、誤って紐付けられたガス事業法施行規則から各直接根拠へ修正する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q16-s01",
+      "gas-shunin-otsu-2017-law-q16-s02",
+      "gas-shunin-otsu-2017-law-q16-s03",
+      "gas-shunin-otsu-2017-law-q16-s04",
+      "gas-shunin-otsu-2017-law-q16-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律等",
+      "lawId": "354AC0000000033",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:53:21Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
