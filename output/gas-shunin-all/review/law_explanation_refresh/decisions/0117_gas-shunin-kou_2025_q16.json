@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 117,
+  "auditKey": "gas-shunin:kou:2025:law:q16:a77b218a7675",
+  "auditInputHash": "adcf75818ddc490336755560fecf9ed6d676d5358fe68360f4071ccfe216feee",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:25:28+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第1項第1号イは、ガス消費量が12kWを超える屋内設置のガス調理機器（密閉燃焼式を除く。）に排気筒を設けると定め、構造上その他の理由で困難な場合に排気フードを設けるときを例外としている。",
+      "間違い。選択肢の排気筒の有効断面積を接続部より「小さい」とする部分が誤り。ガス事業法施行規則第202条第1項第2号イ（3）は、排気筒の有効断面積を燃焼器の排気部との接続部の有効断面積より小さくないものと定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号ハは、排気筒に接続する排気扇が停止した場合、燃焼器へのガス供給を自動的に遮断する装置を設けると定めている。",
+      "間違い。選択肢の給排気部と外壁との間に「点検のための隙間」を設ける部分が誤り。ガス事業法施行規則第202条第1項第6号ハは、給排気部が外壁を貫通する箇所には、排気ガスが屋内に流れ込む隙間がないものと定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第6号ヘは、給排気部の先端を、鳥、落葉、雨水その他の異物の侵入等により給排気が妨げられるおそれのない構造と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "12kW超の屋内ガス調理機器に必要な設備は？",
+      "自然排気式燃焼器の排気筒に必要な有効断面積は？",
+      "排気扇が停止した場合に必要な装置は？",
+      "密閉燃焼式機器の給排気部が外壁を貫通する箇所の基準は？",
+      "密閉燃焼式機器の給排気部先端の基準は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "12kW超の屋内ガス調理機器に必要な設備は？",
+        "answer": "密閉燃焼式を除き、原則として排気筒が必要。構造上困難で排気フードを設ける場合は例外となる。"
+      },
+      {
+        "question": "自然排気式燃焼器の排気筒に必要な有効断面積は？",
+        "answer": "燃焼器の排気部との接続部の有効断面積より小さくないこと。"
+      },
+      {
+        "question": "排気扇が停止した場合に必要な装置は？",
+        "answer": "燃焼器へのガス供給を自動的に遮断する装置。"
+      },
+      {
+        "question": "密閉燃焼式機器の給排気部が外壁を貫通する箇所の基準は？",
+        "answer": "給排気部と外壁との間に、排気ガスが屋内へ流れ込む隙間がないこと。"
+      },
+      {
+        "question": "密閉燃焼式機器の給排気部先端の基準は？",
+        "answer": "鳥や落葉、雨水などの侵入等により給排気が妨げられるおそれのない構造であること。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1項第1号イ、第2号イ（3）、第3号ハ及び第6号ハ・ヘ。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "一",
+          "subitem": "イ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "二",
+          "subitem": "イ(3)",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "三",
+          "subitem": "ハ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "六",
+          "subitem": "ハ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "六",
+          "subitem": "ヘ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、正しいは現行法と一致する。",
+    "第1号の対象機器を細目イまで、第2号の断面積基準をイ（3）まで特定した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q16-s01",
+      "gas-shunin-kou-2025-law-q16-s02",
+      "gas-shunin-kou-2025-law-q16-s03",
+      "gas-shunin-kou-2025-law-q16-s04",
+      "gas-shunin-kou-2025-law-q16-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:26:47Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
