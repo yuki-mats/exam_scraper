@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 88,
+  "auditKey": "gas-shunin:kou:2024:law:q03:fd839aefe277",
+  "auditInputHash": "19ad3f92082608bbe2d63b4f90a4030c43edefac8a6afd8e88c054e307548872",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:05:54+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の命令対象を「ガス主任技術者」とする部分が誤り。ガス事業法第61条第2項は、技術基準不適合時の修理、改造、移転、使用停止の命令又は使用制限を、一般ガス導管事業者に対して行うと定めている。",
+      "間違い。選択肢の「遅滞なく」が誤り。ガス事業法第64条第1項は、一般ガス導管事業者が保安規程を定め、事業又は所定の工事の開始前に経済産業大臣へ届け出ると定めている。",
+      "間違い。選択肢の「公共の利益の増進を図るため」が誤り。ガス事業法第64条第3項は、経済産業大臣が保安規程の変更を命ずることができる場合を、ガス工作物の工事、維持及び運用に関する保安を確保するため必要があると認めるときと定めている。",
+      "間違い。選択肢の「保安規程」が誤り。ガス事業法施行規則第92条第1項は、保安規程にガス工作物の工事、維持及び運用に関する事項を定めるとしている。一方、同規則第207条の表「一般ガス導管事業者」の項第5号は、消費機器の周知及び調査の実施方法を保安業務規程に定めるとしている。",
+      "正しい。ガス事業法第62条第1項は、一般ガス導管事業者が他者所有又は占有のガス工作物を技術基準に適合するよう維持する措置を講じるとき、その所有者又は占有者が措置の実施に協力するよう努めると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス工作物の基準適合命令は誰に対して行う？",
+      "保安規程の届出時期は？",
+      "保安規程の変更命令ができる目的は？",
+      "消費機器の周知・調査方法を定める規程は？",
+      "他者所有のガス工作物への維持措置に必要な協力は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス工作物の基準適合命令は誰に対して行う？",
+        "answer": "ガス主任技術者ではなく、一般ガス導管事業者。"
+      },
+      {
+        "question": "保安規程の届出時期は？",
+        "answer": "遅滞なくではなく、事業又は所定の工事の開始前。"
+      },
+      {
+        "question": "保安規程の変更命令ができる目的は？",
+        "answer": "公共の利益の増進ではなく、ガス工作物の工事、維持及び運用に関する保安の確保。"
+      },
+      {
+        "question": "消費機器の周知・調査方法を定める規程は？",
+        "answer": "ガス工作物の保安規程ではなく、保安業務規程。"
+      },
+      {
+        "question": "他者所有のガス工作物への維持措置に必要な協力は？",
+        "answer": "所有者又は占有者は、一般ガス導管事業者による維持措置の実施に協力するよう努める。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第61条第2項、第62条第1項、第64条第1項・第3項及びガス事業法施行規則第92条第1項・第207条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "61",
+          "paragraph": "2",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "rawXmlHash": "31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "1",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "3",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "paragraph": "1",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278",
+          "references": [
+            {
+              "article": "92",
+              "paragraph": "1",
+              "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+              "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278"
+            },
+            {
+              "article": "207",
+              "paragraph": "1",
+              "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+              "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "62",
+          "paragraph": "1",
+          "articleTextHash": "e733c7795fcc150a4e1abdfa7020ee4c214352ba7ff42b7057f3710011bbbcb0",
+          "rawXmlHash": "1ae84bb1d21aa98f8b36085fb08078e0b53597efe40989ba6432ab238a3b89a0"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、間違い、正しいは現行法令と一致する。",
+    "第1肢の命令対象はガス主任技術者ではなく一般ガス導管事業者である。",
+    "第2肢の保安規程は事業又は所定の工事の開始前に届け出る。",
+    "第3肢の変更命令は公共利益ではなく、ガス工作物の保安確保を目的とする。",
+    "第4肢はガス工作物の保安規程と、消費機器に関する保安業務規程を混同している。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q03-s01",
+      "gas-shunin-kou-2024-law-q03-s02",
+      "gas-shunin-kou-2024-law-q03-s03",
+      "gas-shunin-kou-2024-law-q03-s04",
+      "gas-shunin-kou-2024-law-q03-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法及びガス事業法施行規則",
+      "lawId": "multiple",
+      "articles": [
+        "ガス事業法第61条・第62条・第64条",
+        "ガス事業法施行規則第92条・第207条"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:07:01Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
