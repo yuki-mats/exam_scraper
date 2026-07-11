@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 131,
+  "auditKey": "gas-shunin:otsu:2017:law:q14:0ada56b27fea",
+  "auditInputHash": "ff1512cdf15acc95cd58f70c7a4929142a122f71b8d6013613be3738477b5881",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:45:17+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「使用者の承諾」が誤り。ガス事業法第159条第2項は、消費機器の調査のため設置又は使用場所へ立ち入る場合、承諾を得る相手を、その消費機器の所有者又は占有者と定めている。",
+      "間違い。選択肢の「特定地下街等では1年に1回以上」と一律にしている点が誤り。ガス事業法施行規則第197条第1項第2号イは、特定地下街等でも、自動ガス遮断装置又はガス漏れ警報器と適合するガス栓が設置されている場合を1年周期の対象から除き、通常の2年に1回の周知対象と定めている。",
+      "間違い。選択肢の「4年間保存」が誤り。ガス事業法施行規則第205条第2項は、消費機器の調査等に関する帳簿を、調査対象のガス使用者と小売供給契約を締結している場合に限り、調査が次に実施されるまでの間保存すると定めている。",
+      "正しい。ガス事業法第160条第1項は、ガス小売事業者は保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出ると定めている。",
+      "正しい。ガス事業法第163条第1項は、ガス事業者は、公共の安全の維持又は災害の発生の防止に関し、相互に連携を図りながら協力すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "消費機器調査の立入りについて承諾を得る相手は？",
+      "特定地下街等で危険防止事項を1年ごとに周知する条件は？",
+      "消費機器調査等の帳簿はいつまで保存する？",
+      "保安業務規程はいつまでに届け出る？",
+      "ガス事業者間にはどのような連携協力義務がある？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "消費機器調査の立入りについて承諾を得る相手は？",
+        "answer": "消費機器の所有者又は占有者。使用者に限られない。"
+      },
+      {
+        "question": "特定地下街等で危険防止事項を1年ごとに周知する条件は？",
+        "answer": "自動ガス遮断装置又はガス漏れ警報器と、基準適合ガス栓が設置されている場合を除く。除外条件に該当する場合は通常の2年周期となる。"
+      },
+      {
+        "question": "消費機器調査等の帳簿はいつまで保存する？",
+        "answer": "対象者と小売供給契約を締結している場合に限り、調査が次に実施されるまでの間。"
+      },
+      {
+        "question": "保安業務規程はいつまでに届け出る？",
+        "answer": "ガス小売事業の開始前。"
+      },
+      {
+        "question": "ガス事業者間にはどのような連携協力義務がある？",
+        "answer": "公共の安全維持又は災害発生防止について、相互に連携して協力する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第2項、第160条第1項及び第163条第1項並びにガス事業法施行規則第197条第1項第2号イ及び第205条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "2",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "197",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "イ",
+          "articleTextHash": "2a8d399ee8dceabbaa813ee989b713d09301ee84483a7c862fa3a77b9268d81f",
+          "rawXmlHash": "86c6269bcb1f86304583e109a95b2f1c8638e784edb9cae05689e8df561e0f58"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "205",
+          "paragraph": "2",
+          "articleTextHash": "3bc1ca953e66ef00b8277228708d42b9330882c5f13bdce3f99853c74cbd19b5",
+          "rawXmlHash": "2fb1e92c3d1f5d9201266942c77a0fbdacec1fdd9b54e53375eea0f787382292"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "1",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "163",
+          "paragraph": "1",
+          "articleTextHash": "b1d180304b3222fd64dc930f0fcc1f5bef0ba5565b8733b3256d16c93854bda8",
+          "rawXmlHash": "f1e766f73bd75c9a506b45895152a403e6a5fd22568c22634d256afb0f4c93b9"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、正しい、正しいは現行法と一致する。",
+    "周知周期について、特定地下街等の設備条件による1年周期の適用除外を明示した。",
+    "既存lawRevisionFacts.currentを、各選択肢の直接根拠へ修正する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q14-s01",
+      "gas-shunin-otsu-2017-law-q14-s02",
+      "gas-shunin-otsu-2017-law-q14-s03",
+      "gas-shunin-otsu-2017-law-q14-s04",
+      "gas-shunin-otsu-2017-law-q14-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:46:02Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
