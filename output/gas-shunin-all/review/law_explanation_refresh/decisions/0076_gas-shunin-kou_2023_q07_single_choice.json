@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 76,
+  "auditKey": "gas-shunin:kou:2023:law:q07:cfc048d8437c",
+  "auditInputHash": "8dd5ccc4c23df6f096b142d580e23b1b90fd0a4fd9c7d5fa33096a872a9763ef",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:30:28+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第4条第1項は、製造所及び供給所に、公衆がみだりに立ち入らないための適切な措置を求めている。ただし書は、周囲の状況により公衆が立ち入るおそれがない場合を例外と定めているため、設問の条件ではさく等を設けなくても基準に適合する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "公衆の立入り防止措置が不要となる場合は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "公衆の立入り防止措置が不要となる場合は？",
+        "answer": "周囲の状況により、公衆が立ち入るおそれがない場合。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第4条第1項ただし書。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "4",
+          "paragraph": "1",
+          "articleTextHash": "b6d5a0556ec648f70109d2644282720fa04461f174c87b34bcc4dcd963178ae2",
+          "rawXmlHash": "42cd314794580a99332af8e24276d23bf04cad276f3d92d1e8113ccbe693294b"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しいは現行省令第4条第1項ただし書と一致する。",
+    "この判断はA-10-0351の単独肢レコードのみを対象とし、A-10-0352からA-10-0355までの4肢レコードは変更しない。",
+    "周囲の状況により公衆が立ち入るおそれがないという設問条件が、立入り防止措置の例外に該当する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0351"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "4"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:31:16Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 1,
+    "correctChoiceTextChanged": false
+  }
+}
