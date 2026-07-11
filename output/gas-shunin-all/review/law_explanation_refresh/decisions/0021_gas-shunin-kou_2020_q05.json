@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 21,
+  "auditKey": "gas-shunin:kou:2020:law:q05:e9a9351d199c",
+  "auditInputHash": "51fdd2b94bd73c0453897624a57a3702bfbed4726aec2811e1cbca17066a017f",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T16:59:42+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「15日」が誤り。ガス事業法第101条第3項は、届出が受理された日から30日を経過した後でなければ、届出に係る工事を開始してはならないと定めている。",
+      "間違い。選択肢の「経済産業大臣」が誤り。ガス事業法第102条第1項は、自主検査の結果について、経済産業大臣の登録を受けた者が行う検査を受けると定めている。",
+      "間違い。選択肢の「緊急時」が誤り。ガス事業法施行規則第159条第1項第1号は、使用前検査前に使用できる場合として、ガス工作物を試験のために使用する場合を定めている。",
+      "間違い。選択肢の「燃焼性」が誤り。ガス事業法施行規則第159条第1項第1号は、使用者にガスを供給する場合、使用方法を変更するごとにガスの熱量等を測定して供給すると定めている。",
+      "間違い。選択肢の「3年間」が誤り。ガス事業法施行規則第160条第2項は、自主検査の記録を、原則として記録を行った日から5年間保存すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事計画の届出後、工事開始までに必要な期間は？",
+      "使用前検査を行う者は？",
+      "使用前検査前に使用できる場合は？",
+      "使用者へ供給する場合に測定するものは？",
+      "自主検査記録の保存期間は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事計画の届出後、工事開始までに必要な期間は？",
+        "answer": "届出が受理された日から30日。"
+      },
+      {
+        "question": "使用前検査を行う者は？",
+        "answer": "経済産業大臣の登録を受けた者。"
+      },
+      {
+        "question": "使用前検査前に使用できる場合は？",
+        "answer": "ガス工作物を試験のために使用する場合など。"
+      },
+      {
+        "question": "使用者へ供給する場合に測定するものは？",
+        "answer": "使用方法を変更するごとにガスの熱量等を測定する。"
+      },
+      {
+        "question": "自主検査記録の保存期間は？",
+        "answer": "原則として記録を行った日から5年間。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第101条第3項、第102条第1項並びにガス事業法施行規則第159条第1項第1号及び第160条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "101",
+          "paragraph": "3",
+          "articleTextHash": "6545129b8599979993ec4201451e4cbe24dfefad4e7dbe525ff29d14161e8439",
+          "rawXmlHash": "f7732a461407838fcdf72343a315fafd72d1bfb3b9050bd34e58ebb56d2eb3c1"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "102",
+          "paragraph": "1",
+          "articleTextHash": "28a60445c6cff4d99b59f67df79878438ee40d159a8b847dd90e7d0244c2835b",
+          "rawXmlHash": "7cfeb9544f3a9126f633f0d3d3f735136396abc364c12f15db2b6ace6f549c2d"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "159",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "2ae29d1c0dca86cf7474e578bf749e678d440223499b064ecf8480a8e2040dc0",
+          "rawXmlHash": "d834b8c9bdb42aab3a80ce9b94d8cf296e3da35d4ad4a05e6e5fbb5e8953b37f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "159",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "2ae29d1c0dca86cf7474e578bf749e678d440223499b064ecf8480a8e2040dc0",
+          "rawXmlHash": "d834b8c9bdb42aab3a80ce9b94d8cf296e3da35d4ad4a05e6e5fbb5e8953b37f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "160",
+          "paragraph": "2",
+          "articleTextHash": "09e81e6437efc23e6c201bccb48921e758988130a260d6ed238ce6fff99e792f",
+          "rawXmlHash": "9abca38572a7de27747b144c7fa4ebb5dddc1fc4e6aa39bb57de13b192da1ea5"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextは5肢すべて間違いで、現行法令と一致する。",
+    "穴埋めの正しい語句は順に30日、経済産業大臣の登録を受けた者、試験のため、熱量等、5年間である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": [
+      {
+        "lawTitle": "ガス事業法",
+        "lawId": "329AC0000000051",
+        "articles": [
+          "101",
+          "102"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+        "referenceDate": "2026-07-11",
+        "verificationStatus": "verified"
+      },
+      {
+        "lawTitle": "ガス事業法施行規則",
+        "lawId": "345M50000400097",
+        "articles": [
+          "159",
+          "160"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+        "referenceDate": "2026-07-11",
+        "verificationStatus": "verified"
+      }
+    ],
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:01:02Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
