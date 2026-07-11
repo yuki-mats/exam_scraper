@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 69,
+  "auditKey": "gas-shunin:kou:2023:law:q02:19bcee21ec8c",
+  "auditInputHash": "64d204cd8b72e343daa4a74b8c98b100e22694199a74950a44ccae1a3d89f7e7",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:02:23+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第78条第3項は、災害その他の非常時に熱量及び燃焼性の測定が困難な場合、測定済みの液化天然ガスを成分変更なく一時的に供給するときは、熱量及び燃焼性を測定する必要がないと定めている。",
+      "間違い。選択肢の「特定ガス導管事業者は、最終保障供給を拒んではならない」が誤り。ガス事業法第75条は、特定ガス導管事業者が正当な理由なく拒んではならないものを託送供給と定め、同法第47条第2項は、最終保障供給を拒んではならない者を一般ガス導管事業者と定めている。",
+      "正しい。ガス事業法第91条は、ガス製造事業者に製造ガスの圧力を測定して記録・保存することを求め、ガス事業法施行規則第144条第1項第2号は、その圧力を常時、ガスホルダーの出口及び経済産業大臣が指定する場所で、自動記録式の圧力計により測定すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "非常時に熱量等の測定を省略できる条件は？",
+      "特定ガス導管事業者が拒めない供給は？",
+      "ガス製造事業者の圧力測定方法は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "非常時に熱量等の測定を省略できる条件は？",
+        "answer": "測定済みの液化天然ガスを、成分変更なく一時的に供給する場合。"
+      },
+      {
+        "question": "特定ガス導管事業者が拒めない供給は？",
+        "answer": "供給地点における託送供給。最終保障供給を拒めないのは一般ガス導管事業者。"
+      },
+      {
+        "question": "ガス製造事業者の圧力測定方法は？",
+        "answer": "常時、ガスホルダーの出口及び指定場所で、自動記録式の圧力計を使用して測定する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第47条第2項、第75条及び第91条並びにガス事業法施行規則第78条第3項及び第144条第1項第2号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "78",
+          "paragraph": "3",
+          "articleTextHash": "aa9e816157102f6c73b147024a96ba86c057a400d5a302a0ea80227a53a23f37",
+          "rawXmlHash": "38724c3cc25ffd372d9c02c08dfa2abc5519138a8ece8f6b6ca9886dd827b339"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "75",
+          "paragraph": "1",
+          "articleTextHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3",
+          "rawXmlHash": "5387ebe3430998ad8c66a795c3c9d3cb611cc91602d610ba766f65029610cb84",
+          "references": [
+            {
+              "article": "75",
+              "paragraph": "1",
+              "articleTextHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3",
+              "rawXmlHash": "5387ebe3430998ad8c66a795c3c9d3cb611cc91602d610ba766f65029610cb84"
+            },
+            {
+              "article": "47",
+              "paragraph": "2",
+              "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+              "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "91",
+          "paragraph": "1",
+          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2",
+          "references": [
+            {
+              "article": "91",
+              "paragraph": "1",
+              "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+              "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "144",
+              "paragraph": "1",
+              "item": "2",
+              "articleTextHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
+              "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しいは現行法令と一致する。",
+    "第2肢の拒否禁止対象は、特定ガス導管事業者については託送供給、一般ガス導管事業者については最終保障供給である。",
+    "既存directBasisのガス事業法第51条は最終保障供給約款の条文であり、拒否禁止の直接根拠ではないため、第47条第2項へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0327",
+      "chiefgasengineerlicense-A-10-0328",
+      "chiefgasengineerlicense-A-10-0330"
+    ],
+    "currentLaw": {
+      "laws": [
+        {
+          "lawTitle": "ガス事業法",
+          "lawId": "329AC0000000051",
+          "articles": [
+            "47",
+            "75",
+            "91"
+          ]
+        },
+        {
+          "lawTitle": "ガス事業法施行規則",
+          "lawId": "345M50000400097",
+          "articles": [
+            "78",
+            "144"
+          ]
+        }
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:04:08Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 3,
+    "correctChoiceTextChanged": false
+  }
+}
