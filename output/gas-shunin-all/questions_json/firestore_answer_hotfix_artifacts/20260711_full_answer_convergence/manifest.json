@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "gas-shunin-firestore-answer-convergence-manifest/v1",
+  "createdAt": "2026-07-11T08:18:03Z",
+  "artifact": "output/gas-shunin-all/questions_json/firestore_answer_hotfix_artifacts/20260711_full_answer_convergence/gas_shunin_full_answer_convergence_5a2a62019825b85d.json",
+  "artifactSha256": "5a2a62019825b85dbae602bb884e77659a25490b468a35483a6da78dc111b398",
+  "projectId": "repaso-rbaqy4",
+  "collection": "questions",
+  "sourcePolicy": "00_source is the default answer authority. The only local source-answer exceptions are two Otsu 2020 questions whose answer_result_text explicitly identifies the incorrect choice.",
+  "changeCount": 686,
+  "qualificationCounts": {
+    "gas-shunin-kou": 557,
+    "gas-shunin-otsu": 129
+  },
+  "writeScope": [
+    "correctChoiceText",
+    "updatedAt",
+    "updatedById"
+  ],
+  "uploadResult": {
+    "updated": 686,
+    "alreadyApplied": 0,
+    "conflicts": 0,
+    "errors": 0
+  },
+  "readback": {
+    "path": "output/gas-shunin-all/questions_json/firestore_answer_hotfix_artifacts/20260711_full_answer_convergence/readback.json",
+    "localDocumentCount": 4639,
+    "liveDocumentCount": 4639,
+    "issueCount": 0,
+    "status": "verified"
+  }
+}
