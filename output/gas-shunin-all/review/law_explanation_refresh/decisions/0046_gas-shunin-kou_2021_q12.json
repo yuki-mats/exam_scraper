@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 46,
+  "auditKey": "gas-shunin:kou:2021:law:q12:3e3a7085cff3",
+  "auditInputHash": "afddce8f8fdf2fad02b50b86b15621a3e86fe9951dee989c18db78bac4d4af20",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:30:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第1項の表(1)は、道路に埋設された最高使用圧力が高圧の導管について、埋設の日以後1年に1回以上、漏えい検査を行うと定めている。",
+      "間違い。選択肢の「埋設の日以後4年に1回以上、検査を行う」が誤り。ガス工作物の技術上の基準を定める省令第51条第1項ただし書第2号は、ポリエチレン管を使用している部分を同項の漏えい検査義務の例外と定めている。",
+      "間違い。選択肢の「漏えい検査を要しない」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項の表(1)は、絶縁措置が講じられた部分からガス栓までの間でプラスチック被覆された部分について、埋設の日以後6年に1回以上、漏えい検査を行うと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第52条第1項は、最高使用圧力が高圧の導管を、ガスの供給に係る建物を除く建物の内部又は基礎面下に設置してはならないと定めている。",
+      "間違い。選択肢の「建物内の接合は溶接接合としなければならない」が誤り。ガス工作物の技術上の基準を定める省令第52条第3項は、中圧導管を建物内で溶接以外により接合する場合、ガス漏れを検知できる区域内で接合すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "道路に埋設された高圧導管の検査周期は？",
+      "ポリエチレン管の漏えい検査は？",
+      "プラスチック被覆部分の検査周期は？",
+      "高圧導管を設置できない場所は？",
+      "中圧導管を建物内で非溶接接合する条件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "道路に埋設された高圧導管の検査周期は？",
+        "answer": "埋設の日以後1年に1回以上。"
+      },
+      {
+        "question": "ポリエチレン管の漏えい検査は？",
+        "answer": "ポリエチレン管を使用している部分は、第51条第1項の漏えい検査義務の例外。"
+      },
+      {
+        "question": "プラスチック被覆部分の検査周期は？",
+        "answer": "所定の絶縁措置後からガス栓までのプラスチック被覆部分は、埋設の日以後6年に1回以上。"
+      },
+      {
+        "question": "高圧導管を設置できない場所は？",
+        "answer": "ガスの供給に係る建物を除く建物の内部又は基礎面下。"
+      },
+      {
+        "question": "中圧導管を建物内で非溶接接合する条件は？",
+        "answer": "適切な自動ガス遮断装置又はガス漏れ警報器がガス漏れを検知できる区域内で接合すること。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第1項の表(1)、同項ただし書第2号、第51条第2項の表(1)、第52条第1項及び第3項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "1",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "1",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "3",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、正しい、間違いは現行省令と一致する。",
+    "第5肢は溶接接合のみを義務付ける規定ではなく、非溶接接合を行う場合の検知区域内接合を定める規定である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0216",
+      "chiefgasengineerlicense-A-10-0217",
+      "chiefgasengineerlicense-A-10-0218",
+      "chiefgasengineerlicense-A-10-0219",
+      "chiefgasengineerlicense-A-10-0220"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "51",
+        "52"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:55:47Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
