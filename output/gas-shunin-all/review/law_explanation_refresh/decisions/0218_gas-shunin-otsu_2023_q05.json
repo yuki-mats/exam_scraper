@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 218,
+  "auditKey": "gas-shunin:otsu:2023:law:q05:f7b8c4850924",
+  "auditInputHash": "b167ccf1d9d3a109131f36860c91135587f9e79d6ff64c486370c2ba8e5a2374",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T03:14:41+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「免状の交付を受けている者、又は所定の実務経験を有するもののいずれか」が誤り。ガス事業法第25条第1項は、ガス主任技術者を、免状の交付を受けている者であって、所定の実務経験も有する者のうちから選任すると定めている。",
+      "正しい。ガス事業法施行規則第30条の表第2号は、乙種ガス主任技術者免状の監督範囲に、最高使用圧力が中圧及び低圧のガス工作物と、最高使用圧力が高圧の移動式ガス発生設備を含めている。",
+      "正しい。ガス事業法第65条第2項は、一般ガス導管事業者がガス主任技術者を選任又は解任したときは、遅滞なく経済産業大臣へ届け出なければならないと定めている。",
+      "正しい。ガス事業法第67条は、経済産業大臣が一般ガス導管事業者に対しガス主任技術者の解任を命ずることができると定め、第27条は、ガス主任技術者免状の交付を受けている者に免状の返納を命ずることができると定めている。",
+      "間違い。選択肢の「登録ガス工作物検査機関の職員」が誤り。ガス事業法第172条第1項は、経済産業大臣がその職員にガス事業者の営業所等へ立ち入らせ、帳簿、書類その他の物件を検査させることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス主任技術者の選任要件は？",
+      "乙種免状で監督できるガス工作物の範囲は？",
+      "一般ガス導管事業者は主任技術者の選任・解任をいつ届け出る？",
+      "主任技術者の解任命令と免状返納命令の根拠は？",
+      "ガス事業者への立入検査を行う者は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス主任技術者の選任要件は？",
+        "answer": "免状の交付を受け、かつ、所定の実務経験を有する者のうちから選任する。どちらか一方だけでは足りない。"
+      },
+      {
+        "question": "乙種免状で監督できるガス工作物の範囲は？",
+        "answer": "中圧・低圧のガス工作物のほか、高圧の移動式ガス発生設備なども含まれる。"
+      },
+      {
+        "question": "一般ガス導管事業者は主任技術者の選任・解任をいつ届け出る？",
+        "answer": "選任又は解任したときは、遅滞なく経済産業大臣へ届け出る。"
+      },
+      {
+        "question": "主任技術者の解任命令と免状返納命令の根拠は？",
+        "answer": "一般ガス導管事業者への解任命令はガス事業法第67条、免状交付者への返納命令は同法第27条。"
+      },
+      {
+        "question": "ガス事業者への立入検査を行う者は？",
+        "answer": "経済産業大臣の職員。登録ガス工作物検査機関の職員ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第25条第1項、第27条、第65条第2項、第67条及び第172条第1項並びにガス事業法施行規則第30条の表第2号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "25",
+          "paragraph": "1",
+          "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+          "rawXmlHash": "75cc647474eae33aeae60159c3412a8dd41d03a35a562ad5ab8d6d38420701ef"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "30",
+          "item": "2",
+          "articleTextHash": "f27b83b14e2d3623f93e2e250eb5bff38db72fbace6a0adf3e796162bde734f7",
+          "rawXmlHash": "da8ccab9bf571a6e1eef5393100eb57c223bc80d896517c3af74ef0db995cb09"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "65",
+          "paragraph": "2",
+          "articleTextHash": "49d27e25faea946c7d275cb97f41e3e0a49dfdb428578b4a825e55d6265e9c6c",
+          "rawXmlHash": "001d8d5dcbc45e3650380e6830fe363975ee1c35a4f96a6fce5667f68f620f69"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "67",
+          "paragraph": "1",
+          "articleTextHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+          "rawXmlHash": "7d6a1a7caee11c987ae3865516dd72deb7f9cafdf3ea87e083d122e328a8ef2a",
+          "references": [
+            {
+              "article": "67",
+              "paragraph": "1",
+              "articleTextHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+              "rawXmlHash": "7d6a1a7caee11c987ae3865516dd72deb7f9cafdf3ea87e083d122e328a8ef2a"
+            },
+            {
+              "article": "27",
+              "paragraph": "1",
+              "articleTextHash": "b75bbb6873559ce680606dafa8381eeb2bb96265a921f746d8d3b420211b14ca",
+              "rawXmlHash": "4dc5e5923cf8e086dc060e9d291adbcdd24a2f6f7b8d841e560ea57eca7b50f6"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "172",
+          "paragraph": "1",
+          "articleTextHash": "a05d9ccbcfc45de41a26f0d77b9fae29677f05a78adc3f2d27a429e543e0b286",
+          "rawXmlHash": "4332908e614518a1baafc3f119e06eb23cd81ef7a778a45d7731d0f193f1861a"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、間違いは現行法令と一致する。",
+    "第1肢の又はいずれかは誤りで、免状交付と所定実務経験の両方が必要である。",
+    "第2肢の直接根拠はガス事業法施行規則第30条の表第2号である。既存lawRevisionFactsの第27条は実務経験の規定であり、監督範囲の直接根拠ではないため差し替える。",
+    "第5肢は登録ガス工作物検査機関の職員ではなく、経済産業大臣の職員がガス事業者の営業所等へ立入検査を行う。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2023-law-q05-s01",
+      "gas-shunin-otsu-2023-law-q05-s02",
+      "gas-shunin-otsu-2023-law-q05-s03",
+      "gas-shunin-otsu-2023-law-q05-s04",
+      "gas-shunin-otsu-2023-law-q05-s05"
+    ],
+    "currentLaw": {
+      "laws": [
+        {
+          "lawTitle": "ガス事業法",
+          "lawId": "329AC0000000051",
+          "articles": [
+            "25",
+            "27",
+            "65",
+            "67",
+            "172"
+          ]
+        },
+        {
+          "lawTitle": "ガス事業法施行規則",
+          "lawId": "345M50000400097",
+          "articles": [
+            "30"
+          ]
+        }
+      ],
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T18:15:26Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
