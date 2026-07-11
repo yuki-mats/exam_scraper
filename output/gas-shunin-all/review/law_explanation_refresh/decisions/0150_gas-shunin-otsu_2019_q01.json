@@ -1,0 +1,255 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 150,
+  "auditKey": "gas-shunin:otsu:2019:law:q01:990dd8bf9612",
+  "auditInputHash": "d211b1d2de262be79f0b30dc9ba13eea49193a0bbbd10242d25fbf69d19a2b1d",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:28:17+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「最高値」「ガスメーター」「整圧器」「所有区分」が誤り。ガス事業法施行規則第13条第1項第13号、第14号、第15号及び第25号によれば、正しい組合せは「最低値」「ガス栓」「属するガスグループ」「器具」「保安上の責任」である。",
+      "間違い。選択肢の「最高値」「ガスメーター」「使用に伴う危険性」「所有区分」が誤り。ガス事業法施行規則第13条第1項第13号、第14号、第15号及び第25号によれば、正しい組合せは「最低値」「ガス栓」「属するガスグループ」「器具」「保安上の責任」である。",
+      "正しい。ガス事業法施行規則第13条第1項第13号、第14号、第15号及び第25号は、説明事項を「熱量の最低値」「ガス栓の出口」「属するガスグループ」「器具」「保安上の責任」と定めており、選択肢の組合せと一致する。",
+      "間違い。選択肢の「使用に伴う危険性」「整圧器」「所有区分」が誤り。ガス事業法施行規則第13条第1項第13号、第14号、第15号及び第25号によれば、正しい組合せは「最低値」「ガス栓」「属するガスグループ」「器具」「保安上の責任」である。",
+      "間違い。選択肢の「ガスメーター」が誤り。ガス事業法施行規則第13条第1項第14号は、圧力の説明箇所をガスメーターではなくガス栓の出口と定めている。他の語句は同項第13号、第15号及び第25号と一致する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "供給条件の説明事項における熱量は最低値と最高値のどちら？",
+      "ガスの圧力を示す箇所はガス栓とガスメーターのどちら？",
+      "供給するガスについて説明する区分は？",
+      "導管と機械の間に入る設備は？",
+      "設備について説明する責任は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "供給条件の説明事項における熱量は最低値と最高値のどちら？",
+        "answer": "最低値。標準値その他のガスの成分に関する事項とともに説明する。"
+      },
+      {
+        "question": "ガスの圧力を示す箇所はガス栓とガスメーターのどちら？",
+        "answer": "ガス栓の出口。"
+      },
+      {
+        "question": "供給するガスについて説明する区分は？",
+        "answer": "属するガスグループ。求めがある場合は燃焼速度及びウォッベ指数も説明する。"
+      },
+      {
+        "question": "導管と機械の間に入る設備は？",
+        "answer": "器具。"
+      },
+      {
+        "question": "設備について説明する責任は？",
+        "answer": "一般ガス導管事業者、特定ガス導管事業者、ガス小売事業者及び小売供給の相手方の保安上の責任。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第14条第1項及びガス事業法施行規則第13条第1項第13号、第14号、第15号、第25号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
+          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "14",
+              "paragraph": "1",
+              "item": "",
+              "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+              "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680"
+            },
+            {
+              "item": "13"
+            },
+            {
+              "item": "14"
+            },
+            {
+              "item": "15"
+            },
+            {
+              "item": "25"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
+          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "14",
+              "paragraph": "1",
+              "item": "",
+              "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+              "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680"
+            },
+            {
+              "item": "13"
+            },
+            {
+              "item": "14"
+            },
+            {
+              "item": "15"
+            },
+            {
+              "item": "25"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
+          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "14",
+              "paragraph": "1",
+              "item": "",
+              "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+              "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680"
+            },
+            {
+              "item": "13"
+            },
+            {
+              "item": "14"
+            },
+            {
+              "item": "15"
+            },
+            {
+              "item": "25"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
+          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "14",
+              "paragraph": "1",
+              "item": "",
+              "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+              "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680"
+            },
+            {
+              "item": "13"
+            },
+            {
+              "item": "14"
+            },
+            {
+              "item": "15"
+            },
+            {
+              "item": "25"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
+          "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "14",
+              "paragraph": "1",
+              "item": "",
+              "articleTextHash": "85b979aedd6e39c86ade87389a3ea0db59d46b0ee93a37e588756c0460db8921",
+              "rawXmlHash": "7ff51a3d928e4ac58ec19e0f8dff3e52b2e025a14d32ad4f0d6fd3b520804680"
+            },
+            {
+              "item": "13"
+            },
+            {
+              "item": "14"
+            },
+            {
+              "item": "15"
+            },
+            {
+              "item": "25"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの不正解、不正解、正解、不正解、不正解は現行法と一致する。",
+    "各選択肢について、正しい組合せとの差異を具体的に列挙した。",
+    "旧第26条参照を現行のガス事業法第14条第1項及び同施行規則第13条第1項第13号、第14号、第15号、第25号へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2019-law-q01-s01",
+      "gas-shunin-otsu-2019-law-q01-s02",
+      "gas-shunin-otsu-2019-law-q01-s03",
+      "gas-shunin-otsu-2019-law-q01-s04",
+      "gas-shunin-otsu-2019-law-q01-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法及びガス事業法施行規則",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:29:12Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
