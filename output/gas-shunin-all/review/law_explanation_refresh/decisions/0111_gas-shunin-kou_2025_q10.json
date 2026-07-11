@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 111,
+  "auditKey": "gas-shunin:kou:2025:law:q10:9f85bb6028db",
+  "auditInputHash": "53110c9d6b96a98bcf4b0c07bd71e6f4ba979f6da39ae79ef0f4f4d21c1cb31e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:12:27+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第25条第1項は、過圧のおそれがある所定の低圧ガス発生設備に、圧力を逃がす適切な圧力上昇防止装置を設けると定めている。",
+      "間違い。選択肢の「迅速かつ安全にガスを処理」が誤り。ガス工作物の技術上の基準を定める省令第27条第2項は、移動式ガス発生設備に、異常時に迅速かつ安全にガスの発生を停止できる装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第30条第1項は、直接液体又は気体を送入する装置を有する製造設備を、ガスの逆流が生じない構造とするよう定めている。",
+      "間違い。選択肢の「温水で加熱する構造のものであってはならない」が誤り。ガス工作物の技術上の基準を定める省令第31条第1項が禁止するのは直火加熱であり、第2項は温水加熱の気化装置に凍結防止措置を求めている。",
+      "間違い。選択肢の「自動的にガスを遮断する装置」が誤り。ガス工作物の技術上の基準を定める省令第41条第1項第2号は、一系統の圧力低下時に、自動的に他系統の容器からガスが発生する装置を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "低圧ガス発生設備の過圧対策は？",
+      "移動式ガス発生設備の異常時装置は？",
+      "液体等を送入する製造設備の逆流対策は？",
+      "気化装置で禁止される加熱方法は？",
+      "一系統の圧力低下時に必要な装置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "低圧ガス発生設備の過圧対策は？",
+        "answer": "圧力を逃がす適切な圧力上昇防止装置。"
+      },
+      {
+        "question": "移動式ガス発生設備の異常時装置は？",
+        "answer": "ガスを処理する装置ではなく、ガスの発生を停止する装置。"
+      },
+      {
+        "question": "液体等を送入する製造設備の逆流対策は？",
+        "answer": "送入部分を通じてガスが逆流しない構造。"
+      },
+      {
+        "question": "気化装置で禁止される加熱方法は？",
+        "answer": "温水加熱ではなく直火加熱。温水加熱では必要に応じ凍結防止措置を講じる。"
+      },
+      {
+        "question": "一系統の圧力低下時に必要な装置は？",
+        "answer": "ガス遮断装置ではなく、他系統の容器から自動的にガスが発生する装置。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第25条第1項、第27条第2項、第30条第1項、第31条第1項・第2項及び第41条第1項第2号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "25",
+          "paragraph": "1",
+          "articleTextHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a",
+          "rawXmlHash": "d449bd3ae174104cc666013fd37d2efe685107cc9d88c3c7d07335bb61db05f2"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "27",
+          "paragraph": "2",
+          "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+          "rawXmlHash": "3c1526932497fa1bd55fb42cc0181374ee81522e20f5185a6f010b748780d575"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "30",
+          "paragraph": "1",
+          "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+          "rawXmlHash": "ff79044f60340dac338cf998b66d16d79e92994886cce1fb7d419d34ea956964"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "31",
+          "paragraph": "1",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0",
+          "references": [
+            {
+              "paragraph": "1"
+            },
+            {
+              "paragraph": "2"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "41",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "5dc222b8d883f0dd80feca670ce2d0600f4bfe2789536814efe19b5b42549b71",
+          "rawXmlHash": "893fa4c33e4ae57fad5e8459ba0548f2df801e7b6741ac1910b86817d1e6dcd4"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、間違いは現行法と一致する。",
+    "第2肢は発生停止、第4肢は直火禁止、第5肢は他系統からの自動発生が正しい。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q10-s01",
+      "gas-shunin-kou-2025-law-q10-s02",
+      "gas-shunin-kou-2025-law-q10-s03",
+      "gas-shunin-kou-2025-law-q10-s04",
+      "gas-shunin-kou-2025-law-q10-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:13:17Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
