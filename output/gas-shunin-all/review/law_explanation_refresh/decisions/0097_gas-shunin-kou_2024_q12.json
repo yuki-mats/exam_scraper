@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 97,
+  "auditKey": "gas-shunin:kou:2024:law:q12:2eb9ea8c710e",
+  "auditInputHash": "df18b594ad6e3630469c9ae1aab66ee1720f0943ad41b762633ad77e24660f94",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:31:36+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「6年に1回以上」が誤り。ガス工作物の技術上の基準を定める省令第51条第1項の表は、道路に埋設された低圧導管について、特定管理管等の区分に該当するものを1年に1回以上、それ以外を4年に1回以上検査すると定めている。6年周期ではない。",
+      "間違い。選択肢の「設置の日以後4年に1回以上検査」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項ただし書第4号は、道路に埋設された導管からガス栓までの対象部分のうち、屋外で埋設されていない部分を漏えい検査義務の対象外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第4項は、前回の検査日から所定期間を経過する基準日前4月以内に検査した場合、基準日に検査を行ったものとみなすと定めている。",
+      "間違い。選択肢が工場の建物を検知区域内での外壁貫通設置義務の対象としている点が誤り。ガス工作物の技術上の基準を定める省令第52条第3項第1号は、工場等に設置される中圧導管をこの設置義務の対象外と定めている。",
+      "間違い。選択肢の「適切な措置が講じられた共同溝内に設置する場合を除く」が誤り。ガス工作物の技術上の基準を定める省令第53条は、導管側に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置するという両方の要件を定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "低圧の道路埋設導管の検査周期は？",
+      "屋外の非埋設部分は漏えい検査の対象？",
+      "基準日前4月以内の検査はいつ実施したとみなす？",
+      "工場向け中圧導管は検知区域内設置義務の対象？",
+      "共同溝内の導管に必要な2つの措置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "低圧の道路埋設導管の検査周期は？",
+        "answer": "特定管理管等は1年に1回以上、それ以外は4年に1回以上。6年周期ではない。"
+      },
+      {
+        "question": "屋外の非埋設部分は漏えい検査の対象？",
+        "answer": "第51条第2項の対象のうち、屋外で埋設されていない部分は検査義務の対象外。"
+      },
+      {
+        "question": "基準日前4月以内の検査はいつ実施したとみなす？",
+        "answer": "基準日に検査を実施したものとみなす。"
+      },
+      {
+        "question": "工場向け中圧導管は検知区域内設置義務の対象？",
+        "answer": "工場等に設置されるものは、第52条第3項の設置義務の対象外。"
+      },
+      {
+        "question": "共同溝内の導管に必要な2つの措置は？",
+        "answer": "導管に適切な措置を講じ、かつ、適切な措置が講じられた共同溝内に設置する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第1項・第2項ただし書第4号・第4項、第52条第3項第1号及び第53条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "1",
+          "item": "表（2）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
+          "references": [
+            {
+              "article": "51",
+              "paragraph": "1",
+              "item": "表（2）",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+            },
+            {
+              "article": "51",
+              "paragraph": "1",
+              "item": "表（3）",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "4",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "4",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "3",
+          "item": "1",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "53",
+          "paragraph": "1",
+          "articleTextHash": "40441f774366dad5490f4761b9983aa6c85b609163c06b2696bbbe6f439ac0e0",
+          "rawXmlHash": "86524f2e8f9f17d1e692b7770da9a064783f62c27faa610a6ecd92316423fce3"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、間違い、間違いは現行省令と一致する。",
+    "第1肢の低圧道路埋設導管は区分により1年又は4年周期であり、6年周期ではない。",
+    "第2肢の屋外非埋設部分は検査義務の例外、第4肢の工場等は検知区域内設置義務の例外である。",
+    "第5肢は導管側の措置と共同溝側の措置の双方が必要で、共同溝側の措置による例外ではない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q12-s01",
+      "gas-shunin-kou-2024-law-q12-s02",
+      "gas-shunin-kou-2024-law-q12-s03",
+      "gas-shunin-kou-2024-law-q12-s04",
+      "gas-shunin-kou-2024-law-q12-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "51",
+        "52",
+        "53"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:34:14Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
