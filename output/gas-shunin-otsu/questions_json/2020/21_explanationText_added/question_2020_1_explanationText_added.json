@@ -8284,44 +8284,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
     "explanationText": [
-      "間違い。ガス用品の技術上の基準としている点が誤り。ガス事業法第162条は、消費機器の設置又は変更は消費機器の技術基準に適合させる。",
-      "間違い。製造年月日としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条は、特定ガス消費機器は構造、使用状況等から定義される。",
-      "間違い。保安業務監督者に選任されている者としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格者が実地に監督する。",
-      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事は所定資格者に実地に監督させる。",
-      "間違い。主要材料としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後表示には施工年月日等を記載し、主要材料ではない。"
+      "間違い。選択肢の「ガス用品」が誤り。ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が同法第159条第2項の技術上の基準に適合するように行うと定めている。正しい語句は「消費機器」。",
+      "間違い。選択肢の「製造年月日」が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条第1項は、特定ガス消費機器を、構造、使用状況等からみてガス災害のおそれが多いと認められる機器と定めている。正しい語句は「構造」。",
+      "間違い。選択肢の「保安業務監督者に選任されている者」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格を有する者に監督させると定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事が技術上の基準に適合することを確保するため、所定の資格者に実地に監督させると定めている。",
+      "間違い。選択肢の「主要材料」が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事後の表示事項として氏名又は名称、施工年月日その他の所定事項を定めている。正しい語句は「施工年月日」。"
     ],
     "suggestedQuestions": [
-      "消費機器の設置又は変更の工事で適合させるべき対象は、ガス用品の技術上の基準か。",
-      "特定ガス消費機器の定義で着目されるのは製造年月日か。",
-      "特定工事の実地監督者は、保安業務監督者に選任されている者で足りるか。",
-      "特定工事では、所定の資格者に実地に監督させる必要があるか。",
-      "特定工事後の表示事項は主要材料か。",
+      "設置工事で技術基準に適合させる対象は？",
+      "特定ガス消費機器の定義で考慮するものは？",
+      "特定工事を監督できる資格者は？",
+      "特定工事の監督はどのように行う？",
+      "特定工事後の表示事項は？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "消費機器の設置又は変更の工事で適合させるべき対象は、ガス用品の技術上の基準か。",
-        "answer": "いいえ。消費機器の技術上の基準である。"
+        "question": "設置工事で技術基準に適合させる対象は？",
+        "answer": "設置又は変更する消費機器。"
       },
       {
-        "question": "特定ガス消費機器の定義で着目されるのは製造年月日か。",
-        "answer": "いいえ。構造、使用状況等で判断される。"
+        "question": "特定ガス消費機器の定義で考慮するものは？",
+        "answer": "構造、使用状況等。"
       },
       {
-        "question": "特定工事の実地監督者は、保安業務監督者に選任されている者で足りるか。",
-        "answer": "いいえ。ガス消費機器設置工事監督者の資格者等が必要である。"
+        "question": "特定工事を監督できる資格者は？",
+        "answer": "ガス消費機器設置工事監督者の資格を有する者。"
       },
       {
-        "question": "特定工事では、所定の資格者に実地に監督させる必要があるか。",
-        "answer": "必要がある。"
+        "question": "特定工事の監督はどのように行う？",
+        "answer": "実地に監督する。"
       },
       {
-        "question": "特定工事後の表示事項は主要材料か。",
-        "answer": "いいえ。施工年月日などの所定事項である。"
+        "question": "特定工事後の表示事項は？",
+        "answer": "氏名又は名称、施工年月日など。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法第162条、特定ガス消費機器の設置工事の監督に関する法律第2条、特定ガス消費機器の設置工事の監督に関する法律第3条、特定ガス消費機器の設置工事の監督に関する法律第6条。"
+        "answer": "ガス事業法第162条並びに特定ガス消費機器の設置工事の監督に関する法律第2条、第3条及び第6条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -8367,15 +8367,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "162",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス用品の技術上の基準としている点が誤り。ガス事業法第162条は、消費機器の設置又は変更は消費機器の技術基準に適合させる。",
+          "reason": "間違い。選択肢の「ガス用品」が誤り。ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が同法第159条第2項の技術上の基準に適合するように行うと定めている。正しい語句は「消費機器」。",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=162",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd",
+          "paragraph": "1",
+          "rawXmlHash": "e0c79a2ece402209b3d250a58a85124c3518dbcb062c5ab55dcf3b78bb1caef8"
         }
       ],
       [
@@ -8386,15 +8389,18 @@
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
           "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "2",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。製造年月日としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条は、特定ガス消費機器は構造、使用状況等から定義される。",
+          "reason": "間違い。選択肢の「製造年月日」が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条第1項は、特定ガス消費機器を、構造、使用状況等からみてガス災害のおそれが多いと認められる機器と定めている。正しい語句は「構造」。",
           "lawId": "354AC0000000033",
           "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=2",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
+          "paragraph": "1",
+          "rawXmlHash": "6eef6d4dc6007d2ac2efab5add13feee94545e18a2b636082218fc07bffe3be4"
         }
       ],
       [
@@ -8405,15 +8411,18 @@
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
           "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "3",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。保安業務監督者に選任されている者としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格者が実地に監督する。",
+          "reason": "間違い。選択肢の「保安業務監督者に選任されている者」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格を有する者に監督させると定めている。",
           "lawId": "354AC0000000033",
           "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=3",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "paragraph": "1",
+          "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a"
         }
       ],
       [
@@ -8424,15 +8433,18 @@
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
           "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "3",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事は所定資格者に実地に監督させる。",
+          "reason": "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事が技術上の基準に適合することを確保するため、所定の資格者に実地に監督させると定めている。",
           "lawId": "354AC0000000033",
           "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=3",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "paragraph": "1",
+          "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a"
         }
       ],
       [
@@ -8443,31 +8455,34 @@
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
           "lawAlias": "特定ガス消費機器の設置工事の監督に関する法律",
           "article": "6",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。主要材料としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後表示には施工年月日等を記載し、主要材料ではない。",
+          "reason": "間違い。選択肢の「主要材料」が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事後の表示事項として氏名又は名称、施工年月日その他の所定事項を定めている。正しい語句は「施工年月日」。",
           "lawId": "354AC0000000033",
           "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=6",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
+          "paragraph": "1",
+          "rawXmlHash": "e0f0c3d02183fdf0d10baa3feb4fad74e277ba497ee9415895873376eb64fc92"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:03:55+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "79285614f053b5570646dbdeef9cd7984ec4c87d2e2717fef1a5619e75c42f7f",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問16:choice1",
         "evidenceBindingHash": "69c9b0f86f10f1f8519bf52806e26e1aaddd17b93f0aefaae5be68d0fb1cf891",
         "examTime": {
@@ -8475,60 +8490,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
           "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
-          "lawId": "329AC0000000051",
           "article": "162",
-          "paragraph": "1",
-          "articleTextHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=162",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。消費機器の設置又は変更の工事は、消費機器の技術上の基準に適合するようにしなければならない。ガス用品の技術上の基準としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:162:1::1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「ガス用品」が誤り。ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が同法第159条第2項の技術上の基準に適合するように行うと定めている。正しい語句は「消費機器」。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第162条第1項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:162:1::1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "ガス事業法",
-              "lawId": "329AC0000000051",
               "article": "162",
-              "paragraph": "1",
               "articleTextHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd",
-              "textHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd"
+              "lawId": "329AC0000000051",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:03:55+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "e77c3b5dc3aaac71ac11ee3c0f1c4c7e91a30eec992736bd7a4654cca4c05587",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問16:choice2",
         "evidenceBindingHash": "d4a7a5a96f3aae43d4e506585a2a7ef2aefc3c1e8f07a8d76f4879ec914e06de",
         "examTime": {
@@ -8536,60 +8547,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
-          "lawId": "354AC0000000033",
           "article": "2",
-          "paragraph": "1",
-          "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=2",
+          "lawId": "354AC0000000033",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。特定ガス消費機器は、構造、使用状況等からみて設置又は変更工事の欠陥に係るガスによる災害のおそれが多いと認められる消費機器である。製造年月日としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:354AC0000000033:2:1::2"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「製造年月日」が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条第1項は、特定ガス消費機器を、構造、使用状況等からみてガス災害のおそれが多いと認められる機器と定めている。正しい語句は「構造」。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "特定ガス消費機器の設置工事の監督に関する法律第2条第1項を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:354AC0000000033:2:1::2",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-              "lawId": "354AC0000000033",
               "article": "2",
-              "paragraph": "1",
               "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
-              "textHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817"
+              "lawId": "354AC0000000033",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:03:55+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "0d0568b95d5f54e716cdd3e8b332a77d9d14eb9301519699a0bd3e44e89474c0",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問16:choice3",
         "evidenceBindingHash": "f02c94836644cbbbf5f817f2f87ea9a3015924189e742af9d3d2a542dba6f7aa",
         "examTime": {
@@ -8597,60 +8604,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
-          "lawId": "354AC0000000033",
           "article": "3",
-          "paragraph": "1",
-          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=3",
+          "lawId": "354AC0000000033",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。特定工事事業者は、ガス消費機器設置工事監督者の資格を有する者等に実地に監督させる必要がある。保安業務監督者に選任されている者としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:354AC0000000033:3:1::3"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「保安業務監督者に選任されている者」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格を有する者に監督させると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "特定ガス消費機器の設置工事の監督に関する法律第3条第1項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:354AC0000000033:3:1::3",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-              "lawId": "354AC0000000033",
               "article": "3",
-              "paragraph": "1",
               "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
-              "textHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af"
+              "lawId": "354AC0000000033",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:03:55+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "2fd3e32c7b2edd7cd7a63a203e48cad867be37b23cdd24bf48451a8fae9f9487",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問16:choice4",
         "evidenceBindingHash": "cbb5496f01022fe6969d7114e808843e5bfb69c34b4fb09918f0b028e6b8a3af",
         "examTime": {
@@ -8658,60 +8661,56 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
-          "lawId": "354AC0000000033",
           "article": "3",
-          "paragraph": "1",
-          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=3",
+          "lawId": "354AC0000000033",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。特定工事事業者は、特定工事が技術上の基準に適合することを確保するため、所定の資格者に実地に監督させなければならない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:354AC0000000033:3:1::4"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事が技術上の基準に適合することを確保するため、所定の資格者に実地に監督させると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "特定ガス消費機器の設置工事の監督に関する法律第3条第1項を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:354AC0000000033:3:1::4",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-              "lawId": "354AC0000000033",
               "article": "3",
-              "paragraph": "1",
               "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
-              "textHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af"
+              "lawId": "354AC0000000033",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T22:08:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:03:55+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "6f3643364f400751dbc3a96ddb84df5ca47f2e09cd3974499105398d8556fb0f",
         "auditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_220800_otsu2020_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_213939_kou2020_remaining_lawzilla_candidates",
         "secondaryAuditRunId": "20260709_220800_otsu2020_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260709_220800_otsu2020_year:問16:choice5",
         "evidenceBindingHash": "ec5e763413ed91029db9ace657df44729092e6ca6bd0664aee6c6c5593c3c229",
         "examTime": {
@@ -8719,62 +8718,58 @@
           "verificationStatus": "from_2020_otsu_source_or_existing_patch_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
           "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
-          "lawId": "354AC0000000033",
           "article": "6",
-          "paragraph": "1",
-          "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936"
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=354AC0000000033;article=6",
+          "lawId": "354AC0000000033",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行一次条文又は公式告示委任関係と既存の正誤・解説は矛盾しない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補を入口に、e-Gov XMLの直接根拠条文へ補正して確認した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。特定工事を施工したときの表示事項には、氏名又は名称、施工年月日その他の所定事項が含まれる。主要材料としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と矛盾しないものとして二次確認済み。",
-          "promptContext": "選択肢ごとの直接根拠を現行一次条文で条項単位に確認する。",
-          "displayRefIds": [
-            "current:354AC0000000033:6:1::5"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「主要材料」が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事後の表示事項として氏名又は名称、施工年月日その他の所定事項を定めている。正しい語句は「施工年月日」。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "特定ガス消費機器の設置工事の監督に関する法律第6条第1項を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:354AC0000000033:6:1::5",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
               "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
-              "lawId": "354AC0000000033",
               "article": "6",
-              "paragraph": "1",
               "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
-              "textHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936"
+              "lawId": "354AC0000000033",
+              "paragraph": "1"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "間違い。ガス用品の技術上の基準としている点が誤り。ガス事業法第162条は、消費機器の設置又は変更は消費機器の技術基準に適合させる。",
-      "間違い。製造年月日としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条は、特定ガス消費機器は構造、使用状況等から定義される。",
-      "間違い。保安業務監督者に選任されている者としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格者が実地に監督する。",
-      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事は所定資格者に実地に監督させる。",
-      "間違い。主要材料としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後表示には施工年月日等を記載し、主要材料ではない。"
+      "間違い。選択肢の「ガス用品」が誤り。ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が同法第159条第2項の技術上の基準に適合するように行うと定めている。正しい語句は「消費機器」。",
+      "間違い。選択肢の「製造年月日」が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条第1項は、特定ガス消費機器を、構造、使用状況等からみてガス災害のおそれが多いと認められる機器と定めている。正しい語句は「構造」。",
+      "間違い。選択肢の「保安業務監督者に選任されている者」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格を有する者に監督させると定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事が技術上の基準に適合することを確保するため、所定の資格者に実地に監督させると定めている。",
+      "間違い。選択肢の「主要材料」が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事後の表示事項として氏名又は名称、施工年月日その他の所定事項を定めている。正しい語句は「施工年月日」。"
     ],
     "lawGroundedExplanationText": [
-      "間違い。ガス用品の技術上の基準としている点が誤り。ガス事業法第162条は、消費機器の設置又は変更は消費機器の技術基準に適合させる。",
-      "間違い。製造年月日としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条は、特定ガス消費機器は構造、使用状況等から定義される。",
-      "間違い。保安業務監督者に選任されている者としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格者が実地に監督する。",
-      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事は所定資格者に実地に監督させる。",
-      "間違い。主要材料としている点が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、施工後表示には施工年月日等を記載し、主要材料ではない。"
+      "間違い。選択肢の「ガス用品」が誤り。ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が同法第159条第2項の技術上の基準に適合するように行うと定めている。正しい語句は「消費機器」。",
+      "間違い。選択肢の「製造年月日」が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条第1項は、特定ガス消費機器を、構造、使用状況等からみてガス災害のおそれが多いと認められる機器と定めている。正しい語句は「構造」。",
+      "間違い。選択肢の「保安業務監督者に選任されている者」が誤り。特定ガス消費機器の設置工事の監督に関する法律第3条は、ガス消費機器設置工事監督者の資格を有する者に監督させると定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条は、特定工事が技術上の基準に適合することを確保するため、所定の資格者に実地に監督させると定めている。",
+      "間違い。選択肢の「主要材料」が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事後の表示事項として氏名又は名称、施工年月日その他の所定事項を定めている。正しい語句は「施工年月日」。"
     ]
   },
   {
