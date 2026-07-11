@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 79,
+  "auditKey": "gas-shunin:kou:2023:law:q10:f0f5af9bca63",
+  "auditInputHash": "0cff9211a3a4dd5f660acfbee353af662f2efc94fb7da4ea2074c83595553616",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:41:49+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「そのガス又は液化ガスを回収する」が誤り。ガス工作物の技術上の基準を定める省令第26条は、対象となる製造設備に、異常時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所に設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第27条第1項は、対象となるガス発生設備を、異常時に迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理できるものとすると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第28条第3項は、移動式ガス発生設備の容器又は容器の設置場所に、容器内の圧力が異常に上昇しないよう適切な温度に維持できる措置を講ずると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第31条第2項は、温水で加熱する構造の気化装置で、加熱部の温水が凍結するおそれがあるものに、凍結防止措置を講ずると定めている。",
+      "間違い。選択肢の「液化ガスの温度」が誤り。ガス工作物の技術上の基準を定める省令第41条第2項は、対象となる特定ガス発生設備の容器部分に、容器内の液化ガスの量を確認できる装置を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "製造設備の異常時に必要な遮断装置は？",
+      "ガス発生設備の異常時に必要な機能は？",
+      "移動式ガス発生設備の容器に必要な温度対策は？",
+      "温水加熱式気化装置に必要な凍結対策は？",
+      "特定ガス発生設備で確認する液化ガスの情報は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "製造設備の異常時に必要な遮断装置は？",
+        "answer": "異常時にガス又は液化ガスの流出及び流入を速やかに遮断できる適切な装置。"
+      },
+      {
+        "question": "ガス発生設備の異常時に必要な機能は？",
+        "answer": "迅速かつ安全にガスの発生を停止し、又は迅速かつ安全にガスを処理できること。"
+      },
+      {
+        "question": "移動式ガス発生設備の容器に必要な温度対策は？",
+        "answer": "容器内の圧力が異常に上昇しないよう、適切な温度に維持できる措置。"
+      },
+      {
+        "question": "温水加熱式気化装置に必要な凍結対策は？",
+        "answer": "加熱部の温水が凍結するおそれがある場合、凍結防止措置を講ずる。"
+      },
+      {
+        "question": "特定ガス発生設備で確認する液化ガスの情報は？",
+        "answer": "容器内の液化ガスの温度ではなく、量を確認できる装置を設ける。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第26条、第27条第1項、第28条第3項、第31条第2項及び第41条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "26",
+          "paragraph": "1",
+          "articleTextHash": "a9221a84f1d4b52b36a9cfdd0abf94207e6bbe6236d5a055ce31350fee1ec9b4",
+          "rawXmlHash": "dd17afb97324af859794cd657ded16f973a39d2a44be4c6785c1446c991abf8e"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "ec6748ea4e9821abadf9d9ddbfccaa351c7d2bffafe0769d7f5af488e7821f4b",
+          "rawXmlHash": "3c1526932497fa1bd55fb42cc0181374ee81522e20f5185a6f010b748780d575"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "28",
+          "paragraph": "3",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "31",
+          "paragraph": "2",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "41",
+          "paragraph": "2",
+          "articleTextHash": "5dc222b8d883f0dd80feca670ce2d0600f4bfe2789536814efe19b5b42549b71",
+          "rawXmlHash": "893fa4c33e4ae57fad5e8459ba0548f2df801e7b6741ac1910b86817d1e6dcd4"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、間違いは現行省令と一致する。",
+    "第1肢は流出・流入の遮断に加えてガス又は液化ガスを回収するとしている点が誤りである。",
+    "第2肢から第4肢までは現行条文と実質的に同一である。",
+    "第5肢で確認対象となるのは容器内の液化ガスの温度ではなく量である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0366",
+      "chiefgasengineerlicense-A-10-0367",
+      "chiefgasengineerlicense-A-10-0368",
+      "chiefgasengineerlicense-A-10-0369",
+      "chiefgasengineerlicense-A-10-0370"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "26",
+        "27",
+        "28",
+        "31",
+        "41"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:42:49Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
