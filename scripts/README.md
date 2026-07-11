@@ -13,7 +13,7 @@
     `python scripts/scrape/kakomonn_inventory.py inventory --discover-targets --only-missing --json-output output/reports/kakomonn_inventory.json`
   - `kakomonn.com` の未登録資格を config 追加なしで試し取得する場合:
     `python scripts/scrape/kakomonn_inventory.py scrape itpass --dry-run --max-groups 1`
-    取得時は `--dry-run` を外す。大量取得は `--all-missing --max-qualifications <n>` で小さく区切る。
+    取得時は `--dry-run` を外す。大量取得は `--all-unscraped --yes --group-retries 2` で、保存済みグループをスキップしながら未取得分を再開できる。小さく区切る場合は `--max-qualifications <n>` を併用する。
 - `merge/`
   - `10_questionType_fixed/`、`15_correctChoiceText_fixed/`、`18_law_context_prepared/`、`21_explanationText_added/`、`22_questionSetId_linked/`、`23_correctChoiceText_fixed/` を統合する。
   - 主な生成先は `12_merged_questionType/`、`20_merged_1/`、`30_merged_2/`。
