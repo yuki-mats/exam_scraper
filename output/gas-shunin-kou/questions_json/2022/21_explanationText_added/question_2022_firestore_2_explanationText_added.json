@@ -8241,19 +8241,44 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等には安全弁を設け、吹出しガスによる障害を防止する。",
-      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等には使用状態を計測又は確認する装置を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等には損傷に至るおそれのある状態を検知し警報する装置を設ける。",
-      "間違い。選択肢の「機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われない措置を求める。",
-      "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、漏えい時にはガスの流出及び流入を速やかに遮断する装置を設ける。"
+      "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等に安全弁を設け、安全弁から吹き出すガスによる障害が生じないよう施設すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等に、設備の損傷を防止するため使用状態を計測又は確認できる適切な装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等に、設備の損傷に至るおそれのある状態を検知して警報する適切な装置を設けると定めている。",
+      "間違い。選択肢の「設備の機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われることのないよう、適切な措置を講じると定めている。",
+      "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーの送出し・受入れ配管に、ガスの流出及び流入を速やかに遮断できる装置を設けると定めている。"
     ],
     "suggestedQuestions": [
+      "過圧のおそれがある設備に必要な安全装置は？",
+      "ガスホルダーの使用状態を確認する装置は？",
+      "設備損傷のおそれを知らせる装置は？",
+      "停電時の保安上重要な設備に必要な措置は？",
+      "ガスホルダー配管に必要な漏えい対策は？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
+        "question": "過圧のおそれがある設備に必要な安全装置は？",
+        "answer": "圧力を逃がすための適切な安全弁。"
+      },
+      {
+        "question": "ガスホルダーの使用状態を確認する装置は？",
+        "answer": "使用状態を計測又は確認できる適切な装置。"
+      },
+      {
+        "question": "設備損傷のおそれを知らせる装置は？",
+        "answer": "損傷に至るおそれのある状態を検知し警報する適切な装置。"
+      },
+      {
+        "question": "停電時の保安上重要な設備に必要な措置は？",
+        "answer": "停電等により設備の機能が失われることのないようにする適切な措置。"
+      },
+      {
+        "question": "ガスホルダー配管に必要な漏えい対策は？",
+        "answer": "ガスの流出及び流入を速やかに遮断できる適切な装置。"
+      },
+      {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第17条、ガス工作物の技術上の基準を定める省令第18条第1項、ガス工作物の技術上の基準を定める省令第19条、ガス工作物の技術上の基準を定める省令第21条、ガス工作物の技術上の基準を定める省令第33条。"
+        "answer": "ガス工作物の技術上の基準を定める省令第17条、第18条第1項、第19条、第21条及び第33条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -8307,11 +8332,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等には安全弁を設け、吹出しガスによる障害を防止する。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等に安全弁を設け、安全弁から吹き出すガスによる障害が生じないよう施設すると定めている。",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
+          "paragraph": "1",
+          "rawXmlHash": "4cdef19a07fe4efcfc82f7389a7f710cbf9480266b0e3f0b71e9f4388d75dace"
         }
       ],
       [
@@ -8326,12 +8354,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等には使用状態を計測又は確認する装置を設ける。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等に、設備の損傷を防止するため使用状態を計測又は確認できる適切な装置を設けると定めている。",
           "paragraph": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=18",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
         }
       ],
       [
@@ -8346,11 +8376,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等には損傷に至るおそれのある状態を検知し警報する装置を設ける。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等に、設備の損傷に至るおそれのある状態を検知して警報する適切な装置を設けると定めている。",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
+          "paragraph": "1",
+          "rawXmlHash": "4d42a6fd913ada1b1e7e2377a98e30056c351e1a1ff459b4f88761c0fcdc20d0"
         }
       ],
       [
@@ -8365,11 +8398,14 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われない措置を求める。",
+          "reason": "間違い。選択肢の「設備の機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われることのないよう、適切な措置を講じると定めている。",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=21",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+          "paragraph": "1",
+          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c"
         }
       ],
       [
@@ -8384,68 +8420,67 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、漏えい時にはガスの流出及び流入を速やかに遮断する装置を設ける。",
+          "reason": "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーの送出し・受入れ配管に、ガスの流出及び流入を速やかに遮断できる装置を設けると定めている。",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=33",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
+          "paragraph": "1",
+          "rawXmlHash": "b5ccea88b31ae06bcf4f22fb69b7a06a60d7b7719d7b6fbabff79c91a7147507"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:30:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T21:34:00+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_233000",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "reconciliationStatus": "matched",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "17",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17",
+          "lawId": "412M50000400111",
           "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補はガス事業法施行規則第17条に寄っていたため、安全弁の直接根拠として技術基準省令第17条をe-Gov本文で確認した。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。技術基準省令第17条第1項は、ガス発生設備等であって最高使用圧力が高圧のもののうち過圧が生ずるおそれのあるものには、圧力を逃すための適切な安全弁を設け、その安全弁は作動時に吹き出されるガスによる障害が生じないよう施設しなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "高圧ガス発生設備の安全弁設置義務と吹出しガスによる障害防止に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:17:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等に安全弁を設け、安全弁から吹き出すガスによる障害が生じないよう施設すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第17条第1項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:17:1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "17",
               "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
-              "textHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
+              "lawId": "412M50000400111",
               "paragraph": "1"
             }
           ]
@@ -8453,57 +8488,53 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:30:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T21:34:00+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_233000",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "reconciliationStatus": "matched",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "18",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=18",
+          "lawId": "412M50000400111",
           "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補に技術基準省令第18条が含まれていたため、使用状態の計測・確認装置の直接根拠として採用した。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。技術基準省令第18条第1項は、ガスホルダー等には、ガス又は液化ガスを通ずる設備の損傷を防止するため、使用の状態を計測又は確認できる適切な装置を設けなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "ガスホルダーの使用状態を計測又は確認できる装置に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:18:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等に、設備の損傷を防止するため使用状態を計測又は確認できる適切な装置を設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第18条第1項を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:18:1",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "18",
               "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
-              "textHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+              "lawId": "412M50000400111",
               "paragraph": "1"
             }
           ]
@@ -8511,57 +8542,53 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:30:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T21:34:00+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_233000",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "reconciliationStatus": "matched",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "19",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
+          "lawId": "412M50000400111",
           "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は施行規則の自主検査条項に寄っていたため、検知・警報装置の直接根拠として技術基準省令第19条をe-Gov本文で確認した。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。技術基準省令第19条第1項は、ガスホルダー等には、ガス又は液化ガスを通ずる設備の損傷に至るおそれのある状態を検知し警報する適切な装置を設けなければならないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "ガスホルダーの損傷に至るおそれの検知・警報装置に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:19:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等に、設備の損傷に至るおそれのある状態を検知して警報する適切な装置を設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第19条第1項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:19:1",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "19",
               "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
-              "textHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
+              "lawId": "412M50000400111",
               "paragraph": "1"
             }
           ]
@@ -8569,57 +8596,53 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:30:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T21:34:00+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_233000",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "reconciliationStatus": "matched",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "21",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=21",
+          "lawId": "412M50000400111",
           "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補に技術基準省令第21条が含まれていたため、停電等による機能喪失防止の直接根拠として採用した。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。技術基準省令第21条第1項は、製造設備を安全に停止させるのに必要な装置その他の保安上重要な設備には、停電等により当該設備の機能が失われることのないよう適切な措置を講じなければならないと定めている。機能が失われた場合に保安を維持する措置としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "保安上重要な設備の停電対策は機能喪失防止である点に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:21:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「設備の機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われることのないよう、適切な措置を講じると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第21条第1項を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:21:1",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "21",
               "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
-              "textHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+              "lawId": "412M50000400111",
               "paragraph": "1"
             }
           ]
@@ -8627,57 +8650,53 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:30:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T21:34:00+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_233000",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_021000_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q9_secondary_review",
-        "reconciliationStatus": "matched",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "33",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=33",
+          "lawId": "412M50000400111",
           "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は初回キューで未取得扱いだったため、ガスホルダーの遮断装置の直接根拠として技術基準省令第33条をe-Gov本文で確認した。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。技術基準省令第33条第1項は、ガスホルダーのガスを送り出し、又は受け入れるために用いられる配管には、ガスが漏えいした場合の災害を防止するため、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所に設けなければならないと定めている。漏えいしたガスを速やかに回収する装置としている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "ガスホルダー接続配管の措置は回収ではなく遮断である点に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:33:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーの送出し・受入れ配管に、ガスの流出及び流入を速やかに遮断できる装置を設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第33条第1項を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:33:1",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
               "article": "33",
               "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
-              "textHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
+              "lawId": "412M50000400111",
               "paragraph": "1"
             }
           ]
@@ -8685,18 +8704,18 @@
       }
     ],
     "suggestedExplanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等には安全弁を設け、吹出しガスによる障害を防止する。",
-      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等には使用状態を計測又は確認する装置を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等には損傷に至るおそれのある状態を検知し警報する装置を設ける。",
-      "間違い。選択肢の「機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われない措置を求める。",
-      "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、漏えい時にはガスの流出及び流入を速やかに遮断する装置を設ける。"
+      "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等に安全弁を設け、安全弁から吹き出すガスによる障害が生じないよう施設すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等に、設備の損傷を防止するため使用状態を計測又は確認できる適切な装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等に、設備の損傷に至るおそれのある状態を検知して警報する適切な装置を設けると定めている。",
+      "間違い。選択肢の「設備の機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われることのないよう、適切な措置を講じると定めている。",
+      "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーの送出し・受入れ配管に、ガスの流出及び流入を速やかに遮断できる装置を設けると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等には安全弁を設け、吹出しガスによる障害を防止する。",
-      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等には使用状態を計測又は確認する装置を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等には損傷に至るおそれのある状態を検知し警報する装置を設ける。",
-      "間違い。選択肢の「機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われない措置を求める。",
-      "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、漏えい時にはガスの流出及び流入を速やかに遮断する装置を設ける。"
+      "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等に安全弁を設け、安全弁から吹き出すガスによる障害が生じないよう施設すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等に、設備の損傷を防止するため使用状態を計測又は確認できる適切な装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等に、設備の損傷に至るおそれのある状態を検知して警報する適切な装置を設けると定めている。",
+      "間違い。選択肢の「設備の機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われることのないよう、適切な措置を講じると定めている。",
+      "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーの送出し・受入れ配管に、ガスの流出及び流入を速やかに遮断できる装置を設けると定めている。"
     ]
   },
   {

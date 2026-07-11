@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 60,
+  "auditKey": "gas-shunin:kou:2022:law:q09:cd9125a9aebf",
+  "auditInputHash": "046349ac0014894737075c1c447f6308fa6894745650def0f9a843ba56882ae7",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:34:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第17条は、過圧のおそれがある高圧のガス発生設備等に安全弁を設け、安全弁から吹き出すガスによる障害が生じないよう施設すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、ガスホルダー等に、設備の損傷を防止するため使用状態を計測又は確認できる適切な装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第19条は、ガスホルダー等に、設備の損傷に至るおそれのある状態を検知して警報する適切な装置を設けると定めている。",
+      "間違い。選択肢の「設備の機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われることのないよう、適切な措置を講じると定めている。",
+      "間違い。選択肢の「漏えいしたガスを速やかに回収する」が誤り。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーの送出し・受入れ配管に、ガスの流出及び流入を速やかに遮断できる装置を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "過圧のおそれがある設備に必要な安全装置は？",
+      "ガスホルダーの使用状態を確認する装置は？",
+      "設備損傷のおそれを知らせる装置は？",
+      "停電時の保安上重要な設備に必要な措置は？",
+      "ガスホルダー配管に必要な漏えい対策は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "過圧のおそれがある設備に必要な安全装置は？",
+        "answer": "圧力を逃がすための適切な安全弁。"
+      },
+      {
+        "question": "ガスホルダーの使用状態を確認する装置は？",
+        "answer": "使用状態を計測又は確認できる適切な装置。"
+      },
+      {
+        "question": "設備損傷のおそれを知らせる装置は？",
+        "answer": "損傷に至るおそれのある状態を検知し警報する適切な装置。"
+      },
+      {
+        "question": "停電時の保安上重要な設備に必要な措置は？",
+        "answer": "停電等により設備の機能が失われることのないようにする適切な措置。"
+      },
+      {
+        "question": "ガスホルダー配管に必要な漏えい対策は？",
+        "answer": "ガスの流出及び流入を速やかに遮断できる適切な装置。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第17条、第18条第1項、第19条、第21条及び第33条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "17",
+          "paragraph": "1",
+          "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
+          "rawXmlHash": "4cdef19a07fe4efcfc82f7389a7f710cbf9480266b0e3f0b71e9f4388d75dace"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "1",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "19",
+          "paragraph": "1",
+          "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
+          "rawXmlHash": "4d42a6fd913ada1b1e7e2377a98e30056c351e1a1ff459b4f88761c0fcdc20d0"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "21",
+          "paragraph": "1",
+          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "33",
+          "paragraph": "1",
+          "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
+          "rawXmlHash": "b5ccea88b31ae06bcf4f22fb69b7a06a60d7b7719d7b6fbabff79c91a7147507"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行省令と一致する。",
+    "第4肢は機能喪失後の保安維持ではなく機能喪失防止、第5肢はガス回収ではなく流出・流入の遮断である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0281",
+      "chiefgasengineerlicense-A-10-0282",
+      "chiefgasengineerlicense-A-10-0283",
+      "chiefgasengineerlicense-A-10-0284",
+      "chiefgasengineerlicense-A-10-0285"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "17",
+        "18",
+        "19",
+        "21",
+        "33"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:27:38Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
