@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 74,
+  "auditKey": "gas-shunin:kou:2023:law:q06:c20bdac17b3e",
+  "auditInputHash": "f468be492b6708a4b9ec78cd67f0a75569c81a7ed995b516538ed1f5b3afa6ad",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:21:59+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「軽微なものであるときは、この限りでない」が誤り。ガス事業法第68条第3項は、工事計画を届け出た者が、届出受理日から30日を経過した後でなければ工事を開始できないと定めており、軽微な工事による例外は定めていない。",
+      "間違い。選択肢の「届出が提出された日から30日以内」が誤り。ガス事業法第68条第5項は、工事計画の変更又は廃止を命じることができる期間を、届出を受理した日から30日以内と定めている。",
+      "正しい。ガス事業法第69条第1項は、所定の工事について自主検査を行い、その結果について登録ガス工作物検査機関の検査を受け、合格後でなければ使用できないと定めている。経済産業省令で定める場合は例外となる。",
+      "間違い。選択肢の「軽微なものであるときは、この限りでない」が誤り。ガス事業法第69条第3項及びガス事業法施行規則第104条第1項第6号は、使用前自主検査の結果に基づいて補修等の措置を講じたときは、その内容を検査記録に記載すると定めており、軽微な補修等を除外していない。",
+      "間違い。選択肢の「経済産業大臣に届け出なければならない」が誤り。ガス事業法第71条は、定期自主検査の検査記録を作成し、保存すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事計画届出後の待機期間は？",
+      "変更・廃止命令の30日はいつから？",
+      "ガス工作物を使用できる検査条件は？",
+      "補修等を行った場合の記録事項は？",
+      "定期自主検査の記録は届出と保存のどちら？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事計画届出後の待機期間は？",
+        "answer": "届出受理日から30日を経過した後。軽微な工事による待機期間の例外はない。"
+      },
+      {
+        "question": "変更・廃止命令の30日はいつから？",
+        "answer": "届出を提出した日ではなく、受理した日から30日以内。"
+      },
+      {
+        "question": "ガス工作物を使用できる検査条件は？",
+        "answer": "自主検査後、登録ガス工作物検査機関の検査に合格すること。省令所定の場合は例外。"
+      },
+      {
+        "question": "補修等を行った場合の記録事項は？",
+        "answer": "補修等の措置内容を記載する。軽微な補修等も除外されない。"
+      },
+      {
+        "question": "定期自主検査の記録は届出と保存のどちら？",
+        "answer": "作成して保存する。経済産業大臣への届出ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第68条第3項及び第5項、第69条第1項及び第3項並びに第71条、ガス事業法施行規則第104条第1項第6号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "3",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "5",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "69",
+          "paragraph": "1",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "69",
+          "paragraph": "3",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255",
+          "references": [
+            {
+              "article": "69",
+              "paragraph": "3",
+              "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+              "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "104",
+              "paragraph": "1",
+              "item": "6",
+              "articleTextHash": "a2a02576ea79b0b88c838bf51997299219f50de1d16e35adc7cd99bd2eb21f85",
+              "rawXmlHash": "92abfc5ff637177b7c4f497fcc63917bbd4291dc198e3aa0b68642a8afe51dd3"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "71",
+          "paragraph": "1",
+          "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+          "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、間違い、間違いは現行法令と一致する。",
+    "第1肢の軽微な変更例外は第68条第2項の変更届出に関するもので、第3項の30日待機期間を除外する規定ではない。",
+    "第4肢は補修等の措置が軽微であっても、措置内容の記録を不要とする規定はない。",
+    "第5肢の定期自主検査記録は経済産業大臣へ届け出るのではなく、作成して保存する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0346",
+      "chiefgasengineerlicense-A-10-0347",
+      "chiefgasengineerlicense-A-10-0348",
+      "chiefgasengineerlicense-A-10-0349",
+      "chiefgasengineerlicense-A-10-0350"
+    ],
+    "currentLaw": {
+      "laws": [
+        {
+          "lawTitle": "ガス事業法",
+          "lawId": "329AC0000000051",
+          "articles": [
+            "68",
+            "69",
+            "71"
+          ]
+        },
+        {
+          "lawTitle": "ガス事業法施行規則",
+          "lawId": "345M50000400097",
+          "articles": [
+            "104"
+          ]
+        }
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:23:27Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
