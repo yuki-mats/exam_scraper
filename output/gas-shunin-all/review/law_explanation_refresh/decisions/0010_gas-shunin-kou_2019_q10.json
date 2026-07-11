@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 10,
+  "auditKey": "gas-shunin:kou:2019:law:q10:6bfa398c0797",
+  "auditInputHash": "760a5479f2aa55bb2f9f7ab9510a2c0f67345ff5a74f55b92e8d88ee9970f1d9",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T17:37:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第45条第1号は、告示対象となるガス栓の出口側形状を告示規格に適合させると定めている。同告示第7条第1項第1号は、ゴム管口又は迅速継手の形状をJIS S 2120「ガス栓」に適合させると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれがある導管に、適切な水取り器を設けると定めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第48条第3項は、道路以外の地盤面下に埋設される本支管について、低圧のもの等及び他工事による損傷のおそれがないものを除き、掘削等による損傷防止措置を求めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第5項は、特定大規模建物等へガスを供給する導管に、外壁貫通箇所付近で直ちに供給を遮断できる装置を設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「異常なガス圧力の上昇」が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、異常なガス圧力の低下を検知した場合にガスを速やかに遮断する機能を求めている。口径250mm以下という部分は条文と一致する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ゴム管口・迅速継手のガス栓が適合する規格は？",
+      "水のたまるおそれがある導管に必要な設備は？",
+      "道路以外に埋設する本支管の損傷防止措置は？",
+      "特定大規模建物への導管に必要な遮断装置は？",
+      "取引用ガスメーターが検知する異常圧力は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ゴム管口・迅速継手のガス栓が適合する規格は？",
+        "answer": "ガス工作物の技術上の基準の細目を定める告示第7条第1項第1号が示すJIS S 2120「ガス栓」。"
+      },
+      {
+        "question": "水のたまるおそれがある導管に必要な設備は？",
+        "answer": "適切な水取り器。第46条が定めている。"
+      },
+      {
+        "question": "道路以外に埋設する本支管の損傷防止措置は？",
+        "answer": "掘削等による損傷を防止する適切な措置。他工事による損傷のおそれがないものは除かれる。"
+      },
+      {
+        "question": "特定大規模建物への導管に必要な遮断装置は？",
+        "answer": "外壁貫通箇所付近で、適切な場所から直ちに供給を遮断できる装置。"
+      },
+      {
+        "question": "取引用ガスメーターが検知する異常圧力は？",
+        "answer": "異常なガス圧力の低下。対象口径は250mm以下。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第45条第1号、第46条、第48条第3項、第49条第5項及び第50条第1項並びに同基準の細目を定める告示第7条第1項第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "45",
+          "item": "1",
+          "articleTextHash": "4223c179dc0715b97c5cdad2be51cdaee7fea24e464f68066966707164bc3f81",
+          "rawXmlHash": "10be9e4a08f2ee52607cc392ad2aecf2379d0c8ac6586381e26394f68dbb62f9",
+          "references": [
+            {
+              "item": "1"
+            },
+            {
+              "sourceType": "external_primary",
+              "source": "meti_official_pdf",
+              "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+              "lawId": "",
+              "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
+              "lawAlias": "ガス工作物の技術上の基準の細目を定める告示",
+              "article": "7",
+              "paragraph": "1",
+              "item": "1",
+              "articleTextHash": "90b402f502ec2dcad55fde982573de788ac0aa04866d783e621f6e3ca4c50ee0"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "46",
+          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+          "rawXmlHash": "fedb9cd678574cf16b416f2b1efbbf7bc9cb0b2fb2cf695c1e7bb4cb22f2820d"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "3",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "5",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、正しい、間違いは現行一次資料と一致する。",
+    "第50条第1項の口径は250mm以下であり、00_source.knowledgeTextの25mm以下は誤記だが、正誤ラベルは圧力上昇とする部分が誤りであるため維持する。",
+    "ガス栓のJIS適合は、省令第45条第1号とMETI公式告示第7条第1項第1号を組み合わせて確認した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawId": "412M50000400111",
+      "externalPrimarySource": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed_with_knowledge_text_typo"
+    }
+  },
+  "appliedAt": "2026-07-11T07:34:13Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
