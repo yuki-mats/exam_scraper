@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 234,
+  "auditKey": "gas-shunin:otsu:2024:law:q05:4cdf7b2a94eb",
+  "auditInputHash": "3b46cf9718f1bcf1c3b25718aaafffc09ab8f62b14407e086ab460da4177864e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T04:16:50+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「免状の交付を受けている者、又は実務経験を有するもののいずれか」が誤りで、免状の交付と所定の実務経験の両方が必要である。ガス事業法第25条第1項は、免状の交付を受けている者であって、所定の実務経験を有するもののうちからガス主任技術者を選任すると定めている。",
+      "間違い。選択肢の「選任しようとするときは、あらかじめ」が誤りで、正しくは「選任又は解任したときは、遅滞なく」である。ガス事業法第25条第2項は、ガス主任技術者を選任又は解任したときは、遅滞なく経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「ガス事業者が認定した者」が誤りで、正しくは「経済産業大臣が認定した者」である。ガス事業法第26条第3項第2号は、試験合格者と同等以上の知識及び技能を有すると経済産業大臣が認定した者を定めている。",
+      "間違い。選択肢の「1年を経過しない者」が誤りで、正しくは「2年を経過しない者」である。ガス事業法第26条第4項第2号は、法令違反により罰金以上の刑に処せられた者について、刑の執行終了等の日から2年を経過しない場合に免状の交付を行わないことができると定めている。",
+      "正しい。ガス事業法第27条第1項は、免状保持者がガス事業法、同法に基づく命令又はこれらに基づく処分に違反したとき、経済産業大臣が免状の返納を命ずることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス主任技術者の選任に必要な資格と経験は？",
+      "ガス主任技術者の選任・解任はいつ届け出る？",
+      "試験合格者と同等以上であるとの認定は誰が行う？",
+      "罰金以上の刑に係る免状交付制限期間は？",
+      "免状返納命令を受けることがあるのはどのような場合？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス主任技術者の選任に必要な資格と経験は？",
+        "answer": "ガス主任技術者免状の交付と、経済産業省令で定める実務経験の両方。"
+      },
+      {
+        "question": "ガス主任技術者の選任・解任はいつ届け出る？",
+        "answer": "選任又は解任した後、遅滞なく届け出る。"
+      },
+      {
+        "question": "試験合格者と同等以上であるとの認定は誰が行う？",
+        "answer": "経済産業大臣。"
+      },
+      {
+        "question": "罰金以上の刑に係る免状交付制限期間は？",
+        "answer": "刑の執行終了等の日から2年。"
+      },
+      {
+        "question": "免状返納命令を受けることがあるのはどのような場合？",
+        "answer": "ガス事業法、同法に基づく命令又はこれらに基づく処分に違反した場合。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第25条第1項・第2項、第26条第3項第2号・第4項第2号及び第27条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "25",
+          "paragraph": "1",
+          "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+          "rawXmlHash": "75cc647474eae33aeae60159c3412a8dd41d03a35a562ad5ab8d6d38420701ef"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "25",
+          "paragraph": "2",
+          "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+          "rawXmlHash": "75cc647474eae33aeae60159c3412a8dd41d03a35a562ad5ab8d6d38420701ef"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "26",
+          "paragraph": "3",
+          "item": "2",
+          "articleTextHash": "175a35a5a7a1173dbd5a1e286a8054731915a085611b8744970921ebabfa4133",
+          "rawXmlHash": "70f71e45afededfd35886ed044047b9bd223ba8fe481f2529bd76e360ba90358"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "26",
+          "paragraph": "4",
+          "item": "2",
+          "articleTextHash": "175a35a5a7a1173dbd5a1e286a8054731915a085611b8744970921ebabfa4133",
+          "rawXmlHash": "70f71e45afededfd35886ed044047b9bd223ba8fe481f2529bd76e360ba90358"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "b75bbb6873559ce680606dafa8381eeb2bb96265a921f746d8d3b420211b14ca",
+          "rawXmlHash": "4dc5e5923cf8e086dc060e9d291adbcdd24a2f6f7b8d841e560ea57eca7b50f6"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、間違い、正しいは現行法と一致する。",
+    "第1肢は免状又は実務経験のいずれかではなく双方、第2肢は事前届出ではなく選解任後の遅滞ない届出である。",
+    "第3肢の認定者はガス事業者ではなく経済産業大臣、第4肢の期間は1年ではなく2年である。",
+    "正しい記述は第5肢で、answer_result_textの正解5と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2024/00_source/question_2024_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2024-law-q05-s01",
+      "gas-shunin-otsu-2024-law-q05-s02",
+      "gas-shunin-otsu-2024-law-q05-s03",
+      "gas-shunin-otsu-2024-law-q05-s04",
+      "gas-shunin-otsu-2024-law-q05-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス事業法",
+        "lawId": "329AC0000000051",
+        "articles": [
+          "25",
+          "26",
+          "27"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T19:17:38Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
