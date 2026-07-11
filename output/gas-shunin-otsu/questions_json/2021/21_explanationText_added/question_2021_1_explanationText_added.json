@@ -4650,44 +4650,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
     "explanationText": [
-      "間違い。中圧のガス発生設備にインターロック機構を設けるという記述は誤りである。ガス工作物の技術上の基準を定める省令第17条第1項は、高圧の対象設備には安全弁を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第33条第1項は、ガスホルダー配管には流出・流入遮断装置を設ける。",
-      "間違い。ガス工作物の技術上の基準を定める省令第19条第1項は、警報装置の対象から移動式ガス発生設備は除かれる。",
-      "間違い。選択肢は低圧のガスホルダーとしているため誤りである。ガス工作物の技術上の基準を定める省令第37条第1項は、熱耐性又は冷却装置の対象は高圧のガスホルダー等である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、遮断装置には誤操作防止と確実操作措置を講じる。"
+      "間違い。選択肢の「インターロック機構」が誤り。ガス工作物の技術上の基準を定める省令第17条は、製造設備に属する容器で、最高使用圧力が高圧若しくは中圧のもの等のうち過圧が生ずるおそれのあるものに、その圧力を逃がすための適切な安全弁を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーのガスを送り出し、又は受け入れる配管に、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所へ設けると定めている。",
+      "間違い。選択肢の「移動式ガス発生設備」が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置を設けるガス発生設備から移動式ガス発生設備を除くと定めている。",
+      "間違い。選択肢の「最高使用圧力が低圧」が誤り。ガス工作物の技術上の基準を定める省令第37条は、最高使用圧力が高圧のガスホルダー及びその支持物を、熱に十分耐えるものとし、又は適切な冷却装置を設置すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置に、誤操作を防止し、確実に操作できる措置を講じると定めている。"
     ],
     "suggestedQuestions": [
-      "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。",
-      "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。",
-      "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。",
-      "熱に耐える構造又は冷却装置が必要なガスホルダーは、低圧か高圧か。",
-      "製造所、供給所又は移動式ガス発生設備の遮断装置には、どのような操作上の措置が必要か。",
-      "現行法上、本問の判断に使う主な根拠条文は何か。"
+      "過圧が生じるおそれのある対象設備に設けるものは？",
+      "ガスホルダーの配管に必要な遮断装置は？",
+      "警報装置の対象外となるガス発生設備は？",
+      "ガスホルダーに耐熱措置が必要となる圧力区分は？",
+      "遮断装置に必要な誤操作防止措置は？",
+      "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。",
-        "answer": "インターロック機構ではない。技術基準省令第17条第1項は、高圧のガス発生設備等に安全弁を求めている。"
+        "question": "過圧が生じるおそれのある対象設備に設けるものは？",
+        "answer": "その圧力を逃がすための適切な安全弁。"
       },
       {
-        "question": "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。",
-        "answer": "ガスの流出及び流入を速やかに遮断できる装置が必要である。"
+        "question": "ガスホルダーの配管に必要な遮断装置は？",
+        "answer": "ガスの流出及び流入を速やかに遮断できる適切な装置。"
       },
       {
-        "question": "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。",
-        "answer": "対象ではない。技術基準省令第19条第1項では、ガス発生設備から移動式ガス発生設備が除かれている。"
+        "question": "警報装置の対象外となるガス発生設備は？",
+        "answer": "移動式ガス発生設備。"
       },
       {
-        "question": "熱に耐える構造又は冷却装置が必要なガスホルダーは、低圧か高圧か。",
-        "answer": "高圧のガスホルダー等であり、低圧のガスホルダーではない。"
+        "question": "ガスホルダーに耐熱措置が必要となる圧力区分は？",
+        "answer": "最高使用圧力が高圧の場合。"
       },
       {
-        "question": "製造所、供給所又は移動式ガス発生設備の遮断装置には、どのような操作上の措置が必要か。",
-        "answer": "誤操作を防止し、かつ、確実に操作することができる措置が必要である。"
+        "question": "遮断装置に必要な誤操作防止措置は？",
+        "answer": "誤操作を防止し、確実に操作できる措置。"
       },
       {
-        "question": "現行法上、本問の判断に使う主な根拠条文は何か。",
-        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第17条第1項、ガス工作物の技術上の基準を定める省令第33条第1項、ガス工作物の技術上の基準を定める省令第19条第1項、ガス工作物の技術上の基準を定める省令第37条第1項、ガス工作物の技術上の基準を定める省令第20条第1項。"
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第17条、第19条、第20条第1項、第33条及び第37条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -4766,16 +4766,18 @@
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "17",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。中圧のガス発生設備にインターロック機構を設けるという記述は誤りである。ガス工作物の技術上の基準を定める省令第17条第1項は、高圧の対象設備には安全弁を設ける。",
+          "reason": "間違い。選択肢の「インターロック機構」が誤り。ガス工作物の技術上の基準を定める省令第17条は、製造設備に属する容器で、最高使用圧力が高圧若しくは中圧のもの等のうち過圧が生ずるおそれのあるものに、その圧力を逃がすための適切な安全弁を設けると定めている。",
           "paragraph": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
+          "rawXmlHash": "4cdef19a07fe4efcfc82f7389a7f710cbf9480266b0e3f0b71e9f4388d75dace"
         }
       ],
       [
@@ -4786,16 +4788,18 @@
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "33",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第33条第1項は、ガスホルダー配管には流出・流入遮断装置を設ける。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーのガスを送り出し、又は受け入れる配管に、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所へ設けると定めている。",
           "paragraph": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=33",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
+          "rawXmlHash": "b5ccea88b31ae06bcf4f22fb69b7a06a60d7b7719d7b6fbabff79c91a7147507"
         }
       ],
       [
@@ -4806,16 +4810,18 @@
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "19",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス工作物の技術上の基準を定める省令第19条第1項は、警報装置の対象から移動式ガス発生設備は除かれる。",
+          "reason": "間違い。選択肢の「移動式ガス発生設備」が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置を設けるガス発生設備から移動式ガス発生設備を除くと定めている。",
           "paragraph": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
+          "rawXmlHash": "4d42a6fd913ada1b1e7e2377a98e30056c351e1a1ff459b4f88761c0fcdc20d0"
         }
       ],
       [
@@ -4826,16 +4832,18 @@
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "37",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。選択肢は低圧のガスホルダーとしているため誤りである。ガス工作物の技術上の基準を定める省令第37条第1項は、熱耐性又は冷却装置の対象は高圧のガスホルダー等である。",
+          "reason": "間違い。選択肢の「最高使用圧力が低圧」が誤り。ガス工作物の技術上の基準を定める省令第37条は、最高使用圧力が高圧のガスホルダー及びその支持物を、熱に十分耐えるものとし、又は適切な冷却装置を設置すると定めている。",
           "paragraph": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=37",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
+          "rawXmlHash": "86269577933916677d7963ea62f3830f10572971d8cf52bda58ab1f500f35ac0"
         }
       ],
       [
@@ -4846,31 +4854,33 @@
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "lawAlias": "ガス工作物の技術上の基準を定める省令",
           "article": "20",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、遮断装置には誤操作防止と確実操作措置を講じる。",
+          "reason": "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置に、誤操作を防止し、確実に操作できる措置を講じると定めている。",
           "paragraph": "1",
           "lawId": "412M50000400111",
           "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=20",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
+          "rawXmlHash": "3664ff5af8230a26f3d045b64f6ad4ac59c33f4e7481e74667b133b8aa1532df"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T06:20:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:30:45+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_062000_q9",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_062000_q9:choice1",
         "evidenceBindingHash": "08d950c1599b35895943443f2a534d6ffb28cdbdb011d10e6a832d1a4f105c31",
         "examTime": {
@@ -4878,64 +4888,55 @@
           "verificationStatus": "from_2021_otsu_source_answer"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "17",
-          "paragraph": "1",
-          "referenceDate": "2026-07-10",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=17",
+          "lawId": "412M50000400111",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "正解は3であり、選択肢1・3・4が誤り。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "ガス工作物の技術上の基準を定める省令第17条・第33条・第19条・第37条・第20条で各選択肢を確認した。",
-          "選択肢1は中圧・インターロック機構ではなく、高圧ガス発生設備等の安全弁設置義務との差異を確認する必要がある。",
-          "Lawzilla MCP候補は一部、施行規則や消費機器周知、圧力定義へ寄ったため、最終確定にはe-Gov XMLの直接確認が必要だった。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。技術基準省令第17条第1項は、最高使用圧力が高圧のガス発生設備等で過圧が生ずるおそれのあるものに、その圧力を逃がすための適切な安全弁を設けることを求めている。中圧のガス発生設備にインターロック機構を設けるという記述は誤りである。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
-          "promptContext": "過圧が生ずるおそれがある高圧ガス発生設備等の安全弁設置義務と、選択肢の中圧・インターロック機構の誤りを説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:17:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「インターロック機構」が誤り。ガス工作物の技術上の基準を定める省令第17条は、製造設備に属する容器で、最高使用圧力が高圧若しくは中圧のもの等のうち過圧が生ずるおそれのあるものに、その圧力を逃がすための適切な安全弁を設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第17条第1項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:17:1",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "elm": "ln17.1",
-              "rootArticleElm": "ln17",
               "article": "17",
-              "paragraph": "1",
               "articleTextHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05",
-              "textHash": "32cd9430f8d3974eb5ea9c0a85064f62ebdcfb2f7e7550b02f7d1903606a3a05"
+              "lawId": "412M50000400111",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T06:20:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:30:45+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_062000_q9",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_062000_q9:choice2",
         "evidenceBindingHash": "93615e2689c99970d5eba1af186219f8eeb49c191ddbe7caabc9157b9993317b",
         "examTime": {
@@ -4943,64 +4944,55 @@
           "verificationStatus": "from_2021_otsu_source_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "33",
-          "paragraph": "1",
-          "referenceDate": "2026-07-10",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=33"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=33",
+          "lawId": "412M50000400111",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "正解は3であり、選択肢1・3・4が誤り。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "ガス工作物の技術上の基準を定める省令第17条・第33条・第19条・第37条・第20条で各選択肢を確認した。",
-          "選択肢1は中圧・インターロック機構ではなく、高圧ガス発生設備等の安全弁設置義務との差異を確認する必要がある。",
-          "Lawzilla MCP候補は一部、施行規則や消費機器周知、圧力定義へ寄ったため、最終確定にはe-Gov XMLの直接確認が必要だった。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。技術基準省令第33条第1項は、ガスホルダーのガスを送り出し、又は受け入れるために用いられる配管に、ガス漏えい時の災害防止のため、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所に設けることを求めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
-          "promptContext": "ガスホルダーの送出・受入配管における遮断装置設置義務に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:33:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーのガスを送り出し、又は受け入れる配管に、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所へ設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第33条第1項を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:33:1",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "elm": "ln33.1",
-              "rootArticleElm": "ln33",
               "article": "33",
-              "paragraph": "1",
               "articleTextHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b",
-              "textHash": "636d93fe514a8dbcc19686d202676948f4aa89bd01030f252cae7e992ca6938b"
+              "lawId": "412M50000400111",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T06:20:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:30:45+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_062000_q9",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_062000_q9:choice3",
         "evidenceBindingHash": "45e8910cc00ba18f9e3c8715a0489d8fc04cfd73595d6e7b38df6ce6e160287f",
         "examTime": {
@@ -5008,64 +5000,55 @@
           "verificationStatus": "from_2021_otsu_source_answer"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "19",
-          "paragraph": "1",
-          "referenceDate": "2026-07-10",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=19",
+          "lawId": "412M50000400111",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "正解は3であり、選択肢1・3・4が誤り。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "ガス工作物の技術上の基準を定める省令第17条・第33条・第19条・第37条・第20条で各選択肢を確認した。",
-          "選択肢1は中圧・インターロック機構ではなく、高圧ガス発生設備等の安全弁設置義務との差異を確認する必要がある。",
-          "Lawzilla MCP候補は一部、施行規則や消費機器周知、圧力定義へ寄ったため、最終確定にはe-Gov XMLの直接確認が必要だった。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。技術基準省令第19条第1項は、警報装置の対象をガス発生設備（移動式ガス発生設備を除く。）等としている。選択肢は移動式ガス発生設備を対象に含めているため誤りである。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
-          "promptContext": "警報装置の対象から移動式ガス発生設備が除外される点に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:19:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「移動式ガス発生設備」が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置を設けるガス発生設備から移動式ガス発生設備を除くと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第19条第1項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:19:1",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "elm": "ln19.1",
-              "rootArticleElm": "ln19",
               "article": "19",
-              "paragraph": "1",
               "articleTextHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2",
-              "textHash": "9910d8da43eff970c6e090f6e6a052b9dbe6bb4f87d3a4e52c6541288bfe4fd2"
+              "lawId": "412M50000400111",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T06:20:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:30:45+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_062000_q9",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_062000_q9:choice4",
         "evidenceBindingHash": "faa367f25602feb172f633f244fb990e28a36141836276a0041fffa6e10abc7f",
         "examTime": {
@@ -5073,64 +5056,55 @@
           "verificationStatus": "from_2021_otsu_source_answer"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "37",
-          "paragraph": "1",
-          "referenceDate": "2026-07-10",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=37"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=37",
+          "lawId": "412M50000400111",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "正解は3であり、選択肢1・3・4が誤り。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "ガス工作物の技術上の基準を定める省令第17条・第33条・第19条・第37条・第20条で各選択肢を確認した。",
-          "選択肢1は中圧・インターロック機構ではなく、高圧ガス発生設備等の安全弁設置義務との差異を確認する必要がある。",
-          "Lawzilla MCP候補は一部、施行規則や消費機器周知、圧力定義へ寄ったため、最終確定にはe-Gov XMLの直接確認が必要だった。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。技術基準省令第37条第1項は、受けるおそれのある熱に十分耐えるものとし、又は適切な冷却装置を設ける対象を最高使用圧力が高圧のガスホルダー等としている。選択肢は低圧のガスホルダーとしているため誤りである。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
-          "promptContext": "高圧ガスホルダー等の耐熱措置について、選択肢の低圧指定が誤りである点に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:37:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「最高使用圧力が低圧」が誤り。ガス工作物の技術上の基準を定める省令第37条は、最高使用圧力が高圧のガスホルダー及びその支持物を、熱に十分耐えるものとし、又は適切な冷却装置を設置すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第37条第1項を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:37:1",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "elm": "ln37.1",
-              "rootArticleElm": "ln37",
               "article": "37",
-              "paragraph": "1",
               "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
-              "textHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce"
+              "lawId": "412M50000400111",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T06:20:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T01:30:45+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_062000_q9",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_003000_gas_shunin_P0_remaining_229_lawzilla_candidates",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2021_q9_gas_workpiece_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_062000_q9:choice5",
         "evidenceBindingHash": "b9c9f938e34846b5604ec6ce7cd5d14b6548739305cb9329421538e438635b7c",
         "examTime": {
@@ -5138,67 +5112,58 @@
           "verificationStatus": "from_2021_otsu_source_answer"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "412M50000400111",
           "lawTitle": "ガス工作物の技術上の基準を定める省令",
           "article": "20",
-          "paragraph": "1",
-          "referenceDate": "2026-07-10",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=20"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=20",
+          "lawId": "412M50000400111",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "正解は3であり、選択肢1・3・4が誤り。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "ガス工作物の技術上の基準を定める省令第17条・第33条・第19条・第37条・第20条で各選択肢を確認した。",
-          "選択肢1は中圧・インターロック機構ではなく、高圧ガス発生設備等の安全弁設置義務との差異を確認する必要がある。",
-          "Lawzilla MCP候補は一部、施行規則や消費機器周知、圧力定義へ寄ったため、最終確定にはe-Gov XMLの直接確認が必要だった。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。技術基準省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置について、誤操作を防止し、かつ、確実に操作することができる措置を講じることを求めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤と一致。",
-          "promptContext": "遮断装置の誤操作防止・確実操作措置に限定して説明する。",
-          "displayRefIds": [
-            "current:412M50000400111:20:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置に、誤操作を防止し、確実に操作できる措置を講じると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス工作物の技術上の基準を定める省令第20条第1項を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:412M50000400111:20:1",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "412M50000400111",
               "lawTitle": "ガス工作物の技術上の基準を定める省令",
-              "elm": "ln20.1",
-              "rootArticleElm": "ln20",
               "article": "20",
-              "paragraph": "1",
               "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
-              "textHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01"
+              "lawId": "412M50000400111",
+              "paragraph": "1"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "間違い。中圧のガス発生設備にインターロック機構を設けるという記述は誤りである。ガス工作物の技術上の基準を定める省令第17条第1項は、高圧の対象設備には安全弁を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第33条第1項は、ガスホルダー配管には流出・流入遮断装置を設ける。",
-      "間違い。ガス工作物の技術上の基準を定める省令第19条第1項は、警報装置の対象から移動式ガス発生設備は除かれる。",
-      "間違い。選択肢は低圧のガスホルダーとしているため誤りである。ガス工作物の技術上の基準を定める省令第37条第1項は、熱耐性又は冷却装置の対象は高圧のガスホルダー等である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、遮断装置には誤操作防止と確実操作措置を講じる。"
+      "間違い。選択肢の「インターロック機構」が誤り。ガス工作物の技術上の基準を定める省令第17条は、製造設備に属する容器で、最高使用圧力が高圧若しくは中圧のもの等のうち過圧が生ずるおそれのあるものに、その圧力を逃がすための適切な安全弁を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーのガスを送り出し、又は受け入れる配管に、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所へ設けると定めている。",
+      "間違い。選択肢の「移動式ガス発生設備」が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置を設けるガス発生設備から移動式ガス発生設備を除くと定めている。",
+      "間違い。選択肢の「最高使用圧力が低圧」が誤り。ガス工作物の技術上の基準を定める省令第37条は、最高使用圧力が高圧のガスホルダー及びその支持物を、熱に十分耐えるものとし、又は適切な冷却装置を設置すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置に、誤操作を防止し、確実に操作できる措置を講じると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "間違い。中圧のガス発生設備にインターロック機構を設けるという記述は誤りである。ガス工作物の技術上の基準を定める省令第17条第1項は、高圧の対象設備には安全弁を設ける。",
-      "正しい。ガス工作物の技術上の基準を定める省令第33条第1項は、ガスホルダー配管には流出・流入遮断装置を設ける。",
-      "間違い。ガス工作物の技術上の基準を定める省令第19条第1項は、警報装置の対象から移動式ガス発生設備は除かれる。",
-      "間違い。選択肢は低圧のガスホルダーとしているため誤りである。ガス工作物の技術上の基準を定める省令第37条第1項は、熱耐性又は冷却装置の対象は高圧のガスホルダー等である。",
-      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、遮断装置には誤操作防止と確実操作措置を講じる。"
+      "間違い。選択肢の「インターロック機構」が誤り。ガス工作物の技術上の基準を定める省令第17条は、製造設備に属する容器で、最高使用圧力が高圧若しくは中圧のもの等のうち過圧が生ずるおそれのあるものに、その圧力を逃がすための適切な安全弁を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第33条は、ガスホルダーのガスを送り出し、又は受け入れる配管に、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所へ設けると定めている。",
+      "間違い。選択肢の「移動式ガス発生設備」が誤り。ガス工作物の技術上の基準を定める省令第19条は、警報装置を設けるガス発生設備から移動式ガス発生設備を除くと定めている。",
+      "間違い。選択肢の「最高使用圧力が低圧」が誤り。ガス工作物の技術上の基準を定める省令第37条は、最高使用圧力が高圧のガスホルダー及びその支持物を、熱に十分耐えるものとし、又は適切な冷却装置を設置すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置に、誤操作を防止し、確実に操作できる措置を講じると定めている。"
     ]
   },
   {
