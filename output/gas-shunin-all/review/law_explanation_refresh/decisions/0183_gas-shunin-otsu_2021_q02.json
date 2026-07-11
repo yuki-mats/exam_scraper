@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 183,
+  "auditKey": "gas-shunin:otsu:2021:law:q02:fbb8965af4b3",
+  "auditInputHash": "093796f67f257620f89e7f51cd5fa44feafbd22e45541cf235f9a80f3a17b40d",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:08:49+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「経済産業大臣に届け出」が誤り。ガス事業法第48条第1項は、一般ガス導管事業者が託送供給約款を定め、経済産業大臣の認可を受けなければならないと定めている。",
+      "間違い。選択肢の「供給計画」が誤り。ガス事業法第93条第1項は、ガス製造事業者が毎年度作成するものを、ガスの製造並びにガス工作物の設置及び運用についての製造計画と定めている。",
+      "正しい。ガス事業法第47条第2項は、一般ガス導管事業者が正当な理由なく最終保障供給を拒んではならないと定めている。",
+      "間違い。選択肢の「製造所の出口」が誤り。ガス事業法施行規則第144条第1項第2号は、ガスの圧力を、常時、ガスホルダーの出口及び経済産業大臣が指定する場所で、自動記録式の圧力計を用いて測定すると定めている。",
+      "正しい。ガス事業法施行規則第64条第1項第1号ホ及び第2号ヘは、託送供給約款に、託送可能なガスの熱量等の範囲、組成その他の受入条件を定めると規定している。"
+    ],
+    "proposedSuggestedQuestions": [
+      "託送供給約款は届出で足りる？",
+      "ガス製造事業者が毎年度作成する計画は？",
+      "最終保障供給を拒める場合は？",
+      "製造ガスの圧力を測定する場所は？",
+      "託送供給約款に定めるガス受入条件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "託送供給約款は届出で足りる？",
+        "answer": "足りない。原則として経済産業大臣の認可が必要。"
+      },
+      {
+        "question": "ガス製造事業者が毎年度作成する計画は？",
+        "answer": "製造計画。"
+      },
+      {
+        "question": "最終保障供給を拒める場合は？",
+        "answer": "正当な理由がある場合に限られる。"
+      },
+      {
+        "question": "製造ガスの圧力を測定する場所は？",
+        "answer": "ガスホルダーの出口及び経済産業大臣が指定する場所。"
+      },
+      {
+        "question": "託送供給約款に定めるガス受入条件は？",
+        "answer": "託送可能なガスの熱量等の範囲、組成その他の受入条件。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第47条第2項、第48条第1項及び第93条第1項並びにガス事業法施行規則第64条第1項、第144条第1項第2号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "48",
+          "paragraph": "1",
+          "articleTextHash": "fa9f6148aaf1d2bd0f873301613d959322db85efc1c6f7ff21a14b9b747ab276",
+          "rawXmlHash": "eed046678834ed296bb041aebe558fa8cda9d3fa3418df2821ca7a9d04436215"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "93",
+          "paragraph": "1",
+          "articleTextHash": "8e51cd0c71caedfe517826ebab2982eb4b72b416aa969d7736d552e6134e4399",
+          "rawXmlHash": "db7740139619e17f135df8ffe0a6ede15a9e11f377ec888ed44fcbc2c821c467"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "47",
+          "paragraph": "2",
+          "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+          "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "144",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
+          "rawXmlHash": "aee29ac7ef2685d72e2a04395914945efc30ad6741b2550716cbcacba86c0c4a"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "64",
+          "paragraph": "1",
+          "articleTextHash": "28349904dea2f638a5ad6d4a80d38193309a678e8a4dc5b4e4084731cd87de6d",
+          "rawXmlHash": "5f369929f276356c120f33e85bb566679eb310a370f5ebcb76084029139c4596",
+          "references": [
+            {
+              "item": "1",
+              "subitem": "ホ"
+            },
+            {
+              "item": "2",
+              "subitem": "ヘ"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、間違い、正しいは現行法令と一致する。",
+    "第3肢の最終保障供給拒否禁止は第51条第1項ではなく、ガス事業法第47条第2項を直接根拠として修正した。",
+    "正しい第3肢と第5肢の2つがanswer_result_textの正解2と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "egovLawIds": [
+        "329AC0000000051",
+        "345M50000400097"
+      ],
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:09:29Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
