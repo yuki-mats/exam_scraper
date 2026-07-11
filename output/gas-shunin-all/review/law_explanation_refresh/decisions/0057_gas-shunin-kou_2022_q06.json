@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 57,
+  "auditKey": "gas-shunin:kou:2022:law:q06:ae242648d7d6",
+  "auditInputHash": "16465d83e59d94ac6f39b3112e3d30c7b51a06fee0af93f1f1dc5c12bf6e23b9",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:46:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第68条第1項は、一般ガス導管事業者が所定のガス工作物の設置又は変更工事を行うとき、工事計画を経済産業大臣へ届け出ると定め、非常時のやむを得ない一時的工事を例外と定めている。",
+      "正しい。ガス事業法第68条第2項は、届出に係る工事計画を変更するとき、経済産業大臣へ届け出ると定め、経済産業省令で定める軽微な変更を例外と定めている。",
+      "間違い。選択肢の「届出が提出された日から30日以内」が誤り。ガス事業法第68条第5項は、工事計画の変更又は廃止を命じることができる期間を、届出を受理した日から30日以内と定めている。",
+      "正しい。ガス事業法第69条第1項は、所定のガス工作物の工事について自主検査を行い、登録を受けた者が行う検査に合格した後でなければ使用してはならないと定めている。",
+      "間違い。選択肢の「検査記録を届け出る」が誤り。ガス事業法第71条は、定期自主検査を行い、その検査記録を作成して保存すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事計画の届出が不要となる一時的工事は？",
+      "軽微な工事計画変更の扱いは？",
+      "工事計画変更命令の30日はいつから？",
+      "ガス工作物を使用できる時期は？",
+      "定期自主検査の記録はどう扱う？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事計画の届出が不要となる一時的工事は？",
+        "answer": "ガス工作物の滅失・損壊時又は災害その他非常の場合における、やむを得ない一時的工事。"
+      },
+      {
+        "question": "軽微な工事計画変更の扱いは？",
+        "answer": "経済産業省令で定める軽微な変更は、変更前の届出義務の例外。"
+      },
+      {
+        "question": "工事計画変更命令の30日はいつから？",
+        "answer": "届出を受理した日から30日以内。"
+      },
+      {
+        "question": "ガス工作物を使用できる時期は？",
+        "answer": "自主検査を行い、登録を受けた者の検査に合格した後。"
+      },
+      {
+        "question": "定期自主検査の記録はどう扱う？",
+        "answer": "検査記録を作成し、保存する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第68条第1項、第2項及び第5項、第69条第1項並びに第71条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "1",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "2",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "5",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "69",
+          "paragraph": "1",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "71",
+          "paragraph": "1",
+          "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+          "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、間違いは現行法と一致する。",
+    "第3肢の期間起算日は届出の受理日、第5肢の検査記録は届出ではなく保存である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0266",
+      "chiefgasengineerlicense-A-10-0267",
+      "chiefgasengineerlicense-A-10-0268",
+      "chiefgasengineerlicense-A-10-0269",
+      "chiefgasengineerlicense-A-10-0270"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "68",
+        "69",
+        "71"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:20:17Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
