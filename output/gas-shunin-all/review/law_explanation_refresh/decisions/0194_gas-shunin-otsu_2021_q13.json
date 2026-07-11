@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 194,
+  "auditKey": "gas-shunin:otsu:2021:law:q13:d0af83f36764",
+  "auditInputHash": "f2b452e26f8eebe730b00d7caa13c25995e3e4dd78383ebc7f012a89d0d0b961",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:48:46+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第54条第1項第1号は、ガス事業者の掘削により周囲が露出することとなった導管について、露出している部分の両端を地くずれのおそれがない地中に支持することと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第57条第1項第1号は、整圧器の入口にガス遮断装置を設けることと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第56条第1項は、最高使用圧力が高圧の整圧器に、ガスの漏えいによる火災等の発生を防止するための適切な措置を講ずることと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備を地震に対し耐えるよう支持することと定めている。",
+      "間違い。選択肢の「フランジ接合のものには、抜出しを防止する適切な措置」が誤り。ガス工作物の技術上の基準を定める省令第54条第1項第3号ロは、抜出し防止措置の対象を、直管以外の管の接合部のうち、フランジ接合などの特定接合又は告示規格適合接合以外の方法で接合されているものと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "掘削で露出した導管の両端はどこに支持する？",
+      "整圧器の入口に必要な装置は？",
+      "高圧整圧器に必要な保安措置は？",
+      "整圧器の附属設備に必要な耐震措置は？",
+      "露出導管の接合部で抜出し防止措置が必要なのは？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "掘削で露出した導管の両端はどこに支持する？",
+        "answer": "露出している部分の両端を、地くずれのおそれがない地中に支持する。"
+      },
+      {
+        "question": "整圧器の入口に必要な装置は？",
+        "answer": "ガス遮断装置を設ける。"
+      },
+      {
+        "question": "高圧整圧器に必要な保安措置は？",
+        "answer": "ガスの漏えいによる火災等の発生を防止するための適切な措置を講ずる。"
+      },
+      {
+        "question": "整圧器の附属設備に必要な耐震措置は？",
+        "answer": "制御用配管、補助整圧器その他の附属設備を地震に対し耐えるよう支持する。"
+      },
+      {
+        "question": "露出導管の接合部で抜出し防止措置が必要なのは？",
+        "answer": "直管以外の管の接合部のうち、特定接合又は告示規格適合接合以外の方法で接合されているもの。フランジ接合は特定接合に含まれる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第54条第1項第1号・第3号ロ、第56条第1項、第57条第1項第1号及び第58条第3項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "56",
+          "paragraph": "1",
+          "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
+          "rawXmlHash": "7e696f21c336ce3fa28b2772f1f029b38f2ac42612b128778c6815f3780fc747"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "3",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ロ",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、正しい、間違いは現行省令と一致する。",
+    "フランジ接合は第54条第1項第3号ロの特定接合に含まれるため、選択肢5のような抜出し防止措置の対象ではない。",
+    "正しい記述は選択肢1から4の4個で、answer_result_textの正解4と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2021-law-q13-s01",
+      "gas-shunin-otsu-2021-law-q13-s02",
+      "gas-shunin-otsu-2021-law-q13-s03",
+      "gas-shunin-otsu-2021-law-q13-s04",
+      "gas-shunin-otsu-2021-law-q13-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "54",
+        "56",
+        "57",
+        "58"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:49:33Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
