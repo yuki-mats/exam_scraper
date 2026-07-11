@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 160,
+  "auditKey": "gas-shunin:otsu:2019:law:q11:f4c5b37d6274",
+  "auditInputHash": "5dd8d49307fee632577d01860b9da122e59e2b4d5d12bab5c5a1f1b58d1f82cb",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:55:44+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「屋外の埋設されていない部分も4年に1回以上検査する」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項第4号は、屋外の埋設されていない部分を漏えい検査義務の例外と定めている。",
+      "間違い。選択肢の「特定地下街等に供給する導管を6年に1回以上検査する」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項は、6年ごとの検査対象から特定地下街等に供給するものを除き、同条第3項は特定地下街等に供給する導管の検査頻度を1年に1回以上と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第3項第3号は、特定地下街等に供給する導管でも、ポリエチレン管を使用している部分を漏えい検査義務の例外と定めている。",
+      "間違い。選択肢の「最高使用圧力が中圧」が誤り。ガス工作物の技術上の基準を定める省令第52条第1項は、建物の内部又は基礎面下への設置を禁止する導管を、最高使用圧力が高圧のものと定めている。",
+      "間違い。選択肢の「工場にガスを供給するもの」が誤り。ガス工作物の技術上の基準を定める省令第52条第3項第1号は、工場等に設置される中圧導管を、外壁貫通箇所に関する同項の設置義務から除外している。"
+    ],
+    "proposedSuggestedQuestions": [
+      "屋外の非埋設部分に定期漏えい検査は必要？",
+      "特定地下街等へ供給する導管の検査頻度は？",
+      "ポリエチレン管部分に漏えい検査は必要？",
+      "建物の基礎面下に設置できない導管は？",
+      "工場へ供給する中圧導管は外壁貫通義務の対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "屋外の非埋設部分に定期漏えい検査は必要？",
+        "answer": "不要。第51条第2項第4号が例外と定めている。"
+      },
+      {
+        "question": "特定地下街等へ供給する導管の検査頻度は？",
+        "answer": "原則1年に1回以上。第51条第3項が定めている。"
+      },
+      {
+        "question": "ポリエチレン管部分に漏えい検査は必要？",
+        "answer": "不要。第51条第3項第3号が例外と定めている。"
+      },
+      {
+        "question": "建物の基礎面下に設置できない導管は？",
+        "answer": "最高使用圧力が高圧の導管。"
+      },
+      {
+        "question": "工場へ供給する中圧導管は外壁貫通義務の対象？",
+        "answer": "対象外。第52条第3項第1号が除外している。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第2項第4号及び第3項第3号並びに第52条第1項及び第3項第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "4",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
+          "references": [
+            {
+              "paragraph": "2"
+            },
+            {
+              "paragraph": "3"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "3",
+          "item": "3",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "1",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "3",
+          "item": "1",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、間違い、間違いは現行条文と一致する。",
+    "選択肢0は第51条第2項第4号の例外規定に沿って、屋外の非埋設部分が定期漏えい検査の対象外であることを明記した。",
+    "選択肢1は第51条第2項と第3項の双方を根拠として、特定地下街等向けは6年ではなく1年ごとの検査であることを説明した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "51",
+        "52"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:56:26Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
