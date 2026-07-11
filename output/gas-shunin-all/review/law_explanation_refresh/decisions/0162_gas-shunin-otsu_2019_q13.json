@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 162,
+  "auditKey": "gas-shunin:otsu:2019:law:q13:3696d5fe6c34",
+  "auditInputHash": "38e21a0794766f314c15f878347616c80521e01d888feb11c368ca3ebcd9cf3a",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:00:57+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正解。（イ）と（ロ）はいずれも正しい。ガス事業法第145条第1項は届出事業者にガス用品を技術上の基準へ適合させる義務を課し、同条第2項は検査を行って検査記録を作成・保存する義務を定めている。",
+      "不正解。（イ）は正しいが、（ホ）の「経済産業大臣に届け出た」が誤り。ガス事業法第138条第2項第2号は、輸出用以外の特定用途に供するガス用品を販売又は販売目的で陳列する場合の適用除外には、経済産業大臣の承認が必要と定めている。",
+      "不正解。（ロ）は正しいが、（ハ）の「登録ガス用品検査機関が定める」が誤り。ガス事業法第147条第1項は、義務を履行した届出事業者が、経済産業省令で定める方式による表示を付すことができると定めている。",
+      "不正解。（ハ）と（ニ）はいずれも誤り。（ハ）の表示方式を定めるのは経済産業省令であり、（ニ）の輸出用ガス用品を販売又は販売目的で陳列する場合は、経済産業大臣の承認ではなく届出が適用除外の要件である。",
+      "不正解。（ニ）と（ホ）はいずれも誤り。ガス事業法第138条第2項は、輸出用ガス用品については経済産業大臣への届出、輸出用以外の特定用途については経済産業大臣の承認を要件としており、選択肢では届出と承認が逆になっている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "イ・ロの組合せは正しい？",
+      "イ・ホの組合せは正しい？",
+      "ロ・ハの組合せは正しい？",
+      "ハ・ニの組合せは正しい？",
+      "ニ・ホの組合せは正しい？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "イ・ロの組合せは正しい？",
+        "answer": "正しい。届出事業者には技術基準適合義務と、検査記録の作成・保存義務がある。"
+      },
+      {
+        "question": "イ・ホの組合せは正しい？",
+        "answer": "誤り。ホは届出ではなく、経済産業大臣の承認が必要。"
+      },
+      {
+        "question": "ロ・ハの組合せは正しい？",
+        "answer": "誤り。ハの表示方式を定めるのは登録検査機関ではなく経済産業省令。"
+      },
+      {
+        "question": "ハ・ニの組合せは正しい？",
+        "answer": "誤り。ハは経済産業省令、ニの輸出用ガス用品は承認ではなく届出。"
+      },
+      {
+        "question": "ニ・ホの組合せは正しい？",
+        "answer": "誤り。輸出用は届出、輸出用以外の特定用途は承認で、選択肢は逆。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第138条第2項、第145条第1項・第2項及び第147条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "145",
+          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b",
+          "references": [
+            {
+              "paragraph": "1"
+            },
+            {
+              "paragraph": "2"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "145",
+          "paragraph": "1",
+          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "145",
+              "paragraph": "1",
+              "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+              "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "138",
+              "paragraph": "2",
+              "item": "2",
+              "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
+              "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "145",
+          "paragraph": "2",
+          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "145",
+              "paragraph": "2",
+              "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+              "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "147",
+              "paragraph": "1",
+              "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+              "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "147",
+          "paragraph": "1",
+          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+          "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "147",
+              "paragraph": "1",
+              "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+              "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "138",
+              "paragraph": "2",
+              "item": "1",
+              "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
+              "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "138",
+          "paragraph": "2",
+          "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
+          "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a",
+          "references": [
+            {
+              "paragraph": "2",
+              "item": "1"
+            },
+            {
+              "paragraph": "2",
+              "item": "2"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正解、不正解、不正解、不正解、不正解は現行条文と一致する。",
+    "組合せごとに（イ）から（ホ）のどの語句が正しいか又は誤りかを分解して説明した。",
+    "（ニ）と（ホ）は、輸出用が届出、輸出用以外の特定用途が承認であり、選択肢では逆であることを明記した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "138",
+        "145",
+        "147"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:01:44Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
