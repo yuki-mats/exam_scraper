@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 114,
+  "auditKey": "gas-shunin:kou:2025:law:q13:ecfad6752bcd",
+  "auditInputHash": "0d0bbd81bde40a6145f51c4d7d0384471b017ed089404c9f2daaf74d805442e3",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:17:47+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第54条第1項第2号は、掘削で露出した導管が別表所定の長さを超える場合に、告示の基準に適合するつり防護又は受け防護を求めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第54条第1項第3号ロは、供給中の露出導管の所定の接合部に、抜出しを防止する適切な措置を求めている。",
+      "間違い。選択肢の一使用者向け整圧器にも不純物除去装置を求める部分が誤り。ガス工作物の技術上の基準を定める省令第57条第1項第2号ただし書は、一の使用者に供給する整圧器を不純物除去装置の設置義務から除外している。",
+      "間違い。選択肢の一使用者向け整圧器を例外とするただし書が誤り。ガス工作物の技術上の基準を定める省令第57条第1項第3号は、一の使用者に供給する整圧器に、圧力の異常上昇を防止する装置を設けると定めている。",
+      "間違い。選択肢の「浸水を検知するため」が誤り。ガス工作物の技術上の基準を定める省令第58条第1項は、浸水のおそれがある地下の整圧器に、浸水を防止するための措置を求めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "露出導管に必要なつり・受け防護は？",
+      "所定の接合部に必要な措置は？",
+      "一使用者向け整圧器に不純物除去装置は必要？",
+      "一使用者向け整圧器の異常圧力対策は？",
+      "地下整圧器に必要な浸水対策は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "露出導管に必要なつり・受け防護は？",
+        "answer": "別表所定の長さを超える場合等に、告示基準に適合する防護を行う。"
+      },
+      {
+        "question": "所定の接合部に必要な措置は？",
+        "answer": "抜出しを防止する適切な措置。"
+      },
+      {
+        "question": "一使用者向け整圧器に不純物除去装置は必要？",
+        "answer": "第57条第1項第2号ただし書により設置義務の例外。"
+      },
+      {
+        "question": "一使用者向け整圧器の異常圧力対策は？",
+        "answer": "圧力の異常上昇を防止する装置を設ける。"
+      },
+      {
+        "question": "地下整圧器に必要な浸水対策は？",
+        "answer": "浸水検知ではなく、浸水防止の措置。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第54条第1項第2号・第3号ロ、第57条第1項第2号・第3号及び第58条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ロ",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "paragraph": "1",
+          "item": "3",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "1",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、間違い、間違いは現行法と一致する。",
+    "第57条第2号の例外と第3号の一使用者向け義務を区別した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q13-s01",
+      "gas-shunin-kou-2025-law-q13-s02",
+      "gas-shunin-kou-2025-law-q13-s03",
+      "gas-shunin-kou-2025-law-q13-s04",
+      "gas-shunin-kou-2025-law-q13-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:18:40Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
