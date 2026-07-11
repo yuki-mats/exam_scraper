@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 134,
+  "auditKey": "gas-shunin:otsu:2018:law:q01:296180f0c21c",
+  "auditInputHash": "3851f70bf2ec03546411e6fa250ca867a1563a549f5b42d2affea49516110c59",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:54:43+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。（イ）の「登録」は正しいが、（ロ）は「登録」ではなく「許可」、（ハ）は「事故に対応する」ではなく「需要に応ずる」、（ニ）は「要員」ではなく「供給能力」、（ホ）は「ガス小売事業者」ではなく「一般ガス導管事業者」である。ガス事業法第3条、第35条、第13条第1項及び第47条第2項に定められている。",
+      "正しい。ガス事業法第3条、第35条、第13条第1項及び第47条第2項は、順に「登録」「許可」「需要に応ずる」「供給能力」「一般ガス導管事業者」と定めている。",
+      "間違い。（ニ）の「要員」が誤りで、「供給能力」が正しい。ガス事業法第13条第1項は、ガス小売事業者に、需要に応ずるために必要な供給能力の確保を義務付けている。他の語句は同法第3条、第35条及び第47条第2項と一致する。",
+      "間違い。（イ）は「許可」ではなく「登録」、（ホ）は「ガス小売事業者」ではなく「一般ガス導管事業者」である。他の語句は正しく、ガス事業法第3条、第35条、第13条第1項及び第47条第2項に定められている。",
+      "間違い。（イ）は「登録」、（ロ）は「許可」、（ハ）は「需要に応ずる」、（ニ）は「供給能力」、（ホ）は「一般ガス導管事業者」が正しい。ガス事業法第3条、第35条、第13条第1項及び第47条第2項に定められている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス小売事業を営むために必要なのは登録と許可のどちら？",
+      "一般ガス導管事業を営むために必要なのは登録と許可のどちら？",
+      "ガス小売事業者が需要に応ずるため確保すべきものは？",
+      "正当な理由なく最終保障供給を拒めない事業者は？",
+      "空欄（イ）から（ホ）に入る正しい語句は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス小売事業を営むために必要なのは登録と許可のどちら？",
+        "answer": "経済産業大臣の登録。"
+      },
+      {
+        "question": "一般ガス導管事業を営むために必要なのは登録と許可のどちら？",
+        "answer": "経済産業大臣の許可。"
+      },
+      {
+        "question": "ガス小売事業者が需要に応ずるため確保すべきものは？",
+        "answer": "小売供給に係るガスの需要に応ずるために必要な供給能力。"
+      },
+      {
+        "question": "正当な理由なく最終保障供給を拒めない事業者は？",
+        "answer": "一般ガス導管事業者。"
+      },
+      {
+        "question": "空欄（イ）から（ホ）に入る正しい語句は？",
+        "answer": "（イ）登録、（ロ）許可、（ハ）需要に応ずる、（ニ）供給能力、（ホ）一般ガス導管事業者。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第3条、第13条第1項、第35条及び第47条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "35",
+          "paragraph": "1",
+          "articleTextHash": "14645d8354f14750f0a54b4a48ccaff66ed688934d7beb09ee236a8aba23190e",
+          "rawXmlHash": "81826f2e4375ec165e765222bc05e8bb68674a360a20bd430b21b6a174225c66",
+          "references": [
+            {
+              "article": "3",
+              "paragraph": "1",
+              "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+              "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+            },
+            {
+              "article": "35",
+              "paragraph": "1",
+              "articleTextHash": "14645d8354f14750f0a54b4a48ccaff66ed688934d7beb09ee236a8aba23190e",
+              "rawXmlHash": "81826f2e4375ec165e765222bc05e8bb68674a360a20bd430b21b6a174225c66"
+            },
+            {
+              "article": "13",
+              "paragraph": "1",
+              "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+              "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
+            },
+            {
+              "article": "47",
+              "paragraph": "2",
+              "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+              "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e",
+          "references": [
+            {
+              "article": "3",
+              "paragraph": "1",
+              "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+              "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+            },
+            {
+              "article": "35",
+              "paragraph": "1",
+              "articleTextHash": "14645d8354f14750f0a54b4a48ccaff66ed688934d7beb09ee236a8aba23190e",
+              "rawXmlHash": "81826f2e4375ec165e765222bc05e8bb68674a360a20bd430b21b6a174225c66"
+            },
+            {
+              "article": "13",
+              "paragraph": "1",
+              "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+              "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
+            },
+            {
+              "article": "47",
+              "paragraph": "2",
+              "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+              "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+          "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b",
+          "references": [
+            {
+              "article": "3",
+              "paragraph": "1",
+              "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+              "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+            },
+            {
+              "article": "35",
+              "paragraph": "1",
+              "articleTextHash": "14645d8354f14750f0a54b4a48ccaff66ed688934d7beb09ee236a8aba23190e",
+              "rawXmlHash": "81826f2e4375ec165e765222bc05e8bb68674a360a20bd430b21b6a174225c66"
+            },
+            {
+              "article": "13",
+              "paragraph": "1",
+              "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+              "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
+            },
+            {
+              "article": "47",
+              "paragraph": "2",
+              "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+              "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e",
+          "references": [
+            {
+              "article": "3",
+              "paragraph": "1",
+              "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+              "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+            },
+            {
+              "article": "35",
+              "paragraph": "1",
+              "articleTextHash": "14645d8354f14750f0a54b4a48ccaff66ed688934d7beb09ee236a8aba23190e",
+              "rawXmlHash": "81826f2e4375ec165e765222bc05e8bb68674a360a20bd430b21b6a174225c66"
+            },
+            {
+              "article": "13",
+              "paragraph": "1",
+              "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+              "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
+            },
+            {
+              "article": "47",
+              "paragraph": "2",
+              "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+              "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e",
+          "references": [
+            {
+              "article": "3",
+              "paragraph": "1",
+              "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+              "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+            },
+            {
+              "article": "35",
+              "paragraph": "1",
+              "articleTextHash": "14645d8354f14750f0a54b4a48ccaff66ed688934d7beb09ee236a8aba23190e",
+              "rawXmlHash": "81826f2e4375ec165e765222bc05e8bb68674a360a20bd430b21b6a174225c66"
+            },
+            {
+              "article": "13",
+              "paragraph": "1",
+              "articleTextHash": "61cb6674e0905e95bc56793532a0cbcf84aa60b35f54f3447b4cd26739ecff3f",
+              "rawXmlHash": "ece29dc9363f6e89bb0dff395bb3fb0fa29d762bb3bbd4b9eb099176d3f58b0b"
+            },
+            {
+              "article": "47",
+              "paragraph": "2",
+              "articleTextHash": "48219eb89b8db295ced2ff21c8a326bd2953c2299f0fb2003a91ece747448db9",
+              "rawXmlHash": "1cdc80e350f629ad0261b8d93a634de104750dbe2da8df63bbf570e7c7b2b936"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの不正解、正解、不正解、不正解、不正解は現行法と一致する。",
+    "空欄の正しい語句は、登録、許可、需要に応ずる、供給能力、一般ガス導管事業者である。",
+    "既存の直接根拠にある第51条は最終保障供給約款の条文であり、拒否禁止の直接根拠である第47条第2項へ修正する。",
+    "全選択肢を第3条、第13条第1項、第35条及び第47条第2項の細目へ再接続した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q01-s01",
+      "gas-shunin-otsu-2018-law-q01-s02",
+      "gas-shunin-otsu-2018-law-q01-s03",
+      "gas-shunin-otsu-2018-law-q01-s04",
+      "gas-shunin-otsu-2018-law-q01-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:55:59Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
