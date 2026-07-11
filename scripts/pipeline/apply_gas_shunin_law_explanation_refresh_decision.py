@@ -136,8 +136,10 @@ def basis_references(basis: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def basis_label(basis: dict[str, Any]) -> str:
+    article = str(basis["article"])
+    article_label = article if article.startswith(("別表", "附則", "様式")) else f"第{article}条"
     return (
-        f"{basis['lawTitle']}第{basis['article']}条"
+        f"{basis['lawTitle']}{article_label}"
         + (f"第{basis['paragraph']}項" if basis.get("paragraph") else "")
         + (f"第{basis['item']}号" if basis.get("item") else "")
         + (f"{basis['subitem']}" if basis.get("subitem") else "")

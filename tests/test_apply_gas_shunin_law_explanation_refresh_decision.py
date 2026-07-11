@@ -4,6 +4,7 @@ import unittest
 
 from scripts.pipeline.apply_gas_shunin_law_explanation_refresh_decision import (
     basis_api_url,
+    basis_label,
     basis_references,
     correction_basis_by_choice,
     strip_verdict,
@@ -81,6 +82,18 @@ class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
 
         self.assertEqual(
             api_url, "https://laws.e-gov.go.jp/api/1/lawdata/law-a"
+        )
+
+    def test_basis_label_formats_appendix_without_article_affixes(self) -> None:
+        self.assertEqual(
+            basis_label(
+                {
+                    "lawTitle": "施行令",
+                    "article": "別表第二",
+                    "item": "1",
+                }
+            ),
+            "施行令別表第二第1号",
         )
 
     def test_validate_basis_accepts_external_primary_without_law_id(self) -> None:
