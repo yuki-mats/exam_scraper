@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 193,
+  "auditKey": "gas-shunin:otsu:2021:law:q12:97e7ea5096ed",
+  "auditInputHash": "d920821d02c0bbec2530b3c371aeb7eb6e75f3bb1a121ff95fb405706d09a625",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:43:29+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「設置の日以後4年に1回以上、検査」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項ただし書第1号は、適切な漏えい検知装置が設置され、その装置が漏えいを検知できる部分を漏えい検査義務の例外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第4項は、所定の漏えい検査を基準日前4月以内に行った場合、基準日に当該検査を行ったものとみなすと定めている。",
+      "間違い。選択肢の「漏えい検査を要しない」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項の表(1)は、絶縁措置が講じられた部分からガス栓までの間でプラスチック被覆された部分について、埋設の日以後6年に1回以上、漏えい検査を行うと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第52条第2項は、特定地下室等にガスを供給する導管を、適切なガス漏れ警報設備の検知区域で当該特定地下室等の外壁を貫通するように設置すると定めている。",
+      "間違い。選択肢の「埋設の日以後4年に1回以上、検査」が誤り。ガス工作物の技術上の基準を定める省令第51条第2項ただし書第3号は、ポリエチレン管を使用している部分を漏えい検査義務の例外と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "漏えい検知装置がある部分の漏えい検査は？",
+      "基準日前4月以内に行った検査はどう扱う？",
+      "プラスチック被覆部分の検査周期は？",
+      "特定地下室等への導管が外壁を貫通する場所は？",
+      "ポリエチレン管使用部分の漏えい検査は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "漏えい検知装置がある部分の漏えい検査は？",
+        "answer": "装置が漏えいを検知できる部分は、第51条第2項の検査義務の例外。"
+      },
+      {
+        "question": "基準日前4月以内に行った検査はどう扱う？",
+        "answer": "基準日に当該検査を行ったものとみなす。"
+      },
+      {
+        "question": "プラスチック被覆部分の検査周期は？",
+        "answer": "所定の絶縁措置後からガス栓までのプラスチック被覆部分は、埋設の日以後6年に1回以上。"
+      },
+      {
+        "question": "特定地下室等への導管が外壁を貫通する場所は？",
+        "answer": "適切なガス漏れ警報設備がガス漏れを検知できる区域。"
+      },
+      {
+        "question": "ポリエチレン管使用部分の漏えい検査は？",
+        "answer": "ポリエチレン管を使用している部分は、第51条第2項の検査義務の例外。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第2項の表(1)・ただし書第1号・第3号・第4項及び第52条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "1",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "4",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "2",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "3",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、正しい、間違いは現行省令と一致する。",
+    "漏えい検知装置及びポリエチレン管の該当部分は第51条第2項の検査例外で、プラスチック被覆部分は同項表(1)により6年に1回以上の検査対象である。",
+    "正しい記述は選択肢2・4の2個で、answer_result_textの正解2と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2021-law-q12-s01",
+      "gas-shunin-otsu-2021-law-q12-s02",
+      "gas-shunin-otsu-2021-law-q12-s03",
+      "gas-shunin-otsu-2021-law-q12-s04",
+      "gas-shunin-otsu-2021-law-q12-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "51",
+        "52"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:44:18Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
