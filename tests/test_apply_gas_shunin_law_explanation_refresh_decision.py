@@ -109,6 +109,18 @@ class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
             "省令第51条第1項の表（3）",
         )
 
+    def test_basis_label_formats_article_suffix_after_article_marker(self) -> None:
+        self.assertEqual(
+            basis_label(
+                {
+                    "lawTitle": "ガス事業法",
+                    "article": "56の2",
+                    "paragraph": "1",
+                }
+            ),
+            "ガス事業法第56条の2第1項",
+        )
+
     def test_validate_basis_accepts_external_primary_without_law_id(self) -> None:
         validate_basis(
             {

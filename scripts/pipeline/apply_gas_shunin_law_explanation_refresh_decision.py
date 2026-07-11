@@ -137,7 +137,13 @@ def basis_references(basis: dict[str, Any]) -> list[dict[str, Any]]:
 
 def basis_label(basis: dict[str, Any]) -> str:
     article = str(basis["article"])
-    article_label = article if article.startswith(("別表", "附則", "様式")) else f"第{article}条"
+    if article.startswith(("別表", "附則", "様式")):
+        article_label = article
+    elif "の" in article:
+        base, suffix = article.split("の", 1)
+        article_label = f"第{base}条の{suffix}"
+    else:
+        article_label = f"第{article}条"
     item = str(basis.get("item") or "")
     item_label = f"の{item}" if item.startswith("表") else (f"第{item}号" if item else "")
     return (
