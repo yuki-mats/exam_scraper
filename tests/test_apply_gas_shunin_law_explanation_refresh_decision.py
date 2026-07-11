@@ -8,6 +8,8 @@ from scripts.pipeline.apply_gas_shunin_law_explanation_refresh_decision import (
     basis_references,
     correction_basis_by_choice,
     strip_verdict,
+    update_law_references,
+    update_law_revision_facts,
     validate_basis,
 )
 
@@ -132,6 +134,61 @@ class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
             },
             0,
         )
+
+    def test_update_law_references_initializes_empty_choice_slot(self) -> None:
+        entry = {"lawReferences": [[]]}
+        correction = {
+            "basisByChoiceIndex": {
+                "0": {
+                    "sourceType": "external_primary",
+                    "source": "official_pdf",
+                    "sourceUrl": "https://example.com/question.pdf",
+                    "lawTitle": "公式問題",
+                    "article": "問1選択肢1",
+                    "articleTextHash": "question-hash",
+                }
+            }
+        }
+
+        update_law_references(
+            entry,
+            explanations=["正しい。公式問題と一致する。"],
+            correction=correction,
+            reviewed_at="2026-07-12T00:00:00+09:00",
+        )
+
+        reference = entry["lawReferences"][0][0]
+        self.assertEqual(reference["choiceIndex"], 0)
+        self.assertEqual(reference["source"], "official_pdf")
+        self.assertEqual(reference["appLinkMode"], "source_url")
+        self.assertTrue(reference["externalPrimarySource"])
+
+    def test_update_law_revision_facts_initializes_null_container(self) -> None:
+        entry = {"lawRevisionFacts": None}
+        correction = {
+            "basisByChoiceIndex": {
+                "0": {
+                    "sourceType": "external_primary",
+                    "source": "official_pdf",
+                    "sourceUrl": "https://example.com/question.pdf",
+                    "lawTitle": "公式問題",
+                    "article": "問1選択肢1",
+                    "articleTextHash": "question-hash",
+                }
+            }
+        }
+
+        update_law_revision_facts(
+            entry,
+            explanations=["正しい。公式問題と一致する。"],
+            correction=correction,
+            reviewed_at="2026-07-12T00:00:00+09:00",
+        )
+
+        fact = entry["lawRevisionFacts"][0]
+        self.assertEqual(fact["current"]["sourceType"], "external_primary")
+        self.assertEqual(fact["current"]["source"], "official_pdf")
+        self.assertEqual(fact["reviewState"], "refresh_reviewed")
 
 
 if __name__ == "__main__":

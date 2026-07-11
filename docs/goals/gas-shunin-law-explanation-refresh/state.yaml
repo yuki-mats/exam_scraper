@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T177
+active_task: T998
 
 tasks:
   - id: T153
@@ -1231,7 +1231,7 @@ tasks:
   - id: T177
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     reasoning_hint: high
     objective: "sequence 177、gas-shunin-otsu 2020 法令 問12を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 177", "2020 00_source", "公式e-Gov法令API"]
@@ -1250,6 +1250,97 @@ tasks:
       - "source又はID変更が必要。"
       - "正答不一致のflag判断が必要。"
       - "一問を超える更新になる。"
+    receipt:
+      result: blocked
+      blocked_reason: "対象が技術問題由来でlawReferencesの4選択肢が空、lawRevisionFactsがnullのため、既存applyスクリプトが外部一次資料への補正を適用できない。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0177_gas-shunin-otsu_2020_q12.json"
+      commands:
+        - cmd: ".venv/bin/python scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py output/gas-shunin-all/review/law_explanation_refresh/decisions/0177_gas-shunin-otsu_2020_q12.json"
+          status: fail
+      summary: "公式JIA問題・解答PDFで選択肢がガス技術供給問11、正解4であることを確認しdecisionを作成したが、空参照を扱えないapply前提により適用前で停止した。"
+      evidence:
+        - "00_sourceとpatchは未変更"
+        - "公式問題PDF SHA-256=90e9c9b88555d5d20e437172a1a8a8a239769d76f084ea04bd2a20294b42ea82"
+        - "公式解答PDF SHA-256=5d70b30ccf7b8984b9a87ebd1ee0f6ae461514fa66882e4d3633f9512a60345d"
+        - "correctChoiceTextは公式供給問11正解4と一致"
+      spawned_tasks:
+        - T997
+      harness: codex
+  - id: T997
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: high
+    objective: "外部一次資料補正時に空lawReferencesとnull lawRevisionFactsを安全に初期化できるようapplyスクリプトを修復し、回帰テストを追加する。"
+    inputs:
+      - "T177 blocked receipt"
+      - "scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py"
+      - "tests/test_apply_gas_shunin_law_explanation_refresh_decision.py"
+    constraints:
+      - "既存の非空lawReferencesとlawRevisionFactsの挙動を維持する。"
+      - "外部一次資料の補正が指定された場合だけ欠損コンテナを初期化する。"
+      - "問題データや00_sourceを変更しない。"
+    allowed_files:
+      - "scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py"
+      - "tests/test_apply_gas_shunin_law_explanation_refresh_decision.py"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_apply_gas_shunin_law_explanation_refresh_decision"
+      - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
+      - "git diff --check"
+    stop_if:
+      - "問題データ側の手動事前補正が必要になる。"
+      - "既存decisionの適用結果を変える互換性破壊が判明する。"
+      - "指定検証が二度失敗する。"
+    receipt:
+      result: done
+      summary: "外部一次資料補正時に空lawReferencesとnull lawRevisionFactsを安全に初期化する回復処理を追加し、既存非空参照を維持する回帰テストを追加した。"
+      changed_files:
+        - "scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py"
+        - "tests/test_apply_gas_shunin_law_explanation_refresh_decision.py"
+      commands:
+        - cmd: ".venv/bin/python -m unittest tests.test_apply_gas_shunin_law_explanation_refresh_decision"
+          status: pass
+        - cmd: ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+      evidence:
+        - "専用11 tests passed"
+        - "全体19 tests passed"
+        - "問題データと00_source未変更"
+      spawned_tasks:
+        - T998
+      harness: codex
+  - id: T998
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "回復済みapplyでsequence 177の外部一次資料decisionを適用し、解説更新と全検証を完了する。"
+    inputs:
+      - "T177 blocked receipt"
+      - "T997 done receipt"
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0177_gas-shunin-otsu_2020_q12.json"
+    constraints:
+      - "00_sourceと既存IDを変更しない。"
+      - "push前に5択解説を表示する。"
+      - "sequence 177一問だけ更新する。"
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0177_gas-shunin-otsu_2020_q12.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json"
+    verify:
+      - ".venv/bin/python scripts/pipeline/apply_gas_shunin_law_explanation_refresh_decision.py output/gas-shunin-all/review/law_explanation_refresh/decisions/0177_gas-shunin-otsu_2020_q12.json"
+      - ".venv/bin/python scripts/check/build_gas_shunin_law_explanation_refresh_inventory.py"
+      - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
+      - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json"
+    stop_if:
+      - "source又はID変更が必要。"
+      - "正答不一致のflag判断が必要。"
+      - "一問を超える更新になる。"
+      - "指定検証が二度失敗する。"
     receipt: null
   - id: T999
     type: judge

@@ -181,6 +181,9 @@ def update_law_references(
     reviewed_at: str,
 ) -> None:
     law_references = entry.get("lawReferences")
+    if law_references is None:
+        law_references = [[] for _ in explanations]
+        entry["lawReferences"] = law_references
     if not isinstance(law_references, list) or len(law_references) != len(explanations):
         raise ValueError("lawReferences length mismatch")
     bases = correction_basis_by_choice(correction, len(explanations))
@@ -190,11 +193,19 @@ def update_law_references(
         zip(explanations, law_references, bases, strict=True)
     ):
         validate_basis(basis, choice_index)
-        if not isinstance(references, list) or not references:
-            raise ValueError("lawReferences choice entry must be non-empty list")
-        template = references[0]
-        if not isinstance(template, dict):
-            raise ValueError("lawReference must be object")
+        if not isinstance(references, list):
+            raise ValueError("lawReferences choice entry must be list")
+        if references:
+            template = references[0]
+            if not isinstance(template, dict):
+                raise ValueError("lawReference must be object")
+        else:
+            template = {
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": choice_index,
+                "comparisonStatus": "same_as_current",
+            }
         updated_references = []
         for reference_basis in basis_references(basis):
             validate_basis(reference_basis, choice_index)
@@ -254,6 +265,9 @@ def update_law_revision_facts(
     reviewed_at: str,
 ) -> None:
     facts = entry.get("lawRevisionFacts")
+    if facts is None:
+        facts = [{} for _ in explanations]
+        entry["lawRevisionFacts"] = facts
     if not isinstance(facts, list) or len(facts) != len(explanations):
         raise ValueError("lawRevisionFacts length mismatch")
     bases = correction_basis_by_choice(correction, len(explanations))
