@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 110,
+  "auditKey": "gas-shunin:kou:2025:law:q09:5fb65a89bb06",
+  "auditInputHash": "4ef7d8ddb15189f1021a0de0cf423b63b07e5e88c83056175549da5c7936161b",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:10:30+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第1項は、製造設備に属するガス発生設備等に、設備の損傷防止のため使用状態を計測又は確認できる適切な装置を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備の遮断装置に、誤操作防止と確実な操作のための措置を求めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第35条第1項は、過圧のおそれがある液化ガス用貯槽に適切な安全弁を設け、吹出しガスによる障害が生じないよう施設すると定めている。",
+      "間違い。選択肢の「圧力上昇防止装置」が誤り。ガス工作物の技術上の基準を定める省令第37条第1項は、液化ガス用貯槽等を熱に十分耐えるものとし、又は適切な冷却装置を設置すると定めている。",
+      "間違い。選択肢の「露出された部分」が誤り。ガス工作物の技術上の基準を定める省令第39条第1項は、液化ガス用貯槽の埋設された部分に腐食のおそれがある場合、適切な防食措置を講じると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "製造設備の損傷防止に必要な装置は？",
+      "遮断装置に必要な措置は？",
+      "液化ガス用貯槽の過圧対策は？",
+      "液化ガス用貯槽の熱対策は？",
+      "液化ガス用貯槽の防食対象部分は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "製造設備の損傷防止に必要な装置は？",
+        "answer": "使用状態を計測又は確認できる適切な装置。"
+      },
+      {
+        "question": "遮断装置に必要な措置は？",
+        "answer": "誤操作を防止し、確実に操作できる措置。"
+      },
+      {
+        "question": "液化ガス用貯槽の過圧対策は？",
+        "answer": "適切な安全弁を設け、吹出しガスによる障害を防ぐ。"
+      },
+      {
+        "question": "液化ガス用貯槽の熱対策は？",
+        "answer": "耐熱構造とし、又は圧力上昇防止装置ではなく適切な冷却装置を設ける。"
+      },
+      {
+        "question": "液化ガス用貯槽の防食対象部分は？",
+        "answer": "露出部分ではなく、埋設された部分。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第18条第1項、第20条第1項、第35条第1項、第37条第1項及び第39条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "1",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "20",
+          "paragraph": "1",
+          "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
+          "rawXmlHash": "3664ff5af8230a26f3d045b64f6ad4ac59c33f4e7481e74667b133b8aa1532df"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "35",
+          "paragraph": "1",
+          "articleTextHash": "45d5f13eb51c9655535017b57e37e670117a9ebb081e3360b9412ec440478ca0",
+          "rawXmlHash": "0d50032389d94206db16c2b357e2c768fc3686db686b76db4243ddc5bbadb32a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "37",
+          "paragraph": "1",
+          "articleTextHash": "07e454a52787128eeb2b9752a6e08100cdc49e94e3d44af58a4e5b92d6ac70ce",
+          "rawXmlHash": "86269577933916677d7963ea62f3830f10572971d8cf52bda58ab1f500f35ac0"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "39",
+          "paragraph": "1",
+          "articleTextHash": "791f1f14a85126f93786b96764ef4df02106f056ce3265e912d6088f8cad4d9e",
+          "rawXmlHash": "f756d810943a72efbc9717fe7409ed15b9dd1daff1b2f5629fb3a87fe071c433"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行法と一致する。",
+    "第3肢の直接根拠は第35条第1項のみ。第4肢は冷却装置、第5肢は埋設部分が正しい。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q09-s01",
+      "gas-shunin-kou-2025-law-q09-s02",
+      "gas-shunin-kou-2025-law-q09-s03",
+      "gas-shunin-kou-2025-law-q09-s04",
+      "gas-shunin-kou-2025-law-q09-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:11:21Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
