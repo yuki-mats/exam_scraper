@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 148,
+  "auditKey": "gas-shunin:otsu:2018:law:q15:1620ea333240",
+  "auditInputHash": "4a0e715721f9c99d6c419af30f886a1895f53755d01c48b7d6e135dfc76c7602",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:23:41+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「金属材料」が誤り。ガス事業法施行規則第202条第1項第2号イ(8)は、自然排気式燃焼器の排気筒の天井裏、床裏等にある部分を、金属以外の不燃性材料で覆うと定め、燃焼器出口の排気ガス温度が100℃以下の場合を例外としている。",
+      "間違い。選択肢の「風雨等の圧力により排気が妨げられるおそれのない」が誤り。ガス事業法施行規則第202条第1項第2号ロ(1)は、強制排気式燃焼器の排気筒について、同号イ(6)のうち鳥、落葉、雨水その他の異物侵入防止に係る部分のみを適用し、風雨等の圧力に係る部分は適用していない。",
+      "正しい。ガス事業法施行規則第202条第1項第2号ロ(2)は、強制排気式燃焼器の排気筒が外壁を貫通する箇所に、排気筒と外壁との間から排気ガスが屋内へ流れ込む隙間がないことと定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇が停止した場合、燃焼器へのガス供給を自動的に遮断する装置を設けると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第12号は、告示で定める強制排気式燃焼器について、ガス燃焼時に正常に燃焼器から排気が排出されることと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "自然排気式排気筒の天井裏部分を覆う材料は？",
+      "強制排気式排気筒の先端で適用される異物・風雨要件は？",
+      "強制排気式排気筒の外壁貫通部に必要な条件は？",
+      "排気扇停止時に必要な安全装置は？",
+      "告示対象の強制排気式燃焼器に必要な排気性能は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "自然排気式排気筒の天井裏部分を覆う材料は？",
+        "answer": "金属以外の不燃性材料。排気ガス温度が100℃以下の場合は例外。"
+      },
+      {
+        "question": "強制排気式排気筒の先端で適用される異物・風雨要件は？",
+        "answer": "鳥、落葉、雨水等の異物侵入防止部分は適用されるが、風雨等の圧力に係る部分は適用されない。"
+      },
+      {
+        "question": "強制排気式排気筒の外壁貫通部に必要な条件は？",
+        "answer": "排気ガスが屋内へ流れ込む隙間がないこと。"
+      },
+      {
+        "question": "排気扇停止時に必要な安全装置は？",
+        "answer": "燃焼器へのガス供給を自動的に遮断する装置。"
+      },
+      {
+        "question": "告示対象の強制排気式燃焼器に必要な排気性能は？",
+        "answer": "ガス燃焼時に正常に燃焼器から排気が排出されること。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1項第2号イ(8)、ロ(1)及び(2)、第3号ハ並びに第12号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "イ(8)",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "ロ(1)",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "ロ(2)",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ハ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "12",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、正しい、正しいは現行法と一致する。",
+    "強制排気式排気筒には異物侵入防止部分のみ適用され、風雨等の圧力部分は適用されないことを明示した。",
+    "正常排気要件の既存根拠を第11号から正しい第12号へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q15-s01",
+      "gas-shunin-otsu-2018-law-q15-s02",
+      "gas-shunin-otsu-2018-law-q15-s03",
+      "gas-shunin-otsu-2018-law-q15-s04",
+      "gas-shunin-otsu-2018-law-q15-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:24:20Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
