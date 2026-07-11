@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 197,
+  "auditKey": "gas-shunin:otsu:2021:law:q16:a3b7b2533e70",
+  "auditInputHash": "34b67f4496151caf1ca2b73a08102f7c177425d8bda7bf228e00d5893b913210",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:59:49+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「金属材料で覆わなければならない」が誤り。ガス事業法施行規則第202条第1項第2号イ（8）は、自然排気式燃焼器の排気筒の天井裏、床裏等にある部分を、金属以外の不燃性材料で覆うこととし、燃焼器出口の排気ガス温度が100℃以下の場合を例外と定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第4号は、排気筒を設ける燃焼器を、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置することと定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第1号柱書及びトは、屋内に設置する密閉燃焼式以外のガス衣類乾燥機でガス消費量が12kWを超えるものに排気筒を設けることとし、構造上その他の理由で困難な場合に排気フードを設けるときを例外と定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第6号ホは、屋内に設置する密閉燃焼式ガスふろがまの給排気部の先端を、障害物又は外気の流れによって給排気が妨げられない位置にすることと定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第10号イは、超高層建物の所定部分に設置する屋内燃焼器に、自動ガス遮断装置を適切に設け、又は所定のガス漏れ警報器を設けることと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "100℃超の排気筒の天井裏部分は何で覆う？",
+      "排気筒を設ける燃焼器の設置室に必要な給気口は？",
+      "12kW超の屋内ガス衣類乾燥機に必要な排気設備は？",
+      "密閉燃焼式ガスふろがまの給排気部先端の位置は？",
+      "超高層建物の屋内燃焼器に必要な安全設備は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "100℃超の排気筒の天井裏部分は何で覆う？",
+        "answer": "金属材料ではなく、金属以外の不燃性材料で覆う。100℃以下の場合は例外。"
+      },
+      {
+        "question": "排気筒を設ける燃焼器の設置室に必要な給気口は？",
+        "answer": "排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部。"
+      },
+      {
+        "question": "12kW超の屋内ガス衣類乾燥機に必要な排気設備は？",
+        "answer": "密閉燃焼式を除き、原則として排気筒。構造上その他の理由で困難な場合に排気フードを設けるときは例外。"
+      },
+      {
+        "question": "密閉燃焼式ガスふろがまの給排気部先端の位置は？",
+        "answer": "障害物又は外気の流れによって給排気が妨げられない位置。"
+      },
+      {
+        "question": "超高層建物の屋内燃焼器に必要な安全設備は？",
+        "answer": "自動ガス遮断装置又は所定の規格・方法によるガス漏れ警報器。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1項第1号ト、第2号イ（8）、第4号、第6号ホ及び第10号イ。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "イ（8）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "4",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "subitem": "ト",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "6",
+          "subitem": "ホ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "10",
+          "subitem": "イ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、正しいは現行施行規則と一致する。",
+    "選択肢1の誤りは、100℃超の排気筒部分を金属材料で覆うとしている点で、正しくは金属以外の不燃性材料で覆う。",
+    "誤りは選択肢1のみで、answer_result_textの正解1と一致する。",
+    "選択肢3は第202条第1項第1号柱書の密閉燃焼式除外を補足し、正答を維持した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2021-law-q16-s01",
+      "gas-shunin-otsu-2021-law-q16-s02",
+      "gas-shunin-otsu-2021-law-q16-s03",
+      "gas-shunin-otsu-2021-law-q16-s04",
+      "gas-shunin-otsu-2021-law-q16-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "articles": [
+        "202"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T17:00:31Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}

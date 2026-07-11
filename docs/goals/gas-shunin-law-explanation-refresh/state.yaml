@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T197
+active_task: T198
 
 tasks:
   - id: T153
@@ -2287,7 +2287,7 @@ tasks:
   - id: T197
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "sequence 197、gas-shunin-otsu 2021 法令 問16を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 197", "2021 00_source", "公式e-Gov法令API"]
@@ -2297,6 +2297,55 @@ tasks:
       - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
       - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
       - "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json"
+    verify:
+      - "apply decision"
+      - "build inventory"
+      - "19 unittest cases"
+      - "00_source diff check"
+    stop_if:
+      - "source又はID変更が必要。"
+      - "正答不一致のflag判断が必要。"
+      - "一問を超える更新になる。"
+    receipt:
+      result: done
+      summary: "sequence 197の消費機器技術基準を現行ガス事業法施行規則第202条で精査し、100℃超の排気筒部分は金属材料ではなく金属以外の不燃性材料で覆うことを具体化した。"
+      changed_files:
+        - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0197_gas-shunin-otsu_2021_q16.json"
+        - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+        - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+        - "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json"
+      commands:
+        - cmd: "apply decision 0197"
+          status: pass
+        - cmd: "build inventory"
+          status: pass
+        - cmd: "19 unittest cases"
+          status: pass
+        - cmd: "00_source diff check"
+          status: pass
+      evidence:
+        - "patchAppliedQuestionCount=197"
+        - "pendingReviewQuestionCount=64"
+        - "correctChoiceTextChanged=false, flags=[]"
+        - "mappingErrorCount=0, decisionErrorCount=0"
+        - "5択explanationTextをpush前に表示済み"
+        - "public_question_id=b7db75cab073fa14で反映後readback済み"
+        - "正誤配列は間違い・正しい・正しい・正しい・正しいでsourceと整合"
+        - "第202条第1項第1・2・4・6・10号のarticleTextHashとrawXmlHashを現行e-Gov API応答から保存"
+      harness: codex
+  - id: T198
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: high
+    objective: "sequence 198、gas-shunin-otsu 2022 法令 問1を現行法で一問精査し、解説更新と検証を完了する。"
+    inputs: ["review_ledger sequence 198", "2022 00_source", "公式e-Gov法令API"]
+    constraints: ["00_sourceと既存IDを変更しない。", "push前に5択解説を表示する。", "一問だけ更新する。"]
+    allowed_files:
+      - "output/gas-shunin-all/review/law_explanation_refresh/decisions/0198_gas-shunin-otsu_2022_q01.json"
+      - "output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl"
+      - "output/gas-shunin-all/review/law_explanation_refresh/summary.json"
+      - "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json"
     verify:
       - "apply decision"
       - "build inventory"
@@ -2328,10 +2377,10 @@ tasks:
     receipt: null
 
 checks:
-  dirty_fingerprint: "sequence-196-verified@6722fa2d8"
+  dirty_fingerprint: "sequence-197-verified@4e472c627"
   last_verification:
     result: pass
-    task: T196
+    task: T197
     commands:
       - ".venv/bin/python -m unittest tests.test_build_gas_shunin_law_explanation_refresh_inventory tests.test_apply_gas_shunin_law_explanation_refresh_decision tests.test_gas_shunin_upload_gate"
       - "git diff --exit-code -- output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json"
