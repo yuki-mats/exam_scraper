@@ -8523,49 +8523,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
     "explanationText": [
-      "正しい。ガス事業法施行規則第202条第2号は、排気筒を設ける自然排気式燃焼器には排気筒以上の有効断面積の給気開口部を要する。",
-      "間違い。ガス事業法施行規則第202条第8号は、特定地下街等の燃焼器にはガス漏れ警報設備を設ける。",
-      "正しい。ガス事業法施行規則第202条第1号は、12kW以下の瞬間湯沸器は所定換気設備の室であれば排気筒の対象外である。",
-      "正しい。ガス事業法施行規則第202条第3号は、排気扇停止時には燃焼器へのガス供給を自動遮断する。",
-      "間違い。「大気圧の変動」とする点が誤り。ガス事業法施行規則第202条第6号は、給排気部先端は外気の流れ等による妨げを受けない位置にある必要がある。"
+      "正しい。ガス事業法施行規則第202条第1項第4号は、第1号の規定により排気筒を設ける燃焼器を、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置すると定めている。",
+      "間違い。選択肢の「自動ガス遮断装置」が誤りで、正しくは「ガス漏れ警報設備」である。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器には、告示で定める規格に適合するガス漏れ警報設備を設けると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第1号ロは、排気筒を設ける対象をガスの消費量が12kWを超えるガス瞬間湯沸器としている。同項第5号ロは、12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置すると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇に、その排気扇が停止した場合に燃焼器へのガスの供給を自動的に遮断する装置を設けると定めている。",
+      "間違い。選択肢の「大気圧の変動」が誤りで、正しくは「外気の流れ」である。ガス事業法施行規則第202条第1項第6号ホは、給排気部の先端を、障害物又は外気の流れによって給排気が妨げられない位置にすると定めている。"
     ],
     "suggestedQuestions": [
-      "排気筒を設ける燃焼器の設置室には何が必要？",
-      "特定地下街等の燃焼器に必要な設備は？",
-      "12kW以下のガス瞬間湯沸器は排気筒が必要か？",
-      "排気扇停止時には何を自動遮断する？",
-      "密閉燃焼式ふろがまの給排気部先端で誤りやすい表現は？",
-      "現行法では、ガス事業法施行規則第202条第1項第4号がこの設問の正誤にどう関係しますか？",
+      "排気筒を設ける燃焼器の設置室にはどのような給気開口部が必要？",
+      "特定地下街等の燃焼器に設ける設備は？",
+      "12kW以下のガス瞬間湯沸器の換気基準は？",
+      "排気扇が停止した場合に自動遮断するものは？",
+      "密閉燃焼式燃焼器の給排気部先端を設ける位置の基準は？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "排気筒を設ける燃焼器の設置室には何が必要？",
-        "answer": "排気筒以上の有効断面積を持つ給気口等。。排気筒を設ける燃焼器は、給気上有効な開口部を設けた室に設置する必要がある。"
+        "question": "排気筒を設ける燃焼器の設置室にはどのような給気開口部が必要？",
+        "answer": "排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部。"
       },
       {
-        "question": "特定地下街等の燃焼器に必要な設備は？",
-        "answer": "ガス漏れ警報設備。。特定地下街等又は特定地下室等の燃焼器については、ガス漏れ警報設備の設置が定められている。"
+        "question": "特定地下街等の燃焼器に設ける設備は？",
+        "answer": "告示で定める規格に適合するガス漏れ警報設備。"
       },
       {
-        "question": "12kW以下のガス瞬間湯沸器は排気筒が必要か？",
-        "answer": "条件を満たす室なら排気筒を設けなくてよい。"
+        "question": "12kW以下のガス瞬間湯沸器の換気基準は？",
+        "answer": "換気扇又は有効な給排気のための開口部を設けた室に設置する。"
       },
       {
-        "question": "排気扇停止時には何を自動遮断する？",
-        "answer": "燃焼器へのガス供給。。排気筒に接続する排気扇には、停止時にガス供給を自動遮断する装置が必要である。"
+        "question": "排気扇が停止した場合に自動遮断するものは？",
+        "answer": "当該燃焼器へのガスの供給。"
       },
       {
-        "question": "密閉燃焼式ふろがまの給排気部先端で誤りやすい表現は？",
-        "answer": "「大気圧の変動」ではなく、外気の流れや風雨等の圧力。"
-      },
-      {
-        "question": "現行法では、ガス事業法施行規則第202条第1項第4号がこの設問の正誤にどう関係しますか？",
-        "answer": "現行法では、ガス事業法施行規則第202条第1項第4号を一次根拠として確認します。保存済みのlawReferencesとlawRevisionFactsでは、この条文根拠と既存の正誤・解説が矛盾しないことをsecondary_verifiedとして記録しています。"
+        "question": "密閉燃焼式燃焼器の給排気部先端を設ける位置の基準は？",
+        "answer": "障害物又は外気の流れによって給排気が妨げられない位置。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法施行規則第202条第2号、ガス事業法施行規則第202条第8号、ガス事業法施行規則第202条第1号、ガス事業法施行規則第202条第3号、ガス事業法施行規則第202条第6号。"
+        "answer": "ガス事業法施行規則第202条第1項第1号ロ、第3号ハ、第4号、第5号ロ、第6号ホ及び第8号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -8614,16 +8609,19 @@
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
           "article": "202",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第2号は、排気筒を設ける自然排気式燃焼器には排気筒以上の有効断面積の給気開口部を要する。",
-          "item": "2",
+          "reason": "正しい。ガス事業法施行規則第202条第1項第4号は、第1号の規定により排気筒を設ける燃焼器を、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置すると定めている。",
+          "item": "4",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "paragraph": "1",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
         }
       ],
       [
@@ -8634,16 +8632,19 @@
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
           "article": "202",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法施行規則第202条第8号は、特定地下街等の燃焼器にはガス漏れ警報設備を設ける。",
+          "reason": "間違い。選択肢の「自動ガス遮断装置」が誤りで、正しくは「ガス漏れ警報設備」である。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器には、告示で定める規格に適合するガス漏れ警報設備を設けると定めている。",
           "item": "8",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "paragraph": "1",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
         }
       ],
       [
@@ -8654,16 +8655,42 @@
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
           "article": "202",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第1号は、12kW以下の瞬間湯沸器は所定換気設備の室であれば排気筒の対象外である。",
+          "reason": "正しい。ガス事業法施行規則第202条第1項第1号ロは、排気筒を設ける対象をガスの消費量が12kWを超えるガス瞬間湯沸器としている。同項第5号ロは、12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置すると定めている。",
           "item": "1",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "paragraph": "1",
+          "subitem": "ロ",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 2,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "202",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "正しい。ガス事業法施行規則第202条第1項第1号ロは、排気筒を設ける対象をガスの消費量が12kWを超えるガス瞬間湯沸器としている。同項第5号ロは、12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置すると定めている。",
+          "item": "5",
+          "lawId": "345M50000400097",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "paragraph": "1",
+          "subitem": "ロ",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
         }
       ],
       [
@@ -8674,16 +8701,20 @@
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
           "article": "202",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法施行規則第202条第3号は、排気扇停止時には燃焼器へのガス供給を自動遮断する。",
+          "reason": "正しい。ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇に、その排気扇が停止した場合に燃焼器へのガスの供給を自動的に遮断する装置を設けると定めている。",
           "item": "3",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "paragraph": "1",
+          "subitem": "ハ",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
         }
       ],
       [
@@ -8694,32 +8725,36 @@
           "lawTitle": "ガス事業法施行規則",
           "lawAlias": "ガス事業法施行規則",
           "article": "202",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。「大気圧の変動」とする点が誤り。ガス事業法施行規則第202条第6号は、給排気部先端は外気の流れ等による妨げを受けない位置にある必要がある。",
+          "reason": "間違い。選択肢の「大気圧の変動」が誤りで、正しくは「外気の流れ」である。ガス事業法施行規則第202条第1項第6号ホは、給排気部の先端を、障害物又は外気の流れによって給排気が妨げられない位置にすると定めている。",
           "item": "6",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "paragraph": "1",
+          "subitem": "ホ",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:58:29+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "699353ccd2fa50f7e82a59c29c9dfaac0f8bffef4220c952f36615d874081170",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:93304ffff33c15a3:choice1",
         "evidenceBindingHash": "2aabd4ddf13f9e5dd7ab4c745361e05eb110399714cb17e3ffd144a4f936c17f",
         "examTime": {
@@ -8727,64 +8762,58 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "article": "202",
-          "paragraph": "1",
-          "item": "4",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "lawId": "345M50000400097",
+          "paragraph": "1",
+          "item": "4"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法施行規則第202条では、同条第1号により排気筒を設ける燃焼器は、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置することとされている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:4"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法施行規則第202条第1項第4号は、第1号の規定により排気筒を設ける燃焼器を、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法施行規則第202条第1項第4号を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:345M50000400097:202:1:4",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "345M50000400097",
               "lawTitle": "ガス事業法施行規則",
               "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "lawId": "345M50000400097",
               "paragraph": "1",
-              "item": "4",
-              "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-              "textHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f"
+              "item": "4"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:58:29+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "a4954cad1865ac64e306f47cd6108a546969fff2a5393ad5b2f358a83e6110af",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:93304ffff33c15a3:choice2",
         "evidenceBindingHash": "04747ab12ba40845c7945a3155a26e9811f0fb9b4603f021e2de1afdf84fd8f7",
         "examTime": {
@@ -8792,64 +8821,58 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "article": "202",
-          "paragraph": "1",
-          "item": "8",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "lawId": "345M50000400097",
+          "paragraph": "1",
+          "item": "8"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。特定地下街等又は特定地下室等に設置する燃焼器には、同条第8号でガス漏れ警報設備を設けることが定められている。一方、自動ガス遮断装置等の規定は同条第10号の超高層建物、特定大規模建物、中圧以上供給の燃焼器等に係るものであり、本記述は基準の内容を取り違えている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:8"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「自動ガス遮断装置」が誤りで、正しくは「ガス漏れ警報設備」である。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器には、告示で定める規格に適合するガス漏れ警報設備を設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法施行規則第202条第1項第8号を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:345M50000400097:202:1:8",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "345M50000400097",
               "lawTitle": "ガス事業法施行規則",
               "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "lawId": "345M50000400097",
               "paragraph": "1",
-              "item": "8",
-              "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-              "textHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f"
+              "item": "8"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:58:29+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "843e64bea0e0c65b3440f74c2d0a87dcdf44c76a1058d2654645aec73a3d19dc",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:93304ffff33c15a3:choice3",
         "evidenceBindingHash": "4bb64adba6f81e8d48f7f7cbf1a4d03fe09a305e40f5f50bce156a78375b339d",
         "examTime": {
@@ -8857,48 +8880,56 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "article": "202",
-          "paragraph": "1",
-          "item": "5",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "lawId": "345M50000400097",
+          "paragraph": "1",
+          "item": "1",
+          "subitem": "ロ"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス消費量12kW以下のガス瞬間湯沸器は、同条第5号で換気扇又は有効な給排気のための開口部を設けた室に設置する対象である。排気筒設置義務は同条第1号で12kWを超えるものに係るため、この条件なら排気筒を設けない扱いでよい。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:5:ロ"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法施行規則第202条第1項第1号ロは、排気筒を設ける対象をガスの消費量が12kWを超えるガス瞬間湯沸器としている。同項第5号ロは、12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法施行規則第202条第1項第1号ロ、ガス事業法施行規則第202条第1項第5号ロを選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:345M50000400097:202:1:5:ロ",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "345M50000400097",
               "lawTitle": "ガス事業法施行規則",
               "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "lawId": "345M50000400097",
+              "paragraph": "1",
+              "item": "1",
+              "subitem": "ロ"
+            },
+            {
+              "refId": "choice-2-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス事業法施行規則",
+              "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "lawId": "345M50000400097",
               "paragraph": "1",
               "item": "5",
-              "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-              "textHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
               "subitem": "ロ"
             }
           ]
@@ -8906,16 +8937,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:58:29+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "bc5f6954d00f5270e014a8e3d395793309e9ee8a0e3bd9020b46eac1f7104e1b",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:93304ffff33c15a3:choice4",
         "evidenceBindingHash": "8c658f73d7a27ee7b676d12b1128d7ff75e16588f35fb36b3698384e904580b0",
         "examTime": {
@@ -8923,48 +8954,43 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "article": "202",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "lawId": "345M50000400097",
           "paragraph": "1",
           "item": "3",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
+          "subitem": "ハ"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。同条第3号ハでは、燃焼器の排気筒に接続する排気扇には、排気扇が停止した場合に当該燃焼器へのガスの供給を自動的に遮断する装置を設けることとされている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:3:ハ"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇に、その排気扇が停止した場合に燃焼器へのガスの供給を自動的に遮断する装置を設けると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法施行規則第202条第1項第3号ハを選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:345M50000400097:202:1:3:ハ",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "345M50000400097",
               "lawTitle": "ガス事業法施行規則",
               "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "lawId": "345M50000400097",
               "paragraph": "1",
               "item": "3",
-              "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-              "textHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
               "subitem": "ハ"
             }
           ]
@@ -8972,16 +8998,16 @@
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:58:29+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "1884756a03cfedfee87f6df904ce183a7534ad50ea808f835907266f9f0c7c63",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:93304ffff33c15a3:choice5",
         "evidenceBindingHash": "ba4dc931133b6ada0a3fe85c3ae00fff46519f0c7fe39d34d99d9e43a8d17137",
         "examTime": {
@@ -8989,48 +9015,43 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "345M50000400097",
           "lawTitle": "ガス事業法施行規則",
           "article": "202",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202",
+          "lawId": "345M50000400097",
           "paragraph": "1",
           "item": "6",
-          "referenceDate": "2026-07-09",
-          "verificationStatus": "verified",
-          "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=202"
+          "subitem": "ホ"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。屋内に設置する密閉燃焼式のガスふろがまの給排気部先端は、障害物又は外気の流れにより給排気が妨げられない位置にあり、異物の侵入や風雨等の圧力で給排気が妨げられるおそれのない構造であることが基準である。「大気圧の変動」とする点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "消費機器の技術上の基準で規定されている次の記述のうち、いずれも誤っているものの組合せはどれか。",
-          "displayRefIds": [
-            "current:345M50000400097:202:1:6:ホ"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「大気圧の変動」が誤りで、正しくは「外気の流れ」である。ガス事業法施行規則第202条第1項第6号ホは、給排気部の先端を、障害物又は外気の流れによって給排気が妨げられない位置にすると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法施行規則第202条第1項第6号ホを選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:345M50000400097:202:1:6:ホ",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "345M50000400097",
               "lawTitle": "ガス事業法施行規則",
               "article": "202",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "lawId": "345M50000400097",
               "paragraph": "1",
               "item": "6",
-              "articleTextHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
-              "textHash": "8d5b8cb2da987c68210d2f629a547202ecb977e24d758b0724b17ef87cf3117f",
               "subitem": "ホ"
             }
           ]
@@ -9047,18 +9068,18 @@
       "secretHandling": "no Lawzilla endpoint or API key stored"
     },
     "suggestedExplanationText": [
-      "正しい。ガス事業法施行規則第202条第2号は、排気筒を設ける自然排気式燃焼器には排気筒以上の有効断面積の給気開口部を要する。",
-      "間違い。ガス事業法施行規則第202条第8号は、特定地下街等の燃焼器にはガス漏れ警報設備を設ける。",
-      "正しい。ガス事業法施行規則第202条第1号は、12kW以下の瞬間湯沸器は所定換気設備の室であれば排気筒の対象外である。",
-      "正しい。ガス事業法施行規則第202条第3号は、排気扇停止時には燃焼器へのガス供給を自動遮断する。",
-      "間違い。「大気圧の変動」とする点が誤り。ガス事業法施行規則第202条第6号は、給排気部先端は外気の流れ等による妨げを受けない位置にある必要がある。"
+      "正しい。ガス事業法施行規則第202条第1項第4号は、第1号の規定により排気筒を設ける燃焼器を、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置すると定めている。",
+      "間違い。選択肢の「自動ガス遮断装置」が誤りで、正しくは「ガス漏れ警報設備」である。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器には、告示で定める規格に適合するガス漏れ警報設備を設けると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第1号ロは、排気筒を設ける対象をガスの消費量が12kWを超えるガス瞬間湯沸器としている。同項第5号ロは、12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置すると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇に、その排気扇が停止した場合に燃焼器へのガスの供給を自動的に遮断する装置を設けると定めている。",
+      "間違い。選択肢の「大気圧の変動」が誤りで、正しくは「外気の流れ」である。ガス事業法施行規則第202条第1項第6号ホは、給排気部の先端を、障害物又は外気の流れによって給排気が妨げられない位置にすると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス事業法施行規則第202条第2号は、排気筒を設ける自然排気式燃焼器には排気筒以上の有効断面積の給気開口部を要する。",
-      "間違い。ガス事業法施行規則第202条第8号は、特定地下街等の燃焼器にはガス漏れ警報設備を設ける。",
-      "正しい。ガス事業法施行規則第202条第1号は、12kW以下の瞬間湯沸器は所定換気設備の室であれば排気筒の対象外である。",
-      "正しい。ガス事業法施行規則第202条第3号は、排気扇停止時には燃焼器へのガス供給を自動遮断する。",
-      "間違い。「大気圧の変動」とする点が誤り。ガス事業法施行規則第202条第6号は、給排気部先端は外気の流れ等による妨げを受けない位置にある必要がある。"
+      "正しい。ガス事業法施行規則第202条第1項第4号は、第1号の規定により排気筒を設ける燃焼器を、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置すると定めている。",
+      "間違い。選択肢の「自動ガス遮断装置」が誤りで、正しくは「ガス漏れ警報設備」である。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器には、告示で定める規格に適合するガス漏れ警報設備を設けると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第1号ロは、排気筒を設ける対象をガスの消費量が12kWを超えるガス瞬間湯沸器としている。同項第5号ロは、12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置すると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇に、その排気扇が停止した場合に燃焼器へのガスの供給を自動的に遮断する装置を設けると定めている。",
+      "間違い。選択肢の「大気圧の変動」が誤りで、正しくは「外気の流れ」である。ガス事業法施行規則第202条第1項第6号ホは、給排気部の先端を、障害物又は外気の流れによって給排気が妨げられない位置にすると定めている。"
     ]
   },
   {

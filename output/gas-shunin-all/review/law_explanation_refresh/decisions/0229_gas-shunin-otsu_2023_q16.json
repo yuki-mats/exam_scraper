@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 229,
+  "auditKey": "gas-shunin:otsu:2023:law:q16:4b2a5bcf29fb",
+  "auditInputHash": "efc36952004e5f9103ddff197fd7b1d0efdcfb57b82765218b5eb9c3d91786ba",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T03:58:29+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法施行規則第202条第1項第4号は、第1号の規定により排気筒を設ける燃焼器を、その排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部を設けた室に設置すると定めている。",
+      "間違い。選択肢の「自動ガス遮断装置」が誤りで、正しくは「ガス漏れ警報設備」である。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器には、告示で定める規格に適合するガス漏れ警報設備を設けると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第1号ロは、排気筒を設ける対象をガスの消費量が12kWを超えるガス瞬間湯沸器としている。同項第5号ロは、12kW以下のガス瞬間湯沸器を、換気扇又は有効な給排気のための開口部を設けた室に設置すると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇に、その排気扇が停止した場合に燃焼器へのガスの供給を自動的に遮断する装置を設けると定めている。",
+      "間違い。選択肢の「大気圧の変動」が誤りで、正しくは「外気の流れ」である。ガス事業法施行規則第202条第1項第6号ホは、給排気部の先端を、障害物又は外気の流れによって給排気が妨げられない位置にすると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "排気筒を設ける燃焼器の設置室にはどのような給気開口部が必要？",
+      "特定地下街等の燃焼器に設ける設備は？",
+      "12kW以下のガス瞬間湯沸器の換気基準は？",
+      "排気扇が停止した場合に自動遮断するものは？",
+      "密閉燃焼式燃焼器の給排気部先端を設ける位置の基準は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "排気筒を設ける燃焼器の設置室にはどのような給気開口部が必要？",
+        "answer": "排気筒の有効断面積以上の有効断面積を有する給気口その他給気上有効な開口部。"
+      },
+      {
+        "question": "特定地下街等の燃焼器に設ける設備は？",
+        "answer": "告示で定める規格に適合するガス漏れ警報設備。"
+      },
+      {
+        "question": "12kW以下のガス瞬間湯沸器の換気基準は？",
+        "answer": "換気扇又は有効な給排気のための開口部を設けた室に設置する。"
+      },
+      {
+        "question": "排気扇が停止した場合に自動遮断するものは？",
+        "answer": "当該燃焼器へのガスの供給。"
+      },
+      {
+        "question": "密閉燃焼式燃焼器の給排気部先端を設ける位置の基準は？",
+        "answer": "障害物又は外気の流れによって給排気が妨げられない位置。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1項第1号ロ、第3号ハ、第4号、第5号ロ、第6号ホ及び第8号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "4",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "8",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "subitem": "ロ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "article": "202",
+              "paragraph": "1",
+              "item": "1",
+              "subitem": "ロ",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+            },
+            {
+              "article": "202",
+              "paragraph": "1",
+              "item": "5",
+              "subitem": "ロ",
+              "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+              "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ハ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "6",
+          "subitem": "ホ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、正しい、間違いは現行法と一致する。",
+    "第1肢の直接根拠は既存記録の第2号イではなく第4号であるため修正する。",
+    "第2肢は自動ガス遮断装置ではなくガス漏れ警報設備、第5肢は大気圧の変動ではなく外気の流れである。",
+    "誤っている記述は第2肢と第5肢で、answer_result_textの正解3と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2023-law-q16-s01",
+      "gas-shunin-otsu-2023-law-q16-s02",
+      "gas-shunin-otsu-2023-law-q16-s03",
+      "gas-shunin-otsu-2023-law-q16-s04",
+      "gas-shunin-otsu-2023-law-q16-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス事業法施行規則",
+        "lawId": "345M50000400097",
+        "articles": [
+          "202"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T18:59:17Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
