@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 107,
+  "auditKey": "gas-shunin:kou:2025:law:q06:b2d06c2a62d2",
+  "auditInputHash": "a9c82834d3216e8a040505cbf1dd9330911ae65c7f50b9562e958109eb713b22",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:04:11+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第71条の3が準用する第34条の5第1項は認定の更新を必要とし、ガス事業法施行令第5条は更新期間を7年と定めている。",
+      "正しい。ガス事業法第71条の3が準用する第34条の6は、保安確保の組織又は方法に変更があったとき、遅滞なく経済産業大臣へ届け出ると定めている。",
+      "正しい。ガス事業法第71条の3が読み替えて準用する第34条の10は、ガス主任技術者の選任・解任の届出を不要とする一方、その記録を作成して保存すると定めている。",
+      "間違い。選択肢の「完成後14日以内」が誤り。ガス事業法第71条の3が読み替えて準用する第34条の11は、届出不要の特例工事について、完成後30日以内に経済産業大臣へ届け出ると定めている。",
+      "間違い。選択肢の「自主検査を行わずに」が誤り。ガス事業法第71条の3が読み替えて準用する第34条の12第1項は、自主検査を行った後でなければ対象のガス工作物を使用してはならないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "認定の更新期間は？",
+      "保安確保の組織・方法を変更した場合は？",
+      "主任技術者の選任・解任で必要な記録は？",
+      "特例工事の完成後届出期限は？",
+      "自主検査前にガス工作物を使用できる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "認定の更新期間は？",
+        "answer": "7年ごとに更新を受けなければ効力を失う。"
+      },
+      {
+        "question": "保安確保の組織・方法を変更した場合は？",
+        "answer": "遅滞なく経済産業大臣へ届け出る。"
+      },
+      {
+        "question": "主任技術者の選任・解任で必要な記録は？",
+        "answer": "届出は不要だが、選任・解任の記録を作成して保存する。"
+      },
+      {
+        "question": "特例工事の完成後届出期限は？",
+        "answer": "14日以内ではなく、完成後30日以内。"
+      },
+      {
+        "question": "自主検査前にガス工作物を使用できる？",
+        "answer": "使用できない。自主検査後でなければ使用してはならない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第71条の3、第34条の5第1項、第34条の6、第34条の10、第34条の11及び第34条の12第1項並びにガス事業法施行令第5条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "34の5",
+          "paragraph": "1",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=34_5",
+          "articleTextHash": "7123a149ae4849334e1bea332a4fa51f80d34bb8252aa516316a011432536982",
+          "rawXmlHash": "383827b11092af7ff0387d59a165e9eb1916fb47b1e9265a8bf8bae3052aac65",
+          "references": [
+            {
+              "article": "71の3",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=71_3",
+              "articleTextHash": "451b4cf613783d8cc24c57da4399bcd55fcd5df3f13878a77df97aaf2ac5cf46",
+              "rawXmlHash": "a9d84305c1e278083be87d1a2f2c47d250da6be0235b3d40fbabdf9ff97f9fc0"
+            },
+            {
+              "article": "34の5",
+              "paragraph": "1",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=34_5",
+              "articleTextHash": "7123a149ae4849334e1bea332a4fa51f80d34bb8252aa516316a011432536982",
+              "rawXmlHash": "383827b11092af7ff0387d59a165e9eb1916fb47b1e9265a8bf8bae3052aac65"
+            },
+            {
+              "lawId": "329CO0000000068",
+              "lawTitle": "ガス事業法施行令",
+              "article": "5",
+              "paragraph": "1",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329CO0000000068;article=5",
+              "articleTextHash": "d742f24b998ee59465f9bd03e1ae3da96f308b13c46475f48e243868b33d44fb",
+              "rawXmlHash": "e6f760cb5ffc52786bf4c01ae39c0630e2beaa37fe422bd233f0a87e4a899334"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "34の6",
+          "paragraph": "1",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=34_6",
+          "articleTextHash": "0d13c2adc8c4114e9c4239ff32f58966d4bfc0aef562dc5719e0cd7c69af2669",
+          "rawXmlHash": "1c8433acf42f441bf9c0a2a030a23ec5506cdfea9f4f9ce13101c0fa8f9b4a90"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "34の10",
+          "paragraph": "1",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=34_10",
+          "articleTextHash": "f3724a6ed7be251b985b666862565faaf3398895b0c6096f0b55329745b700cd",
+          "rawXmlHash": "5ad005303f9081404b32cb8963e06c4ecf4be10e6e2cec286b5734eae60cccca"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "34の11",
+          "paragraph": "1",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=34_11",
+          "articleTextHash": "668d66a3b7f214827a8287d9e7b28c185159e738705f003e6fd6b5f959a97f41",
+          "rawXmlHash": "56f194e206a97305af8ef9012420544e13426e24fd2686fa1c34ea29aa8ff8cb"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "34の12",
+          "paragraph": "1",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=34_12",
+          "articleTextHash": "cbd0df9edcfcdf965ca6ad42430a87bd610b3b206098d1b40d278fa47fbd085f",
+          "rawXmlHash": "a530f4dae699a2d2a3f26f8aeb0fd918e281d9ff2672e8d98041eeb54643bea8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行法と一致する。",
+    "第5肢の直接根拠を第34条の12第2項から第1項へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q06-s01",
+      "gas-shunin-kou-2025-law-q06-s02",
+      "gas-shunin-kou-2025-law-q06-s03",
+      "gas-shunin-kou-2025-law-q06-s04",
+      "gas-shunin-kou-2025-law-q06-s05"
+    ],
+    "currentLaw": {
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:05:14Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
