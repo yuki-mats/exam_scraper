@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 109,
+  "auditKey": "gas-shunin:kou:2025:law:q08:2836617fc60f",
+  "auditInputHash": "98441acf1f05c36a2529ce9838a30a0d1a86739da8b797e9abe238b6502d3a29",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:08:01+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第14条第1項第3号イは、製造設備に属する液化ガス用貯槽の主要材料に、使用温度での化学的・物理的影響に対して安全な機械的性質を求めている。",
+      "間違い。選択肢の「供用中の最大流量」が誤り。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造を、供用中の荷重並びに使用温度における最高使用圧力に対して適切なものと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第2項は耐圧部分に耐圧試験への耐性を求め、同項第2号の高圧導管の例外は延長15m未満であるため、延長15mの本肢は例外に含まれない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第3項は気密試験で漏えいがないことを求め、同項第3号は最高使用圧力が0Pa以下のもの及び常時大気開放のものを例外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分に、十分な溶込み、有害な欠陥がないこと及び設計上要求される強度以上を求めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "液化ガス用貯槽の主要材料に必要な性質は？",
+      "導管の構造が耐えるべきものは？",
+      "延長15mの高圧導管は耐圧試験の例外？",
+      "気密試験の例外は？",
+      "溶接部分の品質要件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "液化ガス用貯槽の主要材料に必要な性質は？",
+        "answer": "使用温度での化学的・物理的影響に対して安全な機械的性質。"
+      },
+      {
+        "question": "導管の構造が耐えるべきものは？",
+        "answer": "最大流量ではなく、供用中の荷重と使用温度における最高使用圧力。"
+      },
+      {
+        "question": "延長15mの高圧導管は耐圧試験の例外？",
+        "answer": "例外ではない。例外は延長15m未満。"
+      },
+      {
+        "question": "気密試験の例外は？",
+        "answer": "最高使用圧力が0Pa以下のものや常時大気に開放されているもの等。"
+      },
+      {
+        "question": "溶接部分の品質要件は？",
+        "answer": "十分な溶込み、有害な欠陥がないこと、要求強度以上であること。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第14条第1項第3号イ、第15条第1項第6号・第2項第2号・第3項第3号及び第16条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "14",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "イ",
+          "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
+          "rawXmlHash": "b2ad8cfe8d9a67acb678e084878c6f3656a360dcc9431a6fee8b35e691fe2de9"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "2",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "3",
+          "item": "3",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "1",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、正しい、正しいは現行法と一致する。",
+    "第2肢は最大流量ではなく供用中の荷重、第3肢の15mは15m未満の例外に含まれない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q08-s01",
+      "gas-shunin-kou-2025-law-q08-s02",
+      "gas-shunin-kou-2025-law-q08-s03",
+      "gas-shunin-kou-2025-law-q08-s04",
+      "gas-shunin-kou-2025-law-q08-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:09:03Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
