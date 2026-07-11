@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 204,
+  "auditKey": "gas-shunin:otsu:2022:law:q07:a56cb370ec29",
+  "auditInputHash": "ca9ba113e9c41804b8a894f38f2cf5ef8e6e7cb62279a39f83ec5fd8ac8a76c8",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T02:27:02+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「製造所の敷地境界から」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、特定ガス発生設備に係る容器で最高使用圧力が高圧のもの及び液化ガスを通ずるものについて、その外面から保安物件に対し告示で定める距離を有しなければならないと定めている。",
+      "間違い。選択肢の「ガスの種類に応じて」が誤り。ガス工作物の技術上の基準を定める省令第8条は、製造所若しくは供給所に設置する所定のガス工作物等について、その規模に応じて適切な防消火設備を適切な箇所に設けなければならないと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所内の漏えいガスが滞留するおそれのある適当な場所に、ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならないと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第10条は、所定のガス工作物等の付近に設置する電気設備が、設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能を有しなければならないと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第12条は、液化ガスを通ずるガス工作物に静電気除去措置を求める一方、静電気によりガスに引火するおそれがない場合は例外と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "特定ガス発生設備に係る容器の保安物件との離隔距離はどこから測るか？",
+      "防消火設備は何に応じて設けるか？",
+      "漏えい検知警報設備はどこに設けるか？",
+      "付近の電気設備にはどのような性能が必要か？",
+      "液化ガスを通ずるガス工作物には静電気除去措置が必要か？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "特定ガス発生設備に係る容器の保安物件との離隔距離はどこから測るか？",
+        "answer": "容器等の外面から保安物件までであり、製造所の敷地境界からではない。"
+      },
+      {
+        "question": "防消火設備は何に応じて設けるか？",
+        "answer": "ガスの種類ではなく、ガス工作物等の規模に応じて設ける。"
+      },
+      {
+        "question": "漏えい検知警報設備はどこに設けるか？",
+        "answer": "漏えいしたガスが滞留するおそれのある製造所内の適当な場所に設ける。"
+      },
+      {
+        "question": "付近の電気設備にはどのような性能が必要か？",
+        "answer": "設置場所の状況及びガス又は液化ガスの種類に応じた防爆性能が必要である。"
+      },
+      {
+        "question": "液化ガスを通ずるガス工作物には静電気除去措置が必要か？",
+        "answer": "必要である。ただし、静電気によりガスに引火するおそれがない場合は例外となる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第6条第2項、第8条、第9条第2項、第10条及び第12条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "2",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "8",
+          "paragraph": "1",
+          "articleTextHash": "83fdb6e9c8b4b96c86564b820fe84434b79d477176a0f2c2f82d5e9b9e2efcc3",
+          "rawXmlHash": "7c8fe2885f6d9f11fa94a5797e64417798bb6a1785fcf6b09e72492888bcb6b8"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "9",
+          "paragraph": "2",
+          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+          "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "10",
+          "paragraph": "1",
+          "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
+          "rawXmlHash": "691a406b6b56039913bff94378d326c79f179673f3b195beea758e587da5e59f"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "12",
+          "paragraph": "1",
+          "articleTextHash": "95c8000c0e7d41b22fecd116f68e48901484aa0c8d75cec7c1c52ee7b64d4e81",
+          "rawXmlHash": "670cdba6f933a480a4960311e0bd8eeb5ffa8c15e0b0901a688209fcb4844b6a"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、正しい、正しいは現行省令と一致する。",
+    "選択肢1は離隔距離の起点が製造所の敷地境界ではなく容器等の外面であり、選択肢2は防消火設備の基準がガスの種類ではなく規模である。",
+    "誤りの組合せは選択肢1と2で、answer_result_textの正解1と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2022-law-q07-s01",
+      "gas-shunin-otsu-2022-law-q07-s02",
+      "gas-shunin-otsu-2022-law-q07-s03",
+      "gas-shunin-otsu-2022-law-q07-s04",
+      "gas-shunin-otsu-2022-law-q07-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+        "lawId": "412M50000400111",
+        "articles": [
+          "6",
+          "8",
+          "9",
+          "10",
+          "12"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T17:27:45Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
