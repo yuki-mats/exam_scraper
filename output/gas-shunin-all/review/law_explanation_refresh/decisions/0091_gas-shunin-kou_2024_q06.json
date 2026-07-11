@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 91,
+  "auditKey": "gas-shunin:kou:2024:law:q06:8efe1eef84c3",
+  "auditInputHash": "4f7dec06c02a14523ca9f4b42dacbd47e4f5a2923a2b69ba38df166fbb352ad0",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:13:34+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第68条第1項は、一般ガス導管事業者が所定のガス工作物の設置又は変更工事をしようとするとき、工事計画を経済産業大臣に届け出ると定め、滅失・損壊時又は災害その他非常時のやむを得ない一時的工事を例外と定めている。",
+      "間違い。選択肢の「届出を提出した日から30日」が誤り。ガス事業法第68条第3項は、工事開始までの30日を届出が受理された日から起算すると定め、同条第4項は、所定の要件に適合するときに経済産業大臣がその期間を短縮できると定めている。",
+      "間違い。選択肢の「自主検査を行うことで使用できる」が誤り。ガス事業法第69条第1項は、対象工事について自主検査を行うだけでなく、その結果が基準に適合することについて登録を受けた者の検査を受け、合格した後でなければ使用できないと定めている。",
+      "正しい。ガス事業法第69条第1項ただし書及びガス事業法施行規則第103条第1号は、試験のための使用を使用前検査の例外と定めている。使用者へガスを供給する場合は、使用方法を変更するごとにガスの熱量等を測定して供給することが条件となる。",
+      "間違い。選択肢の「経済産業大臣に届け出」が誤り。ガス事業法第71条第1項は、対象ガス工作物について定期自主検査を行い、その検査記録を作成して保存すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事計画の届出が不要となる一時的工事は？",
+      "工事開始までの30日はいつから数える？",
+      "ガス工作物を使用する前に必要な検査は？",
+      "試験使用が使用前検査の例外となる条件は？",
+      "定期自主検査の記録はどう扱う？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事計画の届出が不要となる一時的工事は？",
+        "answer": "ガス工作物の滅失・損壊時又は災害その他非常時の、やむを得ない一時的工事。"
+      },
+      {
+        "question": "工事開始までの30日はいつから数える？",
+        "answer": "届出の提出日ではなく、届出が受理された日。"
+      },
+      {
+        "question": "ガス工作物を使用する前に必要な検査は？",
+        "answer": "自主検査に加え、登録を受けた者の検査を受けて合格すること。"
+      },
+      {
+        "question": "試験使用が使用前検査の例外となる条件は？",
+        "answer": "試験のために使用する場合。使用者へ供給する場合は、使用方法の変更ごとに熱量等を測定する。"
+      },
+      {
+        "question": "定期自主検査の記録はどう扱う？",
+        "answer": "経済産業大臣へ届け出るのではなく、作成して保存する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第68条第1項・第3項・第4項、第69条第1項、第71条第1項及びガス事業法施行規則第103条第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "1",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "3",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e",
+          "references": [
+            {
+              "article": "68",
+              "paragraph": "3",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+            },
+            {
+              "article": "68",
+              "paragraph": "4",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "69",
+          "paragraph": "1",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "69",
+          "paragraph": "1",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255",
+          "references": [
+            {
+              "article": "69",
+              "paragraph": "1",
+              "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+              "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "103",
+              "paragraph": "1",
+              "item": "1",
+              "articleTextHash": "6345d1b60006aef4e5f9ecf6a0d00b7c6059af9e4bf440ceddddd6c7c16c7576",
+              "rawXmlHash": "c79088e86aa8072a68609fb2dedfb0f9ea05d1a408105b96448aeb386f3bbd01"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "71",
+          "paragraph": "1",
+          "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+          "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、正しい、間違いは現行法令と一致する。",
+    "第2肢の工事開始制限期間は届出提出日ではなく受理日から起算する。",
+    "第3肢は自主検査だけでなく、登録を受けた者の検査合格が必要である。",
+    "第4肢の試験使用の例外と供給時の熱量等測定条件は施行規則第103条第1号に一致する。",
+    "第5肢の定期自主検査記録は作成・保存するもので、届出事項ではない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q06-s01",
+      "gas-shunin-kou-2024-law-q06-s02",
+      "gas-shunin-kou-2024-law-q06-s03",
+      "gas-shunin-kou-2024-law-q06-s04",
+      "gas-shunin-kou-2024-law-q06-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法及びガス事業法施行規則",
+      "lawId": "multiple",
+      "articles": [
+        "ガス事業法第68条・第69条・第71条",
+        "ガス事業法施行規則第103条"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:14:45Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
