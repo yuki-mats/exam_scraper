@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 146,
+  "auditKey": "gas-shunin:otsu:2018:law:q13:d85582c452c8",
+  "auditInputHash": "5d1ac1d5e9d1893358eeda244db6d6cd40738979dd166a3e913bab6fb294d0bc",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:20:19+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第137条第1項は、ガス用品を、主として一般消費者等がガスを消費する場合に用いる機械、器具又は材料で、政令で定めるものと定めている。",
+      "正しい。ガス事業法第137条第2項は、特定ガス用品を、構造、使用条件、使用状況等から特にガス災害発生のおそれが多いと認められるガス用品で、政令で定めるものと定めている。",
+      "間違い。選択肢の「輸入したガス用品は、この限りでない」が誤り。ガス事業法第138条第1項及び第2項は、所定の表示がないガス用品の販売・陳列を禁止し、輸出用として届け出た場合、特定用途について承認を受けた場合等を例外と定めている。",
+      "正しい。ガス事業法第137条第2項並びにガス事業法施行令第15条及び別表第二第1号は、70kW以下で、開放燃焼式、密閉燃焼式、屋外式及び液化石油ガス用を除くガス瞬間湯沸器を特定ガス用品と定めているため、13A用半密閉燃焼式のものは該当する。",
+      "間違い。選択肢の「ガス用品について」が誤り。ガス事業法第146条第1項は、届出事業者の製造又は輸入に係るガス用品が特定ガス用品である場合に、販売時までの適合性検査、証明書の交付及び保存を求めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス用品とは？",
+      "特定ガス用品とは？",
+      "表示のないガス用品の販売制限にはどのような例外がある？",
+      "70kW以下13A用半密閉式瞬間湯沸器は特定ガス用品？",
+      "適合性検査が必要なのは全ガス用品？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス用品とは？",
+        "answer": "主として一般消費者等がガスを消費する場合に用いる機械、器具又は材料で、政令で定めるもの。"
+      },
+      {
+        "question": "特定ガス用品とは？",
+        "answer": "構造・使用条件・使用状況等から特にガス災害のおそれが多いガス用品で、政令で定めるもの。"
+      },
+      {
+        "question": "表示のないガス用品の販売制限にはどのような例外がある？",
+        "answer": "輸出用として届け出た場合、特定用途について承認を受けた場合等。輸入品一般が例外になるわけではない。"
+      },
+      {
+        "question": "70kW以下13A用半密閉式瞬間湯沸器は特定ガス用品？",
+        "answer": "該当する。別表第二第1号の除外対象である開放式、密閉式、屋外式又はLPG用ではない。"
+      },
+      {
+        "question": "適合性検査が必要なのは全ガス用品？",
+        "answer": "全ガス用品ではなく、製造又は輸入に係るガス用品が特定ガス用品である場合。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第137条第1項及び第2項、第138条第1項及び第2項、第146条第1項並びにガス事業法施行令第15条・別表第二第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "137",
+          "paragraph": "1",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "137",
+          "paragraph": "2",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "138",
+          "paragraph": "1",
+          "articleTextHash": "fc87297757d14f27cbbea60948e17b9522937c01f5ac9665f88a532ada4473ff",
+          "rawXmlHash": "08190a9abc36e76b2ae054506ece031139a81bce739eda0e9193d6f4b9980a5a",
+          "references": [
+            {
+              "paragraph": "1"
+            },
+            {
+              "paragraph": "2"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "137",
+          "paragraph": "2",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "137",
+              "paragraph": "2",
+              "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+              "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
+            },
+            {
+              "lawId": "329CO0000000068",
+              "lawTitle": "ガス事業法施行令",
+              "article": "15",
+              "paragraph": "1",
+              "item": "別表第二第1号",
+              "articleTextHash": "b7be8e9c74c089f5001461a9f4bb05eb1f2aeac820fa731b9341c3e843969d22",
+              "rawXmlHash": "9f429535a49886930e197fc3bcf119cb0b6f847eb8dd4ba45f38dc6c65be167a"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "146",
+          "paragraph": "1",
+          "articleTextHash": "14df98ea4162d480fa07912c3fd370e9a8eb1265b75a6bc45e83da025ade84b4",
+          "rawXmlHash": "9445f1f7004dea5ca8593a55d889cd8a5b7f7a26bab77b0075d8ec4e6c50ad40"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、間違いは現行法と一致する。",
+    "輸入品一般は表示義務の例外でないことと、適合性検査が特定ガス用品に限られることを明示した。",
+    "半密閉燃焼式瞬間湯沸器を施行令第15条・別表第二第1号へ接続した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q13-s01",
+      "gas-shunin-otsu-2018-law-q13-s02",
+      "gas-shunin-otsu-2018-law-q13-s03",
+      "gas-shunin-otsu-2018-law-q13-s04",
+      "gas-shunin-otsu-2018-law-q13-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法等",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:21:01Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
