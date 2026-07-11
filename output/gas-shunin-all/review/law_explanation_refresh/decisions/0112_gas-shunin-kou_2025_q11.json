@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 112,
+  "auditKey": "gas-shunin:kou:2025:law:q11:e2b170d856e2",
+  "auditInputHash": "b7aafb89842b69364702521ac946ab3c56e7a8e7ee8995f2d3441b8ed10d6033",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:14:15+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第45条第1項第2号は、告示で定める着脱が容易なガス栓に、内部の過流出安全機構を求めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第49条第3項は、超高層建物等又は中圧導管で供給する建物への導管に、危急時にガスを速やかに遮断できる適切な装置を設けると定めている。",
+      "間違い。選択肢の「当該地下室等から」が誤り。ガス工作物の技術上の基準を定める省令第49条第4項は、地下室等へのガス供給を地上から速やかに遮断できる装置を設けると定めている。",
+      "間違い。選択肢の損傷後にガスを遮断する装置を設ける部分が誤り。ガス工作物の技術上の基準を定める省令第48条第1項は、道路に露出する所定の導管に、車両接触等の衝撃による損傷を防止する措置を講じると定めている。",
+      "間違い。選択肢の検知対象に「ガス中の水分」を含める部分が誤り。ガス工作物の技術上の基準を定める省令第50条第1項は、地震動、過大なガス流量又は異常なガス圧力低下を検知した場合にガスを遮断する機能を求めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "着脱が容易なガス栓に必要な機構は？",
+      "所定の建物への導管に必要な装置は？",
+      "地下室等への供給はどこから遮断する？",
+      "道路露出導管の衝撃対策は？",
+      "ガスメーターの遮断機能の検知対象は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "着脱が容易なガス栓に必要な機構は？",
+        "answer": "内部の過流出安全機構。"
+      },
+      {
+        "question": "所定の建物への導管に必要な装置は？",
+        "answer": "危急時にガスを速やかに遮断できる適切な装置。"
+      },
+      {
+        "question": "地下室等への供給はどこから遮断する？",
+        "answer": "地下室等からではなく、地上から速やかに遮断する。"
+      },
+      {
+        "question": "道路露出導管の衝撃対策は？",
+        "answer": "損傷後の遮断装置ではなく、衝撃による損傷を防止する措置。"
+      },
+      {
+        "question": "ガスメーターの遮断機能の検知対象は？",
+        "answer": "地震動、過大流量、異常なガス圧力低下。ガス中の水分は含まれない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第45条第1項第2号、第48条第1項、第49条第3項・第4項及び第50条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "45",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "4223c179dc0715b97c5cdad2be51cdaee7fea24e464f68066966707164bc3f81",
+          "rawXmlHash": "10be9e4a08f2ee52607cc392ad2aecf2379d0c8ac6586381e26394f68dbb62f9"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "3",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "49",
+          "paragraph": "4",
+          "articleTextHash": "43c673a693e3ee3f8521465c01d082781b30f8997387fc227c714b130dd4cffa",
+          "rawXmlHash": "4eef7aaa9230747d492a4f52ebc15b5b49439ae6d5564c8c75d341fa3179cda1"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "1",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "50",
+          "paragraph": "1",
+          "articleTextHash": "48381af5959ffbbaed82755e83875f4e9686d9cd0b61936d91d45efdcfd8b3d9",
+          "rawXmlHash": "cee2e13380909329397e2a16a96d29e08ad221b4a05af0ab14612d1ec7a7d408"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、間違い、間違いは現行法と一致する。",
+    "第3肢は地上から遮断、第4肢は損傷防止措置、第5肢の検知対象に水分は含まれない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q11-s01",
+      "gas-shunin-kou-2025-law-q11-s02",
+      "gas-shunin-kou-2025-law-q11-s03",
+      "gas-shunin-kou-2025-law-q11-s04",
+      "gas-shunin-kou-2025-law-q11-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:15:02Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
