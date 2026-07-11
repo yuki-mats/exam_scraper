@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 185,
+  "auditKey": "gas-shunin:otsu:2021:law:q04:784c83bec1fc",
+  "auditInputHash": "2a123c6b6028121c6d110fe0444d0dbc6a81724461853b1a49db97f5b3d0df6a",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:13:08+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス関係報告規則第4条第1項の表第1号は、ガス工作物の操作により人が死亡した事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "間違い。選択肢の事故はガス事故速報の対象ではない。ガス関係報告規則第4条第1項の表第14号は、ガス工作物の損壊等により一般公衆へ交通の困難等を招来した事故を、ガス事故詳報のみの対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火による負傷又は物損事故を、ガス事故速報及びガス事故詳報の対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス工作物の操作による死亡事故は速報対象？",
+      "供給支障戸数500以上の事故は速報対象？",
+      "工事中のガス工作物損壊による負傷事故は速報対象？",
+      "一般公衆に交通困難を招いた事故は速報対象？",
+      "ガス栓漏えいガスへの引火による物損事故は速報対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス工作物の操作による死亡事故は速報対象？",
+        "answer": "速報及び詳報の対象。"
+      },
+      {
+        "question": "供給支障戸数500以上の事故は速報対象？",
+        "answer": "速報及び詳報の対象。"
+      },
+      {
+        "question": "工事中のガス工作物損壊による負傷事故は速報対象？",
+        "answer": "速報及び詳報の対象。"
+      },
+      {
+        "question": "一般公衆に交通困難を招いた事故は速報対象？",
+        "answer": "速報対象ではなく、詳報のみの対象。"
+      },
+      {
+        "question": "ガス栓漏えいガスへの引火による物損事故は速報対象？",
+        "answer": "速報及び詳報の対象。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第4条第1項の表第1号、第3号、第6号、第14号及び第16号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "1": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "3",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "2": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "3": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "14",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "4": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "16",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、正しいは現行法令と一致する。",
+    "第14号は一般公衆に交通困難等を招来した事故を詳報のみの対象とし、速報対象にはしていない点を明示した。",
+    "速報対象外の第4肢がanswer_result_textの正解4と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス関係報告規則",
+      "lawId": "429M60000400016",
+      "article": "4",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:13:52Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
