@@ -255,6 +255,17 @@ def validate_patch(
                 errors.append(f"entry {index}: current record not found: {original_id}")
             elif question_record_hash(current) != expected_hash:
                 errors.append(f"entry {index}: expectedBeforeHash does not match current record")
+            else:
+                unchanged_fields = sorted(
+                    field
+                    for field, value in changes.items()
+                    if current.get(field) == value
+                )
+                if unchanged_fields:
+                    errors.append(
+                        f"entry {index}: changes must differ from current values: "
+                        f"{unchanged_fields}"
+                    )
 
     return errors
 

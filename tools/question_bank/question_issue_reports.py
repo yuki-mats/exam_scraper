@@ -47,6 +47,7 @@ UNREVIEWED_STATUS = "unreviewed"
 APP_UPDATE_STATUSES = {"app_update_queued"}
 PUBLISH_PENDING_STATUS = "publish_pending"
 APP_ROOT_CAUSE_RE = re.compile(r"^[a-z0-9][a-z0-9_.:-]{2,127}$")
+GIT_COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 BLIND_CONCLUSIONS = {
     "problem_found",
     "no_problem",
@@ -1021,6 +1022,22 @@ def _git_output(arguments: list[str]) -> str:
     ).stdout.strip()
 
 
+def _git_is_ancestor(ancestor: str, descendant: str) -> bool:
+    result = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", ancestor, descendant],
+        cwd=REPO_ROOT,
+        check=False,
+    )
+    if result.returncode == 0:
+        return True
+    if result.returncode == 1:
+        return False
+    raise RuntimeError(
+        "git ancestry check failed: "
+        f"ancestor={ancestor} descendant={descendant} exit={result.returncode}"
+    )
+
+
 def _ensure_named_clean_branch(canonical_branch: str) -> None:
     if _git_status_paths():
         raise RuntimeError("correction publish requires a clean dedicated checkout")
@@ -1030,6 +1047,25 @@ def _ensure_named_clean_branch(canonical_branch: str) -> None:
             "correction publish requires canonical branch "
             f"{canonical_branch}, current={branch or '<detached>'}"
         )
+
+
+def _ensure_pending_commit_on_remote(commit: str, canonical_branch: str) -> None:
+    _run_checked(["git", "fetch", "origin", canonical_branch])
+    remote_commit = _git_output(["rev-parse", "FETCH_HEAD"])
+    if _git_is_ancestor(commit, remote_commit):
+        print(
+            f"[SKIP] pending commit already exists on origin/{canonical_branch}",
+            flush=True,
+        )
+        return
+    if not _git_is_ancestor(remote_commit, commit):
+        raise RuntimeError(
+            "pending publish commit cannot fast-forward canonical branch: "
+            f"commit={commit} origin/{canonical_branch}={remote_commit}"
+        )
+    _run_checked_with_retries(
+        ["git", "push", "origin", f"{commit}:refs/heads/{canonical_branch}"]
+    )
 
 
 def _ensure_canonical_checkout_synced(canonical_branch: str) -> None:
@@ -1073,6 +1109,73 @@ def _expected_questions_for_original(upload_path: Path, original_question_id: st
             f"upload JSON has no questions for originalQuestionId={original_question_id}"
         )
     return expected
+
+
+def _persist_publish_upload_artifact(
+    upload_path: Path,
+    *,
+    original_question_id: str,
+) -> tuple[Path, str, list[dict[str, Any]]]:
+    expected = _expected_questions_for_original(upload_path, original_question_id)
+    artifact = {
+        "schemaVersion": "question-issue-upload-artifact/v1",
+        "questions": expected,
+    }
+    artifact_hash = sha256_json(artifact)
+    artifact_path = (
+        DEFAULT_WORK_ROOT / "publish_jobs" / f"{artifact_hash}.json"
+    ).resolve()
+    if artifact_path.is_file():
+        existing = load_json(artifact_path)
+        if sha256_json(existing) != artifact_hash:
+            raise RuntimeError("existing publish artifact hash mismatch")
+    else:
+        write_private_json(artifact_path, artifact)
+    return artifact_path, artifact_hash, expected
+
+
+def _load_publish_upload_artifact(
+    job: Mapping[str, Any],
+) -> tuple[Path, list[dict[str, Any]]]:
+    if job.get("schemaVersion") != "question-issue-publish-job/v2":
+        raise ValueError("unsupported pending publish job schema")
+    commit = str(job.get("publishedCommit") or "")
+    upload_hash = str(job.get("uploadHash") or "")
+    if not GIT_COMMIT_RE.fullmatch(commit):
+        raise ValueError("pending publish job has invalid commit")
+    if not re.fullmatch(r"[0-9a-f]{64}", upload_hash):
+        raise ValueError("pending publish job has invalid uploadHash")
+    upload_path = (REPO_ROOT / str(job.get("uploadPath") or "")).resolve()
+    artifact_root = (DEFAULT_WORK_ROOT / "publish_jobs").resolve()
+    if not upload_path.is_relative_to(artifact_root) or not upload_path.is_file():
+        raise ValueError("pending publish uploadPath is invalid")
+    payload = load_json(upload_path)
+    if sha256_json(payload) != upload_hash:
+        raise ValueError("pending publish upload artifact hash mismatch")
+    if not isinstance(payload, dict) or payload.get("schemaVersion") != (
+        "question-issue-upload-artifact/v1"
+    ):
+        raise ValueError("pending publish upload artifact schema is invalid")
+    questions = payload.get("questions")
+    if not isinstance(questions, list) or not questions:
+        raise ValueError("pending publish upload artifact has no questions")
+    original_question_id = str(job.get("originalQuestionId") or "")
+    qualification_id = str(job.get("qualificationId") or "")
+    list_group_id = str(job.get("listGroupId") or "")
+    if not original_question_id or not qualification_id or not list_group_id:
+        raise ValueError("pending publish job identity is incomplete")
+    expected: list[dict[str, Any]] = []
+    for question in questions:
+        if not isinstance(question, dict):
+            raise ValueError("pending publish artifact question is invalid")
+        if str(question.get("originalQuestionId") or "") != original_question_id:
+            raise ValueError("pending publish artifact includes another question unit")
+        if str(question.get("qualificationId") or "") != qualification_id:
+            raise ValueError("pending publish artifact qualification mismatch")
+        if str(question.get("listGroupId") or "") != list_group_id:
+            raise ValueError("pending publish artifact listGroup mismatch")
+        expected.append(question)
+    return upload_path, expected
 
 
 def verify_firestore_readback(store: Any, expected_questions: list[dict[str, Any]]) -> None:
@@ -1150,7 +1253,12 @@ def publish_correction_unit(
             list_group_id,
         ]
     )
-    upload_path = _latest_upload_json(qualification_id, list_group_id)
+    source_upload_path = _latest_upload_json(qualification_id, list_group_id)
+    original_question_id = str(work_item["originalQuestionId"])
+    upload_path, upload_hash, expected = _persist_publish_upload_artifact(
+        source_upload_path,
+        original_question_id=original_question_id,
+    )
     _run_checked(
         [
             sys.executable,
@@ -1178,24 +1286,20 @@ def publish_correction_unit(
     )
     _run_checked(["git", "commit", "-m", message])
     commit = _git_output(["rev-parse", "HEAD"])
-    expected = _expected_questions_for_original(
-        upload_path,
-        str(work_item["originalQuestionId"]),
-    )
     publish_job = {
-        "schemaVersion": "question-issue-publish-job/v1",
+        "schemaVersion": "question-issue-publish-job/v2",
         "publishedCommit": commit,
         "canonicalBranch": canonical_branch,
         "patchPath": str(patch_path.relative_to(REPO_ROOT)),
         "uploadPath": str(upload_path.relative_to(REPO_ROOT)),
+        "uploadHash": upload_hash,
+        "sourceUploadPath": str(source_upload_path.relative_to(REPO_ROOT)),
         "qualificationId": str(work_item["qualificationId"]),
         "listGroupId": str(work_item["listGroupId"]),
-        "originalQuestionId": str(work_item["originalQuestionId"]),
+        "originalQuestionId": original_question_id,
     }
     try:
-        _run_checked_with_retries(
-            ["git", "push", "origin", f"{commit}:refs/heads/{canonical_branch}"]
-        )
+        _ensure_pending_commit_on_remote(commit, canonical_branch)
     except RuntimeError as error:
         raise PublishPendingError(phase="push", job=publish_job) from error
 
@@ -1234,29 +1338,15 @@ def retry_publish_job(
     store: Any,
     credentials_json: Path | None,
 ) -> None:
-    if job.get("schemaVersion") != "question-issue-publish-job/v1":
-        raise ValueError("unsupported pending publish job schema")
     canonical_branch = str(job.get("canonicalBranch") or "")
     commit = str(job.get("publishedCommit") or "")
-    upload_path = (REPO_ROOT / str(job.get("uploadPath") or "")).resolve()
-    if not upload_path.is_relative_to(REPO_ROOT) or not upload_path.is_file():
-        raise ValueError("pending publish uploadPath is invalid")
-    if not canonical_branch or not commit:
+    upload_path, expected = _load_publish_upload_artifact(job)
+    if not canonical_branch:
         raise ValueError("pending publish job is missing branch/commit")
     _ensure_named_clean_branch(canonical_branch)
-    if subprocess.run(
-        ["git", "merge-base", "--is-ancestor", commit, "HEAD"],
-        cwd=REPO_ROOT,
-        check=False,
-    ).returncode != 0:
+    if not _git_is_ancestor(commit, "HEAD"):
         raise RuntimeError(f"pending publish commit is not in HEAD history: {commit}")
-    _run_checked_with_retries(
-        ["git", "push", "origin", f"{commit}:refs/heads/{canonical_branch}"]
-    )
-    expected = _expected_questions_for_original(
-        upload_path,
-        str(job.get("originalQuestionId") or ""),
-    )
+    _ensure_pending_commit_on_remote(commit, canonical_branch)
     upload_command = [
         sys.executable,
         "scripts/upload/upload_questions_to_firestore.py",
@@ -1298,17 +1388,23 @@ def retry_pending_publishes(
     ]
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     jobs: dict[str, dict[str, Any]] = {}
+    invalid_pending_count = 0
     for case in pending_cases:
         operational = case.get("operationalResult")
         job = operational.get("publishJob") if isinstance(operational, dict) else None
         if not isinstance(job, dict):
+            invalid_pending_count += 1
+            print(
+                "[RETRY FAILED] errorType=InvalidPendingPublishJob",
+                flush=True,
+            )
             continue
         job_key = sha256_json(job)
         jobs[job_key] = dict(job)
         grouped[job_key].append(case)
 
     completed = 0
-    failed = 0
+    failed = invalid_pending_count
     for job_key, cases in grouped.items():
         try:
             retry_job(

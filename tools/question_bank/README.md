@@ -100,9 +100,9 @@ python tools/question_bank/question_bank.py report-run \
   --credentials-json /secure/service-account.json
 ```
 
-`report-run` は blind A/B → challenge → `24_questionIssueCorrections` → merge → gate → upload dry-run → correction unit commit/push → upload → live readback を順に実行します。raw comment を blind review、patch、Git、通常ログへ入れません。詳細は `document/operations/question_issue_report_workflow.md` を正本にします。
+`report-run` は blind A/B → challenge → `24_questionIssueCorrections` → merge → gate → correction unit 対象 docs だけの不変 artifact で upload dry-run → commit/push →同じ artifact の upload → live readback を順に実行します。raw comment を blind review、patch、Git、通常ログへ入れません。詳細は `document/operations/question_issue_report_workflow.md` を正本にします。
 
-production では `--approve --execute-publish` を組にし、承認後に patch preview だけで止まる実行を拒否します。commit 後の push/upload/readback 失敗は `publish_pending` として保持され、同じ commit を次で再試行します。
+production では `--approve --execute-publish` を組にし、承認後に patch preview だけで止まる実行と current 値への no-op patch を拒否します。commit 後の push/upload/readback 失敗は `publish_pending` として保持され、hash 固定した単一 correction unit artifact と同じ commit を次で再試行します。remote がその commit をすでに含む場合は再 push を省略し、未反映時も fast-forward だけを許可します。
 
 ```bash
 python tools/question_bank/question_bank.py report-retry-publish \

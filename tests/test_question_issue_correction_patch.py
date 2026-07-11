@@ -137,6 +137,32 @@ class QuestionIssueCorrectionPatchTests(unittest.TestCase):
             self.assertTrue(any("private report fields" in error for error in errors))
             self.assertTrue(any("not allowed" in error for error in errors))
 
+    def test_patch_rejects_fields_that_do_not_change_current_record(self) -> None:
+        record = current_record()
+        patch = valid_patch(record)
+        patch["entries"][0]["changes"] = {
+            "questionBodyText": record["questionBodyText"]
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            patch_path = root / "patch.json"
+            current_path = root / "current.json"
+            patch_path.write_text(json.dumps(patch), encoding="utf-8")
+            current_path.write_text(
+                json.dumps({"question_bodies": [record]}),
+                encoding="utf-8",
+            )
+
+            errors = validate_patch(
+                patch_path,
+                config_path=CONFIG_PATH,
+                current_path=current_path,
+            )
+
+            self.assertTrue(
+                any("changes must differ from current values" in error for error in errors)
+            )
+
     def test_merge_applies_chained_overlays_and_checks_all_targets(self) -> None:
         record = current_record()
         first = valid_patch(record)

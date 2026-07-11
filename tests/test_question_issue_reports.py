@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+from tools.question_bank import question_issue_reports as question_issue_reports_module
 from tools.question_bank.question_issue_report_store import (
     FixtureReportStore,
     validate_operational_case,
@@ -15,12 +16,15 @@ from tools.question_bank.question_issue_report_store import (
 from tools.question_bank.question_issue_reports import (
     PublishPendingError,
     ReviewExecutor,
+    _ensure_pending_commit_on_remote,
+    _persist_publish_upload_artifact,
     build_batch_manifest,
     build_blind_input,
     build_inventory,
     load_config,
     process_batch,
     render_inventory,
+    retry_publish_job,
     retry_pending_publishes,
     routed_workflow_contracts,
     sha256_json,
@@ -326,11 +330,12 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
             allow_fixture_placeholders=True,
         )
         publish_job = {
-            "schemaVersion": "question-issue-publish-job/v1",
+            "schemaVersion": "question-issue-publish-job/v2",
             "publishedCommit": "1" * 40,
             "canonicalBranch": "codex/goal-driven-workflow",
             "patchPath": "output/sample/patch.json",
             "uploadPath": "output/sample/upload.json",
+            "uploadHash": "2" * 64,
             "qualificationId": "sample-qualification",
             "listGroupId": "2026",
             "originalQuestionId": "q-original-1",
@@ -389,6 +394,143 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
             self.store.get_case("case-content-1")["workflowStatus"],
             "published",
         )
+
+    @mock.patch(
+        "tools.question_bank.question_issue_reports._run_checked_with_retries"
+    )
+    @mock.patch(
+        "tools.question_bank.question_issue_reports._git_is_ancestor",
+        return_value=True,
+    )
+    @mock.patch(
+        "tools.question_bank.question_issue_reports._git_output",
+        return_value="2" * 40,
+    )
+    @mock.patch("tools.question_bank.question_issue_reports._run_checked")
+    def test_pending_publish_skips_push_when_remote_contains_commit(
+        self,
+        run_checked,
+        _git_output,
+        git_is_ancestor,
+        push_with_retries,
+    ) -> None:
+        _ensure_pending_commit_on_remote(
+            "1" * 40,
+            "codex/goal-driven-workflow",
+        )
+
+        run_checked.assert_called_once_with(
+            ["git", "fetch", "origin", "codex/goal-driven-workflow"]
+        )
+        git_is_ancestor.assert_called_once_with("1" * 40, "2" * 40)
+        push_with_retries.assert_not_called()
+
+    def test_pending_publish_without_job_fails_closed(self) -> None:
+        store = mock.Mock()
+        store.list_cases.return_value = [
+            {
+                "id": "case-pending-without-job",
+                "workflowStatus": "publish_pending",
+                "operationalResult": {},
+            }
+        ]
+        retry_job = mock.Mock()
+
+        result = retry_pending_publishes(
+            store=store,
+            credentials_json=None,
+            retry_job=retry_job,
+        )
+
+        self.assertEqual(result, {"completed": 0, "failed": 1})
+        retry_job.assert_not_called()
+
+    def test_pending_publish_uses_immutable_single_question_artifact(self) -> None:
+        output_root = REPO_ROOT / "output"
+        output_root.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=output_root) as temp_dir:
+            temp_root = Path(temp_dir)
+            source_upload_path = temp_root / "rotating-upload.json"
+            selected_question = {
+                "questionId": "q-original-1_1",
+                "originalQuestionId": "q-original-1",
+                "qualificationId": "sample-qualification",
+                "listGroupId": "2026",
+            }
+            another_question = {
+                "questionId": "q-original-2_1",
+                "originalQuestionId": "q-original-2",
+                "qualificationId": "sample-qualification",
+                "listGroupId": "2026",
+            }
+            source_upload_path.write_text(
+                json.dumps(
+                    {"questions": [selected_question, another_question]},
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            durable_root = temp_root / "question-issue-work"
+            with mock.patch.object(
+                question_issue_reports_module,
+                "DEFAULT_WORK_ROOT",
+                durable_root,
+            ):
+                artifact_path, upload_hash, expected = (
+                    _persist_publish_upload_artifact(
+                        source_upload_path,
+                        original_question_id="q-original-1",
+                    )
+                )
+                source_upload_path.unlink()
+                self.assertTrue(artifact_path.is_file())
+                self.assertEqual(expected, [selected_question])
+                self.assertEqual(
+                    json.loads(artifact_path.read_text(encoding="utf-8"))[
+                        "questions"
+                    ],
+                    [selected_question],
+                )
+                job = {
+                    "schemaVersion": "question-issue-publish-job/v2",
+                    "publishedCommit": "1" * 40,
+                    "canonicalBranch": "codex/goal-driven-workflow",
+                    "uploadPath": str(artifact_path.relative_to(REPO_ROOT)),
+                    "uploadHash": upload_hash,
+                    "qualificationId": "sample-qualification",
+                    "listGroupId": "2026",
+                    "originalQuestionId": "q-original-1",
+                }
+                with (
+                    mock.patch(
+                        "tools.question_bank.question_issue_reports._ensure_named_clean_branch"
+                    ),
+                    mock.patch(
+                        "tools.question_bank.question_issue_reports._git_is_ancestor",
+                        return_value=True,
+                    ),
+                    mock.patch(
+                        "tools.question_bank.question_issue_reports._ensure_pending_commit_on_remote"
+                    ),
+                    mock.patch(
+                        "tools.question_bank.question_issue_reports._run_checked"
+                    ) as run_checked,
+                    mock.patch(
+                        "tools.question_bank.question_issue_reports.verify_firestore_readback"
+                    ) as verify_readback,
+                ):
+                    retry_publish_job(
+                        job,
+                        store=self.store,
+                        credentials_json=None,
+                    )
+
+                upload_command = run_checked.call_args.args[0]
+                self.assertEqual(Path(upload_command[2]), artifact_path)
+                verify_readback.assert_called_once_with(
+                    self.store,
+                    [selected_question],
+                )
 
     def test_app_inventory_deduplicates_stable_root_cause(self) -> None:
         cases = self.store.list_cases()
