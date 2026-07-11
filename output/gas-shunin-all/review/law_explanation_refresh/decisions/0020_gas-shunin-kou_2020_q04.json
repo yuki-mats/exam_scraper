@@ -1,0 +1,189 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 20,
+  "auditKey": "gas-shunin:kou:2020:law:q04:45695401f959",
+  "auditInputHash": "5a902a940aa3c858d8dd9d7f47893d8b0cb8feb5aac0013a81c4e66c8f4607ad",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:50:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「従事する者は、ガス主任技術者でなければならない」が誤り。ガス事業法第30条第2項、第66条第2項、第84条第1項及び第99条第2項は、工事等の従事者がガス主任技術者の保安上の指示に従うと定めている。",
+      "間違い。選択肢の「選任するときは、事前に届け出る」が誤り。ガス事業法第65条第2項は、一般ガス導管事業者が主任技術者を選任又は解任したときは、遅滞なく届け出ると定めている。",
+      "正しい。ガス事業法第29条第1項は、ガス主任技術者試験を、ガス工作物の工事、維持及び運用に関する保安に必要な知識及び技能について行うと定めている。",
+      "正しい。ガス事業法第30条第1項、第66条第1項、第84条第1項及び第99条第1項は、各事業区分のガス主任技術者が誠実に職務を行うと定めている。",
+      "正しい。ガス事業法第67条は、ガス主任技術者が法令等に違反したとき、経済産業大臣が一般ガス導管事業者にその解任を命ずることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス工作物工事の従事者が従うものは？",
+      "主任技術者の選任・解任届はいつ提出する？",
+      "ガス主任技術者試験で問われるものは？",
+      "ガス主任技術者の職務上の義務は？",
+      "大臣が主任技術者の解任を命じられる場合は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス工作物工事の従事者が従うものは？",
+        "answer": "ガス主任技術者が保安のためにする指示。"
+      },
+      {
+        "question": "主任技術者の選任・解任届はいつ提出する？",
+        "answer": "選任又は解任した後、遅滞なく提出する。"
+      },
+      {
+        "question": "ガス主任技術者試験で問われるものは？",
+        "answer": "ガス工作物の工事、維持及び運用に関する保安上必要な知識及び技能。"
+      },
+      {
+        "question": "ガス主任技術者の職務上の義務は？",
+        "answer": "誠実に職務を行うこと。"
+      },
+      {
+        "question": "大臣が主任技術者の解任を命じられる場合は？",
+        "answer": "主任技術者が法令等に違反した場合など。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第29条、第30条、第65条、第66条、第67条、第84条及び第99条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "66",
+          "paragraph": "2",
+          "articleTextHash": "cbb74494d654f0bdb1e4697b4627535e077c0e6245e889aeba49d2c0bb17aa5c",
+          "rawXmlHash": "03ffeaaf6983eabf6a3639ece1c1edadade6d449d0e45a6e8e577f38bc83a2f9",
+          "references": [
+            {
+              "article": "30",
+              "paragraph": "2",
+              "articleTextHash": "02753d0c882d462c096d2a01bd2f8c155fed4009642d20fbb0e64518ca57de57",
+              "rawXmlHash": "aa5ed1001717026b34ca75d78d7de71c6176607f0a3a6a77aec9a945a861eb07"
+            },
+            {
+              "article": "66",
+              "paragraph": "2"
+            },
+            {
+              "article": "84",
+              "paragraph": "1",
+              "articleTextHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+              "rawXmlHash": "5ca489298ec41586886cc2d644333c997cf6f24d4462af2660b404fa1db74ea9"
+            },
+            {
+              "article": "99",
+              "paragraph": "2",
+              "articleTextHash": "6e8d7dc980885eb272c05c640e26a9894ca6d49d88ad2db169abae4d09adedf5",
+              "rawXmlHash": "cb5cdeef10b7c45d1ecb9e5b9a2caab7977979fa29dea99e91e2456095b1af06"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "65",
+          "paragraph": "2",
+          "articleTextHash": "49d27e25faea946c7d275cb97f41e3e0a49dfdb428578b4a825e55d6265e9c6c",
+          "rawXmlHash": "001d8d5dcbc45e3650380e6830fe363975ee1c35a4f96a6fce5667f68f620f69"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "29",
+          "paragraph": "1",
+          "articleTextHash": "15334c617f5d6b443bb73b9266ac1762f7a1b8fb72607cb80869d1a951c1d9e7",
+          "rawXmlHash": "de735588804c7a35f738a8c81ebc7ec80a66b6b882da53bc335e2720f7c8fb5e"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "66",
+          "paragraph": "1",
+          "articleTextHash": "cbb74494d654f0bdb1e4697b4627535e077c0e6245e889aeba49d2c0bb17aa5c",
+          "rawXmlHash": "03ffeaaf6983eabf6a3639ece1c1edadade6d449d0e45a6e8e577f38bc83a2f9",
+          "references": [
+            {
+              "article": "30",
+              "paragraph": "1",
+              "articleTextHash": "02753d0c882d462c096d2a01bd2f8c155fed4009642d20fbb0e64518ca57de57",
+              "rawXmlHash": "aa5ed1001717026b34ca75d78d7de71c6176607f0a3a6a77aec9a945a861eb07"
+            },
+            {
+              "article": "66",
+              "paragraph": "1"
+            },
+            {
+              "article": "84",
+              "paragraph": "1",
+              "articleTextHash": "93170ca536949cef062ebfcfb414782e243c850ac17ae89507c463323b50c663",
+              "rawXmlHash": "5ca489298ec41586886cc2d644333c997cf6f24d4462af2660b404fa1db74ea9"
+            },
+            {
+              "article": "99",
+              "paragraph": "1",
+              "articleTextHash": "6e8d7dc980885eb272c05c640e26a9894ca6d49d88ad2db169abae4d09adedf5",
+              "rawXmlHash": "cb5cdeef10b7c45d1ecb9e5b9a2caab7977979fa29dea99e91e2456095b1af06"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "67",
+          "articleTextHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+          "rawXmlHash": "7d6a1a7caee11c987ae3865516dd72deb7f9cafdf3ea87e083d122e328a8ef2a"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、正しい、正しい、正しいは現行法と一致する。",
+    "工事等従事者の指示遵守義務と主任技術者の誠実義務は、事業区分別の第30条、第66条、第84条及び第99条をまとめて確認した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "29",
+        "30",
+        "65",
+        "66",
+        "67",
+        "84",
+        "99"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:56:51Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
