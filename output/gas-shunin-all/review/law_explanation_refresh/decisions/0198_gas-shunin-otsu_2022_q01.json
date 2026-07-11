@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 198,
+  "auditKey": "gas-shunin:otsu:2022:law:q01:e66cf19d1ec7",
+  "auditInputHash": "fdd9ffa0adc42372b0ade229f3e8f61911c0f5cc027d52b55b372041d698efa4",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T02:03:22+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「ガス事業者の利益を保護」が誤り。ガス事業法第1条は、ガス事業の運営を調整することによって、ガスの使用者の利益を保護し、ガス事業の健全な発達、公共の安全の確保及び公害の防止を図ることを目的と定めている。",
+      "正しい。ガス事業法第2条第11項は、「ガス事業」を、ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業と定めている。",
+      "間違い。選択肢の「経済産業大臣の許可を受けなければならない」が誤り。ガス事業法第3条は、ガス小売事業を営もうとする者は、経済産業大臣の登録を受けなければならないと定めている。",
+      "正しい。ガス事業法施行規則第1条第2項第5号は、「液化ガス」を、常用温度で圧力が0.2MPa以上となり現にその圧力が0.2MPa以上であるもの、又は圧力が0.2MPaとなる場合の温度が35℃以下である液化ガスと定めている。",
+      "正しい。ガス事業法第175条は、高圧ガス保安法中の高圧ガスの製造又は販売の事業及びそのための施設に関する規定を、ガス事業及びガス工作物には適用しないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス事業法が保護する利益は誰のもの？",
+      "ガス事業に含まれる4事業は？",
+      "ガス小売事業を始めるために必要なのは許可か登録か？",
+      "液化ガスの0.2MPa・35℃の定義は？",
+      "高圧ガス保安法の所定規定はガス事業に適用される？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス事業法が保護する利益は誰のもの？",
+        "answer": "ガス事業者ではなく、ガスの使用者の利益。"
+      },
+      {
+        "question": "ガス事業に含まれる4事業は？",
+        "answer": "ガス小売事業、一般ガス導管事業、特定ガス導管事業及びガス製造事業。"
+      },
+      {
+        "question": "ガス小売事業を始めるために必要なのは許可か登録か？",
+        "answer": "経済産業大臣の登録。"
+      },
+      {
+        "question": "液化ガスの0.2MPa・35℃の定義は？",
+        "answer": "常用温度で圧力が0.2MPa以上となり現に0.2MPa以上であるもの、又は0.2MPaとなる温度が35℃以下である液化ガス。"
+      },
+      {
+        "question": "高圧ガス保安法の所定規定はガス事業に適用される？",
+        "answer": "高圧ガスの製造・販売事業及びそのための施設に関する規定は、ガス事業及びガス工作物には適用しない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第1条、第2条第11項、第3条、第175条及びガス事業法施行規則第1条第2項第5号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "1",
+          "paragraph": "1",
+          "articleTextHash": "58663472f6276d561bd496245453e69b3254a264151a7e16ef664f57acae7c77",
+          "rawXmlHash": "ff93b5903f848214dfbfdd789f22c00b6e86d3664e9346be5d99087892750b5d"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "2",
+          "paragraph": "11",
+          "articleTextHash": "cc43e61b23fe3ba6b332fe51d7c53be3d1b142d475676369829fbef8cc8c13e6",
+          "rawXmlHash": "2488d417650b1335b7df31c2ad9df365b84fd8e77085a087dd5f086781f152eb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "2599d0a08251d03ba11138498aa0e7d866c70e105b3ccc4c90d1dac43426597d",
+          "rawXmlHash": "cca3ed2ae2d5705fedb2d6650f00d76143a580c384c40583b772c011926af87e"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "1",
+          "paragraph": "2",
+          "item": "5",
+          "articleTextHash": "dc5325c9671968fb2f1c44b66ff36ea9223b5184fd5ef8b3d00d6ece64eb7da2",
+          "rawXmlHash": "0626e12cf0eca5afb6b5a1470cd3d7cd18e07e89379d925c9d83ea1f7fac219d"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "175",
+          "paragraph": "1",
+          "articleTextHash": "5920d9b9e122f7e7b9abdaf9a89edb785f45a03e647a690157ec4c322ba7098f",
+          "rawXmlHash": "927241d890e3c04007cbd92dab7b2f14daa4311c3886bf2628a19ba6102f8ac0"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、正しい、正しいは現行法と一致する。",
+    "誤りは選択肢1のガス事業者の利益と、選択肢3の許可で、正しくはガスの使用者の利益と登録である。",
+    "誤りの組合せは選択肢1・3で、answer_result_textの正解2と一致する。",
+    "第175条には現行法で水素等供給等促進法に関する適用除外も追加されているが、選択肢の高圧ガス保安法に関する記述は維持されている。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2022-law-q01-s01",
+      "gas-shunin-otsu-2022-law-q01-s02",
+      "gas-shunin-otsu-2022-law-q01-s03",
+      "gas-shunin-otsu-2022-law-q01-s04",
+      "gas-shunin-otsu-2022-law-q01-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス事業法",
+        "lawId": "329AC0000000051",
+        "articles": [
+          "1",
+          "2",
+          "3",
+          "175"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051"
+      },
+      {
+        "lawTitle": "ガス事業法施行規則",
+        "lawId": "345M50000400097",
+        "articles": [
+          "1"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T17:04:04Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
