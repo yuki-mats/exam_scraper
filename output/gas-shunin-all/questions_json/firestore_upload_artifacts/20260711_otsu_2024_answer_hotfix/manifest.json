@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "gas-shunin-answer-hotfix-manifest/v1",
+  "createdAt": "2026-07-11T08:11:26Z",
+  "artifact": "output/gas-shunin-all/questions_json/firestore_upload_artifacts/20260711_otsu_2024_answer_hotfix/gas_shunin_otsu_2024_answer_hotfix_9b41f1d3529521cf.json",
+  "artifactSha256": "9b41f1d3529521cfa67bb2b3412d57c227fb8856f86cbe8e73f81f126df4a9eb",
+  "questionCount": 25,
+  "originalQuestionCount": 5,
+  "target": "gas-shunin-otsu 2024 kiso q10-q14",
+  "sourcePolicy": "00_source correctChoiceText is the default authority; contradictory answer patches are rejected by the upload gate",
+  "uploadResult": {
+    "updated": 10,
+    "skipped": 15,
+    "errors": 0
+  },
+  "readback": {
+    "path": "output/gas-shunin-all/questions_json/firestore_upload_artifacts/20260711_otsu_2024_answer_hotfix/readback.json",
+    "expectedCount": 25,
+    "readbackCount": 25,
+    "mismatchCount": 0,
+    "status": "verified"
+  },
+  "convergence": {
+    "updated": 0,
+    "skipped": 25,
+    "errors": 0
+  }
+}
