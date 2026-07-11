@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 225,
+  "auditKey": "gas-shunin:otsu:2023:law:q12:fd7ac0c9dbce",
+  "auditInputHash": "c3bf86a238cc7e6246c5f6b7a9fad35dffed62329895841440eeebc1b911db2d",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T03:41:06+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第1項の表（1）は、道路に埋設されている最高使用圧力が高圧の導管について、埋設の日以後1年に1回以上、適切な方法により漏えい検査を行わなければならないと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第2項の表（1）は、本支管からガス栓までの間に絶縁措置が講じられ、その絶縁部分からガス栓までの間でプラスチック被覆された部分について、埋設の日以後6年に1回以上、適切な方法により漏えい検査を行わなければならないと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第51条第1項ただし書第2号及び第2項ただし書第3号は、ポリエチレン管を使用している場合、その使用部分に限り各項の漏えい検査義務の例外になると定めている。",
+      "間違い。選択肢の「最高使用圧力が中圧の導管」が誤りで、正しくは「最高使用圧力が高圧の導管」である。ガス工作物の技術上の基準を定める省令第52条第1項は、最高使用圧力が高圧の導管を、ガスの供給に係る建物を除く建物の内部又は基礎面下に設置してはならないと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第52条第2項は、特定地下街等又は特定地下室等にガスを供給する導管を、適切なガス漏れ警報設備の検知区域において、その外壁を貫通するように設置しなければならないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "道路に埋設された高圧導管の漏えい検査周期は？",
+      "所定のプラスチック被覆部分の漏えい検査周期は？",
+      "ポリエチレン管の使用部分は漏えい検査でどう扱う？",
+      "建物内部又は基礎面下に設置できない導管は？",
+      "特定地下街等への導管はどこで外壁を貫通させる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "道路に埋設された高圧導管の漏えい検査周期は？",
+        "answer": "埋設の日以後1年に1回以上。"
+      },
+      {
+        "question": "所定のプラスチック被覆部分の漏えい検査周期は？",
+        "answer": "埋設の日以後6年に1回以上。"
+      },
+      {
+        "question": "ポリエチレン管の使用部分は漏えい検査でどう扱う？",
+        "answer": "第51条第1項ただし書第2号及び第2項ただし書第3号により、その使用部分は各項の検査義務の例外となる。"
+      },
+      {
+        "question": "建物内部又は基礎面下に設置できない導管は？",
+        "answer": "最高使用圧力が高圧の導管。"
+      },
+      {
+        "question": "特定地下街等への導管はどこで外壁を貫通させる？",
+        "answer": "適切なガス漏れ警報設備の検知区域。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第51条第1項の表（1）及び同項ただし書第2号、第2項の表（1）及び同項ただし書第3号並びに第52条第1項・第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "1",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "2",
+          "item": "表（1）",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "51",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+          "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408",
+          "references": [
+            {
+              "article": "51",
+              "paragraph": "1",
+              "item": "2",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+            },
+            {
+              "article": "51",
+              "paragraph": "2",
+              "item": "3",
+              "articleTextHash": "dc4c8ef4974ad4ae39ec9966482cccfdf62df514f04f56cd5ed774aa25c497a1",
+              "rawXmlHash": "2d2150c3a71f855bc072826db1847aee7b442d805d3bb10a9fb6a66ce9c30408"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "1",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "52",
+          "paragraph": "2",
+          "articleTextHash": "8a20ebf9a6b9eb62918604a502bda9dcbe0b68699707d6e387f3162155fd2c53",
+          "rawXmlHash": "a2341e0fb489a8825dcb65075d16bdba0ec46fc8df737922e25ed646fa9dfe85"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、正しいは現行省令と一致する。",
+    "第51条の表による検査周期と、第1項ただし書第2号・第2項ただし書第3号のポリエチレン管例外を細目まで確認した。",
+    "第4肢は中圧ではなく高圧の導管が第52条第1項の設置禁止対象であり、誤っているものは第4肢だけでanswer_result_textの正解4と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2023-law-q12-s01",
+      "gas-shunin-otsu-2023-law-q12-s02",
+      "gas-shunin-otsu-2023-law-q12-s03",
+      "gas-shunin-otsu-2023-law-q12-s04",
+      "gas-shunin-otsu-2023-law-q12-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "51",
+        "52"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T18:41:58Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
