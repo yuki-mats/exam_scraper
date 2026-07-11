@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 154,
+  "auditKey": "gas-shunin:otsu:2019:law:q05:82bd20adc6b5",
+  "auditInputHash": "c5703e2e8887a25ec1df19f64cc78518e36cce7806a6b0a29e4577d4945fc727",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:40:46+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第4条第1項は、製造所及び供給所に公衆の立入りを防止する適切な措置を講じると定め、周囲の状況により立入りのおそれがない場合を例外としている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第10条第1項は、製造所若しくは供給所に設置するガス若しくは液化ガスを通ずるガス工作物又は移動式ガス発生設備の付近の電気設備に、設置場所とガスの種類に応じた防爆性能を求めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第5条第1項は、製造所（特定製造所を除く。）、供給所及び導管を管理する事業場に、緊急時の迅速な通信を確保する適切な通信設備を設けると定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「液化ガスの貯蔵能力が30kg」が誤り。ガス工作物の技術上の基準を定める省令第6条第8項は、他の移動式ガス発生設備との保安上必要な距離を求める大容量移動式ガス発生設備を、液化ガスの場合は貯蔵能力が100kgを超えるものと定めている。30kgの設備はこの基準に該当しない。",
+      "正しい。ガス工作物の技術上の基準の細目を定める告示第3条第7号は、一日に平均2万人以上が乗降する駅の母屋及びプラットホームを第1種保安物件と定めている。選択肢はこれと一致する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "製造所・供給所の立入り防止措置に例外はある？",
+      "ガス工作物付近の電気設備に必要な性能は？",
+      "保安通信設備を設ける事業場は？",
+      "大容量移動式ガス発生設備となる液化ガスの貯蔵能力は？",
+      "第1種保安物件となる駅の乗降者数基準は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "製造所・供給所の立入り防止措置に例外はある？",
+        "answer": "ある。周囲の状況により公衆が立ち入るおそれがない場合は例外となる。"
+      },
+      {
+        "question": "ガス工作物付近の電気設備に必要な性能は？",
+        "answer": "設置場所の状況とガス又は液化ガスの種類に応じた防爆性能。"
+      },
+      {
+        "question": "保安通信設備を設ける事業場は？",
+        "answer": "製造所（特定製造所を除く。）、供給所及び導管を管理する事業場。"
+      },
+      {
+        "question": "大容量移動式ガス発生設備となる液化ガスの貯蔵能力は？",
+        "answer": "100kgを超えるもの。圧縮ガスの場合は30立方メートルを超えるもの。"
+      },
+      {
+        "question": "第1種保安物件となる駅の乗降者数基準は？",
+        "answer": "一日に平均2万人以上。告示第3条第7号が定めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第4条第1項、第10条第1項、第5条第1項及び第6条第8項並びにガス工作物の技術上の基準の細目を定める告示第3条第7号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "4",
+          "paragraph": "1",
+          "articleTextHash": "b6d5a0556ec648f70109d2644282720fa04461f174c87b34bcc4dcd963178ae2",
+          "rawXmlHash": "42cd314794580a99332af8e24276d23bf04cad276f3d92d1e8113ccbe693294b"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "10",
+          "paragraph": "1",
+          "articleTextHash": "38b6a2e730cd7e1ca27ac78ccedbcc4fffbc06f77fd2be97503d701c36b86586",
+          "rawXmlHash": "691a406b6b56039913bff94378d326c79f179673f3b195beea758e587da5e59f"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "5",
+          "paragraph": "1",
+          "articleTextHash": "13050333b7a56805c831b5da7eec0aa727d08f96dd997628ce8e8ca086882275",
+          "rawXmlHash": "37455c0dfdc18455eaeaeece24655afedc5bd1312bbf091cf02e4f97a9a15b41"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "8",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907"
+        },
+        "4": {
+          "sourceType": "external_primary",
+          "source": "meti_official_pdf",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+          "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
+          "article": "3",
+          "item": "7",
+          "articleTextHash": "15cef31f169ccdd7d6fc10423abd11c052ad47f606ca8e29b62b3b7185533c62",
+          "verifiedText": "第三条第七号\n一日に平均二万人以上の者が乗降する駅の母屋及びプラットホーム"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、正しいは現行一次資料と一致する。",
+    "選択肢4は、液化ガス30kgでは大容量移動式ガス発生設備の100kg超基準を満たさないことを具体的に示した。",
+    "選択肢5のlawRevisionFacts.currentを省令第6条から、直接根拠である経済産業省公式告示第3条第7号へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2019-law-q05-s01",
+      "gas-shunin-otsu-2019-law-q05-s02",
+      "gas-shunin-otsu-2019-law-q05-s03",
+      "gas-shunin-otsu-2019-law-q05-s04",
+      "gas-shunin-otsu-2019-law-q05-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令及び同細目告示",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:41:27Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
