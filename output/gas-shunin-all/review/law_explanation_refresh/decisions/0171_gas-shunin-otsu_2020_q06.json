@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 171,
+  "auditKey": "gas-shunin:otsu:2020:law:q06:297f66327623",
+  "auditInputHash": "3874d834f20ad1c2c02f5b1cd1414a43803d7dbcb822ee71f48d6b3d0c54cc96",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:25:21+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「製造所の敷地境界から保安物件に対し」が誤り。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となるガス工作物の外面から保安物件に対し、告示で定める距離を確保すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、ガスの漏えいを適切に検知し、かつ、警報する設備を設けると定めている。",
+      "間違い。選択肢の「あらかじめ経済産業大臣に届け出た場合」が誤り。ガス工作物の技術上の基準を定める省令第6条第4項は、距離規定によらずガス工作物を施設できる場合を、経済産業大臣の認可を受けた場合と定めている。",
+      "間違い。選択肢の「液化ガスを廃棄できる構造」が誤り。ガス工作物の技術上の基準を定める省令第13条第1項は、製造設備に属する対象部分を、ガス又は液化ガスを安全に置換できる構造と定めている。",
+      "正しい。ガス工作物の技術上の基準の細目を定める告示第3条第3号は、劇場、映画館、演芸場、公会堂その他これらに類する施設で、収容定員300人以上のものを第1種保安物件と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "保安物件との離隔距離はどこから測る？",
+      "製造所の漏えい検知・警報設備はどこに設ける？",
+      "距離規定によらず施設するために必要な手続は？",
+      "液化ガスを通ずる製造設備部分に必要な構造は？",
+      "第1種保安物件となる劇場等の基準は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "保安物件との離隔距離はどこから測る？",
+        "answer": "対象となるガス工作物の外面から測る。"
+      },
+      {
+        "question": "製造所の漏えい検知・警報設備はどこに設ける？",
+        "answer": "漏えいガスが滞留するおそれのある製造所内の適当な場所。"
+      },
+      {
+        "question": "距離規定によらず施設するために必要な手続は？",
+        "answer": "経済産業大臣の認可。事前の届出だけでは足りない。"
+      },
+      {
+        "question": "液化ガスを通ずる製造設備部分に必要な構造は？",
+        "answer": "ガス又は液化ガスを安全に置換できる構造。"
+      },
+      {
+        "question": "第1種保安物件となる劇場等の基準は？",
+        "answer": "収容定員300人以上。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第6条第2項・第4項、第9条第2項及び第13条第1項並びに同省令の細目告示第3条第3号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "2",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "9",
+          "paragraph": "2",
+          "articleTextHash": "5b931de79b83db48fecde4452b5cf62b6b6f35559bcfaecd3817f422212268c3",
+          "rawXmlHash": "667e16806b7a64c4012a254d2ea8a3fe32295f71d6042327eb68ead957eb7f6a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "6",
+          "paragraph": "4",
+          "articleTextHash": "777134a8b1adaf32ed0e8c0202226a13be4faf6cd40f1bdb49ee2e163d5a45c8",
+          "rawXmlHash": "1c60914cb0beb1a95f68fac6b5ed0c8766a14dbc1e7584608aeb1a54bf052907"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "13",
+          "paragraph": "1",
+          "articleTextHash": "d5149a4146a03809df2e0f65510ca3bcc704cba9a584b8458a786154b42e86d8",
+          "rawXmlHash": "90e37be1a77ea96227e1404350b4e7b34d86b42dce85b0f9d6f66cfd1579ea15"
+        },
+        "4": {
+          "sourceType": "external_primary",
+          "source": "meti_official_pdf",
+          "sourceUrl": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+          "lawTitle": "ガス工作物の技術上の基準の細目を定める告示",
+          "article": "3",
+          "item": "3",
+          "articleTextHash": "52a32db9daaffbeb01246dadd7420dbcabbb7f6c968dbdb2e47f27d86e4a2df8",
+          "verifiedText": "第三条第三号\n劇場、映画館、演芸場、公会堂その他これらに類する施設であって、収容定員三百人以上のもの"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、間違い、間違い、正しいは現行一次資料と一致する。",
+    "選択肢4の既存根拠は省令第3条であったが、同条は公害防止規定であり直接根拠ではないため、細目告示第3条第3号へ修正した。",
+    "細目告示は同日取得済みMETI公式PDF証跡の本文ハッシュと検証済み本文を再利用した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "egovLawIds": [
+        "412M50000400111"
+      ],
+      "externalPrimarySource": "https://www.meti.go.jp/policy/safety_security/industrial_safety/law/files/gikokuji.pdf",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified_with_same_day_official_pdf_evidence"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:26:06Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
