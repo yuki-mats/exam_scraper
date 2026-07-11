@@ -118,6 +118,7 @@ ITEM_RE = re.compile(r"第(?P<item>\d+|[一二三四五六七八九十百]+)号"
 VERDICT_PREFIX_RE = re.compile(
     r"^(?:正しい|間違い|正解|不正解|この記述は正しいです|この記述は間違いです)[。\s]*"
 )
+QUOTED_WRONG_RE = re.compile(r"(?P<wrong>「[^」]+」)\s*(?:ではなく|が誤り|は誤り)")
 
 
 @dataclass
@@ -584,6 +585,11 @@ def strip_verdict_prefix(text: Any) -> str:
 
 def wrong_lead(existing_explanation: Any) -> str:
     body = strip_verdict_prefix(existing_explanation)
+    if body.startswith("選択肢の記載が誤り。"):
+        return ""
+    quoted_wrong = QUOTED_WRONG_RE.search(body)
+    if quoted_wrong:
+        return f"選択肢の{quoted_wrong.group('wrong')}が誤り。"
     sentences = [piece.strip() for piece in body.split("。") if piece.strip()]
     markers = (
         "点が誤り",
@@ -600,11 +606,16 @@ def wrong_lead(existing_explanation: Any) -> str:
         explicit = [sentence for sentence in candidates if "誤り" in sentence]
         if explicit:
             selected = min(explicit, key=len)
+        elif any("ではなく" in sentence for sentence in candidates):
+            selected = min(
+                (sentence for sentence in candidates if "ではなく" in sentence),
+                key=len,
+            )
         else:
             selected = ""
         if selected and selected not in {"記述は誤り", "この記述は誤り"}:
             return ensure_sentence(selected)
-    return "選択肢の記載が誤り。"
+    return ""
 
 
 def basis_display(refs: list[dict[str, Any]], raw_bases: list[str]) -> str:
@@ -721,6 +732,7 @@ def finalize_review_record(
     review: dict[str, Any],
     *,
     payload: list[Any],
+    source_explanations: list[Any] | None,
     apply: bool,
     stats: FinalizeStats,
 ) -> None:
@@ -776,7 +788,13 @@ def finalize_review_record(
             continue
         explanation = build_explanation(
             verdict=labels[choice_index],
-            existing_explanation=old_explanations[choice_index],
+            existing_explanation=(
+                source_explanations[choice_index]
+                if source_explanations
+                and choice_index < len(source_explanations)
+                and str(source_explanations[choice_index] or "").strip()
+                else old_explanations[choice_index]
+            ),
             display=display,
             basis_text=str(choice_review["basisText"]),
         )
@@ -828,6 +846,7 @@ def run(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
     records = load_review_records(args.review_dir)
     stats = FinalizeStats(review_records=len(records))
     payload_cache: dict[Path, list[Any]] = {}
+    source_cache: dict[Path, Any] = {}
 
     for review in records:
         patch_value = str(review.get("explanationPatchFile") or "").strip()
@@ -846,8 +865,40 @@ def run(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
                 continue
             payload = loaded
             payload_cache[patch_path] = payload
+        source_explanations: list[Any] | None = None
+        source_value = str(review.get("sourceFile") or "").strip()
+        if source_value:
+            source_path = resolve_patch_path(source_value)
+            source_payload = source_cache.get(source_path)
+            if source_payload is None and source_path.is_file():
+                source_payload = load_json(source_path)
+                source_cache[source_path] = source_payload
+            source_question_key = str(review.get("sourceQuestionKey") or "").strip()
+            if isinstance(source_payload, dict):
+                source_questions = source_payload.get("question_bodies")
+                if isinstance(source_questions, list):
+                    source_entry = next(
+                        (
+                            item
+                            for item in source_questions
+                            if isinstance(item, dict)
+                            and str(item.get("sourceQuestionKey") or "").strip()
+                            == source_question_key
+                        ),
+                        None,
+                    )
+                    if isinstance(source_entry, dict):
+                        candidate = source_entry.get("explanationText")
+                        if isinstance(candidate, list):
+                            source_explanations = candidate
         before = json.dumps(payload, ensure_ascii=False, sort_keys=True)
-        finalize_review_record(review, payload=payload, apply=args.apply, stats=stats)
+        finalize_review_record(
+            review,
+            payload=payload,
+            source_explanations=source_explanations,
+            apply=args.apply,
+            stats=stats,
+        )
         after = json.dumps(payload, ensure_ascii=False, sort_keys=True)
         if args.apply and before != after:
             stats.changed_files.add(rel(patch_path))

@@ -11,7 +11,25 @@ from scripts.pipeline.finalize_gas_shunin_law_explanations import (
 
 
 class FinalizeGasShuninLawExplanationsTest(unittest.TestCase):
-    def test_wrong_explanation_uses_safe_generic_lead_for_non_explicit_correction(self) -> None:
+    def test_wrong_explanation_identifies_quoted_contrast(self) -> None:
+        actual = build_explanation(
+            verdict="間違い",
+            existing_explanation=(
+                "「機能が失われた場合に保安を維持する」ではなく"
+                "「機能が失われることのないよう措置を講じる」と規定されている。"
+            ),
+            display="ガス工作物の技術上の基準を定める省令第21条",
+            basis_text="停電等により保安上重要な設備の機能が失われない措置を求める。",
+        )
+
+        self.assertEqual(
+            actual,
+            "間違い。選択肢の「機能が失われた場合に保安を維持する」が誤り。"
+            "ガス工作物の技術上の基準を定める省令第21条は、"
+            "停電等により保安上重要な設備の機能が失われない措置を求める。",
+        )
+
+    def test_wrong_explanation_omits_vague_lead_for_non_explicit_correction(self) -> None:
         actual = build_explanation(
             verdict="間違い",
             existing_explanation="間違い。経済産業大臣の許可を受けるものではない。",
@@ -21,7 +39,24 @@ class FinalizeGasShuninLawExplanationsTest(unittest.TestCase):
 
         self.assertEqual(
             actual,
-            "間違い。選択肢の記載が誤り。ガス事業法第64条第1項は、"
+            "間違い。ガス事業法第64条第1項は、"
+            "保安規程は事業の開始前に届け出なければならない。",
+        )
+
+    def test_wrong_explanation_does_not_reuse_legacy_vague_lead(self) -> None:
+        actual = build_explanation(
+            verdict="間違い",
+            existing_explanation=(
+                "間違い。選択肢の記載が誤り。"
+                "ガス事業法第64条第1項は、保安規程は事業の開始前に届け出ると定める。"
+            ),
+            display="ガス事業法第64条第1項",
+            basis_text="保安規程は事業の開始前に届け出なければならない。",
+        )
+
+        self.assertEqual(
+            actual,
+            "間違い。ガス事業法第64条第1項は、"
             "保安規程は事業の開始前に届け出なければならない。",
         )
 

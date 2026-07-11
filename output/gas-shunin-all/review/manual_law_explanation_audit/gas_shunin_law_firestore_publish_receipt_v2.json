@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-firestore-publish/v2",
+  "publishedAt": "2026-07-11T05:33:20Z",
+  "projectId": "repaso-rbaqy4",
+  "artifact": "output/gas-shunin-all/questions_json/firestore_upload_artifacts/20260711_law_explanations_v2/gas_shunin_law_explanations_d235bb20997224ba.json",
+  "artifactSha256": "d235bb20997224babb69b39bf5eea26b36fc34570895e1e612324d976bd8adc6",
+  "questionCount": 1289,
+  "uploadResult": {
+    "updated": 371,
+    "skipped": 918,
+    "errors": 0
+  },
+  "readback": {
+    "schemaVersion": "gas-shunin-law-explanation-firestore-readback/v2",
+    "checkedAt": "2026-07-11T05:32:28Z",
+    "projectId": "repaso-rbaqy4",
+    "artifact": "output/gas-shunin-all/questions_json/firestore_upload_artifacts/20260711_law_explanations_v2/gas_shunin_law_explanations_d235bb20997224ba.json",
+    "artifactQuestionCount": 1289,
+    "readbackQuestionCount": 1289,
+    "matchedQuestionCount": 1289,
+    "missingQuestionCount": 0,
+    "mismatchedQuestionCount": 0,
+    "missingQuestionIds": [],
+    "mismatchSamples": [],
+    "targetVerification": {
+      "questionId": "chiefgasengineerlicense-A-10-0284",
+      "correctChoiceText": "間違い",
+      "explanationText": "間違い。選択肢の「機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われない措置を求める。",
+      "lawReferences": [
+        {
+          "appLinkMode": "egov_api",
+          "lawId": "412M50000400111",
+          "scope": "choice",
+          "referenceDate": "2026-07-11",
+          "comparisonStatus": "same_as_current",
+          "lawAlias": "ガス工作物の技術上の基準を定める省令",
+          "reason": "間違い。選択肢の「機能が失われた場合に保安を維持する」が誤り。ガス工作物の技術上の基準を定める省令第21条は、停電等により保安上重要な設備の機能が失われない措置を求める。",
+          "article": "21",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=412M50000400111;article=21",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+          "verificationStatus": "verified",
+          "choiceIndex": 3,
+          "role": "current_basis",
+          "source": "egov_law"
+        }
+      ]
+    },
+    "ok": true
+  },
+  "status": "published_and_readback_verified"
+}

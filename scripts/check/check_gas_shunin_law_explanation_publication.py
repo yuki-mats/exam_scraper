@@ -212,8 +212,15 @@ def check(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
         if args.require_materialized and not explanation.startswith(expected_prefix):
             add("explanation_prefix_mismatch", question, expectedPrefix=expected_prefix)
         if args.require_materialized and mapping["expectedVerdict"] == "間違い":
-            if not any(marker in explanation for marker in ("誤り", "ではなく", "異なる", "一致しない")):
-                add("wrong_reason_not_explicit", question, explanationText=explanation)
+            if "選択肢の記載が誤り" in explanation:
+                add(
+                    "vague_wrong_explanation",
+                    question,
+                    explanationText=explanation,
+                )
+            explanation_body = explanation.removeprefix("間違い。").strip()
+            if len(normalize_text(explanation_body)) < 20:
+                add("wrong_reason_too_short", question, explanationText=explanation)
 
         refs = question.get("lawReferences")
         non_law_basis = bool(mapping["review"].get("lawGroundedExplanationNotNeeded"))
