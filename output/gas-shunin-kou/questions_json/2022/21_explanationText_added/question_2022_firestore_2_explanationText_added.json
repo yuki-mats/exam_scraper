@@ -4843,15 +4843,25 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
     "explanationText": [
-      "間違い。報告としている点が誤りである。ガス事業法第91条第1項は、ガス製造事業者は熱量等を測定し、結果を記録して保存する。"
+      "間違い。選択肢の「これを報告」が誤り。ガス事業法第91条は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存すると定めている。"
     ],
     "suggestedQuestions": [
+      "ガス製造事業者が測定する項目は？",
+      "測定結果はどう扱う？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
+        "question": "ガス製造事業者が測定する項目は？",
+        "answer": "製造するガスの熱量、圧力及び燃焼性。"
+      },
+      {
+        "question": "測定結果はどう扱う？",
+        "answer": "測定結果を記録し、保存する。"
+      },
+      {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法第91条第1項。"
+        "answer": "ガス事業法第91条。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -4883,27 +4893,29 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。報告としている点が誤りである。ガス事業法第91条第1項は、ガス製造事業者は熱量等を測定し、結果を記録して保存する。",
+          "reason": "間違い。選択肢の「これを報告」が誤り。ガス事業法第91条は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存すると定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-09T23:59:56+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T19:50:00+09:00",
         "nextAuditDueAt": "2027-07-09",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260709_gas_shunin_kou_2022_q2_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260709_235956",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_002500_gas_shunin_lawzilla_candidates_plus_egov_direct_basis",
         "secondaryAuditRunId": "20260709_gas_shunin_kou_2022_q2_secondary_review",
-        "reconciliationStatus": "primary_fallback_required_due_variant_mismatch",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceVariant": "manufacturing_single_statement",
         "reviewQuestionId": "firestore:chiefgasengineerlicense-A-10-0326",
         "examTime": {
@@ -4911,69 +4923,50 @@
           "verificationStatus": "from_original_answer"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "91",
-          "paragraph": "1",
-          "item": null,
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=91",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "既存Lawzilla候補収集は同一originalQuestionIdの4肢小売事業者問題の候補を重複利用しており、この1肢レガシー変種には対応していないため、e-Gov XMLでガス事業法第91条を直接確認した。",
-          "既存Firestore本文/answer keyの正誤と現行条文を照合し、保存済み正誤を維持できると判断した。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第91条第1項は、ガス製造事業者が経済産業省令で定めるところにより、製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存しなければならないと定めている。報告しなければならないとしている点が誤り。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存正誤と一致。",
-          "promptContext": "選択肢ごとの直接根拠を、ガス事業法及びガス事業法施行規則の現行e-Gov XMLで条項単位に確認する。",
-          "displayRefIds": [
-            "current:329AC0000000051:91:1:"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「これを報告」が誤り。ガス事業法第91条は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存すると定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第91条第1項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:91:1:",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
               "article": "91",
-              "paragraph": "1",
-              "item": null,
               "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
-              "textHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb"
-            },
-            {
-              "refId": "current:345M50000400097:144:1:",
-              "lawTimeScope": "current",
-              "relation": "direct_basis_detail",
-              "primaryBasis": false,
-              "lawId": "345M50000400097",
-              "lawTitle": "ガス事業法施行規則",
-              "article": "144",
-              "paragraph": "1",
-              "item": null,
-              "articleTextHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a",
-              "textHash": "8a067b3c10c94738fb7eb16a90fd8fcb4a96052789bbfcff3c6208b724bf883a"
+              "lawId": "329AC0000000051",
+              "paragraph": "1"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "間違い。報告としている点が誤りである。ガス事業法第91条第1項は、ガス製造事業者は熱量等を測定し、結果を記録して保存する。"
+      "間違い。選択肢の「これを報告」が誤り。ガス事業法第91条は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存すると定めている。"
     ],
     "lawGroundedExplanationText": [
-      "間違い。報告としている点が誤りである。ガス事業法第91条第1項は、ガス製造事業者は熱量等を測定し、結果を記録して保存する。"
+      "間違い。選択肢の「これを報告」が誤り。ガス事業法第91条は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存すると定めている。"
     ]
   },
   {

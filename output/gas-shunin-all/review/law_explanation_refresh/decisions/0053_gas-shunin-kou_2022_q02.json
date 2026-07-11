@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 53,
+  "auditKey": "gas-shunin:kou:2022:law:q02:9af6e66c264f",
+  "auditInputHash": "baa98fe4df60b0c2ed90e017ec569b362e1c450e2d64a56fea90cc79af784f3e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:50:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「これを報告」が誤り。ガス事業法第91条は、ガス製造事業者が製造するガスの熱量、圧力及び燃焼性を測定し、その結果を記録して保存すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス製造事業者が測定する項目は？",
+      "測定結果はどう扱う？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス製造事業者が測定する項目は？",
+        "answer": "製造するガスの熱量、圧力及び燃焼性。"
+      },
+      {
+        "question": "測定結果はどう扱う？",
+        "answer": "測定結果を記録し、保存する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第91条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "91",
+          "paragraph": "1",
+          "articleTextHash": "e42f73bf19cae98da622084db66166a8215fc418f231b85edbf03aaae10859eb",
+          "rawXmlHash": "67fddf2f5fff049d1e0708b9c990802b691a19507895bc88abd45b5c39e2e8d2"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違いは現行法と一致する。",
+    "第91条は測定結果の報告ではなく記録及び保存を義務付けている。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0326"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "91"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:10:37Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 1,
+    "correctChoiceTextChanged": false
+  }
+}
