@@ -19,6 +19,8 @@ from scripts.convert.convert_merged_to_firestore import question_id_from_source_
 
 GAS_SHUNIN_REPORT_DIR = ROOT_DIR / "output" / "gas-shunin" / "reports"
 CONTENT_REVIEW_BLOCKING_STATUSES = {"hold", "pending"}
+EXPLANATION_CORRECT_PREFIXES = ("正しい", "正解")
+EXPLANATION_INCORRECT_PREFIXES = ("間違い", "不正解")
 
 
 def utc_now() -> str:
@@ -132,6 +134,17 @@ def upload_question_ids(upload_paths: list[Path]) -> set[str]:
             if question_id:
                 question_ids.add(question_id)
     return question_ids
+
+
+def explanation_verdict(value: object) -> str | None:
+    if not isinstance(value, str):
+        return None
+    text = value.strip()
+    if text.startswith(EXPLANATION_CORRECT_PREFIXES):
+        return "正しい"
+    if text.startswith(EXPLANATION_INCORRECT_PREFIXES):
+        return "間違い"
+    return None
 
 
 def planned_question_ids(row: dict[str, Any]) -> set[str]:
@@ -300,6 +313,8 @@ def check_upload_json(
     existing_origin_count = 0
     new_origin_count = 0
     question_id_counter: Counter[str] = Counter()
+    flash_card_correct_counts: Counter[str] = Counter()
+    flash_card_question_counts: Counter[str] = Counter()
     for path in upload_paths:
         for question in upload_questions(path):
             checked += 1
@@ -308,6 +323,25 @@ def check_upload_json(
             question_set_id = str(question.get("questionSetId") or "").strip()
             if question_id:
                 question_id_counter[question_id] += 1
+            correct_choice_text = str(question.get("correctChoiceText") or "").strip()
+            explanation_choice = explanation_verdict(question.get("explanationText"))
+            if explanation_choice and correct_choice_text != explanation_choice:
+                issue_counts["correct_choice_explanation_mismatch"] += 1
+                if len(issues) < max_samples:
+                    issues.append(
+                        {
+                            "code": "correct_choice_explanation_mismatch",
+                            "uploadFile": rel(path),
+                            "originalQuestionId": original_id,
+                            "questionId": question_id,
+                            "correctChoiceText": correct_choice_text,
+                            "explanationVerdict": explanation_choice,
+                        }
+                    )
+            if question.get("questionType") == "flash_card" and original_id:
+                flash_card_question_counts[original_id] += 1
+                if correct_choice_text == "正しい":
+                    flash_card_correct_counts[original_id] += 1
             if not question_set_id:
                 issue_counts["missing_question_set_id"] += 1
                 if len(issues) < max_samples:
@@ -387,6 +421,20 @@ def check_upload_json(
                     "count": count,
                 }
             )
+    for original_id, question_count in flash_card_question_counts.items():
+        correct_count = flash_card_correct_counts[original_id]
+        if correct_count == 1:
+            continue
+        issue_counts["flash_card_correct_choice_count_mismatch"] += 1
+        if len(issues) < max_samples:
+            issues.append(
+                {
+                    "code": "flash_card_correct_choice_count_mismatch",
+                    "originalQuestionId": original_id,
+                    "questionCount": question_count,
+                    "correctChoiceCount": correct_count,
+                }
+            )
     return issues, {
         "uploadFileCount": len(upload_paths),
         "uploadQuestionCount": checked,
@@ -451,6 +499,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "existingQuestionSetId": "existing Firestore document questionSetId must not change during upload",
             "questionId": "existing Firestore-derived originalQuestionId must upload to one of its existing firestoreQuestionIds",
             "newQuestionId": "new source-derived questions must use sourceUniqueKey-derived deterministic document IDs and not collide with local existing Firestore IDs",
+            "correctChoiceText": "00_source is the default answer authority; upload is blocked when correctChoiceText contradicts the per-choice explanation verdict",
+            "flashCard": "flash_card groups must contain exactly one correct choice",
         },
     }
 
