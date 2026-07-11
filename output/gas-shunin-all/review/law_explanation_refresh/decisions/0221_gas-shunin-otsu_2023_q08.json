@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 221,
+  "auditKey": "gas-shunin:otsu:2023:law:q08:b6f188ca5697",
+  "auditInputHash": "d3e9af29fe734d86ef271d84662234d2ecaa028f46993e0201c48e5c6a23fa4c",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T03:25:53+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第14条第1項第6号は、導管及びガス栓の主要材料について、最高使用温度及び最低使用温度で材料に及ぼす化学的及び物理的影響に対し、設備の種類及び規模に応じて安全な機械的性質を有しなければならないと定めている。",
+      "間違い。選択肢の「供用中の衝撃」と「供給圧力」が誤りで、正しくは「供用中の荷重」と「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。",
+      "間違い。選択肢の「供給圧力」が誤りで、正しくは「最高使用圧力」である。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、導管及びガス栓の構造が、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対して適切な構造でなければならないと定めている。「供用中の荷重」は正しい。",
+      "間違い。選択肢の「肉厚が十分」が誤りで、正しくは「溶込みが十分」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。",
+      "間違い。選択肢の「運用時に問題を生じない強度」が誤りで、正しくは「設計上要求される強度以上の強度」である。ガス工作物の技術上の基準を定める省令第16条第1項は、所定の溶接部分について、溶込みが十分で、有害な欠陥がなく、かつ、設計上要求される強度以上の強度でなければならないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "導管及びガス栓の主要材料に必要な性質は？",
+      "導管及びガス栓の構造が耐えるべき条件は？",
+      "構造の圧力条件は供給圧力か最高使用圧力か？",
+      "溶接部分で十分であることが必要なのは肉厚か溶込みか？",
+      "溶接部分に必要な強度は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "導管及びガス栓の主要材料に必要な性質は？",
+        "answer": "使用温度での化学的・物理的影響に対して安全な機械的性質。"
+      },
+      {
+        "question": "導管及びガス栓の構造が耐えるべき条件は？",
+        "answer": "供用中の荷重と、最高使用温度・最低使用温度における最高使用圧力。"
+      },
+      {
+        "question": "構造の圧力条件は供給圧力か最高使用圧力か？",
+        "answer": "最高使用圧力。"
+      },
+      {
+        "question": "溶接部分で十分であることが必要なのは肉厚か溶込みか？",
+        "answer": "溶込み。肉厚ではない。"
+      },
+      {
+        "question": "溶接部分に必要な強度は？",
+        "answer": "設計上要求される強度以上の強度。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第14条第1項第6号、第15条第1項第6号及び第16条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "14",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
+          "rawXmlHash": "e0d84b1fc82d0d92104d709f240effa5231c1ffb00654b879aebbd7077153c72"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "46ecb63163da5c4400fc4696986770b97f46edd2b77df6ff95bb9b957497992d"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "46ecb63163da5c4400fc4696986770b97f46edd2b77df6ff95bb9b957497992d"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "1",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "03982d36807a04cb6defaebe192d00fdbf429fb6985c2ed4689b055b2e7c4e19"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "1",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "03982d36807a04cb6defaebe192d00fdbf429fb6985c2ed4689b055b2e7c4e19"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正解、不正解、不正解、不正解、不正解は、保存済みreviewEvidenceChoiceTextListと現行省令に照らして一致する。",
+    "00_sourceの表示本文は正しい語へ正規化されているため、判定対象の実際の語句は既存patchのreviewEvidenceChoiceTextListと20_merged_1_law_onlyの保存文で確認した。",
+    "ロは衝撃及び供給圧力、ハは供給圧力、ニは肉厚、ホは運用時に問題を生じない強度が誤りである。",
+    "第14条及び第15条の対象となる導管及びガス栓は各第1項第6号であり、ニ・ホの直接根拠は第16条第1項である。",
+    "正解はイで、answer_result_textの正解1と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "reviewEvidenceFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2023-law-q08-s01",
+      "gas-shunin-otsu-2023-law-q08-s02",
+      "gas-shunin-otsu-2023-law-q08-s03",
+      "gas-shunin-otsu-2023-law-q08-s04",
+      "gas-shunin-otsu-2023-law-q08-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "14",
+        "15",
+        "16"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_and_archived_choice_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T18:26:41Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
