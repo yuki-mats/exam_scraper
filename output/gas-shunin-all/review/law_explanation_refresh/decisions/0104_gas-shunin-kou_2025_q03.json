@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 104,
+  "auditKey": "gas-shunin:kou:2025:law:q03:85073c1103c3",
+  "auditInputHash": "b169d38ae42667a90186d7abc66e5613b9fe0d2c5625c0abb7ac1882ce062070",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:57:27+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第61条第1項は、一般ガス導管事業者が、一般ガス導管事業の用に供するガス工作物を技術上の基準に適合するよう維持すると定めている。",
+      "正しい。ガス事業法第61条第3項は、公共の安全の維持又は災害発生防止のため緊急の必要があるとき、経済産業大臣が、ガス工作物の移転、使用の一時停止・制限又は工作物内のガスの廃棄を命じることができると定めている。",
+      "間違い。選択肢の「経済産業大臣の許可を受け」が誤り。ガス事業法第64条第1項は、一般ガス導管事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出ると定めている。",
+      "正しい。ガス事業法施行規則第92条第1項第2号は、保安規程に、ガス主任技術者が旅行、疾病その他事故により職務を行えない場合の職務代行者に関する事項を定めるとしている。",
+      "間違い。選択肢の「工事現場の作業員の条件」が誤り。ガス事業法施行規則第92条第1項第8号は、保安規程に、導管の工事現場の責任者の条件その他の保安監督体制に関する事項を定めるとしている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "一般ガス導管事業者のガス工作物維持義務は？",
+      "緊急時に経済産業大臣が命じられる措置は？",
+      "保安規程は許可と届出のどちら？",
+      "ガス主任技術者が職務を行えない場合は？",
+      "導管工事現場について定める者の条件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "一般ガス導管事業者のガス工作物維持義務は？",
+        "answer": "一般ガス導管事業の用に供するガス工作物を、技術上の基準に適合するよう維持する。"
+      },
+      {
+        "question": "緊急時に経済産業大臣が命じられる措置は？",
+        "answer": "ガス工作物の移転、使用の一時停止・制限又は工作物内のガスの廃棄。"
+      },
+      {
+        "question": "保安規程は許可と届出のどちら？",
+        "answer": "経済産業大臣の許可ではなく、事業開始前に経済産業大臣へ届け出る。"
+      },
+      {
+        "question": "ガス主任技術者が職務を行えない場合は？",
+        "answer": "その職務を代行する者に関する事項を、保安規程に定める。"
+      },
+      {
+        "question": "導管工事現場について定める者の条件は？",
+        "answer": "作業員ではなく、工事現場の責任者の条件を定める。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第61条第1項・第3項及び第64条第1項、ガス事業法施行規則第92条第1項第2号・第8号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "61",
+          "paragraph": "1",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "rawXmlHash": "31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "61",
+          "paragraph": "3",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "rawXmlHash": "31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "1",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "paragraph": "1",
+          "item": "8",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、間違いは現行法と一致する。",
+    "第3肢の保安規程は経済産業大臣の許可ではなく、事業開始前の届出を要する。",
+    "第5肢で保安規程に定めるのは作業員の条件ではなく、導管工事現場の責任者の条件である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q03-s01",
+      "gas-shunin-kou-2025-law-q03-s02",
+      "gas-shunin-kou-2025-law-q03-s03",
+      "gas-shunin-kou-2025-law-q03-s04",
+      "gas-shunin-kou-2025-law-q03-s05"
+    ],
+    "currentLaw": {
+      "lawTitles": [
+        "ガス事業法",
+        "ガス事業法施行規則"
+      ],
+      "lawIds": [
+        "329AC0000000051",
+        "345M50000400097"
+      ],
+      "articles": [
+        "61",
+        "64",
+        "92"
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:58:22Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
