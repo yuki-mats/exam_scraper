@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 25,
+  "auditKey": "gas-shunin:kou:2020:law:q09:b2b9eb49e831",
+  "auditInputHash": "9788b6ea43a07dd698f7d45bcafb70223c502d794490e5403b40da693f7bcd47",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T17:27:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「移動式ガス発生設備」が誤り。ガス工作物の技術上の基準を定める省令第25条第1項は、圧力上昇防止装置を設ける対象となる低圧のガス発生設備から、移動式ガス発生設備を除くと定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第28条第1項は、移動式ガス発生設備を適切な場所に設置し、容易に移動又は転倒しない措置を講じると定めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第30条は、液体又は気体を直接送入する製造設備を、ガスの逆流が生じない構造とすると定めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第31条第3項は、気化装置等に液化ガスの流出防止措置を求め、流出を考慮した設計の場合を例外と定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「ガスの供給を速やかに停止する」が誤り。ガス工作物の技術上の基準を定める省令第42条は、操作用電源が停止した際に、ガスの供給を維持するための装置を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "低圧の移動式ガス発生設備に圧力上昇防止装置は必要？",
+      "移動式ガス発生設備の設置に必要な措置は？",
+      "液体等を直接送入する製造設備に必要な構造は？",
+      "気化装置の液化ガス流出防止に例外はある？",
+      "操作用電源停止時のガス供給はどうする？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "低圧の移動式ガス発生設備に圧力上昇防止装置は必要？",
+        "answer": "第25条第1項の対象から移動式ガス発生設備は除かれる。"
+      },
+      {
+        "question": "移動式ガス発生設備の設置に必要な措置は？",
+        "answer": "適切な場所に設置し、容易に移動又は転倒しない措置。"
+      },
+      {
+        "question": "液体等を直接送入する製造設備に必要な構造は？",
+        "answer": "送入部分を通じてガスが逆流しない構造。"
+      },
+      {
+        "question": "気化装置の液化ガス流出防止に例外はある？",
+        "answer": "ある。液化ガスの流出を考慮した設計の場合は例外となる。"
+      },
+      {
+        "question": "操作用電源停止時のガス供給はどうする？",
+        "answer": "ガスの供給を維持するための装置を設ける。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第25条第1項、第28条第1項、第30条、第31条第3項及び第42条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "25",
+          "paragraph": "1",
+          "articleTextHash": "bff29b61e42c90881d6fbe1e75abb39e7fa0333e21f1c7d23e3e469e44c2d46a",
+          "rawXmlHash": "d449bd3ae174104cc666013fd37d2efe685107cc9d88c3c7d07335bb61db05f2"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "28",
+          "paragraph": "1",
+          "articleTextHash": "884108a12ed2751f0658acf42743f662c8d335d0b44320f24fc85d0ca8e8f294",
+          "rawXmlHash": "9a8d343c192c9088024723490020c248b28765ee29807bdfa74b360e2859707a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "30",
+          "paragraph": "1",
+          "articleTextHash": "705e7e356b502115f83662bf042936ea5f83e6ea8fb8e8d89baada526a613b15",
+          "rawXmlHash": "ff79044f60340dac338cf998b66d16d79e92994886cce1fb7d419d34ea956964"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "31",
+          "paragraph": "3",
+          "articleTextHash": "d879312f69e93321228ae8db149d0debe8f5ca19d75ba315d3a3f2a04d437fe2",
+          "rawXmlHash": "5a321a346bb069e36afd156c69a88de4dff94b13d2eef15b2978cf7eafca7ad0"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "42",
+          "paragraph": "1",
+          "articleTextHash": "2109ffec3dd5d68f8fd8a950982844a84d3aa495770fef358cd0b9c5aa87dc2c",
+          "rawXmlHash": "83ce69b9ebbfece910f38b353c377a4b8e5c4fa80eee8e113e18b7f35072add8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、間違いは現行条文と一致する。",
+    "第42条は、操作用電源停止時にガス供給を停止するのではなく、維持するための装置を定めている。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "25",
+        "28",
+        "30",
+        "31",
+        "42"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:08:33Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
