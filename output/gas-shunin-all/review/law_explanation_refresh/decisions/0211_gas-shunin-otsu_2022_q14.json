@@ -1,0 +1,203 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 211,
+  "auditKey": "gas-shunin:otsu:2022:law:q14:15920ad294ae",
+  "auditInputHash": "7697bf6cc9d511c93c196a4f9756dafae5b8dbcc1f638f4324055ac6aafcedf8",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T02:55:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第137条第1項は、「ガス用品」を、主として一般消費者等がガスを消費する場合に用いる機械、器具又は材料（液化石油ガス器具等を除く。）で、政令で定めるものと定めている。",
+      "間違い。選択肢の「開放燃焼式のガス瞬間湯沸器等がある」が誤り。ガス事業法施行令第15条は、特定ガス用品を別表第二の上欄に掲げるものと定め、同表第1号は、ガス瞬間湯沸器から開放燃焼式のものを除いている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第1条は、設置又は変更工事の欠陥に係るガス災害を防止するため、工事事業者の工事監督に関する義務等を定めることを目的としている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第2条第2項は、「特定工事」を、特定ガス消費機器の設置又は変更工事から省令で定める軽微なものを除いた工事と定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第4条第1項第1号及び第2号は、所定の講習課程を修了した者と液化石油ガス設備士を、ガス消費機器設置工事監督者の有資格者と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス用品の定義は？",
+      "開放燃焼式湯沸器は特定ガス用品？",
+      "特監法の目的は？",
+      "特定工事の定義は？",
+      "工事監督者の有資格者は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス用品の定義は？",
+        "answer": "主として一般消費者等がガスを消費する場合に用いる機械、器具又は材料で、政令で定めるもの。"
+      },
+      {
+        "question": "開放燃焼式湯沸器は特定ガス用品？",
+        "answer": "含まれない。ガス事業法施行令別表第二第1号は、開放燃焼式のガス瞬間湯沸器を除いている。"
+      },
+      {
+        "question": "特監法の目的は？",
+        "answer": "特定ガス消費機器の設置又は変更工事の欠陥に係るガス災害を防止すること。"
+      },
+      {
+        "question": "特定工事の定義は？",
+        "answer": "特定ガス消費機器の設置又は変更工事から、省令で定める軽微なものを除いた工事。"
+      },
+      {
+        "question": "工事監督者の有資格者は？",
+        "answer": "所定の講習課程を修了した者、液化石油ガス設備士など。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第137条第1項及び第2項、ガス事業法施行令第15条及び別表第二第1号、特定ガス消費機器の設置工事の監督に関する法律第1条、第2条第2項並びに第4条第1項第1号及び第2号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "137",
+          "paragraph": "1",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
+        },
+        "1": {
+          "lawId": "329CO0000000068",
+          "lawTitle": "ガス事業法施行令",
+          "article": "別表第二",
+          "item": "1",
+          "articleTextHash": "7360f7e734ae9cfdc41c15af40ef7cb4c43df0a4e3e6d76191f8fad04b49ca57",
+          "rawXmlHash": "c261397e93d1e2babf82180346d630c6f0267353f96c265754a46e007b9237fc",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/lawdata/329CO0000000068",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "137",
+              "paragraph": "2",
+              "item": null,
+              "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+              "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=137"
+            },
+            {
+              "lawId": "329CO0000000068",
+              "lawTitle": "ガス事業法施行令",
+              "article": "15",
+              "item": null,
+              "articleTextHash": "b7be8e9c74c089f5001461a9f4bb05eb1f2aeac820fa731b9341c3e843969d22",
+              "rawXmlHash": "9f429535a49886930e197fc3bcf119cb0b6f847eb8dd4ba45f38dc6c65be167a",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329CO0000000068;article=15"
+            },
+            {
+              "lawId": "329CO0000000068",
+              "lawTitle": "ガス事業法施行令",
+              "article": "別表第二",
+              "item": "1",
+              "articleTextHash": "7360f7e734ae9cfdc41c15af40ef7cb4c43df0a4e3e6d76191f8fad04b49ca57",
+              "rawXmlHash": "c261397e93d1e2babf82180346d630c6f0267353f96c265754a46e007b9237fc",
+              "apiUrl": "https://laws.e-gov.go.jp/api/1/lawdata/329CO0000000068"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "1",
+          "articleTextHash": "4bcfc35f9843ca0ee3bf59746153d67b506f457eaf9403e9b2770aa2075b609d",
+          "rawXmlHash": "ea02b6b1fb416183303d28566462d0fde68cb42453e9bbe690fb0101deaac282"
+        },
+        "3": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "2",
+          "paragraph": "2",
+          "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
+          "rawXmlHash": "6eef6d4dc6007d2ac2efab5add13feee94545e18a2b636082218fc07bffe3be4"
+        },
+        "4": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "4",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "190c17003e1d139813ffaec6dc390b2f44187fff3a9f3462fadb2eecf79882fb",
+          "rawXmlHash": "38556c2c66001a693bef848fb9d8f4eb74ae79670d554335b78bca238d7e4bc4",
+          "references": [
+            {
+              "item": "1"
+            },
+            {
+              "item": "2"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、正しい、正しいは現行法令と一致する。",
+    "第2肢はガス事業法施行令別表第二第1号を全文APIで確認し、開放燃焼式のガス瞬間湯沸器が除外されることを確認した。",
+    "第5肢は講習修了者の第1号だけでなく、液化石油ガス設備士を定める第2号も直接根拠に追加した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2022-law-q14-s01",
+      "gas-shunin-otsu-2022-law-q14-s02",
+      "gas-shunin-otsu-2022-law-q14-s03",
+      "gas-shunin-otsu-2022-law-q14-s04",
+      "gas-shunin-otsu-2022-law-q14-s05"
+    ],
+    "currentLaw": {
+      "laws": [
+        {
+          "lawTitle": "ガス事業法",
+          "lawId": "329AC0000000051",
+          "articles": [
+            "137"
+          ]
+        },
+        {
+          "lawTitle": "ガス事業法施行令",
+          "lawId": "329CO0000000068",
+          "articles": [
+            "15",
+            "別表第二"
+          ]
+        },
+        {
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "lawId": "354AC0000000033",
+          "articles": [
+            "1",
+            "2",
+            "4"
+          ]
+        }
+      ],
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T17:53:53Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
