@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 173,
+  "auditKey": "gas-shunin:otsu:2020:law:q08:ebcf61b043a6",
+  "auditInputHash": "e5a219781e9ac88f4ac6fc2edbb03382b861b7dc6bb9cad31fdeb7dbe8387bf3",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:31:14+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第21条は、製造設備を安全に停止させる装置その他の保安上重要な設備について、停電等により機能が失われないよう適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第18条第2項は、移動式ガス発生設備について、設備の損傷を防止するため、使用状態を計測又は確認できる適切な措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第1項は、製造所、供給所又は移動式ガス発生設備に設置する遮断装置について、誤操作を防止し、確実に操作できる措置を講じると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第20条第2項は、特定事業所に設置する高圧ガス若しくは液化ガスを通ずるガス工作物又はその計装回路について、保安上重要な箇所に適切なインターロック機構を設けると定めている。",
+      "間違い。選択肢の「凝縮液を気化する装置」が誤り。ガス工作物の技術上の基準を定める省令第32条第1項は、凝縮液により機能の低下又は損傷のおそれがあるガスホルダーに、凝縮液を抜く装置を設けると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "保安上重要な設備に必要な停電対策は？",
+      "移動式ガス発生設備には使用状態の確認措置が必要？",
+      "遮断装置に必要な誤操作防止措置は？",
+      "特定事業所の計装回路に必要な機構は？",
+      "ガスホルダーの凝縮液対策に必要な装置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "保安上重要な設備に必要な停電対策は？",
+        "answer": "停電等により設備の機能が失われないよう適切な措置を講じる。"
+      },
+      {
+        "question": "移動式ガス発生設備には使用状態の確認措置が必要？",
+        "answer": "必要。使用状態を計測又は確認できる適切な措置を講じる。"
+      },
+      {
+        "question": "遮断装置に必要な誤操作防止措置は？",
+        "answer": "誤操作を防止し、確実に操作できる措置。"
+      },
+      {
+        "question": "特定事業所の計装回路に必要な機構は？",
+        "answer": "保安上重要な箇所への適切なインターロック機構。"
+      },
+      {
+        "question": "ガスホルダーの凝縮液対策に必要な装置は？",
+        "answer": "凝縮液を抜く装置。気化する装置ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第18条第2項、第20条第1項・第2項、第21条及び第32条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "21",
+          "articleTextHash": "c054095480ee431e35a1bf3b51a974b63b7335acdb9f3c6f4b6ba1b1c6ea3084",
+          "rawXmlHash": "a3b614964c8781411ca0600927a3a7044c001afceefce58e4074041ea420821c"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "18",
+          "paragraph": "2",
+          "articleTextHash": "3493cf0de78aaa8cb92f8a96d94d6319b0b1dd7d67a0248f5d75746b0946c733",
+          "rawXmlHash": "7a5b1c8f9d73d720d2c6f6c63aa10f628343732545be0a68ac8cb9ea3b9ec74f"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "20",
+          "paragraph": "1",
+          "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
+          "rawXmlHash": "3664ff5af8230a26f3d045b64f6ad4ac59c33f4e7481e74667b133b8aa1532df"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "20",
+          "paragraph": "2",
+          "articleTextHash": "ab594b9707a7150662d68cccd5794cd09c43d673fcad7b343965e18d156beb01",
+          "rawXmlHash": "3664ff5af8230a26f3d045b64f6ad4ac59c33f4e7481e74667b133b8aa1532df"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "32",
+          "paragraph": "1",
+          "articleTextHash": "7e144e36c680edb3b6b80282307f2a994c08707945a7574efe8b2d16c98d3de9",
+          "rawXmlHash": "8f2ff3c145d9eeb52eb651de556d8e98780cdecc504dd2879b1f548124a09cfd"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、正しい、間違いは現行条文と一致する。",
+    "選択肢4は凝縮液を気化する装置ではなく、凝縮液を抜く装置が必要であることを明記した。",
+    "その他の4肢は現行第18条、第20条及び第21条の文言と一致することを確認した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "18",
+        "20",
+        "21",
+        "32"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:32:02Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
