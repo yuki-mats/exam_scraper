@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 59,
+  "auditKey": "gas-shunin:kou:2022:law:q08:c135254e50fb",
+  "auditInputHash": "39b8a502feaa65ccc3dd5de2359fbbf8ee8b262bc6d194d1d8eea533ebe558d8",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:18:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第2項は、同項各号のガス工作物について、圧力を受ける部分を溶接する場合、適切な機械試験等で事前確認した溶接施工方法等によると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第2項第1号ロは、液化ガスを通ずる容器のうち、最高使用圧力と内容積の積が0.004以下のものを除く容器を対象と定めている。",
+      "間違い。選択肢の「最高使用圧力が中圧」が誤り。ガス工作物の技術上の基準を定める省令第16条第2項第2号イは、内径150ミリメートル以上の配管について、最高使用圧力が高圧のガスを通ずるものを対象と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第2項第2号ロは、内径150ミリメートル以上で液化ガスを通ずる配管を対象と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第2項第3号イは、最高使用圧力が高圧のガスを通ずる導管を対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "溶接施工方法等を事前確認するのはどの部分？",
+      "液化ガス容器で除外される圧力と内容積の積は？",
+      "内径150mm以上の配管で対象となるガス圧力は？",
+      "液化ガスを通ずる配管の内径条件は？",
+      "高圧ガス導管は対象になる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "溶接施工方法等を事前確認するのはどの部分？",
+        "answer": "第16条第2項各号のガス工作物で、ガス又は液化ガスによる圧力を受ける部分を溶接する場合。"
+      },
+      {
+        "question": "液化ガス容器で除外される圧力と内容積の積は？",
+        "answer": "最高使用圧力の数値と内容積を立方メートルで表した数値との積が0.004以下のもの。"
+      },
+      {
+        "question": "内径150mm以上の配管で対象となるガス圧力は？",
+        "answer": "最高使用圧力が高圧のガス。"
+      },
+      {
+        "question": "液化ガスを通ずる配管の内径条件は？",
+        "answer": "内径150ミリメートル以上。"
+      },
+      {
+        "question": "高圧ガス導管は対象になる？",
+        "answer": "最高使用圧力が高圧のガスを通ずる導管は対象。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第16条第2項、第1号ロ、第2号イ及びロ並びに第3号イ。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "1",
+          "subitem": "ロ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "2",
+          "subitem": "イ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "2",
+          "subitem": "ロ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "3",
+          "subitem": "イ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行省令と一致する。",
+    "第1肢は設問の基準文を繰り返す構造で、第2肢の立法メートルは立方メートルの転記誤りだが、correctChoiceTextの明白な誤りではないためフラグ対象外とした。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2022/00_source/question_2022_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0276",
+      "chiefgasengineerlicense-A-10-0277",
+      "chiefgasengineerlicense-A-10-0278",
+      "chiefgasengineerlicense-A-10-0279",
+      "chiefgasengineerlicense-A-10-0280"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "16"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T09:25:05Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2022/21_explanationText_added/question_2022_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
