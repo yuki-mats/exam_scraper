@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 12,
+  "auditKey": "gas-shunin:kou:2019:law:q12:5618c49a0f5d",
+  "auditInputHash": "d589d392a363a880a68225ff60c6791673977f1d451cdbb4155bc8cc01a153fd",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:04:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「最高使用圧力が中圧以上」が誤り。ガス工作物の技術上の基準を定める省令第56条は、火災等の発生防止措置が必要な整圧器を、最高使用圧力が高圧のものと定めている。",
+      "間違い。選択肢の「一の使用者に供給する整圧器にも不純物除去装置を設ける」が誤り。ガス工作物の技術上の基準を定める省令第57条第2号ただし書は、一の使用者にガスを供給する整圧器を、不純物除去装置の設置義務から除外している。",
+      "間違い。選択肢の「使用者の承諾を得られない場合は設置しなくてよい」が誤り。ガス工作物の技術上の基準を定める省令第57条第3号は、一の使用者に供給する整圧器に圧力の異常上昇防止装置を設けると定め、承諾による例外を設けていない。",
+      "間違い。選択肢の「毎時30m3未満」が誤り。ガス工作物の技術上の基準を定める省令第60条は、昇圧供給装置が圧縮できるガス量を、標準状態で毎時18.5m3未満と定めている。",
+      "間違い。選択肢の「25月に1回以上」が誤り。ガス工作物の技術上の基準を定める省令第63条は、昇圧供給装置の点検頻度を、設置の日以後14月に1回以上と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "火災等防止措置が必要な整圧器は？",
+      "一使用者用整圧器に不純物除去装置は必要？",
+      "圧力上昇防止装置に承諾による例外はある？",
+      "昇圧供給装置の圧縮量上限は？",
+      "昇圧供給装置の点検頻度は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "火災等防止措置が必要な整圧器は？",
+        "answer": "最高使用圧力が高圧の整圧器。"
+      },
+      {
+        "question": "一使用者用整圧器に不純物除去装置は必要？",
+        "answer": "不要。第57条第2号ただし書が例外と定めている。"
+      },
+      {
+        "question": "圧力上昇防止装置に承諾による例外はある？",
+        "answer": "ない。第57条第3号にそのような例外はない。"
+      },
+      {
+        "question": "昇圧供給装置の圧縮量上限は？",
+        "answer": "標準状態で毎時18.5m3未満。"
+      },
+      {
+        "question": "昇圧供給装置の点検頻度は？",
+        "answer": "設置の日以後14月に1回以上。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第56条、第57条第2号及び第3号、第60条並びに第63条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "56",
+          "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
+          "rawXmlHash": "7e696f21c336ce3fa28b2772f1f029b38f2ac42612b128778c6815f3780fc747"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "item": "2",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "item": "3",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "60",
+          "articleTextHash": "7c2186b7df76bd87024a479b40ad29fdbabb08fde00541c032f70fe585270dd7",
+          "rawXmlHash": "2f1f70729dbfa0a2b71a037d50a1a5981c91132c4eeb590ee33f1beb2a111426"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "63",
+          "articleTextHash": "bc281ded307a1efefdab7fdffe9d7b5565e8a93f4ed10ce3fcd4ceb631feeaac",
+          "rawXmlHash": "b496f2b610c5391a55076d3b1460379ad70d7a0bc06c429a67319fae833ba324"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextは5肢すべて間違いで、現行条文と一致する。",
+    "第57条の不純物除去装置は第2号、圧力上昇防止装置は第3号を直接根拠として記録した。",
+    "00_source.knowledgeTextの毎時18.5m3未満未満という重複は解説へ引き継がない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "56",
+        "57",
+        "60",
+        "63"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:39:27Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
