@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 29,
+  "auditKey": "gas-shunin:kou:2020:law:q13:73fc3208e0f6",
+  "auditInputHash": "383de8eb4b72bcc80b625aa360e411eb0419f1360f302d73c49b2e0cb3434ae8",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T17:59:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第137条第2項は、特定ガス用品を、構造や使用条件等からガス災害のおそれが多いと認められるガス用品で、政令で定めるものと定めている。選択肢はこれと一致する。",
+      "間違い。選択肢の「経済産業大臣に申請し認められなければならない」が誤り。ガス事業法第140条第1項第3号は、ガス用品の型式の区分を、経済産業大臣への届出事項と定めている。",
+      "正しい。ガス事業法第145条第1項ただし書第3号は、届出に係る型式のガス用品を試験用に製造又は輸入する場合を、技術基準適合義務の例外と定めている。",
+      "正しい。ガス事業法第147条は、技術基準への適合性について所定の義務を履行した届出事業者が、ガス用品に所定の表示を付すことができると定めている。選択肢はこれと一致する。",
+      "正しい。ガス事業法第149条第1項第1号は、技術基準不適合のガス用品について災害防止上特に必要な場合、経済産業大臣が1年以内の期間を定めて表示を禁止できると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "特定ガス用品とは？",
+      "ガス用品の型式区分に必要な手続は？",
+      "試験用ガス用品は技術基準適合義務の対象？",
+      "ガス用品に表示を付せる条件は？",
+      "大臣が表示を禁止できる期間は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "特定ガス用品とは？",
+        "answer": "ガス災害のおそれが多いと認められるガス用品で、政令で定めるもの。"
+      },
+      {
+        "question": "ガス用品の型式区分に必要な手続は？",
+        "answer": "経済産業大臣への届出事項であり、認定申請ではない。"
+      },
+      {
+        "question": "試験用ガス用品は技術基準適合義務の対象？",
+        "answer": "対象外。第145条第1項ただし書第3号の例外に該当する。"
+      },
+      {
+        "question": "ガス用品に表示を付せる条件は？",
+        "answer": "技術基準への適合性について所定の義務を履行すること。"
+      },
+      {
+        "question": "大臣が表示を禁止できる期間は？",
+        "answer": "1年以内。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第137条第2項、第140条第1項第3号、第145条第1項ただし書第3号、第147条及び第149条第1項第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "137",
+          "paragraph": "2",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "140",
+          "paragraph": "1",
+          "item": "3",
+          "articleTextHash": "36b913dd73471277fa58e85f2f66fc067edd47b61d8f58d4ad2da69e10d18195",
+          "rawXmlHash": "7ddc0a482832042ab98013bfda3abe8644bbb80cff024dc4ba70583518d602df"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "145",
+          "paragraph": "1",
+          "item": "3",
+          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "147",
+          "paragraph": "1",
+          "articleTextHash": "589bbbc44674f1939f51232bcbbb26f2930b14dbb4fcecec38dc5a708ea6f86a",
+          "rawXmlHash": "96a2fbaeb4fcb415102e2eb7cf1d3f50579dd73dc09443cdaa0a53afeb2b74d2",
+          "references": [
+            {
+              "article": "147",
+              "paragraph": "1"
+            },
+            {
+              "article": "147",
+              "paragraph": "2"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "149",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "3aa5fe0e01cd6d935d715df077f72a42459c3bff2c6d40f2512e0c090bc65760",
+          "rawXmlHash": "63bc70e8d821d31a4f53f2c238c0509f261e92e39456b203a11baa7e6fd3e336"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、正しい、正しいは現行条文と一致する。",
+    "第147条は現行法で通常の届出事業者を第1項、特定輸入事業者を第2項に分けて定めているため、両項を参照した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2020/00_source/question_2020_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "137",
+        "140",
+        "145",
+        "147",
+        "149"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:17:14Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2020/21_explanationText_added/question_2020_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
