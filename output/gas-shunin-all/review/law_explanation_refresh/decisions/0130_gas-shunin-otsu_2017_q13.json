@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 130,
+  "auditKey": "gas-shunin:otsu:2017:law:q13:03bd1f4745e7",
+  "auditInputHash": "2da4f8b9046ac0a3e328acf33831d14ce57e94aca8874ee82837fcb3fc73e69e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:41:56+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第137条第1項は、ガス用品を、主として一般消費者等がガスを消費する場合に用いられる機械、器具又は材料であって、政令で定めるものと定めている。",
+      "正しい。ガス事業法第140条第1項は、ガス用品の製造又は輸入の事業を行う者は、経済産業省令で定めるガス用品の区分に従い、所定の事項を経済産業大臣に届け出ることができると定めている。",
+      "正しい。ガス事業法第143条第1項は、届出事業者が届出に係る事業を廃止したときは、遅滞なく、その旨を経済産業大臣に届け出ると定めている。",
+      "間違い。選択肢の「試験用に製造し、又は輸入するときは、技術上の基準に適合」が誤り。ガス事業法第145条第1項第3号は、届出に係る型式のガス用品を試験用に製造又は輸入するときは、経済産業省令で定める技術上の基準への適合義務の例外と定めている。",
+      "間違い。選択肢の「自ら適合性検査を行わなければならない」が誤り。ガス事業法第146条第1項は、届出事業者が特定ガス用品について経済産業大臣の登録を受けた者の適合性検査を受けると定め、同条第2項は、その登録を受けた者が検査を行うと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス事業法上のガス用品とは？",
+      "ガス用品の製造・輸入事業者が届け出られる事項は？",
+      "届出事業を廃止した場合の手続は？",
+      "試験用ガス用品は技術基準適合義務の対象？",
+      "特定ガス用品の適合性検査を行う主体は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス事業法上のガス用品とは？",
+        "answer": "主として一般消費者等がガスを消費する場合に用いる機械、器具又は材料で、政令で定めるもの。"
+      },
+      {
+        "question": "ガス用品の製造・輸入事業者が届け出られる事項は？",
+        "answer": "ガス用品の区分に従い、氏名・住所、型式の区分など法令所定の事項を経済産業大臣へ届け出ることができる。"
+      },
+      {
+        "question": "届出事業を廃止した場合の手続は？",
+        "answer": "遅滞なく、廃止した旨を経済産業大臣に届け出る。"
+      },
+      {
+        "question": "試験用ガス用品は技術基準適合義務の対象？",
+        "answer": "第145条第1項第3号により、試験用に製造又は輸入する場合は適合義務の例外。"
+      },
+      {
+        "question": "特定ガス用品の適合性検査を行う主体は？",
+        "answer": "経済産業大臣の登録を受けた者。届出事業者はその者の検査を受ける。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第137条第1項、第140条第1項、第143条第1項、第145条第1項第3号及び第146条第1項・第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "137",
+          "paragraph": "1",
+          "articleTextHash": "82065b3a77fe7d17d4f358dd6d702ed2142132f1251ada6fbb3c4abbbd480a94",
+          "rawXmlHash": "ca8a8f8b29a495ff273e14765e4719ba45b7c597595b109b2ab0620e8513b963"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "140",
+          "paragraph": "1",
+          "articleTextHash": "36b913dd73471277fa58e85f2f66fc067edd47b61d8f58d4ad2da69e10d18195",
+          "rawXmlHash": "7ddc0a482832042ab98013bfda3abe8644bbb80cff024dc4ba70583518d602df"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "143",
+          "paragraph": "1",
+          "articleTextHash": "00b992f5782369b89d70fa7e15787fcffc9d87c37984945eb57322c72a36af77",
+          "rawXmlHash": "73a19b7d63c7daa65f7acf8547b7f6fe7a129f92069a898aef0163a737839b7b"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "145",
+          "paragraph": "1",
+          "item": "3",
+          "articleTextHash": "a79ac5aed2cad2a5f967646dc86f85495889bf1543cdfe09174d14b8a6cdf6f3",
+          "rawXmlHash": "3adee1e419e088685740c6d91e71775c7196f2071d08eac9808031744d0d608b"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "146",
+          "paragraph": "1",
+          "articleTextHash": "14df98ea4162d480fa07912c3fd370e9a8eb1265b75a6bc45e83da025ade84b4",
+          "rawXmlHash": "9445f1f7004dea5ca8593a55d889cd8a5b7f7a26bab77b0075d8ec4e6c50ad40",
+          "references": [
+            {
+              "article": "146",
+              "paragraph": "1",
+              "articleTextHash": "14df98ea4162d480fa07912c3fd370e9a8eb1265b75a6bc45e83da025ade84b4",
+              "rawXmlHash": "9445f1f7004dea5ca8593a55d889cd8a5b7f7a26bab77b0075d8ec4e6c50ad40"
+            },
+            {
+              "article": "146",
+              "paragraph": "2",
+              "articleTextHash": "14df98ea4162d480fa07912c3fd370e9a8eb1265b75a6bc45e83da025ade84b4",
+              "rawXmlHash": "9445f1f7004dea5ca8593a55d889cd8a5b7f7a26bab77b0075d8ec4e6c50ad40"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行法と一致する。",
+    "既存lawRevisionFacts.currentのガス事業法第1条及び第137条第2項への誤った紐付けを、第137条、第140条、第143条、第145条及び第146条の直接根拠へ修正する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q13-s01",
+      "gas-shunin-otsu-2017-law-q13-s02",
+      "gas-shunin-otsu-2017-law-q13-s03",
+      "gas-shunin-otsu-2017-law-q13-s04",
+      "gas-shunin-otsu-2017-law-q13-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:43:17Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
