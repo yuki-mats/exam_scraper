@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 93,
+  "auditKey": "gas-shunin:kou:2024:law:q08:03169622e4ad",
+  "auditInputHash": "f15fda7a383075209fc63e01e72dfb1c7fa371880b523b49645ad99608411a94",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:18:53+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第14条第1項第6号は、導管及びガス栓の主要材料に、最高・最低使用温度での化学的・物理的影響に対し、設備の種類・規模に応じて安全な機械的性質を持たせると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第3号ハは、附帯設備で製造設備に属する対象の容器及び管を、供用中の荷重と最高・最低使用温度における最高使用圧力に対し、設備の種類・規模に応じて適切な構造とすると定めている。",
+      "間違い。選択肢の「耐圧試験を行ったときにこれに耐える」が誤り。ガス工作物の技術上の基準を定める省令第15条第2項ただし書第4号は、整圧器及び特定ガス発生設備に属する調整装置を、耐圧試験義務の対象外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第1項は、内面に0Paを超える圧力を受ける対象溶接部分を、溶込みが十分で有害な欠陥がなく、設計上要求される強度以上の強度を持つものとすると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第16条第2項第3号ロは、最高使用圧力0.3MPa以上、内径150mm以上の中圧導管の圧力を受ける部分を溶接する場合、適切な機械試験等であらかじめ確認した溶接施工方法等によると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス栓の主要材料に必要な性質は？",
+      "製造設備に属する容器・管に必要な構造は？",
+      "整圧器等は耐圧試験の対象？",
+      "圧力を受ける溶接部分に必要な品質は？",
+      "中圧導管で溶接施工方法の事前確認が必要な条件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス栓の主要材料に必要な性質は？",
+        "answer": "最高・最低使用温度での化学的・物理的影響に対し、安全な機械的性質。"
+      },
+      {
+        "question": "製造設備に属する容器・管に必要な構造は？",
+        "answer": "供用中の荷重と最高・最低使用温度での最高使用圧力に対し、設備の種類・規模に応じて適切な構造。"
+      },
+      {
+        "question": "整圧器等は耐圧試験の対象？",
+        "answer": "整圧器及び特定ガス発生設備に属する調整装置は、耐圧試験義務の対象外。"
+      },
+      {
+        "question": "圧力を受ける溶接部分に必要な品質は？",
+        "answer": "十分な溶込み、有害な欠陥がないこと、設計上要求される強度以上の強度。"
+      },
+      {
+        "question": "中圧導管で溶接施工方法の事前確認が必要な条件は？",
+        "answer": "最高使用圧力0.3MPa以上かつ内径150mm以上。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第14条第1項第6号、第15条第1項第3号ハ・第2項ただし書第4号及び第16条第1項・第2項第3号ロ。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "14",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
+          "rawXmlHash": "b2ad8cfe8d9a67acb678e084878c6f3656a360dcc9431a6fee8b35e691fe2de9"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ハ",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "4",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "1",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "3",
+          "subitem": "ロ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行省令と一致する。",
+    "第3肢の整圧器及び特定ガス発生設備に属する調整装置は、第15条第2項ただし書第4号により耐圧試験義務から除外される。",
+    "第5肢の中圧導管は最高使用圧力0.3MPa以上かつ内径150mm以上で、溶接施工方法等の事前確認対象となる。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q08-s01",
+      "gas-shunin-kou-2024-law-q08-s02",
+      "gas-shunin-kou-2024-law-q08-s03",
+      "gas-shunin-kou-2024-law-q08-s04",
+      "gas-shunin-kou-2024-law-q08-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "articles": [
+        "14",
+        "15",
+        "16"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:19:57Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
