@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 144,
+  "auditKey": "gas-shunin:otsu:2018:law:q11:d785c6629204",
+  "auditInputHash": "680a6b76933108585d41dac2dcb07c6f540db45dce3b917dda6c572166594bd6",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:16:24+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第45条第2号は、告示で定める着脱が容易なガス栓について、内部に過流出安全機構を有すると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第46条は、水のたまるおそれのある導管に、適切な水取り器を設けると定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第47条は、設置状況により腐食のおそれがある導管に、腐食防止のための適切な措置を講ずると定めている。",
+      "間違い。選択肢は、道路以外の地盤面下に埋設される低圧の本支管を義務対象としている点が誤り。ガス工作物の技術上の基準を定める省令第48条第3項は、低圧本支管を掘削等による損傷防止措置の対象から除外し、ポリエチレン管については最高使用圧力が5kPaを超えないものを除外すると定めている。",
+      "間違い。選択肢の「最高使用圧力が3kPa」が誤り。ガス工作物の技術上の基準を定める省令第48条第2項は、道路に埋設される本支管のうち、最高使用圧力が5kPa以上のポリエチレン管に損傷防止措置を講ずると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "着脱が容易なガス栓の内部に必要な機構は？",
+      "水がたまるおそれのある導管に必要な設備は？",
+      "腐食のおそれがある導管に必要な措置は？",
+      "道路以外に埋設される低圧本支管は損傷防止措置の対象？",
+      "道路埋設ポリエチレン管が損傷防止措置の対象となる圧力条件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "着脱が容易なガス栓の内部に必要な機構は？",
+        "answer": "過流出安全機構。"
+      },
+      {
+        "question": "水がたまるおそれのある導管に必要な設備は？",
+        "answer": "適切な水取り器。"
+      },
+      {
+        "question": "腐食のおそれがある導管に必要な措置は？",
+        "answer": "腐食を防止するための適切な措置。"
+      },
+      {
+        "question": "道路以外に埋設される低圧本支管は損傷防止措置の対象？",
+        "answer": "原則として除外対象。ポリエチレン管は最高使用圧力が5kPaを超えないものが除外される。"
+      },
+      {
+        "question": "道路埋設ポリエチレン管が損傷防止措置の対象となる圧力条件は？",
+        "answer": "最高使用圧力が5kPa以上。3kPaは対象外。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第45条第2号、第46条、第47条並びに第48条第2項及び第3項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "45",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "4223c179dc0715b97c5cdad2be51cdaee7fea24e464f68066966707164bc3f81",
+          "rawXmlHash": "10be9e4a08f2ee52607cc392ad2aecf2379d0c8ac6586381e26394f68dbb62f9"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "46",
+          "paragraph": "1",
+          "articleTextHash": "67324ad0a379d5ff139046c2ce398810b53ce1d9b99d590041112a168f32836e",
+          "rawXmlHash": "fedb9cd678574cf16b416f2b1efbbf7bc9cb0b2fb2cf695c1e7bb4cb22f2820d"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "47",
+          "paragraph": "1",
+          "articleTextHash": "0307136f04e895cb745038d3e7681d2a9f99c1f79f76b08eb3043e0241641674",
+          "rawXmlHash": "cb6fd13d15c67e4440da43647c2b3116e7e82ba6071daacc51402b7f3d0c8a35"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "3",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "48",
+          "paragraph": "2",
+          "articleTextHash": "7ccc2023804e4830266e743fffcdb8c54a0e5a35971df51eecb17b12d2a50c79",
+          "rawXmlHash": "52b18f715c6e938bd999db1dc3395025587477af69a4a23bed1a6d514769ad87"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、間違いは現行法と一致する。",
+    "道路以外の低圧本支管の除外条件と、ポリエチレン管の5kPa基準を明示した。",
+    "第45条の過流出安全機構を第2号まで細分化した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q11-s01",
+      "gas-shunin-otsu-2018-law-q11-s02",
+      "gas-shunin-otsu-2018-law-q11-s03",
+      "gas-shunin-otsu-2018-law-q11-s04",
+      "gas-shunin-otsu-2018-law-q11-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:17:03Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
