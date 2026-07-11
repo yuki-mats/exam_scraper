@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 116,
+  "auditKey": "gas-shunin:kou:2025:law:q15:a19dfd1c7c8a",
+  "auditInputHash": "7926a6351326526a36cd46f300927cad94143b377e8760094d0e6d2de70e4276",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:22:12+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の周知先を「消費機器の所有者又は占有者」とする部分が誤り。ガス事業法第159条第1項は、ガスの使用に伴う危険防止事項を消費機器を使用する者に周知すると定めている。",
+      "正しい。ガス事業法第159条第2項は、供給ガスに係る消費機器の技術基準適合性を調査すると定め、設置又は使用場所への立入りについて所有者又は占有者の承諾を得られない場合を例外としている。",
+      "正しい。ガス事業法第159条第3項は、消費機器が技術基準に不適合の場合、適合させるための措置と、措置をとらない場合の結果を所有者又は占有者へ遅滞なく通知すると定めている。",
+      "間違い。選択肢の「事業の開始の後、遅滞なく」が誤り。ガス事業法第160条第1項は、保安業務規程を定め、事業の開始前に経済産業大臣へ届け出ると定めている。",
+      "間違い。選択肢の変更命令の相手方を「保安業務監督者」とする部分が誤り。ガス事業法第160条第3項は、経済産業大臣がガス小売事業者に保安業務規程の変更を命じることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "危険防止事項の周知先は？",
+      "消費機器調査で立入承諾を得られない場合は？",
+      "技術基準不適合時の通知内容と通知先は？",
+      "保安業務規程はいつ届け出る？",
+      "保安業務規程の変更命令は誰に出す？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "危険防止事項の周知先は？",
+        "answer": "所有者又は占有者ではなく、消費機器を使用する者。"
+      },
+      {
+        "question": "消費機器調査で立入承諾を得られない場合は？",
+        "answer": "調査義務の例外となる。"
+      },
+      {
+        "question": "技術基準不適合時の通知内容と通知先は？",
+        "answer": "必要な措置と未措置時の結果を、所有者又は占有者へ通知する。"
+      },
+      {
+        "question": "保安業務規程はいつ届け出る？",
+        "answer": "事業開始後ではなく、事業の開始前。"
+      },
+      {
+        "question": "保安業務規程の変更命令は誰に出す？",
+        "answer": "保安業務監督者ではなく、ガス小売事業者。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第1項・第2項・第3項及び第160条第1項・第3項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "1",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "2",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "1",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "3",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、間違い、間違いは現行法と一致する。",
+    "周知先の使用者と、不適合通知先の所有者又は占有者を区別した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2025/00_source/question_2025_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2025-law-q15-s01",
+      "gas-shunin-kou-2025-law-q15-s02",
+      "gas-shunin-kou-2025-law-q15-s03",
+      "gas-shunin-kou-2025-law-q15-s04",
+      "gas-shunin-kou-2025-law-q15-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2025",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T12:23:04Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2025/21_explanationText_added/question_2025_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
