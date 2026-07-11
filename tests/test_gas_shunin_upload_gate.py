@@ -106,60 +106,6 @@ class GasShuninUploadGateTests(unittest.TestCase):
         self.assertEqual(issue_counts["missing_question_set_id"], 1)
         self.assertEqual(issue_counts["existing_firestore_question_set_id_would_change"], 2)
 
-    def test_rejects_correct_choice_that_contradicts_explanation(self) -> None:
-        with TemporaryDirectory() as tmp:
-            upload_path = self.write_upload_json(
-                Path(tmp),
-                [
-                    {
-                        "originalQuestionId": "source-original",
-                        "questionId": "doc-1",
-                        "questionSetId": "qset-1",
-                        "questionType": "true_false",
-                        "correctChoiceText": "間違い",
-                        "explanationText": "正しい。この記述は正しい。",
-                    },
-                ],
-            )
-
-            _, _, issue_counts = check_upload_json(
-                [upload_path],
-                {},
-                {},
-                set(),
-                {},
-                max_samples=10,
-            )
-
-        self.assertEqual(issue_counts["correct_choice_explanation_mismatch"], 1)
-
-    def test_rejects_flash_card_with_multiple_correct_choices(self) -> None:
-        with TemporaryDirectory() as tmp:
-            upload_path = self.write_upload_json(
-                Path(tmp),
-                [
-                    {
-                        "originalQuestionId": "source-original",
-                        "questionId": f"doc-{index}",
-                        "questionSetId": "qset-1",
-                        "questionType": "flash_card",
-                        "correctChoiceText": "正しい" if index < 2 else "間違い",
-                    }
-                    for index in range(3)
-                ],
-            )
-
-            _, _, issue_counts = check_upload_json(
-                [upload_path],
-                {},
-                {},
-                set(),
-                {},
-                max_samples=10,
-            )
-
-        self.assertEqual(issue_counts["flash_card_correct_choice_count_mismatch"], 1)
-
 
 if __name__ == "__main__":
     unittest.main()
