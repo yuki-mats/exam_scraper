@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 180,
+  "auditKey": "gas-shunin:otsu:2020:law:q15:3a9e12ac2870",
+  "auditInputHash": "729eb0e70aa4d8fb519f01065d8953b930be6f12588fef493f8e636decd49b5d",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:02:03+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「ガスの消費量が7kW」が誤り。ガス事業法施行規則第202条第1項第1号トは、排気筒を設ける非密閉燃焼式のガス衣類乾燥機を、ガス消費量が12kWを超えるものと定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第3号ハは、燃焼器の排気筒に接続する排気扇に、停止時に燃焼器へのガス供給を自動的に遮断する装置を設けると定めている。",
+      "正しい。ガス事業法施行規則第202条第1項第2号ロ（2）は、強制排気式燃焼器等の排気筒が外壁を貫通する箇所に、排気ガスが屋内へ流れ込む隙間がないことを定めている。",
+      "間違い。選択肢の「自動ガス遮断装置」が誤り。ガス事業法施行規則第202条第1項第8号は、特定地下街等又は特定地下室等に設置する燃焼器に、告示の規格に適合するガス漏れ警報設備を設けると定めている。",
+      "間違い。選択肢の「排気扇を接続している自然排気式」が誤り。ガス事業法施行規則第202条第1項第2号イは、有効断面積の基準を含む同号イの対象を、排気扇を接続するものを除く自然排気式燃焼器の排気筒と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス衣類乾燥機に排気筒が必要となる消費量は？",
+      "排気扇停止時に必要な安全装置は？",
+      "強制排気式排気筒の外壁貫通部に必要な状態は？",
+      "特定地下街等の燃焼器に必要な設備は？",
+      "自然排気式排気筒の断面積基準から除かれるものは？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス衣類乾燥機に排気筒が必要となる消費量は？",
+        "answer": "屋内設置で密閉燃焼式でないものは、12kWを超える場合。"
+      },
+      {
+        "question": "排気扇停止時に必要な安全装置は？",
+        "answer": "燃焼器へのガス供給を自動的に遮断する装置。"
+      },
+      {
+        "question": "強制排気式排気筒の外壁貫通部に必要な状態は？",
+        "answer": "排気ガスが屋内へ流れ込む隙間がないこと。"
+      },
+      {
+        "question": "特定地下街等の燃焼器に必要な設備は？",
+        "answer": "告示の規格に適合するガス漏れ警報設備。"
+      },
+      {
+        "question": "自然排気式排気筒の断面積基準から除かれるものは？",
+        "answer": "排気扇を接続する自然排気式燃焼器の排気筒。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1項第1号ト、第2号イ・ロ、第3号ハ及び第8号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "subitem": "ト",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ハ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "ロ（2）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "8",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "2",
+          "subitem": "イ（3）",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、間違い、間違いは現行条文と一致する。",
+    "排気扇停止時の自動遮断装置は第3号ハ、外壁貫通部の隙間禁止は第2号ロ（2）を直接根拠として記録した。",
+    "特定地下街等のガス漏れ警報設備は第8号であり、自動ガス遮断装置等を定める第10号とは区別した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2020/00_source/question_2020_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "article": "202",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2020",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:02:46Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2020/21_explanationText_added/question_2020_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
