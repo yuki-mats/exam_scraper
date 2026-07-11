@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 1,
+  "auditKey": "gas-shunin:kou:2019:law:q01:d28fee68bcb2",
+  "auditInputHash": "87900a38b33a79df795ab1ab07537171f24a2e0cc11f4b9ae91f87415d03312c",
+  "status": "reviewed_needs_update",
+  "reviewedAt": "2026-07-11T15:04:06+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences.reason",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「最高値」が誤り。ガス事業法施行規則第13条第1項第13号は、供給するガスの熱量の最低値及び標準値その他のガスの成分に関する事項を説明事項と定めている。",
+      "間違い。選択肢の「ガスメーター」が誤り。ガス事業法施行規則第13条第1項第14号は、ガス栓の出口におけるガスの圧力の最高値及び最低値を説明事項と定めている。",
+      "間違い。選択肢の「使用に伴う危険性」が誤り。ガス事業法施行規則第13条第1項第15号は、供給するガスの属するガスグループと、求めがある場合の燃焼速度及びウォッベ指数を説明事項と定めている。",
+      "正しい。ガス事業法施行規則第13条第1項第25号は、導管、器具、機械その他の設備に関する関係者の保安上の責任に関する事項を説明事項と定めている。選択肢の「器具」はこれと一致する。",
+      "間違い。選択肢の「所有区分」が誤り。ガス事業法施行規則第13条第1項第25号は、導管、器具、機械その他の設備に関する関係者の保安上の責任に関する事項を説明事項と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "供給条件で説明するガスの熱量はどの値？",
+      "ガス圧力はどの位置を基準に説明する？",
+      "供給するガスについて説明する区分は？",
+      "設備に関して説明する責任は何？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "供給条件で説明するガスの熱量はどの値？",
+        "answer": "熱量の最低値及び標準値。ガス事業法施行規則第13条第1項第13号が定めている。"
+      },
+      {
+        "question": "ガス圧力はどの位置を基準に説明する？",
+        "answer": "ガス栓の出口。ガス事業法施行規則第13条第1項第14号は、その位置における圧力の最高値及び最低値を説明事項と定めている。"
+      },
+      {
+        "question": "供給するガスについて説明する区分は？",
+        "answer": "供給するガスの属するガスグループ。求めがある場合は、燃焼速度及びウォッベ指数も説明する。"
+      },
+      {
+        "question": "設備に関して説明する責任は何？",
+        "answer": "関係者の保安上の責任。ガス事業法施行規則第13条第1項第25号が定めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第13条第1項第13号、第14号、第15号及び第25号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "lawId": "345M50000400097",
+      "lawTitle": "ガス事業法施行規則",
+      "article": "13",
+      "paragraph": "1",
+      "itemsByChoiceIndex": {
+        "0": "13",
+        "1": "14",
+        "2": "15",
+        "3": "25",
+        "4": "25"
+      },
+      "articleTextHash": "59110049959b1ae8b33609b63e624f135a07e6873984f18499986a2e54a474cd",
+      "rawXmlHash": "5452ea8a621aa72e9216f9ba05ecf76483175785e599812f9ae9ec315ad9b14d"
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextとcorrectTextの結論は維持する。",
+    "現行lawReferencesは施行規則第13条を正しく指している。",
+    "lawRevisionFacts.currentとevidenceSummary.refsがガス事業法第2条を指しており、直接根拠と不一致のため洗い替えが必要。",
+    "suggestedQuestionDetailsの「現行法の確認ではガス事業法第2条も参照する」は判断根拠でないため削除する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "article": "13",
+      "paragraph": "1",
+      "items": [
+        "13",
+        "14",
+        "15",
+        "25"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+      "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=13",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed_historical_article_not_independently_fetched"
+    }
+  }
+}
