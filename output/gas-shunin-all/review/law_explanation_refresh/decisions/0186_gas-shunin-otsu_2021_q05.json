@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 186,
+  "auditKey": "gas-shunin:otsu:2021:law:q05:a338479d6b62",
+  "auditInputHash": "f83275a44aadc07cf458801abebb431937d948b5739440e427eaedb2207925b8",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T01:15:26+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢1は、(イ)の「甲又は乙」、(ハ)の「6ヵ月」、(ニ)の「登録ガス工作物検査機関」、(ホ)の「ガス主任技術者を解任する」が誤り。ガス事業法施行規則第27条第1項・第2項及びガス事業法第31条は、正しい語句を「甲」「通算」「1年」「経済産業大臣」「ガス小売事業者に対しガス主任技術者の解任を命ずる」と定めている。",
+      "間違い。選択肢2は、(ニ)の「登録ガス工作物検査機関」が誤り。ガス事業法施行規則第27条第2項は、同等以上の実務経験を認定する者を経済産業大臣と定めている。",
+      "間違い。選択肢3は、(イ)の「甲又は乙」、(ロ)の「連続」、(ニ)の「登録ガス工作物検査機関」が誤り。ガス事業法施行規則第27条第1項・第2項は、正しくは「甲」「通算」「経済産業大臣」と定めている。",
+      "間違い。選択肢4は、(ロ)の「連続」、(ハ)の「6ヵ月」、(ホ)の「ガス主任技術者を解任する」が誤り。ガス事業法施行規則第27条第1項及びガス事業法第31条は、正しくは「通算」「1年」「ガス小売事業者に対しガス主任技術者の解任を命ずる」と定めている。",
+      "正しい。ガス事業法施行規則第27条第1項・第2項及びガス事業法第31条は、正しい組合せを「甲」「通算」「1年」「経済産業大臣」「ガス小売事業者に対しガス主任技術者の解任を命ずる」と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "甲種免状保持者に必要な実務経験は？",
+      "同等以上の実務経験を認定する者は？",
+      "実務経験は連続期間である必要がある？",
+      "大臣はガス主任技術者を直接解任する？",
+      "この問題の正しい組合せは？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "甲種免状保持者に必要な実務経験は？",
+        "answer": "対象業務に通算して1年以上。"
+      },
+      {
+        "question": "同等以上の実務経験を認定する者は？",
+        "answer": "経済産業大臣。"
+      },
+      {
+        "question": "実務経験は連続期間である必要がある？",
+        "answer": "連続ではなく通算。"
+      },
+      {
+        "question": "大臣はガス主任技術者を直接解任する？",
+        "answer": "直接解任せず、ガス小売事業者へ解任を命ずる。"
+      },
+      {
+        "question": "この問題の正しい組合せは？",
+        "answer": "甲、通算、1年、経済産業大臣、ガス小売事業者に対する解任命令。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第25条第1項・第31条及びガス事業法施行規則第27条第1項・第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "25",
+              "paragraph": "1",
+              "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+              "rawXmlHash": "75cc647474eae33aeae60159c3412a8dd41d03a35a562ad5ab8d6d38420701ef"
+            },
+            {
+              "article": "27",
+              "paragraph": "1"
+            },
+            {
+              "article": "27",
+              "paragraph": "2"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "31",
+              "paragraph": "1",
+              "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92",
+          "references": [
+            {
+              "article": "27",
+              "paragraph": "1"
+            },
+            {
+              "article": "27",
+              "paragraph": "2"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "31",
+              "paragraph": "1",
+              "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92",
+          "references": [
+            {
+              "article": "27",
+              "paragraph": "1"
+            },
+            {
+              "article": "27",
+              "paragraph": "2"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "31",
+              "paragraph": "1",
+              "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92",
+          "references": [
+            {
+              "article": "27",
+              "paragraph": "1"
+            },
+            {
+              "article": "27",
+              "paragraph": "2"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "31",
+              "paragraph": "1",
+              "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "27",
+          "paragraph": "1",
+          "articleTextHash": "2b479e018a179692509dc8e56f8a08a4d43013ce4b901d8a2fba81e86d422deb",
+          "rawXmlHash": "184c80c061d60f2e6ea3637aca6d586a78f86b1207b24f5a03c9e8d243730d92",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "25",
+              "paragraph": "1",
+              "articleTextHash": "50fca88f8f95b6b8c1dbf7bde9b0d77bc397f644832a7a4347328fd9c92c2f17",
+              "rawXmlHash": "75cc647474eae33aeae60159c3412a8dd41d03a35a562ad5ab8d6d38420701ef"
+            },
+            {
+              "article": "27",
+              "paragraph": "1"
+            },
+            {
+              "article": "27",
+              "paragraph": "2"
+            },
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "31",
+              "paragraph": "1",
+              "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの不正解、不正解、不正解、不正解、正解は現行法令と一致する。",
+    "全選択肢について誤っている空欄を個別に列挙し、正しい5語の組合せを明示した。",
+    "選択肢5のみが全空欄と一致し、answer_result_textの正解5と整合する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2021/00_source/question_2021_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "egovLawIds": [
+        "329AC0000000051",
+        "345M50000400097"
+      ],
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T16:16:19Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2021/21_explanationText_added/question_2021_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
