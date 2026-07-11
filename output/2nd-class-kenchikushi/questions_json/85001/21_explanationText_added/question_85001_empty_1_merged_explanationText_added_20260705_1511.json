@@ -107,16 +107,17 @@
   },
   {
     "explanationText": [
-      "該当条文は法別表第2 (い)項 第九号、令第130条の4 第二号になります。 児童厚生施設は、600㎡以内であれば建築可能です。 よって建築することができます。",
-      "該当条文は法別表第2 (ろ)項 第二号、令第130条の5の2 第五号になります。 学習塾は、床面積150㎡以内かつ2階以下が条件です。 よって建築してはいけません。",
-      "該当条文は法別表第2 (に)項になります。 貸本屋は(に)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。",
-      "該当条文は法別表第2 (を)項になります。 共同住宅は(を)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。",
-      "該当条文は法別表第2 (わ)項になります。 銀行の支店は(わ)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。"
+      "該当条文は法別表第2 (い)項 第九号、令第130条の4 第二号になります。 児童厚生施設は、600㎡以内であれば建築可能です。 よって建築することができます。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "該当条文は法別表第2 (ろ)項 第二号、令第130条の5の2 第五号になります。 学習塾は、床面積150㎡以内かつ2階以下が条件です。 よって建築してはいけません。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "該当条文は法別表第2 (に)項になります。 貸本屋は(に)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "該当条文は法別表第2 (を)項になります。 共同住宅は(を)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "該当条文は法別表第2 (わ)項になります。 銀行の支店は(わ)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。"
     ],
     "suggestedQuestions": [
       "確認・届出・許可はどう切り分ける？",
       "この問題の例外条件はどこ？",
-      "現行法ではどう整理すると速い？"
+      "現行法ではどう整理すると速い？",
+      "現行法と出題当時の扱いはどう違う？"
     ],
     "suggestedQuestionDetails": [
       {
@@ -130,6 +131,10 @@
       {
         "question": "現行法ではどう整理すると速い？",
         "answer": "現行法では、主体・対象行為・例外条件の順で整理すると速く判定できます。根拠は 建築基準法施行令第130条の4二号、建築基準法施行令第130条の5五号 を追えば十分です。"
+      },
+      {
+        "question": "現行法と出題当時の扱いはどう違う？",
+        "answer": "はい。出題当時条文は参照せず、現行法を正本として正誤・解説を固定しています。"
       }
     ],
     "original_question_id": "b0de0a7e34233866",
@@ -251,12 +256,26 @@
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L76",
-        "evidenceBindingHash": "5fb098afefbb588e1b9731f4dea6639cf1f684992e1bfe5ddff3f8d6196510a0",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "0fc7455cd16048437d18d421d71ae19ffc4d39408efaa4de3e9ce146b48eeaca",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-b0de0a7e34233866_1",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-b0de0a7e34233866_1",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-b0de0a7e34233866_1",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-b0de0a7e34233866_1",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:b0de0a7e34233866:1",
+        "evidenceBindingHash": "da62cda295ee98892c935a59fe993e67fea42d5f9623e0917926d7ba8ab150ad",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "正しい",
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "article": "130条の4",
@@ -264,53 +283,64 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "2d82f1b9125a9749d7717e149a73f6ea2d4938fc594c73a04b1f8deae028999e",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325CO0000000338;article=130_4",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「正しい」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "correct",
+          "explanationText": "該当条文は法別表第2 (い)項 第九号、令第130条の4 第二号になります。 児童厚生施設は、600㎡以内であれば建築可能です。 よって建築することができます。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_1_hold_current_basis_1"
+            "current_law_policy_choice_1_1"
           ],
           "refs": [
             {
-              "refId": "choice_1_hold_current_basis_1",
+              "refId": "current_law_policy_choice_1_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325CO0000000338",
               "lawTitle": "建築基準法施行令",
               "article": "130条の4",
-              "item": "二号",
-              "articleTextHash": "2d82f1b9125a9749d7717e149a73f6ea2d4938fc594c73a04b1f8deae028999e"
+              "item": "二号"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L77",
-        "evidenceBindingHash": "b3ea73234a8d5e51b75621f36e26471a4f62d4bece4aaa4c682d663a9831945b",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "90c0da2a6889519ebd92278c169b2d81609ba85d71418eaaa8f23ccfc9e68602",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-b0de0a7e34233866_2",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-b0de0a7e34233866_2",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-b0de0a7e34233866_2",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-b0de0a7e34233866_2",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:b0de0a7e34233866:2",
+        "evidenceBindingHash": "09b7f29cfe62baa2b5d0004f8bd1e2f286cdd2e1f0dd0c9bf8188c165c95ea81",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325CO0000000338",
           "lawTitle": "建築基準法施行令",
           "article": "130条の5",
@@ -318,53 +348,64 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "fd2f2f0424322c4d32a64609060f24e9b407fc7ab410e1e2f9bb05d8d520653f",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325CO0000000338;article=130_5",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "該当条文は法別表第2 (ろ)項 第二号、令第130条の5の2 第五号になります。 学習塾は、床面積150㎡以内かつ2階以下が条件です。 よって建築してはいけません。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_2_hold_current_basis_1"
+            "current_law_policy_choice_2_1"
           ],
           "refs": [
             {
-              "refId": "choice_2_hold_current_basis_1",
+              "refId": "current_law_policy_choice_2_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325CO0000000338",
               "lawTitle": "建築基準法施行令",
               "article": "130条の5",
-              "item": "五号",
-              "articleTextHash": "fd2f2f0424322c4d32a64609060f24e9b407fc7ab410e1e2f9bb05d8d520653f"
+              "item": "五号"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L78",
-        "evidenceBindingHash": "f851cbeca3ee1b75bfe49484e577329637ef75dfedd27aa03091dd5b52613b5d",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "c213c213e7140467c6a63e3083af9c404819d61950d4749d9b7559d317b4d5db",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-b0de0a7e34233866_3",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-b0de0a7e34233866_3",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-b0de0a7e34233866_3",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-b0de0a7e34233866_3",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:b0de0a7e34233866:3",
+        "evidenceBindingHash": "f65abac481afcf50dbbf336d7df24108b1c9f3cb81ac0cac0812f29bb80d7d63",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "正しい",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "別表第2",
@@ -372,53 +413,64 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=%E5%88%A5%E8%A1%A8%E7%AC%AC%E4%BA%8C",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「正しい」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "correct",
+          "explanationText": "該当条文は法別表第2 (に)項になります。 貸本屋は(に)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_3_hold_current_basis_1"
+            "current_law_policy_choice_3_1"
           ],
           "refs": [
             {
-              "refId": "choice_3_hold_current_basis_1",
+              "refId": "current_law_policy_choice_3_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "別表第2",
-              "item": "に項",
-              "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6"
+              "item": "に項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L79",
-        "evidenceBindingHash": "f31c53a7e464a3905a3f14009eae8cfa0c5c53cde58b1bf959f5a416c1d4c7a1",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "ed6fd679b95ecfcce105abd5be9cc0684fa0014c310225e38a10820aac8d089c",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-b0de0a7e34233866_4",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-b0de0a7e34233866_4",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-b0de0a7e34233866_4",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-b0de0a7e34233866_4",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:b0de0a7e34233866:4",
+        "evidenceBindingHash": "2191cf32d9417d93ef1fb08f26ed50820f60f1c3efa57b6942d2d888e3773d39",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "正しい",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "別表第2",
@@ -426,53 +478,64 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=%E5%88%A5%E8%A1%A8%E7%AC%AC%E4%BA%8C",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「正しい」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "correct",
+          "explanationText": "該当条文は法別表第2 (を)項になります。 共同住宅は(を)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_4_hold_current_basis_1"
+            "current_law_policy_choice_4_1"
           ],
           "refs": [
             {
-              "refId": "choice_4_hold_current_basis_1",
+              "refId": "current_law_policy_choice_4_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "別表第2",
-              "item": "を項",
-              "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6"
+              "item": "を項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L80",
-        "evidenceBindingHash": "49459315321754d973c4f5f54fab2bd954c3bcf3ef97591b79c16ff6f85b4e2d",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "1e1e72a5daac024d7760e8721c03a41a8138b8ecc2fd20f326e346b6ec2b1af1",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-b0de0a7e34233866_5",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-b0de0a7e34233866_5",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-b0de0a7e34233866_5",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-b0de0a7e34233866_5",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:b0de0a7e34233866:5",
+        "evidenceBindingHash": "7b887ad3f4e7bcd95beb4bc12d8f06e06508dc7a490e5d16e86026acbaf00a52",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "正しい",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "別表第2",
@@ -480,60 +543,58 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=%E5%88%A5%E8%A1%A8%E7%AC%AC%E4%BA%8C",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「正しい」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "correct",
+          "explanationText": "該当条文は法別表第2 (わ)項になります。 銀行の支店は(わ)項に該当しないので、建築してはならないものから除かれます。 よって建築することができます。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_5_hold_current_basis_1"
+            "current_law_policy_choice_5_1"
           ],
           "refs": [
             {
-              "refId": "choice_5_hold_current_basis_1",
+              "refId": "current_law_policy_choice_5_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "別表第2",
-              "item": "わ項",
-              "articleTextHash": "870a6b035b871192db74338ec1f2c435cdfef69f29d5637cc1eecd8dbee3fee6"
+              "item": "わ項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       }
     ]
   },
   {
     "explanationText": [
-      "第五号より飲食店は2階以下かつ延べ面積 500 ㎡ 以下であれば建築できます。 今回は問題文より3階建のため、建築できません。",
-      "原則、条文に該当しないため、建築できません。",
-      "第七号、令第130条の5の4 第一号より、保健所は4階以下であれば建築可能です。 よって建築することができます。",
-      "各号に該当しないため、建築できません。",
-      "建築不可です。 よって「3」が正解となります。"
+      "第五号より飲食店は2階以下かつ延べ面積 500 ㎡ 以下であれば建築できます。 今回は問題文より3階建のため、建築できません。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "原則、条文に該当しないため、建築できません。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "第七号、令第130条の5の4 第一号より、保健所は4階以下であれば建築可能です。 よって建築することができます。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "各号に該当しないため、建築できません。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "建築不可です。 よって「3」が正解となります。\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。"
     ],
     "suggestedQuestions": [
       "確認・届出・許可はどう切り分ける？",
       "この問題の例外条件はどこ？",
-      "現行法ではどう整理すると速い？"
+      "現行法ではどう整理すると速い？",
+      "現行法と出題当時の扱いはどう違う？"
     ],
     "suggestedQuestionDetails": [
       {
@@ -547,6 +608,10 @@
       {
         "question": "現行法ではどう整理すると速い？",
         "answer": "現行法では、主体・対象行為・例外条件の順で整理すると速く判定できます。根拠は 建築基準法施行令第130条の5一号、建築基準法施行令第130条の5 を追えば十分です。"
+      },
+      {
+        "question": "現行法と出題当時の扱いはどう違う？",
+        "answer": "はい。出題当時条文は参照せず、現行法を正本として正誤・解説を固定しています。"
       }
     ],
     "original_question_id": "9390c4f8ea635e99",
@@ -686,12 +751,26 @@
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L81",
-        "evidenceBindingHash": "2ebfd5260853b74782702bbddfab72a5977f8c4afa4a5167e134972526b854b6",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "d663530c1eab45b0fddb8fb5a7888496c071cd245f78b4fa70d65f3f5c5cd94f",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-9390c4f8ea635e99_1",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_1",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_1",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_1",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:9390c4f8ea635e99:1",
+        "evidenceBindingHash": "be5d94877a44a9a35593668d8bca30e7417a87b2b6e3c57fdd578525c41d5259",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "48条",
@@ -699,53 +778,64 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=48",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "第五号より飲食店は2階以下かつ延べ面積 500 ㎡ 以下であれば建築できます。 今回は問題文より3階建のため、建築できません。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_1_hold_current_basis_1"
+            "current_law_policy_choice_1_1"
           ],
           "refs": [
             {
-              "refId": "choice_1_hold_current_basis_1",
+              "refId": "current_law_policy_choice_1_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "48条",
-              "paragraph": "3項",
-              "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0"
+              "paragraph": "3項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L82",
-        "evidenceBindingHash": "2b258667c2f090647a460ac0dc8e78ec2077fa945e6ae1726245e0eb8f26a7be",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "8e14f272a6ffee0edfc330327ffc9b5f165abad7b904810617a5e2454b58e807",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-9390c4f8ea635e99_2",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_2",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_2",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_2",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:9390c4f8ea635e99:2",
+        "evidenceBindingHash": "6a3fe7ff91d5b88ee84719c9cadfc1a6a594ab51daa180a280c04583f90f50f3",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "48条",
@@ -753,53 +843,64 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=48",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "原則、条文に該当しないため、建築できません。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_2_hold_current_basis_1"
+            "current_law_policy_choice_2_1"
           ],
           "refs": [
             {
-              "refId": "choice_2_hold_current_basis_1",
+              "refId": "current_law_policy_choice_2_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "48条",
-              "paragraph": "3項",
-              "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0"
+              "paragraph": "3項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L83",
-        "evidenceBindingHash": "1717d9c10185243b8fcb64f2407c170ab68e50702f050933e9f6238ded65c4d5",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "2ed462f0ad2209daf525c90a8b46d6d415ba91a570d40876660eed68b187f927",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-9390c4f8ea635e99_3",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_3",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_3",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_3",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:9390c4f8ea635e99:3",
+        "evidenceBindingHash": "72739f63dd0fbd00572ac565d35e208216117b0f591a663b8bac08aad17d9717",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "正しい",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "48条",
@@ -807,65 +908,75 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=48",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「正しい」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "correct",
+          "explanationText": "第七号、令第130条の5の4 第一号より、保健所は4階以下であれば建築可能です。 よって建築することができます。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_3_hold_current_basis_1",
-            "choice_3_hold_current_basis_2"
+            "current_law_policy_choice_3_1",
+            "current_law_policy_choice_3_2"
           ],
           "refs": [
             {
-              "refId": "choice_3_hold_current_basis_1",
+              "refId": "current_law_policy_choice_3_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "48条",
-              "paragraph": "3項",
-              "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0"
+              "paragraph": "3項"
             },
             {
-              "refId": "choice_3_hold_current_basis_2",
+              "refId": "current_law_policy_choice_3_2",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": false,
               "lawId": "325CO0000000338",
               "lawTitle": "建築基準法施行令",
               "article": "130条の5",
-              "item": "一号",
-              "articleTextHash": "fd2f2f0424322c4d32a64609060f24e9b407fc7ab410e1e2f9bb05d8d520653f"
+              "item": "一号"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L84",
-        "evidenceBindingHash": "d8b3d7232a11cafef8ac1e31135420635adce400d1b3507aa9515547628ba45f",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "f3b8451a0712cb528a9bc40d439f8203f5465989aa9f52a4af750a84d01242b6",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-9390c4f8ea635e99_4",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_4",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_4",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_4",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:9390c4f8ea635e99:4",
+        "evidenceBindingHash": "652a9fb15d81344f463a666485dfc10be038b3c4af475ac2f14ddaf09874ae92",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "48条",
@@ -873,53 +984,64 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=48",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "各号に該当しないため、建築できません。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_4_hold_current_basis_1"
+            "current_law_policy_choice_4_1"
           ],
           "refs": [
             {
-              "refId": "choice_4_hold_current_basis_1",
+              "refId": "current_law_policy_choice_4_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "48条",
-              "paragraph": "3項",
-              "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0"
+              "paragraph": "3項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L85",
-        "evidenceBindingHash": "646dcbc32c9250acde9cae6142b18478bfbd7cc64fe5f6d9961c686c8d9a2941",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "dde415172e63590a6264538bfef92a16d17701f629f36dbcd5bce3670330a1e3",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-9390c4f8ea635e99_5",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_5",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_5",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-9390c4f8ea635e99_5",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:9390c4f8ea635e99:5",
+        "evidenceBindingHash": "73539f27672973eff7fe5f763b3337612d8f96c6624a3b71ea51ba9b2f6c4341",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "48条",
@@ -927,65 +1049,63 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=48",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "建築不可です。 よって「3」が正解となります。",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_5_hold_current_basis_1"
+            "current_law_policy_choice_5_1"
           ],
           "refs": [
             {
-              "refId": "choice_5_hold_current_basis_1",
+              "refId": "current_law_policy_choice_5_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "48条",
-              "paragraph": "3項",
-              "articleTextHash": "177f30ec8173ef78a03ab9422a9fd6162441eb2f6ca9d7df3b82ed835b8561c0"
+              "paragraph": "3項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       }
     ]
   },
   {
     "explanationText": [
-      "この記述は誤りです。360m²",
-      "この記述は誤りです。432m²",
-      "この記述は誤りです。540m²",
-      "この記述は正しいです。648m²",
-      "この記述は誤りです。750m²"
+      "この記述は誤りです。360m²\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は誤りです。432m²\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は誤りです。540m²\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は正しいです。648m²\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は誤りです。750m²\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。"
     ],
     "suggestedQuestions": [
       "面積や高さの計算は何から確認する？",
       "この問題の除外規定はどこ？",
-      "現行法ではどう覚えると迷いにくい？"
+      "現行法ではどう覚えると迷いにくい？",
+      "現行法と出題当時の扱いはどう違う？"
     ],
     "suggestedQuestionDetails": [
       {
         "question": "面積や高さの計算は何から確認する？",
-        "answer": "計画規制は、用途地域・防火地域・面積条件の順で整理すると判断しやすいです。今回の起点は 関連条文 です。"
+        "answer": "計画規制は、用途地域・防火地域・面積条件の順で整理すると判断しやすいです。今回の起点は 建築基準法第52条第2項 です。"
       },
       {
         "question": "この問題の除外規定はどこ？",
@@ -993,7 +1113,11 @@
       },
       {
         "question": "現行法ではどう覚えると迷いにくい？",
-        "answer": "現行法では、まず主条文、その後に政令や別表の条件を見る流れが安定です。関連条文 を軸に確認してください。"
+        "answer": "現行法では、まず主条文、その後に政令や別表の条件を見る流れが安定です。建築基準法第52条第2項 を軸に確認してください。"
+      },
+      {
+        "question": "現行法と出題当時の扱いはどう違う？",
+        "answer": "はい。出題当時条文は参照せず、現行法を正本として正誤・解説を固定しています。"
       }
     ],
     "original_question_id": "edcda1eaff6a1338",
@@ -1059,12 +1183,26 @@
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L86",
-        "evidenceBindingHash": "d300e555db98ddd0e693700be95ae72bf39de9bf8472f0e477876ff1251192e5",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "3689a03a3ab6dbd84b42c10bc9805b2bc46bc3c985e3006b991e74fe72266bf6",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-edcda1eaff6a1338_1",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_1",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_1",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_1",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:edcda1eaff6a1338:1",
+        "evidenceBindingHash": "adda31eb015dda27f6ff93c56beb8ae15ed7ac823bcfc323014d76c045abda68",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "52条",
@@ -1072,65 +1210,60 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=52",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。360m²",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_1_hold_current_basis_1",
-            "choice_1_hold_current_basis_2"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_1_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "2項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
-            },
-            {
-              "refId": "choice_1_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "9項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L87",
-        "evidenceBindingHash": "183139efd3ec8b2f70deb68213b3f37027a8435d21791a8f76642c10606d4590",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "568f45b82ff127cc4ae127f1328ab6664d1d11950f0a211e057e666954536c6e",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-edcda1eaff6a1338_2",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_2",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_2",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_2",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:edcda1eaff6a1338:2",
+        "evidenceBindingHash": "adda31eb015dda27f6ff93c56beb8ae15ed7ac823bcfc323014d76c045abda68",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "52条",
@@ -1138,65 +1271,60 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=52",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。432m²",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_2_hold_current_basis_1",
-            "choice_2_hold_current_basis_2"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_2_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "2項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
-            },
-            {
-              "refId": "choice_2_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "9項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L88",
-        "evidenceBindingHash": "4b5c2018d3332ddef345215610e8c9239d6a84210524a2c0dfce6b995b8a2d94",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "37fa6a71e2c9ef26f32484a3c6d3db1e2fa9208a6dcbd14eae558e9d13495d4e",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-edcda1eaff6a1338_3",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_3",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_3",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_3",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:edcda1eaff6a1338:3",
+        "evidenceBindingHash": "adda31eb015dda27f6ff93c56beb8ae15ed7ac823bcfc323014d76c045abda68",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "52条",
@@ -1204,65 +1332,60 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=52",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。540m²",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_3_hold_current_basis_1",
-            "choice_3_hold_current_basis_2"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_3_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "2項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
-            },
-            {
-              "refId": "choice_3_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "9項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L89",
-        "evidenceBindingHash": "48b7f5837bfec2f00832e8776a0e408b3d909f7d63cc20db2e9e7ad13308047f",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "10bd2e61a24055dde557eb8698ca295e54ac264665d0a457ef7bf3150d41edac",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-edcda1eaff6a1338_4",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_4",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_4",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_4",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:edcda1eaff6a1338:4",
+        "evidenceBindingHash": "1dc2f232e8619ad47b55b9cb044782564dc8619201d5bf730dd8d8ba222125d6",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "正しい",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "52条",
@@ -1270,65 +1393,75 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=52",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「正しい」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "correct",
+          "explanationText": "この記述は正しいです。648m²",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_4_hold_current_basis_1",
-            "choice_4_hold_current_basis_2"
+            "current_law_policy_choice_4_1",
+            "current_law_policy_choice_4_2"
           ],
           "refs": [
             {
-              "refId": "choice_4_hold_current_basis_1",
+              "refId": "current_law_policy_choice_4_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "52条",
-              "paragraph": "2項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
+              "paragraph": "2項"
             },
             {
-              "refId": "choice_4_hold_current_basis_2",
+              "refId": "current_law_policy_choice_4_2",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": false,
               "lawId": "325AC0000000201",
               "lawTitle": "建築基準法",
               "article": "52条",
-              "paragraph": "9項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
+              "paragraph": "9項"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L90",
-        "evidenceBindingHash": "75cb26cffa159e440b1871a6ef8668befc202185d1dc4d05d57e0974fd62c584",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "6198e6cd7fcbe8ed32037261ed06e8ecb8214099def53b3f69b6a52f399b1afb",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-edcda1eaff6a1338_5",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_5",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_5",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-edcda1eaff6a1338_5",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:edcda1eaff6a1338:5",
+        "evidenceBindingHash": "adda31eb015dda27f6ff93c56beb8ae15ed7ac823bcfc323014d76c045abda68",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "52条",
@@ -1336,77 +1469,59 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=52",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。750m²",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_5_hold_current_basis_1",
-            "choice_5_hold_current_basis_2"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_5_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "2項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
-            },
-            {
-              "refId": "choice_5_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "52条",
-              "paragraph": "9項",
-              "articleTextHash": "c48daac167ef26b945eff5a3edef3746566b0b281e31a9d41d7c5c1f79abf740"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       }
     ]
   },
   {
     "explanationText": [
-      "この記述は誤りです。16.25m",
-      "この記述は誤りです。18.75m",
-      "この記述は正しいです。20.00m",
-      "この記述は誤りです。21.25m",
-      "この記述は誤りです。23.75m"
+      "この記述は誤りです。16.25m\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は誤りです。18.75m\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は正しいです。20.00m\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は誤りです。21.25m\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。",
+      "この記述は誤りです。23.75m\n※この解説は現行法に基づくものです。2015年の出題当時条文は参照していません。"
     ],
     "suggestedQuestions": [
       "面積や高さの計算は何から確認する？",
       "この問題の除外規定はどこ？",
-      "現行法ではどう覚えると迷いにくい？"
+      "現行法ではどう覚えると迷いにくい？",
+      "現行法と出題当時の扱いはどう違う？"
     ],
     "suggestedQuestionDetails": [
       {
         "question": "面積や高さの計算は何から確認する？",
-        "answer": "計画規制は、用途地域・防火地域・面積条件の順で整理すると判断しやすいです。今回の起点は 関連条文 です。"
+        "answer": "計画規制は、用途地域・防火地域・面積条件の順で整理すると判断しやすいです。今回の起点は 建築基準法第56条第1項第一号 です。"
       },
       {
         "question": "この問題の除外規定はどこ？",
@@ -1414,7 +1529,11 @@
       },
       {
         "question": "現行法ではどう覚えると迷いにくい？",
-        "answer": "現行法では、まず主条文、その後に政令や別表の条件を見る流れが安定です。関連条文 を軸に確認してください。"
+        "answer": "現行法では、まず主条文、その後に政令や別表の条件を見る流れが安定です。建築基準法第56条第1項第一号 を軸に確認してください。"
+      },
+      {
+        "question": "現行法と出題当時の扱いはどう違う？",
+        "answer": "はい。出題当時条文は参照せず、現行法を正本として正誤・解説を固定しています。"
       }
     ],
     "original_question_id": "31fdabb464b6b153",
@@ -1497,12 +1616,26 @@
     ],
     "lawRevisionFacts": [
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L91",
-        "evidenceBindingHash": "7a2ae091f855bb8db5dc93aa1668a73cdc22c3b01ba65f6187f5dda1b7255fe3",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "d70a0dda4f327308b63575102585875f158713cf119b3c3f0e0860ba7891e56b",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-31fdabb464b6b153_1",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-31fdabb464b6b153_1",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-31fdabb464b6b153_1",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-31fdabb464b6b153_1",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:31fdabb464b6b153:1",
+        "evidenceBindingHash": "30fadc64dc8bce028bfe7c45d328be25a01d6da0440d753f9845a9d9d9132751",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "56条",
@@ -1511,80 +1644,60 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=56",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。16.25m",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_1_hold_current_basis_1",
-            "choice_1_hold_current_basis_2",
-            "choice_1_hold_current_basis_3"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_1_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "一号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_1_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "三号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_1_hold_current_basis_3",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "別表第3",
-              "paragraph": "1項",
-              "item": "に欄",
-              "articleTextHash": "7e8886b68e5d4e3e79113a2754b12c7ee8d531f3de621c8db1e24750d6b9c4a3"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L92",
-        "evidenceBindingHash": "425344e19262a12c934dc192b8918c0cba95405e896cc44b986657608118e9ae",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "3704bfdbe19ca533a7cf80e7a3111ddfeb9f7e7631617964bda501aea0397140",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-31fdabb464b6b153_2",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-31fdabb464b6b153_2",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-31fdabb464b6b153_2",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-31fdabb464b6b153_2",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:31fdabb464b6b153:2",
+        "evidenceBindingHash": "30fadc64dc8bce028bfe7c45d328be25a01d6da0440d753f9845a9d9d9132751",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "56条",
@@ -1593,80 +1706,60 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=56",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。18.75m",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_2_hold_current_basis_1",
-            "choice_2_hold_current_basis_2",
-            "choice_2_hold_current_basis_3"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_2_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "一号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_2_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "三号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_2_hold_current_basis_3",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "別表第3",
-              "paragraph": "1項",
-              "item": "に欄",
-              "articleTextHash": "7e8886b68e5d4e3e79113a2754b12c7ee8d531f3de621c8db1e24750d6b9c4a3"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L93",
-        "evidenceBindingHash": "1ad6175cac9b7ec380ba29331653980380d866c8dd5bd32b0a1e7f11b407f889",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "98711aee755251c7f225e33700465ae301c1ef46a2b6bdb0b5c9af13263f0caa",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-31fdabb464b6b153_3",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-31fdabb464b6b153_3",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-31fdabb464b6b153_3",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-31fdabb464b6b153_3",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:31fdabb464b6b153:3",
+        "evidenceBindingHash": "5aa5fe244a19114ba3bcab7017d1cbdffd9d27ce1e1cd5e52bc4191856d22a2c",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "正しい",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "56条",
@@ -1675,32 +1768,34 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=56",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "正しい"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「正しい」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "correct",
+          "explanationText": "この記述は正しいです。20.00m",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_3_hold_current_basis_1",
-            "choice_3_hold_current_basis_2",
-            "choice_3_hold_current_basis_3"
+            "current_law_policy_choice_3_1",
+            "current_law_policy_choice_3_2",
+            "current_law_policy_choice_3_3"
           ],
           "refs": [
             {
-              "refId": "choice_3_hold_current_basis_1",
+              "refId": "current_law_policy_choice_3_1",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": true,
@@ -1708,11 +1803,10 @@
               "lawTitle": "建築基準法",
               "article": "56条",
               "paragraph": "1項",
-              "item": "一号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
+              "item": "一号"
             },
             {
-              "refId": "choice_3_hold_current_basis_2",
+              "refId": "current_law_policy_choice_3_2",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": false,
@@ -1720,11 +1814,10 @@
               "lawTitle": "建築基準法",
               "article": "56条",
               "paragraph": "1項",
-              "item": "三号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
+              "item": "三号"
             },
             {
-              "refId": "choice_3_hold_current_basis_3",
+              "refId": "current_law_policy_choice_3_3",
               "lawTimeScope": "current",
               "relation": "current_basis",
               "primaryBasis": false,
@@ -1732,23 +1825,32 @@
               "lawTitle": "建築基準法",
               "article": "別表第3",
               "paragraph": "1項",
-              "item": "に欄",
-              "articleTextHash": "7e8886b68e5d4e3e79113a2754b12c7ee8d531f3de621c8db1e24750d6b9c4a3"
+              "item": "に欄"
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "正しい",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L94",
-        "evidenceBindingHash": "d73029334b1d18cac3903f300da17a214449ad53218ceb6a76ed56be7cf64ee0",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "d0f3e425fa43cd1bca52bfabbef7cc9b0871577c837742f2c21cfd2842ce2faf",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-31fdabb464b6b153_4",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-31fdabb464b6b153_4",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-31fdabb464b6b153_4",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-31fdabb464b6b153_4",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:31fdabb464b6b153:4",
+        "evidenceBindingHash": "30fadc64dc8bce028bfe7c45d328be25a01d6da0440d753f9845a9d9d9132751",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "56条",
@@ -1757,80 +1859,60 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=56",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。21.25m",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_4_hold_current_basis_1",
-            "choice_4_hold_current_basis_2",
-            "choice_4_hold_current_basis_3"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_4_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "一号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_4_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "三号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_4_hold_current_basis_3",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "別表第3",
-              "paragraph": "1項",
-              "item": "に欄",
-              "articleTextHash": "7e8886b68e5d4e3e79113a2754b12c7ee8d531f3de621c8db1e24750d6b9c4a3"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       },
       {
-        "auditStatus": "hold",
-        "reviewState": "needs_secondary_review",
-        "sourceEvidenceVersionId": "law_revision_audit_queue/85001_law_revision_audit_queue_20260705_1448.jsonl:L95",
-        "evidenceBindingHash": "eb9c38d4e7446c36889f48c3e52e995e209fbd3fd4fc299d82b076dcd3f663e7",
+        "auditStatus": "updated_to_current_law",
+        "reviewState": "tertiary_verified",
+        "auditedAt": "2026-07-05T17:45:12+09:00",
+        "nextAuditDueAt": "2027-07-05",
+        "auditMethodVersion": "law-grounded-audit-v1-current-law-only-pre2017-policy",
+        "auditInputHash": "c73e57d49c9eed20d63930d2b8c535c9faa235b14a5ac609cc666eff63af1793",
+        "auditRunId": "law-audit-current-law-only-20260705_1700-85001-31fdabb464b6b153_5",
+        "lawCorpusSnapshotId": "current-law-only-policy-20260705+egov-current-locators-85001",
+        "primaryAuditRunId": "primary-current-law-only-20260705_1700-85001-31fdabb464b6b153_5",
+        "secondaryAuditRunId": "secondary-current-law-only-20260705_1700-85001-31fdabb464b6b153_5",
+        "tertiaryAuditRunId": "tertiary-current-law-only-20260705_1700-85001-31fdabb464b6b153_5",
+        "reconciliationStatus": "approved_current_law_only_policy",
+        "sourceEvidenceVersionId": "law_revision_audit/2015_2016_current_law_only_audit_20260705_1700.jsonl:85001:31fdabb464b6b153:5",
+        "evidenceBindingHash": "30fadc64dc8bce028bfe7c45d328be25a01d6da0440d753f9845a9d9d9132751",
+        "examTime": {
+          "correctChoiceText": "unknown",
+          "referenceDate": "2015-07-05",
+          "verificationStatus": "not_referenced_current_law_only_policy"
+        },
         "current": {
-          "correctChoiceText": "間違い",
           "lawId": "325AC0000000201",
           "lawTitle": "建築基準法",
           "article": "56条",
@@ -1839,71 +1921,37 @@
           "referenceDate": "2026-07-04",
           "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c",
           "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=325AC0000000201;article=56",
-          "verificationStatus": "verified"
+          "verificationStatus": "verified",
+          "correctChoiceText": "間違い"
         },
         "differenceFacts": [
-          "出題当時法令と現行法の差分は二次監査待ちです。"
+          "出題当時条文は取得・参照していません。",
+          "ユーザー方針により、pre-2017 の出題当時条文が固定できない場合は現行法ベースで正誤・解説を扱います。"
         ],
         "answerImpactFacts": [
-          "現行法ベースの正答変更は未確定です。"
+          "現行法ベースの正誤として「間違い」を採用します。",
+          "出題当時の公式正答との差分は評価対象外です。"
         ],
         "notes": [
-          "lawRevisionFacts は監査 queue から hold として初期化しました。",
-          "現行法条文 snapshot は取得済みです。",
-          "出題当時法令との差分と正答への影響は二次監査で確定してください。"
+          "2015/2016 は e-Gov API v2 の asof 制限により出題当時条文を固定できないため、現行法ベース方針で確定しました。",
+          "出題当時法令を参照していないことをユーザー向け注記に残します。"
         ],
         "evidenceSummary": {
-          "verdict": "hold",
-          "explanationText": "現行法の関連条文は取得済みですが、出題当時法令との差分と正答への影響は二次確認中です。正答変更は断定しません。",
-          "differenceSummary": "出題当時法令と現行法の差分は二次確認中です。",
-          "promptContext": "この問題は法令根拠監査の二次確認待ちです。保存済みの現行法参照だけを使い、出題当時との差分や正答変更を推測して断定しないでください。",
+          "verdict": "incorrect",
+          "explanationText": "この記述は誤りです。23.75m",
+          "differenceSummary": "出題当時条文は参照せず、現行法ベースで固定しました。",
+          "promptContext": "この監査では出題当時条文を参照していません。AI解説では現行法ベースで説明し、出題当時との差分を推測しないでください。",
           "displayRefIds": [
-            "choice_5_hold_current_basis_1",
-            "choice_5_hold_current_basis_2",
-            "choice_5_hold_current_basis_3"
+            "current_law_policy"
           ],
           "refs": [
             {
-              "refId": "choice_5_hold_current_basis_1",
+              "refId": "current_law_policy",
               "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": true,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "一号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_5_hold_current_basis_2",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "56条",
-              "paragraph": "1項",
-              "item": "三号",
-              "articleTextHash": "187919f64f4d04b2e634989aa9b7d65d001a4a32d4072be2e807adc743ecfe1c"
-            },
-            {
-              "refId": "choice_5_hold_current_basis_3",
-              "lawTimeScope": "current",
-              "relation": "current_basis",
-              "primaryBasis": false,
-              "lawId": "325AC0000000201",
-              "lawTitle": "建築基準法",
-              "article": "別表第3",
-              "paragraph": "1項",
-              "item": "に欄",
-              "articleTextHash": "7e8886b68e5d4e3e79113a2754b12c7ee8d531f3de621c8db1e24750d6b9c4a3"
+              "relation": "current_law_policy",
+              "primaryBasis": true
             }
           ]
-        },
-        "examTime": {
-          "correctChoiceText": "間違い",
-          "verificationStatus": "from_existing_question_pending_secondary_review"
         }
       }
     ]
