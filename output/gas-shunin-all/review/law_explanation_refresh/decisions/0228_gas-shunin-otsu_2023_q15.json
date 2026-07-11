@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 228,
+  "auditKey": "gas-shunin:otsu:2023:law:q15:47424e12bc20",
+  "auditInputHash": "946504508ba889618e3773983e5e5a383ef0fe111547d67aca0b07ae5016a866",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T03:53:50+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「消費機器の所有者又は占有者に対し」が誤りで、正しくは「消費機器を使用する者に対し」である。ガス事業法第159条第1項は、ガス小売事業者が消費機器を使用する者に対し、ガスの使用に伴う危険防止に必要な事項を周知させなければならないと定めている。",
+      "正しい。ガス事業法第159条第3項は、調査の結果、消費機器が技術上の基準に適合していないと認めるときは、遅滞なく、基準に適合させるためにとるべき措置と、その措置をとらなかった場合に生ずべき結果を所有者又は占有者に通知しなければならないと定めている。",
+      "正しい。ガス事業法第160条第1項は、ガス小売事業者が保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出なければならないと定めている。",
+      "間違い。選択肢の「ガス主任技術者の選任」が誤りで、正しくは「保安業務監督者の選任」である。ガス事業法施行規則第207条第1項の表「ガス小売事業者」第2号は、保安業務を管理する事業場ごとの保安業務監督者の選任に関することを保安業務規程に定めると規定している。",
+      "間違い。選択肢の「その使用を一時停止すべきこと」が誤りで、正しくは「消費機器を修理し、改造し、又は移転すべきこと」である。ガス事業法第161条第1項は、経済産業大臣が所有者又は占有者に対し、技術基準に適合させるための修理、改造又は移転を命ずることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "消費機器に関する周知の相手方は誰？",
+      "消費機器の基準不適合時に何を通知する？",
+      "保安業務規程はいつ届け出る？",
+      "保安業務規程に定める事業場ごとの選任対象は誰？",
+      "消費機器の基準適合命令の内容は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "消費機器に関する周知の相手方は誰？",
+        "answer": "消費機器を使用する者。"
+      },
+      {
+        "question": "消費機器の基準不適合時に何を通知する？",
+        "answer": "基準に適合させるためにとるべき措置と、その措置をとらなかった場合に生ずべき結果。"
+      },
+      {
+        "question": "保安業務規程はいつ届け出る？",
+        "answer": "事業の開始前。"
+      },
+      {
+        "question": "保安業務規程に定める事業場ごとの選任対象は誰？",
+        "answer": "保安業務監督者。"
+      },
+      {
+        "question": "消費機器の基準適合命令の内容は？",
+        "answer": "消費機器の修理、改造又は移転。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第1項・第3項、第160条第1項及び第161条第1項並びにガス事業法施行規則第207条第1項の表「ガス小売事業者」第2号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "1",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "1",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "207",
+          "paragraph": "1",
+          "item": "表 ガス小売事業者 第2号",
+          "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+          "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "161",
+          "paragraph": "1",
+          "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
+          "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、間違い、間違いは現行法と一致する。",
+    "第1肢は周知先が所有者又は占有者ではなく消費機器を使用する者、第4肢はガス主任技術者ではなく保安業務監督者である。",
+    "第5肢は使用の一時停止ではなく、消費機器の修理、改造又は移転を命ずる規定である。",
+    "正しい記述は第2肢と第3肢の2つで、answer_result_textの正解2と一致する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2023-law-q15-s01",
+      "gas-shunin-otsu-2023-law-q15-s02",
+      "gas-shunin-otsu-2023-law-q15-s03",
+      "gas-shunin-otsu-2023-law-q15-s04",
+      "gas-shunin-otsu-2023-law-q15-s05"
+    ],
+    "currentLaws": [
+      {
+        "lawTitle": "ガス事業法",
+        "lawId": "329AC0000000051",
+        "articles": [
+          "159",
+          "160",
+          "161"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051"
+      },
+      {
+        "lawTitle": "ガス事業法施行規則",
+        "lawId": "345M50000400097",
+        "articles": [
+          "207"
+        ],
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097"
+      }
+    ],
+    "referenceDate": "2026-07-12",
+    "verificationStatus": "verified",
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T18:55:15Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
