@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 147,
+  "auditKey": "gas-shunin:otsu:2018:law:q14:b8c3376a5246",
+  "auditInputHash": "0bfc9950821c7d34571719c13ff827aea4e427b01c2a2b6f754765e20cba519e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:21:51+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第162条は、消費機器の設置又は変更工事を、その消費機器が所定の技術上の基準に適合するように行うと定めている。",
+      "間違い。選択肢の「そのガス小売事業者に対し」が誤り。ガス事業法第161条は、消費機器が技術上の基準に適合しないとき、その所有者又は占有者に対し、修理、改造又は移転を命ずることができると定めている。",
+      "正しい。ガス事業法第159条第2項は、ガス小売事業者に消費機器の技術基準適合調査を義務付け、設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないときを例外と定めている。",
+      "間違い。選択肢の「災害の発生の防止に関しては、この限りでない」が誤り。ガス事業法第163条は、公共の安全の維持又は災害の発生の防止に関し、ガス事業者が相互に連携して協力すると定めている。",
+      "正しい。ガス事業法第160条第1項及び第5項は、ガス小売事業者並びに準用対象の一般ガス導管事業者及び特定ガス導管事業者が保安業務規程を定め、事業開始前に経済産業大臣へ届け出ると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "消費機器の設置・変更工事にはどのような義務がある？",
+      "消費機器の基準適合命令を受ける相手は？",
+      "消費機器調査で立入りが不要となる例外は？",
+      "ガス事業者間の連携協力が必要な事項は？",
+      "保安業務規程を届け出る事業者と時期は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "消費機器の設置・変更工事にはどのような義務がある？",
+        "answer": "消費機器を所定の技術上の基準に適合させる義務。"
+      },
+      {
+        "question": "消費機器の基準適合命令を受ける相手は？",
+        "answer": "消費機器の所有者又は占有者。"
+      },
+      {
+        "question": "消費機器調査で立入りが不要となる例外は？",
+        "answer": "設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないとき。"
+      },
+      {
+        "question": "ガス事業者間の連携協力が必要な事項は？",
+        "answer": "公共の安全の維持又は災害の発生の防止。"
+      },
+      {
+        "question": "保安業務規程を届け出る事業者と時期は？",
+        "answer": "ガス小売事業者、一般ガス導管事業者及び特定ガス導管事業者が、事業開始前に届け出る。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第2項、第160条第1項及び第5項、第161条、第162条並びに第163条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "162",
+          "paragraph": "1",
+          "articleTextHash": "00070d5d4d282ebaaeee8f56b0af15968ed1968cbcf5c1a50b46a62a707401dd",
+          "rawXmlHash": "e0c79a2ece402209b3d250a58a85124c3518dbcb062c5ab55dcf3b78bb1caef8"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "161",
+          "paragraph": "1",
+          "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
+          "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "2",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "163",
+          "paragraph": "1",
+          "articleTextHash": "b1d180304b3222fd64dc930f0fcc1f5bef0ba5565b8733b3256d16c93854bda8",
+          "rawXmlHash": "f1e766f73bd75c9a506b45895152a403e6a5fd22568c22634d256afb0f4c93b9"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "1",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4",
+          "references": [
+            {
+              "paragraph": "1"
+            },
+            {
+              "paragraph": "5"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、正しいは現行法と一致する。",
+    "基準適合命令の相手が所有者又は占有者であることを明示した。",
+    "災害発生防止もガス事業者間の連携協力対象であることを明示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q14-s01",
+      "gas-shunin-otsu-2018-law-q14-s02",
+      "gas-shunin-otsu-2018-law-q14-s03",
+      "gas-shunin-otsu-2018-law-q14-s04",
+      "gas-shunin-otsu-2018-law-q14-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:22:29Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
