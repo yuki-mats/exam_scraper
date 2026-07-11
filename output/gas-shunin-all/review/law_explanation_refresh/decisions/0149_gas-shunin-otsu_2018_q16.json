@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 149,
+  "auditKey": "gas-shunin:otsu:2018:law:q16:8d2384ffcf1e",
+  "auditInputHash": "a3b448b9441f6215e53a869bb8c7e3f0171fb66e361167a947bff9473d2dc77d",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:25:07+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第3条第1項は、特定工事を資格者に実地監督させ、又は資格を有する特定工事事業者が自ら実地監督することと、これらの者が自ら特定工事を行う場合の例外を定めている。",
+      "間違い。選択肢の「製造年月日」が誤り。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事後の表示に、氏名又は名称、施工年月日その他所定の事項を記載すると定めている。",
+      "間違い。選択肢の「施工方法の変更を命ずる」が誤り。特定ガス消費機器の設置工事の監督に関する法律第7条は、経済産業大臣が特定工事事業者に対し、特定工事の施工に関する報告をさせることができると定めている。",
+      "間違い。選択肢の「資格証を掲示」が誤り。特定ガス消費機器の設置工事の監督に関する法律第5条第3項は、実地監督又は自ら特定工事を行うとき、資格証又は液化石油ガス設備士免状を携帯すると定めている。",
+      "間違い。選択肢の「屋外に設置される特定ガス消費機器の設置工事は特定工事に該当する」が誤り。特定ガス消費機器の設置工事の監督に関する法律第2条第2項及び同法施行規則第2条第1号は、屋外に設置されるものの設置又は変更工事を軽微な工事として特定工事から除外している。"
+    ],
+    "proposedSuggestedQuestions": [
+      "特定工事は誰が実地監督する？",
+      "特定工事後の表示に記載する年月日は？",
+      "経済産業大臣が特定工事事業者に求められるものは？",
+      "実地監督時の資格証は掲示と携帯のどちら？",
+      "屋外設置の特定ガス消費機器の設置・変更工事は特定工事？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "特定工事は誰が実地監督する？",
+        "answer": "資格者又は資格を有する特定工事事業者。これらの者が自ら工事を行う場合は例外。"
+      },
+      {
+        "question": "特定工事後の表示に記載する年月日は？",
+        "answer": "製造年月日ではなく施工年月日。"
+      },
+      {
+        "question": "経済産業大臣が特定工事事業者に求められるものは？",
+        "answer": "特定工事の施工に関する報告。"
+      },
+      {
+        "question": "実地監督時の資格証は掲示と携帯のどちら？",
+        "answer": "携帯。"
+      },
+      {
+        "question": "屋外設置の特定ガス消費機器の設置・変更工事は特定工事？",
+        "answer": "屋内へ位置変更するものを除き、軽微な工事として特定工事から除外される。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "特定ガス消費機器の設置工事の監督に関する法律第2条第2項、第3条第1項、第5条第3項、第6条及び第7条並びに同法施行規則第2条第1号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "3",
+          "paragraph": "1",
+          "articleTextHash": "21468fcf81cc3077ac373d4ada8014e8f57902e18a8e5f11011278f65ff3f5af",
+          "rawXmlHash": "4a7829179e5e090c4818080769a9f86dd1e22aca54015025faa96faf0d30158a"
+        },
+        "1": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "6",
+          "paragraph": "1",
+          "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
+          "rawXmlHash": "e0f0c3d02183fdf0d10baa3feb4fad74e277ba497ee9415895873376eb64fc92"
+        },
+        "2": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "7",
+          "paragraph": "1",
+          "articleTextHash": "9ce11f5644360034beb8e6b71538d17bcd8ec8a68c93edc154a9acde612f9f1d",
+          "rawXmlHash": "eb497fe8843b99c59b939c195217467bf017528fa9a90c678c049d2e9b0096c9"
+        },
+        "3": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "5",
+          "paragraph": "3",
+          "articleTextHash": "387eb64d0ccbff7e0b73aaa1fae9899bb735dca615d9776b94955603d8421fd3",
+          "rawXmlHash": "1a3e61a90fc8b6ef3ec4b039f5cf99cc083536ad4a550b3da6868a88579528ab"
+        },
+        "4": {
+          "lawId": "354M50000400077",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+          "article": "2",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "1f16d87291132c55b983f7186fdc8344a3c8fa206fd3c374e68dfb1ab0beb38b",
+          "rawXmlHash": "e25afe8348c45f3044ac23dbce59744b53fddc42b8895597702c57a21f738b38",
+          "references": [
+            {
+              "lawId": "354AC0000000033",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+              "article": "2",
+              "paragraph": "2",
+              "item": "",
+              "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
+              "rawXmlHash": "6eef6d4dc6007d2ac2efab5add13feee94545e18a2b636082218fc07bffe3be4"
+            },
+            {
+              "lawId": "354M50000400077",
+              "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律施行規則",
+              "article": "2",
+              "paragraph": "1",
+              "item": "1",
+              "articleTextHash": "1f16d87291132c55b983f7186fdc8344a3c8fa206fd3c374e68dfb1ab0beb38b",
+              "rawXmlHash": "e25afe8348c45f3044ac23dbce59744b53fddc42b8895597702c57a21f738b38"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、間違い、間違いは現行法と一致する。",
+    "製造年月日、変更命令、資格証掲示及び屋外設置工事の各誤りを明示した。",
+    "屋外設置・変更工事の軽微工事根拠を法第2条第2項と施行規則第2条第1号へ接続した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q16-s01",
+      "gas-shunin-otsu-2018-law-q16-s02",
+      "gas-shunin-otsu-2018-law-q16-s03",
+      "gas-shunin-otsu-2018-law-q16-s04",
+      "gas-shunin-otsu-2018-law-q16-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律等",
+      "lawId": "354AC0000000033",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:25:54Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
