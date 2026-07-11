@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 137,
+  "auditKey": "gas-shunin:otsu:2018:law:q04:6c71d4fb571b",
+  "auditInputHash": "bacce33d23eebef6ae3a2b96f1dac9ba8a4360053b3d310bd2ad151e90dd0713",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:02:30+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第68条第1項は、一般ガス導管事業者が所定のガス工作物の設置又は変更工事をしようとするとき、工事計画を経済産業大臣に届け出ることと、滅失、損壊、災害その他非常の場合のやむを得ない一時的な工事を例外として定めている。",
+      "間違い。選択肢の「その工事が経済産業省令で定める軽微なものであるとき」が誤り。ガス事業法第68条第3項は届出受理から30日間の工事開始禁止を定め、同条第4項は、工事計画が所定の基準に適合すると経済産業大臣が認めるときに、その期間を短縮できると定めている。",
+      "正しい。ガス事業法第69条第1項ただし書及びガス事業法施行規則第103条第1号は、ガス工作物を試験使用する場合を使用前検査前の使用禁止の例外とし、使用者へガスを供給する場合には、使用方法を変更するごとにガスの熱量等を測定して供給することを条件と定めている。",
+      "正しい。ガス事業法第69条第3項及びガス事業法施行規則第104条第2項は、使用前自主検査の記録を、記録日から5年間、登録ガス工作物検査機関の検査に合格した場合は合格日から5年間保存すると定めている。",
+      "間違い。選択肢の「経済産業大臣に届け出なければならない」が誤り。ガス事業法第71条は、所定のガス工作物について定期自主検査を行い、検査記録を作成して保存しなければならないと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事計画届出の対象と非常時の例外は？",
+      "工事計画届出後の30日間を短縮できるのはどのような場合？",
+      "ガス工作物を試験使用するときの使用前検査の例外条件は？",
+      "使用前自主検査の記録はいつまで保存する？",
+      "定期自主検査の記録は届出と保存のどちらが必要？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事計画届出の対象と非常時の例外は？",
+        "answer": "所定のガス工作物の設置又は変更工事は事前届出が必要。滅失、損壊、災害その他非常の場合のやむを得ない一時的な工事は例外となる。"
+      },
+      {
+        "question": "工事計画届出後の30日間を短縮できるのはどのような場合？",
+        "answer": "届出工事計画が技術上の基準等に適合すると経済産業大臣が認める場合。軽微な工事であること自体が待機期間の例外ではない。"
+      },
+      {
+        "question": "ガス工作物を試験使用するときの使用前検査の例外条件は？",
+        "answer": "試験のために使用できる。使用者へガスを供給する場合は、使用方法を変更するごとにガスの熱量等を測定して供給する必要がある。"
+      },
+      {
+        "question": "使用前自主検査の記録はいつまで保存する？",
+        "answer": "記録日から5年間。登録ガス工作物検査機関の検査に合格した場合は合格日から5年間。"
+      },
+      {
+        "question": "定期自主検査の記録は届出と保存のどちらが必要？",
+        "answer": "検査記録を作成し、保存する必要がある。経済産業大臣への届出ではない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第68条第1項、第3項及び第4項、第69条第1項及び第3項、第71条並びにガス事業法施行規則第103条第1号及び第104条第2項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "1",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "3",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e",
+          "references": [
+            {
+              "paragraph": "3"
+            },
+            {
+              "paragraph": "4"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "69",
+          "paragraph": "1",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "69",
+              "paragraph": "1",
+              "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+              "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "103",
+              "paragraph": "1",
+              "item": "1",
+              "articleTextHash": "6345d1b60006aef4e5f9ecf6a0d00b7c6059af9e4bf440ceddddd6c7c16c7576",
+              "rawXmlHash": "c79088e86aa8072a68609fb2dedfb0f9ea05d1a408105b96448aeb386f3bbd01"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "69",
+          "paragraph": "3",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255",
+          "references": [
+            {
+              "lawId": "329AC0000000051",
+              "lawTitle": "ガス事業法",
+              "article": "69",
+              "paragraph": "3",
+              "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+              "rawXmlHash": "8bd1c099fd61b9e818fc566de1c26401fa5aa281d5727621d924516406b19255"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "104",
+              "paragraph": "2",
+              "articleTextHash": "a2a02576ea79b0b88c838bf51997299219f50de1d16e35adc7cd99bd2eb21f85",
+              "rawXmlHash": "92abfc5ff637177b7c4f497fcc63917bbd4291dc198e3aa0b68642a8afe51dd3"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "71",
+          "paragraph": "1",
+          "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+          "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、正しい、間違いは現行法と一致する。",
+    "30日待機期間の例外について、軽微工事ではなく経済産業大臣による期間短縮であることを明示した。",
+    "使用前検査の試験使用例外と、使用前自主検査記録の5年保存を、施行規則の直接根拠まで接続した。",
+    "定期自主検査記録は届出ではなく保存であることを明示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q04-s01",
+      "gas-shunin-otsu-2018-law-q04-s02",
+      "gas-shunin-otsu-2018-law-q04-s03",
+      "gas-shunin-otsu-2018-law-q04-s04",
+      "gas-shunin-otsu-2018-law-q04-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法等",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:03:21Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
