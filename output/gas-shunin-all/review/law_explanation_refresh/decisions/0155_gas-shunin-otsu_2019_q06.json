@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 155,
+  "auditKey": "gas-shunin:otsu:2019:law:q06:37a4fe92a464",
+  "auditInputHash": "127178cc51a29bcbaca636d3b2988664d8750ae0e3da0ae61c44a51f9d23c5ac",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T23:42:58+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第2号は、ガスホルダーを適切な構造が必要なガス工作物と定めている。最高使用圧力が低圧のものも対象に含まれる。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第3号ニは、製造設備に属する配管のうち、天然ガスを通じ、内面に0.2MPa以上の圧力を受ける部分を対象と定めている。0.3MPaはこの基準以上である。",
+      "間違い。選択肢の「0.5MPa」が誤り。ガス工作物の技術上の基準を定める省令第15条第1項第3号ニは、不活性ガスによる圧力を受ける配管について、内面に1MPa以上の圧力を受ける部分に限ると定めている。0.5MPaの部分は対象に含まれない。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第6号は、ガス栓を適切な構造が必要なガス工作物と定めている。選択肢はこれと一致する。",
+      "正しい。ガス工作物の技術上の基準を定める省令第15条第1項第10号は、整圧器に取り付けるガス加温装置のガスを通ずる配管を対象と定めている。選択肢はこれと一致する。"
+    ],
+    "proposedSuggestedQuestions": [
+      "低圧のガスホルダーも構造基準の対象？",
+      "天然ガス配管の圧力基準は？",
+      "不活性ガス配管の圧力基準は？",
+      "ガス栓は構造基準の対象？",
+      "整圧器のガス加温装置配管は構造基準の対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "低圧のガスホルダーも構造基準の対象？",
+        "answer": "対象。第15条第1項第2号は圧力区分による除外を設けていない。"
+      },
+      {
+        "question": "天然ガス配管の圧力基準は？",
+        "answer": "内面に0.2MPa以上。したがって0.3MPaの部分は対象となる。"
+      },
+      {
+        "question": "不活性ガス配管の圧力基準は？",
+        "answer": "内面に1MPa以上。第15条第1項第3号ニが定めている。"
+      },
+      {
+        "question": "ガス栓は構造基準の対象？",
+        "answer": "対象。第15条第1項第6号が定めている。"
+      },
+      {
+        "question": "整圧器のガス加温装置配管は構造基準の対象？",
+        "answer": "対象。第15条第1項第10号が定めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第15条第1項第2号、第3号ニ、第6号及び第10号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ニ",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "3",
+          "subitem": "ニ",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "item": "10",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行第15条と一致する。",
+    "不活性ガス配管の誤り箇所を0.5MPaと明示し、正しい基準1MPa以上を示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2019-law-q06-s01",
+      "gas-shunin-otsu-2019-law-q06-s02",
+      "gas-shunin-otsu-2019-law-q06-s03",
+      "gas-shunin-otsu-2019-law-q06-s04",
+      "gas-shunin-otsu-2019-law-q06-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:43:37Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
