@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 40,
+  "auditKey": "gas-shunin:kou:2021:law:q06:8ceb83edd1d1",
+  "auditInputHash": "1b7d91ea17ce01b1fe6853df2c0657f35e57ce339c08e1ccbb8f32e390dd3702",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:42:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第101条第1項は、ガス製造事業者が所定の設置又は変更工事の計画を届け出ると定め、災害その他非常の場合のやむを得ない一時的工事を例外としている。",
+      "間違い。選択肢の「届出を提出した日」が誤り。ガス事業法第101条第3項は、届出が受理された日から30日を経過した後でなければ工事を開始してはならないと定めている。",
+      "間違い。選択肢の「完成検査」が誤り。ガス事業法第102条第1項は、対象工事について自主検査を行い、その結果について経済産業大臣の登録を受けた者の検査を受け、合格後に使用すると定めている。",
+      "正しい。ガス事業法施行規則第153条第1項及び別表第一の二（二）1（1）は、製造所のガス発生器の改造で、20パーセント以上の能力変更を伴い、変更後の最高使用圧力が高圧となるものを工事計画届出対象と定めている。",
+      "正しい。ガス事業法施行規則第153条第1項及び別表第一の五3（1）は、供給所の整圧器の改造で、最高使用圧力の変更を伴い、変更後の最高使用圧力が高圧となるものを工事計画届出対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "非常時の一時的工事は事前届出の対象？",
+      "工事開始までの30日はいつから数える？",
+      "使用前に事業者が行う検査は？",
+      "ガス発生器の能力変更が届出対象となる条件は？",
+      "整圧器の高圧化改造は届出対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "非常時の一時的工事は事前届出の対象？",
+        "answer": "災害その他非常の場合のやむを得ない一時的工事は例外。"
+      },
+      {
+        "question": "工事開始までの30日はいつから数える？",
+        "answer": "届出が受理された日から数える。"
+      },
+      {
+        "question": "使用前に事業者が行う検査は？",
+        "answer": "自主検査。"
+      },
+      {
+        "question": "ガス発生器の能力変更が届出対象となる条件は？",
+        "answer": "20パーセント以上の能力変更を伴い、変更後の最高使用圧力が高圧となる場合。"
+      },
+      {
+        "question": "整圧器の高圧化改造は届出対象？",
+        "answer": "対象。最高使用圧力の変更を伴い、変更後が高圧となる改造が該当する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第101条第1項・第3項、第102条第1項及びガス事業法施行規則第153条第1項・別表第一。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "101",
+          "paragraph": "1",
+          "articleTextHash": "6545129b8599979993ec4201451e4cbe24dfefad4e7dbe525ff29d14161e8439",
+          "rawXmlHash": "f7732a461407838fcdf72343a315fafd72d1bfb3b9050bd34e58ebb56d2eb3c1"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "101",
+          "paragraph": "3",
+          "articleTextHash": "6545129b8599979993ec4201451e4cbe24dfefad4e7dbe525ff29d14161e8439",
+          "rawXmlHash": "f7732a461407838fcdf72343a315fafd72d1bfb3b9050bd34e58ebb56d2eb3c1"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "102",
+          "paragraph": "1",
+          "articleTextHash": "28a60445c6cff4d99b59f67df79878438ee40d159a8b847dd90e7d0244c2835b",
+          "rawXmlHash": "7cfeb9544f3a9126f633f0d3d3f735136396abc364c12f15db2b6ace6f549c2d"
+        },
+        "3": {
+          "sourceType": "external_primary",
+          "source": "egov_law_full_text",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "別表第一",
+          "articleTextHash": "881cd01dd05524a98d4f40338fb9c1410d15a21a38728ad651fc2ff98f73f545",
+          "verifiedText": "別表第一 二（二）1（1） 工事計画届出対象\nガス発生器の改造であって、変更後の最高使用圧力が高圧となるもののうち、20パーセント以上の能力の変更を伴うもの"
+        },
+        "4": {
+          "sourceType": "external_primary",
+          "source": "egov_law_full_text",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "別表第一",
+          "articleTextHash": "00156f10fddf7260d6cef149d9ad703633b66d066c28739dd8a738dec7457bc2",
+          "verifiedText": "別表第一 五3（1） 工事計画届出対象\n整圧器の最高使用圧力の変更を伴う改造であって、変更後の最高使用圧力が高圧となるもの"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、正しい、正しいは現行法令と一致する。",
+    "別表第一はe-Gov法令APIの記事指定で正しく取得できなかったため、e-Gov法令全文の別表第一を直接確認した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0186",
+      "chiefgasengineerlicense-A-10-0187",
+      "chiefgasengineerlicense-A-10-0188",
+      "chiefgasengineerlicense-A-10-0189",
+      "chiefgasengineerlicense-A-10-0190"
+    ],
+    "currentLaw": {
+      "egovLawIds": [
+        "329AC0000000051",
+        "345M50000400097"
+      ],
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T08:41:04Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
