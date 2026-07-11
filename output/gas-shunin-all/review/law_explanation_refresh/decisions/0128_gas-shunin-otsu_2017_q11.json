@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 128,
+  "auditKey": "gas-shunin:otsu:2017:law:q11:8ac12d4990c1",
+  "auditInputHash": "3da7a7a05ebb6ff342d16aeec3ab0b41d8ad62ac14188208fd8b9215f6b0fa23",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:37:36+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第57条第1項第3号は、一の使用者にガスを供給するための整圧器には、ガスの圧力が異常に上昇することを防止する装置を設けると定めている。",
+      "間違い。選択肢の「不純物を除去する装置を設けなければならない」が誤り。ガス工作物の技術上の基準を定める省令第57条第1項第2号ただし書は、整圧器の入口に不純物除去装置を設ける原則について、一の使用者にガスを供給するための整圧器を例外と定めている。",
+      "正しい。ガス工作物の技術上の基準を定める省令第58条第2項は、ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じると定めている。",
+      "間違い。選択肢の「津波に対し耐えるよう支持」が誤り。ガス工作物の技術上の基準を定める省令第58条第3項は、整圧器の制御用配管、補助整圧器その他の附属設備は、地震に対し耐えるよう支持すると定めている。",
+      "間違い。選択肢の「最高使用圧力が中圧の整圧器」が誤り。ガス工作物の技術上の基準を定める省令第56条第1項は、ガス漏えいによる火災等の発生を防止する適切な措置を講じる対象を、最高使用圧力が高圧の整圧器と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "一の使用者用整圧器に必要な異常圧力上昇防止装置は？",
+      "一の使用者用整圧器で不純物除去装置が例外となる根拠は？",
+      "整圧機能を損なう凍結のおそれがある場合に必要な措置は？",
+      "整圧器の附属設備は何に耐えるよう支持する？",
+      "火災等防止措置が必要な整圧器の圧力区分は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "一の使用者用整圧器に必要な異常圧力上昇防止装置は？",
+        "answer": "ガスの圧力が異常に上昇することを防止する装置。"
+      },
+      {
+        "question": "一の使用者用整圧器で不純物除去装置が例外となる根拠は？",
+        "answer": "省令第57条第1項第2号ただし書により、一の使用者に供給するための整圧器は設置義務の例外となる。"
+      },
+      {
+        "question": "整圧機能を損なう凍結のおそれがある場合に必要な措置は？",
+        "answer": "凍結を防止するための措置。"
+      },
+      {
+        "question": "整圧器の附属設備は何に耐えるよう支持する？",
+        "answer": "津波ではなく、地震に耐えるよう支持する。"
+      },
+      {
+        "question": "火災等防止措置が必要な整圧器の圧力区分は？",
+        "answer": "最高使用圧力が高圧の整圧器。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス工作物の技術上の基準を定める省令第57条第1項第2号・第3号、第58条第2項・第3項及び第56条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "paragraph": "1",
+          "item": "3",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "paragraph": "1",
+          "item": "2",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "2",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "3",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "56",
+          "paragraph": "1",
+          "articleTextHash": "a30f2330f01d5c8b67f3941063c64c53a76d1728bc0579dc5a5847c48d26d826",
+          "rawXmlHash": "7e696f21c336ce3fa28b2772f1f029b38f2ac42612b128778c6815f3780fc747"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、間違いは現行法と一致する。",
+    "既存lawRevisionFacts.currentのガス事業法施行規則第17条を、省令第56条から第58条までの直接根拠へ修正する。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q11-s01",
+      "gas-shunin-otsu-2017-law-q11-s02",
+      "gas-shunin-otsu-2017-law-q11-s03",
+      "gas-shunin-otsu-2017-law-q11-s04",
+      "gas-shunin-otsu-2017-law-q11-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+      "lawId": "412M50000400111",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:38:36Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
