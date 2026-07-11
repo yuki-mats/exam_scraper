@@ -1,0 +1,209 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 121,
+  "auditKey": "gas-shunin:otsu:2017:law:q04:ec09d4f1398a",
+  "auditInputHash": "0394efd4fd351a84863ea4f82394be5afdd67a5326848b990701303b59348b09",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:01:24+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "不正解。（イ）「体制」、（ロ）「地震」、（ハ）「毎年度」及び（ニ）「立会検査」が誤り。ガス事業法第68条第1項は「計画」「災害」、同法第71条第1項は「定期に」「自主検査」「保存」と定めている。",
+      "不正解。（イ）「体制」、（ハ）「毎年度」、（ニ）「立会検査」及び（ホ）「提出」が誤り。ガス事業法第68条第1項は「計画」「災害」、同法第71条第1項は「定期に」「自主検査」「保存」と定めている。",
+      "不正解。（ハ）「毎年度」が誤り。ガス事業法第71条第1項は、対象となるガス工作物について「定期に」自主検査を行うと定めている。（イ）「計画」、（ロ）「災害」、（ニ）「自主検査」及び（ホ）「保存」は正しい。",
+      "不正解。（ロ）「地震」、（ニ）「立会検査」及び（ホ）「提出」が誤り。ガス事業法第68条第1項は「災害」、同法第71条第1項は「自主検査」「保存」と定めている。（イ）「計画」と（ハ）「定期に」は正しい。",
+      "正解。ガス事業法第68条第1項は、工事の「計画」を届け出ると定め、例外となる非常の場合を「災害」その他非常の場合としている。同法第71条第1項は、「定期に」「自主検査」を行い、検査記録を「保存」すると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "工事の何を経済産業大臣へ届け出る？",
+      "一時的工事の例外となる非常の場合は？",
+      "自主検査はどの頻度で行う？",
+      "対象ガス工作物に行う検査は？",
+      "自主検査の記録は提出と保存のどちら？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "工事の何を経済産業大臣へ届け出る？",
+        "answer": "工事の計画。"
+      },
+      {
+        "question": "一時的工事の例外となる非常の場合は？",
+        "answer": "災害その他非常の場合。"
+      },
+      {
+        "question": "自主検査はどの頻度で行う？",
+        "answer": "毎年度ではなく、定期に行う。"
+      },
+      {
+        "question": "対象ガス工作物に行う検査は？",
+        "answer": "立会検査ではなく、自主検査。"
+      },
+      {
+        "question": "自主検査の記録は提出と保存のどちら？",
+        "answer": "作成して保存する。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第68条第1項及び第71条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "1",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e",
+          "references": [
+            {
+              "article": "68",
+              "paragraph": "1",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+            },
+            {
+              "article": "71",
+              "paragraph": "1",
+              "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+              "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "1",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e",
+          "references": [
+            {
+              "article": "68",
+              "paragraph": "1",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+            },
+            {
+              "article": "71",
+              "paragraph": "1",
+              "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+              "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "71",
+          "paragraph": "1",
+          "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+          "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90",
+          "references": [
+            {
+              "article": "68",
+              "paragraph": "1",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+            },
+            {
+              "article": "71",
+              "paragraph": "1",
+              "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+              "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "1",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e",
+          "references": [
+            {
+              "article": "68",
+              "paragraph": "1",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+            },
+            {
+              "article": "71",
+              "paragraph": "1",
+              "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+              "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "68",
+          "paragraph": "1",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e",
+          "references": [
+            {
+              "article": "68",
+              "paragraph": "1",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "rawXmlHash": "6b0da571a8a4d1fe32f88eb3ae0dedec33b0212b3eca958e9584aa275200dc2e"
+            },
+            {
+              "article": "71",
+              "paragraph": "1",
+              "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+              "rawXmlHash": "5bf8ac1213a1e202a231eed4f0dc1f1b2a4be98444df81f1a8c4b33ae1db2c90"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの不正解、不正解、不正解、不正解、正解は現行法と一致する。",
+    "各選択肢について、5つの空欄のうち誤っている語句だけを明示した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q04-s01",
+      "gas-shunin-otsu-2017-law-q04-s02",
+      "gas-shunin-otsu-2017-law-q04-s03",
+      "gas-shunin-otsu-2017-law-q04-s04",
+      "gas-shunin-otsu-2017-law-q04-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:02:42Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
