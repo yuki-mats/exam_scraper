@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-firestore-publish/v1",
+  "publishedAt": "2026-07-11T04:36:00Z",
+  "projectId": "repaso-rbaqy4",
+  "gitCommit": "dc6591610bb6aa7dfed30b8df0808ca22d59e605",
+  "remoteMainCommit": "dc6591610bb6aa7dfed30b8df0808ca22d59e605",
+  "artifact": "output/gas-shunin-all/questions_json/firestore_upload_artifacts/20260711_law_explanations/gas_shunin_law_explanations_3b295ac9169ebf30.json",
+  "artifactSha256": "3b295ac9169ebf30771e178f0354ce1c7850c6e98b929a38658941c0ae513862",
+  "questionCount": 1289,
+  "qualificationCounts": {
+    "gas-shunin-kou": 569,
+    "gas-shunin-otsu": 720
+  },
+  "uploadResult": {
+    "updated": 1289,
+    "skipped": 0,
+    "errors": 0
+  },
+  "readback": {
+    "path": "output/gas-shunin-all/review/manual_law_explanation_audit/gas_shunin_law_firestore_readback.json",
+    "sha256": "867bda23cbc8f26d5be85b303fd989a4def28394d0d15488d5eea50bff9aec46",
+    "readbackQuestionCount": 1289,
+    "matchedQuestionCount": 1289,
+    "missingQuestionCount": 0,
+    "mismatchedQuestionCount": 0,
+    "aggregateHashMatches": true
+  },
+  "screenshotQuestionVerification": {
+    "matchingDocumentCount": 4,
+    "allCorrect": true,
+    "questionIds": [
+      "chiefgasengineerlicense-A-10-0232",
+      "gas-shunin-kou-2024-law-q15-s01",
+      "gas-shunin-otsu-2021-law-q15-s02",
+      "gas-shunin-otsu-2024-law-q15-s01"
+    ]
+  },
+  "status": "published_and_readback_verified"
+}
