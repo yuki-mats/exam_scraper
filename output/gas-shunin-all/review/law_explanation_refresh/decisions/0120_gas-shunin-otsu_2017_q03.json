@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 120,
+  "auditKey": "gas-shunin:otsu:2017:law:q03:52ffecb500ad",
+  "auditInputHash": "adb810db15df69568868cf3a69fcf0c08d7831e4efb3fb399de4261b6ec1dd93",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T21:59:11+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の保安規程について経済産業大臣の「許可」を受けるとする部分が誤り。ガス事業法第64条第1項は、一般ガス導管事業者が保安規程を定め、事業の開始前に経済産業大臣へ届け出ると定めている。",
+      "間違い。選択肢の保安教育を「保安規程」の記載事項とする部分が誤り。ガス事業法第160条第1項は保安業務規程を定めることを求め、ガス事業法施行規則第207条の表第4号は、保安業務に従事する者への教育及び訓練を保安業務規程の記載事項と定めている。",
+      "間違い。選択肢の選任前に経済産業大臣の「許可」を受けるとする部分が誤り。ガス事業法第65条第2項は、ガス主任技術者を選任又は解任したとき、遅滞なく経済産業大臣へ届け出ると定めている。",
+      "正しい。ガス事業法第66条第2項は、一般ガス導管事業の用に供するガス工作物の工事、維持又は運用に従事する者が、ガス主任技術者の保安上の指示に従うと定めている。",
+      "間違い。選択肢の乙種ガス主任技術者は高圧の移動式ガス発生設備を監督「できない」とする部分が誤り。ガス事業法施行規則第30条の表第2号ハは、乙種免状による監督範囲に、最高使用圧力が高圧の移動式ガス発生設備を含むと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "保安規程は許可と届出のどちら？",
+      "周知・調査業務の担当者への保安教育はどの規程に定める？",
+      "ガス主任技術者を選任したときの手続は？",
+      "従事者はガス主任技術者の指示に従う必要がある？",
+      "乙種免状で高圧の移動式ガス発生設備を監督できる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "保安規程は許可と届出のどちら？",
+        "answer": "事業開始前の届出。経済産業大臣の許可ではない。"
+      },
+      {
+        "question": "周知・調査業務の担当者への保安教育はどの規程に定める？",
+        "answer": "保安規程ではなく、保安業務規程。"
+      },
+      {
+        "question": "ガス主任技術者を選任したときの手続は？",
+        "answer": "選任後、遅滞なく経済産業大臣へ届け出る。"
+      },
+      {
+        "question": "従事者はガス主任技術者の指示に従う必要がある？",
+        "answer": "工事、維持又は運用に従事する者は、保安のための指示に従う必要がある。"
+      },
+      {
+        "question": "乙種免状で高圧の移動式ガス発生設備を監督できる？",
+        "answer": "できる。ガス事業法施行規則第30条の表第2号ハの範囲に含まれる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第64条第1項、第65条第2項、第66条第2項、第160条第1項並びにガス事業法施行規則第30条の表第2号ハ及び第207条の表第4号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "1",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "1",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4",
+          "references": [
+            {
+              "article": "160",
+              "paragraph": "1",
+              "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+              "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+            },
+            {
+              "lawId": "345M50000400097",
+              "lawTitle": "ガス事業法施行規則",
+              "article": "207",
+              "paragraph": "1",
+              "item": "四",
+              "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+              "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "65",
+          "paragraph": "2",
+          "articleTextHash": "49d27e25faea946c7d275cb97f41e3e0a49dfdb428578b4a825e55d6265e9c6c",
+          "rawXmlHash": "001d8d5dcbc45e3650380e6830fe363975ee1c35a4f96a6fce5667f68f620f69"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "66",
+          "paragraph": "2",
+          "articleTextHash": "cbb74494d654f0bdb1e4697b4627535e077c0e6245e889aeba49d2c0bb17aa5c",
+          "rawXmlHash": "03ffeaaf6983eabf6a3639ece1c1edadade6d449d0e45a6e8e577f38bc83a2f9"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "30",
+          "paragraph": "1",
+          "item": "二",
+          "subitem": "ハ",
+          "articleTextHash": "f27b83b14e2d3623f93e2e250eb5bff38db72fbace6a0adf3e796162bde734f7",
+          "rawXmlHash": "da8ccab9bf571a6e1eef5393100eb57c223bc80d896517c3af74ef0db995cb09"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、間違い、間違い、正しい、間違いは現行法と一致する。",
+    "保安規程と保安業務規程を区別し、既存lawRevisionFactsの第9条及び第65条第1項への誤った紐付けを直接根拠へ修正した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2017/00_source/question_2017_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2017-law-q03-s01",
+      "gas-shunin-otsu-2017-law-q03-s02",
+      "gas-shunin-otsu-2017-law-q03-s03",
+      "gas-shunin-otsu-2017-law-q03-s04",
+      "gas-shunin-otsu-2017-law-q03-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法・ガス事業法施行規則",
+      "lawId": "329AC0000000051,345M50000400097",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2017",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:00:24Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2017/21_explanationText_added/question_2017_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
