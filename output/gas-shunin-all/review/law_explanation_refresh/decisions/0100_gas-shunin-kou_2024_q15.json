@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 100,
+  "auditKey": "gas-shunin:kou:2024:law:q15:6878ce3838af",
+  "auditInputHash": "1a51faf11463cf120c7fc4b8ac94108969773f0d2868f12b0fd70d4c8b709d90",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T20:46:26+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第159条第2項は、ガス小売事業者が供給ガスに係る消費機器の技術基準適合性を調査すると定めている。ただし、設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないときは、調査義務の対象外となる。",
+      "正しい。ガス事業法第159条第5項は、供給ガスによる災害が発生し、又は発生するおそれがある場合に、使用者から通知を受けて措置を求められたとき、ガス小売事業者等が速やかにその措置をとると定めている。",
+      "間違い。選択肢の命令対象を「ガス小売事業者」とする部分が誤り。ガス事業法第161条第1項は、消費機器の基準適合命令を、その消費機器の所有者又は占有者に対して行うと定めている。",
+      "間違い。選択肢の「変更しようとするときは、あらかじめ」が誤り。ガス事業法第160条第2項は、保安業務規程を変更したとき、遅滞なく変更事項を経済産業大臣に届け出ると定めている。",
+      "間違い。選択肢の「ガスの使用者」が誤り。ガス事業法第160条第4項は、保安業務規程を守らなければならない者を、ガス小売事業者及びその従業者と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "消費機器調査の立入り承諾を得られない場合は？",
+      "ガス災害の通知を受けた事業者の義務は？",
+      "消費機器の基準適合命令は誰に出す？",
+      "保安業務規程の変更はいつ届け出る？",
+      "保安業務規程を守る者は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "消費機器調査の立入り承諾を得られない場合は？",
+        "answer": "所有者又は占有者の承諾を得られないときは、調査義務の対象外。"
+      },
+      {
+        "question": "ガス災害の通知を受けた事業者の義務は？",
+        "answer": "使用者から通知を受けて措置を求められたときは、速やかにその措置をとる。"
+      },
+      {
+        "question": "消費機器の基準適合命令は誰に出す？",
+        "answer": "ガス小売事業者ではなく、消費機器の所有者又は占有者。"
+      },
+      {
+        "question": "保安業務規程の変更はいつ届け出る？",
+        "answer": "変更前にあらかじめではなく、変更後遅滞なく。"
+      },
+      {
+        "question": "保安業務規程を守る者は？",
+        "answer": "ガス小売事業者及びガス使用者ではなく、ガス小売事業者及びその従業者。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第2項・第5項、第160条第2項・第4項及び第161条第1項。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "2",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "5",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "161",
+          "paragraph": "1",
+          "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
+          "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "2",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "4",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、間違い、間違いは現行法と一致する。",
+    "第3肢の基準適合命令の相手方はガス小売事業者ではなく、消費機器の所有者又は占有者である。",
+    "第4肢の変更届出は変更前ではなく、変更後遅滞なく行う。",
+    "第5肢の遵守主体はガス小売事業者及びその従業者である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2024/00_source/question_2024_gassyunin_site_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-kou-2024-law-q15-s01",
+      "gas-shunin-kou-2024-law-q15-s02",
+      "gas-shunin-kou-2024-law-q15-s03",
+      "gas-shunin-kou-2024-law-q15-s04",
+      "gas-shunin-kou-2024-law-q15-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "159",
+        "160",
+        "161"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2024",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T11:48:29Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2024/21_explanationText_added/question_2024_gassyunin_site_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
