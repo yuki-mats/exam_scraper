@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 216,
+  "auditKey": "gas-shunin:otsu:2023:law:q03:452172c8cbdd",
+  "auditInputHash": "b20debe7f6238b1bc2eacd9c50f1301550fa13bef402e1098110aeea2a8fb8a9",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T03:07:35+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第61条第1項は、一般ガス導管事業者が一般ガス導管事業の用に供するガス工作物を、経済産業省令で定める技術上の基準に適合するよう維持すると定めている。",
+      "正しい。ガス事業法第62条第1項は、一般ガス導管事業者以外の者が所有又は占有するガス工作物について、一般ガス導管事業者が維持に必要な措置を講じるときは、その所有者又は占有者が措置の実施に協力するよう努めると定めている。",
+      "間違い。選択肢の「経済産業大臣の許可を受けなければならない」が誤り。ガス事業法第64条第1項は、一般ガス導管事業者が保安規程を定め、事業又は所定の自主検査を伴う工事の開始前に、経済産業大臣へ届け出ると定めている。",
+      "間違い。選択肢の「経済産業省との連携協力に関すること」が誤り。ガス事業法施行規則第92条第1項は、保安規程に定める事項を第1号から第13号まで列挙しているが、経済産業省との連携協力は必須記載事項として定めていない。",
+      "正しい。ガス事業法施行規則第92条第1項第8号は、導管の工事現場の責任者の条件その他導管工事現場における保安監督体制を、保安規程に定める事項としている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "一般ガス導管事業者の工作物維持義務は？",
+      "他者所有の工作物の所有者等に求められることは？",
+      "保安規程は許可と届出のどちら？",
+      "経済産業省との連携協力は必須記載事項？",
+      "導管工事現場について定める事項は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "一般ガス導管事業者の工作物維持義務は？",
+        "answer": "一般ガス導管事業の用に供するガス工作物を、技術上の基準に適合するよう維持する。"
+      },
+      {
+        "question": "他者所有の工作物の所有者等に求められることは？",
+        "answer": "一般ガス導管事業者が維持措置を講じるとき、その実施に協力するよう努める。"
+      },
+      {
+        "question": "保安規程は許可と届出のどちら？",
+        "answer": "経済産業大臣への届出。許可ではない。"
+      },
+      {
+        "question": "経済産業省との連携協力は必須記載事項？",
+        "answer": "必須記載事項として定められていない。"
+      },
+      {
+        "question": "導管工事現場について定める事項は？",
+        "answer": "責任者の条件その他、工事現場における保安監督体制。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第61条第1項、第62条第1項及び第64条第1項並びにガス事業法施行規則第92条第1項及び同項第8号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "61",
+          "paragraph": "1",
+          "articleTextHash": "2879ed49b74edafc5ff9eb1ef65c47c39c56889676bb5af04a364664a48ebf13",
+          "rawXmlHash": "31eaa1e9ee50decc15f198af778d94dd5b682db26e245afcd02a3a9e5dd58a8e"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "62",
+          "paragraph": "1",
+          "articleTextHash": "e733c7795fcc150a4e1abdfa7020ee4c214352ba7ff42b7057f3710011bbbcb0",
+          "rawXmlHash": "1ae84bb1d21aa98f8b36085fb08078e0b53597efe40989ba6432ab238a3b89a0"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "1",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "paragraph": "1",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278"
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "92",
+          "paragraph": "1",
+          "item": "8",
+          "articleTextHash": "81e6735d6412e972019eeff05deae87901c70944394ec1a563118d1446113d37",
+          "rawXmlHash": "a28496b17ed0191c8d439753820b37d219520b24d06886118fb4d82aa9009278"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、間違い、正しいは現行法令と一致する。",
+    "第2肢は所有者のみを記載しているが、第62条第1項の所有者又は占有者のうち所有者について述べた内容として正しい。",
+    "第3肢は許可ではなく届出である。第64条第1項は事業又は第69条第1項の自主検査を伴う工事の開始前の届出を定めている。",
+    "第4肢の経済産業省との連携協力は、第92条第1項の必須記載事項に含まれない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2023-law-q03-s01",
+      "gas-shunin-otsu-2023-law-q03-s02",
+      "gas-shunin-otsu-2023-law-q03-s03",
+      "gas-shunin-otsu-2023-law-q03-s04",
+      "gas-shunin-otsu-2023-law-q03-s05"
+    ],
+    "currentLaw": {
+      "laws": [
+        {
+          "lawTitle": "ガス事業法",
+          "lawId": "329AC0000000051",
+          "articles": [
+            "61",
+            "62",
+            "64"
+          ]
+        },
+        {
+          "lawTitle": "ガス事業法施行規則",
+          "lawId": "345M50000400097",
+          "articles": [
+            "92"
+          ]
+        }
+      ],
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T18:08:22Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2023/21_explanationText_added/question_2023_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
