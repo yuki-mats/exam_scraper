@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 14,
+  "auditKey": "gas-shunin:kou:2019:law:q14:fe2c012c2fbd",
+  "auditInputHash": "861dd0ae886542f4af22ebfc30809f7129316c730dd814f63f7a1d624eabb9f5",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T18:30:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の「消費機器の所有者又は占有者に対し」が誤り。ガス事業法第159条第1項は、ガスの使用に伴う危険防止事項の周知対象を、消費機器を使用する者と定めている。",
+      "正しい。ガス事業法第159条第2項は、ガス小売事業者に消費機器の技術基準適合調査を求め、設置又は使用場所への立入りについて所有者又は占有者の承諾を得られないときを例外と定めている。選択肢はこれと一致する。",
+      "正しい。ガス事業法第159条第3項は、消費機器が技術基準に適合しない場合、適合のためにとるべき措置と、措置をとらなかった場合に生ずる結果を所有者又は占有者へ通知すると定めている。",
+      "正しい。ガス事業法第159条第6項は、ガス小売事業者が調査及び調査結果に基づく通知に関する帳簿を備え、所定事項を記載して保存すると定めている。",
+      "間違い。選択肢の「使用を一時停止すべきことを命ずる」が誤り。ガス事業法第161条は、経済産業大臣が所有者又は占有者に命じることができる措置を、消費機器の修理、改造又は移転と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス使用上の危険防止事項を周知する相手は？",
+      "消費機器調査の立入りに関する例外は？",
+      "技術基準不適合時に通知する内容は？",
+      "調査・通知業務について保存するものは？",
+      "大臣が命じられる不適合消費機器への措置は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス使用上の危険防止事項を周知する相手は？",
+        "answer": "消費機器を使用する者。所有者又は占有者ではない。"
+      },
+      {
+        "question": "消費機器調査の立入りに関する例外は？",
+        "answer": "所有者又は占有者の承諾を得られないとき。"
+      },
+      {
+        "question": "技術基準不適合時に通知する内容は？",
+        "answer": "適合のための措置と、その措置をとらなかった場合に生ずる結果。"
+      },
+      {
+        "question": "調査・通知業務について保存するものは？",
+        "answer": "所定事項を記載した帳簿。"
+      },
+      {
+        "question": "大臣が命じられる不適合消費機器への措置は？",
+        "answer": "修理、改造又は移転。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第1項、第2項、第3項及び第6項並びに第161条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "1",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "2",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "6",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "161",
+          "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
+          "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、正しい、間違いは現行法と一致する。",
+    "選択肢1はユーザー提示スクリーンショットでアプリの正答が間違いと表示された肢と同一内容である。",
+    "ローカル00_source、2026-06-19 Firestoreスナップショット、現行アップロード成果物はいずれも選択肢1を正しいとしているため、correctChoiceText自体はconfirmedとした。公開時にFirestore live readbackとアプリ表示の一致確認が必要。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2019/00_source/question_2019_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "firestoreSnapshot": "output/gas-shunin-kou/firestore_snapshot/20260619T160728Z/reconstructed/questions.json",
+    "currentLaw": {
+      "lawTitle": "ガス事業法",
+      "lawId": "329AC0000000051",
+      "articles": [
+        "159",
+        "161"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T07:43:50Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2019/21_explanationText_added/question_2019_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
