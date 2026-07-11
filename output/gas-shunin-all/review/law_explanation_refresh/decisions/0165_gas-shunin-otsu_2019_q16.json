@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 165,
+  "auditKey": "gas-shunin:otsu:2019:law:q16:d8b3a47e4236",
+  "auditInputHash": "37558d1a33f7fae4890b5b86e8c9f25a6bb796fb27bc70318c88d55088316cde",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T00:07:42+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第2条第2項は、特定工事を、特定ガス消費機器の設置又は変更の工事から経済産業省令で定める軽微な工事を除いたものと定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第3項は、特定工事を実地に監督する者が監督の職務を行うとき、資格証又は液化石油ガス設備士免状を携帯しなければならないと定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第5条第2項は、特定工事に従事する者が、実地監督者が監督上必要と認めてする指示に従わなければならないと定めている。",
+      "間違い。選択肢の「職員に事業場へ立ち入らせ、帳簿等を検査させることができる」が誤り。特定ガス消費機器の設置工事の監督に関する法律第7条は、経済産業大臣が特定工事事業者に対し、特定工事の施工に関する報告をさせることができると定めている。",
+      "正しい。特定ガス消費機器の設置工事の監督に関する法律第6条は、特定工事事業者が施工後、対象となる特定ガス消費機器の見やすい場所に、氏名又は名称、施工年月日その他の所定事項を記載した表示を付すことを定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "特定工事とは？",
+      "実地監督者は資格証をいつ携帯する？",
+      "特定工事従事者は監督者の指示に従う必要がある？",
+      "経済産業大臣が特定工事事業者に行使できる権限は？",
+      "特定工事後の表示には何を記載する？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "特定工事とは？",
+        "answer": "特定ガス消費機器の設置又は変更の工事から、省令で定める軽微な工事を除いたもの。"
+      },
+      {
+        "question": "実地監督者は資格証をいつ携帯する？",
+        "answer": "監督の職務を行うとき。液化石油ガス設備士は設備士免状を携帯する。"
+      },
+      {
+        "question": "特定工事従事者は監督者の指示に従う必要がある？",
+        "answer": "必要。監督上必要と認めてする指示に従わなければならない。"
+      },
+      {
+        "question": "経済産業大臣が特定工事事業者に行使できる権限は？",
+        "answer": "特定工事の施工に関する報告徴収。第7条は立入検査を定めていない。"
+      },
+      {
+        "question": "特定工事後の表示には何を記載する？",
+        "answer": "氏名又は名称、施工年月日その他の省令で定める事項。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "特定ガス消費機器の設置工事の監督に関する法律第2条第2項、第5条第2項・第3項、第6条及び第7条。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "2",
+          "paragraph": "2",
+          "articleTextHash": "f22a8343eb8597dc22daec22436d6e2b63f7a7379c61f5640084976aba802817",
+          "rawXmlHash": "6eef6d4dc6007d2ac2efab5add13feee94545e18a2b636082218fc07bffe3be4"
+        },
+        "1": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "5",
+          "paragraph": "3",
+          "articleTextHash": "387eb64d0ccbff7e0b73aaa1fae9899bb735dca615d9776b94955603d8421fd3",
+          "rawXmlHash": "1a3e61a90fc8b6ef3ec4b039f5cf99cc083536ad4a550b3da6868a88579528ab"
+        },
+        "2": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "5",
+          "paragraph": "2",
+          "articleTextHash": "387eb64d0ccbff7e0b73aaa1fae9899bb735dca615d9776b94955603d8421fd3",
+          "rawXmlHash": "1a3e61a90fc8b6ef3ec4b039f5cf99cc083536ad4a550b3da6868a88579528ab"
+        },
+        "3": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "7",
+          "articleTextHash": "9ce11f5644360034beb8e6b71538d17bcd8ec8a68c93edc154a9acde612f9f1d",
+          "rawXmlHash": "eb497fe8843b99c59b939c195217467bf017528fa9a90c678c049d2e9b0096c9"
+        },
+        "4": {
+          "lawId": "354AC0000000033",
+          "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+          "article": "6",
+          "articleTextHash": "17be8a11c7b73149f35a37e5728baa54beb98c7ad7fd491354cf00d576b74936",
+          "rawXmlHash": "e0f0c3d02183fdf0d10baa3feb4fad74e277ba497ee9415895873376eb64fc92"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、正しいは現行条文と一致する。",
+    "選択肢3は第7条が定める報告徴収を立入検査に置き換えているため、誤っている権限と正しい権限を明示した。",
+    "その他の選択肢は第2条、第5条及び第6条の現行文言と一致することを確認した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2019/00_source/question_2019_1.json",
+    "sourceCorrectTextUsed": true,
+    "currentLaw": {
+      "lawTitle": "特定ガス消費機器の設置工事の監督に関する法律",
+      "lawId": "354AC0000000033",
+      "articles": [
+        "2",
+        "5",
+        "6",
+        "7"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/354AC0000000033",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2019",
+      "verificationStatus": "source_correct_choice_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T15:08:24Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2019/21_explanationText_added/question_2019_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
