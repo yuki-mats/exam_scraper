@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 38,
+  "auditKey": "gas-shunin:kou:2021:law:q04:0421ed4de326",
+  "auditInputHash": "746b8a989a2253f6d82c140e7de60f18ee31239a29a62e21148bf1c316c6bee8",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:20:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス関係報告規則第4条第1項の表第1号は、ガス工作物の操作により人が死亡した事故を、速報及び詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、速報及び詳報の対象と定めている。",
+      "正しい。設問文の「事故中」は「工事中」の転記誤りとみられる。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故を、速報及び詳報の対象と定めている。",
+      "間違い。選択肢の事故を速報対象としている点が誤り。ガス関係報告規則第4条第1項の表第14号は、ガス工作物の損壊等により一般公衆に交通の困難等を招来した事故を、詳報のみの対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した物損事故を、速報及び詳報の対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス工作物操作による死亡事故は速報対象？",
+      "供給支障戸数500以上は速報対象？",
+      "工事中の損壊による負傷事故は速報対象？",
+      "交通困難を招来した事故は速報対象？",
+      "ガス栓漏えいガスへの引火による物損は速報対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス工作物操作による死亡事故は速報対象？",
+        "answer": "対象。表第1号が速報及び詳報を求めている。"
+      },
+      {
+        "question": "供給支障戸数500以上は速報対象？",
+        "answer": "対象。表第3号に該当する。"
+      },
+      {
+        "question": "工事中の損壊による負傷事故は速報対象？",
+        "answer": "対象。表第6号に該当する。"
+      },
+      {
+        "question": "交通困難を招来した事故は速報対象？",
+        "answer": "速報対象ではなく、詳報のみの対象。"
+      },
+      {
+        "question": "ガス栓漏えいガスへの引火による物損は速報対象？",
+        "answer": "対象。表第16号が速報及び詳報を求めている。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第4条第1項の表第1号、第3号、第6号、第14号及び第16号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "lawId": "429M60000400016",
+      "lawTitle": "ガス関係報告規則",
+      "article": "4",
+      "paragraph": "1",
+      "itemsByChoiceIndex": {
+        "0": "1",
+        "1": "3",
+        "2": "6",
+        "3": "14",
+        "4": "16"
+      },
+      "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+      "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、正しい、間違い、正しいは、3肢目を工事中の転記誤りとして扱う場合に現行規則と一致する。",
+    "3肢目の00_source選択肢本文にある事故中は、表第6号の工事中からの転記誤りと判断した。correctChoiceTextの誤りではない。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0176",
+      "chiefgasengineerlicense-A-10-0177",
+      "chiefgasengineerlicense-A-10-0178",
+      "chiefgasengineerlicense-A-10-0179",
+      "chiefgasengineerlicense-A-10-0180"
+    ],
+    "sourceTextIssue": {
+      "choiceIndex": 2,
+      "storedText": "事故中",
+      "expectedText": "工事中",
+      "status": "transcription_error_not_answer_label_error"
+    },
+    "currentLaw": {
+      "lawTitle": "ガス関係報告規則",
+      "lawId": "429M60000400016",
+      "article": "4",
+      "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2021",
+      "verificationStatus": "source_correct_text_confirmed_with_transcription_note"
+    }
+  },
+  "appliedAt": "2026-07-11T08:35:26Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2021/21_explanationText_added/question_2021_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}

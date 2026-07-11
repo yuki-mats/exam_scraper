@@ -5777,44 +5777,44 @@
     ],
     "source_filepath": "output/gas-shunin-kou/questions_json/2021/00_source/question_2021_firestore_2.json",
     "explanationText": [
-      "正しい。ガス関係報告規則第4条第1項第1号の表は、人が死亡した事故は速報及び詳報の対象である。",
-      "正しい。ガス関係報告規則第4条第1項第3号の表は、供給支障戸数500以上の供給支障事故は速報及び詳報の対象である。",
-      "正しい。ガス関係報告規則第4条第1項第6号の表は、工事中のガス工作物の欠陥等又は操作による人の負傷事故は速報及び詳報の対象である。",
-      "間違い。ガス関係報告規則第4条第1項第14号の表は、一般公衆に交通困難等を招来した事故は詳報のみの対象である。",
-      "正しい。ガス関係報告規則第4条第1項第16号の表は、ガス栓から漏えいしたガスへの引火により発生した物損事故は速報及び詳報の対象である。"
+      "正しい。ガス関係報告規則第4条第1項の表第1号は、ガス工作物の操作により人が死亡した事故を、速報及び詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、速報及び詳報の対象と定めている。",
+      "正しい。設問文の「事故中」は「工事中」の転記誤りとみられる。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故を、速報及び詳報の対象と定めている。",
+      "間違い。選択肢の事故を速報対象としている点が誤り。ガス関係報告規則第4条第1項の表第14号は、ガス工作物の損壊等により一般公衆に交通の困難等を招来した事故を、詳報のみの対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した物損事故を、速報及び詳報の対象と定めている。"
     ],
     "suggestedQuestions": [
-      "ガス工作物（ガス栓を除く。）の操作により人が死亡した事故",
-      "ガスの供給に支障を及ぼした事故であって、供給支障戸数が５００以上のもの",
-      "事故中のガス工作物（ガス栓を除く。）の損壊により人が負傷した事故",
-      "ガス工作物（ガス栓を除く。）の損壊により、一般公衆に対し、交通の困難を招来した事故",
-      "ガス栓の欠陥によりガス栓から漏えいしたガスに引火することにより、発生した物損事故",
+      "ガス工作物操作による死亡事故は速報対象？",
+      "供給支障戸数500以上は速報対象？",
+      "工事中の損壊による負傷事故は速報対象？",
+      "交通困難を招来した事故は速報対象？",
+      "ガス栓漏えいガスへの引火による物損は速報対象？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "ガス工作物（ガス栓を除く。）の操作により人が死亡した事故",
-        "answer": "正しい。ガス工作物（ガス栓を除く。）の欠陥、損傷若しくは破壊又はガス工作物の操作により人が死亡した事故は、ガス事故速報及び詳報の対象となる。"
+        "question": "ガス工作物操作による死亡事故は速報対象？",
+        "answer": "対象。表第1号が速報及び詳報を求めている。"
       },
       {
-        "question": "ガスの供給に支障を及ぼした事故であって、供給支障戸数が５００以上のもの",
-        "answer": "正しい。ガスの供給に支障を及ぼした事故で、供給支障戸数が500以上のものは、ガス事故速報及び詳報の対象となる。"
+        "question": "供給支障戸数500以上は速報対象？",
+        "answer": "対象。表第3号に該当する。"
       },
       {
-        "question": "事故中のガス工作物（ガス栓を除く。）の損壊により人が負傷した事故",
-        "answer": "正しい。ガス関係報告規則では、工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故は、ガス事故速報及び詳報の対象となる。Firestore本文は「事故中」となっておりarchive/e-Govの「工事中」と差分があるが、既存Firestore snapshotを保持する。"
+        "question": "工事中の損壊による負傷事故は速報対象？",
+        "answer": "対象。表第6号に該当する。"
       },
       {
-        "question": "ガス工作物（ガス栓を除く。）の損壊により、一般公衆に対し、交通の困難を招来した事故",
-        "answer": "間違い。ガス工作物の欠陥、損壊若しくは破壊又は操作により一般公衆に交通の困難等を招来した事故は、ガス事故詳報の対象であり、ガス事故速報の対象としては規定されていない。"
+        "question": "交通困難を招来した事故は速報対象？",
+        "answer": "速報対象ではなく、詳報のみの対象。"
       },
       {
-        "question": "ガス栓の欠陥によりガス栓から漏えいしたガスに引火することにより、発生した物損事故",
-        "answer": "正しい。ガス栓の欠陥、損壊又は破壊によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及び詳報の対象となる。"
+        "question": "ガス栓漏えいガスへの引火による物損は速報対象？",
+        "answer": "対象。表第16号が速報及び詳報を求めている。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス関係報告規則第4条第1項第1号の表、ガス関係報告規則第4条第1項第3号の表、ガス関係報告規則第4条第1項第6号の表、ガス関係報告規則第4条第1項第14号の表、ガス関係報告規則第4条第1項第16号の表。"
+        "answer": "ガス関係報告規則第4条第1項の表第1号、第3号、第6号、第14号及び第16号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -5861,13 +5861,15 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス関係報告規則第4条第1項第1号の表は、人が死亡した事故は速報及び詳報の対象である。",
+          "reason": "正しい。ガス関係報告規則第4条第1項の表第1号は、ガス工作物の操作により人が死亡した事故を、速報及び詳報の対象と定めている。",
           "paragraph": "1",
           "item": "1",
           "lawId": "429M60000400016",
           "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
         }
       ],
       [
@@ -5882,13 +5884,15 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス関係報告規則第4条第1項第3号の表は、供給支障戸数500以上の供給支障事故は速報及び詳報の対象である。",
+          "reason": "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、速報及び詳報の対象と定めている。",
           "paragraph": "1",
           "item": "3",
           "lawId": "429M60000400016",
           "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
         }
       ],
       [
@@ -5903,13 +5907,15 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス関係報告規則第4条第1項第6号の表は、工事中のガス工作物の欠陥等又は操作による人の負傷事故は速報及び詳報の対象である。",
+          "reason": "正しい。設問文の「事故中」は「工事中」の転記誤りとみられる。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故を、速報及び詳報の対象と定めている。",
           "paragraph": "1",
           "item": "6",
           "lawId": "429M60000400016",
           "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
         }
       ],
       [
@@ -5924,13 +5930,15 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス関係報告規則第4条第1項第14号の表は、一般公衆に交通困難等を招来した事故は詳報のみの対象である。",
+          "reason": "間違い。選択肢の事故を速報対象としている点が誤り。ガス関係報告規則第4条第1項の表第14号は、ガス工作物の損壊等により一般公衆に交通の困難等を招来した事故を、詳報のみの対象と定めている。",
           "paragraph": "1",
           "item": "14",
           "lawId": "429M60000400016",
           "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
         }
       ],
       [
@@ -5945,346 +5953,313 @@
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス関係報告規則第4条第1項第16号の表は、ガス栓から漏えいしたガスへの引火により発生した物損事故は速報及び詳報の対象である。",
+          "reason": "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した物損事故を、速報及び詳報の対象と定めている。",
           "paragraph": "1",
           "item": "16",
           "lawId": "429M60000400016",
           "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T03:10:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T19:20:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_031000_q4",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_firestore_snapshot_after_source_conflict_review"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "article": "4",
-          "paragraph": "1",
-          "item": "一",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "lawId": "429M60000400016",
+          "paragraph": "1",
+          "item": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "速報対象は第1・第2・第3・第5肢の4つであり、answer_result_textを補完した。",
-          "source conflict ledger line 246の「事故中/工事中」は出題文表記差として記録し、lines 247-248のarchive-site正誤衝突はガス関係報告規則第4条表によりFirestore snapshotを採用する。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は正しくガス関係報告規則第4条を返したが、実務上は同条表の号と報告方式欄を読む必要がある。",
-          "第3肢はFirestore本文が「事故中」だが、archive/e-Govの対応表現は「工事中」。00_source本文は変更せず、source conflictとして記録する。",
-          "00_source本文・選択肢と既存statement-level Firestore IDsは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス工作物（ガス栓を除く。）の欠陥、損傷若しくは破壊又はガス工作物の操作により人が死亡した事故は、ガス事故速報及び詳報の対象となる。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文ではFirestore snapshotの正誤と一致。",
-          "promptContext": "ガス工作物操作による死亡事故が速報対象かに限定して説明する。",
-          "displayRefIds": [
-            "current:429M60000400016:4:1:一"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス関係報告規則第4条第1項の表第1号は、ガス工作物の操作により人が死亡した事故を、速報及び詳報の対象と定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス関係報告規則第4条第1項第1号を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:429M60000400016:4:1:一",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "429M60000400016",
               "lawTitle": "ガス関係報告規則",
               "article": "4",
-              "paragraph": "1",
-              "item": "一",
               "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+              "lawId": "429M60000400016",
+              "paragraph": "1",
+              "item": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T03:10:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T19:20:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_031000_q4",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_firestore_snapshot_after_source_conflict_review"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "article": "4",
-          "paragraph": "1",
-          "item": "三",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "lawId": "429M60000400016",
+          "paragraph": "1",
+          "item": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "速報対象は第1・第2・第3・第5肢の4つであり、answer_result_textを補完した。",
-          "source conflict ledger line 246の「事故中/工事中」は出題文表記差として記録し、lines 247-248のarchive-site正誤衝突はガス関係報告規則第4条表によりFirestore snapshotを採用する。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は正しくガス関係報告規則第4条を返したが、実務上は同条表の号と報告方式欄を読む必要がある。",
-          "第3肢はFirestore本文が「事故中」だが、archive/e-Govの対応表現は「工事中」。00_source本文は変更せず、source conflictとして記録する。",
-          "00_source本文・選択肢と既存statement-level Firestore IDsは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガスの供給に支障を及ぼした事故で、供給支障戸数が500以上のものは、ガス事故速報及び詳報の対象となる。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文ではFirestore snapshotの正誤と一致。",
-          "promptContext": "供給支障戸数500以上の事故が速報対象かに限定して説明する。",
-          "displayRefIds": [
-            "current:429M60000400016:4:1:三"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、速報及び詳報の対象と定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス関係報告規則第4条第1項第3号を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:429M60000400016:4:1:三",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "429M60000400016",
               "lawTitle": "ガス関係報告規則",
               "article": "4",
-              "paragraph": "1",
-              "item": "三",
               "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+              "lawId": "429M60000400016",
+              "paragraph": "1",
+              "item": "3"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T03:10:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T19:20:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_031000_q4",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_firestore_snapshot_after_source_conflict_review"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "article": "4",
-          "paragraph": "1",
-          "item": "六",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "lawId": "429M60000400016",
+          "paragraph": "1",
+          "item": "6"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "速報対象は第1・第2・第3・第5肢の4つであり、answer_result_textを補完した。",
-          "source conflict ledger line 246の「事故中/工事中」は出題文表記差として記録し、lines 247-248のarchive-site正誤衝突はガス関係報告規則第4条表によりFirestore snapshotを採用する。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は正しくガス関係報告規則第4条を返したが、実務上は同条表の号と報告方式欄を読む必要がある。",
-          "第3肢はFirestore本文が「事故中」だが、archive/e-Govの対応表現は「工事中」。00_source本文は変更せず、source conflictとして記録する。",
-          "00_source本文・選択肢と既存statement-level Firestore IDsは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス関係報告規則では、工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故は、ガス事故速報及び詳報の対象となる。Firestore本文は「事故中」となっておりarchive/e-Govの「工事中」と差分があるが、既存Firestore snapshotを保持する。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文ではFirestore snapshotの正誤と一致。",
-          "promptContext": "工事中のガス工作物による負傷事故が速報対象かに限定して説明する。",
-          "displayRefIds": [
-            "current:429M60000400016:4:1:六"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "設問文の「事故中」は「工事中」の転記誤りとみられる。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故を、速報及び詳報の対象と定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス関係報告規則第4条第1項第6号を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:429M60000400016:4:1:六",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "429M60000400016",
               "lawTitle": "ガス関係報告規則",
               "article": "4",
-              "paragraph": "1",
-              "item": "六",
               "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+              "lawId": "429M60000400016",
+              "paragraph": "1",
+              "item": "6"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T03:10:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T19:20:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_031000_q4",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "間違い",
           "verificationStatus": "from_firestore_snapshot_after_source_conflict_review"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "article": "4",
-          "paragraph": "1",
-          "item": "十四",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "lawId": "429M60000400016",
+          "paragraph": "1",
+          "item": "14"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "速報対象は第1・第2・第3・第5肢の4つであり、answer_result_textを補完した。",
-          "source conflict ledger line 246の「事故中/工事中」は出題文表記差として記録し、lines 247-248のarchive-site正誤衝突はガス関係報告規則第4条表によりFirestore snapshotを採用する。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は正しくガス関係報告規則第4条を返したが、実務上は同条表の号と報告方式欄を読む必要がある。",
-          "第3肢はFirestore本文が「事故中」だが、archive/e-Govの対応表現は「工事中」。00_source本文は変更せず、source conflictとして記録する。",
-          "00_source本文・選択肢と既存statement-level Firestore IDsは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス工作物の欠陥、損壊若しくは破壊又は操作により一般公衆に交通の困難等を招来した事故は、ガス事故詳報の対象であり、ガス事故速報の対象としては規定されていない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文ではFirestore snapshotの正誤と一致。",
-          "promptContext": "交通困難を招来した事故が速報ではなく詳報のみである点に限定して説明する。",
-          "displayRefIds": [
-            "current:429M60000400016:4:1:十四"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の事故を速報対象としている点が誤り。ガス関係報告規則第4条第1項の表第14号は、ガス工作物の損壊等により一般公衆に交通の困難等を招来した事故を、詳報のみの対象と定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス関係報告規則第4条第1項第14号を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:429M60000400016:4:1:十四",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "429M60000400016",
               "lawTitle": "ガス関係報告規則",
               "article": "4",
-              "paragraph": "1",
-              "item": "十四",
               "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+              "lawId": "429M60000400016",
+              "paragraph": "1",
+              "item": "14"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T03:10:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-11T19:20:00+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_031000_q4",
+        "lawCorpusSnapshotId": "egov-current-2026-07-11",
         "primaryAuditRunId": "20260709_015500_gas_shunin_lawzilla_primary_evidence_links",
         "secondaryAuditRunId": "20260710_gas_shunin_kou_2021_q4_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "examTime": {
           "correctChoiceText": "正しい",
           "verificationStatus": "from_firestore_snapshot_after_source_conflict_review"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "429M60000400016",
           "lawTitle": "ガス関係報告規則",
           "article": "4",
-          "paragraph": "1",
-          "item": "十六",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-11",
           "verificationStatus": "verified",
           "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4"
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=429M60000400016;article=4",
+          "lawId": "429M60000400016",
+          "paragraph": "1",
+          "item": "16"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の正誤・解説は矛盾しない。",
-          "速報対象は第1・第2・第3・第5肢の4つであり、answer_result_textを補完した。",
-          "source conflict ledger line 246の「事故中/工事中」は出題文表記差として記録し、lines 247-248のarchive-site正誤衝突はガス関係報告規則第4条表によりFirestore snapshotを採用する。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は正しくガス関係報告規則第4条を返したが、実務上は同条表の号と報告方式欄を読む必要がある。",
-          "第3肢はFirestore本文が「事故中」だが、archive/e-Govの対応表現は「工事中」。00_source本文は変更せず、source conflictとして記録する。",
-          "00_source本文・選択肢と既存statement-level Firestore IDsは変更しない。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス栓の欠陥、損壊又は破壊によりガス栓から漏えいしたガスに引火して発生した物損事故は、ガス事故速報及び詳報の対象となる。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文ではFirestore snapshotの正誤と一致。",
-          "promptContext": "ガス栓からの漏えいガス引火による物損事故が速報対象かに限定して説明する。",
-          "displayRefIds": [
-            "current:429M60000400016:4:1:十六"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した物損事故を、速報及び詳報の対象と定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス関係報告規則第4条第1項第16号を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:429M60000400016:4:1:十六",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "429M60000400016",
               "lawTitle": "ガス関係報告規則",
               "article": "4",
-              "paragraph": "1",
-              "item": "十六",
               "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
-              "textHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63"
+              "lawId": "429M60000400016",
+              "paragraph": "1",
+              "item": "16"
             }
           ]
         }
       }
     ],
     "suggestedExplanationText": [
-      "正しい。ガス関係報告規則第4条第1項第1号の表は、人が死亡した事故は速報及び詳報の対象である。",
-      "正しい。ガス関係報告規則第4条第1項第3号の表は、供給支障戸数500以上の供給支障事故は速報及び詳報の対象である。",
-      "正しい。ガス関係報告規則第4条第1項第6号の表は、工事中のガス工作物の欠陥等又は操作による人の負傷事故は速報及び詳報の対象である。",
-      "間違い。ガス関係報告規則第4条第1項第14号の表は、一般公衆に交通困難等を招来した事故は詳報のみの対象である。",
-      "正しい。ガス関係報告規則第4条第1項第16号の表は、ガス栓から漏えいしたガスへの引火により発生した物損事故は速報及び詳報の対象である。"
+      "正しい。ガス関係報告規則第4条第1項の表第1号は、ガス工作物の操作により人が死亡した事故を、速報及び詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、速報及び詳報の対象と定めている。",
+      "正しい。設問文の「事故中」は「工事中」の転記誤りとみられる。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故を、速報及び詳報の対象と定めている。",
+      "間違い。選択肢の事故を速報対象としている点が誤り。ガス関係報告規則第4条第1項の表第14号は、ガス工作物の損壊等により一般公衆に交通の困難等を招来した事故を、詳報のみの対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した物損事故を、速報及び詳報の対象と定めている。"
     ],
     "lawGroundedExplanationText": [
-      "正しい。ガス関係報告規則第4条第1項第1号の表は、人が死亡した事故は速報及び詳報の対象である。",
-      "正しい。ガス関係報告規則第4条第1項第3号の表は、供給支障戸数500以上の供給支障事故は速報及び詳報の対象である。",
-      "正しい。ガス関係報告規則第4条第1項第6号の表は、工事中のガス工作物の欠陥等又は操作による人の負傷事故は速報及び詳報の対象である。",
-      "間違い。ガス関係報告規則第4条第1項第14号の表は、一般公衆に交通困難等を招来した事故は詳報のみの対象である。",
-      "正しい。ガス関係報告規則第4条第1項第16号の表は、ガス栓から漏えいしたガスへの引火により発生した物損事故は速報及び詳報の対象である。"
+      "正しい。ガス関係報告規則第4条第1項の表第1号は、ガス工作物の操作により人が死亡した事故を、速報及び詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、速報及び詳報の対象と定めている。",
+      "正しい。設問文の「事故中」は「工事中」の転記誤りとみられる。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の損壊等により人が負傷した事故を、速報及び詳報の対象と定めている。",
+      "間違い。選択肢の事故を速報対象としている点が誤り。ガス関係報告規則第4条第1項の表第14号は、ガス工作物の損壊等により一般公衆に交通の困難等を招来した事故を、詳報のみの対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓から漏えいしたガスへの引火により発生した物損事故を、速報及び詳報の対象と定めている。"
     ]
   },
   {
