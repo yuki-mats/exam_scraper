@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 72,
+  "auditKey": "gas-shunin:kou:2023:law:q04:06cf53512da0",
+  "auditInputHash": "b5046e654387ac5006a7ca69de4279c6995c6acf33f149021a6eb45d56b65a05",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:14:16+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス関係報告規則第4条第1項の表第3号は、供給支障戸数が500以上の供給支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第6号は、工事中のガス工作物の欠陥、損壊若しくは破壊又は操作により人が負傷した事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "間違い。選択肢の「製造支障時間が5時間以上」が誤り。ガス関係報告規則第4条第1項の表第8号は10時間以上24時間未満、同表第4号は24時間以上の製造支障事故を、ガス事故速報及びガス事故詳報の対象と定めている。対象となる時間の下限は10時間である。",
+      "正しい。ガス関係報告規則第4条第1項の表第16号は、ガス栓の欠陥、損壊又は破壊により漏えいしたガスに引火して発生した負傷事故を、ガス事故速報及びガス事故詳報の対象と定めている。",
+      "正しい。ガス関係報告規則第4条第1項の表第19号は、消費機器又はガス栓から漏えいしたガスに引火して発生した負傷事故を、ガス事故速報及びガス事故詳報の対象と定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "供給支障事故の報告対象戸数は？",
+      "工事中の工作物による負傷事故は報告対象？",
+      "製造支障事故の報告対象時間は？",
+      "ガス栓からの漏えい・引火事故は報告対象？",
+      "消費機器からの漏えい・引火事故は報告対象？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "供給支障事故の報告対象戸数は？",
+        "answer": "供給支障戸数が500以上の場合は、速報及び詳報の対象。"
+      },
+      {
+        "question": "工事中の工作物による負傷事故は報告対象？",
+        "answer": "対象。表第6号により速報及び詳報を報告する。"
+      },
+      {
+        "question": "製造支障事故の報告対象時間は？",
+        "answer": "10時間以上。10時間以上24時間未満は表第8号、24時間以上は表第4号の対象。"
+      },
+      {
+        "question": "ガス栓からの漏えい・引火事故は報告対象？",
+        "answer": "漏えいしたガスへの引火による負傷事故は、表第16号の速報及び詳報の対象。"
+      },
+      {
+        "question": "消費機器からの漏えい・引火事故は報告対象？",
+        "answer": "漏えいしたガスへの引火による負傷事故は、表第19号の速報及び詳報の対象。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第4条第1項の表第3号、第4号、第6号、第8号、第16号及び第19号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "3",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "1": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "6",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "2": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "8",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8",
+          "references": [
+            {
+              "item": "8"
+            },
+            {
+              "item": "4"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "16",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "4": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "19",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、正しい、間違い、正しい、正しいは現行規則と一致する。",
+    "第3肢の5時間以上は誤りである。製造支障事故は、10時間以上24時間未満が表第8号、24時間以上が表第4号により速報及び詳報の対象となる。",
+    "設問のただし書にある表第13号の大規模自然災害等の指定事故は、各肢の判定対象から除外されている。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0336",
+      "chiefgasengineerlicense-A-10-0337",
+      "chiefgasengineerlicense-A-10-0338",
+      "chiefgasengineerlicense-A-10-0339",
+      "chiefgasengineerlicense-A-10-0340"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス関係報告規則",
+      "lawId": "429M60000400016",
+      "articles": [
+        "4"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/429M60000400016",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:15:26Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
