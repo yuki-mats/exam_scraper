@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 135,
+  "auditKey": "gas-shunin:otsu:2018:law:q02:39237af2cf50",
+  "auditInputHash": "9e1e695345060ebe8eb28e8f2fe8d077489e78a7de042dd0125f3be32b825929",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:57:12+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス関係報告規則第4条第1項は、一般ガス導管事業者について同項の表第1号から第16号までの事故を報告対象とし、第16号は、ガス栓の欠陥等により漏えいしたガスへの引火で発生した負傷又は物損事故を掲げている。",
+      "間違い。一般ガス導管事業者の報告対象はガス関係報告規則第4条第1項の表第1号から第16号までである。ガス栓の使用に伴う酸素欠乏症は同表第17号に該当するため、本問の一般ガス導管事業者の事故報告対象には含まれない。",
+      "正しい。ガス関係報告規則第4条第1項は、一般ガス導管事業者の事故報告について、一般ガス導管事業者又はガス小売事業者のいずれに係るものか特定できない場合を含むと明記している。",
+      "間違い。一般ガス導管事業者の報告対象はガス関係報告規則第4条第1項の表第1号から第16号までである。消費機器の使用に伴う中毒事故は同表第17号に該当するため、本問の一般ガス導管事業者の事故報告対象には含まれない。",
+      "間違い。一般ガス導管事業者の報告対象はガス関係報告規則第4条第1項の表第1号から第16号までである。消費機器から漏えいしたガスへの引火で発生した所定の物損事故は同表第18号に該当するため、本問の一般ガス導管事業者の事故報告対象には含まれない。"
+    ],
+    "proposedSuggestedQuestions": [
+      "一般ガス導管事業者が報告する事故は表の第何号まで？",
+      "ガス栓欠陥による引火・負傷事故は何号の事故？",
+      "事故が導管事業者と小売事業者のどちらに係るか特定できない場合は？",
+      "ガス栓又は消費機器の使用に伴う中毒・酸欠事故は何号？",
+      "消費機器から漏えいしたガスへの引火による所定の物損事故は何号？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "一般ガス導管事業者が報告する事故は表の第何号まで？",
+        "answer": "ガス関係報告規則第4条第1項の表第1号から第16号まで。"
+      },
+      {
+        "question": "ガス栓欠陥による引火・負傷事故は何号の事故？",
+        "answer": "第16号で、一般ガス導管事業者の報告対象に含まれる。"
+      },
+      {
+        "question": "事故が導管事業者と小売事業者のどちらに係るか特定できない場合は？",
+        "answer": "一般ガス導管事業者の事故報告対象に含まれる。"
+      },
+      {
+        "question": "ガス栓又は消費機器の使用に伴う中毒・酸欠事故は何号？",
+        "answer": "第17号で、本問の一般ガス導管事業者の報告対象である第1号から第16号までには含まれない。"
+      },
+      {
+        "question": "消費機器から漏えいしたガスへの引火による所定の物損事故は何号？",
+        "answer": "第18号で、本問の一般ガス導管事業者の報告対象である第1号から第16号までには含まれない。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス関係報告規則第4条第1項及び同項の表第16号から第18号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第16号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "1": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第17号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "2": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "3": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第17号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        },
+        "4": {
+          "lawId": "429M60000400016",
+          "lawTitle": "ガス関係報告規則",
+          "article": "4",
+          "paragraph": "1",
+          "item": "表第18号",
+          "articleTextHash": "8cc7e7aeb96a7298ee14effe1f1df22eccbee84b2d22e43bb81a3f3a54080a63",
+          "rawXmlHash": "fa1e1c302c2835a68c2cbd81bdbda83467d36048d440246f4f6eb0247fde29e8"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、正しい、間違い、間違いは現行法と一致する。",
+    "一般ガス導管事業者の報告範囲である表第1号から第16号までと、対象外となる第17号及び第18号の差を各誤肢で明示した。",
+    "法令名を正式名称のガス関係報告規則に統一し、表の号単位まで直接根拠を細分化した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q02-s01",
+      "gas-shunin-otsu-2018-law-q02-s02",
+      "gas-shunin-otsu-2018-law-q02-s03",
+      "gas-shunin-otsu-2018-law-q02-s04",
+      "gas-shunin-otsu-2018-law-q02-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス関係報告規則",
+      "lawId": "429M60000400016",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T13:58:26Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
