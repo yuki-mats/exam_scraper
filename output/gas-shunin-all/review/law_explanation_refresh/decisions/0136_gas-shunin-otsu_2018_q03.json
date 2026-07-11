@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 136,
+  "auditKey": "gas-shunin:otsu:2018:law:q03:89ddbb21bca8",
+  "auditInputHash": "7aa1c622d16c0da31f3f7e251a25e690ec05131949f999b5ea8071d1c0b0cee4",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T22:59:45+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業法第64条第3項は、一般ガス導管事業の用に供するガス工作物の工事、維持及び運用の保安確保に必要があるとき、経済産業大臣が一般ガス導管事業者に保安規程の変更を命ずることができると定めている。",
+      "間違い。選択肢の「ガスの使用者」が誤り。ガス事業法施行規則第24条第1項第12号は、保安規程に定める対象を、ガス工作物の工事、維持又は運用に従事する者であって保安規程に違反した者に対する措置としている。",
+      "間違い。選択肢の「消費機器」が誤り。ガス事業法施行規則第24条第1項第11号は、保安規程に定める記録を、ガス工作物の工事、維持又は運用に関する保安についての記録としている。",
+      "正しい。ガス事業法施行規則第30条第1項の表第2号ロは、乙種ガス主任技術者免状による監督範囲に、最高使用圧力が高圧の液化ガス用貯槽のうち液化石油ガスを貯蔵するものを含めている。",
+      "正しい。ガス事業法第31条、第67条及び第100条は、ガス主任技術者が同法等に違反したとき、経済産業大臣が、該当するガス小売事業者、一般ガス導管事業者又はガス製造事業者に対し、そのガス主任技術者の解任を命ずることができると定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "経済産業大臣は保安規程の変更を命じられる？",
+      "保安規程違反者への措置で対象となるのは使用者と従事者のどちら？",
+      "保安規程に記録する保安対象は消費機器とガス工作物のどちら？",
+      "乙種ガス主任技術者が監督できる高圧設備の例は？",
+      "ガス主任技術者が法令違反した場合、経済産業大臣は何を命じられる？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "経済産業大臣は保安規程の変更を命じられる？",
+        "answer": "一般ガス導管事業の用に供するガス工作物の保安確保に必要があると認めるとき、一般ガス導管事業者に変更を命じられる。"
+      },
+      {
+        "question": "保安規程違反者への措置で対象となるのは使用者と従事者のどちら？",
+        "answer": "ガス工作物の工事、維持又は運用に従事する者で、保安規程に違反した者。"
+      },
+      {
+        "question": "保安規程に記録する保安対象は消費機器とガス工作物のどちら？",
+        "answer": "ガス工作物の工事、維持又は運用に関する保安。"
+      },
+      {
+        "question": "乙種ガス主任技術者が監督できる高圧設備の例は？",
+        "answer": "最高使用圧力が高圧の液化ガス用貯槽のうち、液化石油ガスを貯蔵するものなど。"
+      },
+      {
+        "question": "ガス主任技術者が法令違反した場合、経済産業大臣は何を命じられる？",
+        "answer": "該当するガス事業者に、そのガス主任技術者の解任を命ずることができる。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第31条、第64条第3項、第67条及び第100条並びにガス事業法施行規則第24条第1項第11号及び第12号、第30条第1項の表第2号ロ。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "64",
+          "paragraph": "3",
+          "articleTextHash": "732748c9ab9f27b36c06fcd19641929eee39210fee93144422032ec706411944",
+          "rawXmlHash": "b1e0502d0f76e505b935f2d020fb65fcadb2d1846e8d80e647a5d9f5db27bd0f"
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "24",
+          "paragraph": "1",
+          "item": "12",
+          "articleTextHash": "a2112970a43873082c9e5c7afc53b25c90df76365b1e23678e3ee1e5422bcd55",
+          "rawXmlHash": "bdabab75e98e14c5458e654a94e8cd85c75d821ce6f1e2171943417ce97e4a66"
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "24",
+          "paragraph": "1",
+          "item": "11",
+          "articleTextHash": "a2112970a43873082c9e5c7afc53b25c90df76365b1e23678e3ee1e5422bcd55",
+          "rawXmlHash": "bdabab75e98e14c5458e654a94e8cd85c75d821ce6f1e2171943417ce97e4a66"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "30",
+          "paragraph": "1",
+          "item": "表第2号",
+          "subitem": "ロ",
+          "articleTextHash": "f27b83b14e2d3623f93e2e250eb5bff38db72fbace6a0adf3e796162bde734f7",
+          "rawXmlHash": "da8ccab9bf571a6e1eef5393100eb57c223bc80d896517c3af74ef0db995cb09"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "67",
+          "paragraph": "1",
+          "articleTextHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+          "rawXmlHash": "7d6a1a7caee11c987ae3865516dd72deb7f9cafdf3ea87e083d122e328a8ef2a",
+          "references": [
+            {
+              "article": "31",
+              "paragraph": "1",
+              "articleTextHash": "2b996e3e28133b7cacec62a9fbdfa74c6339b189271547d8c3a7fa541a4170b3",
+              "rawXmlHash": "ed4d5ff4997ec7fb6d4ba123ba0d5a2c4e8add2288e25a805aaeaf5601c07cc3"
+            },
+            {
+              "article": "67",
+              "paragraph": "1",
+              "articleTextHash": "7b76bbfa0a86822a5ef44e2c88c00eae93e1ec3744eb655a156274e3239616ae",
+              "rawXmlHash": "7d6a1a7caee11c987ae3865516dd72deb7f9cafdf3ea87e083d122e328a8ef2a"
+            },
+            {
+              "article": "100",
+              "paragraph": "1",
+              "articleTextHash": "3b6bc6bc2436f769b5e1fc5872486b6dc4a45881582494488cd0a08a6cdaeac7",
+              "rawXmlHash": "695bc6f060a364b296e4d14f51e9be8f7b26640ddc09c17db916756fd81ad635"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの正しい、間違い、間違い、正しい、正しいは現行法と一致する。",
+    "誤肢では、使用者と従事者、消費機器とガス工作物の差をそれぞれ明示した。",
+    "乙種免状の監督範囲を施行規則第30条第1項の表第2号ロまで細分化した。",
+    "ガス事業者に対する主任技術者解任命令を、小売、一般導管及び製造の各直接根拠へ接続した。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2018/00_source/question_2018_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2018-law-q03-s01",
+      "gas-shunin-otsu-2018-law-q03-s02",
+      "gas-shunin-otsu-2018-law-q03-s03",
+      "gas-shunin-otsu-2018-law-q03-s04",
+      "gas-shunin-otsu-2018-law-q03-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法等",
+      "lawId": "329AC0000000051",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2018",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T14:00:31Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2018/21_explanationText_added/question_2018_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
