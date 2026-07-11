@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 84,
+  "auditKey": "gas-shunin:kou:2023:law:q15:b4adcb7b8545",
+  "auditInputHash": "31f4c0ed3bbbf564050f342f363bd2228718fc1eb541bf897d9a34ea358adf3e",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-11T19:55:34+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。選択肢の周知対象を「消費機器の所有者又は占有者」とする部分が誤り。ガス事業法第159条第1項は、ガス小売事業者が必要事項を周知する相手方を、消費機器を使用する者と定めている。",
+      "正しい。ガス事業法第159条第3項は、調査で消費機器の技術基準不適合を認めたとき、遅滞なく、適合のためにとるべき措置と、その措置をとらなかった場合の結果を所有者又は占有者に通知すると定めている。",
+      "正しい。ガス事業法第160条第1項は、ガス小売事業者が保安業務規程を定め、その事業の開始前に経済産業大臣へ届け出ると定めている。",
+      "間違い。選択肢の「ガス主任技術者」が誤り。ガス事業法施行規則第207条の表「ガス小売事業者」の項第2号は、保安業務規程に定める事項を、保安業務を管理する事業場ごとの保安業務監督者の選任と定めている。",
+      "間違い。選択肢の「使用を一時停止すべきこと」が誤り。ガス事業法第161条第1項は、経済産業大臣が命ずることのできる措置を、技術基準に適合するよう消費機器を修理し、改造し、又は移転することと定めている。"
+    ],
+    "proposedSuggestedQuestions": [
+      "ガス使用上の危険を周知する相手は？",
+      "消費機器が基準不適合の場合の通知内容は？",
+      "保安業務規程はいつ届け出る？",
+      "保安業務規程で選任する責任者は？",
+      "消費機器への基準適合命令の内容は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "ガス使用上の危険を周知する相手は？",
+        "answer": "消費機器の所有者又は占有者ではなく、消費機器を使用する者。"
+      },
+      {
+        "question": "消費機器が基準不適合の場合の通知内容は？",
+        "answer": "基準適合のためにとるべき措置と、その措置をとらなかった場合に生ずる結果。"
+      },
+      {
+        "question": "保安業務規程はいつ届け出る？",
+        "answer": "ガス小売事業の開始前。"
+      },
+      {
+        "question": "保安業務規程で選任する責任者は？",
+        "answer": "事業場ごとのガス主任技術者ではなく、保安業務監督者。"
+      },
+      {
+        "question": "消費機器への基準適合命令の内容は？",
+        "answer": "使用の一時停止ではなく、技術基準に適合するための修理、改造又は移転。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法第159条第1項・第3項、第160条第1項、第161条第1項及びガス事業法施行規則第207条の表「ガス小売事業者」の項第2号。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "1",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "1",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "207",
+          "paragraph": "1",
+          "articleTextHash": "00e2552e9f649d2d6cd86123aa71d8b50cf4abb459a655f874f25477be544860",
+          "rawXmlHash": "2856b02a1ffa97c9fe51f1b8e0bd74906cd0d860cc47a17c990ef8ca496725e6"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "161",
+          "paragraph": "1",
+          "articleTextHash": "09ad0a000eed06c5c7854601a10fc6e186bb0ae15c78c820c7be277f136c603c",
+          "rawXmlHash": "81fd7941e7f60a283d8ca196d18ce5a78548f2658a088f78fd8642d0b308f688"
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの間違い、正しい、正しい、間違い、間違いは現行法令と一致する。",
+    "第1肢は第159条第1項の周知対象と、第2項・第3項の調査及び通知における所有者又は占有者を混同している。",
+    "第4肢の保安業務規程に定める選任事項は、ガス主任技術者ではなく保安業務監督者である。",
+    "第5肢の基準適合命令は使用の一時停止ではなく、消費機器の修理、改造又は移転である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-kou/questions_json/2023/00_source/question_2023_firestore_2.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "chiefgasengineerlicense-A-10-0391",
+      "chiefgasengineerlicense-A-10-0392",
+      "chiefgasengineerlicense-A-10-0393",
+      "chiefgasengineerlicense-A-10-0394",
+      "chiefgasengineerlicense-A-10-0395"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法及びガス事業法施行規則",
+      "lawId": "multiple",
+      "articles": [
+        "ガス事業法第159条・第160条・第161条",
+        "ガス事業法施行規則第207条"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/",
+      "referenceDate": "2026-07-11",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2023",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T10:56:36Z",
+  "application": {
+    "patchFile": "output/gas-shunin-kou/questions_json/2023/21_explanationText_added/question_2023_firestore_2_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
