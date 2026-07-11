@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 213,
+  "auditKey": "gas-shunin:otsu:2022:law:q16:c68330d94596",
+  "auditInputHash": "1e7a11e414459fe696b679e8d1ca52d252972ae8386948d6c27e751b3d0cb279",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T02:59:02+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "不正解。選択肢の（ロ）「専用の排気口」と（ホ）「7」が誤り。ガス事業法施行規則第202条第1項第1号は、構造上その他の理由で排気筒を設けることが困難な場合は排気フードを設けると定め、同号トは、対象となるガス衣類乾燥機をガス消費量12キロワット超のものと定めている。",
+      "不正解。選択肢の（ハ）「ガス貯湯湯沸器」と（ニ）「ガス瞬間湯沸器」の順序が誤り。ガス事業法施行規則第202条第1項第1号ロ及びハは、（ハ）にガス瞬間湯沸器、（ニ）にガス貯湯湯沸器が入ると定めている。",
+      "正解。ガス事業法施行規則第202条第1項第1号は、屋内に設置する密閉燃焼式以外の対象燃焼器には原則として排気筒を設け、困難な場合は排気フードを設けると定めている。対象にはガス瞬間湯沸器、ガス貯湯湯沸器及びガス消費量12キロワット超のガス衣類乾燥機が含まれるため、すべての空欄が一致する。",
+      "不正解。選択肢の（イ）「強制排気式」と（ホ）「7」が誤り。ガス事業法施行規則第202条第1項第1号は、排気筒設置基準から除く方式を密閉燃焼式と定め、同号トは、対象となるガス衣類乾燥機をガス消費量12キロワット超のものと定めている。",
+      "不正解。選択肢の（イ）「強制排気式」、（ロ）「専用の排気口」、（ハ）「ガス貯湯湯沸器」、（ニ）「ガス瞬間湯沸器」及び（ホ）「7」が誤り。ガス事業法施行規則第202条第1項第1号による正しい組合せは、密閉燃焼式、排気フード、ガス瞬間湯沸器、ガス貯湯湯沸器及び12キロワットである。"
+    ],
+    "proposedSuggestedQuestions": [
+      "正しい空欄の組合せは？",
+      "排気筒設置基準から除かれる燃焼方式は？",
+      "排気筒を設けることが困難な場合の例外は？",
+      "対象となる2種類の湯沸器は？",
+      "ガス衣類乾燥機のガス消費量要件は？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "question": "正しい空欄の組合せは？",
+        "answer": "（イ）密閉燃焼式、（ロ）排気フード、（ハ）ガス瞬間湯沸器、（ニ）ガス貯湯湯沸器、（ホ）12。"
+      },
+      {
+        "question": "排気筒設置基準から除かれる燃焼方式は？",
+        "answer": "密閉燃焼式。"
+      },
+      {
+        "question": "排気筒を設けることが困難な場合の例外は？",
+        "answer": "当該燃焼器のための排気フードを設ける場合。"
+      },
+      {
+        "question": "対象となる2種類の湯沸器は？",
+        "answer": "ガス瞬間湯沸器とガス貯湯湯沸器。"
+      },
+      {
+        "question": "ガス衣類乾燥機のガス消費量要件は？",
+        "answer": "12キロワットを超えるもの。"
+      },
+      {
+        "question": "この問題の根拠条文は？",
+        "answer": "ガス事業法施行規則第202条第1項第1号本文並びに同号ロ、ハ及びト。"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "subitem": "ロ"
+            },
+            {
+              "subitem": "ト"
+            }
+          ]
+        },
+        "1": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "subitem": "ロ",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "subitem": "ロ"
+            },
+            {
+              "subitem": "ハ"
+            }
+          ]
+        },
+        "2": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "subitem": "ロ"
+            },
+            {
+              "subitem": "ハ"
+            },
+            {
+              "subitem": "ト"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "subitem": "ト"
+            }
+          ]
+        },
+        "4": {
+          "lawId": "345M50000400097",
+          "lawTitle": "ガス事業法施行規則",
+          "article": "202",
+          "paragraph": "1",
+          "item": "1",
+          "articleTextHash": "418cf5c41f4d90738fc853a6224a525412baef5c610ea19f79de8518d97c2847",
+          "rawXmlHash": "cf8dcd0498d0f4d5d0fad41a0ce3fa47385ca881efb015a4407341904a9bdd5f",
+          "references": [
+            {
+              "subitem": "ロ"
+            },
+            {
+              "subitem": "ハ"
+            },
+            {
+              "subitem": "ト"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "reviewNotes": [
+    "00_source.correctChoiceTextの不正解、不正解、正解、不正解、不正解は現行施行規則と一致する。",
+    "空欄組合せ問題のため、各誤答肢で誤っている空欄を個別に明示した。",
+    "正しい空欄は密閉燃焼式、排気フード、ガス瞬間湯沸器、ガス貯湯湯沸器、12である。"
+  ],
+  "evidence": {
+    "sourceFile": "output/gas-shunin-otsu/questions_json/2022/00_source/question_2022_1.json",
+    "sourceCorrectTextUsed": true,
+    "targetQuestionIds": [
+      "gas-shunin-otsu-2022-law-q16-s01",
+      "gas-shunin-otsu-2022-law-q16-s02",
+      "gas-shunin-otsu-2022-law-q16-s03",
+      "gas-shunin-otsu-2022-law-q16-s04",
+      "gas-shunin-otsu-2022-law-q16-s05"
+    ],
+    "currentLaw": {
+      "lawTitle": "ガス事業法施行規則",
+      "lawId": "345M50000400097",
+      "articles": [
+        "202"
+      ],
+      "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+      "referenceDate": "2026-07-12",
+      "verificationStatus": "verified"
+    },
+    "examTime": {
+      "referenceDate": "2022",
+      "verificationStatus": "source_correct_text_confirmed"
+    }
+  },
+  "appliedAt": "2026-07-11T17:59:53Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2022/21_explanationText_added/question_2022_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
