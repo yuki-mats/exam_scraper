@@ -144,6 +144,25 @@ def basis_label(basis: dict[str, Any]) -> str:
     )
 
 
+def basis_api_url(basis: dict[str, Any]) -> str:
+    explicit = basis.get("apiUrl")
+    if explicit not in (None, ""):
+        return str(explicit)
+    law_id = str(basis["lawId"])
+    article = str(basis["article"])
+    return (
+        "https://laws.e-gov.go.jp/api/1/articles;"
+        f"lawId={law_id};article={article}"
+    )
+
+
+def basis_source_url(basis: dict[str, Any]) -> str:
+    explicit = basis.get("sourceUrl")
+    if explicit not in (None, ""):
+        return str(explicit)
+    return f"https://laws.e-gov.go.jp/law/{basis['lawId']}"
+
+
 def update_law_references(
     entry: dict[str, Any],
     *,
@@ -201,11 +220,8 @@ def update_law_references(
                 reference.update(
                     {
                         "lawId": law_id,
-                        "apiUrl": (
-                            "https://laws.e-gov.go.jp/api/1/articles;"
-                            f"lawId={law_id};article={article}"
-                        ),
-                        "sourceUrl": f"https://laws.e-gov.go.jp/law/{law_id}",
+                        "apiUrl": basis_api_url(reference_basis),
+                        "sourceUrl": basis_source_url(reference_basis),
                         "source": "egov_law",
                         "appLinkMode": "egov_api",
                     }
@@ -249,10 +265,7 @@ def update_law_revision_facts(
         source_url = (
             str(basis["sourceUrl"])
             if external_primary
-            else (
-                "https://laws.e-gov.go.jp/api/1/articles;"
-                f"lawId={law_id};article={article}"
-            )
+            else basis_api_url(basis)
         )
         current = {
             "lawTitle": law_title,

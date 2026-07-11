@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from scripts.pipeline.apply_gas_shunin_law_explanation_refresh_decision import (
+    basis_api_url,
     basis_references,
     correction_basis_by_choice,
     strip_verdict,
@@ -68,6 +69,19 @@ class ApplyGasShuninLawExplanationRefreshDecisionTest(unittest.TestCase):
             [reference["paragraph"] for reference in references], ["3", "4"]
         )
         self.assertTrue(all(reference["article"] == "32" for reference in references))
+
+    def test_basis_api_url_preserves_lawdata_url_for_appendix(self) -> None:
+        api_url = basis_api_url(
+            {
+                "lawId": "law-a",
+                "article": "別表第二",
+                "apiUrl": "https://laws.e-gov.go.jp/api/1/lawdata/law-a",
+            }
+        )
+
+        self.assertEqual(
+            api_url, "https://laws.e-gov.go.jp/api/1/lawdata/law-a"
+        )
 
     def test_validate_basis_accepts_external_primary_without_law_id(self) -> None:
         validate_basis(
