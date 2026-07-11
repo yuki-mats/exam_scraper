@@ -2767,49 +2767,44 @@
     ],
     "source_filepath": "output/gas-shunin-otsu/questions_json/2023/00_source/question_2023_1.json",
     "explanationText": [
-      "間違い。ガス事業法第68条第3項は、30日待機に軽微工事の例外はない。",
-      "間違い。ガス事業法第68条第5項は、変更・廃止命令の30日計算は届出受理日からである。",
-      "正しい。ガス事業法第69条第1項は、自主検査と登録を受けた者の検査合格後でなければ使用できない。",
-      "間違い。ガス事業法施行規則第104条第1項第6号は、補修等の記録事項に軽微措置の例外はない。",
-      "間違い。ガス事業法第71条は、定期自主検査の記録は保存し、届出は不要である。"
+      "間違い。選択肢の「その工事が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第68条第3項は、工事計画の届出をした者は、その届出が受理された日から30日を経過した後でなければ工事を開始してはならないと定めており、軽微な工事を除外するただし書はない。軽微な変更に関する例外は、同条第2項の変更届出について定められている。",
+      "間違い。選択肢の「その届出が提出された日」が誤り。ガス事業法第68条第5項は、経済産業大臣が工事計画の変更又は廃止を命ずることができる期間を、その届出を受理した日から30日以内と定めている。",
+      "正しい。ガス事業法第69条第1項は、所定のガス工作物について自主検査を行い、その結果が基準に適合していることについて登録を受けた者の検査を受け、これに合格した後でなければ使用してはならないと定めている。",
+      "間違い。選択肢の「補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第69条第3項は自主検査記録の作成及び保存を求め、ガス事業法施行規則第104条第1項第6号は、自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録すると定めており、軽微な措置を除外するただし書はない。",
+      "間違い。選択肢の「その検査記録を作成し、経済産業大臣に届け出なければならない」が誤り。ガス事業法第71条は、一般ガス導管事業者が定期に自主検査を行い、その検査記録を作成して保存しなければならないと定めている。"
     ],
     "suggestedQuestions": [
-      "工事計画届出後の着工制限に軽微工事の例外はあるか？",
-      "工事計画変更命令の30日以内は提出日か受理日か？",
-      "使用前検査で必要な自主検査と登録機関検査は？",
-      "使用前自主検査記録で補修等の内容に軽微例外はあるか？",
-      "定期自主検査の検査記録は届出か保存か？",
-      "現行法では、ガス事業法第68条第3項がこの設問の正誤にどう関係しますか？",
+      "工事計画届出後の30日待機に軽微工事の例外はあるか？",
+      "工事計画の変更・廃止命令の30日はいつから数えるか？",
+      "使用前検査対象のガス工作物はいつ使用できるか？",
+      "補修等を行った場合は使用前自主検査記録へ記載するか？",
+      "定期自主検査の記録は保存するか届け出るか？",
       "この問題の根拠条文は？"
     ],
     "suggestedQuestionDetails": [
       {
-        "question": "工事計画届出後の着工制限に軽微工事の例外はあるか？",
-        "answer": "ガス事業法第68条第3項には軽微工事の例外はない。"
+        "question": "工事計画届出後の30日待機に軽微工事の例外はあるか？",
+        "answer": "第68条第3項には軽微工事を除外するただし書はない。軽微な変更の例外は、同条第2項の変更届出に関するもの。"
       },
       {
-        "question": "工事計画変更命令の30日以内は提出日か受理日か？",
-        "answer": "受理した日から30日以内。。第68条第5項は「その届出を受理した日から三十日以内」と定めている。"
+        "question": "工事計画の変更・廃止命令の30日はいつから数えるか？",
+        "answer": "届出を受理した日から30日以内。提出日からではない。"
       },
       {
-        "question": "使用前検査で必要な自主検査と登録機関検査は？",
-        "answer": "自主検査を行い、登録を受けた者が行う検査に合格してから使用する。"
+        "question": "使用前検査対象のガス工作物はいつ使用できるか？",
+        "answer": "自主検査を行い、登録を受けた者の検査に合格した後。"
       },
       {
-        "question": "使用前自主検査記録で補修等の内容に軽微例外はあるか？",
-        "answer": "軽微例外はない。補修等の措置を講じたときはその内容を記録する。"
+        "question": "補修等を行った場合は使用前自主検査記録へ記載するか？",
+        "answer": "記載する。軽微な補修等を記録対象から除外する規定はない。"
       },
       {
-        "question": "定期自主検査の検査記録は届出か保存か？",
-        "answer": "保存。。第71条は検査記録を作成し、これを保存しなければならないと定める。"
-      },
-      {
-        "question": "現行法では、ガス事業法第68条第3項がこの設問の正誤にどう関係しますか？",
-        "answer": "現行法では、ガス事業法第68条第3項を一次根拠として確認します。保存済みのlawReferencesとlawRevisionFactsでは、この条文根拠と既存の正誤・解説が矛盾しないことをsecondary_verifiedとして記録しています。"
+        "question": "定期自主検査の記録は保存するか届け出るか？",
+        "answer": "検査記録を作成して保存する。経済産業大臣への届出ではない。"
       },
       {
         "question": "この問題の根拠条文は？",
-        "answer": "根拠は、ガス事業法第68条第3項、ガス事業法第68条第5項、ガス事業法第69条第1項、ガス事業法施行規則第104条第1項第6号、ガス事業法第71条。"
+        "answer": "ガス事業法第68条第2項、第3項及び第5項、第69条第1項及び第3項、第71条並びにガス事業法施行規則第104条第1項第6号。"
       }
     ],
     "lawGroundedExplanationNotNeeded": false,
@@ -2860,16 +2855,38 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "68",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第68条第3項は、30日待機に軽微工事の例外はない。",
+          "reason": "間違い。選択肢の「その工事が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第68条第3項は、工事計画の届出をした者は、その届出が受理された日から30日を経過した後でなければ工事を開始してはならないと定めており、軽微な工事を除外するただし書はない。軽微な変更に関する例外は、同条第2項の変更届出について定められている。",
           "paragraph": "3",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=68",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "d7353caa29346b499d9def9235ea52287709c73436c3c6f822c8a7389e256828"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 0,
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "68",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の「その工事が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第68条第3項は、工事計画の届出をした者は、その届出が受理された日から30日を経過した後でなければ工事を開始してはならないと定めており、軽微な工事を除外するただし書はない。軽微な変更に関する例外は、同条第2項の変更届出について定められている。",
+          "paragraph": "2",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=68",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "d7353caa29346b499d9def9235ea52287709c73436c3c6f822c8a7389e256828"
         }
       ],
       [
@@ -2880,16 +2897,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "68",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第68条第5項は、変更・廃止命令の30日計算は届出受理日からである。",
+          "reason": "間違い。選択肢の「その届出が提出された日」が誤り。ガス事業法第68条第5項は、経済産業大臣が工事計画の変更又は廃止を命ずることができる期間を、その届出を受理した日から30日以内と定めている。",
           "paragraph": "5",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=68",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "rawXmlHash": "d7353caa29346b499d9def9235ea52287709c73436c3c6f822c8a7389e256828"
         }
       ],
       [
@@ -2900,16 +2919,18 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "69",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "正しい。ガス事業法第69条第1項は、自主検査と登録を受けた者の検査合格後でなければ使用できない。",
+          "reason": "正しい。ガス事業法第69条第1項は、所定のガス工作物について自主検査を行い、その結果が基準に適合していることについて登録を受けた者の検査を受け、これに合格した後でなければ使用してはならないと定めている。",
           "paragraph": "1",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=69",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "75fab8259bdf2653aed7c5de8a77a33343cff4f8ec877ba32833109eca86c778"
         }
       ],
       [
@@ -2917,20 +2938,42 @@
           "role": "current_basis",
           "scope": "choice",
           "choiceIndex": 3,
-          "lawTitle": "ガス事業法施行規則",
-          "lawAlias": "ガス事業法施行規則",
-          "article": "104",
-          "referenceDate": "2026-07-11",
+          "lawTitle": "ガス事業法",
+          "lawAlias": "ガス事業法",
+          "article": "69",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法施行規則第104条第1項第6号は、補修等の記録事項に軽微措置の例外はない。",
+          "reason": "間違い。選択肢の「補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第69条第3項は自主検査記録の作成及び保存を求め、ガス事業法施行規則第104条第1項第6号は、自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録すると定めており、軽微な措置を除外するただし書はない。",
+          "paragraph": "3",
+          "lawId": "329AC0000000051",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=69",
+          "appLinkMode": "egov_api",
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "rawXmlHash": "75fab8259bdf2653aed7c5de8a77a33343cff4f8ec877ba32833109eca86c778"
+        },
+        {
+          "role": "current_basis",
+          "scope": "choice",
+          "choiceIndex": 3,
+          "lawTitle": "ガス事業法施行規則",
+          "lawAlias": "ガス事業法施行規則",
+          "article": "104",
+          "referenceDate": "2026-07-12",
+          "verificationStatus": "verified",
+          "comparisonStatus": "same_as_current",
+          "source": "egov_law",
+          "reason": "間違い。選択肢の「補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第69条第3項は自主検査記録の作成及び保存を求め、ガス事業法施行規則第104条第1項第6号は、自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録すると定めており、軽微な措置を除外するただし書はない。",
           "paragraph": "1",
           "item": "6",
           "lawId": "345M50000400097",
           "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=345M50000400097;article=104",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "a2a02576ea79b0b88c838bf51997299219f50de1d16e35adc7cd99bd2eb21f85",
+          "rawXmlHash": "8cae305f03ce36ffef5c0a2fb2a95cc292f61bae0453f2d8a58e38a2f669ec53"
         }
       ],
       [
@@ -2941,31 +2984,34 @@
           "lawTitle": "ガス事業法",
           "lawAlias": "ガス事業法",
           "article": "71",
-          "referenceDate": "2026-07-11",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
           "comparisonStatus": "same_as_current",
           "source": "egov_law",
-          "reason": "間違い。ガス事業法第71条は、定期自主検査の記録は保存し、届出は不要である。",
+          "reason": "間違い。選択肢の「その検査記録を作成し、経済産業大臣に届け出なければならない」が誤り。ガス事業法第71条は、一般ガス導管事業者が定期に自主検査を行い、その検査記録を作成して保存しなければならないと定めている。",
           "lawId": "329AC0000000051",
           "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
           "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=71",
-          "appLinkMode": "egov_api"
+          "appLinkMode": "egov_api",
+          "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+          "paragraph": "1",
+          "rawXmlHash": "cc831ac7342a5bb606a8c080f0a1a8d6a87b6ef3c2b0bb85123a963864e3f816"
         }
       ]
     ],
     "lawRevisionFacts": [
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:19:31+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "59fde1bfd633f3a50070cf836633b0b4bf0a46cb59eb93f4a95a0c276b92f8dc",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:974d4a9453af90a2:choice1",
         "evidenceBindingHash": "9f96996666d1bd065ba6f3bf8c965368518e470adcd41637cf6e269f0f306d60",
         "examTime": {
@@ -2973,62 +3019,67 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "68",
-          "paragraph": "3",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "2f622c02c2d29ac2a01bbb7c19ef394800cd457606179f6d082dc60b4aae89ef",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=68"
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=68",
+          "lawId": "329AC0000000051",
+          "paragraph": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第68条第3項は、工事計画の届出をした者はその届出が受理された日から30日を経過した後でなければ工事を開始できないと定めているが、同項に軽微な工事を例外とするただし書はない。軽微な変更に関する例外は同条第2項ただし書の論点である。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:68:3"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「その工事が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第68条第3項は、工事計画の届出をした者は、その届出が受理された日から30日を経過した後でなければ工事を開始してはならないと定めており、軽微な工事を除外するただし書はない。軽微な変更に関する例外は、同条第2項の変更届出について定められている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第68条第3項、ガス事業法第68条第2項を選択肢0の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:68:3",
+              "refId": "choice-0-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
               "article": "68",
-              "paragraph": "3",
-              "articleTextHash": "2f622c02c2d29ac2a01bbb7c19ef394800cd457606179f6d082dc60b4aae89ef",
-              "textHash": "2f622c02c2d29ac2a01bbb7c19ef394800cd457606179f6d082dc60b4aae89ef"
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "lawId": "329AC0000000051",
+              "paragraph": "3"
+            },
+            {
+              "refId": "choice-0-ref-2",
+              "lawTimeScope": "current",
+              "relation": "direct_basis",
+              "primaryBasis": true,
+              "lawTitle": "ガス事業法",
+              "article": "68",
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "lawId": "329AC0000000051",
+              "paragraph": "2"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:19:31+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "0c167792921a47fa6694b2e1a1cc6d8fcb3cd2cc0da66e1aaf46979c2cda61c9",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:974d4a9453af90a2:choice2",
         "evidenceBindingHash": "a92b19dacd3e8ba3ecac90b44c548b3974c610a30c8bbd75da63ebb9c1076087",
         "examTime": {
@@ -3036,62 +3087,56 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "68",
-          "paragraph": "5",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "2f622c02c2d29ac2a01bbb7c19ef394800cd457606179f6d082dc60b4aae89ef",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=68"
+          "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=68",
+          "lawId": "329AC0000000051",
+          "paragraph": "5"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第68条第5項は、経済産業大臣が工事計画の変更又は廃止を命ずることができる期間を「その届出を受理した日から30日以内」と定めている。提出された日からではない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:68:5"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「その届出が提出された日」が誤り。ガス事業法第68条第5項は、経済産業大臣が工事計画の変更又は廃止を命ずることができる期間を、その届出を受理した日から30日以内と定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第68条第5項を選択肢1の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:68:5",
+              "refId": "choice-1-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
               "article": "68",
-              "paragraph": "5",
-              "articleTextHash": "2f622c02c2d29ac2a01bbb7c19ef394800cd457606179f6d082dc60b4aae89ef",
-              "textHash": "2f622c02c2d29ac2a01bbb7c19ef394800cd457606179f6d082dc60b4aae89ef"
+              "articleTextHash": "c1e9a612d9bf7f47e5f7e07413da9ad7374a9d22175473f4cc64fcf90b3246b5",
+              "lawId": "329AC0000000051",
+              "paragraph": "5"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:19:31+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "edac83d088255d5ef243b6138579beb743f14de75747bb4aee55a33862c20266",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:974d4a9453af90a2:choice3",
         "evidenceBindingHash": "3506665e12e126da89f85c55eb84e3f0d79c2e4a12118b978a57ef7763592253",
         "examTime": {
@@ -3099,62 +3144,56 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "正しい",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "69",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "95fac7ee84d6661ca1858c843ce5d1c72161e906f6e913d272e02a403919570c",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=69"
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=69",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "correct",
-          "explanationText": "正しい。ガス事業法第69条第1項は、一般ガス導管事業者が経済産業省令で定める工事について自主検査を行い、登録を受けた者が行う検査を受け、これに合格した後でなければ使用できないと定めている。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:69:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "ガス事業法第69条第1項は、所定のガス工作物について自主検査を行い、その結果が基準に適合していることについて登録を受けた者の検査を受け、これに合格した後でなければ使用してはならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第69条第1項を選択肢2の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:69:1",
+              "refId": "choice-2-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
               "article": "69",
-              "paragraph": "1",
-              "articleTextHash": "95fac7ee84d6661ca1858c843ce5d1c72161e906f6e913d272e02a403919570c",
-              "textHash": "95fac7ee84d6661ca1858c843ce5d1c72161e906f6e913d272e02a403919570c"
+              "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+              "lawId": "329AC0000000051",
+              "paragraph": "1"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:19:31+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "fbf96778026886210eba5e7847e9c2a89ee73cde4d2705bc26f33982c3a62cb9",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:974d4a9453af90a2:choice4",
         "evidenceBindingHash": "085112fb47dbf2da8926442dcd87a0abeb1a25063b954f1d8d680acb15252945",
         "examTime": {
@@ -3162,76 +3201,68 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "69",
-          "paragraph": "3",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "95fac7ee84d6661ca1858c843ce5d1c72161e906f6e913d272e02a403919570c",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=69"
+          "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=69",
+          "lawId": "329AC0000000051",
+          "paragraph": "3"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法施行規則第104条第1項第6号は、使用前自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録事項とすると定めているが、軽微な補修等を除外するただし書はない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:69:3",
-            "current:345M50000400097:104:1:6"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第69条第3項は自主検査記録の作成及び保存を求め、ガス事業法施行規則第104条第1項第6号は、自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録すると定めており、軽微な措置を除外するただし書はない。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第69条第3項、ガス事業法施行規則第104条第1項第6号を選択肢3の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:69:3",
+              "refId": "choice-3-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
               "article": "69",
-              "paragraph": "3",
-              "articleTextHash": "95fac7ee84d6661ca1858c843ce5d1c72161e906f6e913d272e02a403919570c",
-              "textHash": "95fac7ee84d6661ca1858c843ce5d1c72161e906f6e913d272e02a403919570c"
+              "articleTextHash": "15f4e58cdad78ba2f3d941e7c5f5262dd4c89f9710d509c54017b9ebd2e012eb",
+              "lawId": "329AC0000000051",
+              "paragraph": "3"
             },
             {
-              "refId": "current:345M50000400097:104:1:6",
+              "refId": "choice-3-ref-2",
               "lawTimeScope": "current",
               "relation": "direct_basis",
-              "primaryBasis": false,
-              "lawId": "345M50000400097",
+              "primaryBasis": true,
               "lawTitle": "ガス事業法施行規則",
               "article": "104",
+              "articleTextHash": "a2a02576ea79b0b88c838bf51997299219f50de1d16e35adc7cd99bd2eb21f85",
+              "lawId": "345M50000400097",
               "paragraph": "1",
-              "item": "6",
-              "articleTextHash": "c5f6419d33cd2ea52397ad8df6c98bbc2953e1c0160bfe6d5dd64d5b08ed566b",
-              "textHash": "c5f6419d33cd2ea52397ad8df6c98bbc2953e1c0160bfe6d5dd64d5b08ed566b"
+              "item": "6"
             }
           ]
         }
       },
       {
         "auditStatus": "same_as_current",
-        "reviewState": "secondary_verified",
-        "auditedAt": "2026-07-10T00:40:00+09:00",
+        "reviewState": "refresh_reviewed",
+        "auditedAt": "2026-07-12T03:19:31+09:00",
         "nextAuditDueAt": "2027-07-10",
-        "auditMethodVersion": "gas-shunin-lawzilla-primary-evidence-v1",
+        "auditMethodVersion": "gas-shunin-law-explanation-refresh/v1",
         "auditInputHash": "fb191b9dd190b205a9f8fbec6e3e94e211555bd0a19b2fc903c3b579a029d9c1",
         "auditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "lawCorpusSnapshotId": "egov-api-v1-20260710_004000_otsu2023_year",
+        "lawCorpusSnapshotId": "egov-current-2026-07-12",
         "primaryAuditRunId": "20260709_gas_shunin_primary_evidence_snapshots_direct_basis_2023",
         "secondaryAuditRunId": "20260710_gas_shunin_otsu_2023_year_secondary_review",
-        "reconciliationStatus": "reconciled",
+        "reconciliationStatus": "direct_primary_basis_reverified",
         "sourceEvidenceVersionId": "primary_law_evidence/20260710_004000_otsu2023_year:974d4a9453af90a2:choice5",
         "evidenceBindingHash": "e6eae775b889e43685116142a137bc034c80d3b9fd1ac53dfd4f19179c92573b",
         "examTime": {
@@ -3239,46 +3270,40 @@
           "verificationStatus": "from_2023_otsu_source_choice_correctness"
         },
         "current": {
-          "correctChoiceText": "間違い",
-          "lawId": "329AC0000000051",
           "lawTitle": "ガス事業法",
           "article": "71",
-          "paragraph": "1",
-          "referenceDate": "2026-07-09",
+          "referenceDate": "2026-07-12",
           "verificationStatus": "verified",
-          "articleTextHash": "e6d0a4e6aac8790371c6b5a8f378cf682b81996b6859056249fd3201d9363bd1",
-          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=71"
+          "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=71",
+          "lawId": "329AC0000000051",
+          "paragraph": "1"
         },
-        "differenceFacts": [],
+        "differenceFacts": [
+          "現行条文と照合し、選択肢の正誤に影響する差異は確認されなかった。"
+        ],
         "answerImpactFacts": [
-          "現行法条文と既存の選択肢別正誤・解説は矛盾しない。",
-          "出題当時のanswer_result_textは保持し、現行法ベースの公開正答変更は行わない。",
-          "00_source本文・選択肢と既存IDは変更しない。"
+          "correctChoiceTextは維持し、解説と直接根拠の紐付けを更新した。"
         ],
         "notes": [
-          "Lawzilla候補は条文探索の補助として扱い、verified判定はe-Gov現行XMLのlocator/hashで固定した。",
-          "一部既存direct_basis成果物のqualification表記はgas-shunin-kouだが、displayQuestionId/問番号/選択肢本文により本patchへ対応付けた。"
+          "e-Gov法令APIの直接根拠条文と選択肢の文言を照合した。"
         ],
         "evidenceSummary": {
-          "verdict": "incorrect",
-          "explanationText": "間違い。ガス事業法第71条は、一般ガス導管事業者が定期に自主検査を行い、その検査記録を作成し、これを保存しなければならないと定めている。経済産業大臣への届出ではない。",
-          "differenceSummary": "出題当時条文は未固定。現行法本文では既存の正誤・解説と一致。",
-          "promptContext": "法令で規定されている工事計画、使用前検査及び定期自主検査に関する次の記述のうち、正しいものはいくつあるか。",
-          "displayRefIds": [
-            "current:329AC0000000051:71:1"
-          ],
+          "verdict": "same_as_current",
+          "explanationText": "選択肢の「その検査記録を作成し、経済産業大臣に届け出なければならない」が誤り。ガス事業法第71条は、一般ガス導管事業者が定期に自主検査を行い、その検査記録を作成して保存しなければならないと定めている。",
+          "differenceSummary": "現行条文上、解説の結論に影響する差異なし。",
+          "promptContext": "ガス事業法第71条第1項を選択肢4の直接根拠として確認。",
           "refs": [
             {
-              "refId": "current:329AC0000000051:71:1",
+              "refId": "choice-4-ref-1",
               "lawTimeScope": "current",
               "relation": "direct_basis",
               "primaryBasis": true,
-              "lawId": "329AC0000000051",
               "lawTitle": "ガス事業法",
               "article": "71",
-              "paragraph": "1",
-              "articleTextHash": "e6d0a4e6aac8790371c6b5a8f378cf682b81996b6859056249fd3201d9363bd1",
-              "textHash": "e6d0a4e6aac8790371c6b5a8f378cf682b81996b6859056249fd3201d9363bd1"
+              "articleTextHash": "920861ef336541dc5d0dda483cc37f0ec352cd15e8c29a76e0e79f5a1db6c7c9",
+              "lawId": "329AC0000000051",
+              "paragraph": "1"
             }
           ]
         }
@@ -3294,18 +3319,18 @@
       "secretHandling": "no Lawzilla endpoint or API key stored"
     },
     "suggestedExplanationText": [
-      "間違い。ガス事業法第68条第3項は、30日待機に軽微工事の例外はない。",
-      "間違い。ガス事業法第68条第5項は、変更・廃止命令の30日計算は届出受理日からである。",
-      "正しい。ガス事業法第69条第1項は、自主検査と登録を受けた者の検査合格後でなければ使用できない。",
-      "間違い。ガス事業法施行規則第104条第1項第6号は、補修等の記録事項に軽微措置の例外はない。",
-      "間違い。ガス事業法第71条は、定期自主検査の記録は保存し、届出は不要である。"
+      "間違い。選択肢の「その工事が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第68条第3項は、工事計画の届出をした者は、その届出が受理された日から30日を経過した後でなければ工事を開始してはならないと定めており、軽微な工事を除外するただし書はない。軽微な変更に関する例外は、同条第2項の変更届出について定められている。",
+      "間違い。選択肢の「その届出が提出された日」が誤り。ガス事業法第68条第5項は、経済産業大臣が工事計画の変更又は廃止を命ずることができる期間を、その届出を受理した日から30日以内と定めている。",
+      "正しい。ガス事業法第69条第1項は、所定のガス工作物について自主検査を行い、その結果が基準に適合していることについて登録を受けた者の検査を受け、これに合格した後でなければ使用してはならないと定めている。",
+      "間違い。選択肢の「補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第69条第3項は自主検査記録の作成及び保存を求め、ガス事業法施行規則第104条第1項第6号は、自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録すると定めており、軽微な措置を除外するただし書はない。",
+      "間違い。選択肢の「その検査記録を作成し、経済産業大臣に届け出なければならない」が誤り。ガス事業法第71条は、一般ガス導管事業者が定期に自主検査を行い、その検査記録を作成して保存しなければならないと定めている。"
     ],
     "lawGroundedExplanationText": [
-      "間違い。ガス事業法第68条第3項は、30日待機に軽微工事の例外はない。",
-      "間違い。ガス事業法第68条第5項は、変更・廃止命令の30日計算は届出受理日からである。",
-      "正しい。ガス事業法第69条第1項は、自主検査と登録を受けた者の検査合格後でなければ使用できない。",
-      "間違い。ガス事業法施行規則第104条第1項第6号は、補修等の記録事項に軽微措置の例外はない。",
-      "間違い。ガス事業法第71条は、定期自主検査の記録は保存し、届出は不要である。"
+      "間違い。選択肢の「その工事が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第68条第3項は、工事計画の届出をした者は、その届出が受理された日から30日を経過した後でなければ工事を開始してはならないと定めており、軽微な工事を除外するただし書はない。軽微な変更に関する例外は、同条第2項の変更届出について定められている。",
+      "間違い。選択肢の「その届出が提出された日」が誤り。ガス事業法第68条第5項は、経済産業大臣が工事計画の変更又は廃止を命ずることができる期間を、その届出を受理した日から30日以内と定めている。",
+      "正しい。ガス事業法第69条第1項は、所定のガス工作物について自主検査を行い、その結果が基準に適合していることについて登録を受けた者の検査を受け、これに合格した後でなければ使用してはならないと定めている。",
+      "間違い。選択肢の「補修等の措置が経済産業省令で定める軽微なものであるときは、この限りでない」が誤り。ガス事業法第69条第3項は自主検査記録の作成及び保存を求め、ガス事業法施行規則第104条第1項第6号は、自主検査の結果に基づいて補修等の措置を講じたときはその内容を記録すると定めており、軽微な措置を除外するただし書はない。",
+      "間違い。選択肢の「その検査記録を作成し、経済産業大臣に届け出なければならない」が誤り。ガス事業法第71条は、一般ガス導管事業者が定期に自主検査を行い、その検査記録を作成して保存しなければならないと定めている。"
     ]
   },
   {
