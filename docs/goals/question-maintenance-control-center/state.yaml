@@ -5,7 +5,7 @@ goal:
   slug: "question-maintenance-control-center"
   kind: specific
   tranche: "continuous execution: workflow全体を調査・設計・実装・検証し、元の成果が完了するまで進める"
-  status: active
+  status: done
   oracle:
     signal: "既存資格と新規資格fixtureで、workflow把握からupload-ready確認までのUI/API/browser walkthroughが通る"
     cadence: "after each Worker package and at final audit"
@@ -62,7 +62,7 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-control-center/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-control-center"
 
-active_task: T999
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -547,7 +547,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: xhigh
     objective: "全receiptと最終browser walkthroughを元の依頼へ対応付け、全成果が完成したか監査する"
     inputs:
@@ -567,8 +567,46 @@ tasks:
       - "oracle evidence map"
       - "missing evidence"
       - "next task if not complete"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      summary: "元の依頼を資格横断問題整備コントロールセンターとして完成させた。既存・新規資格でworkflow把握から人間工程、資格batch、upload-ready確認まで安全に進められ、desktop/mobileと自動テストで証明した。"
+      oracle_evidence_map:
+        workflow_overview: "T003/T006: 00・準備・01・02・02b・03・03b・04・出力の目的、状態、次工程を実データで表示"
+        human_work: "T005/T006/T007: 未作業・要確認・全件洗い替え、path-only prompt、Lawzilla MCPとFirestore条文検索、一問一肢、保存・再コピー・完了receipt"
+        new_qualification: "source-only fixtureと1st-class-kenchikushi 1354問で資格方針を最初の工程として確認"
+        existing_qualification: "gas-shunin-otsu 522問で02bと03bの対象を区別し、法令監査issueを保持"
+        local_delivery: "qualification batch fixtureで複数groupのmerge・convert・upload-readyを順次確認し、完了済みを除いてresume"
+        performance: "all-group listを50件へ制限し、browserで50から100件への追加表示を確認"
+        responsive_ux: "1440x900と390x844でfirst viewport、scope dialog、no overflow、no console errorを確認"
+        safety: "00_sourceと既存IDは未変更。実データdeliveryは必須field不足で停止。本番Firestore publishは未実行"
+      evidence:
+        - "T001 workflow and artifact map"
+        - "T003 qualification cockpit receipt"
+        - "T004 first browser milestone receipt"
+        - "T005 resumable qualification session receipt"
+        - "T006 desktop/mobile browser milestone receipt"
+        - "T007 result receipt convergence receipt"
+        - "T008 receipt security Judge receipt"
+        - "54 final question review tests passed"
+        - "main equals origin/main at 3565a4d90 before final board close"
+      missing_evidence: []
+      commands:
+        - command: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "54 tests passed"
+        - command: ".venv/bin/python -m py_compile tools/question_review_console/qualification_workflow.py tools/question_review_console/qualification_runs.py tools/question_review_console/jobs.py tools/question_review_console/workflow_runner.py tools/question_review_console/server.py"
+          status: pass
+        - command: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - command: "check-goal-state.mjs before final transition"
+          status: pass
+        - command: "git status --short --branch"
+          status: pass
+          summary: "main synchronized with origin/main and clean before final board close"
+      production_firestore: not_executed_without_explicit_approval
+      harness: codex
 checks:
   dirty_fingerprint: "goal-control-files-only"
   last_verification:
