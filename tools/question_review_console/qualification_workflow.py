@@ -1,131 +1,14 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from tools.question_review_console.workflow_catalog import WorkflowCatalog
 
-STAGE_CATALOG: tuple[dict[str, Any], ...] = (
-    {
-        "id": "source",
-        "code": "00",
-        "label": "取得",
-        "purpose": "出題時の問題文・選択肢・解答情報を保存する",
-        "kind": "source",
-        "canonicalDocs": ["document/operations/scraping_workflow.md"],
-    },
-    {
-        "id": "setup",
-        "code": "準備",
-        "label": "資格方針",
-        "purpose": "出題範囲・解説・分類・法令確認の方針を固定する",
-        "kind": "human",
-        "canonicalDocs": [
-            "prompt/qualification_docs/README.md",
-            "prompt/qualification_docs/_template/01_law_reference_policy.md",
-        ],
-    },
-    {
-        "id": "question_type",
-        "code": "01",
-        "label": "問題形式",
-        "purpose": "回答体験に合うquestionTypeを一問ずつ確定する",
-        "kind": "human",
-        "patchDir": "10_questionType_fixed",
-        "patchSuffix": "questionType_fixed",
-        "issueFields": ["questionType", "questionBodyText", "choiceTextList"],
-        "canonicalDocs": ["prompt/01_prompt_fix_questionType.md"],
-    },
-    {
-        "id": "question_intent",
-        "code": "02",
-        "label": "設問意図",
-        "purpose": "正しいもの・誤っているもののどちらを選ぶ設問か確定する",
-        "kind": "human",
-        "patchDir": "15_correctChoiceText_fixed",
-        "patchSuffix": "correctChoiceText_fixed",
-        "issueFields": ["questionIntent", "correctChoiceText", "answer_result_text"],
-        "canonicalDocs": ["prompt/02_prompt_fix_questionIntent.md"],
-    },
-    {
-        "id": "correct_choice",
-        "code": "02a",
-        "label": "正答精査",
-        "purpose": "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する",
-        "kind": "human",
-        "patchDir": "23_correctChoiceText_fixed",
-        "patchSuffix": "correctChoiceText_fixed",
-        "issueFields": ["correctChoiceText", "answer_result_text"],
-        "canonicalDocs": ["prompt/02a_prompt_review_correctChoiceText.md"],
-    },
-    {
-        "id": "law_context",
-        "code": "02b",
-        "label": "法令根拠",
-        "purpose": "法令関連性と現行法の根拠候補を全問で整理する",
-        "kind": "human",
-        "patchDir": "18_law_context_prepared",
-        "patchSuffix": "lawContext_prepared",
-        "issueFields": [
-            "isLawRelated",
-            "lawGroundedExplanationNotNeeded",
-            "lawReferences",
-        ],
-        "canonicalDocs": ["prompt/02b_prompt_prepare_law_context.md"],
-    },
-    {
-        "id": "explanation",
-        "code": "03",
-        "label": "解説",
-        "purpose": "正誤理由と学習用の補足質問を選択肢単位で整える",
-        "kind": "human",
-        "patchDir": "21_explanationText_added",
-        "patchSuffix": "explanationText_added",
-        "issueFields": [
-            "explanationText",
-            "suggestedQuestions",
-            "suggestedQuestionDetails",
-        ],
-        "canonicalDocs": ["prompt/03_prompt_add_explanationText.md"],
-    },
-    {
-        "id": "law_audit",
-        "code": "03b",
-        "label": "現行法監査",
-        "purpose": "条文根拠を一問一肢ずつ照合し現行法判定を固定する",
-        "kind": "human",
-        "issueFields": ["lawReferences", "lawRevisionFacts"],
-        "canonicalDocs": [
-            "prompt/03b_prompt_audit_current_law_and_patch.md",
-            "document/operations/lawzilla_mcp_question_maintenance_workflow.md",
-        ],
-    },
-    {
-        "id": "question_set",
-        "code": "04",
-        "label": "問題集",
-        "purpose": "category方針に沿って問題集へ意味的に紐付ける",
-        "kind": "human",
-        "patchDir": "22_questionSetId_linked",
-        "patchSuffix": "questionSetId_linked",
-        "issueFields": ["questionSetId"],
-        "canonicalDocs": ["prompt/04_prompt_link_questionSetId.md"],
-    },
-    {
-        "id": "delivery",
-        "code": "出力",
-        "label": "公開準備",
-        "purpose": "patchをmerge・convertしupload-readyを検証する",
-        "kind": "machine",
-        "canonicalDocs": [
-            "document/operations/delivery_workflow.md",
-            "tools/question_bank/README.md",
-        ],
-    },
-)
-
-STAGE_BY_ID = {stage["id"]: stage for stage in STAGE_CATALOG}
 LAW_AUDIT_ISSUES = {
     "law_audit_metadata_incomplete",
     "law_audit_verdict_mismatch",
@@ -186,14 +69,63 @@ def _unique(values: Iterable[str]) -> list[str]:
     return sorted({value for value in values if value})
 
 
+def _ordered_unique(values: Iterable[str]) -> list[str]:
+    return list(dict.fromkeys(value for value in values if value))
+
+
 class QualificationWorkflow:
     def __init__(self, repo_root: Path, inventory: Any):
         self.repo_root = repo_root.resolve()
         self.inventory = inventory
+        self.catalog_store = WorkflowCatalog(self.repo_root)
+
+    def catalog(self, qualification: str = "") -> dict[str, Any]:
+        loaded = self.catalog_store.load()
+        system = dict(loaded["system"])
+        shared_documents = _ordered_unique(
+            [system["trunkDocument"], *system.get("defaultDocuments", [])]
+        )
+        human_documents = list(system.get("humanDocuments") or [])
+        qualification_documents = self._qualification_documents(qualification)
+        stages: list[dict[str, Any]] = []
+        for definition in loaded["stages"]:
+            stage = dict(definition)
+            stage_documents = list(stage.pop("documents", []))
+            stage["canonicalDocs"] = _ordered_unique(
+                [
+                    *stage_documents,
+                    *(
+                        qualification_documents
+                        if stage.get("kind") == "human"
+                        else []
+                    ),
+                    *(human_documents if stage.get("kind") == "human" else []),
+                    *shared_documents,
+                ]
+            )
+            stages.append(stage)
+        effective_hash = hashlib.sha256(
+            json.dumps(
+                [loaded["catalogHash"], qualification_documents],
+                ensure_ascii=False,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        return {
+            "qualification": qualification or None,
+            "generatedAt": _now_iso(),
+            "system": system,
+            "catalogHash": effective_hash,
+            "catalogPath": loaded["catalogPath"],
+            "stages": stages,
+        }
 
     def overview(self, qualification: str) -> dict[str, Any]:
+        catalog = self.catalog(qualification)
         groups, questions = self._qualification_data(qualification)
-        stages = self._build_stages(qualification, groups, questions)
+        stages = self._build_stages(
+            qualification, groups, questions, catalog["stages"]
+        )
         next_stage = next(
             (stage for stage in stages if stage["status"] != "ready"), None
         )
@@ -214,6 +146,8 @@ class QualificationWorkflow:
         return {
             "qualification": qualification,
             "generatedAt": _now_iso(),
+            "system": catalog["system"],
+            "catalogHash": catalog["catalogHash"],
             "overallStatus": overall_status,
             "nextStageId": next_stage["id"] if next_stage else None,
             "summary": {
@@ -241,7 +175,10 @@ class QualificationWorkflow:
     ) -> dict[str, Any]:
         if mode not in RUN_MODES:
             raise ValueError(f"対象範囲が不正です: {mode}")
-        definition = STAGE_BY_ID.get(stage_id)
+        catalog = self.catalog(qualification)
+        definition = next(
+            (stage for stage in catalog["stages"] if stage["id"] == stage_id), None
+        )
         if definition is None:
             raise ValueError(f"対象工程がありません: {stage_id}")
         if stage_id == "source":
@@ -359,7 +296,8 @@ class QualificationWorkflow:
             "targetGroupIds": target_group_ids,
             "sourceFiles": source_files,
             "outputFiles": output_files,
-            "canonicalDocs": ["prompt/README.md", *definition.get("canonicalDocs", [])],
+            "canonicalDocs": list(definition.get("canonicalDocs") or []),
+            "catalogHash": catalog["catalogHash"],
             "force": stage_id == "delivery" and mode == "refresh",
         }
 
@@ -381,9 +319,6 @@ class QualificationWorkflow:
         canonical = [absolute(path) for path in plan["canonicalDocs"]]
         source_files = [absolute(path) for path in plan["sourceFiles"]]
         output_files = [absolute(path) for path in plan["outputFiles"]]
-        qualification_policy = self.repo_root / "prompt" / "qualification_docs" / qualification
-        if qualification_policy.is_dir():
-            canonical.append(str(qualification_policy))
 
         lines = [
             "# 資格単位の問題整備",
@@ -455,6 +390,20 @@ class QualificationWorkflow:
                     questions.append(question)
         return groups, questions
 
+    def _qualification_documents(self, qualification: str) -> list[str]:
+        if not qualification:
+            return []
+        directory = (
+            self.repo_root / "prompt" / "qualification_docs" / qualification
+        )
+        if not directory.is_dir():
+            return []
+        return [
+            str(path.relative_to(self.repo_root))
+            for path in sorted(directory.rglob("*.md"))
+            if path.is_file()
+        ]
+
     @staticmethod
     def _group_id_from_source(question: Mapping[str, Any]) -> str:
         source = Path(str(question.get("paths", {}).get("source") or ""))
@@ -483,6 +432,7 @@ class QualificationWorkflow:
         qualification: str,
         groups: list[Mapping[str, Any]],
         questions: list[Mapping[str, Any]],
+        definitions: list[Mapping[str, Any]],
     ) -> list[dict[str, Any]]:
         total = len(questions)
         coverage: dict[str, int] = {
@@ -490,11 +440,11 @@ class QualificationWorkflow:
                 _has_patch(question, str(stage["patchDir"]))
                 for question in questions
             )
-            for stage in STAGE_CATALOG
+            for stage in definitions
             if stage.get("patchDir")
         }
         stages: list[dict[str, Any]] = []
-        for index, definition in enumerate(STAGE_CATALOG):
+        for index, definition in enumerate(definitions):
             stage = dict(definition)
             stage_id = str(stage["id"])
             target_questions: list[Mapping[str, Any]] = []
@@ -581,7 +531,7 @@ class QualificationWorkflow:
                 downstream_count = max(
                     (
                         coverage.get(str(item["id"]), 0)
-                        for item in STAGE_CATALOG[index + 1 :]
+                        for item in definitions[index + 1 :]
                         if item.get("patchDir")
                     ),
                     default=0,
@@ -613,20 +563,43 @@ class QualificationWorkflow:
                     "issueCount": issue_count,
                     "targetPreview": target_files[:3],
                     "outputPreview": output_files[:3],
-                    "canonicalDocs": [
-                        "prompt/README.md",
-                        *stage.get("canonicalDocs", []),
-                    ],
                 }
             )
+            stage["missingSummary"] = self._missing_summary(stage)
             stage["action"] = self._stage_action(stage)
             stages.append(stage)
         return stages
 
     @staticmethod
+    def _missing_summary(stage: Mapping[str, Any]) -> str:
+        status = str(stage.get("status") or "")
+        stage_id = str(stage.get("id") or "")
+        remaining = int(stage.get("remainingCount") or 0)
+        issues = int(stage.get("issueCount") or 0)
+        if status == "ready":
+            return "この工程に不足はありません。"
+        if status == "waiting":
+            return "前工程の完了が必要です。"
+        if stage_id == "source":
+            return "00_sourceの取得が必要です。"
+        if stage_id == "setup":
+            return "資格固有の方針文書が未作成です。"
+        if issues:
+            return f"要確認項目が{issues}件あります。"
+        unit = "フォルダ" if stage_id == "delivery" else "問"
+        return f"{remaining}{unit}の作業が残っています。"
+
+    @staticmethod
     def _stage_action(stage: Mapping[str, Any]) -> dict[str, Any]:
         if stage.get("id") == "source":
-            return {"type": "none", "label": "取得済み"}
+            return {
+                "type": "none",
+                "label": (
+                    "取得済み"
+                    if stage.get("status") == "ready"
+                    else "取得手順を確認"
+                ),
+            }
         if stage.get("status") == "waiting":
             return {"type": "none", "label": "前工程待ち"}
         return {

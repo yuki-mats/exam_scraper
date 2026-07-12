@@ -44,7 +44,7 @@ flowchart LR
 | 現行法監査 | [lawzilla_mcp_question_maintenance_workflow.md](lawzilla_mcp_question_maintenance_workflow.md) | evidence取得、Lawzillaの位置づけ、一次・二次・三次監査を定義する。 |
 | 機械検証CLI | [../../tools/question_bank/README.md](../../tools/question_bank/README.md) | `quality-gate`など、日常的に実行するCLIの使い方を定義する。 |
 | merge・convert・公開 | [delivery_workflow.md](delivery_workflow.md) | upload-ready生成、dry-run、Storage・Firestore反映とreadbackを定義する。 |
-| 資格横断レビューUI | [local_question_review_console.md](local_question_review_console.md) | 工程状態、例外レビュー、直接編集、Firestore操作の安全境界を定義する。 |
+| 問題整備コントロールセンター | [local_question_review_console.md](local_question_review_console.md) | 正本閲覧、工程状態、対象範囲、例外レビュー、Firestore操作の安全境界を定義する。 |
 | 公式問題の問題報告 | [question_issue_report_workflow.md](question_issue_report_workflow.md) | blind review、correction overlay、限定公開の手順を定義する。 |
 | Lawzilla利用評価 | [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md) | Lawzillaの検索品質と改善点を記録するschemaを定義する。 |
 | 一時資料 | [../temporary/README.md](../temporary/README.md) | 日付付き監査、移行記録、単発レビューの置き場所と削除基準。 |

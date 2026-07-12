@@ -110,6 +110,9 @@ class QualificationRunTests(unittest.TestCase):
             )
 
         self.assertEqual(preview["targetCount"], 1)
+        self.assertIn("prompt/qualification_docs/README.md", preview["canonicalDocs"])
+        self.assertEqual(preview["sourceFileCount"], 1)
+        self.assertEqual(preview["outputFileCount"], 4)
         self.assertEqual(started["run"]["stageId"], "setup")
         self.assertIn("qualification_docs/new-exam", started["prompt"])
         self.assertIn("## 完了記録", started["prompt"])

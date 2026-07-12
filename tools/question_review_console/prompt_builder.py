@@ -167,7 +167,7 @@ def build_codex_prompt(
     law_audit_section = _law_audit_instruction() if _is_law_audit_review(review) else ""
     return f"""# 問題整備レビュー対応
 
-ローカル問題レビューUIで次の指摘が作成されました。review JSONを読み、現行workflowに従って原因調査、必要なpatch修正、検証まで行ってください。
+問題整備コントロールセンターで次の指摘が作成されました。review JSONを読み、現行workflowに従って原因調査、必要なpatch修正、検証まで行ってください。
 
 ## 対象
 

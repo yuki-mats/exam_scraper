@@ -149,6 +149,16 @@ const state = {
     previewSequence: 0,
     resumedFrom: "",
   },
+  workflowGuide: {
+    open: false,
+    stageId: "",
+    documentPath: "",
+    documents: new Map(),
+    refreshTimer: null,
+    refreshing: false,
+    returnToRun: false,
+    tabSignature: "",
+  },
   questionPage: { filteredCount: 0, hasMore: false, limit: 50 },
   reviewMode: "awaiting_codex",
   reviewRequestKind: "",
@@ -211,7 +221,11 @@ function helpIcon(title, content, ariaLabel = "説明") {
 }
 
 async function api(path, options = {}) {
-  const request = { method: options.method || "GET", headers: { Accept: "application/json" } };
+  const request = {
+    method: options.method || "GET",
+    headers: { Accept: "application/json" },
+    cache: "no-store",
+  };
   if (options.body !== undefined) {
     request.headers["Content-Type"] = "application/json";
     request.headers["X-Review-Session"] = state.token;
@@ -265,6 +279,7 @@ async function initialize() {
 
 function bindControls() {
   $("#qualification-select").addEventListener("change", async (event) => {
+    closeWorkflowGuide({ reopenRun: false });
     state.qualification = event.target.value;
     state.listGroupId = ALL_LIST_GROUPS;
     populateGroups();
@@ -291,14 +306,26 @@ function bindControls() {
     await loadQuestions(true);
   });
   $("#qualification-workflow-action").addEventListener("click", executeQualificationWorkflowAction);
+  $("#qualification-workflow-guide").addEventListener("click", () => openWorkflowGuide());
   $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
   $("#qualification-run-form").addEventListener("submit", startQualificationRun);
+  $("#qualification-run-guide").addEventListener("click", openQualificationRunGuide);
   $("#qualification-run-dialog").addEventListener("cancel", (event) => {
     if (state.qualificationRunDialog.running) event.preventDefault();
   });
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.addEventListener("change", previewQualificationRun);
   }
+  $("#workflow-guide-close").addEventListener("click", closeWorkflowGuide);
+  $("#workflow-guide-backdrop").addEventListener("click", closeWorkflowGuide);
+  $("#workflow-guide-action").addEventListener("click", executeWorkflowGuideAction);
+  $("#workflow-guide-content").addEventListener("click", openLinkedWorkflowDocument);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && state.workflowGuide.open) {
+      event.preventDefault();
+      closeWorkflowGuide();
+    }
+  });
   $("#load-more-questions").addEventListener("click", () => loadQuestions(true, true));
   $("#bulk-readback-button").addEventListener("click", openReadbackDialog);
   $("#bulk-readback-help").addEventListener("click", () => openHelp(
@@ -397,10 +424,13 @@ function updateUrl() {
   history.replaceState(null, "", `${location.pathname}?${params}`);
 }
 
-async function loadQualificationWorkflow(preserveSelection = true) {
+async function loadQualificationWorkflow(preserveSelection = true, quiet = false) {
   if (!state.qualification) return;
-  $("#qualification-workflow-status").textContent = "確認中";
-  $("#qualification-workflow-action").disabled = true;
+  if (!quiet) {
+    $("#qualification-workflow-status").textContent = "確認中";
+    $("#qualification-workflow-action").disabled = true;
+    $("#qualification-workflow-guide").disabled = true;
+  }
   try {
     const params = new URLSearchParams({ qualification: state.qualification });
     const workflow = await api(`/api/qualification-workflow?${params}`);
@@ -415,6 +445,7 @@ async function loadQualificationWorkflow(preserveSelection = true) {
     }
     renderQualificationWorkflow();
   } catch (error) {
+    if (quiet) return;
     state.qualificationWorkflow = null;
     $("#qualification-workflow-status").textContent = "取得失敗";
     $("#qualification-workflow-title").textContent = state.qualification || "問題整備の流れ";
@@ -451,7 +482,7 @@ function renderQualificationWorkflow() {
   $("#qualification-workflow-status").className = `workflow-overall-status ${workflow.overallStatus}`;
   $("#qualification-workflow-title").textContent = workflow.qualification;
   $("#qualification-workflow-next").textContent = nextStage
-    ? `次は ${nextStage.code} ${nextStage.label}：${nextStage.purpose}`
+    ? `次は ${nextStage.code} ${nextStage.label}：${nextStage.missingSummary}`
     : "すべてのローカル工程が整っています。";
   $("#qualification-workflow-progress").textContent = `${workflow.summary.readyStageCount}/${workflow.summary.stageCount}`;
   $("#qualification-workflow-questions").textContent = `${workflow.summary.questionCount}問`;
@@ -487,6 +518,7 @@ function renderQualificationWorkflow() {
     item.addEventListener("click", () => {
       state.qualificationWorkflowStageId = stage.id;
       renderQualificationWorkflow();
+      if (state.workflowGuide.open) openWorkflowGuide(stage.id);
     });
     stageList.append(item);
   }
@@ -497,14 +529,412 @@ function renderQualificationWorkflow() {
   if (!selectedStage) return;
   $("#qualification-workflow-stage-title").textContent = `${selectedStage.code} ${selectedStage.label}`;
   $("#qualification-workflow-stage-purpose").textContent = selectedStage.purpose;
-  $("#qualification-workflow-stage-count").textContent = selectedStage.status === "ready"
-    ? `${selectedStage.targetCount}件を確認済み`
-    : `${selectedStage.remainingCount}件が対象`;
+  $("#qualification-workflow-stage-count").textContent = selectedStage.missingSummary;
+  const guide = $("#qualification-workflow-guide");
+  guide.disabled = !selectedStage.canonicalDocs?.length;
+  guide.dataset.stageId = selectedStage.id;
   const action = $("#qualification-workflow-action");
   action.textContent = selectedStage.action.label;
   action.disabled = selectedStage.action.type === "none";
   action.dataset.action = selectedStage.action.type;
   action.dataset.stageId = selectedStage.id;
+}
+
+function qualificationWorkflowStage(stageId = "") {
+  const workflow = state.qualificationWorkflow;
+  if (!workflow) return null;
+  const selectedId = stageId || state.qualificationWorkflowStageId;
+  return workflow.stages.find((stage) => stage.id === selectedId)
+    || workflow.stages.find((stage) => stage.id === workflow.nextStageId)
+    || workflow.stages[0]
+    || null;
+}
+
+async function openWorkflowGuide(stageId = "", options = {}) {
+  const stage = qualificationWorkflowStage(stageId);
+  if (!stage) return;
+  const wasOpen = state.workflowGuide.open;
+  if (Object.prototype.hasOwnProperty.call(options, "returnToRun")) {
+    state.workflowGuide.returnToRun = Boolean(options.returnToRun);
+  } else if (!wasOpen) {
+    state.workflowGuide.returnToRun = false;
+  }
+  state.workflowGuide.open = true;
+  state.workflowGuide.stageId = stage.id;
+  state.qualificationWorkflowStageId = stage.id;
+  const documentPaths = stage.canonicalDocs || [];
+  if (!documentPaths.includes(state.workflowGuide.documentPath)) {
+    state.workflowGuide.documentPath = documentPaths[0] || "";
+  }
+  $("#workflow-guide").hidden = false;
+  $("#workflow-guide-backdrop").hidden = false;
+  document.body.classList.add("workflow-guide-open");
+  renderWorkflowGuideContext();
+  renderWorkflowGuideDocuments();
+  $("#workflow-guide-content").replaceChildren(
+    element("p", "markdown-loading", "正本を読み込んでいます。"),
+  );
+  await refreshWorkflowGuideDocuments();
+  window.clearInterval(state.workflowGuide.refreshTimer);
+  state.workflowGuide.refreshTimer = window.setInterval(refreshWorkflowGuide, 2000);
+  if (!wasOpen) $("#workflow-guide-close").focus();
+}
+
+function closeWorkflowGuide(options = {}) {
+  if (!state.workflowGuide.open) return;
+  const shouldReturn = state.workflowGuide.returnToRun && options.reopenRun !== false;
+  window.clearInterval(state.workflowGuide.refreshTimer);
+  state.workflowGuide.refreshTimer = null;
+  state.workflowGuide.open = false;
+  state.workflowGuide.returnToRun = false;
+  $("#workflow-guide").hidden = true;
+  $("#workflow-guide-backdrop").hidden = true;
+  document.body.classList.remove("workflow-guide-open");
+  if (shouldReturn && !$("#qualification-run-dialog").open) {
+    $("#qualification-run-dialog").showModal();
+  }
+}
+
+function renderWorkflowGuideContext() {
+  const stage = qualificationWorkflowStage(state.workflowGuide.stageId);
+  if (!stage) return;
+  const statusLabel = QUALIFICATION_WORKFLOW_LABELS[stage.status] || stage.status;
+  $("#workflow-guide-title").textContent = `${stage.code} ${stage.label}`;
+  $("#workflow-guide-status").textContent = statusLabel;
+  $("#workflow-guide-status").className = `workflow-overall-status ${stage.status}`;
+  $("#workflow-guide-purpose").textContent = stage.purpose;
+  $("#workflow-guide-missing").textContent = stage.missingSummary;
+  const action = $("#workflow-guide-action");
+  action.textContent = stage.action.label;
+  action.disabled = stage.action.type === "none";
+}
+
+function workflowDocumentLabel(path) {
+  const loaded = state.workflowGuide.documents.get(path);
+  if (loaded?.title) return loaded.title;
+  if (path === "document/operations/exam_pipeline_manual_and_automation.md") {
+    return "全体フロー";
+  }
+  if (path === "prompt/README.md") return "工程入口";
+  const filename = path.split("/").pop() || path;
+  return filename.replace(/\.md$/i, "").replaceAll("_", " ");
+}
+
+function workflowGuideDocumentPaths() {
+  const stage = qualificationWorkflowStage(state.workflowGuide.stageId);
+  const paths = [...(stage?.canonicalDocs || [])];
+  if (state.workflowGuide.documentPath && !paths.includes(state.workflowGuide.documentPath)) {
+    paths.push(state.workflowGuide.documentPath);
+  }
+  return paths;
+}
+
+function renderWorkflowGuideDocuments() {
+  const paths = workflowGuideDocumentPaths();
+  const navigation = $("#workflow-guide-documents");
+  navigation.replaceChildren();
+  for (const path of paths) {
+    const item = button(
+      workflowDocumentLabel(path),
+      `workflow-guide-document${path === state.workflowGuide.documentPath ? " selected" : ""}`,
+      async () => {
+        state.workflowGuide.documentPath = path;
+        renderWorkflowGuideDocuments();
+        renderWorkflowGuideDocument();
+        await refreshWorkflowGuideDocuments(true);
+      },
+      path,
+    );
+    item.setAttribute("aria-pressed", String(path === state.workflowGuide.documentPath));
+    navigation.append(item);
+  }
+  state.workflowGuide.tabSignature = JSON.stringify(
+    paths.map((path) => [path, workflowDocumentLabel(path)]),
+  );
+}
+
+async function refreshWorkflowGuideDocuments(currentOnly = false) {
+  const stage = qualificationWorkflowStage(state.workflowGuide.stageId);
+  if (!stage || !state.workflowGuide.open) return;
+  const paths = workflowGuideDocumentPaths();
+  const fetchPaths = currentOnly && state.workflowGuide.documentPath
+    ? [state.workflowGuide.documentPath]
+    : paths;
+  const previousPath = state.workflowGuide.documentPath;
+  const previous = state.workflowGuide.documents.get(previousPath);
+  const results = await Promise.all(fetchPaths.map(async (path) => {
+    try {
+      const query = new URLSearchParams({ path });
+      return [path, await api(`/api/document?${query}`)];
+    } catch (error) {
+      return [path, { path, error: error.message }];
+    }
+  }));
+  for (const [path, payload] of results) {
+    state.workflowGuide.documents.set(path, payload);
+  }
+  if (!currentOnly) {
+    for (const path of [...state.workflowGuide.documents.keys()]) {
+      if (!paths.includes(path)) state.workflowGuide.documents.delete(path);
+    }
+  }
+  if (!state.workflowGuide.documentPath) state.workflowGuide.documentPath = paths[0] || "";
+  const currentTabs = JSON.stringify(
+    paths.map((path) => [path, workflowDocumentLabel(path)]),
+  );
+  if (state.workflowGuide.tabSignature !== currentTabs) renderWorkflowGuideDocuments();
+  const current = state.workflowGuide.documents.get(state.workflowGuide.documentPath);
+  if (
+    previousPath !== state.workflowGuide.documentPath
+    || previous?.contentHash !== current?.contentHash
+    || previous?.error !== current?.error
+    || $("#workflow-guide-content").querySelector(".markdown-loading")
+  ) {
+    renderWorkflowGuideDocument();
+  }
+}
+
+async function refreshWorkflowGuide() {
+  if (!state.workflowGuide.open || state.workflowGuide.refreshing) return;
+  state.workflowGuide.refreshing = true;
+  try {
+    const query = new URLSearchParams({ qualification: state.qualification });
+    const catalog = await api(`/api/workflow-catalog?${query}`);
+    const catalogChanged = catalog.catalogHash !== state.qualificationWorkflow?.catalogHash;
+    if (catalogChanged) {
+      await loadQualificationWorkflow(true, true);
+      const stage = qualificationWorkflowStage(state.workflowGuide.stageId);
+      state.workflowGuide.stageId = stage?.id || "";
+      renderQualificationWorkflow();
+      renderWorkflowGuideContext();
+    }
+    await refreshWorkflowGuideDocuments(!catalogChanged);
+  } catch (error) {
+    $("#workflow-guide-updated").textContent = `再読込できません: ${error.message}`;
+  } finally {
+    state.workflowGuide.refreshing = false;
+  }
+}
+
+function renderWorkflowGuideDocument() {
+  const container = $("#workflow-guide-content");
+  const payload = state.workflowGuide.documents.get(state.workflowGuide.documentPath);
+  if (!state.workflowGuide.documentPath) {
+    container.replaceChildren(element("p", "markdown-loading", "この工程に正本文書がありません。"));
+    $("#workflow-guide-updated").textContent = "工程カタログを確認してください。";
+    return;
+  }
+  if (!payload) return;
+  if (payload.error) {
+    container.replaceChildren(element("p", "markdown-error", payload.error));
+    $("#workflow-guide-updated").textContent = state.workflowGuide.documentPath;
+    return;
+  }
+  renderMarkdownDocument(container, payload.content, payload.path);
+  const modified = new Date(payload.modifiedAt).toLocaleString("ja-JP", {
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  $("#workflow-guide-updated").textContent = `${payload.path} ・ 更新 ${modified}`;
+}
+
+function openQualificationRunGuide() {
+  const dialog = $("#qualification-run-dialog");
+  if (dialog.open) dialog.close();
+  openWorkflowGuide(state.qualificationWorkflowStageId, { returnToRun: true });
+}
+
+function executeWorkflowGuideAction() {
+  const stage = qualificationWorkflowStage(state.workflowGuide.stageId);
+  if (!stage || stage.action.type !== "open_run") return;
+  closeWorkflowGuide({ reopenRun: false });
+  openQualificationRunDialog(stage);
+}
+
+function openLinkedWorkflowDocument(event) {
+  const link = event.target.closest("a[data-document-path]");
+  if (!link) return;
+  event.preventDefault();
+  state.workflowGuide.documentPath = link.dataset.documentPath;
+  renderWorkflowGuideDocuments();
+  const payload = state.workflowGuide.documents.get(state.workflowGuide.documentPath);
+  if (payload) {
+    renderWorkflowGuideDocument();
+  }
+  refreshWorkflowGuideDocuments(true);
+}
+
+function resolveWorkflowDocumentPath(currentPath, rawTarget) {
+  const target = rawTarget.trim().replace(/^<|>$/g, "");
+  if (!target || /^(?:https?:|mailto:)/i.test(target)) return null;
+  const [targetPath, anchor = ""] = target.split("#", 2);
+  if (!targetPath) return { path: currentPath, anchor };
+  if (targetPath.startsWith("/")) return null;
+  const parts = currentPath.split("/");
+  parts.pop();
+  for (const part of targetPath.split("/")) {
+    if (!part || part === ".") continue;
+    if (part === "..") parts.pop();
+    else parts.push(part);
+  }
+  return { path: parts.join("/"), anchor };
+}
+
+function appendInlineMarkdown(container, text, currentPath) {
+  const tokenPattern = /(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g;
+  let cursor = 0;
+  for (const match of text.matchAll(tokenPattern)) {
+    if (match.index > cursor) container.append(document.createTextNode(text.slice(cursor, match.index)));
+    const token = match[0];
+    if (token.startsWith("`")) {
+      container.append(element("code", "", token.slice(1, -1)));
+    } else if (token.startsWith("**")) {
+      container.append(element("strong", "", token.slice(2, -2)));
+    } else {
+      const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      const label = linkMatch?.[1] || token;
+      const target = linkMatch?.[2] || "";
+      const resolved = resolveWorkflowDocumentPath(currentPath, target);
+      if (resolved?.path.endsWith(".md")) {
+        const link = element("a", "", label);
+        link.href = "#";
+        link.dataset.documentPath = resolved.path;
+        container.append(link);
+      } else if (/^(?:https?:|mailto:)/i.test(target)) {
+        const link = element("a", "", label);
+        link.href = target;
+        if (/^https?:/i.test(target)) {
+          link.target = "_blank";
+          link.rel = "noreferrer";
+        }
+        container.append(link);
+      } else {
+        container.append(element("span", "", label));
+      }
+    }
+    cursor = match.index + token.length;
+  }
+  if (cursor < text.length) container.append(document.createTextNode(text.slice(cursor)));
+}
+
+function markdownCells(line) {
+  return line.trim().replace(/^\||\|$/g, "").split("|").map((cell) => cell.trim());
+}
+
+function isMarkdownBlockStart(lines, index) {
+  const line = lines[index] || "";
+  return !line.trim()
+    || /^```/.test(line)
+    || /^#{1,6}\s+/.test(line)
+    || /^\s*(?:[-*+] |\d+\. )/.test(line)
+    || /^>\s?/.test(line)
+    || /^\s*(?:---+|\*\*\*+)\s*$/.test(line)
+    || (line.includes("|") && /^\s*\|?\s*:?-{3,}/.test(lines[index + 1] || ""));
+}
+
+function renderMarkdownDocument(container, content, currentPath) {
+  const lines = content.replaceAll("\r\n", "\n").split("\n");
+  container.replaceChildren();
+  let index = 0;
+  while (index < lines.length) {
+    const line = lines[index];
+    if (!line.trim()) {
+      index += 1;
+      continue;
+    }
+    const fence = line.match(/^```\s*([^\s]*)/);
+    if (fence) {
+      const codeLines = [];
+      index += 1;
+      while (index < lines.length && !/^```/.test(lines[index])) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+      index += 1;
+      const pre = element("pre", "");
+      const code = element("code", fence[1] ? `language-${fence[1]}` : "", codeLines.join("\n"));
+      pre.append(code);
+      container.append(pre);
+      continue;
+    }
+    const heading = line.match(/^(#{1,6})\s+(.+)$/);
+    if (heading) {
+      const node = element(`h${heading[1].length}`, "");
+      appendInlineMarkdown(node, heading[2], currentPath);
+      container.append(node);
+      index += 1;
+      continue;
+    }
+    if (/^\s*(?:---+|\*\*\*+)\s*$/.test(line)) {
+      container.append(element("hr", ""));
+      index += 1;
+      continue;
+    }
+    if (line.includes("|") && /^\s*\|?\s*:?-{3,}/.test(lines[index + 1] || "")) {
+      const table = element("table", "");
+      const thead = element("thead", "");
+      const headerRow = element("tr", "");
+      for (const cell of markdownCells(line)) {
+        const th = element("th", "");
+        appendInlineMarkdown(th, cell, currentPath);
+        headerRow.append(th);
+      }
+      thead.append(headerRow);
+      table.append(thead);
+      index += 2;
+      const tbody = element("tbody", "");
+      while (index < lines.length && lines[index].includes("|") && lines[index].trim()) {
+        const row = element("tr", "");
+        for (const cell of markdownCells(lines[index])) {
+          const td = element("td", "");
+          appendInlineMarkdown(td, cell, currentPath);
+          row.append(td);
+        }
+        tbody.append(row);
+        index += 1;
+      }
+      table.append(tbody);
+      container.append(table);
+      continue;
+    }
+    const listMatch = line.match(/^\s*([-*+]|\d+\.)\s+(.+)$/);
+    if (listMatch) {
+      const ordered = /\d+\./.test(listMatch[1]);
+      const list = element(ordered ? "ol" : "ul", "");
+      while (index < lines.length) {
+        const itemMatch = lines[index].match(/^\s*([-*+]|\d+\.)\s+(.+)$/);
+        if (!itemMatch || /\d+\./.test(itemMatch[1]) !== ordered) break;
+        const item = element("li", "");
+        appendInlineMarkdown(item, itemMatch[2], currentPath);
+        list.append(item);
+        index += 1;
+      }
+      container.append(list);
+      continue;
+    }
+    if (/^>\s?/.test(line)) {
+      const quote = element("blockquote", "");
+      const quoteLines = [];
+      while (index < lines.length && /^>\s?/.test(lines[index])) {
+        quoteLines.push(lines[index].replace(/^>\s?/, ""));
+        index += 1;
+      }
+      appendInlineMarkdown(quote, quoteLines.join(" "), currentPath);
+      container.append(quote);
+      continue;
+    }
+    const paragraphLines = [line.trim()];
+    index += 1;
+    while (index < lines.length && !isMarkdownBlockStart(lines, index)) {
+      paragraphLines.push(lines[index].trim());
+      index += 1;
+    }
+    const paragraph = element("p", "");
+    appendInlineMarkdown(paragraph, paragraphLines.join(" "), currentPath);
+    container.append(paragraph);
+  }
 }
 
 async function executeQualificationWorkflowAction() {
@@ -580,6 +1010,7 @@ function openQualificationRunDialog(stage, options = {}) {
   state.qualificationWorkflowStageId = stage.id;
   $("#qualification-run-title").textContent = `${stage.code} ${stage.label}`;
   $("#qualification-run-purpose").textContent = stage.purpose;
+  $("#qualification-run-guide").disabled = !stage.canonicalDocs?.length;
   const defaultMode = options.mode || (stage.status === "ready"
     ? "refresh"
     : stage.completeCount === stage.targetCount && stage.issueCount > 0
@@ -647,6 +1078,13 @@ function renderQualificationRunPreview(preview) {
       container.append(element("span", "run-preview-groups", preview.targetGroupIds.join(" / ")));
     }
   }
+  container.append(
+    element(
+      "span",
+      "run-preview-combination",
+      `正本 ${preview.canonicalDocs?.length || 0}文書 × 対象source ${preview.sourceFileCount || 0}ファイル × 更新先 ${preview.outputFileCount || 0}ファイル`,
+    ),
+  );
   if (preview.blockingWarnings?.length) {
     container.append(element("span", "run-preview-warning", `必須field不足 ${preview.blockingWarnings.length}件`));
   }

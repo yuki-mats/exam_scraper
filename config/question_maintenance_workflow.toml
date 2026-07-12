@@ -1,0 +1,114 @@
+[system]
+id = "question-maintenance-control-center"
+name = "問題整備コントロールセンター"
+description = "正本ドキュメントと資格配下の実データを結び、次に必要な問題整備を進めるローカルGUI"
+trunk_document = "document/operations/exam_pipeline_manual_and_automation.md"
+human_documents = ["prompt/README.md"]
+
+[[stages]]
+id = "source"
+code = "00"
+label = "取得"
+purpose = "出題時の問題文・選択肢・解答情報を保存する"
+kind = "source"
+documents = ["document/operations/scraping_workflow.md"]
+
+[[stages]]
+id = "setup"
+code = "準備"
+label = "資格方針"
+purpose = "出題範囲・解説・分類・法令確認の方針を固定する"
+kind = "human"
+documents = [
+  "prompt/qualification_docs/README.md",
+  "prompt/qualification_docs/_template/01_law_reference_policy.md",
+]
+
+[[stages]]
+id = "question_type"
+code = "01"
+label = "問題形式"
+purpose = "回答体験に合うquestionTypeを一問ずつ確定する"
+kind = "human"
+patch_dir = "10_questionType_fixed"
+patch_suffix = "questionType_fixed"
+issue_fields = ["questionType", "questionBodyText", "choiceTextList"]
+documents = ["prompt/01_prompt_fix_questionType.md"]
+
+[[stages]]
+id = "question_intent"
+code = "02"
+label = "設問意図"
+purpose = "正しいもの・誤っているもののどちらを選ぶ設問か確定する"
+kind = "human"
+patch_dir = "15_correctChoiceText_fixed"
+patch_suffix = "correctChoiceText_fixed"
+issue_fields = ["questionIntent", "correctChoiceText", "answer_result_text"]
+documents = ["prompt/02_prompt_fix_questionIntent.md"]
+
+[[stages]]
+id = "correct_choice"
+code = "02a"
+label = "正答精査"
+purpose = "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する"
+kind = "human"
+patch_dir = "23_correctChoiceText_fixed"
+patch_suffix = "correctChoiceText_fixed"
+issue_fields = ["correctChoiceText", "answer_result_text"]
+documents = ["prompt/02a_prompt_review_correctChoiceText.md"]
+
+[[stages]]
+id = "law_context"
+code = "02b"
+label = "法令根拠"
+purpose = "法令関連性と現行法の根拠候補を全問で整理する"
+kind = "human"
+patch_dir = "18_law_context_prepared"
+patch_suffix = "lawContext_prepared"
+issue_fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences"]
+documents = ["prompt/02b_prompt_prepare_law_context.md"]
+
+[[stages]]
+id = "explanation"
+code = "03"
+label = "解説"
+purpose = "正誤理由と学習用の補足質問を選択肢単位で整える"
+kind = "human"
+patch_dir = "21_explanationText_added"
+patch_suffix = "explanationText_added"
+issue_fields = ["explanationText", "suggestedQuestions", "suggestedQuestionDetails"]
+documents = ["prompt/03_prompt_add_explanationText.md"]
+
+[[stages]]
+id = "law_audit"
+code = "03b"
+label = "現行法監査"
+purpose = "条文根拠を一問一肢ずつ照合し現行法判定を固定する"
+kind = "human"
+issue_fields = ["lawReferences", "lawRevisionFacts"]
+documents = [
+  "prompt/03b_prompt_audit_current_law_and_patch.md",
+  "document/operations/lawzilla_mcp_question_maintenance_workflow.md",
+]
+
+[[stages]]
+id = "question_set"
+code = "04"
+label = "問題集"
+purpose = "category方針に沿って問題集へ意味的に紐付ける"
+kind = "human"
+patch_dir = "22_questionSetId_linked"
+patch_suffix = "questionSetId_linked"
+issue_fields = ["questionSetId"]
+documents = ["prompt/04_prompt_link_questionSetId.md"]
+
+[[stages]]
+id = "delivery"
+code = "出力"
+label = "公開準備"
+purpose = "patchをmerge・convertしupload-readyを検証する"
+kind = "machine"
+documents = [
+  "document/operations/delivery_workflow.md",
+  "tools/question_bank/README.md",
+]

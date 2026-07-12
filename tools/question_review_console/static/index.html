@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>問題整備</title>
+    <title>問題整備コントロールセンター</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <header class="app-header">
       <div class="brand-block">
-        <h1>問題整備</h1>
+        <h1>問題整備コントロールセンター</h1>
         <span id="project-status" class="environment-label">本番Firestore: 接続確認中</span>
       </div>
       <div class="toolbar" aria-label="表示条件">
@@ -45,7 +45,10 @@
           <div><dt>問題</dt><dd id="qualification-workflow-questions">-</dd></div>
           <div><dt>要確認</dt><dd id="qualification-workflow-issues">-</dd></div>
         </dl>
-        <button id="qualification-workflow-action" class="primary-button" type="button" disabled>次の作業</button>
+        <div class="qualification-workflow-actions">
+          <button id="qualification-workflow-guide" class="secondary-button" type="button" disabled>正本を見る</button>
+          <button id="qualification-workflow-action" class="primary-button" type="button" disabled>次の作業</button>
+        </div>
       </div>
       <div id="qualification-workflow-stages" class="qualification-workflow-stages" role="list" aria-label="問題整備工程"></div>
       <div id="qualification-workflow-detail" class="qualification-workflow-detail" hidden>
@@ -121,6 +124,7 @@
         </header>
         <div class="dialog-body">
           <p id="qualification-run-purpose"></p>
+          <button id="qualification-run-guide" class="document-link-button" type="button">この工程の正本を確認</button>
           <fieldset>
             <legend>対象範囲</legend>
             <div class="run-mode-options">
@@ -142,6 +146,28 @@
         </footer>
       </form>
     </dialog>
+
+    <button id="workflow-guide-backdrop" class="workflow-guide-backdrop" type="button" aria-label="作業ガイドを閉じる" hidden></button>
+    <aside id="workflow-guide" class="workflow-guide" aria-labelledby="workflow-guide-title" hidden>
+      <header class="workflow-guide-header">
+        <div>
+          <span class="dialog-eyebrow">正本と現在地</span>
+          <h2 id="workflow-guide-title">作業ガイド</h2>
+        </div>
+        <button id="workflow-guide-close" class="icon-button" type="button" title="閉じる" aria-label="閉じる">×</button>
+      </header>
+      <section class="workflow-guide-context" aria-live="polite">
+        <span id="workflow-guide-status" class="workflow-overall-status"></span>
+        <p id="workflow-guide-purpose"></p>
+        <strong id="workflow-guide-missing"></strong>
+      </section>
+      <nav id="workflow-guide-documents" class="workflow-guide-documents" aria-label="この工程で参照する正本"></nav>
+      <article id="workflow-guide-content" class="markdown-document" aria-live="polite"></article>
+      <footer class="workflow-guide-footer">
+        <span id="workflow-guide-updated">正本ファイルを直接表示しています。</span>
+        <button id="workflow-guide-action" class="primary-button" type="button">この工程を開始</button>
+      </footer>
+    </aside>
 
     <dialog id="review-dialog">
       <form id="review-form" method="dialog">

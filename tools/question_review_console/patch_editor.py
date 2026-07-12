@@ -238,7 +238,7 @@ class PatchEditor:
             entry.update(
                 {
                     "correctChoiceText_changed": True,
-                    "correctChoiceText_change_detail": "ローカル問題レビューUIで正誤を修正。",
+                    "correctChoiceText_change_detail": "問題整備コントロールセンターで正誤を修正。",
                     "correctChoiceText_change_reason": reason.strip(),
                     "correctChoiceText": copy.deepcopy(normalized["correctChoiceText"]),
                     "original_question_id": original_id,

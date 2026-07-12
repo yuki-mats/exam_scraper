@@ -20,6 +20,7 @@ from tools.question_review_console.bulk_readback import (
     ScopedFirestoreReadback,
     ScopedReadbackError,
 )
+from tools.question_review_console.canonical_documents import CanonicalDocumentStore
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.jobs import JobConflictError, JobManager
 from tools.question_review_console.live_readback_store import LiveReadbackStore
@@ -85,6 +86,7 @@ class QuestionReviewApplication:
         self.qualification_workflow = QualificationWorkflow(
             self.repo_root, self.inventory
         )
+        self.canonical_documents = CanonicalDocumentStore(self.repo_root)
         self.qualification_runs = QualificationRunCoordinator(
             self.repo_root,
             self.qualification_workflow,
@@ -109,6 +111,24 @@ class QuestionReviewApplication:
             }
         if path == "/api/inventory":
             return HTTPStatus.OK, self.inventory.inventory()
+        if path == "/api/workflow-catalog":
+            qualification = _query_value(query, "qualification")
+            try:
+                return HTTPStatus.OK, self.qualification_workflow.catalog(
+                    qualification
+                )
+            except ValueError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+        if path == "/api/document":
+            document_path = _query_value(query, "path")
+            if not document_path:
+                raise ApiError(HTTPStatus.BAD_REQUEST, "pathを指定してください。")
+            try:
+                return HTTPStatus.OK, self.canonical_documents.read(document_path)
+            except FileNotFoundError as exc:
+                raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
+            except ValueError as exc:
+                raise ApiError(HTTPStatus.BAD_REQUEST, str(exc)) from exc
         if path == "/api/qualification-workflow":
             qualification = _query_value(query, "qualification")
             if not qualification:
@@ -121,6 +141,8 @@ class QuestionReviewApplication:
                 )
             except FileNotFoundError as exc:
                 raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
+            except ValueError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
         if path == "/api/qualification-runs":
             qualification = _query_value(query, "qualification")
             if not qualification:
@@ -852,7 +874,7 @@ def _group_action(path: str) -> tuple[str, str, str] | None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="ローカル問題レビューUIを起動します。")
+    parser = argparse.ArgumentParser(description="問題整備コントロールセンターを起動します。")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=0)
     parser.add_argument("--no-browser", action="store_true")
@@ -884,7 +906,7 @@ def run_server(
         params["listGroupId"] = list_group_id
     suffix = "?" + urllib.parse.urlencode(params) if params else ""
     url = f"{app.origin}/{suffix}"
-    print(f"Question review console: {url}", flush=True)
+    print(f"問題整備コントロールセンター: {url}", flush=True)
     print(f"Firestore: {PRODUCTION_PROJECT_ID} (UI publish enabled)", flush=True)
     if open_browser:
         threading.Timer(0.3, lambda: webbrowser.open(url)).start()
