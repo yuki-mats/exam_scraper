@@ -63,7 +63,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/gas-shunin-law-explanation-refresh"
 
-active_task: T249
+active_task: T250
 
 tasks:
   - id: T153
@@ -4813,7 +4813,7 @@ tasks:
   - id: T249
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "sequence 249、gas-shunin-otsu 2025 法令 問4を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 249", "2025 00_source", "公式e-Gov法令API"]
@@ -4833,11 +4833,32 @@ tasks:
       - "source又はID変更が必要。"
       - "正答不一致のflag判断が必要。"
       - "一問を超える更新になる。"
-    receipt: null
+    receipt:
+      result: done
+      summary: "sequence 249、2025乙種法令問4を現行一次資料で精査し、誤った直接根拠を修正して5肢解説を具体化した。"
+      changed_files:
+        - output/gas-shunin-all/review/law_explanation_refresh/decisions/0249_gas-shunin-otsu_2025_q04.json
+        - output/gas-shunin-all/review/law_explanation_refresh/review_ledger.jsonl
+        - output/gas-shunin-all/review/law_explanation_refresh/summary.json
+        - output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json
+      commands:
+        - cmd: "apply decision 249"
+          status: pass
+        - cmd: "build inventory"
+          status: pass
+        - cmd: "19 unittest cases"
+          status: pass
+        - cmd: "00_source diff check"
+          status: pass
+      evidence:
+        - "5択解説をdecision作成前にチャット表示済み"
+        - "correctChoiceText・00_source・選択肢・既存ID不変"
+        - "mappingErrorCount=0, decisionErrorCount=0"
+      harness: codex
   - id: T250
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     reasoning_hint: high
     objective: "sequence 250、gas-shunin-otsu 2025 法令 問5を現行法で一問精査し、解説更新と検証を完了する。"
     inputs: ["review_ledger sequence 250", "2025 00_source", "公式e-Gov法令API"]
