@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 258,
+  "auditKey": "gas-shunin:otsu:2025:law:q13:427d631d8ba0",
+  "auditInputHash": "e3afdff2faabf3a036898bd3e2c958be736ff17ba78cb9a4c25c267a79f1db16",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:18:49+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業者の掘削により周囲が露出することとなった導管は、露出している部分が省令で定める長さを超える場合、告示で定める基準に適合するようつり防護又は受け防護の措置を講じる必要がある。",
+      "正しい。ガス事業者の掘削により周囲が露出し、ガスの供給の用に供されている導管では、直管以外の管の接合部で特定の接合方法又は告示で定める規格に適合する接合以外の方法によって接合されているものに、抜出しを防止する適切な措置を講じる必要がある。",
+      "間違い。整圧器の入口には不純物を除去する装置を設けるのが原則だが、一の使用者にガスを供給するための整圧器はこの限りでない。一の使用者用にも不純物除去装置が必要としている点が誤り。",
+      "間違い。一の使用者にガスを供給するための整圧器には、ガスの圧力が異常に上昇することを防止する装置を設ける必要がある。一の使用者用を除外している点が誤り。",
+      "間違い。浸水のおそれのある地下に設置する整圧器には、浸水を防止するための措置を講じる必要がある。浸水を検知するための措置としている点が誤り。"
+    ],
+    "proposedSuggestedQuestions": [
+      "法令上、ガス事業者の掘削で露出する導管が一定長さを超える場合、どのような措置が必要か。",
+      "露出した供給用導管の特定の接合部には何を防止する措置が必要か。",
+      "一の使用者にガスを供給するための整圧器の入口にも不純物除去装置は必ず必要か。",
+      "一の使用者にガスを供給するための整圧器には圧力異常上昇防止装置が必要か。",
+      "浸水のおそれのある地下に設置する整圧器にはどのような措置が必要か。",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "告示で定める基準に適合するつり防護又は受け防護の措置。現行法では、ガス工作物の技術上の基準を定める省令 第54条第1項を根拠に確認済み。",
+        "question": "法令上、ガス事業者の掘削で露出する導管が一定長さを超える場合、どのような措置が必要か。"
+      },
+      {
+        "answer": "抜出し。現行法では、ガス事業法施行規則 第1条第2項第6号を根拠に確認済み。",
+        "question": "露出した供給用導管の特定の接合部には何を防止する措置が必要か。"
+      },
+      {
+        "answer": "必ず必要ではない。現行法では、ガス事業法施行規則 第17条第1項第2号を根拠に確認済み。",
+        "question": "一の使用者にガスを供給するための整圧器の入口にも不純物除去装置は必ず必要か。"
+      },
+      {
+        "answer": "必要である。現行法では、ガス事業法施行規則 第17条第1項第2号を根拠に確認済み。",
+        "question": "一の使用者にガスを供給するための整圧器には圧力異常上昇防止装置が必要か。"
+      },
+      {
+        "answer": "浸水を防止するための措置。現行法では、ガス事業法施行規則 第17条第1項第2号を根拠に確認済み。",
+        "question": "浸水のおそれのある地下に設置する整圧器にはどのような措置が必要か。"
+      },
+      {
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第54条第2号、ガス工作物の技術上の基準を定める省令第54条第3号、ガス工作物の技術上の基準を定める省令第57条第2号、ガス工作物の技術上の基準を定める省令第57条第3号、ガス工作物の技術上の基準を定める省令第58条第1項。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "item": "2",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "item": "3",
+          "subitem": "ロ",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "item": "2",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "item": "3",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "paragraph": "1",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:18:49Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
