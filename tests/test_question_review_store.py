@@ -57,6 +57,51 @@ class QuestionReviewStoreTests(unittest.TestCase):
         self.assertEqual(latest["status"], "approved")
         self.assertEqual(latest["snapshots"]["projectedHash"], "state-2")
 
+    def test_law_audit_prompt_requires_per_choice_article_review(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = ReviewStore(root)
+            question = {
+                "id": "api-id",
+                "reviewKey": "sample:2026:file:q1",
+                "qualification": "sample-exam",
+                "listGroupId": "2026",
+                "sourceQuestionKey": "sample:2026:law:q1",
+                "originalQuestionId": "q1",
+                "stateHash": "state-1",
+                "body": "正しいものはどれか。",
+                "projected": {
+                    "choiceTextList": ["条文上の記述A"],
+                    "correctChoiceText": ["正しい"],
+                    "explanationText": ["正しい。条文どおり。"],
+                },
+                "source": {},
+                "uploadReadyDocs": [],
+                "paths": {"source": "output/source.json", "patches": []},
+            }
+            created = store.create(
+                question,
+                {
+                    "issueTypes": ["law_audit_metadata_incomplete"],
+                    "fields": ["lawRevisionFacts.current.correctChoiceText"],
+                    "note": "監査メタデータを確認してほしい",
+                    "selection": {
+                        "targetLabel": "法令監査メタデータ",
+                        "dataPath": "lawRevisionFacts.current.correctChoiceText",
+                        "fields": ["lawRevisionFacts.current.correctChoiceText"],
+                        "choiceIndexes": [0],
+                        "selectedText": "fieldなし",
+                    },
+                    "investigationScope": "current_group",
+                },
+            )
+
+        self.assertIn("## 法令監査指示", created["prompt"])
+        self.assertIn("値を写すだけで確定しない", created["prompt"])
+        self.assertIn("e-Gov条文本文を開いて目視照合", created["prompt"])
+        self.assertIn("確認不能・根拠不足は`hold`", created["prompt"])
+        self.assertIn("一括コピーや正誤ラベルだけの補完は禁止", created["prompt"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -658,10 +658,32 @@ function renderLawAuditQualityWarning(question) {
       "primary-button",
       () => openLawAuditQualityReview(question),
       "監査パッチをまとめて修正依頼",
-      "この問題の監査メタデータ不完全をまとめ、同じ資格の全フォルダにある同原因問題もCodexの調査対象にします。",
+      "この問題の監査メタデータ不完全をまとめ、同じフォルダ内の同原因問題を選択肢ごとの条文照合対象にします。",
     ),
   );
   return node;
+}
+
+function summarizedFindingsText(warnings) {
+  const fieldCounts = new Map();
+  const documentIds = [];
+  for (const warning of warnings) {
+    const field = warning.dataPath || warning.field || "lawRevisionFacts";
+    fieldCounts.set(field, (fieldCounts.get(field) || 0) + 1);
+    if (warning.documentId) documentIds.push(warning.documentId);
+  }
+  const fields = [...fieldCounts.entries()]
+    .map(([field, count]) => `${field}: ${count}件`)
+    .join(", ");
+  const uniqueDocs = [...new Set(documentIds)];
+  const examples = uniqueDocs.slice(0, 6).join(", ");
+  const more = uniqueDocs.length > 6 ? ` ほか${uniqueDocs.length - 6}件` : "";
+  return [
+    `法令監査メタデータ不備: ${warnings.length}件`,
+    fields ? `fields: ${fields}` : "",
+    examples ? `document例: ${examples}${more}` : "",
+    "各対象は条文本文を開いて一問一肢ずつ確認する。",
+  ].filter(Boolean).join("\n");
 }
 
 function openLawAuditQualityReview(question) {
@@ -672,8 +694,9 @@ function openLawAuditQualityReview(question) {
     issueType: warnings[0]?.code || "law_audit_metadata_incomplete",
     title: "法令監査パッチをまとめて修正依頼",
     targetLabel: "法令監査メタデータの一括報告",
-    note: "トップレベルの正答を公開用の正本として維持しつつ、法令監査パッチの不完全なメタデータを根拠と照合して修正し、upload-readyまで再生成する。",
-    investigationScope: "qualification",
+    note: "既存メタデータを正本扱いせず、各選択肢で問題文＋選択肢の完全命題を作り、保存済みapiUrl/e-Gov条文本文を開いて現行法判定を確認する。未確認はhold。同原因も一問一肢ずつ確認し、upload-readyまで再生成する。",
+    investigationScope: "current_group",
+    selectedText: summarizedFindingsText(warnings),
   });
 }
 
@@ -685,6 +708,7 @@ function openFindingsReview({
   targetLabel,
   note,
   investigationScope,
+  selectedText,
 }) {
   const uploadDocs = question.uploadReadyDocs || [];
   const choiceIndexes = [...new Set(warnings
@@ -693,7 +717,7 @@ function openFindingsReview({
   const fields = [...new Set(warnings
     .map((warning) => warning.dataPath || warning.field)
     .filter(Boolean))];
-  const selectedText = warnings.map((warning) => {
+  const defaultSelectedText = warnings.map((warning) => {
     const location = [warning.stage, warning.documentId].filter(Boolean).join(" / ");
     const stateLabel = warning.code === "law_audit_verdict_mismatch" ? "不一致" : "fieldなし";
     return `${location ? `${location} / ` : ""}${warning.dataPath || warning.field}: ${stateLabel} - ${warning.detail}`;
@@ -705,7 +729,7 @@ function openFindingsReview({
       dataPath: fields.join(", "),
       fields,
       choiceIndexes,
-      selectedText,
+      selectedText: selectedText || defaultSelectedText,
     },
     issueType,
     investigationScope,

@@ -4,6 +4,14 @@ from pathlib import Path
 from typing import Any, Mapping
 
 
+LAW_AUDIT_ISSUES = {
+    "law_audit_metadata_incomplete",
+    "law_audit_verdict_mismatch",
+    "law_hold",
+    "law_basis_missing",
+}
+
+
 def _choice_excerpt(question: Mapping[str, Any], indexes: list[int]) -> str:
     projected = question.get("projected") or {}
     choices = projected.get("choiceTextList")
@@ -28,6 +36,31 @@ def _choice_excerpt(question: Mapping[str, Any], indexes: list[int]) -> str:
             )
         )
     return "\n".join(lines).strip()
+
+
+def _is_law_audit_review(review: Mapping[str, Any]) -> bool:
+    issue_types = {str(value) for value in review.get("issueTypes") or []}
+    fields = {str(value) for value in review.get("fields") or []}
+    selection = review.get("selection") or {}
+    selection_fields = {
+        str(value) for value in selection.get("fields") or []
+    } if isinstance(selection, Mapping) else set()
+    return bool(issue_types & LAW_AUDIT_ISSUES) or any(
+        field.startswith(("lawRevisionFacts", "lawReferences"))
+        for field in fields | selection_fields
+    )
+
+
+def _law_audit_instruction() -> str:
+    return """## 法令監査指示
+
+- 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`は候補根拠であり、値を写すだけで確定しない。
+- 各対象選択肢で「問題文＋選択肢」の完全命題を作り、保存済み`apiUrl`/`sourceUrl`又はe-Gov条文本文を開いて目視照合する。
+- 条文本文で確認できた場合だけ`lawRevisionFacts.current.correctChoiceText`を設定する。確認不能・根拠不足は`hold`/`needs_secondary_review`へ戻す。
+- 類似問題も一問一肢ずつ同じ手順で確認する。一括コピーや正誤ラベルだけの補完は禁止。
+- 完了時は「選択肢 / 条文 / 判定 / patch有無」の短い確認表を出す。
+
+"""
 
 
 def build_codex_prompt(
@@ -83,6 +116,7 @@ def build_codex_prompt(
     }
     scope_label = scope_labels.get(scope, scope_labels["current_question"])
     scope_text = scope_instruction.get(scope, scope_instruction["current_question"])
+    law_audit_section = _law_audit_instruction() if _is_law_audit_review(review) else ""
     return f"""# 問題整備レビュー対応
 
 ローカル問題レビューUIで次の指摘が作成されました。review JSONを読み、現行workflowに従って原因調査、必要なpatch修正、検証まで行ってください。
@@ -107,7 +141,7 @@ def build_codex_prompt(
 
 {review.get('expectedOutcome') or '（Codexで根拠を確認して判断する）'}
 
-{selection_section}## 問題文
+{law_audit_section}{selection_section}## 問題文
 
 {body}
 
