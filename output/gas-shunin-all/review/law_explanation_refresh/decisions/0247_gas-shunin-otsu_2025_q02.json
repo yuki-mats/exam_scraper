@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 247,
+  "auditKey": "gas-shunin:otsu:2025:law:q02:c8debe529f2f",
+  "auditInputHash": "fcca36c32853bfd54ae24b6b71018abfd90257896df5ab463d6fac2d5b75e803",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:10:22+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。一般ガス導管事業者の託送供給約款は、経済産業大臣の認可を受ける必要がある。届け出なければならないとしている点が誤り。",
+      "正しい。一般ガス導管事業者は、共同して、災害その他の事由による事故によりガスの安定供給の確保に支障が生ずる場合に備えるための災害時連携計画を作成し、経済産業大臣に届け出なければならない。",
+      "間違い。一般ガス導管事業者の最終保障供給に係るガス成分検査では、検査結果の量を記録し、これを保存する義務がある。経済産業大臣に報告しなければならないとしている点が誤り。",
+      "間違い。特定ガス導管事業者は、正当な理由がなければ、その供給地点における託送供給を拒んではならない。最終保障供給としている点が誤り。",
+      "間違い。特定ガス導管事業者は、その供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録し、これを保存する義務がある。経済産業大臣に報告しなければならないとしている点が誤り。"
+    ],
+    "proposedSuggestedQuestions": [
+      "一般ガス導管事業者の託送供給約款は、届出ではなく経済産業大臣の認可が必要である。",
+      "一般ガス導管事業者は共同して災害時連携計画を作成し、経済産業大臣へ届け出る。",
+      "最終保障供給に係るガス成分検査の結果は記録・保存するもので、経済産業大臣への報告ではない。",
+      "特定ガス導管事業者が正当な理由なく拒んではならないのは、最終保障供給ではなく託送供給である。",
+      "特定ガス導管事業者の熱量・圧力・燃焼性測定結果は記録・保存するもので、経済産業大臣への報告ではない。",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "間違い。一般ガス導管事業者の託送供給約款は、経済産業大臣の認可を受ける必要がある。届け出なければならないとしている点が誤り。現行法では、ガス事業法 第48条第1項を根拠に確認済み。",
+        "question": "一般ガス導管事業者の託送供給約款は、届出ではなく経済産業大臣の認可が必要である。"
+      },
+      {
+        "answer": "正しい。一般ガス導管事業者は、共同して、災害その他の事由による事故によりガスの安定供給の確保に支障が生ずる場合に備えるための災害時連携計画を作成し、経済産業大臣に届け出なければならない。現行法では、ガス事業法施行規則 第1条第2項第6号を根拠に確認済み。",
+        "question": "一般ガス導管事業者は共同して災害時連携計画を作成し、経済産業大臣へ届け出る。"
+      },
+      {
+        "answer": "間違い。一般ガス導管事業者の最終保障供給に係るガス成分検査では、検査結果の量を記録し、これを保存する義務がある。経済産業大臣に報告しなければならないとしている点が誤り。現行法では、ガス事業法 第63条第1項を根拠に確認済み。",
+        "question": "最終保障供給に係るガス成分検査の結果は記録・保存するもので、経済産業大臣への報告ではない。"
+      },
+      {
+        "answer": "間違い。特定ガス導管事業者は、正当な理由がなければ、その供給地点における託送供給を拒んではならない。最終保障供給としている点が誤り。現行法では、ガス事業法 第2条第1項を根拠に確認済み。",
+        "question": "特定ガス導管事業者が正当な理由なく拒んではならないのは、最終保障供給ではなく託送供給である。"
+      },
+      {
+        "answer": "間違い。特定ガス導管事業者は、その供給するガスの熱量、圧力及び燃焼性を測定し、その結果を記録し、これを保存する義務がある。経済産業大臣に報告しなければならないとしている点が誤り。現行法では、ガス事業法施行規則 第1条第2項第1号を根拠に確認済み。",
+        "question": "特定ガス導管事業者の熱量・圧力・燃焼性測定結果は記録・保存するもので、経済産業大臣への報告ではない。"
+      },
+      {
+        "answer": "根拠は、ガス事業法第48条第1項、ガス事業法第56の2条第1項、ガス事業法第63条、ガス事業法第75条、ガス事業法第78条。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "48",
+          "paragraph": "1",
+          "articleTextHash": "fa9f6148aaf1d2bd0f873301613d959322db85efc1c6f7ff21a14b9b747ab276",
+          "rawXmlHash": "eed046678834ed296bb041aebe558fa8cda9d3fa3418df2821ca7a9d04436215",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=48"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "56の2",
+          "paragraph": "1",
+          "articleTextHash": "9437a535792f745e28078805c8ad6302c049ef613eeffd75323fe68e884ccf7d",
+          "rawXmlHash": "c23015db3382104b71f595afc150c75777481687c8ca0a10edd8d64edf21562f",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=56_2"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "63",
+          "articleTextHash": "6a992e245f18244eea8a72ec3c056db809f0275caa72516ff8ec29303596605f",
+          "rawXmlHash": "b69e2785433d4b56c5b8611728aa2a430948641bc42e1c83db61ea81092a694f",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=63"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "75",
+          "articleTextHash": "20fae762abd4b027f81122b41853ca505ecaf1e536b9fab9973bf882ec750ad3",
+          "rawXmlHash": "5387ebe3430998ad8c66a795c3c9d3cb611cc91602d610ba766f65029610cb84",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=75"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "78",
+          "articleTextHash": "935bea2960713e270ec38dc0fd4c815e62e2d6f9f4d815c69392e5a69c50c9f4",
+          "rawXmlHash": "141ecf103c5b301a4721ddfd4f09d66170cfce855a0664603f51a58c3ef790de",
+          "apiUrl": "https://laws.e-gov.go.jp/api/1/articles;lawId=329AC0000000051;article=78"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:10:23Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
