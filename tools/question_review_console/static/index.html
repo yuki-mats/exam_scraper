@@ -54,6 +54,7 @@
           <option value="hold">保留</option>
         </select>
       </label>
+      <button id="bulk-readback-button" class="secondary-button" type="button">Firestore確認</button>
       <span id="list-summary" class="list-summary">読み込み中</span>
     </section>
 
@@ -168,6 +169,40 @@
         <footer class="dialog-actions">
           <button id="workflow-cancel" class="secondary-button close-dialog" type="button">キャンセル</button>
           <button id="workflow-execute" class="primary-button" type="submit">実行</button>
+        </footer>
+      </form>
+    </dialog>
+
+    <dialog id="readback-dialog" class="wide-dialog">
+      <form id="readback-form" method="dialog">
+        <header class="dialog-header">
+          <h2>Firestore状態を更新</h2>
+          <button class="icon-button close-dialog" type="button" title="閉じる" aria-label="閉じる">×</button>
+        </header>
+        <div class="dialog-body">
+          <p id="readback-message" class="workflow-dialog-message"></p>
+          <div class="readback-scope-toolbar">
+            <strong id="readback-qualification"></strong>
+            <div>
+              <button id="readback-current" class="secondary-button" type="button">現在のみ</button>
+              <button id="readback-all" class="secondary-button" type="button">資格内を全選択</button>
+              <button id="readback-clear" class="text-button" type="button">選択解除</button>
+            </div>
+          </div>
+          <div id="readback-summary" class="workflow-summary"></div>
+          <fieldset>
+            <legend>年度・回</legend>
+            <div id="readback-group-list" class="readback-group-list"></div>
+          </fieldset>
+          <div id="readback-job-status" class="job-status" hidden></div>
+          <details id="readback-job-log-wrap" class="job-log-wrap" hidden>
+            <summary>実行ログ</summary>
+            <pre id="readback-job-log"></pre>
+          </details>
+        </div>
+        <footer class="dialog-actions">
+          <button id="readback-cancel" class="secondary-button close-dialog" type="button">キャンセル</button>
+          <button id="readback-execute" class="primary-button" type="submit">Firestoreを読み取る</button>
         </footer>
       </form>
     </dialog>

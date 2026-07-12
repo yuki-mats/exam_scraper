@@ -220,6 +220,10 @@ class WorkflowUiContractTests(unittest.TestCase):
             "production-confirm",
             "workflow-execute",
             "job-log",
+            "bulk-readback-button",
+            "readback-dialog",
+            "readback-group-list",
+            "readback-execute",
         ):
             self.assertIn(f'id="{control_id}"', html)
         for function_name in (
@@ -227,6 +231,9 @@ class WorkflowUiContractTests(unittest.TestCase):
             "openPublishDialog",
             "executeWorkflow",
             "pollJob",
+            "openReadbackDialog",
+            "executeScopedReadback",
+            "pollReadbackJob",
         ):
             self.assertIn(f"function {function_name}", javascript)
 

@@ -14,6 +14,27 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_clears_live_results_only_for_changed_group(self):
+        class Inventory:
+            def group(self, qualification, list_group_id):
+                self.request = (qualification, list_group_id)
+                return {"questions": [{"id": "question-2024"}]}
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            inventory = Inventory()
+            app.inventory = inventory
+            app.live_results = {
+                "question-2024": {"status": "match"},
+                "question-2025": {"status": "match"},
+            }
+
+            app._clear_group_live_results("sample", "2024")
+
+        self.assertEqual(inventory.request, ("sample", "2024"))
+        self.assertNotIn("question-2024", app.live_results)
+        self.assertIn("question-2025", app.live_results)
+
     def test_production_publish_requires_explicit_confirmation(self):
         with tempfile.TemporaryDirectory() as directory:
             app = QuestionReviewApplication(Path(directory))

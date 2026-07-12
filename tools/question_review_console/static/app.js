@@ -59,6 +59,7 @@ const state = {
   pendingEdit: null,
   editBaselinePairs: [],
   workflowDialog: { mode: "", preview: null, running: false },
+  readbackDialog: { preview: null, running: false, requestSequence: 0 },
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -149,6 +150,7 @@ function bindControls() {
   $("#exceptions-button").addEventListener("click", () => setListMode(true));
   $("#all-button").addEventListener("click", () => setListMode(false));
   $("#refresh-button").addEventListener("click", () => loadQuestions(true));
+  $("#bulk-readback-button").addEventListener("click", openReadbackDialog);
   for (const selector of ["#law-only", "#firestore-mismatch", "#issue-select", "#review-status-select"]) {
     $(selector).addEventListener("change", () => loadQuestions(false));
   }
@@ -162,6 +164,16 @@ function bindControls() {
   $("#production-confirm").addEventListener("change", updateWorkflowExecuteState);
   $("#workflow-dialog").addEventListener("cancel", (event) => {
     if (state.workflowDialog.running) event.preventDefault();
+  });
+  $("#readback-form").addEventListener("submit", executeScopedReadback);
+  $("#readback-current").addEventListener("click", () => setReadbackSelection([state.listGroupId]));
+  $("#readback-all").addEventListener("click", () => {
+    const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
+    setReadbackSelection(qualification?.listGroupIds || []);
+  });
+  $("#readback-clear").addEventListener("click", () => setReadbackSelection([]));
+  $("#readback-dialog").addEventListener("cancel", (event) => {
+    if (state.readbackDialog.running) event.preventDefault();
   });
   $("#add-suggestion").addEventListener("click", () => addSuggestionRow("", ""));
 }
@@ -646,6 +658,185 @@ function showWorkflowError(error) {
   $("#workflow-cancel").hidden = true;
   for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
   toast(message, true);
+}
+
+function openReadbackDialog() {
+  const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
+  state.readbackDialog = { preview: null, running: false, requestSequence: 0 };
+  $("#readback-qualification").textContent = state.qualification;
+  $("#readback-message").textContent =
+    "選択した年度・回のupload-readyに含まれるdocumentだけを本番から読み取ります。";
+  $("#readback-summary").replaceChildren();
+  $("#readback-job-status").hidden = true;
+  $("#readback-job-log-wrap").hidden = true;
+  $("#readback-job-log").textContent = "";
+  $("#readback-execute").textContent = "Firestoreを読み取る";
+  $("#readback-execute").onclick = null;
+  $("#readback-cancel").hidden = false;
+  const list = $("#readback-group-list");
+  list.replaceChildren();
+  for (const groupId of qualification?.listGroupIds || []) {
+    const label = element("label", "readback-group-option");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.value = groupId;
+    input.checked = groupId === state.listGroupId;
+    input.addEventListener("change", refreshReadbackPreview);
+    label.append(
+      input,
+      element("strong", "", groupId),
+      element("span", "readback-group-meta", "未計算"),
+    );
+    list.append(label);
+  }
+  setReadbackRunning(false);
+  if (!$("#readback-dialog").open) $("#readback-dialog").showModal();
+  refreshReadbackPreview();
+}
+
+function selectedReadbackGroupIds() {
+  return [...$("#readback-group-list").querySelectorAll("input:checked")]
+    .map((node) => node.value);
+}
+
+function setReadbackSelection(groupIds) {
+  const selected = new Set(groupIds);
+  for (const input of $("#readback-group-list").querySelectorAll("input")) {
+    input.checked = selected.has(input.value);
+  }
+  refreshReadbackPreview();
+}
+
+async function refreshReadbackPreview() {
+  if (state.readbackDialog.running) return;
+  $("#readback-execute").onclick = null;
+  $("#readback-execute").textContent = "Firestoreを読み取る";
+  const groupIds = selectedReadbackGroupIds();
+  const sequence = ++state.readbackDialog.requestSequence;
+  state.readbackDialog.preview = null;
+  $("#readback-summary").replaceChildren();
+  $("#readback-execute").disabled = true;
+  if (!groupIds.length) {
+    $("#readback-message").textContent = "年度・回を1件以上選択してください。";
+    return;
+  }
+  $("#readback-message").textContent = "ローカル成果物から読取範囲を計算しています。";
+  try {
+    const preview = await api("/api/firestore-readback/preview", {
+      method: "POST",
+      body: { qualification: state.qualification, listGroupIds: groupIds },
+    });
+    if (sequence !== state.readbackDialog.requestSequence) return;
+    state.readbackDialog.preview = preview;
+    $("#readback-message").textContent =
+      "この確認ではFirestoreへアクセスしていません。実行時に表示件数だけを読み取ります。";
+    $("#readback-summary").append(
+      summaryMetric("資格", preview.qualification),
+      summaryMetric("年度・回", `${preview.groupCount}件`),
+      summaryMetric("元問題", `${preview.questionCount}問`),
+      summaryMetric("読取対象", `${preview.documentCount} documents`, preview.documentCount ? "warning" : ""),
+      summaryMetric("比較不可", `${preview.unavailableQuestionCount}問`, preview.unavailableQuestionCount ? "danger" : "good"),
+      summaryMetric("本番project", preview.projectId),
+    );
+    const byGroup = new Map(preview.groups.map((group) => [group.listGroupId, group]));
+    for (const option of $("#readback-group-list").querySelectorAll(".readback-group-option")) {
+      const input = option.querySelector("input");
+      const group = byGroup.get(input.value);
+      option.querySelector(".readback-group-meta").textContent = group
+        ? `${group.questionCount}問 / ${group.documentCount} docs`
+        : "未選択";
+    }
+    $("#readback-execute").disabled = preview.documentCount === 0;
+  } catch (error) {
+    if (sequence !== state.readbackDialog.requestSequence) return;
+    showReadbackError(error);
+  }
+}
+
+async function executeScopedReadback(event) {
+  event.preventDefault();
+  const preview = state.readbackDialog.preview;
+  if (!preview || state.readbackDialog.running) return;
+  setReadbackRunning(true);
+  try {
+    const job = await api("/api/firestore-readback/run", {
+      method: "POST",
+      body: {
+        qualification: preview.qualification,
+        listGroupIds: preview.listGroupIds,
+        previewToken: preview.previewToken,
+      },
+    });
+    await pollReadbackJob(job.jobId);
+  } catch (error) {
+    showReadbackError(error);
+  }
+}
+
+function setReadbackRunning(running) {
+  state.readbackDialog.running = running;
+  $("#readback-execute").disabled = running || !state.readbackDialog.preview;
+  $("#readback-cancel").hidden = running;
+  $("#readback-job-status").hidden = !running;
+  $("#readback-job-log-wrap").hidden = !running;
+  for (const node of $("#readback-dialog").querySelectorAll("button, input")) {
+    if (node.id !== "readback-execute") node.disabled = running;
+  }
+}
+
+async function pollReadbackJob(jobId) {
+  while (true) {
+    const job = await api(`/api/jobs/${encodeURIComponent(jobId)}`);
+    $("#readback-job-status").textContent = job.status === "queued"
+      ? "実行待ち"
+      : job.status === "running"
+        ? "Firestoreを読み取り中"
+        : "完了";
+    $("#readback-job-log").textContent = (job.logs || []).join("\n");
+    $("#readback-job-log").scrollTop = $("#readback-job-log").scrollHeight;
+    if (job.status === "queued" || job.status === "running") {
+      await new Promise((resolve) => window.setTimeout(resolve, 800));
+      continue;
+    }
+    if (job.status === "failed") throw new Error(job.error || "Firestoreの読み取りに失敗しました。");
+    state.readbackDialog.running = false;
+    state.readbackDialog.preview = null;
+    $("#readback-message").textContent = job.result?.message || "Firestore状態を更新しました。";
+    $("#readback-job-status").textContent = formatReadbackStatusCounts(job.result?.statusCounts || {});
+    $("#readback-execute").textContent = "閉じる";
+    $("#readback-execute").disabled = false;
+    $("#readback-execute").onclick = () => $("#readback-dialog").close();
+    for (const node of $("#readback-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
+    await loadQuestions(true);
+    toast(job.result?.message || "Firestore状態を更新しました。");
+    return;
+  }
+}
+
+function formatReadbackStatusCounts(counts) {
+  const labels = {
+    match: "一致",
+    mismatch: "差分あり",
+    missing: "未登録",
+    unavailable: "比較不可",
+    error: "取得失敗",
+  };
+  const parts = Object.entries(counts).map(([status, count]) => `${labels[status] || status} ${count}問`);
+  return parts.length ? parts.join(" / ") : "完了";
+}
+
+function showReadbackError(error) {
+  state.readbackDialog.running = false;
+  state.readbackDialog.preview = null;
+  $("#readback-message").textContent = error.message;
+  $("#readback-job-status").hidden = false;
+  $("#readback-job-status").textContent = "処理を完了できませんでした。";
+  $("#readback-execute").textContent = "閉じる";
+  $("#readback-execute").disabled = false;
+  $("#readback-execute").onclick = () => $("#readback-dialog").close();
+  $("#readback-cancel").hidden = true;
+  for (const node of $("#readback-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
+  toast(error.message, true);
 }
 
 function renderChoices(projected) {

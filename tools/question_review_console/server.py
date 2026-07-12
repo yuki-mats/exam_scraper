@@ -16,6 +16,10 @@ from tools.question_review_console.firestore_readback import (
     PRODUCTION_PROJECT_ID,
     FirestoreReadback,
 )
+from tools.question_review_console.bulk_readback import (
+    ScopedFirestoreReadback,
+    ScopedReadbackError,
+)
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.jobs import JobConflictError, JobManager
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
@@ -50,6 +54,12 @@ class QuestionReviewApplication:
         self.editor = PatchEditor(self.repo_root)
         self.firestore = FirestoreReadback()
         self.jobs = JobManager()
+        self.scoped_readback = ScopedFirestoreReadback(
+            self.inventory,
+            self.firestore,
+            self.session_token,
+            self._store_live_result,
+        )
         self.synchronizer = ArtifactSynchronizer(
             self.repo_root, self.inventory, self.session_token
         )
@@ -97,6 +107,36 @@ class QuestionReviewApplication:
         raise ApiError(HTTPStatus.NOT_FOUND, "APIが見つかりません。")
 
     def post(self, path: str, body: Mapping[str, Any]) -> tuple[int, Any]:
+        if path in {
+            "/api/firestore-readback/preview",
+            "/api/firestore-readback/run",
+        }:
+            qualification = str(body.get("qualification") or "")
+            raw_group_ids = body.get("listGroupIds")
+            if not isinstance(raw_group_ids, list):
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "listGroupIdsを配列で指定してください。"
+                )
+            group_ids = [str(value) for value in raw_group_ids]
+            try:
+                if path.endswith("/preview"):
+                    return HTTPStatus.OK, self.scoped_readback.preview(
+                        qualification, group_ids
+                    )
+                token = str(body.get("previewToken") or "")
+                job = self.jobs.start(
+                    kind="firestore-readback",
+                    key=f"firestore-readback:{qualification}",
+                    worker=lambda emit: self.scoped_readback.run(
+                        qualification, group_ids, token, emit
+                    ),
+                )
+                return HTTPStatus.ACCEPTED, job
+            except JobConflictError as exc:
+                raise ApiError(HTTPStatus.CONFLICT, str(exc)) from exc
+            except ScopedReadbackError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
         group_action = _group_action(path)
         if group_action is not None:
             qualification, list_group_id, action = group_action
@@ -382,7 +422,7 @@ class QuestionReviewApplication:
         result = self.synchronizer.run(
             qualification, list_group_id, preview_token, emit
         )
-        self._clear_live_results()
+        self._clear_group_live_results(qualification, list_group_id)
         return result
 
     def _run_publish_job(
@@ -395,12 +435,23 @@ class QuestionReviewApplication:
         result = self.publisher.run(
             qualification, list_group_id, preflight, emit
         )
-        self._clear_live_results()
+        self._clear_group_live_results(qualification, list_group_id)
         return result
 
-    def _clear_live_results(self) -> None:
+    def _clear_group_live_results(
+        self, qualification: str, list_group_id: str
+    ) -> None:
+        group = self.inventory.group(qualification, list_group_id)
+        question_ids = [
+            str(question["id"]) for question in group.get("questions") or []
+        ]
         with self._live_lock:
-            self.live_results.clear()
+            for question_id in question_ids:
+                self.live_results.pop(question_id, None)
+
+    def _store_live_result(self, question_id: str, result: dict[str, Any]) -> None:
+        with self._live_lock:
+            self.live_results[question_id] = copy.deepcopy(result)
 
     @staticmethod
     def _summary(question: Mapping[str, Any]) -> dict[str, Any]:
