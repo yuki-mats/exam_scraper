@@ -55,7 +55,7 @@ class ScrapePresetTests(unittest.TestCase):
         self.assertEqual(preset.qualification_name, "ガス主任技術者甲種")
         self.assertEqual(preset.scraper_type, "gassyunin")
         self.assertEqual(preset.list_group_ids[0], "2025")
-        self.assertEqual(preset.list_group_ids[-1], "2019")
+        self.assertEqual(preset.list_group_ids[-1], "2017")
 
     def test_build_list_first_page_url_for_gassyunin_kou(self) -> None:
         preset = load_scrape_preset("gas-shunin-kou")
