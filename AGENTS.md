@@ -15,3 +15,9 @@
 - push先は `origin/main` だけとする。別branchへのpush、force push、履歴の上書きを行わない。
 - 複数の作業が混在している場合は、一括コミットせず、内容別の小さなコミットに整理する。
 - 他者が作成した未コミット変更を、確認なく破棄・巻き戻ししない。
+
+## `00_source`
+
+- スクレイピングでの新規作成だけ許可し、既存ファイルは変更・削除・改名しない。
+- 修正は `10` / `15` / `21` / `22` / `23` のpatch層へ入れる。
+- 新規scrape後のみ `python scripts/check/check_00_source_immutability.py --record-new` を実行する。

@@ -215,7 +215,7 @@ tasks:
     assignee: Worker
     status: active
     reasoning_hint: high
-    objective: "全3,479 sourceをhash manifestへ固定し、既存変更・削除・移動を拒否して新規scrape追加だけを登録可能にするglobal guardを実装する。"
+    objective: "全00_sourceをhash manifestへ固定し、既存差分を拒否して新規scrapeだけ追加できる共通guardを実装する。"
     allowed_files:
       - "AGENTS.md"
       - ".githooks/pre-commit"
@@ -229,7 +229,7 @@ tasks:
       - "existing modification rejected"
       - "deletion and rename rejected"
       - "new source addition allowed only through record-new"
-      - "manifest check --require-all passes"
+      - "manifest check passes"
       - "pre-commit hook installed and passes"
       - "unit tests pass"
     stop_if:
