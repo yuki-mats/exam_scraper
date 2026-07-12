@@ -252,8 +252,7 @@ textarea { width: 100%; padding: 8px 10px; resize: vertical; line-height: 1.55; 
   overflow-wrap: anywhere;
 }
 .firestore-diff-text { color: #26313b; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
-.firestore-diff-mark { padding: 1px 2px; border-radius: 2px; color: #672824; background: #ffd9d5; }
-.firestore-diff-more { color: var(--text-muted); font-size: 10px; }
+.firestore-diff-no-change { color: var(--text-muted); font-style: italic; }
 .firestore-diff-empty { color: var(--text-muted); font-style: italic; }
 
 .primary-button, .secondary-button, .danger-button, .text-button {

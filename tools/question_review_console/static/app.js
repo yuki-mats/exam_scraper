@@ -46,8 +46,6 @@ const EDITABLE_FIELDS = [
   "suggestedQuestionDetails",
 ];
 
-const FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT = 8;
-
 const state = {
   token: "",
   inventory: null,
@@ -554,42 +552,25 @@ function plainValueText(value) {
   return String(value);
 }
 
-function commonPrefixLength(left, right) {
-  const limit = Math.min(left.length, right.length);
-  let index = 0;
-  while (index < limit && left[index] === right[index]) index += 1;
-  return index;
+function comparableValue(value) {
+  if (Array.isArray(value)) return value.map(comparableValue);
+  if (value && typeof value === "object") {
+    return Object.keys(value)
+      .sort()
+      .reduce((accumulator, key) => {
+        accumulator[key] = comparableValue(value[key]);
+        return accumulator;
+      }, {});
+  }
+  return value === undefined ? "__undefined__" : value;
 }
 
-function commonSuffixLength(left, right, prefixLength) {
-  const limit = Math.min(left.length, right.length) - prefixLength;
-  let index = 0;
-  while (
-    index < limit
-    && left[left.length - 1 - index] === right[right.length - 1 - index]
-  ) {
-    index += 1;
-  }
-  return index;
+function valuesEqual(left, right) {
+  return JSON.stringify(comparableValue(left)) === JSON.stringify(comparableValue(right));
 }
 
-function appendHighlightedText(container, value, otherValue) {
-  const text = plainValueText(value);
-  const other = plainValueText(otherValue);
-  if (text === other) {
-    container.append(document.createTextNode(text));
-    return;
-  }
-
-  const prefixLength = commonPrefixLength(text, other);
-  const suffixLength = commonSuffixLength(text, other, prefixLength);
-  const changedEnd = text.length - suffixLength;
-  const prefix = text.slice(0, prefixLength);
-  const changed = text.slice(prefixLength, changedEnd);
-  const suffix = text.slice(changedEnd);
-  if (prefix) container.append(document.createTextNode(prefix));
-  container.append(element("mark", "firestore-diff-mark", changed || " "));
-  if (suffix) container.append(document.createTextNode(suffix));
+function noDiffValue() {
+  return element("span", "firestore-diff-no-change", "差分なし");
 }
 
 function collectLeafEntries(value, prefix = [], entries = []) {
@@ -612,30 +593,22 @@ function collectLeafEntries(value, prefix = [], entries = []) {
 }
 
 function renderReadableValue(value, otherValue) {
+  if (valuesEqual(value, otherValue)) return noDiffValue();
   if (value === undefined) return element("span", "firestore-diff-empty", "fieldなし");
   if (value === null) return element("span", "firestore-diff-empty", "null");
   if (isPlainValue(value)) {
     const node = element("span", "firestore-diff-text");
-    appendHighlightedText(node, value, otherValue);
+    node.textContent = plainValueText(value);
     return node;
   }
 
   const entries = collectLeafEntries(value);
   const list = element("div", "firestore-diff-leaf-list");
-  for (const [tokens, entryValue] of entries.slice(0, FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT)) {
+  for (const [tokens, entryValue] of entries) {
     const row = element("div", "firestore-diff-leaf");
     row.append(element("code", "firestore-diff-leaf-path", dataPathLabel(tokens)));
-    const text = element("span", "firestore-diff-text");
-    appendHighlightedText(text, entryValue, valueAtPath(otherValue, tokens));
-    row.append(text);
+    row.append(renderReadableValue(entryValue, valueAtPath(otherValue, tokens)));
     list.append(row);
-  }
-  if (entries.length > FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT) {
-    list.append(element(
-      "span",
-      "firestore-diff-more",
-      `ほか${entries.length - FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT}項目`,
-    ));
   }
   return list;
 }
@@ -660,18 +633,11 @@ function firestoreDiffValue(value, otherValue, paths, field) {
   }
 
   const list = element("div", "firestore-diff-item-list");
-  for (const tokens of relativePaths.slice(0, FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT)) {
+  for (const tokens of relativePaths) {
     const item = element("div", "firestore-diff-item");
     item.append(element("code", "firestore-diff-item-path", dataPathLabel(tokens)));
     item.append(renderReadableValue(valueAtPath(value, tokens), valueAtPath(otherValue, tokens)));
     list.append(item);
-  }
-  if (relativePaths.length > FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT) {
-    list.append(element(
-      "span",
-      "firestore-diff-more",
-      `ほか${relativePaths.length - FIRESTORE_DIFF_VISIBLE_ITEM_LIMIT}箇所`,
-    ));
   }
   return list;
 }
@@ -757,6 +723,12 @@ function renderFirestoreDiff(question) {
     }
 
     const fields = [...new Set((readbackDocument.differences || []).map(topLevelFirestoreField))].filter(Boolean);
+    if (!fields.length) {
+      block.append(element("p", "firestore-diff-missing", "差分なし"));
+      list.append(block);
+      continue;
+    }
+
     const tableWrap = element("div", "firestore-diff-table-wrap");
     const table = element("table", "firestore-diff-table");
     const head = document.createElement("thead");
@@ -777,10 +749,7 @@ function renderFirestoreDiff(question) {
         .filter((path) => topLevelFirestoreField(path) === field && path !== field);
       if (nestedPaths.length) {
         const pathList = element("div", "firestore-diff-paths");
-        for (const path of nestedPaths.slice(0, 6)) pathList.append(element("code", "", path));
-        if (nestedPaths.length > 6) {
-          pathList.append(element("span", "", `ほか${nestedPaths.length - 6}箇所`));
-        }
+        for (const path of nestedPaths) pathList.append(element("code", "", path));
         fieldCell.append(pathList);
       }
       row.append(
