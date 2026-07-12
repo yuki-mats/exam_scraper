@@ -324,6 +324,9 @@ function renderEmpty(message) {
   pane.replaceChildren();
   const empty = element("div", "empty-state");
   empty.append(element("strong", "", message));
+  if (state.exceptionsOnly) {
+    empty.append(button("全問を表示", "secondary-button", () => setListMode(false)));
+  }
   pane.append(empty);
 }
 
@@ -476,7 +479,9 @@ async function openSyncDialog() {
     const preview = await api(groupApiPath("sync-preview"), { method: "POST", body: {} });
     state.workflowDialog.preview = preview;
     $("#workflow-dialog-message").textContent = preview.needsSync
-      ? "既存workflowを対象年度・回だけ実行し、upload dry-runまで検証します。00_sourceは変更しません。"
+      ? preview.allowMissingAnswerResult
+        ? "既存workflowを実行します。回答結果が空の問題は、全選択肢の精査済み正誤を保持して検証します。00_sourceは変更しません。"
+        : "既存workflowを対象年度・回だけ実行し、upload dry-runまで検証します。00_sourceは変更しません。"
       : "Merge、Convert、upload-readyはすでに最新です。";
     $("#workflow-dialog-summary").append(
       summaryMetric("対象", `${preview.qualification} / ${preview.listGroupId}`),
@@ -569,7 +574,7 @@ async function executeWorkflow(event) {
       method: "POST",
       body,
     });
-    await pollJob(job.jobId);
+    await pollJob(job.jobId, mode);
   } catch (error) {
     showWorkflowError(error);
   }
@@ -586,7 +591,7 @@ function setWorkflowRunning(running) {
   for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = running;
 }
 
-async function pollJob(jobId) {
+async function pollJob(jobId, mode) {
   while (true) {
     const job = await api(`/api/jobs/${encodeURIComponent(jobId)}`);
     $("#job-status").textContent = job.status === "queued" ? "実行待ち" : job.status === "running" ? "処理中" : "完了";
@@ -597,7 +602,7 @@ async function pollJob(jobId) {
       continue;
     }
     if (job.status === "failed") throw new Error(job.error || "処理に失敗しました。");
-    await refreshAfterWorkflow();
+    await refreshAfterWorkflow(mode);
     state.workflowDialog.running = false;
     state.workflowDialog.mode = "";
     $("#job-status").textContent = job.result?.message || "完了しました。";
@@ -611,7 +616,12 @@ async function pollJob(jobId) {
   }
 }
 
-async function refreshAfterWorkflow() {
+async function refreshAfterWorkflow(mode) {
+  if (mode === "sync" && state.exceptionsOnly) {
+    state.exceptionsOnly = false;
+    $("#exceptions-button").classList.remove("active");
+    $("#all-button").classList.add("active");
+  }
   if (state.selectedId) {
     try {
       await api(`/api/questions/${state.selectedId}/live-readback`, { method: "POST", body: {} });
@@ -623,16 +633,19 @@ async function refreshAfterWorkflow() {
 }
 
 function showWorkflowError(error) {
+  const message = error.message === "APIが見つかりません。"
+    ? "画面とサーバーの版が一致していません。画面を再読み込みしてください。"
+    : error.message;
   state.workflowDialog.running = false;
   state.workflowDialog.mode = "";
-  $("#workflow-dialog-message").textContent = error.message;
+  $("#workflow-dialog-message").textContent = message;
   $("#job-status").hidden = false;
   $("#job-status").textContent = "処理を完了できませんでした。";
   $("#workflow-execute").textContent = "閉じる";
   $("#workflow-execute").disabled = false;
   $("#workflow-cancel").hidden = true;
   for (const node of $("#workflow-dialog").querySelectorAll(".close-dialog")) node.disabled = false;
-  toast(error.message, true);
+  toast(message, true);
 }
 
 function renderChoices(projected) {

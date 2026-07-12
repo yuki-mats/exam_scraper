@@ -77,6 +77,18 @@ def upload_document():
 
 
 class ArtifactSynchronizerTests(unittest.TestCase):
+    def test_missing_answer_result_is_not_allowed_with_incomplete_verdicts(self):
+        group = group_payload(
+            {"merge": "stale", "convert": "stale", "upload": "missing"}
+        )
+        group["questions"][0]["projected"] = {
+            "answer_result_text": "",
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": ["正しい", None],
+        }
+
+        self.assertFalse(ArtifactSynchronizer._allow_missing_answer_result(group))
+
     def test_runs_scoped_pipeline_with_upload_dry_run(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -93,6 +105,11 @@ class ArtifactSynchronizerTests(unittest.TestCase):
             group = group_payload(
                 {"merge": "stale", "convert": "stale", "upload": "missing"}
             )
+            group["questions"][0]["projected"] = {
+                "answer_result_text": "",
+                "choiceTextList": ["A", "B"],
+                "correctChoiceText": ["正しい", "間違い"],
+            }
             inventory = FakeInventory(group)
             commands = []
 
@@ -116,6 +133,7 @@ class ArtifactSynchronizerTests(unittest.TestCase):
         self.assertEqual(commands[0][2], "2026")
         self.assertIn("--skip-update-category-counts", commands[0])
         self.assertIn("--upload-dry-run", commands[0])
+        self.assertIn("--allow-missing-answer-result", commands[0])
 
 
 class GroupPublisherTests(unittest.TestCase):

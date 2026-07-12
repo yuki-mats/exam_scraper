@@ -167,6 +167,20 @@ def find_missing_answers_in_source(base_dir: Path, list_group_id: str) -> list[s
     return missing_info
 
 
+def partition_requirement_errors(
+    errors: list[str], *, allow_missing_answer_result: bool
+) -> tuple[list[str], list[str]]:
+    if not allow_missing_answer_result:
+        return [], errors
+    allowed = [
+        error
+        for error in errors
+        if "empty_required_key=answer_result_text" in error
+    ]
+    blocked = [error for error in errors if error not in allowed]
+    return allowed, blocked
+
+
 def count_unuploadable_questions_from_invalid_merged2(*, base_dir: Path, list_group_id: str) -> tuple[int, list[str]]:
     """
     30_merged_2 配下の *_invalid.json に外出しされた（=アップロード対象外）question_bodies を数える。
@@ -288,6 +302,15 @@ def process_list_group(
             records = [r for r in records if isinstance(r, dict)]
             errors.extend(validate_records(records=records, rules=merged_rules, source_path=merged_file))
 
+        allowed_errors, errors = partition_requirement_errors(
+            errors,
+            allow_missing_answer_result=allow_missing_answer_result,
+        )
+        if allowed_errors:
+            print(
+                "[WARN] 精査済みcorrectChoiceTextを保持するため "
+                f"answer_result_text欠損を許可: {len(allowed_errors)}"
+            )
         if errors:
             print(f"[NG] requirements errors={len(errors)}")
             for line in errors[:50]:
@@ -372,6 +395,15 @@ def process_list_group(
             source_path=copied_path,
             id_keys=("questionId",),
         )
+        allowed_errors, errors = partition_requirement_errors(
+            errors,
+            allow_missing_answer_result=allow_missing_answer_result,
+        )
+        if allowed_errors:
+            print(
+                "[WARN] 精査済みcorrectChoiceTextを保持するため "
+                f"answer_result_text欠損を許可: {len(allowed_errors)}"
+            )
         if errors:
             print(f"[NG] requirements errors={len(errors)}")
             for line in errors[:50]:

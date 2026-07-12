@@ -11,6 +11,7 @@ from typing import Any, Callable, Mapping
 
 from tools.question_review_console.firestore_readback import PRODUCTION_PROJECT_ID
 from tools.question_review_console.inventory import QuestionInventory
+from tools.question_review_console.projection import normalize_verdict
 
 
 LOCAL_STAGES = ("merge", "convert", "upload")
@@ -65,7 +66,12 @@ class ArtifactSynchronizer:
     def preview(self, qualification: str, list_group_id: str) -> dict[str, Any]:
         group = self.inventory.group(qualification, list_group_id)
         summary = aggregate_group_workflow(group)
-        command = self._command(qualification, list_group_id)
+        allow_missing_answer_result = self._allow_missing_answer_result(group)
+        command = self._command(
+            qualification,
+            list_group_id,
+            allow_missing_answer_result=allow_missing_answer_result,
+        )
         token_payload = {
             "qualification": qualification,
             "listGroupId": list_group_id,
@@ -78,6 +84,7 @@ class ArtifactSynchronizer:
             "qualification": qualification,
             "listGroupId": list_group_id,
             "needsSync": not summary["localReady"],
+            "allowMissingAnswerResult": allow_missing_answer_result,
             "previewToken": self._token(token_payload),
         }
 
@@ -95,7 +102,11 @@ class ArtifactSynchronizer:
             return {**preview, "message": "ローカル成果物はすでに最新です。"}
 
         source_before = self._source_hash(qualification, list_group_id)
-        command = self._command(qualification, list_group_id)
+        command = self._command(
+            qualification,
+            list_group_id,
+            allow_missing_answer_result=preview["allowMissingAnswerResult"],
+        )
         emit(f"対象: {qualification} / {list_group_id}")
         return_code = self.command_runner(
             command,
@@ -119,11 +130,17 @@ class ArtifactSynchronizer:
         emit("Merge・Convert・upload-readyの一致を確認しました。")
         return {**updated, "message": "ローカル成果物を最新patchに同期しました。"}
 
-    def _command(self, qualification: str, list_group_id: str) -> list[str]:
+    def _command(
+        self,
+        qualification: str,
+        list_group_id: str,
+        *,
+        allow_missing_answer_result: bool,
+    ) -> list[str]:
         base_dir = self.repo_root / "output" / qualification / "questions_json"
         if not (base_dir / list_group_id / "00_source").is_dir():
             raise WorkflowError("対象の00_sourceがありません。")
-        return [
+        command = [
             sys.executable,
             str(self.repo_root / "scripts" / "pipeline" / "prepare_firestore_upload.py"),
             list_group_id,
@@ -132,6 +149,29 @@ class ArtifactSynchronizer:
             "--skip-update-category-counts",
             "--upload-dry-run",
         ]
+        if allow_missing_answer_result:
+            command.append("--allow-missing-answer-result")
+        return command
+
+    @staticmethod
+    def _allow_missing_answer_result(group: Mapping[str, Any]) -> bool:
+        has_missing_answer_result = False
+        for question in group.get("questions") or []:
+            projected = question.get("projected") or {}
+            choices = projected.get("choiceTextList")
+            verdicts = projected.get("correctChoiceText")
+            if not isinstance(choices, list) or not choices:
+                return False
+            if not isinstance(verdicts, list) or len(verdicts) != len(choices):
+                return False
+            if any(
+                normalize_verdict(value) not in {"正しい", "間違い"}
+                for value in verdicts
+            ):
+                return False
+            if not str(projected.get("answer_result_text") or "").strip():
+                has_missing_answer_result = True
+        return has_missing_answer_result
 
     def _source_hash(self, qualification: str, list_group_id: str) -> str:
         source_dir = (

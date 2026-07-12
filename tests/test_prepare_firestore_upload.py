@@ -172,6 +172,20 @@ class PrepareFirestoreUploadTest(unittest.TestCase):
             by_name["convert (85010)"],
         )
 
+    def test_allow_missing_answer_result_exempts_only_that_requirement(self) -> None:
+        allowed, blocked = module.partition_requirement_errors(
+            [
+                "sample.json: id=q1 empty_required_key=answer_result_text",
+                "sample.json: id=q1 empty_required_key=questionSetId",
+            ],
+            allow_missing_answer_result=True,
+        )
+
+        self.assertEqual(len(allowed), 1)
+        self.assertIn("answer_result_text", allowed[0])
+        self.assertEqual(len(blocked), 1)
+        self.assertIn("questionSetId", blocked[0])
+
 
 if __name__ == "__main__":
     unittest.main()

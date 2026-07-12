@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.question_review_console.inventory import QuestionInventory
+from tools.question_review_console.inventory import QuestionInventory, detect_issues
 
 
 def write_json(path: Path, payload) -> None:
@@ -12,6 +12,21 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_merge_comparison_treats_verdict_synonyms_as_equal(self):
+        projected = {
+            "questionBodyText": "正しいものはどれか。",
+            "choiceTextList": ["A", "B"],
+            "correctChoiceText": ["正解", "不正解"],
+            "explanationText": ["正解。", "不正解。"],
+            "questionType": "multiple_choice",
+            "isLawRelated": False,
+        }
+        merged = {**projected, "correctChoiceText": ["正しい", "間違い"]}
+
+        issues = detect_issues(projected, merged, [], [], [])
+
+        self.assertNotIn("merge_stale", {issue["code"] for issue in issues})
+
     def test_discovers_qualification_and_projects_latest_patch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -195,7 +195,9 @@ Patch  →  Merge  →  Convert  →  upload-ready  →  Firestore
 - `本番差分を確認`: upload-readyの全document IDだけを本番から読み、変更、追加、変更なしの件数と成果物SHAを表示する。
 - `本番へ反映`: project ID、対象資格・年度・回、document件数、成果物SHAを確認し、本番確認checkboxを選んだ場合だけ実行する。
 
-同期処理では`--skip-update-category-counts`と`--upload-dry-run`を必須にする。処理前後の`00_source`内容hashが変わった場合は失敗として停止する。
+同期処理では`--skip-update-category-counts`と`--upload-dry-run`を必須にする。処理前後の`00_source`内容hashが変わった場合は失敗として停止する。カウント問題などで`answer_result_text`を意図的に空にしている場合は、全選択肢のprojected正誤が確定済みのときだけ`--allow-missing-answer-result`を付ける。この場合もrequirements検査で許可するのは`answer_result_text`欠損だけとし、他の必須field違反は停止する。
+
+`正解`と`正しい`、`不正解`と`間違い`は、Merge一致判定では同じ正誤値として比較する。表示用文字列の正規化だけを理由に再同期を繰り返さない。
 
 ### 6.5 差分表示
 

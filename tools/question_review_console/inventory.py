@@ -241,6 +241,15 @@ def detect_issues(
             )
 
     merge_fields = record_diff(projected, merged, PROJECTED_COMPARE_FIELDS)
+    if (
+        merged is not None
+        and "correctChoiceText" in merge_fields
+        and isinstance(projected.get("correctChoiceText"), list)
+        and isinstance(merged.get("correctChoiceText"), list)
+        and [normalize_verdict(value) for value in projected["correctChoiceText"]]
+        == [normalize_verdict(value) for value in merged["correctChoiceText"]]
+    ):
+        merge_fields.remove("correctChoiceText")
     if merged is None:
         add("merge_stale", "30_merged_2に対応する問題がありません。")
     elif merge_fields:
