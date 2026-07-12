@@ -285,6 +285,9 @@ class WorkflowUiContractTests(unittest.TestCase):
         javascript = (static / "app.js").read_text(encoding="utf-8")
 
         for control_id in (
+            "qualification-workflow",
+            "qualification-workflow-stages",
+            "qualification-workflow-action",
             "workflow-dialog",
             "production-confirm",
             "workflow-execute",
@@ -301,6 +304,9 @@ class WorkflowUiContractTests(unittest.TestCase):
         ):
             self.assertIn(f'id="{control_id}"', html)
         for function_name in (
+            "loadQualificationWorkflow",
+            "renderQualificationWorkflow",
+            "executeQualificationWorkflowAction",
             "openSyncDialog",
             "openPublishDialog",
             "executeWorkflow",
@@ -364,6 +370,9 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('requestKind === "qualification_law_audit"', javascript)
         self.assertIn('$("#review-scope-wrap").hidden = qualificationLawAudit', javascript)
         self.assertIn('const ALL_LIST_GROUPS = "__all__"', javascript)
+        self.assertIn('"/api/qualification-workflow/prompt"', javascript)
+        self.assertIn('`/api/qualification-workflow?${params}`', javascript)
+        self.assertIn('`次は ${nextStage.code} ${nextStage.label}', javascript)
         self.assertIn('`すべて（${groups.length}件）`', javascript)
         self.assertIn('"パッチ適用後データ"', javascript)
         self.assertNotIn('"投影後JSON"', javascript)

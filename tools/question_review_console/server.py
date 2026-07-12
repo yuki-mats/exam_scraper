@@ -25,6 +25,7 @@ from tools.question_review_console.jobs import JobConflictError, JobManager
 from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import GroupPublisher, PublicationError
+from tools.question_review_console.qualification_workflow import QualificationWorkflow
 from tools.question_review_console.review_store import ReviewStore
 from tools.question_review_console.prompt_builder import (
     LAW_AUDIT_ISSUES,
@@ -77,6 +78,9 @@ class QuestionReviewApplication:
             self.firestore,
             self.session_token,
         )
+        self.qualification_workflow = QualificationWorkflow(
+            self.repo_root, self.inventory
+        )
         self.live_results: dict[str, dict[str, Any]] = {}
         self._live_lock = threading.RLock()
         self.origin = ""
@@ -94,6 +98,18 @@ class QuestionReviewApplication:
             }
         if path == "/api/inventory":
             return HTTPStatus.OK, self.inventory.inventory()
+        if path == "/api/qualification-workflow":
+            qualification = _query_value(query, "qualification")
+            if not qualification:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST, "qualificationを指定してください。"
+                )
+            try:
+                return HTTPStatus.OK, self.qualification_workflow.overview(
+                    qualification
+                )
+            except FileNotFoundError as exc:
+                raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
         if path == "/api/questions":
             return HTTPStatus.OK, self._questions(query)
         if path.startswith("/api/jobs/"):
@@ -115,6 +131,23 @@ class QuestionReviewApplication:
         raise ApiError(HTTPStatus.NOT_FOUND, "APIが見つかりません。")
 
     def post(self, path: str, body: Mapping[str, Any]) -> tuple[int, Any]:
+        if path == "/api/qualification-workflow/prompt":
+            qualification = str(body.get("qualification") or "")
+            stage_id = str(body.get("stageId") or "")
+            if not qualification or not stage_id:
+                raise ApiError(
+                    HTTPStatus.BAD_REQUEST,
+                    "qualificationとstageIdを指定してください。",
+                )
+            try:
+                return HTTPStatus.OK, self.qualification_workflow.prompt(
+                    qualification, stage_id
+                )
+            except FileNotFoundError as exc:
+                raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
+            except ValueError as exc:
+                raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
+
         if path in {
             "/api/firestore-readback/preview",
             "/api/firestore-readback/run",

@@ -33,6 +33,30 @@
       </div>
     </header>
 
+    <section id="qualification-workflow" class="qualification-workflow" aria-labelledby="qualification-workflow-title">
+      <div class="qualification-workflow-head">
+        <div class="qualification-workflow-copy">
+          <span id="qualification-workflow-status" class="workflow-overall-status">確認中</span>
+          <h2 id="qualification-workflow-title">問題整備の流れ</h2>
+          <p id="qualification-workflow-next">資格全体の状態を確認しています。</p>
+        </div>
+        <dl class="qualification-workflow-metrics" aria-label="資格全体の進捗">
+          <div><dt>工程</dt><dd id="qualification-workflow-progress">-</dd></div>
+          <div><dt>問題</dt><dd id="qualification-workflow-questions">-</dd></div>
+          <div><dt>要確認</dt><dd id="qualification-workflow-issues">-</dd></div>
+        </dl>
+        <button id="qualification-workflow-action" class="primary-button" type="button" disabled>次の作業</button>
+      </div>
+      <div id="qualification-workflow-stages" class="qualification-workflow-stages" role="list" aria-label="問題整備工程"></div>
+      <div id="qualification-workflow-detail" class="qualification-workflow-detail" hidden>
+        <div>
+          <strong id="qualification-workflow-stage-title"></strong>
+          <span id="qualification-workflow-stage-purpose"></span>
+        </div>
+        <span id="qualification-workflow-stage-count"></span>
+      </div>
+    </section>
+
     <section class="filter-bar" aria-label="追加フィルター">
       <label class="check-control"><input id="law-only" type="checkbox"> 法令問題</label>
       <label class="check-control"><input id="firestore-mismatch" type="checkbox"> Firestore差分</label>

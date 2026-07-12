@@ -14,6 +14,34 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_serves_qualification_workflow_and_stage_prompt(self):
+        class Workflow:
+            def overview(self, qualification):
+                return {"qualification": qualification, "nextStageId": "question_type"}
+
+            def prompt(self, qualification, stage_id):
+                return {
+                    "qualification": qualification,
+                    "stageId": stage_id,
+                    "prompt": "依頼",
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.qualification_workflow = Workflow()
+            get_status, overview = app.get(
+                "/api/qualification-workflow", {"qualification": ["sample"]}
+            )
+            post_status, prompt = app.post(
+                "/api/qualification-workflow/prompt",
+                {"qualification": "sample", "stageId": "question_type"},
+            )
+
+        self.assertEqual(get_status, 200)
+        self.assertEqual(overview["nextStageId"], "question_type")
+        self.assertEqual(post_status, 200)
+        self.assertEqual(prompt["prompt"], "依頼")
+
     def test_bulk_law_audit_post_adds_all_qualification_target_files(self):
         class Inventory:
             def inventory(self):

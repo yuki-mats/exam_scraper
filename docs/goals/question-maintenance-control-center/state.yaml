@@ -62,12 +62,12 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/question-maintenance-control-center/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-control-center"
 
-active_task: T001
+active_task: T005
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     reasoning_hint: low
     objective: "既存の問題整備workflow、成果物、状態判定、UI/API、検証コマンドをread-onlyでマッピングする"
     inputs:
@@ -87,11 +87,36 @@ tasks:
       - "UI/API architecture map"
       - "verification commands"
       - "largest safe implementation slices"
-    receipt: null
+    receipt:
+      result: done
+      summary: "既存の01〜04・02b・03b、artifact、状態検出、レビューUI/API、実行・検証境界を横断した。現行UIは単問例外レビューとmerge以降の同期には強いが、資格単位のstage状態・目的・次アクションと人間判断工程の追跡がない。最初の安全なsliceは共通workflow catalog、qualification overview API、次作業UIの縦断実装。"
+      evidence:
+        - docs/goals/question-maintenance-control-center/notes/T001-workflow-map.md
+        - prompt/README.md
+        - document/operations/exam_pipeline_manual_and_automation.md
+        - document/operations/local_question_review_console.md
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/workflow_runner.py
+        - tools/question_review_console/server.py
+        - tools/question_review_console/static/app.js
+      facts:
+        - "stage mapは10/15/18/21/22/23を認識するがUIはPatch以降へ圧縮している"
+        - "source-only資格と既存整備資格では未作業判定に必要なsignalが異なる"
+        - "production publishの明示確認境界は維持すべき"
+      contradictions: []
+      ambiguity_requiring_judge:
+        - "stage completionをcoverageのみで表すかreview ledgerとfreshnessも必須にするか"
+        - "最初のsliceでどこまでqualification-wide actionを含めるか"
+      commands:
+        - "python inventory inspection for gas-shunin-otsu/2017, 1st-class-kenchikushi/2025, anma/2026"
+        - "rg/sed read-only workflow and UI mapping"
+      note_needed: true
+      note: notes/T001-workflow-map.md
+      harness: codex
   - id: T002
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "Scoutの全体mapを評価し、共通状態モデルと最初の最大安全な縦断実装sliceを確定する"
     inputs:
@@ -110,25 +135,125 @@ tasks:
       - "verify commands"
       - "stop conditions"
       - "deferred slices"
-    receipt: null
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: "最初のsliceは共通stage catalog、qualification overview API、cockpit UI、stage prompt生成を縦断して実装する。新規資格と既存資格の異なる状態を同じ語彙で説明でき、既存単問レビューとproduction publish境界を壊さず、次の実行sliceを具体化できる最大安全単位。"
+      worker_package:
+        objective: "共通workflow catalog、qualification overview API、次の作業を自然に示すcockpit UI、stage依頼promptを一つの縦断sliceとして実装する"
+        allowed_files:
+          - tools/question_review_console/qualification_workflow.py
+          - tools/question_review_console/server.py
+          - tools/question_review_console/static/index.html
+          - tools/question_review_console/static/app.js
+          - tools/question_review_console/static/styles.css
+          - tests/test_question_review_qualification_workflow.py
+          - tests/test_question_review_server.py
+          - tests/test_question_review_workflow.py
+          - document/operations/local_question_review_console.md
+        verify:
+          - ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_server tests.test_question_review_workflow"
+          - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          - ".venv/bin/python -m py_compile tools/question_review_console/qualification_workflow.py tools/question_review_console/server.py"
+          - "node --check tools/question_review_console/static/app.js"
+          - "git diff --check"
+        stop_if:
+          - "既存正本間に解消できない矛盾がある"
+          - "本番Firestore writeが必要になる"
+          - "対象外のユーザー変更と競合する"
+          - "00_source又は既存IDの変更が必要になる"
+      evidence:
+        - docs/goals/question-maintenance-control-center/notes/T001-workflow-map.md
+        - prompt/README.md
+        - document/operations/exam_pipeline_manual_and_automation.md
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/workflow_runner.py
+      blocked_tasks: []
+      missing_evidence: []
+      required_board_updates:
+        - "T003へworker_packageを反映してactivateする"
+        - "実装後はT004でbrowserとoracleを評価する"
+      harness: codex
   - id: T003
     type: worker
     assignee: Worker
-    status: queued
+    status: done
     reasoning_hint: high
-    objective: "Judgeが確定した最初の縦断sliceを、状態判定・API・利用可能なUI・テストまで実装する"
-    allowed_files: []
-    verify: []
+    objective: "共通workflow catalog、qualification overview API、次の作業を自然に示すcockpit UI、stage依頼promptを一つの縦断sliceとして実装する"
+    allowed_files:
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/styles.css"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_server tests.test_question_review_workflow"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_workflow.py tools/question_review_console/server.py"
+      - "node --check tools/question_review_console/static/app.js"
+      - "git diff --check"
     stop_if:
-      - "Judge receiptでallowed_files又はverifyが確定していない。"
       - "既存正本間に解消できない矛盾がある。"
       - "本番Firestore writeが必要になる。"
       - "対象外のユーザー変更と競合する。"
-    receipt: null
+      - "00_source又は既存IDの変更が必要になる。"
+    receipt:
+      result: done
+      summary: "共通stage catalog、資格全体overview API、次工程cockpit、正本文書と対象pathだけを渡すstage prompt生成を縦断実装した。既存単問レビューとproduction publish境界は維持した。"
+      evidence:
+        - tools/question_review_console/qualification_workflow.py
+        - tools/question_review_console/server.py
+        - tools/question_review_console/static/index.html
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/static/styles.css
+        - tests/test_question_review_qualification_workflow.py
+        - tests/test_question_review_server.py
+        - tests/test_question_review_workflow.py
+        - document/operations/local_question_review_console.md
+      changed_files:
+        - tools/question_review_console/qualification_workflow.py
+        - tools/question_review_console/server.py
+        - tools/question_review_console/static/index.html
+        - tools/question_review_console/static/app.js
+        - tools/question_review_console/static/styles.css
+        - tests/test_question_review_qualification_workflow.py
+        - tests/test_question_review_server.py
+        - tests/test_question_review_workflow.py
+        - document/operations/local_question_review_console.md
+      facts:
+        - "gas-shunin-otsuは02b法令根拠を次工程として検出した"
+        - "1st-class-kenchikushiは資格方針準備を次工程として検出した"
+        - "anmaは既存patchを認識しつつ不足する資格方針と後続成果物を検出した"
+        - "00_source及びproduction Firestoreは変更していない"
+      commands:
+        - command: ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_server tests.test_question_review_workflow"
+          status: pass
+          summary: "17 tests passed"
+        - command: ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+          status: pass
+          summary: "41 tests passed"
+        - command: ".venv/bin/python -m py_compile tools/question_review_console/qualification_workflow.py tools/question_review_console/server.py"
+          status: pass
+        - command: "node --check tools/question_review_console/static/app.js"
+          status: pass
+        - command: "git diff --check"
+          status: pass
+        - command: "real qualification overview for gas-shunin-otsu, 1st-class-kenchikushi, anma"
+          status: pass
+      remaining:
+        - "desktop/mobile browser walkthrough"
+        - "qualification-wide execution and durable resume"
+        - "rerun/wash selection and end-to-end upload-ready proof"
+      harness: codex
   - id: T004
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "最初の縦断sliceをブラウザwalkthroughとoracleで評価し、残りの実装sliceを大きな単位で編成する"
     inputs:
@@ -145,6 +270,102 @@ tasks:
       - "browser findings"
       - "remaining vertical slices"
       - "next Worker allowed_files and verify"
+    receipt:
+      result: done
+      decision: not_complete
+      full_outcome_complete: false
+      summary: "資格cockpitの状態・目的・次工程は既存資格と新規資格で正しく表示されたが、元の依頼に必要なscope選択、永続再開、資格batch実行、全件表示性能が未完成。"
+      rationale: "gas-shunin-otsuでは02bを、1st-class-kenchikushiでは資格方針を次工程として示し、390pxと1440pxで横overflowなく表示できた。一方、資格変更時に全1,354問を即時DOM展開しcapture timeoutとtab不安定化が発生した。人間工程はprompt copyのみ、出力は最初のfolderを開くだけで、未作業・要確認・洗い替えと途中再開を一つの作業として扱えない。"
+      evidence:
+        - "browser desktop 1440x900: gas-shunin-otsu workflow cockpit and single-question review"
+        - "browser mobile 390x844: no horizontal document overflow and primary next action visible"
+        - "browser new qualification: 1st-class-kenchikushi 1,354 questions, next stage setup"
+        - "browser action: 02b prompt copy success toast"
+        - "browser performance: all-group 1,354 question DOM caused screenshot timeout and tab close"
+        - "T003 automated tests: 41 passed"
+      browser_findings:
+        - "PASS: 目的、現在地、次工程、対象数がfirst viewportで読める"
+        - "PASS: existing and source-only qualifications use the same state vocabulary"
+        - "PASS: mobile document width remains 390px at 390px viewport"
+        - "FAIL: qualification all-group list is unbounded and unstable at 1,354 questions"
+        - "MISSING: incomplete/attention/full-refresh scope selection"
+        - "MISSING: durable run history and resume"
+        - "MISSING: qualification-wide local artifact batch execution"
+      missing_evidence:
+        - "new qualification from setup through a completed human-stage receipt"
+        - "qualification-wide merge/convert/upload-ready batch receipt"
+        - "resume after process restart"
+        - "bounded all-group list rendering"
+      next_worker_task: T005
+      required_board_updates:
+        - "activate T005"
+        - "retain T006 milestone Judge"
+        - "retain T999 final audit"
+      commands:
+        - command: "in-app Browser desktop 1440x900 walkthrough"
+          status: pass
+        - command: "in-app Browser mobile 390x844 walkthrough"
+          status: pass
+        - command: "switch gas-shunin-otsu to 1st-class-kenchikushi"
+          status: pass
+        - command: "capture 1,354-question all-group view"
+          status: fail
+          summary: "capture timed out and tab closed; recorded as required performance fix"
+        - command: "console error inspection on bounded mobile view"
+          status: pass
+          summary: "no warnings or errors"
+      harness: codex
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: xhigh
+    objective: "資格作業セッションとして未作業・要確認・全件洗い替え、対象preview、永続run履歴、資格単位の出力batch/resume、全件一覧paginationを縦断実装する"
+    allowed_files:
+      - "tools/question_review_console/qualification_workflow.py"
+      - "tools/question_review_console/qualification_runs.py"
+      - "tools/question_review_console/jobs.py"
+      - "tools/question_review_console/workflow_runner.py"
+      - "tools/question_review_console/server.py"
+      - "tools/question_review_console/static/index.html"
+      - "tools/question_review_console/static/app.js"
+      - "tools/question_review_console/static/styles.css"
+      - "tests/test_question_review_qualification_workflow.py"
+      - "tests/test_question_review_qualification_runs.py"
+      - "tests/test_question_review_server.py"
+      - "tests/test_question_review_workflow.py"
+      - "document/operations/local_question_review_console.md"
+    verify:
+      - ".venv/bin/python -m unittest tests.test_question_review_qualification_workflow tests.test_question_review_qualification_runs tests.test_question_review_server tests.test_question_review_workflow"
+      - ".venv/bin/python -m unittest discover -s tests -p 'test_question_review_*.py'"
+      - ".venv/bin/python -m py_compile tools/question_review_console/qualification_workflow.py tools/question_review_console/qualification_runs.py tools/question_review_console/jobs.py tools/question_review_console/workflow_runner.py tools/question_review_console/server.py"
+      - "node --check tools/question_review_console/static/app.js"
+      - "git diff --check"
+    stop_if:
+      - "production Firestore write又は外部送信が必要になる。"
+      - "00_source又は既存IDの変更が必要になる。"
+      - "正本promptをUIへ複製する必要が生じる。"
+      - "対象外のユーザー変更と競合する。"
+    receipt: null
+  - id: T006
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: xhigh
+    objective: "資格作業セッションを新規・既存資格でブラウザ検証し、実行・再開・洗い替え・upload-ready到達の残差を評価する"
+    inputs:
+      - "T005 receipt"
+      - "desktop/mobile browser walkthrough"
+      - "new qualification fixture"
+      - "qualification batch dry-run receipt"
+    constraints:
+      - "Do not implement."
+      - "全件DOM展開による性能退行を認めない。"
+      - "production Firestore未実行を欠陥としない。"
+    expected_output:
+      - "milestone verdict"
+      - "oracle evidence map"
+      - "remaining Worker package or final-audit readiness"
     receipt: null
   - id: T999
     type: judge
