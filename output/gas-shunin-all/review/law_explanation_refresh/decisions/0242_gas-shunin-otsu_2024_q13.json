@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 242,
+  "auditKey": "gas-shunin:otsu:2024:law:q13:a08da20e11a7",
+  "auditInputHash": "418409dcff3b819cde4f9b5d436d359f1f0cdb6b9165524cc3f8e820f9d3d3d7",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:07:03+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス事業者の掘削により周囲が露出することとなった導管は、露出している部分の両端が地くずれのおそれのない地中に支持されていなければならない。",
+      "間違い。露出している部分がガスの供給の用に供されている導管で、直管以外の管の接合部に抜出し防止措置が必要となるのは、特定接合又は告示で定める規格に適合する接合以外の方法によって接合されている場合である。フランジ接合されているものを対象としている点が誤り。",
+      "間違い。整圧器の入口にはガス遮断装置を設ける必要があり、この規定には一の使用者にガスを供給するためのものの例外は置かれていない。一の使用者に係る例外は入口の不純物除去装置に関する規定である。",
+      "正しい。ガス中の水分の凍結により整圧機能を損なうおそれのある整圧器には、凍結を防止するための措置を講じなければならない。",
+      "正しい。整圧器の制御用配管、補助整圧器その他の附属設備は、地震に対し耐えるよう支持されていなければならない。"
+    ],
+    "proposedSuggestedQuestions": [
+      "掘削により周囲が露出した導管の露出部分の両端はどのように支持されている必要があるか？",
+      "露出した導管の直管以外の管の接合部で抜出し防止措置が必要となるのは、どのような接合の場合か？",
+      "整圧器の入口のガス遮断装置について、一の使用者に供給する場合の例外はあるか？",
+      "ガス中の水分の凍結により整圧機能を損なうおそれがある整圧器には何が必要か？",
+      "整圧器の制御用配管や補助整圧器などの附属設備は、地震に対してどのようにしておく必要があるか？",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "ガス工作物の技術基準では、掘削により周囲が露出した導管について、露出部分の両端が地くずれのおそれのない地中に支持されていることを求めている。",
+        "question": "掘削により周囲が露出した導管の露出部分の両端はどのように支持されている必要があるか？"
+      },
+      {
+        "answer": "抜出し防止措置の対象は、ガス供給中で露出している直管以外の管の接合部のうち、特定接合又は告示規格適合接合以外の方法によって接合されているもの。フランジ接合は特定接合側に含まれるため、本記述は誤り。",
+        "question": "露出した導管の直管以外の管の接合部で抜出し防止措置が必要となるのは、どのような接合の場合か？"
+      },
+      {
+        "answer": "整圧器の入口にはガス遮断装置が必要であり、一の使用者にガスを供給するためのものについての例外は、不純物除去装置に関する規定と混同しない。",
+        "question": "整圧器の入口のガス遮断装置について、一の使用者に供給する場合の例外はあるか？"
+      },
+      {
+        "answer": "整圧器が凍結によって整圧機能を損なうおそれがある場合には、凍結防止措置を講じる必要がある。",
+        "question": "ガス中の水分の凍結により整圧機能を損なうおそれがある整圧器には何が必要か？"
+      },
+      {
+        "answer": "整圧器の制御用配管、補助整圧器その他の附属設備は、地震時にも機能を損なわないよう耐震支持が求められる。",
+        "question": "整圧器の制御用配管や補助整圧器などの附属設備は、地震に対してどのようにしておく必要があるか？"
+      },
+      {
+        "answer": "根拠は、ガス工作物の技術上の基準を定める省令第54条、ガス工作物の技術上の基準を定める省令第55条、ガス工作物の技術上の基準を定める省令第57条第1号、ガス工作物の技術上の基準を定める省令第58条、ガス工作物の技術上の基準を定める省令第58条第3項。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e",
+          "paragraph": "1",
+          "item": "1"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "54",
+          "articleTextHash": "ffafca68fb38051ee7da7b6ce32f4e6bdb3b9747a5117d18788a402125df1ed9",
+          "rawXmlHash": "b278997f5fdb1c44c3c8582940b7f44bbb0d13e0dc6ba07f8c6368a00465390e",
+          "paragraph": "1",
+          "item": "3"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "57",
+          "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+          "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
+          "paragraph": "1",
+          "item": "1",
+          "references": [
+            {
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "57",
+              "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+              "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
+              "paragraph": "1",
+              "item": "1"
+            },
+            {
+              "lawId": "412M50000400111",
+              "lawTitle": "ガス工作物の技術上の基準を定める省令",
+              "article": "57",
+              "articleTextHash": "146f5ce9563a0830cfe33c99834fc7436559545863fca43dedbebad0f352e249",
+              "rawXmlHash": "9bad5e8438db10366b02ee11ea9d26e7b378796dae6838fc9575c65cd68a4691",
+              "paragraph": "1",
+              "item": "2"
+            }
+          ]
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9",
+          "paragraph": "2"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "58",
+          "articleTextHash": "84f3e430bd1478af53c6232dbf7ddf4a3f6e093e6d8e43ac22254305a15ec754",
+          "rawXmlHash": "4f0b338b8e50aa78ced77b4ff85c7dd0cacb006b3803d8179c8ed828de8d43e9",
+          "paragraph": "3"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:07:04Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
