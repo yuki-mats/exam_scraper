@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 260,
+  "auditKey": "gas-shunin:otsu:2025:law:q15:351fd107507b",
+  "auditInputHash": "128851b38ee67d4e96cb93041adc90bb358207f45c9026dcee708344e68eda66",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T10:19:22+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts",
+      "suggestedQuestions",
+      "suggestedQuestionDetails"
+    ],
+    "proposedExplanationText": [
+      "間違い。ガス小売事業者が周知させなければならない相手は、消費機器の所有者又は占有者ではなく、消費機器を使用する者である。所有者又は占有者に対し周知させるとしている点が誤り。",
+      "正しい。ガス小売事業者は、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならない。ただし、設置又は使用場所に立ち入る承諾を所有者又は占有者から得られないときは例外となる。",
+      "間違い。調査の結果、消費機器が技術上の基準に適合していないと認めるときは、基準に適合するためにとるべき措置と、その措置をとらなかった場合に生ずべき結果を所有者又は占有者に通知する。速やかに使用を禁止しなければならないとしている点が誤り。",
+      "間違い。保安業務規程は、その事業の開始前に経済産業大臣へ届け出なければならない。事業の開始後、遅滞なく届け出るとしている点が誤り。",
+      "間違い。保安業務規程の変更命令は、経済産業大臣がガス小売事業者に対して行う。保安業務監督者に対して命ずるとしている点が誤り。"
+    ],
+    "proposedSuggestedQuestions": [
+      "消費機器の周知は誰に対して行うか。",
+      "ガス小売事業者は消費機器の技術基準適合性を調査する義務があるか。",
+      "消費機器が技術基準に適合しない場合、調査後に何を通知するか。",
+      "保安業務規程の届出時期はいつか。",
+      "保安業務規程の変更命令は誰に対して行われるか。",
+      "この問題の根拠条文は？"
+    ],
+    "proposedSuggestedQuestionDetails": [
+      {
+        "answer": "消費機器を使用する者に対して行う。。間違い。ガス小売事業者が周知させなければならない相手は、消費機器の所有者又は占有者ではなく、消費機器を使用する者である。所有者又は占有者に対し周知させるとしている点が誤り。現行法では、ガス事業法施行規則 第197条を根拠に確認済み。",
+        "question": "消費機器の周知は誰に対して行うか。"
+      },
+      {
+        "answer": "調査する義務がある。。正しい。ガス小売事業者は、その供給するガスに係る消費機器が経済産業省令で定める技術上の基準に適合しているかどうかを調査しなければならない。ただし、設置又は使用場所に立ち入る承諾を所有者又は占有者から得られないときは例外となる。現行法では、ガス事業法施行規則 第200条を根拠に確認済み。",
+        "question": "ガス小売事業者は消費機器の技術基準適合性を調査する義務があるか。"
+      },
+      {
+        "answer": "適合のためにとるべき措置と、その措置をとらなかった場合に生ずべき結果を通知する。現行法では、ガス事業法施行規則 第200条を根拠に確認済み。",
+        "question": "消費機器が技術基準に適合しない場合、調査後に何を通知するか。"
+      },
+      {
+        "answer": "事業の開始前に届け出る。。間違い。保安業務規程は、その事業の開始前に経済産業大臣へ届け出なければならない。事業の開始後、遅滞なく届け出るとしている点が誤り。現行法では、ガス事業法施行規則 第207条第1項を根拠に確認済み。",
+        "question": "保安業務規程の届出時期はいつか。"
+      },
+      {
+        "answer": "ガス小売事業者に対して行われる。。間違い。保安業務規程の変更命令は、経済産業大臣がガス小売事業者に対して行う。保安業務監督者に対して命ずるとしている点が誤り。現行法では、ガス事業法施行規則 第207条第1項を根拠に確認済み。",
+        "question": "保安業務規程の変更命令は誰に対して行われるか。"
+      },
+      {
+        "answer": "根拠は、ガス事業法第159条第1項、ガス事業法第159条第2項、ガス事業法第159条第3項、ガス事業法第160条第1項、ガス事業法第160条第3項。",
+        "question": "この問題の根拠条文は？"
+      }
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "1",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "1": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "2",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "2": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "159",
+          "paragraph": "3",
+          "articleTextHash": "709281a1c6296b238e5a757e7b318ffe6e8781bf5b69c879321c1d8942d1e0bf",
+          "rawXmlHash": "c690236f0f0959bcadd8423b56fed54f9a69998e75301ab4e9cf7549c93d91fb"
+        },
+        "3": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "1",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        },
+        "4": {
+          "lawId": "329AC0000000051",
+          "lawTitle": "ガス事業法",
+          "article": "160",
+          "paragraph": "3",
+          "articleTextHash": "5f33b238865cc77473720fa5d1b06c739d7f1031634da3bddee551d7a271cb5b",
+          "rawXmlHash": "fad08c7d8eb802677e540af30b46ac02a875ad1972e09a43c61c18132a826dd4"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T01:19:22Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
