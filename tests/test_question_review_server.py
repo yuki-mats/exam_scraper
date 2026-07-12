@@ -10,6 +10,7 @@ from tools.question_review_console.server import (
     ApiError,
     QuestionReviewApplication,
     QuestionReviewRequestHandler,
+    build_tailscale_access,
 )
 
 
@@ -338,6 +339,201 @@ class QuestionReviewServerTests(unittest.TestCase):
 
         self.assertEqual(caught.exception.status, 422)
         self.assertIn("本番反映の確認", str(caught.exception))
+
+    def test_tailscale_access_configuration_is_all_or_none_and_private(self):
+        self.assertIsNone(build_tailscale_access(None))
+
+        with self.assertRaisesRegex(ValueError, "すべて指定"):
+            build_tailscale_access("https://mac.example.ts.net")
+        with self.assertRaisesRegex(ValueError, "ts.net"):
+            build_tailscale_access(
+                "https://example.com",
+                ["yuki@example.com"],
+                ["100.101.102.103"],
+            )
+        with self.assertRaisesRegex(ValueError, "Tailscale端末IP"):
+            build_tailscale_access(
+                "https://mac.example.ts.net",
+                ["yuki@example.com"],
+                ["192.0.2.10"],
+            )
+
+        access = build_tailscale_access(
+            "https://MAC.EXAMPLE.ts.net/",
+            ["YUKI@example.com"],
+            ["100.101.102.103", "fd7a:115c:a1e0::1234"],
+        )
+        self.assertIsNotNone(access)
+        self.assertEqual(access.origin, "https://mac.example.ts.net")
+        self.assertEqual(access.logins, {"yuki@example.com"})
+        self.assertEqual(len(access.source_ips), 2)
+
+    def test_remote_route_requires_tailscale_identity_device_and_origin(self):
+        access = build_tailscale_access(
+            "https://review-mac.example.ts.net",
+            ["yuki@example.com"],
+            ["100.101.102.103"],
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(
+                Path(directory),
+                tailscale_access=access,
+            )
+            server = ThreadingHTTPServer(("127.0.0.1", 0), QuestionReviewRequestHandler)
+            server.app = app
+            port = int(server.server_address[1])
+            app.set_origin("127.0.0.1", port)
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            remote_headers = {
+                "Host": "review-mac.example.ts.net",
+                "Tailscale-User-Login": "yuki@example.com",
+                "Tailscale-Headers-Info": "https://tailscale.com/s/serve-headers",
+                "X-Forwarded-For": "100.101.102.103",
+                "X-Forwarded-Host": "review-mac.example.ts.net",
+                "X-Forwarded-Proto": "https",
+            }
+            try:
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request(
+                    "GET",
+                    "/api/session",
+                    headers={"Host": "review-mac.example.ts.net"},
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request("GET", "/api/session", headers=remote_headers)
+                response = connection.getresponse()
+                self.assertEqual(response.status, 200)
+                self.assertEqual(
+                    response.getheader("Strict-Transport-Security"),
+                    "max-age=31536000",
+                )
+                self.assertEqual(
+                    json.loads(response.read())["sessionToken"], app.session_token
+                )
+                connection.close()
+
+                wrong_device_headers = {
+                    **remote_headers,
+                    "X-Forwarded-For": "100.101.102.104",
+                }
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request("GET", "/api/session", headers=wrong_device_headers)
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+
+                wrong_login_headers = {
+                    **remote_headers,
+                    "Tailscale-User-Login": "other@example.com",
+                }
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request("GET", "/api/session", headers=wrong_login_headers)
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+
+                funnel_headers = {
+                    **remote_headers,
+                    "Tailscale-Funnel-Request": "?1",
+                }
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request("GET", "/", headers=funnel_headers)
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request(
+                    "POST",
+                    "/api/direct-edits/preview",
+                    body="{}",
+                    headers={
+                        **remote_headers,
+                        "Content-Type": "application/json",
+                        "Origin": "https://example.invalid",
+                        "X-Review-Session": app.session_token,
+                    },
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                self.assertIn("Origin", json.loads(response.read())["error"])
+                connection.close()
+
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request(
+                    "POST",
+                    "/api/direct-edits/preview",
+                    body="{}",
+                    headers={
+                        **remote_headers,
+                        "Content-Type": "application/json",
+                        "Origin": access.origin,
+                        "X-Review-Session": app.session_token,
+                    },
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 400)
+                self.assertIn("questionId", json.loads(response.read())["error"])
+                connection.close()
+
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.putrequest("GET", "/api/session", skip_host=True)
+                for header, value in remote_headers.items():
+                    if header != "Tailscale-User-Login":
+                        connection.putheader(header, value)
+                connection.putheader("Tailscale-User-Login", "yuki@example.com")
+                connection.putheader("Tailscale-User-Login", "other@example.com")
+                connection.endheaders()
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+            finally:
+                server.shutdown()
+                server.server_close()
+                thread.join(timeout=5)
+
+    def test_unknown_host_cannot_read_session(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            server = ThreadingHTTPServer(("127.0.0.1", 0), QuestionReviewRequestHandler)
+            server.app = app
+            port = int(server.server_address[1])
+            app.set_origin("127.0.0.1", port)
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            try:
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request("GET", "/api/session")
+                response = connection.getresponse()
+                self.assertEqual(response.status, 200)
+                self.assertIsNone(response.getheader("Strict-Transport-Security"))
+                response.read()
+                connection.close()
+
+                connection = http.client.HTTPConnection("127.0.0.1", port, timeout=5)
+                connection.request(
+                    "GET",
+                    "/api/session",
+                    headers={"Host": "example.invalid"},
+                )
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                self.assertIn("アクセス経路", json.loads(response.read())["error"])
+                connection.close()
+            finally:
+                server.shutdown()
+                server.server_close()
+                thread.join(timeout=5)
 
     def test_mutation_api_requires_session_token_and_local_origin(self):
         with tempfile.TemporaryDirectory() as directory:

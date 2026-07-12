@@ -617,6 +617,9 @@ def add_review_ui_parser(
     parser.add_argument("--no-browser", action="store_true")
     parser.add_argument("--qualification")
     parser.add_argument("--list-group-id")
+    parser.add_argument("--tailscale-origin")
+    parser.add_argument("--tailscale-login", action="append", default=[])
+    parser.add_argument("--tailscale-source-ip", action="append", default=[])
 
 
 def add_quality_gate_arguments(parser: argparse.ArgumentParser) -> None:
@@ -886,6 +889,9 @@ def main(argv: list[str] | None = None) -> int:
             open_browser=not args.no_browser,
             qualification=args.qualification,
             list_group_id=args.list_group_id,
+            tailscale_origin=args.tailscale_origin,
+            tailscale_logins=args.tailscale_login,
+            tailscale_source_ips=args.tailscale_source_ip,
         )
     if args.command in {
         "report-inventory",

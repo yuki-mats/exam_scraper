@@ -2,15 +2,17 @@ from __future__ import annotations
 
 import argparse
 import copy
+import ipaddress
 import json
 import secrets
 import threading
 import urllib.parse
 import webbrowser
+from dataclasses import dataclass
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 from tools.question_review_console.firestore_readback import (
     PRODUCTION_PROJECT_ID,
@@ -49,6 +51,17 @@ STATIC_CONTENT_TYPES = {
     ".js": "text/javascript; charset=utf-8",
     ".css": "text/css; charset=utf-8",
 }
+TAILSCALE_IPV4_NETWORK = ipaddress.ip_network("100.64.0.0/10")
+TAILSCALE_IPV6_NETWORK = ipaddress.ip_network("fd7a:115c:a1e0::/48")
+TAILSCALE_FUNNEL_HEADER = "Tailscale-Funnel-Request"
+TAILSCALE_LOGIN_HEADER = "Tailscale-User-Login"
+TAILSCALE_IDENTITY_INFO_HEADER = "Tailscale-Headers-Info"
+TAILSCALE_IDENTITY_INFO_VALUE = "https://tailscale.com/s/serve-headers"
+FORWARDED_HEADERS = (
+    "X-Forwarded-For",
+    "X-Forwarded-Host",
+    "X-Forwarded-Proto",
+)
 
 
 class ApiError(ValueError):
@@ -58,9 +71,85 @@ class ApiError(ValueError):
         self.details = details
 
 
+@dataclass(frozen=True)
+class TailscaleAccess:
+    origin: str
+    authority: str
+    logins: frozenset[str]
+    source_ips: frozenset[ipaddress.IPv4Address | ipaddress.IPv6Address]
+
+
+def build_tailscale_access(
+    origin: str | None,
+    logins: Iterable[str] = (),
+    source_ips: Iterable[str] = (),
+) -> TailscaleAccess | None:
+    normalized_logins = frozenset(_normalize_tailscale_login(value) for value in logins)
+    normalized_ips = frozenset(_normalize_tailscale_ip(value) for value in source_ips)
+    if not origin and not normalized_logins and not normalized_ips:
+        return None
+    if not origin or not normalized_logins or not normalized_ips:
+        raise ValueError(
+            "Tailscale公開には--tailscale-origin、--tailscale-login、"
+            "--tailscale-source-ipをすべて指定してください。"
+        )
+    parsed = urllib.parse.urlsplit(origin)
+    try:
+        port = parsed.port
+    except ValueError as exc:
+        raise ValueError("--tailscale-originのportが不正です。") from exc
+    hostname = (parsed.hostname or "").casefold()
+    if (
+        parsed.scheme.casefold() != "https"
+        or not hostname.endswith(".ts.net")
+        or parsed.username is not None
+        or parsed.password is not None
+        or port not in {None, 443}
+        or parsed.path not in {"", "/"}
+        or parsed.query
+        or parsed.fragment
+    ):
+        raise ValueError(
+            "--tailscale-originはpathのないhttps://<device>.<tailnet>.ts.netを"
+            "指定してください。"
+        )
+    normalized_origin = f"https://{hostname}"
+    return TailscaleAccess(
+        origin=normalized_origin,
+        authority=hostname,
+        logins=normalized_logins,
+        source_ips=normalized_ips,
+    )
+
+
+def _normalize_tailscale_login(value: str) -> str:
+    login = str(value).strip().casefold()
+    if not login or any(character in login for character in "\r\n"):
+        raise ValueError("--tailscale-loginが不正です。")
+    return login
+
+
+def _normalize_tailscale_ip(
+    value: str,
+) -> ipaddress.IPv4Address | ipaddress.IPv6Address:
+    try:
+        address = ipaddress.ip_address(str(value).strip())
+    except ValueError as exc:
+        raise ValueError("--tailscale-source-ipが不正です。") from exc
+    if address not in TAILSCALE_IPV4_NETWORK and address not in TAILSCALE_IPV6_NETWORK:
+        raise ValueError("--tailscale-source-ipはTailscale端末IPで指定してください。")
+    return address
+
+
 class QuestionReviewApplication:
-    def __init__(self, repo_root: Path = REPO_ROOT):
+    def __init__(
+        self,
+        repo_root: Path = REPO_ROOT,
+        *,
+        tailscale_access: TailscaleAccess | None = None,
+    ):
         self.repo_root = repo_root.resolve()
+        self.tailscale_access = tailscale_access
         self.session_token = secrets.token_urlsafe(32)
         self.inventory = QuestionInventory(self.repo_root)
         self.reviews = ReviewStore(self.repo_root)
@@ -97,9 +186,11 @@ class QuestionReviewApplication:
         self.live_results: dict[str, dict[str, Any]] = {}
         self._live_lock = threading.RLock()
         self.origin = ""
+        self.local_authority = ""
 
     def set_origin(self, host: str, port: int) -> None:
         self.origin = f"http://{host}:{port}"
+        self.local_authority = f"{host}:{port}"
 
     def get(self, path: str, query: Mapping[str, list[str]]) -> tuple[int, Any]:
         if path == "/api/session":
@@ -776,6 +867,14 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         parsed = urllib.parse.urlsplit(self.path)
+        route = self._authorized_route()
+        if route is None:
+            self._send_json(
+                HTTPStatus.FORBIDDEN,
+                {"error": "アクセス経路が許可されていません。"},
+            )
+            return
+        self._access_route = route
         if parsed.path.startswith("/api/"):
             self._serve_api("GET", parsed)
             return
@@ -783,17 +882,90 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         parsed = urllib.parse.urlsplit(self.path)
+        route = self._authorized_route()
+        if route is None:
+            self._send_json(
+                HTTPStatus.FORBIDDEN,
+                {"error": "アクセス経路が許可されていません。"},
+            )
+            return
+        self._access_route = route
         if not parsed.path.startswith("/api/"):
             self._send_json(HTTPStatus.NOT_FOUND, {"error": "Not found"})
             return
-        if self.headers.get("X-Review-Session") != self.app.session_token:
+        session_token = self._single_header("X-Review-Session")
+        if session_token is None or not secrets.compare_digest(
+            session_token, self.app.session_token
+        ):
             self._send_json(HTTPStatus.FORBIDDEN, {"error": "session tokenが無効です。"})
             return
-        origin = self.headers.get("Origin", "")
-        if origin != self.app.origin:
-            self._send_json(HTTPStatus.FORBIDDEN, {"error": "Originが許可されていません。"})
+        origin = self._single_header("Origin") or ""
+        expected_origin = (
+            self.app.origin
+            if route == "local"
+            else self.app.tailscale_access.origin  # type: ignore[union-attr]
+        )
+        if origin != expected_origin:
+            self._send_json(
+                HTTPStatus.FORBIDDEN,
+                {"error": "Originが許可されていません。"},
+            )
             return
         self._serve_api("POST", parsed)
+
+    def _authorized_route(self) -> str | None:
+        host = self._single_header("Host")
+        if host is None:
+            return None
+        normalized_host = host.casefold()
+        if normalized_host == self.app.local_authority.casefold():
+            proxy_headers = (
+                TAILSCALE_LOGIN_HEADER,
+                TAILSCALE_IDENTITY_INFO_HEADER,
+                TAILSCALE_FUNNEL_HEADER,
+                *FORWARDED_HEADERS,
+            )
+            if any(self.headers.get_all(header) for header in proxy_headers):
+                return None
+            return "local"
+
+        access = self.app.tailscale_access
+        if access is None or normalized_host != access.authority:
+            return None
+        if self.headers.get_all(TAILSCALE_FUNNEL_HEADER):
+            return None
+        login = self._single_header(TAILSCALE_LOGIN_HEADER)
+        source = self._single_header("X-Forwarded-For")
+        forwarded_host = self._single_header("X-Forwarded-Host")
+        forwarded_proto = self._single_header("X-Forwarded-Proto")
+        if None in {login, source, forwarded_host, forwarded_proto}:
+            return None
+        if not any(
+            secrets.compare_digest(login.casefold(), allowed_login)
+            for allowed_login in access.logins
+        ):
+            return None
+        try:
+            source_ip = ipaddress.ip_address(source)
+        except ValueError:
+            return None
+        if source_ip not in access.source_ips:
+            return None
+        if forwarded_host.casefold() != access.authority or forwarded_proto != "https":
+            return None
+        identity_info = self.headers.get_all(TAILSCALE_IDENTITY_INFO_HEADER) or []
+        if len(identity_info) > 1:
+            return None
+        if identity_info and identity_info[0] != TAILSCALE_IDENTITY_INFO_VALUE:
+            return None
+        return "tailscale"
+
+    def _single_header(self, name: str) -> str | None:
+        values = self.headers.get_all(name) or []
+        if len(values) != 1:
+            return None
+        value = str(values[0]).strip()
+        return value or None
 
     def _serve_api(self, method: str, parsed: urllib.parse.SplitResult) -> None:
         try:
@@ -842,9 +1014,7 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
         self.send_response(HTTPStatus.OK)
         self.send_header("Content-Type", STATIC_CONTENT_TYPES.get(path.suffix, "application/octet-stream"))
         self.send_header("Content-Length", str(len(content)))
-        self.send_header("Cache-Control", "no-store")
-        self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'")
+        self._send_security_headers()
         self.end_headers()
         self.wfile.write(content)
 
@@ -853,10 +1023,22 @@ class QuestionReviewRequestHandler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(content)))
-        self.send_header("Cache-Control", "no-store")
-        self.send_header("X-Content-Type-Options", "nosniff")
+        self._send_security_headers()
         self.end_headers()
         self.wfile.write(content)
+
+    def _send_security_headers(self) -> None:
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Referrer-Policy", "no-referrer")
+        self.send_header(
+            "Content-Security-Policy",
+            "default-src 'self'; base-uri 'none'; frame-ancestors 'none'; "
+            "form-action 'self'; style-src 'self'; script-src 'self'; connect-src 'self'",
+        )
+        if getattr(self, "_access_route", None) == "tailscale":
+            self.send_header("Strict-Transport-Security", "max-age=31536000")
 
     def log_message(self, format: str, *args: Any) -> None:
         request_path = urllib.parse.urlsplit(self.path).path
@@ -916,6 +1098,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--no-browser", action="store_true")
     parser.add_argument("--qualification")
     parser.add_argument("--list-group-id")
+    parser.add_argument("--tailscale-origin")
+    parser.add_argument("--tailscale-login", action="append", default=[])
+    parser.add_argument("--tailscale-source-ip", action="append", default=[])
     return parser
 
 
@@ -926,11 +1111,21 @@ def run_server(
     open_browser: bool = True,
     qualification: str | None = None,
     list_group_id: str | None = None,
+    tailscale_origin: str | None = None,
+    tailscale_logins: Iterable[str] = (),
+    tailscale_source_ips: Iterable[str] = (),
     repo_root: Path = REPO_ROOT,
 ) -> int:
     if host != "127.0.0.1":
         raise ValueError("review consoleは127.0.0.1にだけbindできます。")
-    app = QuestionReviewApplication(repo_root)
+    tailscale_access = build_tailscale_access(
+        tailscale_origin,
+        tailscale_logins,
+        tailscale_source_ips,
+    )
+    if tailscale_access is not None and port == 0:
+        raise ValueError("Tailscale公開時は--portに固定portを指定してください。")
+    app = QuestionReviewApplication(repo_root, tailscale_access=tailscale_access)
     server = ThreadingHTTPServer((host, port), QuestionReviewRequestHandler)
     server.app = app  # type: ignore[attr-defined]
     actual_port = int(server.server_address[1])
@@ -943,6 +1138,8 @@ def run_server(
     suffix = "?" + urllib.parse.urlencode(params) if params else ""
     url = f"{app.origin}/{suffix}"
     print(f"問題整備コントロールセンター: {url}", flush=True)
+    if tailscale_access is not None:
+        print(f"Tailscale Serve: {tailscale_access.origin}/{suffix}", flush=True)
     print(f"Firestore: {PRODUCTION_PROJECT_ID} (UI publish enabled)", flush=True)
     if open_browser:
         threading.Timer(0.3, lambda: webbrowser.open(url)).start()
@@ -963,6 +1160,9 @@ def main(argv: list[str] | None = None) -> int:
         open_browser=not args.no_browser,
         qualification=args.qualification,
         list_group_id=args.list_group_id,
+        tailscale_origin=args.tailscale_origin,
+        tailscale_logins=args.tailscale_login,
+        tailscale_source_ips=args.tailscale_source_ip,
     )
 
 
