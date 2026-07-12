@@ -1,0 +1,179 @@
+version: 2
+
+goal:
+  title: "資格横断問題整備コントロールセンター"
+  slug: "question-maintenance-control-center"
+  kind: specific
+  tranche: "continuous execution: workflow全体を調査・設計・実装・検証し、元の成果が完了するまで進める"
+  status: active
+  oracle:
+    signal: "既存資格と新規資格fixtureで、workflow把握からupload-ready確認までのUI/API/browser walkthroughが通る"
+    cadence: "after each Worker package and at final audit"
+    final_proof: "自動テスト、実成果物readback、デスクトップ・モバイルbrowser walkthroughをreceiptで示す"
+  intake:
+    original_request: "これまでの問題整備作業を効率化するシステムとしてレビューUIへ全workflowと全体把握を統合する"
+    interpreted_outcome: "全資格で01〜04・02b・03bの状態、目的、次アクションを把握し、安全にupload-readyまで進められる"
+    input_shape: specific
+    audience: "問題整備を行う運用者"
+    authority: approved
+    proof_type: demo
+    completion_proof: "既存資格と新規資格の双方でend-to-endのブラウザ実演と自動検証が成功する"
+    likely_misfire: "単一資格・単一issue専用、又は表示だけで実行不能な局所UIになる"
+    blind_spots_considered:
+      - "既存正本との重複"
+      - "新規資格の空工程"
+      - "長時間jobの再開"
+      - "本番Firestore誤操作"
+      - "資格ごとのfolder差異"
+    existing_plan_facts:
+      - "01〜04・02b・03b promptとoperations文書を正本とする"
+      - "Firestore実アップロードは明示確認時だけ許可する"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: "http://goalbuddy.localhost:41737/question-maintenance-control-center/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/question-maintenance-control-center"
+
+active_task: T001
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    reasoning_hint: low
+    objective: "既存の問題整備workflow、成果物、状態判定、UI/API、検証コマンドをread-onlyでマッピングする"
+    inputs:
+      - "AGENTS.md"
+      - "prompt/README.md"
+      - "document/operations"
+      - "tools/question_review_console"
+      - "tools/question_bank"
+      - "scripts/pipeline"
+    constraints:
+      - "Read-only."
+      - "正本と生成物を区別する。"
+      - "単一資格の現状を共通仕様と誤認しない。"
+    expected_output:
+      - "end-to-end workflow map"
+      - "artifact and state detection map"
+      - "UI/API architecture map"
+      - "verification commands"
+      - "largest safe implementation slices"
+    receipt: null
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "Scoutの全体mapを評価し、共通状態モデルと最初の最大安全な縦断実装sliceを確定する"
+    inputs:
+      - "T001 receipt"
+      - "goal.md"
+    constraints:
+      - "Do not implement."
+      - "既存promptとoperations文書を正本にし、UIへ手順を重複させない。"
+      - "既存資格と新規資格の双方をoracleに含める。"
+      - "Firestore production writeを最初のsliceに含めない。"
+    expected_output:
+      - "architecture decision"
+      - "workflow state vocabulary"
+      - "exact Worker objective"
+      - "allowed_files"
+      - "verify commands"
+      - "stop conditions"
+      - "deferred slices"
+    receipt: null
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: queued
+    reasoning_hint: high
+    objective: "Judgeが確定した最初の縦断sliceを、状態判定・API・利用可能なUI・テストまで実装する"
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "Judge receiptでallowed_files又はverifyが確定していない。"
+      - "既存正本間に解消できない矛盾がある。"
+      - "本番Firestore writeが必要になる。"
+      - "対象外のユーザー変更と競合する。"
+    receipt: null
+  - id: T004
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: high
+    objective: "最初の縦断sliceをブラウザwalkthroughとoracleで評価し、残りの実装sliceを大きな単位で編成する"
+    inputs:
+      - "T001-T003 receipts"
+      - "自動テスト結果"
+      - "in-app Browserのデスクトップ・モバイル確認"
+      - "既存資格と新規資格fixtureの表示結果"
+    constraints:
+      - "Do not implement."
+      - "見た目だけでなくworkflow状態と実行結果を評価する。"
+      - "元の成果が未完ならfull_outcome_completeを拒否し、次Workerを具体化する。"
+    expected_output:
+      - "milestone verdict"
+      - "browser findings"
+      - "remaining vertical slices"
+      - "next Worker allowed_files and verify"
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: xhigh
+    objective: "全receiptと最終browser walkthroughを元の依頼へ対応付け、全成果が完成したか監査する"
+    inputs:
+      - "All task receipts"
+      - "最終自動テスト"
+      - "既存資格と新規資格fixtureのend-to-end結果"
+      - "デスクトップ・モバイルbrowser walkthrough"
+      - "git diffと変更された正本文書"
+    constraints:
+      - "Do not implement."
+      - "必要なWorker taskがqueued/activeなら完了を拒否する。"
+      - "単一資格又は単一issueだけの成功を全体完成と認めない。"
+      - "本番Firestore未実行は、明示承認がない限り欠陥としない。"
+    expected_output:
+      - "complete | not_complete"
+      - "full_outcome_complete: true | false"
+      - "oracle evidence map"
+      - "missing evidence"
+      - "next task if not complete"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "goal-control-files-only"
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
