@@ -5,7 +5,7 @@ goal:
   slug: "00-source-immutability-and-restoration"
   kind: recovery
   tranche: "過去変更19ファイルを復元し、全source immutable guardを導入・検証する。"
-  status: active
+  status: done
   oracle:
     signal: "復元19ファイル、全source hash manifest、pre-commit gate、拒否/許可テスト、資格別patch検証がすべてgreen。"
     cadence: "各Worker package後と最終監査時"
@@ -60,7 +60,7 @@ visual_board:
     url: null
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.0/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/00-source-immutability-and-restoration"
 
-active_task: T004
+active_task: null
 
 tasks:
   - id: T001
@@ -213,7 +213,7 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: high
     objective: "全00_sourceをhash manifestへ固定し、既存差分を拒否して新規scrapeだけ追加できる共通guardを実装する。"
     allowed_files:
@@ -235,11 +235,40 @@ tasks:
     stop_if:
       - "新規scrapeまで禁止する。"
       - "既存workflowへ大規模な侵襲が必要。"
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - AGENTS.md
+        - .githooks/pre-commit
+        - docs/contracts/00_source_sha256_manifest.jsonl
+        - docs/goals/templates/manual-patch-quality/README.md
+        - scripts/check/check_00_source_immutability.py
+        - scripts/setup/install_git_hooks.sh
+        - tests/test_check_00_source_immutability.py
+      commands:
+        - cmd: "python -m unittest tests.test_check_00_source_immutability -v"
+          status: pass
+        - cmd: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: scripts/setup/install_git_hooks.sh
+          status: pass
+        - cmd: .githooks/pre-commit
+          status: pass
+        - cmd: "git diff --check"
+          status: pass
+      evidence:
+        - "manifest baseline=3509 source files at guard commit"
+        - "7 unit tests cover unchanged, modified, deleted, renamed, and new scrape registration"
+        - "existing changes cannot be absorbed by --record-new"
+        - "guard implementation=109 lines and AGENTS rule=3 bullets"
+        - "core.hooksPath=.githooks"
+        - "implementation commit=e8ec126d7"
+      summary: "全資格共通の単一hash manifestとpre-commitに絞り、既存差分を拒否して新規scrapeだけ追加できるシンプルな仕組みを導入した。"
+      harness: codex
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: done
     reasoning_hint: high
     objective: "復元、patch保持、全source immutable guard、テスト、Git同期がユーザー要求を満たすか最終監査する。"
     inputs:
@@ -252,8 +281,38 @@ tasks:
       - "complete | not_complete"
       - "full_outcome_complete: true | false"
       - "missing evidence"
-    receipt: null
-
+    receipt:
+      result: done
+      decision: complete
+      full_outcome_complete: true
+      changed_files:
+        - "19 restored 00_source files"
+        - "9 shinkyu patch files"
+        - scripts/check/check_00_source_immutability.py
+        - .githooks/pre-commit
+        - docs/contracts/00_source_sha256_manifest.jsonl
+        - AGENTS.md
+      commands:
+        - cmd: "compare restored source with 19 pre-mutation blobs"
+          status: pass
+        - cmd: "reproduce corrected values with actual merge functions"
+          status: pass
+        - cmd: "python -m unittest tests.test_check_00_source_immutability"
+          status: pass
+        - cmd: "python scripts/check/check_00_source_immutability.py"
+          status: pass
+        - cmd: .githooks/pre-commit
+          status: pass
+      evidence:
+        - "restored source blobs=19/19"
+        - "patch-reproduced corrected fields=157/157"
+        - "guard unit tests=7/7"
+        - "pre-commit hook enabled and passed"
+        - "new scrape additions are accepted only by --record-new"
+        - "rules reduced to 3 bullets and one qualification-independent checker"
+      missing_evidence: []
+      summary: "直接修正を復元し、修正値をpatchで保持した上で、全資格共通のシンプルな00_source不変guardを検証した。"
+      harness: codex
 checks:
   dirty_fingerprint: "clean@61da69314"
   last_verification:
