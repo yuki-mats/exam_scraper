@@ -62,6 +62,7 @@ class QualificationRunStore:
             "runId": run_id,
             "qualification": qualification,
             "stageId": str(plan["stageId"]),
+            "stageIds": list(plan.get("stageIds") or [str(plan["stageId"])]),
             "stageCode": str(plan["stageCode"]),
             "stageLabel": str(plan["stageLabel"]),
             "mode": str(plan["mode"]),
@@ -70,6 +71,7 @@ class QualificationRunStore:
             "status": status,
             "targetCount": int(plan["targetCount"]),
             "targetGroupIds": list(plan.get("targetGroupIds") or []),
+            "scopeListGroupId": plan.get("scopeListGroupId"),
             "completedGroupIds": [],
             "jobId": None,
             "resumedFrom": resumed_from,
@@ -294,9 +296,18 @@ class QualificationRunCoordinator:
         stage_id: str,
         mode: str,
         *,
+        stage_ids: list[str] | None = None,
+        list_group_id: str | None = None,
         resumed_from: str | None = None,
     ) -> dict[str, Any]:
-        plan = self._plan(qualification, stage_id, mode, resumed_from)
+        plan = self._plan(
+            qualification,
+            stage_id,
+            mode,
+            resumed_from,
+            stage_ids=stage_ids,
+            list_group_id=list_group_id,
+        )
         group_previews: list[dict[str, Any]] = []
         blocking_warnings: list[dict[str, Any]] = []
         if plan["kind"] == "machine":
@@ -316,7 +327,8 @@ class QualificationRunCoordinator:
         token_payload = {"plan": plan, "groupPreviews": group_previews}
         return {
             "qualification": qualification,
-            "stageId": stage_id,
+            "stageId": plan["stageId"],
+            "stageIds": list(plan.get("stageIds") or [plan["stageId"]]),
             "stageCode": plan["stageCode"],
             "stageLabel": plan["stageLabel"],
             "purpose": plan["purpose"],
@@ -326,6 +338,7 @@ class QualificationRunCoordinator:
             "resumedFrom": resumed_from,
             "targetCount": plan["targetCount"],
             "targetGroupIds": plan["targetGroupIds"],
+            "scopeListGroupId": plan.get("scopeListGroupId"),
             "canonicalDocs": list(plan.get("canonicalDocs") or []),
             "sourceFileCount": len(plan.get("sourceFiles") or []),
             "outputFileCount": len(plan.get("outputFiles") or []),
@@ -342,10 +355,17 @@ class QualificationRunCoordinator:
         mode: str,
         preview_token: str,
         *,
+        stage_ids: list[str] | None = None,
+        list_group_id: str | None = None,
         resumed_from: str | None = None,
     ) -> dict[str, Any]:
         preview = self.preview(
-            qualification, stage_id, mode, resumed_from=resumed_from
+            qualification,
+            stage_id,
+            mode,
+            stage_ids=stage_ids,
+            list_group_id=list_group_id,
+            resumed_from=resumed_from,
         )
         if not hmac.compare_digest(str(preview["previewToken"]), preview_token):
             raise QualificationRunError("対象が更新されました。もう一度確認してください。")
@@ -354,9 +374,34 @@ class QualificationRunCoordinator:
                 raise QualificationRunError("必須field不足があるため開始できません。")
             raise QualificationRunError("選択した範囲に対象はありません。")
 
-        plan = self._plan(qualification, stage_id, mode, resumed_from)
+        plan = self._plan(
+            qualification,
+            stage_id,
+            mode,
+            resumed_from,
+            stage_ids=stage_ids,
+            list_group_id=list_group_id,
+        )
         if plan["kind"] == "human":
-            prompt = self.workflow.prompt(qualification, stage_id, mode)["prompt"]
+            selected_stage_ids = list(plan.get("stageIds") or [stage_id])
+            if len(selected_stage_ids) > 1:
+                prompt = self.workflow.prompt_many(
+                    qualification,
+                    selected_stage_ids,
+                    mode,
+                    list_group_id=list_group_id,
+                )["prompt"]
+            elif list_group_id is not None:
+                prompt = self.workflow.prompt(
+                    qualification,
+                    selected_stage_ids[0],
+                    mode,
+                    list_group_id=list_group_id,
+                )["prompt"]
+            else:
+                prompt = self.workflow.prompt(
+                    qualification, selected_stage_ids[0], mode
+                )["prompt"]
             run = self.store.create(
                 plan,
                 status="awaiting_changes",
@@ -462,8 +507,34 @@ class QualificationRunCoordinator:
         stage_id: str,
         mode: str,
         resumed_from: str | None,
+        *,
+        stage_ids: list[str] | None = None,
+        list_group_id: str | None = None,
     ) -> dict[str, Any]:
-        plan = dict(self.workflow.plan(qualification, stage_id, mode))
+        selected_stage_ids = list(dict.fromkeys(stage_ids or [stage_id]))
+        if len(selected_stage_ids) > 1:
+            plan = dict(
+                self.workflow.plan_many(
+                    qualification,
+                    selected_stage_ids,
+                    mode,
+                    list_group_id=list_group_id,
+                )
+            )
+        elif list_group_id is not None:
+            plan = dict(
+                self.workflow.plan(
+                    qualification,
+                    selected_stage_ids[0],
+                    mode,
+                    list_group_id=list_group_id,
+                )
+            )
+        else:
+            plan = dict(
+                self.workflow.plan(qualification, selected_stage_ids[0], mode)
+            )
+        plan.setdefault("stageIds", selected_stage_ids)
         if not resumed_from or plan["kind"] != "machine":
             return plan
         previous = self.store.get(qualification, resumed_from)

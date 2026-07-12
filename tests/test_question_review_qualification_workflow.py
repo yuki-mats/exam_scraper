@@ -1,3 +1,4 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -27,10 +28,10 @@ class FakeInventory:
         return self.groups[list_group_id]
 
 
-def question(*, patches=None, issues=None, law_related=False, workflow=None):
+def question(*, patches=None, issues=None, law_related=False, workflow=None, group="2026"):
     return {
         "paths": {
-            "source": "output/sample/questions_json/2026/00_source/question_2026_1.json",
+            "source": f"output/sample/questions_json/{group}/00_source/question_{group}_1.json",
             "patches": list(patches or []),
         },
         "issues": list(issues or []),
@@ -46,6 +47,22 @@ def question(*, patches=None, issues=None, law_related=False, workflow=None):
             workflow or {"merge": "missing", "convert": "missing", "upload": "missing"}
         ),
     }
+
+
+def write_category(root: Path, qualification: str = "sample") -> None:
+    path = root / "output" / qualification / "category" / "category.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(
+        json.dumps(
+            {
+                "folders": [{"folderId": "sample_f01"}],
+                "questionSets": [
+                    {"questionSetId": "sample_qs01", "folderId": "sample_f01"}
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
 
 
 class QualificationWorkflowTests(unittest.TestCase):
@@ -67,6 +84,7 @@ class QualificationWorkflowTests(unittest.TestCase):
             policy_dir = root / "prompt" / "qualification_docs" / "sample"
             policy_dir.mkdir(parents=True)
             (policy_dir / "README.md").write_text("# sample\n", encoding="utf-8")
+            write_category(root)
             prepared = workflow.overview("sample")
             prompt = workflow.prompt("sample", "question_type")["prompt"]
 
@@ -99,6 +117,7 @@ class QualificationWorkflowTests(unittest.TestCase):
             policy_dir = root / "prompt" / "qualification_docs" / "sample"
             policy_dir.mkdir(parents=True)
             (policy_dir / "README.md").write_text("# sample\n", encoding="utf-8")
+            write_category(root)
             inventory = FakeInventory(
                 "sample", [{"listGroupId": "2026", "questions": [item]}]
             )
@@ -166,6 +185,96 @@ class QualificationWorkflowTests(unittest.TestCase):
         self.assertEqual(remaining["targetCount"], 0)
         self.assertEqual(attention["targetCount"], 1)
         self.assertEqual(refresh["targetCount"], 1)
+
+    def test_group_refresh_targets_only_the_selected_year(self):
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {"listGroupId": "2025", "questions": [question(group="2025")]},
+                        {"listGroupId": "2026", "questions": [question(group="2026")]},
+                    ],
+                ),
+            )
+            plan = workflow.plan(
+                "sample",
+                "question_type",
+                "group_refresh",
+                list_group_id="2025",
+            )
+
+        self.assertEqual(plan["targetCount"], 1)
+        self.assertEqual(plan["targetGroupIds"], ["2025"])
+        self.assertEqual(plan["modeLabel"], "2025を全件洗い替え")
+        self.assertTrue(all("/2025/" in path for path in plan["sourceFiles"]))
+
+    def test_category_setup_blocks_question_set_until_valid_category_exists(self):
+        patches = [
+            "output/sample/questions_json/2026/10_questionType_fixed/question_2026_1_questionType_fixed.json",
+            "output/sample/questions_json/2026/15_correctChoiceText_fixed/question_2026_1_correctChoiceText_fixed.json",
+            "output/sample/questions_json/2026/23_correctChoiceText_fixed/question_2026_1_correctChoiceText_fixed.json",
+            "output/sample/questions_json/2026/18_law_context_prepared/question_2026_1_lawContext_prepared.json",
+            "output/sample/questions_json/2026/21_explanationText_added/question_2026_1_explanationText_added.json",
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            policy_dir = root / "prompt" / "qualification_docs" / "sample"
+            policy_dir.mkdir(parents=True)
+            (policy_dir / "README.md").write_text("# sample\n", encoding="utf-8")
+            workflow = QualificationWorkflow(
+                root,
+                FakeInventory(
+                    "sample",
+                    [{"listGroupId": "2026", "questions": [question(patches=patches)]}],
+                ),
+            )
+            before = workflow.overview("sample")
+            with self.assertRaisesRegex(ValueError, "03c カテゴリ設計"):
+                workflow.plan("sample", "question_set", "refresh")
+            write_category(root)
+            after = workflow.overview("sample")
+
+        self.assertEqual(before["nextStageId"], "category_setup")
+        question_set = next(
+            stage for stage in before["stages"] if stage["id"] == "question_set"
+        )
+        self.assertEqual(question_set["status"], "waiting")
+        self.assertEqual(after["nextStageId"], "question_set")
+
+    def test_multiple_stages_generate_one_question_at_a_time_prompt(self):
+        issue = {
+            "code": "law_audit_metadata_incomplete",
+            "fields": ["lawRevisionFacts.current.correctChoiceText"],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(
+                Path(directory),
+                FakeInventory(
+                    "sample",
+                    [
+                        {
+                            "listGroupId": "2026",
+                            "questions": [
+                                question(issues=[issue], law_related=True)
+                            ],
+                        }
+                    ],
+                ),
+            )
+            result = workflow.prompt_many(
+                "sample",
+                ["question_type", "explanation", "law_audit"],
+                "group_refresh",
+                list_group_id="2026",
+            )
+
+        self.assertEqual(result["stageIds"], ["question_type", "explanation", "law_audit"])
+        self.assertEqual(result["targetCount"], 1)
+        self.assertIn("選択工程を上記順序で完了してから次の問題へ進む", result["prompt"])
+        self.assertIn("Lawzilla MCPとFirestore条文検索で一問一肢ずつ", result["prompt"])
+        self.assertNotIn("## 問題文", result["prompt"])
 
     def test_law_audit_prompt_is_path_only_and_requires_per_choice_research(self):
         patches = [

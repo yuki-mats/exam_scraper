@@ -112,12 +112,47 @@ class QualificationRunTests(unittest.TestCase):
         self.assertEqual(preview["targetCount"], 1)
         self.assertIn("prompt/qualification_docs/README.md", preview["canonicalDocs"])
         self.assertEqual(preview["sourceFileCount"], 1)
-        self.assertEqual(preview["outputFileCount"], 4)
+        self.assertEqual(preview["outputFileCount"], 3)
         self.assertEqual(started["run"]["stageId"], "setup")
         self.assertIn("qualification_docs/new-exam", started["prompt"])
         self.assertIn("## 完了記録", started["prompt"])
         self.assertIn("result.json", started["prompt"])
         self.assertNotIn("## 問題文", started["prompt"])
+
+    def test_multi_stage_year_refresh_is_saved_as_one_human_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workflow = QualificationWorkflow(root, SourceOnlyInventory())
+            coordinator = QualificationRunCoordinator(
+                root,
+                workflow,
+                FakeSynchronizer(),
+                JobManager(),
+                "secret",
+            )
+            stage_ids = ["question_type", "question_intent", "correct_choice"]
+            preview = coordinator.preview(
+                "new-exam",
+                stage_ids[0],
+                "group_refresh",
+                stage_ids=stage_ids,
+                list_group_id="2026",
+            )
+            started = coordinator.start(
+                "new-exam",
+                preview["stageId"],
+                "group_refresh",
+                preview["previewToken"],
+                stage_ids=stage_ids,
+                list_group_id="2026",
+            )
+
+        self.assertEqual(preview["stageId"], "multi")
+        self.assertEqual(preview["stageIds"], stage_ids)
+        self.assertEqual(preview["targetGroupIds"], ["2026"])
+        self.assertEqual(started["run"]["stageIds"], stage_ids)
+        self.assertEqual(started["run"]["scopeListGroupId"], "2026")
+        self.assertIn("一問を読み、その問題について選択工程", started["prompt"])
 
     def test_human_run_persists_prompt_and_can_resume_after_restart(self):
         with tempfile.TemporaryDirectory() as directory:

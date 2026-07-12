@@ -177,14 +177,30 @@ class QuestionReviewApplication:
         if path == "/api/qualification-workflow/prompt":
             qualification = str(body.get("qualification") or "")
             stage_id = str(body.get("stageId") or "")
-            if not qualification or not stage_id:
+            raw_stage_ids = body.get("stageIds")
+            if raw_stage_ids is not None and (
+                not isinstance(raw_stage_ids, list)
+                or not all(isinstance(value, str) and value for value in raw_stage_ids)
+            ):
+                raise ApiError(HTTPStatus.BAD_REQUEST, "stageIdsは文字列配列で指定してください。")
+            stage_ids = list(dict.fromkeys(raw_stage_ids or ([stage_id] if stage_id else [])))
+            if not qualification or not stage_ids:
                 raise ApiError(
                     HTTPStatus.BAD_REQUEST,
-                    "qualificationとstageIdを指定してください。",
+                    "qualificationとstageId又はstageIdsを指定してください。",
                 )
             try:
-                return HTTPStatus.OK, self.qualification_workflow.prompt(
-                    qualification, stage_id, str(body.get("mode") or "remaining")
+                mode = str(body.get("mode") or "remaining")
+                list_group_id = str(body.get("listGroupId") or "") or None
+                if raw_stage_ids is None and list_group_id is None:
+                    return HTTPStatus.OK, self.qualification_workflow.prompt(
+                        qualification, stage_ids[0], mode
+                    )
+                return HTTPStatus.OK, self.qualification_workflow.prompt_many(
+                    qualification,
+                    stage_ids,
+                    mode,
+                    list_group_id=list_group_id,
                 )
             except FileNotFoundError as exc:
                 raise ApiError(HTTPStatus.NOT_FOUND, str(exc)) from exc
@@ -210,22 +226,42 @@ class QuestionReviewApplication:
                         qualification, run_id
                     )
                 stage_id = str(body.get("stageId") or "")
+                raw_stage_ids = body.get("stageIds")
+                if raw_stage_ids is not None and (
+                    not isinstance(raw_stage_ids, list)
+                    or not all(
+                        isinstance(value, str) and value for value in raw_stage_ids
+                    )
+                ):
+                    raise ValueError("stageIdsは文字列配列で指定してください。")
+                stage_ids = list(
+                    dict.fromkeys(raw_stage_ids or ([stage_id] if stage_id else []))
+                )
                 mode = str(body.get("mode") or "remaining")
-                if not stage_id:
-                    raise ValueError("stageIdを指定してください。")
+                if not stage_ids:
+                    raise ValueError("stageId又はstageIdsを指定してください。")
+                stage_id = stage_id or stage_ids[0]
+                list_group_id = str(body.get("listGroupId") or "") or None
+                run_options = {
+                    "resumed_from": str(body.get("resumedFrom") or "") or None,
+                }
+                if raw_stage_ids is not None:
+                    run_options["stage_ids"] = stage_ids
+                if list_group_id is not None:
+                    run_options["list_group_id"] = list_group_id
                 if path.endswith("/preview"):
                     return HTTPStatus.OK, self.qualification_runs.preview(
                         qualification,
                         stage_id,
                         mode,
-                        resumed_from=str(body.get("resumedFrom") or "") or None,
+                        **run_options,
                     )
                 result = self.qualification_runs.start(
                     qualification,
                     stage_id,
                     mode,
                     str(body.get("previewToken") or ""),
-                    resumed_from=str(body.get("resumedFrom") or "") or None,
+                    **run_options,
                 )
                 return (
                     HTTPStatus.ACCEPTED if result.get("job") else HTTPStatus.CREATED,

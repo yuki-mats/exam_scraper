@@ -148,6 +148,7 @@ const state = {
     running: false,
     previewSequence: 0,
     resumedFrom: "",
+    stageIds: [],
   },
   workflowGuide: {
     open: false,
@@ -489,6 +490,7 @@ function renderQualificationWorkflow() {
   $("#qualification-workflow-issues").textContent = `${workflow.summary.issueQuestionCount}問`;
 
   const stageList = $("#qualification-workflow-stages");
+  stageList.style.setProperty("--workflow-stage-count", String(workflow.stages.length));
   stageList.replaceChildren();
   for (const stage of workflow.stages) {
     const item = element(
@@ -1000,22 +1002,95 @@ function selectedQualificationRunMode() {
   return document.querySelector('input[name="qualification-run-mode"]:checked')?.value || "remaining";
 }
 
+function selectedQualificationRunStageIds() {
+  const inputs = [...document.querySelectorAll('input[name="qualification-run-stage"]')];
+  if (!inputs.length) return [...state.qualificationRunDialog.stageIds];
+  return inputs.filter((node) => node.checked)
+    .map((node) => node.value);
+}
+
+function defaultQualificationRunStageIds(stage) {
+  if (!stage.batchSelectable) return [stage.id];
+  const selectable = state.qualificationWorkflow.stages.filter((item) => item.batchSelectable);
+  const start = Math.max(selectable.findIndex((item) => item.id === stage.id), 0);
+  const categoryReady = state.qualificationWorkflow.stages
+    .find((item) => item.id === "category_setup")?.status === "ready";
+  return selectable.slice(start)
+    .filter((item) => item.id !== "question_set" || categoryReady)
+    .map((item) => item.id);
+}
+
+function renderQualificationRunStages(stage, selectedStageIds) {
+  const fieldset = $("#qualification-run-stage-fieldset");
+  const container = $("#qualification-run-stages");
+  const selectable = state.qualificationWorkflow.stages.filter((item) => item.batchSelectable);
+  fieldset.hidden = !stage.batchSelectable;
+  container.replaceChildren();
+  if (!stage.batchSelectable) return;
+  for (const item of selectable) {
+    const label = element("label", "");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "qualification-run-stage";
+    input.value = item.id;
+    input.checked = selectedStageIds.includes(item.id);
+    input.addEventListener("change", () => {
+      state.qualificationRunDialog.stageIds = selectedQualificationRunStageIds();
+      updateQualificationRunHeading();
+      previewQualificationRun();
+    });
+    const content = element("span", "");
+    content.append(
+      element("strong", "", `${item.code} ${item.label}`),
+      element("small", "", QUALIFICATION_WORKFLOW_LABELS[item.status] || item.status),
+    );
+    label.append(input, content);
+    container.append(label);
+  }
+}
+
+function updateQualificationRunHeading() {
+  const workflow = state.qualificationWorkflow;
+  if (!workflow) return;
+  const stages = selectedQualificationRunStageIds()
+    .map((stageId) => workflow.stages.find((item) => item.id === stageId))
+    .filter(Boolean);
+  if (!stages.length) {
+    $("#qualification-run-title").textContent = "工程を選択";
+    $("#qualification-run-purpose").textContent = "実行する工程を一つ以上選択してください。";
+    return;
+  }
+  $("#qualification-run-title").textContent = stages.length === 1
+    ? `${stages[0].code} ${stages[0].label}`
+    : `${stages[0].code}から${stages[stages.length - 1].code}まで`;
+  $("#qualification-run-purpose").textContent = stages.length === 1
+    ? stages[0].purpose
+    : "一問について選択工程を順に完了してから、次の問題へ進みます。";
+}
+
 function openQualificationRunDialog(stage, options = {}) {
+  const selectedStageIds = options.stageIds || defaultQualificationRunStageIds(stage);
   state.qualificationRunDialog = {
     preview: null,
     running: false,
     previewSequence: state.qualificationRunDialog.previewSequence + 1,
     resumedFrom: options.resumedFrom || "",
+    stageIds: selectedStageIds,
   };
   state.qualificationWorkflowStageId = stage.id;
-  $("#qualification-run-title").textContent = `${stage.code} ${stage.label}`;
-  $("#qualification-run-purpose").textContent = stage.purpose;
+  renderQualificationRunStages(stage, selectedStageIds);
+  updateQualificationRunHeading();
   $("#qualification-run-guide").disabled = !stage.canonicalDocs?.length;
-  const defaultMode = options.mode || (stage.status === "ready"
-    ? "refresh"
-    : stage.completeCount === stage.targetCount && stage.issueCount > 0
-      ? "attention"
-      : "remaining");
+  const groupRefresh = document.querySelector('input[name="qualification-run-mode"][value="group_refresh"]');
+  const hasSelectedYear = Boolean(state.listGroupId && state.listGroupId !== ALL_LIST_GROUPS);
+  groupRefresh.disabled = !hasSelectedYear || !stage.batchSelectable;
+  const defaultMode = options.mode || (hasSelectedYear && stage.batchSelectable
+    ? "group_refresh"
+    : stage.status === "ready"
+      ? "refresh"
+      : stage.completeCount === stage.targetCount && stage.issueCount > 0
+        ? "attention"
+        : "remaining");
   for (const node of document.querySelectorAll('input[name="qualification-run-mode"]')) {
     node.checked = node.value === defaultMode;
   }
@@ -1033,6 +1108,12 @@ async function previewQualificationRun() {
   const workflow = state.qualificationWorkflow;
   const stageId = state.qualificationWorkflowStageId;
   if (!workflow || !stageId || state.qualificationRunDialog.running) return;
+  const stageIds = selectedQualificationRunStageIds();
+  if (!stageIds.length) {
+    $("#qualification-run-preview").textContent = "工程を一つ以上選択してください。";
+    $("#qualification-run-start").disabled = true;
+    return;
+  }
   const sequence = state.qualificationRunDialog.previewSequence + 1;
   state.qualificationRunDialog.previewSequence = sequence;
   state.qualificationRunDialog.preview = null;
@@ -1044,7 +1125,9 @@ async function previewQualificationRun() {
       body: {
         qualification: workflow.qualification,
         stageId,
+        stageIds,
         mode: selectedQualificationRunMode(),
+        listGroupId: selectedQualificationRunMode() === "group_refresh" ? state.listGroupId : undefined,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
     });
@@ -1070,6 +1153,7 @@ function renderQualificationRunPreview(preview) {
     const unit = preview.kind === "machine" ? "フォルダ" : "件";
     container.append(
       element("strong", "run-preview-count", `${preview.targetCount}${unit}`),
+      element("span", "", `${preview.stageCode} ${preview.stageLabel}`),
       element("span", "", preview.kind === "machine"
         ? "Merge・Convert・upload-readyを順番に再生成して検証します。"
         : "対象パスと正本文書だけを含むCodex依頼を保存します。"),
@@ -1108,7 +1192,9 @@ async function startQualificationRun(event) {
       body: {
         qualification: preview.qualification,
         stageId: preview.stageId,
+        stageIds: preview.stageIds,
         mode: preview.mode,
+        listGroupId: preview.scopeListGroupId || undefined,
         previewToken: preview.previewToken,
         resumedFrom: state.qualificationRunDialog.resumedFrom || undefined,
       },
@@ -1139,6 +1225,13 @@ function setQualificationRunRunning(running) {
   $("#qualification-run-job").hidden = !running;
   for (const node of $("#qualification-run-dialog").querySelectorAll(".close-dialog")) {
     node.disabled = running;
+  }
+  for (const node of $("#qualification-run-dialog").querySelectorAll("input")) {
+    const stage = qualificationWorkflowStage();
+    node.disabled = running || (
+      node.value === "group_refresh"
+      && (!stage?.batchSelectable || !state.listGroupId || state.listGroupId === ALL_LIST_GROUPS)
+    );
   }
 }
 

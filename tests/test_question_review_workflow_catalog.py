@@ -53,6 +53,14 @@ kind = "human"
 documents = []
 
 [[stages]]
+id = "category_setup"
+code = "03c"
+label = "カテゴリ設計"
+purpose = "分類"
+kind = "human"
+documents = []
+
+[[stages]]
 id = "delivery"
 code = "出力"
 label = "公開準備"
@@ -78,6 +86,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 "law_context",
                 "explanation",
                 "law_audit",
+                "category_setup",
                 "question_set",
                 "delivery",
             ],

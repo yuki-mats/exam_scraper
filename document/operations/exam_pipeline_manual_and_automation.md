@@ -8,14 +8,16 @@
 flowchart LR
   Setup["資格・取得設定"] --> Scrape["scrape"]
   Scrape --> Source["00_source"]
-  Source --> Review["01 → 02 → 02a → 02b → 03 → 04"]
-  Review --> Merge["merge / convert"]
+  Source --> Review["01 → 02 → 02a → 02b → 03"]
+  Review --> Category["03c category.json"]
+  Category --> QuestionSet["04 問題集"]
+  QuestionSet --> Merge["merge / convert"]
   Merge --> Gate["quality-gate / upload dry-run"]
   Gate --> Publish["Storage / Firestore"]
 
   Review --> Law{"法令問題"}
   Law --> Audit["03b 現行法監査"]
-  Audit --> Review
+  Audit --> Category
 
   Source --> Console["レビューUI"]
   Review --> Console
@@ -27,10 +29,11 @@ flowchart LR
 
 1. 資格と対象回を設定し、問題・画像を取得する。
 2. `00_source`を固定し、既存ファイルは変更しない。
-3. 01から04の人間判断を、各promptに従ってpatchへ保存する。
+3. 01から03bの人間判断を、各promptに従ってpatchへ保存する。
 4. 法令問題は02bで根拠候補を準備し、必要な問題を03bで監査する。
-5. merge、convert、quality-gate、upload dry-runで公開可能性を確認する。
-6. 明示的に公開するときだけStorageとFirestoreへ反映し、readbackする。
+5. 03cで資格全体の`category.json`を整備し、04で各問題を問題集へ紐付ける。
+6. merge、convert、quality-gate、upload dry-runで公開可能性を確認する。
+7. 明示的に公開するときだけStorageとFirestoreへ反映し、readbackする。
 
 ## 正本マップ
 
@@ -39,6 +42,7 @@ flowchart LR
 | 資格追加・スクレイピング | [scraping_workflow.md](scraping_workflow.md) | preset、scraper実装、ID、画像、`00_source`不変条件を定義する。 |
 | 01から04の作業順 | [../../prompt/README.md](../../prompt/README.md) | 人間判断工程の順序と、各工程の詳細promptへの入口。 |
 | 資格固有方針 | [../../prompt/qualification_docs/README.md](../../prompt/qualification_docs/README.md) | 出題範囲、解説、分類、法令スコープを資格単位で定義する。 |
+| category.json | [../../prompt/qualification_docs/category_taxonomy_policy.md](../../prompt/qualification_docs/category_taxonomy_policy.md) | 03cで作る資格単位taxonomyの根拠、ID、検証方法を定義する。 |
 | 保存先・ファイル名 | [artifact_contract.md](artifact_contract.md) | source、patch、merged、convert、review artifactの責務を定義する。 |
 | field・型・必須性 | [../reference/question_field_contract.md](../reference/question_field_contract.md) | Firestoreへ至る共通field契約を定義する。 |
 | 現行法監査 | [lawzilla_mcp_question_maintenance_workflow.md](lawzilla_mcp_question_maintenance_workflow.md) | evidence取得、Lawzillaの位置づけ、一次・二次・三次監査を定義する。 |

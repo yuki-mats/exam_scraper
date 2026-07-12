@@ -10,7 +10,7 @@
 - 既存の `22_questionSetId_linked/`、`30_merged_2/`、`40_convert/` などの派生JSONを根拠として参照・転記してはいけない。
 - `questionSetId` として使ってよいのは、`category.json` の `questionSets[].questionSetId` のみ。`folders[].folderId` は絶対に使わない。
 - `category.json` に存在しない ID を勝手に作らない。
-- 通常は `category.json` を増やさずに既存IDへ割り当てる。どうしても不足する場合のみ更新し、その理由を明示する。
+- `category.json` が未整備又は分類不足なら04を止め、[03c](03c_prompt_prepare_category_json.md)へ戻す。この工程では分類正本を変更しない。
 - 元ファイルは編集しない。出力は必ず `22_questionSetId_linked/` に作る。
 - 元ファイルと出力パッチの件数・順序・`original_question_id` は必ず一致させる。
 - `*empty*` を含むファイルも必ず対象にする。
@@ -58,7 +58,7 @@
 7. `tools/question_bank/question_bank.py materialize-patch --task question_set` で正式パッチに変換する。
 8. `tools/question_bank/question_bank.py check-question-set-patch` で件数・順序・ID妥当性を確認する。
 9. 最終的には `tools/question_bank/question_bank.py quality-gate` を通す。
-10. 判定がぶれる設問が複数出たら、`prompt/04_prompt_link_questionSetId.md` または `category.json` の説明を改善してから再実行する。
+10. 判定がぶれる設問が複数出たら、04の判断基準を見直す。分類正本の不足なら03cへ戻る。
 
 ## 5.5 high 再確認フラグ sidecar
 - 判定に不安がある問題がある場合でも、`22_questionSetId_linked/` の本体パッチには `needs55HighReview`、`questionSetName`、`reason` などの追加メタフィールドを入れない。
@@ -214,18 +214,6 @@
 - `g4_01_kouji_keiyaku`
   - 請負契約約款、監理者・発注者・受注者の契約上の役割、設計図書の定義。
   - 建設業法の許可や主任技術者は `g2_26`、建築士法の標準業務は `g2_19` を優先する。
-
-## `category.json` を更新する場合
-通常は更新しない。本当に必要な場合のみ実施する。
-
-- 新規作成・大幅見直しでは、先に `prompt/qualification_docs/category_taxonomy_policy.md` を読み、専門家資料・公式分類・書籍目次を正本にして整理する。
-- まず既存の `description` と補助ヒントで寄せ切れないか確認する。
-- 新規IDを追加する前に、既存の「融合」カテゴリで十分かを再確認する。
-- 追加する場合は小文字・英数字・アンダースコアのみを使う。
-- 既存IDと衝突しないことを確認する。
-- 可能なら `g1|g2|g3|g4` の接頭辞を付ける。
-- 追加理由と代表例を残す。
-- 追加後は必ず全件再検証する。
 
 ## 推奨コマンド
 

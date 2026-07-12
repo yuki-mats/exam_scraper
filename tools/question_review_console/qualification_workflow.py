@@ -16,9 +16,10 @@ LAW_AUDIT_ISSUES = {
     "law_basis_missing",
 }
 RUN_MODES = {
+    "group_refresh": "選択年度を全件洗い替え",
     "remaining": "未作業のみ",
     "attention": "要確認のみ",
-    "refresh": "全件洗い替え",
+    "refresh": "資格全体を全件洗い替え",
 }
 
 
@@ -171,7 +172,12 @@ class QualificationWorkflow:
         }
 
     def plan(
-        self, qualification: str, stage_id: str, mode: str = "remaining"
+        self,
+        qualification: str,
+        stage_id: str,
+        mode: str = "remaining",
+        *,
+        list_group_id: str | None = None,
     ) -> dict[str, Any]:
         if mode not in RUN_MODES:
             raise ValueError(f"対象範囲が不正です: {mode}")
@@ -185,11 +191,28 @@ class QualificationWorkflow:
             raise ValueError("00_sourceは取得工程の正本であり、この画面から再生成しません。")
 
         groups, questions = self._qualification_data(qualification)
+        if mode == "group_refresh":
+            if not list_group_id or list_group_id == "__all__":
+                raise ValueError("年度を一つ選択してから全件洗い替えを開始してください。")
+            groups = [
+                group
+                for group in groups
+                if str(group.get("listGroupId") or "") == list_group_id
+            ]
+            if not groups:
+                raise ValueError(f"対象年度がありません: {list_group_id}")
+            questions = [
+                question
+                for question in questions
+                if str(question.get("listGroupId") or "") == list_group_id
+            ]
         target_questions: list[Mapping[str, Any]] = []
         output_files: list[str] = []
         target_group_ids: list[str] = []
 
         if stage_id == "setup":
+            if mode == "group_refresh":
+                raise ValueError("資格方針は年度単位ではなく資格単位で整備します。")
             policy_dir = Path("prompt") / "qualification_docs" / qualification
             policy_exists = (self.repo_root / policy_dir).is_dir()
             if mode == "attention":
@@ -209,14 +232,26 @@ class QualificationWorkflow:
                     "README.md",
                     "01_exam_profile.md",
                     "02_explanation_strategy.md",
-                    "03_category_preparation.md",
                 )
             ] if target_questions else []
+        elif stage_id == "category_setup":
+            if mode == "group_refresh":
+                raise ValueError("カテゴリ設計は年度単位ではなく資格単位で整備します。")
+            category = self._category_state(qualification)
+            should_run = mode == "refresh" or not category["ready"]
+            if mode == "attention":
+                should_run = bool(category["error"])
+            target_questions = questions if should_run else []
+            source_files = _unique(
+                str(question.get("paths", {}).get("source") or "")
+                for question in questions
+            ) if should_run else []
+            output_files = [category["path"]] if should_run else []
         elif stage_id == "law_audit":
             applicable = [
                 question for question in questions if question.get("isLawRelated") is True
             ]
-            if mode == "refresh":
+            if mode in {"refresh", "group_refresh"}:
                 target_questions = applicable
             elif mode == "attention":
                 target_questions = [
@@ -239,7 +274,9 @@ class QualificationWorkflow:
                 self._law_audit_output_path(question) for question in target_questions
             )
         elif stage_id == "delivery":
-            if mode == "refresh":
+            if mode == "group_refresh":
+                target_group_ids = [str(group.get("listGroupId") or "") for group in groups]
+            elif mode == "refresh":
                 target_group_ids = [str(group.get("listGroupId") or "") for group in groups]
             else:
                 target_group_ids = [
@@ -252,9 +289,14 @@ class QualificationWorkflow:
                 for group_id in target_group_ids
             ]
         else:
+            if stage_id == "question_set":
+                category = self._category_state(qualification)
+                if not category["ready"]:
+                    detail = category["error"] or "category.jsonが未作成です。"
+                    raise ValueError(f"03c カテゴリ設計を先に完了してください: {detail}")
             patch_dir = str(definition["patchDir"])
             issue_fields = set(definition.get("issueFields") or [])
-            if mode == "refresh":
+            if mode in {"refresh", "group_refresh"}:
                 target_questions = questions
             elif mode == "attention":
                 target_questions = [
@@ -283,6 +325,14 @@ class QualificationWorkflow:
                 str(question.get("listGroupId") or self._group_id_from_source(question))
                 for question in target_questions
             )
+        target_question_keys = _unique(
+            self._question_key(question) for question in target_questions
+        )
+        mode_label = (
+            f"{list_group_id}を全件洗い替え"
+            if mode == "group_refresh"
+            else RUN_MODES[mode]
+        )
         return {
             "qualification": qualification,
             "stageId": stage_id,
@@ -291,20 +341,149 @@ class QualificationWorkflow:
             "purpose": str(definition["purpose"]),
             "kind": str(definition["kind"]),
             "mode": mode,
-            "modeLabel": RUN_MODES[mode],
-            "targetCount": len(target_group_ids) if stage_id == "delivery" else len(target_questions),
+            "modeLabel": mode_label,
+            "targetCount": (
+                len(target_group_ids)
+                if stage_id == "delivery"
+                else int(bool(target_questions))
+                if stage_id == "category_setup"
+                else len(target_questions)
+            ),
+            "targetQuestionKeys": target_question_keys,
             "targetGroupIds": target_group_ids,
+            "scopeListGroupId": list_group_id if mode == "group_refresh" else None,
             "sourceFiles": source_files,
             "outputFiles": output_files,
             "canonicalDocs": list(definition.get("canonicalDocs") or []),
             "catalogHash": catalog["catalogHash"],
-            "force": stage_id == "delivery" and mode == "refresh",
+            "force": stage_id == "delivery" and mode in {"refresh", "group_refresh"},
+        }
+
+    def plan_many(
+        self,
+        qualification: str,
+        stage_ids: Iterable[str],
+        mode: str = "remaining",
+        *,
+        list_group_id: str | None = None,
+    ) -> dict[str, Any]:
+        requested = _ordered_unique(str(stage_id) for stage_id in stage_ids)
+        if not requested:
+            raise ValueError("工程を一つ以上選択してください。")
+        catalog = self.catalog(qualification)
+        definitions = {str(stage["id"]): stage for stage in catalog["stages"]}
+        unknown = [stage_id for stage_id in requested if stage_id not in definitions]
+        if unknown:
+            raise ValueError("対象工程がありません: " + ", ".join(unknown))
+        ordered = [
+            str(stage["id"])
+            for stage in catalog["stages"]
+            if str(stage["id"]) in requested
+        ]
+        if len(ordered) == 1:
+            plan = self.plan(
+                qualification,
+                ordered[0],
+                mode,
+                list_group_id=list_group_id,
+            )
+            plan["stageIds"] = ordered
+            plan["stagePlans"] = [dict(plan)]
+            return plan
+
+        invalid = [
+            stage_id
+            for stage_id in ordered
+            if not definitions[stage_id].get("batchSelectable")
+        ]
+        if invalid:
+            raise ValueError(
+                "一問ずつまとめて実行できない工程が含まれています: "
+                + ", ".join(invalid)
+            )
+        stage_plans = [
+            self.plan(
+                qualification,
+                stage_id,
+                mode,
+                list_group_id=list_group_id,
+            )
+            for stage_id in ordered
+        ]
+        target_question_keys = _unique(
+            key
+            for plan in stage_plans
+            for key in plan.get("targetQuestionKeys") or []
+        )
+        return {
+            "qualification": qualification,
+            "stageId": "multi",
+            "stageIds": ordered,
+            "stageCode": " → ".join(str(plan["stageCode"]) for plan in stage_plans),
+            "stageLabel": "複数工程",
+            "purpose": "選択した工程を一問単位で順番に完了する",
+            "kind": "human",
+            "mode": mode,
+            "modeLabel": stage_plans[0]["modeLabel"],
+            "targetCount": len(target_question_keys),
+            "targetQuestionKeys": target_question_keys,
+            "targetGroupIds": _unique(
+                group_id
+                for plan in stage_plans
+                for group_id in plan.get("targetGroupIds") or []
+            ),
+            "scopeListGroupId": (
+                list_group_id if mode == "group_refresh" else None
+            ),
+            "sourceFiles": _unique(
+                path
+                for plan in stage_plans
+                for path in plan.get("sourceFiles") or []
+            ),
+            "outputFiles": _unique(
+                path
+                for plan in stage_plans
+                for path in plan.get("outputFiles") or []
+            ),
+            "canonicalDocs": _ordered_unique(
+                path
+                for plan in stage_plans
+                for path in plan.get("canonicalDocs") or []
+            ),
+            "catalogHash": catalog["catalogHash"],
+            "force": False,
+            "stagePlans": stage_plans,
         }
 
     def prompt(
-        self, qualification: str, stage_id: str, mode: str = "remaining"
+        self,
+        qualification: str,
+        stage_id: str,
+        mode: str = "remaining",
+        *,
+        list_group_id: str | None = None,
     ) -> dict[str, Any]:
-        plan = self.plan(qualification, stage_id, mode)
+        return self.prompt_many(
+            qualification,
+            [stage_id],
+            mode,
+            list_group_id=list_group_id,
+        )
+
+    def prompt_many(
+        self,
+        qualification: str,
+        stage_ids: Iterable[str],
+        mode: str = "remaining",
+        *,
+        list_group_id: str | None = None,
+    ) -> dict[str, Any]:
+        plan = self.plan_many(
+            qualification,
+            stage_ids,
+            mode,
+            list_group_id=list_group_id,
+        )
         if plan["kind"] != "human":
             raise ValueError("この工程はCodex依頼ではなく既存の実行導線を使います。")
         if not plan["targetCount"]:
@@ -320,12 +499,18 @@ class QualificationWorkflow:
         source_files = [absolute(path) for path in plan["sourceFiles"]]
         output_files = [absolute(path) for path in plan["outputFiles"]]
 
+        selected_stage_ids = list(plan.get("stageIds") or [plan["stageId"]])
+        stage_plans = list(plan.get("stagePlans") or [plan])
+        stage_summary = " / ".join(
+            f"{item['stageCode']} {item['stageLabel']}（{item['targetCount']}件）"
+            for item in stage_plans
+        )
         lines = [
             "# 資格単位の問題整備",
             "",
-            f"- 工程: `{plan['stageCode']} {plan['stageLabel']}`",
+            f"- 工程: `{stage_summary}`",
             f"- 範囲: `{plan['modeLabel']}`",
-            f"- 対象: `{plan['targetCount']}件`",
+            f"- 対象問題: `{plan['targetCount']}件`",
             "",
             "## 正本",
             "",
@@ -342,12 +527,18 @@ class QualificationWorkflow:
             "## 作業",
             "",
             (
-                f"上記正本に従い、qualification=`{qualification}`の"
-                f"{plan['stageCode']} {plan['stageLabel']}を対象ごとに一件ずつ実施する。"
+                f"上記正本に従い、qualification=`{qualification}`の選択工程を"
+                "対象問題ごとに一問ずつ実施する。"
             ),
+            (
+                "一問を読み、その問題について選択工程を上記順序で完了してから次の問題へ進む。"
+                if len(selected_stage_ids) > 1
+                else "対象を一問ずつ読み、判断とpatch更新を完了してから次の問題へ進む。"
+            ),
+            "`未作業のみ`又は`要確認のみ`では、各工程の対象に該当する問題だけを更新する。",
             *(
                 ["各問題は問題文と全選択肢を結合した命題として読み、Lawzilla MCPとFirestore条文検索で一問一肢ずつ根拠を照合する。"]
-                if stage_id == "law_audit"
+                if "law_audit" in selected_stage_ids
                 else []
             ),
             "既存の正本と共通workflowを優先し、資格固有の局所ルールを重複実装しない。",
@@ -355,11 +546,15 @@ class QualificationWorkflow:
         ]
         return {
             "qualification": qualification,
-            "stageId": stage_id,
+            "stageId": plan["stageId"],
+            "stageIds": selected_stage_ids,
             "mode": mode,
             "targetCount": plan["targetCount"],
             "prompt": "\n".join(lines).strip() + "\n",
         }
+
+    def category_ready(self, qualification: str) -> bool:
+        return bool(self._category_state(qualification)["ready"])
 
     def _qualification_data(
         self, qualification: str
@@ -403,6 +598,101 @@ class QualificationWorkflow:
             for path in sorted(directory.rglob("*.md"))
             if path.is_file()
         ]
+
+    def _category_state(self, qualification: str) -> dict[str, Any]:
+        relative = Path("output") / qualification / "category" / "category.json"
+        path = self.repo_root / relative
+        if not path.is_file():
+            return {"path": str(relative), "ready": False, "error": ""}
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            return {
+                "path": str(relative),
+                "ready": False,
+                "error": f"category.jsonを読み込めません: {exc}",
+            }
+        if not isinstance(value, Mapping):
+            return {
+                "path": str(relative),
+                "ready": False,
+                "error": "category.jsonのルートはobjectである必要があります。",
+            }
+        folders = value.get("folders")
+        question_sets = value.get("questionSets")
+        if not isinstance(folders, list) or not folders:
+            return {
+                "path": str(relative),
+                "ready": False,
+                "error": "foldersが未定義又は空です。",
+            }
+        if not isinstance(question_sets, list) or not question_sets:
+            return {
+                "path": str(relative),
+                "ready": False,
+                "error": "questionSetsが未定義又は空です。",
+            }
+        folder_ids = [
+            str(item.get("folderId") or "")
+            for item in folders
+            if isinstance(item, Mapping)
+        ]
+        question_set_ids = [
+            str(item.get("questionSetId") or "")
+            for item in question_sets
+            if isinstance(item, Mapping)
+        ]
+        if (
+            len(folder_ids) != len(folders)
+            or not all(folder_ids)
+            or len(folder_ids) != len(set(folder_ids))
+        ):
+            return {
+                "path": str(relative),
+                "ready": False,
+                "error": "folders[].folderIdが欠損又は重複しています。",
+            }
+        if (
+            len(question_set_ids) != len(question_sets)
+            or not all(question_set_ids)
+            or len(question_set_ids) != len(set(question_set_ids))
+        ):
+            return {
+                "path": str(relative),
+                "ready": False,
+                "error": "questionSets[].questionSetIdが欠損又は重複しています。",
+            }
+        unknown_folders = [
+            str(item.get("folderId") or "")
+            for item in question_sets
+            if not isinstance(item, Mapping)
+            or str(item.get("folderId") or "") not in set(folder_ids)
+        ]
+        if unknown_folders:
+            return {
+                "path": str(relative),
+                "ready": False,
+                "error": "questionSets[].folderIdに未定義IDがあります。",
+            }
+        return {"path": str(relative), "ready": True, "error": ""}
+
+    @staticmethod
+    def _question_key(question: Mapping[str, Any]) -> str:
+        for field in ("id", "sourceQuestionKey", "reviewKey"):
+            value = str(question.get(field) or "")
+            if value:
+                return value
+        projected = question.get("projected") or {}
+        original_id = str(
+            question.get("originalQuestionId")
+            or question.get("original_question_id")
+            or projected.get("originalQuestionId")
+            or projected.get("original_question_id")
+            or ""
+        )
+        source = str(question.get("paths", {}).get("source") or "")
+        label = str(question.get("questionLabel") or "")
+        return "#".join(part for part in (source, original_id, label) if part)
 
     @staticmethod
     def _group_id_from_source(question: Mapping[str, Any]) -> str:
@@ -462,6 +752,20 @@ class QualificationWorkflow:
                 status = "ready" if complete else "not_started"
                 if not complete:
                     output_files = [str(Path("prompt") / "qualification_docs" / qualification)]
+            elif stage_id == "category_setup":
+                category = self._category_state(qualification)
+                complete = int(category["ready"])
+                target_count = 1
+                status = (
+                    "ready"
+                    if category["ready"]
+                    else "attention"
+                    if category["error"]
+                    else "not_started"
+                )
+                issue_count = int(bool(category["error"]))
+                if not category["ready"]:
+                    output_files = [category["path"]]
             elif stage_id == "law_audit":
                 law_context_ready = coverage.get("law_context", 0) == total and total > 0
                 target_questions = [
@@ -549,6 +853,8 @@ class QualificationWorkflow:
                     for question in target_questions
                     if question.get("paths", {}).get("source")
                 )
+                if stage_id == "question_set" and not self.category_ready(qualification):
+                    status = "waiting"
 
             target_files = _unique(
                 str(question.get("paths", {}).get("source") or "")
@@ -584,6 +890,8 @@ class QualificationWorkflow:
             return "00_sourceの取得が必要です。"
         if stage_id == "setup":
             return "資格固有の方針文書が未作成です。"
+        if stage_id == "category_setup":
+            return "資格全体のcategory.jsonが未作成又は不正です。"
         if issues:
             return f"要確認項目が{issues}件あります。"
         unit = "フォルダ" if stage_id == "delivery" else "問"

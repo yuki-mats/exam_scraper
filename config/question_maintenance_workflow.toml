@@ -17,7 +17,7 @@ documents = ["document/operations/scraping_workflow.md"]
 id = "setup"
 code = "準備"
 label = "資格方針"
-purpose = "出題範囲・解説・分類・法令確認の方針を固定する"
+purpose = "出題範囲・解説・法令確認の方針を固定する"
 kind = "human"
 documents = [
   "prompt/qualification_docs/README.md",
@@ -30,6 +30,7 @@ code = "01"
 label = "問題形式"
 purpose = "回答体験に合うquestionTypeを一問ずつ確定する"
 kind = "human"
+batch_selectable = true
 patch_dir = "10_questionType_fixed"
 patch_suffix = "questionType_fixed"
 issue_fields = ["questionType", "questionBodyText", "choiceTextList"]
@@ -41,6 +42,7 @@ code = "02"
 label = "設問意図"
 purpose = "正しいもの・誤っているもののどちらを選ぶ設問か確定する"
 kind = "human"
+batch_selectable = true
 patch_dir = "15_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
 issue_fields = ["questionIntent", "correctChoiceText", "answer_result_text"]
@@ -52,6 +54,7 @@ code = "02a"
 label = "正答精査"
 purpose = "設問・公式解答・全選択肢を一問ずつ照合し正誤を確定する"
 kind = "human"
+batch_selectable = true
 patch_dir = "23_correctChoiceText_fixed"
 patch_suffix = "correctChoiceText_fixed"
 issue_fields = ["correctChoiceText", "answer_result_text"]
@@ -63,6 +66,7 @@ code = "02b"
 label = "法令根拠"
 purpose = "法令関連性と現行法の根拠候補を全問で整理する"
 kind = "human"
+batch_selectable = true
 patch_dir = "18_law_context_prepared"
 patch_suffix = "lawContext_prepared"
 issue_fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences"]
@@ -74,6 +78,7 @@ code = "03"
 label = "解説"
 purpose = "正誤理由と学習用の補足質問を選択肢単位で整える"
 kind = "human"
+batch_selectable = true
 patch_dir = "21_explanationText_added"
 patch_suffix = "explanationText_added"
 issue_fields = ["explanationText", "suggestedQuestions", "suggestedQuestionDetails"]
@@ -85,10 +90,23 @@ code = "03b"
 label = "現行法監査"
 purpose = "条文根拠を一問一肢ずつ照合し現行法判定を固定する"
 kind = "human"
+batch_selectable = true
 issue_fields = ["lawReferences", "lawRevisionFacts"]
 documents = [
   "prompt/03b_prompt_audit_current_law_and_patch.md",
   "document/operations/lawzilla_mcp_question_maintenance_workflow.md",
+]
+
+[[stages]]
+id = "category_setup"
+code = "03c"
+label = "カテゴリ設計"
+purpose = "資格全体の公式・専門家taxonomyをcategory.jsonとして確定する"
+kind = "human"
+documents = [
+  "prompt/03c_prompt_prepare_category_json.md",
+  "prompt/qualification_docs/category_taxonomy_policy.md",
+  "prompt/qualification_docs/shared_taxonomy_mapping_policy.md",
 ]
 
 [[stages]]
@@ -97,6 +115,7 @@ code = "04"
 label = "問題集"
 purpose = "category方針に沿って問題集へ意味的に紐付ける"
 kind = "human"
+batch_selectable = true
 patch_dir = "22_questionSetId_linked"
 patch_suffix = "questionSetId_linked"
 issue_fields = ["questionSetId"]

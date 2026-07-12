@@ -117,6 +117,7 @@ class WorkflowCatalog:
                 "label": str(raw["label"]),
                 "purpose": str(raw["purpose"]),
                 "kind": kind,
+                "batchSelectable": bool(raw.get("batch_selectable", False)),
                 "documents": [
                     _document_path(path)
                     for path in _string_list(raw.get("documents"), f"{stage_id}.documents")
@@ -143,12 +144,13 @@ class WorkflowCatalog:
             "setup": "human",
             "law_context": "human",
             "law_audit": "human",
+            "category_setup": "human",
             "delivery": "machine",
         }
         for stage_id, kind in required_kinds.items():
             if stage_by_id.get(stage_id, {}).get("kind") != kind:
                 raise ValueError(f"必須workflow stageがありません: {stage_id} ({kind})")
-        special = {"source", "setup", "law_audit", "delivery"}
+        special = {"source", "setup", "law_audit", "category_setup", "delivery"}
         missing_patch = [
             stage["id"]
             for stage in stages
@@ -168,5 +170,18 @@ class WorkflowCatalog:
             raise ValueError(
                 "source又はmachine工程を追加するには実行実装が必要です: "
                 + ", ".join(unsupported_kinds)
+            )
+        invalid_batch_stages = [
+            stage["id"]
+            for stage in stages
+            if stage.get("batchSelectable")
+            and (
+                stage["kind"] != "human"
+                or stage["id"] in {"setup", "category_setup"}
+            )
+        ]
+        if invalid_batch_stages:
+            raise ValueError(
+                "複数工程へ含められないstageです: " + ", ".join(invalid_batch_stages)
             )
         return stages

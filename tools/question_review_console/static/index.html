@@ -125,12 +125,17 @@
         <div class="dialog-body">
           <p id="qualification-run-purpose"></p>
           <button id="qualification-run-guide" class="document-link-button" type="button">この工程の正本を確認</button>
+          <fieldset id="qualification-run-stage-fieldset">
+            <legend>工程範囲</legend>
+            <div id="qualification-run-stages" class="run-stage-options"></div>
+          </fieldset>
           <fieldset>
             <legend>対象範囲</legend>
             <div class="run-mode-options">
-              <label><input type="radio" name="qualification-run-mode" value="remaining" checked><span>未作業のみ</span></label>
+              <label id="qualification-run-group-refresh"><input type="radio" name="qualification-run-mode" value="group_refresh" checked><span>この年度で全件洗い替える</span></label>
+              <label><input type="radio" name="qualification-run-mode" value="remaining"><span>未作業のみ</span></label>
               <label><input type="radio" name="qualification-run-mode" value="attention"><span>要確認のみ</span></label>
-              <label><input type="radio" name="qualification-run-mode" value="refresh"><span>全件洗い替え</span></label>
+              <label><input type="radio" name="qualification-run-mode" value="refresh"><span>資格全体を全件洗い替え</span></label>
             </div>
           </fieldset>
           <div id="qualification-run-preview" class="run-preview" aria-live="polite">対象を確認しています。</div>

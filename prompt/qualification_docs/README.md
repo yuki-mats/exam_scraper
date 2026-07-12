@@ -11,13 +11,13 @@
   - 資格ごとの傾向に合わせて、解説文をより学習効果の高い内容にするために使う
   - 目標は「その問題の理解」だけでなく、「その資格でよく問われる傾向への気づき」と「類題に使える判断軸」の付与まで含む
   - 資格固有の章構成、頻出のひっかけ、判定軸、類題を意識した補足知識はここに書く
-- 従用途は `04_prompt_link_questionSetId.md`
+- 従用途は `03c_prompt_prepare_category_json.md`
   - ふだんの紐付けでは `category.json` の `name` / `description` / `matchingHints` を主根拠にする
   - このディレクトリ内の資料は、`category.json` を新規作成・見直しする際の検討資料として使う
 
 ## 配置ルール
 - 資格別の長文知識は、この `qualification_docs/` に集約する。
-- `03_prompt_add_explanationText.md` や `04_prompt_link_questionSetId.md` の本文には、共通原則と参照ルールだけを残す。
+- 各工程promptの本文には、共通原則と参照ルールだけを残す。
 - `04_prompt_link_questionSetId/` のような prompt 番号別の補助ディレクトリは増やさず、資格別資料はここにまとめる。
 - 新しい資格固有ルールや判断軸が必要になった場合も、prompt 本体へ書き足さず、`qualification_docs/<qualification_key>/` に整理する。
 

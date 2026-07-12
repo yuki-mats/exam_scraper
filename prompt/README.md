@@ -10,6 +10,7 @@
 - [02b law context](02b_prompt_prepare_law_context.md)
 - [03 explanation](03_prompt_add_explanationText.md)
 - [03b current law audit](03b_prompt_audit_current_law_and_patch.md)
+- [03c category.json](03c_prompt_prepare_category_json.md)
 - [04 questionSetId](04_prompt_link_questionSetId.md)
 
 各ファイルは担当工程の判断方法だけを所有します。工程間の入力・出力と保存先は[artifact契約](../document/operations/artifact_contract.md)を参照します。
