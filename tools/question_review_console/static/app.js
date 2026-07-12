@@ -659,7 +659,7 @@ function renderLawAuditQualityWarning(question) {
       "primary-button",
       () => openLawAuditQualityReview(question),
       "監査パッチをまとめて修正依頼",
-      "選択中の資格について、全フォルダの法令監査不備を一問一肢ずつ条文照合するCodex依頼を作成します。",
+      "対象patch一覧を作り、Lawzilla MCPとFirestore条文検索で全対象を一問一肢ずつ監査するCodex依頼を作成します。",
     ),
   );
   return node;
@@ -695,7 +695,7 @@ function openLawAuditQualityReview(question) {
     issueType: warnings[0]?.code || "law_audit_metadata_incomplete",
     title: "法令監査パッチをまとめて修正依頼",
     targetLabel: "法令監査メタデータの一括報告",
-    note: "資格内の法令監査不備を一問一肢ずつ現行条文で確認し、patchとupload-readyを更新する。",
+    note: "資格内の法令監査不備をLawzilla MCPとFirestore条文検索で一問一肢ずつ監査する。",
     investigationScope: "qualification",
     requestKind: "qualification_law_audit",
     selectedText: summarizedFindingsText(warnings),

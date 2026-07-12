@@ -26,6 +26,11 @@ from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import GroupPublisher, PublicationError
 from tools.question_review_console.review_store import ReviewStore
+from tools.question_review_console.prompt_builder import (
+    LAW_AUDIT_ISSUES,
+    QUALIFICATION_LAW_AUDIT_REQUEST,
+    is_qualification_law_audit,
+)
 from tools.question_review_console.workflow_runner import ArtifactSynchronizer, WorkflowError
 
 
@@ -197,6 +202,14 @@ class QuestionReviewApplication:
             request = body.get("review")
             if not isinstance(request, Mapping):
                 raise ApiError(HTTPStatus.BAD_REQUEST, "reviewを指定してください。")
+            request = dict(request)
+            if is_qualification_law_audit(request):
+                request["requestKind"] = QUALIFICATION_LAW_AUDIT_REQUEST
+                request["investigationScope"] = "qualification"
+                request["targetFiles"] = self._qualification_law_audit_target_files(
+                    str(question["qualification"]),
+                    request.get("issueTypes") or [],
+                )
             if not str(request.get("note") or "").strip():
                 raise ApiError(HTTPStatus.BAD_REQUEST, "指摘内容を入力してください。")
             requested_status = str(body.get("status") or "awaiting_codex")
@@ -261,6 +274,50 @@ class QuestionReviewApplication:
             }
 
         raise ApiError(HTTPStatus.NOT_FOUND, "APIが見つかりません。")
+
+    def _qualification_law_audit_target_files(
+        self, qualification: str, issue_types: list[Any]
+    ) -> list[str]:
+        selected_codes = {str(value) for value in issue_types} & LAW_AUDIT_ISSUES
+        if not selected_codes:
+            selected_codes = set(LAW_AUDIT_ISSUES)
+        qualification_info = next(
+            (
+                item
+                for item in self.inventory.inventory()["qualifications"]
+                if item["id"] == qualification
+            ),
+            None,
+        )
+        if qualification_info is None:
+            return []
+
+        target_files = set()
+        for list_group_id in qualification_info["listGroupIds"]:
+            group = self.inventory.group(qualification, list_group_id)
+            for question in group["questions"]:
+                if not (set(question.get("issueCodes") or []) & selected_codes):
+                    continue
+                explanation_patches = [
+                    path
+                    for path in question.get("paths", {}).get("patches") or []
+                    if "/21_explanationText_added/" in path
+                ]
+                if explanation_patches:
+                    target_files.add(explanation_patches[-1])
+                    continue
+                source_stem = str(question.get("sourceStem") or "")
+                target_files.add(
+                    str(
+                        Path("output")
+                        / qualification
+                        / "questions_json"
+                        / str(list_group_id)
+                        / "21_explanationText_added"
+                        / f"{source_stem}_explanationText_added.json"
+                    )
+                )
+        return sorted(target_files)
 
     def _questions(self, query: Mapping[str, list[str]]) -> dict[str, Any]:
         qualification = _query_value(query, "qualification")

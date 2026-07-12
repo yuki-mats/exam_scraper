@@ -103,6 +103,11 @@ class ReviewStore:
         }:
             investigation_scope = "current_question"
         request_kind = str(request.get("requestKind") or "").strip()
+        target_files = []
+        for value in request.get("targetFiles") or []:
+            candidate = (self.repo_root / str(value)).resolve()
+            if candidate.is_relative_to(self.repo_root):
+                target_files.append(str(candidate.relative_to(self.repo_root)))
         payload = {
             "schemaVersion": "local-question-review/v1",
             "reviewId": review_id,
@@ -142,6 +147,8 @@ class ReviewStore:
         }
         if request_kind:
             payload["requestKind"] = request_kind
+        if target_files:
+            payload["targetFiles"] = sorted(set(target_files))
         atomic_write(
             review_path,
             json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

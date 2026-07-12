@@ -357,7 +357,7 @@ class WorkflowUiContractTests(unittest.TestCase):
         self.assertIn('investigationScope: $("#review-scope").value', javascript)
         self.assertIn('"欠損をまとめて修正依頼"', javascript)
         self.assertIn('"監査パッチをまとめて修正依頼"', javascript)
-        self.assertIn("資格内の法令監査不備を一問一肢ずつ", javascript)
+        self.assertIn("Lawzilla MCPとFirestore条文検索で一問一肢ずつ", javascript)
         self.assertIn('investigationScope: "qualification"', javascript)
         self.assertIn('requestKind: "qualification_law_audit"', javascript)
         self.assertIn("requestKind: state.reviewRequestKind", javascript)

@@ -14,6 +14,102 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_bulk_law_audit_post_adds_all_qualification_target_files(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [{"id": "sample", "listGroupIds": ["2025"]}]
+                }
+
+            def group(self, qualification, list_group_id):
+                return {
+                    "questions": [
+                        {
+                            "sourceStem": "question_2025_1",
+                            "issueCodes": ["law_audit_metadata_incomplete"],
+                            "paths": {
+                                "patches": [
+                                    "output/sample/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json"
+                                ]
+                            },
+                        }
+                    ]
+                }
+
+        class Reviews:
+            def create(self, question, request, *, status):
+                self.request = request
+                return request
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            app.reviews = Reviews()
+            app._question = lambda question_id, query: {
+                "id": question_id,
+                "qualification": "sample",
+            }
+            app._decorate = lambda question: question
+            status, review = app.post(
+                "/api/reviews",
+                {
+                    "questionId": "question-1",
+                    "review": {
+                        "issueTypes": ["law_audit_metadata_incomplete"],
+                        "note": "一括監査する",
+                        "selection": {
+                            "targetLabel": "法令監査メタデータの一括報告"
+                        },
+                        "investigationScope": "qualification",
+                    },
+                },
+            )
+
+        self.assertEqual(status, 201)
+        self.assertEqual(review["requestKind"], "qualification_law_audit")
+        self.assertEqual(review["investigationScope"], "qualification")
+        self.assertEqual(len(review["targetFiles"]), 1)
+
+    def test_collects_qualification_law_audit_patch_files_for_selected_issue(self):
+        class Inventory:
+            def inventory(self):
+                return {
+                    "qualifications": [
+                        {"id": "sample", "listGroupIds": ["2024", "2025"]}
+                    ]
+                }
+
+            def group(self, qualification, list_group_id):
+                path = (
+                    f"output/{qualification}/questions_json/{list_group_id}/"
+                    f"21_explanationText_added/question_{list_group_id}_1_explanationText_added.json"
+                )
+                return {
+                    "questions": [
+                        {
+                            "sourceStem": f"question_{list_group_id}_1",
+                            "issueCodes": ["law_audit_metadata_incomplete"],
+                            "paths": {"patches": [path]},
+                        },
+                        {
+                            "sourceStem": f"question_{list_group_id}_2",
+                            "issueCodes": ["law_hold"],
+                            "paths": {"patches": []},
+                        },
+                    ]
+                }
+
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            app.inventory = Inventory()
+            paths = app._qualification_law_audit_target_files(
+                "sample", ["law_audit_metadata_incomplete"]
+            )
+
+        self.assertEqual(len(paths), 2)
+        self.assertTrue(all("21_explanationText_added" in path for path in paths))
+        self.assertFalse(any("question_2024_2" in path for path in paths))
+
     def test_lists_all_groups_for_a_qualification(self):
         class Inventory:
             def inventory(self):

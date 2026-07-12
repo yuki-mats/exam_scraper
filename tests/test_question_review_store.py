@@ -84,6 +84,10 @@ class QuestionReviewStoreTests(unittest.TestCase):
                 {
                     "issueTypes": ["law_audit_metadata_incomplete"],
                     "requestKind": "qualification_law_audit",
+                    "targetFiles": [
+                        "output/sample-exam/questions_json/2025/21_explanationText_added/question_2025_1_explanationText_added.json",
+                        "output/sample-exam/questions_json/2026/21_explanationText_added/question_2026_1_explanationText_added.json",
+                    ],
                     "fields": ["lawRevisionFacts.current.correctChoiceText"],
                     "note": "監査メタデータを確認してほしい",
                     "selection": {
@@ -98,14 +102,15 @@ class QuestionReviewStoreTests(unittest.TestCase):
             )
 
         self.assertEqual(created["requestKind"], "qualification_law_audit")
-        self.assertIn("# 資格単位の法令監査パッチ整備", created["prompt"])
-        self.assertIn("表示中の1問だけを直す依頼ではない", created["prompt"])
-        self.assertIn("全問題・全選択肢を一問一肢ずつ処理", created["prompt"])
-        self.assertIn("e-Govの現行条文本文を実際に開き", created["prompt"])
-        self.assertIn("一括コピーや正誤ラベルだけの補完は禁止", created["prompt"])
+        self.assertIn("# 法令監査パッチ一括修正", created["prompt"])
+        self.assertIn("/2025/21_explanationText_added/", created["prompt"])
+        self.assertIn("/2026/21_explanationText_added/", created["prompt"])
+        self.assertIn("Lawzilla MCPとFirestoreの条文検索", created["prompt"])
+        self.assertIn("一問一肢ずつ", created["prompt"])
         self.assertNotIn("## 問題文", created["prompt"])
         self.assertNotIn("## UIで選択した箇所", created["prompt"])
         self.assertNotIn("## 関連ファイル", created["prompt"])
+        self.assertNotIn("review JSON", created["prompt"])
         self.assertNotIn("条文上の記述A", created["prompt"])
 
 

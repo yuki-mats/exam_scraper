@@ -65,7 +65,7 @@ def _law_audit_instruction() -> str:
 """
 
 
-def _is_qualification_law_audit(review: Mapping[str, Any]) -> bool:
+def is_qualification_law_audit(review: Mapping[str, Any]) -> bool:
     if review.get("requestKind") == QUALIFICATION_LAW_AUDIT_REQUEST:
         return True
     selection = review.get("selection") or {}
@@ -77,32 +77,32 @@ def _is_qualification_law_audit(review: Mapping[str, Any]) -> bool:
 
 
 def _build_qualification_law_audit_prompt(
+    repo_root: Path,
     review_path: Path,
     question: Mapping[str, Any],
     review: Mapping[str, Any],
 ) -> str:
-    issue_types = ", ".join(str(value) for value in review.get("issueTypes") or [])
-    fields = ", ".join(str(value) for value in review.get("fields") or [])
-    return f"""# 資格単位の法令監査パッチ整備
+    del review_path, question
+    target_paths = []
+    for value in review.get("targetFiles") or []:
+        relative = Path(str(value))
+        if relative.is_absolute() or ".." in relative.parts:
+            continue
+        target_paths.append(repo_root / relative)
+    path_lines = "\n".join(f"- `{path}`" for path in target_paths)
+    return f"""# 法令監査パッチ一括修正
 
-- review JSON: `{review_path}`
-- qualification: `{question.get('qualification')}`
-- issue: {issue_types or '法令監査品質不備'}
-- fields: {fields or 'lawReferences, lawRevisionFacts'}
-- 人間の指摘: {review.get('note') or '（補足なし）'}
+## 対象ファイル
 
-このreviewは作業の起点であり、表示中の1問だけを直す依頼ではない。qualification配下の全listGroupIdを棚卸しし、法令監査品質不備がある全問題・全選択肢を一問一肢ずつ処理する。
+{path_lines or '- （対象ファイルを取得できないため、依頼を作り直す）'}
 
-## 実施条件
+## やること
 
-- 既存の`lawReferences`、`lawRevisionFacts`、`explanationText`を正本扱いせず、各肢で「問題文＋選択肢」の完全命題を作る。
-- 保存済み`apiUrl`/`sourceUrl`又はe-Govの現行条文本文を実際に開き、条文、適用条件、数値、例外を目視照合する。一括コピーや正誤ラベルだけの補完は禁止する。
-- 確認結果と根拠を各問題の責務に合うpatchへ個別に記録する。条文で確定できないものは推測せず`hold`/`needs_secondary_review`にする。
-- `correctChoiceText`を変える場合は、解説先頭、根拠、`lawRevisionFacts.current.correctChoiceText`も同時に整合させる。
-- `00_source`と既存の`questionId`、`originalQuestionId`、`questionSetId`は変更しない。対象外の変更も破棄しない。
-- 変更した全listGroupIdでmerge、convert、法令監査quality-gateを実行し、upload-readyへの反映を確認する。Firestoreへはアップロードしない。
-
-完了時は、確認した問題数・選択肢数、変更したpatchとfield、各問の判断根拠を追跡できる監査記録、hold一覧、検証結果、Firestore未反映を示す。
+- 各ファイル内で`law_audit_metadata_incomplete`等の法令監査品質不備がある全questionを特定し、一問一肢ずつ「問題文＋選択肢」の完全命題を作る。
+- 各命題についてLawzilla MCPとFirestoreの条文検索を実行し、双方が示す条文本文を人間の目視レベルで照合する。主体、要件、数値、例外、委任先まで確認する。
+- 既存の正誤・解説・法令メタデータやLawzilla単独の回答を正本扱いしない。不一致又は根拠不足は推測せず`hold`/`needs_secondary_review`にする。
+- 確認結果と根拠を各questionのpatchへ個別に反映する。`correctChoiceText`を変える場合は解説先頭、根拠、`lawRevisionFacts.current.correctChoiceText`も整合させる。
+- `00_source`と既存IDは変更しない。変更対象のmerge、convert、法令監査quality-gateを実行し、upload-readyへの反映を確認する。Firestoreへの実アップロードは行わない。
 """
 
 
@@ -112,8 +112,10 @@ def build_codex_prompt(
     question: Mapping[str, Any],
     review: Mapping[str, Any],
 ) -> str:
-    if _is_qualification_law_audit(review):
-        return _build_qualification_law_audit_prompt(review_path, question, review)
+    if is_qualification_law_audit(review):
+        return _build_qualification_law_audit_prompt(
+            repo_root, review_path, question, review
+        )
 
     paths = question.get("paths") or {}
     selected_indexes = [int(value) for value in review.get("choiceIndexes") or []]
