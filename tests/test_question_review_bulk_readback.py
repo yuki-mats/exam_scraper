@@ -94,43 +94,47 @@ class ScopedFirestoreReadbackTests(unittest.TestCase):
             lambda question_id, result: self.results.__setitem__(question_id, result),
         )
 
-    def test_preview_is_local_and_counts_only_selected_groups(self):
-        preview = self.reader.preview("sample-exam", ["2025"])
+    def test_preview_is_local_and_counts_the_entire_qualification(self):
+        preview = self.reader.preview("sample-exam")
 
-        self.assertEqual(preview["groupCount"], 1)
-        self.assertEqual(preview["questionCount"], 1)
-        self.assertEqual(preview["documentCount"], 1)
-        self.assertEqual(preview["scopeLabel"], "年度")
+        self.assertEqual(preview["groupCount"], 3)
+        self.assertEqual(preview["questionCount"], 3)
+        self.assertEqual(preview["documentCount"], 3)
+        self.assertEqual(preview["scopeLabel"], "資格全体")
+        self.assertEqual(preview["listGroupIds"], ["2024", "2025", "general"])
         self.assertEqual(self.firestore.calls, [])
 
-    def test_preview_uses_folder_label_when_group_has_no_year(self):
-        preview = self.reader.preview("sample-exam", ["general"])
-
-        self.assertEqual(preview["scopeLabel"], "フォルダ")
-        self.assertEqual(preview["listGroupIds"], ["general"])
-
-    def test_run_reads_multiple_selected_groups_and_updates_each_question(self):
-        preview = self.reader.preview("sample-exam", ["2024", "2025"])
+    def test_run_reads_every_group_and_updates_each_question(self):
+        preview = self.reader.preview("sample-exam")
         result = self.reader.run(
             "sample-exam",
-            ["2024", "2025"],
             preview["previewToken"],
             lambda _: None,
         )
 
-        self.assertEqual(self.firestore.calls, [["doc-2024", "doc-2025"]])
-        self.assertEqual(result["statusCounts"], {"match": 2})
-        self.assertEqual(set(self.results), {"review-2024", "review-2025"})
+        self.assertEqual(
+            self.firestore.calls,
+            [["doc-2024", "doc-2025", "doc-general"]],
+        )
+        self.assertEqual(result["statusCounts"], {"match": 3})
+        self.assertEqual(
+            set(self.results),
+            {"review-2024", "review-2025", "review-general"},
+        )
+        self.assertTrue(result["readAt"])
+        self.assertEqual(
+            {value["readAt"] for value in self.results.values()},
+            {result["readAt"]},
+        )
 
-    def test_rejects_group_outside_selected_qualification(self):
+    def test_rejects_unknown_qualification(self):
         with self.assertRaises(ScopedReadbackError):
-            self.reader.preview("sample-exam", ["2030"])
+            self.reader.preview("unknown")
 
     def test_rejects_unconfirmed_or_stale_preview(self):
         with self.assertRaises(ScopedReadbackError):
             self.reader.run(
                 "sample-exam",
-                ["2024"],
                 "invalid-token",
                 lambda _: None,
             )

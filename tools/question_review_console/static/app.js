@@ -2,6 +2,7 @@
 
 const ISSUE_LABELS = {
   live_mismatch: "Firestore差分",
+  firestore_readback_stale: "Firestore再取得待ち",
   answer_explanation_mismatch: "正誤と解説の矛盾",
   required_field_missing: "必須field不足",
   identity_mismatch: "ID不整合",
@@ -36,7 +37,7 @@ const WORKFLOW_LABELS = {
   mismatch: "差分あり",
   error: "取得失敗",
   unavailable: "比較不可",
-  upstream_stale: "旧成果物と一致",
+  upstream_stale: "前回取得・現在は古い比較",
 };
 
 const EDITABLE_FIELDS = [
@@ -185,12 +186,6 @@ function bindControls() {
     if (state.workflowDialog.running) event.preventDefault();
   });
   $("#readback-form").addEventListener("submit", executeScopedReadback);
-  $("#readback-current").addEventListener("click", () => setReadbackSelection([state.listGroupId]));
-  $("#readback-all").addEventListener("click", () => {
-    const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
-    setReadbackSelection(qualification?.listGroupIds || []);
-  });
-  $("#readback-clear").addEventListener("click", () => setReadbackSelection([]));
   $("#readback-dialog").addEventListener("cancel", (event) => {
     if (state.readbackDialog.running) event.preventDefault();
   });
@@ -485,6 +480,28 @@ function workflowStatusLabel(name, status, question) {
   return WORKFLOW_LABELS[status] || status;
 }
 
+function formatReadbackTime(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("ja-JP", {
+      timeZone: "Asia/Tokyo",
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).formatToParts(date).map((part) => [part.type, part.value]),
+  );
+  return `${parts.year}年${parts.month}月${parts.day}日 ${parts.hour}時${parts.minute}分時点`;
+}
+
+function questionReadbackTime(question) {
+  return formatReadbackTime(question.liveReadback?.readbackMeta?.storedAt);
+}
+
 function scrollToFirestoreDiff() {
   $("#firestore-diff-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -501,7 +518,10 @@ function renderPipelineActions(question) {
       element("strong", "", "最新patchが後続成果物へ未反映です"),
       element("span", "", "対象フォルダだけをMerge、Convert、upload-readyまで再生成します。"),
     );
-    if (["mismatch", "missing"].includes(workflow.firestore)) {
+    const readbackTime = questionReadbackTime(question);
+    if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
+    const hasStoredDiff = ["mismatch", "missing"].includes(question.liveReadback?.status);
+    if (["mismatch", "missing"].includes(workflow.firestore) || hasStoredDiff) {
       actions.append(button("差分を見る", "secondary-button", scrollToFirestoreDiff));
     }
     actions.append(button("成果物を同期", "primary-button", openSyncDialog));
@@ -518,15 +538,17 @@ function renderPipelineActions(question) {
       error: ["Firestoreの確認に失敗しました", "credentialと接続状態を確認してください。"],
       unread: ["ローカル成果物は最新です", "本番Firestoreはまだ確認していません。"],
       unavailable: ["Firestoreと比較できません", "upload-readyのdocument IDを確認してください。"],
-      upstream_stale: ["最新成果物とは未比較です", "成果物を同期後、Firestoreを再読取してください。"],
+      upstream_stale: ["最新成果物とは未比較です", "前回取得結果は保持されています。成果物を同期後、資格全体を再取得してください。"],
     };
     const [title, detail] = messages[workflow.firestore] || messages.unread;
     status.append(element("strong", "", title), element("span", "", detail));
+    const readbackTime = questionReadbackTime(question);
+    if (readbackTime) status.append(element("span", "", `Firestore取得: ${readbackTime}`));
     if (["mismatch", "missing"].includes(workflow.firestore)) {
       actions.append(button("差分を見る", "primary-button", scrollToFirestoreDiff));
     }
     actions.append(
-      button("この問題を再読取", "secondary-button", runFirestoreReadback),
+      button("資格全体を再取得", "secondary-button", openReadbackDialog),
       button(
         "本番差分を確認",
         ["mismatch", "missing"].includes(workflow.firestore) ? "secondary-button" : "primary-button",
@@ -708,16 +730,20 @@ function renderFirestoreDiff(question) {
   const node = section("Firestore差分");
   node.id = "firestore-diff-panel";
   node.classList.add("firestore-diff-panel");
+  const readbackTime = questionReadbackTime(question);
+  if (readbackTime) {
+    node.append(element("p", "firestore-readback-time", `Firestore取得: ${readbackTime}`));
+  }
 
   if (workflowStatus === "upstream_stale") {
     node.append(element(
       "p",
       "firestore-diff-notice",
-      "表示中のFirestore結果は古いupload-readyとの比較です。成果物を同期し、この問題を再読取すると最新値の差分を表示できます。",
+      "表示中の差分は取得時点のローカル成果物との比較です。現在の成果物とは異なるため、最新比較には資格全体の再取得が必要です。",
     ));
-    return node;
+    if (liveReadback?.status === "match") return node;
   }
-  if (["error", "unavailable"].includes(workflowStatus)) {
+  if (["error", "unavailable"].includes(liveReadback?.status || workflowStatus)) {
     node.append(element(
       "p",
       "firestore-diff-notice error",
@@ -744,7 +770,7 @@ function renderFirestoreDiff(question) {
     .filter((document) => document.status !== "match");
 
   if (!changedDocuments.length) {
-    node.append(element("p", "firestore-diff-notice", "比較結果の詳細がありません。この問題を再読取してください。"));
+    node.append(element("p", "firestore-diff-notice", "比較結果の詳細がありません。資格全体を再取得してください。"));
     return node;
   }
 
@@ -792,7 +818,7 @@ function renderFirestoreDiff(question) {
     headRow.append(
       element("th", "", "field"),
       element("th", "", "upload-ready"),
-      element("th", "", "Firestore（現在値）"),
+      element("th", "", "Firestore（取得値）"),
     );
     head.append(headRow);
     table.append(head);
@@ -818,7 +844,7 @@ function renderFirestoreDiff(question) {
         firestoreDiffValue(expected[field], readbackDocument.live?.[field], fieldPaths, field, "upload-ready"),
       );
       row.children[2].append(
-        firestoreDiffValue(readbackDocument.live?.[field], expected[field], fieldPaths, field, "Firestore現在値"),
+        firestoreDiffValue(readbackDocument.live?.[field], expected[field], fieldPaths, field, "Firestore取得値"),
       );
       body.append(row);
     }
@@ -1017,13 +1043,6 @@ async function refreshAfterWorkflow(mode) {
     $("#exceptions-button").classList.remove("active");
     $("#all-button").classList.add("active");
   }
-  if (state.selectedId) {
-    try {
-      await api(`/api/questions/${state.selectedId}/live-readback`, { method: "POST", body: {} });
-    } catch (_) {
-      // 一覧再読込で取得失敗状態を表示するため、ここでは処理完了を妨げない。
-    }
-  }
   await loadQuestions(true);
 }
 
@@ -1044,14 +1063,10 @@ function showWorkflowError(error) {
 }
 
 function openReadbackDialog() {
-  const qualification = state.inventory.qualifications.find((item) => item.id === state.qualification);
   state.readbackDialog = { preview: null, running: false, requestSequence: 0 };
   $("#readback-qualification").textContent = state.qualification;
-  $("#readback-scope-label").textContent = scopeLabelForGroups(
-    qualification?.listGroupIds || [],
-  );
   $("#readback-message").textContent =
-    "選択したフォルダのupload-readyに含まれるdocumentだけを本番から読み取ります。";
+    "この資格の全フォルダをまとめて読み取り、結果をローカルに保存します。";
   $("#readback-summary").replaceChildren();
   $("#readback-job-status").hidden = true;
   $("#readback-job-log-wrap").hidden = true;
@@ -1059,37 +1074,8 @@ function openReadbackDialog() {
   $("#readback-execute").textContent = "Firestoreを読み取る";
   $("#readback-execute").onclick = null;
   $("#readback-cancel").hidden = false;
-  const list = $("#readback-group-list");
-  list.replaceChildren();
-  for (const groupId of qualification?.listGroupIds || []) {
-    const label = element("label", "readback-group-option");
-    const input = document.createElement("input");
-    input.type = "checkbox";
-    input.value = groupId;
-    input.checked = groupId === state.listGroupId;
-    input.addEventListener("change", refreshReadbackPreview);
-    label.append(
-      input,
-      element("strong", "", groupId),
-      element("span", "readback-group-meta", "未計算"),
-    );
-    list.append(label);
-  }
   setReadbackRunning(false);
   if (!$("#readback-dialog").open) $("#readback-dialog").showModal();
-  refreshReadbackPreview();
-}
-
-function selectedReadbackGroupIds() {
-  return [...$("#readback-group-list").querySelectorAll("input:checked")]
-    .map((node) => node.value);
-}
-
-function setReadbackSelection(groupIds) {
-  const selected = new Set(groupIds);
-  for (const input of $("#readback-group-list").querySelectorAll("input")) {
-    input.checked = selected.has(input.value);
-  }
   refreshReadbackPreview();
 }
 
@@ -1097,42 +1083,33 @@ async function refreshReadbackPreview() {
   if (state.readbackDialog.running) return;
   $("#readback-execute").onclick = null;
   $("#readback-execute").textContent = "Firestoreを読み取る";
-  const groupIds = selectedReadbackGroupIds();
   const sequence = ++state.readbackDialog.requestSequence;
   state.readbackDialog.preview = null;
   $("#readback-summary").replaceChildren();
   $("#readback-execute").disabled = true;
-  if (!groupIds.length) {
-    $("#readback-message").textContent = "対象フォルダを1件以上選択してください。";
-    return;
-  }
   $("#readback-message").textContent = "ローカル成果物から読取範囲を計算しています。";
   try {
     const preview = await api("/api/firestore-readback/preview", {
       method: "POST",
-      body: { qualification: state.qualification, listGroupIds: groupIds },
+      body: { qualification: state.qualification },
     });
     if (sequence !== state.readbackDialog.requestSequence) return;
     state.readbackDialog.preview = preview;
     $("#readback-message").textContent =
-      "この確認ではFirestoreへアクセスしていません。実行時に表示件数だけを読み取ります。";
-    $("#readback-scope-label").textContent = preview.scopeLabel;
+      "この確認ではFirestoreへアクセスしていません。実行すると資格全体を読み取り、結果をローカル保存します。";
     $("#readback-summary").append(
       summaryMetric("資格", preview.qualification),
-      summaryMetric(preview.scopeLabel, `${preview.groupCount}件`),
+      summaryMetric("対象フォルダ", `${preview.groupCount}件`),
       summaryMetric("元問題", `${preview.questionCount}問`),
       summaryMetric("読取対象", `${preview.documentCount} documents`, preview.documentCount ? "warning" : ""),
       summaryMetric("比較不可", `${preview.unavailableQuestionCount}問`, preview.unavailableQuestionCount ? "danger" : "good"),
       summaryMetric("本番project", preview.projectId),
+      summaryMetric(
+        "前回取得",
+        formatReadbackTime(preview.lastReadback?.storedAt) || "未取得",
+        preview.lastReadback ? "good" : "",
+      ),
     );
-    const byGroup = new Map(preview.groups.map((group) => [group.listGroupId, group]));
-    for (const option of $("#readback-group-list").querySelectorAll(".readback-group-option")) {
-      const input = option.querySelector("input");
-      const group = byGroup.get(input.value);
-      option.querySelector(".readback-group-meta").textContent = group
-        ? `${group.questionCount}問 / ${group.documentCount} docs`
-        : "未選択";
-    }
     $("#readback-execute").disabled = preview.documentCount === 0;
   } catch (error) {
     if (sequence !== state.readbackDialog.requestSequence) return;
@@ -1150,7 +1127,6 @@ async function executeScopedReadback(event) {
       method: "POST",
       body: {
         qualification: preview.qualification,
-        listGroupIds: preview.listGroupIds,
         previewToken: preview.previewToken,
       },
     });
@@ -1188,7 +1164,10 @@ async function pollReadbackJob(jobId) {
     if (job.status === "failed") throw new Error(job.error || "Firestoreの読み取りに失敗しました。");
     state.readbackDialog.running = false;
     state.readbackDialog.preview = null;
-    $("#readback-message").textContent = job.result?.message || "Firestore状態を更新しました。";
+    const completedAt = formatReadbackTime(job.result?.readAt);
+    $("#readback-message").textContent = completedAt
+      ? `${job.result?.message || "Firestore状態を更新しました。"} ${completedAt}`
+      : job.result?.message || "Firestore状態を更新しました。";
     $("#readback-job-status").textContent = formatReadbackStatusCounts(job.result?.statusCounts || {});
     $("#readback-execute").textContent = "閉じる";
     $("#readback-execute").disabled = false;
@@ -1590,29 +1569,6 @@ async function updateReviewStatus(status) {
       body: { status },
     });
     toast(`レビューを「${REVIEW_LABELS[status]}」に更新しました。`);
-    await loadQuestions(true);
-  } catch (error) {
-    toast(error.message, true);
-  }
-}
-
-async function runFirestoreReadback() {
-  if (!state.detail) return;
-  toast("対象documentを読み取っています。");
-  try {
-    const result = await api(`/api/questions/${state.detail.id}/live-readback`, {
-      method: "POST",
-      body: {},
-    });
-    const stats = firestoreDiffStats({ liveReadback: result });
-    const differenceSummary = [
-      stats.missingCount ? `未登録${stats.missingCount}件` : "",
-      stats.fieldCount ? `値の差分${stats.fieldCount}項目` : "",
-    ].filter(Boolean).join("・");
-    const message = result.status === "match"
-      ? `Firestoreと${result.expectedSource}は一致しています。`
-      : result.error || `Firestore差分: ${differenceSummary || "詳細を確認してください"}`;
-    toast(message, result.status === "error");
     await loadQuestions(true);
   } catch (error) {
     toast(error.message, true);

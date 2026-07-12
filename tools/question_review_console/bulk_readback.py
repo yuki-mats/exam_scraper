@@ -3,8 +3,8 @@ from __future__ import annotations
 import hashlib
 import hmac
 import json
-import re
 from collections import Counter
+from datetime import datetime, timezone
 from typing import Any, Callable, Mapping
 
 from tools.question_review_console.firestore_readback import (
@@ -38,10 +38,8 @@ class ScopedFirestoreReadback:
         self.secret = secret.encode("utf-8")
         self.result_sink = result_sink
 
-    def preview(
-        self, qualification: str, list_group_ids: list[str]
-    ) -> dict[str, Any]:
-        selection = self._selection(qualification, list_group_ids)
+    def preview(self, qualification: str) -> dict[str, Any]:
+        selection = self._selection(qualification)
         token_payload = {
             "qualification": qualification,
             "listGroupIds": selection["listGroupIds"],
@@ -53,14 +51,7 @@ class ScopedFirestoreReadback:
             "projectId": PRODUCTION_PROJECT_ID,
             "listGroupIds": selection["listGroupIds"],
             "groupCount": len(selection["listGroupIds"]),
-            "scopeLabel": (
-                "年度"
-                if all(
-                    re.fullmatch(r"(?:19|20)\d{2}", value)
-                    for value in selection["listGroupIds"]
-                )
-                else "フォルダ"
-            ),
+            "scopeLabel": "資格全体",
             "questionCount": len(selection["questions"]),
             "documentCount": len(selection["documentIds"]),
             "unavailableQuestionCount": selection["unavailableQuestionCount"],
@@ -71,16 +62,15 @@ class ScopedFirestoreReadback:
     def run(
         self,
         qualification: str,
-        list_group_ids: list[str],
         preview_token: str,
         emit: Callable[[str], None],
     ) -> dict[str, Any]:
-        preview = self.preview(qualification, list_group_ids)
+        preview = self.preview(qualification)
         if not hmac.compare_digest(preview["previewToken"], preview_token):
             raise ScopedReadbackError(
                 "確認後に対象フォルダ又はupload-readyが更新されました。"
             )
-        selection = self._selection(qualification, list_group_ids)
+        selection = self._selection(qualification)
         document_ids = selection["documentIds"]
         emit(
             f"本番Firestore読取: {qualification} / "
@@ -107,6 +97,12 @@ class ScopedFirestoreReadback:
             ) from exc
 
         status_counts: Counter[str] = Counter()
+        read_at = (
+            datetime.now(timezone.utc)
+            .astimezone()
+            .replace(microsecond=0)
+            .isoformat()
+        )
         group_counts: dict[str, Counter[str]] = {
             group_id: Counter() for group_id in selection["listGroupIds"]
         }
@@ -124,14 +120,16 @@ class ScopedFirestoreReadback:
                     "documentCount": 0,
                     "documents": [],
                 }
+            result["readAt"] = read_at
             self.result_sink(item["questionId"], result)
             status = str(result.get("status") or "error")
             status_counts[status] += 1
             group_counts[item["listGroupId"]][status] += 1
 
-        emit("選択範囲のFirestore状態を更新しました。")
+        emit("資格全体のFirestore状態を更新しました。")
         return {
             **preview,
+            "readAt": read_at,
             "statusCounts": dict(sorted(status_counts.items())),
             "groups": [
                 {
@@ -143,20 +141,12 @@ class ScopedFirestoreReadback:
                 for group in preview["groups"]
             ],
             "message": (
-                f"{preview['groupCount']}フォルダ・{preview['questionCount']}問の"
+                f"{qualification}全体・{preview['questionCount']}問の"
                 "Firestore状態を更新しました。"
             ),
         }
 
-    def _selection(
-        self, qualification: str, list_group_ids: list[str]
-    ) -> dict[str, Any]:
-        if not isinstance(list_group_ids, list):
-            raise ScopedReadbackError("listGroupIdsを配列で指定してください。")
-        selected = list(dict.fromkeys(str(value).strip() for value in list_group_ids))
-        if not selected or any(not value for value in selected):
-            raise ScopedReadbackError("対象フォルダを1件以上選択してください。")
-
+    def _selection(self, qualification: str) -> dict[str, Any]:
         inventory = self.inventory.inventory()
         qualification_info = next(
             (
@@ -168,12 +158,15 @@ class ScopedFirestoreReadback:
         )
         if qualification_info is None:
             raise ScopedReadbackError("対象資格が見つかりません。")
-        available = set(qualification_info.get("listGroupIds") or [])
-        unknown = [value for value in selected if value not in available]
-        if unknown:
-            raise ScopedReadbackError(
-                "対象資格に存在しないフォルダです: " + ", ".join(unknown)
+        selected = list(
+            dict.fromkeys(
+                str(value).strip()
+                for value in qualification_info.get("listGroupIds") or []
+                if str(value).strip()
             )
+        )
+        if not selected:
+            raise ScopedReadbackError("対象資格に問題フォルダがありません。")
 
         questions: list[dict[str, Any]] = []
         document_ids: list[str] = []

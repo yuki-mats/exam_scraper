@@ -222,10 +222,8 @@ class WorkflowUiContractTests(unittest.TestCase):
             "job-log",
             "bulk-readback-button",
             "readback-dialog",
-            "readback-group-list",
             "readback-execute",
             "group-select-label",
-            "readback-scope-label",
         ):
             self.assertIn(f'id="{control_id}"', html)
         for function_name in (
@@ -246,7 +244,11 @@ class WorkflowUiContractTests(unittest.TestCase):
         ):
             self.assertIn(f"function {function_name}", javascript)
         self.assertIn('node.id = "firestore-diff-panel"', javascript)
-        self.assertIn('"Firestore（現在値）"', javascript)
+        self.assertIn('"Firestore（取得値）"', javascript)
+        self.assertIn("formatReadbackTime", javascript)
+        self.assertIn('button("資格全体を再取得"', javascript)
+        self.assertNotIn("selectedReadbackGroupIds", javascript)
+        self.assertNotIn("runFirestoreReadback", javascript)
         self.assertIn('"firestore-diff-item-path"', javascript)
         self.assertIn('"firestore-diff-no-change"', javascript)
         self.assertIn('"差分なし"', javascript)

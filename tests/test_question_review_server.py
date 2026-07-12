@@ -14,6 +14,15 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_single_question_readback_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = QuestionReviewApplication(Path(directory))
+            with self.assertRaises(ApiError) as caught:
+                app.post("/api/questions/question-1/live-readback", {})
+
+        self.assertEqual(caught.exception.status, 422)
+        self.assertIn("資格単位", str(caught.exception))
+
     def test_clears_live_results_only_for_changed_group(self):
         class Inventory:
             def group(self, qualification, list_group_id):

@@ -22,6 +22,7 @@ from tools.question_review_console.bulk_readback import (
 )
 from tools.question_review_console.inventory import QuestionInventory
 from tools.question_review_console.jobs import JobConflictError, JobManager
+from tools.question_review_console.live_readback_store import LiveReadbackStore
 from tools.question_review_console.patch_editor import DirectEditError, PatchEditor
 from tools.question_review_console.publisher import GroupPublisher, PublicationError
 from tools.question_review_console.review_store import ReviewStore
@@ -51,6 +52,7 @@ class QuestionReviewApplication:
         self.session_token = secrets.token_urlsafe(32)
         self.inventory = QuestionInventory(self.repo_root)
         self.reviews = ReviewStore(self.repo_root)
+        self.live_store = LiveReadbackStore(self.repo_root)
         self.editor = PatchEditor(self.repo_root)
         self.firestore = FirestoreReadback()
         self.jobs = JobManager()
@@ -112,23 +114,19 @@ class QuestionReviewApplication:
             "/api/firestore-readback/run",
         }:
             qualification = str(body.get("qualification") or "")
-            raw_group_ids = body.get("listGroupIds")
-            if not isinstance(raw_group_ids, list):
-                raise ApiError(
-                    HTTPStatus.BAD_REQUEST, "listGroupIdsを配列で指定してください。"
-                )
-            group_ids = [str(value) for value in raw_group_ids]
             try:
                 if path.endswith("/preview"):
-                    return HTTPStatus.OK, self.scoped_readback.preview(
-                        qualification, group_ids
+                    preview = self.scoped_readback.preview(qualification)
+                    preview["lastReadback"] = self.live_store.load_manifest(
+                        qualification
                     )
+                    return HTTPStatus.OK, preview
                 token = str(body.get("previewToken") or "")
                 job = self.jobs.start(
                     kind="firestore-readback",
                     key=f"firestore-readback:{qualification}",
-                    worker=lambda emit: self.scoped_readback.run(
-                        qualification, group_ids, token, emit
+                    worker=lambda emit: self._run_readback_job(
+                        qualification, token, emit
                     ),
                 )
                 return HTTPStatus.ACCEPTED, job
@@ -186,14 +184,10 @@ class QuestionReviewApplication:
                 raise ApiError(HTTPStatus.UNPROCESSABLE_ENTITY, str(exc)) from exc
 
         if path.startswith("/api/questions/") and path.endswith("/live-readback"):
-            question_id = path.removeprefix("/api/questions/").removesuffix(
-                "/live-readback"
+            raise ApiError(
+                HTTPStatus.UNPROCESSABLE_ENTITY,
+                "Firestoreの読み取りは資格単位で実行してください。",
             )
-            question = self._question(question_id, {})
-            result = self.firestore.read_question(question)
-            with self._live_lock:
-                self.live_results[question_id] = result
-            return HTTPStatus.OK, result
 
         if path == "/api/reviews":
             question = self._decorate(
@@ -385,21 +379,36 @@ class QuestionReviewApplication:
         question["issueCodes"] = [issue["code"] for issue in question["issues"]]
         question["review"] = review
         question["reviewStatus"] = review_status
-        with self._live_lock:
-            live = copy.deepcopy(self.live_results.get(question["id"]))
+        live = self._live_result_for(question)
         question["liveReadback"] = live
         if live:
             live_status = live.get("status", "error")
+            live_stale = bool(live.get("readbackMeta", {}).get("stale"))
             local_ready = all(
                 question["workflow"].get(stage) == "match"
                 for stage in ("merge", "convert", "upload")
             )
             question["workflow"]["firestore"] = (
                 "upstream_stale"
-                if live_status == "match" and not local_ready
+                if live_stale or (live_status == "match" and not local_ready)
                 else live_status
             )
-            if live.get("status") in {"mismatch", "missing"}:
+            if live_stale:
+                if "firestore_readback_stale" not in codes:
+                    question["issues"].insert(
+                        0,
+                        {
+                            "code": "firestore_readback_stale",
+                            "detail": (
+                                "保存済みのFirestore比較結果は現在のローカル成果物"
+                                "より古いため、資格全体の再取得が必要です。"
+                            ),
+                            "fields": [],
+                            "priority": -1,
+                        },
+                    )
+                    question["issueCodes"].insert(0, "firestore_readback_stale")
+            elif live.get("status") in {"mismatch", "missing"}:
                 question["issues"].insert(
                     0,
                     {
@@ -423,6 +432,17 @@ class QuestionReviewApplication:
             qualification, list_group_id, preview_token, emit
         )
         self._clear_group_live_results(qualification, list_group_id)
+        return result
+
+    def _run_readback_job(
+        self,
+        qualification: str,
+        preview_token: str,
+        emit: Any,
+    ) -> dict[str, Any]:
+        result = self.scoped_readback.run(qualification, preview_token, emit)
+        self.live_store.save_manifest(qualification, result)
+        emit("取得結果をローカルへ保存しました。")
         return result
 
     def _run_publish_job(
@@ -450,8 +470,21 @@ class QuestionReviewApplication:
                 self.live_results.pop(question_id, None)
 
     def _store_live_result(self, question_id: str, result: dict[str, Any]) -> None:
+        try:
+            question = self.inventory.question(question_id)
+        except KeyError:
+            question = None
+        if question is not None:
+            result = self.live_store.save(question, result)
         with self._live_lock:
             self.live_results[question_id] = copy.deepcopy(result)
+
+    def _live_result_for(self, question: Mapping[str, Any]) -> dict[str, Any] | None:
+        with self._live_lock:
+            live = copy.deepcopy(self.live_results.get(question["id"]))
+        if live:
+            return self.live_store.with_current_metadata(question, live)
+        return self.live_store.load(question)
 
     @staticmethod
     def _summary(question: Mapping[str, Any]) -> dict[str, Any]:
