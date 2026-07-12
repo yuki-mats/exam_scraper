@@ -89,6 +89,12 @@ flowchart TB
 
 判断本文の量産を Python に寄せないでください。Python を使ってよい範囲は、退避、正式 patch 化、merge、convert、下書き補完、coverage check、schema validation、upload dry-run / upload です。
 
+### 0.2.1 ローカル問題レビューUI
+
+人間がJSONを直接読み回らずに、問題、全選択肢、正誤、解説、patch合成後、`40_convert`、本番Firestoreを比較するためのローカルUI仕様は、[local_question_review_console.md](local_question_review_console.md)を正本とする。
+
+このUIは既存workflowを置き換えない。通常は例外だけを人間へ提示し、指摘からCodex用依頼を生成する。直接編集は初期版では`correctChoiceText`と解説系fieldだけに限定し、`21_explanationText_added`又は`23_correctChoiceText_fixed`へ保存する。`00_source`とFirestoreはUIから変更しない。
+
 ## 0.3 法令問題の分岐図
 
 法令問題は、通常の03解説作成へ入る前に02bで `isLawRelated` と現行法根拠候補を整理します。法改正・現行法差分が疑われる場合だけ03bへ切り出します。

@@ -1,0 +1,532 @@
+# ローカル問題レビューコンソール仕様
+
+最終更新: 2026-07-12
+
+## 1. 目的
+
+問題整備のJSONを人間が直接読み回らなくても、次を一つのローカル画面で確認できるようにする。
+
+- 問題文、全選択肢、正誤、基本解説、補足質問、法令根拠
+- `00_source` と各patchを合成した最終状態
+- `30_merged_2`、`40_convert`、upload-ready成果物の生成状態
+- 現在の本番Firestoreとの差分
+- Codexが修正した後の変更内容
+- 人間が指摘した内容と、その指摘から生成したCodex用依頼
+
+人間による全件確認を完了条件にしない。Codexと機械検査が通常整備を担当し、人間は例外を優先して確認する。
+
+## 2. 決定事項
+
+| 項目 | 決定 |
+| --- | --- |
+| 主画面 | `要確認`、`矛盾あり`、`根拠不足`などの例外キュー |
+| 補助画面 | 資格、年度・回、設問を横断する全問一覧 |
+| 主な修正経路 | UIで指摘を記録し、Codex用依頼を生成してCodexがpatchを修正 |
+| 直接編集 | 可能。ただし初期版は正誤・解説系fieldに限定 |
+| `00_source` | 閲覧専用。UIから変更しない |
+| Firestore | 本番環境の読み取り、preflight、readbackのみ |
+| Firestore upload | UIには実装しない。Codex経由で既存upload workflowを実行 |
+| 環境切替 | 初期版では実装しない |
+| 保存前確認 | 専用画面は作らず、保存時の小さな差分確認ダイアログだけ表示 |
+| 対象資格 | ガス主任技術者で検証するが、資格固有実装にしない |
+| 実装方式 | Pythonローカルサーバーと素のHTML/CSS/JavaScript。Node/npm buildは追加しない |
+
+## 3. 非目標
+
+初期版では次を行わない。
+
+- UIからのFirestore書き込み
+- UIからCodexを自動実行すること
+- 複数ユーザー、ログイン、クラウド公開
+- 開発・ステージング・本番Firestoreの切替
+- 問題の一括編集
+- `00_source` の修正
+- 法令根拠や正答の妥当性をUI独自の推測で確定すること
+- 既存patch、merge、convert、quality-gateを置き換えること
+
+## 4. 基本原則
+
+### 4.1 UIは新しい問題データ正本を作らない
+
+問題データの正本と責務は既存workflowを維持する。
+
+- 原本: `00_source`
+- 問題形式: `10_questionType_fixed`
+- 設問意図・正誤下書き: `15_correctChoiceText_fixed`
+- 法令コンテキスト: `18_law_context_prepared`
+- 解説: `21_explanationText_added`
+- 問題セット: `22_questionSetId_linked`
+- 厳密な正誤修正: `23_correctChoiceText_fixed`
+- 問題報告由来の補正: `24_questionIssueCorrections`
+- 最終merge: `30_merged_2`
+- Firestore変換: `40_convert`
+
+UI固有のレビュー状態と指摘だけをsidecarへ保存する。問題本文を独自DBへ複製しない。
+
+### 4.2 人間は例外を確認する
+
+全問を順番に確認させない。最初に次の優先順で表示する。
+
+1. Firestoreとupload予定値が不一致
+2. 正誤と解説先頭が不一致
+3. patch更新後にmerge・convertされていない
+4. 法令問題で根拠が未確認、`hold`、又は根拠不足
+5. 必須field、配列長、IDの不整合
+6. Codex修正後の人間確認待ち
+7. 人間が手動で`要確認`にした問題
+
+機械検査では妥当性を確定できない指摘を、`誤り`ではなく`要確認`と表示する。
+
+### 4.3 表示は最終状態を優先する
+
+通常画面では、各patchを現在の優先順位で合成した表示予定値を大きく表示する。原本や中間成果物は差分があるときだけ展開する。
+
+## 5. 状態モデル
+
+一問について、次の状態を同じ`reviewKey`で結合する。
+
+```mermaid
+flowchart LR
+  Source["00_source<br/>原本"] --> Projection["patch projection<br/>現在の最終予定値"]
+  Projection --> Merged["30_merged_2<br/>merge済み"]
+  Merged --> Convert["40_convert<br/>Firestore変換済み"]
+  Convert --> UploadReady["upload-ready<br/>投入予定値"]
+  UploadReady -. read only compare .-> Firestore["本番Firestore<br/>ライブ値"]
+
+  Human["人間の指摘"] --> ReviewSidecar["review sidecar"]
+  ReviewSidecar --> Prompt["Codex用依頼"]
+  Prompt --> Patch["Codexがpatch修正"]
+  Patch --> Projection
+```
+
+### 5.1 `reviewKey`
+
+資格横断で安定して参照する内部キーを作る。
+
+```text
+<qualification>:<listGroupId>:<sourceStem>:<originalQuestionId>
+```
+
+`originalQuestionId`がない場合は、既存の`review_question_id()`とsource mappingを使う。本文ハッシュだけを主キーにしない。
+
+### 5.2 表示する状態
+
+| 状態 | 読み取り元 | 用途 |
+| --- | --- | --- |
+| `source` | `00_source` | 元問題、元正答、出典の確認 |
+| `projected` | sourceと最新patchのインメモリ合成 | Codex修正直後の確認で最優先 |
+| `merged` | 最新`30_merged_2` | merge実行済みかの確認 |
+| `converted` | 最新`40_convert` | Firestore document単位の確認 |
+| `uploadReady` | 資格別upload-ready成果物 | 実際に投入する予定値の確認 |
+| `live` | 本番Firestore | 公開済み値のreadback |
+
+`projected`は表示のためだけに計算し、読み取り時にファイルを書き換えない。合成順序は`00_merge_all.py`と共通化し、UI側に別のpatch優先順位を実装しない。
+
+## 6. 画面仕様
+
+### 6.1 全体レイアウト
+
+業務用のデスクトップ画面として、密度を保った2ペイン構成にする。
+
+```text
+┌ 資格  年度・回  検索  [例外のみ] [全問] ───────────────┐
+├──────────────┬─────────────────────────────┤
+│ 例外キュー     │ 問題ヘッダー / workflow状態                │
+│                │ 問題文                                      │
+│ 要確認  12     │ 選択肢1  正誤  解説                         │
+│ 矛盾     3     │ 選択肢2  正誤  解説                         │
+│ 根拠不足  5    │ ...                                         │
+│ 修正後確認 2   │ 根拠条文 / 補足質問                         │
+│                │ [指摘する] [Codex用依頼] [直接編集]         │
+└──────────────┴─────────────────────────────┘
+```
+
+装飾的なカードを重ねず、一覧、区切り線、表、開閉パネルを使う。主操作にはアイコンとツールチップを付ける。
+
+### 6.2 一覧ペイン
+
+各行に次を表示する。
+
+- 資格、年度・回、問番号
+- 問題文の先頭
+- `要確認`理由
+- review状態
+- 最終更新元と更新日時
+- Firestore一致状態
+
+フィルター:
+
+- 資格
+- 年度・回
+- 法令問題のみ
+- issue種別
+- review状態
+- Firestore不一致のみ
+- 自由検索
+
+### 6.3 問題詳細
+
+最初に表示するもの:
+
+- 問題文
+- 全選択肢
+- 選択肢ごとの`correctChoiceText`
+- 選択肢ごとの`explanationText`
+- `suggestedQuestions`と回答
+- 法令問題の場合は条文位置、検証状態、監査状態
+
+組合せ問題や選択肢が断片の問題も、元問題文と全選択肢を一つの単位として表示する。Firestoreで選択肢ごとに分割されていても、レビュー画面では元問題へ再構成する。
+
+### 6.4 workflow状態表示
+
+詳細上部に次の状態だけを横一列で表示する。
+
+```text
+Source  →  Patch  →  Merge  →  Convert  →  Firestore
+```
+
+状態は`一致`、`差分あり`、`未生成`、`古い`、`未取得`の5種類とする。タイムスタンプだけでなく内容ハッシュでも古さを判定する。
+
+### 6.5 差分表示
+
+通常は非表示。`差分`操作で次をfield単位に展開する。
+
+- source → projected
+- projected → merged
+- merged → converted
+- uploadReady → live
+
+配列はJSON行差分ではなく、選択肢index、質問index、法令参照単位で比較する。
+
+## 7. 例外検出
+
+既存checkerとfield contractを正本にする。UI独自判定は表示用の軽量チェックに限定する。
+
+| issue code | 条件 | 優先度 |
+| --- | --- | --- |
+| `live_mismatch` | upload-readyとFirestoreの対象fieldが不一致 | 最高 |
+| `answer_explanation_mismatch` | 正誤ラベルと解説先頭が不一致 | 最高 |
+| `merge_stale` | projectedとmergedが不一致 | 高 |
+| `convert_stale` | mergedとconvertedが不一致 | 高 |
+| `required_field_missing` | field contractの必須値がない | 高 |
+| `identity_mismatch` | question/original/questionSet ID対応が崩れている | 高 |
+| `law_hold` | `lawRevisionFacts`が`hold`又は未完了 | 高 |
+| `law_basis_missing` | 法令問題に必要なverified根拠がない | 中 |
+| `explanation_missing` | 解説が空又は選択肢数と不一致 | 中 |
+| `post_fix_review` | Codex又は直接編集後に人間が未確認 | 中 |
+| `manual_flag` | 人間が明示的に要確認とした | 中 |
+
+既存quality-gate reportやreview ledgerに同じissueがある場合は、その結果を優先し、UIで重複issueを作らない。
+
+## 8. 人間レビュー状態
+
+review sidecarの状態は次に限定する。
+
+| 状態 | 意味 |
+| --- | --- |
+| `unreviewed` | 人間による確認なし |
+| `needs_review` | 機械検査又は人間が要確認とした |
+| `awaiting_codex` | Codex用依頼を作成済み |
+| `post_fix_review` | 対象patchが更新され、再確認待ち |
+| `approved` | 人間が現在のprojected状態を承認 |
+| `hold` | 根拠又は方針不足で保留 |
+
+`approved`は対象状態のハッシュと結び付ける。patch変更後も承認済みのままにしない。
+
+## 9. Codexへの引き渡し
+
+### 9.1 指摘入力
+
+人間は次を選択又は入力する。
+
+- issue種別
+- 対象選択肢
+- 対象field
+- 何がおかしいか
+- 期待する状態。分からない場合は空でよい
+- 補足根拠。分からない場合は空でよい
+
+指摘だけで正答を確定しない。`期待する状態`が空でもCodexへ調査依頼できる。
+
+### 9.2 保存先
+
+```text
+output/question_review_console/
+  <qualification>/
+    <listGroupId>/
+      reviews/
+        <reviewId>.json
+      prompts/
+        <reviewId>.md
+```
+
+review JSONは問題patchではない。merge対象にしない。
+
+### 9.3 review JSON
+
+```json
+{
+  "schemaVersion": "local-question-review/v1",
+  "reviewId": "20260712T140000Z-abc123",
+  "reviewKey": "gas-shunin-otsu:2024:question_2024_1:b312de5198cdf4bf",
+  "status": "awaiting_codex",
+  "qualification": "gas-shunin-otsu",
+  "listGroupId": "2024",
+  "sourceQuestionKey": "gas-shunin:otsu:2024:law:q04",
+  "originalQuestionId": "b312de5198cdf4bf",
+  "choiceIndexes": [2, 4],
+  "issueTypes": ["answer_explanation_mismatch"],
+  "fields": ["correctChoiceText", "explanationText"],
+  "note": "問題文の否定条件と正誤方向を確認してほしい。",
+  "expectedOutcome": "",
+  "snapshots": {
+    "sourceHash": "sha256...",
+    "projectedHash": "sha256...",
+    "uploadReadyHash": "sha256...",
+    "liveHash": "sha256..."
+  },
+  "files": {
+    "source": "output/.../00_source/question_2024_1.json",
+    "explanationPatch": "output/.../21_explanationText_added/question_2024_1_explanationText_added.json",
+    "correctChoicePatch": "output/.../23_correctChoiceText_fixed/question_2024_1_correctChoiceText_fixed.json"
+  },
+  "createdAt": "2026-07-12T14:00:00+09:00",
+  "updatedAt": "2026-07-12T14:00:00+09:00"
+}
+```
+
+### 9.4 Codex用依頼
+
+`Codex用依頼をコピー`で、次を含むMarkdownを生成する。
+
+- 依頼の目的
+- `reviewId`とreview JSONの絶対パス
+- 資格、年度・回、設問、`sourceQuestionKey`
+- 問題文と対象選択肢
+- 現在の正誤・解説
+- 人間の指摘
+- source、patch、merged、convertのパス
+- `00_source`を変更しないこと
+- 適切なpatch層へ修正すること
+- merge、convert、quality-gateの検証条件
+- Firestore uploadは別途明示された場合だけ行うこと
+
+プロンプト本文へ全JSONを貼らず、同じworkspaceで読めるファイルパスと必要な抜粋だけを入れる。
+
+## 10. Codex修正後の再確認
+
+ブラウザは2秒ごとに対象ファイルのfingerprintを問い合わせる。WebSocketや常駐ファイル監視ライブラリは使わない。
+
+review作成時の`projectedHash`と現在値が変わった場合:
+
+1. review状態を`post_fix_review`にする。
+2. 変更fieldを強調する。
+3. 人間は`承認`、`再度Codexへ依頼`、`保留`を選ぶ。
+
+Codexが別問題を変更しても、対象`reviewKey`のハッシュが変わらなければ状態を変えない。
+
+## 11. 直接編集
+
+### 11.1 初期版の対象
+
+- `correctChoiceText`
+- `explanationText`
+- `suggestedQuestions`
+- `suggestedQuestionDetails`
+
+問題文、選択肢、`questionType`、`questionIntent`、`questionSetId`、カテゴリ、`lawReferences`、`lawRevisionFacts`は初期版では直接編集しない。該当fieldを選んだ場合はCodex用依頼を生成する。
+
+`correctChoiceText`の直接変更には理由を必須とし、同じ保存で`explanationText`の正誤先頭も一致させる。法令問題など、正誤変更によって`lawReferences`又は`lawRevisionFacts`の更新が必要な場合は直接保存を拒否し、入力内容を保持したままCodex用依頼へ切り替える。
+
+### 11.2 保存先
+
+- 解説系field: 対応する`21_explanationText_added`
+- 厳密な正誤: 対応する`23_correctChoiceText_fixed`
+
+`15_correctChoiceText_fixed`を人間の後追い修正で上書きしない。正誤変更時は`23`に理由と変更内容を残す。
+
+### 11.3 保存操作
+
+1. `編集`で対象fieldだけ入力可能にする。
+2. `保存`で、変更fieldの`変更前 → 変更後`を小さな確認ダイアログに表示する。
+3. 確認後、対象patch内の一問だけを原子的に更新する。
+4. 配列長、正誤enum、suggested対応、patch coverageを検証する。
+5. 正誤と解説、法令監査fieldの整合性を検証する。
+6. 検証失敗時は書き込まず、エラーとCodex用依頼操作を表示する。
+7. 成功後は`post_fix_review`として再表示する。
+
+別の設問entryや未知fieldを消さない。ファイル全体をブラウザから受け取って上書きせず、backendが対象entryと許可fieldだけを更新する。
+
+## 12. Firestore比較
+
+### 12.1 読み取り境界
+
+- 本番project IDを固定し、起動時に表示する。
+- Firebase credentialをブラウザへ渡さない。
+- 選択中の元問題に対応するdocumentだけを遅延取得する。
+- 一覧表示のために`questions`全件を毎回取得しない。
+- UI backendにはFirestore書き込みAPIを実装しない。
+
+### 12.2 比較field
+
+少なくとも次を比較する。
+
+- `correctChoiceText`
+- `explanationText`
+- `suggestedQuestions`
+- `suggestedQuestionDetails`
+- `lawReferences`
+- `lawRevisionFacts`
+- `questionType`
+- `questionSetId`
+- `originalQuestionId`
+- `originalQuestionBodyText`
+- `originalQuestionChoiceText`
+
+Firestoreの入れ子mapは、トップレベルだけでなく再帰的に比較する。
+
+### 12.3 表示
+
+- `未取得`: まだFirestoreを読んでいない
+- `一致`: 対象fieldがupload-readyと一致
+- `差分あり`: field名と差分数を表示
+- `存在しない`: document IDがFirestoreにない
+- `取得失敗`: credential、project、通信エラーを表示
+
+`Firestore反映をCodexへ依頼`は、対象document ID、upload artifact、差分field、必要なreadback条件を含むプロンプトを生成するだけとする。
+
+## 13. ローカルAPI
+
+初期版のAPIを次に限定する。
+
+| method | path | 用途 |
+| --- | --- | --- |
+| `GET` | `/api/inventory` | 資格、年度・回、件数、例外件数 |
+| `GET` | `/api/questions` | 一覧、検索、フィルター |
+| `GET` | `/api/questions/<reviewKey>` | 問題詳細と各状態 |
+| `GET` | `/api/questions/<reviewKey>/fingerprint` | Codex修正後の軽量更新検知 |
+| `POST` | `/api/questions/<reviewKey>/live-readback` | 対象documentのFirestore読み取り |
+| `POST` | `/api/reviews` | 指摘sidecarとCodex用依頼の作成 |
+| `POST` | `/api/reviews/<reviewId>/status` | 承認、再依頼、保留 |
+| `POST` | `/api/direct-edits/preview` | 許可fieldの差分・検証 |
+| `POST` | `/api/direct-edits/apply` | 確認済み変更をpatchへ反映 |
+
+URLの`reviewKey`は実装時にURL-safe IDへ変換する。ファイルパスをURLから直接受け取らない。
+
+## 14. 実装構成
+
+追加依存とbuild工程を増やさない。
+
+```text
+tools/question_review_console/
+  server.py
+  inventory.py
+  projection.py
+  review_store.py
+  patch_editor.py
+  prompt_builder.py
+  firestore_readback.py
+  static/
+    index.html
+    app.js
+    styles.css
+
+tests/
+  test_question_review_inventory.py
+  test_question_review_projection.py
+  test_question_review_store.py
+  test_question_review_patch_editor.py
+  test_question_review_firestore_readback.py
+```
+
+日常入口は、実装後に次へ統合する。
+
+```text
+python tools/question_bank/question_bank.py review-ui
+```
+
+サーバーは`127.0.0.1`だけへbindし、空いているportを選ぶ。ブラウザを自動で開き、終了時に一時session tokenを破棄する。
+
+## 15. セキュリティと書き込み安全性
+
+- mutation APIは起動時に生成したsession tokenを必須にする。
+- `Origin`をローカルURLに限定する。
+- repo root外のパスを読み書きしない。
+- requestから任意ファイルパスを受け取らない。
+- JSON更新は一時ファイル、fsync、atomic replaceで行う。
+- 書き込み前後のhashを確認し、編集中に対象ファイルが変わった場合は停止する。
+- Firebase credential、raw service account、環境変数をAPI responseやログに含めない。
+- Firestore backend codeはread methodだけを公開する。
+
+## 16. 性能目標
+
+- 初回一覧: ローカル10,000 document規模で5秒以内
+- 一覧フィルター: 200ms以内
+- ローカル問題詳細: 1秒以内
+- fingerprint確認: 200ms以内
+- 選択問題のFirestore readback: 通常3秒以内
+- patch変更後のUI反映: 4秒以内
+
+初回indexはファイルmtime、size、hashをキャッシュし、変更ファイルだけ再読込する。本文全文をブラウザのlocalStorageへ保存しない。
+
+## 17. 実装順序
+
+### Phase 1: 読み取り専用レビュー
+
+- 資格・年度・回のinventory
+- 問題一覧と問題詳細
+- source、projected、merged、convertedの比較
+- 例外キュー
+- ガス主任技術者で表示確認
+
+### Phase 2: Codex引き渡し
+
+- review sidecar
+- Codex用Markdown生成
+- クリップボード操作
+- fingerprintによる修正後確認
+
+### Phase 3: 限定直接編集
+
+- 解説系の`21` patch更新
+- 正誤の`23` patch更新
+- 保存確認ダイアログ
+- targeted validation
+
+### Phase 4: Firestore readbackと資格横断確認
+
+- 本番Firestoreの対象document readback
+- upload-readyとの再帰差分
+- ガス主任技術者以外の2資格で無変更読み込み
+- Playwrightによるデスクトップ・狭幅画面確認
+
+## 18. 完了条件
+
+次のデモが一連で成功した時点を初期版の完了とする。
+
+1. ガス主任技術者のガス事故問題を検索できる。
+2. 元問題単位で問題文、5肢、正誤、解説を確認できる。
+3. source、patch合成後、40_convert、Firestoreの差分を確認できる。
+4. 一つの選択肢を`要確認`にし、Codex用依頼をコピーできる。
+5. Codexがpatchを修正すると、画面が`修正後確認待ち`へ変わる。
+6. 人間が変更後の正誤と解説を承認できる。
+7. 直接編集した解説が`21`へ入り、他の問題を変更しない。
+8. 直接編集した正誤が`23`へ入り、merge後にも維持される。
+9. Firestore readbackが対象documentだけを読み、一致・差分を正しく表示する。
+10. 別資格2つを追加コードなしで読み込める。
+11. UIからFirestoreへ書き込めない。
+12. `00_source`が変更されない。
+
+## 19. 将来拡張
+
+初期版の完了後に必要性を再評価する。
+
+- UI内からCodex taskを作成する連携
+- 複数reviewの一括Codex依頼
+- 開発Firestore環境切替
+- 問題文・選択肢・分類・法令根拠の直接編集
+- 画像の比較と差し替え
+- 問題報告workflowとのcase統合
+- 資格別の追加表示プラグイン
+
+将来拡張のために初期版へ抽象化だけを先行導入しない。別資格2つで実際に必要になった差異だけをadapterとして追加する。
