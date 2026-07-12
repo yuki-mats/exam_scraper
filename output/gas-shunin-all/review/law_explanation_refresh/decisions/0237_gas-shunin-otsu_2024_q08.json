@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "gas-shunin-law-explanation-refresh-decision/v1",
+  "sequence": 237,
+  "auditKey": "gas-shunin:otsu:2024:law:q08:72bee0035a74",
+  "auditInputHash": "9793ea9133f5283a28c832ad5507f4ba6315b07c5eba645105f8ca99059d6bde",
+  "status": "patch_applied",
+  "reviewedAt": "2026-07-12T09:55:00+09:00",
+  "reviewDecision": {
+    "correctChoiceTextChanged": false,
+    "correctChoiceTextReview": {
+      "status": "confirmed",
+      "flags": []
+    },
+    "requiresPatch": true,
+    "changeFields": [
+      "explanationText",
+      "lawReferences",
+      "lawRevisionFacts"
+    ],
+    "proposedExplanationText": [
+      "正しい。ガス工作物の技術上の基準を定める省令第14条は、導管及びガス栓などの主要材料について、最高使用温度及び最低使用温度における化学的・物理的影響に対し、設備の種類・規模に応じて安全な機械的性質を有することを求めている。",
+      "正しい。同省令第15条第1項は、液化ガスを通ずる附帯設備であって製造設備に属する容器及び管のうち、内面に0Paを超える圧力を受ける部分について、供用中の荷重並びに最高使用温度及び最低使用温度における最高使用圧力に対し、設備の種類・規模に応じて適切な構造であることを求めている。",
+      "間違い。同省令第15条第2項本文は耐圧部分等の耐圧試験を求めるが、同項第4号により整圧器及び特定ガス発生設備に属する調整装置はその対象から除外される。これらにも一律に耐圧試験への耐性を求めている点が誤り。",
+      "正しい。同省令第16条第1項は、ガス又は液化ガスを通ずる部分で内面に0Paを超える圧力を受ける溶接部について、十分な溶込み、有害な欠陥がないこと及び設計上要求される強度以上の強度を求めている。",
+      "正しい。同省令第16条第2項第3号ロは、最高使用圧力0.3MPa以上で内径150mm以上の中圧ガスを通ずる導管の圧力を受ける部分を溶接する場合、適切な機械試験等により事前確認した溶接施工方法等によることを求めている。"
+    ],
+    "lawRevisionFactsCorrection": {
+      "basisByChoiceIndex": {
+        "0": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "14",
+          "paragraph": "1",
+          "articleTextHash": "8f89107ab7617919c5694937b34dcc7f089ae4ad39e35a943dbd4eb3e6a4e0d0",
+          "rawXmlHash": "b2ad8cfe8d9a67acb678e084878c6f3656a360dcc9431a6fee8b35e691fe2de9"
+        },
+        "1": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "1",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "2": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "15",
+          "paragraph": "2",
+          "item": "4",
+          "articleTextHash": "52e656ad15f47372f8851b3ccf0720c6fed12ae97c7ca7592bd43c45cb56b4e2",
+          "rawXmlHash": "11b1c21b8b79da578ee9a71a1a077c0bcd48a120d3615f13614696cbf2ce5074"
+        },
+        "3": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "1",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        },
+        "4": {
+          "lawId": "412M50000400111",
+          "lawTitle": "ガス工作物の技術上の基準を定める省令",
+          "article": "16",
+          "paragraph": "2",
+          "item": "3",
+          "subitem": "ロ",
+          "articleTextHash": "d243b610fb87b5c08bf35957a344e3cb6319ed4a4053d1de78fdb5f5f6e59c83",
+          "rawXmlHash": "c180343df55e94e7aca4ad5e98dcf8ec4275fc9659dc658d4ac3c7e80d7afa8a"
+        }
+      }
+    }
+  },
+  "appliedAt": "2026-07-12T00:52:54Z",
+  "application": {
+    "patchFile": "output/gas-shunin-otsu/questions_json/2024/21_explanationText_added/question_2024_1_explanationText_added.json",
+    "choiceCount": 5,
+    "correctChoiceTextChanged": false
+  }
+}
